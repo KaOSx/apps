@@ -1,0 +1,41 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname="ksecrets"
+pkgver=${_kdever}
+pkgrel=2
+arch=('i686' 'x86_64')
+pkgdesc="Ksecrets is a secrets management infrastructure aiming to replace KWallet"
+url='http://kde.org/'
+license=('GPL' 'FDL')
+depends=("kdelibs>=${_kdever}" 'qca' "kde-workspace>=${_kdever}")
+makedepends=('cmake')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+
+build() {
+	cd "${srcdir}"
+ 
+        rm -rf build
+	mkdir build && cd build
+	cmake ../${pkgname}-${pkgver} \
+    		-DCMAKE_BUILD_TYPE=Release \
+    		-DCMAKE_INSTALL_PREFIX=/usr
+	make
+}
+
+package() {
+  	cd $srcdir/build
+	make DESTDIR=$pkgdir install
+
+}
+

@@ -1,0 +1,59 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgname=('kdesdk-kate')
+_pkgname=kate
+pkgver=${_kdever}
+pkgrel=2
+url="http://kde.org/"
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+pkgdesc="Advanced Text Editor"
+makedepends=("kdelibs>=${_kdever}" 'cmake' 'automoc4' 'docbook-xsl')
+groups=('kde' 'kdesdk' 'kde-minimal' 'kde-uninstall')
+provides=('kate')
+install='kdesdk-kate.install'
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
+        'pkgbuild-syntax-highlight.patch')
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+	 'bb189857e6d917ee8f9ecebab38c1b70')
+
+
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+
+	patch -p1 -i "${srcdir}"/pkgbuild-syntax-highlight.patch
+
+        rm -rf build
+        mkdir build && cd build
+
+	msg "starting build ..."
+	cmake .. -DCMAKE_BUILD_TYPE=${_build_type} \
+	         -DCMAKE_INSTALL_PREFIX=${_installprefix} \
+	  	 -DBUILD_KTEXTEDITOR=OFF \
+		 -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+	make
+}
+
+package() {
+	cd ${srcdir}/${_pkgname}-${pkgver}/build/kate
+	make DESTDIR="${pkgdir}" install
+
+        cd ${srcdir}/${_pkgname}-${pkgver}/build/part
+        make DESTDIR="${pkgdir}" install
+
+	cd ${srcdir}/${_pkgname}-${pkgver}/build/doc/kate
+	make DESTDIR="${pkgdir}" install
+}

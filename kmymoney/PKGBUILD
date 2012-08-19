@@ -1,0 +1,36 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer: abveritas@chakra-project.org
+
+pkgname=kmymoney
+pkgver=4.6.2
+pkgrel=2
+pkgdesc="An finance manager for KDE4 with HBCI support"
+arch=('i686' 'x86_64')
+url="http://kmymoney2.sourceforge.net"
+license=('GPL')
+depends=('kde-workspace' 'aqbanking-qt4' 'shared-mime-info' 'boost-libs' 'libpulse' 'libofx' 'alkimia')
+makedepends=('cmake' 'automoc4' 'gwenhywfar' 'docbook-xsl' 'boost' 'doxygen')
+provides=()
+conflicts=(kmymoney2)
+replaces=(kmymoney2)
+categories=('office')
+
+source=(http://sourceforge.net/projects/kmymoney2/files/KMyMoney-KDE4/$pkgver/$pkgname-$pkgver.tar.bz2
+        qt4.8.patch::https://projects.kde.org/projects/extragear/office/kmymoney/repository/revisions/c736b6f08e77df72d58c5b836b7b04f6098737df/diff/libkdchart/src/KDChartBackgroundAttributes.cpp?format=diff)
+sha1sums=('b7dc6ce3a36c441ae2d199725db9aa2ec23fdd1f'
+          '3670fcd7a55f534e4a789f56c80f2d938f05254f')
+
+build() {
+  cd ${srcdir}/$pkgname-$pkgver
+  patch -p1 -i ../qt4.8.patch
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RELEASE
+  make
+}
+
+package() {
+  cd ${srcdir}/$pkgname-$pkgver
+
+  make DESTDIR=${pkgdir} install
+}

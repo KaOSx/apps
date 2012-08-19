@@ -1,0 +1,70 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+
+
+#
+# package info
+#
+pkgname=arxin
+pkgver=20100521
+pkgrel=1
+pkgdesc="A graphical configurator for Arch Linux system settings."
+arch=('i686' 'x86_64')
+url="http://chakra-project.org/tools-arxin.html"
+license=('GPL')
+depends=('kdelibs' 'kdebindings-common' 'kdebindings-python')
+makedepends=('cmake')
+replaces=('arxin-svn')
+conflicts=('arxin-svn')
+groups=()
+source=()
+options=('!splithdr')
+
+groups=('kdemod' 'complete' 'uninstall' 'tools')
+
+install=tools-arxin.install
+
+_gitroot="git://git.chakra-project.org/tools/arxin.git"
+_gitname="arxin"
+
+
+#
+# build function
+#
+build()
+{
+        cd "${srcdir}"
+        msg "Connecting to GIT server...."
+
+        if [ -d $_gitname ] ; then
+        cd $_gitname && git pull origin
+        msg "The local files are updated."
+        else
+        git clone $_gitroot
+        fi
+        msg "GIT checkout done or server timeout"
+        msg "Starting make..."
+
+        rm -rf "${srcdir}/$_gitname-build"
+
+        cp -r "${srcdir}/$_gitname" "${srcdir}/$_gitname-build"
+        cd "${srcdir}/$_gitname-build/"
+
+
+	cmake . -DCMAKE_INSTALL_PREFIX=${_installprefix} || return 1
+
+	make VERBOSE=1 || return 1
+	make DESTDIR=$startdir/pkg install || return 1
+
+	rm -rf $startdir/src/$_svnmod-build
+	
+	rm -rf $pkgdir/usr/share/applications/arxin.desktop
+	rm -rf $pkgdir/usr/share/applications/arxinroot.desktop
+} 

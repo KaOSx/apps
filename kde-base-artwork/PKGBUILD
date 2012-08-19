@@ -1,0 +1,34 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer: <abveritas[at]chakra-project[dog]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kde-base-artwork
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="KDE KSplash theme"
+arch=('any')
+url='http://www.kde.org/'
+license=('LGPL')
+makedepends=('kdelibs' 'cmake' 'automoc4')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+build() {
+	cd $srcdir
+	mkdir build
+	cd build
+	cmake ../${pkgname}-${pkgver} \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=/usr
+	make
+}
+
+package() {
+	cd $srcdir/build
+	make DESTDIR=$pkgdir install
+}

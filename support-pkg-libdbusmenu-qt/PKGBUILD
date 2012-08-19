@@ -1,0 +1,35 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+pkgname=libdbusmenu-qt
+pkgver=0.9.0
+pkgrel=2
+pkgdesc="A library that provides a Qt implementation of the DBusMenu spec"
+arch=('i686' 'x86_64')
+url="https://launchpad.net/libdbusmenu-qt"
+license=('GPL')
+depends=('qt')
+replaces=('dbusmenu-qt-git')
+conflict=('dbusmenu-qt-git')
+makedepends=('cmake')
+source=("http://launchpad.net/${pkgname}/trunk/${pkgver}/+download/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('cc6b7b551377e2a07f6fa5afef0d29ff')
+
+build() {
+  cd "${srcdir}"
+  mkdir build
+  cd build
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DWITH_DOC=OFF
+  make
+}
+
+package() {
+  cd "${srcdir}/build"
+  make DESTDIR="${pkgdir}" install
+}

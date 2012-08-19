@@ -1,0 +1,49 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer: abveritas[at]chakra-project[dog]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgname="kdeutils-printer-applet"
+_pkgname="printer-applet"
+arch=('i686' 'x86_64')
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="A system tray utility that shows current print jobs, printer warnings and errors"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}" "kdebindings-pykde4>=${_kdever}" 'system-config-printer')
+conflicts=("kdeutils-common")
+groups=("kde" "kdeutils" "kde-uninstall")
+categories=('utils')
+install=kdeutils.install
+makedepends=('pkgconfig' 'cmake' 'automoc4' "kdelibs>=${_kdever}"
+             "kdepimlibs>=${_kdever}" "kde-baseapps>=${_kdever}"
+             "kde-workspace>=${_kdever}" "kdebindings-pykde4>=${_kdever}")
+
+source=($_mirror/${_pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+
+	msg "starting build ..."
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DINSTALL_PRINTER_APPLET=TRUE \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+	make
+}
+
+package() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	make DESTDIR=${pkgdir} install
+}

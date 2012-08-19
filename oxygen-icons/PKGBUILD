@@ -1,0 +1,67 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+# original name (used for the source and pkgnames)
+_origname=oxygen-icons
+
+#
+# package info
+#
+pkgname=('oxygen-icons' 'oxygen-icons-svg')
+arch=('any')
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="split package"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+
+install=oxygen-icons.install
+options=('log')
+
+makedepends=('pkgconfig' 'cmake' 'automoc4')
+
+source=($_mirror/${_origname}-$_kdever.tar.xz)
+
+md5sums=(`grep ${_origname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+#
+# build and install
+#
+build() {
+	cd $srcdir/$_origname-$pkgver
+	
+	patch -Np0 -i $startdir/install_svg_icons_too.patch || return 1
+	
+	cmake . -DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix}
+
+	make || return 1
+}
+
+package_oxygen-icons() {
+	pkgdesc="Oxygen (Emot)Icons"
+	groups=("kde" "kde-minimal" "kde-uninstall")
+	
+	cd $srcdir/$_origname-$pkgver
+	
+	make DESTDIR=$pkgdir install || return 1
+	
+	# move out some svg icons
+        mkdir -p $srcdir/svg
+        mv $pkgdir/usr/share/icons/oxygen/scalable $srcdir/svg
+}
+
+package_oxygen-icons-svg() {
+	pkgdesc="Oxygen (Emot)Icons - SVG Sources"
+	groups=("kde-uninstall")
+	depends=("${_origname}")
+	
+	mkdir -p $pkgdir/usr/share/icons/oxygen
+	mv $srcdir/svg/scalable $pkgdir/usr/share/icons/oxygen
+	rm -rf $pkgdir/usr/share/icons/oxygen/scalable/apps/clock.svgz
+}

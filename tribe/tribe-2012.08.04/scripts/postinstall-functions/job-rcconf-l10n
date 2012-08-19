@@ -1,0 +1,287 @@
+#!/bin/bash
+
+job_rcconf_l10n()
+{
+	# initialize error handling
+	trap error_handler ERR
+
+	msg_job_start "job_rcconf_l10n"
+
+	#
+	# this checks for the lang=XX grub2 parameter. When it is set,
+	# the currently used language will be applied to the installation
+	#
+
+	msg "detect current language"
+	COUNTRY=`get_country`
+	[ -n "$COUNTRY" ] || COUNTRY="enus"
+
+	case "$COUNTRY" in
+
+		ast)
+		# Asturian 
+		msg "asturian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="es"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		at)
+		# Austrian 
+		msg "austrian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="de"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		be)
+		# Belarussian 
+		msg "belarussian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="be"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		bg)
+		# Bulgarian 
+		msg "bulgarian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="bg"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		ca)
+		# Catalan 
+		msg "catalan setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="es"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		cs)
+		# Czech
+		msg "czech setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="cz-lat2"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		de)
+		# German 
+		msg "german setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="de"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		dk)
+		# Danish 
+		msg "danish setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="dk"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		el)
+		# Greek
+		msg "greek setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="el"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		engb)
+		# English 
+		msg "British english setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="uk"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		ennz)
+		msg "New Zealand english setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="us"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		enus)
+		# English 
+		msg "american english setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="us"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		es)
+		# Spain 
+		msg "spanish setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="es"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		esar)
+		# Argetina
+		msg "Argentina spanish setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="es"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		eu)
+		# Euskara (basque) 
+		msg "Euskara setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="es"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		fi)
+		# Finland 
+		msg "finnish setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="fi"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		fr)
+		# France 
+		msg "francais setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="fr"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		gl)
+		# Galician 
+		msg "Galician setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="es"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		hr)
+		# Croatian 
+		msg "Croatian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="hr"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		hu)
+		# Hungary 
+		msg "hungarian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="hu"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		it)
+		# Italy 
+		msg "italian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="it"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		ja)
+		# Japan 
+		msg "japanese setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="us"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		nl)
+		# Dutch 
+		msg "dutch setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="us"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		nlbe)
+		# Dutch 
+		msg "belgian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="be"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		no)
+		# Norway 
+		msg "norwegian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="nb"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		pl)
+		# Poland 
+		msg "polish setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="pl"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		ptbr)
+		# Brazilian Portuguese
+		msg "Brazilian Portuguese setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="br-abnt2"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		ru)
+		# Russia 
+		msg "russian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="ru"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		sk)
+		# Slovak 
+		msg "slovakian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="sk"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		sl)
+		# Slovenian 
+		msg "slovenian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="slovene"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		sr)
+		# Servian 
+		msg "servian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="sr"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		tr)
+		# Turkish 
+		msg "turkish setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="trq"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		vcia)
+		# Valencian 
+		msg "Valencian setup"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="es"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		zhcn)
+		# Simplified Chinese 
+		msg "chinese setup (simplified)"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="us"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		zhhk)
+		# Simplified Chinese 
+		msg "chinese setup (Hong Kong)"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="us"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		zhtw)
+		# Simplified Chinese 
+		msg "chinese setup (Taiwan)"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="us"/' ${mountpoint}/etc/rc.conf
+		;;
+
+		*)
+		# American 
+		msg "no language setting detected, using american english"
+		sed -i -e 's/^.*HARDWARECLOCK=.*/HARDWARECLOCK="UTC"/' ${mountpoint}/etc/rc.conf
+		sed -i -e 's/^.*KEYMAP=.*/KEYMAP="us"/' ${mountpoint}/etc/rc.conf
+		;;
+
+	esac
+
+	msg "Correct timezone"
+	timezone_real=`echo $timezone | sed 's/-/\//g'`
+	sleep 0.5
+	sed -i -e "s#^.*TIMEZONE=.*#TIMEZONE=\"$timezone_real\"#" ${mountpoint}/etc/rc.conf
+
+	msg_job_done
+}

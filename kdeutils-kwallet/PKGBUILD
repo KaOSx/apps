@@ -1,0 +1,46 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgname="kdeutils-kwallet"
+_pkgname="kwallet"
+arch=('i686' 'x86_64')
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="The KDE wallet system"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}")
+conflicts=("kdeutils-common")
+groups=("kde" "kdeutils" "kde-uninstall")
+install=kdeutils.install
+makedepends=('pkgconfig' 'cmake' 'automoc4' "kdelibs>=${_kdever}")
+categories=('utils')
+
+source=($_mirror/${_pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+
+	msg "starting build ..."
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+	make
+}
+
+package() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	make DESTDIR=${pkgdir} install
+}

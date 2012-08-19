@@ -1,0 +1,36 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+pkgname=wicd-client-kde
+_pkgname=wicd-kde
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="Wicd client build on the KDE Development Platform"
+arch=("i686" "x86_64")
+url="http://kde-apps.org/content/show.php/Wicd+Client+KDE?content=132366"
+license=('GPL')
+depends=('kdelibs' 'qt' 'wicd')
+conflicts=('networkmanagement')
+makedepends=('cmake' 'automoc4')
+source=("http://kde-apps.org/CONTENT/content-files/132366-${_pkgname}-${pkgver}.tar.gz")
+md5sums=('cf78cddabd9dc9608b69a03b5fe3e30d')
+categories=('network')
+build() 
+
+{
+  cd ${srcdir}/${_pkgname} || return 1
+  
+
+  cmake . -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` || return 1
+  make || return 1
+  
+}
+
+package()
+{
+  cd ${srcdir}/${_pkgname} || return 1
+  make DESTDIR=${pkgdir} install || return 1
+}

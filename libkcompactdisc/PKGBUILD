@@ -1,0 +1,38 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=libkcompactdisc
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="A library for interfacing with CDs"
+url='https://projects.kde.org/projects/kde/kdemultimedia/libkcompactdisc'
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=("kdelibs>=${_kdever}")
+makedepends=('cmake' 'automoc4')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+groups=("kde" "kdemultimedia" "kde-uninstall")
+conflicts=('kdemultimedia-common')
+replaces=('kdemultimedia-common')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+build() {
+	cd ${srcdir}/${pkgname}-${pkgver}
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+                -DCMAKE_INSTALL_PREFIX=${_installprefix} \
+                -DCMAKE_SKIP_RPATH=ON \
+                -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+}
+
+package() {
+	cd ${srcdir}/${pkgname}-${pkgver}
+	make DESTDIR=${pkgdir} install || return 1
+
+}

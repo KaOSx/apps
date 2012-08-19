@@ -1,0 +1,54 @@
+#
+# Platform Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+
+pkgname=virtuoso
+pkgver=6.1.5.1
+pkgrel=2
+arch=('i686' 'x86_64')
+pkgdesc='A scalable cross-platform server that combines SQL/RDF/XML Data Management with Web Application Server and Web Services Platform functionality'
+url='http://virtuoso.openlinksw.com/wiki/main/Main/'
+license=('GPL')
+depends=('libldap')
+makedepends=('bison' 'flex' 'gperf' 'gawk' 'm4' 'openssl' 'zlib' 'python2' 'unixodbc' 'libiodbc')
+options=('!libtool')
+source=("openlink-virtuoso-opensource-7edcc17.tar.xz")
+md5sums=('886745446fb06eddf8bf2495cb41da06')
+
+build() {
+  cd ${srcdir}/openlink-virtuoso-opensource-7edcc17
+
+  CFLAGS="$CFLAGS -I/usr/include/libiodbc"
+  CXXFLAGS="$CXXFLAGS -I/usr/include/libiodbc/"
+  LDFLAGS="$LDFLAGS -L/usr/include/libiodbc/"
+
+  ./autogen.sh
+  ./configure --without-internal-zlib \
+    --prefix=/usr \
+    --localstatedir=/var \
+    --sysconfdir=/etc \
+    --disable-rendezvous \
+    --disable-hslookup \
+    --disable-all-vads \
+    --disable-static \
+    --enable-python \
+    --with-iodbc=/usr/include/libiodbc/
+  make
+}
+
+package() {
+  # install server
+  cd ${srcdir}/openlink-virtuoso-opensource-7edcc17/binsrc/virtuoso
+  make DESTDIR=${pkgdir} install
+
+  # install driver
+  cd ${srcdir}/openlink-virtuoso-opensource-7edcc17/binsrc/driver
+  make DESTDIR=${pkgdir} install
+
+  # Install some useful tools; rename to avoid conflicts
+  for bin in isql isqlw; do
+    install -Dm755 ${srcdir}/openlink-${pkgname}-opensource-7edcc17/binsrc/tests/$bin \
+      ${pkgdir}/usr/bin/$bin-v
+  done
+}

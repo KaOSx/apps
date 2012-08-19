@@ -1,0 +1,287 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgbase=calligra-l10n
+pkgname=('calligra-l10n-ca'
+	 'calligra-l10n-ca@valencia'
+	 #'calligra-l10n-cs'
+	 'calligra-l10n-da'
+	 'calligra-l10n-de'
+	 'calligra-l10n-el'
+	 'calligra-l10n-en_GB'
+	 'calligra-l10n-es'
+	 'calligra-l10n-et'
+	 'calligra-l10n-fi'
+	 'calligra-l10n-fr'
+	 'calligra-l10n-gl'
+	 'calligra-l10n-hu'
+	 'calligra-l10n-it'
+	 'calligra-l10n-ja'
+	 'calligra-l10n-kk'
+	 'calligra-l10n-nb'
+	 'calligra-l10n-nds'
+	 'calligra-l10n-nl'
+	 'calligra-l10n-pl'
+	 'calligra-l10n-pt'
+	 'calligra-l10n-pt_BR'
+	 'calligra-l10n-ru'
+         'calligra-l10n-sk'
+	 'calligra-l10n-sv'
+#	 'calligra-l10n-tr'
+	 'calligra-l10n-uk'
+	 'calligra-l10n-zh_CN'
+	 'calligra-l10n-zh_TW')
+pkgver=2.5.0
+pkgrel=1
+pkgdesc="Localization for Calligra"
+arch=('any')
+url="www.calligra-suite.org/"
+license=('LGPL')
+makedepends=('cmake' 'automoc4' 'kdelibs' 'docbook-xsl')                    
+source=(ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ca-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ca@valencia-${pkgver}.tar.bz2
+        #ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-cs-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-da-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-de-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-el-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-en_GB-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-es-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-et-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-fi-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-fr-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-gl-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-hu-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-it-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ja-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-kk-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-nb-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-nds-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-nl-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-pl-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-pt-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-pt_BR-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ru-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-sk-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-sv-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-uk-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-zh_CN-${pkgver}.tar.bz2
+	ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-zh_TW-${pkgver}.tar.bz2)
+md5sums=(b116d62fa7b5e08746543a61acb58729  #calligra-l10n/calligra-l10n-ca-2.5.0.tar.bz2
+         0757307a2b0bc60d909377f22f378e95  #calligra-l10n/calligra-l10n-ca@valencia-2.5.0.tar.bz2
+         26714837163670b2f794e4cbf48b289b  #calligra-l10n/calligra-l10n-da-2.5.0.tar.bz2
+         a7ab75c292ec0347d137b26e8519c9d1  #calligra-l10n/calligra-l10n-de-2.5.0.tar.bz2
+         791f204ad495eec97d0b9ab5fb13c0a9  #calligra-l10n/calligra-l10n-el-2.5.0.tar.bz2
+         775ff2093a21f5382805ef85abab2ec3  #calligra-l10n/calligra-l10n-en_GB-2.5.0.tar.bz2
+         67b364ef82747ff2ab1ff97acfaa5e4d  #calligra-l10n/calligra-l10n-es-2.5.0.tar.bz2
+         063e59501ea56869b791114095bae16f  #calligra-l10n/calligra-l10n-et-2.5.0.tar.bz2
+         0dcc6dbbbfa6ebb1fb6784511b0b1613  #calligra-l10n/calligra-l10n-fi-2.5.0.tar.bz2
+         7227faad7faaa132c78af8989e0df9b9  #calligra-l10n/calligra-l10n-fr-2.5.0.tar.bz2
+         edb9176f0729f1b64b35bdb2c4cf87b5  #calligra-l10n/calligra-l10n-gl-2.5.0.tar.bz2
+         ccb9a55b1a5bba42d5b55d955da5ca0f  #calligra-l10n/calligra-l10n-hu-2.5.0.tar.bz2
+         350ff6e763b98585b1d9d2e269bb04a0  #calligra-l10n/calligra-l10n-it-2.5.0.tar.bz2
+         434dac62e0ea6ff75b8eb1ca01d41cd0  #calligra-l10n/calligra-l10n-ja-2.5.0.tar.bz2
+         87d469b8ebb9d2ccc93590fda6b00b60  #calligra-l10n/calligra-l10n-kk-2.5.0.tar.bz2
+         66f8266ed3bb66e6ce27b7143abb9fdb  #calligra-l10n/calligra-l10n-nb-2.5.0.tar.bz2
+         5276023a7ce26f3a894c752401ede5ef  #calligra-l10n/calligra-l10n-nds-2.5.0.tar.bz2
+         1744cb6e23087ce2bd7945248605c182  #calligra-l10n/calligra-l10n-nl-2.5.0.tar.bz2
+         7014744fa810a38ce21269761e54bd15  #calligra-l10n/calligra-l10n-pl-2.5.0.tar.bz2
+         1a725565204fab75207e1b30e98bc692  #calligra-l10n/calligra-l10n-pt-2.5.0.tar.bz2
+         7a7bc9f678479fbbd0c6c70ee6212891  #calligra-l10n/calligra-l10n-pt_BR-2.5.0.tar.bz2
+         c54e5ab9cdbd88acba0f18763d9bb43b  #calligra-l10n/calligra-l10n-ru-2.5.0.tar.bz2
+         642dd4570c3e2675597a244078125888  #calligra-l10n/calligra-l10n-sk-2.5.0.tar.bz2
+         22d98f04e18dab523896b4f00e0e3bdc  #calligra-l10n/calligra-l10n-sv-2.5.0.tar.bz2
+         db2cb100780df5acbc0586596511d4e6  #calligra-l10n/calligra-l10n-uk-2.5.0.tar.bz2
+         c51859406e2e4af2c0e12d41513d974e  #calligra-l10n/calligra-l10n-zh_CN-2.5.0.tar.bz2
+         f9cf5e7c5650fd07f1722df2334b6aa5)  #calligra-l10n/calligra-l10n-zh_TW-2.5.0.tar.bz2)
+
+build() {
+  cd $srcdir
+  langs="ca ca@valencia da de el en_GB es et fi fr gl hu ja it kk nb nds nl pl pt pt_BR ru sk sv uk zh_CN zh_TW" 
+  for lang in $langs; do
+    install -d build/${lang}
+    pushd build/${lang}
+      cmake ${srcdir}/calligra-l10n-${lang}-${pkgver} \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_INSTALL_PREFIX=/usr
+      make 
+    popd
+  done
+}
+
+package_calligra-l10n-ca() {
+        pkgdesc=('Catalan Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/ca
+        make DESTDIR=$pkgdir install
+}
+
+package_calligra-l10n-ca@valencia() {
+        pkgdesc=('Catalan (Valencian) Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/ca@valencia
+        make DESTDIR=$pkgdir install
+}
+
+package_calligra-l10n-cs() {
+        pkgdesc=('Czech Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/cs
+        make DESTDIR=$pkgdir install
+}
+
+package_calligra-l10n-da() {
+        pkgdesc=('Danish Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/da
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-de() {
+        pkgdesc=('German Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/de
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-el() {
+        pkgdesc=('Greek Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/el
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-en_GB() {
+        pkgdesc=('British Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/en_GB
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-es() {
+        pkgdesc=('Spanish Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/es
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-et() {
+        pkgdesc=('Estonian Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/et
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-fi() {
+        pkgdesc=('Finnish Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/fi
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-fr() {
+        pkgdesc=('French Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/fr
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-gl() {
+        pkgdesc=('Galician Localization for calligra')
+        cd $srcdir/build/gl
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-hu() {
+        pkgdesc=('Hungarian Localization for calligra')
+        cd $srcdir/build/hu
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-it() {
+        pkgdesc=('Italian Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/it
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-ja() {
+        pkgdesc=('Japanese Localization for calligra')
+        cd $srcdir/build/ja
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-kk() {
+        pkgdesc=('Kazakh Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/kk
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-nb() {
+        pkgdesc=('Norwegian Bookmal Localization for calligra')
+        cd $srcdir/build/nb
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-nds() {
+        pkgdesc=('Low Saxon Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/nds
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-nl() {
+        pkgdesc=('Dutch Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/nl
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-pl() {
+        pkgdesc=('Polish Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/pl
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-pt() {
+        pkgdesc=('Portugese Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/pt
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-pt_BR() {
+        pkgdesc=('Brazilian Portugese Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/pt_BR
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-ru() {
+        pkgdesc=('Russian Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/ru
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-sk() {
+        pkgdesc=('Slovak Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/sk
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-sv() {
+        pkgdesc=('Swedish Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/sv
+        make DESTDIR=$pkgdir install
+}
+#package_calligra-l10n-tr() {
+#        pkgdesc=('Turkish Localization for calligra')
+#        cd $srcdir/build/tr
+#        make DESTDIR=$pkgdir install
+#}
+package_calligra-l10n-uk() {
+        pkgdesc=('Ukrainian Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/uk
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-zh_CN() {
+        pkgdesc=('Simplified Chinese Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/zh_CN
+        make DESTDIR=$pkgdir install
+}
+package_calligra-l10n-zh_TW() {
+        pkgdesc=('Traditional Chinese Localization for calligra')
+        categories=('localization')
+        cd $srcdir/build/zh_TW
+        make DESTDIR=$pkgdir install
+}

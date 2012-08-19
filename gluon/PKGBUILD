@@ -1,0 +1,39 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=gluon
+pkgver=0.71.0
+_pkgver=0.71
+pkgrel=5
+pkgdesc="A high-level game development library for the KDE desktop enviornment."
+arch=('i686' 'x86_64')
+url="http://gluon.gamingfreedom.org/"
+license=('GPL')
+depends=('glew' 'kdelibs' 'libsndfile' 'openal' 'alure')
+makedepends=('git' 'eigen' 'cmake' 'automoc4')
+provides=('gluon')
+conflicts=('gluon')
+groups=("kde-uninstall" "kde-support")
+source=("http://download.kde.org/download.php?url=unstable/$pkgname/$_pkgver/src/$pkgname-$pkgver.tar.gz")
+md5sums=('e4f284c0ae00e5b8a58cc3e6201857fe')
+install=gluon.install
+
+
+build() {
+  msg "Starting make..."
+
+  cd "$srcdir/$pkgname-$pkgver"
+
+  mkdir build && cd build
+
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_PHYSICS_COMPONENTS=ON -DBUILD_PHYSICS_ASSETS=ON ..
+  make || return 1
+  make DESTDIR="$pkgdir/" install
+}
+

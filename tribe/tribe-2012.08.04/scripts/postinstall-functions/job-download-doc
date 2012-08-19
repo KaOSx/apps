@@ -1,0 +1,40 @@
+#!/bin/bash
+
+job_download_doc()
+{
+	msg_job_start "job_download_doc"
+
+	mount -v -t proc none ${mountpoint}/proc 
+	mount -v -t sysfs none ${mountpoint}/sys 
+	mount -v -o bind /dev ${mountpoint}/dev 
+
+	# remove any db.lck
+	chroot ${mountpoint} /bin/rm -f /var/lib/pacman/db.lck
+
+	kdever_local=`pacman -Qi kde-common --noconfirm | sed -n 2p | cut -d':' -f 2 | cut -d' ' -f 2 | cut -d'-' -f 1`
+	kdever_remote=`pacman -Ss kde-common --noconfirm | sed -n 1p | cut -d' ' -f 2 | cut -d'-' -f 1`
+	
+	if [ "$download_doc" = "yes" ] ; then
+
+		if [ "${ping_check}" != "" ] || [ "${kdever_local}" != "${kdever_remote}" ] ; then
+
+			
+			chroot ${mountpoint} /usr/bin/pacman -Syf kde-doc --noconfirm
+
+		else
+
+			msg "no internet connection available. skipping"
+
+		fi
+
+	else
+
+		msg "doc download disabled"
+
+	fi
+
+	msg "umounting /proc, /sys and /dev"
+	umount -v ${mountpoint}/proc ${mountpoint}/sys ${mountpoint}/dev 
+	
+	msg_job_done
+}

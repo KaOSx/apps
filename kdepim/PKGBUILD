@@ -1,0 +1,318 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer : abveritas[at]chakra-project[dot]org>
+# maintainer : Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgbase="kdepim"
+pkgname=('kdepim-common'
+	 'kdepim-akonadiconsole'
+         'kdepim-akregator'
+         'kdepim-blogilo'
+         'kdepim-kaddressbook'
+         'kdepim-kalarm'
+         'kdepim-kjots'
+	 'kdepim-kleopatra'
+         'kdepim-kmail'
+         'kdepim-knode'
+         'kdepim-knotes'
+         'kdepim-kontact'
+         'kdepim-korganizer'
+         'kdepim-ktimetracker'
+         'kdepim-mobile')
+   
+arch=('i686' 'x86_64')
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="split package"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+options=('!docs' '!splithdr' 'splitdbg' 'log')
+
+makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' "kdelibs>=${_kdever}" "kdepimlibs>=${_kdever}"
+             "kdepim-runtime>=${_kdever}" 'libxss' "kde-runtime" "libsamplerate" "qrencode" "libdmtx"
+	     'kde-agent' 'libindicate-qt>=0.2.2' 'docbook-xml' 'dblatex')
+
+
+source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+build() {
+
+	cd ${srcdir}/${pkgbase}-${pkgver}
+
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+	make || return 1
+}
+
+#
+# split-install functions
+#
+package_kdepim-common() {
+	pkgdesc="KDE PIM - Common files and libraries"
+	depends=("kdepimlibs>=${_kdever}" 'libxss' "kde-runtime" 'kde-agent'
+                 'libxss' 'libindicate-qt>=0.2.2' "kdepim-runtime>=${_pkgver}")
+        conflicts=('kdepim-doc')
+	groups=("kde" "kdepim" "kde" "kde-uninstall")
+	install=${pkgbase}.install
+
+	splitdirs=(akonadi_next calendarsupport calendarviews console icons importwizard incidenceeditor-ng kdgantt2 kresources ksendemail libkdepim 
+                   libkdepimdbusinterfaces libkleo libkpgp libksieve mailcommon mailfilteragent mailimporter messagecore messagecomposer messagecore messagelist 
+		   messageviewer ontologies plugins strigi-analyzer templateparser doc/kwatchgnupg doc/kabcclient doc/kioslave doc/konsolekalendar)
+
+		for i in ${splitdirs[@]} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+
+	# FIXME: also exists in oxygen-icons
+	rm -rf $pkgdir/usr/share/icons/oxygen/16x16/status/meeting-organizer.png
+}
+
+package_kdepim-akonadiconsole() {
+	pkgdesc="Akonadi console"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	depends=("${pkgbase}-common>=${pkgver}")
+	install=${pkgbase}.install
+
+	splitdirs="akonadiconsole"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-akregator() {
+	pkgdesc="Newsfeed client"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('network')
+	depends=("${pkgbase}-common>=${pkgver}")
+        conflicts=('kdepim-doc')
+	install=${pkgbase}.install
+
+	splitdirs="akregator doc/akregator"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-blogilo() {
+	pkgdesc="Blogilo is a free/Open Source Blogging application, focused on simplicity and usability."
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('network')
+	depends=("${pkgbase}-common>=${pkgver}")
+        conflicts=('kdepim-doc')
+	install=${pkgbase}.install
+
+	splitdirs="blogilo doc/blogilo"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-kaddressbook() {
+	pkgdesc="Addressbook"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('network')
+	depends=("${pkgbase}-common>=${pkgver}")
+	install=${pkgbase}.install
+
+	splitdirs="kaddressbook"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-kalarm() {
+	pkgdesc="Alarm App + Daemon"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('accessories')
+	depends=("${pkgbase}-common>=${pkgver}")
+        conflicts=('kdepim-doc')
+	install=${pkgbase}.install
+
+	splitdirs="kalarm doc/kalarm"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-kitchensync() {
+	pkgdesc="Opensync synchronization gui"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('network')
+	depends=("${pkgbase}-common>=${pkgver}" 'libopensync')
+	install=${pkgbase}.install
+
+	splitdirs="kitchensync"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-kjots() {
+	pkgdesc="A small, handy program for keeping miscellaneous notes"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('accessories')
+	depends=("${pkgbase}-common>=${pkgver}")
+        conflicts=('kdepim-doc')
+	install=${pkgbase}.install
+
+	splitdirs="kjots doc/kjots"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-kleopatra() {
+	pkgdesc='Certificate Manager and Unified Crypto GUI'
+	depends=('kdepim-common')
+        groups=("kde" "kdepim" "kde" "kde-uninstall")
+        provides=('kleopatra')
+        install=${pkgbase}.install
+	url="http://kde.org/applications/utilities/kleopatra/"
+
+        splitdirs="kleopatra doc/kleopatra"
+                for i in ${splitdirs} ; do
+                        cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+                        make DESTDIR=${pkgdir} install || return 1
+                done
+}
+
+package_kdepim-kmail() {
+	pkgdesc="A full-featured E-Mail client"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('network')
+	depends=("${pkgbase}-common>=${pkgver}")
+        conflicts=('kdepim-doc')
+	install=${pkgbase}.install
+
+	splitdirs="kmail kmailcvt doc/kmail"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-mobile() {
+	pkgdesc="The KDEPim Suite for mobile devices"
+	groups=("kde-mobile")
+	categories=('network')
+	depends=("${pkgbase}-common>=${pkgver}")
+	install=${pkgbase}.install
+
+	splitdirs="mobile"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-knode() {
+	pkgdesc="NNTP client"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('network')
+	depends=("${pkgbase}-common>=${pkgver}")
+        conflicts=('kdepim-doc')
+	install=${pkgbase}.install
+
+	splitdirs="knode doc/knode"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-knotes() {
+	pkgdesc="Sticky notes for your Desktop"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('accessories')
+	depends=("${pkgbase}-common>=${pkgver}")
+        conflicts=('kdepim-doc')
+	install=${pkgbase}.install
+
+	splitdirs="knotes doc/knotes"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-kontact() {
+	pkgdesc="Groupware client and shell for other PIM applications"
+	groups=("${pkgbase}" "kde" "kde-uninstall")
+	categories=('network')
+	depends=("${pkgbase}-common>=${pkgver}" "${pkgbase}-kmail>=${pkgver}" "${pkgbase}-akregator>=${pkgver}" 
+                 "${pkgbase}-kaddressbook>=${pkgver}" "${pkgbase}-kjots>=${pkgver}" "${pkgbase}-knotes>=${pkgver}" 
+                 "${pkgbase}-korganizer>=${pkgver}" "${pkgbase}-ktimetracker>=${pkgver}") #"${pkgbase}-wizards>=${pkgver}")
+        conflicts=('kdepim-doc')
+	install=${pkgbase}.install
+
+	splitdirs="kontact doc/kontact doc/kontact-admin"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdepim-korganizer() {
+	pkgdesc="Organizer and Planner"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('office')
+	depends=("${pkgbase}-common>=${pkgver}")
+        conflicts=('kdepim-doc')
+	install=${pkgbase}.install
+
+	splitdirs="korganizer doc/korganizer"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+
+	# remove conflict with kde-runtime
+	rm -f ${pkgdir}/usr/share/icons/oxygen/32x32/actions/appointment-new.png
+}
+
+package_kdepim-ktimetracker() {
+	pkgdesc="Time tracking software"
+	groups=("kde" "${pkgbase}" "kde-uninstall")
+	categories=('accessories')
+	depends=("${pkgbase}-common>=${pkgver}")
+        conflicts=('kdepim-doc')
+	install=${pkgbase}.install
+
+	splitdirs="ktimetracker doc/ktimetracker"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+#	pkgdesc="KDE groupware wizards"
+#	groups=("kde" "${pkgbase}" "kde-uninstall")
+#	depends=("${pkgbase}-common>=${pkgver}")
+#	install=${pkgbase}.install
+
+#	splitdirs="wizards"
+#		for i in ${splitdirs} ; do
+#			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+#			make DESTDIR=${pkgdir} install || return 1
+#		done
+#}
+

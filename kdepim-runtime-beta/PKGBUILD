@@ -1,0 +1,78 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+
+
+# original name (used for the source and pkgnames)
+_origname=kdepim-runtime
+
+
+
+#
+# package info
+#
+pkgname=${_origname}
+arch=('i686' 'x86_64')
+#pkgver=${_kdever}
+pkgver=4.6beta4
+_pkgver=4.5.94.1
+pkgrel=1
+
+pkgdesc="KDE Pim Runtime"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+
+install=${_origname}.install
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+#provides=("${_origname}=${_kdever}")
+conflicts=("kdemod-${_origname}")
+
+depends=("kdepimlibs>=${_kdever}" "kdebase-runtime>=${_kdever}" "kdelibs>=${_kdever}")
+makedepends=('pkgconfig' 'cmake' 'automoc4')
+
+groups=("kde" "kde-complete" "kde-uninstall" "kde-minimal")
+
+#source=($_mirror/${_origname}-$_kdever.tar.bz2)
+source=($_mirror/${_origname}-4.5.94.1.tar.bz2)
+md5sums=('fdc28e6eea4200829a66c86435acc9a0')
+
+#
+# build and install
+#
+build()
+{
+	msg "starting build ..."
+	cd ${srcdir}
+	mkdir -p build
+	cd build
+
+	cmake ../${_origname}-${_pkgver} \
+		-DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+	make || return 1
+
+	make DESTDIR=${pkgdir} install || return 1
+
+#	# include our patches into the package
+#	ls -1 ${startdir}/*.patch &>/dev/null 2>&1
+#	if [ "$?" = "0" ]; then
+#		warning "incuding patches into package"
+#		mkdir -p ${pkgdir}/usr/share/chakra/patches/${_origname} &>/dev/null
+#		for i in ${startdir}/*.patch; do
+#			msg "$i"
+#			cp $i ${pkgdir}/usr/share/chakra/patches/${_origname}/ &>/dev/null
+#		done
+#	else
+#		warning "no patches found, skipping to include them into the package..."
+#	fi
+}

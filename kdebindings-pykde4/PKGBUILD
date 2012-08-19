@@ -1,0 +1,51 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer: abveritas[at]chakra-project[dog]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgname=kdebindings-pykde4
+_pkgname=pykde4
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="KDE bindings for python"
+url="http://kde.org/"
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('pyqt' 'qscintilla' 'boost-libs' "kdepim-runtime>=${_kdever}")
+makedepends=('cmake' 'automoc4' 'polkit-qt' 'boost')
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+  
+groups=("kde" "kdebindings" "kde-uninstall")
+provides=('kdebindings-python' 'pykde4')
+replaces=('kdebindings-python')
+conflicts=('kdebindings-python')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+build() {
+	cd "${srcdir}"
+	
+        rm -rf build 
+	mkdir build && cd build
+	
+	cmake ../pykde4-${pkgver} \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DPYTHON_EXECUTABLE=/usr/bin/python2 
+	make
+}
+
+package() {
+	cd "${srcdir}"/build
+	make DESTDIR="${pkgdir}" install
+
+	# Use the python2 executable
+	find "${pkgdir}" -name '*.py' | xargs sed -i 's|#!/usr/bin/env python|#!/usr/bin/env python2|'
+}

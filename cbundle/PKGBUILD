@@ -1,0 +1,41 @@
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+# (c) 2010 Drake Justice
+
+pkgname=cbundle
+pkgver=0.4.6.11
+pkgrel=1
+depends=('squashfs-tools' 'fakechroot' 'unionfs-fuse' 'sh')
+makedepends=('qt' 'automoc4' 'kde-workspace')
+pkgdesc="A shared library for using Chakra software bundles"
+arch=("i686" "x86_64")
+license=('GPL')
+url="http://chakra-project.org/"
+
+source=("http://chakra-linux.org/sources/cinstall/cbundle-$pkgver.tar.xz")
+md5sums=('6df54db46def243acc1616e273759e30')
+
+# create tarball: source PKGBUILD && mksource
+
+mksource() {
+  git clone git://gitorious.org/chakra/cbundle.git
+  pushd cbundle
+  popd
+  tar -cvJf cbundle-${pkgver}.tar.xz cbundle/*
+  md5sum cbundle-${pkgver}.tar.xz
+}
+
+build() {
+        cd "${srcdir}/cbundle"
+
+        cmake  \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_BUILD_TYPE=Release
+        make 
+}
+
+package() {
+        cd "${srcdir}/cbundle"       
+        make DESTDIR=${pkgdir} install 
+}

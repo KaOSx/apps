@@ -1,0 +1,101 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname="kdemultimedia-thumbnailers"
+pkgdesc='KDE Thumbnailers for several formats'
+arch=('i686' 'x86_64')
+pkgver=${_kdever}
+pkgrel=1
+depends=('mplayer' 'ffmpeg')
+provides=('ffmpegthumbs' 'mplayerthumbs')
+groups=("kde" "kdemultimedia" "kde-uninstall")
+install=kdemultimedia.install
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+makedepends=('pkg-config' 'cmake' 'automoc4' 'docbook-xsl')
+source=($_mirror/ffmpegthumbs-$_kdever.tar.xz
+	$_mirror/mplayerthumbs-$_kdever.tar.xz
+	http://kenai.com/projects/kde-odf-thumbnail/downloads/download/1.0.0/kde-odf-thumbnail-1.0.0.tar.gz
+	http://kde-apps.org/CONTENT/content-files/107128-GimpResourcesThumbnailer-2.1.0.tar.gz
+	http://kde-apps.org/CONTENT/content-files/114885-AudioThumbs-0.1.tar.gz
+	mplayerthumbs-horizontal.patch
+	sprocket-large.png
+	sprocket-medium.png
+	sprocket-small.png)
+md5sums=(`grep ffmpegthumbs-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+	 `grep mplayerthumbs-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'edf694939f4b5d5e97c3fe2f91e7cec3'  # kde-odf-thumbnail-1.0.0.tar.gz
+         '5e3022ddcf3876e07d4b9870e1806b48'  # 107128-GimpResourcesThumbnailer-2.1.0.tar.gz
+         '07c3039ddf5e88ba0ab290570f43749d'  # 114885-AudioThumbs-0.1.tar.gz
+         '00ff1e8a1e4c1e39e3d1146f1d08036c'  # mplayerthumbs-horizontal.patch
+         '6eeba61989d0e6904fe2c18bb01a3775'  # sprocket-large.png
+         'ebb3b4c68ee69e128faf5ef0b37aaeae'  # sprocket-medium.png
+         '450cf7bf2ac02b1efe75156d9bb887f6')  # sprocket-small.png
+
+build() {
+        pushd ${srcdir}/ffmpegthumbs-${pkgver}
+        cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+                -DCMAKE_INSTALL_PREFIX=${_installprefix} \
+                -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+        make VERBOSE=1 || return 1
+        popd
+
+
+	pushd ${srcdir}/mplayerthumbs-${pkgver}
+	msg "applying patches ..."
+	patch -Np2 -i ${srcdir}/mplayerthumbs-horizontal.patch 
+        
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+	make VERBOSE=1 || return 1
+	popd
+
+	pushd $srcdir/kde-odf-thumbnail-1.0.0
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+	popd
+
+	pushd $srcdir/GimpResourcesThumbnailer-2.1.0
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+	popd
+
+	pushd $srcdir/AudioThumbs-0.1
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+	popd
+}
+
+package() {
+	splitdirs="mplayerthumbs ffmpegthumbs"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${i}-${pkgver}
+			make DESTDIR=${pkgdir} install
+		done
+
+	install -D -m644 ${srcdir}/sprocket-large.png ${pkgdir}/usr/share/apps/videothumbnail/sprocket-large.png
+	install -D -m644 ${srcdir}/sprocket-medium.png ${pkgdir}/usr/share/apps/videothumbnail/sprocket-medium.png
+	install -D -m644 ${srcdir}/sprocket-small.png ${pkgdir}/usr/share/apps/videothumbnail/sprocket-small.png
+
+	cd $srcdir/kde-odf-thumbnail-1.0.0
+	make DESTDIR=${pkgdir} install 
+
+	cd $srcdir/GimpResourcesThumbnailer-2.1.0
+	make DESTDIR=${pkgdir} install 
+
+	cd $srcdir/AudioThumbs-0.1
+	make DESTDIR=${pkgdir} install 
+}

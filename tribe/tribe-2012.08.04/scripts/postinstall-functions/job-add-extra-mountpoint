@@ -1,0 +1,39 @@
+#!/bin/bash
+
+job_add_extra_mountpoint()
+{
+	# initialize error handling
+	trap error_handler ERR
+
+	msg_job_start "job_add_extra_mountpoint"
+
+	# add other filesystems (if any)
+	if [ ! -d "${mountpoint}${extra_mountpoint}" ] ; then
+		mkdir -v -p "${mountpoint}${extra_mountpoint}"
+	fi
+
+	if [ -n "${extra_mountpoint}" ] ; then
+		msg "Creating fstab entry for ${extra_mountpoint}"
+
+		_device=`echo /dev/${extra_mountpoint_target}`
+		_uuid=`blkid "${_device}" -s UUID -o value`
+
+		# Proper name for reiserfs mountpoints
+		if [ "${extra_mountpoint_fs}" = "reiser" ] ; then
+		  extra_mountpoint_fs="reiserfs"
+		fi
+
+		# Proper name for fat32 mountpoints
+		if [ "${extra_mountpoint_fs}" = "fat32" ] ; then
+		  extra_mountpoint_fs="vfat"
+		fi
+
+		echo "UUID=${_uuid} ${extra_mountpoint} ${extra_mountpoint_fs} defaults 0 0" >>${mountpoint}/etc/fstab
+		unset _uuid
+		unset _device
+	else
+		msg "missing parameter: --extra-mountpoint"
+	fi
+
+	msg_job_done
+}

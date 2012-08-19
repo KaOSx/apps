@@ -1,0 +1,43 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+# (c) 2010 Drake Justice
+
+pkgname=cinstall
+pkgver=0.4.8.1
+pkgrel=1
+depends=('cbundle' 'kdelibs' 'qjson')
+makedepends=('qt' 'automoc4' 'libcroco')
+pkgdesc="Chakra's Bundle manager"
+screenshot=("http://wstaw.org/m/2012/04/22/cinstall1.png")
+arch=("i686" "x86_64")
+license=('GPL')
+install=$pkgname.install
+url="http://chakra-project.org/"
+
+source=("http://chakra-linux.org/sources/cinstall/cinstall-$pkgver.tar.xz")
+md5sums=('73126c5120e00f580d07bf208425473b')
+
+# create tarball: source PKGBUILD && mksource
+
+mksource() {
+  git clone git://gitorious.org//chakra/cinstall.git
+  pushd cinstall
+  popd
+  tar -cvJf cinstall-${pkgver}.tar.xz cinstall/*
+  md5sum cinstall-${pkgver}.tar.xz
+}
+
+build() {
+        cd "${srcdir}/cinstall"
+        
+        cmake  \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_BUILD_TYPE=Release
+        make 
+}
+package() {
+        cd "${srcdir}/cinstall"
+        make DESTDIR=${pkgdir} install 
+}

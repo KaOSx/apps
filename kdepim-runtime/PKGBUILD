@@ -1,0 +1,54 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgbase=kdepim-runtime
+pkgname=${pkgbase}
+arch=('i686' 'x86_64')
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="KDE Pim Runtime"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+install=${pkgbase}.install
+options=('docs' '!splithdr' 'splitdbg' 'log')
+depends=("kdepimlibs>=${_kdever}" "kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" 'prison' 'libdmtx' 'qrencode' 'libkgapi')
+makedepends=('pkg-config' 'cmake' 'automoc4')
+groups=("kde" "kdepim" "kde-uninstall" "kde-minimal")
+
+source=($_mirror/${pkgbase}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+#
+# build and install
+#
+build() {
+    cd "${srcdir}"/${pkgbase}-${pkgver}
+
+    msg "starting build ..."
+  
+    cd ${srcdir}
+    mkdir -p build 
+    cd build
+
+    cmake ../${pkgbase}-${pkgver} \
+          -DCMAKE_BUILD_TYPE=${_build_type} \
+	  -DCMAKE_INSTALL_PREFIX=${_installprefix} \
+	  -DCMAKE_SKIP_RPATH=ON \
+	  -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+    make
+}
+
+package() {
+    cd ${srcdir}/build
+    make DESTDIR=${pkgdir} install
+}

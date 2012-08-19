@@ -1,0 +1,49 @@
+#
+# Platform Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+pkgname=grantlee-git
+pkgver=20101019
+pkgrel=1
+pkgdesc="Grantlee is a string template engine based on the Django template system."
+arch=('i686' 'x86_64')
+url="http://www.gitorious.org/grantlee"
+license=('LGPL3')
+groups=()
+depends=('qt')
+makedepends=('cmake')
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+source=(http://chakra-project.org/sources/${pkgname}/${pkgname}-${pkgver}.tar.xz)
+noextract=()
+md5sums=(81a65a4154a469c37521e32f48624245)
+
+# create tarball: source PKGBUILD && mksource
+
+mksource() {
+  git clone git://gitorious.org/grantlee/grantlee.git
+  pushd grantlee
+  popd
+  tar -cvJf ${pkgname}-${pkgver}.tar.xz grantlee/*
+  md5sum ${pkgname}-${pkgver}.tar.xz
+}
+
+build() {
+  cd "$srcdir/grantlee"
+
+  #
+  # BUILD HERE
+  #
+
+  mkdir -p build &&
+  cd build &&
+  cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+  make || return 1
+  make DESTDIR="$pkgdir/" install
+} 

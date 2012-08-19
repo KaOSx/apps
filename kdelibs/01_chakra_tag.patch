@@ -1,0 +1,24 @@
+diff -Naur kdelibs-4.3.85.orig/kdeui/dialogs/kaboutapplicationdialog.cpp kdelibs-4.3.85/kdeui/dialogs/kaboutapplicationdialog.cpp
+--- kdelibs-4.3.85.orig/kdeui/dialogs/kaboutapplicationdialog.cpp	2009-12-02 22:28:47.000000000 +0100
++++ kdelibs-4.3.85/kdeui/dialogs/kaboutapplicationdialog.cpp	2009-12-19 16:26:05.000000000 +0100
+@@ -108,7 +108,7 @@
+                                   aboutData->programName(), aboutData->version()));
+     else
+         titleWidget->setText(i18nc("Program name, version and KDE platform version; do not translate 'Development Platform'",
+-                                   "<html><font size=\"5\">%1</font><br /><b>Version %2</b><br />Using KDE Development Platform %3</html>",
++                                   "<html><font size=\"5\">%1</font><br /><b>Version %2</b><br />Using KDE Development Platform %3 optimized by The Chakra Project</html>",
+                                    aboutData->programName(), aboutData->version(), QString(KDE_VERSION_STRING)));
+ 
+     QTabWidget *tabWidget = new QTabWidget;
+diff -Naur kdelibs-4.3.85.orig/kdeui/dialogs/kaboutkdedialog_p.cpp kdelibs-4.3.85/kdeui/dialogs/kaboutkdedialog_p.cpp
+--- kdelibs-4.3.85.orig/kdeui/dialogs/kaboutkdedialog_p.cpp	2009-11-12 22:50:55.000000000 +0100
++++ kdelibs-4.3.85/kdeui/dialogs/kaboutkdedialog_p.cpp	2009-12-19 16:27:11.000000000 +0100
+@@ -43,7 +43,7 @@
+     setButtons(KDialog::Close);
+ 
+     KTitleWidget *titleWidget = new KTitleWidget(this);
+-    titleWidget->setText(i18n("<html><font size=\"5\">KDE - Be Free!</font><br /><b>Platform Version %1</b></html>",
++    titleWidget->setText(i18n("<html><font size=\"5\">KDE - Be Free!</font><br /><b>Platform Version %1 optimized by The Chakra Project</b></html>",
+                          QString(KDE_VERSION_STRING)));
+     titleWidget->setPixmap(KIcon("kde").pixmap(48), KTitleWidget::ImageLeft);
+ 

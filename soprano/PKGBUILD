@@ -1,0 +1,40 @@
+#
+# Desktop Packages for Chakra, part of chakra-project.org
+#
+# maintainer : abveritas[at]chakra-project[dog]org>
+# maintainer : Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=soprano
+pkgver=2.8.0
+pkgrel=1
+pkgdesc='A library which provides a highly usable object-oriented C++/Qt4 framework for RDF data'
+arch=('i686' 'x86_64')
+url='http://soprano.sourceforge.net/'
+license=('GPL' 'LGPL')
+depends=('qt' 'redland-storage-virtuoso' 'libiodbc' 'virtuoso>=6.1.3' 'clucene')
+makedepends=('cmake' 'openjdk6' 'doxygen')
+source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('273c3403aeb6d8a43e78a4887f50a385')
+
+build() {
+  cd "${srcdir}"
+  
+  rm -rf build
+  mkdir build && cd build
+
+  . /etc/profile.d/openjdk6.sh
+  # we need the rpath
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=OFF \
+    -DCMAKE_INSTALL_PREFIX=/usr 
+  make
+}
+
+package() {
+  cd "${srcdir}"/build
+  make DESTDIR="${pkgdir}" install
+}

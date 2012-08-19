@@ -1,0 +1,47 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgname="nepomuk-core"    
+arch=('i686' 'x86_64')
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="The core Nepomuk system"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+depends=("kdelibs>=${_kdever}")
+makedepends=('pkg-config' 'cmake' 'automoc4' 'doxygen')
+
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+#
+# build function
+#
+build() {
+	cd ${pkgname}-${pkgver}
+
+        rm -rf build 
+        mkdir -p build && cd build
+
+	msg "starting build ..."
+	cmake .. -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+	make
+}
+
+package() {
+	cd ${srcdir}/${pkgname}-${pkgver}/build
+	make DESTDIR=${pkgdir} install
+}

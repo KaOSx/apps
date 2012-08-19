@@ -1,0 +1,41 @@
+Author: George Kiagiadakis <kiagiadakis.george@gmail.com>
+Description: Modify CMakeLists.txt to avoid linking with libraries
+ that are not actually used.
+Forwarded: no
+
+--- a/src/daemon/kded/CMakeLists.txt
++++ b/src/daemon/kded/CMakeLists.txt
+@@ -17,7 +17,6 @@
+ target_link_libraries(kded_bluedevil
+     ${KDE4_KDECORE_LIBS}
+     ${KDE4_KDEUI_LIBS}
+-    ${KDE4_KUTILS_LIBS}
+     ${KDE4_KFILE_LIBS}
+     ${LibBlueDevil_LIBRARIES}
+ )
+--- a/src/kcmodule/CMakeLists.txt
++++ b/src/kcmodule/CMakeLists.txt
+@@ -20,9 +20,9 @@
+             ${kcm_bluedeviladapters}
+             ${kcm_bluedeviltransfer})
+ 
+-target_link_libraries(kcm_bluedevildevices ${KDE4_KIO_LIBS} ${KDE4_KNOTIFYCONFIG_LIBS} ${QT_QTGUI_LIBRARY} ${LibBlueDevil_LIBRARIES})
+-target_link_libraries(kcm_bluedeviladapters ${KDE4_KIO_LIBS} ${KDE4_KNOTIFYCONFIG_LIBS} ${QT_QTGUI_LIBRARY} ${LibBlueDevil_LIBRARIES})
+-target_link_libraries(kcm_bluedeviltransfer ${KDE4_KIO_LIBS} ${KDE4_KNOTIFYCONFIG_LIBS} ${QT_QTGUI_LIBRARY} ${LibBlueDevil_LIBRARIES})
++target_link_libraries(kcm_bluedevildevices ${KDE4_KIO_LIBS} ${QT_QTGUI_LIBRARY} ${LibBlueDevil_LIBRARIES})
++target_link_libraries(kcm_bluedeviladapters ${KDE4_KIO_LIBS} ${QT_QTGUI_LIBRARY} ${LibBlueDevil_LIBRARIES})
++target_link_libraries(kcm_bluedeviltransfer ${KDE4_KIO_LIBS} ${QT_QTGUI_LIBRARY} ${LibBlueDevil_LIBRARIES})
+ 
+ install(TARGETS kcm_bluedevildevices
+                 kcm_bluedeviladapters
+--- a/src/wizard/CMakeLists.txt
++++ b/src/wizard/CMakeLists.txt
+@@ -22,7 +22,7 @@
+ kde4_add_executable(bluedevil-wizard ${wizard_SRCS})
+ 
+ target_link_libraries(bluedevil-wizard bluedevilaction
+-                      ${KDE4_KIO_LIBRARY} ${KDE4_KDEUI_LIBS} ${KDE4_SOLID_LIBS} ${LibBlueDevil_LIBRARIES})
++                      ${KDE4_KIO_LIBRARY} ${KDE4_KDEUI_LIBS} ${LibBlueDevil_LIBRARIES})
+ 
+ install(TARGETS bluedevil-wizard ${INSTALL_TARGETS_DEFAULT_ARGS})
+ install(FILES bluedevil-wizard.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})

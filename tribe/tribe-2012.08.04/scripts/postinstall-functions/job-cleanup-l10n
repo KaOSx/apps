@@ -1,0 +1,39 @@
+#!/bin/bash
+
+job_cleanup_l10n()
+{
+	# initialize error handling
+	trap error_handler ERR
+
+	msg_job_start "job_cleanup_l10n"
+
+	mount -v -t proc none ${mountpoint}/proc 
+	mount -v -t sysfs none ${mountpoint}/sys 
+	mount -v -o bind /dev ${mountpoint}/dev 
+
+	# remove any db.lck
+	chroot ${mountpoint} /bin/rm -f /var/lib/pacman/db.lck
+	
+	#
+	# CLEANUP UP LOCALIZATION
+	#
+	USED_L10N=`cat ${mountpoint}/etc/rc.conf | grep LOCAL | grep -v "#" | grep -v "DAEMON_LOCALE" | cut -d '"' -f 2 | cut -d "_" -f 1`
+	ALL_L10N=`pacman -Q | grep ${KDE_L10N_PREFIX} | cut -d " " -f 1 | awk -F "l10n-" '{print $2}'`
+
+	msg "configured localization: ${USED_L10N}"
+	msg "installed localization(s): ${ALL_L10N}"
+
+	for l10npkg in ${ALL_L10N}
+	do
+		if [ "${l10npkg}" != "$USED_L10N" ] ; then
+			chroot ${mountpoint} /usr/bin/pacman  -Rddn kde-l10n-${l10npkg} --noconfirm
+		fi
+	done
+	
+	msg "umounting /proc, /sys and /dev"
+	umount -v ${mountpoint}/proc ${mountpoint}/sys ${mountpoint}/dev 
+
+	msg "l10n removal complete"
+
+	msg_job_done
+}

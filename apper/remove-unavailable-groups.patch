@@ -1,0 +1,15 @@
+diff -Naur apper-0.7.1-orig//ApperKCM/CategoryModel.cpp apper-0.7.1/ApperKCM/CategoryModel.cpp
+--- apper-0.7.1-orig//ApperKCM/CategoryModel.cpp	2012-02-21 14:22:05.000000000 +0100
++++ apper-0.7.1/ApperKCM/CategoryModel.cpp	2012-02-28 10:23:33.776572272 +0100
+@@ -200,7 +200,10 @@
+     m_groups = Daemon::groups();
+     QStandardItem *item;
+     foreach (const Package::Group &group, m_groups) {
+-        if (group != Package::UnknownGroup) {
++        if (group != Package::UnknownGroup &&
++            group != Package::GroupDesktopGnome &&
++            group != Package::GroupDesktopOther &&
++            group != Package::GroupDesktopXfce) {
+             item = new QStandardItem(PkStrings::groups(group));
+             item->setDragEnabled(false);
+             item->setData(Transaction::RoleSearchGroup, SearchRole);

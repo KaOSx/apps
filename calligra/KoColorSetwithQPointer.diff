@@ -1,0 +1,77 @@
+commit 36a4964b13cb1e7087e4d5ca5f576ca13e58bb45
+Author: Boudewijn Rempt <boud@valdyas.org>
+Date:   Thu Apr 19 15:09:01 2012 +0200
+
+    Guard KoColorSet with QPointer
+    
+    This makes sure that if the colorset the popup action refers to is
+    deleted or invalid, we don't get crashes
+    
+    BUG:298412
+
+diff --git a/libs/widgets/KoColorPopupAction.cpp b/libs/widgets/KoColorPopupAction.cpp
+index 680d162..47ff369 100644
+--- src/calligra-2.4.1//libs/widgets/KoColorPopupAction.cpp
++++ src/calligra-2.4.1//libs/widgets/KoColorPopupAction.cpp
+@@ -45,7 +45,7 @@
+ class KoColorPopupAction::KoColorPopupActionPrivate
+ {
+ public:
+-    KoColorPopupActionPrivate() 
++    KoColorPopupActionPrivate()
+         : colorSetWidget(0), colorChooser(0), opacitySlider(0), menu(0), checkerPainter(4)
+         , showFilter(true), applyMode(true)
+     {}
+@@ -81,7 +81,9 @@ KoColorPopupAction::KoColorPopupAction(QObject *parent)
+ 
+     KoResourceServer<KoColorSet>* srv = KoResourceServerProvider::instance()->paletteServer();
+     QList<KoColorSet*> palettes = srv->resources();
+-    d->colorSetWidget->setColorSet(palettes.first());
++    if (palettes.size() > 0) {
++        d->colorSetWidget->setColorSet(palettes.first());
++    }
+ 
+     d->colorChooser = new KoTriangleColorSelector( widget );
+     // prevent mouse release on color selector from closing popup
+@@ -109,9 +111,9 @@ KoColorPopupAction::KoColorPopupAction(QObject *parent)
+ 
+     connect(d->colorSetWidget, SIGNAL(colorChanged(const KoColor &, bool)), this, SLOT(colorWasSelected(const KoColor &, bool)));
+ 
+-    connect( d->colorChooser, SIGNAL( colorChanged( const QColor &) ), 
++    connect( d->colorChooser, SIGNAL( colorChanged( const QColor &) ),
+              this, SLOT( colorWasEdited( const QColor &) ) );
+-    connect( d->opacitySlider, SIGNAL(valueChanged(int)), 
++    connect( d->opacitySlider, SIGNAL(valueChanged(int)),
+              this, SLOT(opacityWasChanged(int)));
+ }
+ 
+@@ -169,7 +171,7 @@ void KoColorPopupAction::updateIcon( )
+     {
+         pm = QImage(iconSize, QImage::Format_ARGB32_Premultiplied);
+         pm.fill(Qt::transparent);
+-        // there was no icon set so we assume 
++        // there was no icon set so we assume
+         // that we create an icon from the current color
+         d->applyMode = false;
+     }
+diff --git a/libs/widgets/KoColorSetWidget.cpp b/libs/widgets/KoColorSetWidget.cpp
+index 9807edc..73cba80 100644
+--- src/calligra-2.4.1//libs/widgets/KoColorSetWidget.cpp
++++ src/calligra-2.4.1//libs/widgets/KoColorSetWidget.cpp
+@@ -31,6 +31,7 @@
+ #include <QMenu>
+ #include <QWidgetAction>
+ #include <QDir>
++#include <QPointer>
+ #include <QScrollArea>
+ 
+ #include <kglobal.h>
+@@ -49,7 +50,7 @@
+ class KoColorSetWidget::KoColorSetWidgetPrivate {
+ public:
+     KoColorSetWidget *thePublic;
+-    KoColorSet *colorSet;
++    QPointer<KoColorSet> colorSet;
+     QTimer m_timer;
+     QVBoxLayout *mainLayout;
+     bool firstShowOfContainer;

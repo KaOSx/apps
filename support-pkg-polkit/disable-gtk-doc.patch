@@ -1,0 +1,19 @@
+diff -Naur polkit-0.98-orig/docs/polkit/Makefile.am polkit-0.98/docs/polkit/Makefile.am
+--- polkit-0.98-orig/docs/polkit/Makefile.am	2010-08-06 17:25:37.000000000 +0000
++++ polkit-0.98/docs/polkit/Makefile.am	2010-10-17 17:28:13.943999998 +0000
+@@ -80,11 +80,11 @@
+ # Extra options to supply to gtkdoc-fixref
+ FIXXREF_OPTIONS=
+ 
+-if ENABLE_GTK_DOC
+-include $(top_srcdir)/gtk-doc.make
+-else
++#if ENABLE_GTK_DOC
++#include $(top_srcdir)/gtk-doc.make
++#else
+ CLEANFILES =
+-endif
++#endif
+ 
+ CLEANFILES +=   *~				\
+ 		polkit-1-scan.*			\

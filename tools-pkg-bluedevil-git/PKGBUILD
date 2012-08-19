@@ -1,0 +1,51 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=bluedevil-git
+pkgver=20101018
+pkgrel=1
+pkgdesc='The new bluetooth stack for KDE, it’s composed of: KCM, KDED, KIO, Library and some other small applications'
+arch=('i686' 'x86_64')
+url="http://gitorious.org/bluedevil"
+license=('GPL')
+depends=('kdelibs' 'libbluedevil' 'obex-data-server' 'obexd-client') # kdebase-workspace
+makedepends=('cmake' 'automoc4' 'git')
+provides=(bluedevil)
+conflicts=(bluedevil)
+source=("http://chakra-project.org/sources/bluedevil/bluedevil-$pkgver.tar.xz")
+md5sums=('4dfb05c0ecb4d8c0c55d7cd01f54198b') #  bluedevil-20101018.tar.xz
+
+# create tarball: source PKGBUILD && mksource
+
+mksource() {
+  git clone git://gitorious.org/bluedevil/bluedevil.git
+  pushd bluedevil
+  popd
+  tar -cvJf bluedevil-${pkgver}.tar.xz bluedevil/*
+  md5sum bluedevil-${pkgver}.tar.xz
+}
+
+build(){
+  cd ${srcdir}
+
+  mkdir -p bluedevil-build
+  cp -R bluedevil/* bluedevil-build
+  cd bluedevil-build
+ 
+  cmake -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd ${srcdir}/bluedevil-build
+  make DESTDIR=${pkgdir} install
+  rm -R ${srcdir}/bluedevil-build
+}

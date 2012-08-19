@@ -1,0 +1,88 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgbase="kde-plasma-themes"
+pkgname=(
+         #"kde-plasma-themes-neda"
+	 #"kde-plasma-themes-ronak"
+	 "kde-plasma-themes-caledonia"
+	 "kde-plasma-themes-helium")
+pkgver=1.0
+pkgrel=1
+arch=('any')
+
+source=('http://chakra-linux.org/sources/neda/Neda-1.8.3.2.tar.gz'
+        'http://chakra-linux.org/sources/ronak/ronak-plasma-1.0.tar.gz'
+        'http://kde-look.org/CONTENT/content-files/142424-Caledonia.tar.gz'
+        'http://kde-look.org/CONTENT/content-files/125471-Helium%20One.tar.bz')
+md5sums=('0be3b8f65318e4147cbc1720fb772463'
+         '83537e8480609ea7142f036e7ca37752'
+         'e49483c146bc6232cf759ac6666c7f7f'
+         'ffc23aa30c3eec13064ff5044add50c8')
+
+package_kde-plasma-themes-neda() {
+pkgver=1.8.3.2
+pkgrel=1
+pkgdesc="Chakra NEDA Plasma theme"
+url="http://www.chakra-project.org"
+license=('GPL')
+replaces=('kde-plasma-themes-kneda')
+  mkdir -p $pkgdir/usr/share/apps/desktoptheme
+  cd $startdir/src
+  cp -R Neda $pkgdir/usr/share/apps/desktoptheme
+  # fix file rights
+  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme
+  # remove nasty files
+  find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
+}
+
+package_kde-plasma-themes-ronak() {
+pkgver=1.0
+pkgrel=1
+pkgdesc="Chakra RONAK Plasma theme"
+url="http://www.chakra-project.org"
+license=('GPL')
+  mkdir -p $pkgdir/usr/share/apps/desktoptheme/RONAK
+  cd $startdir/src/ronak-plasma
+  cp -R * $pkgdir/usr/share/apps/desktoptheme/RONAK
+  # fix file rights
+  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme
+  # remove nasty files
+  find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
+}
+
+package_kde-plasma-themes-caledonia() {
+pkgver=1.0
+pkgrel=1
+pkgdesc="Malcer's dark Caledonia Plasma theme"
+url="http://kde-look.org/content/show.php/Caledonia?content=142424"
+license=('Creative-Commons-BY-SA-NC')
+  mkdir -p $pkgdir/usr/share/apps/desktoptheme/caledonia
+  cd $startdir/src/Caledonia
+  cp -R * $pkgdir/usr/share/apps/desktoptheme/caledonia
+  # fix file rights
+  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/caledonia
+  # remove nasty files
+  find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
+}
+
+package_kde-plasma-themes-helium() {
+pkgver=2.0.2
+pkgrel=1
+pkgdesc="Mcder's light theme for plasma desktop"
+url="http://kde-look.org/content/show.php/Helium?content=125471"
+license=('Creative-Commons-BY-SA-NC')
+  mkdir -p $pkgdir/usr/share/apps/desktoptheme/helium
+  cd $startdir/src/Helium\ One
+  cp -R * $pkgdir/usr/share/apps/desktoptheme/helium
+  # fix file rights
+  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/helium
+  # remove nasty files
+  find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
+}

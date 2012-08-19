@@ -1,0 +1,384 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+
+#
+# package info
+#
+pkgbase=('kdesdk')
+pkgname=('kdesdk-cervisia'
+	 'kdesdk-dolphin-plugins'
+         'kdesdk-kapptemplate'
+         'kdesdk-kcachegrind'
+#	 'kdesdk-kdeaccounts-plugin'
+#        'kdesdk-kdepalettes'  
+         'kdesdk-kioslave'
+         'kdesdk-kmtrace'
+         'kdesdk-kompare'
+         'kdesdk-kpartloader'
+         'kdesdk-kprofilemethod'
+#        'kdesdk-kspy'
+         'kdesdk-kstartperf'
+         'kdesdk-kuiviewer'
+         'kdesdk-lokalize'
+         'kdesdk-okteta'
+         'kdesdk-poxml'
+         'kdesdk-scripts'
+         'kdesdk-strigi-analyzer'
+	 'kdesdk-thumbnailers'
+         'kdesdk-umbrello')
+
+arch=('i686' 'x86_64')
+pkgver=${_kdever}
+pkgrel=2
+
+pkgdesc="KDE Standard Development Toolkit"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+makedepends=('pkgconfig' 'cmake' 'automoc4' 'boost' "kde-runtime>=${_kdever}" 'antlr2' 'hunspell'
+             "kdepimlibs>=${_kdever}" 'subversion' "kdebindings-pykde4>=${_kdever}" "kde-baseapps-konqueror>=${_kdever}" 'java-runtime' 'docbook-xsl')
+
+source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+#
+# build function
+#
+build() {
+	cd ${srcdir}/${pkgbase}-${pkgver}
+
+	#patch -p0 -i ${startdir}/fixdoc.patch
+	#patch -p0 -i ${startdir}/fixbuild.patch
+
+	msg "starting build ..."
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_SKIP_RPATH=ON 
+	make 
+}
+
+
+#
+# split-install functions
+#
+package_kdesdk-dolphin-plugins() {
+	pkgdesc='Extra Dolphin plugins'
+	depends=("kde-baseapps-dolphin>=${_kdever}" 'subversion' 'git' "kdesdk-kompare>=${_kdever}")
+        optdepends=('bzr: bazaar support'
+                    'git: git support'
+                    'mercurial: hg support'
+                    'subversion: svn support')
+        categories=('programming')
+	install=${pkgbase}.install
+
+	splitdirs="git svn bazaar hg"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/dolphin-plugins/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-cervisia() {
+	pkgdesc="A CVS GUI frontend for KDE"
+	screenshot="http://www.kde.org/images/screenshots/cervisia.png"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+        conflicts=('kdesdk-doc')
+	install=${pkgbase}.install
+
+	splitdirs="cervisia doc/cervisia"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-kapptemplate() {
+	pkgdesc="KDE application template generator"
+	screenshot="http://www.kde.org/images/screenshots/kapptemplate.png"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+        conflicts=('kdesdk-doc')
+	install=${pkgbase}.install
+
+	splitdirs="kapptemplate doc/kapptemplate"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-kcachegrind() {
+	pkgdesc="KDE profiler visualization"
+	screenshot="http://www.kde.org/images/screenshots/kcachegrind.png"
+	depends=("kde-runtime>=${_kdever}" "python2")
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+        conflicts=('kdesdk-doc')
+	install=${pkgbase}.install
+
+	splitdirs="kcachegrind doc/kcachegrind"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-kdeaccounts-plugin() {
+	pkgdesc="Addressbook plugin that puts names/email addresses of all KDE SVN accounts into an addressbook"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+	install=${pkgbase}.install
+
+	splitdirs="kdeaccounts-plugin"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-kdepalettes() {
+	pkgdesc='Palettes for the Gimp that match the KDE standard color palette'
+	optdepends=('gimp')
+
+	install -D -m644 $srcdir/${pkgbase}-${pkgver}/kdepalettes/KDE_Gimp \
+		$pkgdir/usr/share/gimp/2.0/palettes/KDE.gpl
+}
+
+package_kdesdk-kioslave() {
+	pkgdesc='KDED Subversion Module'
+	depends=("kde-runtime>=${_kdever}" 'subversion')
+	categories=('programming')
+        conflicts=('kdesdk-common')
+	replaces=("kdesdk-common")
+
+	splitdirs="kioslave"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-kmtrace() {
+	pkgdesc="A KDE memory leak tracer"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+        conflicts=('kdesdk-doc')
+	install=${pkgbase}.install
+
+	splitdirs="kmtrace doc/kmtrace"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-kompare() {
+	pkgdesc="A KDE visual diff viewer"
+	screenshot="http://www.kde.org/images/screenshots/kompare.png"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+        conflicts=('kdesdk-doc')
+	install=${pkgbase}.install
+
+	splitdirs="kompare doc/kompare"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-kpartloader() {
+	pkgdesc="KPartloader is a very simple application to test loading of a KPart."
+	depends=("kde-runtime>=${_kdever}")
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+	install=${pkgbase}.install
+
+	splitdirs="kpartloader"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-kprofilemethod() {
+	pkgdesc="Macros for profiling using QTime"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+	install=${pkgbase}.install
+
+	splitdirs="kprofilemethod"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-kspy() {
+	pkgdesc='An Object Inspector for Qt/KDE applications'
+        depends=("kde-runtime>=${_kdever}")
+        groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+        categories=('programming')
+        install=${pkgbase}.install
+
+        splitdirs="kspy"
+                for i in ${splitdirs} ; do
+                        cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+                        make DESTDIR=${pkgdir} install || return 1
+                done
+}
+
+package_kdesdk-kstartperf() {
+	pkgdesc="Measures startup time for KDE applications"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+	install=${pkgbase}.install
+
+	splitdirs="kstartperf"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-kuiviewer() {
+	pkgdesc="KUIViewer is a utility to display and test .ui-files"
+	screenshot="http://www.kde.org/images/screenshots/kuiviewer.png"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+	install=${pkgbase}.install
+
+	splitdirs="kuiviewer"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-lokalize() {
+	pkgdesc="Computer aided translation system"
+	screenshot="http://www.kde.org/images/screenshots/lokalize.png"
+	depends=("kde-runtime>=${_kdever}" "kdebindings-pykde4>=${_kdever}" "kdesdk-strigi-analyzer>=${_kdever}" "hunspell")
+	optdepends=('translate-toolkit: enable extra python script')
+        conflicts=('kdesdk-doc')
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+	install=${pkgbase}.install
+
+	splitdirs="lokalize doc/lokalize"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-okteta() {
+	pkgdesc="Okteta is a simple editor for the raw data of files, also known as a hex editor."
+	screenshot="http://www.kde.org/images/screenshots/okteta.png"
+	depends=("kde-runtime>=${_kdever}" "kde-runtime>=${_kdever}"
+		 "kde-baseapps>=${_kdever}")
+	replaces=('kdeutils-okteta')
+        conflicts=('kdesdk-doc')
+	groups=("kde" "kde-devel" "kdesdk" "kde-uninstall")
+	install=${pkgbase}.install
+
+	splitdirs="okteta doc/okteta"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-poxml() {
+	pkgdesc="Tools for using .po-files to translate DocBook XML files"
+	depends=("kde-runtime>=${_kdever}" 'qt' 'antlr2')
+        conflicts=('kdesdk-doc')
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+	install=${pkgbase}.install
+
+	splitdirs="poxml doc/poxml"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-scripts() {
+	pkgdesc="Extra scripts for the KDE SDK"
+	depends=("kde-runtime>=${_kdever}" 'python')
+        conflicts=('kdesdk-doc')
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+	install=${pkgbase}.install
+
+	splitdirs="scripts doc/scripts"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+
+package_kdesdk-strigi-analyzer() {
+	pkgdesc='Strigi-Analyzer for KDE SDK'
+	depends=("kdelibs>=${_kdever}")
+	conflicts=("kdesdk-common")
+
+	splitdirs="strigi-analyzer"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdesdk-thumbnailers() {
+        pkgdesc="KDE SDK thumbnailers for several development files"
+        depends=("kde-runtime>=${_kdever}")
+        groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+        categories=('programming')
+        install=${pkgbase}.install
+        replaces=('po-thumbnailer')
+        conflicts=('po-thumbnailer')
+        provides=('po-thumbnailer')
+
+        splitdirs="thumbnailers"  
+                for i in ${splitdirs} ; do
+                        cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+                        make DESTDIR=${pkgdir} install || return 1
+                done
+}
+
+package_kdesdk-umbrello() {
+	pkgdesc="An UML modeling tool for KDE"
+	screenshot="http://uml.sourceforge.net/screenshots/umbrello-2.0.png"
+	depends=("kde-runtime>=${_kdever}")
+        conflicts=('kdesdk-doc')
+	groups=("kde" "kde-devel" "kde-uninstall" "kdesdk")
+	categories=('programming')
+	install=${pkgbase}.install
+
+	splitdirs="umbrello doc/umbrello"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}

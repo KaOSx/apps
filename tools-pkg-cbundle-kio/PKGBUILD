@@ -1,0 +1,38 @@
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# (c) 2010 Drake Justice
+
+pkgname=cbundle-kio
+pkgver=0.1.0
+pkgrel=1
+depends=('squashfs-tools' 'fakechroot' 'unionfs-fuse' 'sh' 'cbundle')
+makedepends=('qt' 'automoc4' 'kde-workspace')
+pkgdesc="A shared library for using Chakra software bundles, kio version"
+arch=("i686" "x86_64")
+license=('GPL')
+url="http://chakra-project.org/"
+
+source=("http://chakra-linux.org/sources/cinstall/cbundle-kio-$pkgver.tar.xz")
+md5sums=('5a6487d94e6a48d98051113ab9d2886c')
+
+# create tarball: source PKGBUILD && mksource
+
+mksource() {
+  git clone git://gitorious.org/chakra/cbundle-kio.git
+  pushd cbundle
+  popd
+  tar -cvJf cbundle-kio-${pkgver}.tar.xz cbundle-kio/*
+  md5sum cbundle-kio-${pkgver}.tar.xz
+}
+
+build() {
+        cd "${srcdir}/cbundle-kio"
+
+        cmake  \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_BUILD_TYPE=Release
+        make || return 1
+        make DESTDIR=${pkgdir} install || return 1
+}

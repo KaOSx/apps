@@ -1,0 +1,27 @@
+commit fa0b4565a2c4aa672dc4c285d1bd445e055da626
+Author: Patrick Spendrin <ps_ml@gmx.de>
+Date:   Thu Jan 19 11:24:44 2012 +0100
+
+    fix startup when no config file is defined
+    
+    BUG:291923
+
+diff --git a/gpgproc.cpp b/gpgproc.cpp
+index 49a5385..dc5ebfa 100644
+--- a/gpgproc.cpp
++++ b/gpgproc.cpp
+@@ -86,9 +86,11 @@ void GnupgBinary::setBinary(const QString &executable)
+ 	m_standardArguments.clear();
+ 	m_standardArguments << QLatin1String( "--no-secmem-warning" )
+ 			<< QLatin1String( "--no-tty" )
+-			<< QLatin1String("--no-greeting")
+-			<< QLatin1String("--options")
+-			<< gpgConfigFile;
++			<< QLatin1String("--no-greeting");
++
++	if (!gpgConfigFile.isEmpty())
++		m_standardArguments << QLatin1String("--options")
++				<< gpgConfigFile;
+ 
+ 	QStringList debugLevelArguments(QLatin1String("--debug-level"));
+ 	debugLevelArguments << QLatin1String("none");

@@ -1,0 +1,35 @@
+#
+# install functions
+#
+post_install() {
+		echo " "
+		echo " > KDE Software Compilation 4.9.0"
+		echo " > packaged by The Chakra Project"
+		echo " "
+		echo "   Installation Prefix : /usr"
+		echo "   Configuration dir   : ~/.kde4"
+		echo "   Update configs      : /etc/chakra/updates.conf"
+		echo "   Chakra Patches      : /usr/share/chakra/patches"
+		echo " "
+		echo "   WWW       : http://chakra-project.org"
+		echo "   Wiki      : http://chakra-project.org/wiki/"
+		echo "   Forums    : http://chakra-project.org/bbs/"
+		echo "   Bugtracker: http://chakra-project.org/bugs/"
+		echo "   CCR       : http://chakra-project.org/ccr/"
+		echo "   Bundles   : http://chakra-project.org/bundles.html"
+		echo "   ChangeLogs: http://gitorious.org/chakra-packages"
+		echo " "
+}
+
+post_upgrade() {
+  post_install $1
+}
+
+post_remove() {
+		/bin/true
+}
+
+op=$1
+shift
+
+$op $*

@@ -1,0 +1,219 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer: abveritas[at]chakra-project[dog]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+
+
+#
+# package info
+#
+pkgname=kde-ksplash-themes
+pkgver=1.0.1
+pkgrel=1
+
+pkgbase="${_pkgprefix}-ksplash-themes"
+pkgname=(
+        #"${_pkgprefix}-ksplash-themes-crunchy-branch-blue"
+	# "${_pkgprefix}-ksplash-themes-ashoc"
+	 #"${_pkgprefix}-ksplash-themes-neda"
+	 #"${_pkgprefix}-ksplash-themes-ronak"
+	 #"${_pkgprefix}-ksplash-themes-ronak-light"
+	 "${_pkgprefix}-ksplash-themes-dharma")
+
+pkgdesc="KDE KSplash-Themes for Chakra"
+url="http://chakra-project.org"
+license=("GPL" "Creative Commons, BY-SA")
+arch=('any')
+options=('!splithdr' 'splitdbg')
+
+groups=("${_pkgprefix}" "${_pkgprefix}-complete" "${_pkgprefix}-uninstall" "${_pkgprefix}-minimal")
+
+source=(
+        #"http://chakra-project.org/sources/kde-ksplash-themes/kde-ksplash-themes-crunchy-branch-blue-1.0.tar.gz"
+	#"http://chakra-project.org/sources/kde-ksplash-themes/kde-ksplash-themes-ashoc-1.0.tar.gz"
+	#"http://chakra-project.org/sources/kde-ksplash-themes/ashoc-1.0-2-png.tar.gz"
+	#"http://chakra-project.org/sources/kde-ksplash-themes/crunchy-branch-blue-1.0-png.tar.gz"
+	#'http://chakra-project.org/sources/neda/NEDA.tar.gz'
+	#'http://chakra-project.org/sources/ronak/ksplash-ronak-1.0.1.tar.gz'
+	#'http://chakra-project.org/sources/ronak/ksplash-ronak-light-1.0.1.tar.gz'
+	'http://chakra-project.org/sources/dharma/ksplash/Dharma.tar.gz'
+	'http://chakra-project.org/sources/dharma/ksplash/Chakra Dharma KSplashQML.png')
+
+md5sums=(
+         #"0b10bc1f2e671aa895fae88f53f3c583"  #  kde-ksplash-themes-crunchy-branch-blue-1.0.tar.gz
+	 #"d8ce77dd251138a9ef5a107542a086d6"  #  kde-ksplash-themes-ashoc-1.0.tar.gz
+	 #"e9e16e1c6bc2661d922763b1fc76ffa8"  #  ashoc-1.0-2-png.tar.gz
+	 #"b91f6203d846ba171771259d7689346d"  #  crunchy-branch-blue-1.0-png.tar.gz
+	 #'83686866b1e7313b77b3cf98c5c4ddc3' #  NEDA.tar.gz
+	 #'2e9b621056ba539c29c9284d9dc5766e'  
+	 #'5ad2bdc452720393fdc478f304b0dcf4'
+	 'ba0e0c22230acad139c970a7ac62300c'
+         '790b4d2f3a46d305059c5147460b1fba')
+
+
+#_gitroot="git://git.chakra-project.org/artwork/ksplash-themes.git"
+#_gitname="ksplash-themes"
+
+#
+# build function
+#
+build() {
+
+	echo "Let's go"
+	# Smart hack here, cool :)
+
+#        cd "${srcdir}"
+#        msg "Connecting to GIT server...."
+
+#        if [ -d $_gitname ] ; then
+#        cd $_gitname && git pull
+#        msg "The local files are updated."
+#        else
+#	      git clone $_gitroot
+#        fi
+#        msg "GIT checkout done or server timeout"
+#        msg "Starting make..."
+#
+#        rm -rf "${srcdir}/$_gitname-build"
+
+#        cp -r "${srcdir}/$_gitname" "${srcdir}/$_gitname-build"
+
+}
+
+#
+# split-install functions
+#
+
+
+package_kde-ksplash-themes-crunchy-branch-blue()
+{
+
+	pkgdesc="Crunchy branch KSplash-Theme"
+	groups=("${_pkgprefix}" "${_pkgprefix}-complete" "${_pkgprefix}-uninstall" "${_pkgprefix}-minimal" "${_pkgprefix}-ksplash-themes")
+	_THEME="crunchy-branch-blue"
+	
+	cd ${srcdir}/$_THEME
+
+	msg "fix background.png"
+	mv -vf ${srcdir}/$_THEME/1024x600.png 1024x600/background.png
+	mv -vf ${srcdir}/$_THEME/1024x768.png 1024x768/background.png
+	mv -vf ${srcdir}/$_THEME/1152x864.png 1152x864/background.png
+	mv -vf ${srcdir}/$_THEME/1280x1024.png 1280x1024/background.png
+	mv -vf ${srcdir}/$_THEME/1280x800.png 1280x800/background.png
+	mv -vf ${srcdir}/$_THEME/1360x768.png 1360x768/background.png
+	mv -vf ${srcdir}/$_THEME/1400x1050.png 1400x1050/background.png
+	mv -vf ${srcdir}/$_THEME/1440x900.png 1440x900/background.png
+	mv -vf ${srcdir}/$_THEME/1600x1200.png 1600x1200/background.png
+	mv -vf ${srcdir}/$_THEME/1680x1050.png 1680x1050/background.png
+	mv -vf ${srcdir}/$_THEME/1920x1080.png 1920x1080/background.png
+	mv -vf ${srcdir}/$_THEME/1920x1200.png 1920x1200/background.png
+	mv -vf ${srcdir}/$_THEME/800x600.png 800x600/background.png
+	
+	msg "Install theme"
+	mkdir -pv $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+	cp -Rv * $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+
+}
+
+package_kde-ksplash-themes-ashoc()
+{
+
+	pkgdesc="Ashoc KSplash-Theme"
+	groups=("${_pkgprefix}" "${_pkgprefix}-complete" "${_pkgprefix}-uninstall" "${_pkgprefix}-minimal" "${_pkgprefix}-ksplash-themes")
+	_THEME="ashoc"
+	
+	cd ${srcdir}/$_THEME
+
+	msg "fix background.png"
+	mv -vf ${srcdir}/$_THEME/1024x600.png 1024x600/background.png
+	mv -vf ${srcdir}/$_THEME/1024x768.png 1024x768/background.png
+	mv -vf ${srcdir}/$_THEME/1152x864.png 1152x864/background.png
+	mv -vf ${srcdir}/$_THEME/1280x1024.png 1280x1024/background.png
+	mv -vf ${srcdir}/$_THEME/1280x800.png 1280x800/background.png
+	mv -vf ${srcdir}/$_THEME/1360x768.png 1360x768/background.png
+	mv -vf ${srcdir}/$_THEME/1400x1050.png 1400x1050/background.png
+	mv -vf ${srcdir}/$_THEME/1440x900.png 1440x900/background.png
+	mv -vf ${srcdir}/$_THEME/1600x1200.png 1600x1200/background.png
+	mv -vf ${srcdir}/$_THEME/1680x1050.png 1680x1050/background.png
+	mv -vf ${srcdir}/$_THEME/1920x1080.png 1920x1080/background.png
+	mv -vf ${srcdir}/$_THEME/1920x1200.png 1920x1200/background.png
+	mv -vf ${srcdir}/$_THEME/800x600.png 800x600/background.png
+	
+	msg "Install theme"
+	mkdir -pv $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+	cp -Rv * $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+
+}
+
+package_kde-ksplash-themes-neda()
+{
+
+	pkgdesc="Chakra NEDA KSplash-Theme"
+	groups=("${_pkgprefix}" "${_pkgprefix}-complete" "${_pkgprefix}-uninstall" "${_pkgprefix}-minimal" "${_pkgprefix}-ksplash-themes")
+	_THEME="NEDA"
+	pkgrel=1
+	
+	cd ${srcdir}/$_THEME/Ksplash
+	
+	msg "Install theme"
+	mkdir -pv $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+	cp -Rv * $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+	# fix rc file
+	sed -i -e "s~KStarboard~$_THEME~g" $pkgdir/usr/share/apps/ksplash/Themes/$_THEME/Theme.rc
+
+}
+
+package_kde-ksplash-themes-ronak()
+{
+
+	pkgdesc="Chakra Ronak KSplash-Theme"
+	groups=("${_pkgprefix}" "${_pkgprefix}-complete" "${_pkgprefix}-uninstall" "${_pkgprefix}-minimal" "${_pkgprefix}-ksplash-themes")
+	_THEME="RONAK"
+	pkgrel=1
+	
+	cd ${srcdir}/ksplash-ronak
+	
+	msg "Install theme"
+	mkdir -pv $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+	cp -Rv * $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+	# fix rc file
+	sed -i -e "s~KStarboard~$_THEME~g" $pkgdir/usr/share/apps/ksplash/Themes/$_THEME/Theme.rc
+
+}
+
+package_kde-ksplash-themes-ronak-light()
+{
+
+	pkgdesc="Chakra Ronak-Light KSplash-Theme"
+	groups=("${_pkgprefix}" "${_pkgprefix}-complete" "${_pkgprefix}-uninstall" "${_pkgprefix}-minimal" "${_pkgprefix}-ksplash-themes")
+	_THEME="RONAK-LIGHT"
+	pkgrel=1
+	
+	cd ${srcdir}/ksplash-ronak-light
+	
+	msg "Install theme"
+	mkdir -pv $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+	cp -Rv * $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+	# fix rc file
+	sed -i -e "s~KStarboard~$_THEME~g" $pkgdir/usr/share/apps/ksplash/Themes/$_THEME/Theme.rc
+
+}
+
+package_kde-ksplash-themes-dharma()
+{
+
+	pkgdesc="Chakra Dharma KSplash-Theme"
+	groups=("${_pkgprefix}" "${_pkgprefix}-complete" "${_pkgprefix}-uninstall" "${_pkgprefix}-minimal" "${_pkgprefix}-ksplash-themes")
+	_THEME="Dharma"
+	pkgrel=1
+	
+	cd ${srcdir}/Dharma
+	
+	msg "Install theme"
+	mkdir -pv $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+	cp -Rv * $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
+}

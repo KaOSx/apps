@@ -1,0 +1,28 @@
+#!/bin/bash
+
+job_pre_remove()
+{
+	# initialize error handling
+	trap error_handler ERR
+
+	msg_job_start "job_pre_remove"
+
+	mount -v -t proc none ${mountpoint}/proc 
+	mount -v -t sysfs none ${mountpoint}/sys 
+	mount -v -o bind /dev ${mountpoint}/dev 
+
+	# remove any db.lck
+	chroot ${mountpoint} /bin/rm -f /var/lib/pacman/db.lck
+	
+	# remove live-specific packages
+	msg "running pacman"
+	for p in ${REMOVE_LIVE_PACKAGES}
+	do
+		chroot ${mountpoint} /usr/bin/pacman -Rddn ${p} --noconfirm
+	done
+	
+	msg "umounting /proc, /sys and /dev"
+	umount -v ${mountpoint}/proc ${mountpoint}/sys ${mountpoint}/dev 
+
+	msg_job_done
+}

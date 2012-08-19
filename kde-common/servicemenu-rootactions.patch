@@ -1,0 +1,146 @@
+--- rootactions_servicemenu_2.4.10/Root_Actions_2.4.10/rootactions-servicemenu.pl.orig	2010-12-15 20:51:48.296667211 -0500
++++ rootactions_servicemenu_2.4.10/Root_Actions_2.4.10/rootactions-servicemenu.pl	2010-12-15 21:37:27.893333878 -0500
+@@ -815,9 +815,8 @@
+ 	if ( exists $ENV{KDEDIR} ) {
+ 		$KDEBINPATH = "$ENV{KDEDIR}/bin/";
+ 	}
+-
+ 	else {
+-		$KDEBINPATH = "";
++		$KDEBINPATH = "/usr/bin/";
+ 	}
+ 	
+ }
+@@ -850,7 +849,7 @@
+ sub root_konsole_here {
+ 	$APPNAME = shift @ARGV ;
+ 	$WORKDIR = shift @ARGV ;
+-	exec "$SUCOMMAND \"\'$EXECNAME\' do_root_konsole \'$APPNAME\' \'$WORKDIR\'\"";
++	exec "$SUCOMMAND \"$EXECNAME\" do_root_konsole \"$APPNAME\" \"$WORKDIR\"";
+ 	exit $?;
+ }
+ 
+@@ -881,7 +880,7 @@
+ 	$APPNAME = `$DIALOGCOMMAND --title "$OPENTITLE" --inputbox "$OPENMSG" program` ;
+ 	if ( $? eq 0 ) {
+ 	   chomp $APPNAME ;
+-      	   exec "$SUCOMMAND \"\'$EXECNAME\' do_open_with \'$APPNAME\' \'$TARGET\'\"";
++      	   exec "$SUCOMMAND \"$EXECNAME\" do_open_with \"$APPNAME\" \"$TARGET\"";
+ 	   exit $?;
+ 	}
+ }
+@@ -896,7 +895,7 @@
+ 		  $APPNAME = "kwrite"; }
+ 	}
+ 
+-	exec "$SUCOMMAND \"\'$EXECNAME\' do_open_with \'$APPNAME\' \'$TARGET\'\"";
++	exec "$SUCOMMAND \"$EXECNAME\" do_open_with \"$APPNAME\" \"$TARGET\"";
+ 	exit $?; 
+ }
+ 
+@@ -907,7 +906,7 @@
+ 	   &root_reminder_msgs;
+ 	   #Which program? (first argument)
+ 	   $APPNAME = shift @ARGV ;
+-	   
++
+ 	   if ( -x $KDEBINPATH.$APPNAME ) {
+               $CPROGRAM = $KDEBINPATH.$APPNAME ; }
+            else {
+@@ -917,7 +916,7 @@
+ 	   shift;
+ 	   #Create Target file string
+ 	   $TARGET = join("' '", @ARGV) ;
+-	   exec "$CPROGRAM --caption \"$APPNAME $ROOTREMINDER\" \'$TARGET\'" ;
++	   exec "$CPROGRAM --caption \"$APPNAME $ROOTREMINDER\" \"$TARGET\"" ;
+ 	   exit $?;
+ 	}
+ }
+@@ -928,10 +927,10 @@
+ 	
+ 	   &copy_dialog_msgs;
+ 	   $OLDNAME = $ARGV[0];
+-	   $NEWNAME = `$DIALOGCOMMAND --title "$COPYTITLE" --inputbox "$COPYMSG" \'$OLDNAME\'` ;
++	   $NEWNAME = `$DIALOGCOMMAND --title "$COPYTITLE" --inputbox "$COPYMSG" \"$OLDNAME\"` ;
+ 	   chop $NEWNAME;
+ 	   if ( $? eq 0 && $OLDNAME ne $NEWNAME ) {
+-	      exec "$SUCOMMAND \"\'$EXECNAME\' do_copy \'$OLDNAME\' \'$NEWNAME\'\"";
++	      exec "$SUCOMMAND \"$EXECNAME\" do_copy \"$OLDNAME\" \"$NEWNAME\"";
+ 	      exit $?;
+ 
+ 	   }
+@@ -943,7 +942,7 @@
+ 	   #get the arguments)
+ 	   $OLDNAME = $ARGV[0] ;
+ 	   $NEWNAME = $ARGV[1] ;
+-	   `cp -pr \'$OLDNAME\' \'$NEWNAME\'`;
++	   `cp -pr \"$OLDNAME\" \"$NEWNAME\"`;
+ 	}
+ }
+ #---End copy subroutines---
+@@ -955,17 +954,17 @@
+ 	$TARGET = join("' '", @ARGV) ;
+ 	chomp($RENAMERPATH = `which $BATCHRENAMER`);	
+ 	if ( $#ARGV > 0 && -x $RENAMERPATH ) {
+-	   exec "$SUCOMMAND \"\'$EXECNAME\' do_open_with \'$BATCHRENAMER\' \'$TARGET\'\"";
++	   exec "$SUCOMMAND \"$EXECNAME\" do_open_with \"$BATCHRENAMER\" \"$TARGET\"";
+ 	   exit $?;
+ 	}
+ 	# else we'll use a simple rename script
+ 	else {
+ 	   &rename_dialog_msgs;
+ 	   $OLDNAME = $ARGV[0];
+-	   $NEWNAME = `$DIALOGCOMMAND --title "$RENAMETITLE" --inputbox "$RENAMEMSG" \'$OLDNAME\'` ;
++	   $NEWNAME = `$DIALOGCOMMAND --title "$RENAMETITLE" --inputbox "$RENAMEMSG" \"$OLDNAME\"` ;
+ 	   chop $NEWNAME;
+ 	   if ( $? eq 0 && $OLDNAME ne $NEWNAME ) {
+-	      exec "$SUCOMMAND \"\'$EXECNAME\' do_rename \'$OLDNAME\' \'$NEWNAME\'\"";
++	      exec "$SUCOMMAND \"$EXECNAME\" do_rename \"$OLDNAME\" \"$NEWNAME\"";
+ 	      exit $?;
+ 	   }
+ 	}
+@@ -996,7 +995,7 @@
+ 	   # kdesu will run the command as regular user if 'Ignore' is chosen from kdesu dialog.
+ 	   # To prevent unwanted deletion of files, we'll run 'do_delete' instead of 'rm -r', 'do delete'
+ 	   # will exit if it's run as normal user, therefore the files writable for user are safe when clicking 'Ignore'
+-	   exec "$SUCOMMAND \"\'$EXECNAME\' do_delete \'$TARGET\'\"";
++	   exec "$SUCOMMAND \"$EXECNAME\" do_delete \"$TARGET\"";
+ 	}
+ }
+ 
+@@ -1024,7 +1023,7 @@
+         }
+ 
+ 	# Same as with delete, we don't want kdesu to run 'chown' when 'Ignore' is pressed in the kdesu dialog, so we use 'do_ownership' instead
+-	exec "$SUCOMMAND \"\'$EXECNAME\' do_ownership \'$RECURSIVE\' 0:0 \'$TARGET\'\"";
++	exec "$SUCOMMAND \"$EXECNAME\" do_ownership \"$RECURSIVE\" 0:0 \"$TARGET\"";
+ 	exit $?;
+ }
+ 
+@@ -1042,7 +1041,7 @@
+ 
+ 	#Create a list of user GIDs, so we can pick only the primary group
+ 	@GROUPS = split ' ', $);
+-	exec "$SUCOMMAND \"\'$EXECNAME\' do_ownership \'$RECURSIVE\' $>:$GROUPS[0] \'$TARGET\'\"";
++	exec "$SUCOMMAND \"$EXECNAME\" do_ownership \"$RECURSIVE\" $>:$GROUPS[0] \"$TARGET\"";
+ 	exit $?;
+ }
+ 
+@@ -1063,7 +1062,7 @@
+ 
+ 	if ( $? eq 0 ) {
+ 	   chop $UIDGID;
+-	   exec "$SUCOMMAND \"\'$EXECNAME\' do_ownership \'$RECURSIVE\' \'$UIDGID\' \'$TARGET\'\"";
++	   exec "$SUCOMMAND \"$EXECNAME\" do_ownership \"$RECURSIVE\" \"$UIDGID\" \"$TARGET\"";
+ 	   exit $?;
+ 	}
+ }
+@@ -1178,7 +1177,7 @@
+ 		system "$DIALOGCOMMAND --title \'$SPCTITLE\' --warningcontinuecancel \'$SPCMSG\'";
+ 	}
+ 	if ( $? eq 0 ) {
+-	      exec "$SUCOMMAND \"\'$EXECNAME\' do_permissions \'$RECURSIVE\' \'$CHMOD\' \'$TARGET\'\"";
++	      exec "$SUCOMMAND \"$EXECNAME\" do_permissions \"$RECURSIVE\" \"$CHMOD\" \"$TARGET\"";
+ 	      exit $?;
+ 	}
+ }

@@ -1,0 +1,53 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgname=kde-baseapps-konsole
+_pkgname=konsole
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="KDE Terminal"
+url='http://kde.org/applications/system/konsole/'
+screenshot="http://userbase.kde.org/images.userbase/6/64/Konsole-KDE4.png"
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}")
+makedepends=('cmake' 'automoc4')
+groups=('kde' 'kde-baseapps' 'kde-uninstall')
+provides=('kdebase-konsole' 'konsole')
+conflicts=('kdebase-konsole')
+replaces=('kdebase-konsole')
+categories=('system')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
+	"konsole_defaults.patch")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+	 'c2709d856ec8aa16329c65a759611ba0')
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+
+	# Fixme: addapt this patch to 4.9
+	# patch -Np2 -i ${srcdir}/konsole_defaults.patch || return 1
+
+	msg "starting build ..."
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed' 
+	make
+}
+
+package() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	make DESTDIR="${pkgdir}" install
+
+}

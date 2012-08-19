@@ -1,0 +1,53 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgname=('kdeaccessibility-kaccessible')
+_pkgname="kaccessible"
+arch=('i686' 'x86_64')
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc='Provides accessibility services like focus tracking and a screenreader'
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+depends=("kde-runtime>=${_kdever}" 'speech-dispatcher')
+conflicts=("kdeaccessibility-doc" "kdeaccessibility-colorschemes" "kdeaccessibility-iconthemes")
+install='kdeaccessibility.install'
+provides=('kdeaccessibility-common' 'kaccessible')
+replaces=('kdeaccessibility-common')
+groups=("kdeaccessibility" "kde" "kde-uninstall" "kde-doc")
+options=('docs' '!splithdr' 'splitdbg' 'log')
+makedepends=('pkgconfig' 'cmake' 'automoc4' "kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" "speech-dispatcher>=0.6.7" 'docbook-xsl')
+categories=('accessibility')
+
+source=($_mirror/${_pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+#
+# build function
+#
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+
+	msg "starting build ..."
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+	make || return 1
+}
+
+package() {
+    	cd ${srcdir}/${_pkgname}-${pkgver}
+	make DESTDIR=${pkgdir} install
+	
+}

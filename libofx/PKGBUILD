@@ -1,0 +1,45 @@
+# Platform Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+
+pkgbase=libofx
+pkgname=('libofx' 'libofx-doc')
+pkgver=0.9.5
+pkgrel=1
+pkgdesc="API for the OFX banking standard"
+arch=('i686' 'x86_64')
+url="http://libofx.sourceforge.net"
+license=('GPL')
+depends=('opensp' 'curl' 'libxml++')
+checkdepends=('gnupg')
+source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz gcc47.patch)
+md5sums=('58443fd7fa00dbbb6a36c75830774368'
+         '6cd9128973e4d90ea8129ea0a785fcbe' )
+
+build() {
+  cd "$srcdir/$pkgbase-$pkgver"
+  patch -p1 -i "$srcdir/gcc47.patch"
+  ./configure --prefix=/usr
+  make
+}
+
+check() {
+  cd "$srcdir/$pkgbase-$pkgver"
+  make check
+}
+
+package_libofx() {
+  options=('!libtool' '!docs')
+
+  cd "$srcdir/$pkgbase-$pkgver"
+  make DESTDIR="$pkgdir" install
+}
+
+package_libofx-doc() {
+  pkgdesc="Documention of the OFX banking standard API"
+  depends=()
+
+  cd "$srcdir/$pkgbase-$pkgver"
+  make DESTDIR="$pkgdir" install-docDATA
+  make -C doc DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,29 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+
+pkgname=shared-desktop-ontologies
+pkgver=0.10.0
+pkgrel=1
+pkgdesc="Ontologies necessary for the Nepomuk semantic desktop"
+arch=('any')
+url="http://sourceforge.net/apps/trac/oscaf/"
+license=('GPL')
+makedepends=("cmake")
+source=("http://downloads.sourceforge.net/oscaf/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('bfb7b5acbb43e5e45466c87dbe9c45b7')
+
+build() {
+  cd "${srcdir}"
+  mkdir build
+  cd build
+  cmake "../${pkgname}-${pkgver}" \
+    -DCMAKE_INSTALL_PREFIX=/usr 
+  make 
+}
+
+package() {
+  cd "${srcdir}/build"
+  make DESTDIR="${pkgdir}" install
+}

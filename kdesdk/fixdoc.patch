@@ -1,0 +1,27 @@
+Index: kapptemplate/templates/C++/kapp4-qml/src/CMakeLists.txt
+===================================================================
+--- kapptemplate/templates/C++/kapp4-qml/src/CMakeLists.txt     (revision 1299497)
++++ kapptemplate/templates/C++/kapp4-qml/src/CMakeLists.txt     (working copy)
+@@ -1,4 +1,4 @@
+-set(%{APPNAMELC}_SRCS
++set(%{APPNAMELC}_SRCS
+    %{APPNAMELC}.cpp
+    main.cpp
+    %{APPNAMELC}view.cpp
+Index: doc/CMakeLists.txt
+===================================================================
+--- doc/CMakeLists.txt  (revision 1299497)
++++ doc/CMakeLists.txt  (working copy)
+@@ -28,8 +28,7 @@
+   add_subdirectory(scripts)
+ endif()
+ 
+-if(LIBXSLT_FOUND AND LIBXML2_FOUND)
+-  if(BUILD_umbrello)
+-     add_subdirectory(umbrello)
+-  endif()
+-endif(LIBXSLT_FOUND AND LIBXML2_FOUND)
++if(BUILD_umbrello)
++    add_subdirectory(umbrello)
++endif()
++

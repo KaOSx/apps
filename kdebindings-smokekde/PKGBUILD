@@ -1,0 +1,43 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgname=kdebindings-smokekde
+_pkgname=smokekde
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="Language independent library for KDE bindings"
+url="http://kde.org/"
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=("kdebindings-smokeqt>=${_kdever}" "kdepimlibs>=${_kdever}" "soprano>=2.7.57")
+makedepends=('cmake' 'automoc4' "kdebindings-smokegen>=${_kdever}" "kdegraphics-okular>=${_kdever}" "kdesdk-kate>=${_kdever}")
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+replaces=('kdebindings-common')
+groups=("kde" "kdebindings" "kde-uninstall")
+provides=('smokekde')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+build() {
+  cd "${srcdir}"
+  mkdir build
+  cd build
+  cmake ../smokekde-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr 
+  make
+}
+
+package() {
+  cd "${srcdir}"/build
+  make DESTDIR="${pkgdir}" install
+}

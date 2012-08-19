@@ -1,0 +1,64 @@
+commit 512c6fa18825798e01ead1f0f009608b5281e5e0
+Author: Boudewijn Rempt <boud@valdyas.org>
+Date:   Thu Apr 19 15:02:20 2012 +0200
+
+    Make KoColorSet a QObject so QPointer can manage it
+
+diff --git a/libs/pigment/resources/KoColorSet.cpp b/libs/pigment/resources/KoColorSet.cpp
+index 2434938..104c2b3 100644
+--- src/calligra-2.4.1//libs/pigment/resources/KoColorSet.cpp
++++ src/calligra-2.4.1//libs/pigment/resources/KoColorSet.cpp
+@@ -29,30 +29,6 @@
+ 
+ #include "KoColorSpaceRegistry.h"
+ 
+-/*
+-KoColorSet::KoColorSet(const KisGradient * gradient, qint32 nColors, const QString & name)
+-    : KoResource(QString("")),
+-      m_name(name)
+-{
+-    Q_ASSERT(nColors > 0);
+-    Q_ASSERT(gradient != 0);
+-
+-    qreal dx, cur_x;
+-    qint32 i;
+-    dx = 1.0 / (nColors - 1);
+-
+-    KoColorSetEntry e;
+-    KoColor c;
+-    for (i = 0, cur_x = 0; i < nColors; i++, cur_x += dx) {
+-        gradient->colorAt(c,cur_x);
+-        e.color = c;
+-        e.name = "Untitled";
+-        add(e);
+-    }
+-
+-    m_columns = 0; // Set the default value that the GIMP uses...
+-}
+-*/
+ KoColorSet::KoColorSet(const QString& filename)
+         : KoResource(filename)
+ {
+diff --git a/libs/pigment/resources/KoColorSet.h b/libs/pigment/resources/KoColorSet.h
+index fbc9d7e..8671f9b 100644
+--- src/calligra-2.4.1//libs/pigment/resources/KoColorSet.h
++++ src/calligra-2.4.1//libs/pigment/resources/KoColorSet.h
+@@ -19,6 +19,7 @@
+ #ifndef KOCOLORSET
+ #define KOCOLORSET
+ 
++#include <QObject>
+ #include <QImage>
+ #include <QColor>
+ #include <QVector>
+@@ -42,8 +43,9 @@ struct KoColorSetEntry {
+  * Open Gimp, Photoshop or RIFF palette files. This is a straight port
+  * from the Gimp.
+  */
+-class PIGMENTCMS_EXPORT KoColorSet : public KoResource
++class PIGMENTCMS_EXPORT KoColorSet : public QObject, public KoResource
+ {
++    Q_OBJECT
+ public:
+     /**
+      * Load a color set from a file. This can be a Gimp

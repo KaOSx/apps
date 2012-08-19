@@ -1,0 +1,29 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=colibri
+pkgver=0.2.2
+pkgrel=2
+pkgdesc="Colibri provides an alternative to KDE4 Plasma notifications."
+arch=('i686' 'x86_64')
+url="http://kde-apps.org/content/show.php/Colibri?content=117147"
+license=('GPL')
+depends=('kde-workspace')
+makedepends=('gcc' 'cmake' 'automoc4')
+install=colibri.install
+source=(http://kde-apps.org/CONTENT/content-files/117147-${pkgname}-${pkgver}.tar.bz2)
+md5sums=('42f5a82a8d88b28470fea0d9ebf29832')
+ 
+build() {
+  cd $srcdir/${pkgname}-${pkgver}
+  
+  mkdir -p build && cd build
+  cmake -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` ../ || return 1
+  make DESTDIR="$pkgdir/" install || return 1
+}

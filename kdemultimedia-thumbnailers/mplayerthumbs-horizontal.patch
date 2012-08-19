@@ -1,0 +1,19 @@
+diff -Naur kdemultimedia-4.3.90.orig/mplayerthumbs/src/videopreview.cpp kdemultimedia-4.3.90/mplayerthumbs/src/videopreview.cpp
+--- kdemultimedia-4.3.90.orig/mplayerthumbs/src/videopreview.cpp	2009-05-14 19:27:36.000000000 +0200
++++ kdemultimedia-4.3.90/mplayerthumbs/src/videopreview.cpp	2010-01-16 00:43:05.000000000 +0100
+@@ -91,8 +91,13 @@
+         else
+             sprocket = QPixmap(KStandardDirs::locate( "data", "videothumbnail/sprocket-large.png" ));
+ 
+-        for (int y = 0; y < pix.height() + sprocket.height(); y += sprocket.height()) {
+-            painter.drawPixmap( 0, y, sprocket );
++//    for (int y = 0; y < pix.height() + sprocket.height(); y += sprocket.height()) {
++//       painter.drawPixmap( 0, y, sprocket );
++//    }
++
++    for (int x = 0; x < pix.width() + sprocket.width(); x += sprocket.width()) {
++        painter.drawPixmap( x, 0, sprocket );
++        painter.drawPixmap( x, (pix.height() - sprocket.height()), sprocket );
+         }
+ }
+         // End of xine-artsplugin code

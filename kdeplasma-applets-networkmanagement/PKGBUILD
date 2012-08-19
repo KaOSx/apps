@@ -1,0 +1,54 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# contributor : Radu Andries <admiral0[at]tuxfamily[dot]org>
+
+pkgname=('kdeplasma-applets-networkmanagement')       
+arch=('i686' 'x86_64')
+pkgver=0.9.0.4
+pkgrel=2
+pkgdesc="KDE SC networkmanager plasmoid"
+url="http://plasma.kde.org"
+license=('GPL')
+depends=('kde-workspace' 'networkmanager>=0.9')
+makedepends=('cmake' 'python2' 'automoc4' 'mobile-broadband-provider-info'
+             'openconnect')
+optdepends=('mobile-broadband-provider-info: Database of mobile broadband service providers'
+            'openconnect: Cisco AnyConnect compatible VPN client')
+replaces=('networkmanagement' 'networkmanagement-networkmanager-plasmoid' 'networkmanagement-knetworkmanager-kde4')
+conficts=('networkmanagement' 'networkmanagement-networkmanager-plasmoid' 'networkmanagement-knetworkmanager-kde4')
+provides=("networkmanagement=${pkgver}")
+install=${pkgname}.install
+source=("ftp://ftp.kde.org/pub/kde/unstable/networkmanagement/${pkgver}/src/networkmanagement-${pkgver}.tar.bz2")
+md5sums=('b2e016a293e412807ec9571617d53b84')
+
+# create tarball: source PKGBUILD && mksource
+mksource() {
+	  rm -vRf ${pkgname}
+	  git clone git://anongit.kde.org/${pkgname}
+	  cd ${pkgname}
+	  git checkout ${pkgver}
+	  cd ..
+	  rm -vRf ${pkgname}/.git
+	  pushd ${pkgname}
+	  popd
+	  tar -cvJf ${pkgname}-${pkgver}.tar.xz ${pkgname}/*
+	  md5sum ${pkgname}-${pkgver}.tar.xz
+}
+
+build() {
+  cd "${srcdir}"
+  mkdir build
+  cd build
+  cmake ../networkmanagement-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd "${srcdir}"/build
+  make DESTDIR="${pkgdir}" install
+}

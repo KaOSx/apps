@@ -1,0 +1,39 @@
+# Desktop packages for Chakra
+
+pkgname=libkgoogle
+_pkgname=akonadi-google
+pkgver=0.3.1
+pkgrel=1
+pkgdesc="A KDE-based library for accessing various Google services via their public API"
+url='https://projects.kde.org/projects/kdereview/libkgoogle'
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('kdepimlibs' 'qjson')
+makedepends=('cmake' 'automoc4' 'boost')
+replaces=('akonadi-google')
+conflicts=('akonadi-google')
+source=("http://www.progdan.cz/wp-content/uploads/akonadi-google-${pkgver}.tar.gz")
+md5sums=('fed8d9082547835ab916edd219831cf6')
+#source=("ftp://ftp.kde.org/pub/kde/stable/libkgoogle/${pkgver}/libkgoogle-${pkgver}.tar.bz2")
+#md5sums=('fa7cff3f8599cb5116be551ee85536e5')
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  mkdir build
+  cd build
+  cmake ..\
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}/build"
+  make DESTDIR="${pkgdir}" install
+
+  # Temporary fix: this is already in kdepim-runtime
+  rm -f ${pkgdir}/usr/bin/akonadi_googlecalendar_resource
+  rm -f ${pkgdir}/usr/bin/akonadi_googlecontacts_resource 
+  rm -f ${pkgdir}/usr/share/akonadi/agents/googlecalendarresource.desktop
+  rm -f ${pkgdir}/usr/share/akonadi/agents/googlecontactsresource.desktop 
+}

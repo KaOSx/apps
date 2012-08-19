@@ -1,0 +1,29 @@
+--- korundum-4.8.0/src/krubypluginfactory.cpp	2011-07-27 14:37:29.000000000 -0400
++++ korundum-4.8.0/src/krubypluginfactory.cpp	2012-04-29 19:31:30.948990139 -0400
+@@ -39,7 +39,7 @@
+ extern "C" {
+ extern VALUE rb_load_path;
+ extern VALUE qt_internal_module;
+-void Init_prelude(void);
++// void Init_prelude(void);
+ }
+ 
+ //
+@@ -165,7 +165,7 @@
+ #if RUBY_VERSION >= 0x10900
+     VALUE gem = rb_define_module("Gem");
+     rb_const_set(gem, rb_intern("Enable"), Qtrue);
+-    Init_prelude(); 
++//    Init_prelude(); 
+ #endif
+ 
+     ruby_incpush(QFile::encodeName(program.path()));
+@@ -342,7 +342,7 @@
+ #if RUBY_VERSION >= 0x10900
+     VALUE gem = rb_define_module("Gem");
+     rb_const_set(gem, rb_intern("Enable"), Qtrue);
+-    Init_prelude();                                             
++//    Init_prelude();                                             
+ #endif
+ 
+     ruby_incpush(QFile::encodeName(program.path()));

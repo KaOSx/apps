@@ -1,0 +1,193 @@
+--- configure.orig	2010-06-18 15:38:44.674558460 +0200
++++ configure	2010-06-18 15:43:58.033698697 +0200
+@@ -11556,138 +11556,6 @@ $as_echo "yes" >&6; }
+ fi
+ 
+ 
+-
+-GDK_PIXBUF_REQUIRED_VERSION=2.12
+-
+-
+-pkg_failed=no
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for LIBINDICATEGTK" >&5
+-$as_echo_n "checking for LIBINDICATEGTK... " >&6; }
+-
+-if test -n "$PKG_CONFIG"; then
+-    if test -n "$LIBINDICATEGTK_CFLAGS"; then
+-        pkg_cv_LIBINDICATEGTK_CFLAGS="$LIBINDICATEGTK_CFLAGS"
+-    else
+-        if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= \$GLIB_REQUIRED_VERSION
+-                                  gio-2.0 >= \$GIO_REQUIRED_VERSION
+-                                  gdk-pixbuf-2.0 >= \$GDK_PIXBUF_REQUIRED_VERSION
+-                                  gtk+-2.0 >= \$GTK_REQUIRED_VERSION
+-                                  dbus-glib-1 >= \$DBUS_REQUIRED_VERSION\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "glib-2.0 >= $GLIB_REQUIRED_VERSION
+-                                  gio-2.0 >= $GIO_REQUIRED_VERSION
+-                                  gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED_VERSION
+-                                  gtk+-2.0 >= $GTK_REQUIRED_VERSION
+-                                  dbus-glib-1 >= $DBUS_REQUIRED_VERSION") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_LIBINDICATEGTK_CFLAGS=`$PKG_CONFIG --cflags "glib-2.0 >= $GLIB_REQUIRED_VERSION
+-                                  gio-2.0 >= $GIO_REQUIRED_VERSION
+-                                  gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED_VERSION
+-                                  gtk+-2.0 >= $GTK_REQUIRED_VERSION
+-                                  dbus-glib-1 >= $DBUS_REQUIRED_VERSION" 2>/dev/null`
+-else
+-  pkg_failed=yes
+-fi
+-    fi
+-else
+-	pkg_failed=untried
+-fi
+-if test -n "$PKG_CONFIG"; then
+-    if test -n "$LIBINDICATEGTK_LIBS"; then
+-        pkg_cv_LIBINDICATEGTK_LIBS="$LIBINDICATEGTK_LIBS"
+-    else
+-        if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"glib-2.0 >= \$GLIB_REQUIRED_VERSION
+-                                  gio-2.0 >= \$GIO_REQUIRED_VERSION
+-                                  gdk-pixbuf-2.0 >= \$GDK_PIXBUF_REQUIRED_VERSION
+-                                  gtk+-2.0 >= \$GTK_REQUIRED_VERSION
+-                                  dbus-glib-1 >= \$DBUS_REQUIRED_VERSION\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "glib-2.0 >= $GLIB_REQUIRED_VERSION
+-                                  gio-2.0 >= $GIO_REQUIRED_VERSION
+-                                  gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED_VERSION
+-                                  gtk+-2.0 >= $GTK_REQUIRED_VERSION
+-                                  dbus-glib-1 >= $DBUS_REQUIRED_VERSION") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  pkg_cv_LIBINDICATEGTK_LIBS=`$PKG_CONFIG --libs "glib-2.0 >= $GLIB_REQUIRED_VERSION
+-                                  gio-2.0 >= $GIO_REQUIRED_VERSION
+-                                  gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED_VERSION
+-                                  gtk+-2.0 >= $GTK_REQUIRED_VERSION
+-                                  dbus-glib-1 >= $DBUS_REQUIRED_VERSION" 2>/dev/null`
+-else
+-  pkg_failed=yes
+-fi
+-    fi
+-else
+-	pkg_failed=untried
+-fi
+-
+-
+-
+-if test $pkg_failed = yes; then
+-
+-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+-        _pkg_short_errors_supported=yes
+-else
+-        _pkg_short_errors_supported=no
+-fi
+-        if test $_pkg_short_errors_supported = yes; then
+-	        LIBINDICATEGTK_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "glib-2.0 >= $GLIB_REQUIRED_VERSION
+-                                  gio-2.0 >= $GIO_REQUIRED_VERSION
+-                                  gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED_VERSION
+-                                  gtk+-2.0 >= $GTK_REQUIRED_VERSION
+-                                  dbus-glib-1 >= $DBUS_REQUIRED_VERSION"`
+-        else
+-	        LIBINDICATEGTK_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "glib-2.0 >= $GLIB_REQUIRED_VERSION
+-                                  gio-2.0 >= $GIO_REQUIRED_VERSION
+-                                  gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED_VERSION
+-                                  gtk+-2.0 >= $GTK_REQUIRED_VERSION
+-                                  dbus-glib-1 >= $DBUS_REQUIRED_VERSION"`
+-        fi
+-	# Put the nasty error message in config.log where it belongs
+-	echo "$LIBINDICATEGTK_PKG_ERRORS" >&5
+-
+-	as_fn_error "Package requirements (glib-2.0 >= $GLIB_REQUIRED_VERSION
+-                                  gio-2.0 >= $GIO_REQUIRED_VERSION
+-                                  gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED_VERSION
+-                                  gtk+-2.0 >= $GTK_REQUIRED_VERSION
+-                                  dbus-glib-1 >= $DBUS_REQUIRED_VERSION) were not met:
+-
+-$LIBINDICATEGTK_PKG_ERRORS
+-
+-Consider adjusting the PKG_CONFIG_PATH environment variable if you
+-installed software in a non-standard prefix.
+-
+-Alternatively, you may set the environment variables LIBINDICATEGTK_CFLAGS
+-and LIBINDICATEGTK_LIBS to avoid the need to call pkg-config.
+-See the pkg-config man page for more details.
+-" "$LINENO" 5
+-elif test $pkg_failed = untried; then
+-	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error "The pkg-config script could not be found or is too old.  Make sure it
+-is in your PATH or set the PKG_CONFIG environment variable to the full
+-path to pkg-config.
+-
+-Alternatively, you may set the environment variables LIBINDICATEGTK_CFLAGS
+-and LIBINDICATEGTK_LIBS to avoid the need to call pkg-config.
+-See the pkg-config man page for more details.
+-
+-To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+-See \`config.log' for more details." "$LINENO" 5; }
+-else
+-	LIBINDICATEGTK_CFLAGS=$pkg_cv_LIBINDICATEGTK_CFLAGS
+-	LIBINDICATEGTK_LIBS=$pkg_cv_LIBINDICATEGTK_LIBS
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-	:
+-fi
+-
+-
+-
+ ###########################
+ # GObject Introspection
+ ###########################
+@@ -11905,33 +11773,6 @@ fi
+ 
+ 
+ 
+-gdu_cv_version_required=0.3.2
+-
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking gnome-doc-utils >= $gdu_cv_version_required" >&5
+-$as_echo_n "checking gnome-doc-utils >= $gdu_cv_version_required... " >&6; }
+-if test -n "$PKG_CONFIG" && \
+-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gnome-doc-utils >= \$gdu_cv_version_required\""; } >&5
+-  ($PKG_CONFIG --exists --print-errors "gnome-doc-utils >= $gdu_cv_version_required") 2>&5
+-  ac_status=$?
+-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+-  test $ac_status = 0; }; then
+-  gdu_cv_have_gdu=yes
+-else
+-  gdu_cv_have_gdu=no
+-fi
+-
+-if test "$gdu_cv_have_gdu" = "yes"; then
+-	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-	:
+-else
+-	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-	as_fn_error "gnome-doc-utils >= $gdu_cv_version_required not found" "$LINENO" 5
+-fi
+-
+-
+-
+ # Check whether --with-help-dir was given.
+ if test "${with_help_dir+set}" = set; then :
+   withval=$with_help_dir;
+@@ -12174,7 +12015,7 @@ _ACEOF
+ # Files
+ ###########################
+ 
+-ac_config_files="$ac_config_files Makefile libindicate/Makefile libindicate/indicate.pc libindicate-gtk/Makefile libindicate-gtk/indicate-gtk.pc examples/Makefile tests/Makefile docs/Makefile docs/reference/Makefile docs/reference/version.xml"
++ac_config_files="$ac_config_files Makefile libindicate/Makefile libindicate/indicate.pc examples/Makefile tests/Makefile docs/Makefile docs/reference/Makefile docs/reference/version.xml"
+ 
+ cat >confcache <<\_ACEOF
+ # This file is a shell script that caches the results of configure
+@@ -13171,8 +13012,6 @@ do
+     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+     "libindicate/Makefile") CONFIG_FILES="$CONFIG_FILES libindicate/Makefile" ;;
+     "libindicate/indicate.pc") CONFIG_FILES="$CONFIG_FILES libindicate/indicate.pc" ;;
+-    "libindicate-gtk/Makefile") CONFIG_FILES="$CONFIG_FILES libindicate-gtk/Makefile" ;;
+-    "libindicate-gtk/indicate-gtk.pc") CONFIG_FILES="$CONFIG_FILES libindicate-gtk/indicate-gtk.pc" ;;
+     "examples/Makefile") CONFIG_FILES="$CONFIG_FILES examples/Makefile" ;;
+     "tests/Makefile") CONFIG_FILES="$CONFIG_FILES tests/Makefile" ;;
+     "docs/Makefile") CONFIG_FILES="$CONFIG_FILES docs/Makefile" ;;

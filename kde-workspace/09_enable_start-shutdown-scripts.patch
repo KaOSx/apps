@@ -1,0 +1,24 @@
+--- kdebase-workspace-4.3.3/startkde.cmake.patched	2009-11-03 02:26:54.000000000 +0100
++++ kdebase-workspace-4.3.3/startkde.cmake	2009-11-11 14:45:33.000000000 +0100
+@@ -193,8 +193,9 @@
+ # better use the Autostart folder.
+ 
+ libpath=`kde4-config --path lib | tr : '\n'`'\n/etc/kde/lib/'
++envpath=/etc/kde/env/
+ 
+-for prefix in `echo "$libpath" | sed -n -e 's,/lib[^/]*/,/env/,p'`; do
++for prefix in `echo "$libpath" | sed -n -e 's,/lib[^/]*/,/env/,p'` $envpath ; do
+   for file in "$prefix"*.sh; do
+     test -r "$file" && . "$file"
+   done
+@@ -407,7 +408,9 @@
+ echo 'startkde: Running shutdown scripts...'  1>&2
+ 
+ # Run scripts found in $KDEDIRS/shutdown
+-for prefix in `echo "$libpath" | sed -n -e 's,/lib[^/]*/,/shutdown/,p'`; do
++shutdownpath=/etc/kde/shutdown/
++
++for prefix in `echo "$libpath" | sed -n -e 's,/lib[^/]*/,/shutdown/,p'` $shutdownpath; do
+   for file in `ls "$prefix" 2> /dev/null | egrep -v '(~|\.bak)$'`; do
+     test -x "$prefix$file" && "$prefix$file"
+   done

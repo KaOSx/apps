@@ -1,0 +1,1243 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+
+
+# original name (used for the source and pkgnames)
+_origname=kde-l10n
+
+
+
+#
+# package info
+#
+pkgbase=('kde-l10n')
+pkgname=('kde-l10n-ar'
+	 'kde-l10n-bg'
+	 'kde-l10n-ca'
+	 'kde-l10n-ca@valencia'
+	 'kde-l10n-cs'
+#	 'kde-l10n-csb'
+	 'kde-l10n-da'
+	 'kde-l10n-de'
+	 'kde-l10n-el'
+	 'kde-l10n-en_gb'
+	 'kde-l10n-eo'
+	 'kde-l10n-es'
+	 'kde-l10n-et'
+	 'kde-l10n-eu'
+	 'kde-l10n-fi'
+	 'kde-l10n-fr'
+	 'kde-l10n-fy'
+	 'kde-l10n-ga'
+	 'kde-l10n-gl'
+	 'kde-l10n-gu'
+	 'kde-l10n-he'
+	 'kde-l10n-hi'
+	 'kde-l10n-hr'
+	 'kde-l10n-hu'
+	 'kde-l10n-id'
+	 'kde-l10n-is'
+	 'kde-l10n-it'
+	 'kde-l10n-ja'
+	 'kde-l10n-kk'
+	 'kde-l10n-km'
+	 'kde-l10n-kn'
+	 'kde-l10n-ko'
+	 'kde-l10n-lt'
+	 'kde-l10n-lv'
+#	 'kde-l10n-mai'
+#	 'kde-l10n-mk'
+	 'kde-l10n-ml'
+	 'kde-l10n-nb'
+	 'kde-l10n-nds'
+	 'kde-l10n-nn'
+	 'kde-l10n-nl'
+	 'kde-l10n-pa'
+	 'kde-l10n-pl'
+	 'kde-l10n-pt'
+	 'kde-l10n-pt_br'
+	 'kde-l10n-ro'
+	 'kde-l10n-ru'
+#	 'kde-l10n-si'
+	 'kde-l10n-sk'
+	 'kde-l10n-sl'
+	 'kde-l10n-sr'
+	 'kde-l10n-sv'
+#	 'kde-l10n-tg'
+	 'kde-l10n-th'
+	 'kde-l10n-tr'
+	 'kde-l10n-uk'
+	 'kde-l10n-wa'
+	 'kde-l10n-zh_cn'
+	 'kde-l10n-zh_tw')
+
+
+arch=('any')
+pkgver=${_kdever}
+pkgrel=2
+         
+pkgdesc="split package"
+url="http://www.kde.org"
+license=('GPL' 'FDL')
+depends=("kdelibs>=${_kdever}")
+         
+options=('docs')
+         
+         
+source=(${_mirror}/kde-l10n/kde-l10n-ar-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-bg-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-ca-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-ca@valencia-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-cs-${pkgver}.tar.bz2
+#	${_mirror}/kde-l10n/kde-l10n-csb-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-da-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-de-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-el-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-en_GB-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-eo-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-es-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-et-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-eu-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-fi-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-fr-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-fy-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-ga-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-gl-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-gu-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-he-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-hi-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-hr-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-hu-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-ia-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-id-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-is-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-it-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-ja-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-kk-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-km-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-kn-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-ko-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-lt-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-lv-${pkgver}.tar.bz2
+#	${_mirror}/kde-l10n/kde-l10n-mai-${pkgver}.tar.bz2
+#	${_mirror}/kde-l10n/kde-l10n-mk-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-ml-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-nb-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-nds-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-nl-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-nn-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-pa-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-pl-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-pt-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-pt_BR-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-ro-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-ru-${pkgver}.tar.bz2
+#	${_mirror}/kde-l10n/kde-l10n-si-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-sk-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-sl-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-sr-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-sv-${pkgver}.tar.bz2
+#	${_mirror}/kde-l10n/kde-l10n-tg-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-th-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-tr-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-uk-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-wa-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-zh_CN-${pkgver}.tar.bz2
+	${_mirror}/kde-l10n/kde-l10n-zh_TW-${pkgver}.tar.bz2
+	http://chakra-project.org/sources/kde-l10n/kdepim-4.4.5-l10n.tar.xz)
+
+md5sums=(`grep kde-l10n-ar-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-bg-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-ca-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-ca@valencia-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-cs-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-csb-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-da-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-de-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-el-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-en_GB-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-eo-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-es-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-et-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-eu-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-fi-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-fr-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-fy-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-ga-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-gl-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-gu-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-he-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-hi-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-hr-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-hu-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-ia-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-id-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-is-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-it-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-ja-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-kk-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-km-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-kn-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-ko-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-lt-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-lv-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-mai-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-mk-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-ml-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-nb-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-nds-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-nl-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-nn-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-pa-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-pl-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-pt-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-pt_BR-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-ro-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-ru-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-si-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-sk-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-sl-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-sr-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-sv-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-tg-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-th-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-tr-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-uk-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-wa-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-zh_CN-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	`grep kde-l10n-zh_TW-${pkgver}.tar.bz2 ../kde-sc.md5 | cut -d" " -f1`
+	"d018134b1f2eed859624f3014b12bed6")
+
+#
+# build function
+#
+build()
+{
+	cd $startdir/src/
+
+packs=('ar'
+       'bg'
+       'ca'
+       'ca@valencia'
+       'cs'
+#       'csb'
+       'da'
+       'de'
+       'el'
+       'en_GB'
+       'eo'
+       'es'
+       'et'
+       'eu'
+       'fi'
+       'fr'
+       'fy'
+       'ga'
+       'gl'
+       'gu'
+       'he'
+       'hi'
+       'hr'
+       'hu'
+       'ia'
+       'id'
+       'is'
+       'it'
+       'ja'
+       'kk'
+       'km'
+       'kn'
+       'ko'
+       'lt'
+       'lv'
+#       'mai'
+#       'mk'
+       'ml'
+       'nb'
+       'nds'
+       'nl'
+       'nn'
+       'pa'
+       'pl'
+       'pt'
+       'pt_BR'
+       'ro'
+       'ru'
+#       'si'
+       'sk'
+       'sl'
+       'sr'
+       'sv'
+#       'tg'
+       'th'
+       'tr'
+       'uk'
+       'wa'
+       'zh_CN'
+       'zh_TW')
+
+# 	for it in `find . -maxdepth 1 -type d|sed -e '/^\.$/d'` ; do
+# 		pushd "$it"
+# 		cmake -DCMAKE_INSTALL_PREFIX=${_installprefix} -DCMAKE_BUILD_TYPE=Release
+# 		make || return 1
+# 		make DESTDIR=${pkgdir} install
+# 		popd
+# 	done
+
+ 	for it in ${packs[@]} ; do
+ 		pushd "kde-l10n-$it-$pkgver"
+		# add kdepim-4.4.5 translations
+		[ -d ${srcdir}/kde-l10n-$it-$pkgver/docs/kdepim ] && sed -i '2i add_subdirectory( kdepim )' ${srcdir}/kde-l10n-$it-$pkgver/docs/CMakeLists.txt
+		[ -d ${srcdir}/kde-l10n-$it-$pkgver/messages/kdepim ] && sed -i '2i add_subdirectory( kdepim )' ${srcdir}/kde-l10n-$it-$pkgver/messages/CMakeLists.txt
+ 		cmake -DCMAKE_INSTALL_PREFIX=${_installprefix} -DCMAKE_BUILD_TYPE=Release
+ 		make || return 1
+ 		#make DESTDIR=${pkgdir} install
+ 		popd
+ 	done
+}
+
+
+
+#
+# split-install functions
+#
+package_kde-l10n-ar()
+{
+	pkgdesc="KDE language support: Arabic"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ar-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-as()
+{
+	pkgdesc="KDE language support: Assamese"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-as-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ast()
+{
+	pkgdesc="KDE language support: Asturian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ast-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-be()
+{
+	pkgdesc="KDE language support: Belarusian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-be-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-be@latin()
+{
+	pkgdesc="KDE language support: Belarusian (Latin)"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-be@latin-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-bg()
+{
+	pkgdesc="KDE language support: Bulgarian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-bg-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-bn-in()
+{
+	pkgdesc="KDE language support: Bengali (India)"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-bn_IN-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+
+package_kde-l10n-bn()
+{
+	pkgdesc="KDE language support: Bengali"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-bn-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+package_kde-l10n-ca()
+{
+	pkgdesc="KDE language support: Catalan"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ca-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ca@valencia()
+{
+	pkgdesc="KDE language support: Valencian (southern Catalan)"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ca@valencia-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-crh()
+{
+	pkgdesc="KDE language support: Crimean Tatar"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-crh-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-cs()
+{
+	pkgdesc="KDE language support: Czech"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-cs-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-csb()
+{
+	pkgdesc="KDE language support: Kashubian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-csb-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-cy()
+{
+	pkgdesc="KDE language support: Welsh"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-cy-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-da()
+{
+	pkgdesc="KDE language support: Danish"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-da-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-de()
+{
+	pkgdesc="KDE language support: German"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-de-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-el()
+{
+	pkgdesc="KDE language support: Greek"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-el-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-en_gb()
+{
+	pkgdesc="KDE language support: British English"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-en_GB-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-eo()
+{
+	pkgdesc="KDE language support: Esperanto"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-eo-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-es()
+{
+	pkgdesc="KDE language support: Spanish"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-es-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-et()
+{
+	pkgdesc="KDE language support: Estonian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-et-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-eu()
+{
+	pkgdesc="KDE language support: Basque"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-eu-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-fa()
+{
+	pkgdesc="KDE language support: Farsi (Persian)"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-fa-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-fi()
+{
+	pkgdesc="KDE language support: Finnish"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-fi-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-fr()
+{
+	pkgdesc="KDE language support: French"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-fr-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-fy()
+{
+	pkgdesc="KDE language support: Frisian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-fy-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ga()
+{
+	pkgdesc="KDE language support: Irish Gaelic"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ga-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-gl()
+{
+	pkgdesc="KDE language support: Galician"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-gl-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-gu()
+{
+	pkgdesc="KDE language support: Gujarati"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-gu-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ha()
+{
+	pkgdesc="KDE language support: Hausa"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ha-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-he()
+{
+	pkgdesc="KDE language support: Hebrew"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-he-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-hi()
+{
+	pkgdesc="KDE language support: Hindi"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-hi-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-hne()
+{
+	pkgdesc="KDE language support: Chhattisgarhi"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-hne-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-hr()
+{
+	pkgdesc="KDE language support: Croatian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-hr-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-hsb()
+{
+	pkgdesc="KDE language support: Upper Sorbian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-hsb-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-hu()
+{
+	pkgdesc="KDE language support: Hungarian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-hu-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-hy()
+{
+	pkgdesc="KDE language support: Armenian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-hy-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ia()
+{
+	pkgdesc="KDE language support: Interlingua"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ia-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-id()
+{
+	pkgdesc="KDE language support: Indonesian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-id-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-is()
+{
+	pkgdesc="KDE language support: Icelandic"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-is-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-it()
+{
+	pkgdesc="KDE language support: Italian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-it-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ja()
+{
+	pkgdesc="KDE language support: Japanese"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ja-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ka()
+{
+	pkgdesc="KDE language support: Georgian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ka-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-kk()
+{
+	pkgdesc="KDE language support: Kazakh"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-kk-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-km()
+{
+	pkgdesc="KDE language support: Khmer"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-km-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-kn()
+{
+	pkgdesc="KDE language support: Kannada"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-kn-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ko()
+{
+	pkgdesc="KDE language support: Korean"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ko-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ku()
+{
+	pkgdesc="KDE language support: Kurdish"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ku-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-lb()
+{
+	pkgdesc="KDE language support: Luxembourgish"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-lb-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-lt()
+{
+	pkgdesc="KDE language support: Lithuanian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-lt-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-lv()
+{
+	pkgdesc="KDE language support: Latvian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-lv-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-mai()
+{
+	pkgdesc="KDE language support: Maithili"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-mai-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-mk()
+{
+	pkgdesc="KDE language support: Macedonian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-mk-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ml()
+{
+	pkgdesc="KDE language support: Malayalam"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ml-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-mr()
+{
+	pkgdesc="KDE language support: Marathi"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-mr-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ms()
+{
+	pkgdesc="KDE language support: Malay"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ms-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-nb()
+{
+	pkgdesc="KDE language support: Norwegian Bokmal"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-nb-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-nds()
+{
+	pkgdesc="KDE language support: Low Saxon"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-nds-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ne()
+{
+	pkgdesc="KDE language support: Nepali"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ne-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-nl()
+{
+	pkgdesc="KDE language support: Dutch"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-nl-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-nn()
+{
+	pkgdesc="KDE language support: Norwegian Nynorsk"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-nn-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-oc()
+{
+	pkgdesc="KDE language support: Occitan"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-oc-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-or()
+{
+	pkgdesc="KDE language support: Oriya"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-or-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-pa()
+{
+	pkgdesc="KDE language support: Panjabi & Punjabi"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-pa-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-pl()
+{
+	pkgdesc="KDE language support: Polish"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-pl-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ps()
+{
+	pkgdesc="KDE language support: Pashto"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ps-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-pt()
+{
+	pkgdesc="KDE language support: Portugese"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-pt-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-pt_br()
+{
+	pkgdesc="KDE language support: Brazilian Portuguese"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-pt_BR-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ro()
+{
+	pkgdesc="KDE language support: Romanian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ro-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ru()
+{
+	pkgdesc="KDE language support: Russian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ru-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-se()
+{
+	pkgdesc="KDE language support: Northern Sami"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-se-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-si()
+{
+	pkgdesc="KDE language support: Sinhala"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-si-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+
+package_kde-l10n-sk()
+{
+	pkgdesc="KDE language support: Slovak"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-sk-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-sl()
+{
+	pkgdesc="KDE language support: Slovenian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-sl-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-sr()
+{
+	pkgdesc="KDE language support: Serbian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-sr-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-sr@ijekavian()
+{
+	pkgdesc="KDE language support: Serbian (Ijekavian)"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-sr@ijekavian-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-sr@ijekavianlatin()
+{
+	pkgdesc="KDE language support: Serbian (Ijekavian Latin)"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-sr@ijekavianlatin-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-sr@latin()
+{
+	pkgdesc="KDE language support: Serbian (Latin)"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-sr@latin-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-sv()
+{
+	pkgdesc="KDE language support: Swedish"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-sv-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-ta()
+{
+	pkgdesc="KDE language support: Tamil"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-ta-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-te()
+{
+	pkgdesc="KDE language support: Telugu"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-te-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-tg()
+{
+	pkgdesc="KDE language support: Tajik"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-tg-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+
+package_kde-l10n-th()
+{
+	pkgdesc="KDE language support: Thai"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-th-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-tr()
+{
+	pkgdesc="KDE language support: Turkish"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-tr-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-uk()
+{
+	pkgdesc="KDE language support: Ukrainian"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-uk-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-uz()
+{
+	pkgdesc="KDE language support: Uzbek"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-uz-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-uz@cyrillic()
+{
+	pkgdesc="KDE language support: Uzbek (Cyrillic)"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-uz@cyrillic-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-vi()
+{
+	pkgdesc="KDE language support: Vietnamese"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-vi-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-wa()
+{
+	pkgdesc="KDE language support: Walloon"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-wa-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-xh()
+{
+	pkgdesc="KDE language support: Xhosa"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-xh-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-zh_cn()
+{
+	pkgdesc="KDE language support: Chinese Simplified"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-zh_CN-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-zh_hk()
+{
+	pkgdesc="KDE language support: Chinese Hong Kong"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-zh_HK-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+package_kde-l10n-zh_tw()
+{
+	pkgdesc="KDE language support: Chinese Traditional"
+	groups=("kde-uninstall" "kde-l10n")
+
+	pushd ${srcdir}/kde-l10n-zh_TW-${pkgver}
+		make DESTDIR=${pkgdir} install || return 1
+	popd
+}
+
+

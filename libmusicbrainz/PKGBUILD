@@ -1,0 +1,62 @@
+#
+# Platform Packages for Chakra, part of chakra-project.org
+#
+# maintainer: abveritas[at]chakra-project[dog]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+pkgname=libmusicbrainz
+pkgver=5.0.1
+pkgrel=3
+pkgdesc="Library That Provides Access to the MusicBrainz Server  "
+url="http://musicbrainz.org/"
+arch=('i686' 'x86_64')
+license=('LGPL2.1')
+depends=('neon' 'libdiscid')
+makedepends=('cmake')
+provides=('libmusicbrainz2' 'libmusicbrainz3' 'libmusicbrainz5' 'musicbrainz')
+conflicts=('musicbrainz')
+replaces=('musicbrainz')
+source=("http://pkgs.fedoraproject.org/repo/pkgs/libmusicbrainz/libmusicbrainz-2.1.5.tar.gz/d5e19bb77edd6ea798ce206bd05ccc5f/libmusicbrainz-2.1.5.tar.gz"
+	"gcc47.patch"
+	"https://github.com/downloads/metabrainz/libmusicbrainz/libmusicbrainz-3.0.3.tar.gz"
+        "https://github.com/downloads/metabrainz/libmusicbrainz/libmusicbrainz-$pkgver.tar.gz")
+md5sums=('d5e19bb77edd6ea798ce206bd05ccc5f'
+         'd8192e5bc8109bdf6944824eac9e86bd'
+         'f4824d0a75bdeeef1e45cc88de7bb58a'
+         'a0406b94c341c2b52ec0fe98f57cadf3')
+
+build() {
+
+  msg "Building LibMusicBrainz 2"
+  cd ${srcdir}/libmusicbrainz-2.1.5
+  patch -p1 -i ${srcdir}/gcc47.patch
+  ./configure --prefix=/usr
+  make
+
+  msg "Building LibMusicBrainz 3"
+  cd ${srcdir}/libmusicbrainz-3.0.3
+  cmake . \
+      -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+      -DBUILD_SHARED_LIBS:BOOL=ON
+  make
+
+  msg "Building LibMusicBrainz 5"
+  cd ${srcdir}/libmusicbrainz-${pkgver}
+  cmake . \
+      -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+      -DBUILD_SHARED_LIBS:BOOL=ON
+  make
+
+
+}
+
+package() {
+  cd ${srcdir}/libmusicbrainz-2.1.5
+  make DESTDIR=${pkgdir} install
+
+  cd ${srcdir}/libmusicbrainz-3.0.3
+  make DESTDIR=${pkgdir} install
+
+  cd ${srcdir}/libmusicbrainz-${pkgver}
+  make DESTDIR=${pkgdir} install
+}

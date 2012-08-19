@@ -1,0 +1,56 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=tribe-partitionmanager
+pkgver=1257912
+pkgrel=1
+arch=('i686' 'x86_64')
+url="https://sourceforge.net/projects/partitionman"
+license=('GPL2')
+depends=('kdebase-runtime' 'parted' 'libatasmart')
+makedepends=('cmake' 'automoc4' 'pkgconfig' 'svn')
+optdepends=('e2fsprogs: ext2/3/4 support'
+	    'xfsprogs: XFS support'
+	    'jfsutils: JFS support'
+	    'reiserfsprogs: Reiser support'
+	    'ntfsprogs: NTFS support'
+	    'dosfstools: FAT32 support')
+conflict=('partitionmanager')
+install=partitionmanager.install	    
+source=(tribe.patch) # disable-gpt.patch)
+md5sums=('748fcb71ac661cc06001d589ed5fa688') # '30c6cdf25c23c6fc33c21b3b48b28ed0')
+
+#_svntrunk=svn://anonsvn.kde.org/home/kde/trunk/extragear/sysadmin/partitionmanager
+_svnmod=partitionmanager-svn
+
+build() {
+  cd "${srcdir}"
+
+  svn co svn://anonsvn.kde.org/home/kde/trunk/extragear/sysadmin/partitionmanager -r $pkgver $_svnmod
+
+  msg "SVN checkout done or server timeout"
+  msg "Starting make..."
+
+  cp -r $_svnmod $_svnmod-build
+  cd $_svnmod-build
+
+  patch -p1 < ${srcdir}/tribe.patch
+  #patch -p1 < ${srcdir}/disable-gpt.patch
+
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+  make 
+}
+
+package() {
+  cd "${srcdir}/$_svnmod-build"
+  make DESTDIR="${pkgdir}" install
+
+}
+

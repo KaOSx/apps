@@ -1,0 +1,51 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=libbluedevil-git
+pkgver=20101018
+pkgrel=1
+pkgdesc='A Qt wrapper for bluez used in the new KDE bluetooth stack'
+arch=('i686' 'x86_64')
+url="http://gitorious.org/libbluedevil"
+license=('GPL')
+depends=('qt' 'bluez')
+makedepends=('cmake' 'git')
+provides=("libbluedevil")
+conflicts=("libbluedevil")
+source=("http://chakra-project.org/sources/libbluedevil/libbluedevil-$pkgver.tar.xz")
+md5sums=('1d2377b5805d50728b9a2f6211ad351c') #  libbluedevil-20101018.tar.xz
+
+# create tarball: source PKGBUILD && mksource
+
+mksource() {
+  git clone git://gitorious.org/libbluedevil/libbluedevil.git
+  pushd libbluedevil
+  popd
+  tar -cvJf libbluedevil-${pkgver}.tar.xz libbluedevil/*
+  md5sum libbluedevil-${pkgver}.tar.xz
+}
+
+build(){
+  cd ${srcdir}
+
+  mkdir -p libbluedevil-build
+  cp -R libbluedevil/* libbluedevil-build
+  cd libbluedevil-build
+ 
+  cmake -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd ${srcdir}/libbluedevil-build
+  make DESTDIR=${pkgdir} install
+  rm -R ${srcdir}/libbluedevil-build
+}

@@ -1,0 +1,44 @@
+#!/bin/bash
+
+function error_handler {
+        echo " "
+        echo " "
+        echo " "
+        echo " "
+        echo "Something went wrong :( ..."
+        echo " "
+        echo " "
+        echo " "
+        echo " "
+        exit 1
+}
+
+# standard message
+msg() {
+        local mesg=$1; shift
+        echo ":: MESSAGE: ${mesg}"
+}
+
+# message when starting a job
+msg_job_start() {
+        local mesg=$1; shift
+        echo " "
+        echo " "
+        echo " "
+        echo " "
+        echo ">> STARTING JOB ${mesg}"
+}
+
+# message when a job has been finished
+msg_job_done() {
+        local mesg=$1; shift
+        echo ">> JOB DONE"
+        echo " "
+        echo " "
+        echo " "
+        echo " "
+}
+
+# check if we have a internet connection
+ping_check=$(LC_ALL=C ping -c 1 www.chakra-project.org | grep "1 received")
+

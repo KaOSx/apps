@@ -1,0 +1,49 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgname=kdegraphics-kgamma
+_pkgname=kgamma
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="A monitor calibration tool"
+arch=('i686' 'x86_64')
+url='http://www.kde.org'
+license=('GPL' 'LGPL' 'FDL')
+# note on libxxf86vm:
+#       not detected by namcap because libgl depends on it
+#       but nvidia providing libgl does not depend on libxxf86vm
+depends=("kde-runtime>=${_kdever}" 'libxxf86vm' "kdegraphics-libkexiv2>=${_kdever}" "kdegraphics-libkdcraw>=${_kdever}" "kdegraphics-libkipi>=${_kdever}" "kdegraphics-ksaneplugin>=${_kdever}"
+         "kdegraphics-thumbnailers>=${_kdever}" "kdegraphics-strigi-analyzer>=${_kdever}" "kdegraphics-svgpart>=${_kdever}")
+makedepends=('cmake' 'automoc4')
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+groups=("kde" "kdegraphics" "kde-uninstall")
+categories=('graphics')
+provides=('kdegraphics-common')
+replaces=('kdegraphics-common' 'kdegraphics-doc')
+conflicts=('kdegraphics-common')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+                -DCMAKE_INSTALL_PREFIX=${_installprefix} \
+                -DCMAKE_SKIP_RPATH=ON \
+                -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+}
+
+package() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	make DESTDIR=${pkgdir} install || return 1
+
+}

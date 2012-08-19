@@ -1,0 +1,83 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+
+#
+# package info
+#
+pkgname=tribe
+pkgver=2012.08.05
+pkgrel=1
+_codename=Claire
+pkgdesc="Tribe - Chakra LiveCD Installer"
+url="http://git.chakra-project.org/chakra/"
+license="GPL"
+arch=('i686' 'x86_64')
+depends=('kdelibs' 'kdeedu-marble>=4.9.0' 'squashfs-tools' 'tribe-partitionmanager'
+        'cinstall>=0.4.6.10' 'rsync' 'mkinitcpio-nfs-utils' 'ntfs-3g')
+makedepends=('cmake' 'kde-workspace' 'automoc4')
+options=('!splithdr' '!splitdbg' 'sign')
+source=("tribe.tar.xz"
+        "http://chakra-linux.org/sources/tribe/RELEASE_NOTES_20120702.html"
+        'launch-tribe.sh')
+  
+md5sums=('868aaa9803c6d19fa4bb4970ed50038e'
+         'fbf12d9f51eec4676c222ca6c4ba42ce'
+         'e31855da237a2c8029774831b3c04685')
+ 
+groups=('kde-uninstall')
+categories=('system')
+install=tools-tribe.install
+
+# create tarball: source PKGBUILD && mksource
+
+mksource() {
+	  rm -vRf ${pkgname}-${pkgver}
+	  git clone git://gitorious.org/chakra/${pkgname}.git ${pkgname}-${pkgver}
+	  rm -vRf ${pkgname}-${pkgver}/.git
+	  pushd ${pkgname}-${pkgver}
+	  popd
+	  tar -cvJf ${pkgname}-${pkgver}.tar.xz ${pkgname}-${pkgver}/*
+	  md5sum ${pkgname}-${pkgver}.tar.xz
+}
+
+#
+# build function
+#
+build()
+{
+        cd "${srcdir}/${pkgname}"
+
+	# replace rekonq screenshot with konqueror
+	#rm -v ui/images/screenshot04.png
+	#mv -v ui/images/screenshot04-konqueror.png ui/images/screenshot04.png
+
+	# proper bootmnt folder
+	sed -i -e "s/@ARCH@/${CARCH}/g" config-tribe.h.cmake
+
+	# add pkgver to tribe
+	sed -i -e "s~source build/from git~Build: ${pkgver} ($_codename)~g" config-tribe.h.cmake
+	sed -i -e "s~code-name~$_codename~g" "${srcdir}/${pkgname}/scripts/postinstall-functions/job-initialize-target"
+	sed -i -e "s~chakra-version~${pkgver}~g" "${srcdir}/${pkgname}/scripts/postinstall-functions/job-initialize-target"
+	cmake . -DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed' 
+
+	msg "Starting make..."
+	make 
+}
+
+package()
+{
+        cd "${srcdir}/${pkgname}"
+	msg "Make successful, installing..."
+	make DESTDIR=$startdir/pkg install 
+        install -Dm755 ${srcdir}/launch-tribe.sh \
+        ${pkgdir}/usr/bin/launch-tribe.sh
+	cp -vf ${srcdir}/RELEASE_NOTES_20120702.html $pkgdir/usr/share/tribe/config/RELEASE_NOTES.html
+
+	# remove nasty files
+	find $startdir/pkg/ -name ".git" -type d -exec rm -fr {} +
+}

@@ -1,0 +1,29 @@
+commit 3919480e78c9b8854ce6e17f5ecbfbc009d40fef
+Author: Dario Freddi <drf@kde.org>
+Date:   Fri Jan 20 14:59:37 2012 +0100
+
+    The logic for the inhibition checkbox in the plasma applet was inverted: fix that
+
+diff --git a/plasma/generic/applets/battery/battery.cpp b/plasma/generic/applets/battery/battery.cpp
+index 63d3673..854469d 100644
+--- a/plasma/generic/applets/battery/battery.cpp
++++ b/plasma/generic/applets/battery/battery.cpp
+@@ -1066,14 +1066,16 @@ void Battery::toggleInhibit(bool toggle)
+ {
+     using namespace Solid::PowerManagement;
+ 
+-    if (m_inhibitCookies.first > 0 && m_inhibitCookies.second > 0 && !toggle) {
++    if (m_inhibitCookies.first > 0 && m_inhibitCookies.second > 0 && toggle) {
+         // Release inhibition
++        kDebug() << "Releasing inhibition";
+         stopSuppressingSleep(m_inhibitCookies.first);
+         stopSuppressingScreenPowerManagement(m_inhibitCookies.second);
+ 
+         m_inhibitCookies = qMakePair< int, int >(-1, -1);
+-    } else if (m_inhibitCookies.first < 0 && m_inhibitCookies.second < 0 && toggle) {
++    } else if (m_inhibitCookies.first < 0 && m_inhibitCookies.second < 0 && !toggle) {
+         // Trigger inhibition
++        kDebug() << "Trigger inhibition";
+         QString reason = i18n("The battery applet has enabled system-wide inhibition");
+         m_inhibitCookies = qMakePair< int, int >(beginSuppressingSleep(reason),
+                                                  beginSuppressingScreenPowerManagement(reason));

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+job_rcconf_daemons()
+{
+	# initialize error handling
+	trap error_handler ERR
+
+	msg_job_start "job_rcconf_daemons"
+
+	msg "add basic daemon configuration"
+	sed -i -e 's/^.*DAEMONS=.*/DAEMONS=(hwclock syslog-ng dbus network netfs crond alsa cdemud)/' ${mountpoint}/etc/rc.conf
+
+	msg_job_done
+}

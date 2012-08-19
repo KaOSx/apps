@@ -1,0 +1,79 @@
+--- Makefile.am.orig	2010-06-18 16:05:45.237734713 +0200
++++ Makefile.am	2010-06-18 16:07:24.701055207 +0200
+@@ -1,9 +1,6 @@
+ 
+ SUBDIRS = \
+ 	libindicate \
+-	libindicate-gtk \
+-	examples \
+-	tests \
+ 	docs
+ 
+ EXTRA_DIST = \
+
+--- Makefile.in.orig	2010-06-18 16:16:02.327669832 +0200
++++ Makefile.in	2010-06-18 16:16:20.357668793 +0200
+@@ -256,9 +256,6 @@ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ SUBDIRS = \
+ 	libindicate \
+-	libindicate-gtk \
+-	examples \
+-	tests \
+ 	docs
+ 
+ EXTRA_DIST = \
+
+--- configure.ac.orig	2010-06-18 16:03:02.550252963 +0200
++++ configure.ac	2010-06-18 16:04:54.760240964 +0200
+@@ -33,22 +33,9 @@ AC_SUBST(LIBINDICATE_REVISION)
+ AC_SUBST(LIBINDICATE_AGE)
+ 
+ ###########################
+-# Libindicate versioning 
+-###########################
+-
+-LIBINDICATEGTK_CURRENT=1
+-LIBINDICATEGTK_REVISION=0
+-LIBINDICATEGTK_AGE=0
+-
+-AC_SUBST(LIBINDICATEGTK_CURRENT)
+-AC_SUBST(LIBINDICATEGTK_REVISION)
+-AC_SUBST(LIBINDICATEGTK_AGE)
+-
+-###########################
+ # Dependencies 
+ ###########################
+ 
+-GTK_REQUIRED_VERSION=2.12
+ DBUS_REQUIRED_VERSION=0.76
+ GLIB_REQUIRED_VERSION=2.18
+ GIO_REQUIRED_VERSION=2.18
+@@ -61,16 +48,6 @@ PKG_CHECK_MODULES(LIBINDICATE, glib-2.0
+ AC_SUBST(LIBINDICATE_CFLAGS)
+ AC_SUBST(LIBINDICATE_LIBS)
+ 
+-GDK_PIXBUF_REQUIRED_VERSION=2.12
+-
+-PKG_CHECK_MODULES(LIBINDICATEGTK, glib-2.0 >= $GLIB_REQUIRED_VERSION
+-                                  gio-2.0 >= $GIO_REQUIRED_VERSION
+-                                  gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED_VERSION
+-                                  gtk+-2.0 >= $GTK_REQUIRED_VERSION
+-                                  dbus-glib-1 >= $DBUS_REQUIRED_VERSION)
+-AC_SUBST(LIBINDICATEGTK_CFLAGS)
+-AC_SUBST(LIBINDICATEGTK_LIBS)
+-
+ ###########################
+ # GObject Introspection
+ ###########################
+@@ -160,10 +137,6 @@ AC_OUTPUT([
+ Makefile
+ libindicate/Makefile
+ libindicate/indicate.pc
+-libindicate-gtk/Makefile
+-libindicate-gtk/indicate-gtk.pc
+-examples/Makefile
+-tests/Makefile
+ docs/Makefile
+ docs/reference/Makefile
+ docs/reference/version.xml

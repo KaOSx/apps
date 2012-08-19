@@ -1,0 +1,39 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdemultimedia-dragonplayer
+_pkgname=dragon
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="A multimedia player where the focus is on simplicity, instead of
+features"
+url='http://kde.org/applications/multimedia/dragonplayer/'
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=("kde-runtime>=${_kdever}")
+makedepends=('cmake' 'automoc4')
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+groups=("kde" "kdemultimedia" "kde-uninstall")
+provides=('dragonplayer')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+                -DCMAKE_INSTALL_PREFIX=${_installprefix} \
+                -DCMAKE_SKIP_RPATH=ON \
+                -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+	make
+}
+
+package() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	make DESTDIR=${pkgdir} install || return 1
+
+}

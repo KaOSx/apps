@@ -1,0 +1,137 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+#
+# package info
+#
+pkgbase=('kdeadmin')
+pkgname=('kdeadmin-kcron'
+         'kdeadmin-kuser'
+         'kdeadmin-ksystemlog'
+         'kdeadmin-system-config-printer')
+
+arch=('i686' 'x86_64')
+pkgver=${_kdever}
+pkgrel=3
+pkgdesc="split package"
+url="http://www.kde.org/"
+license=('GPL' 'LGPL' 'FDL')
+install=kdeadmin.install
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+makedepends=('pkgconfig' 'cmake' 'automoc4' "kdepimlibs>=${_kdever}"  "kde-runtime>=${_kdever}"
+	     "kdebindings-pykde4>=${_kdever}" 'system-config-printer' "kdepim-runtime>=${_kdever}" "docbook-xsl")
+
+source=("$_mirror/${pkgbase}-$_kdever.tar.xz" 
+        "syslog-path.patch")
+
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '4b0c3e0a7b7561185e20014fcbc1118e')
+
+#
+# build function
+#
+build() {
+	cd ${srcdir}/${pkgbase}-${pkgver}
+
+	msg "fixing syslog path"
+	patch -p1 -i ${srcdir}/syslog-path.patch
+	
+	cd ${srcdir}
+        rm -rf build
+	mkdir build && cd build
+	
+	msg "starting build ..."
+	cmake ../${pkgbase}-${pkgver} \
+		-DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed' \
+		-DBUILD_strigi-analyzer=OFF \
+	     	-DPYTHON_EXECUTABLE=/usr/bin/python2
+	make
+}
+
+#
+# split-install functions
+#
+
+package_kdeadmin-kcron() {
+	pkgdesc="Crontab editor"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("${pkgbase}" "kde" "kde-uninstall")
+	conflicts=("kdeadmin-doc")
+	categories=('system')
+
+	splitdirs="kcron doc/kcron"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/build/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdeadmin-kdat() {
+	pkgdesc="Tar-based tape archiver"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("${pkgbase}" "kde" "kde-uninstall")
+	categories=('system')
+
+	splitdirs="kdat"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/build/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdeadmin-ksystemlog() {
+	pkgdesc="Log viewer"
+	screenshot="http://www.kde.org/images/screenshots/ksystemlog.png"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("${pkgbase}" "kde" "kde-uninstall")
+	conflicts=("kdeadmin-doc")
+	categories=('system')
+
+	splitdirs="ksystemlog doc/ksystemlog"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/build/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdeadmin-kuser() {
+	pkgdesc="Manage users and groups"
+	screenshot="http://www.kde.org/images/screenshots/kuser.png"
+	depends=("kde-runtime>=${_kdever}")
+	groups=("${pkgbase}" "kde" "kde-minimal" "kde-uninstall")
+	conflicts=("kdeadmin-doc")
+	categories=('system')
+
+	splitdirs="kuser doc/kuser"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/build/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+}
+
+package_kdeadmin-system-config-printer() {
+	pkgdesc="Printer configuration"
+	depends=("kde-runtime>=${_kdever}" "system-config-printer" "kdebindings-pykde4>=${_kdever}" "pygobject" "cups")
+	groups=("${pkgbase}" "kde" "kde-uninstall")
+	categories=('system')
+
+	splitdirs="system-config-printer-kde"
+		for i in ${splitdirs} ; do
+			cd ${srcdir}/build/${i}
+			make DESTDIR=${pkgdir} install || return 1
+		done
+
+	msg "fixing i18n ..."
+	#fix locations
+	sed -i -e 's~special_choice=_("Automatic rotation")),~special_choice=i18n("Automatic rotation")),~g' ${pkgdir}/usr/share/apps/system-config-printer-kde/system-config-printer-kde.py
+}

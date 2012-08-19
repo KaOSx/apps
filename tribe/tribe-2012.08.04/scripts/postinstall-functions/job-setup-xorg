@@ -1,0 +1,30 @@
+#!/bin/bash
+
+job_setup_xorg()
+{
+	# initialize error handling
+	trap error_handler ERR
+
+	msg_job_start "job_setup_xorg"
+
+	# copy generated xorg.xonf to target
+	if [ -e "/etc/X11/xorg.conf" ] ; then
+		msg "copying generated xorg.conf to target"
+		cp -v /etc/X11/xorg.conf ${mountpoint}/etc/X11/xorg.conf
+	else
+		msg "copying generated xorg.conf to target failed - the system will try to create one at first boot."
+	fi
+
+	# copy XORG input config to target
+	if [ -e "/etc/hal/fdi/policy/10-keymap.fdi" ] ; then
+		msg "copying XORG input config to target"
+		cp -vf /etc/hal/fdi/policy/10-keymap.fdi ${mountpoint}/etc/hal/fdi/policy/10-keymap.fdi
+	elif [ -e "/etc/X11/xorg.conf.d/10-keyboard.conf" ] ; then
+		msg "copying XORG input config to target"
+		cp -vf /etc/X11/xorg.conf.d/10-keyboard.conf ${mountpoint}/etc/X11/xorg.conf.d/10-keyboard.conf
+	else
+		msg "copying XORG input config to target failed - the system will try to create one at first boot."
+	fi
+
+	msg_job_done
+}

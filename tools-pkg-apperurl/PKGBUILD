@@ -1,0 +1,35 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=apperurl
+pkgver=0.1
+pkgrel=1
+pkgdesc="Install packages using the apper protocol"
+arch=('i686' 'x86_64')
+url="https://gitorious.org/gcala/apperurl"
+license=('GPL')
+depends=('kde-runtime' 'apper')
+makedepends=('git' 'cmake' 'automoc4' 'kdelibs')
+source=("https://gitorious.org/gcala/$pkgname/archive-tarball/v${pkgver}")
+md5sums=('2aaf0de3fabcc2f7086f717fcea69067')
+
+build() {
+  cd "$srcdir/gcala-$pkgname"
+  mkdir build
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd "$srcdir/gcala-$pkgname/build"
+
+  msg "Installing library..."
+  make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,66 @@
+#
+# Chakra Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+
+#
+# package info
+#
+pkgname=akabeicore
+pkgver=20110407
+pkgrel=1
+pkgdesc="Akabei’s core library"
+url="http://gitorious.org/chakra/akabeicore"
+license="GPL"
+arch=('i686' 'x86_64')
+depends=('sqlite3' 'qt' 'libarchive')
+makedepends=('cmake')
+options=('!splithdr' 'splitdbg')
+source=("http://chakra-project.org/sources/${pkgname}/${pkgname}-${pkgver}-${pkgrel}.tar.xz")
+  
+md5sums=('0fd0cd7f35ff95ad5ffa7385b10ef7b7')
+
+groups=('akabei')
+
+# create tarball: source PKGBUILD && mksource
+
+mksource() {
+	  rm -vRf ${pkgname}
+	  git clone git://gitorious.org/chakra/${pkgname}.git
+	  rm -vRf ${pkgname}/.git
+	  pushd ${pkgname}
+	  popd
+	  tar -cvJf ${pkgname}-${pkgver}-${pkgrel}.tar.xz ${pkgname}/*
+	  md5sum ${pkgname}-${pkgver}-${pkgrel}.tar.xz
+}
+
+#
+# build function
+#
+build()
+{
+        cd "${srcdir}/$pkgname"
+
+	cmake . -DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed' || return 1
+
+	msg "Starting make..."
+	make || return 1
+}
+
+package()
+{
+        cd "${srcdir}/$pkgname"
+	msg "Make successful, installing..."
+	make DESTDIR=$startdir/pkg install || return 1
+
+	# remove nasty files
+	find $startdir/pkg/ -name ".git" -type d -exec rm -fr {} +
+}
