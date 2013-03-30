@@ -1,0 +1,38 @@
+#
+# KDE Packages for Chakra, part of chakra-project.org
+#
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdegames-ksnakeduel
+_pkgname=ksnakeduel
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="Snake Game"
+arch=('x86_64')
+url='http://www.kde.org'
+license=('GPL' 'LGPL' 'FDL')
+depends=("kdegames-libkdegames>=${_kdever}")
+makedepends=('pkg-config' 'cmake' 'automoc4')
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+groups=("kde" "kdegames" "kde-uninstall")
+provides=('ksnakeduel')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+                -DCMAKE_INSTALL_PREFIX=${_installprefix} \
+                -DCMAKE_SKIP_RPATH=ON \
+                -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+}
+
+package() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	make DESTDIR=${pkgdir} install || return 1
+
+}

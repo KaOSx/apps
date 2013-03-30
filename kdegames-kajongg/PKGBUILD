@@ -1,0 +1,37 @@
+#
+# KDE Packages for Chakra, part of chakra-project.org
+#
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdegames-kajongg
+_pkgname=kajongg
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="The ancient Chinese board game for 4 players"
+arch=('x86_64')
+url='http://www.kde.org'
+license=('GPL' 'LGPL' 'FDL')
+depends=("kdegames-libkdegames>=${_kdever}" "kdegames-libkmahjongg>=${_kdever}" "kdebindings-pykde4>=${_kdever}" "python2-twisted")
+makedepends=('pkg-config' 'cmake' 'automoc4')
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+groups=("kde" "kdegames" "kde-uninstall")
+provides=('kajongg')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+                -DCMAKE_INSTALL_PREFIX=${_installprefix} \
+                -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+}
+
+package() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	make DESTDIR=${pkgdir} install || return 1
+
+}
