@@ -1,0 +1,31 @@
+#
+# QT Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+
+pkgname=snowshoe
+pkgver=0.1
+pkgrel=1
+pkgdesc="A fast open source, multi-platform browser based on Qt5 and webkit2"
+url="http://snowshoe.qtlabs.org.br/"
+arch=('i686' 'x86_64')
+license=('GPL3')
+depends=('qt-beta')
+categories=('network')
+#source=(https://github.com/snowshoe/snowshoe/tarball/master)
+source=('snowshoe-snowshoe-878346f.tar.gz')
+md5sums=('7dadbd9a1a90c4b665a66eab8c0355fc')
+
+build() {
+   cd $srcdir/snowshoe-snowshoe-878346f/src/
+   #export PATH="/opt/qt5/bin"
+   #LD_LIBRARY_PATH="/opt/qt5/lib"
+   /opt/qt5/bin/qmake
+   make
+}
+
+package() {
+   cd $srcdir/snowshoe-snowshoe-878346f/src/
+   make INSTALL_ROOT=$pkgdir install
+
+}

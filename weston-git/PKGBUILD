@@ -1,0 +1,48 @@
+# Maintainer: abveritas@chakra-project.org
+# Contributions by https://aur.archlinux.org/packages/weston-git/
+
+pkgname=weston-git
+pkgver=20130322
+pkgrel=1
+pkgdesc='Reference implementation of a Wayland compositor'
+arch=('x86_64')
+url='http://wayland.freedesktop.org'
+license=('MIT')
+options=(!libtool)
+depends=('libxkbcommon' 'mesa-wayland' 'cairo' 'poppler-glib' 'mtdev' 'libxcursor'
+         'pixman' 'xkeyboard-config')
+
+_gitroot='git://anongit.freedesktop.org/wayland/weston'
+_gitname='weston'
+
+build() {
+	msg "Connecting to git.freedesktop.org GIT server...."
+
+	if [ -d "$srcdir/$_gitname" ] ; then
+		cd $_gitname && git pull origin master
+		msg "The local files are updated."
+	else
+		git clone $_gitroot --depth 1
+	fi
+
+	msg "GIT checkout done or server timeout"
+	msg "Starting make..."
+
+	rm -rf "${srcdir}/$_gitname-build"
+	cp -r "${srcdir}/$_gitname" "${srcdir}/$_gitname-build"
+	cd "${srcdir}/$_gitname-build"
+
+	./autogen.sh --prefix=/usr --libexecdir=/usr/lib/weston
+	make
+}
+
+package() {
+	cd "${srcdir}/$_gitname-build"
+	make DESTDIR="${pkgdir}" install
+
+	for _c in clickdot cliptest dnd eventdemo flower image resizor simple-egl \
+	        simple-shm simple-touch smoke transformed view weston-desktop-shell weston-info \
+	        weston-keyboard weston-simple-im weston-tablet-shell weston-terminal; do
+		install -Dm755 "clients/$_c" "$pkgdir/usr/bin/weston-$_c"
+	done
+}

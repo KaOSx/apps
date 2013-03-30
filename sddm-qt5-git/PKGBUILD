@@ -1,0 +1,48 @@
+# Maintainer: abveritas@chakra-project.org
+
+pkgname=sddm-qt5-git
+pkgver=20130326
+pkgrel=1
+pkgdesc="QML based X11 display manager"
+arch=('x86_64')
+url="http://github.com/sddm/sddm"
+license=('GPL')
+depends=('qt5' 'libxcb' 'upower')
+makedepends=('cmake' 'git')
+backup=('etc/sddm.conf')
+source=('background.png')
+md5sums=('7cecc4005880a9d04890b606525b143c')
+_gitroot="git://github.com/sddm/sddm.git"
+_gitname=sddm
+
+build() {
+  cd "$srcdir"
+  msg "Connecting to GIT server...."
+
+  if [[ -d "$_gitname" ]]; then
+    cd "$_gitname" && git pull origin
+    msg "The local files are updated."
+  else
+    git clone "$_gitroot" "$_gitname"
+  fi
+
+  msg "GIT checkout done or server timeout"
+  msg "Starting build..."
+  
+
+  mkdir -p build
+  cd build
+
+  cmake ../${_gitname} -DCMAKE_INSTALL_PREFIX=/usr -DUSE_QT5=true
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+  make DESTDIR="${pkgdir}" install
+  sed -i -e "s|SessionsDir=/usr/share/xsessions|SessionsDir=/etc/X11/sessions|g" $pkgdir/etc/sddm.conf
+  sed -i -e "s|white|black|g" $pkgdir/usr/lib/qt5/qml/SddmComponents/Clock.qml
+  
+  rm "${pkgdir}"/usr/share/apps/sddm/themes/maui/background.png
+  install -m 644 -p ${srcdir}/background.png ${pkgdir}/usr/share/apps/sddm/themes/maui/  
+}
