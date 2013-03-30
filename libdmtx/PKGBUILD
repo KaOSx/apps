@@ -1,0 +1,28 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas[at]chakra-project[dot]org>
+ 
+pkgname=libdmtx
+pkgver=0.7.4
+pkgrel=1
+pkgdesc="software for reading and writing Data Matrix 2D barcodes"
+url=('http://www.libdmtx.org/')
+arch=('x86_64')
+license=('GPL-2')
+depends=('imagemagick')
+source=("http://downloads.sourceforge.net/project/${pkgname}/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('9d9d87f489f0d5b3727d00b784e04c33')
+
+build() {
+	cd "$srcdir/${pkgname}-${pkgver}"
+	
+	./configure --prefix=/usr
+	make
+}
+
+package() {
+	cd "$srcdir/${pkgname}-${pkgver}"
+	
+	make DESTDIR="$pkgdir/" install 
+}
