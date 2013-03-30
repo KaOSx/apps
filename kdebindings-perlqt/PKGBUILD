@@ -1,21 +1,18 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname=kdebindings-perlqt
 _pkgname=perlqt
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Perl bindings for the Qt libraries"
 url="http://kde.org/"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=("kdebindings-smokeqt>=${_kdever}")
 makedepends=('cmake' 'automoc4' "kdebindings-smokegen>=${_kdever}" 'qwt' "kdesdk-kate>=${_kdever}")

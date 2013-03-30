@@ -4,20 +4,20 @@
 # maintainer abveritas@chakra-project.org
 
 pkgname=virtuoso
-pkgver=6.1.5.1
-pkgrel=2
-arch=('i686' 'x86_64')
+pkgver=6.1.6
+pkgrel=1
+arch=('x86_64')
 pkgdesc='A scalable cross-platform server that combines SQL/RDF/XML Data Management with Web Application Server and Web Services Platform functionality'
 url='http://virtuoso.openlinksw.com/wiki/main/Main/'
 license=('GPL')
 depends=('libldap')
 makedepends=('bison' 'flex' 'gperf' 'gawk' 'm4' 'openssl' 'zlib' 'python2' 'unixodbc' 'libiodbc')
 options=('!libtool')
-source=("openlink-virtuoso-opensource-7edcc17.tar.xz")
-md5sums=('886745446fb06eddf8bf2495cb41da06')
+source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-opensource-${pkgver}.tar.gz")
+md5sums=('3991149c570f3738c3e819ce603e487f')
 
 build() {
-  cd ${srcdir}/openlink-virtuoso-opensource-7edcc17
+  cd ${srcdir}/virtuoso-opensource-${pkgver}
 
   CFLAGS="$CFLAGS -I/usr/include/libiodbc"
   CXXFLAGS="$CXXFLAGS -I/usr/include/libiodbc/"
@@ -39,16 +39,16 @@ build() {
 
 package() {
   # install server
-  cd ${srcdir}/openlink-virtuoso-opensource-7edcc17/binsrc/virtuoso
+  cd ${srcdir}/virtuoso-opensource-${pkgver}/binsrc/virtuoso
   make DESTDIR=${pkgdir} install
 
   # install driver
-  cd ${srcdir}/openlink-virtuoso-opensource-7edcc17/binsrc/driver
+  cd ${srcdir}/virtuoso-opensource-${pkgver}/binsrc/driver
   make DESTDIR=${pkgdir} install
 
   # Install some useful tools; rename to avoid conflicts
   for bin in isql isqlw; do
-    install -Dm755 ${srcdir}/openlink-${pkgname}-opensource-7edcc17/binsrc/tests/$bin \
-      ${pkgdir}/usr/bin/$bin-v
+    install -Dm755 ${srcdir}/virtuoso-opensource-${pkgver}/binsrc/tests/$bin \
+      ${pkgdir}/usr/bin/$bin-vt
   done
 }

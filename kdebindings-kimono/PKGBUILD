@@ -7,16 +7,13 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname=kdebindings-kimono
 _pkgname=kimono
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc=".NET/Mono bindings for the KDE libraries"
 url="http://kde.org/"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=("kdebindings-qyoto>=${_kdever}" "kdebindings-smokekde>=${_kdever}")
 makedepends=('cmake' 'automoc4' "kdebindings-smokegen>=${_kdever}" "boost" "kdepimlibs")

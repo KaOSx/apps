@@ -1,23 +1,25 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname="kdemultimedia-thumbnailers"
 pkgdesc='KDE Thumbnailers for several formats'
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
 pkgrel=1
-depends=('mplayer' 'ffmpeg')
+depends=('mplayer' 'ffmpeg' 'kdelibs')
 provides=('ffmpegthumbs' 'mplayerthumbs')
 groups=("kde" "kdemultimedia" "kde-uninstall")
 install=kdemultimedia.install
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs' '!splithdr' 'splitdbg' 'log')
+conflicts=('audiothumbs')
+provides=('audiothumbs')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'docbook-xsl')
 source=($_mirror/ffmpegthumbs-$_kdever.tar.xz
 	$_mirror/mplayerthumbs-$_kdever.tar.xz

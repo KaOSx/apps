@@ -1,8 +1,7 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -12,16 +11,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 #
 pkgname="kdeutils-kgpg"
 _pkgname="kgpg"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="GPG encryption and key management"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs' '!splithdr' 'splitdbg' 'log')
 depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" "kdepimlibs>=${_kdever}" "kdepim-runtime>=${_kdever}")
 conflicts=("kdeutils-common")
-makedepends=('pkgconfig' 'cmake' 'automoc4' "kdelibs>=${_kdever}")
+makedepends=('pkg-config' 'cmake' 'automoc4' "kdelibs>=${_kdever}")
 groups=("kde" "kdeutils" "kde-uninstall")
 categories=('utils')
 install=kdeutils.install
@@ -31,7 +30,6 @@ md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
-        #patch -Np1 -i ${srcdir}/kgpg_fix_startup.diff
 
 	msg "starting build ..."
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
@@ -46,4 +44,3 @@ package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
 	make DESTDIR=${pkgdir} install
 }
-

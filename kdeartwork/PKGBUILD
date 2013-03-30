@@ -7,12 +7,8 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgbase=('kdeartwork')
-pkgname=('kdeartwork-aurorae'
-         'kdeartwork-colorschemes'
+pkgname=('kdeartwork-colorschemes'
          'kdeartwork-desktopthemes'
          'kdeartwork-emoticons'
          'kdeartwork-iconthemes'
@@ -22,14 +18,14 @@ pkgname=('kdeartwork-aurorae'
          'kdeartwork-wallpapers'
 	 'kdeartwork-weatherwallpapers')
 
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="split package"
 url="http://www.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
 install=${pkgbase}.install
-makedepends=('pkgconfig' 'cmake' 'automoc4' 'xscreensaver' 'eigen' "kde-workspace>=${_kdever}")
+makedepends=('pkg-config' 'cmake' 'automoc4' 'xscreensaver' 'eigen' "kde-workspace>=${_kdever}")
 
 source=($_mirror/${pkgbase}-$_kdever.tar.xz
 	http://www.kde-look.org/CONTENT/content-files/92545-xscreensaver.tar.bz2)
@@ -37,9 +33,6 @@ source=($_mirror/${pkgbase}-$_kdever.tar.xz
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'e44e5e6ff9dd2fe66aba7313f7ff1d22') # 92545-xscreensaver.tar.bz2
 
-#
-# build function
-#
 build() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 
@@ -52,9 +45,6 @@ build() {
 	make || return 1
 }
 
-#
-# split-install functions
-#
 package_kdeartwork-aurorae() {
         pkgdesc='An Aurorae theme based on the Oxygen plasma theme'
         depends=("kde-workspace>=${_kdever}")

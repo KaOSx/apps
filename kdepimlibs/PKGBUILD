@@ -1,18 +1,15 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname="kdepimlibs"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 
 pkgdesc="KDE Pim Libraries"
 url="http://www.kde.org"
@@ -20,17 +17,14 @@ license=('GPL' 'LGPL' 'FDL')
 
 install=${pkgname}.install
 options=('docs' '!splithdr' 'splitdbg' 'log')
-depends=("kdelibs>=${_kdever}" 'akonadi>=1.7.2' 'libical' 'gpgme' 'prison')
-makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' 'cyrus-sasl' 'openldap' 'prison' 'docbook-xsl')
+depends=("kdelibs>=${_kdever}" 'akonadi>=1.8.80' 'libical' 'gpgme' 'prison' 'libdmtx' 'qrencode' 'qjson' 'nepomuk-core')
+makedepends=('pkg-config' 'cmake>=2.8.9' 'automoc4' 'boost' 'cyrus-sasl' 'openldap' 'prison' 'docbook-xsl')
 
 groups=("kde" "kde-uninstall" "kde-minimal")
 
 source=($_mirror/${pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-#
-# build and install
-#
 build() {
 	msg "starting build ..."
 	cd ${srcdir}
@@ -43,10 +37,10 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
-	make || return 1
+	make
 }
 
 package() {
 	cd ${srcdir}/build
-	make DESTDIR=${pkgdir} install || return 1
+	make DESTDIR=${pkgdir} install
 }

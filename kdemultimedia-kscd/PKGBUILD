@@ -1,7 +1,7 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -12,9 +12,9 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="KDE CD player"
 url='http://kde.org/applications/multimedia/kscd/'
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=("kde-runtime>=${_kdever}" "libkcddb>=${_kdever}" "libkcompactdisc>=${_kdever}" 'libmusicbrainz3')
+depends=("kde-runtime>=${_kdever}" 'libmusicbrainz3')
 makedepends=('cmake' 'automoc4')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -33,6 +33,7 @@ build() {
 
 package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
-	make DESTDIR=${pkgdir} install || return 1
+	make DESTDIR=${pkgdir} install 
+	
 
 }

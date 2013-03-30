@@ -3,156 +3,27 @@
 #
 # maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
-#
-# package info
-#
-pkgname=("chakra-wallpapers-crunchy-branch-blue"
-	 "chakra-wallpapers-ashoc"
-	 "chakra-wallpapers-neda"
-	 "chakra-wallpapers-ronak"
-	 "chakra-wallpapers-ronak-light"
-	 "chakra-wallpapers-dharma")
-pkgver=0.1
+pkgname=("chakra-wallpapers-dharma")
+pkgver=0.2
 pkgrel=2
-pkgdesc="Chakra Wallpapers for KDE"
+pkgdesc="Chakra Dharma Theme Wallpapers by Malcer for KDE Chakra "
 url="http://www.chakra-project.org"
-license=("GPL" "Creative Commons, BY-SA-NC")
+license=("GPL" "Creative Commons, BY-ND")
 arch=('any')
+makedepends=('automoc4')
 options=('!splithdr' 'splitdbg')
 groups=("kde" "kde-uninstall")
+source=("http://www.chakra-linux.org/sources/dharma/wallpaper/dharma.tar.gz")
+md5sums=('ac368eabc353459f05d12b8a588e68bc')
 
-source=("http://chakra.sourceforge.net/sources/kde-wallpapers/kde-wallpapers-crunchy-branch-blue-1.0.tar.gz"
-	"http://chakra.sourceforge.net/sources/kde-wallpapers/kde-wallpapers-ashoc-1.0-2.tar.gz"
-	"http://chakra.sourceforge.net/sources/neda/NEDA.tar.gz"
-	"http://chakra.sourceforge.net/sources/ronak/ronak-wallpaper-1.0.tar.gz"
-	"http://chakra.sourceforge.net/sources/ronak/ronak-light-wallpaper-1.0.tar.gz"
-	"http://www.chakra-linux.org/sources/dharma/wallpaper/dharma.tar.xz"
-	'screenshot.png')
-md5sums=("52d75a03f18204dde7965bd3dccb9ce4"  #  kde-wallpapers-crunchy-branch-blue-1.0.tar.gz
-	 "e6a3a7e170a739d226c180f5c2a09618"  #  kde-wallpapers-ashoc-1.0-2.tar.gz
-	 "83686866b1e7313b77b3cf98c5c4ddc3"  #  NEDA.tar.gz
-	 "0ec4edb6308f647e8eedb4490b846008"
-         "ff75399ca35846ee8dab701af975b8ee"
-         'eba6c625c695924858257dfd700b62e3'  # Tulip_petals.tar.xz
-         '967bc44a4628eeb639ac01923524e329')
-
-makedepends=('automoc4')
-
-#
-# split-install functions
-#
-package_chakra-wallpapers-crunchy-branch-blue() {
-	pkgdesc="Crunchy-Branch Wallpaper (blue) by Carles Codony"
-	groups=("kde-uninstall" "chakra-wallpapers")
-        replaces=('kde-wa√±√llpapers-crunchy-branch-blue')
-
-	_WALLPAPER="crunchy-branch-blue"
-
-	cd ${srcdir}/$_WALLPAPER
-	
-	mkdir -pv $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cp -Rv * $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-
-	cp -v $startdir/metadata.desktop $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	sed -i -e "s~WALLPAPERNAME~$_WALLPAPER~g" metadata.desktop
-	sed -i -e "s~AUTHOR~Carles Codony~g" metadata.desktop
-}
-
-package_chakra-wallpapers-ashoc() {
-	pkgdesc="Ashoc Wallpaper by Taner Candan"
-	groups=("kde-uninstall" "chakra-wallpapers")
-	replaces=('kde-wallpapers-ashoc')
-
-	_WALLPAPER="ashoc"
-
-	cd ${srcdir}/$_WALLPAPER
-	
-	mkdir -pv $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cp -Rv * $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-
-	cp -v $startdir/metadata.desktop $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	sed -i -e "s~WALLPAPERNAME~$_WALLPAPER~g" metadata.desktop
-	sed -i -e "s~AUTHOR~Taner Candan~g" metadata.desktop
-}
-
-package_chakra-wallpapers-neda() {
-	pkgdesc="Chakra NEDA Theme by Roozbeh Shafiee"
-	groups=("kde-uninstall" "chakra-wallpapers")
-	replaces=('kde-wallpapers-neda')
-
-	_WALLPAPER="NEDA"
-
-	cd ${srcdir}/NEDA/wallpaper/
-	
-	mkdir -pv $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cp -Rv * $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-
-	cp -v $startdir/metadata.desktop $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	sed -i -e "s~WALLPAPERNAME~$_WALLPAPER~g" metadata.desktop
-	sed -i -e "s~AUTHOR~Roozbeh Shafiee~g" metadata.desktop
-}
-
-package_chakra-wallpapers-ronak() {
-
-	pkgdesc="Chakra Ronak Theme by Roozbeh Shafiee "
-	groups=("kde-uninstall" "chakra-wallpapers")
-        replaces=('kde-wallpapers-ronak')
-
-	_WALLPAPER="RONAK"
-
-	cd ${srcdir}/ronak-wallpaper
-	
-	mkdir -pv $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cp -Rv * $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-
-	cp -v $startdir/metadata.desktop $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	cp -v $startdir/screenshot.png $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	sed -i -e "s~WALLPAPERNAME~$_WALLPAPER~g" metadata.desktop
-	sed -i -e "s~AUTHOR~Roozbeh Shafiee~g" metadata.desktop
-}
-
-package_chakra-wallpapers-ronak-light() {
-
-	pkgdesc="Chakra Ronak Theme by Roozbeh Shafiee "
-	groups=("kde-uninstall" "chakra-wallpapers")
-        replaces=('kde-wallpapers-ronak-light') 
-       
-	_WALLPAPER="RONAK-LIGHT"
-
-	cd ${srcdir}/ronak-light-wallpaper
-	
-	mkdir -pv $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cp -Rv * $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
-
-	cp -v $startdir/metadata.desktop $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	sed -i -e "s~WALLPAPERNAME~$_WALLPAPER~g" metadata.desktop
-	sed -i -e "s~AUTHOR~Roozbeh Shafiee~g" metadata.desktop
-}
-
-package_chakra-wallpapers-dharma() {
-
-	pkgdesc="Chakra Dharma Theme by Malcer"
-	groups=("kde-uninstall" "chakra-wallpapers")
-
-	_WALLPAPER="dharma"
-
+package() {
 	cd ${srcdir}/dharma
 	
-	mkdir -pv ${pkgdir}/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cd ${srcdir}/dharma/contents
-	cp -Rv * ${pkgdir}/usr/share/wallpapers/$_WALLPAPER/contents/images
-	cd $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents/images
+	mkdir -pv ${pkgdir}/usr/share/wallpapers/dharma/contents/
+	cd ${srcdir}/dharma/content
+	cp -Rv * ${pkgdir}/usr/share/wallpapers/dharma/contents/
+	cd $pkgdir/usr/share/wallpapers/dharma/contents/
 
-	cp -v ${srcdir}/dharma/metadata.desktop $pkgdir/usr/share/wallpapers/$_WALLPAPER
-	cp -v ${srcdir}/dharma/screenshot.png $pkgdir/usr/share/wallpapers/$_WALLPAPER/contents
+	cp -v ${srcdir}/dharma/metadata.desktop $pkgdir/usr/share/wallpapers/dharma
+	cp -v ${srcdir}/dharma/content/screenshot.png $pkgdir/usr/share/wallpapers/dharma/contents
 }

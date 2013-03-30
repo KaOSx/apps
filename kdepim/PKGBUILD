@@ -1,15 +1,12 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer : abveritas[at]chakra-project[dot]org>
-# maintainer : Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: abveritas[at]chakra-project[dog]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgbase="kdepim"
 pkgname=('kdepim-common'
 	 'kdepim-akonadiconsole'
@@ -27,48 +24,46 @@ pkgname=('kdepim-common'
          'kdepim-ktimetracker'
          'kdepim-mobile')
    
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('!docs' '!splithdr' 'splitdbg' 'log')
 
-makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' "kdelibs>=${_kdever}" "kdepimlibs>=${_kdever}"
+makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' "kdelibs>=${_kdever}" "kdepimlibs>=${_kdever}" "grantlee>=0.3.0"
              "kdepim-runtime>=${_kdever}" 'libxss' "kde-runtime" "libsamplerate" "qrencode" "libdmtx"
-	     'kde-agent' 'libindicate-qt>=0.2.2' 'docbook-xml' 'dblatex')
+	     "kde-common>=${_kdever}" 'docbook-xml' 'dblatex' "nepomuk-widgets>=${_kdever}")
 
 
 source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-
 	cd ${srcdir}/${pkgbase}-${pkgver}
 
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
 		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DKDE4_BUILD_TESTS=OFF \
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
 	make || return 1
 }
 
-#
-# split-install functions
-#
 package_kdepim-common() {
 	pkgdesc="KDE PIM - Common files and libraries"
-	depends=("kdepimlibs>=${_kdever}" 'libxss' "kde-runtime" 'kde-agent'
-                 'libxss' 'libindicate-qt>=0.2.2' "kdepim-runtime>=${_pkgver}")
+	depends=("kdepimlibs>=${_kdever}" 'libxss' "kde-runtime" "kde-common>=${_kdever}"
+                 'libxss' "kdepim-runtime>=${_pkgver}")
         conflicts=('kdepim-doc')
 	groups=("kde" "kdepim" "kde" "kde-uninstall")
 	install=${pkgbase}.install
 
 	splitdirs=(akonadi_next calendarsupport calendarviews console icons importwizard incidenceeditor-ng kdgantt2 kresources ksendemail libkdepim 
                    libkdepimdbusinterfaces libkleo libkpgp libksieve mailcommon mailfilteragent mailimporter messagecore messagecomposer messagecore messagelist 
-		   messageviewer ontologies plugins strigi-analyzer templateparser doc/kwatchgnupg doc/kabcclient doc/kioslave doc/konsolekalendar)
+		   messageviewer ontologies plugins pimcommon pimsettingexporter strigi-analyzer templateparser doc/kwatchgnupg doc/kabcclient doc/kioslave 
+		   doc/konsolekalendar)
 
 		for i in ${splitdirs[@]} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
@@ -82,7 +77,7 @@ package_kdepim-common() {
 package_kdepim-akonadiconsole() {
 	pkgdesc="Akonadi console"
 	groups=("kde" "${pkgbase}" "kde-uninstall")
-	depends=("${pkgbase}-common>=${pkgver}")
+	depends=("${pkgbase}-common>=${pkgver}" "nepomuk-widgets>=${_kdever}")
 	install=${pkgbase}.install
 
 	splitdirs="akonadiconsole"

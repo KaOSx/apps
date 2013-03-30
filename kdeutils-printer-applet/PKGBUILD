@@ -7,14 +7,11 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname="kdeutils-printer-applet"
 _pkgname="printer-applet"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="A system tray utility that shows current print jobs, printer warnings and errors"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -24,7 +21,7 @@ conflicts=("kdeutils-common")
 groups=("kde" "kdeutils" "kde-uninstall")
 categories=('utils')
 install=kdeutils.install
-makedepends=('pkgconfig' 'cmake' 'automoc4' "kdelibs>=${_kdever}"
+makedepends=('pkg-config' 'cmake' 'automoc4' "kdelibs>=${_kdever}"
              "kdepimlibs>=${_kdever}" "kde-baseapps>=${_kdever}"
              "kde-workspace>=${_kdever}" "kdebindings-pykde4>=${_kdever}")
 

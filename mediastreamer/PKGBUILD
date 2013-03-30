@@ -1,24 +1,23 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
 # maintainer :abveritas[at]chakra-project[dog]org>
-# maintainer : Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 pkgname=mediastreamer
 pkgver=2.8.2
-pkgrel=1
+pkgrel=3
 pkgdesc="A library written in C that allows you to create and run audio and video streams."
-arch=('i686' 'x86_64')
+arch=('x86_64')
 url="http://www.linphone.org"
 license=('GPL')
-depends=('ortp' 'speex' 'v4l-utils' 'ffmpeg>=0.8.9' 'libxv')
-makedepends=('cmake' 'automoc4')
-source=("http://download-mirror.savannah.gnu.org/releases/linphone/mediastreamer/mediastreamer-$pkgver.tar.gz")
-md5sums=('e51ea9d5fce1396b374d10473dfbadec')
+depends=('ortp' 'speex' 'v4l-utils' 'ffmpeg>=0.11' 'libxv')
+makedepends=('cmake' 'automoc4' 'intltool')
+source=("http://download-mirror.savannah.gnu.org/releases/linphone/mediastreamer/mediastreamer-$pkgver.tar.gz"
+        'mediastreamer-ffmpeg.patch')
+md5sums=('e51ea9d5fce1396b374d10473dfbadec'
+         'f147546489a973f148ce3dd2dba36834')
 
 build() {
 
-  cd "$srcdir"/$pkgname-$pkgver/
+  cd "$srcdir"/$pkgname-$pkgver
+  patch -p1 -i "${srcdir}"/mediastreamer-ffmpeg.patch
   ./configure --prefix=/usr
   make
 }

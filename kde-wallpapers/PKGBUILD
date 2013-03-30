@@ -1,34 +1,30 @@
 #
 # Chakra Packages for Chakra, part of chakra-project.org
 #
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer abveritas[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
-pkgname=kde-wallpapers
+pkgname="kde-wallpapers"
 pkgver=${_kdever}
 pkgrel=1
 
-_default_wp="Ariya"
+_default_wp="Elarun"
 
-pkgname="kde-wallpapers"
 pkgdesc="KDE Wallpapers"
 url="http://www.kde.org"
 license="GPL"
 arch=('any')
-options=('!splithdr' 'splitdbg')
+options=('!splithdr' 'splitdbg' 'log')
 groups=("kde" "kde-uninstall")
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+depends=('kdelibs')
+replaces=('kde-workspace-wallpapers')
 makedepends=('automoc4')
 
 build() {
-	msg "building official kde wallpapers"
 	cd ${srcdir}/${pkgname}-${pkgver}
 
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
@@ -40,7 +36,6 @@ build() {
 }
 
 package() {
-	replaces=('kdebase-workspace-wallpapers')
 	cd ${srcdir}/${pkgname}-${pkgver}
 	make DESTDIR=${pkgdir} install
 

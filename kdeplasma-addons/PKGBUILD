@@ -1,15 +1,11 @@
 #
-# KDE SC Packages for Chakra, part of chakra-project.org
+# KDE Packages for Chakra, part of chakra-project.org
 #
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgbase="kdeplasma-addons"
 pkgname=('kdeplasma-addons-applets-bball'
          'kdeplasma-addons-applets-binary-clock'
@@ -69,6 +65,7 @@ pkgname=('kdeplasma-addons-applets-bball'
          'kdeplasma-addons-runners-contacts'
          'kdeplasma-addons-runners-converter'
          'kdeplasma-addons-runners-datetime'
+         'kdeplasma-addons-runners-dictionary' 
          'kdeplasma-addons-runners-events'
          'kdeplasma-addons-runners-katesessions'
          'kdeplasma-addons-runners-konquerorsessions'
@@ -80,18 +77,21 @@ pkgname=('kdeplasma-addons-applets-bball'
          'kdeplasma-addons-wallpapers-mandelbrot'
          'kdeplasma-addons-wallpapers-marble'
          'kdeplasma-addons-wallpapers-pattern'
+         'kdeplasma-addons-wallpapers-potd'
+         'kdeplasma-addons-wallpapers-qmlwallpapers'
          'kdeplasma-addons-wallpapers-virus'
          'kdeplasma-addons-wallpapers-weather')
-arch=('i686' 'x86_64')
+
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 
 pkgdesc="KDE Plasma Addons"
 url="http://www.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs' '!splithdr' 'splitdbg' 'log')
 depends=("kde-workspace>=${_kdever}" 'libqalculate' "kdeedu-marble>=${_kdever}" 'qwt')
-makedepends=('pkg-config' 'cmake' 'automoc4' 'libqalculate'
+makedepends=('pkg-config' 'cmake' 'automoc4' 'libqalculate' 'qoauth'
              "kdegraphics-libkexiv2>=${_kdever}" "kdeedu-marble>=${_kdever}" 'eigen' 'scim' 'qwt')
 
 source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
@@ -99,8 +99,6 @@ md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
 	cd $srcdir/$pkgbase-$pkgver
-
-	#msg "Applying upstream fixes..."
 
 	cd ..
         rm -rf build
@@ -601,6 +599,15 @@ package_kdeplasma-addons-runners-datetime() {
         make DESTDIR=$pkgdir install
 }
 
+package_kdeplasma-addons-runners-dictionary() {
+        pkgdesc='A Word Definition Runner'
+        depends=('kde-workspace')
+        groups=("kde" "kde-uninstall" "kdeplasma-addons")
+        cd $srcdir/build/runners/dictionary
+        make DESTDIR=$pkgdir install
+}
+
+
 package_kdeplasma-addons-runners-events() {
 	pkgdesc='Calendar Events runner'
 	depends=('kde-workspace')
@@ -689,6 +696,23 @@ package_kdeplasma-addons-wallpapers-pattern() {
         make DESTDIR=$pkgdir install
 }
 
+package_kdeplasma-addons-wallpapers-potd() {
+        pkgdesc='Picture of the Day'
+        depends=('kdeplasma-addons-common')
+        groups=("kde" "kde-uninstall" "kdeplasma-addons")
+        cd $srcdir/build/wallpapers/potd
+        make DESTDIR=$pkgdir install
+}
+
+package_kdeplasma-addons-wallpapers-qmlwallpapers() {
+	pkgdesc='Animated Wallpapers'
+	depends=('kde-workspace')
+        groups=("kde" "kde-uninstall" "kdeplasma-addons")
+	cd $srcdir/build/wallpapers/qmlwallpapers
+	make DESTDIR=$pkgdir install
+}
+
+
 package_kdeplasma-addons-wallpapers-virus() {
         pkgdesc='Virus'
         depends=('kde-workspace')
@@ -704,4 +728,3 @@ package_kdeplasma-addons-wallpapers-weather() {
         cd $srcdir/build/wallpapers/weather
         make DESTDIR=$pkgdir install
 }
-

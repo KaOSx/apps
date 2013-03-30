@@ -1,7 +1,8 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: abveritas[at]chakra-project[dog]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -9,13 +10,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 # original name (used for the source and pkgnames)
 _origname=oxygen-icons
 
-#
-# package info
-#
 pkgname=('oxygen-icons' 'oxygen-icons-svg')
-arch=('any')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -23,15 +21,11 @@ license=('GPL' 'LGPL' 'FDL')
 install=oxygen-icons.install
 options=('log')
 
-makedepends=('pkgconfig' 'cmake' 'automoc4')
+makedepends=('pkg-config' 'cmake' 'automoc4')
 
 source=($_mirror/${_origname}-$_kdever.tar.xz)
-
 md5sums=(`grep ${_origname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-#
-# build and install
-#
 build() {
 	cd $srcdir/$_origname-$pkgver
 	
@@ -40,7 +34,7 @@ build() {
 	cmake . -DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=${_installprefix}
 
-	make || return 1
+	make
 }
 
 package_oxygen-icons() {

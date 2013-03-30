@@ -1,20 +1,16 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname="kdeutils-ktimer"
 _pkgname="ktimer"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Timer application"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -23,7 +19,7 @@ depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}")
 conflicts=("kdeutils-common")
 groups=("kde" "kdeutils" "kde-uninstall")
 install=kdeutils.install
-makedepends=('pkgconfig' 'cmake' 'automoc4' "kdelibs>=${_kdever}")
+makedepends=('pkg-config' 'cmake' 'automoc4' "kdelibs>=${_kdever}")
 categories=('utils')
 
 source=($_mirror/${_pkgname}-$_kdever.tar.xz)

@@ -1,23 +1,19 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgbase=('kdetoys')
 pkgname=('kdetoys-amor'
          'kdetoys-kteatime'
          'kdetoys-ktux')
 
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -29,10 +25,6 @@ makedepends=('pkgconfig' 'cmake' 'automoc4' "kde-workspace>=${_kdever}")
 source=($_mirror/${pkgbase}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-
-#
-# build function
-#
 build() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
 
@@ -43,12 +35,9 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
-	make || return 1
+	make 
 }
 
-#
-# split-install functions
-#
 package_kdetoys-amor() {
 	pkgdesc="Amusing Misuse Of Resources puts comic figures above your windows"
 	conflicts=("kdetoys-common" "kdetoys-doc")
@@ -56,25 +45,8 @@ package_kdetoys-amor() {
 	categories=('accessories')
 	install=${pkgbase}.install
 
-	splitdirs="amor doc/amor"
-		for i in ${splitdirs} ; do
-			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
-		done
-}
-
-package_kdetoys-eyesapplet() {
-	pkgdesc="An applet similar to XEyes"
-	conflicts=("kdetoys-common")
-	groups=("kde" "kdetoys" "kde-uninstall")
-	categories=('accessories')
-	install=${pkgbase}.install
-
-	splitdirs="eyesapplet"
-		for i in ${splitdirs} ; do
-			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
-		done
+	cd ${srcdir}/${pkgbase}-${pkgver}/amor
+	make DESTDIR=${pkgdir} install 
 }
 
 package_kdetoys-kteatime() {
@@ -84,11 +56,8 @@ package_kdetoys-kteatime() {
 	categories=('accessories')
 	install=${pkgbase}.install
 
-	splitdirs="kteatime doc/kteatime"
-		for i in ${splitdirs} ; do
-			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
-		done
+	cd ${srcdir}/${pkgbase}-${pkgver}/kteatime
+	make DESTDIR=${pkgdir} install 
 }
 
 package_kdetoys-ktux() {
@@ -98,23 +67,7 @@ package_kdetoys-ktux() {
 	categories=('accessories')
 	install=${pkgbase}.install
 
-	splitdirs="ktux"
-		for i in ${splitdirs} ; do
-			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
-		done
+	cd ${srcdir}/${pkgbase}-${pkgver}/ktux
+	make DESTDIR=${pkgdir} install 
 }
 
-package_kdetoys-kweather() {
-	pkgdesc="Kicker applet that will display the current weather outside"
-	conflicts=("kdetoys-common")
-	groups=("kde" "kdetoys" "kde-uninstall")
-	categories=('accessories')
-	install=${pkgbase}.install
-
-	splitdirs="kweather"
-		for i in ${splitdirs} ; do
-			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
-		done
-}

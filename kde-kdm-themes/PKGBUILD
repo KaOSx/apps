@@ -6,164 +6,20 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-
-
-#
-# package info
-#
-pkgname=kde-kdm-themes
-pkgver=1.0.1
+pkgname=kde-kdm-themes-dharma
+pkgver=1.5
 pkgrel=3
-
-pkgbase="kde-kdm-themes"
-pkgname=(
-         #"kde-kdm-themes-crunchy-branch-blue"
-	 #"kde-kdm-themes-ashoc"
-	 #"kde-kdm-themes-neda"
-	 #"kde-kdm-themes-ronak"
-	 #"kde-kdm-themes-ronak-light"
-	 "kde-kdm-themes-dharma")
-
-
-
-pkgdesc="KDE Themes for Chakra"
+pkgdesc="Chakra Dharma KDM-Theme"
 url="http://chakra-project.org"
-license=("GPL" "Creative Commons, BY-SA")
+license=("GPL" "Creative Commons, BY-ND")
 arch=('any')
 depends=('ttf-raleway')
 options=('!splithdr' 'splitdbg')
-
 groups=("kde" "kde-complete" "kde-uninstall" "kde-minimal")
+source=("http://chakra-linux.org/sources/dharma/kdm/$pkgver/Dharma-KDM.tar.xz")
+md5sums=('a5176c539fd0dc1fd01208aecd83c4f4')
 
-source=(
-        #"http://chakra-project.org/sources/kde-kdm-themes/kde-kdm-themes-crunchy-branch-blue-1.0.tar.gz"
-	#"http://chakra-project.org/sources/kde-kdm-themes/kde-kdm-themes-ashoc-1.0.tar.gz"
-	#"http://chakra-project.org/sources/neda/NEDA.tar.gz"
-	#"http://chakra-project.org/sources/ronak/kdm-ronak-light-1.0.1.tar.gz"
-	#"http://chakra-project.org/sources/ronak/kdm-ronak-1.0.1.tar.gz"
-	"http://chakra-project.org/sources/dharma/kdm/Dharma-KDM.tar.gz"
-	"http://chakra-project.org/sources/dharma/kdm/Chakra Dharma KDM.png")
-md5sums=(
-         #"ce9d6d5d89770c0f48f8b1dfc473d54c"  #  kde-kdm-themes-crunchy-branch-blue-1.0.tar.gz
-	 #"21dfcdaa8b47008d7d03ddb64b5e72d8"  #  kde-kdm-themes-ashoc-1.0.tar.gz
-	 #'83686866b1e7313b77b3cf98c5c4ddc3'
-	 #'b27986f3ef514a2be16efb2e7ef28d5f' 
-	 #'e3c3460367c92491acee322e453dee11'
-	 '1f5ce0cd7309c9e7d5ef107ca1f74944'
-         '5850b66a9a6e2b83b8f85895c79f026c')
-
-#_gitroot="git://git.chakra-project.org/artwork/kde-kdm-themes.git"
-#_gitname="kde-kdm-themes"
-#
-#
-# build function
-#
-build() {
-
-	echo "Let's go"
-	# Smart hack here, cool :)
-
-#        cd "${srcdir}"
-#        msg "Connecting to GIT server...."
-#
-#        if [ -d $_gitname ] ; then
-#        cd $_gitname && git pull
-#        msg "The local files are updated."
-#        else
-#	      git clone $_gitroot
-#        fi
-#        msg "GIT checkout done or server timeout"
-#        msg "Starting make..."
-#
-#        rm -rf "${srcdir}/$_gitname-build"
-#
-#        cp -r "${srcdir}/$_gitname" "${srcdir}/$_gitname-build"
-
-}
-
-#
-# split-install functions
-#
-
-package_kde-kdm-themes-crunchy-branch-blue()
-{
-
-	pkgdesc="Crunchy branch KDM-Theme (blue)"
-	groups=("kde" "kde-complete" "kde-uninstall" "kde-minimal" "kde-kdm-themes")
-	install=('crunchy-branch-blue.install')
-	
-	cd ${srcdir}/crunchy-branch-blue
-	
-	mkdir -pv $pkgdir/usr/share/apps/kdm/themes/crunchy-branch-blue
-	cp -Rv * $pkgdir/usr/share/apps/kdm/themes/crunchy-branch-blue
-
-}
-
-package_kde-kdm-themes-ashoc()
-{
-
-	pkgdesc="Ashoc KDM-Theme"
-	groups=("kde" "kde-complete" "kde-uninstall" "kde-minimal" "kde-kdm-themes")
-	install=('ashoc.install')
-	
-	cd ${srcdir}/ashoc
-	
-	mkdir -pv $pkgdir/usr/share/apps/kdm/themes/ashoc
-	cp -Rv * $pkgdir/usr/share/apps/kdm/themes/ashoc
-
-}
-
-package_kde-kdm-themes-neda()
-{
-
-	pkgdesc="Chakra NEDA KDM-Theme"
-	groups=("kde" "kde-complete" "kde-uninstall" "kde-minimal" "kde-kdm-themes")
-	#install=('neda.install')
-	
-	cd ${srcdir}/NEDA/KDM/Chakra-NEDA
-	
-	mkdir -pv $pkgdir/usr/share/apps/kdm/themes/NEDA
-	cp -Rv * $pkgdir/usr/share/apps/kdm/themes/NEDA
-	cp -v ${startdir}/neda-background.sh $pkgdir/usr/share/apps/kdm/themes/NEDA/background.sh
-	chmod a+x $pkgdir/usr/share/apps/kdm/themes/NEDA/background.sh
-}
-
-package_kde-kdm-themes-ronak()
-{
-
-	pkgdesc="Chakra Ronak KDM-Theme"
-	groups=("kde" "kde-complete" "kde-uninstall" "kde-minimal" "kde-kdm-themes")
-	install=('ronak.install')
-	
-	cd ${srcdir}/kdm-ronak
-	
-	mkdir -pv $pkgdir/usr/share/apps/kdm/themes/RONAK
-	cp -Rv * $pkgdir/usr/share/apps/kdm/themes/RONAK
-	cp -v ${startdir}/ronak-background.sh $pkgdir/usr/share/apps/kdm/themes/RONAK/background.sh
-	chmod a+x $pkgdir/usr/share/apps/kdm/themes/RONAK/background.sh
-}
-
-package_kde-kdm-themes-ronak-light()
-{
-
-	pkgdesc="Chakra Ronak-Light KDM-Theme"
-	groups=("kde" "kde-complete" "kde-uninstall" "kde-minimal" "kde-kdm-themes")
-	install=('ronak-light.install')
-	
-	cd ${srcdir}/kdm-ronak-light
-	
-	mkdir -pv $pkgdir/usr/share/apps/kdm/themes/RONAK-LIGHT
-	cp -Rv * $pkgdir/usr/share/apps/kdm/themes/RONAK-LIGHT
-	cp -v ${startdir}/ronak-light-background.sh $pkgdir/usr/share/apps/kdm/themes/RONAK-LIGHT/background.sh
-	chmod a+x $pkgdir/usr/share/apps/kdm/themes/RONAK-LIGHT/background.sh
-}
-
-package_kde-kdm-themes-dharma()
-{
-
-	pkgdesc="Chakra Dharma KDM-Theme"
-	groups=("kde" "kde-complete" "kde-uninstall" "kde-minimal" "kde-kdm-themes")
-	
+package() {
 	cd ${srcdir}/Dharma-KDM
 	
 	mkdir -pv $pkgdir/usr/share/apps/kdm/themes/dharma

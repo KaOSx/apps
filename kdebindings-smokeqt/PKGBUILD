@@ -1,22 +1,18 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer abveritas[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname=kdebindings-smokeqt
 _pkgname=smokeqt
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Language independent library for Qt bindings"
 url="http://kde.org/"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=("kde-runtime>=${_kdever}" 'qimageblitz' 'qscintilla' 'qwt' "kdebindings-smokegen>=${_kdever}")
 makedepends=('cmake' 'automoc4')
@@ -29,12 +25,12 @@ options=('docs' '!splithdr' 'splitdbg' 'log')
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
-                -DCMAKE_INSTALL_PREFIX=${_installprefix} 
+                -DCMAKE_INSTALL_PREFIX=${_installprefix}  
         make
 }
 
 package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
-	make DESTDIR=${pkgdir} install || return 1
+	make DESTDIR=${pkgdir} install 
 
 }

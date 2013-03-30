@@ -7,17 +7,14 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname=kde-baseapps-konsole
 _pkgname=konsole
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE Terminal"
 url='http://kde.org/applications/system/konsole/'
 screenshot="http://userbase.kde.org/images.userbase/6/64/Konsole-KDE4.png"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}")
 makedepends=('cmake' 'automoc4')
@@ -29,15 +26,15 @@ categories=('system')
 options=('docs' '!splithdr' 'splitdbg' 'log')
 
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
-	"konsole_defaults.patch")
+	"Shell_new.diff")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-	 'c2709d856ec8aa16329c65a759611ba0')
+	 '56a4c03c72b14ffab92dd38f0e9e4a08')
 
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
 
 	# Fixme: addapt this patch to 4.9
-	# patch -Np2 -i ${srcdir}/konsole_defaults.patch || return 1
+	patch -p1 -i ${srcdir}/Shell_new.diff
 
 	msg "starting build ..."
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \

@@ -7,14 +7,11 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname=('kdeaccessibility-kmag')
 _pkgname="kmag"
 arch=('i686' 'x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Screen magnifier"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -30,9 +27,6 @@ categories=('accessibility')
 source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-#
-# build function
-#
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
 
@@ -40,8 +34,8 @@ build() {
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
 		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
 		-DCMAKE_SKIP_RPATH=ON \
+                -DWITH_QAccessibilityClient=OFF \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
-
 	make || return 1
 }
 

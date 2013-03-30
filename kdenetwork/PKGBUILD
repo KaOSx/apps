@@ -1,15 +1,10 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgbase=('kdenetwork')
 pkgname=('kdenetwork-filesharing'
          'kdenetwork-kdnssd'
@@ -19,31 +14,28 @@ pkgname=('kdenetwork-filesharing'
          'kdenetwork-krdc'
          'kdenetwork-krfb')
 
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=3
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs' '!splithdr' 'splitdbg' 'log')
 
-makedepends=('pkgconfig' 'cmake' 'automoc4' 'boost' 'speex' 'ortp' 'libotr' 'qca-ossl' 'telepathy-qt'
+makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' 'speex' 'ortp' 'libotr' 'qca-ossl' 'telepathy-qt'
 	     "kde-workspace>=${_kdever}" "kde-baseapps>=${_kdever}" 'libvncserver' 'libmsn' 'libmms'
-	     'ppp' 'libv4l' 'libidn' 'rdesktop' 'qimageblitz' 'libxss' 'libxdamage' 'libgadu' 
+	     'ppp' 'libv4l' 'libidn' 'rdesktop' 'qimageblitz' 'libxss' 'libxdamage' 'libgadu'
 	     'mediastreamer' 'msilbc' 'kwebkitpart>=0.9.6' 'libktorrent>=1.0.5' 'docbook-xsl')
 
 source=("$_mirror/${pkgbase}-$_kdever.tar.xz"
-        'lisa.daemon')
-
+        'kget-fix-delete-homedir.diff')
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '66069c83fd5fa0df5d743d4486799033')  # lisa.daemon
+         '4a85d8fbe81a8a034b278daacba0b2c4')
 
-
-#
-# build function
-#
 build() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
+	patch -p3 -i "${srcdir}/kget-fix-delete-homedir.diff"
+	
 	msg "starting build ..."
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
 		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
@@ -53,12 +45,9 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
-	make || return 1
+	make 
 }
 
-#
-# split-install functions
-#
 package_kdenetwork-filesharing() {
 	pkgdesc='Konqueror properties dialog plugin to share a directory with the local network'
 	depends=("kdelibs>=${_kdever}" 'smbclient')
@@ -69,7 +58,7 @@ package_kdenetwork-filesharing() {
 	splitdirs="filesharing"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 }
 
@@ -83,7 +72,7 @@ package_kdenetwork-kdnssd() {
 	splitdirs="kdnssd"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 }
 
@@ -99,7 +88,7 @@ package_kdenetwork-kget() {
 	splitdirs="kget doc/kget"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 }
 
@@ -117,7 +106,7 @@ package_kdenetwork-kopete() {
 	splitdirs="kopete doc/kopete"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 }
 
@@ -133,7 +122,7 @@ package_kdenetwork-kppp() {
 	splitdirs="kppp doc/kppp"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 }
 
@@ -149,7 +138,7 @@ package_kdenetwork-krdc() {
 	splitdirs="krdc doc/krdc"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 }
 
@@ -167,6 +156,6 @@ package_kdenetwork-krfb() {
 	splitdirs="krfb doc/krfb"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 }

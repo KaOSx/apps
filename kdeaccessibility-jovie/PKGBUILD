@@ -1,39 +1,33 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: abveritas[at]chakra-project[dog]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname=('kdeaccessibility-jovie')
 _pkgname="jovie"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=1
 pkgdesc="Text-to-speech system"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" "speech-dispatcher>=0.6.7")
+depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" 'speech-dispatcher')
 conflicts=("kdeaccessibility-doc")
 replaces=("${pkgbase}-kttsd" "${pkgbase}-ksayit")
 provides=('jovie')
 install='kdeaccessibility.install'
 groups=("kdeaccessibility" "kde" "kde-uninstall" "kde-doc")
 options=('docs' '!splithdr' 'splitdbg' 'log')
-makedepends=('pkgconfig' 'cmake' 'automoc4' "kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" 'docbook-xsl')
+makedepends=('pkgconfig' 'cmake' 'automoc4' "kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" "speech-dispatcher>=0.6.7" 'docbook-xsl')
 categories=('accessibility')
 
 source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-#
-# build function
-#
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
 

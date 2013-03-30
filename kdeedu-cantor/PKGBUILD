@@ -1,22 +1,18 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname=kdeedu-cantor
 _pkgname=cantor
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE Frontend to Mathematical Software"
 url="http://kde.org/applications/education/cantor/"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=("kde-runtime>=${_kdever}" 'r' 'libspectre' "kdeedu-analitza>=${_kdever}")
@@ -30,18 +26,14 @@ install=${pkgname}.install
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-build()
-{
+build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} \
                 -DCMAKE_SKIP_RPATH=OFF
-
 }
 
-package()
-{
+package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
 	make DESTDIR=${pkgdir} install || return 1
-
 }

@@ -8,120 +8,99 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 # Default wallpaper included in kde-workspace pkg
-_default_wp="Ariya"
+_default_wp="Elarun"
 
-#
-# package info
-#
 pkgname="kde-workspace"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=1
 pkgdesc="KDE Workspace"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs' '!splithdr' 'splitdbg' 'log')
 install=${pkgname}.install
-depends=('polkit-kde-agent' "kdepimlibs>=${_kdever}" "kde-runtime>=${_kdever}" 'qimageblitz' 'libgles' 'libegl' "kactivities>=${_kdever}"
-	    'libxxf86misc' 'libxcomposite' 'libxss' 'lm_sensors' 'libxklavier' 'libxft' 'oxygen-icons' "xkit" 'libgles' 'libegl'
-	    'libxdamage' 'xorg-utils' 'libxrandr' 'libxres' 'libdmtx' 'libqalculate' 'prison' 'qrencode' "kdepim-runtime>=${_kdever}" "kde-base-artwork>=${_kdever}")
+depends=('polkit-kde-agent' "kdepimlibs>=${_kdever}" "kde-runtime>=${_kdever}" 'qimageblitz' 'mesa' "kactivities>=${_kdever}" 
+	 'libxxf86misc' 'libxcomposite' 'xcb-util-image' 'xcb-util-renderutil' 'libxss' 'lm_sensors' 'libxklavier' 'libxft' 'oxygen-icons' 'xkit' 'libxdamage' 
+         'xorg-utils' 'libxrandr' 'libxres' 'libdmtx' 'libqalculate' 'prison' 'qrencode' "kdepim-runtime>=${_kdever}" "kde-base-artwork>=${_kdever}")
 makedepends=('pkgconfig' 'cmake' 'automoc4' 'networkmanager' 'bluez' "kdebindings-pykde4>=${_kdever}"
-	    'oxygen-icons' 'qedje' "kde-runtime>=${_kdever}" 'gpsd' 'samba' 
-	    'libraw1394' 'libdmtx' 'consolekit' 'docbook-xsl' 'prison' 'qrencode') #google-gadgets-qt 
-optdepends=("kdebindings-pykde4: Python Support for Plasma"
+	    'oxygen-icons' "kde-runtime>=${_kdever}" 'gpsd' 'samba' 'xf86-input-wacom'
+	    'libraw1394' 'libdmtx' 'docbook-xsl' 'prison' 'qrencode')  
+optdepends=("appmenu-qt:         Global menu support"
+            "kdebindings-pykde4: Python Support for Plasma"
 	    "kdeedu-marble:      Marble Wallpaper Plugin"
-	    "qedje:              Plasma Support for Edje Files"
 	    "gpsd:               Plasma geolocation support"
 	    "ntp:                Time/date sync support"
-	    "opentp:             Optional time/date sync support")
-provides=('kdebase-workspace' 'powerdevil' 'kcm_tablet=1.1.3' 'kde-workspace-doc')
-replaces=('guidance-power-manager' 'kdebase-workspace' 'kde-workspace-doc')
-conflicts=('kdebase-workspace' 'powerdevil' 'kcm_tablet' 'guidance-power-manager' 'kde-workspace-doc')
+	    "opentp:             Optional time/date sync support"
+	    "xf86-input-wacom:   Wacom tablet support")
+provides=('kdebase-workspace' 'powerdevil' 'kcm_tablet=1.1.3' 'kde-workspace-doc' 'ktouchpadenabler')
+replaces=('guidance-power-manager' 'kdebase-workspace' 'kde-workspace-doc' 'ktouchpadenabler')
+conflicts=('kdebase-workspace' 'powerdevil' 'kcm_tablet' 'guidance-power-manager' 'kde-workspace-doc' 'kded-appmenu' 'ktouchpadenabler')
 groups=("kde" "kde-uninstall" "kde-minimal")
 backup=('usr/share/config/kdm/kdmrc'
-        'etc/pam.d/kde'
-        'etc/pam.d/kde-np'
         'etc/pam.d/kscreensaver')
 
 
 source=($_mirror/${pkgname}-$_kdever.tar.xz
 	$_mirror/kde-wallpapers-$_kdever.tar.xz
 	mishaaq-kcm_touchpad-00370b5.tar.gz
-        http://chakra.sourceforge.net/sources/kde-workspace/114856-kcm_tablet-1.1.3.tar.gz
-        http://chakra.sourceforge.net/sources/kde-workspace/117639-favorites-0.1.tar.bz2
+        http://chakra.sourceforge.net/sources/kdebase-workspace/114856-wacomtablet-1.99.3.tar.bz2
+        http://chakra.sourceforge.net/sources/kdebase-workspace/117639-favorites-0.1.tar.bz2
         kde.pam
         kde-np.pam
         kscreensaver.pam
         chakra-branding.tar.gz
-	chakra-themes.tar.gz
+	kdm.service
 
         # core patches
         01_kdm_zsh_profile.patch
-        02_sane_env_and_shutdown_path.patch
+        #02_sane_env_and_shutdown_path.patch
         03_plasma_menubutton_branding.patch
+        04_plasma_kickoff_url.patch
 	06_kickoff_default_favourites.patch
 	07_always_show_kickoff_subtext.patch
 	09_enable_start-shutdown-scripts.patch
 
-        # fixes
-        # let KDM wait a big longer for X to start up, fixes problems on some gfx hardware that needs a lot of time to initialize
-        fix_kdm-increase-xserver-timeout-bnc#462478.patch
 	# restart xserver on logout
 	fix_terminate-server.patch
-	# fix kdm default user for greeter
-	fix_kdm_configdef.patch
 	# "fix" some sytemsettings modules that need root access
-	fix_root-only-kcms.patch
-        # shutdown-fix.patch
-	sensors-fix.patch)
+	fix_root-only-kcms.patch)
 
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-        `grep kde-wallpapers-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1` # kde-wallpapers
-        'f355a658d2e9267fdf4e8d8f88038bcf'  # mishaaq-kcm_touchpad-00370b5.tar.gz
-        'd4570491bcf9986d84aeb77c939090a9'  # 114856-kcm_tablet-1.1.3.tar.gz
-        'b60baabccbd302d00923e053db0dc0ae'  # 117639-favorites-0.1.tar.bz2
+         `grep kde-wallpapers-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1` # kde-wallpapers
+         'f355a658d2e9267fdf4e8d8f88038bcf'
+         '452bde7f31f20afe2ffae9cd19260e29'
+         'b60baabccbd302d00923e053db0dc0ae'
+         '5b137f8b00c578ec324e72b455814fd0'
+         'ce53d3a059f5ccbf7429058f935ee9a4'
+         '367a3538f54db71f108b34cfa31088ac'
+         '7c52d1bf3a124e46aab8a5ba93a09ac3'
+         'c4b5f1b342b3dad38642318ca077daee'
+         '721e97031b62aee8914e8617e86f9235'
+         '8e623bb5608025417ff9ed061e5a03f1'
+         '13e71d63e345ddd54eed6b6853ced1fb'
+         'd4d7d3fc3ac072a8ca848e9c96e517dc'
+         '89d96455c6a446ef59b0620d1b8606af'
+         '3ee0002192f6f0a2e1d15c813f520f81'
+         '814350c52c135d6f7bdada1e29223d38'
+         '5f963f80a026f0600edae1b1c70411e5')
 
-        '10a490653b002e6f9e7476ff9d37c011'  #  kde.pam
-        '552337fd9a3982d809ea16c7f0033d42'  #  kde-np.pam
-        '367a3538f54db71f108b34cfa31088ac'  #  kscreensaver.pam
-        '169c6fc83d5562b5d7249db7fc46d8d6'  #  chakra-branding.tar.gz
-        'c328f1c5cfa3e551205ffdc0fdda41a8'  #  chakra-themes.tar.gz
 
-        '721e97031b62aee8914e8617e86f9235'  #  01_kdm_zsh_profile.patch
-        'e2eb9d270fe0e93901b29256bdedd7e2'  #  02_sane_env_and_shutdown_path.patch
-        '8e623bb5608025417ff9ed061e5a03f1'  #  03_plasma_menubutton_branding.patch
-        'd4d7d3fc3ac072a8ca848e9c96e517dc'  #  06_kickoff_default_favourites.patch
-        '89d96455c6a446ef59b0620d1b8606af'  #  07_always_show_kickoff_subtext.patch
-        '5eb9285268916492012151045bdebd26'  #  09_enable_start-shutdown-scripts.patch
-
-        'db2d8166f5ea80ecd291deb9c0e2bb71'  #  fix_kdm-increase-xserver-timeout-bnc#462478.patch
-        '814350c52c135d6f7bdada1e29223d38'  #  fix_terminate-server.patch
-	'97a5eb51e6f9d460f0d61bb322a1db5e'  #  fix_kdm_configdef.patch
-	'5f963f80a026f0600edae1b1c70411e5'  #  fix_root-only-kcms.patch
-        'ecf3a9d6af9bdd3db0189e06ddf21034')  #  sensors-fix.patch
-
-#
-# build function
-#
 build() {
 	cd ${srcdir}/${pkgname}-${pkgver}
 
 	msg "applying main patchset ..."
 	patch -Np0 -i ${srcdir}/01_kdm_zsh_profile.patch
-	patch -Np0 -i ${srcdir}/02_sane_env_and_shutdown_path.patch
+	# 02 is merged in 09, Jan 2013
+	#patch -Np0 -i ${srcdir}/02_sane_env_and_shutdown_path.patch
 	patch -Np1 -i ${srcdir}/03_plasma_menubutton_branding.patch
+        patch -Np0 -i ${srcdir}/04_plasma_kickoff_url.patch
 	patch -Np1 -i ${srcdir}/06_kickoff_default_favourites.patch
 	patch -Np1 -i ${srcdir}/07_always_show_kickoff_subtext.patch
-	patch -Np1 -i ${srcdir}/09_enable_start-shutdown-scripts.patch
+	patch -Np0 -i ${srcdir}/09_enable_start-shutdown-scripts.patch
 
 	msg "applying fixes ..."
-	patch -Np0 -i ${srcdir}/fix_kdm-increase-xserver-timeout-bnc#462478.patch
-	patch -Np0 -i ${srcdir}/fix_terminate-server.patch
-	patch -p0 -N -i ${srcdir}/fix_kdm_configdef.patch
-        patch -Np1 -i ${srcdir}/fix_root-only-kcms.patch
- 
-        #msg "Upstream fixes"
-        #patch -RNp1 -i ${srcdir}/workspace1.diff
+	patch -p0 -i ${srcdir}/fix_terminate-server.patch
+        patch -p1 -i ${srcdir}/fix_root-only-kcms.patch
 
 	msg "starting workspace build ..."
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
@@ -140,9 +119,9 @@ build() {
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
 	msg "starting kcm_tablet build ..."
-	cd ${srcdir}/kcm_tablet-1.1.3
+	cd ${srcdir}/wacomtablet-1.99.3
         # Fix desktop to the new layout
-        sed -i -e "s~keyboard-and-mouse~input-devices~g" ${srcdir}/kcm_tablet-1.1.3/src/kcm_tablet.desktop
+        sed -i -e "s~keyboard-and-mouse~input-devices~g" ${srcdir}/wacomtablet-1.99.3/src/kcmodule/kcm_wacomtablet.desktop
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
 		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
@@ -164,7 +143,7 @@ package() {
 	cd ${srcdir}/mishaaq-kcm_touchpad-00370b5
 	make DESTDIR=${pkgdir} install
 
-	cd ${srcdir}/kcm_tablet-1.1.3
+	cd ${srcdir}/wacomtablet-1.99.3
 	make DESTDIR=${pkgdir} install
 
 	cd ${srcdir}/favorites-0.1
@@ -188,15 +167,19 @@ package() {
 	cd ${srcdir}/${pkgname}-${pkgver}/kdm 
 	make DESTDIR=${pkgdir} GENKDMCONF_FLAGS="--no-old --no-backup --no-in-notice" install
 
-	# TODO: This should be recreated to remove the KDEmod tag and probably remove some outdated stuff
 	# copy branding stuff
 	mkdir -p ${pkgdir}/usr/share/icons/oxygen/scalable/places/
-	cp -f ${srcdir}/kdemod-branding/start-here-branding.svgz ${pkgdir}/usr/share/icons/oxygen/scalable/places/start-here-branding.svgz
-	cp -f ${srcdir}/kdemod-branding/branding-icon.png ${pkgdir}/usr/share/apps/kdm/themes/oxygen/branding-icon.png
-	cd ${srcdir}/kdemod-branding/
+	
+	cp -f ${srcdir}/chakra-branding/start-here-branding.svgz ${pkgdir}/usr/share/icons/oxygen/scalable/places/start-here-branding.svgz
+	cp -f ${srcdir}/chakra-branding/kdemod-start-here-branding.svgz ${pkgdir}/usr/share/icons/oxygen/scalable/places/kdemod-start-here-branding.svgz
+	
+	cp -f ${srcdir}/chakra-branding/branding-icon.png ${pkgdir}/usr/share/apps/kdm/themes/oxygen/branding-icon.png
+	
+	cd ${srcdir}/chakra-branding/
 	for i in 256 128 64 48 32 22 16; do
 		mkdir -p ${pkgdir}/usr/share/icons/oxygen/${i}x${i}/places/
 		install -D -m644 start-here-branding-${i}.png ${pkgdir}/usr/share/icons/oxygen/${i}x${i}/places/start-here-branding.png
+		install -D -m644 kdemod-start-here-branding-${i}.png ${pkgdir}/usr/share/icons/oxygen/${i}x${i}/places/kdemod-start-here-branding.png
 	done
 	
 	# edit kdmrc
@@ -204,6 +187,7 @@ package() {
 	sed -i -e s,#ColorScheme=.*,ColorScheme=Oxygen,g ${pkgdir}/usr/share/config/kdm/kdmrc
 	sed -i -e s,Theme=/usr.*,Theme=/usr/share/apps/kdm/themes/horos,g ${pkgdir}/usr/share/config/kdm/kdmrc
 	sed -i -e s,MinShowUID=.*,MinShowUID=1000,g ${pkgdir}/usr/share/config/kdm/kdmrc
+	sed -i -e 's/halt/poweroff/' ${pkgdir}/usr/share/config/kdm/kdmrc
 
 	# WORKAROUND -> put ggl stuff into ggl package
 	rm -rf ${pkgdir}/usr/share/apps/plasma/plasmoids/ggl_photos
@@ -215,22 +199,15 @@ package() {
 	mkdir -p ${pkgdir}/usr/share/wallpapers
 	cp -rv ${srcdir}/kde-wallpapers-${_kdever}/${_default_wp} ${pkgdir}/usr/share/wallpapers
 
-	# include our patches into the package
-	ls -1 ${startdir}/*.patch &>/dev/null 2>&1
-	if [ "$?" = "0" ]; then
-		warning "incuding patches into package"
-		mkdir -p ${pkgdir}/usr/share/chakra/patches/${pkgname} &>/dev/null
-		for i in ${startdir}/*.patch; do
-			msg "$i"
-			cp $i ${pkgdir}/usr/share/chakra/patches/${pkgname}/ &>/dev/null
-		done
-	else
-		warning "no patches found, skipping to include them into the package..."
-	fi
-	
 	# Adding powerdevil option files
 	mkdir -p ${pkgdir}/usr/include/powerdevil
 	cp -rv ${srcdir}/${pkgname}-${_kdever}/powerdevil/daemon/powerdevilaction.h ${pkgdir}/usr/include/powerdevil
 	cp -rv ${srcdir}/${pkgname}-${_kdever}/powerdevil/daemon/powerdevilactionconfig.h ${pkgdir}/usr/include/powerdevil
 	cp -rv ${srcdir}/${pkgname}-${_kdever}/powerdevil/daemon/powerdevilpolicyagent.h ${pkgdir}/usr/include/powerdevil
+	
+	# Systemd .service file
+	install -D -m644 "${srcdir}"/kdm.service "${pkgdir}"/usr/lib/systemd/system/kdm.service
+	
+	# kde-base-artwork conflict, will be corrected in RC 2
+	rm -rf ${pkgdir}/usr/share/apps/ksplash/Themes/Default/
 }

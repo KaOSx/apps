@@ -5,24 +5,27 @@
 # (c) 2010 Drake Justice
 
 pkgname=cinstall
-pkgver=0.4.8.1
+pkgver=0.4.8.3
 pkgrel=1
 depends=('cbundle' 'kdelibs' 'qjson')
 makedepends=('qt' 'automoc4' 'libcroco')
 pkgdesc="Chakra's Bundle manager"
 screenshot=("http://wstaw.org/m/2012/04/22/cinstall1.png")
-arch=("i686" "x86_64")
+arch=('x86_64')
 license=('GPL')
 install=$pkgname.install
 url="http://chakra-project.org/"
-
 source=("http://chakra-linux.org/sources/cinstall/cinstall-$pkgver.tar.xz")
-md5sums=('73126c5120e00f580d07bf208425473b')
+md5sums=('8ff0f1f403a2ba87d403c416cbb37a51')
 
 # create tarball: source PKGBUILD && mksource
 
 mksource() {
-  git clone git://gitorious.org//chakra/cinstall.git
+  if [ "${1}" = "" ] ; then
+    git clone git://gitorious.org//chakra/cinstall.git
+  else
+    git clone -b git://gitorious.org//chakra/cinstall.git
+  fi
   pushd cinstall
   popd
   tar -cvJf cinstall-${pkgver}.tar.xz cinstall/*

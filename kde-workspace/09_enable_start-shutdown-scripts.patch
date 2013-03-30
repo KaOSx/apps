@@ -1,9 +1,11 @@
---- kdebase-workspace-4.3.3/startkde.cmake.patched	2009-11-03 02:26:54.000000000 +0100
-+++ kdebase-workspace-4.3.3/startkde.cmake	2009-11-11 14:45:33.000000000 +0100
-@@ -193,8 +193,9 @@
+--- startkde.cmake.patched	2013-01-01 10:47:41.000000000 -0500
++++ startkde.cmake	2013-01-13 14:55:03.073264067 -0500
+@@ -158,9 +158,10 @@
+ # For anything else (that doesn't set env vars, or that needs a window manager),
  # better use the Autostart folder.
  
- libpath=`kde4-config --path lib | tr : '\n'`'\n/etc/kde/lib/'
+-libpath=`kde4-config --path lib | tr : '\n'`
++libpath=`kde4-config --path lib | tr : '\n'`$(echo -e '\n/etc/kde/lib/')
 +envpath=/etc/kde/env/
  
 -for prefix in `echo "$libpath" | sed -n -e 's,/lib[^/]*/,/env/,p'`; do
@@ -11,7 +13,7 @@
    for file in "$prefix"*.sh; do
      test -r "$file" && . "$file"
    done
-@@ -407,7 +408,9 @@
+@@ -374,7 +375,9 @@
  echo 'startkde: Running shutdown scripts...'  1>&2
  
  # Run scripts found in $KDEDIRS/shutdown

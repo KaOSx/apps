@@ -1,12 +1,19 @@
-diff -Naur kdebase-workspace-4.3.80.orig/plasma/desktop/applets/kickoff/ui/brandingbutton.cpp kdebase-workspace-4.3.80/plasma/desktop/applets/kickoff/ui/brandingbutton.cpp
---- kdebase-workspace-4.3.80.orig/plasma/desktop/applets/kickoff/ui/brandingbutton.cpp	2009-09-16 11:40:52.000000000 +0000
-+++ kdebase-workspace-4.3.80/plasma/desktop/applets/kickoff/ui/brandingbutton.cpp	2009-12-06 18:23:21.000000000 +0000
-@@ -69,7 +69,7 @@
+--- plasma/desktop/applets/kickoff/ui/brandingbutton.cpp	2013-02-02 23:28:25.395227907 +0100
++++ plasma/desktop/applets/kickoff/ui/brandingbutton.cpp.new	2013-02-02 23:40:52.263704398 +0100
+@@ -25,6 +25,7 @@
+ #include <KDebug>
+ #include <KStandardDirs>
+ #include <KRun>
++#include <KDE/KUrl>
+ 
+ #include <Plasma/Svg>
+ #include <Plasma/Theme>
+@@ -68,7 +69,7 @@
+ 
  void BrandingButton::openHomepage()
  {
-     //FIXME: 4.3 .. add a brandingConfig to Theme
--    KUrl home("http://www.kde.org");
-+    KUrl home("http://www.chakra-project.org");
-     QString themePath = KStandardDirs::locate("data", "desktoptheme/" +
-                                               Plasma::Theme::defaultTheme()->themeName() +
-                                               "/metadata.desktop");
+-    new KRun(Plasma::Theme::defaultTheme()->homepage(), topLevelWidget(), false, false);
++    new KRun(KUrl("http://www.chakra-project.org"), topLevelWidget(), false, false);
+ }
+ 
+ void BrandingButton::paintEvent(QPaintEvent *event)

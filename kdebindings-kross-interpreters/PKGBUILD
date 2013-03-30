@@ -1,24 +1,21 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname=kdebindings-kross-interpreters
 _pkgname=kross-interpreters
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE interpreters for Kross"
 url="http://kde.org/"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=("kdebindings-pykde4>=${_kdever}" "kdebindings-korundum>=${_kdever}")
-makedepends=('cmake' 'automoc4' 'ruby' 'python2' 'openjdk6')
+makedepends=('cmake' 'automoc4' 'ruby' 'python2' 'java-environment')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 groups=("kde" "kdebindings" "kde-uninstall")
@@ -26,18 +23,24 @@ provides=('kross-interpreters')
 options=('docs' '!splithdr' 'splitdbg' 'log')
 
 build() {
-	cd ${srcdir}/${_pkgname}-${pkgver}
+  cd "${srcdir}"
+  mkdir build
+  cd build
 
-	# FIXME; ruby is not compiling atm
-	sed -i -e "s~macro_optional_add_subdirectory(ruby)~~g" CMakeLists.txt
-  
-	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
-                -DCMAKE_INSTALL_PREFIX=${_installprefix} 
-        make
+  # Temporary (and ugly) fix for OpenJDK-7	
+  export JAVA_HOME=/usr/lib/jvm/java-7-openjdk/ 
+
+  cmake ../kross-interpreters-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_ruby=OFF 
+  make
 }
 
 package() {
-	cd ${srcdir}/${_pkgname}-${pkgver}
-	make DESTDIR=${pkgdir} install || return 1
+        cd ${srcdir}/build/java
+        make DESTDIR=${pkgdir} install
 
+	cd ${srcdir}/build/python
+	make DESTDIR=${pkgdir} install
 }

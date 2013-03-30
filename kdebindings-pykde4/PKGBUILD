@@ -7,16 +7,13 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname=kdebindings-pykde4
 _pkgname=pykde4
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE bindings for python"
 url="http://kde.org/"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('pyqt' 'qscintilla' 'boost-libs' "kdepim-runtime>=${_kdever}")
 makedepends=('cmake' 'automoc4' 'polkit-qt' 'boost')
@@ -30,7 +27,7 @@ conflicts=('kdebindings-python')
 options=('docs' '!splithdr' 'splitdbg' 'log')
 
 build() {
-	cd "${srcdir}"
+	cd "${srcdir}" 
 	
         rm -rf build 
 	mkdir build && cd build

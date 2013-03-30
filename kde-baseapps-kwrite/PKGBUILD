@@ -1,25 +1,22 @@
 #
 # KDE SC Packages for Chakra, part of chakra-project.org
 #
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+# maintainer: abveritas[at]chakra-project[dog]org>
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-#
-# package info
-#
 pkgname=('kde-baseapps-kwrite')
 _pkgname=kate
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 url="http://kde.org/"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 pkgdesc="Text Editor"
 depends=("kde-runtime>=${_kdever}" 'kdesdk-kate')
-makedepends=("kdelibs>=${_kdever}" 'cmake' 'automoc4' 'docbook-xsl')
+makedepends=("kdelibs>=${_kdever}" 'cmake' 'automoc4' 'docbook-xsl' "kdebindings-pykde4>=${_kdever}")
 groups=('kde' 'kde-baseapps' 'kde-uninstall')
 provides=('kdebase-kwrite' 'kwrite')
 replaces=('kdebase-kwrite')
@@ -27,12 +24,12 @@ install='kde-baseapps-kwrite.install'
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
         'pkgbuild-syntax-highlight.patch')
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'bb189857e6d917ee8f9ecebab38c1b70')
+        'be69aac51d31e1c2452116c935251464')
+
 options=('docs' '!splithdr' 'splitdbg' 'log')
 
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
-
 	patch -p1 -i "${srcdir}"/pkgbuild-syntax-highlight.patch
 
         rm -rf build
