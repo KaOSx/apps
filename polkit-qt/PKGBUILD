@@ -1,0 +1,32 @@
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+pkgname=polkit-qt
+pkgver=0.103.0
+pkgrel=3
+pkgdesc='A library that allows developers to access PolicyKit API with a nice Qt-style API'
+arch=('x86_64')
+url='https://projects.kde.org/projects/kdesupport/polkit-qt-1'
+license=('LGPL')
+depends=('polkit' 'qt')
+makedepends=('cmake' 'automoc4')
+source=("http://download.kde.org/stable/apps/KDE4.x/admin/${pkgname}-1-${pkgver}.tar.bz2"
+       'polkit1_auth.diff')
+md5sums=('a105e233e6733fb072c9080cd7ae1af2'
+         'ccfa0fb7273939fde2431628795ff527')
+
+build() {
+  cd "${srcdir}"
+  patch -p2 -i "${srcdir}"/polkit1_auth.diff
+  
+  mkdir build
+  cd build
+  cmake ../${pkgname}-1-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/build"
+  make DESTDIR="${pkgdir}" install
+}

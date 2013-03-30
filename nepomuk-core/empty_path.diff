@@ -1,0 +1,70 @@
+commit a3b9c773f2af81d6313757c8158d912c60cc7d64
+Author: Simeon Bird <bladud@gmail.com>
+Date:   Sat Feb 16 13:59:36 2013 -0500
+
+    Filewatch: do not try to watch empty paths.
+    
+    In slotDeviceMounted, we find the mountPath to watch using
+    entry->MountPath. However, if the removable device could not be viewed as
+    a Solid::DeviceType::StorageAccess, mountPath returns QString().
+    
+    We would then try to watch an empty folder.
+    In shouldFolderBeWatched we would try to split the empty string,
+    resulting in an empty list, and take the last component of this list,
+    leading to an invalid pointer and a crash.
+    
+    The fix is two-fold:
+    First, check for empty mountPath in slotDeviceMounted and do not try to
+    watch it.
+    Second, check that the split path is not empty in shouldFolderBeWatched
+    before taking the last component.
+    
+    BUG: 312423
+    FIXED-IN: 4.10.1
+    REVIEW: 108985
+
+diff --git a/services/fileindexer/fileindexerconfig.cpp b/services/fileindexer/fileindexerconfig.cpp
+index 13a14cf..b09c915 100644
+--- a/services/fileindexer/fileindexerconfig.cpp
++++ b/services/fileindexer/fileindexerconfig.cpp
+@@ -174,7 +174,8 @@ bool Nepomuk2::FileIndexerConfig::shouldBeIndexed( const QString& path ) const
+ bool Nepomuk2::FileIndexerConfig::shouldFolderBeWatched( const QString& path ) const
+ {
+     // do not watch folders in the exclude filters
+-    if(!shouldFileBeIndexed( path.split('/', QString::SkipEmptyParts).last() ))
++    QStringList cmpts = path.split('/', QString::SkipEmptyParts);
++    if( cmpts.isEmpty() || !shouldFileBeIndexed( cmpts.last() ) )
+         return false;
+     return true;
+ }
+diff --git a/services/filewatch/nepomukfilewatch.cpp b/services/filewatch/nepomukfilewatch.cpp
+index 392f31d..6081132 100644
+--- a/services/filewatch/nepomukfilewatch.cpp
++++ b/services/filewatch/nepomukfilewatch.cpp
+@@ -417,17 +417,22 @@ void Nepomuk2::FileWatch::slotDeviceMounted(const Nepomuk2::RemovableMediaCache:
+     KConfigGroup cfg = config.group( "RemovableMedia" );
+ 
+     if( cfg.readEntry<bool>( "add watches", true ) ) {
++        QString path = entry->mountPath();
++        // If the device is not a storage device, mountPath returns QString().
++        // In this case do not try to install watches.
++        if( path.isEmpty() )
++            return;
+         if( entry->device().isDeviceInterface( Solid::DeviceInterface::NetworkShare ) ) {
+             if( cfg.readEntry<bool>( "add watches network share", false ) ) {
+-                kDebug() << "Installing watch for network share at mount point" << entry->mountPath();
+-                watchFolder(entry->mountPath());
++                kDebug() << "Installing watch for network share at mount point" << path;
++                watchFolder(path);
+             }
+         }
+         else {
+-            kDebug() << "Installing watch for removable storage at mount point" << entry->mountPath();
++            kDebug() << "Installing watch for removable storage at mount point" << path;
+             // vHanda: Perhaps this should only be done if we have some metadata on the removable media
+             // and if we do not then we add the watches when we get some metadata?
+-            watchFolder(entry->mountPath());
++            watchFolder(path);
+         }
+     }
+ }

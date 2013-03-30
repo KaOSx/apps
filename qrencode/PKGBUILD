@@ -1,0 +1,32 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas[at]chakra-project[dot]org>
+
+pkgname=qrencode
+pkgver=3.4.1
+pkgrel=1
+pkgdesc="C library for encoding data in a QR Code symbol."
+arch=('x86_64')
+depends=('libpng>=1.5.0')
+makedepends=('sdl')
+url="http://megaui.net/fukuchi/works/qrencode/index.en.html"
+license=('GPL')
+options=(!libtool)
+source=("http://megaui.net/fukuchi/works/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('219b146d3b365a56a0f4ef58a718f295')
+
+build() {
+  cd "${srcdir}/$pkgname-$pkgver"
+  
+#  autoreconf
+  ./autogen.sh
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/$pkgname-$pkgver"
+
+  make prefix="$pkgdir/usr" install
+}

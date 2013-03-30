@@ -1,0 +1,40 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
+# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=prison
+pkgver=1.0
+pkgrel=3
+arch=('x86_64')
+pkgdesc="A barcode api to produce QRCode barcodes and DataMatrix barcode"
+url="https://projects.kde.org/projects/kdesupport/prison"
+license=('GPL' 'LGPL' 'FDL')
+groups=("kde-complete" "kde-uninstall")
+depends=('qt' 'libdmtx' 'qrencode')
+source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.gz")
+md5sums=('8baac61506e37a31482a0df4a5d02cd2')
+
+build() {
+	msg "starting build ..."
+	cd ${srcdir}
+	mkdir -p build
+	cd build
+
+	cmake ../${pkgname}-${pkgver}  \
+		-DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_{SHARED,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+	make 
+}
+
+package() {
+  cd "${srcdir}"/build
+  make DESTDIR="${pkgdir}" install
+}
