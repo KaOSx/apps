@@ -1,0 +1,75 @@
+# maintainer abveritas@chakra-project.org
+
+pkgbase=digikam
+pkgname=('digikam' 'kipi-plugins' 'libkvkontakte')
+pkgver=3.1.0
+pkgrel=2
+url="http://digikam.sourceforge.net"
+arch=('x86_64')
+license=('GPL')
+screenshot=('http://i.imgur.com/6YnUM.png')
+makedepends=('kde-runtime' 'kdegraphics-kgamma' 'kdepimlibs' 'lensfun' 'kdeedu-marble'
+             'liblqr' 'opencv' 'lapack' 'libgpod' 'pkgconfig' 'cmake' 'automoc4'
+             'doxygen' 'docbook-xsl' 'qjson' 'kdegraphics-libkexiv2' 'kdegraphics-libkdcraw'
+             'kdegraphics-libksane' 'qt-gstreamer' 'boost' 'hugin-tools')
+source=("http://download.kde.org/stable/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('b51de5ae2fc0a4b0aa97b1c43d83ee30')
+
+build() {
+   cd ${srcdir}
+ 
+   mkdir -p build
+   cd build
+   cmake ../${pkgname}-${pkgver} \
+     -DCMAKE_BUILD_TYPE=Release \
+     -DCMAKE_INSTALL_PREFIX=/usr \
+     -DCMAKE_SKIP_RPATH=ON \
+     -DDIGIKAMSC_USE_PRIVATE_KDEGRAPHICS=OFF
+   make 
+}
+
+package_digikam() {
+  pkgdesc="Digital photo management application for kde"
+  depends=('kde-runtime' 'kdegraphics-kgamma' 'kdepimlibs' 'lensfun' 'kdeedu-marble'
+           'liblqr' 'opencv' 'kipi-plugins' 'lapack' 'libgpod')
+  install=digikam.install
+  replaces=('digikamimageplugins')
+  categories=('graphics')
+  screenshot=('http://farm4.staticflickr.com/3197/2606712653_e9b9dc6ca1_o.png')
+
+  splitdirs="core doc po"
+  for i in ${splitdirs} ; do
+      cd ${srcdir}/build/${i}
+      make DESTDIR="${pkgdir}" install
+  done
+  rm -rf "${pkgdir}/usr/share/icons/oxygen"
+  rm "${pkgdir}"/usr/share/locale/*/LC_MESSAGES/libkipi.mo
+}
+
+package_libkvkontakte() {
+  pkgdesc="KDE C++ library for asynchronous interaction with vkontakte.rusocial network"
+  depends=('kdelibs')
+
+  cd "${srcdir}"/build/extra/libkvkontakte
+  make DESTDIR="${pkgdir}" install
+}
+
+package_kipi-plugins() {
+  pkgdesc="Kipi plugins and additional libs for digikam and kde apps"
+  depends=('kdegraphics-kgamma' 'kdepimlibs' 'opencv' 'libgpod' 'sane' 'hugin-tools'
+           'libgphoto2-nolimit' 'libkvkontakte' 'kdegraphics-libkexiv2' 'kdegraphics-libkdcraw'
+           'kdegraphics-libksane' 'qt-gstreamer')
+  optdepends=('imagemagick: for picture manipulation'
+	      'qca: for shwup webservice support')
+  install=kipi-plugins.install
+  provides=('libkface libkgeomap libmediawiki')
+  replaces=('libkface libkgeomap libmediawiki')
+  conflicts=('libkface libkgeomap libmediawiki')
+  categories=('graphics')
+
+  splitdirs="libkface libkgeomap libmediawiki kipi-plugins"
+  for i in ${splitdirs} ; do
+      cd ${srcdir}/build/extra/${i}
+      make DESTDIR="${pkgdir}" install
+  done
+}

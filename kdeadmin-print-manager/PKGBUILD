@@ -1,0 +1,42 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdeadmin-print-manager
+_pkgname=print-manager
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="A KDE tool for managing print jobs and printers"
+url="https://projects.kde.org/projects/playground/base/print-manager"
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=("kde-workspace>=${_kdever}" "libcups" "system-config-printer>=1.3.12")
+makedepends=('cmake' 'automoc4')
+install=${pkgname}.install
+groups=("kde" "kdeadmin" "kde-uninstall")
+provides=('print-manager')
+replaces=('kdeadmin-system-config-printer' 'print-manager' 'kdeutils-printer-applet')
+conflicts=('print-manager')
+options=('docs' '!splithdr' 'splitdbg' 'log')
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+build() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	
+	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
+                -DCMAKE_INSTALL_PREFIX=${_installprefix} \
+                -DCMAKE_SKIP_RPATH=ON \
+                -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+}
+
+package() {
+	cd ${srcdir}/${_pkgname}-${pkgver}
+	make DESTDIR=${pkgdir} install 
+
+}

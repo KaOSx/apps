@@ -1,0 +1,23 @@
+#
+# KDE SC Packages for Chakra, part of chakra-project.org
+#
+# maintainer abveritas@chakra-project.org
+
+pkgname=caledonia-colors
+pkgver=1.0
+pkgrel=1
+pkgdesc="Caledonia colors scheme"
+arch=('x86_64')
+url=(http://malcer.deviantart.com/)
+license=('CC-BY; CC-BY-SA')
+depends=('kde-workspace')
+source=('http://sourceforge.net/projects/caledonia/files/Caledonia%20Color%20Scheme/Caledonia.colors')
+md5sums=('7052da2c2cfa00b1f39f133a371dace1')
+
+package() {
+       mkdir -p $pkgdir/usr/share/apps/color-schemes
+       chmod 755 -R $pkgdir/usr/share/apps/color-schemes
+
+       cd ${srcdir}
+       cp Caledonia.colors $pkgdir/usr/share/apps/color-schemes/Caledonia.colors
+}

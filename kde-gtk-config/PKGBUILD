@@ -1,0 +1,35 @@
+# maintainer: Manuel tortosa <manutortosa@chakra-project.org>
+
+pkgname=kde-gtk-config
+pkgver=2.2.1
+pkgrel=2
+pkgdesc="A KCM for Configuring the GTK2 and GTK3 look&feel"
+arch=('x86_64')
+url="https://projects.kde.org/projects/kdereview/kde-gtk-config"
+license=('GPL')
+depends=('kde-runtime')
+makedepends=('cmake' 'automoc4' 'gtk2' 'gtk3')
+optdepends=('gtk2: GTK+ v2 support'
+	    'gtk3: GTK+ v3 support')
+conflicts=('kde-gtk-config-git' 'chakra-gtk-config' 'chakra-gtk-config-git')
+provides=('chakra-gtk-config')
+replaces=('chakra-gtk-config')
+groups=('gtk-integration')
+source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz")
+install=$pkgname.install
+md5sums=('d155ed431d509e54a60383a70b700e1c')
+
+build() {
+  cd "$srcdir"
+  mkdir build
+  cd build
+  cmake ../$pkgname-$pkgver \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package(){
+  cd "$srcdir/build"
+  make DESTDIR="$pkgdir" install
+}
