@@ -1,0 +1,32 @@
+
+pkgname=ktp-desktop-applets
+pkgver=0.6.0
+pkgrel=1
+pkgdesc="Plasma applet for managing your Telepathy account presence"
+arch=('any')
+url="http://www.kde.org"
+license=('GPL')
+depends=('ktp-common-internals' 'ktp-contact-list' 'kde-workspace')
+makedepends=('cmake' 'automoc4')
+conflicts=('ktp-presence-applet' 'ktp-contact-applet')
+replaces=('ktp-presence-applet' 'ktp-contact-applet')
+provides=('ktp-presence-applet' 'ktp-contact-applet')
+groups=('kde-telepathy')
+categories=('utils' 'communication')
+source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('20555350a643398e952ebfaa3c1d239a')
+
+build() {
+  cd "${srcdir}"
+  mkdir build
+  cd build
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd "${srcdir}"/build
+  make DESTDIR="${pkgdir}" install
+}

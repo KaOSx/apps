@@ -1,0 +1,50 @@
+
+pkgname=oktopi
+pkgver=1.3.3
+pkgrel=2
+pkgdesc="Oktopi, is a fork of octopi, a powerful Pacman frontend using Qt libs"
+url="https://octopiproject.wordpress.com/"
+arch=('x86_64')
+license=('GPL3')
+depends=('kde-baseapps-konsole' 'pacman' 'kdesdk-kate')
+makedepends=('automoc4')
+conflicts=('octopi')
+replaces=('octopi')
+categories=('system') 
+screenshot=('http://octopiproject.files.wordpress.com/2013/03/octopi_013_reinstalling_poppler.png?w=1000&h=')
+source=("http://chakra-linux.org/sources/oktopi/oktopi-${pkgver}.tar.xz")
+md5sums=('1ca764521ef73496ed81892253257cbb')
+
+# create tarball: source PKGBUILD && mksource
+
+mksource() {
+   if [ "${1}" = "" ] ; then
+     git clone git://gitorious.org//chakra/oktopi.git
+   else
+     git clone -b git://gitorious.org//chakra/oktopi.git
+   fi
+   pushd oktopi
+   popd
+   tar -cvJf oktopi-${pkgver}.tar.xz oktopi/*
+   md5sum oktopi-${pkgver}.tar.xz
+}
+
+build() {
+   cd "${srcdir}/oktopi"
+   
+   mkdir build && cd build   
+   cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+   make
+}
+
+package() {
+   cd "${srcdir}/oktopi/build"
+   
+   mkdir -p ${pkgdir}/usr/share/icons
+   install -m 644 -p ../resources/images/oktopi_yellow.png ${pkgdir}/usr/share/icons/oktopi.png
+   
+   make DESTDIR=${pkgdir} install 
+   
+   mkdir -p ${pkgdir}/usr/share/applications
+   install -m644 -p ../oktopi.desktop ${pkgdir}/usr/share/applications
+}

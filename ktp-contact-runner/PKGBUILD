@@ -1,0 +1,31 @@
+
+pkgname='ktp-contact-runner'
+pkgver=0.6.0
+pkgrel=1
+arch=('x86_64')
+url="http://www.kde.org"
+license=('GPL')
+pkgdesc='Finds entries from your KDE-Telepathy Contacts'
+depends=('kde-workspace' 'ktp-common-internals')
+makedepends=('cmake' 'automoc4')
+groups=('kde-telepathy')
+source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('008effa5552867b50ee8589a55f27f9c')
+
+build() {
+          cd $srcdir/$pkgname-$pkgver
+          cd ..
+          rm -rf build
+          mkdir -p build && cd build
+
+          cmake ../${pkgbase}-${pkgver} \
+                  -DCMAKE_BUILD_TYPE=Release \
+                  -DCMAKE_SKIP_RPATH=ON \
+                  -DCMAKE_INSTALL_PREFIX=/usr
+          make
+  }
+
+package() {
+          cd $srcdir/build
+          make DESTDIR=$pkgdir install
+  }
