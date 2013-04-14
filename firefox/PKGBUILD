@@ -1,0 +1,30 @@
+
+pkgname=firefox
+pkgdesc='Standalone web browser from mozilla.org'
+url='http://www.mozilla.org/projects/firefox'
+pkgver=20.0.1
+pkgrel=1
+arch=('x86_64')
+license=('MPL' 'GPL' 'LGPL')
+depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk2')
+source=('firefox.desktop' 'firefox-safe.desktop')
+md5sums=('80a00e6ba153fdce6cb6e6ce6de6a714'
+         'e54594cae4137a057c83b3fbcafcf1b2')
+
+package() {
+  FX_SRC="firefox-${pkgver}.tar.bz2"
+  FX_SRC_URI="ftp://ftp.mozilla.org/pub/firefox/releases/${pkgver}/linux-x86_64/en-US/${FX_SRC}"
+
+  msg "Downloading..."
+  wget -N ${FX_SRC_URI}
+  msg "Extracting..."
+  bsdtar -x -f ${FX_SRC}
+  msg "Packaging..."
+
+  mkdir -p "${pkgdir}"/{usr/{bin,share/{applications,pixmaps}},opt}
+  cp -r firefox "${pkgdir}/opt/firefox-${pkgver}"
+
+  ln -s /opt/firefox-${pkgver}/firefox "${pkgdir}/usr/bin/firefox"
+  install -m644 "${srcdir}"/{firefox.desktop,firefox-safe.desktop} "${pkgdir}/usr/share/applications/"
+  install -m644 "${srcdir}/firefox/icons/mozicon128.png" "${pkgdir}/usr/share/pixmaps/${pkgname}-icon.png"
+}
