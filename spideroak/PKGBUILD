@@ -1,0 +1,56 @@
+
+pkgname=spideroak
+_PkgName=SpiderOak
+pkgver=5.0
+pkgrel=1
+pkgdesc="Secure and consolidated free online backup, storage, access, sharing & sync tool for Windows, Mac OS X, and Linux."
+url="https://spideroak.com/"
+arch=('x86_64')
+depends=('qt' 'krb5' 'python2')
+license=('custom')
+categories=('network')
+screenshot=('https://spideroak.com/static/v0.1/main/images/screenshots/new/view-versions.png')
+options=(!strip)
+install=spideroak.install
+source=("${_PkgName}-${pkgver}-x86_64-1.tgz"::"https://spideroak.com/getbuild?platform=slackware&arch=x86_64&beta=yes"
+        "terms.txt")
+md5sums=('8e2719647b2ae3027b175dd5824afdf0'
+         '9338d3464e8ce876d7222099c22a205b')
+
+package() {
+    # install config files
+    install -Dm644 $srcdir/etc/dbus-1/system.d/$_PkgName.dbus.conf $pkgdir/etc/dbus-1/system.d/$_PkgName.dbus.conf
+
+    # install app in /opt
+    install -d $pkgdir/opt/
+    cp -r $srcdir/opt/* $pkgdir/opt/
+
+    # install start script file
+    install -Dm755 $srcdir/usr/bin/$_PkgName $pkgdir/usr/bin/$_PkgName
+    cd $pkgdir/usr/bin
+    ln -s $_PkgName $pkgname
+    cd $srcdir
+
+    # install desktop and pixmap files
+    install -Dm644 $srcdir/usr/share/applications/$_PkgName.desktop $pkgdir/usr/share/applications/$_PkgName.desktop
+    install -Dm644 $srcdir/usr/share/pixmaps/$_PkgName.png $pkgdir/usr/share/pixmaps/$_PkgName.png
+
+    # fix desktop file
+    sed -i \
+	-e "/Encoding=UTF-8/d" \
+	-e "/^Name=/s: Backup::" \
+	-e "/^Comment=/s:$_PkgName ::" \
+	-e "/^Categories=/s:$_PkgName;::" \
+	-e "/^Icon=/s:=.*$:=$_PkgName:" \
+	-e "/^Exec=/s:=.*$:=$_PkgName:" \
+	$pkgdir/usr/share/applications/$_PkgName.desktop
+	
+    # install man page
+    install -Dm644 $srcdir/usr/share/man/man1/$_PkgName.1.gz $pkgdir/usr/share/man/man1/$_PkgName.1.gz
+
+    # install custom license file
+    install -Dm644 terms.txt $pkgdir/usr/share/licenses/$pkgname/terms.txt
+    
+    # install man page
+    install -Dm644 $srcdir/usr/share/man/man1/$_PkgName.1.gz $pkgdir/usr/share/man/man1/$_PkgName.1.gz
+}
