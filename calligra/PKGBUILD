@@ -98,7 +98,7 @@ package_calligra-plugins() {
   depends=('calligra-libs')
   conflicts=('koffice-common' 'calligra-plugins-git')
   replaces=('koffice-common' 'calligra-plugins-git')
-  categories=('office')
+  groups=('office')
 
   cd "${srcdir}"/build/plugins
   make DESTDIR="${pkgdir}" install
@@ -109,7 +109,7 @@ package_calligra-pics() {
   depends=('calligra-libs')
   conflicts=('koffice-common' 'calligra-pics-git')
   replaces=('koffice-common' 'calligra-pics-git')
-  categories=('office')
+  groups=('office')
   install=calligra.install
 
   cd "${srcdir}"/build/pics
@@ -156,7 +156,7 @@ package_calligra-karbon() {
   provides=('karbon')
   conflicts=('koffice-karbon' 'calligra-karbon-git')
   replaces=('koffice-karbon' 'calligra-karbon-git')
-  categories=('graphics')
+  groups=('graphics')
   install=calligra-karbon.install
 
   cd "${srcdir}"/build/karbon
@@ -169,7 +169,7 @@ package_calligra-kexi() {
   provides=('kexi')
   conflicts=('koffice-kexi' 'calligra-kexi-git')
   replaces=('koffice-kexi' 'calligra-kexi-git')
-  categories=('office')
+  groups=('office')
   install=calligra-kexi.install
 
   cd "${srcdir}"/build/kexi
@@ -182,7 +182,7 @@ package_calligra-kounavail() {
   provides=('kounavail')
   conflicts=('koffice-kounavail' 'calligra-kounavail-git')
   replaces=('koffice-kounavail' 'calligra-kounavail-git')
-  categories=('office')
+  groups=('office')
 
   cd "${srcdir}"/build/kounavail
   make DESTDIR="${pkgdir}" install
@@ -194,7 +194,7 @@ package_calligra-plan() {
 		'calligra-plugins')
   conflicts=('koffice-kplato' 'calligra-kplato-git')
   replaces=('koffice-kplato' 'calligra-kplato-git')
-  categories=('office')
+  groups=('office')
   install=calligra-plan.install
 
   cd "${srcdir}"/build/plan
@@ -207,7 +207,7 @@ package_calligra-stage() {
   optdepends=('calligra-filters: import/export filters')
   conflicts=('koffice-kpresenter' 'calligra-stage-git')
   replaces=('koffice-kpresenter' 'calligra-stage-git')
-  categories=('office')
+  groups=('office')
   install=calligra-stage.install
 
   cd "${srcdir}"/build/stage
@@ -222,7 +222,7 @@ package_calligra-krita() {
   provides=('krita')
   conflicts=('koffice-krita' 'calligra-krita-git')
   replaces=('koffice-krita' 'calligra-krita-git')
-  categories=('graphics')
+  groups=('graphics')
   install=calligra-krita.install
 
   cd "${srcdir}"/build/krita
@@ -235,7 +235,7 @@ package_calligra-sheets() {
   optdepends=('calligra-filters: import/export filters')
   conflicts=('koffice-kspread' 'calligra-tables-doc' 'calligra-tables' 'kformula')
   replaces=('koffice-kspread' 'calligra-tables-doc' 'calligra-tables' 'kformula')
-  categories=('office')
+  groups=('office')
   install=calligra-sheets.install
 
   cd "${srcdir}"/build/sheets
@@ -249,7 +249,7 @@ package_calligra-words() {
   optdepends=('calligra-filters: import/export filters')
   conflicts=('koffice-kword' 'calligra-words-git')
   replaces=('koffice-kword' 'calligra-words-git')
-  categories=('office')
+  groups=('office')
   install=calligra-words.install
 
   cd "${srcdir}"/build/words
@@ -260,7 +260,7 @@ package_calligra-handbook() {
   pkgdesc="Documentation for Calligra"
   conflicts=('koffice-doc' 'koffice-common' 'calligra-handbook-git')
   replaces=('koffice-doc' 'koffice-common' 'calligra-handbook-git')
-  categories=('documentation')
+  groups=('documentation')
 
   cd "${srcdir}"/build/doc/calligra
   make DESTDIR="${pkgdir}" install
@@ -270,7 +270,7 @@ package_calligra-thesaurus-doc() {
   pkgdesc="Documentation for Thesaurus"
   conflicts=('koffice-doc' 'calligra-thesaurus-doc-git')
   replaces=('koffice-doc' 'calligra-thesaurus-doc-git')
-  categories=('documentation')
+  groups=('documentation')
 
   cd "${srcdir}"/build/doc/thesaurus
   make DESTDIR="${pkgdir}" install
@@ -281,7 +281,7 @@ package_calligra-braindump() {
   depends=('calligra-libs')
   conflicts=('calligra-braindump-git')
   replaces=('calligra-braindump-git')
-  categories=('office')
+  groups=('office')
   install=calligra-braindump.install
 
   cd "${srcdir}"/build/braindump
@@ -294,7 +294,7 @@ package_calligra-flow() {
   install=calligra-flow.install
   conflict=('calligra-flow-git')
   replaces=('calligra-flow-git')
-  categories=('office')
+  groups=('office')
 
   cd "${srcdir}"/build/flow
   make DESTDIR="${pkgdir}" install

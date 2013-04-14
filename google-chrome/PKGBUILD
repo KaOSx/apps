@@ -1,0 +1,49 @@
+
+pkgname=google-chrome
+pkgver=27.0.1453.12
+pkgrel=1
+pkgdesc="Google Chrome Browser, developer preview channel for Linux"
+arch=('x86_64')
+url="http://dev.chromium.org/getting-involved/dev-channel"
+license=('custom:chrome')
+groups=('internet')
+options=(!strip) 
+depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo'
+         'libpng12' 'alsa-lib' 'libxss' 'hicolor-icon-theme')
+
+package() {
+    msg "Downloading Google Chrome Distro"
+    wget -Nc https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb 
+    msg2 "Done downloading!"
+    msg "Extracting Google Chrome"
+    ar -xv google-chrome-unstable_current_amd64.deb
+    tar -xvf data.tar.lzma 
+    msg2 "Done extracting!"
+    install -d "$pkgdir"/{opt,usr/{bin,share/applications}}
+    mv opt/google "$pkgdir"/opt
+    msg2 "Done preparing!"
+
+    msg "Actual installation"
+    ln -s /opt/google/chrome/google-chrome "$pkgdir/usr/bin/"
+    mv "$pkgdir/opt/google/chrome/google-chrome.desktop" "$pkgdir/usr/share/applications"
+    
+    # Udev workaround
+    ln -s /usr/lib/libudev.so.1 "$pkgdir/opt/google/chrome/libudev.so.0"
+
+    # Adding man page
+    if [ ! -e "$srcdir/usr/share/man/man1/google-chrome.1.gz" ]; then
+      gzip -9 "$srcdir/usr/share/man/man1/google-chrome.1"
+    fi
+    install -Dm644 "$srcdir/usr/share/man/man1/google-chrome.1.gz" "$pkgdir/usr/share/man/man1/google-chrome.1.gz"
+
+    # Symlinking icons to /usr/share/icons/hicolor/
+    for i in 16x16 22x22 24x24 32x32 48x48 64x64 128x128 256x256; do
+      mkdir -p "$pkgdir/usr/share/icons/hicolor/$i/apps/"
+      ln -s /opt/google/chrome/product_logo_${i/x*}.png "$pkgdir/usr/share/icons/hicolor/$i/apps/google-chrome.png"
+    done
+
+    # Fixing permissions of chrome-sandbox
+    chmod 4755 "$pkgdir/opt/google/chrome/chrome-sandbox"
+
+    msg2 "Installation finished!"
+}

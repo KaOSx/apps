@@ -1,4 +1,3 @@
-# maintainer abveritas@chakra-project.org
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins' 'libkvkontakte')
@@ -34,7 +33,7 @@ package_digikam() {
            'liblqr' 'opencv' 'kipi-plugins' 'lapack' 'libgpod')
   install=digikam.install
   replaces=('digikamimageplugins')
-  categories=('graphics')
+  groups=('graphics')
   screenshot=('http://farm4.staticflickr.com/3197/2606712653_e9b9dc6ca1_o.png')
 
   splitdirs="core doc po"
@@ -65,7 +64,7 @@ package_kipi-plugins() {
   provides=('libkface libkgeomap libmediawiki')
   replaces=('libkface libkgeomap libmediawiki')
   conflicts=('libkface libkgeomap libmediawiki')
-  categories=('graphics')
+  groups=('graphics')
 
   splitdirs="libkface libkgeomap libmediawiki kipi-plugins"
   for i in ${splitdirs} ; do
