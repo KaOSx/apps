@@ -1,0 +1,20 @@
+
+pkgname=init-live
+pkgver=2013.04
+pkgrel=1
+pkgdesc="Live-session systemd startup scripts"
+arch=('x86_64')
+url="http://www.kde-os.tk"
+license=('GPL2')
+depends=('spun-live')
+source=('live' 'locale_setup.sh')
+md5sums=('f2e9bc99043d5dd87098250e34906b39'
+         '99005fd40c078473533f08f38a30f4f7')
+
+package() {
+  cd ${srcdir}
+  # setup /etc
+  mkdir ${pkgdir}/etc
+  install -m755 -t ${pkgdir}/etc live
+  install -m755 -t ${pkgdir}/etc locale_setup.sh	
+}
