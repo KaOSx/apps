@@ -1,2 +1,3 @@
-desktop-testing
+apps
 ===============
+KDE packages and general applications

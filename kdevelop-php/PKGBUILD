@@ -1,0 +1,52 @@
+
+pkgbase=kdevelop-php
+pkgname=('kdevelop-php' 'kdevelop-php-docs')
+pkgver=1.5.0
+_pkgver=4.5.0
+pkgrel=1
+pkgdesc="PHP plugin for Kdevelop"
+arch=('x86_64')
+url="http://www.kdevelop.org/"
+license=('GPL')
+depends=("kdevelop=${_pkgver}" "kdevelop-pg-qt")
+makedepends=('cmake' 'automoc4')
+groups=('programming')
+options=('!makeflags')
+source=("http://download.kde.org/stable/kdevelop/${_pkgver}/src/${pkgname}-${pkgver}.tar.bz2"
+        "http://download.kde.org/stable/kdevelop/${_pkgver}/src/${pkgname}-docs-${pkgver}.tar.bz2")
+md5sums=('04855357add7bc293a285735ee6ee591'
+         '109a148055883f9ef940e8cf5d20171d')
+
+build() {
+  cd "${srcdir}"
+  mkdir build
+  cd build
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+
+  cd "${srcdir}"
+  mkdir build-docs
+  cd build-docs
+  # kdevelop-php-docs
+  cmake ../${pkgname}-docs-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package_kdevelop-php() {
+  optdepends=('kdevelop-php-docs: documentation')
+  
+  cd "${srcdir}/build"
+  make DESTDIR="${pkgdir}" install
+}
+
+package_kdevelop-php-docs() {
+  pkgdesc="Documentation for kdevelop-php"
+  depends=("kdevelop-php=${pkgver}")
+  
+  cd "${srcdir}"/build-docs
+  make DESTDIR="${pkgdir}" install
+}

@@ -1,0 +1,40 @@
+
+# contirbutor Jakub Kozisek <nodevel at gmail dot com>
+
+pkgname=kdev-python
+pkgver=1.4.1
+pkgrel=1
+pkgdesc='Python plugin for KDevelop - stable version'
+arch=('x86_64')
+url="https://projects.kde.org/projects/playground/devtools/plugins/kdev-python"
+license=('GPL')
+groups=('kde' 'kdevelop-plugins')
+depends=('kdevelop')
+makedepends=('kdevelop-pg-qt' 'cmake' 'automoc4')
+conflicts=('kdevelop-python-beta' 'kdevelop-python')
+replaces=('kdevelop-python-beta' 'kdevelop-python')
+provides=('kdevelop-python')
+source=("http://download.kde.org/stable/kdevelop/$pkgname/$pkgver/src/$pkgname-v$pkgver.tar.bz2")
+sha256sums=('8743844c6bcf09b3f9db05891539973633049470eb7c046b75b3cfe4542da1e2')
+
+build() {
+	cd "$srcdir/$pkgname-v$pkgver"
+	sed -i 's|#!.*python$|&2|' python-src/Parser/asdl_c.py
+	
+	mkdir -p "$srcdir/build"
+	cd "$srcdir/build"
+	
+	cmake "../$pkgname-v$pkgver" \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DCMAKE_BUILD_TYPE=RELWITHDEBINFO \
+		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed' \
+		-DCMAKE_INSTALL_PREFIX=/usr
+	
+	make parser
+	make
+}
+
+package() {
+	cd "$srcdir/build"
+	make DESTDIR="$pkgdir" install
+}

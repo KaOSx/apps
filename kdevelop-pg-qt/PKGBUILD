@@ -1,0 +1,29 @@
+
+pkgname=kdevelop-pg-qt
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="KDevelop Parser Generator, a LL(1) parser generator used by KDevelop language plugins"
+arch=('x86_64')
+url="http://www.kdevelop.org/"
+license=('GPL')
+depends=('kdelibs')
+makedepends=('cmake' 'automoc4')
+groups=('programming')
+source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('155f4e9a3a6d34ebe756c2a16169706f')
+
+build() {
+  cd ${srcdir}
+  mkdir build
+  cd build 
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
