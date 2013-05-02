@@ -1,0 +1,34 @@
+
+pkgname=openimageio
+_pkgname=OpenImageIO
+pkgver=1.1.10
+pkgrel=1
+pkgdesc="A library for reading and writing images, including classes, utilities, and applications."
+arch=('x86_64')
+url="http://www.openimageio.org/"
+license=('custom')
+depends=('openexr' 'boost-libs' 'jasper' 'glew' 'libtiff' 'opencolorio')
+makedepends=('cmake' 'qt' 'python2' 'boost' 'mesa')
+optdepends=('qt: iv image viewer'
+            'python2: bindings support')
+source=("https://github.com/OpenImageIO/oiio/tarball/Release-${pkgver}")
+md5sums=('e5c5cd77238f74c3a6a3610c211430f2')
+
+build() {
+  cd "$srcdir"/$_pkgname*/src
+
+  [[ -d build ]] && rm -r build
+  mkdir build && cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr .. -DPYLIB_INSTALL_DIR=lib/python2.7/site-packages ..
+  make
+}
+
+package() {
+  cd "$srcdir"/$_pkgname*/src/build
+
+  make DESTDIR=$pkgdir install
+
+  # license
+  cd ../..
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
