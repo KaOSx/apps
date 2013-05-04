@@ -21,10 +21,11 @@ md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 groups=("kde" "kdegraphics" "kde-uninstall")
 conflicts=('kdegraphics-doc' 'libkdcraw')
 provides=('libkdcraw')
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
+	
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} \
                 -DCMAKE_SKIP_RPATH=ON \
@@ -34,6 +35,7 @@ build() {
 
 package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
-	make DESTDIR=${pkgdir} install || return 1
+	
+	make DESTDIR=${pkgdir} install
 
 }

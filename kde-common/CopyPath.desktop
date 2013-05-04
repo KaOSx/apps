@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/octet-stream;inode/directory
+Actions=CopyPath
+
+[Desktop Action CopyPath]
+Name=Copy Path
+Icon=klipper
+Exec=dbus-send --type=method_call --dest=org.kde.klipper /klipper org.kde.klipper.klipper.setClipboardContents string:"%u"
