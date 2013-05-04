@@ -1,7 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -18,10 +14,11 @@ makedepends=('pkg-config' 'cmake' 'automoc4')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 groups=("kde" "kdegraphics" "kde-uninstall")
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 
 build() {
 	cd ${srcdir}/${pkgname}-${pkgver}
+	
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} \
                 -DCMAKE_SKIP_RPATH=ON \
@@ -31,6 +28,6 @@ build() {
 
 package() {
 	cd ${srcdir}/${pkgname}-${pkgver}
-	make DESTDIR=${pkgdir} install || return 1
-
+	
+	make DESTDIR=${pkgdir} install
 }

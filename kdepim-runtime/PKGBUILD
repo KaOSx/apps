@@ -1,8 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
-# maintainer: abveritas[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -16,10 +11,10 @@ pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 install=${pkgbase}.install
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 depends=("kdepimlibs>=${_kdever}" "kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" 'prison'
          'libdmtx' 'qrencode' 'libkgapi' 'libkolab')
-makedepends=('pkg-config' 'cmake' 'automoc4')
+makedepends=('pkg-config' 'cmake' 'automoc4' 'boost')
 groups=("kde" "kdepim" "kde-uninstall" "kde-minimal")
 
 source=($_mirror/${pkgbase}-$_kdever.tar.xz)
@@ -45,5 +40,6 @@ build() {
 
 package() {
     cd ${srcdir}/build
+    
     make DESTDIR=${pkgdir} install
 }
