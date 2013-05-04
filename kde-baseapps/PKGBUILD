@@ -1,8 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer abveritas@chakra-project.org
-# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -21,7 +16,7 @@ pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 
 makedepends=("kde-workspace>=${_kdever}" 'pkg-config' 'cmake' 'automoc4' 'libraw1394' 'ruby'
              'tidyhtml' 'docbook-xsl' 'nepomuk-widgets')
@@ -41,7 +36,7 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
-	make || return 1
+	make 
 }
 
 package_kde-baseapps() {
@@ -57,7 +52,7 @@ package_kde-baseapps() {
 	splitdirs="kdepasswd kdialog keditbookmarks kfind lib nsplugins plasma konqueror doc/kdepasswd doc/kfind"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 		
 	# install cdemu frontend
@@ -67,7 +62,7 @@ package_kde-baseapps() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_{SHARED,MODULE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 	make
-	make DESTDIR=${pkgdir} install || return 1
+	make DESTDIR=${pkgdir} install 
 	
 	# prepare konqueror
 	msg "splitting konqueror ..."
@@ -105,7 +100,7 @@ package_kde-baseapps() {
 	# we dont want the cdemu manager app. the service menu + devicenotifier is perfect already
 	rm -rfv ${pkgdir}/usr/share/applications/kde4/kde_cdemu.desktop
 
-	# Fix missing KFind icon, fixes FS#325
+	# Fix missing KFind icon
 	sed -i -e "s~Icon=kfind~Icon=edit-find~g" ${pkgdir}/usr/share/applications/kde4/kfind.desktop
 }
 
@@ -122,7 +117,7 @@ package_kde-baseapps-dolphin() {
 	splitdirs="dolphin doc/dolphin"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 }
 
@@ -139,7 +134,7 @@ package_kde-baseapps-konqueror() {
 	splitdirs="konqueror doc/konqueror"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 
 	msg "remove conflicting files ..."
@@ -174,6 +169,6 @@ package_kde-baseapps-konq-plugins() {
 	splitdirs="konq-plugins"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install 
 		done
 }

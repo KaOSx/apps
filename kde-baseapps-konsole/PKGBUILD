@@ -1,8 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer abveritas@chakra-project.org
-# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -23,7 +18,7 @@ provides=('kdebase-konsole' 'konsole')
 conflicts=('kdebase-konsole')
 replaces=('kdebase-konsole')
 groups=('system')
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
 	"Shell_new.diff")
@@ -33,7 +28,6 @@ md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
 
-	# Fixme: addapt this patch to 4.9
 	patch -p1 -i ${srcdir}/Shell_new.diff
 
 	msg "starting build ..."
@@ -46,5 +40,4 @@ build() {
 package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
 	make DESTDIR="${pkgdir}" install
-
 }
