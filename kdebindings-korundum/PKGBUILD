@@ -1,8 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: abveritas@chakra-project.org
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -13,7 +8,7 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="KDE bindings for ruby"
 url="http://kde.org/"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=("kdebindings-qtruby>=${_kdever}" "kdebindings-smokekde>=${_kdever}")
 makedepends=('cmake' 'automoc4' "kdebindings-smokegen>=${_kdever}" "boost" "kdepimlibs>=${_kdever}" "kdegraphics-okular>=${_kdever}")
@@ -27,11 +22,12 @@ provides=('kdebindings-ruby' 'korundum')
 replaces=('kdebindings-ruby')
 conflicts=('kdebindings-ruby')
 
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
         patch -p1 -i "${srcdir}/krubypluginfactory.diff"
+        
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} 
         make
@@ -39,7 +35,6 @@ build() {
 
 package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
+	
 	make DESTDIR=${pkgdir} install 
-
-
 }

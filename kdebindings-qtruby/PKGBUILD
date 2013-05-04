@@ -1,7 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -12,7 +8,7 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Qt bindings for ruby"
 url="http://kde.org/"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=("kdebindings-smokeqt>=${_kdever}" "ruby")
 makedepends=('cmake' 'automoc4' "kdebindings-smokegen>=${_kdever}")
@@ -21,10 +17,11 @@ md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 conflicts=('kdebindings-common')
 groups=("kde" "kdebindings" "kde-uninstall")
 provides=('qtruby')
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
+	
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} 
         make
@@ -32,6 +29,6 @@ build() {
 
 package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
-	make DESTDIR=${pkgdir} install || return 1
-
+	
+	make DESTDIR=${pkgdir} install
 }

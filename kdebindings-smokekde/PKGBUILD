@@ -1,7 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -21,12 +17,13 @@ md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 replaces=('kdebindings-common')
 groups=("kde" "kdebindings" "kde-uninstall")
 provides=('smokekde')
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 
 build() {
   cd "${srcdir}"
   mkdir build
   cd build
+  
   cmake ../smokekde-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr 
@@ -35,5 +32,6 @@ build() {
 
 package() {
   cd "${srcdir}"/build
+  
   make DESTDIR="${pkgdir}" install
 }
