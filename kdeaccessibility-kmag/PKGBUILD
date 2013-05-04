@@ -1,15 +1,10 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=('kdeaccessibility-kmag')
 _pkgname="kmag"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Screen magnifier"
@@ -20,7 +15,7 @@ conflicts=("kdeaccessibility-doc")
 provides=('kmag')
 install='kdeaccessibility.install'
 groups=("kdeaccessibility" "kde" "kde-uninstall" "kde-doc")
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 makedepends=('pkgconfig' 'cmake' 'automoc4' "kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" "speech-dispatcher>=0.6.7" 'docbook-xsl')
 groups=('accessibility')
 
@@ -36,11 +31,12 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
                 -DWITH_QAccessibilityClient=OFF \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
-	make || return 1
+	make 
 }
 
 package() {
     	cd ${srcdir}/${_pkgname}-${pkgver}
+    	
 	make DESTDIR=${pkgdir} install
 	
 }
