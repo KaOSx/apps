@@ -1,18 +1,9 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: abveritas[at]chakra-project[dog]org>
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-
-
 # original name (used for the source and pkgnames)
 _origname=kde-l10n
-
-
 
 #
 # package info
@@ -94,7 +85,7 @@ url="http://www.kde.org"
 license=('GPL' 'FDL')
 depends=("kdelibs>=${_kdever}" 'automoc4' 'docbook-xsl')
          
-options=('docs' 'log')
+options=('docs')
          
          
 source=(${_mirror}/kde-l10n-ar-${pkgver}.tar.xz
@@ -307,7 +298,7 @@ packs=('ar'
 # 	for it in `find . -maxdepth 1 -type d|sed -e '/^\.$/d'` ; do
 # 		pushd "$it"
 # 		cmake -DCMAKE_INSTALL_PREFIX=${_installprefix} -DCMAKE_BUILD_TYPE=Release
-# 		make || return 1
+# 		make
 # 		make DESTDIR=${pkgdir} install
 # 		popd
 # 	done
@@ -315,7 +306,7 @@ packs=('ar'
  	for it in ${packs[@]} ; do
                 pushd "kde-l10n-$it-$pkgver"
  		cmake -DCMAKE_INSTALL_PREFIX=${_installprefix} -DCMAKE_BUILD_TYPE=Release
- 		make || return 1
+ 		make
  		#make DESTDIR=${pkgdir} install
  		popd
  	done
@@ -333,7 +324,7 @@ package_kde-l10n-ar()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ar-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -344,7 +335,7 @@ package_kde-l10n-as()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-as-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -355,7 +346,7 @@ package_kde-l10n-ast()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ast-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -366,7 +357,7 @@ package_kde-l10n-be()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-be-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -377,7 +368,7 @@ package_kde-l10n-be@latin()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-be@latin-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -388,7 +379,7 @@ package_kde-l10n-bg()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-bg-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -399,7 +390,7 @@ package_kde-l10n-bn-in()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-bn_IN-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -411,7 +402,7 @@ package_kde-l10n-bn()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-bn-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -422,7 +413,7 @@ package_kde-l10n-bs()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-bs-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -433,7 +424,7 @@ package_kde-l10n-ca()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ca-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -444,7 +435,7 @@ package_kde-l10n-ca@valencia()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ca@valencia-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -455,7 +446,7 @@ package_kde-l10n-crh()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-crh-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -466,7 +457,7 @@ package_kde-l10n-cs()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-cs-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -477,7 +468,7 @@ package_kde-l10n-csb()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-csb-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -488,7 +479,7 @@ package_kde-l10n-cy()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-cy-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -499,7 +490,7 @@ package_kde-l10n-da()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-da-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -510,7 +501,7 @@ package_kde-l10n-de()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-de-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -521,7 +512,7 @@ package_kde-l10n-el()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-el-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -532,7 +523,7 @@ package_kde-l10n-en_gb()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-en_GB-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -543,7 +534,7 @@ package_kde-l10n-eo()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-eo-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -554,7 +545,7 @@ package_kde-l10n-es()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-es-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -565,7 +556,7 @@ package_kde-l10n-et()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-et-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -576,7 +567,7 @@ package_kde-l10n-eu()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-eu-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -587,7 +578,7 @@ package_kde-l10n-fa()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-fa-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -598,7 +589,7 @@ package_kde-l10n-fi()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-fi-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -609,7 +600,7 @@ package_kde-l10n-fr()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-fr-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -620,7 +611,7 @@ package_kde-l10n-fy()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-fy-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -631,7 +622,7 @@ package_kde-l10n-ga()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ga-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -642,7 +633,7 @@ package_kde-l10n-gl()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-gl-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -653,7 +644,7 @@ package_kde-l10n-gu()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-gu-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -664,7 +655,7 @@ package_kde-l10n-ha()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ha-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -675,7 +666,7 @@ package_kde-l10n-he()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-he-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -686,7 +677,7 @@ package_kde-l10n-hi()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-hi-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -697,7 +688,7 @@ package_kde-l10n-hne()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-hne-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -708,7 +699,7 @@ package_kde-l10n-hr()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-hr-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -719,7 +710,7 @@ package_kde-l10n-hsb()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-hsb-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -730,7 +721,7 @@ package_kde-l10n-hu()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-hu-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -741,7 +732,7 @@ package_kde-l10n-hy()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-hy-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -752,7 +743,7 @@ package_kde-l10n-ia()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ia-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -763,7 +754,7 @@ package_kde-l10n-id()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-id-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -774,7 +765,7 @@ package_kde-l10n-is()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-is-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -787,7 +778,7 @@ package_kde-l10n-it()
 	# FIXME
 	touch ${srcdir}/kde-l10n-it-${pkgver}/docs/kdeaccessibility/kmag/kmag.1
 	pushd ${srcdir}/kde-l10n-it-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -798,7 +789,7 @@ package_kde-l10n-ja()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ja-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -809,7 +800,7 @@ package_kde-l10n-ka()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ka-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -820,7 +811,7 @@ package_kde-l10n-kk()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-kk-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -831,7 +822,7 @@ package_kde-l10n-km()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-km-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -842,7 +833,7 @@ package_kde-l10n-kn()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-kn-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -853,7 +844,7 @@ package_kde-l10n-ko()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ko-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -864,7 +855,7 @@ package_kde-l10n-ku()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ku-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -875,7 +866,7 @@ package_kde-l10n-lb()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-lb-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -886,7 +877,7 @@ package_kde-l10n-lt()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-lt-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -897,7 +888,7 @@ package_kde-l10n-lv()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-lv-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -908,7 +899,7 @@ package_kde-l10n-mai()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-mai-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -919,7 +910,7 @@ package_kde-l10n-mk()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-mk-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -930,7 +921,7 @@ package_kde-l10n-ml()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ml-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -941,7 +932,7 @@ package_kde-l10n-mr()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-mr-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -952,7 +943,7 @@ package_kde-l10n-ms()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ms-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -963,7 +954,7 @@ package_kde-l10n-nb()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-nb-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -974,7 +965,7 @@ package_kde-l10n-nds()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-nds-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -985,7 +976,7 @@ package_kde-l10n-ne()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ne-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -996,7 +987,7 @@ package_kde-l10n-nl()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-nl-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1007,7 +998,7 @@ package_kde-l10n-nn()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-nn-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1018,7 +1009,7 @@ package_kde-l10n-oc()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-oc-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1029,7 +1020,7 @@ package_kde-l10n-or()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-or-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1040,7 +1031,7 @@ package_kde-l10n-pa()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-pa-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1051,7 +1042,7 @@ package_kde-l10n-pl()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-pl-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1062,7 +1053,7 @@ package_kde-l10n-ps()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ps-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1073,7 +1064,7 @@ package_kde-l10n-pt()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-pt-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1084,7 +1075,7 @@ package_kde-l10n-pt_BR()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-pt_BR-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1095,7 +1086,7 @@ package_kde-l10n-ro()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ro-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1106,7 +1097,7 @@ package_kde-l10n-ru()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ru-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1117,7 +1108,7 @@ package_kde-l10n-se()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-se-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1128,7 +1119,7 @@ package_kde-l10n-si()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-si-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1140,7 +1131,7 @@ package_kde-l10n-sk()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-sk-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1151,7 +1142,7 @@ package_kde-l10n-sl()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-sl-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1162,7 +1153,7 @@ package_kde-l10n-sr()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-sr-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1173,7 +1164,7 @@ package_kde-l10n-sr@ijekavian()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-sr@ijekavian-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1184,7 +1175,7 @@ package_kde-l10n-sr@ijekavianlatin()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-sr@ijekavianlatin-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1195,7 +1186,7 @@ package_kde-l10n-sr@latin()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-sr@latin-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1206,7 +1197,7 @@ package_kde-l10n-sv()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-sv-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1217,7 +1208,7 @@ package_kde-l10n-ta()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ta-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1228,7 +1219,7 @@ package_kde-l10n-te()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-te-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1239,7 +1230,7 @@ package_kde-l10n-tg()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-tg-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1251,7 +1242,7 @@ package_kde-l10n-th()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-th-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1262,7 +1253,7 @@ package_kde-l10n-tr()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-tr-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1273,7 +1264,7 @@ package_kde-l10n-ug()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-ug-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1284,7 +1275,7 @@ package_kde-l10n-uk()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-uk-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1295,7 +1286,7 @@ package_kde-l10n-uz()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-uz-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1306,7 +1297,7 @@ package_kde-l10n-uz@cyrillic()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-uz@cyrillic-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1317,7 +1308,7 @@ package_kde-l10n-vi()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-vi-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1328,7 +1319,7 @@ package_kde-l10n-wa()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-wa-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1339,7 +1330,7 @@ package_kde-l10n-xh()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-xh-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1350,7 +1341,7 @@ package_kde-l10n-zh_CN()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-zh_CN-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1361,7 +1352,7 @@ package_kde-l10n-zh_hk()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-zh_HK-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 
@@ -1372,7 +1363,7 @@ package_kde-l10n-zh_TW()
 	groups=('localization')
 
 	pushd ${srcdir}/kde-l10n-zh_TW-${pkgver}
-		make DESTDIR=${pkgdir} install || return 1
+		make DESTDIR=${pkgdir} install
 	popd
 }
 

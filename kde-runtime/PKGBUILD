@@ -1,8 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
-# maintainer abveritas[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -14,13 +9,13 @@ pkgrel=1
 pkgdesc="KDE Runtime"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 depends=("kdelibs>=${_kdever}" "nepomuk-core>=${_kdever}" "kactivities>=${_kdever}" 'oxygen-icons'
          'xorg-xauth' 'hicolor-icon-theme' 'samba' 'rarian' 'libssh' 'pulseaudio' 'libssh'
          'libcanberra' 'sound-theme-freedesktop')
 makedepends=('pkgconfig' 'cmake' 'automoc4' "kdepimlibs>=${_kdever}" 'openslp' 'docbook-xsl'
              'networkmanager' 'xine-lib' 'libcanberra-pulse' 'soprano')
-optdepends=('htdig: to build the search index' 'gdb: drkonq crash handler')
+optdepends=('gdb: drkonq crash handler')
 groups=("kde" "kde-minimal" "kde-uninstall")
 replaces=('kdebase-runtime' 'kde-runtime-doc')
 provides=('kdebase-runtime' 'kde-runtime-doc')
@@ -29,20 +24,14 @@ install=kde-runtime.install
 noextract=(branding.svgz)
 
 source=($_mirror/${pkgname}-$_kdever.tar.xz
-	'branding.svgz'
-	'01_disable_logout_sound.patch')
+	'branding.svgz')
 
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-        '68cd8eb57db22c2f2ed554b721253bc2'   #  branding.svgz
-        'a434bf282ee391b2f857184be59a3b6f')  #  01_disable_logout_sound.patch
+        '68cd8eb57db22c2f2ed554b721253bc2')   #  branding.svgz
 
 build() {
 	cd ${pkgname}-${pkgver}
-
-	msg "applying main patchset ..."
-	patch -p1 -i ${srcdir}/01_disable_logout_sound.patch
  
-	# copy our branding stuff
 	cp -f ${srcdir}/branding.svgz ${srcdir}/${pkgname}-${pkgver}/desktoptheme/oxygen/widgets/
 	cp -f ${srcdir}/branding.svgz ${srcdir}/${pkgname}-${pkgver}/desktoptheme/air/widgets/
 
