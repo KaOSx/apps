@@ -1,8 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer abveritas@chakra-project.org
-# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -17,7 +12,7 @@ pkgrel=1
 pkgdesc="KDE Workspace"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 install=${pkgname}.install
 depends=('polkit-kde-agent' "kdepimlibs>=${_kdever}" "kde-runtime>=${_kdever}" 'qimageblitz' 'mesa' "kactivities>=${_kdever}" 
 	 'libxxf86misc' 'libxcomposite' 'xcb-util-image' 'xcb-util-renderutil' 'libxss' 'lm_sensors' 'libxklavier' 'libxft' 'oxygen-icons' 'xkit' 'libxdamage' 
@@ -32,9 +27,9 @@ optdepends=("appmenu-qt:         Global menu support"
 	    "ntp:                Time/date sync support"
 	    "opentp:             Optional time/date sync support"
 	    "xf86-input-wacom:   Wacom tablet support")
-provides=('kdebase-workspace' 'powerdevil' 'kcm_tablet=1.1.3' 'kde-workspace-doc' 'ktouchpadenabler')
-replaces=('guidance-power-manager' 'kdebase-workspace' 'kde-workspace-doc' 'ktouchpadenabler')
-conflicts=('kdebase-workspace' 'powerdevil' 'kcm_tablet' 'guidance-power-manager' 'kde-workspace-doc' 'kded-appmenu' 'ktouchpadenabler')
+provides=('kdebase-workspace' 'powerdevil' 'kcm_tablet=1.1.3' 'kde-workspace-doc')
+replaces=('kdebase-workspace' 'kde-workspace-doc')
+conflicts=('kdebase-workspace' 'powerdevil' 'kcm_tablet' 'kde-workspace-doc' 'kded-appmenu')
 groups=("kde" "kde-uninstall" "kde-minimal")
 backup=('usr/share/config/kdm/kdmrc'
         'etc/pam.d/kscreensaver')
@@ -43,20 +38,19 @@ backup=('usr/share/config/kdm/kdmrc'
 source=($_mirror/${pkgname}-$_kdever.tar.xz
 	$_mirror/kde-wallpapers-$_kdever.tar.xz
 	mishaaq-kcm_touchpad-00370b5.tar.gz
-        http://chakra.sourceforge.net/sources/kdebase-workspace/114856-wacomtablet-1.99.3.tar.bz2
-        http://chakra.sourceforge.net/sources/kdebase-workspace/117639-favorites-0.1.tar.bz2
+        http://kde-apps.org/CONTENT/content-files/114856-wacomtablet-1.99.8.tar.gz
+        http://kde-apps.org/CONTENT/content-files/117639-containmentaction-favorites-0.2.tar.gz
         kde.pam
         kde-np.pam
         kscreensaver.pam
-        chakra-branding.tar.gz
 	kdm.service
 
         # core patches
         01_kdm_zsh_profile.patch
         #02_sane_env_and_shutdown_path.patch
-        03_plasma_menubutton_branding.patch
-        04_plasma_kickoff_url.patch
-	06_kickoff_default_favourites.patch
+        #03_plasma_menubutton_branding.patch
+        #04_plasma_kickoff_url.patch
+	#06_kickoff_default_favourites.patch
 	07_always_show_kickoff_subtext.patch
 	09_enable_start-shutdown-scripts.patch
 
@@ -89,14 +83,14 @@ build() {
 	cd ${srcdir}/${pkgname}-${pkgver}
 
 	msg "applying main patchset ..."
-	patch -Np0 -i ${srcdir}/01_kdm_zsh_profile.patch
+	patch -p0 -i ${srcdir}/01_kdm_zsh_profile.patch
 	# 02 is merged in 09, Jan 2013
-	#patch -Np0 -i ${srcdir}/02_sane_env_and_shutdown_path.patch
-	patch -Np1 -i ${srcdir}/03_plasma_menubutton_branding.patch
-        patch -Np0 -i ${srcdir}/04_plasma_kickoff_url.patch
-	patch -Np1 -i ${srcdir}/06_kickoff_default_favourites.patch
-	patch -Np1 -i ${srcdir}/07_always_show_kickoff_subtext.patch
-	patch -Np0 -i ${srcdir}/09_enable_start-shutdown-scripts.patch
+	#patch -p0 -i ${srcdir}/02_sane_env_and_shutdown_path.patch
+	#patch -p1 -i ${srcdir}/03_plasma_menubutton_branding.patch
+        #patch -p0 -i ${srcdir}/04_plasma_kickoff_url.patch
+	#patch -p1 -i ${srcdir}/06_kickoff_default_favourites.patch
+	patch -p1 -i ${srcdir}/07_always_show_kickoff_subtext.patch
+	patch -p0 -i ${srcdir}/09_enable_start-shutdown-scripts.patch
 
 	msg "applying fixes ..."
 	patch -p0 -i ${srcdir}/fix_terminate-server.patch
@@ -119,9 +113,9 @@ build() {
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
 	msg "starting kcm_tablet build ..."
-	cd ${srcdir}/wacomtablet-1.99.3
+	cd ${srcdir}/wacomtablet-1.99.8
         # Fix desktop to the new layout
-        sed -i -e "s~keyboard-and-mouse~input-devices~g" ${srcdir}/wacomtablet-1.99.3/src/kcmodule/kcm_wacomtablet.desktop
+        sed -i -e "s~keyboard-and-mouse~input-devices~g" ${srcdir}/wacomtablet-1.99.8/src/kcmodule/kcm_wacomtablet.desktop
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
 		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
@@ -143,7 +137,7 @@ package() {
 	cd ${srcdir}/mishaaq-kcm_touchpad-00370b5
 	make DESTDIR=${pkgdir} install
 
-	cd ${srcdir}/wacomtablet-1.99.3
+	cd ${srcdir}/wacomtablet-1.99.8
 	make DESTDIR=${pkgdir} install
 
 	cd ${srcdir}/favorites-0.1
@@ -166,26 +160,11 @@ package() {
 	# also install kdm clean default config
 	cd ${srcdir}/${pkgname}-${pkgver}/kdm 
 	make DESTDIR=${pkgdir} GENKDMCONF_FLAGS="--no-old --no-backup --no-in-notice" install
-
-	# copy branding stuff
-	mkdir -p ${pkgdir}/usr/share/icons/oxygen/scalable/places/
-	
-	cp -f ${srcdir}/chakra-branding/start-here-branding.svgz ${pkgdir}/usr/share/icons/oxygen/scalable/places/start-here-branding.svgz
-	cp -f ${srcdir}/chakra-branding/kdemod-start-here-branding.svgz ${pkgdir}/usr/share/icons/oxygen/scalable/places/kdemod-start-here-branding.svgz
-	
-	cp -f ${srcdir}/chakra-branding/branding-icon.png ${pkgdir}/usr/share/apps/kdm/themes/oxygen/branding-icon.png
-	
-	cd ${srcdir}/chakra-branding/
-	for i in 256 128 64 48 32 22 16; do
-		mkdir -p ${pkgdir}/usr/share/icons/oxygen/${i}x${i}/places/
-		install -D -m644 start-here-branding-${i}.png ${pkgdir}/usr/share/icons/oxygen/${i}x${i}/places/start-here-branding.png
-		install -D -m644 kdemod-start-here-branding-${i}.png ${pkgdir}/usr/share/icons/oxygen/${i}x${i}/places/kdemod-start-here-branding.png
-	done
 	
 	# edit kdmrc
 	sed -i -e s,#GUIStyle=.*,GUIStyle=Oxygen,g ${pkgdir}/usr/share/config/kdm/kdmrc
 	sed -i -e s,#ColorScheme=.*,ColorScheme=Oxygen,g ${pkgdir}/usr/share/config/kdm/kdmrc
-	sed -i -e s,Theme=/usr.*,Theme=/usr/share/apps/kdm/themes/horos,g ${pkgdir}/usr/share/config/kdm/kdmrc
+	sed -i -e s,Theme=/usr.*,Theme=/usr/share/apps/kdm/themes/elarun,g ${pkgdir}/usr/share/config/kdm/kdmrc
 	sed -i -e s,MinShowUID=.*,MinShowUID=1000,g ${pkgdir}/usr/share/config/kdm/kdmrc
 	sed -i -e 's/halt/poweroff/' ${pkgdir}/usr/share/config/kdm/kdmrc
 
@@ -207,7 +186,4 @@ package() {
 	
 	# Systemd .service file
 	install -D -m644 "${srcdir}"/kdm.service "${pkgdir}"/usr/lib/systemd/system/kdm.service
-	
-	# kde-base-artwork conflict, will be corrected in RC 2
-	rm -rf ${pkgdir}/usr/share/apps/ksplash/Themes/Default/
 }
