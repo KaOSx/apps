@@ -41,7 +41,7 @@ if [ $UID -ne 0 ]; then
 fi
 
 echo " "
-echo " > Chakra global config updater"
+echo " > Global config updater"
 echo "   ----------------------------"
 update_mime_db
 update_xdg_icons
