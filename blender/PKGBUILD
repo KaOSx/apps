@@ -1,0 +1,53 @@
+
+pkgname=blender
+pkgver=2.66.1
+_pkgver=2.66a
+pkgrel=3
+pkgdesc="A fully integrated 3D graphics creation suite"
+arch=('x86_64')
+license=('GPL')
+url="http://www.blender.org"
+depends=('libpng' 'libtiff' 'openexr' 'sdl' 'python3' 'desktop-file-utils' 'shared-mime-info'
+         'hicolor-icon-theme' 'xdg-utils' 'glew' 'libxi' 'libxmu' 'mesa' 'freetype2' 'jack'
+         'openal' 'libsndfile' 'libsamplerate' 'ffmpeg' 'fftw' 'openimageio' 'boost-libs'
+         'opencollada' 'opencolorio' 'libspnav')
+makedepends=('cmake' 'boost' 'mesa' 'subversion')
+screenshot=('http://www.blender.org/index.php?eID=tx_cms_showpic&file=uploads%2Fpics%2Fblender_screenshot3_03.png&width=800m&height=600m&bodyTag=%3Cbody%20style%3D%22margin%3A0%3B%20background%3A%23fff%3B%22%3E&wrap=%3Ca%20href%3D%22javascript%3Aclose%28%29%3B%22%3E%20%7C%20%3C%2Fa%3E&md5=cddc8ef0fbe1e90d0d22e78b4911860b')
+install=blender.install
+source=("http://download.blender.org/source/$pkgname-$_pkgver.tar.gz")
+md5sums=('dde8211818e35b00a1c01a11efef4533')
+
+build() {
+  cd "$srcdir/$pkgname-$_pkgver"
+  
+  mkdir -p build
+  cd build
+
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+    -DCMAKE_BUILD_TYPE:STRING=Release \
+    -DWITH_INSTALL_PORTABLE:BOOL=OFF \
+    -DWITH_PYTHON_INSTALL:BOOL=OFF \
+    -DWITH_OPENCOLLADA:BOOL=ON \
+    -DWITH_GAMEENGINE:BOOL=ON \
+    -DWITH_JACK:BOOL=ON \
+    -DWITH_PLAYER:BOOL=ON \
+    -DWITH_CODEC_FFMPEG:BOOL=ON \
+    -DWITH_IMAGE_OPENJPEG:BOOL=ON \
+    -DWITH_IMAGE_REDCODE:BOOL=ON \
+    -DWITH_MOD_OCEANSIM:BOOL=ON \
+    -DPYTHON_LIBPATH:STRING=/usr/lib \
+    -DPYTHON_LIBRARY:STRING=python3.3m \
+    -DPYTHON_INCLUDE_DIRS:STRING=/usr/include/python3.3m \
+    $ENABLESSE2
+
+  make $MAKEFLAGS
+
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$_pkgver/build"
+  make DESTDIR="${pkgdir}" install
+  python3 -m compileall "${pkgdir}/usr/share/blender"
+}
