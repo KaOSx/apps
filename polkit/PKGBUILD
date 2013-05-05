@@ -1,16 +1,12 @@
-#
-# Desktop Packages for Chakra, part of chakra-project.org
-#
-# maintainer abveritas@chakra-project.org
 
 pkgname=polkit
 pkgver=0.110
-pkgrel=1
+pkgrel=2
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=('x86_64')
 license=('LGPL')
 url="http://www.freedesktop.org/wiki/Software/polkit"
-depends=('glib2' 'pam' 'expat>=2.0.1' 'systemd' 'js')
+depends=('glib2' 'pam' 'expat>=2.0.1' 'systemd' 'js185')
 makedepends=('intltool>=0.41.1' 'gobject-introspection>=0.9.5' 'docbook-xsl')
 replaces=('consolekit')
 provides=('consolekit')
@@ -25,10 +21,12 @@ md5sums=('06e0d3b72e566ac277fc35c8206d2a28'
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   
-  ./configure --prefix=/usr --sysconfdir=/etc \
-      --localstatedir=/var --libexecdir=/usr/lib/polkit-1 \
+  ./configure --prefix=/usr \
+      --sysconfdir=/etc \
+      --localstatedir=/var \
+      --libexecdir=/usr/lib/polkit-1 \
       --with-systemdsystemunitdir=/usr/lib/systemd/system \
-      --disable-static --with-os-type=chakra 
+      --disable-static 
   make 
 }
 
