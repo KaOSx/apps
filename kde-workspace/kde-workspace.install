@@ -1,120 +1,42 @@
 post_install() {
-		echo " > Additional desktop-specific packages:"
-		echo " "
-		echo "   kdeplasma-addons             : Additional Plasmoids"
-		echo " "
-
-		if [ -e "/etc/kdeos/updates.conf" ] ; then
-
-			. /etc/kdeos/updates.conf
-
-			if [ "$UPDATE_XDG_ICON_DB" = "yes" ]; then
-				/usr/bin/update-icons
-			fi
-
-			if [ "$UPDATE_GLOBAL_CONFIG" = "yes" ]; then
-				/usr/bin/update-sycoca
-			fi	
-			
-			if [ "$UPDATE_USER_CONFIG" = "yes" ]; then
-				/usr/bin/update-user-sycoca
-			fi
-		else
-			echo " > WARNING"
-			echo "   The package kde-common seems not to be installed,"
-			echo "   this can possibly break the installation. Just install it"
-			echo "   manually after this installation/update, run the following"
-			echo "   commands and restart KDE afterwards:"
-			echo "   sudo config-updater"
-			echo "   kbuildsycoca4"
-			echo " "
-		fi
-		
 		groupadd -g 135 kdm &>/dev/null
-		useradd -u 135 -g kdm -d /var/lib/kdm -s /bin/false -r -M kdm &>/dev/null
-		chown -R 135:135 var/lib/kdm &>/dev/null
+	        useradd -u 135 -g kdm -d /var/lib/kdm -s /bin/false -r -M kdm &>/dev/null
+	        chown -R 135:135 var/lib/kdm &>/dev/null
+	        
+	        xdg-icon-resource forceupdate --theme hicolor &>/dev/null
+                update-desktop-database -q
+                genkdmconf --no-old --no-backup &>/dev/null
 		
 		echo "Enabling systemd service"
                         systemctl enable kdm.service
 }
 
 post_upgrade() {
-		if [ -e "/etc/kdeos/updates.conf" ] ; then
-
-			. /etc/kdeos/updates.conf
-
-			if [ "$UPDATE_XDG_ICON_DB" = "yes" ]; then
-				/usr/bin/update-icons
-			fi
-
-			if [ "$UPDATE_GLOBAL_CONFIG" = "yes" ]; then
-				/usr/bin/update-sycoca
-			fi
-			
-			if [ "$UPDATE_USER_CONFIG" = "yes" ]; then
-				/usr/bin/update-user-sycoca
-			fi
-		else
-			echo " > WARNING"
-			echo "   The package kde-common seems not to be installed,"
-			echo "   this can possibly break the installation. Just install it"
-			echo "   manually after this installation/update, run the following"
-			echo "   commands and restart KDE afterwards:"
-			echo "   sudo config-updater"
-			echo "   kbuildsycoca4"
-			echo " "
-		fi
-		
 		getent group kdm >/dev/null 2>&1 || groupadd -g 135 kdm &>/dev/null
-		getent passwd kdm >/dev/null 2>&1 || useradd -u 135 -g kdm -d /var/lib/kdm -s /bin/false -r -M kdm &>/dev/null
-		chown -R 135:135 var/lib/kdm &>/dev/null
-		
-		echo "Enabling systemd service"
-                        systemctl enable kdm.service
+	        getent passwd kdm >/dev/null 2>&1 || useradd -u 135 -g kdm -d /var/lib/kdm -s /bin/false -r -M kdm &>/dev/null
+	        chown -R 135:135 var/lib/kdm &>/dev/null
+	        
+	        xdg-icon-resource forceupdate --theme hicolor &> /dev/null
+                update-desktop-database -q
+                genkdmconf &>/dev/null
 }
 
 pre_remove() {
-   echo "Disabling systemd service"
-         systemctl disable kdm.service
+                echo "Disabling systemd service"
+                         systemctl disable kdm.service
 }
 
 post_remove() {
-
-		if [ -e "/etc/kdeos/updates.conf" ] ; then
-
-			. /etc/kdeos/updates.conf
-
-			if [ "$UPDATE_XDG_ICON_DB" = "yes" ]; then
-				/usr/bin/update-icons
-			fi
-
-			if [ "$UPDATE_GLOBAL_CONFIG" = "yes" ]; then
-				/usr/bin/update-sycoca
-			fi
-
-			if [ "$UPDATE_USER_CONFIG" = "yes" ]; then
-				/usr/bin/update-user-sycoca
-			fi
-		else
-			echo " > WARNING"
-			echo "   The package kde-common seems not to be installed,"
-			echo "   this can possibly break the installation. Just install it"
-			echo "   manually after this installation/update, run the following"
-			echo "   commands and restart KDE afterwards:"
-			echo "   sudo config-updater"
-			echo "   kbuildsycoca4"
-			echo " "
-		fi
-		
 		if getent passwd kdm >/dev/null 2>&1; then
-		  userdel kdm
-		fi
-		if getent group kdm >/dev/null 2>&1; then
-		  groupdel kdm
-		fi
+	           userdel kdm
+	        fi
+	        if getent group kdm >/dev/null 2>&1; then
+	           groupdel kdm
+	        fi
+	        xdg-icon-resource forceupdate --theme hicolor &> /dev/null
+
+                if [ -d usr/share/apps/kdm/faces ]; then
+                    rm -r usr/share/apps/kdm/faces
+                fi
 }
 
-op=$1
-shift
-
-$op $*
