@@ -14,12 +14,14 @@ url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs')
 install=${pkgname}.install
-depends=('polkit-kde-agent' "kdepimlibs>=${_kdever}" "kde-runtime>=${_kdever}" 'qimageblitz' 'mesa' "kactivities>=${_kdever}" 
-	 'libxxf86misc' 'libxcomposite' 'xcb-util-image' 'xcb-util-renderutil' 'libxss' 'lm_sensors' 'libxklavier' 'libxft' 'oxygen-icons' 'xkit' 'libxdamage' 
-         'xorg-utils' 'libxrandr' 'libxres' 'libdmtx' 'libqalculate' 'prison' 'qrencode' "kdepim-runtime>=${_kdever}" "kde-base-artwork>=${_kdever}")
+depends=('polkit-kde-agent' "kdepimlibs>=${_kdever}" "kde-runtime>=${_kdever}" 'qimageblitz' 'mesa'
+         "kactivities>=${_kdever}" 'libxxf86misc' 'libxcomposite' 'xcb-util-image' 'xcb-util-renderutil'
+         'libxss' 'lm_sensors' 'libxklavier' 'libxft' 'oxygen-icons' 'xkit' 'libxdamage' 'xorg-utils'
+         'libxrandr' 'libxres' 'libdmtx' 'libqalculate' 'prison' 'qrencode' "kdepim-runtime>=${_kdever}"
+         "kde-base-artwork>=${_kdever}")
 makedepends=('pkgconfig' 'cmake' 'automoc4' 'networkmanager' 'bluez' "kdebindings-pykde4>=${_kdever}"
 	    'oxygen-icons' "kde-runtime>=${_kdever}" 'gpsd' 'samba' 'xf86-input-wacom'
-	    'libraw1394' 'libdmtx' 'docbook-xsl' 'prison' 'qrencode')  
+	    'libraw1394' 'libdmtx' 'docbook-xsl' 'prison' 'qrencode' 'boost')  
 optdepends=("appmenu-qt:         Global menu support"
             "kdebindings-pykde4: Python Support for Plasma"
 	    "kdeedu-marble:      Marble Wallpaper Plugin"
@@ -62,17 +64,13 @@ source=($_mirror/${pkgname}-$_kdever.tar.xz
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          `grep kde-wallpapers-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1` # kde-wallpapers
          'f355a658d2e9267fdf4e8d8f88038bcf'
-         '452bde7f31f20afe2ffae9cd19260e29'
-         'b60baabccbd302d00923e053db0dc0ae'
+         '3b9dda7bad885dc0d34885691103c749'
+         'bbd19ad516d7ca3181a181e7c7f2366a'
          '5b137f8b00c578ec324e72b455814fd0'
          'ce53d3a059f5ccbf7429058f935ee9a4'
          '367a3538f54db71f108b34cfa31088ac'
-         '7c52d1bf3a124e46aab8a5ba93a09ac3'
          'c4b5f1b342b3dad38642318ca077daee'
          '721e97031b62aee8914e8617e86f9235'
-         '8e623bb5608025417ff9ed061e5a03f1'
-         '13e71d63e345ddd54eed6b6853ced1fb'
-         'd4d7d3fc3ac072a8ca848e9c96e517dc'
          '89d96455c6a446ef59b0620d1b8606af'
          '3ee0002192f6f0a2e1d15c813f520f81'
          '814350c52c135d6f7bdada1e29223d38'
@@ -121,7 +119,7 @@ build() {
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
 	msg "starting favorites launcher build ..."
-	cd ${srcdir}/favorites-0.1
+	cd ${srcdir}/containmentaction-favorites-0.2
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
 		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
@@ -140,7 +138,7 @@ package() {
 	cd ${srcdir}/wacomtablet-1.99.8
 	make DESTDIR=${pkgdir} install
 
-	cd ${srcdir}/favorites-0.1
+	cd ${srcdir}/containmentaction-favorites-0.2
 	make DESTDIR=${pkgdir} install
 
 	# install pam configuration

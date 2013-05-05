@@ -1,8 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: abveritas[at]chakra-project[dog]org>
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -15,8 +10,9 @@ pkgrel=1
 pkgdesc="A system tray utility that shows current print jobs, printer warnings and errors"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs' '!splithdr' 'splitdbg' 'log')
-depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}" "kdebindings-pykde4>=${_kdever}" 'system-config-printer')
+options=('docs')
+depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}" "kdebindings-pykde4>=${_kdever}"
+         'system-config-printer')
 conflicts=("kdeutils-common")
 groups=("kde" "kdeutils" "kde-uninstall")
 groups=('utils')
@@ -42,5 +38,6 @@ build() {
 
 package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
+	
 	make DESTDIR=${pkgdir} install
 }

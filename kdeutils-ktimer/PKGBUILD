@@ -1,7 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -14,7 +10,7 @@ pkgrel=1
 pkgdesc="Timer application"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}")
 conflicts=("kdeutils-common")
 groups=("kde" "kdeutils" "kde-uninstall")
@@ -34,10 +30,11 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
-	make || return 1
+	make
 }
 
 package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
+	
 	make DESTDIR=${pkgdir} install 
 }

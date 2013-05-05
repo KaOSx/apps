@@ -1,20 +1,16 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname="kdeutils-kcharselect"
 _pkgname="kcharselect"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Character selector"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}")
 conflicts=("kdeutils-common" "kdeutils-doc")
 groups=("kde" "kdeutils" "kde-uninstall")
@@ -36,11 +32,12 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
-	make || return 1
+	make 
 }
 
 package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
+	
 	make DESTDIR=${pkgdir} install
 }
 
