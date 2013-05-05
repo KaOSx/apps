@@ -12,7 +12,7 @@ pkgname=('calligra-3rdparty'
          'calligra-pics'
          'calligra-servicetypes'
          'calligra-templates'
-         'calligra-tools'
+         'calligra-extras'
          'calligra-karbon'
          'calligra-kexi'
          'calligra-plan'
@@ -23,19 +23,19 @@ pkgname=('calligra-3rdparty'
          'calligra-handbook'
          'calligra-braindump'
          'calligra-flow')
-pkgver=2.6.3
+pkgver=2.6.90
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
 makedepends=('kdepimlibs' 'eigen' 'freetds' 'kdegraphics-okular' 'kdeedu-marble' 'xbase' 'libpqxx<4' 'libvisio'
-             'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'glew' 'gsl' 'cmake' 'automoc4' 'libspnav' 'libqtgtl'
+             'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'glew' 'gsl' 'cmake' 'automoc4' 'libspnav'
              'boost' 'libkdcraw' 'fftw' 'opengtl' 'docbook-xsl' 'create-resources' 'lcms2' 'libmariadbclient'
              'vc' 'opencolorio')
 groups=('calligra')
 source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.bz2")
 screenshot=("http://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Calligra_Stage_2.4.png/800px-Calligra_Stage_2.4.png")
-md5sums=('90d6bb619191abbcc94094379d47e225')
+md5sums=('21010da08f8729658df263b1994c1944')
 
 
 build() {
@@ -135,14 +135,14 @@ package_calligra-templates() {
   make DESTDIR="${pkgdir}" install
 }
 
-package_calligra-tools() {
+package_calligra-extras() {
   pkgdesc="Tools for the Calligra office suite"
   depends=('calligra-sheets' 'calligra-words')
   conflicts=('koffice-common' 'calligra-tools-git')
   replaces=('koffice-common' 'calligra-tools-git')
   install=calligra-tools.install
 
-  cd "${srcdir}"/build/tools
+  cd "${srcdir}"/build/extras
   make DESTDIR="${pkgdir}" install
 }
 
@@ -217,7 +217,7 @@ package_calligra-stage() {
 package_calligra-krita() {
   pkgdesc="Edit and paint images"
   depends=('calligra-libs' 'calligra-templates' 'calligra-plugins' 'glew' 'qimageblitz' 'poppler-qt'
-           'openexr' 'opengtl' 'hicolor-icon-theme' 'shared-mime-info' 'lcms2' 'libqtgtl' 'vc' 'opencolorio')
+           'openexr' 'opengtl' 'hicolor-icon-theme' 'shared-mime-info' 'lcms2' 'vc' 'opencolorio')
   optdepends=('calligra-filters: import/export filters')
   provides=('krita')
   conflicts=('koffice-krita' 'calligra-krita-git')
