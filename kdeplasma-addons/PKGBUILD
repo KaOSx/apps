@@ -1,7 +1,3 @@
-#
-# KDE Packages for Chakra, part of chakra-project.org
-#
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -89,10 +85,10 @@ pkgrel=1
 pkgdesc="KDE Plasma Addons"
 url="http://www.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 depends=("kde-workspace>=${_kdever}" 'libqalculate' "kdeedu-marble>=${_kdever}" 'qwt')
-makedepends=('pkg-config' 'cmake' 'automoc4' 'libqalculate' 'qoauth'
-             "kdegraphics-libkexiv2>=${_kdever}" "kdeedu-marble>=${_kdever}" 'eigen' 'scim' 'qwt')
+makedepends=('pkg-config' 'cmake' 'automoc4' 'libqalculate' 'qoauth' 'boost'
+             "kdegraphics-libkexiv2>=${_kdever}" "kdeedu-marble>=${_kdever}" 'eigen' 'qwt') # scim needed?
 
 source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
