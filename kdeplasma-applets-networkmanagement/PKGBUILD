@@ -1,13 +1,7 @@
-#
-# Chakra Packages for Chakra, part of chakra-project.org
-#
-# maintainer abveritas@chakra-project.org
-# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
-# contributor : Radu Andries <admiral0[at]tuxfamily[dot]org>
 
 pkgname=('kdeplasma-applets-networkmanagement')       
 arch=('x86_64')
-pkgver=0.9.0.7
+pkgver=0.9.0.8
 pkgrel=1
 pkgdesc="KDE SC networkmanager plasmoid"
 url="http://plasma.kde.org"
@@ -19,12 +13,13 @@ optdepends=('mobile-broadband-provider-info: Database of mobile broadband servic
             'openconnect: Cisco AnyConnect compatible VPN client')
 install=${pkgname}.install
 source=("ftp://ftp.kde.org/pub/kde/unstable/networkmanagement/${pkgver}/src/networkmanagement-${pkgver}.tar.bz2")
-md5sums=('6c8f6cf7a2b5979d299a54bceb204946')
+md5sums=('ec80ff922257d34a942cb5f284d03ce6')
 
 build() {
   cd "${srcdir}"
   mkdir build
   cd build
+  
   cmake ../networkmanagement-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release
@@ -33,5 +28,6 @@ build() {
 
 package() {
   cd "${srcdir}"/build
+  
   make DESTDIR="${pkgdir}" install
 }
