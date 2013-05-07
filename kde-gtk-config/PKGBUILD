@@ -1,4 +1,3 @@
-# maintainer: Manuel tortosa <manutortosa@chakra-project.org>
 
 pkgname=kde-gtk-config
 pkgver=2.2.1
@@ -11,9 +10,6 @@ depends=('kde-runtime')
 makedepends=('cmake' 'automoc4' 'gtk2' 'gtk3')
 optdepends=('gtk2: GTK+ v2 support'
 	    'gtk3: GTK+ v3 support')
-conflicts=('kde-gtk-config-git' 'chakra-gtk-config' 'chakra-gtk-config-git')
-provides=('chakra-gtk-config')
-replaces=('chakra-gtk-config')
 groups=('gtk-integration')
 source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz")
 install=$pkgname.install
@@ -23,6 +19,7 @@ build() {
   cd "$srcdir"
   mkdir build
   cd build
+  
   cmake ../$pkgname-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
@@ -31,5 +28,6 @@ build() {
 
 package(){
   cd "$srcdir/build"
+  
   make DESTDIR="$pkgdir" install
 }
