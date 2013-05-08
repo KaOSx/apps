@@ -51,7 +51,7 @@ package() {
   install -D -m755 gpsd.hotplug "${pkgdir}/usr/lib/udev/gpsd.hotplug"
 
   # GPSD needs RPATH
-  chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgps{,d}.so.20.0.0
+  chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgps.so.20.0.0
   chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgpsd.so.21.0.0
   chrpath -r /usr/lib/ "${pkgdir}"/usr/bin/{gpsdecode,gpsctl,gpspipe,gpxlogger,lcdgps}
   chrpath -r /usr/lib/ "${pkgdir}"/usr/sbin/{gpsd,gpsdctl}

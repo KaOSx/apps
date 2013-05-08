@@ -1,0 +1,26 @@
+
+pkgname=scons
+pkgver=2.3.0
+pkgrel=1
+pkgdesc="Extensible Python-based build utility"
+arch=('x86_64')
+url="http://scons.org"
+license=('MIT')
+depends=('python2')
+groups=('programming')
+source=("http://downloads.sourceforge.net/sourceforge/${pkgname}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('083ce5624d6adcbdaf2526623f456ca9')
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  python2 setup.py install --standard-lib \
+                           --prefix=/usr \
+                           --install-data=/usr/share \
+                           --optimize=1 \
+                           --root="${pkgdir}" \
+
+  install -D -m644 LICENSE.txt \
+                   "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
