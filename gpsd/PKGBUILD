@@ -1,10 +1,6 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 pkgname=gpsd
-pkgver=3.7
+pkgver=3.9
 pkgrel=1
 pkgdesc="GPS daemon and library to support USB/serial GPS devices"
 arch=('x86_64')
@@ -12,15 +8,15 @@ url="http://catb.org/gpsd/"
 screenshot="http://www.catb.org/gpsd/gpsd2.png"
 license=('BSD')
 depends=('python2' 'libusb' 'bluez' 'desktop-file-utils')
-optdepends=('php: generate a PHP status page for your GPS'
-            'php-gd: image support for the PHP status page')
+optdepends=('php: generate a PHP status page for your GPS')
 makedepends=('scons' 'docbook-xsl' 'chrpath')
-backup=('etc/conf.d/gpsd')
+backup=('etc/gpsd.conf')
 options=('!libtool')
 install="${pkgname}.install"
-source=("http://download.savannah.gnu.org/releases/${pkgname}/${pkgname}-${pkgver}.tar.gz"{,.sig})
-md5sums=('52d9785eaf1a51298bb8900dbde88f98'
-         '07fa4bf23aa998dcb951790b63dbebff')
+source=("http://download.savannah.gnu.org/releases/${pkgname}/${pkgname}-${pkgver}.tar.gz"
+        'gpsd.conf')
+md5sums=('53a88f24a0973d23427e82e9a8914f19'
+         '3e963df3f9f7ef3572ecc648ae829315')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -48,15 +44,15 @@ package() {
   export DESTDIR="${pkgdir}"
   scons install
 
-  sed -i 's|/lib/udev/gpsd|/usr/lib/udev/gpsd|' gpsd.rules
-
   install -D -m644 "gpsd.rules" "${pkgdir}/usr/lib/udev/rules.d/99-gpsd-usb.rules"
+  install -D -m644 "${srcdir}/gpsd.conf" "${pkgdir}/etc/gpsd.conf"
 
   sed -i 's|/etc/default/gpsd|/etc/conf.d/gpsd|' gpsd.hotplug
   install -D -m755 gpsd.hotplug "${pkgdir}/usr/lib/udev/gpsd.hotplug"
 
   # GPSD needs RPATH
   chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgps{,d}.so.20.0.0
+  chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgpsd.so.21.0.0
   chrpath -r /usr/lib/ "${pkgdir}"/usr/bin/{gpsdecode,gpsctl,gpspipe,gpxlogger,lcdgps}
   chrpath -r /usr/lib/ "${pkgdir}"/usr/sbin/{gpsd,gpsdctl}
   chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/python2.7/site-packages/gps/{clienthelpers,packet}.so
