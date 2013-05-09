@@ -5,11 +5,11 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname="kdelibs"
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="KDE Core Libraries"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs' 'debug')
+options=('docs')
 depends=("${_qtpkg}>=${_qtver}" "kde-common>=${_kdever}" "oxygen-icons>=${_kdever}" 
 	    'shared-mime-info' 'upower' 'udisks<2.0' 'xz>=5.0.0' 'enchant' 'jasper' 'openexr' 'giflib'
 	    'strigi' 'libxtst' 'soprano>=2.8' 'ca-certificates' 'xdg-utils' 'qca' 'polkit-qt>=0.98.1'
@@ -31,10 +31,12 @@ conflicts=("kdelibs-doc")
 install=${pkgname}.install
 source=($_mirror/${pkgname}-$_kdever.tar.xz
 	'02_kde_applications_menu.patch'
-	'MergeDir.patch')
+	'MergeDir.patch'
+	'password.diff')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'e94450ba5430ea9c1e33bad9ae38ca2d'   # 02_kde_applications_menu.patch
-         'f442698bae9d4ffb26f6df9457d7fc5a')  # MergeDir.patch
+         'f442698bae9d4ffb26f6df9457d7fc5a'   # MergeDir.patch
+         'a73cf36d63066b63513eaab4fbcd1ec6')  # password.diff
         
 build() {
 	# main patches
@@ -45,6 +47,9 @@ build() {
 
 	# right positioning of applications' entries in kmenu
 	patch -p1 -i ${srcdir}/MergeDir.patch
+	
+	# emergency password fix
+	patch -p1 -i ${srcdir}/password.diff
 
         cd ..
 	rm -rf build
