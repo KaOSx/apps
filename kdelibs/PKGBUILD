@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname="kdelibs"
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=4
 pkgdesc="KDE Core Libraries"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -32,11 +32,13 @@ install=${pkgname}.install
 source=($_mirror/${pkgname}-$_kdever.tar.xz
 	'02_kde_applications_menu.patch'
 	'MergeDir.patch'
-	'password.diff')
+	'password.diff'
+	'app_quit.diff')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'e94450ba5430ea9c1e33bad9ae38ca2d'   # 02_kde_applications_menu.patch
          'f442698bae9d4ffb26f6df9457d7fc5a'   # MergeDir.patch
-         'a73cf36d63066b63513eaab4fbcd1ec6')  # password.diff
+         'a73cf36d63066b63513eaab4fbcd1ec6'   # password.diff
+         '1c8c5c3bc5676c7dbee10c2a8fd655fd')  #app_quit.diff
         
 build() {
 	# main patches
@@ -50,6 +52,8 @@ build() {
 	
 	# emergency password fix
 	patch -p1 -i ${srcdir}/password.diff
+	# quiting apps crash
+	patch -p1 -i ${srcdir}/app_quit.diff
 
         cd ..
 	rm -rf build
