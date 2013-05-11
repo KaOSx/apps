@@ -1,0 +1,25 @@
+
+pkgname=pacmanlogviewer
+pkgver=1.2
+pkgrel=1
+pkgdesc="Inspect pacman log file."
+arch=('x86_64')
+url=('https://opendesktop.org/content/show.php?content=150484')
+license=('GPL')
+depends=('qt')
+screenshot=('https://opendesktop.org/CONTENT/content-pre1/150484-1.png')
+source=("http://qt-apps.org/CONTENT/content-files/150484-$pkgname-$pkgver.tar.gz")
+md5sums=('43a612a0495f74113d091007880c2f3c')
+ 
+build() {
+    cd "$srcdir/$pkgname-$pkgver"
+
+    qmake
+    make
+}
+
+package() {
+    cd "$srcdir/$pkgname-$pkgver"
+
+    make INSTALL_ROOT="$pkgdir" install
+} 
