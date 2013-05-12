@@ -12,7 +12,6 @@ pkgrel=1
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-install=oxygen-icons.install
 makedepends=('pkg-config' 'cmake' 'automoc4')
 source=($_mirror/${_origname}-$_kdever.tar.xz)
 md5sums=(`grep ${_origname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -27,7 +26,7 @@ build() {
 }
 
 package_oxygen-icons() {
-	pkgdesc="Oxygen (Emot)Icons"
+	pkgdesc="Oxygen Icons theme"
 	groups=("kde" "kde-minimal" "kde-uninstall")
 	
 	cd $srcdir/$_origname-$pkgver

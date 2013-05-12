@@ -1,8 +1,9 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins' 'libkvkontakte')
-pkgver=3.1.0
-pkgrel=2
+pkgver=3.2.0beta2
+_pkgver=3.2.0-beta2
+pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
@@ -11,15 +12,15 @@ makedepends=('kde-runtime' 'kdegraphics-kgamma' 'kdepimlibs' 'lensfun' 'kdeedu-m
              'liblqr' 'opencv' 'lapack' 'libgpod' 'pkgconfig' 'cmake' 'automoc4'
              'doxygen' 'docbook-xsl' 'qjson' 'kdegraphics-libkexiv2' 'kdegraphics-libkdcraw'
              'kdegraphics-libksane' 'qt-gstreamer' 'boost' 'hugin-tools')
-source=("http://download.kde.org/stable/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('b51de5ae2fc0a4b0aa97b1c43d83ee30')
+source=("http://download.kde.org/unstable/${pkgname}/${pkgname}-${_pkgver}.tar.bz2")
+md5sums=('e9867fa124cda63546e90f4ef6ad6782')
 
 build() {
    cd ${srcdir}
  
    mkdir -p build
    cd build
-   cmake ../${pkgname}-${pkgver} \
+   cmake ../${pkgname}-${_pkgver} \
      -DCMAKE_BUILD_TYPE=Release \
      -DCMAKE_INSTALL_PREFIX=/usr \
      -DCMAKE_SKIP_RPATH=ON \
@@ -34,7 +35,6 @@ package_digikam() {
   install=digikam.install
   replaces=('digikamimageplugins')
   groups=('graphics')
-  screenshot=('http://farm4.staticflickr.com/3197/2606712653_e9b9dc6ca1_o.png')
 
   splitdirs="core doc po"
   for i in ${splitdirs} ; do
