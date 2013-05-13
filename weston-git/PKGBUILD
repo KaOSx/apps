@@ -1,43 +1,30 @@
-# Maintainer: abveritas@chakra-project.org
-# Contributions by https://aur.archlinux.org/packages/weston-git/
 
 pkgname=weston-git
-pkgver=20130322
+pkgver=20130513
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
 url='http://wayland.freedesktop.org'
 license=('MIT')
 options=(!libtool)
-depends=('libxkbcommon' 'mesa-wayland' 'cairo' 'poppler-glib' 'mtdev' 'libxcursor'
+depends=('libxkbcommon' 'mesa' 'pango' 'poppler-glib' 'mtdev' 'libxcursor' 'glu' 'libunwind'
          'pixman' 'xkeyboard-config')
 
-_gitroot='git://anongit.freedesktop.org/wayland/weston'
-_gitname='weston'
+source=('git://anongit.freedesktop.org/wayland/weston')
+md5sums=('SKIP')
 
 build() {
-	msg "Connecting to git.freedesktop.org GIT server...."
+	cd ${srcdir}/weston
 
-	if [ -d "$srcdir/$_gitname" ] ; then
-		cd $_gitname && git pull origin master
-		msg "The local files are updated."
-	else
-		git clone $_gitroot --depth 1
-	fi
-
-	msg "GIT checkout done or server timeout"
-	msg "Starting make..."
-
-	rm -rf "${srcdir}/$_gitname-build"
-	cp -r "${srcdir}/$_gitname" "${srcdir}/$_gitname-build"
-	cd "${srcdir}/$_gitname-build"
-
-	./autogen.sh --prefix=/usr --libexecdir=/usr/lib/weston
+	./autogen.sh \
+	    --prefix=/usr \
+	    --libexecdir=/usr/lib/weston \
+	    --disable-android-compositor
 	make
 }
 
 package() {
-	cd "${srcdir}/$_gitname-build"
+	cd ${srcdir}/weston
 	make DESTDIR="${pkgdir}" install
 
 	for _c in clickdot cliptest dnd eventdemo flower image resizor simple-egl \
