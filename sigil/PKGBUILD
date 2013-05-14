@@ -1,0 +1,46 @@
+
+pkgname=sigil
+_pkgname=Sigil
+pkgver=0.7.2
+pkgrel=1
+pkgdesc="A multi-platform WYSIWYG ebook editor. It is designed to edit books in ePub format. "
+arch=('x86_64')
+url="http://code.google.com/p/sigil/"
+license=('GPL3')
+depends=('qt5' 'boost-libs')
+makedepends=('cmake' 'gendesk' 'boost')
+groups=('office')
+install=sigil.install
+source=("http://$pkgname.googlecode.com/files/$_pkgname-$pkgver-Code.zip")
+md5sums=('540745983db57a2150cc2f4057455b19')
+
+
+build() {
+  gendesk -n
+
+  mkdir build 
+  cd build
+
+  cmake -G "Unix Makefiles" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_C_FLAGS:STRING="$CFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$CXXFLAGS" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON ..
+  make
+}
+
+package() {
+  cd build
+  make install DESTDIR=$pkgdir
+  install -d -m 0755 "${pkgdir}"/usr/share/applications
+
+  # Desktop integration.
+  install -Dm0644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+  for _pic in 16 32 48 128 256; do
+    install -Dm0644 ../src/Sigil/Resource_Files/icon/app_icon_$_pic.png \
+      $pkgdir/usr/share/icons/hicolor/$_picx$_pic/apps/$pkgname.png
+  done
+   install -Dm644 ../src/Sigil/Resource_Files/icon/app_icon_128.png \
+       "$pkgdir/usr/share/pixmaps/$pkgname.png"
+}

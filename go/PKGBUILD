@@ -1,0 +1,99 @@
+
+pkgname=go
+pkgver=1.1
+pkgrel=1
+pkgdesc='Google Go compiler and tools (release version)'
+arch=('x86_64')
+url="http://golang.org/"
+license=('custom')
+depends=('perl' 'gawk')
+makedepends=('inetutils')
+options=('!strip' '!emptydirs')
+install=go.install
+source=("http://go.googlecode.com/files/${pkgname}$pkgver.linux-amd64.tar.gz"
+        "$pkgname.sh")
+md5sums=('f55f28330ae5fb07df0ae31fbab713e6'
+         '68b30f22932c955689d3da42ab1e3561')
+
+build() {
+  cd "$srcdir/$pkgname/src"
+
+  export GOROOT_FINAL="/usr/lib/go"
+  export GOOS=linux
+
+  bash make.bash
+}
+
+#check() {
+ # cd "$srcdir/$pkgname"
+  
+  #export GOOS=linux
+  #export GOARCH=amd64
+  #export GOROOT="$srcdir/$pkgname"
+  #export PATH="$srcdir/$pkgname/bin:$PATH"
+
+  # TestSimpleMulticastListener will fail in standard chroot.
+  #cd src && bash run.bash --no-rebuild || true
+#}
+
+package() {
+  cd "$srcdir/$pkgname"
+  
+  export GOROOT="$srcdir/$pkgname"
+  export PATH="$srcdir/$pkgname/bin:$PATH"
+
+  cd "$srcdir/$pkgname"
+
+  install -Dm644 LICENSE \
+    "$pkgdir/usr/share/licenses/go/LICENSE"
+  install -Dm644 misc/bash/go \
+    "$pkgdir/usr/share/bash-completion/completions/go"
+  install -Dm644 misc/emacs/go-mode-load.el \
+    "$pkgdir/usr/share/emacs/site-lisp/go-mode-load.el"
+  install -Dm644 misc/emacs/go-mode.el \
+    "$pkgdir/usr/share/emacs/site-lisp/go-mode.el"
+  install -Dm644 misc/zsh/go \
+    "$pkgdir/usr/share/zsh/site-functions/_go"
+
+  for f in ftdetect/gofiletype.vim autoload/go/complete.vim indent/go.vim \
+    ftplugin/go/fmt.vim ftplugin/go/import.vim syntax/go.vim syntax/godoc.vim \
+    plugin/godoc.vim;
+  do
+    install -Dm644 "misc/vim/$f" "$pkgdir/usr/share/vim/vimfiles/$f"
+  done
+
+  mkdir -p "$pkgdir/"{etc/profile.d,usr/{share/go,lib/go,lib/go/src,lib/go/site}}
+
+  cp -r doc misc -t "$pkgdir/usr/share/go"
+  ln -s /usr/share/go/doc "$pkgdir/usr/lib/go/doc"
+  cp -r --preserve=timestamps bin "$pkgdir/usr"
+  cp -r --preserve=timestamps pkg "$pkgdir/usr/lib/go"
+  cp -r --preserve=timestamps $GOROOT/src/pkg "$pkgdir/usr/lib/go/src/"
+  cp -r --preserve=timestamps $GOROOT/src/cmd "$pkgdir/usr/lib/go/src/cmd"
+  cp -r --preserve=timestamps $GOROOT/src/lib9 "$pkgdir/usr/lib/go/src/"
+  cp -r --preserve=timestamps $GOROOT/lib "$pkgdir/usr/lib/go/"
+
+  install -Dm644 src/Make.* "$pkgdir/usr/lib/go/src"
+
+  # Remove object files from target src dir
+  find "$pkgdir/usr/lib/go/src/" -type f -name '*.[ao]' -delete
+  find $pkgdir -type f -name sql.go -exec chmod -x {} \;
+  find "$pkgdir/usr/lib/go/src/pkg" -type f -executable -delete
+
+  # Headers for C modules
+  install -Dm644 src/pkg/runtime/runtime.h \
+    "$pkgdir/usr/lib/go/src/pkg/runtime/runtime.h"
+  install -Dm644 src/pkg/runtime/cgocall.h \
+    "$pkgdir/usr/lib/go/src/pkg/runtime/cgocall.h"
+
+  # For packages that source /etc/profile.d/go.sh
+  install -Dm755 "$srcdir/$pkgname.sh" "$pkgdir/etc/profile.d/$pkgname.sh"
+  
+  ln -sf /usr/bin $pkgdir/usr/lib/go/bin
+
+  # For godoc
+  install -Dm644 favicon.ico $pkgdir/usr/lib/go/favicon.ico
+
+  rm -f "$pkgdir/usr/share/go/doc/articles/wiki/get.bin"
+  install -Dm644 VERSION $pkgdir/usr/lib/go/VERSION
+}
