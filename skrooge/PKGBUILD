@@ -1,0 +1,32 @@
+
+pkgname=skrooge
+pkgver=1.7.1
+pkgrel=1
+pkgdesc="Allows you to manage your personal finances in KDE"
+arch=('x86_64')
+url="http://skrooge.org"
+license=('GPL')
+depends=('grantlee' 'kdepimlibs' 'kde-runtime' 'libofx' 'qca-ossl')
+makedepends=('automoc4' 'cmake' 'docbook-xsl' 'boost')
+groups=('office')
+install=$pkgname.install
+source=("http://skrooge.org/files/$pkgname-$pkgver.tar.bz2")
+md5sums=('fcb0cf4db7218b04d9634aebad7263a8')
+
+build() {
+  cd $srcdir/$pkgname-$pkgver
+
+  mkdir build
+  cd build
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    ..
+  make
+}
+ 
+package() {
+  cd $srcdir/$pkgname-$pkgver/build
+  
+  make DESTDIR=$pkgdir install
+}
