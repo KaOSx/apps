@@ -1,0 +1,34 @@
+
+pkgname=grub2-editor
+_pkgname=kcm-grub2
+pkgver=0.5.8
+pkgrel=3
+pkgdesc="A KDE4 control module for configuring the GRUB2 bootloader."
+arch=('x86_64')
+_kdeapps=139643
+url="http://kde-apps.org/content/show.php?content=${_kdeapps}"
+license=('GPL3')
+depends=('kde-workspace' 'hwinfo' 'imagemagick' 'libwmf' 'librsvg')
+makedepends=('cmake' 'automoc4')
+groups=('system')
+source=("http://sourceforge.net/projects/kcm-grub2/files/${pkgver}/${_pkgname}-${pkgver}.tar.gz")
+md5sums=('a75f3a288bf16bb4e4eed96213568f6d')
+
+build(){
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+
+  mkdir -p build
+  cd build
+
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo  \
+        ../
+  make
+}
+
+package(){
+  cd "${srcdir}/${_pkgname}-${pkgver}/build"
+  
+  make DESTDIR="${pkgdir}" install
+}
+
