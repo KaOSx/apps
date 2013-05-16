@@ -1,0 +1,38 @@
+
+pkgname=amarok
+pkgver=2.7.1
+pkgrel=1
+pkgdesc="A media player for KDE"
+arch=('x86_64')
+url="http://amarok.kde.org"
+screenshot="http://amarok.kde.org/files/Amarok-2.6-InDulciJubilo-screenie4.png"
+license=('GPL2' 'LGPL2' 'FDL')
+depends=('kde-runtime' 'mariadb' 'qtscriptgenerator' 'taglib-extras' 'liblastfm' 'ffmpeg' 'libofa'
+         'qjson' 'mesa' 'loudmouth' 'clamz')
+makedepends=('pkgconfig' 'automoc4' 'cmake' 'libgpod' 'libmtp' 'docbook-xsl' 'libmygpo-qt')
+optdepends=("libgpod: support Apple iPod audio devices"
+            "libmtp: support for portable media devices"
+            "libmygpo-qt: support for gpodder.net"
+	    "ifuse: support for Apple iPod Touch and iPhone")
+groups=('multimedia')
+install="${pkgname}.install"
+source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('855203770cfb43be39bd9b961540dbaf')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  mkdir build
+  cd build
+  cmake .. \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE4_BUILD_TESTS=OFF 
+  make
+}
+
+package(){
+  cd "${srcdir}/${pkgname}-${pkgver}/build"
+  
+  make DESTDIR="${pkgdir}" install
+}
