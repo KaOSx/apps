@@ -1,0 +1,33 @@
+
+pkgname=plasma-mediacenter
+pkgver=1.0.0
+pkgsubver=1
+pkgrel=2
+pkgdesc="A Media Center for the KDE Software Compilation based on plasma technology"
+arch=('x86_64')
+url="https://projects.kde.org/projects/playground/multimedia/plasma-mediacenter"
+license=('GPL3')
+depends=('kde-workspace' 'qt-mobility' 'kdemultimedia-thumbnailers' 'taglib')
+makedepends=('cmake' 'automoc4')
+groups=('multimedia')
+source=("http://download.kde.org/stable/plasma-mediacenter/1.0.0/src/${pkgname}-${pkgver}-${pkgsubver}.tar.gz")
+md5sums=('8f52f0b7d572e0e0eb5bf50e744e51dc')
+
+build() {
+   cd "${srcdir}"/"${pkgname}"
+   mkdir build
+   
+   cd build
+   cmake \
+       -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` \
+       -DCMAKE_BUILD_TYPE=Release ..
+   make
+}
+
+package() {
+   cd "${srcdir}"/"${pkgname}"/build
+   
+   make DESTDIR=$pkgdir install
+}
+   
+ 
