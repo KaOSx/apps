@@ -1,15 +1,7 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer (i686): Phil Miller <philm[at]chakra-project[dog]org>
-# maintainer (x86_64): Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
-
-# include global config
-source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=prison
 pkgver=1.0
-pkgrel=3
+pkgrel=4
 arch=('x86_64')
 pkgdesc="A barcode api to produce QRCode barcodes and DataMatrix barcode"
 url="https://projects.kde.org/projects/kdesupport/prison"
@@ -20,7 +12,6 @@ source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pk
 md5sums=('8baac61506e37a31482a0df4a5d02cd2')
 
 build() {
-	msg "starting build ..."
 	cd ${srcdir}
 	mkdir -p build
 	cd build
@@ -36,5 +27,6 @@ build() {
 
 package() {
   cd "${srcdir}"/build
+  
   make DESTDIR="${pkgdir}" install
 }

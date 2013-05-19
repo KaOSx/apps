@@ -1,7 +1,3 @@
-#
-# Chakra Packages for Chakra, part of chakra-project.org
-#
-# maintainer abveritas@chakra-project.org
 
 pkgname=gluon
 pkgver=0.71.0
@@ -11,37 +7,35 @@ pkgdesc="A high-level game development library for the KDE desktop enviornment."
 arch=('x86_64')
 url="http://gluon.gamingfreedom.org/"
 license=('GPL')
-depends=('glew' 'kdelibs' 'libsndfile' 'openal' 'alure')
-makedepends=('git' 'eigen' 'cmake' 'automoc4')
-provides=('gluon')
-conflicts=('gluon')
+depends=('kdelibs' 'libsndfile' 'alure')
+makedepends=('cmake' 'automoc4' 'mesa' 'kdevplatform')
 groups=("kde-uninstall" "kde-support")
-source=("http://download.kde.org/download.php?url=unstable/$pkgname/$_pkgver/src/$pkgname-$pkgver.tar.gz"
-        
-"$pkgname-0.71-gcc-4.7.patch::https://projects.kde.org/projects/playground/games/gluon/repository/revisions/bccbda88a6bc53ac20091bb6aefd2f1b501ba31a/diff.diff")
+source=("http://download.kde.org/download.php?url=unstable/$pkgname/$_pkgver/src/$pkgname-$pkgver.tar.gz"        
+        "$pkgname-0.71-gcc-4.7.patch::https://projects.kde.org/projects/playground/games/gluon/repository/revisions/bccbda88a6bc53ac20091bb6aefd2f1b501ba31a/diff.diff")
 md5sums=('e4f284c0ae00e5b8a58cc3e6201857fe'
          'cf8c201b6d289ea63f0458eaefc526b2')
 install=gluon.install
 
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir"/$pkgname-$pkgver
+  patch -p1 -i "$srcdir"/$pkgname-0.71-gcc-4.7.patch
 
-  # Patches.
-  patch -uNp1 -i $srcdir/$pkgname-0.71-gcc-4.7.patch
-
-  mkdir -p build && cd build
-
-  cmake \
+  cd "$srcdir"
+  mkdir build
+  cd build
+  cmake ../$pkgname-$pkgver \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_PHYSICS_COMPONENTS=ON \
-    -DBUILD_PHYSICS_ASSETS=ON \
-    ..
+    -DBUILD_PHYSICS_ASSETS=ON
   make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver/build"
+  cd "$srcdir"/build
+  
   make DESTDIR="$pkgdir/" install
 }
 
