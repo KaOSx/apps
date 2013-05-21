@@ -1,0 +1,29 @@
+
+pkgname=qtwebkit-plugins
+pkgver=0.2
+pkgrel=1
+_commit=0831bb2
+pkgdesc="Set of QtWebKit platform plugins for the latest QtWebKit, spellcheck and notifications"
+url="http://www.qupzilla.com"
+arch=('x86_64')
+license=('GPL3')
+depends=('qtwebkit>=2.3' 'hunspell')
+categories=('network') 
+source=("https://github.com/QupZilla/qtwebkit-plugins/tarball/master/QupZilla-qtwebkit-plugins-${pkgver}.tar.gz"
+        'spellcheck.diff')
+md5sums=('4633620b7be9f53c455ccca147a4e3da'
+         '044ced8c0cd2bd352875b7eb563eb030')
+
+build() {
+   cd "${srcdir}/QupZilla-qtwebkit-plugins-${_commit}/"
+   patch -p1 -i "${srcdir}/spellcheck.diff"
+   
+   qmake 
+   make
+}
+
+package() {
+   cd "${srcdir}/QupZilla-qtwebkit-plugins-${_commit}/"
+  
+   make INSTALL_ROOT=$pkgdir install
+}
