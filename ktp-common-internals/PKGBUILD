@@ -1,6 +1,6 @@
 
 pkgname=ktp-common-internals
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="Common libraries for telepathy-kde"
 arch=('x86_64')
@@ -8,17 +8,18 @@ url="http://www.kde.org"
 license=('GPL')
 depends=('kdelibs' 'telepathy-qt' 'telepathy-mission-control' 'kdeutils-kwallet'
          'telepathy-logger-qt')
-makedepends=('cmake' 'automoc4')
+makedepends=('cmake' 'automoc4' 'boost' 'doxygen')
 conflicts=('telepathy-kde-presence-dataengine')
 replaces=('telepathy-kde-presence-dataengine')
 provides=('telepathy-kde-presence-dataengine')
 groups=('kde-telepathy')
 source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('6048115f0bf6832ddcddb60d4aed0b63')
+md5sums=('71a77fc912d46730389ac440a1176b13')
 
 build() {
   cd "${srcdir}"
   mkdir build
+  
   cd build
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -28,5 +29,6 @@ build() {
 
 package() {
   cd "${srcdir}"/build
+  
   make DESTDIR="${pkgdir}" install
 }

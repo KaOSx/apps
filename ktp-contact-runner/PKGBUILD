@@ -1,6 +1,6 @@
 
-pkgname='ktp-contact-runner'
-pkgver=0.6.1
+pkgname=ktp-contact-runner
+pkgver=0.6.2
 pkgrel=1
 arch=('x86_64')
 url="http://www.kde.org"
@@ -10,22 +10,23 @@ depends=('kde-workspace' 'ktp-common-internals')
 makedepends=('cmake' 'automoc4')
 groups=('kde-telepathy')
 source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('40636722d6f1d8fb22e8ded4d730ad57')
+md5sums=('dc912cdd8f37f9618872f7cd0ed0cee6')
 
 build() {
-          cd $srcdir/$pkgname-$pkgver
-          cd ..
-          rm -rf build
-          mkdir -p build && cd build
+  cd $srcdir/$pkgname-$pkgver
+  cd ..
+  rm -rf build
+  mkdir -p build && cd build
 
-          cmake ../${pkgbase}-${pkgver} \
-                  -DCMAKE_BUILD_TYPE=Release \
-                  -DCMAKE_SKIP_RPATH=ON \
-                  -DCMAKE_INSTALL_PREFIX=/usr
-          make
-  }
+  cmake ../${pkgbase}-${pkgver} \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DCMAKE_SKIP_RPATH=ON \
+              -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
 
 package() {
-          cd $srcdir/build
-          make DESTDIR=$pkgdir install
-  }
+  cd $srcdir/build
+  
+  make DESTDIR=$pkgdir install
+}

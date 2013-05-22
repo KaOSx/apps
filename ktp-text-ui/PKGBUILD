@@ -1,6 +1,6 @@
 
 pkgname=ktp-text-ui
-pkgver=0.6.1
+pkgver=0.6.2.1
 pkgrel=1
 pkgdesc="Telepathy text chat handler"
 arch=('x86_64')
@@ -13,11 +13,12 @@ replaces=('telepathy-kde-text-ui')
 provides=('telepathy-kde-text-ui')
 groups=('kde-telepathy')
 source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('f09b4e88598021d559f08440d015750d')
+md5sums=('c2a99904b62eba1836fb2889be1b8c54')
 
 build() {
   cd "${srcdir}"
   mkdir build
+  
   cd build
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -27,5 +28,6 @@ build() {
 
 package() {
   cd "${srcdir}"/build
+  
   make DESTDIR="${pkgdir}" install
 }

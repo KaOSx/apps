@@ -1,6 +1,6 @@
 
 pkgname=ktp-filetransfer-handler
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="Telepathy file transfer handler"
 arch=('x86_64')
@@ -13,11 +13,12 @@ replaces=('telepathy-kde-filetransfer-handler')
 provides=('telepathy-kde-filetransfer-handler')
 groups=('kde-telepathy')
 source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('174c43cf160753ec807b58dd1a96a8f6')
+md5sums=('83cca444f9987eb4b3f74b0851b7a3ed')
 
 build() {
   cd "${srcdir}"
   mkdir build
+  
   cd build
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -27,5 +28,6 @@ build() {
 
 package() {
   cd "${srcdir}"/build
+  
   make DESTDIR="${pkgdir}" install
 }

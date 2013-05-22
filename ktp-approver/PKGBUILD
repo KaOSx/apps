@@ -1,6 +1,6 @@
 
 pkgname=ktp-approver
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="KDE Channel Approver for Telepathy"
 arch=('x86_64')
@@ -13,11 +13,12 @@ replaces=('telepathy-kde-approver')
 provides=('telepathy-kde-approver')
 groups=('kde-telepathy')
 source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('de629acfa0dc789a6b592504d992f475')
+md5sums=('5f582c5eef4524b3a35e51b2cd50eea7')
 
 build() {
   cd "${srcdir}"
   mkdir build
+  
   cd build
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -27,5 +28,6 @@ build() {
 
 package() {
   cd "${srcdir}"/build
+  
   make DESTDIR="${pkgdir}" install
 }

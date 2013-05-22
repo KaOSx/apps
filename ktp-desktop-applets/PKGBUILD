@@ -1,6 +1,6 @@
 
 pkgname=ktp-desktop-applets
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="Plasma applet for managing your Telepathy account presence"
 arch=('any')
@@ -14,11 +14,12 @@ provides=('ktp-presence-applet' 'ktp-contact-applet')
 groups=('kde-telepathy')
 groups=('utils' 'communication')
 source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('e78e1eea11521752f40aeae47361e386')
+md5sums=('2029f492610e0e1acadeaee7fbacf775')
 
 build() {
   cd "${srcdir}"
   mkdir build
+  
   cd build
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -28,5 +29,6 @@ build() {
 
 package() {
   cd "${srcdir}"/build
+  
   make DESTDIR="${pkgdir}" install
 }

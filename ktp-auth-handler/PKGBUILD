@@ -1,6 +1,6 @@
 
 pkgname=ktp-auth-handler
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="Telepathy contact list application "
 arch=('x86_64')
@@ -13,11 +13,12 @@ replaces=('telepathy-kde-auth-handler')
 provides=('telepathy-kde-auth-handler')
 groups=('kde-telepathy')
 source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('fc19a80aeb52b93cb7b71386b4e9f278')
+md5sums=('bf2b0c83aeea3ecab363b4ce3d08bb31')
 
 build() {
   cd "${srcdir}"
   mkdir build
+  
   cd build
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -27,5 +28,6 @@ build() {
 
 package() {
   cd "${srcdir}"/build
+  
   make DESTDIR="${pkgdir}" install
 }
