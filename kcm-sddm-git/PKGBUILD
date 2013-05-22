@@ -1,7 +1,6 @@
-# Maintainer: abveritas@chakra-project.org
 
 pkgname=kcm-sddm-git
-pkgver=20130322
+pkgver=20130522
 pkgrel=1
 pkgdesc="SDDM configuration module for KDE"
 arch=('x86_64')
@@ -36,5 +35,6 @@ build() {
 
 package() {
   cd ${srcdir}/build
+  
   make DESTDIR="${pkgdir}" install
 }
