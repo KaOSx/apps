@@ -1,10 +1,6 @@
-# Maintainer: abveritas[at]chakra-project[dot]org>
-
-# include global config
-source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwebkitpart
-pkgver=1.3.2
+pkgver=1.3.3
 pkgrel=1
 pkgdesc="A web browser component for KDE"
 url="http://opendesktop.org/content/show.php?content=127960"
@@ -12,15 +8,15 @@ arch=('x86_64')
 license=('GPL')
 depends=('kde-runtime')
 makedepends=('cmake' 'automoc4')
-conflicts=('kwebkitpart-svn')
 install=${pkgname}.install
-source=("http://chakra.sourceforge.net/sources/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('2df1c70371b99e5f638fff702f789ba1')
+source=("http://sourceforge.net/projects/kdeos/files/Sources/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('0f0e7b8d7ad85ded3b95a247057f4550')
 
 build() {
   cd ${srcdir}
   sed -i '/add_subdirectory(kdelauncher)/d' ${pkgname}-${pkgver}/CMakeLists.txt
   mkdir build
+  
   cd build
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -30,5 +26,6 @@ build() {
 
 package() {
   cd ${srcdir}/build
+  
   make DESTDIR=${pkgdir} install
 }
