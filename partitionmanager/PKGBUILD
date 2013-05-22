@@ -1,13 +1,6 @@
-#
-# Chakra Packages for Chakra, part of chakra-project.org
-#
-# maintainer abveritas[at]chakra-project[dot]org>
-
-# include global config
-source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=partitionmanager
-pkgver=1330962
+pkgver=1350927
 pkgrel=1
 arch=('x86_64')
 url="https://sourceforge.net/projects/partitionman"
@@ -47,6 +40,7 @@ build() {
 
 package() {
   cd "${srcdir}/$_svnmod-build"
+  
   make DESTDIR="${pkgdir}" install 
 }
 
