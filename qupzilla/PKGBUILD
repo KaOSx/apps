@@ -1,27 +1,27 @@
 
 pkgname=qupzilla
 pkgver=1.5.0
-_commit=7e2b631
-pkgrel=2
+_commit=0fe79f3
+pkgrel=1
 pkgdesc="A fast open source browser based on WebKit core, written in Qt Framework, wayland port"
 arch=('x86_64')
 url="http://www.qupzilla.com/"
 screenshot="http://www.qupzilla.com/screens/kde.png"
 license=('GPL')
-depends=('qt5' 'mesa' 'qt5-qtwayland-git')
-#depends=('qtwebkit' 'mesa')
+#depends=('qt5' 'mesa' 'qt5-qtwayland-git')
+depends=('qtwebkit' 'mesa')
 groups=('internet')
 source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-${pkgver}.tar.gz")
-md5sums=('d2e45d6b12b15389ddd9587370190c45')
+md5sums=('8d2a80d0fa69bb5d5f936cace028aedf')
 
 build() {
     cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
 
     export USE_WEBGL="true"
-    export NO_X11="true"
+    #export NO_X11="true"
    
-   /usr/lib/qt5/bin/qmake 
-    #qmake
+   #/usr/lib/qt5/bin/qmake 
+    qmake
     make clean
     make
 }

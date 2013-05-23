@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname="kdelibs"
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=4
+pkgrel=5
 pkgdesc="KDE Core Libraries"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -18,14 +18,12 @@ depends=("${_qtpkg}>=${_qtver}" "kde-common>=${_kdever}" "oxygen-icons>=${_kdeve
 makedepends=('pkg-config' 'cmake' 'automoc4' 'intltool' 'avahi' 'libgl' 'aspell' 'hspell' 'shared-mime-info' 
              'docbook-xsl' 'docbook-xml' 'bzip2>=1.0.6' 'libzip')
 optdepends=('phonon-gstreamer: GStreamer Phonon backend (default)'
-	    'phonon-xine:      Xine Phonon backend'
 	    'phonon-mplayer:   MPlayer Phonon backend'
 	    'phonon-vlc:       VLC Phonon backend'
 	    'avahi:            Service discovery on your local network'
 	    'aspell:           Spell checking'
 	    'hspell:           Hebrew spell checking')
-provides=("${pkgname}=${_kdever}" "kdelibs-doc")
-replaces=('kdelibs-experimental' 'arts' 'kdelibs-doc')
+provides=("${pkgname}=${_kdever}" 'kdelibs-doc')
 groups=("kde" "kde-minimal" "kde-uninstall")
 conflicts=("kdelibs-doc")
 install=${pkgname}.install
