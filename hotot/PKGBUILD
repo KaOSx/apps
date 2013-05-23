@@ -1,0 +1,32 @@
+
+pkgname=hotot
+pkgver=0.9.8.14
+pkgrel=1
+pkgdesc="A lightweight & open source microblogging software (twitter identi.ca)"
+arch=('x86_64')
+url="http://www.hotot.org/"
+license=('LGPL3')
+depends=('qt5')
+makedepends=('cmake' 'intltool' 'python2')
+install="hotot.install"
+source=("https://github.com/lyricat/Hotot/archive/${pkgver}.tar.gz")
+md5sums=('7437f5132a50f7239e1b4bd09f410a17')
+
+build() {
+  cd ${srcdir}/Hotot-$pkgver
+  mkdir build 
+  
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
+           -DWITH_GTK=OFF \
+           -DWITH_QT=OFF \
+           -DWITH_QT5=ON \
+           -DWITH_CHROME=OFF 
+  make
+}
+
+package() {
+  cd ${srcdir}/Hotot-$pkgver/build
+
+  make DESTDIR="$pkgdir/" install
+}
