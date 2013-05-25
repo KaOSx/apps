@@ -1,4 +1,3 @@
-# maintainer :abveritas[at]chakra-project[dog]org>
 
 pkgname=mediastreamer
 pkgver=2.8.2
@@ -12,17 +11,19 @@ makedepends=('cmake' 'automoc4' 'intltool')
 source=("http://download-mirror.savannah.gnu.org/releases/linphone/mediastreamer/mediastreamer-$pkgver.tar.gz"
         'mediastreamer-ffmpeg.patch')
 md5sums=('e51ea9d5fce1396b374d10473dfbadec'
-         'f147546489a973f148ce3dd2dba36834')
+         '553d5d47ea4a8c8dfeabdc0281849d5f')
 
 build() {
 
   cd "$srcdir"/$pkgname-$pkgver
   patch -p1 -i "${srcdir}"/mediastreamer-ffmpeg.patch
+  
   ./configure --prefix=/usr
   make
 }
 
 package() {
   cd "${srcdir}"/$pkgname-$pkgver
+  
   make DESTDIR="${pkgdir}" install
 }
