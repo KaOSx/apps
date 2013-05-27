@@ -13,28 +13,22 @@ pkgname=('kdenetwork-filesharing'
          'kdenetwork-kppp'
          'kdenetwork-krdc'
          'kdenetwork-krfb')
-
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=1
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs' '!splithdr' 'splitdbg' 'log')
-
+options=('docs')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' 'speex' 'ortp' 'libotr' 'qca-ossl' 'telepathy-qt'
 	     "kde-workspace>=${_kdever}" "kde-baseapps>=${_kdever}" 'libvncserver' 'libmsn' 'libmms'
 	     'ppp' 'libv4l' 'libidn' 'rdesktop' 'qimageblitz' 'libxss' 'libxdamage' 'libgadu'
 	     'mediastreamer' 'msilbc' 'kwebkitpart>=0.9.6' 'libktorrent>=1.0.5' 'docbook-xsl')
-
-source=("$_mirror/${pkgbase}-$_kdever.tar.xz"
-        'kget-fix-delete-homedir.diff')
-md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '4a85d8fbe81a8a034b278daacba0b2c4')
+source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
-	patch -p3 -i "${srcdir}/kget-fix-delete-homedir.diff"
 	
 	msg "starting build ..."
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \

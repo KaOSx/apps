@@ -1,7 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -10,18 +6,14 @@ pkgbase=('kdetoys')
 pkgname=('kdetoys-amor'
          'kdetoys-kteatime'
          'kdetoys-ktux')
-
 arch=('x86_64')
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-
-options=('docs' '!splithdr' 'splitdbg' 'log')
-
+options=('docs')
 makedepends=('pkgconfig' 'cmake' 'automoc4' "kde-workspace>=${_kdever}")
-
 source=($_mirror/${pkgbase}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -41,8 +33,7 @@ build() {
 package_kdetoys-amor() {
 	pkgdesc="Amusing Misuse Of Resources puts comic figures above your windows"
 	conflicts=("kdetoys-common" "kdetoys-doc")
-	groups=("kde" "kdetoys" "kde-uninstall")
-	groups=('accessories')
+	groups=("kde" "kdetoys" "kde-uninstall" 'accessories')
 	install=${pkgbase}.install
 
 	cd ${srcdir}/${pkgbase}-${pkgver}/amor
@@ -52,8 +43,7 @@ package_kdetoys-amor() {
 package_kdetoys-kteatime() {
 	pkgdesc="System tray applet that makes sure your tea doesn't get too strong"
 	conflicts=("kdetoys-common" "kdetoys-doc")
-	groups=("kde" "kdetoys" "kde-uninstall")
-	groups=('accessories')
+	groups=("kde" "kdetoys" "kde-uninstall" 'accessories')
 	install=${pkgbase}.install
 
 	cd ${srcdir}/${pkgbase}-${pkgver}/kteatime
@@ -63,8 +53,7 @@ package_kdetoys-kteatime() {
 package_kdetoys-ktux() {
 	pkgdesc="Tux-in-a-Spaceship screen saver"
 	conflicts=("kdetoys-common")
-	groups=("kde" "kdetoys" "kde-uninstall")
-	groups=('accessories')
+	groups=("kde" "kdetoys" "kde-uninstall" 'accessories')
 	install=${pkgbase}.install
 
 	cd ${srcdir}/${pkgbase}-${pkgver}/ktux
