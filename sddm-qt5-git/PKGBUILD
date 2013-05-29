@@ -9,8 +9,8 @@ license=('GPL')
 depends=('qt5' 'libxcb' 'upower')
 makedepends=('cmake' 'git')
 backup=('etc/sddm.conf')
-source=('background.png')
-md5sums=('7cecc4005880a9d04890b606525b143c')
+source=('background.jpg')
+md5sums=('f0d531aef97f75a7992267d5fb15d92e')
 _gitroot="git://github.com/sddm/sddm.git"
 _gitname=sddm
 
@@ -43,5 +43,5 @@ package() {
   sed -i -e "s|white|black|g" $pkgdir/usr/lib/qt5/qml/SddmComponents/Clock.qml
   
   rm "${pkgdir}"/usr/share/apps/sddm/themes/maui/background.png
-  install -m 644 -p ${srcdir}/background.png ${pkgdir}/usr/share/apps/sddm/themes/maui/  
+  install -m 644 -p ${srcdir}/background.jpg ${pkgdir}/usr/share/apps/sddm/themes/maui/  
 }
