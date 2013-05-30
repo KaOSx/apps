@@ -13,7 +13,8 @@ groups=('communication')
 install=google-talkplugin.install
 md5sums=('fe90f270b56ed9e90b4e97f1e1e1c813')
 
-source=("http://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb")
+source=("http://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb"
+        'licens.html')
 
 package() {
     msg "Extracting..."
@@ -24,5 +25,6 @@ package() {
     mv $srcdir/opt $pkgdir
     mv $srcdir/usr $pkgdir
     msg2 "Done moving files"
-
+    
+    install -Dm644 "${srcdir}/license.html" "${pkgdir}/usr/share/licenses/${pkgname}/license.html"
 }

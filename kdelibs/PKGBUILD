@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname="kdelibs"
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=5
+pkgrel=1
 pkgdesc="KDE Core Libraries"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -29,14 +29,10 @@ conflicts=("kdelibs-doc")
 install=${pkgname}.install
 source=($_mirror/${pkgname}-$_kdever.tar.xz
 	'02_kde_applications_menu.patch'
-	'MergeDir.patch'
-	'password.diff'
-	'app_quit.diff')
+	'MergeDir.patch')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'e94450ba5430ea9c1e33bad9ae38ca2d'   # 02_kde_applications_menu.patch
-         'f442698bae9d4ffb26f6df9457d7fc5a'   # MergeDir.patch
-         'a73cf36d63066b63513eaab4fbcd1ec6'   # password.diff
-         '1c8c5c3bc5676c7dbee10c2a8fd655fd')  #app_quit.diff
+         'f442698bae9d4ffb26f6df9457d7fc5a')   # MergeDir.patch
         
 build() {
 	# main patches
@@ -47,11 +43,6 @@ build() {
 
 	# right positioning of applications' entries in kmenu
 	patch -p1 -i ${srcdir}/MergeDir.patch
-	
-	# emergency password fix
-	patch -p1 -i ${srcdir}/password.diff
-	# quiting apps crash
-	patch -p1 -i ${srcdir}/app_quit.diff
 
         cd ..
 	rm -rf build
@@ -62,7 +53,7 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
 		-DSYSCONF_INSTALL_DIR=/etc \
 		-DHTML_INSTALL_DIR=/usr/share/doc/kde/html \
-		-DKDE_DISTRIBUTION_TEXT='KdeOs ' \
+		-DKDE_DISTRIBUTION_TEXT='KdeOS ' \
 		-DKDE_DEFAULT_HOME='.kde4' \
 		-DWITH_FAM=OFF \
                 -DWITH_HUpnp=OFF \
