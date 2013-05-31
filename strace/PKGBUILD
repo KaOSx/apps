@@ -1,0 +1,26 @@
+
+pkgname=strace
+pkgver=4.7
+pkgrel=2
+pkgdesc="A useful diagnositic, instructional, and debugging tool"
+arch=('x86_64')
+url="http://sourceforge.net/projects/strace/"
+license=('custom')
+depends=('perl')
+groups=('programming')
+source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-$pkgver.tar.xz")
+md5sums=('6054c3880a00c6703f83b57f15e04642')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}/" install
+
+  install -Dm644 COPYRIGHT ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
