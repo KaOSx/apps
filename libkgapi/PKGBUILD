@@ -1,6 +1,6 @@
 
 pkgname=libkgapi
-pkgver=2.0.0
+pkgver=2.0.1
 pkgrel=1
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
 url='https://projects.kde.org/projects/kdereview/libkgapi'
@@ -9,12 +9,12 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kdepimlibs')
 makedepends=('cmake' 'automoc4' 'boost')
 source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('e7938dcec05b0f73e6a0b24c1674378d')
+md5sums=('a421c6b5e0b262136121e3734b29fcce')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  
   mkdir build
+  
   cd build
   cmake ..\
     -DCMAKE_BUILD_TYPE=Release \
@@ -26,5 +26,4 @@ package() {
   cd "${srcdir}/${pkgname}-${pkgver}/build"
   
   make DESTDIR="${pkgdir}" install
-
 }
