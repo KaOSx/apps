@@ -14,7 +14,7 @@ depends=("kdebindings-pykde4>=${_kdever}" "kdebindings-korundum>=${_kdever}")
 makedepends=('cmake' 'automoc4' 'ruby' 'python2' 'java-environment')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-groups=("kde" "kdebindings" "kde-uninstall")
+groups=('kde' 'kdebindings' 'kde-uninstall')
 provides=('kross-interpreters')
 options=('docs')
 
@@ -22,9 +22,6 @@ build() {
   cd "${srcdir}"
   mkdir build
   cd build
-
-  # Temporary (and ugly) fix for OpenJDK-7	
-  export JAVA_HOME=/usr/lib/jvm/java-7-openjdk/ 
 
   cmake ../kross-interpreters-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
@@ -34,9 +31,9 @@ build() {
 }
 
 package() {
-        cd ${srcdir}/build/java
-        make DESTDIR=${pkgdir} install
+  cd ${srcdir}/build/java
+  make DESTDIR=${pkgdir} install
 
-	cd ${srcdir}/build/python
-	make DESTDIR=${pkgdir} install
+  cd ${srcdir}/build/python
+  make DESTDIR=${pkgdir} install
 }

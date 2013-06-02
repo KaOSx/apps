@@ -11,13 +11,10 @@ pkgdesc='Provides accessibility services like focus tracking and a screenreader'
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 depends=("kde-runtime>=${_kdever}" 'speech-dispatcher')
-conflicts=("kdeaccessibility-doc" "kdeaccessibility-colorschemes" "kdeaccessibility-iconthemes")
-install='kdeaccessibility.install'
-provides=('kdeaccessibility-common' 'kaccessible')
-replaces=('kdeaccessibility-common')
-groups=("kdeaccessibility" "kde" "kde-uninstall" "kde-doc")
-options=('docs')
 makedepends=('pkgconfig' 'cmake' 'automoc4' "kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" "speech-dispatcher>=0.6.7" 'docbook-xsl')
+install='kdeaccessibility.install'
+groups=('kdeaccessibility' 'kde' 'kde-uninstall' 'kde-doc')
+options=('docs')
 groups=('accessibility')
 
 source=($_mirror/${_pkgname}-$_kdever.tar.xz)

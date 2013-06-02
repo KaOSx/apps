@@ -23,21 +23,23 @@ build() {
   cd build
 
   cmake .. \
-    -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-    -DCMAKE_BUILD_TYPE:STRING=Release \
-    -DWITH_INSTALL_PORTABLE:BOOL=OFF \
-    -DWITH_PYTHON_INSTALL:BOOL=OFF \
-    -DWITH_OPENCOLLADA:BOOL=ON \
-    -DWITH_GAMEENGINE:BOOL=ON \
-    -DWITH_JACK:BOOL=ON \
-    -DWITH_PLAYER:BOOL=ON \
-    -DWITH_CODEC_FFMPEG:BOOL=ON \
-    -DWITH_IMAGE_OPENJPEG:BOOL=ON \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DWITH_INSTALL_PORTABLE=OFF \
+    -DWITH_PYTHON_INSTALL=OFF \
+    -DWITH_OPENCOLLADA=ON \
+    -DWITH_GAMEENGINE=ON \
+    -DWITH_JACK=ON \
+    -DWITH_PLAYER=ON \
+    -DWITH_CODEC_FFMPEG=ON \
+    -DWITH_IMAGE_OPENJPEG=ON \
     -DWITH_IMAGE_REDCODE:BOOL=ON \
-    -DWITH_MOD_OCEANSIM:BOOL=ON \
-    -DPYTHON_LIBPATH:STRING=/usr/lib \
-    -DPYTHON_LIBRARY:STRING=python3.3m \
-    -DPYTHON_INCLUDE_DIRS:STRING=/usr/include/python3.3m \
+    -DWITH_MOD_OCEANSIM=ON \
+    -DPYTHON_LIBPATH=/usr/lib \
+    -DPYTHON_LIBRARY=python3.3m \
+    -DPYTHON_INCLUDE_DIRS=/usr/include/python3.3m \
+    -DOPENIMAGEIO_ROOT_DIR=/usr \
+    -DOPENJPEG_INCLUDE_DIR=/usr/include/openjpeg-1.5 \
     $ENABLESSE2
 
   make $MAKEFLAGS
@@ -48,5 +50,6 @@ build() {
 package() {
   cd "$srcdir/$pkgname-$_pkgver/build"
   make DESTDIR="${pkgdir}" install
+  
   python3 -m compileall "${pkgdir}/usr/share/blender"
 }

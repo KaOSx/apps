@@ -1,7 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
-# maintainer: Manuel Tortosa <manutortosa[at]chakra-project[dot]org>
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -20,9 +16,9 @@ pkgdesc="split package"
 url="http://www.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
 
-options=('docs' '!splithdr' 'splitdbg' 'log')
+options=('docs')
 
-makedepends=('pkgconfig' 'cmake' 'automoc4' 'ruby' "kdepimlibs>=${_kdever}"
+makedepends=('pkgconfig' 'cmake' 'automoc4' 'ruby' "kdepimlibs>=${_kdever}" 'boost'
              "kde-runtime>=${_kdever}" 'tidyhtml' "kdepim-runtime>=${_kdever}")
 
 source=($_mirror/${pkgbase}-$_kdever.tar.xz)
@@ -45,7 +41,7 @@ build() {
 package_kdewebdev-kfilereplace() {
 	pkgdesc="Utility that replace some strings with others in a lot of files in an only operation"
 	depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}")
-	groups=("kde" "${pkgbase}" "kde-uninstall")
+	groups=("kde" "${pkgbase}" 'kde-uninstall')
 	groups=('utils')
 	conflicts=('kdewebdev-common' Â'kdewebdev-doc')
 	install=${pkgbase}.install
@@ -53,7 +49,7 @@ package_kdewebdev-kfilereplace() {
 	splitdirs="kfilereplace doc/kfilereplace"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install
 		done
 }
 
@@ -61,14 +57,14 @@ package_kdewebdev-kimagemapeditor() {
 	pkgdesc="Image map editor"
 	depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}")
         conflicts=('kdewebdev-common' 'kdewebdev-doc')
-	groups=("kde" "${pkgbase}" "kde-uninstall")
+	groups=("kde" "${pkgbase}" 'kde-uninstall')
 	groups=('graphics')
 	install=${pkgbase}.install
 
 	splitdirs="kimagemapeditor doc/kimagemapeditor"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install
 		done
 }
 
@@ -76,14 +72,14 @@ package_kdewebdev-kommander() {
 	pkgdesc="Kommander, the visual application builder"
 	depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}")
         conflicts=('kdewebdev-common' 'kdewebdev-doc')
-	groups=("kde" "${pkgbase}" "kde-uninstall")
+	groups=("kde" "${pkgbase}" 'kde-uninstall')
 	groups=('programming')
 	install=${pkgbase}.install
 
 	splitdirs="kommander" # FIXME: doc/kommander
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install
 		done
 }
 
@@ -91,13 +87,13 @@ package_kdewebdev-klinkstatus() {
 	pkgdesc="A Link checker utility"
 	depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" 'tidyhtml' "kdepimlibs>=${_kdever}") # "kdepim-runtime>=${_kdever}"
         conflicts=('kdewebdev-common' 'kdewebdev-doc')
-	groups=("kde" "${pkgbase}" "kde-uninstall")
+	groups=("kde" "${pkgbase}" 'kde-uninstall')
 	groups=('utils')
 	install=${pkgbase}.install
 
 	splitdirs="klinkstatus doc/klinkstatus"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
-			make DESTDIR=${pkgdir} install || return 1
+			make DESTDIR=${pkgdir} install
 		done
 }
