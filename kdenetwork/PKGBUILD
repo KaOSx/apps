@@ -1,6 +1,3 @@
-#
-# KDE SC Packages for Chakra, part of chakra-project.org
-#
 
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
@@ -22,8 +19,8 @@ license=('GPL' 'LGPL' 'FDL')
 options=('docs')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' 'speex' 'ortp' 'libotr' 'qca-ossl' 'telepathy-qt'
 	     "kde-workspace>=${_kdever}" "kde-baseapps>=${_kdever}" 'libvncserver' 'libmsn' 'libmms'
-	     'ppp' 'libv4l' 'libidn' 'rdesktop' 'qimageblitz' 'libxss' 'libxdamage' 'libgadu'
-	     'mediastreamer' 'msilbc' 'kwebkitpart>=0.9.6' 'libktorrent>=1.0.5' 'docbook-xsl')
+	     'ppp' 'v4l-utils' 'libidn' 'rdesktop' 'qimageblitz' 'libxss' 'libxdamage' 'libgadu'
+	     'mediastreamer' 'kwebkitpart' 'libktorrent' 'docbook-xsl')
 source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -44,8 +41,8 @@ build() {
 
 package_kdenetwork-filesharing() {
 	pkgdesc='Konqueror properties dialog plugin to share a directory with the local network'
-	depends=("kdelibs>=${_kdever}" 'smbclient')
-	groups=("kde" "${pkgbase}" "kde-uninstall" 'network')
+	depends=("kdelibs>=${_kdever}" 'samba')
+	groups=('kde' "${pkgbase}" 'kde-uninstall' 'network')
 	splitdirs="filesharing"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
@@ -56,7 +53,7 @@ package_kdenetwork-filesharing() {
 package_kdenetwork-kdnssd() {
 	pkgdesc='Monitors the network for DNS-SD services'
 	depends=("kdelibs>=${_kdever}")
-	groups=("kde" "${pkgbase}" "kde-uninstall" 'network')
+	groups=('kde' "${pkgbase}" 'kde-uninstall' 'network')
 	splitdirs="kdnssd"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
@@ -68,7 +65,7 @@ package_kdenetwork-kget() {
 	pkgdesc="Download manager"
 	url="http://kde.org/applications/internet/kget/"
 	depends=("kde-workspace>=${_kdever}" 'qca' 'kwebkitpart>=0.9.6' 'libktorrent>=1.0.4' 'libmms')
-	("kde" "${pkgbase}" "kde-uninstall" 'network')
+	groups=('kde' "${pkgbase}" 'kde-uninstall' 'network')
 	install=${pkgbase}.install
 	splitdirs="kget doc/kget"
 		for i in ${splitdirs} ; do
@@ -82,8 +79,8 @@ package_kdenetwork-kopete() {
 	url="http://kde.org/applications/internet/kopete/"
 	depends=("kde-runtime>=${_kdever}" "kdepimlibs>=${_kdever}"
 	         'qca-ossl' 'libotr' 'libmsn' 'libidn' 'qimageblitz' 'libxss'
-                  'libv4l' 'mediastreamer' 'msilbc' 'libgadu')
-	groups=("kde" "${pkgbase}" "kde-uninstall" 'communication')
+                  'v4l-utils' 'mediastreamer' 'libgadu')
+	groups=('kde' "${pkgbase}" 'kde-uninstall' 'communication')
 	install=${pkgbase}.install
 	splitdirs="kopete doc/kopete"
 		for i in ${splitdirs} ; do
@@ -96,7 +93,7 @@ package_kdenetwork-kppp() {
 	pkgdesc="PPP Client"
 	url="http://kde.org/applications/internet/kppp/"
 	depends=("kde-runtime>=${_kdever}" 'ppp')
-	groups=("kde" "${pkgbase}" "kde-uninstall" 'network')
+	groups=('kde' "${pkgbase}" 'kde-uninstall' 'network')
 	install=${pkgbase}.install
 	splitdirs="kppp doc/kppp"
 		for i in ${splitdirs} ; do
@@ -109,7 +106,7 @@ package_kdenetwork-krdc() {
 	pkgdesc="Desktop Sharing Client"
 	url="http://kde.org/applications/internet/krdc/"
 	depends=("kde-runtime>=${_kdever}" 'libvncserver' 'rdesktop' 'telepathy-qt')
-	groups=("kde" "${pkgbase}" "kde-uninstall" 'network')
+	groups=('kde' "${pkgbase}" 'kde-uninstall' 'network')
 	install=${pkgbase}.install
 	splitdirs="krdc doc/krdc"
 		for i in ${splitdirs} ; do
@@ -120,11 +117,8 @@ package_kdenetwork-krdc() {
 
 package_kdenetwork-krfb() {
 	pkgdesc="Desktop Sharing Server"
-	# note on libxdamage:
-	#       not detected by namcap because libgl depends on it
-	#       but nvidia providing libgl does not depend on libxdamage
 	depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" 'libvncserver' 'libxdamage')
-	groups=("kde" "${pkgbase}" "kde-uninstall" 'network')
+	groups=('kde' "${pkgbase}" 'kde-uninstall' 'network')
 	install=${pkgbase}.install
 	splitdirs="krfb doc/krfb"
 		for i in ${splitdirs} ; do

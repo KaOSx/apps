@@ -17,8 +17,7 @@ pkgname=('kdepim-common'
          'kdepim-kontact'
          'kdepim-korganizer'
          'kdepim-ktimetracker'
-         'kdepim-mobile')
-   
+         'kdepim-mobile') 
 arch=('x86_64')
 pkgver=${_kdever}
 pkgrel=1
@@ -26,12 +25,9 @@ pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('!docs')
-
 makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' "kdelibs>=${_kdever}" "kdepimlibs>=${_kdever}" 'grantlee'
              "kdepim-runtime>=${_kdever}" 'libxss' 'kde-runtime' 'libsamplerate' 'qrencode' 'libdmtx'
-	     "kde-common>=${_kdever}" 'docbook-xml' 'dblatex' "nepomuk-widgets>=${_kdever}")
-
-
+	     "kde-common>=${_kdever}" 'docbook-xml' "nepomuk-widgets>=${_kdever}")
 source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -51,7 +47,7 @@ package_kdepim-common() {
 	depends=("kdepimlibs>=${_kdever}" 'libxss' "kde-runtime" "kde-common>=${_kdever}"
                  'libxss' "kdepim-runtime>=${_pkgver}")
         conflicts=('kdepim-doc')
-	groups=("kde" "kdepim" "kde" "kde-uninstall")
+	groups=('kde' 'kdepim' 'kde-uninstall')
 	install=${pkgbase}.install
 
 	splitdirs=(akonadi_next calendarsupport calendarviews console icons importwizard incidenceeditor-ng kdgantt2 kresources ksendemail libkdepim 
@@ -70,7 +66,7 @@ package_kdepim-common() {
 
 package_kdepim-akonadiconsole() {
 	pkgdesc="Akonadi console"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
+	groups=('kde' 'kdepim' 'kde-uninstall')
 	depends=("${pkgbase}-common>=${pkgver}" "nepomuk-widgets>=${_kdever}")
 	install=${pkgbase}.install
 
@@ -83,8 +79,7 @@ package_kdepim-akonadiconsole() {
 
 package_kdepim-akregator() {
 	pkgdesc="Newsfeed client"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('network')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'network')
 	depends=("${pkgbase}-common>=${pkgver}")
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
@@ -98,8 +93,7 @@ package_kdepim-akregator() {
 
 package_kdepim-blogilo() {
 	pkgdesc="Blogilo is a free/Open Source Blogging application, focused on simplicity and usability."
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('network')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'network')
 	depends=("${pkgbase}-common>=${pkgver}")
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
@@ -113,8 +107,7 @@ package_kdepim-blogilo() {
 
 package_kdepim-kaddressbook() {
 	pkgdesc="Addressbook"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('network')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'network')
 	depends=("${pkgbase}-common>=${pkgver}")
 	install=${pkgbase}.install
 
@@ -127,8 +120,7 @@ package_kdepim-kaddressbook() {
 
 package_kdepim-kalarm() {
 	pkgdesc="Alarm App + Daemon"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('accessories')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'accessories')
 	depends=("${pkgbase}-common>=${pkgver}")
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
@@ -142,8 +134,7 @@ package_kdepim-kalarm() {
 
 package_kdepim-kitchensync() {
 	pkgdesc="Opensync synchronization gui"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('network')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'network')
 	depends=("${pkgbase}-common>=${pkgver}" 'libopensync')
 	install=${pkgbase}.install
 
@@ -156,8 +147,7 @@ package_kdepim-kitchensync() {
 
 package_kdepim-kjots() {
 	pkgdesc="A small, handy program for keeping miscellaneous notes"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('accessories')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'accessories')
 	depends=("${pkgbase}-common>=${pkgver}")
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
@@ -172,7 +162,7 @@ package_kdepim-kjots() {
 package_kdepim-kleopatra() {
 	pkgdesc='Certificate Manager and Unified Crypto GUI'
 	depends=('kdepim-common')
-        groups=("kde" "kdepim" "kde" "kde-uninstall")
+        groups=('kde' 'kdepim' 'kde-uninstall')
         provides=('kleopatra')
         install=${pkgbase}.install
 	url="http://kde.org/applications/utilities/kleopatra/"
@@ -186,8 +176,7 @@ package_kdepim-kleopatra() {
 
 package_kdepim-kmail() {
 	pkgdesc="A full-featured E-Mail client"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('network')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'network')
 	depends=("${pkgbase}-common>=${pkgver}")
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
@@ -201,8 +190,7 @@ package_kdepim-kmail() {
 
 package_kdepim-mobile() {
 	pkgdesc="The KDEPim Suite for mobile devices"
-	groups=("kde-mobile")
-	groups=('network')
+	groups=('kde-mobile' 'network')
 	depends=("${pkgbase}-common>=${pkgver}")
 	install=${pkgbase}.install
 
@@ -215,8 +203,7 @@ package_kdepim-mobile() {
 
 package_kdepim-knode() {
 	pkgdesc="NNTP client"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('network')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'network')
 	depends=("${pkgbase}-common>=${pkgver}")
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
@@ -230,8 +217,7 @@ package_kdepim-knode() {
 
 package_kdepim-knotes() {
 	pkgdesc="Sticky notes for your Desktop"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('accessories')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'accessories')
 	depends=("${pkgbase}-common>=${pkgver}")
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
@@ -245,8 +231,7 @@ package_kdepim-knotes() {
 
 package_kdepim-kontact() {
 	pkgdesc="Groupware client and shell for other PIM applications"
-	groups=("${pkgbase}" "kde" "kde-uninstall")
-	groups=('network')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'network')
 	depends=("${pkgbase}-common>=${pkgver}" "${pkgbase}-kmail>=${pkgver}" "${pkgbase}-akregator>=${pkgver}" 
                  "${pkgbase}-kaddressbook>=${pkgver}" "${pkgbase}-kjots>=${pkgver}" "${pkgbase}-knotes>=${pkgver}" 
                  "${pkgbase}-korganizer>=${pkgver}" "${pkgbase}-ktimetracker>=${pkgver}") #"${pkgbase}-wizards>=${pkgver}")
@@ -262,8 +247,7 @@ package_kdepim-kontact() {
 
 package_kdepim-korganizer() {
 	pkgdesc="Organizer and Planner"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('office')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'office')
 	depends=("${pkgbase}-common>=${pkgver}")
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
@@ -280,8 +264,7 @@ package_kdepim-korganizer() {
 
 package_kdepim-ktimetracker() {
 	pkgdesc="Time tracking software"
-	groups=("kde" "${pkgbase}" "kde-uninstall")
-	groups=('accessories')
+	groups=('kde' 'kdepim' 'kde-uninstall' 'accessories')
 	depends=("${pkgbase}-common>=${pkgver}")
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
