@@ -1,0 +1,30 @@
+
+pkgname=fdesktoprecorder
+_pkgname=froksen-FDesktopRecorder
+pkgver=20130517
+_pkgver=90e8bb4
+pkgrel=1
+pkgdesc="A program that can video record a single window or your entire desktop using ffmpeg."
+arch=('x86_64')
+url="http://opendesktop.org/content/show.php?content=147844"
+license=('GPL')
+depends=('qt' 'ffmpeg')
+makedepends=('cmake' 'automoc4' 'kdelibs' 'desktop-file-utils')
+groups=('utils')
+source=("https://github.com/froksen/FDesktopRecorder/tarball/master/${_pkgname}-${_pkgver}.tar.gz")
+md5sums=('d51947e9e9b7d6cd2dbbe0c81acdbf03')
+
+build() {
+  cd ${srcdir}/${_pkgname}-${_pkgver}
+
+  cmake \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd ${srcdir}/${_pkgname}-${_pkgver}
+  
+  make DESTDIR="$pkgdir" install
+}
