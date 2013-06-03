@@ -1,0 +1,21 @@
+
+pkgname=opera
+pkgver=12.15
+_build=1748
+pkgrel=1
+pkgdesc="A fast and secure web browser and Internet suite."
+arch=('x86_64')
+url="http://www.opera.com/browser/"
+license=('custom:opera')
+depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
+install=${pkgname}.install
+options=('!strip' '!zipman')
+groups=('network')
+source=("http://ftp.opera.com/pub/opera/linux/${pkgver/./}/opera-${pkgver}-${_build}.x86_64.linux.tar.xz")
+md5sums=('59e1bb087e5861126a296ef0a68df8a4')
+
+package() {
+        opera-${pkgver}-${_build}.x86_64.linux/install --prefix /usr --repackage "${pkgdir}/usr"
+        install -D -m 644 "${pkgdir}/usr/share/${pkgname}/defaults/license.txt" \
+             "${pkgdir}/usr/share/licenses/${pkgname}/license.txt"
+}
