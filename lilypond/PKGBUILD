@@ -1,0 +1,39 @@
+
+pkgname=lilypond
+pkgver=2.16.2
+_pkgver=2.16
+pkgrel=1
+pkgdesc="A music engraving program, devoted to producing the highest-quality sheet music possible."
+arch=('x86_64')
+url="http://lilypond.org/"
+license=('GPL')
+depends=('fontconfig' 'freetype2' 'ghostscript' 'guile' 'pango' 'python2')
+makedepends=('bison' 'flex' 'fontforge' 'gettext' 'gsfonts' 'perl' 'texinfo' 't1utils'
+             'texlive-core' 'netpbm')
+optdepends=('netpbm: building HTML documentation'
+            'imagemagick: building HTML documentation'
+            'rsync: installing HTML documentation')
+groups=('multimedia')
+install=$pkgname.install
+source=("http://download.linuxaudio.org/${pkgname}/sources/v${_pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('6db27f17d47e4f66a3b0716c65db3041')
+
+
+build() {
+  cd "$srcdir/lilypond-$pkgver"
+
+  # python2 fix
+  for file in $(find . -name '*.py' -print); do
+    sed -i 's_^#!.*/usr/bin/python_#!/usr/bin/python2_' $file
+    sed -i 's_^#!.*/usr/bin/env.*python_#!/usr/bin/env python2_' $file
+  done
+  # remove disable-documentation on texinfo fix upstream
+  ./configure --prefix=/usr --disable-documentation
+  make all
+}
+
+package() {
+  cd "$srcdir/lilypond-$pkgver"
+  
+  make DESTDIR="$pkgdir/" install
+}

@@ -1,0 +1,31 @@
+
+pkgname=rosegarden
+pkgver=13.04
+pkgrel=1
+pkgdesc="MIDI/audio sequencer and notation editor"
+arch=('x86_64')
+url="http://www.rosegardenmusic.com/"
+license=('GPL')
+depends=('liblrdf' 'dssi' 'fftw' 'lirc-utils' 'perl' 'qt' 'shared-mime-info' 'lilypond')
+makedepends=('pkgconfig' 'imake')
+optdepends=('cups: printing support'
+            'okular: print preview, or any other PDF viewer'
+            'flac'
+            'wavpack')
+groups=('multimedia')
+install=$pkgname.install
+source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2")
+md5sums=('bcc9be7bf8c3945e0eefdb95dc037f0b')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  make DESTDIR="$pkgdir/" install
+}
