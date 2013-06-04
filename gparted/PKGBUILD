@@ -2,7 +2,7 @@
 pkgname=gparted
 pkgver=0.16.1
 pkgrel=1
-pkgdesc="A Partition Magic clone, frontend to GNU Parted"
+pkgdesc="A Partition Magic clone, frontend to GNU Parted."
 arch=('x86_64')
 url="http://gparted.sourceforge.net"
 license=('GPL')
@@ -14,25 +14,29 @@ optdepends=('dosfstools: for FAT16 and FAT32 partitions'
             'reiserfsprogs: for reiser partitions'
             'xfsprogs: for xfs partitions')
 source=("http://downloads.sourceforge.net/project/${pkgname}/${pkgname}/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.bz2"
-        'gparted_polkit'
         'gparted.policy')
 md5sums=('3f399bff031b5ce14d11a8c346f4b89c'
-         'd8fc1a946d00504a4f0debf2f340e87c'
-         '40847f2e19261eb6415eed45bd9462d6')
+         'aa0fd8f1aa548871600e629a8ebe6ba4')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  ./configure --prefix=/usr 
+  ./configure --prefix=/usr
   make
 }
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
+
   make DESTDIR="${pkgdir}" install
 
-  # Install launcher script
-  install -m755 "${srcdir}/gparted_polkit" "${pkgdir}/usr/sbin/gparted_polkit"
   # Install policy file
   install -Dm644 "${srcdir}/gparted.policy" "${pkgdir}/usr/share/polkit-1/actions/gparted.policy"
+
+  mv "${pkgdir}/usr/sbin/gparted" "${pkgdir}/usr/sbin/gparted.elf"
+
+  # Install launcher script
+  echo '#!/bin/sh' > ${pkgdir}/usr/sbin/gparted
+  echo 'pkexec --disable-internal-agent "/usr/sbin/gparted.elf" "$@"' >> ${pkgdir}/usr/sbin/gparted
+  chmod 755 ${pkgdir}/usr/sbin/gparted
 }
