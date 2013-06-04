@@ -1,0 +1,36 @@
+
+pkgname=clementine
+pkgver=1.1.1
+pkgrel=1
+pkgdesc="Modern music player and library organiser that takes advantage of Qt4."
+url="http://www.clementine-player.org/"
+license="GPL"
+arch=('x86_64')
+install="${pkgname}.install"
+depends=('gstreamer0.10-base' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
+         'hicolor-icon-theme' 'qtwebkit' 'libimobiledevice' 'qjson' 'protobuf'
+         'libcdio-paranoia' 'qca' 'qca-ossl' 'chromaprint')
+makedepends=('cmake' 'boost' 'mesa')
+groups=('multimedia')
+source=("http://clementine-player.googlecode.com/files/${pkgname}-${pkgver}.tar.gz"
+        'libimobiledevice.patch')
+md5sums=('28e4afb822388bd337a761db8f86febf'
+         '2060eab4a381cb0702a31cd51a534180')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  patch -p1 -i "$srcdir"/libimobiledevice.patch
+  mkdir -p build 
+  
+  cd build
+  cmake ../ -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DSTATIC_SQLITE=OFF
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}/build"
+  
+  make install DESTDIR="${pkgdir}"
+}

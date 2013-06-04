@@ -1,0 +1,27 @@
+
+pkgname=qtractor
+pkgver=0.5.8
+pkgrel=1
+pkgdesc="Audio/MIDI multitrack sequencer"
+arch=('x86_64')
+url="http://qtractor.sourceforge.net/"
+license=('GPL')
+depends=('qt' 'suil' 'lilv' 'libmad' 'libsamplerate' 'rubberband' 'liblo' 'shared-mime-info')
+makedepends=('ladspa' 'dssi')
+groups=('multimedia')
+source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz")
+md5sums=('22abf4de4d5736f794e174ef06fe3a3c')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  ./configure --prefix=/usr --enable-debug
+  make
+}
+
+package () {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  make DESTDIR="$pkgdir/" install
+}
+
