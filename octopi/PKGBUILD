@@ -1,8 +1,8 @@
 
 pkgname=octopi
 pkgver=0.1.8
-pkgrel=1
-_commit=eeba5e4
+pkgrel=2
+_commit=13f7240
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
@@ -18,7 +18,7 @@ source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
         'strconstants.h.diff'
         'unixcommand.diff'
         'unixcommand.h.diff')
-md5sums=('bc956e725f23d0302236ec40a0721b55'
+md5sums=('7d9732db2796e93e63ff15a039a683bb'
          '2d9c64cd6402be69d2ee9fde5acc439e'
          '6d7ada95b736298b87a7addd32022c4d'
          '6e499a1f231a3714826ba9184aa8a460'
@@ -39,6 +39,11 @@ build() {
    
    qmake octopi.pro
    make
+   
+   cd "${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper"
+
+   qmake pacmanhelper.pro
+   make 
 }
 
 package() {
@@ -52,4 +57,12 @@ package() {
    
    mkdir -p ${pkgdir}/usr/share/applications
    install -m644 -p ${srcdir}/octopi.desktop ${pkgdir}/usr/share/applications
+   
+   #Pacmanhelper service files
+   install -D -m755 ${srcdir}/aarnt-octopi-${_commit}/notifier/bin/pacmanhelper ${pkgdir}/lib/octopi/pacmanhelper
+
+   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacman.policy ${pkgdir}/usr/share/polkit-1/actions/org.octopi.pacman.policy
+   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.conf ${pkgdir}/etc/dbus-1/system.d/org.octopi.pacmanhelper.conf
+   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.xml ${pkgdir}/usr/share/dbus-1/interfaces/org.octopi.pacmanhelper.xml
+   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.service ${pkgdir}/usr/share/dbus-1/system-services/org.octopi.pacmanhelper.service
 }
