@@ -3,7 +3,7 @@ _prefix=/usr
 
 pkgname=xbmc
 pkgver=12.2
-pkgrel=3
+pkgrel=4
 pkgdesc="XBMC Media Center"
 arch=('x86_64')
 url="http://xbmc.org"
@@ -40,7 +40,14 @@ build() {
     export PYTHON_VERSION=2 
     msg "Configuring XBMC"
     ./configure --prefix=${_prefix} \
+        --enable-optimizations \
+        --enable-gl \
+        --enable-sdl \
+        --enable-vaapi \
 	--enable-vdpau \
+	--enable-xrandr \
+	--enable-x11 \
+	--enable-udev \
 	--enable-pulse \
 	--disable-avahi \
 	--disable-external-ffmpeg \
@@ -65,9 +72,9 @@ package() {
     make prefix="${pkgdir}${_prefix}" install
 
     # various fixes
-    sed -i -e 's/which lsb_release &> \/dev\/null/\[ -f \/etc\/arch-release ]/g' "${pkgdir}${_prefix}/bin/xbmc"
-    sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/arch-release/g" "${pkgdir}${_prefix}/bin/xbmc"
-    sed -i -e 's/python/python2/g' ${pkgdir}${_prefix}/bin/xbmc
+    #sed -i -e 's/which lsb_release &> \/dev\/null/\[ -f \/etc\/arch-release ]/g' "${pkgdir}${_prefix}/bin/xbmc"
+    #sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/arch-release/g" "${pkgdir}${_prefix}/bin/xbmc"
+    #sed -i -e 's/python/python2/g' ${pkgdir}${_prefix}/bin/xbmc
 
     # Tools
     install -D -m 0755 "${srcdir}/xbmc-$pkgver/xbmc-xrandr" "${pkgdir}${_prefix}/share/xbmc/xbmc-xrandr"
