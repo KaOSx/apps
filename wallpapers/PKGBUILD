@@ -1,25 +1,23 @@
-
-pkgname=("wallpapers-grey")
+pkgname=('grey')
 pkgver=0.1
-pkgrel=
+pkgrel=1
 pkgdesc="Grey themed wallpaper"
 url="http://www.kde-os.tk"
 license=('GPL')
 arch=('x86_64')
 makedepends=('automoc4')
-options=('!splithdr' 'splitdbg')
-groups=("kde" "kde-uninstall")
-source=("")
-md5sums=('')
+groups=('kde' 'kde-uninstall')
+source=("grey.tar.xz")
+md5sums=('16593463f44171c3312a55831e16a1f2')
 
 package() {
 	cd ${srcdir}/grey
 	
 	mkdir -pv ${pkgdir}/usr/share/wallpapers/grey/contents/
-	cd ${srcdir}/dharma/content
+	cd ${srcdir}/grey/contents
 	cp -Rv * ${pkgdir}/usr/share/wallpapers/grey/contents/
 	cd $pkgdir/usr/share/wallpapers/grey/contents/
 
 	cp -v ${srcdir}/grey/metadata.desktop $pkgdir/usr/share/wallpapers/grey
-	cp -v ${srcdir}/grey/content/screenshot.png $pkgdir/usr/share/wallpapers/grey/contents
+	cp -v ${srcdir}/grey/contents/screenshot.png $pkgdir/usr/share/wallpapers/grey/contents
 }
