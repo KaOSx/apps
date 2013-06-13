@@ -1,31 +1,22 @@
-#
-# Chakra Packages for Chakra, part of chakra-project.org
-#
-# maintainer abveritas[at]chakra-project[dot]org>
 
-# include global config
-source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgbase="kde-plasma-themes"
 pkgname=(
          #"kde-plasma-themes-neda"
 	 #"kde-plasma-themes-ronak"
-	 "kde-plasma-themes-caledonia")
+	 "kde-plasma-themes-ProduktCaledoniaReloaded")
 	 #"kde-plasma-themes-helium")
 pkgver=1.0
 pkgrel=3
-arch=('any')
+arch=('x86_64')
 
-source=('http://chakra-linux.org/sources/caledonia/caledonia-chakra.tar.xz'
-        'http://chakra-linux.org/sources/helium/helium-3.0.2.tar.gz')
-md5sums=('90564224e441dfbeb5f58570c488d74b'
-         'fe7edaca9b9a11ed123236ada4f6083b')
+source=("http://kde-look.org/CONTENT/content-files/159037-ProduktCaledoniaReloaded.tar.gz")
+md5sums=('4f29c5cdbc3134c43739aac6ba5d9969')
 
 package_kde-plasma-themes-neda() {
 pkgver=1.8.3.2
 pkgrel=1
-pkgdesc="Chakra NEDA Plasma theme"
-url="http://www.chakra-project.org"
+pkgdesc="NEDA Plasma theme"
 license=('GPL')
 replaces=('kde-plasma-themes-kneda')
   mkdir -p $pkgdir/usr/share/apps/desktoptheme
@@ -40,8 +31,7 @@ replaces=('kde-plasma-themes-kneda')
 package_kde-plasma-themes-ronak() {
 pkgver=1.0
 pkgrel=1
-pkgdesc="Chakra RONAK Plasma theme"
-url="http://www.chakra-project.org"
+pkgdesc="RONAK Plasma theme"
 license=('GPL')
   mkdir -p $pkgdir/usr/share/apps/desktoptheme/RONAK
   cd $startdir/src/ronak-plasma
@@ -52,17 +42,17 @@ license=('GPL')
   find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
 }
 
-package_kde-plasma-themes-caledonia() {
-pkgver=1.3
-pkgrel=3
-pkgdesc="Malcer's dark Caledonia Plasma theme with Chakra adjustments"
-url="http://sourceforge.net/projects/caledonia/"
-license=('Creative-Commons-BY-ND')
+package_kde-plasma-themes-ProduktCaledoniaReloaded() {
+pkgver=0.2
+pkgrel=1
+pkgdesc="Migue's remix of Produkt and Caledonia plasma themes"
+url="http://kde-look.org/content/show.php/Produkt%2BCaledonia+Reloaded?content=159037"
+license=('Creative-Commons-BY-SA')
   mkdir -p $pkgdir/usr/share/apps/desktoptheme/
-  cd $srcdir/caledonia-chakra
+  cd $srcdir/ProduktCaledoniaReloaded
   cp -R * $pkgdir/usr/share/apps/desktoptheme/
   # fix file rights
-  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/caledonia
+  #chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/ProduktCaledoniaReloaded
   # remove nasty files
   find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
 }
