@@ -1,7 +1,6 @@
-
 pkgname=kdeplasma-applets-appmenu-qml
 pkgver=1.5
-pkgrel=2
+pkgrel=3
 pkgdesc="This plasmoid shows a menu of the installed applications, similar to Lancelot but much simpler."
 url="http://kde-apps.org/content/show.php/AppMenu+QML?content=146098"
 license=('GPL')
@@ -9,13 +8,20 @@ arch=('x86_64')
 depends=('kde-workspace')
 makedepends=('unzip')
 groups=('kdeplasma-addons')
-source=("http://kde-apps.org/CONTENT/content-files/146098-plasma-applet-appmenu-qml-${pkgver}.plasmoid")
-md5sums=('7fbc01402394bf56f60f00a5448e2d85')
+source=("http://kde-apps.org/CONTENT/content-files/146098-plasma-applet-appmenu-qml-${pkgver}.plasmoid"
+        'home.png'
+        'icon.diff')
+md5sums=('7fbc01402394bf56f60f00a5448e2d85'
+         '45a6e18aec95fbc65bc72c5a81491ff9'
+         'f632d8817aff0800419c1fd842ebd918')
  
 package() {
   unzip -o -q "$srcdir/146098-plasma-applet-appmenu-qml-${pkgver}.plasmoid" -d "$srcdir/plasma-applet-appmenu-qml"
+  patch -p1 -i $srcdir/icon.diff
   
   install -D $srcdir/plasma-applet-appmenu-qml/metadata.desktop ${pkgdir}/"`kde4-config --prefix`/share/kde4/services/plasma-applet-appmenu-qml.desktop"
   mkdir -p ${pkgdir}/"`kde4-config --prefix`/share/apps/plasma/plasmoids/appmenu-qml"
   cp -r $srcdir/plasma-applet-appmenu-qml/* ${pkgdir}/"`kde4-config --prefix`/share/apps/plasma/plasmoids/appmenu-qml/"
+  mkdir -p ${pkgdir}/usr/share/icons 
+  install -m 644 -p ${srcdir}/home.png ${pkgdir}/usr/share/icons/home.png
 }
