@@ -48,11 +48,11 @@ pkgrel=1
 pkgdesc="Migue's remix of Produkt and Caledonia plasma themes"
 url="http://kde-look.org/content/show.php/Produkt%2BCaledonia+Reloaded?content=159037"
 license=('Creative-Commons-BY-SA')
-  mkdir -p $pkgdir/usr/share/apps/desktoptheme/
+  mkdir -p $pkgdir/usr/share/apps/desktoptheme/ProduktCaledoniaReloaded
   cd $srcdir/ProduktCaledoniaReloaded
-  cp -R * $pkgdir/usr/share/apps/desktoptheme/
+  cp -R * $pkgdir/usr/share/apps/desktoptheme/ProduktCaledoniaReloaded
   # fix file rights
-  #chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/ProduktCaledoniaReloaded
+  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/ProduktCaledoniaReloaded
   # remove nasty files
   find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
 }
