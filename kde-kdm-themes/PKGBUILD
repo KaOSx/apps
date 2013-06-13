@@ -1,29 +1,19 @@
-#
-# Chakra Packages for Chakra, part of chakra-project.org
-#
-# maintainer: abveritas[at]chakra-project[dog]org>
 
-# include global config
-source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
-
-pkgname=kde-kdm-themes-dharma
-pkgver=1.5
-pkgrel=3
-pkgdesc="Chakra Dharma KDM-Theme"
-url="http://chakra-project.org"
-license=("GPL" "Creative Commons, BY-ND")
-arch=('any')
-depends=('ttf-raleway')
-options=('!splithdr' 'splitdbg')
+pkgname=kde-kdm-themes-grey
+pkgver=1.0
+pkgrel=1
+pkgdesc="KdeOS grey KDM-Theme"
+url="http://kde-os.tk"
+license=('GPL')
+arch=('x86_64')
+depends=('kde-workspace')
 groups=("kde" "kde-complete" "kde-uninstall" "kde-minimal")
-source=("http://chakra-linux.org/sources/dharma/kdm/$pkgver/Dharma-KDM.tar.xz")
-md5sums=('a5176c539fd0dc1fd01208aecd83c4f4')
+source=("http://sourceforge.net/projects/kdeos/files/Sources/grey/kdm/grey_kdm.tar.gz")
+md5sums=('83355d95b0a4aa7db72658d179eca0df')
 
 package() {
-	cd ${srcdir}/Dharma-KDM
+	cd ${srcdir}/
 	
-	mkdir -pv $pkgdir/usr/share/apps/kdm/themes/dharma
-	cp -Rv * $pkgdir/usr/share/apps/kdm/themes/dharma
-	#cp -v ${startdir}/dharma-background.sh $pkgdir/usr/share/apps/kdm/themes/dharma/background.sh
-	#chmod a+x $pkgdir/usr/share/apps/kdm/themes/dharma/background.sh
+	mkdir -pv $pkgdir/usr/share/apps/kdm/themes
+	cp -Rv ${srcdir}/grey_kdm $pkgdir/usr/share/apps/kdm/themes/
 }
