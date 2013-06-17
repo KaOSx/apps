@@ -10,13 +10,10 @@ pkgdesc="A KDE tool for managing print jobs and printers"
 url="https://projects.kde.org/projects/playground/base/print-manager"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=("kde-workspace>=${_kdever}" "libcups" "system-config-printer")
+depends=("kde-workspace>=${_kdever}" 'libcups' 'system-config-printer')
 makedepends=('cmake' 'automoc4')
 install=${pkgname}.install
-groups=("kde" "kdeadmin" "kde-uninstall")
-provides=('print-manager')
-replaces=('kdeadmin-system-config-printer' 'print-manager' 'kdeutils-printer-applet')
-conflicts=('print-manager')
+groups=('kde' 'kdeadmin' 'kde-uninstall')
 options=('docs')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -28,12 +25,10 @@ build() {
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} \
                 -DCMAKE_SKIP_RPATH=ON \
                 -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
-
 }
 
 package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
 	
 	make DESTDIR=${pkgdir} install 
-
 }

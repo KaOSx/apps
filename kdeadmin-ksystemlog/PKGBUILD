@@ -1,0 +1,41 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdeadmin-ksystemlog
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc='System log viewer tool'
+url='http://kde.org/applications/system/ksystemlog/'
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+groups=('kde' 'kdeadmin' 'kde-uninstall')
+depends=('kde-runtime')
+makedepends=('cmake' 'automoc4')
+source=("$_mirror/${pkgbase}-$_kdever.tar.xz" 
+        'syslog-path.patch')
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '4b0c3e0a7b7561185e20014fcbc1118e')
+
+prepare() {
+  cd ksystemlog-${pkgver}
+  
+  patch -p2 -i "${srcdir}"/syslog-path.patch
+}
+
+build() {
+  mkdir build 
+  cd build
+  
+  cmake ../ksystemlog-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE4_BUILD_TESTS=OFF \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=$pkgdir install
+}

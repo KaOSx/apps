@@ -1,0 +1,34 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdenetwork-kget
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc='Download Manager'
+url='http://kde.org/applications/internet/kget/'
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
+depends=("kde-workspace>=${_kdever}" 'kwebkitpart' 'libktorrent' 'libmms' 'gpgme' 'nepomuk-widgets')
+makedepends=('cmake' 'automoc4' 'boost')
+install=${pkgname}.install
+source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+build() {
+  mkdir build
+  cd build
+  
+  cmake ../kget-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE4_BUILD_TESTS=OFF \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=$pkgdir install
+}
