@@ -1,23 +1,25 @@
-# $Id$
-# Maintainer: Andrea Scarpino <andrea@archlinux.org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdenetwork-kppp
-pkgver=4.10.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Internet Dial-Up Tool'
 url='http://kde.org/applications/internet/kppp/'
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-groups=('kde' 'kdenetwork')
-depends=('kdebase-runtime' 'ppp')
+groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
+depends=("kde-runtime>=${_kdever}" 'ppp')
 makedepends=('cmake' 'automoc4')
 install=${pkgname}.install
-source=("http://download.kde.org/unstable/${pkgver}/src/kppp-${pkgver}.tar.xz")
-sha1sums=('7ba785831227612b472343546a30c27de716c0a0')
+source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   cd build
+  
   cmake ../kppp-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE4_BUILD_TESTS=OFF \
@@ -27,5 +29,6 @@ build() {
 
 package() {
   cd build
+  
   make DESTDIR=$pkgdir install
 }

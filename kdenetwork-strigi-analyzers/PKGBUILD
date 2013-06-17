@@ -1,22 +1,24 @@
-# $Id$
-# Maintainer: Andrea Scarpino <andrea@archlinux.org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdenetwork-strigi-analyzers
-pkgver=4.10.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Strigi analyzers for various network protocols'
 url='http://www.kde.org/'
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-groups=('kde' 'kdenetwork')
-depends=('kdebase-runtime')
+groups=('kde' 'kdenetwork' 'kde-uninstall')
+depends=("kde-runtime>=${_kdever}")
 makedepends=('cmake' 'automoc4' 'boost')
-source=("http://download.kde.org/unstable/${pkgver}/src/kdenetwork-strigi-analyzers-${pkgver}.tar.xz")
-sha1sums=('e707cd0d1a86154a028a1d7e0d8a82407977cc2a')
+source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   cd build
+  
   cmake ../kdenetwork-strigi-analyzers-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE4_BUILD_TESTS=OFF \
@@ -26,5 +28,6 @@ build() {
 
 package() {
   cd build
+  
   make DESTDIR=$pkgdir install
 }

@@ -1,34 +1,26 @@
-# $Id$
-# Maintainer: Andrea Scarpino <andrea@archlinux.org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdenetwork-kopete
-pkgver=4.10.80
-pkgrel=2
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc='Instant Messenger'
 url='http://kde.org/applications/internet/kopete/'
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-groups=('kde' 'kdenetwork')
-depends=('kdebase-runtime' 'kdepimlibs' 'qca-ossl' 'libotr3' 'libmsn' 'libidn'
-         'qimageblitz' 'libgadu' 'mediastreamer' 'jsoncpp')
+groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
+depends=("kde-runtime>=${_kdever}" "kdepimlibs>=${_kdever}" 'qca-ossl' 'libotr' 'libmsn' 'libidn'
+         'qimageblitz' 'libgadu' 'libxss' 'v4l-utils' 'mediastreamer' 'jsoncpp')
 makedepends=('cmake' 'automoc4' 'boost')
 install=${pkgname}.install
-source=("http://download.kde.org/unstable/${pkgver}/src/kopete-${pkgver}.tar.xz"
-        'libotr3.patch'
-        'mediastreamer29.patch')
-sha1sums=('ee9fccbd612f821f5c1a02a0ec107b4faf4cc94c'
-          '9c3b0ee15538fbfa36aa0a4748b1f6b5a7905384'
-          '317683a5c2acd0a0058c5ab42f6006e9db511ef3')
-
-prepare() {
-  cd kopete-${pkgver}
-  patch -p2 -i "${srcdir}"/libotr3.patch
-  patch -p1 -i "${srcdir}"/mediastreamer29.patch
-}
+source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   cd build
+  
   cmake ../kopete-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE4_BUILD_TESTS=OFF \
@@ -39,5 +31,6 @@ build() {
 
 package() {
   cd build
+  
   make DESTDIR=$pkgdir install
 }

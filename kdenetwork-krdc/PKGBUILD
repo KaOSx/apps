@@ -1,25 +1,25 @@
-# $Id$
-# Maintainer: Andrea Scarpino <andrea@archlinux.org>
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdenetwork-krdc
-pkgver=4.10.80
-pkgrel=3
-pkgdesc='Remote Desktop Client'
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc='Desktop Sharing Client'
 url='http://kde.org/applications/internet/krdc/'
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-groups=('kde' 'kdenetwork')
-depends=('kdebase-runtime' 'telepathy-qt')
-makedepends=('cmake' 'automoc4' 'libvncserver' 'freerdp')
-optdepends=('libvncserver: VNC support'
-            'freerdp: RDP support'
-            'kdebase-keditbookmarks: to edit bookmarks')
-source=("http://download.kde.org/unstable/${pkgver}/src/krdc-${pkgver}.tar.xz")
-sha1sums=('76c3861d400a5e3b575316d4cd9b4626852edf4f')
+groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
+depends=("kde-runtime>=${_kdever}" 'telepathy-qt' 'rdesktop')
+makedepends=('cmake' 'automoc4' 'libvncserver')
+optdepends=('libvncserver: VNC support')
+source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   cd build
+  
   cmake ../krdc-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE4_BUILD_TESTS=OFF \
@@ -29,5 +29,6 @@ build() {
 
 package() {
   cd build
+  
   make DESTDIR=$pkgdir install
 }
