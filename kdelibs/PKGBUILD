@@ -5,18 +5,18 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname="kdelibs"
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE Core Libraries"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs')
 depends=("${_qtpkg}>=${_qtver}" "kde-common>=${_kdever}" "oxygen-icons>=${_kdever}" 
-	    'shared-mime-info' 'upower' 'udisks<2.0' 'xz>=5.0.0' 'enchant' 'jasper' 'openexr' 'giflib'
-	    'strigi' 'libxtst' 'soprano>=2.8' 'ca-certificates' 'xdg-utils' 'qca' 'polkit-qt>=0.98.1'
-	    'libxss' 'phonon' 'shared-desktop-ontologies>=0.7' 'attica>=0.2.0' 'krb5' 'libxcursor' 'libutempter'
-	    'hicolor-icon-theme' 'libdbusmenu-qt' 'grantlee>=0.3.0' 'media-player-info' 'qtwebkit' 'systemd')
+	    'shared-mime-info' 'upower' 'udisks<2.0' 'xz' 'enchant' 'jasper' 'openexr' 'giflib'
+	    'strigi' 'libxtst' 'soprano' 'ca-certificates' 'xdg-utils' 'qca' 'polkit-qt'
+	    'libxss' 'phonon' 'shared-desktop-ontologies' 'attica' 'krb5' 'libxcursor' 'libutempter'
+	    'hicolor-icon-theme' 'libdbusmenu-qt' 'grantlee' 'media-player-info' 'qtwebkit' 'systemd')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'intltool' 'avahi' 'libgl' 'aspell' 'hspell' 'shared-mime-info' 
-             'docbook-xsl' 'docbook-xml' 'bzip2>=1.0.6' 'libzip')
+             'docbook-xsl' 'docbook-xml' 'bzip2' 'libzip')
 optdepends=('phonon-gstreamer: GStreamer Phonon backend (default)'
 	    'phonon-mplayer:   MPlayer Phonon backend'
 	    'phonon-vlc:       VLC Phonon backend'
