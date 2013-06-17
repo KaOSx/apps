@@ -1,0 +1,34 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdesdk-cervisia
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc='CVS GUI frontend for KDE'
+url='http://kde.org/applications/development/cervisia/'
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
+depends=("kde-runtime>=${_kdever}")
+makedepends=('cmake' 'automoc4')
+install=${pkgname}.install
+source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+build() {
+  mkdir build
+  cd build
+  
+  cmake ../cervisia-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE4_BUILD_TESTS=OFF \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=$pkgdir install
+}
