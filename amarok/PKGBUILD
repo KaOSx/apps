@@ -1,7 +1,7 @@
 
 pkgname=amarok
 pkgver=2.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A media player for KDE"
 arch=('x86_64')
 url="http://amarok.kde.org"
@@ -16,11 +16,14 @@ optdepends=("libgpod: support Apple iPod audio devices"
 	    "ifuse: support for Apple iPod Touch and iPhone")
 groups=('multimedia')
 install="${pkgname}.install"
-source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('855203770cfb43be39bd9b961540dbaf')
+source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2"
+        'kde411.patch')
+md5sums=('855203770cfb43be39bd9b961540dbaf'
+         '9cc6e46b812f5193e83264735c6ffea8')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
+  patch -p1 -i "${srcdir}"/kde411.patch
 
   mkdir build
   cd build
