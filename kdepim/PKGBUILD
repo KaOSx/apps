@@ -27,7 +27,7 @@ license=('GPL' 'LGPL' 'FDL')
 options=('!docs')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' "kdelibs>=${_kdever}" "kdepimlibs>=${_kdever}" 'grantlee'
              "kdepim-runtime>=${_kdever}" 'libxss' 'kde-runtime' 'libsamplerate' 'qrencode' 'libdmtx'
-	     "kde-common>=${_kdever}" 'docbook-xml' "nepomuk-widgets>=${_kdever}")
+	     "kde-common>=${_kdever}" 'docbook-xml' "nepomuk-widgets>=${_kdever}" 'link-grammar')
 source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -45,14 +45,14 @@ build() {
 package_kdepim-common() {
 	pkgdesc="KDE PIM - Common files and libraries"
 	depends=("kdepimlibs>=${_kdever}" 'libxss' "kde-runtime" "kde-common>=${_kdever}"
-                 'libxss' "kdepim-runtime>=${_pkgver}")
+                 'libxss' "kdepim-runtime>=${_pkgver}" 'link-grammar')
         conflicts=('kdepim-doc')
 	groups=('kde' 'kdepim' 'kde-uninstall')
 	install=${pkgbase}.install
 
 	splitdirs=(akonadi_next calendarsupport calendarviews console icons importwizard incidenceeditor-ng kdgantt2 kresources ksendemail libkdepim 
                    libkdepimdbusinterfaces libkleo libkpgp libksieve mailcommon mailfilteragent mailimporter messagecore messagecomposer messagecore messagelist 
-		   messageviewer ontologies plugins pimcommon pimsettingexporter strigi-analyzer templateparser doc/kwatchgnupg doc/kabcclient doc/kioslave 
+		   messageviewer ontologies plugins pimcommon pimsettingexporter templateparser doc/kwatchgnupg doc/kabcclient doc/kioslave 
 		   doc/konsolekalendar)
 
 		for i in ${splitdirs[@]} ; do
