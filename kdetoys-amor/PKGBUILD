@@ -3,6 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdetoys-amor
+_pkgname=amor
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Amusing Misuse Of Resources puts comic figures above your windows'
@@ -13,14 +14,14 @@ groups=('kde' 'kdetoys' 'kde-uninstall' 'accessories')
 depends=("kde-runtime>=${_kdever}")
 makedepends=('cmake' 'automoc4')
 install=${pkgname}.install
-source=($_mirror/${pkgbase}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${_pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   cd build
   
-  cmake ../amor-${pkgver} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE4_BUILD_TESTS=OFF \
     -DCMAKE_INSTALL_PREFIX=/usr

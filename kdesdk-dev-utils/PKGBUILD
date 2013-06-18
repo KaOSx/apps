@@ -3,6 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdesdk-dev-utils
+_pkgname=kde-dev-utils
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Small utilities for developers using KDE/Qt libs/frameworks'
@@ -17,14 +18,14 @@ conflicts=('kdesdk-kmtrace' 'kdesdk-kpartloader' 'kdesdk-kprofilemethod'
 replaces=('kdesdk-kmtrace' 'kdesdk-kpartloader' 'kdesdk-kprofilemethod'
           'kdesdk-kstartperf' 'kdesdk-kuiviewer')
 install=${pkgname}.install
-source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   cd build
   
-  cmake ../kde-dev-utils-${pkgver} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE4_BUILD_TESTS=OFF \
     -DCMAKE_INSTALL_PREFIX=/usr
