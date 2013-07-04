@@ -1,7 +1,7 @@
 
 pkgname=opera
-pkgver=12.15
-_build=1748
+pkgver=12.16
+_build=1860
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite."
 arch=('x86_64')
@@ -12,7 +12,7 @@ install=${pkgname}.install
 options=('!strip' '!zipman')
 groups=('network')
 source=("http://ftp.opera.com/pub/opera/linux/${pkgver/./}/opera-${pkgver}-${_build}.x86_64.linux.tar.xz")
-md5sums=('59e1bb087e5861126a296ef0a68df8a4')
+md5sums=('ead647964ace52f44ced98adbc568ae7')
 
 package() {
         opera-${pkgver}-${_build}.x86_64.linux/install --prefix /usr --repackage "${pkgdir}/usr"
