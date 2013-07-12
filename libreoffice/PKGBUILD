@@ -12,18 +12,16 @@ pkgname=('libreoffice-common'
 	'libreoffice-writer'
 	'libreoffice-en-US'
 	'libreoffice-postgresql-connector'
-	'libreoffice-extension-presentation-minimizer'
-	'libreoffice-extension-report-builder')
-_LOver=4.0.4.2
-pkgver=4.0.4
-_pkgver=4.0.4
-_HIver=4.0
+	'libreoffice-extension-presentation-minimizer')
+_LOver=4.1.0.2
+pkgver=4.1.0
+_pkgver=4.1.0
+_HIver=4.1
 pkgrel=1
 arch=('x86_64')
 _OFFICEUPD="340"
 license=('LGPL3')
 url="http://www.libreoffice.org/"
-screenshot="http://wstaw.org/m/2012/04/20/libre2.png"
 makedepends=( # makedepends
              'sane' 'perl-archive-zip' 'zip' 'unzip' 'unixodbc' # boost -> internal one for now that has some gcc4.6 fixes.
              'apache-ant' 'gperf' 'poppler' 'kdelibs' 'cppunit' #'libmysqlclient'
@@ -51,9 +49,9 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
 	${_additional_source_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 	${_additional_source_url}/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz
-	${_additional_source_url}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz
+	${_additional_source_url}/625ff5f2f968dd908bca43c9469d6e6b-commons-lang-2.4-src.tar.gz
 	${_additional_source_url}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz
-	${_additional_source_url}/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
+	${_additional_source_url}/2e482c7567908d334785ce7d69ddfff7-commons-codec-1.6-src.tar.gz
 	${_additional_source_url}/eeb2c7ddf0d302fba4bfc6e97eac9624-libbase-1.1.6.zip
 	${_additional_source_url}/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip
 	${_additional_source_url}/3404ab6b1792ae5f16bbd603bd1e1d03-libformula-1.1.7.zip
@@ -65,14 +63,16 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
 	${_additional_source_url}/db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
 	${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
-	${_additional_source_url}/9f9e15966b5624834157fe3d748312bc-mdds_0.6.1.tar.bz2
+	${_additional_source_url}/08c85a6d6d793daee14e10e22eefdc4b-mdds_0.8.1.tar.bz2
 	${_additional_source_url}/dc3d21a3921931096d6e80f6701f6763-libexttextcat-3.4.0.tar.bz2
 	${_additional_source_url}/b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
-	${_additional_source_url}/8755aac23317494a9028569374dc87b2-liborcus_0.3.0.tar.bz2
-	${_additional_source_url}/54e578c91b1b68e69c72be22adcb2195-liblangtag-0.4.0.tar.bz2
+	${_additional_source_url}/ea2acaf140ae40a87a952caa75184f4d-liborcus-0.5.1.tar.bz2
+	${_additional_source_url}/36271d3fa0d9dec1632029b6d7aac925-liblangtag-0.5.1.tar.bz2
 	${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
+	${_additional_source_url}/8473296c671b6e3dd8197f4145e0854b-libodfgen-0.0.2.tar.bz2
 	${_additional_source_url}/libcdr-0.0.14.tar.bz2
 	${_additional_source_url}/libmspub-0.0.6.tar.bz2
+	${_additional_source_url}/libmwaw-0.1.10.tar.bz2
 	${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	${_additional_source_url}/f02578f5218f217a9f20e9c30e119c6a-boost_1_44_0.tar.bz2
 	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll)
@@ -92,7 +92,7 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	noextract=(18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
         185d60944ea767075d27247c3162b3bc-unowinreg.dll
 	b4cae0700aa1c2aef7eb7f345365e6f1-translate-toolkit-1.8.1.tar.bz2
-	9f9e15966b5624834157fe3d748312bc-mdds_0.6.1.tar.bz2
+	08c85a6d6d793daee14e10e22eefdc4b-mdds_0.8.1.tar.bz2
 	ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 	798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 	1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz
@@ -103,9 +103,9 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
 	a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 	3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz
-	2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz
+	625ff5f2f968dd908bca43c9469d6e6b-commons-lang-2.4-src.tar.gz
 	2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz
-	af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
+	2e482c7567908d334785ce7d69ddfff7-commons-codec-1.6-src.tar.gz
 	eeb2c7ddf0d302fba4bfc6e97eac9624-libbase-1.1.6.zip
 	39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip
 	3404ab6b1792ae5f16bbd603bd1e1d03-libformula-1.1.7.zip
@@ -117,13 +117,15 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
 	db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
 	ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
-	8755aac23317494a9028569374dc87b2-liborcus_0.3.0.tar.bz2
-	54e578c91b1b68e69c72be22adcb2195-liblangtag-0.4.0.tar.bz2
+	ea2acaf140ae40a87a952caa75184f4d-liborcus-0.5.1.tar.bz2
+	36271d3fa0d9dec1632029b6d7aac925-liblangtag-0.5.1.tar.bz2
 	0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 	17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	f02578f5218f217a9f20e9c30e119c6a-boost_1_44_0.tar.bz2
+	8473296c671b6e3dd8197f4145e0854b-libodfgen-0.0.2.tar.bz2
 	libcdr-0.0.14.tar.bz2
 	libmspub-0.0.6.tar.bz2
+	libmwaw-0.1.10.tar.bz2
 	#7e7efc5d4a03126bb9ae3ae9aa2c4e87-Barcode_1.3.1.0.oxt
 	#41c9b65ad60af4b3255bbecdfef11736-Diagram_1.1.0.0.oxt
 	#451ccf439a36a568653b024534669971-ConvertTextToNumber-1.3.2.oxt
@@ -177,7 +179,6 @@ build() {
 	export PYTHON=python3
 
 	./autogen.sh --with-build-version="${_LOver} KdeOS-${pkgrel}" --with-vendor="KdeOS" \
-		--with-unix-wrapper="libreoffice" \
 		--enable-split-app-modules \
 		--with-external-tar="${srcdir}/ext_sources" \
 		--disable-fetch-external \
@@ -203,8 +204,6 @@ build() {
 		--enable-python=system \
 		--enable-scripting-beanshell \
 		--enable-scripting-javascript \
-		--disable-ext-mysql-connector \
-		--with-system-mysql \
 		--without-fonts \
 		--without-afms \
 		--without-ppds \
@@ -212,6 +211,8 @@ build() {
 		--without-system-libcdr \
 		--without-system-jfreereport \
 		--without-system-apache-commons \
+		--without-system-libodfgen \
+		--without-system-libmwaw \
 		--without-system-mdds \
 		--without-myspell-dicts \
                  --with-system-libvisio \
@@ -220,7 +221,6 @@ build() {
 		--without-system-libexttextcat \
 		--without-system-orcus \
 		--without-system-liblangtag \
-		--without-system-mozilla \
 		--without-system-npapi-headers \
 		--with-system-dicts \
 		--with-external-dict-dir=/usr/share/hunspell \
@@ -294,12 +294,14 @@ replaces=('libreoffice'
           'libreoffice-extension-watch-window'
           'libreoffice-extension-wiki-publisher'
           'libreoffice-extension-pdfimport'
-          'libreoffice-extension-presenter-screen')
+          'libreoffice-extension-presenter-screen'
+          'libreoffice-extension-report-builder')
 provides=('libreoffice-extension-pdfimport'
           'libreoffice-extension-presenter-screen'
           'libreoffice-scripting-beanshell'
           'libreoffice-scripting-javascript'
-          'libreoffice-extension-scripting-python')
+          'libreoffice-extension-scripting-python'
+          'libreoffice-extension-report-builder')
 
  # create directories from *list.txt file
  for directory in `grep ^%dir ${srcdir}/libreoffice-$_LOver/file-lists/common_list.txt`; do
@@ -601,13 +603,3 @@ package_libreoffice-extension-presentation-minimizer() {
 	unzip -q ${srcdir}/libreoffice-$_LOver/solver/unxlng*/bin/presentation-minimizer.oxt -d ${pkgdir}/usr/lib/libreoffice/share/extensions/presentation-minimizer
 }
 
-package_libreoffice-extension-report-builder() {
-
- pkgdesc="This extension creates smart-looking database reports"
- arch=('any')
- depends=('libreoffice-common' 'libreoffice-kde4' 'java-environment')
- groups=('libreoffice-extensions')
-
-	install -dm755 ${pkgdir}/usr/lib/libreoffice/share/extensions
-	unzip -q ${srcdir}/libreoffice-$_LOver/solver/unxlng*/bin/report-builder.oxt -d ${pkgdir}/usr/lib/libreoffice/share/extensions/report-builder
-}
