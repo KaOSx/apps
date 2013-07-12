@@ -1,18 +1,17 @@
 
 pkgname=openimageio
 _pkgname=OpenImageIO
-pkgver=1.1.10
-pkgrel=2
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="A library for reading and writing images, including classes, utilities, and applications."
 arch=('x86_64')
 url="http://www.openimageio.org/"
 license=('custom')
-depends=('openexr' 'boost-libs' 'jasper' 'glew' 'libtiff' 'opencolorio')
-makedepends=('cmake' 'qt' 'python2' 'boost' 'mesa')
-optdepends=('qt: iv image viewer'
-            'python2: bindings support')
+depends=('openexr' 'boost-libs' 'jasper' 'glew' 'libtiff' 'opencolorio' 'qt')
+makedepends=('cmake' 'python2' 'boost' 'mesa')
+optdepends=('python2: bindings support')
 source=("https://github.com/OpenImageIO/oiio/tarball/Release-${pkgver}")
-md5sums=('e5c5cd77238f74c3a6a3610c211430f2')
+md5sums=('8738dd9b24fc4f0cb3eebb094347104a')
 
 build() {
   cd "$srcdir"/$_pkgname*/src
