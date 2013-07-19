@@ -21,7 +21,7 @@ md5sums=('93fffb5fcbdcc44c41c0426d79b6f5c1'
 build() {
   cd "$srcdir/$pkgname-$_pkgver"
   
-  #mkdir -p build
+  mkdir -p build
   cd build
 
   cmake .. \
@@ -53,7 +53,5 @@ package() {
   cd "$srcdir/$pkgname-$_pkgver/build"
   make DESTDIR="${pkgdir}" install
   
-  rm -r ${pkgdir}/usr/share/blender/2.68/scripts/addons/node_efficiency_tools.py
-  cp $srcdir/node_efficiency_tools.py ${pkgdir}/usr/share/blender/2.68/scripts/addons/
   python3 -m compileall "${pkgdir}/usr/share/blender"
 }
