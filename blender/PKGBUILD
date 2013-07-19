@@ -1,8 +1,8 @@
 
 pkgname=blender
-pkgver=2.67.2
-_pkgver=2.67b
-pkgrel=2
+pkgver=2.68
+_pkgver=2.68
+pkgrel=1
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
 license=('GPL')
@@ -15,13 +15,13 @@ makedepends=('cmake' 'boost' 'mesa' 'subversion')
 install=blender.install
 source=("http://download.blender.org/source/$pkgname-$_pkgver.tar.gz"
         'node_efficiency_tools.py')
-md5sums=('a1b6fc1bf7f95ae9d6508f94832042b7'
+md5sums=('93fffb5fcbdcc44c41c0426d79b6f5c1'
          'a7dbbee8f896e82a7bf440c821fd3eba')
 
 build() {
   cd "$srcdir/$pkgname-$_pkgver"
   
-  mkdir -p build
+  #mkdir -p build
   cd build
 
   cmake .. \
@@ -53,7 +53,7 @@ package() {
   cd "$srcdir/$pkgname-$_pkgver/build"
   make DESTDIR="${pkgdir}" install
   
-  rm -r ${pkgdir}/usr/share/blender/2.67/scripts/addons/node_efficiency_tools.py
-  cp $srcdir/node_efficiency_tools.py ${pkgdir}/usr/share/blender/2.67/scripts/addons/
+  rm -r ${pkgdir}/usr/share/blender/2.68/scripts/addons/node_efficiency_tools.py
+  cp $srcdir/node_efficiency_tools.py ${pkgdir}/usr/share/blender/2.68/scripts/addons/
   python3 -m compileall "${pkgdir}/usr/share/blender"
 }
