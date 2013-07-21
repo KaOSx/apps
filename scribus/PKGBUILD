@@ -1,17 +1,17 @@
 
 pkgname=scribus
 pkgver=1.4.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="http://www.scribus.net"
 license=('GPL')
 install=scribus.install
 depends=('libcups' 'lcms2' 'qt' 'ghostscript' 'libart-lgpl' 'python2' 'libxml2'
-         'cairo' 'desktop-file-utils' 'shared-mime-info' 'ruby' 'aspell')
+         'cairo' 'desktop-file-utils' 'shared-mime-info' 'ruby' 'aspell' 'podofo')
 makedepends=('cmake' 'boost')
 groups=('office')
-options=(!libtool !makeflags)
+options=('!libtool' '!makeflags')
 source=("http://sourceforge.net/projects/scribus/files/scribus/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=('5c2a6bb7107e67a0083e32275bdb1a13')
 
