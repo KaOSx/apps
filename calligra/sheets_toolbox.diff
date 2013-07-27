@@ -1,0 +1,49 @@
+commit 1c70852b6328b32e448ee56ba52ea60ca404beba
+Author: C. Boemann <cbo@boemann.dk>
+Date:   Thu Jul 25 22:32:14 2013 +0200
+
+    Fix problem with selecting tools with the new modebox for sheets and words
+    
+    details: when changing code make sure you change everything. this doesn't emit signals anymore,
+    it's a sub class, and so it 's the subclass that needs to be blockSignal'ed
+
+diff --git a/libs/main/KoModeBox.cpp b/libs/main/KoModeBox.cpp
+index 611ae2b..a653216 100644
+--- a/libs/main/KoModeBox.cpp
++++ b/libs/main/KoModeBox.cpp
+@@ -177,7 +177,7 @@ void KoModeBox::setActiveTool(KoCanvasController *canvas, int id)
+ {
+     if (canvas->canvas() == d->canvas) {
+         d->activeId = id;
+-        blockSignals(true);
++        d->tabBar->blockSignals(true);
+         int i = 0;
+         foreach (const KoToolButton &button, d->addedButtons) {
+             if (button.buttonGroupId == d->activeId) {
+@@ -187,7 +187,7 @@ void KoModeBox::setActiveTool(KoCanvasController *canvas, int id)
+             }
+             ++i;
+         }
+-        blockSignals(false);
++        d->tabBar->blockSignals(false);
+         return;
+     }
+ }
+@@ -308,7 +308,7 @@ void KoModeBox::updateShownTools(const KoCanvasController *canvas, const QList<Q
+     }
+     d->iconTextFitted = true;
+ 
+-    blockSignals(true);
++    d->tabBar->blockSignals(true);
+ 
+     while (d->tabBar->count()) {
+         d->tabBar->removeTab(0);
+@@ -350,7 +350,7 @@ void KoModeBox::updateShownTools(const KoCanvasController *canvas, const QList<Q
+     if (newIndex != -1) {
+         d->tabBar->setCurrentIndex(newIndex);
+     }
+-    blockSignals(false);
++    d->tabBar->blockSignals(false);
+ 
+     if (!d->iconTextFitted &&  d->fittingIterations++ < 8) {
+         updateShownTools(canvas, codes);

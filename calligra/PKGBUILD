@@ -22,7 +22,7 @@ pkgname=('calligra-3rdparty'
          'calligra-braindump'
          'calligra-flow')
 pkgver=2.7.0
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
@@ -31,13 +31,15 @@ makedepends=('kdepimlibs' 'eigen' 'freetds' 'kdegraphics-okular' 'kdeedu-marble'
              'boost' 'libkdcraw' 'fftw' 'opengtl' 'docbook-xsl' 'lcms2' 'libmariadbclient'
              'vc' 'opencolorio' 'libqtgtl')
 groups=('calligra')
-source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.bz2")
-screenshot=("http://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Calligra_Stage_2.4.png/800px-Calligra_Stage_2.4.png")
-md5sums=('ae154d84e3745bfd170020066f6086e8')
+source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.bz2"
+        'sheets_toolbox.diff')
+md5sums=('ae154d84e3745bfd170020066f6086e8'
+         '3ff0850f5a25a9fed29ff02cadd188f7')
 
 
 build() {
   cd "${srcdir}"
+  patch -p1 -i ${srcdir}/sheets_toolbox.diff
 
   mkdir build
   cd build
