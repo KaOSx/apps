@@ -36,7 +36,7 @@ set_locale() {
   local KBLAYOUT=$(get_layout)
 		
   # set a default value, in case something goes wrong, or a language doesn't have
-  # good defult settings
+  # good default settings
   [ -n "$LOCALE" ] || LOCALE="en_US"
   [ -n "$KEYMAP" ] || KEYMAP="us"
   [ -n "$KBLAYOUT" ] || KBLAYOUT="us"
