@@ -1,26 +1,26 @@
 
 pkgname=scribus
-pkgver=1.4.2
-pkgrel=3
+pkgver=1.4.3
+pkgrel=1
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="http://www.scribus.net"
 license=('GPL')
 install=scribus.install
-depends=('libcups' 'lcms2' 'qt' 'ghostscript' 'libart-lgpl' 'python2' 'libxml2'
+depends=('libcups' 'lcms2' 'qt' 'ghostscript' 'libart-lgpl' 'python2' 'libxml2' 'hyphen'
          'cairo' 'desktop-file-utils' 'shared-mime-info' 'ruby' 'aspell' 'podofo')
 makedepends=('cmake' 'boost')
 groups=('office')
 options=('!libtool' '!makeflags')
 source=("http://sourceforge.net/projects/scribus/files/scribus/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('5c2a6bb7107e67a0083e32275bdb1a13')
+md5sums=('46790dbdc9a48b4486294f81ce618a05')
 
 build() {
 	cd ${srcdir}
 	mkdir build
 	
 	cd build
-	cmake ../${pkgname}-${pkgver} \
+	cmake ../${pkgname}-${pkgver}/${pkgname}-${pkgver} \
 	   -DCMAKE_INSTALL_PREFIX=/usr \
 	   -DCMAKE_BUILD_TYPE=Release \
 	   -DCMAKE_SKIP_RPATH=ON \
@@ -35,8 +35,8 @@ package() {
 
 	# fix icon path in .desktop file
 	sed -i 's|Icon=scribus|Icon=/usr/share/scribus/icons/scribus.png|' \
-	   ${srcdir}/${pkgname}-${pkgver}/scribus.desktop
+	   ${srcdir}/${pkgname}-${pkgver}/${pkgname}-${pkgver}/scribus.desktop
 
-	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/scribus.desktop \
+	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/${pkgname}-${pkgver}/scribus.desktop \
 	   ${pkgdir}/usr/share/applications/scribus.desktop
 }
