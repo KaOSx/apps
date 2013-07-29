@@ -1,22 +1,19 @@
 
 pkgname=mediastreamer
-pkgver=2.8.2
-pkgrel=3
+pkgver=2.9.0
+pkgrel=1
 pkgdesc="A library written in C that allows you to create and run audio and video streams."
 arch=('x86_64')
 url="http://www.linphone.org"
 license=('GPL')
-depends=('ortp' 'speex' 'v4l-utils' 'ffmpeg>=0.11' 'libxv')
-makedepends=('cmake' 'automoc4' 'intltool')
-source=("http://download-mirror.savannah.gnu.org/releases/linphone/mediastreamer/mediastreamer-$pkgver.tar.gz"
-        'mediastreamer-ffmpeg.patch')
-md5sums=('e51ea9d5fce1396b374d10473dfbadec'
-         '553d5d47ea4a8c8dfeabdc0281849d5f')
+depends=('ortp' 'speex' 'v4l-utils' 'ffmpeg>=0.11' 'libxv' 'glew' 'libupnp')
+makedepends=('cmake' 'automoc4' 'intltool' 'vim')
+source=("http://download-mirror.savannah.gnu.org/releases/linphone/mediastreamer/mediastreamer-$pkgver.tar.gz")
+md5sums=('f2ea0fe731a363749a81b6eaac22a62c')
 
 build() {
 
   cd "$srcdir"/$pkgname-$pkgver
-  patch -p1 -i "${srcdir}"/mediastreamer-ffmpeg.patch
   
   ./configure --prefix=/usr
   make
