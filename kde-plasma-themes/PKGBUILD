@@ -4,14 +4,14 @@ pkgbase="kde-plasma-themes"
 pkgname=(
          #"kde-plasma-themes-neda"
 	 #"kde-plasma-themes-ronak"
-	 "kde-plasma-themes-ProduktCaledoniaReloaded")
+	 "kde-plasma-themes-Kotonaru")
 	 #"kde-plasma-themes-helium")
 pkgver=1.0
-pkgrel=3
+pkgrel=4
 arch=('x86_64')
 
-source=("http://kde-look.org/CONTENT/content-files/159037-ProduktCaledoniaReloaded.tar.gz")
-md5sums=('4f29c5cdbc3134c43739aac6ba5d9969')
+source=("http://desdelinux.net/ftp/mcder3/Plasma/Kotonaru.tar.xz")
+md5sums=('9cb8dac14d5a53570887820a5e2f474b')
 
 package_kde-plasma-themes-neda() {
 pkgver=1.8.3.2
@@ -42,17 +42,17 @@ license=('GPL')
   find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
 }
 
-package_kde-plasma-themes-ProduktCaledoniaReloaded() {
-pkgver=0.2
+package_kde-plasma-themes-Kotonaru() {
+pkgver=1.2.0
 pkgrel=1
+license=('GPL' 'Creative-Commons-BY-SA-NC')
 pkgdesc="Migue's remix of Produkt and Caledonia plasma themes"
-url="http://kde-look.org/content/show.php/Produkt%2BCaledonia+Reloaded?content=159037"
-license=('Creative-Commons-BY-SA')
-  mkdir -p $pkgdir/usr/share/apps/desktoptheme/ProduktCaledoniaReloaded
-  cd $srcdir/ProduktCaledoniaReloaded
-  cp -R * $pkgdir/usr/share/apps/desktoptheme/ProduktCaledoniaReloaded
+url="http://kde-look.org/content/show.php/?content=149407"
+  mkdir -p $pkgdir/usr/share/apps/desktoptheme/Kotonaru
+  cd $srcdir/Kotonaru
+  cp -R * $pkgdir/usr/share/apps/desktoptheme/Kotonaru
   # fix file rights
-  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/ProduktCaledoniaReloaded
+  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/Kotonaru
   # remove nasty files
   find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
 }
