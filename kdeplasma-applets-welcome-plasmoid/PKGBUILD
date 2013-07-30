@@ -1,0 +1,28 @@
+
+pkgname=kdeplasma-applets-welcome-plasmoid
+_pkgname=welcome-plasmoid
+pkgver=2013.07
+pkgrel=1
+depends=('kde-workspace')
+makedepends=('make' 'cmake' 'automoc4')
+pkgdesc="KdeOS Welcome Plasmoid, for live ISO info sharing"
+arch=("x86_64")
+license=('GPL')
+url="http://kde-os.tk/"
+source=("${_pkgname}.tar.xz")
+md5sums=('9df2ba90aa9ac9dcf6ad0ea9f154a2df')
+
+build() {
+        cd "${srcdir}/welcome-plasmoid"
+        
+        cmake  \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_BUILD_TYPE=Release
+        make
+}
+
+package() {
+        cd  "${srcdir}/welcome-plasmoid"
+        make DESTDIR=${pkgdir} install
+}
+
