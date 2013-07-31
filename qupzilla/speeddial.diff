@@ -1,0 +1,27 @@
+--- src/lib/plugins/speeddial.cpp	2013-07-29 11:55:35.000000000 -0400
++++ src/lib/plugins/speeddial.cpp	2013-07-31 15:03:19.809690621 -0400
+@@ -49,16 +49,19 @@
+     m_backgroundImage = settings.value("background", QString()).toString();
+     m_backgroundImageSize = settings.value("backsize", "auto").toString();
+     m_maxPagesInRow = settings.value("pagesrow", 4).toInt();
+-    m_sizeOfSpeedDials = settings.value("sdsize", 231).toInt();
++    m_sizeOfSpeedDials = settings.value("sdsize", 225).toInt();
+     m_sdcentered = settings.value("sdcenter", 0).toInt();
+     settings.endGroup();
+ 
+     if (allPages.isEmpty()) {
+-        allPages = "url:\"http://www.google.com\"|title:\"Google\";"
++        allPages = "url:\"http://www.kde-os.tk\"|title:\"KdeOS - Welcome\";"
++                   "url:\"http://www.kde-os.tk/bbs\"|title:\"Forums\";"
++                   "url:\"http://webchat.freenode.net/?channels=kdeos\"|title:\"IRC\";"
++                   "url:\"http://www.youtube.com/html5\"|title:\"YouTube-html5\";"
++                   "url:\"http://www.google.com\"|title:\"Google\";"
+                    "url:\"http://www.qupzilla.com\"|title:\"QupZilla\";"
+-                   "url:\"http://blog.qupzilla.com\"|title:\"QupZilla Blog\";"
+-                   "url:\"https://github.com/QupZilla/qupzilla\"|title:\"QupZilla GitHub\";"
+-                   "url:\"https://facebook.com\"|title:\"Facebook\";";
++                   "url:\"http://madebyevan.com/webgl-water\"|title:\"WebGL\";"
++                   "url:\"http://vimeo.com/categories\"|title:\"Vimeo\";";
+     }
+     changed(allPages);
+ 

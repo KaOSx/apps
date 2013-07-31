@@ -1,0 +1,20 @@
+--- src/lib/preferences/preferences.cpp.orig	2012-11-28 05:27:30.000000000 -0500
++++ src/lib/preferences/preferences.cpp	2012-11-29 11:06:26.153868088 -0500
+@@ -92,7 +92,7 @@
+     Settings settings;
+     //GENERAL URLs
+     settings.beginGroup("Web-URL-Settings");
+-    m_homepage = settings.value("homepage", "qupzilla:start").toString();
++    m_homepage = settings.value("homepage", "qupzilla:speeddial").toString();
+     m_newTabUrl = settings.value("newTabUrl", "qupzilla:speeddial").toString();
+     ui->homepage->setText(m_homepage);
+     ui->newTabUrl->setText(m_newTabUrl);
+@@ -157,7 +157,7 @@
+     //APPEREANCE
+     m_themesManager = new ThemeManager(ui->themesWidget, this);
+     settings.beginGroup("Browser-View-Settings");
+-    ui->showStatusbar->setChecked(settings.value("showStatusBar", true).toBool());
++    ui->showStatusbar->setChecked(settings.value("showStatusBar", false).toBool());
+     if (p_QupZilla) {
+         ui->showBookmarksToolbar->setChecked(p_QupZilla->bookmarksToolbar()->isVisible());
+         ui->showNavigationToolbar->setChecked(p_QupZilla->navigationBar()->isVisible());
