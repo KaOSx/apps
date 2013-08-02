@@ -1,57 +1,34 @@
-# maintainer abveritas@chakra-project.org
 
 pkgname=tribe
-pkgver=2013.03.05
-_rls_notes=20130309
+pkgver=2013.08.01
+_rls_notes=20130801
 pkgrel=1
-_codename=Benz
-branch="benz"
-pkgdesc="Tribe - Chakra LiveCD Installer"
-url="http://git.chakra-project.org/chakra/"
+pkgdesc="Tribe - KdeOS LiveCD Installer, forked from chakra-project"
+url="https://github.com/KdeOs/Tribe"
 license="GPL"
 arch=('x86_64')
 depends=('kdelibs' 'kdeedu-marble>=4.10.0' 'squashfs-tools' 'tribe-partitionmanager'
-        'cinstall>=0.4.6.10' 'rsync' 'mkinitcpio-nfs-utils' 'ntfs-3g' 'libpwquality')
+          'rsync' 'mkinitcpio-nfs-utils' 'ntfs-3g' 'libpwquality')
 makedepends=('cmake' 'kde-workspace' 'automoc4')
-options=('!splithdr' '!splitdbg')
-
-source=("${pkgname}-${pkgver}.tar.xz"
-        "http://chakra.sourceforge.net/sources/tribe/RELEASE_NOTES_${_rls_notes}.html"
-        "launch-tribe.sh")
-md5sums=('b970428a52d6ace4ac02065282930789'
-         'c7cc4b3c2fa85beec02c59db1ab57849'
-         'e31855da237a2c8029774831b3c04685')
-
-groups=('kde-uninstall')
-groups=('system')
+groups=('kde-uninstall' 'system')
 install=tools-tribe.install
-
-# create tarball: source PKGBUILD && mksource
-
-mksource() {
-	  rm -vRf ${pkgname}-${pkgver}
-	  git clone git://gitorious.org/chakra/${pkgname}.git ${pkgname}-${pkgver}
-	  #git clone -b benz git://gitorious.org/chakra/${pkgname}.git ${pkgname}-${pkgver}
-	  #git clone git://github.com/abveritas/Tribe.git ${pkgname}-${pkgver}
-	  #git clone git://github.com/Inkane/Tribe.git ${pkgname}-${pkgver}
-	  rm -vRf ${pkgname}-${pkgver}/.git
-	  pushd ${pkgname}-${pkgver}
-	  popd
-	  tar -cvJf ${pkgname}-${pkgver}.tar.xz ${pkgname}-${pkgver}/*
-	  md5sum ${pkgname}-${pkgver}.tar.xz
-}
+source=("https://github.com/KdeOs/Tribe/archive/2013.08.01.tar.gz"
+        "RELEASE_NOTES_${_rls_notes}.html"
+        "launch-tribe.sh")
+md5sums=('e58208792a7ddafb9a4f0bb9c4c682f5'
+         'b366a25b29052fe8b2a47453f0d1320e'
+         'e31855da237a2c8029774831b3c04685')
 
 build() {        
  
-        cd "${srcdir}/${pkgname}-${pkgver}"
+        cd "${srcdir}/Tribe-${pkgver}"
 
 	# proper bootmnt folder
 	sed -i -e "s/@ARCH@/${CARCH}/g" config-tribe.h.cmake
 
 	# add pkgver to tribe
-	sed -i -e "s~source build/from git~Build: ${pkgver} ($_codename)~g" config-tribe.h.cmake
-	sed -i -e "s~code-name~$_codename~g" "scripts/postinstall-functions/01-job-initialize-target"
-	sed -i -e "s~chakra-version~${pkgver}~g" "scripts/postinstall-functions/01-job-initialize-target"
+	sed -i -e "s~source build/from git~Build: ${pkgver}~g" config-tribe.h.cmake
+	sed -i -e "s~kdeos-version~${pkgver}~g" "scripts/postinstall-functions/01-job-initialize-target"
 	cmake . -DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_SKIP_RPATH=ON \
@@ -62,13 +39,13 @@ build() {
 }
 
 package() {
-        cd "${srcdir}/${pkgname}-${pkgver}"
+        cd "${srcdir}/Tribe-${pkgver}"
 	msg "Make successful, installing..."
-	make DESTDIR=$startdir/pkg install 
+	make DESTDIR=${pkgdir} install 
         install -Dm755 ${srcdir}/launch-tribe.sh \
         ${pkgdir}/usr/bin/launch-tribe.sh
 	cp -vf ${srcdir}/RELEASE_NOTES_${_rls_notes}.html $pkgdir/usr/share/tribe/config/RELEASE_NOTES.html
 
 	# remove nasty files
-	find $startdir/pkg/ -name ".git" -type d -exec rm -fr {} +
+	find $srcdir/ -name ".git" -type d -exec rm -fr {} +
 }
