@@ -34,14 +34,13 @@ build() {
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed' 
 
-	msg "Starting make..."
 	make 
 }
 
 package() {
         cd "${srcdir}/Tribe-${pkgver}"
-	msg "Make successful, installing..."
 	make DESTDIR=${pkgdir} install 
+	
         install -Dm755 ${srcdir}/launch-tribe.sh \
         ${pkgdir}/usr/bin/launch-tribe.sh
 	cp -vf ${srcdir}/RELEASE_NOTES_${_rls_notes}.html $pkgdir/usr/share/tribe/config/RELEASE_NOTES.html

@@ -44,9 +44,9 @@ build() {
    qmake pacmanhelper.pro
    make 
    
-   cd "${srcdir}/aarnt-octopi-${_commit}/notifier/octopi-notifier"
-   qmake octopi-notifier.pro
-   make 
+   #cd "${srcdir}/aarnt-octopi-${_commit}/notifier/octopi-notifier"
+   #qmake octopi-notifier.pro
+   #make 
 }
 
 package() {
@@ -70,7 +70,7 @@ package() {
    install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.service ${pkgdir}/usr/share/dbus-1/system-services/org.octopi.pacmanhelper.service
    
    #Octopi-notifier file
-   install -D -m755 ${srcdir}/aarnt-octopi-${_commit}/notifier/bin/octopi-notifier ${pkgdir}/usr/bin/octopi-notifier
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/octopi-notifier.desktop ${pkgdir}/usr/share/applications/octopi-notifier.desktop
+   #install -D -m755 ${srcdir}/aarnt-octopi-${_commit}/notifier/bin/octopi-notifier ${pkgdir}/usr/bin/octopi-notifier
+   #install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/octopi-notifier.desktop ${pkgdir}/usr/share/applications/octopi-notifier.desktop
 
 }
