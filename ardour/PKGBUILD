@@ -1,0 +1,36 @@
+
+pkgname=ardour
+_pkgname=Ardour
+pkgver=3.3.1
+pkgrel=1
+pkgdesc="A multichannel hard disk recorder and digital audio workstation"
+arch=('x86_64')
+url="http://ardour.org/"
+license=('GPL')
+depends=('qjackctl' 'desktop-file-utils' 'gtk2')
+options=('!strip')
+install="$pkgname.install"
+source=("https://sourceforge.net/projects/kdeos/files/Sources/ardour/${_pkgname}_64bit-3.3.1-dbg.tar"
+        "$pkgname.desktop")
+md5sums=('b1f3529b9e9305cc3ed563d151985083'
+         '83f6ef36e7dc2ebf9975e23f4dbec97c')
+
+build() {
+  return 0
+}
+
+package() {
+  cd "$srcdir/${_pkgname}_64bit-$pkgver-dbg"
+
+  install -d "$pkgdir/opt"
+  bsdtar --no-same-owner -jxvf \
+    ${_pkgname}_x86_64-$pkgver-dbg.tar.bz2 \
+    -C "$pkgdir/opt"
+
+  # rm uninstaller and sanity check
+  cd "$pkgdir/opt"
+  rm ${_pkgname}_x86_64-$pkgver-dbg/bin/{*.uninstall.sh,sanityCheck}
+
+  install -Dm644 "$srcdir/$pkgname.desktop" \
+  "$pkgdir/usr/share/applications/$pkgname.desktop"
+}
