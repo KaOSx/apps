@@ -1,0 +1,37 @@
+
+pkgname=avogadro
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="An advanced molecular editor based on Qt"
+arch=('x86_64')
+url="http://avogadro.openmolecules.net/wiki/Main_Page"
+license=('GPL2')
+depends=('eigen' 'openbabel' 'pyqt' 'boost-libs' 'glew' 'python2-numpy')
+makedepends=('cmake' 'boost' 'mesa' 'doxygen')
+categories=('education')
+screenshot=('http://avogadro.openmolecules.net/w/images/7/75/Avogadro-unitcell.png')
+source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2"
+        'boost.patch')
+md5sums=('f4fbef5ffc69cc312b2316426c36a78d'
+         'c3b5676f889cc552c6b396e519d19ae4')
+
+build() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  patch -p1 -i ${srcdir}/boost.patch
+
+  cd ${srcdir}
+  mkdir build
+  cd build
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPYTHON_EXECUTABLE=/usr/bin/python2 \
+    -DQT_MKSPECS_RELATIVE=share/qt/mkspecs
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
