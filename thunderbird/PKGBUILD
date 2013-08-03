@@ -1,0 +1,40 @@
+
+pkgname=thunderbird
+pkgver=23.0b1
+pkgrel=1
+pkgdesc="Standalone Mail/News reader"
+arch=('x86_64')
+license=('MPL' 'GPL' 'LGPL')
+url="https://www.mozilla.org/thunderbird"
+depends=('alsa-lib' 'cairo' 'dbus-glib' 'desktop-file-utils' 'fontconfig' 'freetype2'
+         'gtk2' 'hicolor-icon-theme' 'hunspell' 'libevent' 'libjpeg' 'libmng' 'libpng'
+         'libvpx' 'libxt' 'mozilla-common' 'nspr' 'nss' 'shared-mime-info' 'sqlite'
+         'startup-notification' 'libcanberra')
+install=$pkgname.install
+source=("https://ftp.mozilla.org/pub/mozilla.org/thunderbird/releases/$pkgver/linux-x86_64/en-US/thunderbird-$pkgver.tar.bz2"
+        'thunderbird.desktop'
+        'vendor.js')
+md5sums=('5842acf0bbf8e5e579323d33565da964'
+         '81da98196b2004e539eba80b8fd4d0fd'
+         '5a53179d14ae9631b7afe5e4d0fc0b25')
+
+package() {
+  msg2 "Creating directories"
+  install -d "$pkgdir"/{usr/bin,opt}
+
+  msg2 "Moving files in place"
+  cp -r thunderbird/ "$pkgdir"/opt/$pkgname-$pkgver/
+  cp vendor.js "$pkgdir"/opt/$pkgname-$pkgver/defaults/pref/
+  
+  ln -s /opt/$pkgname-$pkgver/thunderbird "$pkgdir"/usr/bin/thunderbird
+  
+  for i in 16x16 22x22 24x24 32x32 48x48 256x256; do
+      install -Dm644 thunderbird/chrome/icons/default/default${i/x*/}.png "$pkgdir"/usr/share/icons/hicolor/$i/apps/thunderbird.png
+  done
+  
+  install -Dm644 thunderbird.desktop "$pkgdir"/usr/share/applications/thunderbird.desktop
+  
+  rm -rf "$pkgdir"/opt/$pkgname-$pkgver/dictionaries/
+  ln -sf /usr/share/hunspell/ "$pkgdir"/opt/$pkgname-$pkgver/dictionaries
+  ln -sf /usr/share/hyphen/ "$pkgdir"/opt/$pkgname-$pkgver/hyphenation
+}
