@@ -1,0 +1,17 @@
+
+pkgname=inxi
+pkgver=1.9.12
+pkgrel=1
+pkgdesc="script to get system information"
+arch=('x86_64')
+url="http://inxi.org"
+license=('GPL')
+source=("ftp://ftp.archlinux.org/other/community/$pkgname/$pkgname-$pkgver.tar.gz")
+md5sums=('266610686b2ab153afe81f9c640eca88')
+
+package() {
+  cd "$srcdir"
+  install -D -m755 inxi "$pkgdir/usr/bin/inxi"
+  install -D -m755 inxi.1.gz "$pkgdir/usr/share/man/man1/inxi.1.gz"
+}
+
