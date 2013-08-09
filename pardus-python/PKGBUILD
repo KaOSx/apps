@@ -1,0 +1,17 @@
+
+pkgname=pardus-python
+pkgver=0.4.8
+pkgrel=1
+pkgdesc="Python Modules for Pardus are the generic modules used by the former Pardus projects."
+arch=('x86_64')
+url='https://github.com/KdeOs/pardus-python/'
+license=('GPLv2')
+depends=('python2' 'libx11')
+makedepends=('intltool')
+source=("pisilinux-python-${pkgver}.tar.gz")
+md5sums=('40d8f196f89b84c7f972cf020dff5ae1')
+
+package() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    python2 setup.py install --root="${pkgdir}"
+}
