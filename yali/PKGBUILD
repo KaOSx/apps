@@ -1,0 +1,24 @@
+
+pkgname=yali 
+pkgver=2.4.5
+pkgrel=1
+pkgdesc="Yet Another Linux Installer, a fork of Pardus's yali."
+arch=('x86_64')
+url='https://github.com/KdeOs/yali/'
+license=('GPLv2')
+depends=('python2' 'pyqt' 'gptfdisk' 'reiserfsprogs' 'ntfs-3g' 'dosfstools' 'lvm2'
+         'mdadm' 'xfsprogs' 'xorg-server' 'syslinux' 'pardus-python' 'pyparted'
+         'yali-branding' 'yali-theme')
+makedepends=('intltool')
+source=("${pkgname}-${pkgver}.tar.xz"
+        'yali.desktop')
+md5sums=('1c441afed00a94df6e895347710300bc'
+         '463a2a1b41551de93eacd436fc59d715')
+
+package() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    python2 setup.py install --root="${pkgdir}"
+    
+    install -Dm755 ${srcdir}/yali.desktop "${pkgdir}/usr/share/applications/yali.desktop"
+    #install -Dm644 data/yali.svgz "${pkgdir}/usr/share/icons/hicolor/scalable/apps/yali.svgz"
+}
