@@ -1,0 +1,20 @@
+
+pkgname=yali-branding
+pkgver=0.1
+pkgrel=1
+pkgdesc="KdeOS branding for YALI (Yet Another Linux Installer)."
+arch=('x86_64')
+url='https://github.com/KdeOs/yali/'
+license=('GPLv2')
+depends=()
+makedepends=('python2')
+source=("http://source.pisilinux.org/1.0/yali-branding-pisilinux-${pkgver}.tar.xz")
+md5sums=('df1c494c52d4d048ceae7fdc0f2eb6cd')
+
+package() {
+    cd "${srcdir}/${pkgname}-pisilinux-${pkgver}"
+    python2 setup.py install --root="${pkgdir}"
+    
+    #install -Dm755 ${srcdir}/yali.desktop "${pkgdir}/usr/share/applications/yali.desktop"
+    #install -Dm644 data/yali.svgz "${pkgdir}/usr/share/icons/hicolor/scalable/apps/yali.svgz"
+}
