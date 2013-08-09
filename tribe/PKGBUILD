@@ -1,27 +1,27 @@
 
 pkgname=tribe
-pkgver=2013.08.01
+pkgver=2013.08.10
 _rls_notes=20130801
 pkgrel=1
 pkgdesc="Tribe - KdeOS LiveCD Installer, forked from chakra-project"
 url="https://github.com/KdeOs/Tribe"
 license="GPL"
 arch=('x86_64')
-depends=('kdelibs' 'kdeedu-marble>=4.10.0' 'squashfs-tools' 'tribe-partitionmanager'
+depends=('kdelibs' 'kdeedu-marble>=4.11.0' 'squashfs-tools' 'tribe-partitionmanager'
           'rsync' 'mkinitcpio-nfs-utils' 'ntfs-3g' 'libpwquality')
 makedepends=('cmake' 'kde-workspace' 'automoc4')
 groups=('kde-uninstall' 'system')
 install=tools-tribe.install
-source=("https://github.com/KdeOs/Tribe/archive/2013.08.01.tar.gz"
+source=("https://github.com/KdeOs/Tribe/archive/Tribe.tar.xz"
         "RELEASE_NOTES_${_rls_notes}.html"
         "launch-tribe.sh")
-md5sums=('e58208792a7ddafb9a4f0bb9c4c682f5'
+md5sums=('5d76654c36275350bd151b5361f6e6f0'
          'b366a25b29052fe8b2a47453f0d1320e'
          'e31855da237a2c8029774831b3c04685')
 
 build() {        
  
-        cd "${srcdir}/Tribe-${pkgver}"
+        cd "${srcdir}/Tribe"
 
 	# proper bootmnt folder
 	sed -i -e "s/@ARCH@/${CARCH}/g" config-tribe.h.cmake
@@ -38,7 +38,7 @@ build() {
 }
 
 package() {
-        cd "${srcdir}/Tribe-${pkgver}"
+        cd "${srcdir}/Tribe"
 	make DESTDIR=${pkgdir} install 
 	
         install -Dm755 ${srcdir}/launch-tribe.sh \
