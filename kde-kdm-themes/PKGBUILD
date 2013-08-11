@@ -1,7 +1,7 @@
 
 pkgname=kde-kdm-themes-grey
 pkgver=1.3
-pkgrel=1
+pkgrel=2
 pkgdesc="KdeOS grey KDM-Theme"
 url="http://kde-os.tk"
 license=('GPL')
@@ -14,6 +14,6 @@ md5sums=('8f551eb66609f6099a142d8628ade0cf')
 package() {
 	cd ${srcdir}/
 	
-	mkdir -pv $pkgdir/usr/share/apps/kdm/themes
-	cp -Rv ${srcdir}/grey_kdm $pkgdir/usr/share/apps/kdm/themes/
+	mkdir -pv $pkgdir/usr/share/apps/kdm/themes/grey
+	cp -Rv ${srcdir}/grey_kdm/* $pkgdir/usr/share/apps/kdm/themes/grey
 }
