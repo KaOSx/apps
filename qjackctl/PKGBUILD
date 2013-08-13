@@ -1,0 +1,26 @@
+
+pkgname=qjackctl
+pkgver=0.3.10
+pkgrel=2
+pkgdesc="A Qt front-end for the JACK low-latency audio server"
+url="http://qjackctl.sourceforge.net/"
+arch=('x86_64')
+license=('GPL')
+depends=('jack' 'qt')
+options=('!makeflags')
+categories=('multimedia')
+source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz")
+md5sums=('cc01522902105ca65e327e657e51ca5e')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+ ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  make DESTDIR="$pkgdir/" install
+}
