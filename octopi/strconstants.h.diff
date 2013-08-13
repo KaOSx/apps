@@ -1,22 +1,64 @@
---- src/strconstants.h.orig	2013-05-12 11:03:58.000000000 -0400
-+++ src/strconstants.h	2013-05-12 18:49:08.000000000 -0400
-@@ -47,7 +47,7 @@
-   }
+--- src/strconstants.h.orig	2013-08-11 04:55:49.000000000 -0400
++++ src/strconstants.h	2013-08-12 22:00:18.742315487 -0400
+@@ -25,7 +25,6 @@
+ #include "wmhelper.h"
+ #include "unixcommand.h"
  
-   static QString getForeignRepositoryName(){
--    return "AUR";
-+    return "foreign";
-   }
+-#include <QGtkStyle>
+ #include <QApplication>
  
-   static QString getArchLinuxNews(){
-@@ -57,6 +57,10 @@
+ class StrConstants{
+@@ -61,7 +60,11 @@
    static QString getChakraNews(){
      return QObject::tr("Chakra news");
    }
+-
 +  
 +  static QString getKdeOSNews(){
 +    return QObject::tr("KdeOS news");
 +  }
- 
++  
    static QString getManjaroLinuxNews(){
      return QObject::tr("Manjaro Linux news");
+   }
+@@ -619,40 +622,6 @@
+   static QString getTreeViewCSS(){
+     QString res;    
+ 
+-    if (qApp->style()->inherits("QGtkStyle") && UnixCommand::getLinuxDistro() == ectn_MANJAROLINUX && !WMHelper::isKDERunning())
+-    {
+-      /*QGtkStyle qgtkStyle;
+-      QPalette palette = qgtkStyle.standardPalette();
+-      QColor color = palette.color(QPalette::Highlight);*/
+-
+-      res = "QTreeView::branch:has-siblings:!adjoins-item {"
+-                   "   border-image: url(:/resources/styles/vline.png) 0;}"
+-                   "QTreeView::branch:has-siblings:adjoins-item {"
+-                   "    border-image: url(:/resources/styles/branch-more.png) 0;}"
+-                   "QTreeView::branch:!has-children:!has-siblings:adjoins-item {"
+-                   "   border-image: url(:/resources/styles/branch-end.png) 0;}"
+-                   "QTreeView::branch:has-children:!has-siblings:closed,"
+-                   "QTreeView::branch:closed:has-children:has-siblings {"
+-                   "       border-image: none;"
+-                   "        image: url(:/resources/styles/branch-closed_BW.png);}"
+-                   "QTreeView::branch:open:has-children:!has-siblings,"
+-                   "QTreeView::branch:open:has-children:has-siblings  {"
+-                   "       border-image: none;"
+-                   "       image: url(:/resources/styles/branch-open_BW.png);}";
+-
+-                   /*"QTreeView {"
+-          "selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 " + color.name() + ", stop: 1 " + color.name() + ");"
+-                   "show-decoration-selected: 1;"
+-                   "}"
+-                   "QTreeView::item:selected:active{"
+-                   "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 " + color.name() + ", stop: 1 " + color.name() + ");}"
+-                   "QTreeView::item:selected:!active {"
+-                   " background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 " + color.name() + ", stop: 1 " + color.name() + ");}"
+-                   "QTreeView::item:selected {"
+-                   "border: 1px solid " + color.name() +";"
+-                   "}"*/
+-    }
+-    else
+     {
+       res = "QTreeView::branch:has-siblings:!adjoins-item {"
+                      " border-image: url(:/resources/styles/vline.png) 0;}"

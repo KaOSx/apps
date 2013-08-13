@@ -1,19 +1,23 @@
---- src/main.cpp.orig	2013-04-06 23:03:57.000000000 -0400
-+++ src/main.cpp	2013-04-07 13:48:22.275032470 -0400
-@@ -32,14 +32,6 @@
+--- src/main.cpp.orig	2013-08-11 04:55:49.000000000 -0400
++++ src/main.cpp	2013-08-12 22:11:10.884168138 -0400
+@@ -34,20 +34,6 @@
    ArgumentList *argList = new ArgumentList(argc, argv);
    QApplication::setGraphicsSystem(QLatin1String("raster"));
  
 -  if (!argList->getSwitch("-style"))
 -  {
--    //if (!WMHelper::isKDERunning())
+-    cleanlooksStyle=true;
+-    qApp->setStyle(new QCleanlooksStyle());
+-  }
+-  else
+-  {
+-    if (argList->contains("cleanlooks", Qt::CaseInsensitive))
 -    {
--      QApplication::setStyle(new QCleanlooksStyle());
+-      cleanlooksStyle=true;
+-      qApp->setStyle(new QCleanlooksStyle());
 -    }
 -  }
 -
-   QtSingleApplication app( StrConstants::getApplicationName(), argc, argv );
- 
-   //This sends a message just to awake the socket-based QtSinleApplication engine
-   
-   
+   QString packagesToInstall;
+   QString arg;
+   for (int c=1; c<argc; c++)
