@@ -12,7 +12,6 @@ makedepends=('automoc4' 'cmake')
 groups=('system') 
 source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
         'octopi.desktop'
-        'octopi_yellow.png'
         'help_en_US.diff'
         'main.diff'
         'mainwindow.diff'
@@ -22,7 +21,6 @@ source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
         'unixcommand.h.diff')
 md5sums=('37c3919d8eac606bf3376fa24971a0c7'
          '2d9c64cd6402be69d2ee9fde5acc439e'
-         '6694a7d9db1a91e2d5b743c72f8b6eb9'
          '6d7ada95b736298b87a7addd32022c4d'
          '7419d17bd2a834e14bd217d01cba0f44'
          '32c30234f5222f2db8f0ccebb441e615'
@@ -58,8 +56,7 @@ package() {
    cd "${srcdir}/aarnt-octopi-${_commit}/"
    
    mkdir -p ${pkgdir}/usr/share/icons
-   rm ${srcdir}/aarnt-octopi-${_commit}/resources/images/octopi_yellow.png
-   install -m 644 -p ${srcdir}/octopi_yellow.png ${pkgdir}/usr/share/icons/octopi.png
+   install -m 644 -p ${srcdir}/aarnt-octopi-${_commit}/resources/images/octopi_yellow.png ${pkgdir}/usr/share/icons/octopi.png
    
    mkdir -p ${pkgdir}/usr/bin
    cp bin/octopi ${pkgdir}/usr/bin
