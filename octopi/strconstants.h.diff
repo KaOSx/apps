@@ -1,5 +1,5 @@
 --- src/strconstants.h.orig	2013-08-11 04:55:49.000000000 -0400
-+++ src/strconstants.h	2013-08-12 22:00:18.742315487 -0400
++++ src/strconstants.h	2013-08-13 22:50:58.708228155 -0400
 @@ -25,7 +25,6 @@
  #include "wmhelper.h"
  #include "unixcommand.h"
@@ -8,19 +8,26 @@
  #include <QApplication>
  
  class StrConstants{
-@@ -61,7 +60,11 @@
+@@ -51,7 +50,7 @@
+   }
+ 
+   static QString getForeignRepositoryName(){
+-    return "AUR";
++    return "non-repo";
+   }
+ 
+   static QString getArchLinuxNews(){
+@@ -61,6 +60,10 @@
    static QString getChakraNews(){
      return QObject::tr("Chakra news");
    }
--
 +  
 +  static QString getKdeOSNews(){
 +    return QObject::tr("KdeOS news");
 +  }
-+  
+ 
    static QString getManjaroLinuxNews(){
      return QObject::tr("Manjaro Linux news");
-   }
 @@ -619,40 +622,6 @@
    static QString getTreeViewCSS(){
      QString res;    

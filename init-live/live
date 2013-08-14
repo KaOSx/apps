@@ -51,6 +51,10 @@ chown -R live:users /home/live
 # fix sudoers file
 chown root:root /etc/sudoers
 chmod 0440 /etc/sudoers
+# fix SUID to capable permissions on iputils
+setcap cap_net_raw=ep ${work_dir}usr/bin/ping  2>/dev/null || chmod +s ${work_dir}usr/bin/ping 
+setcap cap_net_raw=ep ${work_dir}usr/bin/ping6 2>/dev/null || chmod +s ${work_dir}usr/bin/ping6
+
 
 # misc exports
 export KDE_NO_IPV6="TRUE"
