@@ -1,0 +1,25 @@
+commit bb2bddb083eb293786206ac91ae1feeaf942db32
+Author: Hrvoje Senjan <hrvoje.senjan@gmail.com>
+Date:   Tue Aug 20 13:35:57 2013 +0200
+
+    Partially revert commit 83d3018
+    
+    Somehow unique made ksplash quit too soon and/or plasma start
+    too late
+    
+    REVIEW: 112073
+    BUG: 321695
+    FIXED-IN: 4.11.1
+
+diff --git a/plasma/desktop/shell/data/plasma-desktop.desktop b/plasma/desktop/shell/data/plasma-desktop.desktop
+index f37dc57..9299864 100644
+--- a/plasma/desktop/shell/data/plasma-desktop.desktop
++++ b/plasma/desktop/shell/data/plasma-desktop.desktop
+@@ -1,6 +1,6 @@
+ [Desktop Entry]
+ Exec=plasma-desktop
+-X-DBUS-StartupType=unique
++X-DBUS-StartupType=multi
+ Name=Plasma Desktop Workspace
+ Name[ar]=مساحة عمل بلازما
+ Name[ast]=Espaciu de trabayu del escritoriu Plasma
