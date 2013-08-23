@@ -1,6 +1,6 @@
 
 pkgname=weston-git
-pkgver=20130708
+pkgver=20130823
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
@@ -19,7 +19,8 @@ build() {
 	./autogen.sh \
 	    --prefix=/usr \
 	    --libexecdir=/usr/lib/weston \
-	    --disable-android-compositor
+	    --disable-android-compositor \
+	    --enable-demo-clients
 	make
 }
 
@@ -27,9 +28,5 @@ package() {
 	cd ${srcdir}/weston
 	make DESTDIR="${pkgdir}" install
 
-	for _c in clickdot cliptest dnd eventdemo flower image resizor simple-egl \
-	        simple-shm simple-touch smoke transformed view weston-desktop-shell weston-info \
-	        weston-keyboard weston-simple-im weston-tablet-shell weston-terminal; do
-		install -Dm755 "clients/$_c" "$pkgdir/usr/bin/weston-$_c"
-	done
+	install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
 }
