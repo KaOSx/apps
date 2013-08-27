@@ -1,13 +1,13 @@
---- src/unixcommand.cpp.orig	2013-05-12 11:03:58.000000000 -0400
-+++ src/unixcommand.cpp	2013-05-12 17:50:32.596784308 -0400
-@@ -716,6 +716,10 @@
-   {
-     return ectn_CHAKRA;
-   }
-+  else if (contents.contains(QRegExp("KdeOS")))
-+  {
-+    return ectn_KDEOS;
-+  }
-   else if (contents.contains(QRegExp("Manjaro")))
-   {
-     return ectn_MANJAROLINUX;
+--- src/unixcommand.cpp.orig	2013-08-27 11:01:08.821576085 -0400
++++ src/unixcommand.cpp	2013-08-27 11:03:07.382097836 -0400
+@@ -921,6 +921,10 @@
+     {
+       ret = ectn_CHAKRA;
+     }
++    else if (contents.contains(QRegExp("KdeOS")))
++    {
++      ret = ectn_KDEOS;
++    }
+     else if (contents.contains(QRegExp("Manjaro")))
+     {
+       ret = ectn_MANJAROLINUX;
