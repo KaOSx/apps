@@ -4,7 +4,7 @@
  {
    const QString ctn_ARCH_LINUX_RSS = "https://www.archlinux.org/feeds/news/";
    const QString ctn_CHAKRA_RSS = "http://chakra-project.org/news/index.php?/feeds/index.rss2";
-+  const QString ctn_KDEOS_RSS = "http://www.kde-os.tk/feed/";
++  const QString ctn_KAOS_RSS = "http://kaosx.us/?feed=rss2";
    const QString ctn_MANJARO_LINUX_RSS = "http://manjaro.org/feed/";
  
    LinuxDistro distro = UnixCommand::getLinuxDistro();
@@ -12,9 +12,9 @@
      {
        curlCommand = curlCommand.arg(ctn_CHAKRA_RSS).arg(tmpRssPath);
      }
-+    else if (distro == ectn_KDEOS)
++    else if (distro == ectn_KAOS)
 +    {
-+      curlCommand = curlCommand.arg(ctn_KDEOS_RSS).arg(tmpRssPath);
++      curlCommand = curlCommand.arg(ctn_KAOS_RSS).arg(tmpRssPath);
 +    }
      else if (distro == ectn_MANJAROLINUX)
      {
@@ -23,9 +23,9 @@
    {
      html = "<p align=\"center\"><h2>" + StrConstants::getChakraNews() + "</h2></p><ul>";
    }
-+  else if (distro == ectn_KDEOS)
++  else if (distro == ectn_KAOS)
 +  {
-+    html = "<p align=\"center\"><h2>" + StrConstants::getKdeOSNews() + "</h2></p><ul>";
++    html = "<p align=\"center\"><h2>" + StrConstants::getKaOSNews() + "</h2></p><ul>";
 +  }
    else if (distro == ectn_MANJAROLINUX)
    {
@@ -34,10 +34,10 @@
        writeToTabOutputExt("<b>" +
                            StrConstants::getSearchingForDistroNews().arg("Chakra") + "</b>");
      }
-+    else if (distro == ectn_KDEOS)
++    else if (distro == ectn_KAOS)
 +    {
 +      writeToTabOutputExt("<b>" +
-+                          StrConstants::getSearchingForDistroNews().arg("KdeOS") + "</b>");
++                          StrConstants::getSearchingForDistroNews().arg("KaOS") + "</b>");
 +    }
      else if (distro == ectn_MANJAROLINUX)
      {
