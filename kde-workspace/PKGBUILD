@@ -8,7 +8,7 @@ _default_wp="Elarun"
 pkgname="kde-workspace"
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE Workspace"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -58,9 +58,7 @@ source=("$_mirror/${pkgname}-$_kdever.tar.xz"
 	# restart xserver on logout
 	'fix_terminate-server.patch'
 	# "fix" some sytemsettings modules that need root access
-	'fix_root-only-kcms.patch'
-	# 4.11 ksplash black screen bug
-	'ksplash.diff')
+	'fix_root-only-kcms.patch')
 
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          `grep kde-wallpapers-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1` # kde-wallpapers
@@ -75,8 +73,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '89d96455c6a446ef59b0620d1b8606af'
          '3ee0002192f6f0a2e1d15c813f520f81'
          '814350c52c135d6f7bdada1e29223d38'
-         '5f963f80a026f0600edae1b1c70411e5'
-         'ce10e4dafe720ccd07962c8130909945')
+         '5f963f80a026f0600edae1b1c70411e5')
 
 
 build() {
@@ -91,7 +88,6 @@ build() {
 	#patch -p1 -i ${srcdir}/06_kickoff_default_favourites.patch
 	patch -p1 -i ${srcdir}/07_always_show_kickoff_subtext.patch
 	patch -p0 -i ${srcdir}/09_enable_start-shutdown-scripts.patch
-	patch -p1 -i ${srcdir}/ksplash.diff
 
 	msg "applying fixes ..."
 	patch -p0 -i ${srcdir}/fix_terminate-server.patch
