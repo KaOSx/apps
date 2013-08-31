@@ -1,23 +1,22 @@
---- src/main.cpp.orig	2013-08-11 04:55:49.000000000 -0400
-+++ src/main.cpp	2013-08-12 22:11:10.884168138 -0400
-@@ -34,20 +34,6 @@
-   ArgumentList *argList = new ArgumentList(argc, argv);
-   QApplication::setGraphicsSystem(QLatin1String("raster"));
+--- src/main.cpp.orig	2013-08-29 22:07:05.000000000 -0400
++++ src/main.cpp	2013-08-31 12:43:02.084352739 -0400
+@@ -98,19 +98,6 @@
+   app.setActivationWindow(&w);
+   app.setQuitOnLastWindowClosed(false);
  
 -  if (!argList->getSwitch("-style"))
 -  {
--    cleanlooksStyle=true;
--    qApp->setStyle(new QCleanlooksStyle());
--  }
--  else
--  {
--    if (argList->contains("cleanlooks", Qt::CaseInsensitive))
+-    if (UnixCommand::getLinuxDistro() == ectn_MANJAROLINUX &&
+-        !WMHelper::isKDERunning())
 -    {
--      cleanlooksStyle=true;
--      qApp->setStyle(new QCleanlooksStyle());
+-      app.setStyle(new QGtkStyle());
+-    }
+-    else
+-    {
+-      app.setStyle(new QCleanlooksStyle());
 -    }
 -  }
 -
-   QString packagesToInstall;
-   QString arg;
-   for (int c=1; c<argc; c++)
+   if (argList->getSwitch("-sysupgrade"))
+   {
+     w.setCallSystemUpgrade();
