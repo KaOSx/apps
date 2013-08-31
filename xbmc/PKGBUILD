@@ -35,7 +35,7 @@ md5sums=('31063d8cd6fc009a44cab6680a44024e'
 
 build() {
     cd "${srcdir}/xbmc-$pkgver"
-    sed -i -e 's:/usr/bin/lsb_release -d:cat /etc/KdeOS-release:' xbmc/utils/SystemInfo.cpp
+    sed -i -e 's:/usr/bin/lsb_release -d:cat /etc/KaOS-release:' xbmc/utils/SystemInfo.cpp
   
     msg "Bootstrapping XBMC"
     ./bootstrap
@@ -75,8 +75,8 @@ package() {
     make DESTDIR="${pkgdir}" install
 
     # various fixes
-    sed -i -e 's/which lsb_release &> \/dev\/null/\[ -f \/etc\/KdeOS-release ]/g' "${pkgdir}${_prefix}/bin/xbmc"
-    sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KdeOS-release/g" "${pkgdir}${_prefix}/bin/xbmc"
+    sed -i -e 's/which lsb_release &> \/dev\/null/\[ -f \/etc\/KaOS-release ]/g' "${pkgdir}${_prefix}/bin/xbmc"
+    sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KaOS-release/g" "${pkgdir}${_prefix}/bin/xbmc"
     sed -i -e 's/python/python2/g' ${pkgdir}${_prefix}/bin/xbmc
 
     # Tools

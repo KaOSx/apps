@@ -1,7 +1,7 @@
 post_install() {
-		if [ -e "/etc/kdeos/updates.conf" ] ; then
+		if [ -e "/etc/kaos/updates.conf" ] ; then
 
-			. /etc/kdeos/updates.conf
+			. /etc/kaos/updates.conf
 
 			if [ "$UPDATE_GLOBAL_CONFIG" = "yes" ]; then
 				/usr/bin/update-sycoca
@@ -23,9 +23,9 @@ post_install() {
 }
 
 post_upgrade() {
-		if [ -e "/etc/kdeos/updates.conf" ] ; then
+		if [ -e "/etc/kaos/updates.conf" ] ; then
 
-			. /etc/kdeos/updates.conf
+			. /etc/kaos/updates.conf
 
 			if [ "$UPDATE_XDG_ICON_DB" = "yes" ]; then
 				/usr/bin/update-icons
@@ -51,9 +51,9 @@ post_upgrade() {
 }
 
 post_remove() {
-		if [ -e "/etc/kdeos/updates.conf" ] ; then
+		if [ -e "/etc/kaos/updates.conf" ] ; then
 
-			. /etc/kdeos/updates.conf
+			. /etc/kaos/updates.conf
 
 			if [ "$UPDATE_XDG_ICON_DB" = "yes" ]; then
 				/usr/bin/update-icons

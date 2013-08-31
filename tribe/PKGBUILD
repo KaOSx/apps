@@ -28,7 +28,7 @@ build() {
 
 	# add pkgver to tribe
 	sed -i -e "s~source build/from git~Build: ${pkgver}~g" config-tribe.h.cmake
-	sed -i -e "s~kdeos-version~${pkgver}~g" "scripts/postinstall-functions/01-job-initialize-target"
+	sed -i -e "s~kaos-version~${pkgver}~g" "scripts/postinstall-functions/01-job-initialize-target"
 	cmake . -DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_SKIP_RPATH=ON \
