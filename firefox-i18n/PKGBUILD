@@ -1,0 +1,41 @@
+
+pkgbase=firefox-i18n
+pkgver=23.0.1
+pkgrel=1
+pkgdesc="Language pack for Firefox"
+arch=('x86_64')
+url="http://www.mozilla.com/"
+license=('MPL' 'GPL')
+depends=("firefox>=$pkgver")
+
+_languages=(
+  'es-ES  "Spanish (Spain)"'
+  'nl     "Dutch"'
+  'pt-BR  "Brazilian Portuguese"'
+)
+
+pkgname=()
+source=()
+md5sums=('d0baf1e6bb1428807ed2d0a127c6d818'
+         '483438479406e8e3627954710f3137f9'
+         'c8fb3ec81f6d7c75b3eec5e90040f204')
+_url=http://download.cdn.mozilla.net/pub/mozilla.org/firefox/releases/$pkgver/linux-i686/xpi
+
+for _lang in "${_languages[@]}"; do
+  _locale=${_lang%% *}
+  _pkgname=firefox-i18n-${_locale,,}
+
+  pkgname+=($_pkgname)
+  source+=("firefox-i18n-$pkgver-$_locale.xpi::$_url/$_locale.xpi")
+  eval "package_$_pkgname() {
+    _package $_lang
+  }"
+done
+
+noextract=(${source[@]%%::*})
+
+_package() {
+  pkgdesc="$2 language pack for Firefox"
+  install -Dm644 firefox-i18n-$pkgver-$1.xpi \
+    "$pkgdir/usr/lib/firefox/browser/extensions/langpack-$1@firefox.mozilla.org.xpi"
+}
