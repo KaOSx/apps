@@ -1,6 +1,6 @@
 
 pkgname=qmmp
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc="Qt4 based audio-player"
 arch=('x86_64')
@@ -8,17 +8,17 @@ url="http://qmmp.ylsoftware.com/"
 license=('GPL')
 depends=('alsa-lib' 'curl' 'hicolor-icon-theme' 'libmad' 'libvorbis' 'libogg'  'qt' 'taglib' 'xdg-utils')
 makedepends=('cmake'  'flac' 'jack' 'libmpcdec' 'ffmpeg' 'libsamplerate' 'libmodplug' 'libsndfile'
-             'wavpack' 'libcdio' 'mesa')
+             'wavpack' 'libcdio-paranoia' 'mesa')
 optdepends=('flac: native FLAC support'
             'jack: JACK sound output'
             'libmpcdec: Musepack support'
             'libmodplug: MOD playing library'
             'libsndfile: sampled sound support'
-            'libcdio: for audio CD playback support')
+            'libcdio-paranoia: for audio CD playback support')
 groups=('multimedia')
 install=$pkgname.install
 source=("http://qmmp.ylsoftware.com/files/$pkgname-$pkgver.tar.bz2")
-md5sums=('d5ecc15134eefc1b8af4220540a65f19')
+md5sums=('bf013e357b0a6bbaa86ff19ef0d60384')
 
 build() {
   cd ${srcdir}/$pkgname-$pkgver
