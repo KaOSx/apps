@@ -1,8 +1,8 @@
 
 pkgname=octopi
-pkgver=0.2.0.1
+pkgver=0.2.0.8
 pkgrel=1
-_commit=0f17151
+_commit=9efe5e8
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
@@ -18,12 +18,12 @@ source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
         'strconstants.h.diff'
         'unixcommand.diff'
         'unixcommand.h.diff')
-md5sums=('51064b2bc3fa5d8aab30933869ac2dcc'
+md5sums=('03078826ea9d754d20b418eea9ded69d'
          '2d9c64cd6402be69d2ee9fde5acc439e'
-         '7419d17bd2a834e14bd217d01cba0f44'
+         'cecdf9ef4730ad0af310aec87252b98e'
          '32c30234f5222f2db8f0ccebb441e615'
          '68551cb36ed67373e36511922a072d2b'
-         'a23929905c8b07271360bb065cfcdbc2'
+         'fbafff212e0ca3d7c76841c6844183e4'
          '453b758a56fe967c0a44fbe07ca9db68'
          '72348c68b4a87600415ceffdd787f446')
 
@@ -31,7 +31,7 @@ build() {
    cd "${srcdir}/aarnt-octopi-${_commit}/"
 
    patch -p0 -i ${srcdir}/main.diff
-   patch -p0 -i ${srcdir}/mainwindow.diff
+   #patch -p0 -i ${srcdir}/mainwindow.diff
    patch -p0 -i ${srcdir}/mainwindow_news.diff
    patch -p0 -i ${srcdir}/strconstants.h.diff
    patch -p0 -i ${srcdir}/unixcommand.diff
