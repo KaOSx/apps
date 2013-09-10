@@ -1,9 +1,9 @@
 
-pkgname=tribe
-pkgver=2013.09.02
+pkgname=installer
+pkgver=2013.09.10
 _rls_notes=20130902
 pkgrel=1
-pkgdesc="Tribe - KaOS LiveCD Installer, forked from chakra-project"
+pkgdesc="KaOS LiveISO Installer, Tribe fork from chakra-project"
 url="https://github.com/KaOSx/Tribe"
 license="GPL"
 arch=('x86_64')
@@ -12,11 +12,12 @@ depends=('kdelibs' 'kdeedu-marble>=4.11.1' 'squashfs-tools' 'tribe-partitionmana
 makedepends=('cmake' 'kde-workspace' 'automoc4')
 groups=('kde-uninstall' 'system')
 install=tools-tribe.install
-source=("git://github.com/KaOSx/Tribe.git"
+#source=("git://github.com/KaOSx/Tribe.git"
+source=("Tribe.tar.xz"
         "RELEASE_NOTES_${_rls_notes}.html"
         "launch-tribe.sh")
-md5sums=('SKIP'
-         '1eb5c9fd263ed70cf97343fee81b5c7c'
+md5sums=('6b174e0315dc37611bd898d976f010f0'
+         'bf4c0042f453b1ab0b6c8b066c92034b'
          'e31855da237a2c8029774831b3c04685')
 
 build() {        
