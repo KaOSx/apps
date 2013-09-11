@@ -1,0 +1,53 @@
+commit 2e5a2450762f8dedf9ffd77028ed06b3a39a807d
+Author: Weng Xuetian <wengxt@gmail.com>
+Date:   Mon Sep 9 11:43:06 2013 -0400
+
+    Delay KDE class initialization to main loop
+    
+    Gui platform plugin is loaded during QApplication construction, but it
+    relies on some KApplication/QApplication data to work correctly.
+    
+    This patch delays the initialization to main loop, to ensure
+    KApplication/QApplication is already constructed.
+    
+    BUG: 324574
+    FIXED-IN: 4.11.2
+    REVIEW: 112602
+
+diff --git a/qguiplatformplugin_kde/qguiplatformplugin_kde.cpp b/qguiplatformplugin_kde/qguiplatformplugin_kde.cpp
+index ce22622..4f67cc5 100644
+--- a/qguiplatformplugin_kde/qguiplatformplugin_kde.cpp
++++ b/qguiplatformplugin_kde/qguiplatformplugin_kde.cpp
+@@ -28,6 +28,7 @@
+ #include <KDE/KFileDialog>
+ #include <KDE/KColorDialog>
+ #include <QtCore/QHash>
++#include <QtCore/QTimer>
+ #include <QtGui/QFileDialog>
+ #include <QtGui/QColorDialog>
+ #include <QtGui/QApplication>
+@@ -153,9 +154,7 @@ class KQGuiPlatformPlugin : public QGuiPlatformPlugin
+ public:
+     KQGuiPlatformPlugin()
+     {
+-        connect(KIconLoader::global(), SIGNAL(iconLoaderSettingsChanged()), this, SLOT(updateToolbarIcons()));
+-        connect(KGlobalSettings::self(), SIGNAL(toolbarAppearanceChanged(int)), this, SLOT(updateToolbarStyle()));
+-        connect(KGlobalSettings::self(), SIGNAL(kdisplayStyleChanged()), this, SLOT(updateWidgetStyle()));
++        QMetaObject::invokeMethod(this, "init", Qt::QueuedConnection);
+     }
+ 
+     virtual QStringList keys() const { return QStringList() << QLatin1String("kde"); }
+@@ -340,6 +339,13 @@ public: // ColorDialog
+     }
+ 
+ private slots:
++    void init()
++    {
++        connect(KIconLoader::global(), SIGNAL(iconLoaderSettingsChanged()), this, SLOT(updateToolbarIcons()));
++        connect(KGlobalSettings::self(), SIGNAL(toolbarAppearanceChanged(int)), this, SLOT(updateToolbarStyle()));
++        connect(KGlobalSettings::self(), SIGNAL(kdisplayStyleChanged()), this, SLOT(updateWidgetStyle()));
++    }
++
+     void updateToolbarStyle()
+     {
+         //from gtksymbol.cpp
