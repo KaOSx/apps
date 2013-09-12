@@ -1,11 +1,11 @@
 
 pkgname=partitionmanager
-pkgver=1350927
+pkgver=1362680
 pkgrel=1
 arch=('x86_64')
 url="https://sourceforge.net/projects/partitionman"
 license=('GPL2')
-depends=('kdebase-runtime' 'parted' 'libatasmart')
+depends=('kdebase-runtime' 'parted' 'libatasmart' 'udisks2')
 makedepends=('cmake' 'automoc4' 'pkgconfig' 'svn')
 optdepends=('e2fsprogs: ext2/3/4 support'
 	    'xfsprogs: XFS support'
@@ -33,7 +33,9 @@ build() {
   #patch -p1 < ${srcdir}/tribe.patch
   #patch -p1 < ${srcdir}/disable-gpt.patch
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DENABLE_UDISKS2=on
 
   make 
 }

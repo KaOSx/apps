@@ -28,7 +28,8 @@ optdepends=("appmenu-qt:         Global menu support"
 	    "gpsd:               Plasma geolocation support"
 	    "ntp:                Time/date sync support"
 	    "opentp:             Optional time/date sync support"
-	    "xf86-input-wacom:   Wacom tablet support")
+	    "xf86-input-wacom:   Wacom tablet support"
+	    "kscreen:            Multiple monitors support")
 provides=('kcm_tablet=1.1.3')
 conflicts=('kcm_tablet')
 groups=("kde" "kde-uninstall" "kde-minimal")
@@ -101,6 +102,7 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
 		-DWITH_Xmms=OFF \
 		-DCMAKE_SKIP_RPATH=ON \
+		-DWITH_CkConnector=OFF \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 	make
 
