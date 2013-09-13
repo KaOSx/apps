@@ -1,0 +1,24 @@
+
+pkgname=sparsehash
+pkgver=2.0.2
+pkgrel=1
+pkgdesc="Library that contains several hash-map implementations"
+arch=('x86_64')
+url="http://code.google.com/p/sparsehash"
+license=('BSD')
+source=("http://sparsehash.googlecode.com/files/$pkgname-$pkgver.tar.gz")
+md5sums=('1db92ed7f257d9b5f14a309d75e8a1d4')
+
+build() {
+    cd "$srcdir/$pkgname-$pkgver"
+
+    ./configure --prefix=/usr
+    make
+}
+
+package() {
+    cd "$srcdir/$pkgname-$pkgver"
+    make DESTDIR="$pkgdir/" install
+
+    install -D -m644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}
