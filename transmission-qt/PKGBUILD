@@ -6,7 +6,7 @@ pkgrel=1
 arch=('x86_64')
 url="http://www.transmissionbt.com/"
 license=('MIT')
-makedepends=('intltool' 'curl' 'pkgconfig' 'desktop-file-utils' 'qt' 'libevent' 'gettext')
+makedepends=('intltool' 'curl' 'pkgconfig' 'desktop-file-utils' 'qt5' 'libevent' 'gettext')
 source=("http://mirrors.m0k.org/transmission/files/${pkgbase}-${pkgver}.tar.xz"
         'transmission.systemd'
         'transmission.tmpfiles')
@@ -45,7 +45,7 @@ package_transmission-cli() {
 
 package_transmission-qt() {
   pkgdesc="Fast, easy, and free BitTorrent client (Qt GUI)"
-  depends=('curl' 'qt' 'libevent')
+  depends=('curl' 'qt5' 'libevent')
   optdepends=('transmission-cli: daemon and web support')
   groups=('network')
   install=transmission-qt.install
