@@ -1,0 +1,29 @@
+
+
+pkgname=plasma-nm
+pkgver=0.9.3.0
+pkgrel=1
+pkgdesc="Plasma applet written in QML for managing network connections"
+arch=('x86_64')
+url="https://projects.kde.org/projects/playground/network/plasma-nm"
+license=('GPL')
+depends=('kde-workspace' 'libnm-qt')
+makedepends=('cmake' 'automoc4')
+source=("http://download.kde.org/unstable/$pkgname/$pkgname-$pkgver.tar.xz")
+md5sums=('cdc781eb6f62ebddbe4fafb444f72d9b')
+
+build() {
+  cd $pkgname-$pkgver
+  mkdir build
+  
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release ..
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver/build
+  
+  make DESTDIR="$pkgdir" install
+}
