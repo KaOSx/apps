@@ -12,7 +12,7 @@ pkgname=(
 	 'calligra-l10n-es'
 	 #'calligra-l10n-et'
 	 #'calligra-l10n-fi'
-	 #'calligra-l10n-fr'
+	 'calligra-l10n-fr'
 	 #'calligra-l10n-gl'
 	 #'calligra-l10n-hu'
 	 #'calligra-l10n-it'
@@ -51,7 +51,7 @@ source=(
         ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-es-${pkgver}.tar.xz
         #ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-et-${pkgver}.tar.bz2
         #ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-fi-${pkgver}.tar.bz2
-        #ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-fr-${pkgver}.tar.bz2
+        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-fr-${pkgver}.tar.bz2
         #ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-gl-${pkgver}.tar.bz2
         #ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-hu-${pkgver}.tar.bz2
         #ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-it-${pkgver}.tar.bz2
@@ -77,7 +77,7 @@ md5sums=('795f331d82d8649688b92011ae92e090'
 build() {
   cd $srcdir
   #langs="bs ca ca@valencia da de el en_GB es et fi fr gl hu it kk nb nds nl pl pt pt_BR ru sk sl sv uk zh_CN zh_TW" 
-  langs="es nl pt_BR"
+  langs="es fr nl pt_BR"
   for lang in $langs; do
     install -d build/${lang}
     pushd build/${lang}
