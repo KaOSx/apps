@@ -1,8 +1,8 @@
 
 pkgname=octopi
-pkgver=0.2.0.8
+pkgver=0.2.0.9
 pkgrel=1
-_commit=9efe5e8
+_commit=36d5a5b
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
@@ -10,7 +10,8 @@ license=('GPL3')
 depends=('qt' 'pacman')
 makedepends=('automoc4' 'cmake')
 groups=('system') 
-source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
+#source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
+source=("octopi-36d5a5b3db585a85de6bac2e373563af3f86086d.zip"
         'octopi.desktop'
         'main.diff'
         'mainwindow.diff'
@@ -18,9 +19,9 @@ source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
         'strconstants.h.diff'
         'unixcommand.diff'
         'unixcommand.h.diff')
-md5sums=('03078826ea9d754d20b418eea9ded69d'
+md5sums=('634e4fac1a96a2a05443b9b937c3f078'
          '2d9c64cd6402be69d2ee9fde5acc439e'
-         'cecdf9ef4730ad0af310aec87252b98e'
+         '7cd3abb849913f5c789d49414d7f1822'
          '32c30234f5222f2db8f0ccebb441e615'
          '68551cb36ed67373e36511922a072d2b'
          'fbafff212e0ca3d7c76841c6844183e4'
@@ -28,7 +29,8 @@ md5sums=('03078826ea9d754d20b418eea9ded69d'
          '72348c68b4a87600415ceffdd787f446')
 
 build() {
-   cd "${srcdir}/aarnt-octopi-${_commit}/"
+   #cd "${srcdir}/aarnt-octopi-${_commit}/"
+   cd "${srcdir}/octopi-36d5a5b3db585a85de6bac2e373563af3f86086d"
 
    patch -p0 -i ${srcdir}/main.diff
    #patch -p0 -i ${srcdir}/mainwindow.diff
@@ -40,7 +42,8 @@ build() {
    qmake octopi.pro
    make
    
-   cd "${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper"
+   #cd "${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper"
+   cd "${srcdir}/octopi-36d5a5b3db585a85de6bac2e373563af3f86086d/notifier/pacmanhelper"
    qmake pacmanhelper.pro
    make 
    
@@ -50,10 +53,11 @@ build() {
 }
 
 package() {
-   cd "${srcdir}/aarnt-octopi-${_commit}/"
+   #cd "${srcdir}/aarnt-octopi-${_commit}/"
+   cd "${srcdir}/octopi-36d5a5b3db585a85de6bac2e373563af3f86086d"
    
    mkdir -p ${pkgdir}/usr/share/icons
-   install -m 644 -p ${srcdir}/aarnt-octopi-${_commit}/resources/images/octopi_yellow.png ${pkgdir}/usr/share/icons/octopi.png
+   install -m 644 -p ${srcdir}/octopi-36d5a5b3db585a85de6bac2e373563af3f86086d/resources/images/octopi_yellow.png ${pkgdir}/usr/share/icons/octopi.png
    
    mkdir -p ${pkgdir}/usr/bin
    cp bin/octopi ${pkgdir}/usr/bin
@@ -62,12 +66,12 @@ package() {
    install -m644 -p ${srcdir}/octopi.desktop ${pkgdir}/usr/share/applications
    
    #Pacmanhelper service files
-   install -D -m755 ${srcdir}/aarnt-octopi-${_commit}/notifier/bin/pacmanhelper ${pkgdir}/usr/lib/octopi/pacmanhelper
+   install -D -m755 ${srcdir}/octopi-36d5a5b3db585a85de6bac2e373563af3f86086d/notifier/bin/pacmanhelper ${pkgdir}/usr/lib/octopi/pacmanhelper
 
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacman.policy ${pkgdir}/usr/share/polkit-1/actions/org.octopi.pacman.policy
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.conf ${pkgdir}/etc/dbus-1/system.d/org.octopi.pacmanhelper.conf
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.xml ${pkgdir}/usr/share/dbus-1/interfaces/org.octopi.pacmanhelper.xml
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.service ${pkgdir}/usr/share/dbus-1/system-services/org.octopi.pacmanhelper.service
+   install -D -m644 ${srcdir}/octopi-36d5a5b3db585a85de6bac2e373563af3f86086d/notifier/pacmanhelper/polkit/org.octopi.pacman.policy ${pkgdir}/usr/share/polkit-1/actions/org.octopi.pacman.policy
+   install -D -m644 ${srcdir}/octopi-36d5a5b3db585a85de6bac2e373563af3f86086d/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.conf ${pkgdir}/etc/dbus-1/system.d/org.octopi.pacmanhelper.conf
+   install -D -m644 ${srcdir}/octopi-36d5a5b3db585a85de6bac2e373563af3f86086d/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.xml ${pkgdir}/usr/share/dbus-1/interfaces/org.octopi.pacmanhelper.xml
+   install -D -m644 ${srcdir}/octopi-36d5a5b3db585a85de6bac2e373563af3f86086d/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.service ${pkgdir}/usr/share/dbus-1/system-services/org.octopi.pacmanhelper.service
    
    #Octopi-notifier file
    #install -D -m755 ${srcdir}/aarnt-octopi-${_commit}/notifier/bin/octopi-notifier ${pkgdir}/usr/bin/octopi-notifier
