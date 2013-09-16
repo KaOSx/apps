@@ -13,9 +13,9 @@ pkgname=('libreoffice-common'
 	'libreoffice-en-US'
 	'libreoffice-postgresql-connector'
 	'libreoffice-extension-presentation-minimizer')
-_LOver=4.1.1.1
-pkgver=4.1.1
-_pkgver=4.1.1
+_LOver=4.1.2.2
+pkgver=4.1.2
+_pkgver=4.1.2
 _HIver=4.1
 pkgrel=1
 arch=('x86_64')
@@ -33,7 +33,8 @@ makedepends=( # makedepends
              'redland' 'graphite' 'hyphen' 'lpsolve' 'gcc-libs' 'sh' 'librsvg' 'lcms2'
              'hicolor-icon-theme' 'desktop-file-utils' 'shared-mime-info' 'translate-toolkit' 'xdg-utils' 'ttf-dejavu' 'libcups')
 
-_mirror="http://download.documentfoundation.org/libreoffice/src/$_pkgver"
+#_mirror="http://download.documentfoundation.org/libreoffice/src/$_pkgver"
+_mirror="http://dev-builds.libreoffice.org/pre-releases/src/$_pkgver"
 #_additional_source_url="http://hg.services.openoffice.org/binaries"
 _additional_source_url="http://dev-www.libreoffice.org/src"
 source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
@@ -62,7 +63,7 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
 	${_additional_source_url}/08c85a6d6d793daee14e10e22eefdc4b-mdds_0.8.1.tar.bz2
 	${_additional_source_url}/dc3d21a3921931096d6e80f6701f6763-libexttextcat-3.4.0.tar.bz2
-	${_additional_source_url}/b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
+	${_additional_source_url}/22f8a85daf4a012180322e1f52a7563b-libcmis-0.4.1.tar.gz
 	${_additional_source_url}/ea2acaf140ae40a87a952caa75184f4d-liborcus-0.5.1.tar.bz2
 	${_additional_source_url}/36271d3fa0d9dec1632029b6d7aac925-liblangtag-0.5.1.tar.bz2
 	${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
@@ -83,7 +84,7 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz
 	fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
 	dc3d21a3921931096d6e80f6701f6763-libexttextcat-3.4.0.tar.bz2
-	b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
+	22f8a85daf4a012180322e1f52a7563b-libcmis-0.4.1.tar.gz
 	35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 	2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
 	a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
@@ -226,12 +227,11 @@ package_libreoffice-common() {
  pkgdesc="common files for LibreOffice - a productivity suite that is compatible with other major office suites"
  install=${pkgbase}.install
  depends=('libreoffice-langpack' "hunspell" "python3" "neon"
-          'nspr' "icu" 'libsm' 'redland' 'hyphen' 'graphite' 'lcms2' 'poppler'
+          'nspr' "icu" 'libsm' 'redland' 'hyphen' 'graphite' 'lcms2' 'poppler' 'libcups'
           'hicolor-icon-theme' 'desktop-file-utils' 'shared-mime-info' 'xdg-utils' 'clucene')
           #'saxon'
  optdepends=('libreoffice-langpack: additional language support'
              'java-runtime:     adds java support'
-             'libcups:          adds printing support'
              'nss:              adds support for signed files/macros'
              'pstoedit:         translates PostScript and PDF graphics into other vector formats'
              'libmythes:        for use in thesaurus'
