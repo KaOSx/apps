@@ -96,6 +96,8 @@ build() {
 	patch -p0 -i ${srcdir}/fix_terminate-server.patch
         patch -p1 -i ${srcdir}/fix_root-only-kcms.patch
         patch -p1 -i ${srcdir}/icon_load.diff
+        # autoload kscreen before disabling krandr:
+        #sed -i "s/add_subdirectory(randr)//g" ./kcontrol/CMakeLists.txt
 
 	msg "starting workspace build ..."
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
