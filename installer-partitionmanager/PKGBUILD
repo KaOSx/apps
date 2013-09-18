@@ -1,0 +1,46 @@
+
+pkgname=installer-partitionmanager
+pkgver=1274507
+pkgrel=1
+arch=('x86_64')
+url="https://sourceforge.net/projects/partitionman"
+license=('GPL2')
+depends=('kdebase-runtime' 'parted' 'libatasmart')
+makedepends=('cmake' 'automoc4' 'pkg-config' 'svn' 'ntfs-3g')
+optdepends=('e2fsprogs: ext2/3/4 support'
+	    'xfsprogs: XFS support'
+	    'jfsutils: JFS support'
+	    'reiserfsprogs: Reiser support'
+	    'ntfs-3g: NTFS support'
+	    'dosfstools: FAT32 support')
+conflict=('partitionmanager')
+install=partitionmanager.install	    
+source=('installer.patch') # disable-gpt.patch)
+md5sums=('89a42ad1a564a3809ccbb90d8e2c9b19')
+
+#_svntrunk=svn://anonsvn.kde.org/home/kde/trunk/extragear/sysadmin/partitionmanager
+_svnmod=partitionmanager-svn
+
+build() {
+  cd "${srcdir}"
+
+  svn co svn://anonsvn.kde.org/home/kde/trunk/extragear/sysadmin/partitionmanager -r $pkgver $_svnmod
+
+  msg "SVN checkout done or server timeout"
+  msg "Starting make..."
+
+  cp -r $_svnmod $_svnmod-build
+  cd $_svnmod-build
+
+  patch -p1 < ${srcdir}/installer.patch
+  #patch -p1 < ${srcdir}/disable-gpt.patch
+
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+  make 
+}
+
+package() {
+  cd "${srcdir}/$_svnmod-build"
+  make DESTDIR="${pkgdir}" install
+}
