@@ -1,6 +1,6 @@
 
 pkgname=links
-pkgver=2.7
+pkgver=2.8
 pkgrel=1
 pkgdesc="A text WWW browser, similar to Lynx"
 arch=('x86_64')
@@ -13,20 +13,28 @@ optdepends=('libx11: for using xlinks'
             'libpng: for using xlinks')
 source=("http://links.twibright.com/download/${pkgname}-${pkgver}.tar.bz2"
         'links.desktop')
-md5sums=('d06aa6e14b2172d73188871a5357185a'
+md5sums=('d5fb7c45ca41dad2b20f5c056498ea07'
          '7c47b15aaef51f1de129ff3a2afb7eac')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   (cd intl; ./gen-intl; ./synclang)
   
-  ./configure --prefix=/usr --mandir=/usr/share/man --enable-javascript \
-    --enable-graphics --with-x --with-fb
+  ./configure --prefix=/usr \
+        --mandir=/usr/share/man \
+        --enable-javascript \
+        --enable-graphics \
+        --with-x \
+        --with-fb
   make
   mv links xlinks
 
-  ./configure --prefix=/usr --mandir=/usr/share/man --enable-javascript \
-    --disable-graphics --without-x  --without-fb
+  ./configure --prefix=/usr \
+         --mandir=/usr/share/man \
+         --enable-javascript \
+         --disable-graphics \
+         --without-x \
+         --without-fb
   make
 }
 
