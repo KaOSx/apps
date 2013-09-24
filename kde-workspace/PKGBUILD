@@ -46,6 +46,7 @@ source=("$_mirror/${pkgname}-$_kdever.tar.xz"
         'kde-np.pam'
         'kscreensaver.pam'
 	'kdm.service'
+	'start-here-os.svgz'
 
         # core patches
         '01_kdm_zsh_profile.patch'
@@ -59,8 +60,7 @@ source=("$_mirror/${pkgname}-$_kdever.tar.xz"
 	# restart xserver on logout
 	'fix_terminate-server.patch'
 	# "fix" some sytemsettings modules that need root access
-	'fix_root-only-kcms.patch'
-	'icon_load.diff')
+	'fix_root-only-kcms.patch')
 
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          `grep kde-wallpapers-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1` # kde-wallpapers
@@ -86,7 +86,7 @@ build() {
 	patch -p0 -i ${srcdir}/01_kdm_zsh_profile.patch
 	# 02 is merged in 09, Jan 2013
 	#patch -p0 -i ${srcdir}/02_sane_env_and_shutdown_path.patch
-	#patch -p1 -i ${srcdir}/03_plasma_menubutton_branding.patch
+	patch -p1 -i ${srcdir}/03_plasma_menubutton_branding.patch
         #patch -p0 -i ${srcdir}/04_plasma_kickoff_url.patch
 	#patch -p1 -i ${srcdir}/06_kickoff_default_favourites.patch
 	patch -p1 -i ${srcdir}/07_always_show_kickoff_subtext.patch
@@ -95,7 +95,6 @@ build() {
 	msg "applying fixes ..."
 	patch -p0 -i ${srcdir}/fix_terminate-server.patch
         patch -p1 -i ${srcdir}/fix_root-only-kcms.patch
-        patch -p1 -i ${srcdir}/icon_load.diff
         # autoload kscreen before disabling krandr:
         #sed -i "s/add_subdirectory(randr)//g" ./kcontrol/CMakeLists.txt
 
@@ -171,6 +170,10 @@ package() {
 	sed -i -e s,Theme=/usr.*,Theme=/usr/share/apps/kdm/themes/elarun,g ${pkgdir}/usr/share/config/kdm/kdmrc
 	sed -i -e s,MinShowUID=.*,MinShowUID=1000,g ${pkgdir}/usr/share/config/kdm/kdmrc
 	sed -i -e 's/halt/poweroff/' ${pkgdir}/usr/share/config/kdm/kdmrc
+	
+	# Add KaOS kickoff icon
+	mkdir -p ${pkgdir}/usr/share/icons/oxygen/scalable/places/
+	cp -f ${srcdir}/start-here-os.svgz ${pkgdir}/usr/share/icons/oxygen/scalable/places/start-here-os.svgz
 
 	# WORKAROUND -> put ggl stuff into ggl package
 	rm -rf ${pkgdir}/usr/share/apps/plasma/plasmoids/ggl_photos
