@@ -16,8 +16,8 @@ diff -Naur kdebase-workspace-4.4.92.orig/plasma/desktop/applets/kickoff/applet/a
  {
      KConfigGroup cg = config();
 -    setPopupIcon(cg.readEntry("icon", "start-here-kde"));
-+    if (QFile::exists("/usr/share/icons/oxygen/scalable/places/start-here-branding.svgz"))
-+      setPopupIcon(cg.readEntry("icon", "start-here-branding"));
++    if (QFile::exists("/usr/share/icons/oxygen/scalable/places/start-here-os.svgz"))
++      setPopupIcon(cg.readEntry("icon", "start-here-os"));
 +    else
 +      setPopupIcon(cg.readEntry("icon", "start-here-kde"));
      constraintsEvent(Plasma::ImmutableConstraint);
@@ -49,8 +49,8 @@ diff -Naur kdebase-workspace-4.4.92.orig/plasma/desktop/applets/kickoff/simpleap
              }
              d->viewtypes << "Leave";
 -            d->iconname = "start-here-kde";
-+            if (QFile::exists("/usr/share/icons/oxygen/scalable/places/start-here-branding.svgz"))
-+              d->iconname = "start-here-branding";
++            if (QFile::exists("/usr/share/icons/oxygen/scalable/places/start-here-os.svgz"))
++              d->iconname = "start-here-os";
 +            else
 +              d->iconname = "start-here-kde";
          }
