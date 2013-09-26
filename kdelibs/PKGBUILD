@@ -11,7 +11,7 @@ url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs' 'debug')
 depends=("${_qtpkg}>=${_qtver}" "kde-common>=${_kdever}" "oxygen-icons>=${_kdever}" 
-	    'shared-mime-info' 'upower' 'udisks<2.0' 'xz' 'enchant' 'jasper' 'openexr' 'giflib'
+	    'shared-mime-info' 'upower' 'udisks2' 'xz' 'enchant' 'jasper' 'openexr' 'giflib'
 	    'strigi' 'libxtst' 'soprano' 'ca-certificates' 'xdg-utils' 'qca' 'polkit-qt'
 	    'libxss' 'phonon' 'shared-desktop-ontologies' 'attica' 'krb5' 'libxcursor' 'libutempter'
 	    'hicolor-icon-theme' 'libdbusmenu-qt' 'grantlee' 'media-player-info' 'qtwebkit' 'systemd')
@@ -58,7 +58,7 @@ build() {
 		-DWITH_FAM=OFF \
                 -DWITH_HUpnp=OFF \
 		-DCMAKE_SKIP_RPATH=ON \
-		-DWITH_SOLID_UDISKS2=OFF \
+		-DWITH_SOLID_UDISKS2=ON \
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 
 	make VERBOSE=1
