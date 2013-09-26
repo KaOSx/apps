@@ -1,0 +1,32 @@
+
+pkgname=choqok
+pkgver=1.4
+pkgrel=1
+pkgdesc="A Twitter/identi.ca/laconica client for KDE"
+url="http://choqok.gnufolks.org/"
+license=('GPL')
+arch=('x86_64')
+depends=('kde-runtime' 'qjson' 'qoauth' 'qca-ossl')
+makedepends=('cmake' 'automoc4' 'docbook-xsl')
+optdepends=('kde-baseapps-konqueror: proxy support')
+groups=('communication')
+install="${pkgname}.install"
+source=("http://sourceforge.net/projects/choqok/files/Choqok/${pkgname}-${pkgver}.tar.xz")
+md5sums=('2efe34ed903b448a21d9233d8033dbdb')
+
+build() {
+  cd ${srcdir}
+  mkdir build
+  
+  cd build
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr 
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
