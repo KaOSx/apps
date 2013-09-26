@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdeedu-marble
 _pkgname=marble
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Desktop Globe"
 url="http://kde.org/applications/education/marble/"
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=('cmake' 'automoc4' 'qt-mobility')
 optdepends=('qt-mobility: enable QtMobility Location Provider')
 provides=('marble')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-options=('docs')
+options=('docs' 'debug')
 install=${pkgname}.install
 
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz"

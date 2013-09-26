@@ -18,7 +18,7 @@ source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
         'pkgbuild-syntax-highlight.patch')
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '43561bda9fb2e1c5fba80cba7de9ab62')
-options=('docs')
+options=('docs' 'debug')
 
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}

@@ -5,11 +5,11 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname="kde-runtime"    
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE Runtime"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs')
+options=('docs' 'debug')
 depends=("kdelibs>=${_kdever}" "nepomuk-core>=${_kdever}" "kactivities>=${_kdever}" 'oxygen-icons'
          'xorg-xauth' 'hicolor-icon-theme' 'samba' 'rarian' 'libssh' 'pulseaudio' 'libssh'
          'libcanberra' 'sound-theme-freedesktop' 'libwebp')
@@ -24,16 +24,13 @@ install=kde-runtime.install
 noextract=('branding.svgz')
 
 source=($_mirror/${pkgname}-$_kdever.tar.xz
-	'branding.svgz'
-	'mouseeventlistener.diff')
+	'branding.svgz')
 
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-        '68cd8eb57db22c2f2ed554b721253bc2'   #  branding.svgz
-        '5c1dde8abc04c153ffb66d91fd217741')
+        '68cd8eb57db22c2f2ed554b721253bc2')   #  branding.svgz
 
 build() {
 	cd ${pkgname}-${pkgver}
-	patch -p1 -i ${srcdir}/mouseeventlistener.diff
  
 	cp -f ${srcdir}/branding.svgz ${srcdir}/${pkgname}-${pkgver}/desktoptheme/oxygen/widgets/
 	cp -f ${srcdir}/branding.svgz ${srcdir}/${pkgname}-${pkgver}/desktoptheme/air/widgets/
