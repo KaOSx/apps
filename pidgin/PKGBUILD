@@ -1,0 +1,83 @@
+
+pkgname=pidgin
+pkgver=2.10.7
+pkgrel=1
+pkgdesc="Multi-protocol instant messaging client"
+arch=('x86_64')
+url="http://pidgin.im/"
+license=('GPL')
+depends=("libpurple=$pkgver" 'startup-notification' 'gtkspell' 'libxss' 'hicolor-icon-theme'
+         'gstreamer0.10' 'libsm' 'libidn' 'farstream' 'avahi' 'networkmanager')
+makedepends=('nss' 'libsasl' 'python2' 'tk' 'ca-certificates' 'intltool' )
+options=('!libtool')
+install=pidgin.install
+source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('ea88976b9952e80b702b030489f94393')
+
+build() {
+  cd "$srcdir/${pkgname}-$pkgver"
+
+    # Use Python 2
+    sed -i "s#env python#env python2#" */plugins/*.py
+    sed -i "s#env python#env python2#" libpurple/purple-{remote,notifications-example,url-handler}
+    ./configure --prefix=/usr \
+                --sysconfdir=/etc \
+                --disable-schemas-install \
+                --disable-meanwhile \
+                --disable-perl \
+                --disable-gnutls \
+                --enable-cyrus-sasl \
+                --enable-doxygen \
+                --enable-nm \
+                --with-python=/usr/bin/python \
+                --with-system-ssl-certs=/etc/ssl/certs
+    make
+}
+#package_libpurple(){
+#    pkgdesc="IM library extracted from Pidgin"
+#    depends=('farstream' 'libsasl' 'dbus-glib' 'silc-toolkit' 'nss' 'cyrus-sasl-plugins')
+#    optdepends=('dbus-python: for purple-remote and purple-url-handler')
+#    cd "${srcdir}/${pkgbase}-${pkgver}"
+
+#    for dir in libpurple share/sounds share/ca-certs m4macros po
+#    do
+#        make -C "${dir}" DESTDIR="${pkgdir}" install
+#    done
+#}
+
+package(){
+    pkgdesc="Multi-protocol instant messaging client"
+    depends=("libpurple=$pkgver" 'startup-notification' 'gtkspell' 'libxss' 'hicolor-icon-theme'
+             'gstreamer0.10')
+
+    install=pidgin.install
+    cd "${srcdir}/${pkgbase}-${pkgver}"
+    #for linking
+    make -C libpurple DESTDIR="${pkgdir}" install-libLTLIBRARIES
+
+    make -C pidgin DESTDIR="${pkgdir}" install
+    make -C doc DESTDIR="${pkgdir}" install
+
+    #clean up libpurple
+    make -C libpurple DESTDIR="${pkgdir}" uninstall-libLTLIBRARIES
+
+    install -D -m 0644 pidgin.desktop "${pkgdir}"/usr/share/applications/pidgin.desktop
+
+    rm -f "${pkgdir}"/usr/share/man/man1/finch.1
+}
+#package_finch(){
+#    pkgdesc="A ncurses-based messaging client"
+#    depends=("libpurple=$pkgver" 'python' 'gstreamer0.10')
+
+#    cd "${srcdir}/${pkgbase}-${pkgver}"
+    #for linking
+#    make -C libpurple DESTDIR="${pkgdir}" install-libLTLIBRARIES
+
+#    make -C finch DESTDIR="${pkgdir}" install
+#    make -C doc DESTDIR="${pkgdir}" install
+
+    #clean up libpurple
+#    make -C libpurple DESTDIR="${pkgdir}" uninstall-libLTLIBRARIES
+#    rm -f "${pkgdir}"/usr/share/man/man1/pidgin.1
+#}
+
