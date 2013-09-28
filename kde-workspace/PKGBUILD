@@ -8,7 +8,7 @@ _default_wp="Elarun"
 pkgname="kde-workspace"
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="KDE Workspace"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -46,7 +46,7 @@ source=("$_mirror/${pkgname}-$_kdever.tar.xz"
         'kde-np.pam'
         'kscreensaver.pam'
 	'kdm.service'
-	'start-here-os.svgz'
+	'os-branding.tar.xz'
 
         # core patches
         '01_kdm_zsh_profile.patch'
@@ -71,7 +71,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'ce53d3a059f5ccbf7429058f935ee9a4'
          '367a3538f54db71f108b34cfa31088ac'
          'c4b5f1b342b3dad38642318ca077daee'
-         '2a4b2e1d46f6bac611d66b4fcd59a2e5'
+         'a0dcf8fe49ba412a0c5248abffc87f16'
          '721e97031b62aee8914e8617e86f9235'
          '848ea65d39a0fa5e519e9cdba7a720d3'
          '89d96455c6a446ef59b0620d1b8606af'
@@ -174,7 +174,15 @@ package() {
 	
 	# Add KaOS kickoff icon
 	mkdir -p ${pkgdir}/usr/share/icons/oxygen/scalable/places/
-	cp -f ${srcdir}/start-here-os.svgz ${pkgdir}/usr/share/icons/oxygen/scalable/places/start-here-os.svgz
+	
+	cp -f ${srcdir}/os-branding/start-here-os.svgz ${pkgdir}/usr/share/icons/oxygen/scalable/places/start-here-os.svgz
+	cp -f ${srcdir}/os-branding/branding-icon.png ${pkgdir}/usr/share/apps/kdm/themes/oxygen/branding-icon.png
+	
+	cd ${srcdir}/os-branding/
+	for i in 256 128 64 48 32 22 16; do
+		mkdir -p ${pkgdir}/usr/share/icons/oxygen/${i}x${i}/places/
+		install -D -m644 start-here-os-${i}.png ${pkgdir}/usr/share/icons/oxygen/${i}x${i}/places/start-here-os.png
+	done
 
 	# WORKAROUND -> put ggl stuff into ggl package
 	rm -rf ${pkgdir}/usr/share/apps/plasma/plasmoids/ggl_photos
