@@ -1,11 +1,11 @@
 
 pkgname=partitionmanager
 pkgver=1362680
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://sourceforge.net/projects/partitionman"
 license=('GPL2')
-depends=('kdebase-runtime' 'parted' 'libatasmart')
+depends=('kde-runtime' 'parted' 'libatasmart')
 makedepends=('cmake' 'automoc4' 'pkgconfig' 'svn')
 optdepends=('e2fsprogs: ext2/3/4 support'
 	    'xfsprogs: XFS support'
@@ -35,7 +35,7 @@ build() {
 
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-        -DENABLE_UDISKS2=on
+        -DENABLE_UDISKS2=off
 
   make 
 }
