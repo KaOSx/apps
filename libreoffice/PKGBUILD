@@ -11,13 +11,13 @@ pkgname=('libreoffice-common'
 	'libreoffice-sdk-doc'
 	'libreoffice-writer'
 	'libreoffice-en-US'
-	'libreoffice-postgresql-connector'
+	#'libreoffice-postgresql-connector'
 	'libreoffice-extension-presentation-minimizer')
-_LOver=4.1.2.2
+_LOver=4.1.2.3
 pkgver=4.1.2
-_pkgver=4.1.2.2
+_pkgver=4.1.2.3
 _HIver=4.1
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 _OFFICEUPD="340"
 license=('LGPL3')
@@ -154,6 +154,7 @@ build() {
 		--disable-fetch-external \
 		--prefix=/usr --exec-prefix=/usr --sysconfdir=/etc \
 		--libdir=/usr/lib --mandir=/usr/share/man \
+		--includedir=/usr/include \
 		--with-lang="" \
 		--disable-verbose \
 		--enable-cairo-canvas \
@@ -168,7 +169,7 @@ build() {
 		--disable-gconf \
 		--enable-kde4 \
 		--enable-gstreamer \
-		--enable-lockdown\
+		--enable-lockdown \
 		--enable-opengl \
 		--enable-odk \
 		--enable-python=system \
@@ -209,9 +210,10 @@ build() {
 		--with-system-mythes \
 		--with-system-headers \
 		--without-system-hsqldb \
-		--with-alloc=system\
-		--with-system-clucene\
+		--with-alloc=system \
+		--with-system-clucene \
 		--without-system-servlet-api \
+		--disable-postgresql-sdbc \
 		--without-junit # needs junit build with classpath and includes hamcrest
 
 	touch src.downloaded
