@@ -1,0 +1,36 @@
+
+pkgname=homerun
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="Fullscreen application launcher for KDE Plasma desktop"
+arch=('x86_64')
+url="http://userbase.kde.org/Homerun"
+license=('GPL' 'LGPL' 'BSD')
+depends=('kde-workspace' 'kde-baseapps')
+makedepends=('cmake' 'automoc4')
+source=("http://download.kde.org/stable/$pkgname/src/$pkgname-$pkgver.tar.xz"
+        'icon.diff')
+install=$pkgname.install
+md5sums=('505c1e9367e697f49aaed0733394b36f'
+         '1041fc5faf214c47d96ed4b732463475' )
+
+build() {
+  cd "$srcdir"/$pkgname-$pkgver
+  patch -p1 -i "${srcdir}/icon.diff"
+  
+  cd "$srcdir"
+  mkdir build
+  cd build
+  cmake ../$pkgname-$pkgver \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd "$srcdir"/build
+  make DESTDIR="$pkgdir" install
+  
+  install -Dm644 "$srcdir/$pkgname-$pkgver/LICENSE.BSD" "$pkgdir/usr/share/licenses/$pkgname/LICENCE"
+}
+
