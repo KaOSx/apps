@@ -1,0 +1,31 @@
+
+pkgname=oxygen-gtk3
+pkgver=1.2.0
+pkgrel=1
+pkgdesc="The Oxygen engine for GTK3, for better Qt/GKT+ integration."
+arch=('x86_64')
+url=("http://projects.kde.org/projects/playground/artwork/oxygen-gtk/")
+license=('LGPL3' 'GPL')
+depends=('cairo' 'dbus-glib')
+makedepends=('gcc' 'cmake' 'gtk3')
+groups=('gtk-integration' 'system')
+source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('c89352459fa41bd35e64072e6bc89593')
+
+build() {
+	cd $srcdir/$pkgname-$pkgver
+	rm -rf build
+	mkdir build 
+	
+	cd build
+	cmake -DCMAKE_BUILD_TYPE=Release \
+	      -DCMAKE_SKIP_RPATH=ON \
+	      -DCMAKE_INSTALL_PREFIX=/usr .. 
+	make
+}
+
+package() {
+	cd $srcdir/$pkgname-$pkgver/build
+	
+	make DESTDIR="${pkgdir}" install
+}
