@@ -1,0 +1,44 @@
+
+pkgname=mkvtoolnix
+pkgver=6.4.1
+pkgrel=1
+pkgdesc="Set of tools to create, edit and inspect Matroska files."
+arch=('x86_64')
+license=('GPL')
+url="http://www.bunkus.org/videotools/mkvtoolnix/index.html"
+depends=('flac' 'libmatroska' 'libogg' 'libvorbis' 'qt' 'xdg-utils' 'libebml' 'zlib' 'boost-libs')
+optdepends=('flac: for FLAC support (Free Lossless Audio Codec)'
+            'lzo2: for additional compression capabilities'
+            'bzip2: for additional compression capabilities'
+            'file: for automatic content type detection'
+            'curl: for online update checks')
+makedepends=('gcc' 'boost' 'ruby')
+groups=('multimedia')
+install=mkvtoolnix.install
+source=("http://www.bunkus.org/videotools/$pkgname/sources/$pkgname-$pkgver.tar.xz")
+md5sums=('1e878646b34eb2c32772d05b91f84f4c')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  
+  ./configure --enable-qt --prefix=/usr --with-boost-libdir=/usr/lib
+  rake
+}
+
+package () {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  rake DESTDIR="${pkgdir}" install
+
+  rm -rf "${pkgdir}"/usr/bin/mkvinfo
+  install -Dm755 src/mkvinfo "${pkgdir}"/usr/bin/mkvinfo
+
+  rm -rf "${pkgdir}"/usr/bin/mmg
+  rm -rf "${pkgdir}"/usr/share/man/ja/man1/mmg.1
+  rm -rf "${pkgdir}"/usr/share/man/man1/mmg.1
+  rm -rf "${pkgdir}"/usr/share/man/nl/man1/mmg.1
+  rm -rf "${pkgdir}"/usr/share/man/zh_CN/man1/mmg.1
+  rm -rf "${pkgdir}"/usr/share/man/uk/man1/mmg.1
+  rm -rf "${pkgdir}"/usr/share/applications
+  rm -rf "${pkgdir}"/usr/share/icons
+  rm -rf "${pkgdir}"/usr/share/mime
+}
