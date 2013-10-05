@@ -11,13 +11,13 @@ pkgname=('libreoffice-common'
 	'libreoffice-sdk-doc'
 	'libreoffice-writer'
 	'libreoffice-en-US'
-	#'libreoffice-postgresql-connector'
+	'libreoffice-postgresql-connector'
 	'libreoffice-extension-presentation-minimizer')
 _LOver=4.1.2.3
 pkgver=4.1.2
 _pkgver=4.1.2.3
 _HIver=4.1
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 _OFFICEUPD="340"
 license=('LGPL3')
@@ -33,8 +33,8 @@ makedepends=( # makedepends
              'redland' 'graphite' 'hyphen' 'lpsolve' 'gcc-libs' 'sh' 'librsvg' 'lcms2'
              'hicolor-icon-theme' 'desktop-file-utils' 'shared-mime-info' 'translate-toolkit' 'xdg-utils' 'ttf-dejavu' 'libcups')
 
-#_mirror="http://download.documentfoundation.org/libreoffice/src/$_pkgver"
-_mirror="http://dev-builds.libreoffice.org/pre-releases/src"
+_mirror="http://download.documentfoundation.org/libreoffice/src/$pkgver"
+#_mirror="http://dev-builds.libreoffice.org/pre-releases/src"
 #_additional_source_url="http://hg.services.openoffice.org/binaries"
 _additional_source_url="http://dev-www.libreoffice.org/src"
 source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
@@ -213,7 +213,6 @@ build() {
 		--with-alloc=system \
 		--with-system-clucene \
 		--without-system-servlet-api \
-		--disable-postgresql-sdbc \
 		--without-junit # needs junit build with classpath and includes hamcrest
 
 	touch src.downloaded
