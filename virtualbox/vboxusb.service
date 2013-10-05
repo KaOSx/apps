@@ -1,0 +1,11 @@
+[Unit]
+Description=Creates the required USB nodes for VirtualBox
+Wants=local-fs.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/vboxsetup fixusb
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,58 @@
+created_rclocal=0
+
+# arg 1: the new package version
+post_install() {
+  vbox_create_workaround  
+  
+  # Run the VBoxLinuxAdditions Skript
+  /usr/share/virtualbox/guest-additions/VBoxLinuxAdditions.run
+  
+  vbox_remove_workaround
+  
+  # Show information
+  /bin/cat <<EOF
+
+==> To start virtualbox guest service automatically, enable and 
+==> start the service through systemctl:
+==> sudo systemctl enable vboxservice.service 
+==> sudo systemctl start vboxservice.service
+EOF
+  
+}
+
+# arg 1:  the new package version
+# arg 2:  the old package version
+post_upgrade() {
+  post_install "$1"
+}
+
+# arg 1: the old package version
+post_remove() {
+  # ${1%-*} : version without pkgrel (4.2.2)
+  
+  vbox_create_workaround
+  
+  /opt/VBoxGuestAdditions-${1%-*}/uninstall.sh
+  
+  vbox_remove_workaround
+  groupdel vboxsf >/dev/null 2>&1 || true
+}
+
+# Create rc.local file as workaround
+vbox_create_workaround() {
+  # workaround: create /etc/rc.local, if not exists
+  if [ ! -e /etc/rc.local ]; then
+  touch /etc/rc.local
+  created_rclocal=1
+  fi
+}
+
+# Remove rc.local, if we created this file
+vbox_remove_workaround() {
+  # If created_rclocal, remove /etc/rc.local
+  if [ ${created_rclocal} -eq 1 ]; then
+    rm -f /etc/rc.local
+  fi
+  # Remove rc.vbox* files
+  rm -f /etc/rc.d/rc.vbox*
+}
