@@ -1,7 +1,7 @@
 
 pkgname=installer
-pkgver=2013.09.29
-_rls_notes=20131002
+pkgver=2013.1006
+_rls_notes=20131006
 pkgrel=1
 pkgdesc="KaOS LiveISO Installer, Tribe fork from Chakra-Project"
 url="https://github.com/KaOSx/installer"
@@ -16,8 +16,8 @@ install=installer.install
 source=("installer.tar.xz"
         "RELEASE_NOTES_${_rls_notes}.html"
         "launch-installer.sh")
-md5sums=('59d5220628527eeeb171471415b71b65'
-         '248431fc12cf654c43e20b2d235e08f7'
+md5sums=('d4f74416112b65432e7ab0f09461e38e'
+         '48c92bcd2ad5c8a0cf15f2da9b6bd810'
          '16c444446519b82b84a40c2acd55cfc3')
 
 build() {        
@@ -46,6 +46,6 @@ package() {
         ${pkgdir}/usr/bin/launch-installer.sh
 	cp -vf ${srcdir}/RELEASE_NOTES_${_rls_notes}.html $pkgdir/usr/share/installer/config/RELEASE_NOTES.html
 
-	# remove nasty files
+	# remove git files
 	find $srcdir/ -name ".git" -type d -exec rm -fr {} +
 }
