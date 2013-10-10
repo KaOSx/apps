@@ -1,6 +1,6 @@
 
 pkgname=google-chrome
-pkgver=31.0.1650.8
+pkgver=32.0.1664.3
 pkgrel=1
 pkgdesc="Google Chrome Browser, developer preview channel for Linux"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'li
          'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html")
-md5sums=('925b4593d5b77fd6af9c625dc789e389'
+md5sums=('73660ffb85ce8cd21743f84c671f7d1a'
          '6d57da7476a4b1b7a81821d9c036425c')
 
 
@@ -22,24 +22,24 @@ package() {
     msg2 "Done extracting!"
 
     msg "Actual installation"
-    mv "$pkgdir/opt/google/chrome-unstable/google-chrome-unstable.desktop" "$pkgdir/usr/share/applications"
+    mv "$pkgdir/opt/google/chrome/google-chrome.desktop" "$pkgdir/usr/share/applications"
     
     # Udev workaround
-    ln -s /usr/lib/libudev.so.1 "$pkgdir/opt/google/chrome-unstable/libudev.so.0"
+    ln -s /usr/lib/libudev.so.1 "$pkgdir/opt/google/chrome/libudev.so.0"
 
     # Adding man page
-    gzip "$pkgdir"/usr/share/man/man1/google-chrome-unstable.1
+    gzip "$pkgdir"/usr/share/man/man1/google-chrome.1
     
     # Symlinking icons to /usr/share/icons/hicolor/
     for i in 16 22 24 32 48 64 128 256; do
-    install -Dm644 "$pkgdir"/opt/google/chrome-unstable/product_logo_${i}.png "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/google-chrome.png
+    install -Dm644 "$pkgdir"/opt/google/chrome/product_logo_${i}.png "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/google-chrome.png
     done
 
     # License
     install -Dm644 "$srcdir"/eula_text.html "$pkgdir"/usr/share/licenses/google-chrome/eula_text.html
     
     msg2 "Removing cron job and duplicated images"
-    rm "$pkgdir"/etc/cron.daily/google-chrome-unstable "$pkgdir"/opt/google/chrome-unstable/product_logo_*
+    rm "$pkgdir"/etc/cron.daily/google-chrome "$pkgdir"/opt/google/chrome/product_logo_*
 
     msg2 "Installation finished!"
 }
