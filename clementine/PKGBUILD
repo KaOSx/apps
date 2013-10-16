@@ -1,6 +1,6 @@
 
 pkgname=clementine
-pkgver=1.2.0rc4
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="Modern music player and library organiser that takes advantage of Qt4."
 url="http://www.clementine-player.org/"
@@ -12,14 +12,11 @@ depends=('gstreamer0.10-base' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'li
          'libcdio-paranoia' 'qca' 'qca-ossl' 'chromaprint' 'sparsehash')
 makedepends=('cmake' 'boost' 'mesa')
 groups=('multimedia')
-source=("http://clementine-player.googlecode.com/files/${pkgname}-${pkgver}.tar.gz"
-        'libimobiledevice.patch')
-md5sums=('e3c5c4fec872beaa9f79012c4d566afd'
-         '2060eab4a381cb0702a31cd51a534180')
+source=("http://clementine-player.googlecode.com/files/${pkgname}-${pkgver}.tar.gz")
+md5sums=('7dff2e11aedc2f1415ca0d4d79be71bf')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  #patch -p1 -i "$srcdir"/libimobiledevice.patch
   mkdir -p build 
   
   cd build
