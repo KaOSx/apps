@@ -6,8 +6,8 @@
 
 pkgbase=virtualbox
 pkgname=('virtualbox' 'virtualbox-ext-oracle' 'virtualbox-guest-additions')
-pkgver=4.2.18
-_build=88781
+pkgver=4.3.0
+_build=89960
 pkgrel=1
 arch=('x86_64')
 url='http://virtualbox.org/'
@@ -15,7 +15,7 @@ license=('GPL2' 'custom:PUEL')
 options=('!strip')
 makedepends=('libidl2' 'libxcursor' 'libxinerama' 'libxslt' 'curl' 'linux-headers' 'python2' 'make' 'gcc')
 source=("VirtualBox-${pkgver}-${_build}-Linux_amd64.run::http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}-${_build}-Linux_amd64.run"
-        "http://download.virtualbox.org/virtualbox/${pkgver}/Oracle_VM_VirtualBox_Extension_Pack-${pkgver}-88780.vbox-extpack"
+        "http://download.virtualbox.org/virtualbox/${pkgver}/Oracle_VM_VirtualBox_Extension_Pack-${pkgver}-${_build}.vbox-extpack"
         "http://download.virtualbox.org/virtualbox/${pkgver}/VBoxGuestAdditions_${pkgver}.iso"
         '10-vboxdrv.rules'
         'vboxdrv.conf'
@@ -27,9 +27,9 @@ source=("VirtualBox-${pkgver}-${_build}-Linux_amd64.run::http://download.virtual
         'vboxsetup.sh'
         'PUEL'
         'vboxservice.service')
-md5sums=('b96999fc80e6a8d746d67dcf797f8cfb'
-         '911aa19debe03e0104d26198b41ead83'
-         '7f4e634746cb1409d8b9577afa68a80a'
+md5sums=('448d804baac3fca7fe7dec2a45809106'
+         'f03df39445d7cd486a5e01af7d199dd5'
+         '6b72a59aba1660afa4f430faa88d727a'
          'cee0c968c923760181ae060eab1c2e58'
          '564ceec89e559bd98987f08e86f74825'
          '3ac185709bfe688bb753c46e170d0546'
@@ -187,7 +187,7 @@ package_virtualbox-ext-oracle() {
   
   cd "${srcdir}"
   
-  install -D -m 644 "Oracle_VM_VirtualBox_Extension_Pack-${pkgver}-88780.vbox-extpack" \
+  install -D -m 644 "Oracle_VM_VirtualBox_Extension_Pack-${pkgver}-${_build}.vbox-extpack" \
     "${pkgdir}/usr/share/virtualbox/extensions/Oracle_VM_VirtualBox_Extension_Pack-${pkgver}.vbox-extpack"
   install -D -m 644 PUEL "${pkgdir}/usr/share/licenses/${pkgname}/PUEL"
 }
