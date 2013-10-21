@@ -1,5 +1,5 @@
---- src/strconstants.h.orig	2013-09-07 23:02:36.000000000 -0400
-+++ src/strconstants.h	2013-09-08 17:07:12.611829936 -0400
+--- src/strconstants.h.orig	2013-10-20 00:33:09.000000000 -0400
++++ src/strconstants.h	2013-10-21 16:22:55.646062336 -0400
 @@ -24,7 +24,6 @@
  #include "wmhelper.h"
  #include "unixcommand.h"
@@ -17,40 +17,32 @@
    }
  
    static QString getArchLinuxNews(){
-@@ -60,7 +59,10 @@
-   static QString getChakraNews(){
+@@ -61,6 +60,10 @@
      return QObject::tr("Chakra news");
    }
--
-+  
+ 
 +  static QString getKaOSNews(){
 +    return QObject::tr("KaOS news");
 +  }
++  
    static QString getManjaroLinuxNews(){
      return QObject::tr("Manjaro Linux news");
    }
-@@ -529,24 +531,6 @@
+@@ -531,7 +534,7 @@
    static QString getTreeViewCSS(){
      QString res;    
  
 -    //if (qApp->style()->inherits("QGtkStyle") && UnixCommand::getLinuxDistro() == ectn_MANJAROLINUX && !WMHelper::isKDERunning())
--    //{
--      res = "QTreeView::branch:has-siblings:!adjoins-item {"
--                   "   border-image: url(:/resources/styles/vline.png) 0;}"
--                   "QTreeView::branch:has-siblings:adjoins-item {"
--                   "    border-image: url(:/resources/styles/branch-more.png) 0;}"
--                   "QTreeView::branch:!has-children:!has-siblings:adjoins-item {"
--                   "   border-image: url(:/resources/styles/branch-end.png) 0;}"
--                   "QTreeView::branch:has-children:!has-siblings:closed,"
--                   "QTreeView::branch:closed:has-children:has-siblings {"
--                   "       border-image: none;"
--                   "        image: url(:/resources/styles/branch-closed_BW.png);}"
--                   "QTreeView::branch:open:has-children:!has-siblings,"
--                   "QTreeView::branch:open:has-children:has-siblings  {"
--                   "       border-image: none;"
--                   "       image: url(:/resources/styles/branch-open_BW.png);}";
++    /*if (qApp->style()->inherits("QGtkStyle") && UnixCommand::getLinuxDistro() == ectn_MANJAROLINUX && !WMHelper::isKDERunning())
+     //{
+       res = "QTreeView::branch:has-siblings:!adjoins-item {"
+                    "   border-image: url(:/resources/styles/vline.png) 0;}"
+@@ -547,7 +550,7 @@
+                    "QTreeView::branch:open:has-children:has-siblings  {"
+                    "       border-image: none;"
+                    "       image: url(:/resources/styles/branch-open_BW.png);}";
 -    /*}
--    else
++    }
+     else
      {
        res = "QTreeView::branch:has-siblings:!adjoins-item {"
-                      " border-image: url(:/resources/styles/vline.png) 0;}"
