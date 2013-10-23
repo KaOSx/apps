@@ -1,0 +1,26 @@
+
+pkgname=libsystemd-qt
+pkgver=208
+pkgrel=1
+pkgdesc='Qt-only wrapper for Systemd API'
+arch=('x86_64')
+url='https://github.com/scarpin0/libsystemd-qt'
+license=('LGPL')
+depends=('qt5' 'systemd')
+makedepends=('git' 'cmake')
+source=('git://github.com/scarpin0/libsystemd-qt')
+md5sums=('SKIP')
+
+build() {
+  mkdir -p build
+  cd build
+
+  cmake ../libsystemd-qt -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="${pkgdir}" install
+}
