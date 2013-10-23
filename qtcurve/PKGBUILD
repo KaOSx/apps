@@ -1,0 +1,31 @@
+
+pkgname=qtcurve
+pkgver=1.8.17
+pkgrel=1
+arch=('x86_64')
+license=('GPL')
+pkgdesc='A configurable set of widget styles for KDE'
+url='https://github.com/QtCurve/qtcurve'
+depends=('kde-workspace' 'libx11')
+makedepends=('cmake' 'automoc4')
+source=("https://github.com/QtCurve/qtcurve/archive/${pkgver}.tar.gz")
+md5sums=('c4f2e9bc296398b42bfc132b88a3b989')
+
+build() {
+	cd ${srcdir}/${pkgname}-${pkgver}
+	
+	mkdir build
+	cd build
+	cmake .. -DCMAKE_BUILD_TYPE=Release \
+		 -DCMAKE_INSTALL_PREFIX=/usr \
+		 -DQTC_STYLE_SUPPORT=true \
+		 -DENABLE_GTK2=false \
+		 -DENABLE_QT5=false
+	make
+}
+
+package() {
+	cd $srcdir/${pkgname}-${pkgver}/build
+	
+	make DESTDIR=$pkgdir install
+}
