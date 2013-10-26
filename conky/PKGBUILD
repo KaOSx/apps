@@ -1,7 +1,7 @@
 
 pkgname=conky
 pkgver=1.9.0
-pkgrel=2
+pkgrel=3
 pkgdesc="An advanced, highly configurable system monitor for X based on torsmo"
 arch=('x86_64')
 url="http://conky.sourceforge.net/"
@@ -11,8 +11,10 @@ depends=('alsa-lib' 'libxml2' 'curl' 'wireless_tools' 'libxft' 'glib2' 'libxdama
 makedepends=('pkgconfig')
 groups=('utils')
 backup=('etc/conky/conky.conf' 'etc/conky/conky_no_x11.conf')
-source=("http://downloads.sourceforge.net/project/${pkgname}/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('d3de615f43aadc98d555e05ad9e902c2')
+source=("http://downloads.sourceforge.net/project/${pkgname}/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.bz2"
+        'conky.conf')
+md5sums=('d3de615f43aadc98d555e05ad9e902c2'
+         'dbaeb3608533bfcadef08bc5b68f13f7')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -30,6 +32,9 @@ build() {
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   make DESTDIR="${pkgdir}" install 
+  
+  rm ${pkgdir}/etc/conky/conky.conf
+  install -D -m755 ${srcdir}/conky.conf ${pkgdir}/etc/conky/conky.conf
   
   install -D -m644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
