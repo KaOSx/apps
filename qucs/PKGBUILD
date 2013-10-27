@@ -1,0 +1,24 @@
+
+pkgname=qucs
+pkgver=0.0.17
+pkgrel=1
+pkgdesc="An integrated circuit simulator with a graphical user interface"
+arch=('x86_64')
+url="http://qucs.sourceforge.net"
+license=('GPL')
+depends=('gcc-libs' 'qt')
+source=("http://downloads.sourceforge.net/project/qucs/qucs/$pkgver/qucs-$pkgver.tar.gz")
+md5sums=('4b93ffcc2ef3dbbd6fa53a5743721532')
+
+build() {
+  cd $srcdir/$pkgname-${pkgver/s/.}
+  
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd $srcdir/$pkgname-${pkgver/s/.}
+  
+  make DESTDIR=$pkgdir install
+}
