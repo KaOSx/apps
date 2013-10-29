@@ -1,0 +1,25 @@
+
+pkgname=gnuchess
+pkgver=6.0.3
+pkgrel=1
+pkgdesc="Lets most modern computers play a full game of chess"
+url="http://www.gnu.org/software/chess/chess.html"
+arch=('x86_64')
+license=('GPL')
+depends=('glibc' 'ncurses' 'readline')
+source=("ftp://ftp.gnu.org/pub/gnu/chess/$pkgname-$pkgver.tar.gz")
+md5sums=('28625afb8f48b86211ee1d217c308064')
+
+build() {
+  cd "$srcdir"/$pkgname-$pkgver
+
+  ./configure --prefix=/usr
+
+  make  
+}
+
+package() {
+  cd "$srcdir"/$pkgname-$pkgver
+
+  make prefix="$pkgdir"/usr install
+}
