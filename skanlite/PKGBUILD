@@ -1,0 +1,30 @@
+
+pkgname=skanlite
+pkgver=1.0
+pkgrel=1
+pkgdesc="Image Scanning Application for KDE"
+arch=('x86_64')
+url='http://www.kde.org'
+license=('LGPL')
+depends=('kdegraphics-libksane' 'kde-runtime' )
+makedepends=('pkgconfig' 'cmake' 'automoc4' 'docbook-xsl')
+groups=('graphics')
+source=("http://downloads.sourceforge.net/sanewidget/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('e22b2719f134d2483591082026961bf5')
+
+build() {
+  cd ${srcdir}
+  
+  mkdir build
+  cd build
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make 
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
