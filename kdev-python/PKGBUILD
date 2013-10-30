@@ -1,6 +1,6 @@
 
 pkgname=kdev-python
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc='Python plugin for KDevelop - stable version'
 arch=('x86_64')
@@ -9,14 +9,11 @@ license=('GPL')
 groups=('kde' 'kdevelop-plugins')
 depends=('kdevelop')
 makedepends=('kdevelop-pg-qt' 'cmake' 'automoc4')
-source=("http://download.kde.org/stable/kdevelop/$pkgname/$pkgver/src/$pkgname-v$pkgver.tar.bz2"
-        'asdl_c.patch')
-md5sums=('d163e18ad75489f8ba0f0736b43f6642'
-         '35c6b08e10dc505d2b7b9df011569bfc')
+source=("http://download.kde.org/stable/kdevelop/$pkgname/$pkgver/src/$pkgname-v$pkgver.tar.xz")
+md5sums=('1acb6ec3f3ef1fb56d75b2d51a6249fe')
 
 build() {
 	cd "$srcdir/$pkgname-v$pkgver"
-	patch -p1 -i ${srcdir}/asdl_c.patch
 	
 	mkdir -p "$srcdir/build"
 	cd "$srcdir/build"
