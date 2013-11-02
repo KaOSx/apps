@@ -1,0 +1,41 @@
+
+pkgname=calibre
+pkgver=1.9.0
+pkgrel=1
+pkgdesc="Ebook management application."
+arch=('x86_64') 
+url="http://www.calibre-ebook.com/"
+license=('GPL3')
+depends=('python2')
+makedepends=('python2' 'xdg-utils')
+groups=('education')
+install=calibre.install
+source=('http://status.calibre-ebook.com/linux_installer')
+md5sums=('bdcb83c39f74b228ff5e31afc914fdb9')
+noextract=('linux_installer')
+
+package() {
+  cd "${srcdir}"
+
+  install -d "${pkgdir}/opt"
+  install -d "${pkgdir}/usr/bin"
+
+  cp -f linux_installer linux_installer.py
+  sed "s~destdir = os.path.abspath(destdir)~originaldir = destdir; destdir = os.path.abspath(destdir) + '/opt'~g" -i linux_installer.py
+  sed "s~subprocess.call(pi, shell=True)~subprocess.call(pi + ' --root="{0}/usr"'.format(originaldir), shell=True)~g" -i linux_installer.py
+  echo "${pkgdir}" | python2 -c "from linux_installer import *; main()"
+
+  __to_fix=('fetch-ebook-metadata' 'lrf2lrs' 'ebook-convert' 'ebook-meta' 'pdfmanipulate' 'lrs2lrf' 'lrfviewer' 'calibre' 'markdown-calibre' 'calibre-debug' 'calibre-parallel' 'web2disk' 'calibre-server' 'calibre-customize' 'ebook-viewer' 'calibre-smtp' 'epub-fix' 'ebook-device' 'librarything' 'calibredb')
+
+  for file in ${__to_fix[@]}; do
+    rm -f "${pkgdir}/usr/bin/${file}"
+
+    cat > "${pkgdir}/usr/bin/${file}" <<-EOF
+#!/bin/sh
+LD_LIBRARY_PATH=/opt/calibre/lib /opt/calibre/bin/${file}
+EOF
+
+    chmod +x "${pkgdir}/usr/bin/${file}"
+  done
+}
+
