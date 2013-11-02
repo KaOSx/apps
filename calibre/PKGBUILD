@@ -7,10 +7,12 @@ arch=('x86_64')
 url="http://www.calibre-ebook.com/"
 license=('GPL3')
 depends=('python2')
-makedepends=('python2' 'xdg-utils')
-groups=('education')
+makedepends=('xdg-utils')
+groups=('office')
 install=calibre.install
-source=('http://status.calibre-ebook.com/linux_installer')
+source=('http://status.calibre-ebook.com/linux_installer'
+        'calibre.desktop'
+        'calibre.png')
 md5sums=('bdcb83c39f74b228ff5e31afc914fdb9')
 noextract=('linux_installer')
 
@@ -37,5 +39,8 @@ EOF
 
     chmod +x "${pkgdir}/usr/bin/${file}"
   done
+  
+  install -Dm644 "${srcdir}/calibre.desktop" "${pkgdir}/usr/share/applications/calibre.desktop"             
+  install -Dm644 "${srcdir}/calibre.png" "${pkgdir}/usr/share/pixmaps/calibre.png"
 }
 
