@@ -10,25 +10,24 @@ pkgname=('kde-baseapps'
 
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
-
+pkgrel=2
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-
 options=('docs')
-
 makedepends=("kde-workspace>=${_kdever}" 'pkg-config' 'cmake' 'automoc4' 'libraw1394' 'ruby'
              'tidyhtml' 'docbook-xsl' 'nepomuk-widgets')
-
 source=("$_mirror/${pkgbase}-$_kdever.tar.xz"
-	"http://www.kde-apps.org/CONTENT/content-files/99752-kde_cdemu-0.3.1.tar.bz2")
+	"http://www.kde-apps.org/CONTENT/content-files/99752-kde_cdemu-0.3.1.tar.bz2"
+	'revert_ignore_files.patch')
 
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '6b68353583ee959fb61b3c68a07606ae')  # 99752-kde_cdemu-0.3.1.tar.gz
+         '6b68353583ee959fb61b3c68a07606ae'  # 99752-kde_cdemu-0.3.1.tar.gz
+         'a9ac245c9d890e530ac1339f0323a25b')
 
 build() {
 	cd ${pkgbase}-${pkgver}
+	patch -p1 -i ${srcdir}/revert_ignore_files.patch
 
         msg "starting build ..."
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
