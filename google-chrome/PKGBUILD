@@ -1,6 +1,6 @@
 
 pkgname=google-chrome
-pkgver=32.0.1700.2
+pkgver=32.0.1700.6
 pkgrel=1
 pkgdesc="Google Chrome Browser, developer preview channel for Linux"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'li
          'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html")
-md5sums=('d284e355bc23fa48ced93fae8e94afe4'
+md5sums=('c0e0fd6aa06a03155c25140d5953d7fd'
          '6d57da7476a4b1b7a81821d9c036425c')
 
 
@@ -40,6 +40,9 @@ package() {
     
     msg2 "Removing cron job and duplicated images"
     rm "$pkgdir"/etc/cron.daily/google-chrome "$pkgdir"/opt/google/chrome/product_logo_*
+    
+    # filesystem permissions differ
+    chmod -R 755 "$pkgdir/usr/share/doc/google-chrome-unstable"
 
     msg2 "Installation finished!"
 }
