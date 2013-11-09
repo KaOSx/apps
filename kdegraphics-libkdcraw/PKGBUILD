@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdegraphics-libkdcraw
 _pkgname=libkdcraw
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="A library for decoding RAW picture files"
 arch=('x86_64')
 url='http://www.kde.org'
@@ -23,7 +23,7 @@ options=('docs')
 
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
-	patch -p1 -i ${srcdir}/libkdcraw_CVE-2013-143x.diff
+	#patch -p1 -i ${srcdir}/libkdcraw_CVE-2013-143x.diff
 	
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} \

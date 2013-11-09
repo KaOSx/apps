@@ -2,25 +2,24 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kdenetwork-kget
-_pkgname=kget
+pkgname=kdesdk-libkomparediff2
+_pkgname=libkomparediff2
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc='Download Manager'
-url='http://kde.org/applications/internet/kget/'
+pkgdesc="Library to compare files and strings"
+url='https://projects.kde.org/projects/kde/kdesdk/libkomparediff2'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
-depends=('kde-workspace' 'kwebkitpart' 'libktorrent' 'libmms' 'gpgme' 'nepomuk-widgets')
-makedepends=('cmake' 'automoc4' 'boost')
-install=${pkgname}.install
+groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
+depends=("kdelibs>=${_kdever}")
+makedepends=('cmake' 'automoc4')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   cd build
-  
+
   cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE4_BUILD_TESTS=OFF \
@@ -30,6 +29,6 @@ build() {
 
 package() {
   cd build
-  
-  make DESTDIR=$pkgdir install
+
+  make DESTDIR="${pkgdir}" install
 }
