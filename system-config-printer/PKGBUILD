@@ -1,7 +1,7 @@
 
-pkgname="system-config-printer"
+pkgname=system-config-printer
 pkgver=1.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A CUPS printer configuration tool and status applet"
 url="http://cyberelk.net/tim/software/system-config-printer/"
 arch=('x86_64')
@@ -27,11 +27,12 @@ build() {
     --sysconfdir=/etc \
     --with-udev-rules
 
-  make
+  make udevhelperdir=/usr/lib/udev
 }
 
 package() {
   cd ${pkgname}-${pkgver}
   
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR="${pkgdir}" udevhelperdir=/usr/lib/udev udevrulesdir=/usr/lib/udev/rules.d install
+  rm ${pkgdir}/usr/share/applications/system-config-printer.desktop
 }
