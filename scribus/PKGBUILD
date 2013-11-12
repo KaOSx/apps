@@ -1,7 +1,7 @@
 
 pkgname=scribus
 pkgver=1.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="http://www.scribus.net"
@@ -13,14 +13,14 @@ makedepends=('cmake' 'boost')
 groups=('office')
 options=('!libtool' '!makeflags')
 source=("http://sourceforge.net/projects/scribus/files/scribus/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('46790dbdc9a48b4486294f81ce618a05')
+md5sums=('4083332f4eee78082b814767b7d7c597')
 
 build() {
 	cd ${srcdir}
 	mkdir build
 	
 	cd build
-	cmake ../${pkgname}-${pkgver}/${pkgname}-${pkgver} \
+	cmake ../${pkgname}-${pkgver} \
 	   -DCMAKE_INSTALL_PREFIX=/usr \
 	   -DCMAKE_BUILD_TYPE=Release \
 	   -DCMAKE_SKIP_RPATH=ON \
@@ -35,8 +35,8 @@ package() {
 
 	# fix icon path in .desktop file
 	sed -i 's|Icon=scribus|Icon=/usr/share/scribus/icons/scribus.png|' \
-	   ${srcdir}/${pkgname}-${pkgver}/${pkgname}-${pkgver}/scribus.desktop
+	   ${srcdir}/${pkgname}-${pkgver}/scribus.desktop
 
-	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/${pkgname}-${pkgver}/scribus.desktop \
+	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/scribus.desktop \
 	   ${pkgdir}/usr/share/applications/scribus.desktop
 }
