@@ -2,13 +2,14 @@
 pkgname=sigil
 _pkgname=Sigil
 pkgver=0.7.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A multi-platform WYSIWYG ebook editor. It is designed to edit books in ePub format. "
 arch=('x86_64')
 url="http://code.google.com/p/sigil/"
 license=('GPL3')
-depends=('qt5' 'boost-libs')
+depends=('qt5' 'boost-libs' 'xerces-c' 'hunspell')
 makedepends=('cmake' 'gendesk' 'boost')
+options=('debug')
 groups=('office')
 install=sigil.install
 source=("http://$pkgname.googlecode.com/files/$_pkgname-$pkgver-Code.zip")
