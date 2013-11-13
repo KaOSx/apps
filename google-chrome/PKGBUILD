@@ -1,7 +1,7 @@
 
 pkgname=google-chrome
 pkgver=33.0.1707.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Google Chrome Browser, developer preview channel for Linux"
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
@@ -42,7 +42,7 @@ package() {
     rm "$pkgdir"/etc/cron.daily/google-chrome "$pkgdir"/opt/google/chrome/product_logo_*
     
     # filesystem permissions differ
-    chmod -R 755 "$pkgdir/usr/share/doc/google-chrome-unstable"
+    #chmod -R 755 "$pkgdir/usr/share/doc/google-chrome-unstable"
 
     msg2 "Installation finished!"
 }
