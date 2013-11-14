@@ -52,8 +52,9 @@ package_kdepim-common() {
 	install=${pkgbase}.install
 
 	splitdirs=(akonadi_next calendarsupport calendarviews console icons importwizard incidenceeditor-ng kdgantt2 kresources ksendemail libkdepim 
-                   libkdepimdbusinterfaces libkleo libkpgp libksieve mailcommon agents/mailfilteragent mailimporter messagecore messagecomposer messagecore messagelist 
-		   messageviewer ontologies plugins pimcommon pimsettingexporter templateparser headerthemeeditor agents/sendlateragent)
+                   libkdepimdbusinterfaces libkleo libkpgp libksieve mailcommon mailfilteragent mailimporter messagecore messagecomposer messagecore messagelist 
+		   messageviewer ontologies plugins pimcommon pimsettingexporter templateparser doc/kwatchgnupg doc/kabcclient doc/kioslave 
+		   doc/konsolekalendar headerthemeeditor sendlateragent)
 
 		for i in ${splitdirs[@]} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
@@ -84,7 +85,7 @@ package_kdepim-akregator() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="akregator kontact/plugins/akregator"
+	splitdirs="akregator doc/akregator"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install 
@@ -98,7 +99,7 @@ package_kdepim-blogilo() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="blogilo composereditor-ng"
+	splitdirs="blogilo doc/blogilo composereditor-ng"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install 
@@ -126,7 +127,7 @@ package_kdepim-kalarm() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="kalarm"
+	splitdirs="kalarm doc/kalarm"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
@@ -153,7 +154,7 @@ package_kdepim-kjots() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="kjots kontact/plugins/kjots"
+	splitdirs="kjots doc/kjots"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
@@ -168,7 +169,7 @@ package_kdepim-kleopatra() {
         install=${pkgbase}.install
 	url="http://kde.org/applications/utilities/kleopatra/"
 
-        splitdirs="kleopatra"
+        splitdirs="kleopatra doc/kleopatra"
                 for i in ${splitdirs} ; do
                         cd ${srcdir}/${pkgbase}-${pkgver}/${i}
                         make DESTDIR=${pkgdir} install
@@ -182,7 +183,7 @@ package_kdepim-kmail() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="kmail kmailcvt kontact/plugins/kmail"
+	splitdirs="kmail kmailcvt doc/kmail"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
@@ -209,7 +210,7 @@ package_kdepim-knode() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="knode kontact/plugins/knode"
+	splitdirs="knode doc/knode"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
@@ -223,7 +224,7 @@ package_kdepim-knotes() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="knotes kontact/plugins/knotes"
+	splitdirs="knotes doc/knotes"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
@@ -239,7 +240,7 @@ package_kdepim-kontact() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="kontact/src kontact/plugins/summary kontact/plugins/specialdates"
+	splitdirs="kontact doc/kontact doc/kontact-admin"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
@@ -253,7 +254,7 @@ package_kdepim-korganizer() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="korganizer kontact/plugins/korganizer"
+	splitdirs="korganizer doc/korganizer"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
@@ -270,7 +271,7 @@ package_kdepim-ktimetracker() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="ktimetracker"
+	splitdirs="ktimetracker doc/ktimetracker"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
