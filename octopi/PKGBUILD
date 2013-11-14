@@ -1,8 +1,8 @@
 
 pkgname=octopi
-pkgver=0.3.0
+pkgver=0.3.0.8
 pkgrel=1
-_commit=afca947
+_commit=708b60e
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
@@ -12,30 +12,15 @@ makedepends=('automoc4' 'cmake')
 groups=('system') 
 source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
         'octopi.desktop'
-        'main.diff'
-        'mainwindow_news.diff'
-        'packagecontroller.diff'
-        'strconstants.h.diff'
-        'unixcommand.diff'
-        'unixcommand.h.diff')
-md5sums=('596889f1277971b623e4eefcc93eb66a'
+        'main.diff'        )
+md5sums=('a7248551d5620377a59abf2d8468f9b1'
          '2d9c64cd6402be69d2ee9fde5acc439e'
-         '7cd3abb849913f5c789d49414d7f1822'
-         '9b88073f0f2838bfd8aeb860ee41e986'
-         '5b80d972da1f2b9f27b94524b217bd9e'
-         '309762c43ebc915840e9ccc3e7cbb948'
-         '453b758a56fe967c0a44fbe07ca9db68'
-         '72348c68b4a87600415ceffdd787f446')
+         '53f531dafe002e3386709ec8274295f9')
 
 build() {
    cd "${srcdir}/aarnt-octopi-${_commit}/"
 
    patch -p0 -i ${srcdir}/main.diff
-   patch -p0 -i ${srcdir}/mainwindow_news.diff
-   patch -p0 -i ${srcdir}/packagecontroller.diff
-   patch -p0 -i ${srcdir}/strconstants.h.diff
-   patch -p0 -i ${srcdir}/unixcommand.diff
-   patch -p0 -i ${srcdir}/unixcommand.h.diff
    
    qmake octopi.pro
    make

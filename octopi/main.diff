@@ -1,22 +1,10 @@
---- src/main.cpp.orig	2013-08-29 22:07:05.000000000 -0400
-+++ src/main.cpp	2013-08-31 12:43:02.084352739 -0400
-@@ -98,19 +98,6 @@
-   app.setActivationWindow(&w);
-   app.setQuitOnLastWindowClosed(false);
+--- src/main.cpp.orig	2013-11-03 01:24:27.000000000 -0400
++++ src/main.cpp	2013-11-13 20:20:24.304449443 -0500
+@@ -26,6 +26,7 @@
+ #include <iostream>
+ #include "QtSolutions/qtsingleapplication.h"
+ #include <QtGui>
++#define KAOS
  
--  if (!argList->getSwitch("-style"))
--  {
--    if (UnixCommand::getLinuxDistro() == ectn_MANJAROLINUX &&
--        (!WMHelper::isKDERunning() && (!WMHelper::isRazorQtRunning())))
--    {
--      app.setStyle(new QGtkStyle());
--    }
--    else
--    {
--      app.setStyle(new QCleanlooksStyle());
--    }
--  }
--
-   if (argList->getSwitch("-sysupgrade"))
-   {
-     w.setCallSystemUpgrade();
+ int main(int argc, char *argv[])
+ {
