@@ -1,0 +1,31 @@
+
+pkgname=unetbootin
+pkgver=581
+pkgrel=1
+pkgdesc="Allows the creation of bootable Live USB drives."
+url="http://unetbootin.sourceforge.net/"
+license=('GPL3')
+arch=('x86_64')
+depends=('kde-runtime' 'libpng' 'mtools' 'p7zip' 'qt' 'syslinux') 
+groups=('system')
+source=("http://downloads.sourceforge.net/$pkgname/$pkgname-source-$pkgver.tar.gz")
+md5sums=('8b905bfdab8bce78cb1d1d46b52807c3')
+
+build() {
+  lupdate $pkgname.pro
+  lrelease $pkgname.pro
+  qmake
+  make
+}
+
+package() {
+  # Executable 
+  install -Dm755 $pkgname $pkgdir/usr/bin/$pkgname
+
+  # Translations 
+  mkdir -p $pkgdir/usr/share/$pkgname
+  install -m644 $pkgname_*.qm $pkgdir/usr/share/$pkgname/
+
+  install -Dm644 $pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+  install -Dm644 ${pkgname}_48.png $pkgdir/usr/share/pixmaps/$pkgname.png
+}
