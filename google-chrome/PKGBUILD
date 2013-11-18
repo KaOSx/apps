@@ -7,7 +7,8 @@ arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
 license=('custom:chrome')
 groups=('internet')
-options=('!strip' '!emptydirs') 
+options=('!strip' '!emptydirs')
+install=$pkgname.install
 depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
          'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
@@ -40,9 +41,6 @@ package() {
     
     msg2 "Removing cron job and duplicated images"
     rm "$pkgdir"/etc/cron.daily/google-chrome "$pkgdir"/opt/google/chrome/product_logo_*
-    
-    # filesystem permissions differ
-    #chmod -R 755 "$pkgdir/usr/share/doc/google-chrome-unstable"
 
     msg2 "Installation finished!"
 }
