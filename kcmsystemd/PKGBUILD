@@ -1,0 +1,27 @@
+
+pkgname=kcmsystemd
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Systemd control module for KDE"
+arch=('x86_64')
+url='https://github.com/rthomsen/kcmsystemd'
+license=('GPL')
+depends=('kde-workspace' 'boost-libs')
+makedepends=('cmake' 'automoc4' 'boost')
+source=("https://github.com/rthomsen/kcmsystemd/archive/$pkgver.tar.gz")
+md5sums=('b07a7a12e9c346bf2023c20b47839d16')
+
+build() {
+  cd $srcdir/$pkgname-$pkgver
+  mkdir build
+
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd $srcdir/$pkgname-$pkgver/build
+
+  make DESTDIR=$pkgdir install
+}
