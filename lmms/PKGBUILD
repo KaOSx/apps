@@ -1,0 +1,29 @@
+
+pkgname=lmms
+pkgver=0.4.15
+pkgrel=1
+pkgdesc='The Linux MultiMedia Studio.'
+arch=('x86_64')
+url='http://lmms.sourceforge.net/'
+license=('GPL')
+depends=('sdl' 'glib2' 'fluidsynth' 'libpng' 'libvorbis' 'libxft' 'libxinerama' 'qt'
+         'sdl_sound' 'libsamplerate' 'shared-mime-info')
+makedepends=('cmake' 'ladspa' 'libxft' 'freetype2' 'fftw')
+options=('!makeflags')
+install=lmms.install
+source=("http://downloads.sourceforge.net/sourceforge/lmms/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('0c754480ded76b7c081a99d7a884549c')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
+
+  cmake . -DCMAKE_INSTALL_PREFIX=/usr 
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  
+  make DESTDIR="${pkgdir}" install
+}
