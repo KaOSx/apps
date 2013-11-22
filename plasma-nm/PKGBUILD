@@ -1,26 +1,22 @@
 
-
 pkgname=plasma-nm
-pkgver=0.9.3.1
-pkgrel=2
+pkgver=0.9.3.2
+pkgrel=1
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
 url="https://projects.kde.org/projects/playground/network/plasma-nm"
 license=('GPL')
-depends=('kde-workspace' 'libnm-qt')
+depends=('kde-workspace' 'libnm-qt' 'mobile-broadband-provider-info')
 makedepends=('cmake' 'automoc4')
 provides=('kdeplasma-applets-networkmanagement')
 replaces=('kdeplasma-applets-networkmanagement')
 conflicts=('kdeplasma-applets-networkmanagement')
-source=("http://download.kde.org/unstable/$pkgname/$pkgname-$pkgver.tar.xz"
-        'plasma-nm-fixes.patch')
-md5sums=('c6ce9cd8523ec0f99fe87dea8b76a02f'
-         '9a959544b1e3932931aad5b4b51e00c9')
+source=("http://download.kde.org/unstable/$pkgname/$pkgname-$pkgver.tar.xz")
+md5sums=('67dde011a859f2d72633cf3af5c9f847')
 
 build() {
   cd $pkgname-$pkgver
   mkdir build
-  patch -p1 -i "${srcdir}"/plasma-nm-fixes.patch
   
   cd build
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
