@@ -1,13 +1,15 @@
 
 pkgname=plasma-nm
 pkgver=0.9.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
 url="https://projects.kde.org/projects/playground/network/plasma-nm"
 license=('GPL')
-depends=('kde-workspace' 'libnm-qt' 'mobile-broadband-provider-info')
-makedepends=('cmake' 'automoc4')
+depends=('kde-workspace' 'libnm-qt')
+makedepends=('cmake' 'automoc4' 'mobile-broadband-provider-info' 'openconnect')
+opedepends=('mobile-broadband-provider-info: Database of mobile broadband service providers'
+            'openconnect: OpenConnect support in Plasma NM')
 provides=('kdeplasma-applets-networkmanagement')
 replaces=('kdeplasma-applets-networkmanagement')
 conflicts=('kdeplasma-applets-networkmanagement')
