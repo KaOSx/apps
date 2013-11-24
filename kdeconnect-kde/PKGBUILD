@@ -1,0 +1,31 @@
+
+pkgname=kdeconnect-kde
+pkgver=0.4.1
+pkgrel=1
+pkgdesc='KDE Connect - kded and kcm'
+url='https://albertvaka.wordpress.com/'
+license=('GPL')
+arch=('x86_64')
+depends=('kdelibs' 'qjson' 'qca-ossl')
+makedepends=('automoc4' 'cmake')
+install=kdeconnect.install
+source=("http://download.kde.org/unstable/kdeconnect/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=('73e2cf015a236a451b05559f2bb7e7b3')
+
+build() {
+  cd ${srcdir}/
+  mkdir build
+  
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DKDE4_BUILD_TESTS=OFF \
+        -DCMAKE_BUILD_TYPE=Release \
+        ../${pkgname}-${pkgver}
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
