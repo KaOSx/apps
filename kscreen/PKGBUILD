@@ -1,7 +1,7 @@
 
 pkgname=kscreen
 pkgver=1.0.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE's screen management software"
 arch=('x86_64')
 url='https://projects.kde.org/kscreen'
@@ -26,4 +26,5 @@ package() {
   cd "$srcdir/build"
   
   make DESTDIR="$pkgdir" install
+  sed -e 's/Icon=preferences-desktop-display-randr/Icon=preferences.svg/' -i "${pkgdir}/usr/share/kde4/services/kcm_kscreen.desktop" 
 }
