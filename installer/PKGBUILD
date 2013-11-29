@@ -1,6 +1,6 @@
 
 pkgname=installer
-pkgver=2013.1111
+pkgver=2013.1126
 _rls_notes=20131110
 pkgrel=1
 pkgdesc="KaOS LiveISO Installer, Tribe fork from Chakra-Project"
@@ -13,10 +13,10 @@ makedepends=('cmake' 'kde-workspace' 'automoc4')
 groups=('kde-uninstall' 'system')
 install=installer.install
 #source=("git://github.com/KaOSx/installer.git"
-source=("installer.tar.gz"
+source=("installer.tar.xz"
         "http://kaosx.us/RELEASE_NOTES_${_rls_notes}.html"
         "launch-installer.sh")
-md5sums=('bcd3a26d6bf861d1b06912102221bfb6'
+md5sums=('c1c6b18bb68dd63de376155208f99c2f'
          'a4a29d1c412200b728340b0080d3680d'
          '16c444446519b82b84a40c2acd55cfc3')
 
@@ -27,7 +27,7 @@ build() {
 	# proper bootmnt folder
 	sed -i -e "s/@ARCH@/${CARCH}/g" config-installer.h.cmake
 
-	# add pkgver to tribe
+	# add pkgver
 	sed -i -e "s~source build/from git~Build: ${pkgver}~g" config-installer.h.cmake
 	sed -i -e "s~kaos-version~${pkgver}~g" "scripts/postinstall-functions/01-job-initialize-target"
 	cmake . -DCMAKE_INSTALL_PREFIX=/usr \
