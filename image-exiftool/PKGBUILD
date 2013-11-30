@@ -2,7 +2,7 @@
 pkgname=image-exiftool
 _pkgname=Image-ExifTool
 pkgver=9.41
-pkgrel=1
+pkgrel=2
 pkgdesc="Platform-independent Perl library plus a command-line application for reading, writing and editing meta information in a wide variety of files."
 arch=('x86_64')
 url="http://www.sno.phy.queensu.ca/~phil/exiftool/"
@@ -15,7 +15,7 @@ md5sums=('6a573cac51ab4450d4c5574f614f4593')
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
   
-  perl Makefile.PL INSTALLDIRS=vendor
+  perl Makefile.PL 
   make
 }
 
