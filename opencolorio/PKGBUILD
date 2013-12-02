@@ -1,8 +1,7 @@
 
 pkgname=opencolorio
-pkgver=1.0.8
-_pkgver=8883824
-pkgrel=2
+pkgver=1.0.9
+pkgrel=1
 pkgdesc="A color management framework for visual effects and animation"
 arch=('x86_64')
 url="http://opencolorio.org"
@@ -10,11 +9,11 @@ license=('BSD')
 depends=('python3')
 makedepends=('cmake')
 source=("http://github.com/imageworks/OpenColorIO/tarball/v$pkgver")
-md5sums=('9838f5f1cf624a3d1253241f22e2179a')
+md5sums=('ad3c4ea59c010a18d79276ab9d83af95')
 
 build() 
 {
-  mv imageworks-OpenColorIO-$_pkgver $pkgname-$pkgver
+  mv imageworks-OpenColorIO-* $pkgname-$pkgver
   cd $pkgname-$pkgver
    
   cmake -DCMAKE_INSTALL_PREFIX=/usr .
