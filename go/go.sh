@@ -1,1 +1,1 @@
-export GOPATH=/usr/lib/go/site
+export GOPATH=/usr/lib/go
