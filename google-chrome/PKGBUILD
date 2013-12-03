@@ -1,7 +1,7 @@
 
 pkgname=google-chrome
-pkgver=33.0.1712.4
-pkgrel=1
+pkgver=33.0.1726.0
+pkgrel=2
 pkgdesc="Google Chrome Browser, developer preview channel for Linux"
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
@@ -13,7 +13,7 @@ depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'li
          'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html")
-md5sums=('ac5bcaee257b12191100c27eba9ce1dc'
+md5sums=('bbbbccd0ed085961ffdd9da33825c650'
          'ba19ea498f294975d320ff0b26a6cd63')
 
 
@@ -23,24 +23,24 @@ package() {
     msg2 "Done extracting!"
 
     msg "Actual installation"
-    mv "$pkgdir/opt/google/chrome/google-chrome.desktop" "$pkgdir/usr/share/applications"
+    #mv "$pkgdir/opt/google/chrome/google-chrome.desktop" "$pkgdir/usr/share/applications"
     
     # Udev workaround
-    ln -s /usr/lib/libudev.so.1 "$pkgdir/opt/google/chrome/libudev.so.0"
+    ln -s /usr/lib/libudev.so.1 "$pkgdir/opt/google/chrome-unstable/libudev.so.0"
 
     # Adding man page
     gzip "$pkgdir"/usr/share/man/man1/google-chrome.1
     
     # Symlinking icons to /usr/share/icons/hicolor/
     for i in 16 22 24 32 48 64 128 256; do
-    install -Dm644 "$pkgdir"/opt/google/chrome/product_logo_${i}.png "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/google-chrome.png
+    install -Dm644 "$pkgdir"/opt/google/chrome-unstable/product_logo_${i}.png "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/google-chrome.png
     done
 
     # License
     install -Dm644 "$srcdir"/eula_text.html "$pkgdir"/usr/share/licenses/google-chrome/eula_text.html
     
     msg2 "Removing cron job and duplicated images"
-    rm "$pkgdir"/etc/cron.daily/google-chrome "$pkgdir"/opt/google/chrome/product_logo_*
+    rm "$pkgdir"/etc/cron.daily/google-chrome "$pkgdir"/opt/google/chrome-unstable/product_logo_*
 
     msg2 "Installation finished!"
 }
