@@ -1,7 +1,7 @@
 
 pkgname=openimageio
 _pkgname=OpenImageIO
-pkgver=1.2.1
+pkgver=1.2.3
 pkgrel=1
 pkgdesc="A library for reading and writing images, including classes, utilities, and applications."
 arch=('x86_64')
@@ -11,13 +11,13 @@ depends=('openexr' 'boost-libs' 'jasper' 'glew' 'libtiff' 'opencolorio' 'qt')
 makedepends=('cmake' 'python2' 'boost' 'mesa')
 optdepends=('python2: bindings support')
 source=("https://github.com/OpenImageIO/oiio/tarball/Release-${pkgver}")
-md5sums=('c98d002c9ec843b7cc35d7aec5f03326')
+md5sums=('20066ae0e9026717242f64f107f7ee8e')
 
 build() {
   cd "$srcdir"/$_pkgname*/src
 
-  [[ -d build ]] && rm -r build
-  mkdir build && cd build
+  mkdir build 
+  cd build
   cmake -DCMAKE_INSTALL_PREFIX=/usr .. -DPYLIB_INSTALL_DIR=lib/python2.7/site-packages ..
   make
 }
