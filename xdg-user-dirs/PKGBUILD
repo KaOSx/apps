@@ -1,0 +1,33 @@
+
+pkgname=xdg-user-dirs
+pkgver=0.15
+pkgrel=1
+pkgdesc="Manage user directories like ~/Video and ~/Music"
+arch=('x86_64')
+url="http://www.freedesktop.org/wiki/Software/xdg-user-dirs"
+license=('GPL')
+depends=('sh')
+makedepends=('docbook-xsl')
+backup=('etc/xdg/user-dirs.conf' 'etc/xdg/user-dirs.defaults')
+source=("http://user-dirs.freedesktop.org/releases/$pkgname-$pkgver.tar.gz"
+        'xdg-user-dirs')
+md5sums=('f5aaf5686ad7d8809a664bfb4566a54d'
+         'bc37bf12f66409af57967ef67066d2ee')
+
+build() {
+  cd $pkgname-$pkgver
+  
+  ./configure --prefix=/usr --sysconfdir=/etc
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install 
+  
+  install -D ../xdg-user-dirs "$pkgdir/etc/X11/xinit/xinitrc.d/xdg-user-dirs"
+  
+  sed -i -e 's/TEMPLATES/#TEMPLATES/' ${pkgdir}/etc/xdg/user-dirs.defaults
+  sed -i -e 's/PUBLICSHARE/#PUBLICSHARE/' ${pkgdir}/etc/xdg/user-dirs.defaults
+  sed -i -e 's/=Pictures/=Images/' ${pkgdir}/etc/xdg/user-dirs.defaults
+}
