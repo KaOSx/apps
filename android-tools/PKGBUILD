@@ -1,0 +1,38 @@
+
+pkgname=android-tools
+pkgver=4.4_r1.2
+pkgrel=1
+pkgdesc="Android platform tools (adb, fastboot)"
+arch=('x86_64')
+url="http://tools.android.com/"
+license=('Apache')
+depends=('openssl')
+makedepends=('git')
+source=("git+https://android.googlesource.com/platform/system/core#tag=android-${pkgver}"
+        "git+https://android.googlesource.com/platform/system/extras#tag=android-${pkgver}"
+        "git+https://android.googlesource.com/platform/external/libselinux#tag=android-${pkgver}"
+        'adbMakefile'
+        'fastbootMakefile')
+md5sums=('SKIP'
+         'SKIP'
+         'SKIP'
+         '887d868e544330ef850334961685cab3'
+         'cd1a1a9d16b523119245bfe17120d73b')
+
+build() {
+  cd "${srcdir}"/core/adb
+  mv ../../adbMakefile makefile
+  make
+
+  cd "${srcdir}"/core/fastboot
+  mv ../../fastbootMakefile makefile
+  make
+}
+
+package(){
+  cd "${srcdir}"/core
+
+  install -Dm 755 adb/adb "${pkgdir}"/usr/bin/adb
+  install -Dm 755 fastboot/fastboot "${pkgdir}"/usr/bin/fastboot
+}
+
