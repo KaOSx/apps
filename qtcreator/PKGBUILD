@@ -1,6 +1,6 @@
 
 pkgname=qtcreator
-pkgver=2.8.1
+pkgver=3.0.0
 pkgrel=1
 _qtver=4.8.5
 pkgdesc="Lightweight, cross-platform integrated development environment."
@@ -18,19 +18,19 @@ optdepends=('qt-docs: for the integrated Qt documentation'
             'bzr: for bazaar support')
 groups=('programming')
 options=('docs')
-source=("http://download.qt-project.org/official_releases/${pkgname}/2.8/${pkgver}/qt-creator-${pkgver}-src.tar.gz"
+source=("http://download.qt-project.org/official_releases/${pkgname}/3.0/${pkgver}/qt-creator-opensource-src-${pkgver}.tar.gz"
         'qtcreator.desktop')
-md5sums=('79ef6c6ece0c00035ef744c9d6e3bd3b'
+md5sums=('66a02eb8ed16b7be3eab873b3e284a83'
          '5aa242e0262fa22f75c3b59d3a4ec198')
          
 
 build() {
   cd "${srcdir}"
-  [ -d build ] && rm -r build
+
   mkdir build
   cd build
 
-  qmake "${srcdir}/qt-creator-${pkgver}-src/qtcreator.pro"
+  qmake "${srcdir}/qt-creator-opensource-src-${pkgver}/qtcreator.pro"
   make 
 }
 
@@ -41,6 +41,6 @@ package() {
 
   install -Dm644 "${srcdir}/qtcreator.desktop" \
     "${pkgdir}/usr/share/applications/qtcreator.desktop"
-  install -Dm644 "${srcdir}/qt-creator-${pkgver}-src/LGPL_EXCEPTION.TXT" \
+  install -Dm644 "${srcdir}/qt-creator-opensource-src-${pkgver}/LGPL_EXCEPTION.TXT" \
     "${pkgdir}/usr/share/licenses/qtcreator/LGPL_EXCEPTION.TXT"
 }
