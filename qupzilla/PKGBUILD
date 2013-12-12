@@ -2,34 +2,37 @@
 pkgname=qupzilla
 pkgver=1.5.0
 _commit=a84bafe
-pkgrel=9
+pkgrel=10
 pkgdesc="A fast open source browser based on WebKit core, written in Qt Framework, wayland port"
 arch=('x86_64')
 url="http://www.qupzilla.com/"
 license=('GPL')
-#depends=('qt5' 'mesa')
-depends=('qtwebkit' 'mesa')
+depends=('qt5' 'mesa')
+#depends=('qtwebkit' 'mesa')
 groups=('internet')
 source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-${pkgver}.tar.gz"
         'speeddial.diff'
         'preferences.diff'
-        'qupzilla.diff')
+        'qupzilla.diff'
+        'defines.diff')
 md5sums=('023f7352480a65338881edba64660aac'
          '65cd96b4e2d5b12df25e088f8409acd6'
          '5ed4a5b104e691afd2024cb185f34315'
-         '05b1a5f49f573cb3c7d4a2741ae9af99')
+         '05b1a5f49f573cb3c7d4a2741ae9af99'
+         'f5207fdb5455567352fbabb63f36f731')
 
 build() {
     cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
     patch -p0 -i "${srcdir}/speeddial.diff"
     patch -p0 -i "${srcdir}/preferences.diff"
     patch -p0 -i "${srcdir}/qupzilla.diff"
+    patch -p0 -i "${srcdir}/defines.diff"
 
     export USE_WEBGL="true"
     export NO_X11="true"
    
-    #/usr/lib/qt5/bin/qmake 
-    qmake
+    /usr/lib/qt5/bin/qmake 
+    #qmake
     make clean
     make
 }
