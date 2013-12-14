@@ -7,7 +7,7 @@ pkgname=('calligra-3rdparty'
          'calligra-plugins'
          'calligra-pics'
          'calligra-servicetypes'
-         'calligra-templates'
+         'calligra-data'
          'calligra-extras'
          'calligra-karbon'
          'calligra-kexi'
@@ -19,18 +19,18 @@ pkgname=('calligra-3rdparty'
          'calligra-handbook'
          'calligra-braindump'
          'calligra-flow')
-pkgver=2.7.5
-pkgrel=3
+pkgver=2.7.90
+pkgrel=2
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
 makedepends=('kdepimlibs' 'eigen' 'freetds' 'kdegraphics-okular' 'kdeedu-marble' 'xbase' 'libpqxx' 'libvisio'
              'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'glew' 'gsl' 'cmake' 'automoc4' 'libspnav'
              'boost' 'libkdcraw' 'fftw' 'opengtl' 'docbook-xsl' 'lcms2' 'libmariadbclient'
-             'vc' 'opencolorio' 'libqtgtl')
+             'vc' 'opencolorio' 'libqtgtl' 'libodfgen')
 groups=('calligra')
-source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
-md5sums=('05d1d0bac970d6dc68ffabc12fca2eb7')
+source=("http://mirrors.mit.edu/kde/unstable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
+md5sums=('22492eb8cd4dbafca8e873eed68def16')
 
 
 build() {
@@ -55,9 +55,8 @@ package_calligra-3rdparty() {
 
 package_calligra-filters() {
   pkgdesc="Filters for the Calligra office suite"
+  depends=('libodfgen')
   optdepends=('libgsf: Microsoft Word document importer'
-              'libwps: WordPerfect document importer'
-              'libwpg: Corel WordPerfect Graphics image importer'
               'pstoedit: Karbon EPS import filter'
               'libkdcraw: support for raw images')
   install=calligra-filters.install
@@ -109,10 +108,13 @@ package_calligra-servicetypes() {
   make DESTDIR="${pkgdir}" install
 }
 
-package_calligra-templates() {
-  pkgdesc="Templates for the Calligra office suite"
+package_calligra-data() {
+  pkgdesc="Data and palettes for the Calligra office suite"
+  provides=('calligra-templates')
+  conflicts=('calligra-templates')
+  replaces=('calligra-templates')
 
-  cd "${srcdir}"/build/templates
+  cd "${srcdir}"/build/data
   make DESTDIR="${pkgdir}" install
 }
 
@@ -131,7 +133,7 @@ package_calligra-extras() {
 
 package_calligra-karbon() {
   pkgdesc="Create scalable vector drawings"
-  depends=('calligra-libs' 'calligra-templates' 'hicolor-icon-theme')
+  depends=('calligra-libs' 'calligra-data' 'hicolor-icon-theme')
   provides=('karbon')
   groups=('calligra' 'graphics')
   install=calligra-karbon.install
@@ -142,12 +144,14 @@ package_calligra-karbon() {
 
 package_calligra-kexi() {
   pkgdesc="Develop desktop database applications"
-  depends=('calligra-libs' 'calligra-sheets' 'sqlite3' 'xbase' 'libmariadbclient')
+  depends=('calligra-libs' 'calligra-sheets' 'sqlite3' 'xbase' 'libmariadbclient' 'libpqxx')
   provides=('kexi')
   groups=('calligra' 'office')
   install=calligra-kexi.install
 
   cd "${srcdir}"/build/kexi
+  make DESTDIR="${pkgdir}" install
+  cd "${srcdir}"/build/doc/kexi
   make DESTDIR="${pkgdir}" install
 }
 
@@ -163,7 +167,7 @@ package_calligra-kounavail() {
 
 package_calligra-plan() {
   pkgdesc="Calligra Project Management Component"
-  depends=('calligra-words' 'hicolor-icon-theme' 'calligra-libs' 'kdepimlibs' 'calligra-templates' 
+  depends=('calligra-words' 'hicolor-icon-theme' 'calligra-libs' 'kdepimlibs' 'calligra-data' 
            'calligra-plugins')
   groups=('calligra' 'office')
   install=calligra-plan.install
@@ -174,18 +178,20 @@ package_calligra-plan() {
 
 package_calligra-stage() {
   pkgdesc="Write presentation documents"
-  depends=('calligra-libs' 'calligra-templates' 'hicolor-icon-theme')
+  depends=('calligra-libs' 'calligra-data' 'hicolor-icon-theme')
   optdepends=('calligra-filters: import/export filters')
   groups=('calligra' 'office')
   install=calligra-stage.install
 
   cd "${srcdir}"/build/stage
   make DESTDIR="${pkgdir}" install
+  cd "${srcdir}"/build/doc/stage
+  make DESTDIR="${pkgdir}" install
 }
 
 package_calligra-krita() {
   pkgdesc="Edit and paint images"
-  depends=('calligra-libs' 'calligra-templates' 'calligra-plugins' 'glew' 'qimageblitz' 'poppler-qt'
+  depends=('calligra-libs' 'calligra-data' 'calligra-plugins' 'glew' 'qimageblitz' 'poppler-qt'
            'openexr' 'opengtl' 'libqtgtl' 'hicolor-icon-theme' 'shared-mime-info' 'lcms2' 'vc' 'opencolorio')
   optdepends=('calligra-filters: import/export filters')
   provides=('krita')
@@ -198,18 +204,20 @@ package_calligra-krita() {
 
 package_calligra-sheets() {
   pkgdesc="Write spreadsheet documents"
-  depends=('calligra-libs' 'calligra-templates' 'calligra-plugins' 'gsl' 'hicolor-icon-theme')
+  depends=('calligra-libs' 'calligra-data' 'calligra-plugins' 'gsl' 'hicolor-icon-theme')
   optdepends=('calligra-filters: import/export filters')
   groups=('calligra' 'office')
   install=calligra-sheets.install
 
   cd "${srcdir}"/build/sheets
   make DESTDIR="${pkgdir}" install
+  cd "${srcdir}"/build/doc/sheets
+  make DESTDIR="${pkgdir}" install
 }
 
 package_calligra-words() {
   pkgdesc="Word Processor"
-  depends=('calligra-libs' 'calligra-templates' 'calligra-plugins' 'calligra-pics'
+  depends=('calligra-libs' 'calligra-data' 'calligra-plugins' 'calligra-pics'
            'hicolor-icon-theme')
   optdepends=('calligra-filters: import/export filters')
   groups=('calligra' 'office')
@@ -224,14 +232,6 @@ package_calligra-handbook() {
   groups=('calligra' 'documentation')
 
   cd "${srcdir}"/build/doc/calligra
-  make DESTDIR="${pkgdir}" install
-}
-
-package_calligra-thesaurus-doc() {
-  pkgdesc="Documentation for Thesaurus"
-  groups=('documentation')
-
-  cd "${srcdir}"/build/doc/thesaurus
   make DESTDIR="${pkgdir}" install
 }
 
@@ -254,3 +254,4 @@ package_calligra-flow() {
   cd "${srcdir}"/build/flow
   make DESTDIR="${pkgdir}" install
 }
+
