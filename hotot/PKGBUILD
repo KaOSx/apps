@@ -1,8 +1,8 @@
 
 pkgname=hotot
 pkgver=0.9.8.16
-pkgrel=1
-pkgdesc="A lightweight & open source microblogging software (twitter identi.ca)"
+pkgrel=2
+pkgdesc="Lightweight & open source microblogging software (twitter identi.ca)"
 arch=('x86_64')
 url="http://www.hotot.org/"
 license=('LGPL3')
@@ -27,6 +27,7 @@ build() {
 
 package() {
   cd ${srcdir}/Hotot-$pkgver/build
-
   make DESTDIR="$pkgdir/" install
+  
+  rm $pkgdir/usr/share/applications/hotot.desktop
 }
