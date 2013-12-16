@@ -1,7 +1,7 @@
 
 pkgname=gpsd
 pkgver=3.9
-pkgrel=2
+pkgrel=3
 pkgdesc="GPS daemon and library to support USB/serial GPS devices"
 arch=('x86_64')
 url="http://catb.org/gpsd/"
@@ -57,12 +57,9 @@ package() {
   chrpath -r /usr/lib/ "${pkgdir}"/usr/sbin/{gpsd,gpsdctl}
   chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/python2.7/site-packages/gps/{clienthelpers,packet}.so
 
-  install -D -m644 packaging/X11/xgps.desktop \
-    "${pkgdir}/usr/share/applications/xgps.desktop"
-  install -D -m644 packaging/X11/xgpsspeed.desktop \
-    "${pkgdir}/usr/share/applications/xgpsspeed.desktop"
-  install -D -m644 packaging/X11/gpsd-logo.png \
-    "${pkgdir}/usr/share/gpsd/gpsd-logo.png"
+  #install -D -m644 packaging/X11/xgps.desktop "${pkgdir}/usr/share/applications/xgps.desktop"
+  #install -D -m644 packaging/X11/xgpsspeed.desktop "${pkgdir}/usr/share/applications/xgpsspeed.desktop"
+  #install -D -m644 packaging/X11/gpsd-logo.png "${pkgdir}/usr/share/gpsd/gpsd-logo.png"
 
   install -D -m644 systemd/gpsd.service "${pkgdir}/usr/lib/systemd/system/gpsd.service"
   install -D -m644 systemd/gpsd.socket "${pkgdir}/usr/lib/systemd/system/gpsd.socket"
