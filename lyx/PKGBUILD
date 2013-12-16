@@ -1,0 +1,33 @@
+
+pkgname=lyx
+pkgver=2.0.6
+pkgrel=1
+pkgdesc="An advanced open-source document processor."
+arch=('x86_64')
+url="http://www.lyx.org"
+depends=('qt' 'texlive-core' 'python2' 'perl' 'imagemagick' 'enchant' 
+         'boost-libs' 'icu' 'libmythes')
+makedepends=('boost')
+groups=('office')
+license=('GPL')
+source=("ftp://ftp.lyx.org/pub/lyx/stable/2.0.x/$pkgname-$pkgver.tar.xz" \
+	'lyx.desktop')
+md5sums=('9263fb53a5f878d67b00e2d8aec9748a'
+         '0ea910b9b881ebaa0f79ebaa618930fd')
+
+build() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+
+  ./configure --prefix=/usr \
+        --with-frontend=qt4 \
+        --without-included-boost \
+        --without-included-mythes
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+
+  install -Dm644 "${srcdir}/lyx.desktop" "${pkgdir}/usr/share/applications/lyx.desktop"
+}
