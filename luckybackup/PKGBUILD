@@ -1,0 +1,24 @@
+
+pkgname=luckybackup
+pkgver=0.4.7
+pkgrel=1
+pkgdesc="Backup & Sync tool using Rsync and Qt4"
+arch=('x86_64')
+url="http://luckybackup.sourceforge.net/"
+license=('GPL3')
+depends=( 'qt' 'rsync' 'openssh')
+groups=('utils')
+source=("http://sourceforge.net/projects/luckybackup/files/$pkgver/source/$pkgname-$pkgver.tar.gz")
+md5sums=('ca8d1699f98fe85b0811fb7447064339')
+
+build() {
+     cd "${srcdir}/$pkgname-$pkgver"
+     
+     qmake 
+}
+
+package() {
+     cd "${srcdir}/$pkgname-$pkgver"
+     
+     make INSTALL_ROOT=${pkgdir}/ install 
+}
