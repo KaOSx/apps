@@ -20,7 +20,7 @@ pkgname=('kdepim-common'
          #'kdepim-mobile') 
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -53,7 +53,7 @@ package_kdepim-common() {
 
 	splitdirs=(akonadi_next calendarsupport calendarviews console icons importwizard incidenceeditor-ng kdgantt2 kresources ksendemail libkdepim 
                    libkdepimdbusinterfaces libkleo libkpgp libksieve mailcommon agents/mailfilteragent mailimporter messagecore messagecomposer messagecore messagelist 
-		   messageviewer ontologies plugins pimcommon pimsettingexporter templateparser headerthemeeditor agents/sendlateragent)
+		   messageviewer ontologies plugins pimcommon pimactivity pimsettingexporter templateparser headerthemeeditor agents/sendlateragent)
 
 		for i in ${splitdirs[@]} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
@@ -182,7 +182,7 @@ package_kdepim-kmail() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="kmail kmailcvt kontact/plugins/kmail"
+	splitdirs="kmail kmailcvt kontact/plugins/kmail ktnef"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
@@ -253,7 +253,7 @@ package_kdepim-korganizer() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="korganizer kontact/plugins/korganizer"
+	splitdirs="korganizer kontact/plugins/korganizer korgac"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
