@@ -1,6 +1,6 @@
 
 pkgname=homerun
-pkgver=1.1.95
+pkgver=1.1.96
 pkgrel=1
 pkgdesc="Fullscreen application launcher for KDE Plasma desktop"
 arch=('x86_64')
@@ -10,13 +10,16 @@ depends=('kde-workspace' 'kde-baseapps')
 makedepends=('cmake' 'automoc4' 'git')
 #source=("http://download.kde.org/stable/$pkgname/src/$pkgname-$pkgver.tar.xz"
 source=("git://anongit.kde.org/homerun"
+        'icon.diff'
         'main.diff')
 install=$pkgname.install
 md5sums=('SKIP'
+         'b52bfbb85947dd10ea554ea63262c405'
          'd62d089d307ebb2287722a4fda7e3bbc' )
 
 build() {
   cd "$srcdir"/$pkgname
+  patch -p1 -i "${srcdir}/icon.diff"
   patch -p1 -i "${srcdir}/main.diff"
   
   cd "$srcdir"
