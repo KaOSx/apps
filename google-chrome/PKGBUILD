@@ -12,7 +12,8 @@ install=$pkgname.install
 depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
          'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
-         "https://www.google.com/chrome/intl/en/eula_text.html")
+         "https://www.google.com/chrome/intl/en/eula_text.html"
+         'libgcrypt.so.11.8')
 md5sums=('94cc6fe1ff6b1f945c4c1f4f4bb2f60f'
          'ba19ea498f294975d320ff0b26a6cd63')
 
@@ -27,6 +28,9 @@ package() {
     
     # Udev workaround
     ln -s /usr/lib/libudev.so.1 "$pkgdir/opt/google/chrome-unstable/libudev.so.0"
+    
+    #libgcrypt 1.6.0 fix from gentoo https://bugs.gentoo.org/show_bug.cgi?id=494596
+    #install -m755 "$srcdir"/libgcrypt.so.11.8 "$pkgdir"/opt/google/chrome-unstable/libgcrypt.so.11
 
     # Adding man page
     gzip "$pkgdir"/usr/share/man/man1/google-chrome.1
