@@ -1,0 +1,40 @@
+
+pkgname=rekonq
+pkgver=2.4.0.1
+pkgrel=1
+pkgdesc='A WebKit based web browser for KDE'
+arch=('x86_64')
+url='http://rekonq.sourceforge.net/'
+license=('GPL')
+depends=('kde-baseapps' 'qoauth' 'qca-ossl')
+makedepends=('cmake' 'automoc4' 'docbook-xsl' 'git' 'bc')
+groups=('internet')
+install=${pkgname}.install
+source=("rekonq::git://anongit.kde.org/rekonq"
+       'background.diff')
+md5sums=('SKIP'
+         'bddb916790c3838135d9a5b6cb9f4580')
+
+build(){
+  cd ${srcdir}/${pkgname}   
+  patch -p1 -i "${srcdir}/background.diff"
+  
+  export RK_SRCS="${srcdir}/${pkgname}"
+  cd scripts
+  chmod +x download_i18n.sh
+  ./download_i18n.sh
+  cd ..
+  # end path and run localization files
+  
+  cmake . \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make 
+}
+
+package() {
+  cd ${srcdir}/${pkgname}
+  make DESTDIR=${pkgdir} install
+  
+  rm ${pkgdir}/usr/share/apps/rekonq/pics/background.png
+}
