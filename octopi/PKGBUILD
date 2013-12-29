@@ -1,26 +1,29 @@
 
 pkgname=octopi
-pkgver=0.3.0.13
+pkgver=0.3.0.14
 pkgrel=1
-_commit=4ed73e1
+_commit=ef70d2a
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
 license=('GPL3')
-depends=('qt' 'pacman' 'xterm')
+depends=('qt' 'pacman' 'xterm' 'pkgfile')
 makedepends=('automoc4' 'cmake')
 groups=('system') 
 source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
         'octopi.desktop'
-        'main.diff')
-md5sums=('8cfb6ac6d74a7f5985227369bfa735c9'
+        'main.diff'
+        'package.diff')
+md5sums=('fa8a6fbb58a31a844e50513aece0571b'
          '2d9c64cd6402be69d2ee9fde5acc439e'
-         '53f531dafe002e3386709ec8274295f9')
+         '53f531dafe002e3386709ec8274295f9'
+         'cb33cc75a1967f36ccfd25efcd83d9c0')
 
 build() {
    cd "${srcdir}/aarnt-octopi-${_commit}/"
 
    patch -p0 -i ${srcdir}/main.diff
+   patch -p0 -i ${srcdir}/package.diff
    
    qmake octopi.pro
    make

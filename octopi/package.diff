@@ -1,0 +1,10 @@
+--- src/package.cpp.orig	2013-12-28 18:42:49.000000000 -0500
++++ src/package.cpp	2013-12-28 20:41:30.632185027 -0500
+@@ -1000,6 +1000,7 @@
+     result = UnixCommand::getPackageContentsUsingPacman(pkgName);
+   }
+   else if (UnixCommand::getLinuxDistro() == ectn_ARCHBANGLINUX ||
++           UnixCommand::getLinuxDistro() == ectn_KAOS ||
+            UnixCommand::getLinuxDistro() == ectn_ARCHLINUX)
+   {
+     result = UnixCommand::getPackageContentsUsingPkgfile(pkgName);
