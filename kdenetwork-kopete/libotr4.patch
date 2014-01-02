@@ -1,0 +1,16 @@
+diff --git a/plugins/otr/otrlchatinterface.cpp b/plugins/otr/otrlchatinterface.cpp
+index 2b8e806..a2e1062 100644
+--- a/plugins/otr/otrlchatinterface.cpp
++++ b/plugins/otr/otrlchatinterface.cpp
+@@ -236,6 +236,11 @@ void OtrlChatInterface::still_secure(void *opdata, ConnContext *context, int is_
+ }
+ 
+ int OtrlChatInterface::max_message_size(void *opdata, ConnContext *context){
++	if ( ! opdata ) {
++		kDebug(14318) << "opdata is NULL";
++		return 0;
++	}
++
+ 	Kopete::ChatSession *session= ((Kopete::ChatSession*)opdata);
+ 
+ 	Q_UNUSED(context)
