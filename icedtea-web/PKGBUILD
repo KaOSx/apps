@@ -1,0 +1,66 @@
+
+pkgname=icedtea-web
+pkgdesc="Provides a Free Software web browser plugin running applets written in the Java programming
+         language and an implementation of Java Web Start, originally based on the NetX project."
+pkgver=1.4.1
+pkgrel=1
+arch=('x86_64')
+url="http://icedtea.classpath.org/wiki/IcedTea-Web"
+license=('GPL2')
+depends=('openjdk' 'qt' 'desktop-file-utils')
+makedepends=('zip' 'npapi-sdk' 'rhino' 'junit' 'cups' 'mercurial')
+groups=('network')
+install="${pkgname}.install"
+source=("hg+http://icedtea.classpath.org/hg/icedtea-web")
+#noextract="${pkgname}-$pkgver.tar.gz"
+md5sums=('SKIP')
+
+_javaver=7
+_jvmdir="/usr/lib/jvm/java-${_javaver}-openjdk"
+
+build() {
+  #cd ${srcdir}
+  #LANG=en_US.UTF-8 bsdtar -x -f ${srcdir}/${pkgname}-${pkgver}.tar.gz
+  
+  cd ${srcdir}/${pkgname}*
+
+  ./autogen.sh
+  ./configure --prefix="${_jvmdir}" \
+              --with-jdk-home="${_jvmdir}" \
+              --datarootdir=/usr/share \
+              --disable-docs 
+  make
+}
+
+check() {
+  cd ${srcdir}/${pkgname}*
+
+  #make -k check 
+}
+
+package() {
+  cd ${srcdir}/${pkgname}*
+
+  # possible make target (see bottom of Makefile.am: install-exec-local install-data-local
+  make install-exec-local install-data-local DESTDIR="${pkgdir}"
+
+  # Install desktop files.
+  install -m755 -d "${pkgdir}/usr/share"/{applications,pixmaps}
+  install -m644 javaws.png "${pkgdir}/usr/share/pixmaps"
+  install -m644 {javaws,itweb-settings}.desktop "${pkgdir}/usr/share/applications"
+
+  # link binaries into /usr/bin + jre/bin
+  install -m755 -d "${pkgdir}/usr/bin"
+  install -m755 -d "${pkgdir}/${_jvmdir}/jre/bin"
+  pushd "${pkgdir}/${_jvmdir}/bin"
+    for file in *; do
+      ln -sf "${_jvmdir}/bin/${file}" "${pkgdir}/usr/bin"
+      ln -sf "${_jvmdir}/bin/${file}" "${pkgdir}/${_jvmdir}/jre/bin"
+    done
+  popd
+
+  # link the mozilla-plugin - test it here http://www.java.com/en/download/help/testvm.xml
+  install -m755 -d "${pkgdir}/usr/lib/mozilla/plugins/"
+  ln -sf "${_jvmdir}/lib/IcedTeaPlugin.so" "${pkgdir}/usr/lib/mozilla/plugins/"
+}
+
