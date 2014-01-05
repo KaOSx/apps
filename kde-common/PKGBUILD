@@ -22,7 +22,7 @@ depends=("${_qtpkg}>=${_qtver}" 'pinentry' 'openssh' 'bash>=4.2' 'glibc>=2.15')
 
 install=kde-common.install
 
-source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_servicemenu_2.8.tar.gz"
+source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_servicemenu_2.8.1.tar.gz"
 	'CopyPath.desktop'
 	"http://www.kde-apps.org/CONTENT/content-files/102825-compressattach.desktop.bz2"
 	'servicemenu-rootactions.patch'
@@ -55,10 +55,10 @@ package() {
 	install -D -m644 -o root -g root ${srcdir}/backup.desktop ${pkgdir}/usr/share/applications/kde4/backup.desktop
 
 	# install root actions service menu
-	cd ${srcdir}/rootactions_servicemenu_2.8/Root_Actions_2.8/dolphin-KDE4/
+	cd ${srcdir}/rootactions_servicemenu_2.8.1/Root_Actions_2.8.1/dolphin-KDE4/
 	mkdir -p ${pkgdir}/usr/share/kde4/services/ServiceMenus/
 	install -m755 *.desktop ${pkgdir}/usr/share/kde4/services/ServiceMenus/
-        cd ${srcdir}/rootactions_servicemenu_2.8/Root_Actions_2.8
+        cd ${srcdir}/rootactions_servicemenu_2.8.1/Root_Actions_2.8.1
         patch -p2 < ${srcdir}/servicemenu-rootactions.patch      
 	install -Dm755 rootactions-servicemenu.pl ${pkgdir}/usr/bin/rootactions-servicemenu.pl
         sed "s~Icon=terminal~Icon=utilities-terminal~g" -i ${pkgdir}/usr/share/kde4/services/ServiceMenus/10-rootactionsfolders.desktop
