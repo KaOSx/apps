@@ -10,15 +10,15 @@ diff -ur a/bin/scilab b/bin/scilab
                  for DIR in $JAVA_DEFAULT_DIR ; do
                      if test $SCIVERBOSE -ne 0; then
                          echo "Trying to find Java in $DIR "
-@@ -750,7 +750,7 @@
+@@ -764,7 +764,7 @@
  }
  
  # . is used by the dynamic link. The build lib are copied into the PWD
--SCILIB=$SCI/bin:$SCI/lib/scilab/:$SCI/lib64/scilab/:.
-+SCILIB=/usr/lib/scilab:/usr/lib/scilab/thirdparty:$SCI/bin:$SCI/lib/scilab/:$SCI/lib64/scilab/:.
- LD_LIBRARY_PATH=$SCILIB${LD_LIBRARY_PATH+:$LD_LIBRARY_PATH}
- 
- case $OS in
+-SCILIB=/usr/lib/scilab:/usr/lib/scilab/thirdparty:$SCI/bin:$SCI/lib/scilab/:$SCI/lib64/scilab/:.
++SCILIB=$SCI/bin:$SCI/lib/scilab/:$SCI/lib64/scilab/:.
+ if test -d $SCI/lib/thirdparty; then
+     SCILIB=$SCI/lib/thirdparty:$SCILIB;
+ fi
 diff -ur a/share/scilab/etc/classpath.xml b/share/scilab/etc/classpath.xml
 --- a/share/scilab/etc/classpath.xml	2013-03-29 17:11:04.000000000 +0100
 +++ b/share/scilab/etc/classpath.xml	2013-06-03 11:57:48.532297317 +0200
