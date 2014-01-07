@@ -1,0 +1,32 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kf5-polkit
+pkgver=${_kdever}
+pkgrel=1
+arch=('x86_64')
+url='https://projects.kde.org/projects/kdesupport/polkit-qt-1'
+license=('LGPL')
+pkgdesc="Qt5 wrapper around polkit-1 client libraries, used by kdelibs to provide the polkit-1 kauth backend and by KDE's polkit client"
+depends=('polkit' 'qt5')
+makedepends=('extra-cmake-modules' 'polkit')
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../polkit-qt-1 \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="${pkgdir}" install
+}

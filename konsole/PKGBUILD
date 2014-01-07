@@ -1,0 +1,33 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=konsole
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="KDE's terminal emulator"
+arch=('x86_64')
+url='https://projects.kde.org/projects/kde/applications/konsole'
+license=('LGPL')
+depends=('kio' 'kde4support' 'knotifyconfig' 'kparts' 'kpty')
+makedepends=('extra-cmake-modules')
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="${pkgdir}" install
+}
