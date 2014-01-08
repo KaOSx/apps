@@ -1,7 +1,7 @@
 
 pkgname=google-chrome
-pkgver=33.0.1750.5
-pkgrel=2
+pkgver=33.0.1750.18
+pkgrel=1
 pkgdesc="Google Chrome Browser, developer preview channel for Linux"
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
@@ -13,9 +13,10 @@ depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'li
          'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html"
-         'libgcrypt.so.11.8')
-md5sums=('94cc6fe1ff6b1f945c4c1f4f4bb2f60f'
-         'ba19ea498f294975d320ff0b26a6cd63')
+         'libgcrypt.so.11.8.2')
+md5sums=('8e0c65c226cab9d53e8b1c15e9f41a10'
+         'ba19ea498f294975d320ff0b26a6cd63'
+         'a17acc9851185dd5f219458140e6ccda')
 
 
 package() {
@@ -30,7 +31,7 @@ package() {
     ln -s /usr/lib/libudev.so.1 "$pkgdir/opt/google/chrome-unstable/libudev.so.0"
     
     #libgcrypt 1.6.0 fix from gentoo https://bugs.gentoo.org/show_bug.cgi?id=494596
-    #install -m755 "$srcdir"/libgcrypt.so.11.8 "$pkgdir"/opt/google/chrome-unstable/libgcrypt.so.11
+    #install -m755 "$srcdir"/libgcrypt.so.11.8.2 "$pkgdir"/opt/google/chrome-unstable/libgcrypt.so.11
 
     # Adding man page
     gzip "$pkgdir"/usr/share/man/man1/google-chrome.1
