@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdenetwork-kopete
 _pkgname=kopete
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=1
 pkgdesc='Instant Messenger'
 url='http://kde.org/applications/internet/kopete/'
 arch=('x86_64')
@@ -15,15 +15,8 @@ depends=("kde-runtime>=${_kdever}" "kdepimlibs>=${_kdever}" 'qca-ossl' 'libotr' 
          'qimageblitz' 'libgadu' 'libxss' 'v4l-utils' 'mediastreamer' 'jsoncpp')
 makedepends=('cmake' 'automoc4' 'boost')
 install=${pkgname}.install
-source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
-        'libotr4.patch')
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '63fccab9717bb8f6657a526f5b599a21')
-
-prepare() {
-    cd kopete-${pkgver}
-    patch -p0 -i "${srcdir}"/libotr4.patch
- }
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
          
 build() {
   mkdir build
