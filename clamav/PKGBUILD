@@ -1,6 +1,6 @@
 
 pkgname=clamav
-pkgver=0.98
+pkgver=0.98.1
 pkgrel=1
 pkgdesc='Anti-virus toolkit for Unix'
 arch=('x86_64')
@@ -12,22 +12,22 @@ install="$pkgname.install"
 groups=('system')
 backup=('etc/logrotate.d/clamav')
 source=("http://downloads.sourceforge.net/sourceforge/$pkgname/$pkgname-$pkgver.tar.gz"  
-        'config.patch'
+        'clamd.conf'
+        'clamd.service'
+        'freshclam.conf'
+        'freshclamd.service'
         'logrotate'
-        'service'
-        'service.fresh'
         'tmpfiles.d')
-
-md5sums=('ca0b8c930efcb8be1d47592d268006c5'
-         'd435081ffe6d815175e1aa57b09793c9'
-         '8386e24561c5ce4cb87fa1d9f3b1cd87'
-         '7d13bb47a3e8e5510c8105484acecadf'
+md5sums=('b1ec7b19dea8385954515ef1d63576d8'
+         '75584367b1fb2a335061afef95c07ba4'
+         'ea0beeef854b4a3cf6b25dc49b228f56'
+         '5c646ed6f7100c5223dab648c57d802a'
          '9ea7c696979f3977120791bdb355acf9'
+         '8386e24561c5ce4cb87fa1d9f3b1cd87'
          '89ed33d37ca79d45b8c02418df2486e6')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
-	patch -p1 -i ../config.patch
 	
 	./configure --prefix=/usr \
 	       --sysconfdir=/etc/clamav \
@@ -40,10 +40,12 @@ package() {
 	cd "$srcdir/$pkgname-$pkgver"
 	make DESTDIR="$pkgdir" install
 
-	install -D -m644 ../service.fresh "${pkgdir}/usr/lib/systemd/system/freshclamd.service"
-	install -D -m644 ../service "${pkgdir}/usr/lib/systemd/system/clamd.service"
-	install -D -m644 ../tmpfiles.d "${pkgdir}/usr/lib/tmpfiles.d/clamav.conf"
-	install -D -m644 ../logrotate "$pkgdir/etc/logrotate.d/clamav"
+	install -Dm644 ../clamd.conf "${pkgdir}"/etc/clamav/clamd.conf
+	install -Dm644 ../freshclam.conf "${pkgdir}"/etc/clamav/freshclam.conf
+	install -Dm644 ../freshclamd.service "${pkgdir}"/usr/lib/systemd/system/freshclamd.service
+	install -Dm644 ../clamd.service "${pkgdir}"/usr/lib/systemd/system/clamd.service
+	install -Dm644 ../tmpfiles.d "${pkgdir}"/usr/lib/tmpfiles.d/clamav.conf
+	install -Dm644 ../logrotate "${pkgdir}"/etc/logrotate.d/clamav
 	install -d -o 64 -g 64 "${pkgdir}"/run/clamav
 	install -d -o 64 -g 64 "${pkgdir}"/var/log/clamav
 	install -d -o 64 -g 64 "${pkgdir}"/var/lib/clamav
