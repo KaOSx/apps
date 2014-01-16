@@ -1,15 +1,15 @@
 
 pkgname=inxi
-pkgver=1.9.17
-pkgrel=2
+pkgver=1.9.18
+pkgrel=1
 pkgdesc="script to get system information"
 arch=('x86_64')
 url="http://inxi.org"
 license=('GPL')
-depends=('mesa-demos')
-#wget http://inxi.googlecode.com/svn/trunk/inxi.tar.gz -O inxi-$pkgver.tar.gz
+depends=('mesa-demos' 'coreutils' 'gawk' 'grep' 'pciutils' 'procps-ng' 'sed' 'dmidecode')
+#wget http://inxi.googlecode.com/svn/trunk/inxi.tar.gz -O inxi-1.9.18.tar.gz
 source=("http://sourceforge.net/projects/kaosx/files/sources/inxi/$pkgname-$pkgver.tar.gz")
-md5sums=('721547f67864f8be1bbfb7584018694c')
+md5sums=('054ad3e241c81ebc40c99c1e1c98b2bf')
 
 package() {
   cd "$srcdir"
