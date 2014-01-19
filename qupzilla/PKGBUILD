@@ -41,6 +41,8 @@ build() {
 
 package() {
     cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
-   
     make INSTALL_ROOT="$pkgdir/" install
+    
+    cp "$pkgdir/usr/share/qupzilla/locale/de_DE.qm" "$pkgdir/usr/share/qupzilla/locale/de_CH.qm"
+    cp "$pkgdir/usr/share/qupzilla/locale/de_DE.qm" "$pkgdir/usr/share/qupzilla/locale/de_AT.qm"
 }

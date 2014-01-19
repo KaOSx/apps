@@ -1,0 +1,39 @@
+
+pkgname=qlandkartegt
+pkgver=1.7.5
+pkgrel=1
+pkgdesc="Use your GPS with Linux"
+screenshot="http://sourceforge.net/dbimage.php?id=176174"
+arch=('x86_64')
+url="http://www.qlandkarte.org"
+license=('GPL')
+depends=('gdal' 'gpsd' 'libdmtx' 'libexif' 'libmariadbclient' 'mesa' 'postgresql-libs'
+         'shared-mime-info' 'qtwebkit')
+makedepends=('cmake')
+categories=('utils')
+source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
+        'qlandkartegt-mimetypes.xml')
+md5sums=('2b63b533414fcea1c0e87e3caf93f158'
+         'e4808690a9b5381880c573abd81cffdd')
+
+
+build() {
+  cd ${srcdir}/$pkgname-$pkgver
+
+  mkdir build
+  cd build
+ 
+  cmake ../${pkgname}-${pkgver} \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release ..
+  make
+}
+
+package(){
+  cd ${srcdir}/$pkgname-$pkgver/build
+
+  make DESTDIR=${pkgdir} install
+
+  install -D -m644 ${srcdir}/$pkgname-mimetypes.xml \
+    ${pkgdir}/usr/share/mime/packages/$pkgname-mimetypes.xml
+}
