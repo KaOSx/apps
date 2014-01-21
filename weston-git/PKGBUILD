@@ -1,6 +1,6 @@
 
 pkgname=weston-git
-pkgver=20131101
+pkgver=20140121
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
@@ -8,8 +8,7 @@ url='http://wayland.freedesktop.org'
 license=('MIT')
 options=(!libtool)
 depends=('libxkbcommon' 'mesa' 'pango' 'poppler-glib' 'mtdev' 'libxcursor' 'glu' 'libunwind'
-         'pixman' 'xkeyboard-config')
-
+         'pixman' 'xkeyboard-config' 'colord' 'libwebp' 'libva')
 source=('git://anongit.freedesktop.org/wayland/weston')
 md5sums=('SKIP')
 
@@ -19,8 +18,8 @@ build() {
 	./autogen.sh \
 	    --prefix=/usr \
 	    --libexecdir=/usr/lib/weston \
-	    --disable-android-compositor \
-	    --enable-demo-clients
+	    --enable-demo-clients-install \
+	    --with-cairo=gl
 	make
 }
 
