@@ -1,7 +1,7 @@
 
 pkgname=ktorrent
-pkgver=4.3.1
-pkgrel=1
+pkgver=4.3.1.1
+pkgrel=2
 ktorver=4.3.1
 pkgdesc="A BitTorrent program for KDE"
 arch=('x86_64')
@@ -12,13 +12,16 @@ makedepends=('cmake' 'automoc4' 'docbook-xsl' 'boost' 'git')
 categories=('network')
 options=('libtool')
 #source=("http://ktorrent.org/downloads/${ktorver}/ktorrent-${pkgver}.tar.bz2")
-source=('git://anongit.kde.org/ktorrent')
-md5sums=('SKIP')
+source=('git://anongit.kde.org/ktorrent'
+        'desktop.diff')
+md5sums=('SKIP'
+         'b4aaa10b34b0b6acd782fe0623e20616')
 
 build() {
 	cd "${srcdir}"
-	mkdir build
+	patch -p1 -i "${srcdir}"/desktop.diff
 	
+	mkdir build
 	cd build
 	cmake ../${pkgname} \
 	  -DCMAKE_BUILD_TYPE=Release \
