@@ -1,7 +1,7 @@
 
 pkgname=inkscape
 pkgver=0.48.4
-pkgrel=5
+pkgrel=6
 pkgdesc="A vector-based drawing program - svg compliant"
 url="http://inkscape.sourceforge.net/"
 arch=('x86_64')
@@ -12,13 +12,16 @@ makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 install="inkscape.install"
 source=("http://surfnet.dl.sourceforge.net/project/inkscape/inkscape/${pkgver}/inkscape-${pkgver}.tar.gz"
-        'spuriouscomma.patch')
+        'spuriouscomma.patch'
+        'freetype.patch')
 md5sums=('2c7149e877609f3f7e7a9d4e6f510d2b'
-         '0433e21c75e5e130c33bf2cf79dc1efa')
+         '0433e21c75e5e130c33bf2cf79dc1efa'
+         'a05f3be80d68d57d5193120ac94e69c5')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   patch -p0 -i ${srcdir}/spuriouscomma.patch
+  patch -p0 -i ${srcdir}/freetype.patch
 
   sed -i 's|/usr/bin/python\>|/usr/bin/python2|g' cxxtest/*.py
   sed -i 's|/usr/bin/env python\>|/usr/bin/env python2|g' share/*/{test/,}*.py
