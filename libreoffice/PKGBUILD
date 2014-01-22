@@ -11,13 +11,13 @@ pkgname=('libreoffice-common'
 	'libreoffice-sdk-doc'
 	'libreoffice-writer'
 	'libreoffice-en-US'
-	'libreoffice-postgresql-connector'
-	'libreoffice-extension-presentation-minimizer')
-_LOver=4.1.4.2
-pkgver=4.1.4
-_pkgver=4.1.4.2
-_HIver=4.1
-pkgrel=2
+	'libreoffice-postgresql-connector')
+	#'libreoffice-extension-presentation-minimizer')
+_LOver=4.2.0.3
+pkgver=4.2.0
+_pkgver=4.2.0.3
+_HIver=4.2
+pkgrel=1
 arch=('x86_64')
 _OFFICEUPD="340"
 license=('LGPL3')
@@ -27,14 +27,16 @@ makedepends=( # makedepends
              'apache-ant' 'gperf' 'poppler' 'kdelibs' 'cppunit' #'libmysqlclient'
              'beanshell'  'vigra' 'libldap' 'clucene' 'libmythes' 'junit' 'libwpg' 'imagemagick'
              'mesa' 'gst-plugins-base' 'java-runtime' 'postgresql-libs' 'doxygen' 'libvisio' 'bluez'
+             'libetonyek' 'libodfgen' 'libatomic_ops' 'libabw'
              # libreoffice main pkg
              "curl>=7.20.0" "hunspell>=1.2.8" 'python3' 'libwpd>=0.9.0' 'libwps' 'libxaw' "neon>=0.28.6"
-             'pango' 'nss' 'libjpeg' 'libxrandr' 'libgl' 'dbus-glib' "icu>=4.6" 'libxslt'
+             'pango' 'nss' 'libjpeg' 'libxrandr' 'libgl' 'dbus-glib' 'icu' 'libxslt'
              'redland' 'graphite' 'hyphen' 'lpsolve' 'gcc-libs' 'sh' 'librsvg' 'lcms2'
-             'hicolor-icon-theme' 'desktop-file-utils' 'shared-mime-info' 'translate-toolkit' 'xdg-utils' 'ttf-dejavu' 'libcups')
+             'hicolor-icon-theme' 'desktop-file-utils' 'shared-mime-info' 'translate-toolkit' 'xdg-utils' 'ttf-liberation'
+             'libcups')
 
-_mirror="http://download.documentfoundation.org/libreoffice/src/$pkgver"
-#_mirror="http://dev-builds.libreoffice.org/pre-releases/src"
+#_mirror="http://download.documentfoundation.org/libreoffice/src/$pkgver"
+_mirror="http://dev-builds.libreoffice.org/pre-releases/src"
 #_additional_source_url="http://hg.services.openoffice.org/binaries"
 _additional_source_url="http://dev-www.libreoffice.org/src"
 source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
@@ -61,30 +63,32 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
 	${_additional_source_url}/db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
 	${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
-	${_additional_source_url}/08c85a6d6d793daee14e10e22eefdc4b-mdds_0.8.1.tar.bz2
-	${_additional_source_url}/dc3d21a3921931096d6e80f6701f6763-libexttextcat-3.4.0.tar.bz2
-	${_additional_source_url}/b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
+	${_additional_source_url}/01a380acfec23bf617117ce98e318f3d-mdds_0.10.1.tar.bz2
+	${_additional_source_url}/ae330b9493bd4503ac390106ff6060d7-libexttextcat-3.4.3.tar.bz2
+	${_additional_source_url}/22f8a85daf4a012180322e1f52a7563b-libcmis-0.4.1.tar.gz
 	${_additional_source_url}/ea2acaf140ae40a87a952caa75184f4d-liborcus-0.5.1.tar.bz2
 	${_additional_source_url}/36271d3fa0d9dec1632029b6d7aac925-liblangtag-0.5.1.tar.bz2
 	${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
-	${_additional_source_url}/8473296c671b6e3dd8197f4145e0854b-libodfgen-0.0.2.tar.bz2
+	#${_additional_source_url}/8473296c671b6e3dd8197f4145e0854b-libodfgen-0.0.2.tar.bz2
 	${_additional_source_url}/libcdr-0.0.14.tar.bz2
 	${_additional_source_url}/libmspub-0.0.6.tar.bz2
-	${_additional_source_url}/libmwaw-0.1.11.tar.bz2
+	${_additional_source_url}/libmwaw-0.2.0.tar.bz2
+	${_additional_source_url}/libfreehand-0.0.0.tar.bz2
+	${_additional_source_url}/Firebird-2.5.2.26540-0.tar.bz2
+	${_additional_source_url}/libe-book-0.0.2.tar.bz2
 	${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-	${_additional_source_url}/f02578f5218f217a9f20e9c30e119c6a-boost_1_44_0.tar.bz2
+	${_additional_source_url}/15cb8c0803064faef0c4ddf5bc5ca279-boost_1_54_0.tar.bz2
 	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll)
 	
 	noextract=(18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
         185d60944ea767075d27247c3162b3bc-unowinreg.dll
-	b4cae0700aa1c2aef7eb7f345365e6f1-translate-toolkit-1.8.1.tar.bz2
-	08c85a6d6d793daee14e10e22eefdc4b-mdds_0.8.1.tar.bz2
+	01a380acfec23bf617117ce98e318f3d-mdds_0.10.1.tar.bz2
 	ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 	798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 	1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz
 	fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
-	dc3d21a3921931096d6e80f6701f6763-libexttextcat-3.4.0.tar.bz2
-	b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
+	ae330b9493bd4503ac390106ff6060d7-libexttextcat-3.4.3.tar.bz2
+	22f8a85daf4a012180322e1f52a7563b-libcmis-0.4.1.tar.gz
 	35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 	2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
 	a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
@@ -107,11 +111,13 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	36271d3fa0d9dec1632029b6d7aac925-liblangtag-0.5.1.tar.bz2
 	0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 	17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-	f02578f5218f217a9f20e9c30e119c6a-boost_1_44_0.tar.bz2
-	8473296c671b6e3dd8197f4145e0854b-libodfgen-0.0.2.tar.bz2
+	15cb8c0803064faef0c4ddf5bc5ca279-boost_1_54_0.tar.bz2
 	libcdr-0.0.14.tar.bz2
 	libmspub-0.0.6.tar.bz2
-	libmwaw-0.1.11.tar.bz2
+	libmwaw-0.2.0.tar.bz2
+	libfreehand-0.0.0.tar.bz2
+	Firebird-2.5.2.26540-0.tar.bz2
+	libe-book-0.0.2.tar.bz2
 	90401bca927835b6fbae4a707ed187c8-nlpsolver-0.9.tar.bz2)
 
 source libreoffice.md5
@@ -135,7 +141,8 @@ build() {
 	done
 	popd
 
-	#mv ${srcdir}/451ccf439a36a568653b024534669971-ConvertTextToNumber{_,-}1.3.2.oxt
+	rm ${srcdir}/ext_sources/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+        cp -f ${srcdir}/185d60944ea767075d27247c3162b3bc-unowinreg.dll ${srcdir}/ext_sources
 	
 	#use the CFLAGS but remove the LibO overridden ones
 	for i in $CFLAGS; do
@@ -182,13 +189,19 @@ build() {
 		--without-system-libcdr \
 		--without-system-jfreereport \
 		--without-system-apache-commons \
-		--without-system-libodfgen \
+		--with-system-libodfgen \
 		--without-system-libmwaw \
+		--with-system-libetonyek \
+		--without-system-libfreehand \
+		--without-system-firebird \
+		--with-system-libatomic-ops \
+		--without-system-libebook \
+		--with-system-libabw \
 		--without-system-mdds \
 		--without-myspell-dicts \
-                 --with-system-libvisio \
-                 --without-system-libcmis \
-                 --without-system-libmspub \
+                --with-system-libvisio \
+                --without-system-libcmis \
+                --without-system-libmspub \
 		--without-system-libexttextcat \
 		--without-system-orcus \
 		--without-system-liblangtag \
@@ -198,8 +211,8 @@ build() {
 		--with-external-hyph-dir=/usr/share/hyphen \
 		--with-external-thes-dir=/usr/share/mythes \
 		--with-system-beanshell \
-                 --with-system-cppunit \
-                 --with-system-graphite \
+                --with-system-cppunit \
+                --with-system-graphite \
 		--with-system-libwpg \
 		--with-system-libwps \
 		--with-system-redland \
@@ -212,8 +225,8 @@ build() {
 		--without-system-hsqldb \
 		--with-alloc=system \
 		--with-system-clucene \
-		--without-system-servlet-api \
-		--without-junit # needs junit build with classpath and includes hamcrest
+		--disable-dependency-tracking
+		#--without-junit # needs junit build with classpath and includes hamcrest
 
 	touch src.downloaded
 	#./download
@@ -229,7 +242,8 @@ package_libreoffice-common() {
  install=${pkgbase}.install
  depends=('libreoffice-langpack' "hunspell" "python3" "neon"
           'nspr' "icu" 'libsm' 'redland' 'hyphen' 'graphite' 'lcms2' 'poppler' 'libcups'
-          'hicolor-icon-theme' 'desktop-file-utils' 'shared-mime-info' 'xdg-utils' 'clucene')
+          'hicolor-icon-theme' 'desktop-file-utils' 'shared-mime-info' 'xdg-utils' 'clucene'
+          'libetonyek' 'libodfgen' 'libatomic_ops' 'libabw')
           #'saxon'
  optdepends=('libreoffice-langpack: additional language support'
              'java-runtime:     adds java support'
@@ -267,13 +281,15 @@ replaces=('libreoffice'
           'libreoffice-extension-wiki-publisher'
           'libreoffice-extension-pdfimport'
           'libreoffice-extension-presenter-screen'
-          'libreoffice-extension-report-builder')
+          'libreoffice-extension-report-builder'
+          'libreoffice-extension-presentation-minimizer')
 provides=('libreoffice-extension-pdfimport'
           'libreoffice-extension-presenter-screen'
           'libreoffice-scripting-beanshell'
           'libreoffice-scripting-javascript'
           'libreoffice-extension-scripting-python'
-          'libreoffice-extension-report-builder')
+          'libreoffice-extension-report-builder'
+          'libreoffice-extension-presentation-minimizer')
 
  # create directories from *list.txt file
  for directory in `grep ^%dir ${srcdir}/libreoffice-$_LOver/file-lists/common_list.txt`; do
@@ -565,13 +581,13 @@ package_libreoffice-en-US() {
  done
 }
 
-package_libreoffice-extension-presentation-minimizer() {
+#package_libreoffice-extension-presentation-minimizer() {
 
- pkgdesc="This extension reduce the file size of the current presentation"
- depends=('libreoffice-common' 'libreoffice-kde4' 'gcc-libs')
- groups=('libreoffice-extensions')
+# pkgdesc="This extension reduce the file size of the current presentation"
+# depends=('libreoffice-common' 'libreoffice-kde4' 'gcc-libs')
+# groups=('libreoffice-extensions')
 
-	install -dm755 ${pkgdir}/usr/lib/libreoffice/share/extensions
-	unzip -q ${srcdir}/libreoffice-$_LOver/solver/unxlng*/bin/presentation-minimizer.oxt -d ${pkgdir}/usr/lib/libreoffice/share/extensions/presentation-minimizer
-}
+#	install -dm755 ${pkgdir}/usr/lib/libreoffice/share/extensions
+#	unzip -q ${srcdir}/libreoffice-$_LOver/solver/unxlng*/bin/presentation-minimizer.oxt -d ${pkgdir}/usr/lib/libreoffice/share/extensions/presentation-minimizer
+#}
 
