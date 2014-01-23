@@ -1,24 +1,25 @@
 
 pkgname=python2-geoip
-pkgbase=python-geoip
-pkgver=1.2.8
+pkgbase=geoip-api-python
+pkgver=1.2.9
 pkgrel=1
 pkgdesc="Python bindings for the GeoIP IP-to-country resolver library"
 arch=('x86_64')
 url="http://dev.maxmind.com/geoip/legacy/downloadable#Python-10"
 license=('LGPL')
 depends=('python2' 'geoip')
-source=("http://www.maxmind.com/download/geoip/api/python/GeoIP-Python-$pkgver.tar.gz")
-md5sums=('1e29087008d7476ff199b5cf1e2bd59f')
+#source=("http://www.maxmind.com/download/geoip/api/python/GeoIP-Python-$pkgver.tar.gz")
+source=("https://github.com/maxmind/$pkgbase/archive/v$pkgver.tar.gz")
+md5sums=('140cd60d23f0ab87de05309c6aa33dc4')
 
 build() {
-  cd "$srcdir/GeoIP-Python-$pkgver"
+  cd "$srcdir/$pkgbase-$pkgver"
   
   python2 setup.py build
 }
 
 package_python2-geoip() {
-  cd "$srcdir/GeoIP-Python-$pkgver"
+  cd "$srcdir/$pkgbase-$pkgver"
   
   python2 setup.py install --root="$pkgdir" -O1
 }
