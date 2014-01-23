@@ -1,0 +1,21 @@
+
+pkgname=synaptiks
+pkgver=0.8.1.1
+_pkgver=df631b6
+pkgrel=1
+pkgdesc="Touchpad configuration and management tool for KDE"
+arch=('x86_64')
+url="https://github.com/synaptiks/synaptiks"
+license=('BSD')
+install=synaptiks.install
+depends=('kde-workspace' 'kdebindings-pykde4' 'python2-distribute' 'python2-udev'
+         'xf86-input-synaptics' 'dbus-python2' 'kdedistutils')
+source=("https://github.com/${pkgname}/${pkgname}/tarball/master/${pkgname}-${pkgver}.tar.gz")
+md5sums=('2e141913e15dbef0b15e8f7be05fb30f')
+
+package() {
+  cd "$srcdir/${pkgname}-${pkgname}-${_pkgver}"
+  python2 setup.py install  --root="${pkgdir}" --optimize=1
+  
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/${pkgname}/LICENSE"
+}
