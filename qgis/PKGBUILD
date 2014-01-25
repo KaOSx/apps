@@ -1,0 +1,74 @@
+
+pkgname=qgis
+pkgver=2.0.1
+pkgrel=1
+pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
+url='http://qgis.org/'
+license=('GPL')
+arch=('x86_64')
+depends=('libmariadbclient' 'postgresql-libs' 'sqlite3' 'jasper' 'curl' 'pyqt' 'python2' 'giflib' 'gsl' 'grass'
+         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'qscintilla' 'python2-psycopg2'
+         'postgis' 'fcgi')
+makedepends=('cmake'  'netcdf' 'sip')
+install=${pkgname}.install
+source=("http://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
+	'qgis.sh'
+        "rev-349a4c97.diff::https://hub.qgis.org/projects/quantum-gis/repository/revisions/349a4c974fab88fdda0d612dea8defe037ec50ba/diff.diff"
+        "http://hub.qgis.org/attachments/download/6230/QgsFieldValidator.diff"
+	'QwtPolar_update.patch')
+md5sums=('3822c7dd70e2d893a0f1baa9c72316d2'
+         '488a57456d9f3ca5965e0aed617cd8fa'
+         '4d66e5546feb08157ed5794b58891b01'
+         '775176bb6b9a600e9428a9a34bd88825'
+         'fa3ce11866ccab36b2e73771b04e7b53') 
+         
+prepare() {
+     cd "$srcdir/$pkgname-$pkgver"
+     patch -p1 -i "${srcdir}/rev-349a4c97.diff" 
+     patch -p1 -i "${srcdir}/QgsFieldValidator.diff"
+     patch -p1 -i "${srcdir}/QwtPolar_update.patch" 
+}
+
+ build() {
+      cd "${srcdir}"
+      mkdir build
+      cd build
+     
+      cmake ../${pkgname}-${pkgver} \
+        -DENABLE_TESTS=OFF \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DGRASS_PREFIX=/opt/grass \
+        -DQGIS_MANUAL_SUBDIR=share/man \
+        -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so \
+        -DPYTHON_EXECUTABLE=/usr/bin/python2 \
+        -DPYTHON_SITE_PACKAGES_DIR=/usr/lib/python2.7/site-packages \
+        -DPYTHON_INCLUDE_PATH=/usr/include/python2.7 \
+        -DWITH_MAPSERVER=TRUE
+     
+      make
+}
+
+package() {
+      cd build
+     
+      make DESTDIR=${pkgdir} install
+     
+      # create a more user-friendly application name link
+      ln -s /usr/bin/qgis $pkgdir/usr/bin/quantum-gis
+     
+      # install some freedesktop.org compatibility
+      install -D -m644 "$srcdir"/"${pkgname}-${pkgver}"/debian/qgis.desktop \
+                          "$pkgdir"/usr/share/applications/qgis.desktop
+      install -m644 "$srcdir"/"${pkgname}-${pkgver}"/debian/qbrowser.desktop "$pkgdir"/usr/share/applications
+      install -dm755 $pkgdir/usr/share/pixmaps $pkgdir/usr/share/mimelnk/application
+      for mime in $srcdir/${pkgname}-${pkgver}/debian/mime/application/*.desktop
+        do install -m644 ${mime} $pkgdir/usr/share/mimelnk/application
+      done
+      ln -s /usr/share/qgis/images/icons/qgis-icon.png $pkgdir/usr/share/pixmaps/qgis-icon.png
+      ln -s /usr/share/qgis/images/icons/qgis-mime-icon.png $pkgdir/usr/share/pixmaps/qgis-mime-icon.png
+     
+      # enable qgis for python by setting PYTHONPATH
+      install -Dm644 ${srcdir}/qgis.sh ${pkgdir}/etc/profile.d/qgis.sh
+}
