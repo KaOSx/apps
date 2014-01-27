@@ -1,0 +1,36 @@
+
+pkgname=dianara
+pkgver=1.1
+pkgrel=1
+pkgdesc="A Qt pump.io client"
+arch=('x86_64')
+url="http://dianara.nongnu.org/"
+license=('GPL')
+depends=('qjson' 'qoauth' 'qca-ossl')
+install="$pkgname.install"
+source=("http://download-mirror.savannah.gnu.org/releases/$pkgname/$pkgname-v$pkgver.tar.gz")
+md5sums=('6a7561f75679e7cec767fc6fbd396610')
+
+build() {
+  cd ${srcdir}/$pkgname-v$pkgver
+  mkdir build 
+  
+  cd build
+  qmake ..
+  make
+}
+
+package() {
+  cd ${srcdir}/$pkgname-v$pkgver
+
+  install -Dm755 build/$pkgname $pkgdir/usr/bin/$pkgname
+  install -Dm644 $pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+  install -Dm644 icon/32x32/$pkgname.png  $pkgdir/usr/share/icons/hicolor/32x32/apps/$pkgname.png
+  install -Dm644 icon/64x64/$pkgname.png $pkgdir/usr/share/icons/hicolor/64x64/apps/$pkgname.png
+
+  install -d $pkgdir/usr/share/locale
+  install -Dm644 translations/*.qm $pkgdir/usr/share/locale
+
+  install -Dm644 manual/$pkgname.7 $pkgdir/usr/share/man/man1/$pkgname.1
+}
+

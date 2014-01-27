@@ -1,0 +1,68 @@
+--- src/main.cpp.orig	2014-01-26 17:55:48.000000000 -0500
++++ src/main.cpp	2014-01-26 20:24:36.293037490 -0500
+@@ -29,7 +29,7 @@
+ #include <QtGui>
+ #include <QMessageBox>
+ 
+-//#define KAOS
++#define KAOS
+ 
+ int main(int argc, char *argv[])
+ {
+--- src/mainwindow.cpp.orig	2014-01-26 17:55:48.000000000 -0500
++++ src/mainwindow.cpp	2014-01-26 20:28:44.872929644 -0500
+@@ -46,7 +46,7 @@
+ #include <QHash>
+ #include <QFutureWatcher>
+ 
+-//#define KAOS
++#define KAOS
+ 
+ /*
+  * MainWindow's constructor: basic UI init
+
+--- src/mainwindow_init.cpp.orig	2014-01-26 17:55:48.000000000 -0500
++++ src/mainwindow_init.cpp	2014-01-26 20:50:58.348404087 -0500
+@@ -46,7 +46,7 @@
+ #include <QToolButton>
+ #include <iostream>
+ 
+-//#define KAOS
++#define KAOS
+ 
+ /*
+  * Loads various application settings configured in ~/.config/octopi/octopi.conf
+@@ -199,10 +199,6 @@
+ {
+   initPackageGroups();
+ 
+-  #ifdef KAOS
+-    ui->mainToolBar->addAction(ui->actionMirrorCheck);
+-  #endif
+-
+   ui->mainToolBar->addAction(ui->actionSyncPackages);
+   ui->mainToolBar->addAction(ui->actionSystemUpgrade);
+ 
+@@ -213,6 +209,11 @@
+ 
+   ui->mainToolBar->addAction(ui->actionCommit);
+   ui->mainToolBar->addAction(ui->actionRollback);
++  
++  #ifdef KAOS
++    ui->mainToolBar->addAction(ui->actionMirrorCheck);
++  #endif
++  
+   m_leFilterPackage->setMinimumHeight(24);
+   ui->mainToolBar->addWidget(m_leFilterPackage);
+ 
+--- src/mainwindow_transaction.cpp.orig	2014-01-26 17:55:48.000000000 -0500
++++ src/mainwindow_transaction.cpp	2014-01-26 20:35:18.013326819 -0500
+@@ -38,7 +38,7 @@
+ #include <QSortFilterProxyModel>
+ #include <QTextBrowser>
+ 
+-//#define KAOS
++#define KAOS
+ 
+ /*
+  * Watches the state of tvTransaction treeview to see if Commit/Rollback actions must be activated/deactivated
