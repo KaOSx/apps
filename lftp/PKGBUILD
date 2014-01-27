@@ -1,0 +1,31 @@
+
+pkgname=lftp
+pkgver=4.4.15
+pkgrel=2
+pkgdesc="Sophisticated command line based FTP client with openssl"
+arch=('x86_64')
+url="http://lftp.yar.ru/"
+license=('GPL3')
+depends=('gcc-libs' 'readline' "gnutls" "expat" 'perl' 'sh')
+makedepends=('autoconf')
+categories=('network')
+source=("http://lftp.yar.ru/ftp/${pkgname}-${pkgver}.tar.xz")
+md5sums=('f19cc0cea1d427aa2a952b27661b91e5')
+
+build() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  
+  ./configure --prefix=/usr \
+        --with-gnutls \
+        --without-included-regex \
+	--without-openssl \
+	--disable-static
+  make
+}
+
+package() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  make DESTDIR=${pkgdir} install
+  
+  rm -rf ${pkgdir}/usr/lib
+}

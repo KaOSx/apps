@@ -1,8 +1,8 @@
 
 pkgname=qupzilla
-pkgver=1.6.0
-_commit=31afc8a
-pkgrel=3
+pkgver=1.6.8
+_commit=77d10db
+pkgrel=1
 pkgdesc="A fast open source browser based on WebKit core, written in Qt Framework, wayland port"
 arch=('x86_64')
 url="http://www.qupzilla.com/"
@@ -16,7 +16,7 @@ source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-$
         'preferences.diff'
         'qupzilla.diff'
         'defines.diff')
-md5sums=('afb857eec245bb64a2bfaec1f4860582'
+md5sums=('74da2d548294af64cca7e9ebf64f906e'
          '65cd96b4e2d5b12df25e088f8409acd6'
          '5ed4a5b104e691afd2024cb185f34315'
          '05b1a5f49f573cb3c7d4a2741ae9af99'
@@ -45,4 +45,5 @@ package() {
     
     cp "$pkgdir/usr/share/qupzilla/locale/de_DE.qm" "$pkgdir/usr/share/qupzilla/locale/de_CH.qm"
     cp "$pkgdir/usr/share/qupzilla/locale/de_DE.qm" "$pkgdir/usr/share/qupzilla/locale/de_AT.qm"
+    cp "$pkgdir/usr/share/qupzilla/locale/es_ES.qm" "$pkgdir/usr/share/qupzilla/locale/es_AR.qm"
 }
