@@ -38,13 +38,13 @@ notify() {
 download_updater() {
   rm -f Updater.jar
   echo "$0: Download Updater.jar" >> "$LOG_FILE"
-  curl -vLo - "http://bit.ly/HF8DI8" | bsdtar -xf - >> "$LOG_FILE" 2>&1 || notify "Error" \
+  curl -vLo - "http://cdn1.appwork.org/JD/2034/1494271202c74f88c219e693a03094799ac53fbbccecc7d" | bsdtar -xf - >> "$LOG_FILE" 2>&1 || notify "Error" \
     "The JDownloader updater could not be downloaded. \
     \nCheck your Internet connection and try again. \
     \nThe error log can be found in $LOG_FILE."
 
   ACTUAL_SHA256SUM=$(sha256sum Updater.jar | cut -f1 -d" ")
-  TARGET_SHA256SUM=$(curl -sLI http://bit.ly/HF8DI8 | sed -n 's/CLIENT_UDPATE_HASH:\ //p')
+  TARGET_SHA256SUM=$(curl -sLI http://cdn1.appwork.org/JD/2034/1494271202c74f88c219e693a03094799ac53fbbccecc7d | sed -n 's/CLIENT_UDPATE_HASH:\ //p')
   [[ "$ACTUAL_SHA256SUM" = "$TARGET_SHA256SUM" ]] || notify "Warning" \
     "The SHA-256 sum of the JDownloader updater mismatches. \
     \nEither there was a download error or one of the files \
