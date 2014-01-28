@@ -1,6 +1,6 @@
 
 pkgname=pidgin
-pkgver=2.10.7
+pkgver=2.10.8
 pkgrel=1
 pkgdesc="Multi-protocol instant messaging client"
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('nss' 'libsasl' 'python2' 'tk' 'ca-certificates' 'intltool' )
 options=('!libtool')
 install=pidgin.install
 source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('ea88976b9952e80b702b030489f94393')
+md5sums=('384be5689e62a9d4d42320e4ca90433d')
 
 build() {
   cd "$srcdir/${pkgname}-$pkgver"
@@ -24,33 +24,15 @@ build() {
                 --sysconfdir=/etc \
                 --disable-schemas-install \
                 --disable-meanwhile \
-                --disable-perl \
                 --disable-gnutls \
                 --enable-cyrus-sasl \
-                --enable-doxygen \
                 --enable-nm \
                 --with-python=/usr/bin/python \
                 --with-system-ssl-certs=/etc/ssl/certs
     make
 }
-#package_libpurple(){
-#    pkgdesc="IM library extracted from Pidgin"
-#    depends=('farstream' 'libsasl' 'dbus-glib' 'silc-toolkit' 'nss' 'cyrus-sasl-plugins')
-#    optdepends=('dbus-python: for purple-remote and purple-url-handler')
-#    cd "${srcdir}/${pkgbase}-${pkgver}"
-
-#    for dir in libpurple share/sounds share/ca-certs m4macros po
-#    do
-#        make -C "${dir}" DESTDIR="${pkgdir}" install
-#    done
-#}
 
 package(){
-    pkgdesc="Multi-protocol instant messaging client"
-    depends=("libpurple=$pkgver" 'startup-notification' 'gtkspell' 'libxss' 'hicolor-icon-theme'
-             'gstreamer0.10')
-
-    install=pidgin.install
     cd "${srcdir}/${pkgbase}-${pkgver}"
     #for linking
     make -C libpurple DESTDIR="${pkgdir}" install-libLTLIBRARIES
