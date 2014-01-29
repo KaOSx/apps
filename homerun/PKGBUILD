@@ -1,6 +1,6 @@
 
 pkgname=homerun
-pkgver=1.1.96
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="Fullscreen application launcher for KDE Plasma desktop"
 arch=('x86_64')
@@ -8,24 +8,24 @@ url="http://userbase.kde.org/Homerun"
 license=('GPL' 'LGPL' 'BSD')
 depends=('kde-workspace' 'kde-baseapps')
 makedepends=('cmake' 'automoc4' 'git')
-#source=("http://download.kde.org/stable/$pkgname/src/$pkgname-$pkgver.tar.xz"
-source=("git://anongit.kde.org/homerun"
+source=("http://download.kde.org/stable/$pkgname/src/$pkgname-$pkgver.tar.xz"
+#source=("git://anongit.kde.org/homerun"
         'icon.diff'
         'main.diff')
 install=$pkgname.install
-md5sums=('SKIP'
+md5sums=('c2b2b9114c0db15357fa97f766208ad4'
          'b52bfbb85947dd10ea554ea63262c405'
          'd62d089d307ebb2287722a4fda7e3bbc' )
 
 build() {
-  cd "$srcdir"/$pkgname
+  cd "$srcdir"/$pkgname-$pkgver
   patch -p1 -i "${srcdir}/icon.diff"
   patch -p1 -i "${srcdir}/main.diff"
   
   cd "$srcdir"
   mkdir build
   cd build
-  cmake ../$pkgname \
+  cmake ../$pkgname-$pkgver \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release
   make
@@ -35,6 +35,6 @@ package() {
   cd "$srcdir"/build
   make DESTDIR="$pkgdir" install
   
-  install -Dm644 "$srcdir/$pkgname/LICENSE.BSD" "$pkgdir/usr/share/licenses/$pkgname/LICENCE"
+  install -Dm644 "$srcdir/$pkgname-$pkgver/LICENSE.BSD" "$pkgdir/usr/share/licenses/$pkgname/LICENCE"
 }
 
