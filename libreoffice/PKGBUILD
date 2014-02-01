@@ -78,7 +78,8 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/libe-book-0.0.2.tar.bz2
 	${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	${_additional_source_url}/15cb8c0803064faef0c4ddf5bc5ca279-boost_1_54_0.tar.bz2
-	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll)
+	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+	intro.png)
 	
 	noextract=(18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
         185d60944ea767075d27247c3162b3bc-unowinreg.dll
@@ -323,6 +324,10 @@ provides=('libreoffice-extension-pdfimport'
  rm -f ${pkgdir}/usr/lib/libreoffice/program/classes/ScriptProviderForJavaScript.jar
  rm -f ${pkgdir}/usr/lib/libreoffice/program/classes/js.jar
  rm -f ${pkgdir}/usr/lib/libreoffice/program/services/scriptproviderforjavascript.rdb
+ 
+ # replace beta splash screen
+ rm -f ${pkgdir}/usr/lib/libreoffice/program/intro.png
+ install -m644 ${srcdir}/intro.png ${pkgdir}/usr/lib/libreoffice/program/
 }
 
 package_libreoffice-base() {
