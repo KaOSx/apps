@@ -1,0 +1,32 @@
+
+pkgname=bitcoin
+pkgver=0.8.9
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Bitcoin is a peer-to-peer network based digital currency"
+url="http://www.bitcoin.org/"
+license=('MIT')
+depends=('boost-libs' 'qt' 'miniupnpc' 'qrencode' 'protobuf')
+makedepends=('automoc4' 'boost' 'git')
+install=bitcoin.install
+source=("git://github.com/bitcoin/bitcoin.git")
+md5sums=('SKIP')
+
+build() {
+  cd "$srcdir/$pkgname"
+
+  ./autogen.sh
+  ./configure --prefix=/usr --with-incompatible-bdb
+  make
+}
+
+
+package() {
+  cd "$srcdir/$pkgname"
+  make DESTDIR="${pkgdir}" install
+
+  install -Dm644 contrib/debian/bitcoin-qt.desktop "$pkgdir"/usr/share/applications/bitcoin.desktop
+  install -Dm644 share/pixmaps/bitcoin128.png "$pkgdir"/usr/share/pixmaps/bitcoin128.png
+
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}
