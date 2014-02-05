@@ -1,0 +1,32 @@
+
+pkgname=aria2
+pkgver=1.18.3
+pkgrel=1
+pkgdesc='Download utility that supports HTTP(S), FTP, BitTorrent, and Metalink'
+arch=('x86_64')
+url='http://aria2.sourceforge.net/'
+license=('GPL')
+depends=('gnutls' 'libxml2' 'sqlite' 'c-ares' 'ca-certificates')
+checkdepends=('cppunit')
+source=("http://downloads.sourceforge.net/aria2/aria2-$pkgver.tar.xz")
+md5sums=('512cecf11837a74bfc43f6d9f8f3abaa')
+
+build() {
+  cd $pkgname-$pkgver
+
+  ./configure \
+    --prefix=/usr \
+    --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt
+
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+
+  install -d "$pkgdir"/usr/share/bash-completion/completions
+  install -m644 "$pkgdir"/usr/share/doc/aria2/bash_completion/aria2c \
+    "$pkgdir"/usr/share/bash-completion/completions
+  rm -rf "$pkgdir"/usr/share/doc/aria2/bash_completion
+}
