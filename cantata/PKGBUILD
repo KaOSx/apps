@@ -1,0 +1,32 @@
+
+pkgname=cantata
+pkgver=1.2.2
+pkgdesc="A KDE client for the music player daemon (MPD)"
+pkgrel=1
+arch=('x86_64')
+url="http://kde-apps.org/content/show.php/Cantata?content=147733"
+license=('GPL')
+depends=('qt5' 'libmtp' 'libcddb' 'libmusicbrainz5' 'mpg123' 'qjson' 'taglib-extras' 'mpd')
+makedepends=('cmake' 'automoc4')
+install="$pkgname.install"
+source=("http://cantata.googlecode.com/files/$pkgname-$pkgver.tar.bz2")
+md5sums=('c7b6f73cbd97c8e8c3dcf05a1f3010c3')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  mkdir build
+
+  cmake . \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DENABLE_HTTP_STREAM_PLAYBACK=ON \
+    -DENABLE_KDE=OFF \
+    -DENABLE_QT5=On
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  
+  make DESTDIR="$pkgdir" PREFIX="/usr" install
+}
