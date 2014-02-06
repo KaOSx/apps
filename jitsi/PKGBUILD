@@ -1,6 +1,6 @@
 
 pkgname=jitsi
-pkgver=2.2.4603.9615
+pkgver=2.4.4997
 pkgrel=1
 pkgdesc="An audio/video SIP VoIP phone and instant messenger written in Java (formerly SIP-Communicator)"
 arch=('x86_64')
@@ -12,13 +12,13 @@ options=('!strip' '!emptydirs' 'zipman' '!libtool' 'docs')
 source=("http://download.jitsi.org/jitsi/src/jitsi-src-${pkgver}.zip"
 	'jitsi.desktop'
 	'jitsi.sh')
-md5sums=('75c6fba4f976b77aea4995d3a7d28aaa'
+md5sums=('f4e87d12372007fab9574948bb94e408'
          'aad7cf1fb18ff5d7c964834ecc38aed8'
          'ab1953a6442b685c7acb3c79b630a495')
 
 build()
 {
-  cd "${srcdir}/${pkgname}-src-${pkgver}"
+  cd "${srcdir}/${pkgname}"
   # append the build revision to the jitsi version
   sed -i "s/0\.build\.by\.SVN/build.${pkgver}/" src/net/java/sip/communicator/impl/version/NightlyBuildID.java
   . /etc/profile.d/apache-ant.sh
@@ -26,11 +26,10 @@ build()
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-src-${pkgver}"
+  cd "${srcdir}/${pkgname}"
   find lib/ lib/bundle/ -maxdepth 1 -type f \
     -exec install -Dm644 {} "${pkgdir}/usr/lib/${pkgname}/"{} \;
-  find lib/os-specific/linux/ -maxdepth 1 -type f \
-    -execdir install -Dm644 {} "${pkgdir}/usr/lib/${pkgname}/lib/"{} \;
+  #find lib/os-specific/linux/ -maxdepth 1 -type f -execdir install -Dm644 {} "${pkgdir}/usr/lib/${pkgname}/lib/"{} \;
   shopt -sq extglob
   find lib/native/linux$(sed 's/_/-/g' <<<${CARCH/#*(i?86|x86)/})/ -maxdepth 1 -type f \
     -execdir install -Dm644 {} "${pkgdir}/usr/lib/${pkgname}/lib/native/"{} \;
