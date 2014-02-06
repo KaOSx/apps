@@ -1,6 +1,6 @@
 
 pkgname=qtcreator
-pkgver=3.0.0
+pkgver=3.0.1
 pkgrel=1
 _qtver=4.8.5
 pkgdesc="Lightweight, cross-platform integrated development environment."
@@ -20,7 +20,7 @@ groups=('programming')
 options=('docs')
 source=("http://download.qt-project.org/official_releases/${pkgname}/3.0/${pkgver}/qt-creator-opensource-src-${pkgver}.tar.gz"
         'qtcreator.desktop')
-md5sums=('66a02eb8ed16b7be3eab873b3e284a83'
+md5sums=('1d736f4b3c25c25cf070c400a92e50c4'
          '5aa242e0262fa22f75c3b59d3a4ec198')
          
 
@@ -32,6 +32,7 @@ build() {
 
   qmake "${srcdir}/qt-creator-opensource-src-${pkgver}/qtcreator.pro"
   make 
+  make docs -j1
 }
 
 package() {
