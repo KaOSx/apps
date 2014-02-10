@@ -1,19 +1,19 @@
 
 pkgname=kotonaru-colors
-pkgver=1.1
+pkgver=2.0
 pkgrel=1
 pkgdesc="Color scheme for plasma theme Kotonaru"
 arch=('x86_64')
 url=("http://kaosx.us")
 license=('Artistic 2.0')
 depends=('kde-workspace')
-source=('colors')
-md5sums=('75b5a25fc01f6469c5a948baa7f42518')
+source=('Kotonaru.colors')
+md5sums=('02aafb63b8524e64eedc498ac3521561')
 
 package() {
        mkdir -p $pkgdir/usr/share/apps/color-schemes
        chmod 755 -R $pkgdir/usr/share/apps/color-schemes
 
        cd ${srcdir}
-       cp colors $pkgdir/usr/share/apps/color-schemes/kotonaru.colors
+       cp Kotonaru.colors $pkgdir/usr/share/apps/color-schemes/kotonaru.colors
 }
