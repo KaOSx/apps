@@ -1,0 +1,17 @@
+
+pkgname=compass-icon-theme
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Compass Icon theme, designed and developed by Uri Herrera, with additional KaOS specific icons'
+url='http://store.nitrux.in/'
+license=('cc-by-nc-nd-4.0')
+arch=('x86_64')
+source=("http://sourceforge.net/projects/kaosx/files/sources/icon-themes/Compass-KDE.tar.gz")
+md5sums=('1f0ad23f9f18e7de95cc54b7cf6ea2bd')
+
+package() {
+  mkdir -p "${pkgdir}/usr/share/icons/"
+  cp -r "${srcdir}/Compass-KDE" "${pkgdir}/usr/share/icons/"
+
+  install -Dm644 "${srcdir}/Compass-KDE/COPYING" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}

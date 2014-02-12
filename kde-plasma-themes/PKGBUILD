@@ -1,21 +1,24 @@
 
 pkgbase="kde-plasma-themes"
-pkgname=("kde-plasma-themes-Kotonaru")
-pkgver=3.0.0
+pkgname=("kde-plasma-themes-midna")
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="Mcder's Fushigi inspired light plasma theme"
 arch=('x86_64')
 url="http://kde-look.org/content/show.php/?content=149407"
 license=('GPL' 'Creative-Commons-BY-SA-NC')
-source=("http://sourceforge.net/projects/kaosx/files/sources/plasma-themes/$pkgver/Kotonaru_$pkgver.tar.gz")
-md5sums=('a2b31706105ab00162e8c7f4fbed3a00')
+provides=('kde-plasma-themes-Kotonaru')
+replaces=('kde-plasma-themes-Kotonaru')
+conflicts=('kde-plasma-themes-Kotonaru')
+source=("http://sourceforge.net/projects/kaosx/files/sources/plasma-themes/$pkgver/Midna.tar.gz")
+md5sums=('3b01a2365fc91de7fa749363fceb7c96')
 
 package() {
-  mkdir -p $pkgdir/usr/share/apps/desktoptheme/Kotonaru
-  cd $srcdir/Kotonaru
-  cp -R * $pkgdir/usr/share/apps/desktoptheme/Kotonaru
+  mkdir -p $pkgdir/usr/share/apps/desktoptheme/midna
+  cd $srcdir/Midna
+  cp -R * $pkgdir/usr/share/apps/desktoptheme/midna
   # fix file rights
-  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/Kotonaru
+  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/midna
   # remove nasty files
   find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
 }
