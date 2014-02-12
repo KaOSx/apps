@@ -1,0 +1,21 @@
+
+pkgname=midna-colors
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Color scheme for KaOS plasma theme Midna"
+arch=('x86_64')
+url=("http://kaosx.us")
+license=('Artistic 2.0')
+provides=('kotonaru-colors')
+replaces=('kotonaru-colors')
+conflicts=('kotonaru-colors')
+source=('Midna.colors')
+md5sums=('04210f0b6c1864c05bff4866e0f3ce29')
+
+package() {
+       mkdir -p $pkgdir/usr/share/apps/color-schemes
+       chmod 755 -R $pkgdir/usr/share/apps/color-schemes
+
+       cd ${srcdir}
+       cp Midna.colors $pkgdir/usr/share/apps/color-schemes/midna.colors
+}
