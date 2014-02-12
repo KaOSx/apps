@@ -1,7 +1,7 @@
 
 pkgbase="kde-plasma-themes"
 pkgname=("kde-plasma-themes-midna")
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="Mcder's Fushigi inspired light plasma theme"
 arch=('x86_64')
@@ -10,12 +10,12 @@ license=('GPL' 'Creative-Commons-BY-SA-NC')
 provides=('kde-plasma-themes-Kotonaru')
 replaces=('kde-plasma-themes-Kotonaru')
 conflicts=('kde-plasma-themes-Kotonaru')
-source=("http://sourceforge.net/projects/kaosx/files/sources/plasma-themes/$pkgver/Midna.tar.gz")
-md5sums=('3b01a2365fc91de7fa749363fceb7c96')
+source=("http://sourceforge.net/projects/kaosx/files/sources/plasma-themes/$pkgver/midna.7z")
+md5sums=('8cfd8faa2d12058479eb301c108dd0d9')
 
 package() {
   mkdir -p $pkgdir/usr/share/apps/desktoptheme/midna
-  cd $srcdir/Midna
+  cd $srcdir/midna
   cp -R * $pkgdir/usr/share/apps/desktoptheme/midna
   # fix file rights
   chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/midna

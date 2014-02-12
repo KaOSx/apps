@@ -1,23 +1,27 @@
-pkgname=('wallpapers-grey')
-pkgver=0.2
+
+pkgname=('wallpapers-midna')
+pkgver=0.1
 pkgrel=1
-pkgdesc="Grey themed wallpaper"
-url="http://www.kde-os.tk"
+pkgdesc="Litho Flowers themed wallpaper"
+url="http://kasox.us"
 license=('GPL')
 arch=('x86_64')
 makedepends=('automoc4')
+provides=('wallpapers-grey')
+replaces=('wallpapers-grey')
+conflicts=('wallpapers-grey')
 groups=('kde' 'kde-uninstall')
-source=("grey.tar.xz")
-md5sums=('34f689d5676edecb545b587f36ba9990')
+source=("http://sourceforge.net/projects/kaosx/files/sources/midna/wallpaper/midna.tar.xz")
+md5sums=('edb87935d645ec3bc6c576ef69c20675')
 
 package() {
-	cd ${srcdir}/grey
+	cd ${srcdir}/midna
 	
-	mkdir -pv ${pkgdir}/usr/share/wallpapers/grey/contents/
-	cd ${srcdir}/grey/contents
-	cp -Rv * ${pkgdir}/usr/share/wallpapers/grey/contents/
-	cd $pkgdir/usr/share/wallpapers/grey/contents/
+	mkdir -pv ${pkgdir}/usr/share/wallpapers/midna/contents/
+	cd ${srcdir}/midna/contents
+	cp -Rv * ${pkgdir}/usr/share/wallpapers/midna/contents/
+	cd $pkgdir/usr/share/wallpapers/midna/contents/
 
-	cp -v ${srcdir}/grey/metadata.desktop $pkgdir/usr/share/wallpapers/grey
-	cp -v ${srcdir}/grey/contents/screenshot.png $pkgdir/usr/share/wallpapers/grey/contents
+	cp -v ${srcdir}/midna/metadata.desktop $pkgdir/usr/share/wallpapers/midna
+	cp -v ${srcdir}/midna/contents/screenshot.png $pkgdir/usr/share/wallpapers/midna/contents
 }
