@@ -14,16 +14,17 @@ source=("https://github.com/sanya-m/kde-touchpad-config/tarball/master/sanya-m-k
 md5sums=('13929846b4e8e97df5ae8447b6c110ee')
 
 build() {
-    cd "${srcdir}/sanya-m-kde-touchpad-config-${_commit}/"
-    mkdir build
-    
-    cd build
-    cmake -DCMAKE_INSTALL_PREFIX="$(kde4-config --prefix)" ..
-    make
+  mkdir build 
+  cd build
+  
+  cmake ../sanya-m-kde-touchpad-config-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
 }
 
 package() {
-    cd "${srcdir}/sanya-m-kde-touchpad-config-${_commit}/build/"
+    cd build
     
     make DESTDIR="$pkgdir" install
 }
