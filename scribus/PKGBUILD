@@ -1,7 +1,7 @@
 
 pkgname=scribus
 pkgver=1.4.3
-pkgrel=2
+pkgrel=3
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="http://www.scribus.net"
@@ -32,10 +32,6 @@ build() {
 package() {
 	cd ${srcdir}/build
 	make DESTDIR=${pkgdir} install
-
-	# fix icon path in .desktop file
-	sed -i 's|Icon=scribus|Icon=/usr/share/scribus/icons/scribus.png|' \
-	   ${srcdir}/${pkgname}-${pkgver}/scribus.desktop
 
 	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/scribus.desktop \
 	   ${pkgdir}/usr/share/applications/scribus.desktop

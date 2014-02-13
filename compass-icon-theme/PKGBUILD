@@ -1,17 +1,24 @@
 
 pkgname=compass-icon-theme
-pkgver=1.2.3.1
+_pkgname=Compass-KDE
+pkgver=1.2.4
 pkgrel=1
 pkgdesc='Compass Icon theme, designed and developed by Uri Herrera'
 url='http://store.nitrux.in/'
 license=('cc-by-nc-nd-4.0')
 arch=('x86_64')
-source=("http://sourceforge.net/projects/kaosx/files/sources/icon-themes/Compass-KDE.tar.gz")
-md5sums=('1f0ad23f9f18e7de95cc54b7cf6ea2bd')
+#source=("http://sourceforge.net/projects/kaosx/files/sources/icon-themes/${_pkgname}.tar.gz")
+source=("http://store.nitrux.in/files/${_pkgname}.tar.gz"
+        'start-here.svg')
+md5sums=('e984d768da6a8fb8f43e4d7fe377531e'
+         '15c356fcc470fd77dd01f7a24ec6a28f')
 
 package() {
   mkdir -p "${pkgdir}/usr/share/icons/"
-  cp -r "${srcdir}/Compass-KDE" "${pkgdir}/usr/share/icons/"
+  cp -r "${srcdir}/${_pkgname}" "${pkgdir}/usr/share/icons/"
+  
+  rm "${pkgdir}/usr/share/icons/${_pkgname}/places/big/start-here.svg"
+  install -Dm644 "${srcdir}/start-here.svg" "${pkgdir}/usr/share/icons/${_pkgname}/places/big/start-here.svg"
 
-  install -Dm644 "${srcdir}/Compass-KDE/COPYING" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm644 "${srcdir}/${_pkgname}/COPYING" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
