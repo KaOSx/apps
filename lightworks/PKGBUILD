@@ -1,7 +1,7 @@
  
 pkgname=lightworks
 pkgver=11.5
-pkgrel=3
+pkgrel=4
 pkgdesc="A professional video editing software"
 arch=('x86_64')
 url="http://www.lwks.com/"
@@ -15,6 +15,10 @@ noextract=("lwks-${pkgver}-amd64.deb")
  
 package() {
   bsdtar -xf "lwks-${pkgver}-amd64.deb" data.tar.gz
+  #fix icon path in .desktop file
+  sed -i 's|Icon=/usr/share/lightworks/Icons/App.png|Icon=lightworks|' \
+   ${srcdir}/lwks-${pkgver}/lightworks.desktop
+  
   bsdtar -xf data.tar.gz -C "${pkgdir}"
 	rm data.tar.gz
   
