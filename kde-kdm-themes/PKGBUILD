@@ -1,19 +1,22 @@
 
-pkgname=kde-kdm-themes-grey
-pkgver=1.4
+pkgname=kde-kdm-themes-midna
+pkgver=1.0
 pkgrel=1
 pkgdesc="KaOS grey KDM-Theme"
-url="http://kde-os.tk"
+url="http://kaosx.us"
 license=('GPL')
 arch=('x86_64')
 depends=('kde-workspace')
+provides=('kde-kdm-themes-grey')
+replaces=('kde-kdm-themes-grey')
+conflicts=('kde-kdm-themes-grey')
 groups=("kde" "kde-complete" "kde-uninstall" "kde-minimal")
-source=("http://sourceforge.net/projects/kaosx/files/sources/grey/kdm/$pkgver/grey_kdm.tar.xz")
-md5sums=('ac335c60fd83fa456bd8bf5e2d879922')
+source=("http://sourceforge.net/projects/kaosx/files/sources/midna/kdm/$pkgver/midna_kdm.tar.xz")
+md5sums=('93700fd284c46ea9dd5b3be2fa0fbc04')
 
 package() {
 	cd ${srcdir}/
 	
-	mkdir -pv $pkgdir/usr/share/apps/kdm/themes/grey
-	cp -Rv ${srcdir}/grey_kdm/* $pkgdir/usr/share/apps/kdm/themes/grey
+	mkdir -pv $pkgdir/usr/share/apps/kdm/themes/midna
+	cp -Rv ${srcdir}/midna_kdm/* $pkgdir/usr/share/apps/kdm/themes/midna
 }

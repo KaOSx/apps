@@ -1,15 +1,16 @@
+
 pkgname=kde-ksplash-themes
-pkgver=1.9
+pkgver=1.0.0
 pkgrel=1
 pkgbase='kde-ksplash-themes'
-pkgname='kde-ksplash-themes-grey'
+pkgname='kde-ksplash-themes-midna'
 pkgdesc="KDE KSplash-Themes"
 url="http://kaosx.us"
 license=('GPL')
 arch=('x86_64')
 groups=('kde' 'kde-complete' 'kde-uninstall' 'kde-minimal')
-source=("http://sourceforge.net/projects/kaosx/files/sources/grey/ksplash/$pkgver/grey.tar.xz")
-md5sums=('63fe4bb3ae3e917dd8d7d933952425c7')
+source=("http://sourceforge.net/projects/kaosx/files/sources/midna/ksplash/$pkgver/midna.tar.xz")
+md5sums=('80265ded6bd6429c481836a61e6e148a')
 
 
 package_kde-ksplash-themes-ronak(){
@@ -29,13 +30,16 @@ package_kde-ksplash-themes-ronak(){
 
 }
 
-package_kde-ksplash-themes-grey() {
+package_kde-ksplash-themes-midna() {
 	pkgdesc="Grey KSplash-Theme, based on litho flowers for KaOS"
 	groups=('kde' 'kde-complete' 'kde-uninstall' 'kde-minimal')
-	_THEME="grey"
+	provides=('kde-ksplash-themes-grey')
+	replaces=('kde-ksplash-themes-grey')
+	conlficts=('kde-ksplash-themes-grey')
+	_THEME="midna"
 	pkgrel=1
 	
-	cd ${srcdir}/grey
+	cd ${srcdir}/midna
 	
 	msg "Install theme"
 	mkdir -pv $pkgdir/usr/share/apps/ksplash/Themes/$_THEME

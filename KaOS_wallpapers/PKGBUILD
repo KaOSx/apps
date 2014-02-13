@@ -1,0 +1,18 @@
+
+pkgname=KaOS_wallpapers
+pkgver=1.0
+pkgrel=1
+pkgdesc="KaOS Wallpaper Set"
+arch=('x86_64')
+url="http://kaosx.us"
+license=('GPL3' 'LGPLv3' 'cc-by-nc-nd-3.0')
+depends=('kdelibs')
+source=("http://sourceforge.net/projects/kaosx/files/sources/midna/wallpaper/KaOS_wallpapers.tar.xz")
+md5sums=('e93e524af6e44ea7310b2230b6981eee')
+
+package() {
+  cd ${srcdir}
+  
+  mkdir -p $pkgdir/usr/share/wallpapers
+  cp -R KaOS_wallpapers/* $pkgdir/usr/share/wallpapers
+}
