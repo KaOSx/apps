@@ -1,6 +1,6 @@
 
 pkgname=installer-partitionmanager
-pkgver=1362680
+pkgver=1274507
 pkgrel=2
 arch=('x86_64')
 pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
@@ -18,7 +18,7 @@ conflict=('partitionmanager')
 install=partitionmanager.install
 options=('debug')
 source=('installer.patch') # disable-gpt.patch)
-md5sums=('85aca9ace69e22bb02403dc051ce7ce1')
+md5sums=('89a42ad1a564a3809ccbb90d8e2c9b19')
 
 #_svntrunk=svn://anonsvn.kde.org/home/kde/trunk/extragear/sysadmin/partitionmanager
 _svnmod=partitionmanager-svn
@@ -37,7 +37,7 @@ build() {
   patch -p1 < ${srcdir}/installer.patch
   #patch -p1 < ${srcdir}/disable-gpt.patch
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo -DENABLE_UDISKS2=on
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo 
 
   make 
 }
