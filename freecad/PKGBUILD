@@ -15,11 +15,13 @@ install=freecad.install
 source=("http://downloads.sourceforge.net/sourceforge/free-cad/$pkgname-${pkgver}.tar.gz"
         'freecad-0.13.diff'
         'freecad.desktop'
-        'freecad.xml')
+        'freecad.xml'
+        'pyobject.patch')
 md5sums=('13b8fddef12f5f8419dcf4adbab596eb'
          '493490db7844d7d5b9426fab8da5acea'
          '0a4d0635dbd97d9f594ac8e927284316'
-         'c2f4154c8e4678825411de8e7fa54c6b')
+         'c2f4154c8e4678825411de8e7fa54c6b'
+         '8aeceda60d5260d8c201201ac06e5335')
 
 build() {
   cd "${srcdir}/$pkgname-${pkgver}/"
@@ -31,6 +33,7 @@ build() {
   done
 
   patch -p1 -i ${srcdir}/freecad-0.13.diff
+  patch -p0 -i ${srcdir}/pyobject.patch
 
   mkdir -p build
   cd build
