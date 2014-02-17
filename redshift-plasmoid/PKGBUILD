@@ -1,0 +1,27 @@
+
+pkgname=redshift-plasmoid
+pkgver=0.6.2
+pkgrel=1
+pkgdesc='Plasmoid providing configuration interface and allows to start/stop Redshift daemon either manually or automatically based on the current activity'
+arch=('x86_64')
+url='http://simgunz.org/projects/redshift-plasmoid/'
+license=('GPL')
+depends=('kde-workspace' 'redshift')
+makedepends=('cmake' 'automoc4')
+install='redshift.install'
+source=("http://kde-apps.org/CONTENT/content-files/148737-${pkgname}-$pkgver.tar.bz2")
+md5sums=('c7062c3331e2838a6c140e690847a8a9')
+
+build() {
+  mkdir -p "$srcdir/build"
+  cd "$srcdir/build"
+  
+  cmake "$srcdir/${pkgname}-${pkgver}" -DCMAKE_INSTALL_PREFIX="$(kde4-config --prefix)"
+  make
+}
+
+package() {
+  cd "${srcdir}/build"
+  
+  make DESTDIR="$pkgdir" install
+}
