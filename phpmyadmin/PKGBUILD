@@ -1,0 +1,34 @@
+
+pkgname=phpmyadmin
+pkgver=4.1.7
+pkgrel=1
+pkgdesc='PHP and hence web-based tool to administrate MySQL over the WWW'
+arch=('x86_64')
+url='http://www.phpmyadmin.net'
+license=('GPL')
+depends=('mariadb-clients' 'php')
+backup=(etc/webapps/phpmyadmin/config.inc.php)
+source=("http://downloads.sourceforge.net/sourceforge/$pkgname/phpMyAdmin-$pkgver-all-languages.tar.bz2")
+md5sums=('dffde3e865e0268ded1e043377a1453b')
+
+package() {
+  _instdir="$pkgdir"/usr/share/webapps/phpMyAdmin
+  mkdir -p "$_instdir" "$pkgdir"/etc/webapps/phpmyadmin
+  cd "$_instdir"
+
+  cp -ra "$srcdir"/phpMyAdmin-$pkgver-all-languages/* .
+
+  ln -s /etc/webapps/phpmyadmin/config.inc.php "$_instdir"/config.inc.php
+  cp "$_instdir"/config.sample.inc.php "$pkgdir"/etc/webapps/phpmyadmin/config.inc.php
+
+  cat >"$pkgdir"/etc/webapps/phpmyadmin/apache.example.conf <<EOF
+	Alias /phpmyadmin "/usr/share/webapps/phpMyAdmin"
+	<Directory "/usr/share/webapps/phpMyAdmin">
+		AllowOverride All
+		Options FollowSymlinks
+		Order allow,deny
+		Allow from all
+		php_admin_value open_basedir "/srv/:/tmp/:/usr/share/webapps/:/etc/webapps:/usr/share/pear/"
+	</Directory>
+EOF
+}

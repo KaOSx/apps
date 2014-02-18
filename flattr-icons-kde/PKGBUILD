@@ -1,0 +1,18 @@
+
+pkgname=flattr-icons-kde
+_pkgname=flattr-icons-kde-master
+pkgver=0.1
+pkgrel=1
+pkgdesc='Flattr Icon theme, designed and developed by Uri Herrera'
+url='http://store.nitrux.in/'
+license=('cc-by-nc-nd-4.0')
+arch=('x86_64')
+source=("http://sourceforge.net/projects/kaosx/files/sources/icon-themes/${pkgname}-${pkgver}.tar.gz")
+md5sums=('8a1ebc25647d07ec504907d2189a696f')
+
+package() {
+  mkdir -p "${pkgdir}/usr/share/icons/"
+  cp -r "${srcdir}/${_pkgname}" "${pkgdir}/usr/share/icons/"
+  
+  install -Dm644 "${srcdir}/${_pkgname}/COPYING" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
