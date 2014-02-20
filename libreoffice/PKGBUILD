@@ -13,11 +13,11 @@ pkgname=('libreoffice-common'
 	'libreoffice-en-US'
 	'libreoffice-postgresql-connector')
 	#'libreoffice-extension-presentation-minimizer')
-_LOver=4.2.0.4
-pkgver=4.2.0
-_pkgver=4.2.0.4
+_LOver=4.2.1.1
+pkgver=4.2.1
+_pkgver=4.2.1.1
 _HIver=4.2
-pkgrel=3
+pkgrel=1
 arch=('x86_64')
 _OFFICEUPD="340"
 license=('LGPL3')
@@ -63,7 +63,7 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
 	${_additional_source_url}/db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
 	${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
-	${_additional_source_url}/01a380acfec23bf617117ce98e318f3d-mdds_0.10.1.tar.bz2
+	${_additional_source_url}/47203e7cade74e5c385aa812f21e7932-mdds_0.10.2.tar.bz2 
 	${_additional_source_url}/ae330b9493bd4503ac390106ff6060d7-libexttextcat-3.4.3.tar.bz2
 	${_additional_source_url}/22f8a85daf4a012180322e1f52a7563b-libcmis-0.4.1.tar.gz
 	${_additional_source_url}/ea2acaf140ae40a87a952caa75184f4d-liborcus-0.5.1.tar.bz2
@@ -75,7 +75,7 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/libmwaw-0.2.0.tar.bz2
 	${_additional_source_url}/libfreehand-0.0.0.tar.bz2
 	${_additional_source_url}/Firebird-2.5.2.26540-0.tar.bz2
-	${_additional_source_url}/libe-book-0.0.2.tar.bz2
+	${_additional_source_url}/libe-book-0.0.3.tar.bz2
 	${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	${_additional_source_url}/15cb8c0803064faef0c4ddf5bc5ca279-boost_1_54_0.tar.bz2
 	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
@@ -83,7 +83,7 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	
 	noextract=(18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
         185d60944ea767075d27247c3162b3bc-unowinreg.dll
-	01a380acfec23bf617117ce98e318f3d-mdds_0.10.1.tar.bz2
+	47203e7cade74e5c385aa812f21e7932-mdds_0.10.2.tar.bz2
 	ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 	798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 	1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz
@@ -118,7 +118,7 @@ source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
 	libmwaw-0.2.0.tar.bz2
 	libfreehand-0.0.0.tar.bz2
 	Firebird-2.5.2.26540-0.tar.bz2
-	libe-book-0.0.2.tar.bz2
+	libe-book-0.0.3.tar.bz2
 	90401bca927835b6fbae4a707ed187c8-nlpsolver-0.9.tar.bz2)
 
 source libreoffice.md5
@@ -260,9 +260,7 @@ package_libreoffice-common() {
              'gst-plugins-base: + some gstr-plugins to support multimedia content, e.g. in impress')
  backup=('etc/libreoffice/sofficerc'
          'etc/libreoffice/bootstraprc'
-         'etc/libreoffice/psprint.conf'
-         'etc/profile.d/libreoffice-common.sh'
-         'etc/profile.d/libreoffice-common.csh')
+         'etc/libreoffice/psprint.conf')
 groups=('libreoffice')
 replaces=('libreoffice' 
           'libreoffice-extension-diagram'
