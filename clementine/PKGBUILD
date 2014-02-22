@@ -1,7 +1,8 @@
 
 pkgname=clementine
-pkgver=1.2.1
-pkgrel=2
+_pkgname=Clementine
+pkgver=1.2.2
+pkgrel=1
 pkgdesc="Modern music player and library organiser that takes advantage of Qt4."
 url="http://www.clementine-player.org/"
 license="GPL"
@@ -9,14 +10,14 @@ arch=('x86_64')
 install="${pkgname}.install"
 depends=('gstreamer0.10-base' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
          'hicolor-icon-theme' 'qtwebkit' 'libimobiledevice' 'qjson' 'protobuf'
-         'libcdio-paranoia' 'qca' 'qca-ossl' 'chromaprint' 'sparsehash')
+         'libcdio-paranoia' 'qca' 'qca-ossl' 'chromaprint' 'sparsehash' 'libmygpo-qt')
 makedepends=('cmake' 'boost' 'mesa')
 groups=('multimedia')
-source=("http://clementine-player.googlecode.com/files/${pkgname}-${pkgver}.tar.gz")
-md5sums=('5d079e12f5925845cc7e38ce2f4a1e20')
+source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
+md5sums=('504b6e62130837faffd177a007f3c55f')
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/${_pkgname}-${pkgver}"
   mkdir -p build 
   
   cd build
@@ -26,7 +27,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}/build"
+  cd "${srcdir}/${_pkgname}-${pkgver}/build"
   
   make install DESTDIR="${pkgdir}"
 }
