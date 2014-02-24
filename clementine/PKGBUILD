@@ -13,11 +13,15 @@ depends=('gstreamer0.10-base' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'li
          'libcdio-paranoia' 'qca' 'qca-ossl' 'chromaprint' 'sparsehash' 'libmygpo-qt')
 makedepends=('cmake' 'boost' 'mesa')
 groups=('multimedia')
-source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
-md5sums=('504b6e62130837faffd177a007f3c55f')
+source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz"
+        'unistd.patch')
+md5sums=('504b6e62130837faffd177a007f3c55f'
+         '59a5824550e801dd1c4d1f06b2583747')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
+  patch -p1 -i "${srcdir}/unistd.patch"
+  
   mkdir -p build 
   
   cd build
