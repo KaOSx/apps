@@ -1,6 +1,6 @@
 
 pkgname=plasma-nm
-pkgver=0.9.3.2.1
+pkgver=0.9.3.3
 pkgrel=1
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
@@ -13,12 +13,12 @@ opedepends=('mobile-broadband-provider-info: Database of mobile broadband servic
 provides=('kdeplasma-applets-networkmanagement')
 replaces=('kdeplasma-applets-networkmanagement')
 conflicts=('kdeplasma-applets-networkmanagement')
-#source=("http://download.kde.org/unstable/$pkgname/$pkgname-$pkgver.tar.xz")
-source=('http://quickgit.kde.org/?p=plasma-nm.git&a=snapshot&h=03036e350039e486d9515c9523563d4117532452&fmt=tbz2')
-md5sums=('2f151bc5d3b887e720aac0cec735d434')
+source=("http://download.kde.org/unstable/$pkgname/$pkgname-$pkgver.tar.xz")
+#source=('http://quickgit.kde.org/?p=plasma-nm.git&a=snapshot&h=03036e350039e486d9515c9523563d4117532452&fmt=tbz2')
+md5sums=('5bcb5b76929f116d8ed24ddb1fdf9043')
 
 build() {
-  cd $pkgname
+  cd $pkgname-$pkgver
   mkdir build
   
   cd build
@@ -28,7 +28,7 @@ build() {
 }
 
 package() {
-  cd $pkgname/build
+  cd $pkgname-$pkgver/build
   
   make DESTDIR="$pkgdir" install
 }
