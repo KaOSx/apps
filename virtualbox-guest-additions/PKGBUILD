@@ -1,0 +1,21 @@
+
+pkgname=virtualbox-guest-additions
+pkgver=4.3.8
+pkgrel=2
+pkgdesc='The official VirtualBox Guest Additions ISO image'
+arch=('x86_64')
+url='http://www.virtualbox.org'
+license=('custom:PUEL')
+install=virtualbox-guest-additions.install
+source=("http://download.virtualbox.org/virtualbox/$pkgver/VBoxGuestAdditions_$pkgver.iso"
+        'LICENSE')
+noextract=(VBoxGuestAdditions_$pkgver.iso)
+md5sums=('f23d3980a509418b2dcb614483271ffa'
+         'c32cd777d97ebc094af7548e2fd866c2')
+
+package() {
+  install -Dm 644 VBoxGuestAdditions_$pkgver.iso \
+    "$pkgdir/usr/lib/virtualbox/additions/VBoxGuestAdditions.iso"
+    
+  install -Dm 644 "$srcdir/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

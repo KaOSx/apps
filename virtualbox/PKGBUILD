@@ -1,13 +1,8 @@
-#
-# The VirtualBox Guest Additions are extracted into the ${srcdir}, but with
-# root rights. So a simple :cp can't delete them. Please remove the ${srcdir}
-# with sudo rm -R src.
-#
 
 pkgbase=virtualbox
-pkgname=('virtualbox' 'virtualbox-ext-oracle' 'virtualbox-guest-additions')
-pkgver=4.3.6
-_build=91406
+pkgname=('virtualbox' 'virtualbox-ext-oracle')
+pkgver=4.3.8
+_build=92456
 pkgrel=1
 arch=('x86_64')
 url='http://virtualbox.org/'
@@ -16,20 +11,16 @@ options=('!strip')
 makedepends=('libidl2' 'libxcursor' 'libxinerama' 'libxslt' 'curl' 'linux-headers' 'python2' 'make' 'gcc')
 source=("VirtualBox-${pkgver}-${_build}-Linux_amd64.run::http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}-${_build}-Linux_amd64.run"
         "http://download.virtualbox.org/virtualbox/${pkgver}/Oracle_VM_VirtualBox_Extension_Pack-${pkgver}-${_build}.vbox-extpack"
-        "http://download.virtualbox.org/virtualbox/${pkgver}/VBoxGuestAdditions_${pkgver}.iso"
         '10-vboxdrv.rules'
         'vboxdrv.conf'
         'vboxweb.conf'
         'vboxweb.service'
         'vboxusb.service'
         'virtualbox.conf'
-        'vboxclient.conf'
         'vboxsetup.sh'
-        'PUEL'
-        'vboxservice.service')
-md5sums=('4c2c2d736e812908becc07448b14f230'
-         '957f390ff8d04e1a5d016c59cd79f739'
-         '13ea7dddbd3da36c76a6ee734a2b6a70'
+        'PUEL')
+md5sums=('26540644f7509aff851cf537b0046d95'
+         'eebcc0b343aa363c74499a6cb77588e2'
          'cee0c968c923760181ae060eab1c2e58'
          '564ceec89e559bd98987f08e86f74825'
          '3ac185709bfe688bb753c46e170d0546'
@@ -190,17 +181,3 @@ package_virtualbox-ext-oracle() {
   install -D -m 644 PUEL "${pkgdir}/usr/share/licenses/${pkgname}/PUEL"
 }
 
-package_virtualbox-guest-additions() {
-  pkgdesc="Oracle VM VirtualBox Guest Additions"
-  arch=('x86_64')
-  license=('GPL2')
-  depends=('linux-headers' 'make' 'gcc')
-  install=${pkgname}.install
-  
-  cd "${srcdir}"
-  
-  # Install VBoxLinuxAdditions, service file and module
-  install -Dm0755 VBoxLinuxAdditions.run "${pkgdir}/usr/share/virtualbox/guest-additions/VBoxLinuxAdditions.run"
-  install -Dm0644 vboxservice.service "${pkgdir}/usr/lib/systemd/system/vboxservice.service"
-  install -Dm0644 "${srcdir}/vboxclient.conf" "${pkgdir}/etc/modules-load.d/vboxclient.conf"
-}
