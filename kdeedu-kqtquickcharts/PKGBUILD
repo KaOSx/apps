@@ -2,16 +2,17 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=baloo
+pkgname=kdeedu-kqtquickcharts
+_pkgname=kqtquickcharts
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="A framework for searching and managing metadata"
+pkgdesc="A QtQuick plugin to render beautiful and interactive graphs"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/kdelibs/baloo'
+url='https://projects.kde.org/projects/kde/kdeedu/kqtquickcharts'
 license=('LGPL')
-depends=('kdepimlibs' 'xapian-core' 'kfilemetadata')
+depends=('kdelibs')
 makedepends=('cmake' 'automoc4')
-groups=('kde' 'kde-uninstall')
+groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 source=($_mirror/${pkgname}-$_kdever.tar.xz
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
