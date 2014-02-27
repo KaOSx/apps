@@ -12,14 +12,16 @@ license=('LGPL')
 depends=('kdelibs' 'poppler-qt' 'ebook-tools' 'ffmpeg' 'taglib')
 makedepends=('cmake' 'automoc4')
 groups=('kde' 'kde-uninstall')
-source=($_mirror/${pkgname}-$_kdever.tar.xz
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=($_mirror/${pkgname}-$_kdever.tar.xz)
+source=('git://anongit.kde.org/kfilemetadata')
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+md5sums=('SKIP')
 
 build() {
   mkdir build
   cd build
   
-  cmake ../${pkgname}--${pkgver} \
+  cmake ../${pkgname} \
         -DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_INSTALL_PREFIX=/usr
   make
