@@ -28,82 +28,81 @@ pkgname=(
          'calligra-l10n-sk'
          'calligra-l10n-sl'
 	 'calligra-l10n-sv'
-	 'calligra-l10n-tr'
+	 #'calligra-l10n-tr'
 	 'calligra-l10n-uk'
 	 'calligra-l10n-zh_CN'
 	 'calligra-l10n-zh_TW')
-pkgver=2.7.5
-pkgrel=2
+pkgver=2.7.92
+pkgrel=1
 pkgdesc="Localization for Calligra"
 arch=('x86_64')
 url="www.calligra-suite.org/"
 license=('LGPL')
 makedepends=('cmake' 'automoc4' 'kdelibs' 'docbook-xsl')                    
 source=(
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-bs-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ca-${pkgver}.tar.xz
-        #ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ca@valencia-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-cs-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-da-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-de-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-el-${pkgver}.tar.xz
-        #ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-en_GB-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-es-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-et-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-fi-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-fr-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-gl-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-hu-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-it-${pkgver}.tar.xz
-        ##ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ja-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-kk-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-nb-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-nds-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-nl-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-pl-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-pt-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-pt_BR-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ru-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-sk-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-sl-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-sv-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-tr-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-uk-${pkgver}.tar.xz
-        ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-zh_CN-${pkgver}.tar.xz
-	ftp://ftp.kde.org/pub/kde/stable/calligra-${pkgver}/calligra-l10n/calligra-l10n-zh_TW-${pkgver}.tar.xz)
-md5sums=('c28966dce75cc5731d13f6461cba6977'
-         '44d4b9167167b51da439d30945d1c898'
-         'c2601b227432c6e2a26d174f191942cb'
-         'eeeb7a652603eefcad25466c441ac700'
-         'a2b98cfd74dab9c20e07b478b9aef4c6'
-         '83597b02415eed90b49d699707540ba7'
-         'f217fe79f710a0316add8c10df5e20d1'
-         '9b4fa02ddad5373d79aaf2c0f9a679c6'
-         'ba18303b4aeef8cca7fa0fb6b44aaccc'
-         '968b2b558a6d3ba22466de3a3f5a6163'
-         '116ba36f96ebeaad778a9ec9dbbde396'
-         '39f007c871406102192c420d86dac78f'
-         'dc72617f9e6fc1fb99435141c1b62aa8'
-         '7a07e2ec30a8a2bf21f748f4076f7926'
-         '76aa878f9f7d14021a7360896f2eed40'
-         '1a6af385cbb7ce70724fc2d6be57d725'
-         'c654a558c39398165a4cdc29164d5f6c'
-         '8b2cd22d771f8f92b681adbee84a6144'
-         '13e9d33cb428040518247a5e304c2e75'
-         'cf7a706eeb04ca44100d550c9f6bda12'
-         '529fab32d05384c702b78c76cc6375cd'
-         '6b89099115630ee46ce12b4cf1916701'
-         'fb6db0304d6f531136b673338688aeac'
-         'c2e0180460609af6e25c8107201ae000'
-         'c6b22213e65a6eda16946ad0644e800f'
-         '7ba49bdd90870b63479df782f57f1488'
-         'bc8b5570928b4e83eaceedbd60aae23f'
-         '3fb85153b2800f5527d3b76f54d5af0f')
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-bs-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ca-${pkgver}.tar.xz
+        #ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ca@valencia-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-cs-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-da-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-de-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-el-${pkgver}.tar.xz
+        #ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-en_GB-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-es-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-et-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-fi-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-fr-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-gl-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-hu-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-it-${pkgver}.tar.xz
+        ##ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ja-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-kk-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-nb-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-nds-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-nl-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-pl-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-pt-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-pt_BR-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-ru-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-sk-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-sl-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-sv-${pkgver}.tar.xz
+        #ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-tr-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-uk-${pkgver}.tar.xz
+        ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-zh_CN-${pkgver}.tar.xz
+	ftp://ftp.kde.org/pub/kde/unstable/calligra-${pkgver}/calligra-l10n/calligra-l10n-zh_TW-${pkgver}.tar.xz)
+md5sums=('d205a47cb68e0710644a97aa2ea455d3'
+         'a2250fed6418586a5531d38fd335dbdb'
+         'e8c758e2dc4f27dda49236ea13da2b07'
+         '4bc9f73a74a53d719e30167af392a52c'
+         '548bf4c067cece8994db25ba26609bbb'
+         '36dfb1c146302434a6a1ef7116ca1692'
+         'f0443d249dfade5e3d9e02c768f3a9c4'
+         '515add7258827627db0b974a7b200bb9'
+         '01de41ace434a3fc4bbab2d449a82048'
+         '29139a7e2591d4ff9496311ab9f950a0'
+         '2d61e31cab407352f76d26d751662151'
+         '54288cd8930a8f53ebbbecdce67355bf'
+         '568a26a18e4ff457dfa032c9777e8d6b'
+         '48fdedcb6a97d0d513b543531c600826'
+         'fde6bfb14319f26a15fd9ca690036ab4'
+         'd0d9097a62506c45d58a098232c10db2'
+         '20634228c3cffb4466cba1a24ce160ce'
+         '958127e40be0a9e23f453b72366143cf'
+         'bbe579675f3455feb7919229a92e15f0'
+         '59ba87d694aadb752f61a3f122c4c3ee'
+         '37214543f9055f6ed1d7c6cd0f3d9b16'
+         '8d5397a9ddc6b2c1b8fd956c2f167569'
+         'deb871810a1680b1a32bc81d31487cff'
+         'a738fa8fa9b7ae1b9c35acdf9d8fb414'
+         'c7b69644feafd071d8ee4c15f57a8a66'
+         'b0c07d6dcad208bebba9bb49307e6bea'
+         'ad01b86cd9560a5d31837d1d5f34c26e')
 
 build() {
   cd $srcdir
   #langs="bs ca ca@valencia da de el en_GB es et fi fr gl hu it kk nb nds nl pl pt pt_BR ru sk sl sv uk zh_CN zh_TW" 
-  langs="bs ca cs da de el es et fi fr gl hu it kk nb nds nl pl pt pt_BR ru sk sl sv tr uk zh_CN zh_TW"
+  langs="bs ca cs da de el es et fi fr gl hu it kk nb nds nl pl pt pt_BR ru sk sl sv uk zh_CN zh_TW"
   for lang in $langs; do
     install -d build/${lang}
     pushd build/${lang}
