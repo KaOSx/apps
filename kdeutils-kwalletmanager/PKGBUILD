@@ -2,8 +2,8 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname="kdeutils-kwallet"
-_pkgname="kwallet"
+pkgname="kdeutils-kwalletmanager"
+_pkgname="kwalletmanager"
 arch=('x86_64')
 pkgver=${_kdever}
 pkgrel=1
@@ -12,7 +12,9 @@ url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs')
 depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}")
-conflicts=("kdeutils-common")
+replaces=('kdeutils-kwallet')
+provides=('kdeutils-kwallet')
+conflicts=('kdeutils-common' 'kdeutils-kwallet')
 groups=("kde" "kdeutils" "kde-uninstall")
 install=kdeutils.install
 makedepends=('pkg-config' 'cmake' 'automoc4' "kdelibs>=${_kdever}")
