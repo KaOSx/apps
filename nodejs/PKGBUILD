@@ -1,0 +1,38 @@
+
+pkgname=nodejs
+pkgver=0.10.26
+pkgrel=1
+pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications."
+arch=('x86_64')
+url='http://nodejs.org/'
+license=('MIT')
+depends=('python2' 'openssl')
+checkdepends=('curl') 
+options=('!emptydirs')
+source=("http://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.gz")
+md5sums=('15e9018dadc63a2046f61eb13dfd7bd6')
+
+build() {
+  cd "node-v${pkgver}"
+  export PYTHON=python2
+  
+  ./configure --prefix=/usr
+  make
+}
+
+check() {
+  cd "node-v${pkgver}"
+  
+  make test || true
+}
+
+package() {
+  cd "node-v${pkgver}"
+  make install DESTDIR="${pkgdir}"
+
+
+  install -d "${pkgdir}/usr/share/doc/nodejs"
+  cp -r doc/api/* "${pkgdir}/usr/share/doc/nodejs"
+  install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/nodejs/LICENSE"
+}
+

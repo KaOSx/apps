@@ -1,0 +1,54 @@
+
+pkgname=brackets
+_build=36
+pkgver=sprint$_build
+pkgrel=1
+pkgdesc="Open source code editor for web designers and front-end developers."
+arch=("x86_64")
+url="http://brackets.io"
+license=("MIT")
+depends=('gconf' 'nodejs' 'nss' 'systemd' 'desktop-file-utils' 'hicolor-icon-theme')
+makedepends=('prelink')
+optdepends=("google-chrome: to enable Live Preview"
+            "gnuplot: to enable node benchmarking"
+            "ruby: to enable LiveDevelopment Inspector")
+install=$pkgname.install
+source=("brackets-sprint-$_build-LINUX64.deb::http://download.brackets.io/file.cfm?platform=LINUX64&build=$_build"
+        'libgcrypt.so.11.8.2')
+md5sums=('9c2a0db0cdaaf0d6bcbda90cb0a60504'
+         'a17acc9851185dd5f219458140e6ccda')
+         
+export DLAGENTS='http::/usr/bin/curl -A "Mozilla/4.0" -fLC - --retry 3 --retry-delay 3 -o %o %u'
+
+prepare() {
+  cd $srcdir/
+
+  tar -xf data.tar.gz
+  execstack -c opt/$pkgname/Brackets
+}
+
+package() {
+  install -d $pkgdir/opt
+  cp -r opt/$pkgname $pkgdir/opt/$pkgname
+
+  chmod -R a+rw $pkgdir/opt/$pkgname/samples
+
+  install -d $pkgdir/usr/bin
+  ln -s /opt/brackets/brackets $pkgdir/usr/bin/$pkgname
+
+  local _icon_dir="usr/share/icons/hicolor"
+  install -d $pkgdir/$_icon_dir/scalable/apps
+  install -Dm644 $_icon_dir/scalable/apps/$pkgname.svg $pkgdir/$_icon_dir/scalable/apps/$pkgname.svg
+  for _icon in "opt/brackets/appshell"*.png; do
+    local _icon_size=${_icon##*/appshell}
+    install -d $pkgdir/$_icon_dir/${_icon_size%.png}x${_icon_size%.png}/apps
+    install -Dm644 $_icon $pkgdir/$_icon_dir/${_icon_size%.png}x${_icon_size%.png}/apps/$pkgname.png
+  done
+
+  install -d $pkgdir/usr/share/applications
+  sed 's/Development/Development;/' opt/$pkgname/$pkgname.desktop > $pkgdir/usr/share/applications/$pkgname.desktop
+
+  install -Dm755 usr/share/doc/$pkgname/copyright $pkgdir/usr/share/licenses/$pkgname/copyright
+  #libgcrypt 1.6.0 fix 
+  install -m755 "$srcdir"/libgcrypt.so.11.8.2 $pkgdir/opt/brackets/libgcrypt.so.11
+}
