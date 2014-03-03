@@ -1,27 +1,31 @@
 
 pkgname=trojita
-pkgver=0.3.93
+pkgver=0.3.96
 pkgrel=1
 pkgdesc="Trojita is a Qt IMAP e-mail client."
 arch=('x86_64')
 url="http://trojita.flaska.net"
 license=('GPL')
-depends=('qtwebkit')
-makedepends=('make')
+depends=('qt5-webkit' 'qt5-tools')
+makedepends=('cmake' 'automoc4')
 groups=('network')
 source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2")
-md5sums=('6a3490d8b3a94fd6bb18cb5c99cd861f')
+md5sums=('fa27ba25fad34df4a532cc70823d3da9')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd $srcdir/$pkgname-$pkgver
+  mkdir build
   
-  qmake PREFIX=/usr trojita.pro
+  cd build
+  cmake .. -DCMAKE_BUILD_TYPE=Release \
+           -DCMAKE_INSTALL_PREFIX=/usr \
+           -DWITH_QT5=ON
   make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd $srcdir/$pkgname-$pkgver/build
   
-  make INSTALL_ROOT="$pkgdir" install
+  make DESTDIR="$pkgdir" install
 }
 

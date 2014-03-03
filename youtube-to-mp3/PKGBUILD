@@ -1,0 +1,22 @@
+
+pkgname=youtube-to-mp3
+name=YouTubeToMP3
+pkgver=3.4
+pkgrel=1
+pkgdesc="Software that allows you to extract audio tracks from YouTube videos and YouTube playlists with the highest quality possible."
+arch=('x86_64')
+url="http://www.mediahuman.com/"
+license=('GPL')
+depends=('qt' 'taglib' 'ffmpeg')
+install="$pkgname.install"
+source=("http://www.mediahuman.com/files/${name}.amd64.deb")
+md5sums=('7ffc745a4858e3ab52d486134c5a063f')
+
+package() {
+  cd ${startdir}/src
+  tar -zxf ${startdir}/src/data.tar.gz
+
+  sed -i '9s|Network|Application;Network|g' "$srcdir/usr/share/applications/youtube-to-mp3.desktop"
+  sed -i '4s|Saves aoudio track from YouTube|Pulls audio tracks from YouTube videos|g' "$srcdir/usr/share/applications/youtube-to-mp3.desktop"
+  cp -rp usr $pkgdir
+}

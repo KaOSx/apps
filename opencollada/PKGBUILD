@@ -1,6 +1,6 @@
 
 pkgname=opencollada
-pkgver=20130606
+pkgver=20140302
 #_commit=9665d16
 pkgrel=1
 pkgdesc="Stream based reader and writer library for COLLADA files"
@@ -21,7 +21,7 @@ build() {
   cd build
 
   cmake .. \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr -DUSE_SHARED=ON 
   make
 }
 
