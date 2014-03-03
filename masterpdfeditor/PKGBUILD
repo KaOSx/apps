@@ -1,0 +1,28 @@
+
+pkgname=masterpdfeditor
+pkgver=1.9.23
+pkgrel=1
+pkgdesc="Complete solution for creation and editing PDF files. (Free for non-commercial use)"
+url="http://code-industry.net/free-pdf-editor.php"
+arch=('x86_64')
+license=('custom')
+depends=('qt')
+source=("http://code-industry.net/public/MasterPDFEditor-${pkgver}.x86_64.tar.gz"
+        'masterpdfeditor.desktop')
+md5sums=('3ab79b53a172fd4799f9abd7444b0522'
+         '8d60e2dc2b1d3beed5831786eda05142')
+
+package() {
+	mkdir -p "${pkgdir}/opt/masterpdfeditor"
+	cd "${srcdir}/MasterPDFEditor"
+	
+	/bin/tar cf - * | ( cd "${pkgdir}"/opt/masterpdfeditor; tar xfp - )
+	install -D -m755 "${srcdir}"/MasterPDFEditor/lang/*.qm "${pkgdir}"/opt/masterpdfeditor/lang
+	install -D -m755 "${srcdir}"/MasterPDFEditor/lang/*.ts "${pkgdir}"/opt/masterpdfeditor/lang
+	install -D -m644 "${srcdir}"/MasterPDFEditor/License.txt "${pkgdir}"/usr/share/licenses/masterpdfeditor/LICENSE
+	install -D -m644 "${srcdir}"/MasterPDFEditor/master-pdf-editor.png "${pkgdir}"/usr/share/pixmaps/pdfeditor.png
+	install -D -m644 "${srcdir}"/masterpdfeditor.desktop "${pkgdir}"/usr/share/applications/masterpdfeditor.desktop
+	rm "${pkgdir}"/opt/masterpdfeditor/License.txt
+	mkdir -p "${pkgdir}"/usr/bin
+	ln -s /opt/masterpdfeditor/pdfeditor "${pkgdir}"/usr/bin/pdfeditor
+}
