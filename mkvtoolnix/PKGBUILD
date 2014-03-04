@@ -1,12 +1,12 @@
 
 pkgname=mkvtoolnix
-pkgver=6.7.0
-pkgrel=2
+pkgver=6.8.0
+pkgrel=1
 pkgdesc="Set of tools to create, edit and inspect Matroska files."
 arch=('x86_64')
 license=('GPL')
 url="http://www.bunkus.org/videotools/mkvtoolnix/index.html"
-depends=('flac' 'libmatroska' 'libogg' 'libvorbis' 'qt' 'xdg-utils' 'libebml' 'zlib' 'boost-libs')
+depends=('flac' 'libmatroska' 'libogg' 'libvorbis' 'qt5-declarative' 'xdg-utils' 'libebml' 'zlib' 'boost-libs')
 optdepends=('flac: for FLAC support (Free Lossless Audio Codec)'
             'lzo2: for additional compression capabilities'
             'bzip2: for additional compression capabilities'
@@ -16,7 +16,7 @@ makedepends=('gcc' 'boost' 'ruby')
 groups=('multimedia')
 install=mkvtoolnix.install
 source=("http://www.bunkus.org/videotools/$pkgname/sources/$pkgname-$pkgver.tar.xz")
-md5sums=('27bb6b0a10b3bb2fcf1c3e520c300207')
+md5sums=('4315d48d0b8227fc246ecefa1d927a6a')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -27,18 +27,6 @@ build() {
 
 package () {
   cd "${srcdir}/${pkgname}-${pkgver}"
+  
   rake DESTDIR="${pkgdir}" install
-
-  rm -rf "${pkgdir}"/usr/bin/mkvinfo
-  install -Dm755 src/mkvinfo "${pkgdir}"/usr/bin/mkvinfo
-
-  rm -rf "${pkgdir}"/usr/bin/mmg
-  rm -rf "${pkgdir}"/usr/share/man/ja/man1/mmg.1
-  rm -rf "${pkgdir}"/usr/share/man/man1/mmg.1
-  rm -rf "${pkgdir}"/usr/share/man/nl/man1/mmg.1
-  rm -rf "${pkgdir}"/usr/share/man/zh_CN/man1/mmg.1
-  rm -rf "${pkgdir}"/usr/share/man/uk/man1/mmg.1
-  rm -rf "${pkgdir}"/usr/share/applications
-  rm -rf "${pkgdir}"/usr/share/icons
-  rm -rf "${pkgdir}"/usr/share/mime
 }
