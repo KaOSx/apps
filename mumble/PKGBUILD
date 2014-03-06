@@ -1,0 +1,44 @@
+
+pkgname=mumble
+pkgver=1.2.5
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Open source, low-latency, high quality voice chat software"
+url="http://mumble.sourceforge.net/"
+license=('BSD')
+depends=('qt' 'speex' 'lsb-release' 'libxi' 'avahi' 'libsndfile' 'protobuf' 'pulseaudio' 'opus')
+makedepends=('boost' 'mesa')
+source=("http://downloads.sourceforge.net/mumble/$pkgname-$pkgver.tar.gz")
+md5sums=('084ca44252bd5356b68af555f81ba6f6')
+
+build() {
+  cd $srcdir/$pkgname-$pkgver
+
+  qmake main.pro \
+    CONFIG+="bundled-celt no-bundled-opus no-bundled-speex no-speechd no-g15 no-xevie no-server \
+    no-embed-qt-translations no-update packaged" \
+    DEFINES+="PLUGIN_PATH=/usr/lib/mumble"
+  make release
+}
+
+package() {
+  cd $srcdir/$pkgname-$pkgver
+
+  install -m755 -D ./release/mumble $pkgdir/usr/bin/mumble
+  install -m755 -D ./scripts/mumble-overlay $pkgdir/usr/bin/mumble-overlay
+
+  install -m755 -D ./release/libmumble.so.$pkgver $pkgdir/usr/lib/mumble/libmumble.so.$pkgver
+  ln -s libmumble.so.$pkgver $pkgdir/usr/lib/mumble/libmumble.so
+  ln -s libmumble.so.$pkgver $pkgdir/usr/lib/mumble/libmumble.so.1
+  ln -s libmumble.so.$pkgver $pkgdir/usr/lib/mumble/libmumble.so.1.2
+  install -m755 -D ./release/plugins/liblink.so $pkgdir/usr/lib/mumble/liblink.so
+  install -m755 -D ./release/plugins/libmanual.so $pkgdir/usr/lib/mumble/libmanual.so
+  install -m755 -D ./release/libcelt* $pkgdir/usr/lib/mumble/
+
+  install -m644 -D ./scripts/mumble.desktop $pkgdir/usr/share/applications/mumble.desktop
+  install -m755 -d $pkgdir/usr/share/man/man1
+  install -m644 -D ./man/mum* $pkgdir/usr/share/man/man1/
+  install -m644 -D ./icons/mumble.svg $pkgdir/usr/share/icons/hicolor/scalable/apps/mumble.svg
+  install -m644 -D ./LICENSE $pkgdir/usr/share/licenses/$pkgname/LICENSE
+}
+
