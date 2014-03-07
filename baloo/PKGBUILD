@@ -9,7 +9,7 @@ pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
 license=('LGPL')
-depends=('kdepimlibs' 'xapian-core' 'kfilemetadata' 'qjson' 'xattr' 'akonadi')
+depends=('kdepimlibs' 'xapian-core' 'kfilemetadata' 'qjson' 'akonadi')
 makedepends=('cmake' 'automoc4')
 groups=('kde' 'kde-uninstall')
 source=($_mirror/${pkgname}-$_kdever.tar.xz)
@@ -19,7 +19,7 @@ build() {
   mkdir build
   cd build
   
-  cmake ../${pkgname}--${pkgver} \
+  cmake ../${pkgname}-${pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_INSTALL_PREFIX=/usr
   make
