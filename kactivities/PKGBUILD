@@ -4,12 +4,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname="kactivities"
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc='API for using and interacting with Activities'
 url='http://kde.org/'
 license=('GPL' 'FDL')
-depends=("kdelibs>=${_kdever}" "nepomuk-core>=${_kdever}" 'soprano')
+depends=("kdelibs>=${_kdever}")
 makedepends=('cmake' 'automoc4')
 options=('docs' 'debug')
 
@@ -25,7 +25,8 @@ build() {
 
 	cmake .. \
     		-DCMAKE_BUILD_TYPE=Release \
-    		-DCMAKE_INSTALL_PREFIX=/usr
+    		-DCMAKE_INSTALL_PREFIX=/usr \
+    		-DBUILD_nepomuk=OFF
 	make
 }
 
