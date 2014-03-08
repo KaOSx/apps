@@ -54,7 +54,7 @@ package_kdepim-common() {
 	splitdirs=(akonadi_next calendarsupport calendarviews console icons importwizard incidenceeditor-ng kdgantt2 kresources ksendemail libkdepim 
                    libkdepimdbusinterfaces libkleo libkpgp libksieve mailcommon agents/mailfilteragent mailimporter messagecore messagecomposer messagecore messagelist 
 		   messageviewer mboximporter plugins pimcommon pimactivity pimsettingexporter templateparser headerthemeeditor agents/sendlateragent agents/archivemailagent
-		   agents/notesagent kaddressbookgrantlee plugins/messageviewer grammar grantleetheme grantleethemeeditor plugins/ktexteditor)
+		   kaddressbookgrantlee plugins/messageviewer grammar grantleetheme grantleethemeeditor plugins/ktexteditor)
 
 		for i in ${splitdirs[@]} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
@@ -224,7 +224,7 @@ package_kdepim-knotes() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="knotes kontact/plugins/knotes"
+	splitdirs="knotes kontact/plugins/knotes agents/notesagent"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install
