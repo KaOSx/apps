@@ -10,7 +10,7 @@ pkgname=('kde-baseapps'
 
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=4
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -40,7 +40,7 @@ build() {
 
 package_kde-baseapps() {
 	pkgdesc="KDE Base Applications"
-	depends=("kde-runtime>=${_kdever}" 'libraw1394' 'nepomuk-widgets' 'baloo-widgets')
+	depends=("kde-runtime>=${_kdever}" 'libraw1394' 'baloo-widgets')
 	optdepends=("cdemu-client: Support transparent CD/DVD image mounting in KDE")
 	conflicts=("kdebase" 'kde-baseapps-doc')
         replaces=('kdebase' 'kde-baseapps-doc')
