@@ -20,7 +20,7 @@ pkgname=('calligra-3rdparty'
          'calligra-braindump'
          'calligra-flow')
 pkgver=2.8.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
@@ -36,11 +36,12 @@ md5sums=('59abfc331220f5282ea2d6df5e80e899')
 build() {
   cd "${srcdir}"
 
-  mkdir build
+  #mkdir build
   cd build
   cmake ../${pkgbase}-${pkgver} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
     -DBUILD_active=OFF  
   make
 }
