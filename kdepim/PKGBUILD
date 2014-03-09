@@ -20,14 +20,14 @@ pkgname=('kdepim-common'
          #'kdepim-mobile') 
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('!docs')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' "kdelibs>=${_kdever}" "kdepimlibs>=${_kdever}" 'grantlee'
              "kdepim-runtime>=${_kdever}" 'libxss' 'kde-runtime' 'libsamplerate' 'qrencode' 'libdmtx'
-	     "kde-common>=${_kdever}" 'docbook-xml' "nepomuk-widgets>=${_kdever}" 'link-grammar' 'baloo')
+	     "kde-common>=${_kdever}" 'docbook-xml' 'link-grammar' 'baloo')
 source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -68,7 +68,7 @@ package_kdepim-common() {
 package_kdepim-akonadiconsole() {
 	pkgdesc="Akonadi console"
 	groups=('kde' 'kdepim' 'kde-uninstall')
-	depends=("${pkgbase}-common>=${pkgver}" "nepomuk-widgets>=${_kdever}")
+	depends=("${pkgbase}-common>=${pkgver}")
 	install=${pkgbase}.install
 
 	splitdirs="akonadiconsole"
