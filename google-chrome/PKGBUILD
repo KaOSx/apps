@@ -1,6 +1,6 @@
 
 pkgname=google-chrome
-pkgver=35.0.1870.2
+pkgver=35.0.1883.0
 pkgrel=1
 pkgdesc="Google Chrome Browser, developer preview channel for Linux"
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'li
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html"
          'libgcrypt.so.11.8.2')
-md5sums=('cd6b61478383bfdc39d35e3bf1409c50'
+md5sums=('83c5732106a94c1637de58c42d649e25'
          'ba19ea498f294975d320ff0b26a6cd63'
          'a17acc9851185dd5f219458140e6ccda')
 
@@ -34,7 +34,7 @@ package() {
     install -m755 "$srcdir"/libgcrypt.so.11.8.2 "$pkgdir"/opt/google/chrome-unstable/libgcrypt.so.11
 
     # Adding man page
-    gzip "$pkgdir"/usr/share/man/man1/google-chrome.1
+    #gzip "$pkgdir"/usr/share/man/man1/google-chrome.1
     
     # Symlinking icons to /usr/share/icons/hicolor/
     for i in 16 22 24 32 48 64 128 256; do
@@ -45,7 +45,8 @@ package() {
     install -Dm644 "$srcdir"/eula_text.html "$pkgdir"/usr/share/licenses/google-chrome/eula_text.html
     
     msg2 "Removing cron job and duplicated images"
-    rm "$pkgdir"/etc/cron.daily/google-chrome "$pkgdir"/opt/google/chrome-unstable/product_logo_*
+    rm -r "$pkgdir"/etc/cron.daily/ "$pkgdir"/opt/google/chrome-unstable/cron/
+    rm "$pkgdir"/opt/google/chrome-unstable/product_logo_*.png
 
     msg2 "Installation finished!"
 }
