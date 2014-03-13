@@ -109,7 +109,7 @@ pkgname=('libreoffice-af'
          'libreoffice-zh-CN'
          'libreoffice-zh-TW'
          'libreoffice-zu')
-pkgver=4.2.1
+pkgver=4.2.2
 pkgrel=1
 pkgdesc="LibreOffice language/localisation files"
 arch=('x86_64')
@@ -118,18 +118,19 @@ license=('LGPL')
 #depends=('libreoffice-common') #>=${pkgver}")
 makedepends=('rpmextract')
 
-#_url="http://download.documentfoundation.org/libreoffice/stable"
-_url="http://dev-builds.libreoffice.org/pre-releases"
-_oover="4.2.1"
-_oodlver="4.2.1.1"
+_url="http://download.documentfoundation.org/libreoffice/stable/${pkgver}"
+#_url="http://dev-builds.libreoffice.org/pre-releases"
+_oover="4.2.2"
+_oodlver="4.2.2"
 _oomainver="4.2"
 _helpver=${_oodlver}
-_dirver="4.2.1.1"
+_dirver="4.2.2.1"
 
 #_url+="${_oover}"
 
 source=( ##${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helppack}_af.tar.gz
 	${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_langpack_af.tar.gz
+	##${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_langpack_am.tar.gz
 	##${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helppack}_ar.tar.gz
 	${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_langpack_ar.tar.gz
 	##${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helppack}_as.tar.gz
@@ -182,7 +183,7 @@ source=( ##${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helpp
 	${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helppack}_ja.tar.gz
 	${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helppack}_ka.tar.gz
 #	#${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helppack}_kid.tar.gz
-	##${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helppack}_kk.tar.gz
+	#${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helppack}_kk.tar.gz
 	${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_langpack_kk.tar.gz
 	${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helppack}_km.tar.gz
 	##${_url}/rpm/x86/LibreOffice_${_oodlver}_Linux_x86_rpm_{langpack,helppack}_kn.tar.gz

@@ -13,9 +13,9 @@ pkgname=('libreoffice-common'
 	'libreoffice-en-US'
 	'libreoffice-postgresql-connector')
 	#'libreoffice-extension-presentation-minimizer')
-_LOver=4.2.1.1
-pkgver=4.2.1
-_pkgver=4.2.1.1
+_LOver=4.2.2.1
+pkgver=4.2.2
+_pkgver=4.2.2.1
 _HIver=4.2
 pkgrel=1
 arch=('x86_64')
@@ -35,8 +35,8 @@ makedepends=( # makedepends
              'hicolor-icon-theme' 'desktop-file-utils' 'shared-mime-info' 'translate-toolkit' 'xdg-utils' 'ttf-liberation'
              'libcups')
 
-#_mirror="http://download.documentfoundation.org/libreoffice/src/$pkgver"
-_mirror="http://dev-builds.libreoffice.org/pre-releases/src"
+_mirror="http://download.documentfoundation.org/libreoffice/src/$pkgver"
+#_mirror="http://dev-builds.libreoffice.org/pre-releases/src"
 #_additional_source_url="http://hg.services.openoffice.org/binaries"
 _additional_source_url="http://dev-www.libreoffice.org/src"
 source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz
@@ -165,6 +165,7 @@ build() {
 		--includedir=/usr/include \
 		--with-lang="" \
 		--disable-verbose \
+		--enable-release-build \
 		--enable-cairo-canvas \
 		--enable-crashdump \
 		--enable-dbus \
