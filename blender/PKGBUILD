@@ -1,8 +1,8 @@
 
 pkgname=blender
-pkgver=2.69
-_pkgver=2.69
-pkgrel=4
+pkgver=2.70
+_pkgver=2.70
+pkgrel=1
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
 license=('GPL')
@@ -10,7 +10,7 @@ url="http://www.blender.org"
 depends=('libpng' 'libtiff' 'openexr' 'sdl' 'python3' 'desktop-file-utils' 'shared-mime-info'
          'hicolor-icon-theme' 'xdg-utils' 'glew' 'libxi' 'libxmu' 'mesa' 'freetype2' 'jack'
          'openal' 'libsndfile' 'libsamplerate' 'ffmpeg' 'fftw' 'openimageio' 'boost-libs'
-         'opencollada' 'opencolorio' 'libspnav')
+         'opencollada' 'opencolorio' 'libspnav' 'llvm')
 makedepends=('cmake' 'boost' 'mesa' 'subversion')
 install=blender.install
 source=("http://download.blender.org/source/$pkgname-$_pkgver.tar.gz"
@@ -41,8 +41,9 @@ build() {
     -DPYTHON_LIBRARY=python3.3m \
     -DPYTHON_INCLUDE_DIRS=/usr/include/python3.3m \
     -DOPENIMAGEIO_ROOT_DIR=/usr \
-    -DOPENJPEG_INCLUDE_DIR=/usr/include/openjpeg-1.5 \
-    $ENABLESSE2
+    -DWITH_LLVM=ON \
+    -DLLVM_VERSION=3.4 \
+    -DLLVM_STATIC=OFF 
 
   make $MAKEFLAGS
 
