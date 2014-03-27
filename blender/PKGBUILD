@@ -10,16 +10,16 @@ url="http://www.blender.org"
 depends=('libpng' 'libtiff' 'openexr' 'sdl' 'python3' 'desktop-file-utils' 'shared-mime-info'
          'hicolor-icon-theme' 'xdg-utils' 'glew' 'libxi' 'libxmu' 'mesa' 'freetype2' 'jack'
          'openal' 'libsndfile' 'libsamplerate' 'ffmpeg' 'fftw' 'openimageio' 'boost-libs'
-         'opencollada' 'opencolorio' 'libspnav' 'llvm')
+         'opencollada' 'opencolorio' 'libspnav')
 makedepends=('cmake' 'boost' 'mesa' 'subversion')
 install=blender.install
-source=("http://download.blender.org/source/$pkgname-$_pkgver.tar.gz"
+source=("http://download.blender.org/source/$pkgname-v$_pkgver.tar.gz"
         'node_efficiency_tools.py')
-md5sums=('e77f53951fdaea69631cdd8c0f42cbcb'
+md5sums=('f1d6a457e66b90a4717603bf38483e3d'
          'a7dbbee8f896e82a7bf440c821fd3eba')
 
 build() {
-  cd "$srcdir/$pkgname-$_pkgver"
+  cd "$srcdir/$pkgname-v$_pkgver"
   
   mkdir -p build
   cd build
@@ -34,24 +34,18 @@ build() {
     -DWITH_JACK=ON \
     -DWITH_PLAYER=ON \
     -DWITH_CODEC_FFMPEG=ON \
-    -DWITH_IMAGE_OPENJPEG=ON \
     -DWITH_IMAGE_REDCODE:BOOL=ON \
     -DWITH_MOD_OCEANSIM=ON \
     -DPYTHON_LIBPATH=/usr/lib \
     -DPYTHON_LIBRARY=python3.3m \
     -DPYTHON_INCLUDE_DIRS=/usr/include/python3.3m \
-    -DOPENIMAGEIO_ROOT_DIR=/usr \
-    -DWITH_LLVM=ON \
-    -DLLVM_VERSION=3.4 \
-    -DLLVM_STATIC=OFF 
-
-  make $MAKEFLAGS
+    -DOPENIMAGEIO_ROOT_DIR=/usr 
 
   make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$_pkgver/build"
+  cd "$srcdir/$pkgname-v$_pkgver/build"
   make DESTDIR="${pkgdir}" install
   
   python3 -m compileall "${pkgdir}/usr/share/blender"
