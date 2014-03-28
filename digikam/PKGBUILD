@@ -10,9 +10,9 @@ license=('GPL')
 makedepends=('kde-runtime' 'kdegraphics-kgamma' 'kdepimlibs' 'lensfun' 'kdeedu-marble'
              'liblqr' 'opencv' 'lapack' 'libgpod' 'pkgconfig' 'cmake' 'automoc4'
              'doxygen' 'docbook-xsl' 'qjson' 'kdegraphics-libkexiv2' 'kdegraphics-libkdcraw'
-             'kdegraphics-libksane' 'qt-gstreamer' 'boost' 'hugin-tools' 'imagemagick')
+             'kdegraphics-libksane' 'qt-gstreamer' 'boost' 'hugin-tools' 'imagemagick' 'eigen3')
 source=("http://download.kde.org/unstable/${pkgname}/${pkgname}-${_pkgver}.tar.bz2")
-md5sums=('56b3b392a9d9fc0a94115eb3013af4b9')
+md5sums=('fe97c3dc9696cb38385757ff97a2a6e2')
 
 build() {
    cd ${srcdir}
@@ -30,7 +30,7 @@ build() {
 package_digikam() {
   pkgdesc="Digital photo management application for kde"
   depends=('kde-runtime' 'kdegraphics-kgamma' 'kdepimlibs' 'lensfun' 'kdeedu-marble'
-           'liblqr' 'opencv' 'kipi-plugins' 'lapack' 'libgpod')
+           'liblqr' 'opencv' 'kipi-plugins' 'lapack' 'libgpod' 'eigen3')
   install=digikam.install
   replaces=('digikamimageplugins')
   groups=('graphics')
