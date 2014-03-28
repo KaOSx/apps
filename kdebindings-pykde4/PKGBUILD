@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdebindings-pykde4
 _pkgname=pykde4
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE bindings for python"
 url="http://kde.org/"
 arch=('x86_64')
@@ -14,8 +14,7 @@ depends=('pyqt' 'qscintilla' "kdepim-runtime>=${_kdever}")
 makedepends=('cmake' 'automoc4' 'polkit-qt' 'boost')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
         'pyqt4.10.4.patch')
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-md5sums=('58f2b0089a84269c730c98ca48c48c51'
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '8e0c04289ea9de5f04d023503631c1c6')  
 groups=("kde" "kdebindings" "kde-uninstall")
 provides=('kdebindings-python' 'pykde4')
