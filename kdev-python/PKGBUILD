@@ -1,6 +1,6 @@
 
 pkgname=kdev-python
-pkgver=1.6.0
+pkgver=1.6.1
 _pkgver=4.6.0
 pkgrel=1
 pkgdesc='Python plugin for KDevelop - stable version'
@@ -8,18 +8,18 @@ arch=('x86_64')
 url="https://projects.kde.org/projects/playground/devtools/plugins/kdev-python"
 license=('GPL')
 groups=('kde' 'kdevelop-plugins')
-depends=('kdevelop')
+depends=('kdevelop' 'python3')
 makedepends=('kdevelop-pg-qt' 'cmake' 'automoc4')
-source=("http://download.kde.org/stable/kdevelop/$_pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('146ca82161dada9d32dc31e7e3e1a19d')
+source=("http://download.kde.org/stable/kdevelop/$pkgname/$pkgver/src/$pkgname-v$pkgver-py3.tar.xz")
+md5sums=('5e9ee0b4b880bc52be991f033123c20a')
 
 build() {
-	cd "$srcdir/$pkgname-$pkgver"
+	cd "$srcdir/$pkgname-v$pkgver-py3"
 	
 	mkdir -p "$srcdir/build"
 	cd "$srcdir/build"
 	
-	cmake "../$pkgname-$pkgver" \
+	cmake "../$pkgname-v$pkgver-py3" \
 		-DCMAKE_INSTALL_PREFIX=/usr \
                 -DCMAKE_BUILD_TYPE=Release
 	
@@ -29,8 +29,6 @@ build() {
 
 package() {
 	cd "$srcdir/build"
-	make DESTDIR="$pkgdir" install
 	
-	sed -i 's|#!/usr/bin/env python|#!/usr/bin/env python2|' \
-        "${pkgdir}"/usr/share/apps/kdevpythonsupport/encodings/encodings/rot_13.py
+	make DESTDIR="$pkgdir" install
 }

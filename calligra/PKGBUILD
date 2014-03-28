@@ -19,8 +19,8 @@ pkgname=('calligra-3rdparty'
          'calligra-handbook'
          'calligra-braindump'
          'calligra-flow')
-pkgver=2.8.0
-pkgrel=2
+pkgver=2.8.1
+pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
@@ -30,13 +30,14 @@ makedepends=('kdepimlibs' 'eigen' 'freetds' 'kdegraphics-okular' 'kdeedu-marble'
              'vc' 'opencolorio' 'libodfgen')
 groups=('calligra')
 source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
-md5sums=('59abfc331220f5282ea2d6df5e80e899')
+md5sums=('85629dd9ed72a0b57ed279528b0879d7')
 
 
 build() {
   cd "${srcdir}"
+  sed -i -e 's/BottomBorDer/BottomBorder/' ${srcdir}/${pkgbase}-${pkgver}/filters/libmsooxml/MsooXmlTableStyle.cpp
 
-  #mkdir build
+  mkdir build
   cd build
   cmake ../${pkgbase}-${pkgver} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
