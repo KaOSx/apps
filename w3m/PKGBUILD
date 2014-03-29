@@ -1,12 +1,12 @@
 
 pkgname=w3m
 pkgver=0.5.3
-pkgrel=2
+pkgrel=3
 pkgdesc="A pager/text-based WWW browser"
 arch=('x86_64')
 url="http://w3m.sourceforge.net/"
 license=('custom')
-depends=('openssl' 'gc>=7.0' 'ncurses' 'zlib')
+depends=('openssl' 'gc' 'ncurses' 'zlib')
 makedepends=('imlib2')
 optdepends=('imlib2: for graphics support') 
 depends=('openssl' 'gc' 'ncurses')
@@ -14,11 +14,13 @@ groups=('network')
 source=("http://downloads.sourceforge.net/sourceforge/w3m/${pkgname}-${pkgver}.tar.gz"
         'https-segfault.patch'
         'file_handle.patch'
-        'gc72.patch')
+        'gc72.patch'
+        'form.patch')
 md5sums=('1b845a983a50b8dec0169ac48479eacc'
          'a5e1038b5fb36ac1465700433ae00d0b'
          'd1bbc652a9e63f5e65b4112e88037ded'
-         '46ca1e8264a3a521b073453600fb3c5f')
+         '46ca1e8264a3a521b073453600fb3c5f'
+         '4db72a234824f8b5d45eb78fe3e1f526')
 
 build() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
@@ -26,16 +28,18 @@ build() {
 	patch -p1 -i ${srcdir}/https-segfault.patch
 	patch -p1 -i ${srcdir}/file_handle.patch
 	patch -p1 -i ${srcdir}/gc72.patch
+	patch -p1 -i ${srcdir}/form.patch
 
 	./configure \
 		--prefix=/usr \
 		--libexecdir=/usr/lib \
-		--enable-image=x11,fb \
+		--disable-image \
 		--with-imagelib=imlib2 \
 		--with-termlib=ncurses \
 		--disable-w3mmailer \
 		--disable-mouse \
 
+	sed 's/@my_libs@/-lX11/g' -i Makefile
 	make
 }
 
