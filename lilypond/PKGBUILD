@@ -1,22 +1,22 @@
 
 pkgname=lilypond
-pkgver=2.18.1
+pkgver=2.18.2
 _pkgver=2.18
-pkgrel=2
+pkgrel=1
 pkgdesc="A music engraving program, devoted to producing the highest-quality sheet music possible."
 arch=('x86_64')
 url="http://lilypond.org/"
 license=('GPL')
-depends=('fontconfig' 'freetype2' 'ghostscript' 'guile' 'pango' 'python2')
+depends=('fontconfig' 'freetype2' 'ghostscript' 'guile1.8' 'pango' 'python2' 'texlive-core')
 makedepends=('bison' 'flex' 'fontforge' 'gettext' 'gsfonts' 'perl' 'texinfo' 't1utils'
-             'texlive-core' 'netpbm')
+             'netpbm' 'zip' 'imagemagick' 'rsync')
 optdepends=('netpbm: building HTML documentation'
             'imagemagick: building HTML documentation'
             'rsync: installing HTML documentation')
 groups=('multimedia')
 #install=$pkgname.install
 source=("http://download.linuxaudio.org/${pkgname}/sources/v${_pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('c8e216648c81874fe8428d3922145bd3')
+md5sums=('3c4bcbb708d12644668b32bfe82ebf25')
 
 
 build() {
@@ -27,7 +27,14 @@ build() {
     sed -i 's_^#!.*/usr/bin/python_#!/usr/bin/python2_' $file
     sed -i 's_^#!.*/usr/bin/env.*python_#!/usr/bin/env python2_' $file
   done
-  # remove disable-documentation on texinfo fix upstream
+  
+  sed -i 's|GUILE_CFLAGS=.*|GUILE_CFLAGS="`pkg-config --cflags guile-1.8`"|' configure
+  sed -i 's|GUILE_LDFLAGS=.*|GUILE_LDFLAGS="`pkg-config --libs guile-1.8`"|' configure
+  
+  export GUILE=/usr/bin/guile1.8
+  export GUILE_CONFIG=/usr/bin/guile-config1.8
+  export LDFLAGS="$LDFLAGS -lpthread"
+
   ./configure --prefix=/usr --disable-documentation
   make all
 }
