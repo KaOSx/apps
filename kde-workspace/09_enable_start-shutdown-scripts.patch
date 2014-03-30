@@ -4,8 +4,7 @@
  # For anything else (that doesn't set env vars, or that needs a window manager),
  # better use the Autostart folder.
  
--libpath=`kde4-config --path lib | tr : '\n'`
-+libpath=`kde4-config --path lib | tr : '\n'`$(echo -e '\n/etc/kde/lib/')
+ libpath=`kde4-config --path lib | tr : '\n'`
 +envpath=/etc/kde/env/
  
 -for prefix in `echo "$libpath" | sed -n -e 's,/lib[^/]*/,/env/,p'`; do
