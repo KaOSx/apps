@@ -1,7 +1,7 @@
 
 pkgname=qgis
-pkgver=2.0.1
-pkgrel=2
+pkgver=2.2.0
+pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='http://qgis.org/'
 license=('GPL')
@@ -13,20 +13,14 @@ makedepends=('cmake'  'netcdf' 'sip')
 install=${pkgname}.install
 source=("http://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
 	'qgis.sh'
-        "rev-349a4c97.diff::https://hub.qgis.org/projects/quantum-gis/repository/revisions/349a4c974fab88fdda0d612dea8defe037ec50ba/diff.diff"
-        "http://hub.qgis.org/attachments/download/6230/QgsFieldValidator.diff"
-	'QwtPolar_update.patch')
-md5sums=('3822c7dd70e2d893a0f1baa9c72316d2'
+        'canvas-qt-flicker.patch')
+md5sums=('0390e50c8a38c6cbef1720fc11aeabe6'
          '488a57456d9f3ca5965e0aed617cd8fa'
-         '4d66e5546feb08157ed5794b58891b01'
-         '775176bb6b9a600e9428a9a34bd88825'
-         'fa3ce11866ccab36b2e73771b04e7b53') 
+         'e7f8231f99a56f07788113097fbf6f7c') 
          
 prepare() {
      cd "$srcdir/$pkgname-$pkgver"
-     patch -p1 -i "${srcdir}/rev-349a4c97.diff" 
-     patch -p1 -i "${srcdir}/QgsFieldValidator.diff"
-     patch -p1 -i "${srcdir}/QwtPolar_update.patch" 
+     patch -p1 -i "$srcdir/canvas-qt-flicker.patch" 
 }
 
  build() {
