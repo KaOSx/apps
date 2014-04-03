@@ -1,7 +1,7 @@
 
 pkgname=smplayer
 pkgver=14.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A complete front-end for MPlayer"
 arch=('x86_64')
 url="http://smplayer.sourceforge.net/"
@@ -9,11 +9,20 @@ license=('GPL')
 depends=('qt5-multimedia' 'qt5-script' 'mplayer')
 makedepends=('qt5-tools')
 groups=('multimedia')
-source=("http://downloads.sourceforge.net/sourceforge/$pkgname/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('c6ef86f7fe0022b35c0f06430f4cd9bd')
+source=("http://downloads.sourceforge.net/sourceforge/$pkgname/${pkgname}-${pkgver}.tar.bz2"
+        'icons.tar.xz'
+        'icons-png.tar.xz')
+md5sums=('c6ef86f7fe0022b35c0f06430f4cd9bd'
+         'a65b679cb82e21f8f67e703209654e8f'
+         'e7e241505f7cf60dec7b66d2915b8d99')
 
 build() {
   cd ${srcdir}/${pkgname}-${pkgver}
+  rm -r "${srcdir}/${pkgname}-${pkgver}/icons"
+  rm -r "${srcdir}/${pkgname}-${pkgver}/src/icons-png"
+  mv -iv "${srcdir}/icons/" "${srcdir}/${pkgname}-${pkgver}/"
+  mv -iv "${srcdir}/icons-png/" "${srcdir}/${pkgname}-${pkgver}/src/"
+  
   make PREFIX=/usr QMAKE=/usr/lib/qt5/bin/qmake LRELEASE=/usr/lib/qt5/bin/lrelease
   
   DOC_PATH="\\\"/usr/share/doc/smplayer\\\"" QMAKE_OPTS=DEFINES+=NO_DEBUG_ON_CONSOLE
