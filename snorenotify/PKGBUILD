@@ -1,0 +1,37 @@
+
+pkgname=snorenotify
+pkgver=0.4
+pkgrel=1
+pkgdesc="multi platform Qt based notification framework."
+url="https://github.com/TheOneRing/Snorenotify"
+arch=('x86_64')
+license=('LGPL-3')
+depends=('qt5-base')
+makedepends=('cmake' 'automoc4' 'boost' 'crypto++')
+groups=('system')
+source=("git://github.com/TheOneRing/Snorenotify.git")
+md5sums=('SKIP')
+         
+build() {
+  [[ ! -d build ]] && mkdir build
+  cd build
+
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr/ \
+    -DLIBSNORE_PLUGIN_PATH=/usr/lib/libsnore-qt5 \
+    -DWITH_QT4=OFF \
+    -DWITH_KDE=OFF \
+    -DCMAKE_BUILD_TYPE="Release" \
+    ../Snorenotify \
+    -Wno-dev
+
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR=${pkgdir} install
+  
+  mv "${pkgdir}"/usr/lib64/libsnore-qt5 "${pkgdir}"/usr/lib/libsnore-qt5
+  rmdir "${pkgdir}"/usr/lib64
+}
