@@ -1,6 +1,6 @@
 
 pkgname=qmmp
-pkgver=0.7.5
+pkgver=0.7.6
 pkgrel=1
 pkgdesc="Qt4 based audio-player"
 arch=('x86_64')
@@ -18,13 +18,12 @@ optdepends=('flac: native FLAC support'
 groups=('multimedia')
 install=$pkgname.install
 source=("http://qmmp.ylsoftware.com/files/$pkgname-$pkgver.tar.bz2")
-md5sums=('dcc3c9ecd4dfbf0ced91c59cb894d460')
+md5sums=('1f66f6761d42fdef99ec9d9bd03ae449')
 
 build() {
   cd ${srcdir}/$pkgname-$pkgver
 
-  cmake . -DCMAKE_INSTALL_PREFIX=/usr \
-          -DCMAKE_INSTALL_LIBDIR=/usr/lib
+  cmake . -DCMAKE_INSTALL_PREFIX=/usr 
   make
 }
 
