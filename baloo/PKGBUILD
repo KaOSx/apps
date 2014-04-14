@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=baloo
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -14,8 +14,16 @@ makedepends=('cmake' 'automoc4' 'boost')
 groups=('kde' 'kde-uninstall')
 conflict=('virtuoso' 'soprano' 'redland-storage-virtuoso' 'nepomuk-widgets' 'nepomuk-core')
 replaces=('virtuoso' 'soprano' 'redland-storage-virtuoso' 'nepomuk-widgets' 'nepomuk-core')
-source=($_mirror/${pkgname}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-$_kdever.tar.xz
+        'folderselection.diff')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'bb471de0bfde4b832dd8b26cc1a5c395')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  # https://git.reviewboard.kde.org/r/117420/
+  patch -p1 -i "${srcdir}/folderselection.diff"
+}
 
 build() {
   mkdir build

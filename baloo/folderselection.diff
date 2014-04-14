@@ -1,0 +1,74 @@
+diff --git a/src/file/kcm/folderselectionwidget.h b/src/file/kcm/folderselectionwidget.h
+index 5e4e661..226ab45 100644
+--- a/src/file/kcm/folderselectionwidget.h
++++ b/src/file/kcm/folderselectionwidget.h
+@@ -51,6 +51,7 @@ private Q_SLOTS:
+     void slotCurrentItemChanged(QListWidgetItem* current, QListWidgetItem*);
+ 
+ private:
++    QString getFolderDisplayName(const QString& url) const;
+     bool shouldShowMountPoint(const QString& mountPoint);
+     QString fetchMountPoint(const QString& url) const;
+     void showMessage(const QString& message);
+diff --git a/src/file/kcm/folderselectionwidget.cpp b/src/file/kcm/folderselectionwidget.cpp
+index bc87a33..f4b49ae 100644
+--- a/src/file/kcm/folderselectionwidget.cpp
++++ b/src/file/kcm/folderselectionwidget.cpp
+@@ -129,7 +129,7 @@ void FolderSelectionWidget::setFolders(QStringList includeDirs, QStringList excl
+ 
+     Q_FOREACH (QString url, excludeList) {
+         QListWidgetItem* item = new QListWidgetItem(m_listWidget);
+-        QString display = KUrl(QUrl::fromLocalFile(url)).fileName();
++        QString display = getFolderDisplayName(url);
+ 
+         item->setData(Qt::DisplayRole, display);
+         item->setData(Qt::WhatsThisRole, url);
+@@ -251,7 +251,7 @@ void FolderSelectionWidget::slotAddButtonClicked()
+     qDeleteAll(deleteList);
+ 
+     QListWidgetItem* item = new QListWidgetItem(m_listWidget);
+-    QString display = KUrl(QUrl::fromLocalFile(url)).fileName();
++    QString display = getFolderDisplayName(url);
+ 
+     item->setData(Qt::DisplayRole, display);
+     item->setData(Qt::WhatsThisRole, url);
+@@ -288,6 +288,21 @@ void FolderSelectionWidget::showMessage(const QString& message)
+ }
+ 
+ 
++QString FolderSelectionWidget::getFolderDisplayName(const QString& url) const
++{
++    // Check Home Dir
++    if (url.startsWith(QDir::homePath()))
++        return url.mid(QDir::homePath().length() + 1);
++
++    // Check Mount allMountPointsExcluded
++    Q_FOREACH (QString mountPoint, m_mountPoints) {
++        if (url.startsWith(mountPoint))
++            return "[" + QDir(mountPoint).dirName() + "]/" + url.mid(mountPoint.length());
++    }
++
++    return url;
++}
++
+ bool FolderSelectionWidget::shouldShowMountPoint(const QString& mountPoint)
+ {
+     if (mountPoint == "/")
+@@ -321,11 +336,13 @@ QString FolderSelectionWidget::iconName(QString path) const
+     if (!homePath.endsWith(QDir::separator()))
+         homePath.append(QDir::separator());
+ 
+-    if (path == homePath)
++    if (path.startsWith(homePath))
+         return QLatin1String("user-home");
+ 
+-    if (m_mountPoints.contains(path))
+-        return QLatin1String("drive-harddisk");
++    Q_FOREACH (QString mountPoint, m_mountPoints) {
++        if (path.startsWith(mountPoint))
++          return QLatin1String("drive-harddisk");
++    }
+ 
+     return QLatin1String("folder");
+ }
+
