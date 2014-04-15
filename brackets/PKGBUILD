@@ -1,6 +1,6 @@
 
 pkgname=brackets
-_build=37
+_build=38
 pkgver=sprint$_build
 pkgrel=1
 pkgdesc="Open source code editor for web designers and front-end developers."
@@ -13,9 +13,10 @@ optdepends=("google-chrome: to enable Live Preview"
             "gnuplot: to enable node benchmarking"
             "ruby: to enable LiveDevelopment Inspector")
 install=$pkgname.install
-source=("brackets-sprint-$_build-LINUX64.deb::http://download.brackets.io/file.cfm?platform=LINUX64&build=$_build"
+#source=("brackets-sprint-$_build-LINUX64.deb::http://download.brackets.io/file.cfm?platform=LINUX64&build=$_build"
+source=("https://github.com/adobe/brackets/releases/download/sprint-38/Brackets.Sprint.38.64-bit.deb"
         'libgcrypt.so.11.8.2')
-md5sums=('444531be0ac691d111f9ebf441e7dc9e'
+md5sums=('5121af7efc3b0512426d762fc2c2d910'
          'a17acc9851185dd5f219458140e6ccda')
          
 export DLAGENTS='http::/usr/bin/curl -A "Mozilla/4.0" -fLC - --retry 3 --retry-delay 3 -o %o %u'
