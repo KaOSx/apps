@@ -1,26 +1,25 @@
 
 pkgname=lyx
-pkgver=2.0.7.1
-pkgrel=2
+pkgver=2.1.0
+pkgrel=1
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
 url="http://www.lyx.org"
 depends=('qt' 'texlive-core' 'python2' 'perl' 'imagemagick' 'enchant' 
          'boost-libs' 'icu' 'libmythes')
-makedepends=('boost')
+makedepends=('boost' 'bc')
 groups=('office')
 license=('GPL')
-#source=("ftp://ftp.lyx.org/pub/lyx/stable/2.0.x/$pkgname-$pkgver.tar.xz" 
-source=("http://frege.brown.edu/lyx/lyx-$pkgver.tar.xz"
+source=("ftp://ftp.lyx.org/pub/lyx/devel/lyx-2.1/lyx-2.1.0/$pkgname-$pkgver.tar.xz" 
+#source=("http://frege.brown.edu/lyx/lyx-$pkgver.tar.xz"
 	'lyx.desktop')
-md5sums=('96fc8b0ee6842f71a4f273522009919e'
+md5sums=('9441eb16b07bae3aeaf7d8ebaa74b73f'
          '0ea910b9b881ebaa0f79ebaa618930fd')
 
 build() {
   cd ${srcdir}/${pkgname}-${pkgver}
 
   ./configure --prefix=/usr \
-        --with-frontend=qt4 \
         --without-included-boost \
         --without-included-mythes
   make
