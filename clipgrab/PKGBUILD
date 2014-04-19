@@ -1,0 +1,31 @@
+
+pkgname=clipgrab
+pkgver=3.4.2
+pkgrel=2
+pkgdesc='A friendly downloader for YouTube and other sites'
+arch=('x86_64')
+url='http://clipgrab.de/en'
+license=('GPL3')
+depends=('qtwebkit' 'ffmpeg')
+groups=('multimedia')
+source=("http://download.clipgrab.de/$pkgname-$pkgver.tar.bz2"
+        'clipgrab.desktop'
+        'clipgrab.png')
+md5sums=('d240303a2cc6c529ab78ed123efcce3f'
+         '9dd39ffcccb179d76ac84503bf3ffc11'
+         'e427c3a49fe3f7a86abeaa443fcdbec3')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  qmake clipgrab.pro
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  
+  install -Dm755 "$pkgname" "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 "$srcdir/$pkgname.png" "$pkgdir/usr/share/pixmaps/$pkgname.png"
+  install -Dm644 "$srcdir/$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
+}
