@@ -1,6 +1,6 @@
 
 pkgname=redshift
-pkgver=1.9
+pkgver=1.9.1
 pkgrel=1
 pkgdesc='Adjusts the color temperature of your screen according to your surroundings'
 arch=('x86_64')
@@ -9,13 +9,7 @@ license=('GPL3')
 depends=('libxxf86vm' 'libxcb')
 makedepends=('python3')
 source=("https://github.com/jonls/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('9640218cd9ba88f6d10b347b2277c415')
-
-prepare() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  
-  sed -i 's/python/python3/' src/redshift-gtk/redshift-gtk
-}
+md5sums=('4c5dd6ea043116f9c15a9d5ec4c608de')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
