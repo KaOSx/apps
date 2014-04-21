@@ -1,12 +1,12 @@
 
 pkgname=sddm-qt5-git
-pkgver=20140414
+pkgver=20140420
 pkgrel=1
 pkgdesc="QML based X11 display manager"
 arch=('x86_64')
 url="http://github.com/sddm/sddm"
 license=('GPL')
-depends=('qt5-declarative' 'upower')
+depends=('qt5-declarative')
 makedepends=('cmake' 'git' 'qt5-tools')
 conflict=('sddm')
 backup=('etc/sddm.conf')
@@ -31,7 +31,7 @@ build() {
 package() {
   cd ${srcdir}/build
   make DESTDIR="${pkgdir}" install
-  sed -i -e "s|SessionsDir=/usr/share/xsessions|SessionsDir=/etc/X11/sessions|g" $pkgdir/etc/sddm.conf
+  #sed -i -e "s|SessionsDir=/usr/share/xsessions|SessionsDir=/etc/X11/sessions|g" $pkgdir/etc/sddm.conf
   sed -i -e "s|white|black|g" $pkgdir/usr/lib/qt5/qml/SddmComponents/Clock.qml
   
   rm "${pkgdir}"/usr/share/apps/sddm/themes/maui/background.png
