@@ -1,7 +1,8 @@
 
 pkgname=installer-partitionmanager
+_pkgname=partitionmanager
 pkgver=1274507
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
 url="https://sourceforge.net/projects/partitionman"
@@ -17,32 +18,30 @@ optdepends=('e2fsprogs: ext2/3/4 support'
 conflict=('partitionmanager')
 install=partitionmanager.install
 options=('debug')
-source=('installer.patch') # disable-gpt.patch)
-md5sums=('89a42ad1a564a3809ccbb90d8e2c9b19')
-
-#_svntrunk=svn://anonsvn.kde.org/home/kde/trunk/extragear/sysadmin/partitionmanager
-_svnmod=partitionmanager-svn
+source=("http://sourceforge.net/projects/kaosx/files/sources/$_pkgname/$pkgver/$_pkgname.tar.xz"
+        'installer.patch') # disable-gpt.patch)
+md5sums=('e4a1549afb6888d35fbce091eee6f7d0'
+         '89a42ad1a564a3809ccbb90d8e2c9b19')
 
 build() {
   cd "${srcdir}"
-
-  svn co svn://anonsvn.kde.org/home/kde/trunk/extragear/sysadmin/partitionmanager -r $pkgver $_svnmod
-
-  msg "SVN checkout done or server timeout"
-  msg "Starting make..."
-
-  cp -r $_svnmod $_svnmod-build
-  cd $_svnmod-build
-
-  patch -p1 < ${srcdir}/installer.patch
+  # filsystem code from src/fs/filesystem.h, set as default
+  sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/$_pkgname/src/config.kcfg
+  patch -p0 -i ${srcdir}/installer.patch
   #patch -p1 < ${srcdir}/disable-gpt.patch
+  
+  mkdir build
+  cd build
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo 
+  cmake ../$_pkgname \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo 
 
   make 
 }
 
 package() {
-  cd "${srcdir}/$_svnmod-build"
+  cd build
+  
   make DESTDIR="${pkgdir}" install
 }

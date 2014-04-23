@@ -1,13 +1,13 @@
 
 pkgname=partitionmanager
 pkgver=1362680
-pkgrel=3
+pkgrel=4
 pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
 arch=('x86_64')
 url="https://sourceforge.net/projects/partitionman"
 license=('GPL2')
 depends=('kde-runtime' 'parted' 'libatasmart')
-makedepends=('cmake' 'automoc4' 'pkgconfig' 'svn')
+makedepends=('cmake' 'automoc4' 'pkgconfig' 'git')
 optdepends=('e2fsprogs: ext2/3/4 support'
 	    'xfsprogs: XFS support'
 	    'jfsutils: JFS support'
@@ -15,26 +15,22 @@ optdepends=('e2fsprogs: ext2/3/4 support'
 	    'ntfsprogs: NTFS support'
 	    'dosfstools: FAT32 support')
 groups=('system')
-install=partitionmanager.install	    
-
-#_svntrunk=svn://anonsvn.kde.org/home/kde/trunk/extragear/sysadmin/partitionmanager
-_svnmod=partitionmanager-svn
+install=partitionmanager.install	
+source=("git://anongit.kde.org/partitionmanager")
+md5sums=('SKIP')
 
 build() {
   cd "${srcdir}"
-
-  svn co svn://anonsvn.kde.org/home/kde/trunk/extragear/sysadmin/partitionmanager -r $pkgver $_svnmod
-
-  msg "SVN checkout done or server timeout"
-  msg "Starting make..."
-
-  cp -r $_svnmod $_svnmod-build
-  cd $_svnmod-build
-
+  # filsystem code from src/fs/filesystem.h, set as default
+  sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/$pkgname/src/config.kcfg
+  
+  mkdir build
+  cd build
   #patch -p1 < ${srcdir}/tribe.patch
   #patch -p1 < ${srcdir}/disable-gpt.patch
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+  cmake ../$pkgname \
+        -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DENABLE_UDISKS2=off
 
@@ -42,7 +38,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/$_svnmod-build"
+  cd build
   
   make DESTDIR="${pkgdir}" install 
 }
