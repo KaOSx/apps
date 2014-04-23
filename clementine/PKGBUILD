@@ -1,8 +1,8 @@
 
 pkgname=clementine
 _pkgname=Clementine
-pkgver=1.2.2
-pkgrel=2
+pkgver=1.2.3
+pkgrel=1
 pkgdesc="Modern music player and library organiser that takes advantage of Qt4."
 url="http://www.clementine-player.org/"
 license="GPL"
@@ -13,14 +13,11 @@ depends=('gstreamer0.10-base' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'li
          'libcdio-paranoia' 'qca' 'qca-ossl' 'chromaprint' 'sparsehash' 'libmygpo-qt')
 makedepends=('cmake' 'boost' 'mesa')
 groups=('multimedia')
-source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz"
-        'unistd.patch')
-md5sums=('504b6e62130837faffd177a007f3c55f'
-         '59a5824550e801dd1c4d1f06b2583747')
+source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
+md5sums=('725b92ad4699de1b2ffdf48fe01ed092')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
-  patch -p1 -i "${srcdir}/unistd.patch"
   
   mkdir -p build 
   
