@@ -1,25 +1,26 @@
 
 pkgname=qt-gstreamer
-pkgver=0.10.3
+pkgver=0.10.9
 pkgrel=1
 pkgdesc="Qt bindings for GStreamer"
 arch=('x86_64')
 url="http://gstreamer.freedesktop.org/modules/qt-gstreamer.html"
 license=('LGPL2.1')
-depends=('qt' 'gstreamer0.10-base')
+depends=('qt' 'gst-plugins-base')
 makedepends=('cmake' 'automoc4' 'boost' 'flex' 'bison')
 optdepends=('libgles: required for OpenGLES rendering support in qtvideosink (embedded only)')
-source=("http://gstreamer.freedesktop.org/src/$pkgname/$pkgname-$pkgver.tar.bz2")
-md5sums=('1dfbca4ffa924b0896dadb42221600e2')
+#source=("http://gstreamer.freedesktop.org/src/$pkgname/$pkgname-$pkgver.tar.bz2")
+source=("https://github.com/detrout/qt-gstreamer.git")
+md5sums=('SKIP')
 
 build() {
-  rm -rf "$srcdir/$pkgname-build"
-  mkdir "$srcdir/$pkgname-build"
-  cd "$srcdir/$pkgname-build"
+  cd ${srcdir} 
+  git clone -b 1.0-proposed https://github.com/detrout/qt-gstreamer.git
 
-  cmake "$srcdir/$pkgname-$pkgver" \
+  mkdir build
+  cd build
+  cmake ../${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_BUILD_TYPE=Release \
     -DQTGSTREAMER_EXAMPLES=OFF \
     -DQTGSTREAMER_TESTS=OFF
@@ -27,7 +28,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$pkgname-build"
+  cd build
   
-  make DESTDIR="$pkgdir/" install
+  make DESTDIR=$pkgdir/ install
 }
