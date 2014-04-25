@@ -1,13 +1,13 @@
 
 pkgname=pidgin
 pkgver=2.10.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Multi-protocol instant messaging client"
 arch=('x86_64')
 url="http://pidgin.im/"
 license=('GPL')
 depends=("libpurple=$pkgver" 'startup-notification' 'gtkspell' 'libxss' 'hicolor-icon-theme'
-         'gstreamer0.10' 'libsm' 'libidn' 'farstream' 'avahi' 'networkmanager')
+         'libsm' 'libidn' 'avahi' 'networkmanager')
 makedepends=('nss' 'libsasl' 'python2' 'tk' 'ca-certificates' 'intltool' )
 options=('!libtool')
 install=pidgin.install
@@ -25,6 +25,8 @@ build() {
                 --disable-schemas-install \
                 --disable-meanwhile \
                 --disable-gnutls \
+                --disable-gstreamer \
+                --disable-vv \
                 --enable-cyrus-sasl \
                 --enable-nm \
                 --with-python=/usr/bin/python \
