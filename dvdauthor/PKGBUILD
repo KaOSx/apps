@@ -1,0 +1,25 @@
+
+pkgname=dvdauthor
+pkgver=0.7.1
+pkgrel=1
+pkgdesc="DVD authoring tools"
+arch=('x86_64')
+url="http://dvdauthor.sourceforge.net/"
+license=('GPL')
+depends=('libdvdread' 'imagemagick' 'libxml2' 'libpng' 'fribidi')
+groups=('multimedia')
+source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('2694a5a3ef460106ea3caf0f7f60ff80')
+
+build() {
+  cd "${srcdir}/${pkgname}"
+  
+  ./configure --prefix=/usr --sysconfdir=/etc 
+  make 
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+
+  make DESTDIR="${pkgdir}" install 
+}
