@@ -2,8 +2,8 @@
 _prefix=/usr
 
 pkgname=xbmc
-pkgver=12.9.1
-_pkgver=Gotham_beta4
+pkgver=12.9.2
+_pkgver=Gotham_rc1
 pkgrel=1
 pkgdesc="XBMC Media Center"
 arch=('x86_64')
@@ -18,8 +18,7 @@ depends=( 'bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi' 'python2' 
           'tinyxml' 'taglib' 'libcap' 'glu' 'libusbx' 'hicolor-icon-theme' 'libtiff' 'avahi')
 makedepends=('boost' 'cmake' 'gperf' 'nasm' 'libvdpau' 'zip' 'unzip' 'autoconf' 'automake' 'doxygen'
              'udisks' 'upower')
-optdepends=('lirc: remote controller support'
-            'unrar: access compressed files without unpacking them'
+optdepends=('unrar: access compressed files without unpacking them'
             'udisks: automount external drives'
             'upower: used to trigger suspend functionality'
             'libvdpau: for nvidia hardware acceleration'
@@ -29,9 +28,9 @@ groups=('multimedia')
 install='xbmc.install'
 options=('makeflags')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
-source=("https://github.com/xbmc/xbmc/archive/Gotham_beta4.tar.gz"
+source=("https://github.com/xbmc/xbmc/archive/Gotham_rc1.tar.gz"
         'xbmc.service')
-md5sums=('2adb18e9c85739f0c70fec2b6e3d91e9'
+md5sums=('4b16b004bf415d1d66b9f044d3639cc0'
          '76fae229ebc3bcfaab7e7f27e4fb51f5')
 
 build() {
@@ -63,7 +62,6 @@ build() {
 	--enable-external-libraries \
 	--enable-rtmp \
 	--enable-ffmpeg_libvorbis \
-	--disable-external-ffmpeg \
 	--disable-texturepacker 
 
     msg "Running make"
