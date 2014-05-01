@@ -1,0 +1,29 @@
+
+pkgname=opencpn
+pkgver=3.2.2
+pkgrel=1
+pkgdesc="Open Source Chart Plotting / Marine Navigation"
+url="http://opencpn.org"
+arch=('x86_64')
+license=("GPL2")
+depends=('wxgtk' 'gpsd' 'portaudio-svn' 'tinyxml' 'hicolor-icon-theme')
+makedepends=('cmake')
+install=opencpn.install
+source=("http://downloads.sourceforge.net/project/opencpn/opencpn/$pkgver/OpenCPN-$pkgver-Source.tar.gz")
+md5sums=('f09e66eb5e238407762d2ea7129c37d7')
+ 
+build() {
+  cd "OpenCPN-${pkgver}-Source"
+  
+  cmake -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr\
+    -DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-config\
+    -DwxWidgets_wxrc_EXECUTABLE=/usr/bin/wxrc-2.8
+  make
+}
+
+package() {
+  cd "OpenCPN-${pkgver}-Source"
+  make DESTDIR="$pkgdir" install
+}
+

@@ -1,13 +1,13 @@
 
 pkgname=gpsd
-pkgver=3.9
-pkgrel=3
+pkgver=3.10
+pkgrel=1
 pkgdesc="GPS daemon and library to support USB/serial GPS devices"
 arch=('x86_64')
 url="http://catb.org/gpsd/"
 screenshot="http://www.catb.org/gpsd/gpsd2.png"
 license=('BSD')
-depends=('python2' 'libusb' 'bluez' 'desktop-file-utils')
+depends=('python2' 'libusb' 'bluez' 'desktop-file-utils' 'qt')
 optdepends=('php: generate a PHP status page for your GPS')
 makedepends=('scons' 'docbook-xsl' 'chrpath')
 backup=('etc/gpsd.conf')
@@ -15,7 +15,7 @@ options=('!libtool')
 install="${pkgname}.install"
 source=("http://download.savannah.gnu.org/releases/${pkgname}/${pkgname}-${pkgver}.tar.gz"
         'gpsd.conf')
-md5sums=('53a88f24a0973d23427e82e9a8914f19'
+md5sums=('fc5b03aae38b9b5b6880b31924d0ace3'
          '3e963df3f9f7ef3572ecc648ae829315')
 
 build() {
@@ -30,7 +30,8 @@ build() {
 
   scons prefix=/usr \
     systemd=yes \
-    libQgpsmm=no \
+    libQgpsmm=yes \
+    gpsd_group=uucp \
     PYTHONPATH=/usr/bin/python2
   scons build
 }
@@ -44,15 +45,15 @@ package() {
   export DESTDIR="${pkgdir}"
   scons install
 
-  install -D -m644 "gpsd.rules" "${pkgdir}/usr/lib/udev/rules.d/99-gpsd-usb.rules"
+  install -D -m644 "gpsd.rules" "${pkgdir}/usr/lib/udev/rules.d/25-gpsd-usb.rules"
   install -D -m644 "${srcdir}/gpsd.conf" "${pkgdir}/etc/gpsd.conf"
 
   sed -i 's|/etc/default/gpsd|/etc/conf.d/gpsd|' gpsd.hotplug
   install -D -m755 gpsd.hotplug "${pkgdir}/usr/lib/udev/gpsd.hotplug"
 
   # GPSD needs RPATH
-  chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgps.so.20.0.0
-  chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgpsd.so.21.0.0
+  chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgps.so.21.0.0
+  chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgpsd.so.22.0.0
   chrpath -r /usr/lib/ "${pkgdir}"/usr/bin/{gpsdecode,gpsctl,gpspipe,gpxlogger,lcdgps}
   chrpath -r /usr/lib/ "${pkgdir}"/usr/sbin/{gpsd,gpsdctl}
   chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/python2.7/site-packages/gps/{clienthelpers,packet}.so
