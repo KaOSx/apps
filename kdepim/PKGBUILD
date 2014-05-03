@@ -20,7 +20,7 @@ pkgname=('kdepim-common'
          #'kdepim-mobile') 
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -53,8 +53,8 @@ package_kdepim-common() {
 
 	splitdirs=(akonadi_next calendarsupport calendarviews console icons importwizard incidenceeditor-ng kdgantt2 kresources ksendemail libkdepim 
                    libkdepimdbusinterfaces libkleo libkpgp libksieve mailcommon agents/mailfilteragent mailimporter messagecore messagecomposer messagecore messagelist 
-		   messageviewer mboximporter plugins pimcommon pimactivity pimsettingexporter templateparser headerthemeeditor agents/sendlateragent agents/archivemailagent
-		   kaddressbookgrantlee plugins/messageviewer grammar grantleetheme grantleethemeeditor plugins/ktexteditor storageservicemanager)
+		   messageviewer mboximporter noteshared plugins pimcommon pimactivity pimsettingexporter templateparser headerthemeeditor agents/sendlateragent
+		   agents/archivemailagent kaddressbookgrantlee plugins/messageviewer grammar grantleetheme grantleethemeeditor plugins/ktexteditor storageservicemanager)
 
 		for i in ${splitdirs[@]} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
