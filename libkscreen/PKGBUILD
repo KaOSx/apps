@@ -1,18 +1,22 @@
 
 pkgname=libkscreen
 pkgver=1.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE's screen management library"
 arch=('x86_64')
 url='https://projects.kde.org/libkscreen'
 license=('GPL')
 depends=('kdelibs' 'qjson')
 makedepends=('cmake' 'automoc4')
-source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('7048db071d669193f8dafc9a1319998b')
+source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz"
+        'xrandr.patch')
+md5sums=('7048db071d669193f8dafc9a1319998b'
+         'c0c4eb573aef2719b1e5b44142585339')
 
 build() {
-  cd "$srcdir" 
+  cd "$srcdir"/$pkgname-$pkgver
+  patch -p1 -i "$srcdir"/xrandr.patch
+  cd "$srcdir"/
   mkdir build
   
   cd build

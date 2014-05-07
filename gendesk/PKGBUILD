@@ -1,23 +1,26 @@
 
 pkgname=gendesk
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="Utility to generate .desktop files and download icons"
 arch=('x86_64')
 url="http://roboticoverlords.org/gendesk/"
 license=('MIT')
 depends=('glibc')
-makedepends=('go')
+makedepends=('go' 'mercurial')
 source=("http://roboticoverlords.org/$pkgname/$pkgname-$pkgver.tar.xz"
         "http://roboticoverlords.org/images/default.png")
-md5sums=('d786e65ececf98217a9f2d913eae2d2f'
+md5sums=('b8633c55c930cfe481d6143a472a148f'
          '76e9160caf563badd49c13f34cd137cf')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
+  export GOPATH="$srcdir"
+  go get code.google.com/p/goconf/conf
+  go get github.com/xyproto/textgui
 
   msg2 "Compiling..."
-  go build
+  GOPATH="$srcdir" go build
 }
 
 package() {
