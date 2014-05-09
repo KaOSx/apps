@@ -14,15 +14,13 @@ makedepends=('cmake' 'automoc4' 'boost')
 groups=('kde' 'kde-uninstall')
 conflict=('virtuoso' 'soprano' 'redland-storage-virtuoso' 'nepomuk-widgets' 'nepomuk-core')
 replaces=('virtuoso' 'soprano' 'redland-storage-virtuoso' 'nepomuk-widgets' 'nepomuk-core')
-source=($_mirror/${pkgname}-$_kdever.tar.xz
-       'add_disable_kcm.diff')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'bcf3042d494d5369695051c1719e8420')
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  # https://bugs.kde.org/show_bug.cgi?id=331932#c59
-  patch -p1 -i "${srcdir}/add_disable_kcm.diff"
+  
+  #patch -p1 -i "${srcdir}/add_disable_kcm.diff"
 }
 
 build() {
