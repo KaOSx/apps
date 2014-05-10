@@ -1,7 +1,7 @@
 
 pkgname=akonadi
-pkgver=1.12.1
-_pkgver=1.12.1
+pkgver=1.12.1.1
+_pkgver=1.12.1.1
 pkgrel=2
 pkgdesc="PIM layer, which provides an asynchronous API to access all kind of PIM data"
 arch=('x86_64')
@@ -10,19 +10,19 @@ license=('LGPL')
 depends=('shared-mime-info' 'boost-libs' 'mariadb' 'libxslt')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' 'postgresql')
 install=$pkgname.install
-source=("http://download.kde.org/stable/akonadi/src/${pkgname}-${_pkgver}.tar.bz2"
-        'dbupdater.diff')
-md5sums=('9a4a99d10e003a267a515fc60de4f817'
-         '3952bbc97a479c248e974fcf920c659b')
+#source=("http://download.kde.org/stable/akonadi/src/${pkgname}-${_pkgver}.tar.bz2"
+#        'dbupdater.diff')
+source=("git://anongit.kde.org/akonadi")
+md5sums=('SKIP')
 
 build() {
- 	cd ${srcdir}/${pkgname}-${pkgver}
- 	patch -p1 -i ${srcdir}/dbupdater.diff
+ 	cd ${srcdir}/${pkgname}
+ 	#patch -p1 -i ${srcdir}/dbupdater.diff
 	
 	cd ${srcdir}
 	mkdir -p build
 	cd build
-	cmake ../${pkgname}-${pkgver} \
+	cmake ../${pkgname} \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DINSTALL_QSQLITE_IN_QT_PREFIX=TRUE \
