@@ -1,22 +1,23 @@
 
 pkgname=sddm
-pkgver=20131206
-pkgrel=1
+pkgver=20140511
+pkgrel=
 pkgdesc="QML based X11 display manager"
 arch=('x86_64')
 url="http://github.com/sddm/sddm"
 license=('GPL')
-depends=('qt' 'upower')
+depends=('qt' 'xorg-xauth')
 makedepends=('cmake' 'git')
-conflict=('sddm-qt5-git')
+conflicts=('sddm-qt5-git')
 backup=('etc/sddm.conf')
-#source=('git://github.com/sddm/sddm.git'
-#        'background.png')
-source=('sddm-master.tar.xz')
-md5sums=('9a4ec691dfe1fede7b71029eb2ae5033')
+source=('github.com/blue-shell/sddm.git'
+        'background.png')
+#source=('sddm-master.tar.xz')
+md5sums=('SKIP'
+         '4932058967e1fe4df3e8cd75b75997ca')
 
-#_gitroot="git://github.com/sddm/sddm.git"
-_gitname=sddm-master
+_gitroot="github.com/blue-shell/sddm.git"
+_gitname=sddm
 
 build() {
   cd "$srcdir"
@@ -31,8 +32,8 @@ build() {
 package() {
   cd ${srcdir}/build
   make DESTDIR="${pkgdir}" install
-  sed -i -e "s|SessionsDir=/usr/share/xsessions|SessionsDir=/etc/X11/sessions|g" $pkgdir/etc/sddm.conf
+  #sed -i -e "s|SessionsDir=/usr/share/xsessions|SessionsDir=/etc/X11/sessions|g" $pkgdir/etc/sddm.conf
   
-  #rm "${pkgdir}"/usr/share/apps/sddm/themes/maui/background.png
-  #install -m 644 -p ${srcdir}/background.png ${pkgdir}/usr/share/apps/sddm/themes/maui/  
+  rm "${pkgdir}"/usr/share/apps/sddm/themes/maui/background.png
+  install -m 644 -p ${srcdir}/background.png ${pkgdir}/usr/share/apps/sddm/themes/maui/  
 }
