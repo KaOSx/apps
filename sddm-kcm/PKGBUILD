@@ -1,18 +1,18 @@
 
-pkgname=kcm-sddm-git
-pkgver=20140121
+pkgname=sddm-kcm
+pkgver=20140511
 pkgrel=1
 pkgdesc="SDDM configuration module for KDE"
 arch=('x86_64')
 url="https://github.com/sddm/sddm-kcm"
 license=("GPL")
-depends=('kdelibs' 'sddm-qt5-git')
+depends=('kdelibs' 'sddm')
 makedepends=('git' 'cmake' 'automoc4')
+conflicts=('kcm-sddm-git')
+provides=('kcm-sddm-git')
+replaces=('kcm-sddm-git')
 source=('git://github.com/sddm/sddm-kcm.git')
 md5sums=('SKIP')
-
-_gitroot="git://github.com/sddm/sddm-kcm.git"
-_gitname=sddm-kcm
 
 build() {
   cd ${srcdir}
@@ -20,7 +20,7 @@ build() {
   mkdir -p ${srcdir}/build
   cd build
 
-  cmake ../${_gitname} -DCMAKE_INSTALL_PREFIX="`kde4-config --prefix`"
+  cmake ../${pkgname} -DCMAKE_INSTALL_PREFIX="`kde4-config --prefix`"
   make
 }
 
