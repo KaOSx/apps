@@ -1,6 +1,6 @@
 
 pkgname=kde-touchpad-config
-pkgver=0.99
+pkgver=1.1
 _commit=8901d1c
 pkgrel=1
 pkgdesc="Touchpad configuration tool for KDE, provides a System Settings module that allows configuration of touchpads."
@@ -12,15 +12,15 @@ makedepends=('automoc4' 'cmake' 'pkg-config')
 conflicts=('synaptiks')
 replaces=('synaptiks')
 groups=('system')
-source=("https://github.com/sanya-m/kde-touchpad-config/tarball/master/sanya-m-kde-touchpad-config-${pkgver}.tar.gz"
+source=("https://github.com/sanya-m/kde-touchpad-config/archive/v${pkgver}.tar.gz"
         'xlibbackend.diff'
         'x11.diff')
-md5sums=('f1ff926a7072ae122ac21f025a4dc622'
+md5sums=('e8905e7888f3a6f002338fdf1417a5b5'
          '417d582f137c4d6c8c80501c817e9f66'
          'bb1c795439814faebfad23f71161f544')
 
-pkgver() {
-  cd sanya-m-kde-touchpad-config-${_commit}
+prepare() {
+  cd ${pkgname}-${pkgver}
   patch -p0 -i ${srcdir}/xlibbackend.diff
   patch -p0 -i ${srcdir}/x11.diff
 }
@@ -29,7 +29,7 @@ build() {
   mkdir build 
   cd build
   
-  cmake ../sanya-m-kde-touchpad-config-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
   make
