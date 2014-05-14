@@ -1,6 +1,6 @@
 
 pkgname=sddm
-pkgver=20140512
+pkgver=20140514
 pkgrel=1
 pkgdesc="QML based X11 display manager"
 arch=('x86_64')
@@ -12,17 +12,17 @@ conflicts=('sddm-qt5-git')
 provides=('sddm-qt5-git')
 replaces=('sddm-qt5-git')
 backup=('etc/sddm.conf')
-source=('git://github.com/blue-shell/sddm.git'
-        'background.png')
-md5sums=('SKIP'
-         '4932058967e1fe4df3e8cd75b75997ca')
+#source=('git://github.com/blue-shell/sddm.git'
+source=('background.png')
+md5sums=('4932058967e1fe4df3e8cd75b75997ca')
 
 _gitroot="github.com/blue-shell/sddm.git"
 _gitname=sddm
 
 build() {
   cd "$srcdir"
-
+  git clone -b neon git://github.com/blue-shell/sddm.git
+  
   mkdir -p $srcdir/build
   cd build
 

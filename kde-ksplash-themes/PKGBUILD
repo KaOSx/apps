@@ -12,24 +12,6 @@ groups=('kde' 'kde-complete' 'kde-uninstall' 'kde-minimal')
 source=("http://sourceforge.net/projects/kaosx/files/sources/midna/ksplash/$pkgver/midna.tar.xz")
 md5sums=('f0d778c51a7812ddab7df25f8f07874c')
 
-
-package_kde-ksplash-themes-ronak(){
-
-	pkgdesc="Ronak KSplash-Theme"
-	groups=("${_pkgprefix}" "${_pkgprefix}-complete" "${_pkgprefix}-uninstall" "${_pkgprefix}-minimal" "${_pkgprefix}-ksplash-themes")
-	_THEME="RONAK"
-	pkgrel=1
-	
-	cd ${srcdir}/ksplash-ronak
-	
-	msg "Install theme"
-	mkdir -pv $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
-	cp -Rv * $pkgdir/usr/share/apps/ksplash/Themes/$_THEME
-	# fix rc file
-	sed -i -e "s~KStarboard~$_THEME~g" $pkgdir/usr/share/apps/ksplash/Themes/$_THEME/Theme.rc
-
-}
-
 package_kde-ksplash-themes-midna() {
 	pkgdesc="Midna KSplash-Theme, based on litho flowers for KaOS"
 	groups=('kde' 'kde-complete' 'kde-uninstall' 'kde-minimal')

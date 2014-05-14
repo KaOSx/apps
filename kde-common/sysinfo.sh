@@ -6,7 +6,7 @@ get_data() {
 	echo
 	echo
 	echo "################################################################################"
-	echo "## Chakra Sysinfo                                                             ##"
+	echo "## KaOS Sysinfo                                                             ##"
 	echo "################################################################################"
 	echo
 	echo -n "Release:                "
@@ -81,7 +81,7 @@ get_data() {
 
 	echo
 	echo
-	echo "Chakra Packages"
+	echo "KaOS Packages"
 	echo "--------------------------------------------------------------------------------"
 	pacman -Q
 
@@ -99,6 +99,6 @@ get_data() {
 }
 echo
 echo ":: collecting data"
-get_data > ~/chakra-sysinfo.txt
-echo ":: system info saved to /home/$_user/chakra-sysinfo.txt"
+get_data > ~/kaos-sysinfo.txt
+echo ":: system info saved to /home/$_user/kaos-sysinfo.txt"
 echo
