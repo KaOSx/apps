@@ -10,7 +10,7 @@ pkgname=('kdewebdev-kfilereplace'
 
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 
 pkgdesc="split package"
 url="http://www.kde.org/"
@@ -43,7 +43,7 @@ package_kdewebdev-kfilereplace() {
 	depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}")
 	groups=("kde" "${pkgbase}" 'kde-uninstall')
 	groups=('utils')
-	conflicts=('kdewebdev-common' Â'kdewebdev-doc')
+	conflicts=('kdewebdev-common' 'kdewebdev-doc')
 	install=${pkgbase}.install
 
 	splitdirs="kfilereplace doc/kfilereplace"
