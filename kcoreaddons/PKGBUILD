@@ -9,8 +9,8 @@ pkgdesc='KCoreAddons'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kcoreaddons'
 license=('LGPL')
-depends=('qt5' 'shared-mime-info')
-makedepends=('extra-cmake-modules')
+depends=('qt5-base' 'shared-mime-info')
+makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
 install=kcoreaddons.install
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
@@ -20,7 +20,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

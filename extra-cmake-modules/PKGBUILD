@@ -1,20 +1,21 @@
 
 pkgname=extra-cmake-modules
-pkgver=4.95.0
+pkgver=0.0.13
+_pkgver=4.99.0
 pkgrel=1
 pkgdesc='Extra CMake modules'
 arch=('x86_64')
 url='http://quickgit.kde.org/index.php?p=extra-cmake-modules.git&a=summary'
 license=('LGPL')
 depends=('cmake')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('')
+source=("http://download.kde.org/unstable/frameworks/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=('c76fe1124e588fd518b2a2423aa64753')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release
   make

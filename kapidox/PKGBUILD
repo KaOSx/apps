@@ -9,7 +9,7 @@ pkgdesc='Frameworks API Documentation Tools'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kapidox'
 license=('LGPL')
-makedepends=('extra-cmake-modules' 'qt5')
+makedepends=('extra-cmake-modules' 'qt5-base' 'python3')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
@@ -18,7 +18,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
   make
