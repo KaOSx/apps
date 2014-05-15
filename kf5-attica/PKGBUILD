@@ -3,27 +3,26 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kf5-attica
+_pkgname=attica
 pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
 url='https://projects.kde.org/projects/kdesupport/attica'
 pkgdesc='A Qt5 library that implements the Open Collaboration Services API'
 license=('LGPL')
-depends=('qt5')
+depends=('qt5-base')
 makedepends=('extra-cmake-modules')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../attica \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DATTICA_ENABLE_TESTS=OFF \
-    -DQT4_BUILD=OFF \
-    -DLIB_DESTINATION=/usr/lib
+    -DLIB_INSTALL_DIR=lib
   make
 }
 
