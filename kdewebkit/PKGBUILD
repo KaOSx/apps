@@ -9,7 +9,7 @@ pkgdesc='KDE Webkit'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kdewebkit'
 license=('LGPL')
-depends=('qt5' 'kwallet-framework' 'kparts')
+depends=('qt5-webkit' 'kwallet' 'kparts')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
@@ -19,7 +19,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
