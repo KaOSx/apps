@@ -2,17 +2,17 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kde4support
+pkgname=kdelibs4support
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='KDE 4 Support'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kde4support'
 license=('LGPL')
-depends=('kio' 'kunitconversion' 'kdesignerplugin' 'libsm')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kio' 'kunitconversion' 'kdesignerplugin' 'libsm' 'networkmanager')
+makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/portingAids/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
@@ -20,7 +20,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
