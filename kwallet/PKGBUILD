@@ -2,14 +2,14 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kwallet-framework
+pkgname=kwallet
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='KWallet Framework'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kwallet-framework'
 license=('LGPL')
-depends=('kwindowsystem' 'kconfig')
+depends=('kconfig' 'ki18n' 'kiconthemes' 'knotifications' 'kwindowsystem' )
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
@@ -19,7 +19,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
