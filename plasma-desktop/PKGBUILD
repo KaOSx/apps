@@ -1,0 +1,40 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=plasma-desktop
+pkgver=4.96.0
+pkgrel=1
+pkgdesc='KDE Plasma Desktop'
+arch=('x86_64')
+url='https://projects.kde.org/projects/kde/workspace/plasma-desktop'
+license=('LGPL')
+depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb-compat' 'libcanberra'
+         'systemsettings' 'ksysguard' 'powerdevil' 'oxygen' 'kmenuedit')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
+md5sums=('c1788217676a3fc400706808b164af73')
+
+build() {
+  mkdir -p build
+
+  sed -i '/(sr@ijekavianlatin)/d' $pkgname-$pkgver/po/CMakeLists.txt
+  sed -i '/(sr@ijekavian)/d' $pkgname-$pkgver/po/CMakeLists.txt
+  sed -i '/(sr@latin)/d' $pkgname-$pkgver/po/CMakeLists.txt
+  sed -i '/(sr)/d' $pkgname-$pkgver/po/CMakeLists.txt
+  sed -i '/(bs)/d' $pkgname-$pkgver/po/CMakeLists.txt
+
+  cd build
+  cmake ../$pkgname-$pkgver \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR="${pkgdir}" install
+}
