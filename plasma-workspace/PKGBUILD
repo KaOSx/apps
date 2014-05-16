@@ -1,0 +1,38 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=plasma-workspace
+pkgver=4.96.0
+pkgrel=1
+pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
+arch=('x86_64')
+url='https://projects.kde.org/projects/kde/kde-workspace'
+license=('LGPL')
+depends=('frameworkintegration' 'kcmutils' 'knotifyconfig' 'krunner' 'kdesu' 'knewstuff' 'khtml'
+         'libdbusmenu-qt5' 'glu' 'kjsembed' 'libxkbfile' 'libxcursor' 'lm_sensors' 'libraw1394'
+         'libusb-compat' 'pciutils' 'libbsd' 'kf5-akonadi' 'qt5-webkit' 'kf5-attica'
+         'kemoticons' 'libxrandr' 'kded' 'kwin' 'libksysguard' 'ktexteditor' 'kde-cli-tools'
+         'khelpcenter' 'kio-extras' 'milou' 'libkscreen2' 'breeze' 'gpsd' 'libqalculate')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'kdoctools' 'boost')
+groups=('plasma')
+source=("http://download.kde.org/unstable/plasma/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=('cebd06411902dde2087b747d5a916f11')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR="${pkgdir}" install
+}
