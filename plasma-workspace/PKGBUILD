@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=4.96.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
@@ -16,8 +16,13 @@ depends=('frameworkintegration' 'kcmutils' 'knotifyconfig' 'krunner' 'kdesu' 'kn
          'khelpcenter' 'kio-extras' 'milou' 'libkscreen2' 'breeze' 'gpsd' 'libqalculate')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'kdoctools' 'boost')
 groups=('plasma')
-source=("http://download.kde.org/unstable/plasma/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('cebd06411902dde2087b747d5a916f11')
+conflicts=('kde-workspace' 'kde-runtime')
+source=("http://download.kde.org/unstable/plasma/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+        'kf5-plasma.desktop'
+        '10-kf5')
+md5sums=('cebd06411902dde2087b747d5a916f11'
+         '277dd50ca93e8136ea40a9f1a10f59be'
+         '7982ba88503465ecbe9e6e08b4f37d9e')
 
 build() {
   mkdir -p build
@@ -27,12 +32,19 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
     -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
   cd build
-
   make DESTDIR="${pkgdir}" install
+  
+  install -Dm755 "${srcdir}/10-kf5" "${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5"
+  
+  install -dm755 "${pkgdir}/usr/share/apps/kdm/sessions/"
+  install -dm755 "${pkgdir}/usr/share/xsessions/"
+  install -m644 "${srcdir}/kf5-plasma.desktop" "${pkgdir}/usr/share/apps/kdm/sessions/"
+  ln -sr "${pkgdir}/usr/share/apps/kdm/sessions/kf5-plasma.desktop" -t "${pkgdir}/usr/share/xsessions/"
 }

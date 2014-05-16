@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=4.96.0
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-desktop'
@@ -12,6 +12,7 @@ license=('LGPL')
 depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb-compat' 'libcanberra'
          'systemsettings' 'ksysguard' 'powerdevil' 'oxygen' 'kmenuedit')
 makedepends=('extra-cmake-modules' 'kdoctools')
+conflicts=('kde-workspace' 'kde-runtime')
 source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
 md5sums=('c1788217676a3fc400706808b164af73')
 
@@ -29,6 +30,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
     -DBUILD_TESTING=OFF
   make
 }

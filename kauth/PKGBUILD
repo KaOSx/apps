@@ -4,12 +4,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kauth
 pkgver=${_kdever}
-pkgrel=1
-pkgdesc='KAuth'
+pkgrel=2
+pkgdesc='KAuth provides a convenient, system-integrated way to offload actions that need to be performed as a privileged user.'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kauth'
 license=('LGPL')
-depends=('kcoreaddons' 'polkit-qt')
+depends=('kcoreaddons' 'polkit-qt5')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
@@ -23,6 +23,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
     -DBUILD_TESTING=OFF
   make
 }

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=4.96.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kio-extras'
@@ -12,6 +12,7 @@ license=('LGPL')
 depends=('exiv2' 'kdelibs4support' 'kdnssd' 'kemoticons' 'khtml' 'kinit' 'kitemmodels' 'libssh'
          'openexr' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools' 'openslp')
+conflicts=('kde-workspace')
 source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
 md5sums=('fd4b04dd2f1e46696202e6eff31e4629')
 
@@ -23,6 +24,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
     -DBUILD_TESTING=OFF
   make
 }

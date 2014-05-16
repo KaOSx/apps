@@ -4,13 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ksysguard
 pkgver=4.96.0
-pkgrel=1
-pkgdesc='KSysGuard'
+pkgrel=2
+pkgdesc='KSysGuard is a program to monitor various elements of your system'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/ksysguard'
 license=('LGPL')
 depends=('knewstuff' 'libksysguard' 'lm_sensors')
 makedepends=('extra-cmake-modules' 'kdoctools')
+conflicts=('kde-workspace')
 source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
 md5sums=('8ba9618562824eda854d80530cd881db')
 
@@ -22,6 +23,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
     -DBUILD_TESTING=OFF
   make
 }

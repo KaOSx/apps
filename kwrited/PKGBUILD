@@ -4,13 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwrited
 pkgver=4.96.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Watch for messages from local users sent with write or wall'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kwrited'
 license=('LGPL')
 depends=('kdelibs4support' 'kemoticons' 'kinit' 'kitemmodels' 'kpty')
 makedepends=('extra-cmake-modules' 'kdoctools')
+conflicts=('kde-workspace')
 source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
 md5sums=('d1be68dddc779616fed8297fd5ff7e06')
 
@@ -22,6 +23,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
     -DBUILD_TESTING=OFF
   make
 }

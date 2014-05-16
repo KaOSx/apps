@@ -4,8 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khtml
 pkgver=${_kdever}
-pkgrel=1
-pkgdesc='KHtml'
+pkgrel=2
+pkgdesc='Web rendering engine, based on the KParts technology and using KJS for JavaScript support.'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/khtml'
 license=('LGPL')
@@ -24,6 +24,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
     -DBUILD_TESTING=OFF
   make
 }
