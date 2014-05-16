@@ -2,17 +2,16 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=plasma-framework
+pkgname=ktexteditor
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
+pkgdesc='KTextEditor framework'
 arch=('x86_64')
-url='https://projects.kde.org/projects/playground/libs/plasma-framework'
+url='https://projects.kde.org/projects/frameworks/ktexteditor'
 license=('LGPL')
-depends=('kidletime' 'kitemmodels' 'threadweaver' 'kwallet' 'kdeclarative' 'kunitconversion'
-         'kross' 'kdnssd' 'kdelibs4support' 'kinit' 'kactivities-frameworks'
-         'qt5-quick1' 'qt5-quickcontrols')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kparts')
+makedepends=('extra-cmake-modules')
+groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
@@ -30,6 +29,6 @@ build() {
 
 package() {
   cd build
-  
+
   make DESTDIR="${pkgdir}" install
 }

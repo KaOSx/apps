@@ -2,18 +2,17 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=plasma-framework
+pkgname=krunner
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
+pkgdesc='Framework for providing different actions given a string query'
 arch=('x86_64')
-url='https://projects.kde.org/projects/playground/libs/plasma-framework'
+url='https://projects.kde.org/projects/frameworks/krunner'
 license=('LGPL')
-depends=('kidletime' 'kitemmodels' 'threadweaver' 'kwallet' 'kdeclarative' 'kunitconversion'
-         'kross' 'kdnssd' 'kdelibs4support' 'kinit' 'kactivities-frameworks'
-         'qt5-quick1' 'qt5-quickcontrols')
+depends=('plasma-framework')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+groups=('kf5')
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/portingAids/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
@@ -30,6 +29,6 @@ build() {
 
 package() {
   cd build
-  
+
   make DESTDIR="${pkgdir}" install
 }

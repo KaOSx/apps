@@ -3,16 +3,17 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kactivities-frameworks
+_pkgname=kactivities
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Core components for the KDE's Activities"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kactivities'
 license=('LGPL')
-depends=('qt5' 'boost-libs' 'kf5umbrella' 'kdbusaddons' 'kwindowsystem' 'kservice')
+depends=('qt5-declarative' 'boost-libs' 'kdbusaddons' 'kwindowsystem' 'kservice')
 makedepends=('extra-cmake-modules' 'boost')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   mkdir -p build
@@ -22,7 +23,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
