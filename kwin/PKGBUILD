@@ -2,17 +2,17 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=breeze
+pkgname=kwin
 pkgver=4.96.0
 pkgrel=1
-pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
+pkgdesc='KDE Window Manager'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/breeze'
+url='https://projects.kde.org/projects/kde/workspace/kwin'
 license=('LGPL')
-depends=('qt5-base')
-makedepends=('extra-cmake-modules')
+depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'libxcursor')
+makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('f9e008875140fa10491c8e71824d3f72')
+md5sums=('49cad6bb303ef64b375a6eb6f187f3c9')
 
 build() {
   mkdir -p build

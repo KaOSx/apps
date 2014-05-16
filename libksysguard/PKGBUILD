@@ -2,17 +2,17 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=breeze
+pkgname=libksysguard
 pkgver=4.96.0
 pkgrel=1
-pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
+pkgdesc='Libksysguard'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/breeze'
+url='https://projects.kde.org/projects/kde/workspace/libksysguard'
 license=('LGPL')
-depends=('qt5-base')
-makedepends=('extra-cmake-modules')
+depends=('libxres' 'kdelibs4support' 'kemoticons' 'plasma-framework')
+makedepends=('extra-cmake-modules' 'kdoctools')
 source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('f9e008875140fa10491c8e71824d3f72')
+md5sums=('eaf0c222f2432ace0d4a2e7d3e736395')
 
 build() {
   mkdir -p build

@@ -2,17 +2,17 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=breeze
+pkgname=kde-cli-tools
 pkgver=4.96.0
 pkgrel=1
-pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
+pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/breeze'
+url='https://projects.kde.org/projects/kde/workspace/kde-cli-tools'
 license=('LGPL')
-depends=('qt5-base')
-makedepends=('extra-cmake-modules')
+depends=('kdesu' 'kdelibs4support' 'kcmutils' 'kemoticons' 'kinit' 'kitemmodels')
+makedepends=('extra-cmake-modules' 'kdoctools')
 source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('f9e008875140fa10491c8e71824d3f72')
+md5sums=('b3a0d990daaa45af14a28a4f976761fd')
 
 build() {
   mkdir -p build
