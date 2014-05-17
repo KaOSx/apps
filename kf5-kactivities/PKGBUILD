@@ -2,16 +2,19 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kactivities-frameworks
+pkgname=kf5-kactivities
 _pkgname=kactivities
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Core components for the KDE's Activities"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kactivities'
 license=('LGPL')
 depends=('qt5-declarative' 'boost-libs' 'kdbusaddons' 'kwindowsystem' 'kservice')
 makedepends=('extra-cmake-modules' 'boost')
+replaces=('kactivities-frameworks')
+provides=('kactivities-frameworks')
+conflicts=('kactivities-frameworks' 'kactivities')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
