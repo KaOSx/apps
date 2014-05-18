@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=knotifyconfig
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='KNotifyConfig'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/knotifyconfig'
@@ -23,6 +23,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DBUILD_TESTING=OFF
   make
 }

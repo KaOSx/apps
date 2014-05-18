@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-baloo
 _pkgname=baloo
 pkgver=4.96.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -24,6 +24,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DLIB_INSTALL_DIR=lib
   make
 }

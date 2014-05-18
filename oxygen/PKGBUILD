@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=oxygen
 pkgver=4.96.0
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Oxygen style'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/oxygen'
@@ -22,6 +22,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
   make
 }

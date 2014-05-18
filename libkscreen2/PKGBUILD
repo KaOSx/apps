@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkscreen2
 pkgver=1.71
 _pkgver=4.96.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kfilemetadata'
@@ -22,6 +22,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DLIB_INSTALL_DIR=lib
   make
 }

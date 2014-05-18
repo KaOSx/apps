@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=4.96.0
-pkgrel=2
+pkgrel=5
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
@@ -19,10 +19,12 @@ groups=('plasma')
 conflicts=('kde-workspace' 'kde-runtime')
 source=("http://download.kde.org/unstable/plasma/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
         'kf5-plasma.desktop'
-        '10-kf5')
+        '10-kf5'
+        'startkde')
 md5sums=('cebd06411902dde2087b747d5a916f11'
          '277dd50ca93e8136ea40a9f1a10f59be'
-         '7982ba88503465ecbe9e6e08b4f37d9e')
+         'dba039506890a165bbc746101d739a57'
+         '1c093f5c012fe42bd00e9d7b9189bb15')
 
 build() {
   mkdir -p build
@@ -33,6 +35,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make
 }
@@ -41,7 +45,8 @@ package() {
   cd build
   make DESTDIR="${pkgdir}" install
   
-  sed s/qtpaths/qtpaths-qt5/g -i "$pkgdir/usr/bin/startkde"
+  rm "$pkgdir/usr/bin/startkde"
+  install -Dm755 "${srcdir}/startkde" "$pkgdir/usr/bin/startkde"
   
   install -Dm755 "${srcdir}/10-kf5" "${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5"
   

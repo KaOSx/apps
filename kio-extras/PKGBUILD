@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=4.96.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kio-extras'
@@ -25,6 +25,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
   make
 }
