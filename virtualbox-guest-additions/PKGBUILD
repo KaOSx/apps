@@ -1,12 +1,13 @@
 
 pkgname=virtualbox-guest-additions
 pkgver=4.3.12
-pkgrel=1
+pkgrel=2
 pkgdesc='The official VirtualBox Guest Additions ISO image'
 arch=('x86_64')
 url='http://www.virtualbox.org'
 license=('custom:PUEL')
 install=virtualbox-guest-additions.install
+depends=('make' 'pkg-config')
 source=("http://download.virtualbox.org/virtualbox/$pkgver/VBoxGuestAdditions_$pkgver.iso"
         'LICENSE')
 noextract=(VBoxGuestAdditions_$pkgver.iso)

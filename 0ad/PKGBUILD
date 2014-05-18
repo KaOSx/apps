@@ -1,8 +1,8 @@
 
 pkgname=0ad
-pkgver=a15
-_pkgver=0.0.15-alpha
-pkgrel=5
+pkgver=a16
+_pkgver=0.0.16-alpha
+pkgrel=1
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="http://play0ad.com/"
@@ -12,7 +12,7 @@ depends=('binutils' 'boost-libs' 'curl' 'enet>=1.3' 'libogg' 'libpng' 'libvorbis
          'libjpeg' 'libtiff' 'openexr' 'gloox')
 makedepends=('boost' 'cmake' 'zip' 'python2')
 source=("http://releases.wildfiregames.com/$pkgname-$_pkgver-unix-build.tar.xz")
-md5sums=('a651d81eb9b31da01e376ddaa597e954')
+md5sums=('3836bbcdf4edc57c2354b4fef6023146')
 
 build() {
   cd "$srcdir/$pkgname-$_pkgver/build/workspaces"
@@ -35,7 +35,7 @@ build() {
 package() {
   install -d "${pkgdir}"/usr/{bin,lib/0ad}
   install -Dm755 "${srcdir}"/${pkgname}-${_pkgver}/binaries/system/pyrogenesis "${pkgdir}/usr/bin"
-  install -Dm755 "${srcdir}"/${pkgname}-${_pkgver}/binaries/system/*.so{,.1.0} "${pkgdir}/usr/lib/0ad"
+  install -Dm755 "${srcdir}"/${pkgname}-${_pkgver}/binaries/system/*.so* "${pkgdir}/usr/lib/0ad"
 
   install -Dm755 "${srcdir}/${pkgname}-${_pkgver}/build/resources/${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
   install -Dm644 "${srcdir}/$pkgname-$_pkgver/build/resources/${pkgname}.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
