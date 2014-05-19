@@ -3,27 +3,37 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kate
-pkgver=${_kdever}
+#pkgver=${_kdever}
+pkgver=4.96.0
 pkgrel=1
-pkgdesc='An advanced editor component which is used in numerous KDE applications requiring a text editing component'
+pkgdesc='Advanced editor component which is used in numerous KDE applications requiring a text editing component'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/kate'
 license=('LGPL')
-depends=('kcmutils' 'kio' 'kitemmodels' 'knewstuff' 'kparts' 'kprintutils')
-makedepends=('extra-cmake-modules')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+depends=('kdelibs4support' 'kconfig' 'kguiaddons' 'ki18n' 'kinit' 'kjobwidgets' 'kitemmodels'
+         'kio' 'kparts' 'ktexteditor' 'kwindowsystem' 'kxmlgui')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kde-basapps-kate')
+#source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kate#branch=frameworks"
+        'main.diff')
+md5sums=('SKIP'
+         '01d6d2e7400c08950f9fd2786372cbd6')
 
 build() {
-  #export XDG_DATA_DIRS="/opt/kf5/share:$XDG_DATA_DIRS"
+  cd ${srcdir}/${pkgname}
+  patch -p0 -R ${srcdir}/main.diff
+  
   mkdir -p build
   cd build
   
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DBUILD_TESTING=OFF
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DLIB_INSTALL_DIR=lib
   make
 }
 

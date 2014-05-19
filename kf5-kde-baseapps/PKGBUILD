@@ -1,0 +1,37 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kf5-kde-baseapps
+_pkgname=kde-baseapps
+pkgver=4.96.0
+pkgrel=1
+pkgdesc="Collection of applications used for file and Internet browsing"
+arch=('x86_64')
+url='https://projects.kde.org/projects/kde/applications/kde-baseapps'
+license=('LGPL')
+depends=('kdelibs4support' 'kdesu' 'kf5-baloo-widgets' 'kf5-kactivities' 'knewstuff')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kde-basapps')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
+source=("git://anongit.kde.org/kde-baseapps#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DLIB_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR="${pkgdir}" install
+}
