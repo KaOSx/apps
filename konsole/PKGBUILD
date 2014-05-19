@@ -3,16 +3,20 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
-pkgver=${_kdever}
+#pkgver=${_kdever}
+pkgver=4.96.0
 pkgrel=1
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/konsole'
 license=('LGPL')
-depends=('kio' 'kde4support' 'knotifyconfig' 'kparts' 'kpty')
-makedepends=('extra-cmake-modules')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+depends=('kio' 'kdelibs4support' 'kiconthemes' 'knotifyconfig' 'knotifications' 'kparts' 'kpty'
+         'kinit' 'kemoticons' 'kitemmodels')
+makedepends=('extra-cmake-modules' 'kdoctools')
+#source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/konsole#branch=frameworks")
+md5sums=('SKIP')
 
 build() {
   mkdir -p build
@@ -21,8 +25,9 @@ build() {
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DBUILD_TESTING=OFF
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DLIB_INSTALL_DIR=lib
   make
 }
 
@@ -31,3 +36,4 @@ package() {
   
   make DESTDIR="${pkgdir}" install
 }
+
