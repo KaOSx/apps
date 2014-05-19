@@ -1,0 +1,31 @@
+
+pkgname=notepad
+pkgver=0.2
+pkgrel=1
+pkgdesc="Very simple text-editor for use during kf5/plasma transition"
+url="http://kaosx.us"
+arch=('x86_64')
+license=('GPL3')
+depends=('qt5-base')
+groups=('utilities') 
+source=("Notepad.tar.xz"
+        'notepad.desktop')
+md5sums=('82a21872cfaa61e1cf68f3806fb2300d'
+         'fbf1c7bd24b595ecd1fb5305e2bc9c2a')
+
+build() {
+   cd "${srcdir}/Notepad"
+
+   /usr/lib/qt5/bin/qmake 
+   make
+}
+
+package() {
+   cd "${srcdir}/Notepad"
+   
+   mkdir -p ${pkgdir}/usr/bin
+   cp Notepad ${pkgdir}/usr/bin
+   
+   mkdir -p ${pkgdir}/usr/share/applications
+   install -m644 -p ${srcdir}/notepad.desktop ${pkgdir}/usr/share/applications
+}
