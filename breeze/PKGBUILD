@@ -4,24 +4,28 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=breeze
 pkgver=4.96.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/breeze'
 license=('LGPL')
-depends=('qt5-base')
-makedepends=('extra-cmake-modules')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('f9e008875140fa10491c8e71824d3f72')
+depends=('kwin' 'qt5-tools')
+makedepends=('extra-cmake-modules' 'git')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
+#md5sums=('f9e008875140fa10491c8e71824d3f72')
+source=("git://anongit.kde.org/breeze.git")
+md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
   make
 }
