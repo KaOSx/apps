@@ -1,0 +1,32 @@
+
+pkgname=kf5-libnm-qt
+_pkgname=libnm-qt
+pkgver=0.9.8.1.1
+pkgrel=1
+pkgdesc='Qt-only wrapper for NetworkManager DBus API'
+arch=('x86_64')
+url='https://projects.kde.org/projects/extragear/libs/libnm-qt'
+license=('LGPL')
+depends=('qt5-base' 'networkmanager')
+makedepends=('extra-cmake-modules' 'git')
+source=("git://anongit.kde.org/libnm-qt.git")
+md5sums=('SKIP')
+
+build() {
+  cd $_pkgname
+  mkdir build
+  
+  cd build
+  cmake .. \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DINCLUDE_INSTALL_DIR=/usr/include/KF5
+  make
+}
+
+package() {
+  cd $_pkgname/build
+  
+  make DESTDIR=${pkgdir} install
+}

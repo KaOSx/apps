@@ -1,0 +1,34 @@
+
+pkgname=kf5-plasma-nm
+_pkgname=plasma-nm
+pkgver=0.9.3.4
+pkgrel=1
+pkgdesc="Plasma applet written in QML for managing network connections"
+arch=('x86_64')
+url="https://projects.kde.org/projects/playground/network/plasma-nm"
+license=('GPL')
+depends=('kf5-libmm-qt' 'kf5-libnm-qt' 'plasma-framework' 'kemoticons' 'mobile-broadband-provider-info')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'qt5-tools')
+source=("git://anongit.kde.org/plasma-nm.git#commit=9cc253078da509747b2cbe32e628d8426a9bbf8e")
+md5sums=('SKIP')
+
+build() {
+  cd $_pkgname
+  mkdir build
+  
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DBUILD_TESTING=OFF ..
+  make
+}
+
+package() {
+  cd $_pkgname/build
+  
+  make DESTDIR="$pkgdir" install
+}
