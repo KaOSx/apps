@@ -1,0 +1,35 @@
+
+pkgname=okteta
+pkgver=4.96.0
+pkgrel=1
+pkgdesc="KDE hex editor for viewing and editing the raw data of files"
+arch=('x86_64')
+url="https://projects.kde.org/projects/kde/kdesdk/okteta"
+license=('LGPL')
+depends=('kcmutils' 'kcodecs' 'kcompletion' 'kconfigwidgets' 'kdbusaddons' 'ki18n' 'knewstuff' 
+         'kparts' 'kservice' 'kwidgetsaddons' 'kxmlgui' 'qca' 'qt5-tools')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+conflicts=('kdesdk-okteta')
+source=("git://anongit.kde.org/okteta.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd $pkgname
+  mkdir build
+  
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DBUILD_TESTING=OFF ..
+  make
+}
+
+package() {
+  cd $pkgname/build
+  
+  make DESTDIR="$pkgdir" install
+}

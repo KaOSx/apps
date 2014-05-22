@@ -1,0 +1,35 @@
+
+pkgname=lokalize
+pkgver=4.96.0
+pkgrel=1
+pkgdesc="Computer-aided translation"
+arch=('x86_64')
+url="https://projects.kde.org/projects/kde/kdesdk/lokalize"
+license=('LGPL')
+depends=('hunspell' 'kconfig' 'kcoreaddons' 'kdelibs4support' 'kemoticons' 'ki18n' 'kinit' 'kio'
+         'kitemmodels' 'knotifications' 'kross' 'kxmlgui' 'sonnet' 'threadweaver')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+conflicts=('kdesdk-lokalize')
+source=("git://anongit.kde.org/lokalize.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd $pkgname
+  mkdir build
+  
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DBUILD_TESTING=OFF ..
+  make
+}
+
+package() {
+  cd $pkgname/build
+  
+  make DESTDIR="$pkgdir" install
+}
