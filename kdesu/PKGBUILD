@@ -5,11 +5,11 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdesu
 pkgver=${_kdever}
 pkgrel=2
-pkgdesc='KDE Su'
+pkgdesc='Provides functionality for building GUI front ends for (password asking) console mode programs'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kdesu'
 license=('LGPL')
-depends=('kservice' 'kpty')
+depends=('kservice' 'kpty' 'libx11')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
