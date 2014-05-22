@@ -1,0 +1,37 @@
+
+pkgname=marble
+pkgver=4.96.0
+pkgrel=1
+pkgdesc="Computer-aided translation"
+arch=('x86_64')
+url="https://projects.kde.org/projects/kde/kdeedu/marble/"
+license=('LGPL')
+depends=('gpsd' 'phonon-qt5' 'qt5-script' 'qt5-svg' 'qt5-tools' 'qt5-webkit' 'shapelib')
+makedepends=('extra-cmake-modules' 'git')
+conflicts=('kdeedu-marble')
+source=("git://anongit.kde.org/marble.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd $pkgname
+  mkdir build
+  
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DQTONLY=1 \
+        -DQT5BUILD=1 \
+        -DBUILD_MARBLE_TOOLS=YES \
+        -DBUILD_TESTING=OFF ..
+  make
+}
+
+package() {
+  cd $pkgname/build
+  
+  make DESTDIR="$pkgdir" install
+}
