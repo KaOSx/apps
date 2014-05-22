@@ -1,0 +1,33 @@
+
+pkgname=kwalletmanager
+pkgver=4.96.0
+pkgrel=1
+pkgdesc="Wallet Manager is a tool to manage the passwords on your KDE system"
+arch=('x86_64')
+url="https://projects.kde.org/projects/kde/kdeutils/kwalletmanager"
+license=('LGPL')
+depends=('kcmutils' 'kemoticons' 'kdelibs4support' 'kitemmodels' 'kinit' 'kwallet' 'kxmlgui')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+source=("git://anongit.kde.org/kwalletmanager.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd $pkgname
+  mkdir build
+  
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DBUILD_TESTING=OFF ..
+  make
+}
+
+package() {
+  cd $pkgname/build
+  
+  make DESTDIR="$pkgdir" install
+}

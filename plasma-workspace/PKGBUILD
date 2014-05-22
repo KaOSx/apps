@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=4.96.0
-pkgrel=7
+pkgrel=9
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
@@ -14,16 +14,18 @@ depends=('frameworkintegration' 'kcmutils' 'knotifyconfig' 'krunner' 'kdesu' 'kn
          'libusb-compat' 'pciutils' 'libbsd' 'kf5-akonadi' 'qt5-webkit' 'kf5-attica'
          'kemoticons' 'libxrandr' 'kded' 'kwin' 'libksysguard' 'ktexteditor' 'kde-cli-tools'
          'khelpcenter' 'kio-extras' 'milou' 'libkscreen2' 'breeze' 'gpsd' 'libqalculate' 'qt5-tools'
-         'qimageblitz' 'oxygen-icons')
+         'qimageblitz-qt5' 'oxygen-icons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma')
 conflicts=('kde-workspace' 'kde-runtime')
 source=("http://download.kde.org/unstable/plasma/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
         'kf5-plasma.desktop'
-        'startkde')
+        'startkde'
+        '10-kf5')
 md5sums=('cebd06411902dde2087b747d5a916f11'
          '277dd50ca93e8136ea40a9f1a10f59be'
-         '1c093f5c012fe42bd00e9d7b9189bb15')
+         '1c093f5c012fe42bd00e9d7b9189bb15'
+         '6d0a507a9f2de77f5bb7c1de9f93e8c4')
 
 build() {
   mkdir -p build
@@ -46,6 +48,8 @@ package() {
   
   rm "$pkgdir/usr/bin/startkde"
   install -Dm755 "${srcdir}/startkde" "$pkgdir/usr/bin/startkde"
+  
+  install -Dm755 "${srcdir}/10-kf5" "${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5"
   
   install -dm755 "${pkgdir}/usr/share/apps/kdm/sessions/"
   install -dm755 "${pkgdir}/usr/share/xsessions/"

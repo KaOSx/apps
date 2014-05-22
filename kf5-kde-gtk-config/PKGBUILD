@@ -1,0 +1,34 @@
+
+pkgname=kf5-kde-gtk-config
+_pkgname=kde-gtk-config
+pkgver=4.96.0
+pkgrel=1
+pkgdesc="Configuration dialog to adapt GTK applications appearance to your taste under KDE"
+arch=('x86_64')
+url="https://projects.kde.org/projects/extragear/base/kde-gtk-config"
+license=('LGPL')
+depends=('karchive' 'kauth' 'kcmutils' 'kconfigwidgets' 'knewstuff')
+makedepends=('extra-cmake-modules' 'git' 'gtk2' 'gtk3')
+source=("git://anongit.kde.org/kde-gtk-config.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd $_pkgname
+  mkdir build
+  
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DBUILD_TESTING=OFF ..
+  make
+}
+
+package() {
+  cd $_pkgname/build
+  
+  make DESTDIR="$pkgdir" install
+}
