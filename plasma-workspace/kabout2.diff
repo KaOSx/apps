@@ -1,0 +1,83 @@
+commit 3f1207fcf947391fde745df80202ae2dc11a5e19
+Author: Martin Gräßlin <mgraesslin@kde.org>
+Date:   Wed May 14 10:28:56 2014 +0200
+
+    Adjust to changes in KAboutData
+    
+    This should fix the build.
+
+diff --git a/drkonqi/main.cpp b/drkonqi/main.cpp
+index cf3f1db..318b2a7 100644
+--- a/drkonqi/main.cpp
++++ b/drkonqi/main.cpp
+@@ -58,9 +58,9 @@ int main(int argc, char* argv[])
+     // Session management is not needed, do not even connect in order to survive longer than ksmserver.
+     unsetenv("SESSION_MANAGER");
+ 
+-    KAboutData aboutData("drkonqi", "drkonqi", i18n("The KDE Crash Handler"),
++    KAboutData aboutData("drkonqi", i18n("The KDE Crash Handler"),
+                          version, i18n(description),
+-                         KAboutData::License_GPL,
++                         KAboutLicense::GPL,
+                          i18n("(C) 2000-2009, The DrKonqi Authors"));
+     aboutData.addAuthor(i18nc("@info:credit","Hans Petter Bieker"), QString(),
+                          "bieker@kde.org");
+diff --git a/drkonqi/tests/backtraceparsertest/backtraceparsertest_manual.cpp b/drkonqi/tests/backtraceparsertest/backtraceparsertest_manual.cpp
+index 9787b41..b44e709 100644
+--- a/drkonqi/tests/backtraceparsertest/backtraceparsertest_manual.cpp
++++ b/drkonqi/tests/backtraceparsertest/backtraceparsertest_manual.cpp
+@@ -28,7 +28,7 @@
+ int main(int argc, char **argv)
+ {
+     QCoreApplication app(argc, argv);
+-    KAboutData aboutData("backtraceparsertest_manual", QString(), i18n("backtraceparsertest_manual"), "1.0");
++    KAboutData aboutData("backtraceparsertest_manual", i18n("backtraceparsertest_manual"), "1.0");
+     KAboutData::setApplicationData(aboutData);
+ 
+     QCommandLineParser parser;
+diff --git a/drkonqi/tests/crashtest/crashtest.cpp b/drkonqi/tests/crashtest/crashtest.cpp
+index cf76d9d..2bbc70e 100644
+--- a/drkonqi/tests/crashtest/crashtest.cpp
++++ b/drkonqi/tests/crashtest/crashtest.cpp
+@@ -122,10 +122,10 @@ void level1(int t)
+ int main(int argc, char *argv[])
+ {
+   QApplication app(argc, argv);
+-  KAboutData aboutData("crashtext", 0, i18n("Crash Test for DrKonqi"),
++  KAboutData aboutData("crashtext", i18n("Crash Test for DrKonqi"),
+                        "1.1",
+                        i18n("Crash Test for DrKonqi"),
+-                       KAboutData::License_GPL,
++                       KAboutLicense::GPL,
+                        i18n("(c) 2000-2002 David Faure, Waldo Bastian"));
+ 
+   QCommandLineParser parser;
+diff --git a/kglobalaccel/main.cpp b/kglobalaccel/main.cpp
+index 642e827..293d71c 100644
+--- a/kglobalaccel/main.cpp
++++ b/kglobalaccel/main.cpp
+@@ -57,11 +57,10 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
+     QApplication app(argc, argv);
+     KAboutData aboutdata(
+             "kglobalaccel",
+-            QString(),
+             i18n("KDE Global Shortcuts Service"),
+             "0.2",
+             i18n("KDE Global Shortcuts Service"),
+-            KAboutData::License_LGPL,
++            KAboutLicense::LGPL,
+             i18n("(C) 2007-2009  Andreas Hartmetz, Michael Jansen"));
+     aboutdata.addAuthor(i18n("Andreas Hartmetz"),i18n("Maintainer"),"ahartmetz@gmail.com");
+     aboutdata.addAuthor(i18n("Michael Jansen"),i18n("Maintainer"),"kde@michael-jansen.biz");
+diff --git a/shell/currentcontainmentactionsmodel.cpp b/shell/currentcontainmentactionsmodel.cpp
+index 14c4e92..d96f681 100644
+--- a/shell/currentcontainmentactionsmodel.cpp
++++ b/shell/currentcontainmentactionsmodel.cpp
+@@ -226,7 +226,6 @@ void CurrentContainmentActionsModel::showAbout(int row)
+     KPluginInfo info = m_plugins[action]->pluginInfo();
+ 
+     KAboutData aboutData(info.name().toUtf8(),
+-            info.name().toUtf8(),
+             ki18n(info.name().toUtf8()).toString(),
+             info.version().toUtf8(), ki18n(info.comment().toUtf8()).toString(),
+             KAboutLicense::byKeyword(info.license()).key(), ki18n(QByteArray()).toString(), ki18n(QByteArray()).toString(), info.website().toLatin1(),
