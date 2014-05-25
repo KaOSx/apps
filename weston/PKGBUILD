@@ -1,0 +1,34 @@
+
+pkgname=weston
+pkgver=1.5.0
+pkgrel=1
+pkgdesc='Reference implementation of a Wayland compositor'
+arch=('x86_64')
+url='http://wayland.freedesktop.org'
+license=('MIT')
+options=('!libtool')
+depends=('libxkbcommon' 'mesa' 'pango' 'poppler-glib' 'mtdev' 'libxcursor' 'glu' 'libunwind'
+         'pixman' 'xkeyboard-config' 'colord' 'libwebp' 'libva')
+replaces=('weston-git')
+provides=('weston-git')
+conflicts=('weston-git')
+source=("http://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
+md5sums=('8eb40d230efc2411f083c20656534780')
+
+build() {
+   cd ${srcdir}/${pkgname}-${pkgver}
+
+   ./configure \
+       --prefix=/usr \
+       --libexecdir=/usr/lib/weston \
+       --enable-demo-clients-install \
+       --with-cairo=gl
+   make
+}
+
+package() {
+   cd ${srcdir}/${pkgname}-${pkgver}
+   make DESTDIR="${pkgdir}" install
+
+   install -Dm644 COPYING "$pkgdir/usr/share/licenses/${pkgname}/COPYING"
+}
