@@ -1,18 +1,13 @@
 #!/bin/bash
 
 if [[ "$DESKTOP_SESSION" == "kf5-plasma" ]]; then
-        export KF5="/usr"
         export QTDIR="/usr/lib/qt5"
-        export XDG_DATA_DIRS="/usr/share:/usr/local/share"
-	export XDG_CONFIG_DIRS="/etc/xdg:/etc/xdg/qt5"
-        export PATH="$KF5/bin:$QTDIR/bin:$PATH"
-	export QT_PLUGIN_PATH="$KF5/lib/plugins:$KF5/lib/qt/plugins:/usr/lib/plugins:/usr/lib/qt5/plugins"
+        export PATH="usr/bin:$QTDIR/bin:$PATH"
+	export QT_PLUGIN_PATH="/usr/lib/plugins:/usr/lib/qt5/plugins"
 	export QT_INCLUDE_PATH="/usr/include/qt5"
-	export QT_BIN_PATH="/usr/lib/qt5/bin"
-	export QML2_IMPORT_PATH="$KF5/lib/qml:$KF5/lib/qt/qml:/usr/lib/qml:/usr/lib/qt5/qml"
+	export QML2_IMPORT_PATH="/usr/lib/qml:/usr/lib/qt5/qml"
 	export QML_IMPORT_PATH="$QML2_IMPORT_PATH"
 	export KDE_SESSION_VERSION=5
 	export KDE_FULL_SESSION=true
-	export QT_MESSAGE_PATTERN='%{appname}(%{pid})/%{category} %{function}: %{message}'
 fi
 
