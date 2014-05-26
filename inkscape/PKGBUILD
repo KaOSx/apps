@@ -1,7 +1,7 @@
 
 pkgname=inkscape
 pkgver=0.48.4
-pkgrel=6
+pkgrel=7
 pkgdesc="A vector-based drawing program - svg compliant"
 url="http://inkscape.sourceforge.net/"
 arch=('x86_64')
@@ -13,15 +13,21 @@ options=('!libtool')
 install="inkscape.install"
 source=("http://surfnet.dl.sourceforge.net/project/inkscape/inkscape/${pkgver}/inkscape-${pkgver}.tar.gz"
         'spuriouscomma.patch'
-        'freetype.patch')
+        'freetype.patch'
+        'gc74.patch'
+        'poppler0.26.patch')
 md5sums=('2c7149e877609f3f7e7a9d4e6f510d2b'
          '0433e21c75e5e130c33bf2cf79dc1efa'
-         'a05f3be80d68d57d5193120ac94e69c5')
+         'a05f3be80d68d57d5193120ac94e69c5'
+         '19c6ba7677067a5d8cc20a4baa137be3'
+         '72a4a67964044ffebdf0f9d7666eeabb')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   patch -p0 -i ${srcdir}/spuriouscomma.patch
   patch -p0 -i ${srcdir}/freetype.patch
+  patch -p1 -i ${srcdir}/gc74.patch
+  patch -p0 -i ${srcdir}/poppler0.26.patch
 
   sed -i 's|/usr/bin/python\>|/usr/bin/python2|g' cxxtest/*.py
   sed -i 's|/usr/bin/env python\>|/usr/bin/env python2|g' share/*/{test/,}*.py
@@ -29,6 +35,7 @@ build() {
   sed -i 's|python -c|python2 -c|g' configure share/extensions/uniconv*.py
   sed -i 's|"python"|"python2"|g' src/main.cpp
   sed -i '/^#include <g.kmm/i #include <glibmm.h>' src/*{,/*{,/*{,/*}}}.{h,cpp}
+  sed -i '/extern unsigned GC_version;/c unsigned GC_version=GC_VERSION_MAJOR<<16+GC_VERSION_MINOR<<8+GC_VERSION_MICRO;' configure
 
   ./configure --prefix=/usr \
               --with-python \
