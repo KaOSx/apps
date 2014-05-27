@@ -1,0 +1,39 @@
+
+pkgname=fcitx
+pkgver=4.2.8.4
+pkgrel=1
+pkgdesc="A Flexible Input Method Framework"
+arch=('x86_64')
+license=('GPL')
+url="http://code.google.com/p/fcitx"
+depends=('pango' 'dbus-core' 'opencc' 'iso-codes' 'icu' 'libxkbfile' 'enchant' 'qt' 'gettext'
+         'shared-mime-info' 'hicolor-icon-theme' 'icu' 'libxinerama')
+makedepends=('cmake' 'doxygen' 'gobject-introspection')
+groups=('localization')
+install=fcitx.install
+source=("http://download.fcitx-im.org/$pkgname/$pkgname-${pkgver}_dict.tar.xz")
+md5sums=('c3f9574e50adbf893eafde8f29646570')
+
+build() {
+  cd $srcdir/  
+  mkdir -p $srcdir/build
+
+  cd $srcdir/build
+  cmake ../${pkgname}-${pkgver} \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DSYSCONFDIR=/etc \
+      -DENABLE_QT_IM_MODULE=On \
+      -DENABLE_GTK2_IM_MODULE=Off \
+      -DENABLE_GTK3_IM_MODULE=Off \
+      -DENABLE_OPENCC=On \
+      -DENABLE_GIR=Off
+  make
+}
+
+package(){
+    cd $srcdir/build
+    
+    make DESTDIR=$pkgdir install
+}
+

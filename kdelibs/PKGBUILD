@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname="kdelibs"
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Core Libraries"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -28,10 +28,12 @@ conflicts=("kdelibs-doc")
 install=${pkgname}.install
 source=($_mirror/${pkgname}-$_kdever.tar.xz
 	'02_kde_applications_menu.patch'
-	'MergeDir.patch')
+	'MergeDir.patch'
+	'kio_global.diff')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'e94450ba5430ea9c1e33bad9ae38ca2d'   # 02_kde_applications_menu.patch
-         'f442698bae9d4ffb26f6df9457d7fc5a')   # MergeDir.patch
+         'f442698bae9d4ffb26f6df9457d7fc5a'   # MergeDir.patch
+         '3f7c5f2d3819039d13b25165ba3f4de3')
         
 build() {
 	# main patches
@@ -42,6 +44,8 @@ build() {
 
 	# right positioning of applications' entries in kmenu
 	patch -p1 -i ${srcdir}/MergeDir.patch
+	# bug found in compiling kradio https://projects.kde.org/projects/kde/kdelibs/repository/revisions/96250267bd7c22b47ca93084112c97e722b18c54
+	patch -p1 -i ${srcdir}/kio_global.diff
 
         cd ..
 	rm -rf build

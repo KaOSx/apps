@@ -1,0 +1,33 @@
+
+pkgname=fcitx-gtk2
+_pkgname=fcitx
+pkgver=4.2.8.4
+pkgrel=1
+pkgdesc="A Flexible Input Method Framework"
+arch=('x86_64')
+license=('GPL')
+url="http://code.google.com/p/fcitx"
+depends=('fcitx' 'gtk2')
+makedepends=('cmake' 'doxygen' 'gobject-introspection')
+groups=('localization')
+install=$pkgname.install
+source=("http://download.fcitx-im.org/$_pkgname/$_pkgname-${pkgver}_dict.tar.xz")
+md5sums=('c3f9574e50adbf893eafde8f29646570')
+
+build() {
+  cd $srcdir/  
+  mkdir -p $srcdir/build
+
+  cd $srcdir/build
+  cmake ../${_pkgname}-${pkgver} \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release 
+  make
+}
+
+package(){
+    cd $srcdir/build/src/frontend/gtk2
+    
+    make DESTDIR=$pkgdir install
+}
+
