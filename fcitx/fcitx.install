@@ -1,6 +1,12 @@
 post_install() {
     update-desktop-database -q
     update-mime-database usr/share/mime &> /dev/null
+    
+    echo -e '\e[1;34m To enable a Fcitx configuration GUI install kcm-fcitx.'
+    echo -e '\e[1;34m Adding the following lines to a startup script file like .xprofile'
+    echo -e '\e[1;34m will make fcitx work along with gtk/qt input method modules and support xim programs' 
+    echo -e '\e[1;34m export QT_IM_MODULE=fcitx'
+    echo -e '\e[1;34m export XMODIFIERS="@im=fcitx" \e[0m'
 }
 
 post_upgrade() {
@@ -8,6 +14,7 @@ post_upgrade() {
 }
 
 post_remove() {
-    post_install
+    update-desktop-database -q
+    update-mime-database usr/share/mime &> /dev/null
 }
 
