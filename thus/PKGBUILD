@@ -1,0 +1,47 @@
+
+pkgname=thus
+pkgver=0.1
+pkgrel=1
+pkgdesc='Graphical Installer for KaOS, forked from Manjaro Linux'
+arch=('x86_64')
+license=('GPL')
+url="https://github.com/manjaro/thus.git"
+depends=('coreutils' 'cryptsetup' 'gptfdisk' 'grep' 'iso-codes' 'libtimezonemap' 'hdparm' 'hwinfo' 'lvm2'
+         'pam_encfs' 'py3parted' 'python3' 'python3-configobj' 'python3-gobject3' 'dbus-python3'
+         'rsync' 'sudo' 'systemd' 'upower' 'util-linux' 'webkitgtk3' 'e2fsprogs' 'keyboardctl'
+         'dosfstools' 'jfsutils' 'ntfs-3g' 'ntfsprogs' 'reiserfsprogs' 'xfsprogs' 'ttf-indic-otf')
+         # ttf-aboriginal-sans  ttf-khmer ttf-lohit-fonts ttf-myanmar3  ttf-thaana-fonts ttf-tlwg )
+makedepends=('git')
+install=thus.install
+backup=('etc/thus.conf')
+source=("git+https://github.com/kaosx/$pkgname.git#branch=development")
+md5sums=('SKIP')
+
+
+package() {
+	cd "$srcdir/$pkgname"
+
+	install -d ${pkgdir}/usr/share/locale/
+	install -d ${pkgdir}/usr/share/thus
+	install -Dm755 "${pkgname}.py" "$pkgdir/usr/share/thus/${pkgname}.py"
+	install -Dm755 "${pkgname}" "$pkgdir/usr/bin/thus"
+	install -D -m644 $pkgname.desktop ${pkgdir}/usr/share/applications/$pkgname.desktop
+
+	for i in data scripts src ui; do
+		cp -R ${i} "${pkgdir}/usr/share/thus/"
+	done
+
+	for i in etc; do
+		cp -R ${i} "${pkgdir}/"
+	done
+
+  	for files in po/*; do
+    	if [ -f "$files" ] && [ "$files" != 'po/thus.pot' ]; then
+        	STRING_PO=`echo ${files#*/}`
+        	STRING=`echo ${STRING_PO%.po}`
+        	mkdir -p ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES
+        	msgfmt $files -o ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES/thus.mo
+        	echo "${STRING} installed..."
+    	fi
+	done
+}
