@@ -3,26 +3,27 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-cli-tools
-pkgver=4.96.0
-pkgrel=3
+pkgver=4.96.0.1
+pkgrel=1
 pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kde-cli-tools'
 license=('LGPL')
 depends=('kdesu' 'kdelibs4support' 'kcmutils' 'kemoticons' 'kinit' 'kitemmodels')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('b3a0d990daaa45af14a28a4f976761fd')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
+#md5sums=('b3a0d990daaa45af14a28a4f976761fd')
+source=("git://anongit.kde.org/kde-cli-tools.git")
+md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
-    -DLIBEXEC_DIR=bin \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
   make
@@ -33,8 +34,7 @@ package() {
 
   make DESTDIR="${pkgdir}" install
   
-  #put kdesu into the path
-  ##cp ${pkgdir}/usr/lib/kf5/libexec/kdesu ${pkgdir}/usr/bin/kdesu
-  ##cp ${pkgdir}/usr/lib/kf5/libexec/kdesu_stub ${pkgdir}/usr/bin/kdesu_stub
+  # place kdesu in bin too
+  cp ${pkgdir}/usr/lib/libexec/kdesu ${pkgdir}/usr/bin/kdesu
 }
 
