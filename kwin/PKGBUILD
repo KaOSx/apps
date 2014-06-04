@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwin
-pkgver=4.96.0
-pkgrel=4
+pkgver=4.96.0.1
+pkgrel=1
 pkgdesc='KDE Window Manager'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kwin'
@@ -12,14 +12,16 @@ license=('LGPL')
 depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'libxcursor')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 conflicts=('kde-workspace')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('49cad6bb303ef64b375a6eb6f187f3c9')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
+#md5sums=('49cad6bb303ef64b375a6eb6f187f3c9')
+source=("git://anongit.kde.org/kwin.git")
+md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

@@ -1,7 +1,7 @@
 
 pkgname=kf5-yakuake
 pkgver=2.9.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A KDE konsole application with the look and feel of that in the Quake engine, kf5 version"
 arch=('x86_64')
 url="http://yakuake.kde.org"
@@ -16,7 +16,6 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  sed -i -e 's/KAboutLicense::GPL/KAboutData::License_GPL/' ${srcdir}/yakuake/app/main.cpp
   
   mkdir build
   cd build

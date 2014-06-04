@@ -3,22 +3,24 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=systemsettings
-pkgver=4.96.0
-pkgrel=2
+pkgver=4.96.0.1
+pkgrel=1
 pkgdesc='KDE system settings'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/systemsettings'
 license=('LGPL')
 depends=('kcmutils' 'kdelibs4support' 'kemoticons' 'khtml' 'kinit' 'kitemmodels')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('6c34393273bf97d3a70e2fef04743964')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
+#md5sums=('6c34393273bf97d3a70e2fef04743964')
+source=("git://anongit.kde.org/systemsettings.git")
+md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

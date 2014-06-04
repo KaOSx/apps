@@ -3,22 +3,24 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khotkeys
-pkgver=4.96.0
-pkgrel=2
+pkgver=4.96.0.1
+pkgrel=1
 pkgdesc='KHotKeys'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khotkeys'
 license=('LGPL')
 depends=('plasma-workspace')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('bd43a1200ebf724389feed3465c2d434')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
+#md5sums=('bd43a1200ebf724389feed3465c2d434')
+source=("git://anongit.kde.org/khotkeys.git")
+md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
