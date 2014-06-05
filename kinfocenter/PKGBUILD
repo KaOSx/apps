@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kinfocenter
-pkgver=4.96.0
-pkgrel=3
+pkgver=4.97.0
+pkgrel=1
 pkgdesc='KInfocenter'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kinfocenter'
@@ -12,14 +12,16 @@ license=('LGPL')
 depends=('glu' 'kcmutils' 'kdelibs4support' 'kemoticons' 'libraw1394' 'pciutils' 'plasma-framework')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kde-workspace')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('67aeef829b8542d7c5621817b41faaea')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
+#md5sums=('9de02e2b9dbc8d2f7f6c4bf41b2c2466')
+source=("git://anongit.kde.org/kinfocenter.git")
+md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

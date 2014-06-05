@@ -11,16 +11,16 @@ url='https://projects.kde.org/projects/kde/workspace/khotkeys'
 license=('LGPL')
 depends=('plasma-workspace')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('2aef3b7371bb903288f361621fc1a8c8')
-#source=("git://anongit.kde.org/khotkeys.git")
-#md5sums=('SKIP')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
+#md5sums=('2aef3b7371bb903288f361621fc1a8c8')
+source=("git://anongit.kde.org/khotkeys.git")
+md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-$pkgver \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

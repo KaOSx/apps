@@ -4,13 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcoreaddons
 pkgver=${_kdever}
-pkgrel=1
-pkgdesc='KCoreAddons'
+pkgrel=2
+pkgdesc='Utilities for core application functionality and accessing the OS'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kcoreaddons'
 license=('LGPL')
 depends=('qt5-base' 'shared-mime-info')
 makedepends=('extra-cmake-modules' 'qt5-tools')
+conflicts=('kdelibs')
+replaces=('kdelibs')
 groups=('kf5')
 install=kcoreaddons.install
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")

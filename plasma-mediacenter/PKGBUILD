@@ -1,33 +1,41 @@
 
 pkgname=plasma-mediacenter
-pkgver=1.2.0
-_pkgver=1.2.0
+pkgver=1.2.0.1
+_pkgver=1.2.0.1
 pkgrel=1
 pkgdesc="A Media Center for the KDE Software Compilation based on plasma technology"
 arch=('x86_64')
 url="https://projects.kde.org/projects/playground/multimedia/plasma-mediacenter"
 license=('GPL3')
-depends=('kde-workspace' 'qt-mobility' 'kdemultimedia-thumbnailers' 'taglib')
-makedepends=('cmake' 'automoc4')
+depends=('kguiaddons' 'kio' 'kconfigwidgets' 'plasma-desktop' 'taglib' 'kdelibs4support')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
-source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${_pkgver}.tar.bz2")
-md5sums=('2cb45d02eba7566fe029b5459800c47d')
+#source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${_pkgver}.tar.bz2")
+#md5sums=('2cb45d02eba7566fe029b5459800c47d')
+source=("git://anongit.kde.org/plasma-mediacenter.git#branch=frameworks")
+md5sums=('SKIP')
 
 build() {
-   cd "${srcdir}"/"${pkgname}"
-   mkdir build
-   
-   cd build
-   cmake \
-       -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` \
-       -DCMAKE_BUILD_TYPE=Release ..
-   make
+  mkdir -p build
+
+  cd build
+  cmake ../$pkgname \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF
+  make
 }
 
 package() {
-   cd "${srcdir}"/"${pkgname}"/build
-   
-   make DESTDIR=$pkgdir install
+  cd build
+
+  make DESTDIR="${pkgdir}" install
 }
+
+
    
  

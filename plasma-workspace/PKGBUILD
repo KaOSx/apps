@@ -14,15 +14,15 @@ depends=('frameworkintegration' 'kcmutils' 'knotifyconfig' 'krunner' 'kdesu' 'kn
          'libusb-compat' 'pciutils' 'libbsd' 'kf5-akonadi' 'qt5-webkit' 'kf5-attica'
          'kemoticons' 'libxrandr' 'kded' 'kwin' 'libksysguard' 'ktexteditor' 'kde-cli-tools'
          'khelpcenter' 'kio-extras' 'milou' 'libkscreen2' 'breeze' 'gpsd' 'libqalculate' 'qt5-tools'
-         'qimageblitz-qt5' 'oxygen-icons')
+         'qimageblitz-qt5' 'oxygen-icons' 'prison')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma')
-source=("http://download.kde.org/unstable/plasma/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
-#source=("git://anongit.kde.org/plasma-workspace.git"
+#source=("http://download.kde.org/unstable/plasma/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+source=("git://anongit.kde.org/plasma-workspace.git#commit=7fa3dae707ecec7b4093db5585ac5e8ff64d5259"
         'kf5-plasma.desktop'
         'startkde'
         '10-kf5')
-md5sums=('7d1cae318eed8c23e9420229874a0c41'
+md5sums=('SKIP'
          '277dd50ca93e8136ea40a9f1a10f59be'
          '1c093f5c012fe42bd00e9d7b9189bb15'
          '152e4ca2384d8890f001b9e554984918')
@@ -31,7 +31,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
