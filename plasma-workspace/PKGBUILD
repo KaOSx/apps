@@ -22,9 +22,7 @@ conflicts=('kde-workspace' 'kde-runtime')
 source=("git://anongit.kde.org/plasma-workspace.git"
         'kf5-plasma.desktop'
         'startkde'
-        '10-kf5'
-        'kabout1.diff'
-        'kabout2.diff')
+        '10-kf5')
 md5sums=('SKIP'
          '277dd50ca93e8136ea40a9f1a10f59be'
          '1c093f5c012fe42bd00e9d7b9189bb15'
@@ -34,9 +32,6 @@ md5sums=('SKIP'
 
 build() {
   cd ${srcdir}/${pkgname}
-  #patch -p1 -Ri ${srcdir}/kabout1.diff
-  #patch -p1 -Ri ${srcdir}/kabout2.diff
-  cd ..
   
   mkdir -p build
   cd build
