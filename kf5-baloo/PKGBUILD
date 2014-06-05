@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kf5-baloo
 _pkgname=baloo
-pkgver=4.96.0.1
+pkgver=4.97.0
 pkgrel=1
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
@@ -13,16 +13,18 @@ license=('LGPL')
 depends=('xapian-core' 'kf5-kfilemetadata' 'kidletime' 'kcmutils' 'krunner' 'kemoticons')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('baloo')
-#source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
-#md5sums=('0262135f202a7601724acdf8a5448252')
-source=("git://anongit.kde.org/baloo.git#branch=frameworks")
-md5sums=('SKIP')
+provides=('baloo')
+replaces=('baloo')
+source=("http://download.kde.org/unstable/plasma/$pkgver/src/baloo-kf5-$pkgver.tar.xz")
+md5sums=('529b4ecdcaea2501aeffceda1759d194')
+#source=("git://anongit.kde.org/baloo.git#branch=frameworks")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${_pkgname} \
+  cmake ../${_pkgname}-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \

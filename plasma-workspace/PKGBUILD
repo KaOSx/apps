@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
-pkgver=4.96.0.3
+pkgver=4.97.0
 pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
@@ -17,26 +17,21 @@ depends=('frameworkintegration' 'kcmutils' 'knotifyconfig' 'krunner' 'kdesu' 'kn
          'qimageblitz-qt5' 'oxygen-icons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma')
-conflicts=('kde-workspace' 'kde-runtime')
-#source=("http://download.kde.org/unstable/plasma/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
-source=("git://anongit.kde.org/plasma-workspace.git"
+source=("http://download.kde.org/unstable/plasma/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+#source=("git://anongit.kde.org/plasma-workspace.git"
         'kf5-plasma.desktop'
         'startkde'
         '10-kf5')
-md5sums=('SKIP'
+md5sums=('7d1cae318eed8c23e9420229874a0c41'
          '277dd50ca93e8136ea40a9f1a10f59be'
          '1c093f5c012fe42bd00e9d7b9189bb15'
-         '152e4ca2384d8890f001b9e554984918'
-         '0748e9ecc97fa34f414d2bff90ce89b0'
-         'c7482f960336bbf9f8144d4ed93278b3')
+         '152e4ca2384d8890f001b9e554984918')
 
 build() {
-  cd ${srcdir}/${pkgname}
-  
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

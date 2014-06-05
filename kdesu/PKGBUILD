@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdesu
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides functionality for building GUI front ends for (password asking) console mode programs'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kdesu'
@@ -30,6 +30,9 @@ build() {
 
 package() {
   cd build
-  
   make DESTDIR="${pkgdir}" install
+  
+  # http://kde.6490.n7.nabble.com/KDESU-again-td1394699.html
+  chown :nobody "${pkgdir}"/usr/lib/libexec/kf5/kdesud
+  chmod g+s "${pkgdir}"/usr/lib/libexec/kf5/kdesud
 }
