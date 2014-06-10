@@ -8,7 +8,7 @@ arch=('x86_64')
 url="https://projects.kde.org/projects/playground/multimedia/plasma-mediacenter"
 license=('GPL3')
 depends=('kguiaddons' 'kio' 'kconfigwidgets' 'plasma-desktop' 'taglib' 'kdelibs4support')
-makedepends=('extra-cmake-modules')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
 #source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${_pkgver}.tar.bz2")
 #md5sums=('2cb45d02eba7566fe029b5459800c47d')
@@ -26,7 +26,9 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=False \
+    -DQT_USE_QTMAIN=False \
+    -DQT_USE_QTTEST=False
   make
 }
 
