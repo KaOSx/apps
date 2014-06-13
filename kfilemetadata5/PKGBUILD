@@ -1,0 +1,37 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kfilemetadata5
+_pkgname=kfilemetadata
+pkgver=4.97.0
+pkgrel=1
+pkgdesc="A library for extracting file metadata"
+arch=('x86_64')
+url='https://projects.kde.org/projects/kde/kdelibs/kfilemetadata'
+license=('LGPL')
+depends=('ebook-tools' 'karchive' 'exiv2' 'kservice' 'poppler-qt5' 'taglib' 'ffmpeg')
+makedepends=('extra-cmake-modules')
+conflicts=('kfilemetadata' 'kf5-kfilemetadata')
+provides=('kfilemetadata' 'kf5-kfilemetadata')
+replaces=('kfilemetadata' 'kf5-kfilemetadata')
+source=("http://download.kde.org/unstable/plasma/$pkgver/src/${pkgname}-$pkgver.tar.xz")
+md5sums=('d78982f3b14f807744aa0cea41878e55')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DLIB_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR="${pkgdir}" install
+}
