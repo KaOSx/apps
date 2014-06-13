@@ -15,27 +15,30 @@ groups=('multimedia')
 source=("git://anongit.kde.org/plasma-mediacenter.git#branch=frameworks")
 md5sums=('SKIP')
 
-build() {
+prepare() {
+  cd ${srcdir}/${pkgname}
+  sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}/CMakeLists.txt 
+}
+
+build () {
   mkdir -p build
 
   cd build
-  cmake ../$pkgname \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=False \
-    -DQT_USE_QTMAIN=False \
-    -DQT_USE_QTTEST=False
+    -DBUILD_TESTING=False 
   make
 }
 
 package() {
   cd build
 
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
 
 
