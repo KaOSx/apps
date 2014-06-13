@@ -1,0 +1,64 @@
+
+pkgname=kf5-quassel
+_pkgname=quassel
+pkgver=0.10.9
+pkgrel=1
+pkgdesc="Qt irc client with a separated core"
+url="http://quassel-irc.org"
+arch=('x86_64')
+license=('GPL')
+depends=('kde-runtime' 'hicolor-icon-theme')
+depends=('qt5-script' 'qt5-webkit' 'hicolor-icon-theme' 'inxi' 'libdbusmenu-qt5' 'phonon-qt5' 'snorenotify')
+makedepends=('cmake' 'automoc4' 'qt5-tools')
+groups=('communication')
+#source=("http://quassel-irc.org/pub/quassel-${pkgver}.tar.bz2"
+source=("git://github.com/quassel/quassel.git"
+	'quassel.service'
+        'quassel.conf'
+        'irc-channel-active.svgz'
+        'irc-channel-inactive.svgz'
+        'quassel.png')
+install=quassel.install
+backup=(etc/conf.d/quassel.conf)
+md5sums=('SKIP'
+         '7f56b8d2d54a1395ed8bada023ec710c'
+         '479229556ba0dd94e3ce28e31e5deea9'
+         'd22180823cda2ac7bedb238463714c15'
+         '79f0e1c5261fefeb10cd53c1b01e64ef'
+         '55a01e2e1a15bf4328638f8f27b7383f')
+         
+build() {
+  [[ ! -d build ]] && mkdir build
+  cd build
+
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr/ \
+    -DUSE_QT5=ON \
+    -DUSE_QT4=OFF \
+    -DWITH_WEBKIT=ON \
+    -DWITH_KDE=0 \
+    -DWITH_OXYGEN=0 \
+    -DWANT_MONO=ON \
+    -DQT_PATH=/usr/lib/qt5/bin/ \
+    -DCMAKE_BUILD_TYPE="Release" \
+    ../${_pkgname} \
+    -Wno-dev
+
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+
+  install -D ${srcdir}/$_pkgname.service ${pkgdir}/usr/lib/systemd/system/$_pkgname.service
+  install -D -m644 ${srcdir}/$_pkgname.conf ${pkgdir}/etc/conf.d/$_pkgname
+  
+  rm ${pkgdir}/usr/share/apps/quassel/icons/oxygen/scalable/status/irc*
+  rm ${pkgdir}/usr/share/pixmaps/quassel.png
+  install -m 644 -p ${srcdir}/irc-channel* ${pkgdir}/usr/share/apps/quassel/icons/oxygen/scalable/status/
+  #install -D ${srcdir}/irc-channel-inactive.svgz ${pkgdir}/usr/share/apps/quassel/icons/oxygen/scalable/irc*
+  install -m 644 -p ${srcdir}/quassel.png ${pkgdir}/usr/share/pixmaps/
+}
+
