@@ -1,0 +1,34 @@
+
+pkgname=kf5-libbluedevil
+_pkgname=libbluedevil
+pkgver=2.0rc1
+_pkgver=2.0-rc1
+pkgrel=1
+pkgdesc='Qt wrapper for bluez used in the new KDE bluetooth stack'
+arch=('x86_64')
+url="https://projects.kde.org/projects/playground/libs/libbluedevil"
+license=('GPL')
+depends=('qt5-base' 'bluez')
+makedepends=('extra-cmake-modules' 'git')
+conflicts=('libbluedevil')
+provides=('libbluedevil')
+source=("git://anongit.kde.org/libbluedevil.git#branch=frameworks")
+md5sums=('SKIP')
+
+build(){
+  cd ${srcdir}
+  
+  mkdir build
+  cd build
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib 
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}

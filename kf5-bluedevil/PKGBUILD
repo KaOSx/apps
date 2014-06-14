@@ -1,0 +1,41 @@
+
+pkgname=kf5-bluedevil
+_pkgname=bluedevil
+pkgver=2.0rc1
+_pkgver=2.0-rc1
+pkgrel=1
+pkgdesc='KDE bluetooth framework'
+arch=('x86_64')
+url="https://projects.kde.org/projects/extragear/base/bluedevil"
+license=('GPL')
+depends=('kf5-libbluedevil' 'bluez' 'kemoticons' 'kdelibs4support' 'ki18n' 'kinit' 'kio' 'kitemmodels' 'solid' )
+makedepends=('extra-cmake-modules' 'kdoctools')
+conflicts=('bluedevil')
+provides=('bluedevil')
+install=bluedevil.install
+source=("git://anongit.kde.org/bluedevil#branch=frameworks")
+md5sums=('SKIP')
+
+build(){
+  cd ${srcdir}
+  sed -i 's|KF5 CONFIG REQUIRED|KF5 REQUIRED|' ${srcdir}/$_pkgname/CMakeLists.txt
+  
+  mkdir build
+  
+  cd build
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
