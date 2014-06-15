@@ -1,0 +1,42 @@
+
+pkgname=kf5-kdevplatform
+_pkgname=kdevplatform
+pkgver=1.90.60
+_pkgver=4.6.0
+pkgrel=1
+pkgdesc="A C/C++ development platform for KDE"
+arch=('x86_64')
+url="http://www.kdevelop.org/"
+license=('GPL')
+depends=('karchive' 'kcmutils' 'kemoticons' 'kdelibs4support' 'kguiaddons' 'ki18n' 'kinit' 'kio'
+         'kitemmodels' 'kitemviews' 'knewstuff' 'knotifyconfig' 'kparts' 'ktexteditor' 'sonnet' 
+         'threadweaver' 'kwindowsystem' 'kxmlgui' 'plasma-framework' 'qt5-quick1') # 'grantlee' 'konsole' 'libkomparediff2')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+conflicts=('kdevplatform')
+provides=('kdevplatform')
+install=kdevplatform.install
+source=("git://anongit.kde.org/kdevplatform.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  sed -i 's|add_subdirectory(patchreview)|#add_subdirectory(patchreview)|' ${srcdir}/$_pkgname/plugins/CMakeLists.txt
+  mkdir build
+  
+  cd build 
+  cmake ../${_pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
