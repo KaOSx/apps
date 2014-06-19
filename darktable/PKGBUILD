@@ -2,14 +2,14 @@
 pkgname=darktable
 pkgver=1.4.2
 _pkgver=1.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Open source photography workflow application and RAW developer"
 arch=('x86_64')
 url="http://darktable.sf.net/"
 license=('GPL3')
 depends=('exiv2' 'intltool' 'lcms2' 'lensfun' 'libglade' 'dbus-glib' 'curl' 'libgnome-keyring'
          'libgphoto2' 'openexr' 'sqlite' 'libxslt' 'libsoup' 'json-glib' 'flickcurl' 'librsvg'
-         'colord' 'graphicsmagick' 'sdl' 'libwebp' 'openjpeg')
+         'colord' 'graphicsmagick' 'sdl' 'libwebp' 'openjpeg' 'gtk-engines')
 makedepends=('cmake')
 install=darktable.install
 options=('!libtool')
@@ -27,6 +27,7 @@ build() {
       -DCMAKE_BUILD_TYPE=Release \
       -DBINARY_PACKAGE_BUILD=1 \
       -DBUILD_USERMANUAL=False \
+      -DDONT_USE_INTERNAL_LUA=Off \
       ..
   make
 }

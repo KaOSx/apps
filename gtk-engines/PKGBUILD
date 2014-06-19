@@ -1,0 +1,26 @@
+
+pkgname=gtk-engines
+pkgver=2.21.0
+pkgrel=1
+pkgdesc="The GTK Engines package contains eight themes/engines and two additional engines for GTK2"
+arch=('x86_64')
+url="http://live.gnome.org/GnomeArt"
+license=('GPL' 'LGPL')
+depends=('gtk2')
+makedepends=('pkg-config' 'intltool')
+options=('!libtool')
+source=("http://sourceforge.net/projects/kaosx/files/sources/gtk-engines/${pkgname}-${pkgver}.tar.gz")
+md5sums=('d82ae66d6eb045d83c30b78b13818d41')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  ./configure --prefix=/usr --enable-animation
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+
+  make DESTDIR="${pkgdir}" install
+}
