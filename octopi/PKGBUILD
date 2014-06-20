@@ -1,8 +1,8 @@
 
 pkgname=octopi
-pkgver=0.4.0.12
+pkgver=0.4.0.13
 pkgrel=1
-_commit=fc69de5
+_commit=54573e8
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
@@ -14,7 +14,7 @@ source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
         'octopi.desktop'
         'kaos.diff'
         "images2.tar.xz")
-md5sums=('8af6ab63fb97219bde68c926cab29187'
+md5sums=('fb31565f2b3232efdeaeed00dfa519ad'
          '2d9c64cd6402be69d2ee9fde5acc439e'
          '566caa454a10cbcad334ed8abd2d229d'
          '6a73e2c787ab381716ac2133b49130c7')
@@ -25,10 +25,6 @@ build() {
    mv -iv "${srcdir}/images/" "${srcdir}/aarnt-octopi-${_commit}/resources/"
 
    patch -p0 -i ${srcdir}/kaos.diff
-
-   #cp resources/translations/octopi_es_419.qm resources/translations/octopi_es_AR.qm
-   #cp resources/translations/octopi_es_419.ts resources/translations/octopi_es_AR.ts
-   #sed -i -e 's/es_419/es_AR/' resources/translations/octopi_es_AR.ts 
    
    #qmake octopi.pro
    /usr/lib/qt5/bin/qmake octopi.pro
