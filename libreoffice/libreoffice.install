@@ -2,17 +2,10 @@ post_install() {
 
 update-mime-database usr/share/mime > /dev/null 2>&1
 kbuildsycoca4
-
-echo " * You may want to pacman -Ss libreoffice-extensions"
-echo "   to see what extensions are prepared to install"
-echo " * it's recommended to install {hunspell,mythes,hyphen}-xx pkg for spell checking"
-echo " * make sure you have installed some ttf fonts (ttf-dejavu recommended)"
 }
 
 post_upgrade() {
-#  post_install $1
 update-mime-database usr/share/mime > /dev/null 2>&1
-kbuildsycoca4
 }
 
 post_remove() {

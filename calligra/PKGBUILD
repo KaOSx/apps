@@ -20,7 +20,7 @@ pkgname=('calligra-3rdparty'
          'calligra-braindump'
          'calligra-flow')
 pkgver=2.8.3
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
@@ -30,21 +30,16 @@ makedepends=('kdepimlibs' 'eigen' 'freetds' 'kdegraphics-okular' 'kdeedu-marble'
              'vc' 'opencolorio' 'libodfgen')
 groups=('calligra')
 source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz"
-        'FindLibWpd.diff')
+        '0001-switch-to-librevenge-based-import-libs.patch')
 md5sums=('78ad97127a3cc6d2c5c79ac6ae56f130'
-         'fdc25189b9bc9c9d14427f2e04d3bede')
+         '2c0e8177f01de5ebc1bd08cc26a1c61d')
 
-#prepare() {
-#  cd "${srcdir}/${pkgbase}-${pkgver}"
-#  sed -i -e 's/BottomBorDer/BottomBorder/' ${srcdir}/${pkgbase}-${pkgver}/filters/libmsooxml/MsooXmlTableStyle.cpp
-#  sed -i -e 's/etonyek-0.0/etonyek-0.1/' ${srcdir}/${pkgbase}-${pkgver}/cmake/modules/FindLibEtonyek.cmake
-#  sed -i -e 's/odfgen-0.0/odfgen-0.1/' ${srcdir}/${pkgbase}-${pkgver}/cmake/modules/FindLibOdfGen.cmake
-#  sed -i -e 's/visio-0.0/visio-0.1/' ${srcdir}/${pkgbase}-${pkgver}/cmake/modules/FindLibVisio.cmake
-#  sed -i -e 's/wpg-0.2/wpg-0.3/' ${srcdir}/${pkgbase}-${pkgver}/cmake/modules/FindLibWpg.cmake
-#  sed -i -e 's/wps-0.2/wps-0.3/' ${srcdir}/${pkgbase}-${pkgver}/cmake/modules/FindLibWps.cmake
-  
-#  patch -p1 -i "${srcdir}"/FindLibWpd.diff
-#}
+prepare() {
+  cd "${srcdir}/${pkgbase}-${pkgver}"
+  # patch from fedora to move to new librevenge
+  # http://mail.kde.org/pipermail/calligra-devel/2014-June/011287.html
+  patch -p1 -i $srcdir/0001-switch-to-librevenge-based-import-libs.patch
+}
 
 build() {
   cd "${srcdir}"
