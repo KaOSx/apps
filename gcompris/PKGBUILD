@@ -1,0 +1,28 @@
+
+pkgname=gcompris
+pkgver=14.05
+pkgrel=1
+pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
+arch=('x86_64')
+url="http://gcompris.net/"
+license=('GPL3')
+depends=('pygtk' 'librsvg' 'gstreamer0.10-base-plugins')
+makedepends=('texinfo' 'intltool')
+groups=('kaos-kids')
+source=("http://gcompris.net/download/$pkgname-$pkgver.tar.bz2")
+md5sums=('5604ff13bc128a1ee951026de52c3def')
+
+build() {
+  cd $pkgname-$pkgver
+  sed -i 's/"$GNUCHESS"/"gcompris-gnuchess"/' configure
+  
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  
+  make DESTDIR="$pkgdir" install
+}
+

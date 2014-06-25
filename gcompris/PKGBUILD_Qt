@@ -1,0 +1,39 @@
+
+pkgname=gcompris
+pkgver=0.12
+pkgrel=1
+pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
+arch=('x86_64')
+url="http://gcompris.net/"
+license=('GPL3')
+#depends=('pygtk' 'librsvg' 'gst-plugins-base')
+depends=('qt5-webkit' 'qt5-tools' 'qt5-quick1' 'qt5-svg')
+makedepends=('texinfo' 'intltool' 'git')
+groups=('kaos-kids')
+#source=("http://gcompris.net/download/$pkgname-$pkgver.tar.bz2")
+source=("git://github.com/bdoin/GCompris-qt.git")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  mkdir build
+  
+  cd build 
+  cmake ../GCompris-qt \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
+
