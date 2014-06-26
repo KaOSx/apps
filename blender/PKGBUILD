@@ -1,8 +1,8 @@
 
 pkgname=blender
 # adjust .desktop for version
-pkgver=2.70.1
-_pkgver=2.70a
+pkgver=2.71
+_pkgver=2.71
 pkgrel=1
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
@@ -10,10 +10,10 @@ license=('GPL')
 url="http://www.blender.org"
 depends=('desktop-file-utils' 'shared-mime-info' 'hicolor-icon-theme' 'xdg-utils')
 install=blender.install
-source=("http://mirror.cs.umn.edu/blender.org/release/Blender2.70/$pkgname-$_pkgver-linux-glibc211-x86_64.tar.bz2"
+source=("http://download.blender.org/release/Blender2.71/$pkgname-$_pkgver-linux-glibc211-x86_64.tar.bz2"
         'blender.desktop')
-md5sums=('7c83a5234e441c8a0d9592669a5ca9ab'
-         '5a16483c3c7526e41967667387606adc')
+md5sums=('6e896fc2921753aa1f69034e7a44fb4a'
+         '367c7482abebe14b94d401368b150827')
 
 package() {
   cd "$srcdir/$pkgname-$_pkgver-linux-glibc211-x86_64"
