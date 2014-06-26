@@ -1,12 +1,13 @@
 
 pkgname=trojita
 pkgver=0.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Trojita is a Qt IMAP e-mail client."
 arch=('x86_64')
 url="http://trojita.flaska.net"
 license=('GPL')
-depends=('qt5-webkit' 'qt5-tools')
+#depends=('qt5-webkit' 'qt5-tools')
+depends=('qtwebkit')
 makedepends=('cmake' 'automoc4')
 groups=('network')
 source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2")
@@ -19,7 +20,7 @@ build() {
   cd build
   cmake .. -DCMAKE_BUILD_TYPE=Release \
            -DCMAKE_INSTALL_PREFIX=/usr \
-           -DWITH_QT5=ON
+           -DWITH_QT5=OFF
   make
 }
 
