@@ -5,12 +5,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-baloo
 _pkgname=baloo
 pkgver=4.97.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
 license=('LGPL')
-depends=('xapian-core' 'kf5-kfilemetadata' 'kidletime' 'kcmutils' 'krunner' 'kemoticons')
+depends=('xapian-core' 'kf5-kfilemetadata' 'kidletime' 'kcmutils' 'krunner' 'kemoticons' 'kf5-kdepimlibs')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('baloo')
 provides=('baloo')
@@ -29,7 +29,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DLIB_INSTALL_DIR=lib
+    -DLIB_INSTALL_DIR=lib \
+    -DKDEPIM_SUPPORT_BUILD=TRUE
   make
 }
 

@@ -1,0 +1,42 @@
+
+pkgname=prison-qt5
+_pkgname=prison
+pkgver=1.2.0
+_pkgver=1.2.0
+pkgrel=1
+arch=('x86_64')
+pkgdesc="A barcode api to produce QRCode barcodes and DataMatrix barcode"
+url="https://projects.kde.org/projects/kdesupport/prison"
+license=('GPL' 'LGPL' 'FDL')
+#groups=("kde-complete" "kde-uninstall")
+depends=('qt5-base' 'libdmtx' 'qrencode')
+makedepends=('extra-cmake-modules' 'git')
+conflicts=('prison')
+#source=("http://download.kde.org/stable/${pkgname}/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+#md5sums=('0901ebed8be8da7055fcf534d55bd6cc')
+source=("git://anongit.kde.org/prison.git")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  mkdir build
+  
+  cd build 
+  cmake ../${_pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DQT5_BUILD=ON  
+  make 
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
+
