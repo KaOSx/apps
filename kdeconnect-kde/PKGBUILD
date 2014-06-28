@@ -1,16 +1,16 @@
 
 pkgname=kdeconnect-kde
-pkgver=0.5.2
+pkgver=0.7
 pkgrel=1
 pkgdesc='KDE Connect - kded and kcm'
 url='https://albertvaka.wordpress.com/'
 license=('GPL')
 arch=('x86_64')
-depends=('kdelibs' 'qjson' 'qca-ossl')
+depends=('kdelibs' 'qjson' 'qca-ossl' 'sshfs')
 makedepends=('automoc4' 'cmake')
 install=kdeconnect.install
 source=("http://download.kde.org/unstable/kdeconnect/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('f381cb426098a0032544c0c7a9509e96')
+md5sums=('88e4b90085f37864779bb83320a2166a')
 
 build() {
   cd ${srcdir}/
