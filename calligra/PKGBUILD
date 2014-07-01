@@ -19,8 +19,8 @@ pkgname=('calligra-3rdparty'
          'calligra-handbook'
          'calligra-braindump'
          'calligra-flow')
-pkgver=2.8.3
-pkgrel=3
+pkgver=2.8.4
+pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
@@ -30,15 +30,20 @@ makedepends=('kdepimlibs' 'eigen' 'freetds' 'kdegraphics-okular' 'kdeedu-marble'
              'vc' 'opencolorio' 'libodfgen')
 groups=('calligra')
 source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz"
-        '0001-switch-to-librevenge-based-import-libs.patch')
-md5sums=('78ad97127a3cc6d2c5c79ac6ae56f130'
-         '2c0e8177f01de5ebc1bd08cc26a1c61d')
+        '0001-switch-to-librevenge-based-import-libs.patch'
+        'save_file_dialog.diff')
+md5sums=('6e216890e00cb737dec476ab8dbe9e6e'
+         '2c0e8177f01de5ebc1bd08cc26a1c61d'
+         '859f8e4f7703f215a7cf08f43fd45ad7')
 
 prepare() {
   cd "${srcdir}/${pkgbase}-${pkgver}"
   # patch from fedora to move to new librevenge
   # http://mail.kde.org/pipermail/calligra-devel/2014-June/011287.html
   patch -p1 -i $srcdir/0001-switch-to-librevenge-based-import-libs.patch
+  # http://mail.kde.org/pipermail/calligra-devel/2014-June/011474.html
+  # https://bugs.kde.org/show_bug.cgi?id=334770
+  patch -p1 -i $srcdir/save_file_dialog.diff
 }
 
 build() {
