@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktextwidgets
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='KTextWidgets'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/ktextwidgets'
@@ -12,16 +12,16 @@ license=('LGPL')
 depends=('kcompletion' 'kservice' 'kiconthemes' 'sonnet')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-#source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/ktextwidgets")
-md5sums=('SKIP')
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/ktextwidgets")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
