@@ -16,7 +16,7 @@ depends=('grantlee-qt5' 'libxss' 'libsamplerate' 'qrencode' 'libdmtx' 'link-gram
          'qt5-tools' 'sonnet' 'prison-qt5'
          'kdelibs4support' 'kwallet' 'knewstuff' 'kcmutils' 'kdewebkit' 'karchive' 'knotifyconfig'
          'kconfig' 'khtml' 'kservice' 'kdbusaddons' 'kauth' 'ktexteditor' 'kdnssd'
-         'kf5-kdepimlibs' 'kf5-baloo')
+         'kf5-kdepimlibs' 'kf5-baloo' 'kf5-libkgapi')
 makedepends=('pkg-config' 'boost' 'docbook-xml' 'extra-cmake-modules' 'kdoctools')
 #source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
 #md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -25,16 +25,16 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  sed -i -e 's|<QtGui/QApplication>|<QtWidgets/QApplication>|' ${srcdir}/${_pkgname}/akregator/src/framemanager.cpp
-  sed -i -e 's|<QtGui/QWidget>|<QtWidgets/QWidget>|' ${srcdir}/${_pkgname}/akonadiconsole/mainwidget.cpp
-  sed -i -e 's|<QtGui/QWidget>|<QtWidgets/QWidget>|' ${srcdir}/${_pkgname}/akonadiconsole/monitorswidget.h
-  sed -i -e 's|<QtGui/QTreeView>|<QtWidgets/QTreeView>|' ${srcdir}/${_pkgname}/akonadiconsole/monitorswidget.h
-  sed -i -e 's|<QtGui/QWidget>|<QtWidgets/QWidget>|' ${srcdir}/${_pkgname}/akonadiconsole/querydebugger.h
-  sed -i -e 's|<QtGui/QVBoxLayout>|<QtWidgets/QVBoxLayout>|' ${srcdir}/${_pkgname}/akonadiconsole/monitorswidget.cpp
-  sed -i -e 's|<QtGui/qheaderview.h>|<QtWidgets/qheaderview.h>|' ${srcdir}/${_pkgname}/akonadiconsole/monitorswidget.cpp
-  sed -i -e 's|<QtGui/QVBoxLayout>|<QtWidgets/QVBoxLayout>|' ${srcdir}/${_pkgname}/akonadiconsole/querydebugger.cpp
-  sed -i -e 's|<QtGui/QCheckBox>|<QtWidgets/QCheckBox>|' ${srcdir}/${_pkgname}/akonadiconsole/querydebugger.cpp
-  sed -i -e 's|<QtGui/QMenu>|<QtWidgets/QMenu>|' ${srcdir}/${_pkgname}/akonadiconsole/querydebugger.cpp
+  #sed -i -e 's|<QtGui/QApplication>|<QtWidgets/QApplication>|' ${srcdir}/${_pkgname}/akregator/src/framemanager.cpp
+  #sed -i -e 's|<QtGui/QWidget>|<QtWidgets/QWidget>|' ${srcdir}/${_pkgname}/akonadiconsole/mainwidget.cpp
+  #sed -i -e 's|<QtGui/QWidget>|<QtWidgets/QWidget>|' ${srcdir}/${_pkgname}/akonadiconsole/monitorswidget.h
+  #sed -i -e 's|<QtGui/QTreeView>|<QtWidgets/QTreeView>|' ${srcdir}/${_pkgname}/akonadiconsole/monitorswidget.h
+  #sed -i -e 's|<QtGui/QWidget>|<QtWidgets/QWidget>|' ${srcdir}/${_pkgname}/akonadiconsole/querydebugger.h
+  #sed -i -e 's|<QtGui/QVBoxLayout>|<QtWidgets/QVBoxLayout>|' ${srcdir}/${_pkgname}/akonadiconsole/monitorswidget.cpp
+  #sed -i -e 's|<QtGui/qheaderview.h>|<QtWidgets/qheaderview.h>|' ${srcdir}/${_pkgname}/akonadiconsole/monitorswidget.cpp
+  #sed -i -e 's|<QtGui/QVBoxLayout>|<QtWidgets/QVBoxLayout>|' ${srcdir}/${_pkgname}/akonadiconsole/querydebugger.cpp
+  #sed -i -e 's|<QtGui/QCheckBox>|<QtWidgets/QCheckBox>|' ${srcdir}/${_pkgname}/akonadiconsole/querydebugger.cpp
+  #sed -i -e 's|<QtGui/QMenu>|<QtWidgets/QMenu>|' ${srcdir}/${_pkgname}/akonadiconsole/querydebugger.cpp
   
   mkdir build
   
