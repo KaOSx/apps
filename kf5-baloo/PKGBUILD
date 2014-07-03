@@ -4,8 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kf5-baloo
 _pkgname=baloo
-pkgver=4.97.0
-pkgrel=2
+pkgver=4.98.0
+pkgrel=1
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -15,13 +15,14 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('baloo')
 provides=('baloo')
 replaces=('baloo')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/baloo-kf5-$pkgver.tar.xz")
-md5sums=('529b4ecdcaea2501aeffceda1759d194')
+source=("http://download.kde.org/unstable/plasma/$pkgver/src/baloo5-$pkgver.tar.xz")
+md5sums=('0a5cfeb5295d93b0a54798c0b490cb34')
 #source=("git://anongit.kde.org/baloo.git#branch=frameworks")
 #md5sums=('SKIP')
 
 build() {
   mkdir -p build
+  sed -i -e 's|set(KF5_VERSION "5.0.0")|set(KF5_VERSION "4.98.0")|' ${srcdir}/$_pkgname-$pkgver/CMakeLists.txt
   cd build
   
   cmake ../${_pkgname}-$pkgver \
