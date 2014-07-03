@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
-pkgver=4.97.0
+pkgver=4.98.0
 pkgrel=1
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
@@ -13,16 +13,16 @@ depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb-compat' 'libcanberra'
          'systemsettings' 'ksysguard' 'powerdevil' 'oxygen' 'oxygen-fonts' 'kmenuedit')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kde-workspace' 'kde-runtime')
-#source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-#md5sums=('80623f3846f5b932553826a8cf4d249c')
-source=("git://anongit.kde.org/plasma-desktop.git")
-md5sums=('SKIP')
+source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
+md5sums=('80623f3846f5b932553826a8cf4d249c')
+#source=("git://anongit.kde.org/plasma-desktop.git")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
 
   cd build
-  cmake ../$pkgname \
+  cmake ../$pkgname-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

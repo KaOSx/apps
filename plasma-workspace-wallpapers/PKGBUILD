@@ -2,21 +2,22 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kwin
+pkgname="plasma-workspace-wallpapers"
+#pkgver=${_kdever}
 pkgver=4.98.0
 pkgrel=1
-pkgdesc='KDE Window Manager'
+pkgdesc="KDE Wallpapers"
+url="http://www.kde.org"
+license="GPL"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/kwin'
-license=('LGPL')
-depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'libxcursor')
-makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
-conflicts=('kde-workspace')
-replaces=('kde-workspace')
+depends=('kservice')
+makedepends=('extra-cmake-modules')
+#groups=("kde" "kde-uninstall")
+#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('6e1c119de340ff4998fd5c37842a319a')
-#source=("git://anongit.kde.org/kwin.git")
-#md5sums=('SKIP')
+md5sums=('9959b931a21ab5f02d311b4addc73cd2')
+
 
 build() {
   mkdir -p build
@@ -38,4 +39,5 @@ package() {
 
   make DESTDIR="${pkgdir}" install
 }
+
 

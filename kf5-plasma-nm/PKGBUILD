@@ -1,19 +1,22 @@
 
 pkgname=kf5-plasma-nm
 _pkgname=plasma-nm
-pkgver=0.9.3.4
+pkgver=4.98.0
 pkgrel=1
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
 url="https://projects.kde.org/projects/playground/network/plasma-nm"
 license=('GPL')
 depends=('kf5-libmm-qt' 'kf5-libnm-qt' 'plasma-framework' 'kemoticons' 'mobile-broadband-provider-info')
-makedepends=('extra-cmake-modules' 'git' 'kdoctools' 'qt5-tools')
-source=("git://anongit.kde.org/plasma-nm.git#commit=9cc253078da509747b2cbe32e628d8426a9bbf8e")
-md5sums=('SKIP')
+makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
+source=("http://download.kde.org/unstable/plasma/$pkgver/src/$_pkgname-$pkgver.tar.xz")
+md5sums=('aeb2c86d88a92af285d2afb57f0560a5')
+#source=("git://anongit.kde.org/plasma-nm.git#commit=9cc253078da509747b2cbe32e628d8426a9bbf8e")
+#md5sums=('SKIP')
 
 build() {
-  cd $_pkgname
+  cd $_pkgname-$pkgver
+  sed -e "s/PO_FILES //" -i ${srcdir}/$_pkgname-$pkgver/po/*/CMakeLists.txt
   mkdir build
   
   cd build
@@ -28,7 +31,7 @@ build() {
 }
 
 package() {
-  cd $_pkgname/build
+  cd $_pkgname-$pkgver/build
   
   make DESTDIR="$pkgdir" install
 }

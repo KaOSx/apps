@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
-pkgver=4.97.0
+pkgver=4.98.0
 pkgrel=1
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
@@ -15,16 +15,16 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'openslp')
 conflicts=('kfileaudiopreview')
 provides=('kfileaudiopreview')
 replaces=('kfileaudiopreview')
-#source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-#md5sums=('e677ff550cb999c8fb81ac5ed7419a17')
-source=("git://anongit.kde.org/kio-extras.git")
-md5sums=('SKIP')
+source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
+md5sums=('3461f100ee874f53b7957b04482a5662')
+#source=("git://anongit.kde.org/kio-extras.git")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../$pkgname-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
