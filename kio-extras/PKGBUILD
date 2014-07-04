@@ -22,6 +22,7 @@ md5sums=('3461f100ee874f53b7957b04482a5662')
 
 build() {
   mkdir -p build
+  sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
   cd build
   
   cmake ../$pkgname-$pkgver \
