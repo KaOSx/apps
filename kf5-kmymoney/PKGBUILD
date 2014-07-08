@@ -5,11 +5,11 @@ pkgver=4.100.0
 pkgrel=1
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
-url="http://kmymoney2.sourceforge.net"
+url="http://www.kmymoney.org/"
 license=('GPL')
 depends=('kcoreaddons' 'kconfig' 'khtml' 'kdelibs4support' 'kcompletion' 'kcmutils' 'kitemviews' 
          'kf5-kactivities' 'kf5-kdepimlibs' 'aqbanking' 'shared-mime-info' 'boost-libs'
-         'pulseaudio' 'libofx' 'libical' 'alkimia')
+         'pulseaudio' 'libofx' 'libical' 'kf5-alkimia')
 makedepends=('extra-cmake-modules' 'kdoctools' 'gwenhywfar' 'docbook-xsl' 'boost')
 conflicts=('kmymoney')
 groups=('office')
@@ -17,6 +17,9 @@ source=("git://anongit.kde.org/kmymoney#branch=frameworks")
 md5sums=('SKIP')
 
 build() {
+  cd ${srcdir}
+  sed -e "s/#include <kstdguiitem.h>/#include <kstandardguiitem.h>/" -i ${srcdir}/$_pkgname/kmymoney/widgets/kbudgetvalues.cpp
+  
   mkdir -p build
   cd build
 

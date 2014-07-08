@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.1.0
+pkgver=0.1.0.1
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -17,7 +17,7 @@ prepare () {
   
   git submodule init
   git submodule update
-  sed -i 's|KF5 CONFIG REQUIRED|KF5 REQUIRED|' ${srcdir}/${pkgname}/src/libcalamares/partitionmanager/CMakeLists.txt
+  #sed -i 's|KF5 CONFIG REQUIRED|KF5 REQUIRED|' ${srcdir}/${pkgname}/src/libcalamares/partitionmanager/CMakeLists.txt
 }
 
 build() {

@@ -15,6 +15,7 @@ md5sums=('SKIP')
 
 build() {
   cd "${srcdir}"
+  sed -e "s/Qt5::DBus/Qt5::DBus KF5::KDELibs4Support/" -i ${srcdir}/$_pkgname/libalkimia/CMakeLists.txt
   sed -e "s/KDE4_ENABLE_EXCEPTIONS/KDE_ENABLE_EXCEPTIONS/" -i ${srcdir}/$_pkgname/libalkimia/CMakeLists.txt
 
   mkdir build
