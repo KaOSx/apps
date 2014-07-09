@@ -18,7 +18,11 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  sed -e "s/#include <kstdguiitem.h>/#include <kstandardguiitem.h>/" -i ${srcdir}/$_pkgname/kmymoney/widgets/kbudgetvalues.cpp
+  sed -e "s/#include <kstdguiitem.h>/#include <kstandardguiitem.h>/" -i ${srcdir}/$_pkgname/kmymoney/widgets/*.cpp
+  sed -e "s/#include <kstdaccel.h>/#include <kstandardshortcut.h>/" -i ${srcdir}/$_pkgname/kmymoney/dialogs/*.cpp
+  sed -e "s/#include <kstdguiitem.h>/#include <kstandardguiitem.h>/" -i ${srcdir}/$_pkgname/kmymoney/dialogs/*.cpp
+  sed -e "s/Qt5::core/Qt5::core KF5::KWidgetsAddons/" -i ${srcdir}/$_pkgname/kmymoney/CMakeLists.txt
+  sed -e "s/Qt5::core/Qt5::core KF5::KConfigGui/" -i ${srcdir}/$_pkgname/kmymoney/CMakeLists.txt
   
   mkdir -p build
   cd build
