@@ -3,8 +3,9 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkscreen2
-pkgver=1.73
-_pkgver=4.98.0
+_pkgname=libkscreen
+pkgver=5.0.91
+_pkgver=${_kdever}
 pkgrel=1
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
@@ -12,7 +13,7 @@ url='https://projects.kde.org/projects/kde/kdelibs/kfilemetadata'
 license=('LGPL')
 depends=('qt5-x11extras')
 makedepends=('extra-cmake-modules')
-source=("http://download.kde.org/unstable/plasma/$_pkgver/src/${pkgname}-$pkgver.tar.xz")
+source=("http://download.kde.org/unstable/plasma/$_pkgver/${pkgname}-$pkgver.tar.xz")
 md5sums=('f8399efac454840ccb312b6a106ac30e')
 
 build() {

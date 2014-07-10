@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
-pkgver=4.98.0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
@@ -15,8 +15,8 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'openslp')
 conflicts=('kfileaudiopreview')
 provides=('kfileaudiopreview')
 replaces=('kfileaudiopreview')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('3461f100ee874f53b7957b04482a5662')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/kio-extras.git")
 #md5sums=('SKIP')
 

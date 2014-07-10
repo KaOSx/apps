@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-cli-tools
-pkgver=4.98.0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
 arch=('x86_64')
@@ -13,8 +13,8 @@ depends=('kdesu' 'kdelibs4support' 'kcmutils' 'kemoticons' 'kinit' 'kitemmodels'
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kde-runtime')
 replaces=('kde-runtime')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('5fadd9368282e25233cf65f0090e28ec')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/kde-cli-tools.git")
 #md5sums=('SKIP')
 

@@ -1,0 +1,71 @@
+commit bffdd7fa0c03f255bded5071e39f50c768891eca
+Author: Harald Sitter <sitter@kde.org>
+Date:   Tue Jul 8 11:45:04 2014 -0400
+
+    fix kurlrequester dialog accept handling
+    
+    switch to qdialog::accepted signal, rename slot (on private class) and
+    remove accepted check in slot
+    
+    BUG: 337226
+    REVIEW: 119174
+
+diff --git a/src/widgets/kurlrequester.cpp b/src/widgets/kurlrequester.cpp
+index bc40284..cf0b0c7 100644
+--- a/src/widgets/kurlrequester.cpp
++++ b/src/widgets/kurlrequester.cpp
+@@ -213,7 +213,7 @@ public:
+     // slots
+     void _k_slotUpdateUrl();
+     void _k_slotOpenDialog();
+-    void _k_slotFileDialogFinished();
++    void _k_slotFileDialogAccepted();
+ 
+     QUrl m_startDir;
+     KUrlRequester *m_parent; // TODO: rename to 'q'
+@@ -408,18 +408,16 @@ void KUrlRequester::KUrlRequesterPrivate::_k_slotOpenDialog()
+     }
+ }
+ 
+-void KUrlRequester::KUrlRequesterPrivate::_k_slotFileDialogFinished()
++void KUrlRequester::KUrlRequesterPrivate::_k_slotFileDialogAccepted()
+ {
+     if (!myFileDialog) {
+         return;
+     }
+ 
+-    if (myFileDialog->result() == QDialog::Accepted) {
+-        QUrl newUrl = myFileDialog->selectedUrls().first();
+-        if (newUrl.isValid()) {
+-            m_parent->setUrl(newUrl);
+-            emit m_parent->urlSelected(url());
+-        }
++    QUrl newUrl = myFileDialog->selectedUrls().first();
++    if (newUrl.isValid()) {
++        m_parent->setUrl(newUrl);
++        emit m_parent->urlSelected(url());
+     }
+ }
+ 
+@@ -466,7 +464,7 @@ QFileDialog *KUrlRequester::fileDialog() const
+         d->applyFileMode(d->myFileDialog, d->fileDialogMode);
+ 
+         d->myFileDialog->setWindowModality(d->fileDialogModality);
+-        connect(d->myFileDialog, SIGNAL(finished()), SLOT(_k_slotFileDialogFinished()));
++        connect(d->myFileDialog, SIGNAL(accepted()), SLOT(_k_slotFileDialogAccepted()));
+     }
+ 
+     return d->myFileDialog;
+diff --git a/src/widgets/kurlrequester.h b/src/widgets/kurlrequester.h
+index 528cffc..163c435 100644
+--- a/src/widgets/kurlrequester.h
++++ b/src/widgets/kurlrequester.h
+@@ -328,7 +328,7 @@ private:
+ 
+     Q_PRIVATE_SLOT(d, void _k_slotUpdateUrl())
+     Q_PRIVATE_SLOT(d, void _k_slotOpenDialog())
+-    Q_PRIVATE_SLOT(d, void _k_slotFileDialogFinished())
++    Q_PRIVATE_SLOT(d, void _k_slotFileDialogAccepted())
+ 
+ };
+ 
