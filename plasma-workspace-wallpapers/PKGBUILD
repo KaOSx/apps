@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname="plasma-workspace-wallpapers"
-#pkgver=${_kdever}
-pkgver=4.98.0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="KDE Wallpapers"
 url="http://www.kde.org"
@@ -13,10 +12,9 @@ arch=('x86_64')
 depends=('kservice')
 makedepends=('extra-cmake-modules')
 #groups=("kde" "kde-uninstall")
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('9959b931a21ab5f02d311b4addc73cd2')
+md5sums=('175ea5ef22c6227ccc84a30adca0a4d0')
 
 
 build() {

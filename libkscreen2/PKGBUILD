@@ -13,14 +13,14 @@ url='https://projects.kde.org/projects/kde/kdelibs/kfilemetadata'
 license=('LGPL')
 depends=('qt5-x11extras')
 makedepends=('extra-cmake-modules')
-source=("http://download.kde.org/unstable/plasma/$_pkgver/${pkgname}-$pkgver.tar.xz")
-md5sums=('f8399efac454840ccb312b6a106ac30e')
+source=("http://download.kde.org/stable/plasma/$_pkgver/${_pkgname}-$pkgver.tar.xz")
+md5sums=('3530c1a5c48b6876eda106c2fc6cff8a')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../libkscreen-${pkgver} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \

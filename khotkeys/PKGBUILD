@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khotkeys
-pkgver=4.98.0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc='KHotKeys'
 arch=('x86_64')
@@ -11,8 +11,8 @@ url='https://projects.kde.org/projects/kde/workspace/khotkeys'
 license=('LGPL')
 depends=('plasma-workspace')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('6e7f6779317ab8d05dc18ab73becfa74')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/khotkeys.git")
 #md5sums=('SKIP')
 
