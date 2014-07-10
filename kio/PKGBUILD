@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kio'
@@ -13,10 +13,15 @@ depends=('krb5' 'solid' 'knotifications' 'kjobwidgets' 'kbookmarks' 'qt5-script'
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 install=kio.install
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        'dialog.diff')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '9b1bedfd1c418864dae6c2a2db3b09c7')
 
 build() {
+  cd ${srcdir}
+  patch -p0 -i ${srcdir}/dialog.diff
+  
   mkdir -p build
   cd build
   
