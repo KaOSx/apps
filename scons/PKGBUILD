@@ -1,6 +1,6 @@
 
 pkgname=scons
-pkgver=2.3.1
+pkgver=2.3.2
 pkgrel=1
 pkgdesc="Extensible Python-based build utility"
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=('MIT')
 depends=('python2')
 groups=('programming')
 source=("http://downloads.sourceforge.net/sourceforge/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('60a3cfb98b661df9f4406c61b5686bd7')
+md5sums=('bbd428da35ec176575a2b0be1f8d7162')
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -20,7 +20,6 @@ package() {
                            --optimize=1 \
                            --root="${pkgdir}" \
 
-  install -D -m644 LICENSE.txt \
-                   "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -D -m644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
