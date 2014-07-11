@@ -1,7 +1,11 @@
 
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kf5-plasma-nm
 _pkgname=plasma-nm
-pkgver=4.98.0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
@@ -9,8 +13,8 @@ url="https://projects.kde.org/projects/playground/network/plasma-nm"
 license=('GPL')
 depends=('kf5-libmm-qt' 'kf5-libnm-qt' 'plasma-framework' 'kemoticons' 'mobile-broadband-provider-info')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
-source=("http://download.kde.org/unstable/plasma/$pkgver/src/$_pkgname-$pkgver.tar.xz")
-md5sums=('aeb2c86d88a92af285d2afb57f0560a5')
+source=("http://download.kde.org/stable/plasma/$pkgver/$_pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/plasma-nm.git#commit=9cc253078da509747b2cbe32e628d8426a9bbf8e")
 #md5sums=('SKIP')
 
