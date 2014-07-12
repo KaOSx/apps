@@ -40,7 +40,7 @@ backup=('usr/share/config/kdm/kdmrc'
 source=("http://download.kde.org/stable/4.12.4/src/${pkgname}-${pkgver}.tar.xz"
 	"$_mirror/kde-wallpapers-$_kdever.tar.xz"
 	'mishaaq-kcm_touchpad-00370b5.tar.gz'
-        "http://kde-apps.org/CONTENT/content-files/114856-wacomtablet-2.0.2.tar.bz2"
+        "http://kde-apps.org/CONTENT/content-files/114856-wacomtablet-2.0.2.tar.xz"
         "http://kde-apps.org/CONTENT/content-files/117639-containmentaction-favorites-0.2.tar.gz"
         'kde.pam'
         'kde-np.pam'
@@ -61,10 +61,10 @@ source=("http://download.kde.org/stable/4.12.4/src/${pkgname}-${pkgver}.tar.xz"
 	# "fix" some sytemsettings modules that need root access
 	'fix_root-only-kcms.patch')
 
-md5sums=('712c60b73bc24649fee8ad832d71f029'
+md5sums=('cbd3311713b42d4856c66281fbe7a212'
          `grep kde-wallpapers-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1` # kde-wallpapers
          'f355a658d2e9267fdf4e8d8f88038bcf'
-         '23dd14baa3ebac8fc3010ea8a5782073'
+         '0b95a16d20f9df45a90b6dea569d85a9'
          'bbd19ad516d7ca3181a181e7c7f2366a'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
@@ -141,7 +141,7 @@ package() {
 	cd ${srcdir}/mishaaq-kcm_touchpad-00370b5
 	make DESTDIR=${pkgdir} install
 
-	cd ${srcdir}/wacomtablet-2.0
+	cd ${srcdir}/wacomtablet-2.0.2
 	make DESTDIR=${pkgdir} install
 
 	cd ${srcdir}/containmentaction-favorites-0.2
