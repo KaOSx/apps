@@ -2,7 +2,7 @@
 pkgname=polkit-qt5
 _pkgname=polkit-qt-1
 pkgver=0.112.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt5 wrapper around polkit-1 client libraries, to provide the polkit-1 kauth used by KDE'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kdesupport/polkit-qt-1'
@@ -20,7 +20,7 @@ build() {
   cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib
+    -DCMAKE_INSTALL_LIBDIR=lib
   make
 }
 

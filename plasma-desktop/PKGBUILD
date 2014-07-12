@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-desktop'
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb-compat' 'libcanberra'
          'systemsettings' 'ksysguard' 'powerdevil' 'oxygen' 'oxygen-fonts' 'kmenuedit')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kde-workspace' 'kde-runtime')
+conflicts=('kde-workspace')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/plasma-desktop.git")

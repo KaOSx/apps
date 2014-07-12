@@ -1,0 +1,73 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=libkde-runtime    
+_pkgname=kde-runtime
+pkgver=4.13.3
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Transitional kde-runtime package to make kde 4 apps work in plasma 5"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+depends=('kdelibs' 'libkactivities' 'oxygen-icons'
+         'xorg-xauth' 'hicolor-icon-theme' 'samba' 'rarian' 'pulseaudio' 'libssh'
+         'libcanberra' 'sound-theme-freedesktop' 'libwebp')
+makedepends=('pkgconfig' 'cmake' 'automoc4' 'kdepimlibs' 'openslp' 'docbook-xsl'
+             'networkmanager' 'xine-lib' 'libcanberra-pulse' 'boost')
+groups=("kde" "kde-minimal" "kde-uninstall")
+replaces=('kde-runtime')
+provides=("kde-runtime=${_kdever}")
+conflicts=('kde-runtime')
+install=kde-runtime.install
+source=($_mirror/${_pkgname}-${pkgver}.tar.xz)
+md5sums=('8b7b7e217744779f33dd8aa38015efa0')   
+
+build() {
+	cd ${_pkgname}-${pkgver}
+        mkdir build 
+        cd build
+
+	cmake .. -DCMAKE_BUILD_TYPE=${_build_type} \
+		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
+		-DWITH_PulseAudio=ON \
+		-DCMAKE_SKIP_RPATH=ON \
+		-DSAMBA_INCLUDE_DIR=/usr/include/samba-4.0 \
+		-DWITH_NepomukCore=OFF
+
+	make
+}
+
+package() {
+	cd ${srcdir}/${_pkgname}-${pkgver}/build
+	make DESTDIR=${pkgdir} install
+
+	# put kdesu into the path
+	cp ${pkgdir}/usr/lib/kde4/libexec/kdesu ${pkgdir}/usr/bin/kdesu
+
+	# WORKAROUND, conflict with hicolor-icon-theme
+	rm -rf ${pkgdir}/usr/share/icons/hicolor/index.theme
+	rm -rf ${pkgdir}/usr/share/icons/default.kde4
+	
+	# remove kf5/plasma 5 provided files
+	rm -rf ${pkgdir}/etc/xdg/menus/kde-information.menu
+	rm -rf ${pkgdir}/usr/bin/kde-cp
+	rm -rf ${pkgdir}/usr/bin/kde-mv
+	rm -rf ${pkgdir}/usr/bin/kde-open
+	rm -rf ${pkgdir}/usr/bin/kdebugdialog
+	rm -rf ${pkgdir}/usr/bin/keditfiletype
+	rm -rf ${pkgdir}/usr/bin/kglobalaccel
+	rm -rf ${pkgdir}/usr/bin/khelpcenter
+	rm -rf ${pkgdir}/usr/bin/kiconfinder
+	rm -rf ${pkgdir}/usr/bin/kstart
+	rm -rf ${pkgdir}/usr/bin/ktrash
+	rm -rf ${pkgdir}/usr/bin/kuiserver
+	rm -rf ${pkgdir}/usr/bin/kwalletd
+	rm -rf ${pkgdir}/usr/bin/kwriteconfig
+	rm -rf ${pkgdir}/usr/bin/plasmapkg
+	rm -rf ${pkgdir}/usr/lib/libmolletnetwork.so
+	rm -rf ${pkgdir}/usr/share/config.kcfg
+	rm -rf ${pkgdir}/usr/share/dbus-1/interfaces
+	rm -rf ${pkgdir}/usr/share/desktop-directories/kde-information.directory
+	rm -rf ${pkgdir}/usr/share/man
+}
