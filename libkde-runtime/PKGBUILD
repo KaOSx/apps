@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkde-runtime    
 _pkgname=kde-runtime
 pkgver=4.13.3
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Transitional kde-runtime package to make kde 4 apps work in plasma 5"
 url="http://www.kde.org"
@@ -17,7 +17,7 @@ makedepends=('pkgconfig' 'cmake' 'automoc4' 'kdepimlibs' 'openslp' 'docbook-xsl'
              'networkmanager' 'xine-lib' 'libcanberra-pulse' 'boost')
 groups=("kde" "kde-minimal" "kde-uninstall")
 replaces=('kde-runtime')
-provides=("kde-runtime=${_kdever}")
+provides=("kde-runtime=${pkgver}")
 conflicts=('kde-runtime')
 install=kde-runtime.install
 source=($_mirror/${_pkgname}-${pkgver}.tar.xz)
@@ -42,32 +42,23 @@ package() {
 	cd ${srcdir}/${_pkgname}-${pkgver}/build
 	make DESTDIR=${pkgdir} install
 
-	# put kdesu into the path
-	cp ${pkgdir}/usr/lib/kde4/libexec/kdesu ${pkgdir}/usr/bin/kdesu
-
 	# WORKAROUND, conflict with hicolor-icon-theme
 	rm -rf ${pkgdir}/usr/share/icons/hicolor/index.theme
 	rm -rf ${pkgdir}/usr/share/icons/default.kde4
 	
 	# remove kf5/plasma 5 provided files
 	rm -rf ${pkgdir}/etc/xdg/menus/kde-information.menu
-	rm -rf ${pkgdir}/usr/bin/kde-cp
-	rm -rf ${pkgdir}/usr/bin/kde-mv
-	rm -rf ${pkgdir}/usr/bin/kde-open
-	rm -rf ${pkgdir}/usr/bin/kdebugdialog
-	rm -rf ${pkgdir}/usr/bin/keditfiletype
-	rm -rf ${pkgdir}/usr/bin/kglobalaccel
-	rm -rf ${pkgdir}/usr/bin/khelpcenter
-	rm -rf ${pkgdir}/usr/bin/kiconfinder
-	rm -rf ${pkgdir}/usr/bin/kstart
-	rm -rf ${pkgdir}/usr/bin/ktrash
-	rm -rf ${pkgdir}/usr/bin/kuiserver
-	rm -rf ${pkgdir}/usr/bin/kwalletd
-	rm -rf ${pkgdir}/usr/bin/kwriteconfig
-	rm -rf ${pkgdir}/usr/bin/plasmapkg
+	rm -rf ${pkgdir}/usr/bin/*
 	rm -rf ${pkgdir}/usr/lib/libmolletnetwork.so
+	rm -rf ${pkgdir}/usr/share/applications
+	rm -rf ${pkgdir}/usr/share/apps/d*
+	rm -rf ${pkgdir}/usr/share/apps/hardwarenotifications
+	rm -rf ${pkgdir}/usr/share/apps/kc*
 	rm -rf ${pkgdir}/usr/share/config.kcfg
 	rm -rf ${pkgdir}/usr/share/dbus-1/interfaces
 	rm -rf ${pkgdir}/usr/share/desktop-directories/kde-information.directory
 	rm -rf ${pkgdir}/usr/share/man
+	
+	# put kdesu into the path
+	cp ${pkgdir}/usr/lib/kde4/libexec/kdesu ${pkgdir}/usr/bin/kdesu
 }
