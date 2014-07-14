@@ -1,6 +1,7 @@
 
 pkgname=kdenlive
-pkgver=0.9.8
+pkgver=0.9.8.1
+_pkgver=0.9.8
 pkgrel=1
 pkgdesc="A non-linear video editor for Linux"
 arch=('x86_64')
@@ -10,13 +11,13 @@ depends=('kdelibs' 'mlt' 'dvgrab' 'kde-runtime' 'frei0r-plugins' 'qjson' 'qimage
 makedepends=('automoc4' 'cmake' 'gettext' 'docbook-xsl')
 optdepends=("dvdauthor: for creating dvds")
 groups=('multimedia')
-source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.bz2")
-md5sums=('589801ff79c5819936141abe7e4f44fc')
+source=("http://download.kde.org/stable/$pkgname/$_pkgver/src/$pkgname-0.9.8-1.tar.bz2")
+md5sums=('9de70ac15c084ff3dc70a5a38f22685b')
 
 build() {
   export LDFLAGS="$LDFLAGS -lX11"
 
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_pkgver"
 
   cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -26,7 +27,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_pkgver"
   
   make DESTDIR="${pkgdir}" install
 }
