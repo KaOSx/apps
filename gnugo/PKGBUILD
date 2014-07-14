@@ -1,0 +1,28 @@
+
+pkgname=gnugo
+pkgver=3.8
+pkgrel=1
+pkgdesc='Program that plays the game of Go'
+url='http://www.gnu.org/software/gnugo/'
+license=('GPL3' 'custom')
+arch=('x86_64')
+depends=('ncurses')
+source=("http://ftp.gnu.org/gnu/gnugo/${pkgname}-${pkgver}.tar.gz"
+        'LICENSE')
+md5sums=('6db0a528df58876d2b0ef1659c374a9a'
+         '4df5819356804397c553c95ea8164f11')
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	
+	./configure --prefix=/usr
+	make
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+	
+	rm -r "${pkgdir}"/usr/share/info
+	install -Dm644 ../LICENSE "${pkgdir}/usr/share/licenses/${pkgname}"/LICENSE
+}
