@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-baloo
 _pkgname=baloo
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -14,8 +14,6 @@ depends=('xapian-core' 'kf5-akonadi' 'kf5-kfilemetadata' 'kidletime' 'kcmutils' 
          'kemoticons' 'kf5-kdepimlibs')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('baloo')
-provides=('baloo')
-replaces=('baloo')
 source=("http://download.kde.org/stable/plasma/$pkgver/baloo-$pkgver.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/baloo.git#branch=frameworks")
