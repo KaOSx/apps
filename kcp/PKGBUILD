@@ -1,6 +1,6 @@
 
 pkgname=kcp
-pkgver=0.9
+pkgver=0.10
 pkgrel=1
 _commit=92f1fa7
 pkgdesc="A command-line tool for KaOS Community Packages"
@@ -8,12 +8,13 @@ arch=('x86_64')
 url="https://github.com/bvaudour/kcp"
 license=('Public Domain')
 install=kcp.install
-depends=('git' 'python3')
-source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
-md5sums=('23ac2d8a0b8c5ede5ce9602c63b5bf28')
+depends=('git')
+#source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
+source=("https://github.com/bvaudour/kcp/archive/${pkgver}.tar.gz")
+md5sums=('0d214217436013fa8dc115a1e343a737')
  
 package() {
-	cd ${srcdir}/bvaudour-${pkgname}-${_commit}
-	install -Dm755 kcp.py ${pkgdir}/usr/bin/kcp
+	cd ${srcdir}/${pkgname}-${pkgver}
+	install -Dm755 kcp ${pkgdir}/usr/bin/kcp
 	install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
