@@ -1,18 +1,16 @@
 
 pkgname=amarok
 pkgver=2.8.0
-pkgrel=5
+pkgrel=6
 pkgdesc="A media player for KDE"
 arch=('x86_64')
 url="http://amarok.kde.org"
 screenshot="http://amarok.kde.org/files/Amarok-2.6-InDulciJubilo-screenie4.png"
 license=('GPL2' 'LGPL2' 'FDL')
 depends=('kde-runtime' 'mariadb' 'qtscriptgenerator' 'taglib-extras' 'liblastfm' 'ffmpeg' 'libofa'
-         'qjson' 'mesa' 'loudmouth' 'clamz' 'gst-plugins-bad')
-makedepends=('pkgconfig' 'automoc4' 'cmake' 'libgpod' 'libmtp' 'docbook-xsl' 'libmygpo-qt')
-optdepends=("libgpod: support Apple iPod audio devices"
-            "libmtp: support for portable media devices"
-            "libmygpo-qt: support for gpodder.net")
+         'qjson' 'mesa' 'loudmouth' 'clamz' 'gst-plugins-bad' 'ifuse' 'libgpod' 'libmtp' )
+makedepends=('pkgconfig' 'automoc4' 'cmake' 'docbook-xsl' 'libmygpo-qt')
+optdepends=("libmygpo-qt: support for gpodder.net")
 groups=('multimedia')
 install="${pkgname}.install"
 source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
