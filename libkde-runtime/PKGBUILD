@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkde-runtime    
 _pkgname=kde-runtime
 pkgver=4.13.3
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 pkgdesc="Transitional kde-runtime package to make kde 4 apps work in plasma 5"
 url="http://www.kde.org"
@@ -60,5 +60,5 @@ package() {
 	rm -rf ${pkgdir}/usr/share/man
 	
 	# put kdesu into the path
-	cp ${pkgdir}/usr/lib/kde4/libexec/kdesu ${pkgdir}/usr/bin/kdesu
+	#cp ${pkgdir}/usr/lib/kde4/libexec/kdesu ${pkgdir}/usr/bin/kdesu
 }

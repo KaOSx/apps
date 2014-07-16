@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-cli-tools
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kde-cli-tools'
@@ -36,6 +36,6 @@ package() {
   make DESTDIR=${pkgdir} install
   
   # place kdesu in bin too, use libkde-runtime for kdesu, until kf5 kdesu actually works
-  #ln -sf /usr/lib/libexec/kdesu ${pkgdir}/usr/bin/
+  ln -sf /usr/lib/libexec/kdesu ${pkgdir}/usr/bin/
 }
 

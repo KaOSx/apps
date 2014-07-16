@@ -1,0 +1,40 @@
+
+pkgname=kf5-konversation
+_pkgname=konversation
+pkgver=1.5.1
+_pkgver=1.5.1
+pkgrel=1
+pkgdesc="A user friendly IRC client for KDE"
+arch=('x86_64')
+url="http://konversation.kde.org"
+license=('GPL2' 'FDL')
+depends=('kf5-akonadi' 'kf5-kfilemetadata' 'kidletime' 'kcmutils' 'krunner' 'kdelibs4support'
+         'kemoticons' 'kf5-kdepimlibs' 'knotifyconfig' 'phonon-qt5' 'kf5-baloo-widgets' 'qca-qt5')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('konversation')
+groups=('communication')
+install=konversation.install
+#source=("http://download.kde.org/stable/${pkgname}/${_pkgver}/src/${pkgname}-${_pkgver}.tar.xz")
+source=("git://anongit.kde.org/konversation.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="$pkgdir" install
+}
