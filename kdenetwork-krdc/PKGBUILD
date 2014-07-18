@@ -5,13 +5,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdenetwork-krdc
 _pkgname=krdc
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Desktop Sharing Client'
 url='http://kde.org/applications/internet/krdc/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
-depends=("kde-runtime>=${_kdever}" 'telepathy-qt' 'rdesktop')
+depends=("kde-runtime>=${_kdever}" 'telepathy-qt' 'freerdp')
 makedepends=('cmake' 'automoc4' 'libvncserver')
 optdepends=('libvncserver: VNC support')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
