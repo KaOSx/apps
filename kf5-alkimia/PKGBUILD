@@ -2,7 +2,7 @@
 pkgname=kf5-alkimia	
 _pkgname=alkimia
 pkgver=4.100.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="A library with common classes and functionality used by finance applications for the KDE SC."
 url=('http://kde-apps.org/content/show.php/libalkimia?content=137323')
@@ -15,8 +15,8 @@ md5sums=('SKIP')
 
 build() {
   cd "${srcdir}"
-  sed -e "s/Qt5::DBus/Qt5::DBus KF5::KDELibs4Support/" -i ${srcdir}/$_pkgname/libalkimia/CMakeLists.txt
-  sed -e "s/KDE4_ENABLE_EXCEPTIONS/KDE_ENABLE_EXCEPTIONS/" -i ${srcdir}/$_pkgname/libalkimia/CMakeLists.txt
+  #sed -e "s/Qt5::DBus/Qt5::DBus KF5::KDELibs4Support/" -i ${srcdir}/$_pkgname/libalkimia/CMakeLists.txt
+  #sed -e "s/KDE4_ENABLE_EXCEPTIONS/KDE_ENABLE_EXCEPTIONS/" -i ${srcdir}/$_pkgname/libalkimia/CMakeLists.txt
 
   mkdir build
   cd build
