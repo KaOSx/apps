@@ -1,7 +1,7 @@
 
 pkgname=calamares
 pkgver=0.1.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://github.com/calamares/calamares'
@@ -26,7 +26,7 @@ build() {
   cd build
   
   cmake ../${pkgname} \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DWITH_PARTITIONMANAGER=1 \
     -DCMAKE_INSTALL_LIBDIR=lib 
