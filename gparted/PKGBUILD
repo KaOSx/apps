@@ -1,7 +1,7 @@
 
 pkgname=gparted
 pkgver=0.19.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A Partition Magic clone, frontend to GNU Parted."
 arch=('x86_64')
 url="http://gparted.sourceforge.net"
@@ -14,9 +14,9 @@ optdepends=('dosfstools: for FAT16 and FAT32 partitions'
             'reiserfsprogs: for reiser partitions'
             'xfsprogs: for xfs partitions')
 source=("http://downloads.sourceforge.net/project/${pkgname}/${pkgname}/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.bz2"
-        'gparted.policy')
+        'gparted.desktop')
 md5sums=('9aff8cef2c46e5ca4adaab43588c9e64'
-         'aa0fd8f1aa548871600e629a8ebe6ba4')
+         '76b565bf67ffb527786070825f613aa7')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -27,16 +27,8 @@ build() {
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-
   make DESTDIR="${pkgdir}" install
-
-  # Install policy file
-  install -Dm644 "${srcdir}/gparted.policy" "${pkgdir}/usr/share/polkit-1/actions/gparted.policy"
-
-  mv "${pkgdir}/usr/sbin/gparted" "${pkgdir}/usr/sbin/gparted.elf"
-
-  # Install launcher script
-  echo '#!/bin/sh' > ${pkgdir}/usr/sbin/gparted
-  echo 'pkexec --disable-internal-agent "/usr/sbin/gparted.elf" "$@"' >> ${pkgdir}/usr/sbin/gparted
-  chmod 755 ${pkgdir}/usr/sbin/gparted
+  
+  rm "$pkgdir/usr/share/applications/gparted.desktop"
+  install -m 644 -p ${srcdir}/gparted.desktop ${pkgdir}/usr/share/applications/
 }
