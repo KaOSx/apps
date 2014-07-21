@@ -1,6 +1,6 @@
 
 pkgname=minitube
-pkgver=2.1.6
+pkgver=2.2
 pkgrel=1
 pkgdesc="A native YouTube client in QT. Watch YouTube videos without Flash Player"
 arch=('x86_64')
@@ -14,12 +14,12 @@ groups=('multimedia')
 install=minitube.install
 source=("http://flavio.tordini.org/files/minitube/minitube.tar.gz"
         'locale.diff')
-md5sums=('b5a7794cad661d47e0e856b864f774af'
+md5sums=('b8483b2cfc4be460f347ed9342e3789f'
          '61ebe0b289e63790a70388d49cec205e')
 
 build() {
         cd "${srcdir}/${pkgname}"
-        patch -p0 -i "${srcdir}/locale.diff"
+        #patch -p0 -i "${srcdir}/locale.diff"
         
         qmake 
         make
