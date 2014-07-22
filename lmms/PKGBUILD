@@ -1,6 +1,6 @@
 
 pkgname=lmms
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc='The Linux MultiMedia Studio.'
 arch=('x86_64')
@@ -11,8 +11,8 @@ depends=('sdl' 'glib2' 'fluidsynth' 'libpng' 'libvorbis' 'libxft' 'libxinerama' 
 makedepends=('cmake' 'ladspa' 'libxft' 'freetype2' 'fftw')
 options=('!makeflags')
 install=lmms.install
-source=("http://downloads.sourceforge.net/sourceforge/lmms/${pkgname}-${pkgver}-src.tar.bz2")
-md5sums=('db1c3e432cad933c9fd124c4840c0bf1')
+source=("https://github.com/LMMS/lmms/releases/download/v${pkgver}/lmms-${pkgver}-src.tar.bz2")
+md5sums=('1f63ad9abd1781206d852e79b2191638')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
