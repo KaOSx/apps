@@ -1,0 +1,43 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kf5-kdeplasma-addons
+_pkgname=kdeplasma-addons
+arch=('x86_64')
+#pkgver=${_kdever}
+pkgver=4.98.0
+pkgrel=1
+pkgdesc="KDE Plasma Addons"
+url="http://www.kde.org/"
+license=('GPL' 'LGPL' 'FDL')
+#options=('docs')
+depends=('knewstuff' 'plasma-framework' 'kdelibs4support' 'kjs' 'threadweaver' 'kidletime'
+         'phonon-qt5' 'qca-qt5')
+makedepends=('extra-cmake-modules' 'kdoctools')
+#source=("$_mirror/${pkgbase}-$_kdever.tar.xz")
+#md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kdeplasma-addons.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="${pkgdir}" install
+}
+
