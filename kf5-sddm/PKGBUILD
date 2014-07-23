@@ -1,43 +1,43 @@
 
 pkgname=kf5-sddm
 _pkgname=sddm
-pkgver=20140706
+pkgver=20140722
 pkgrel=1
 pkgdesc="QML based X11 display manager"
 arch=('x86_64')
 url="http://github.com/sddm/sddm"
 license=('GPL')
 depends=('qt5-declarative' 'libxcb')
-makedepends=('cmake' 'git' 'qt5-tools')
+makedepends=('cmake' 'git' 'qt5-tools' 'python2-docutils')
 conflicts=('sddm')
-backup=('etc/sddm.conf')
+#backup=('etc/sddm.conf')
 install=sddm.install
 source=('git://github.com/sddm/sddm.git'
-        'background.png')
+        'sddm.conf')
 md5sums=('SKIP'
-         '4932058967e1fe4df3e8cd75b75997ca')
+         'b276d9d537dba25162c4e0dece79fb23')
 
 build() {
-  cd "$srcdir"
-  
+  cd $srcdir 
   mkdir -p $srcdir/build
   cd build
 
-  cmake ../${_pkgname} -DCMAKE_INSTALL_PREFIX=/usr -DUSE_QT5=true
+  cmake ../${_pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib/sddm \
+    -DUSE_QT5=true \
+    -DBUILD_MAN_PAGES=ON 
   make
 }
 
 package() {
   cd ${srcdir}/build
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
   
-  #sed -i -e "s|white|deepskyblue|g" $pkgdir/usr/share/sddm/themes/maui/Main.qml
-  sed -i -e "s|LastSession=|LastSession=plasma.desktop|g" $pkgdir/etc/sddm.conf
-  sed -i -e "s|plasma.desktoptrue|true|g" $pkgdir/etc/sddm.conf
-  sed -i -e "s|CurrentTheme=maui|CurrentTheme=breeze|g" $pkgdir/etc/sddm.conf
+  #sed -i -e "s|LastSession=|LastSession=plasma.desktop|g" $pkgdir/etc/sddm.conf
+  #sed -i -e "s|plasma.desktoptrue|true|g" $pkgdir/etc/sddm.conf
+  #sed -i -e "s|CurrentTheme=maui|CurrentTheme=breeze|g" $pkgdir/etc/sddm.conf
   
-  #rm "${pkgdir}"/usr/share/sddm/themes/maui/background.png
-  #install -m 644 -p ${srcdir}/background.png ${pkgdir}/usr/share/sddm/themes/maui/  
-  
-  install -d -g 136 -o 136 "${pkgdir}"/var/lib/sddm
+  install -m 644 -p ${srcdir}/sddm.conf ${pkgdir}/etc/
+  install -d -g 136 -o 136 ${pkgdir}/var/lib/sddm
 }
