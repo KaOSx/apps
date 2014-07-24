@@ -1,29 +1,30 @@
 
 pkgname=qbittorrent
-pkgver=3.1.9.2
+pkgver=3.1.9.9
 pkgrel=1
 pkgdesc="A bittorrent client written in C++ / Qt4 using the good libtorrent library"
 screenshot="http://sourceforge.net/dbimage.php?id=242189"
 arch=('x86_64')
 url="http://www.qbittorrent.org/"
 license=('GPL')
-depends=('qt' 'libtorrent-rasterbar' 'xdg-utils' 'boost-libs')
-makedepends=('boost' 'which')
+depends=('qt5-base' 'libtorrent-rasterbar' 'xdg-utils' 'boost-libs')
+makedepends=('boost' 'which' 'qt5-tools')
 optdepends=('python2: needed for search')
 groups=('network')
 install=qbittorrent.install
-source=("http://sourceforge.net/projects/${pkgname}/files/${pkgname}/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('530f6fc3909bf0576ca3cc7575daae97')
+#source=("http://sourceforge.net/projects/qbittorrent/files/${pkgname}/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("git://github.com/qbittorrent/qBittorrent.git")
+md5sums=('SKIP')
 
 build() {
-    cd ${srcdir}/${pkgname}-${pkgver}
+    cd ${srcdir}/qBittorrent
     
-    ./configure --prefix=/usr
+    ./configure --prefix=/usr --with-qt5
     make
 }
 
 package(){
-    cd ${srcdir}/${pkgname}-${pkgver}
+    cd ${srcdir}/qBittorrent
     
     make INSTALL_ROOT=${pkgdir} install
 }
