@@ -2,21 +2,18 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kwin
-pkgver=5.0.0.1
+pkgname=kdecoration
+pkgver=5.0.0
 pkgrel=1
-pkgdesc='KDE Window Manager'
+pkgdesc='Plugin based library to create window decorations.'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/kwin'
+url='https://projects.kde.org/projects/playground/base/kdecoration'
 license=('LGPL')
-depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'libxcursor'
-         'kdecoration' 'libepoxy')
+depends=('qt5-base')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
-conflicts=('kde-workspace')
-replaces=('kde-workspace')
 #source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kwin.git#branch=graesslin/kdecoration2")
+source=("git://anongit.kde.org/kdecoration.git")
 md5sums=('SKIP')
 
 build() {

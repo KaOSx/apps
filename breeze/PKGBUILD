@@ -4,23 +4,28 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=breeze
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/breeze'
 license=('LGPL')
 depends=('kwin' 'qt5-tools')
 makedepends=('extra-cmake-modules' 'git')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/breeze.git")
-#md5sums=('SKIP')
+#source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/breeze.git#branch=graesslin/kdecoration2")
+md5sums=('SKIP')
 
-build() {
+prepare () {
+  cd $pkgname
+  sed -i -e 's/KF5 CONFIG REQUIRED/KF5 REQUIRED/' ${srcdir}/${pkgname}/windec/kdecoration2/CMakeLists.txt
+}
+  
+build () {  
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-$pkgver \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
@@ -30,7 +35,7 @@ build() {
   make
 }
 
-package() {
+package () {
   cd build
 
   make DESTDIR="${pkgdir}" install

@@ -2,22 +2,24 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kwin
-pkgver=5.0.0.1
+pkgname=kdecoration-viewer
+pkgver=5.0.0
 pkgrel=1
-pkgdesc='KDE Window Manager'
+pkgdesc='Viewer application for KDecoration2 based decorations.'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/kwin'
+url='https://projects.kde.org/projects/playground/base/kdecoration-viewer'
 license=('LGPL')
-depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'libxcursor'
-         'kdecoration' 'libepoxy')
+depends=('kdecoration' 'kconfig' 'kconfigwidgets' 'kdeclarative' 'ki18n' 'kservice')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
-conflicts=('kde-workspace')
-replaces=('kde-workspace')
 #source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kwin.git#branch=graesslin/kdecoration2")
+source=("git://anongit.kde.org/kdecoration-viewer.git")
 md5sums=('SKIP')
+
+prepare () {
+  cd $pkgname
+  sed -i -e 's/KF5 CONFIG REQUIRED/KF5 REQUIRED/' ${srcdir}/${pkgname}/CMakeLists.txt
+}
 
 build() {
   mkdir -p build
