@@ -1,0 +1,36 @@
+
+pkgname=kf5-kscreen
+_pkgname=kscreen
+pkgver=1.9.90
+pkgrel=1
+pkgdesc="KDE's screen management software"
+arch=('x86_64')
+url='https://projects.kde.org/kscreen'
+license=('GPL' 'LGPL')
+depends=('kdbusaddons' 'kconfigwidgets' 'ki18n' 'kxmlgui' 'kglobalaccel' 'libkscreen2')
+makedepends=('extra-cmake-modules')
+#source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz")
+source=("git://anongit.kde.org/kscreen#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd "$srcdir"  
+  mkdir build
+  cd build
+
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd "${srcdir}"/build
+ 
+  make DESTDIR="${pkgdir}" install  
+}
