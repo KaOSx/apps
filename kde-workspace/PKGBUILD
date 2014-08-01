@@ -39,7 +39,6 @@ backup=('usr/share/config/kdm/kdmrc'
 
 source=("http://download.kde.org/stable/4.12.4/src/${pkgname}-${pkgver}.tar.xz"
 	"$_mirror/kde-wallpapers-$_kdever.tar.xz"
-	'mishaaq-kcm_touchpad-00370b5.tar.gz'
         "http://kde-apps.org/CONTENT/content-files/114856-wacomtablet-2.0.2.tar.xz"
         "http://kde-apps.org/CONTENT/content-files/117639-containmentaction-favorites-0.2.tar.gz"
         'kde.pam'
@@ -63,7 +62,6 @@ source=("http://download.kde.org/stable/4.12.4/src/${pkgname}-${pkgver}.tar.xz"
 
 md5sums=('cbd3311713b42d4856c66281fbe7a212'
          `grep kde-wallpapers-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1` # kde-wallpapers
-         'f355a658d2e9267fdf4e8d8f88038bcf'
          '0b95a16d20f9df45a90b6dea569d85a9'
          'bbd19ad516d7ca3181a181e7c7f2366a'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
@@ -108,14 +106,6 @@ build() {
 		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
 	make
 
-        msg "starting kcm_touchpad build ..."
-	cd ${srcdir}/mishaaq-kcm_touchpad-00370b5
-        # Fix desktop to the new layout
-	sed -i -e "s~keyboard-and-mouse~input-devices~g" touchpad.desktop
-	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
-		-DCMAKE_INSTALL_PREFIX=${_installprefix} \
-		-DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
-
 	msg "starting kcm_tablet build ..."
 	cd ${srcdir}/wacomtablet-2.0.2
         # Fix desktop to the new layout
@@ -136,9 +126,6 @@ build() {
 
 package() {
 	cd ${srcdir}/${pkgname}-${pkgver}
-	make DESTDIR=${pkgdir} install
-
-	cd ${srcdir}/mishaaq-kcm_touchpad-00370b5
 	make DESTDIR=${pkgdir} install
 
 	cd ${srcdir}/wacomtablet-2.0.2
