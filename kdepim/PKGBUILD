@@ -6,7 +6,7 @@ pkgbase="kdepim"
 pkgname=('kdepim-common'
 	 'kdepim-akonadiconsole'
          'kdepim-akregator'
-         'kdepim-blogilo'
+         #'kdepim-blogilo'
          'kdepim-kaddressbook'
          'kdepim-kalarm'
          'kdepim-kjots'
@@ -53,8 +53,8 @@ package_kdepim-common() {
 
 	splitdirs=(akonadi_next calendarsupport calendarviews console icons importwizard incidenceeditor-ng kdgantt2 kresources ksendemail libkdepim 
                    libkdepimdbusinterfaces libkleo libkpgp libksieve mailcommon agents/mailfilteragent mailimporter messagecore messagecomposer messagecore messagelist 
-		   messageviewer mboximporter noteshared plugins pimcommon pimsettingexporter templateparser headerthemeeditor agents/sendlateragent
-		   agents/archivemailagent kaddressbookgrantlee plugins/messageviewer grantleetheme grantleethemeeditor plugins/ktexteditor storageservicemanager)
+		   messageviewer mboximporter noteshared plugins pimcommon pimsettingexporter templateparser agents/followupreminderagent agents/sendlateragent
+		   agents/archivemailagent kaddressbookgrantlee plugins/messageviewer grantleetheme grantleetheme plugins/ktexteditor storageservicemanager)
 
 		for i in ${splitdirs[@]} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}

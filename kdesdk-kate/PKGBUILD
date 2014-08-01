@@ -10,7 +10,8 @@ url="http://kde.org/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 pkgdesc="Advanced Text Editor"
-makedepends=("kdelibs>=${_kdever}" 'cmake' 'automoc4' 'docbook-xsl' "kdebindings-pykde4>=${_kdever}")
+depends=('kdelibs' 'kde-runtime' 'qjson')
+makedepends=('cmake' 'automoc4' 'docbook-xsl' "kdebindings-pykde4")
 groups=('kde' 'kdesdk' 'kde-minimal' 'kde-uninstall')
 provides=('kate')
 install='kdesdk-kate.install'
