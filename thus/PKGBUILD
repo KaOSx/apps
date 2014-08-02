@@ -1,6 +1,6 @@
 
 pkgname=thus
-pkgver=0.2.8
+pkgver=0.2.9
 pkgrel=1
 pkgdesc='Graphical Installer for KaOS, forked from Antergos/Manjaro Linux'
 arch=('x86_64')
@@ -12,8 +12,10 @@ depends=('libtimezonemap' 'oxygen-gtk3' 'pam_encfs' 'py3parted' 'python3-configo
 makedepends=('git')
 install=thus.install
 backup=('etc/thus.conf')
-source=("git+https://github.com/kaosx/$pkgname.git#branch=development")
-md5sums=('SKIP')
+source=("git+https://github.com/kaosx/$pkgname.git#branch=development"
+        'launch-thus.sh')
+md5sums=('SKIP'
+         '9550f2f7b7b1a63c76bf0230714b243b')
 
 
 package() {
@@ -42,4 +44,6 @@ package() {
         	echo "${STRING} installed..."
     	fi
 	done
+	
+	install -Dm755 ${srcdir}/launch-thus.sh ${pkgdir}/usr/bin/launch-thus.sh
 }
