@@ -1,0 +1,25 @@
+ 
+pkgname=simplescreenrecorder
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="Screen recorder that is actually quite complex, but 'simple' in the sense that it's easy to use"
+arch=('x86_64')
+url="http://www.maartenbaert.be/simplescreenrecorder/"
+license=("GPL3")
+depends=('qt' 'ffmpeg' 'alsa-lib' 'pulseaudio' 'jack' 'libgl' 'glu' 'libx11' 'libxext' 'libxfixes' 'libxi')
+options=('!libtool')
+source=("https://github.com/MaartenBaert/ssr/archive/$pkgver.tar.gz")
+md5sums=('35b7e399e9934a5e169525b8c8dad0e6')
+
+build() {
+  cd ssr-$pkgver
+  
+  ./configure --prefix=/usr --disable-assert
+  
+  make
+}
+package() {
+  cd ssr-$pkgver
+  
+  make DESTDIR=$pkgdir install
+}
