@@ -1,6 +1,6 @@
 
 pkgname=calibre
-pkgver=1.47.0
+pkgver=1.204.1
 pkgrel=1
 pkgdesc="Ebook management application."
 arch=('x86_64') 
@@ -10,39 +10,22 @@ depends=('python2')
 makedepends=('xdg-utils')
 groups=('office')
 install=calibre.install
-source=('http://status.calibre-ebook.com/linux_installer'
+source=("http://download.calibre-ebook.com/betas/calibre-"${pkgver}"-x86_64.txz"
         'calibre.desktop'
         'calibre.png')
-md5sums=('eaaa34077e8162923f4ed884d4e4367e'
+md5sums=('c9a2f907520ba0cfe36d15623aea74f0'
          'bda3df9bbc0b793d94a4d3d10bdf194a'
          '5c523427b55c62d7fee06b0cc056c46e')
-noextract=('linux_installer')
 
 package() {
   cd "${srcdir}"
-
-  install -d "${pkgdir}/opt"
-  install -d "${pkgdir}/usr/bin"
-
-  cp -f linux_installer linux_installer.py
-  sed "s~destdir = os.path.abspath(destdir)~originaldir = destdir; destdir = os.path.abspath(destdir) + '/opt'~g" -i linux_installer.py
-  sed "s~subprocess.call(pi, shell=True)~subprocess.call(pi + ' --root="{0}/usr"'.format(originaldir), shell=True)~g" -i linux_installer.py
-  echo "${pkgdir}" | python2 -c "from linux_installer import *; main()"
-
-  __to_fix=('fetch-ebook-metadata' 'lrf2lrs' 'ebook-convert' 'ebook-meta' 'pdfmanipulate' 'lrs2lrf' 'lrfviewer' 'calibre' 'markdown-calibre' 'calibre-debug' 'calibre-parallel' 'web2disk' 'calibre-server' 'calibre-customize' 'ebook-viewer' 'calibre-smtp' 'epub-fix' 'ebook-device' 'librarything' 'calibredb')
-
-  for file in ${__to_fix[@]}; do
-    rm -f "${pkgdir}/usr/bin/${file}"
-
-    cat > "${pkgdir}/usr/bin/${file}" <<-EOF
-#!/bin/sh
-LD_LIBRARY_PATH=/opt/calibre/lib /opt/calibre/bin/${file}
-EOF
-
-    chmod +x "${pkgdir}/usr/bin/${file}"
-  done
   
+  install -d "${pkgdir}/opt/calibre"
+  tar xvf "${srcdir}"/calibre-"${pkgver}"-x86_64.txz -C "$pkgdir"/opt/calibre
+
+  install -d "${pkgdir}/usr/bin"
   install -Dm644 "${srcdir}/calibre.desktop" "${pkgdir}/usr/share/applications/calibre.desktop"             
   install -Dm644 "${srcdir}/calibre.png" "${pkgdir}/usr/share/pixmaps/calibre.png"
+  ln -s /opt/calibre/calibre "$pkgdir/usr/bin/calibre"
 }
 
