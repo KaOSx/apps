@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kate
 #pkgver=${_kdever}
 pkgver=4.98.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Advanced editor component which is used in numerous KDE applications requiring a text editing component'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/kate'
@@ -16,7 +16,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kdesdk-kate')
 #source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kate#branch=frameworks")
+source=("git://anongit.kde.org/kate")
 md5sums=('SKIP')
 
 build() {
