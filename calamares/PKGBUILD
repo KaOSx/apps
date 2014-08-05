@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.1.0.4
+pkgver=0.1.0.5
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -9,8 +9,12 @@ license=('LGPL')
 depends=('qt5-base' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
          'parted' 'libatasmart' 'udisks2')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
-source=("git://github.com/calamares/calamares")
-md5sums=('SKIP')
+source=("git://github.com/calamares/calamares"
+        'settings.conf'
+        'module.conf')
+md5sums=('SKIP'
+         'c50734eddf2c410eab66c0a1e1ca660e'
+         '78f312a1edf38c0932d78904ae9fb8c4')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -34,7 +38,13 @@ build() {
 }
 
 package() {
-  cd build
-  
+  cd build 
   make DESTDIR="${pkgdir}" install
+  
+  rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
+  install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
+  rm -rf "${pkgdir}/usr/lib/calamares/modules/locale/module.conf"
+  install -D -m644 "${srcdir}/module.conf" "${pkgdir}/usr/lib/calamares/modules/locale/module.conf"
+  sed 's|/path/to/squashfs/image.sqfs|/bootmnt/kdeos/x86_64/root-image.sqfs|' -i "${pkgdir}/usr/lib/calamares/modules/unsquashfs/module.conf"
+  sed 's|linux312|linux|' -i "${pkgdir}/usr/lib/calamares/modules/initcpio/module.conf"
 }
