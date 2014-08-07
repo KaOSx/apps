@@ -7,7 +7,7 @@ arch=('x86_64')
 url="http://gcompris.net/"
 license=('GPL3')
 #depends=('pygtk' 'librsvg' 'gst-plugins-base')
-depends=('qt5-webkit' 'qt5-tools' 'qt5-quick1' 'qt5-svg')
+depends=('qt5-webkit' 'qt5-tools' 'qt5-quick1' 'qt5-svg' 'qt5-graphicaleffects')
 makedepends=('texinfo' 'intltool' 'git')
 groups=('kaos-kids')
 #source=("http://gcompris.net/download/$pkgname-$pkgver.tar.bz2")
@@ -16,18 +16,16 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
+  #sed -e "s/configure_file(${CMAKE_MODULE_PATH}/#configure_file(${CMAKE_MODULE_PATH}/" -i ${srcdir}/GCompris-qt/src/core/CMakeLists.txt
+  #sed -e "s/install(SCRIPT/#install(SCRIPT/" -i ${srcdir}/GCompris-qt/src/core/CMakeLists.txt
   mkdir build
   
   cd build 
   cmake ../GCompris-qt \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DCMAKE_SKIP_RPATH=ON 
+  make BuildTranslations
   make 
 }
 
