@@ -11,11 +11,11 @@ depends=('qt5-base' 'kconfig' 'kconfigwidgets' 'ki18n' 'kcoreaddons' 'solid' 'ya
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 source=("git://github.com/calamares/calamares"
         'settings.conf'
-        'module.conf'
+        'locale.conf'
         'CMakeLists_new.diff')
 md5sums=('SKIP'
          'c50734eddf2c410eab66c0a1e1ca660e'
-         '78f312a1edf38c0932d78904ae9fb8c4'
+         '6b793a81d051d5d0b00a6031ceb08308'
          'b009eb45e26b5c753430630c5e756adc')
 
 prepare () {
@@ -23,7 +23,7 @@ prepare () {
   
   git submodule init
   git submodule update
-  patch -p0 -i ${srcdir}/CMakeLists_new.diff
+  patch -p1 -i ${srcdir}/CMakeLists_new.diff
   #sed -i 's|KF5 CONFIG REQUIRED|KF5 REQUIRED|' ${srcdir}/${pkgname}/src/libcalamares/partitionmanager/CMakeLists.txt
 }
 
@@ -47,7 +47,7 @@ package() {
   #rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
   #install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
   #rm -rf "${pkgdir}/usr/lib/calamares/modules/locale/module.conf"
-  #install -D -m644 "${srcdir}/module.conf" "${pkgdir}/usr/lib/calamares/modules/locale/module.conf"
-  #sed 's|/path/to/squashfs/image.sqfs|/bootmnt/kdeos/x86_64/root-image.sqfs|' -i "${pkgdir}/usr/lib/calamares/modules/unsquashfs/module.conf"
-  #sed 's|linux312|linux|' -i "${pkgdir}/usr/lib/calamares/modules/initcpio/module.conf"
+  install -D -m644 "${srcdir}/locale.conf" "${pkgdir}/etc/calamares/modules/locale.conf"
+  sed 's|/path/to/squashfs/image.sqfs|/bootmnt/kdeos/x86_64/root-image.sqfs|' -i "${pkgdir}/usr/share/calamares/modules/unsquashfs.conf"
+  sed 's|linux312|linux|' -i "${pkgdir}/usr/share/calamares/modules/initcpio.conf"
 }
