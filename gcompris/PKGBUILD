@@ -1,28 +1,48 @@
 
-pkgname=gcompris
-pkgver=14.07
-pkgrel=1
+pkgname=gcompris-qt
+_pkgname=gcompris
+pkgver=0.16
+pkgrel=2
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
 url="http://gcompris.net/"
 license=('GPL3')
-depends=('pygtk' 'librsvg' 'gstreamer0.10-base-plugins' 'gnuchess')
-makedepends=('texinfo' 'intltool')
+#depends=('pygtk' 'librsvg' 'gst-plugins-base')
+depends=('qt5-webkit' 'qt5-tools' 'qt5-quick1' 'qt5-svg' 'qt5-graphicaleffects'
+         'gstreamer0.10-good-plugins' 'gnuchess')
+makedepends=('texinfo' 'intltool' 'git')
 groups=('kaos-kids')
-source=("http://gcompris.net/download/$pkgname-$pkgver.tar.bz2")
-md5sums=('9b58150469a425f525095d303ed2324a')
+conflicts=('gcompris')
+#source=("http://gcompris.net/download/$pkgname-$pkgver.tar.bz2")
+source=("git://github.com/bdoin/GCompris-qt.git"
+        'gcompris.desktop'
+        'gcompris.png')
+md5sums=('SKIP'
+         'a65424b959ff5502a3f7894ad0ae4226'
+         '7c7cee3479f1a47376db800b2bc37017')
 
 build() {
-  cd $pkgname-$pkgver
-  sed -i 's/"$GNUCHESS"/"gcompris-gnuchess"/' configure
+  cd "${srcdir}"
+  mkdir build
   
-  ./configure --prefix=/usr
-  make
+  cd build 
+  cmake ../GCompris-qt \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON
+  make 
+  make BuildTranslations
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd "${srcdir}"/build
   
-  make DESTDIR="$pkgdir" install
+  install -d "${pkgdir}/opt/$_pkgname"
+  make package && ./"$_pkgname-$pkgver"-Linux.sh --prefix="${pkgdir}"/opt/gcompris --skip-license
+  
+  install -d "${pkgdir}/usr/bin"
+  install -Dm644 "${srcdir}/gcompris.desktop" "${pkgdir}/usr/share/applications/gcompris.desktop"             
+  install -Dm644 "${srcdir}/gcompris.png" "${pkgdir}/usr/share/pixmaps/gcompris.png"
+  ln -s /opt/gcompris/bin/GCompris "$pkgdir/usr/bin/gcompris"
 }
 
