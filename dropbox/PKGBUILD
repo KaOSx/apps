@@ -1,6 +1,6 @@
 
 pkgname=dropbox
-pkgver=2.6.27
+pkgver=2.10.27
 pkgrel=1
 pkgdesc="Free service that lets you bring your photos, docs, and videos anywhere and share them easily."
 arch=("x86_64")
@@ -13,7 +13,7 @@ source=("https://dl-web.dropbox.com/u/17/${pkgname}-lnx.x86_64-${pkgver}.tar.gz"
         "dropbox.desktop"
         "terms.txt"
         "dropbox.service")
-md5sums=('d184840ae17cb6b3e14cce4ef610cff0'
+md5sums=('17df70b6db1c7411d926b290e1db424e'
          '9ec50da2ce59ed8c17606394b9c5e1c0'
          '20c97082211cf02af494043b93d5feb8'
          '5331288d5f5972dc2e9311d0f28dac76'
@@ -21,7 +21,7 @@ md5sums=('d184840ae17cb6b3e14cce4ef610cff0'
 
 package() {
 	install -d "$pkgdir/opt"
-	cp -R "$srcdir/.dropbox-dist" "$pkgdir/opt/dropbox"
+	cp -R "$srcdir"/.dropbox-dist/dropbox-lnx.x86_64-$pkgver "$pkgdir/opt/dropbox"
 
 	find "$pkgdir/opt/dropbox/" -type f -exec chmod 644 {} \;
 	chmod 755 "$pkgdir/opt/dropbox/dropboxd"
