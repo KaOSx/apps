@@ -6,7 +6,7 @@ pkgbase="kdepim"
 pkgname=('kdepim-common'
 	 'kdepim-akonadiconsole'
          'kdepim-akregator'
-         #'kdepim-blogilo'
+         'kdepim-blogilo'
          'kdepim-kaddressbook'
          'kdepim-kalarm'
          'kdepim-kjots'
@@ -99,7 +99,7 @@ package_kdepim-blogilo() {
         conflicts=('kdepim-doc')
 	install=${pkgbase}.install
 
-	splitdirs="blogilo composereditor-ng"
+	splitdirs="composereditor-ng"
 		for i in ${splitdirs} ; do
 			cd ${srcdir}/${pkgbase}-${pkgver}/${i}
 			make DESTDIR=${pkgdir} install 
