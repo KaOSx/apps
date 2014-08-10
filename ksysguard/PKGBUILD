@@ -12,13 +12,14 @@ license=('LGPL')
 depends=('knewstuff' 'libksysguard' 'lm_sensors')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/ksysguard.git")
-#md5sums=('SKIP')
+# grep md5 picks up libksysguard too
+md5sums=('675b4e6fc5843f049fb38be82bd88e80')
 
 build() {
   mkdir -p build
-  sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
+  #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
   cd build
   
   cmake ../${pkgname}-$pkgver \

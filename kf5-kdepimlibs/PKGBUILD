@@ -24,7 +24,8 @@ md5sums=('SKIP')
 
 build() {
 	cd ${srcdir}
-	#sed -i 's|add_subdirectory(autotests)|#add_subdirectory(autotests)|' ${srcdir}/$_pkgname/syndication/CMakeLists.txt
+	sed -i 's|sb_add_project(kmime)|#sb_add_project(kmime)|' ${srcdir}/$_pkgname/CMakeLists.txt
+	sed -i 's|add_subdirectory(kmime)|#add_subdirectory(kmime)|' ${srcdir}/$_pkgname/CMakeLists.txt
 	mkdir -p build
 	cd build
 
@@ -33,11 +34,8 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_SKIP_RPATH=ON \
 		-DLIB_SUFFIX="" \
-                -DSYSCONF_INSTALL_DIR=/etc \
-                -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-                -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-                -DKDEPIMLIBS_SUPERBUILD=TRUE \
-                -DBUILD_TESTING=OFF 
+                -DKDEPIMLIBS_SUPERBUILD=TRUE 
+                
 	make -j8 sb_all
 }
 

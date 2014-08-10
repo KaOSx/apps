@@ -1,7 +1,7 @@
 
 pkgname=kf5-libkgapi
 _pkgname=libkgapi
-pkgver=2.1.5
+pkgver=2.1.6
 pkgrel=1
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
 url='https://projects.kde.org/projects/kdereview/libkgapi'
@@ -16,6 +16,7 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
+  sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/$_pkgname/CMakeLists.txt
   mkdir build
   
   cd build 

@@ -5,14 +5,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-akonadi
 _pkgname=akonadi
 pkgver=1.78.90
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='http://community.kde.org/KDE_PIM/Akonadi'
 pkgdesc="PIM layer, which provides an asynchronous API to access all kind of PIM data"
 license=('LGPL')
-depends=('shared-mime-info' 'boost-libs' 'mariadb' 'qt5-base' 'libxslt')
-makedepends=('cmake' 'boost' 'postgresql' 'sqlite')
-optdepends=('postgresql: PostgreSQL backend')
+depends=('shared-mime-info' 'boost-libs' 'sqlite' 'qt5-base' 'libxslt')
+makedepends=('cmake' 'boost' 'postgresql' 'mariadb')
+optdepends=('postgresql: PostgreSQL backend'
+            'mariadb: MySQL backend')
 install=akonadi.install
 #source=("http://download.kde.org/stable/akonadi/src/akonadi-${pkgver}.tar.bz2")
 source=("git://anongit.kde.org/akonadi")
@@ -28,6 +29,7 @@ build() {
     -DINSTALL_QSQLITE_IN_QT_PREFIX=TRUE \
     -DAKONADI_BUILD_TESTS=OFF \
     -DQT5_BUILD=ON \
+    -DDATABASE_BACKEND=SQLITE \
     -DWITH_SOPRANO=OFF
   make
 }

@@ -1,29 +1,27 @@
 
 pkgname=calamares
-pkgver=0.1.0.6
+pkgver=0.1.0.7
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://github.com/calamares/calamares'
 license=('LGPL')
-depends=('qt5-base' 'kconfig' 'kconfigwidgets' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
+depends=('qt5-base' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
          'parted' 'libatasmart' 'udisks2')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 source=("git://github.com/calamares/calamares"
         'settings.conf'
-        'locale.conf'
-        'CMakeLists_new.diff')
+        'locale.conf')
 md5sums=('SKIP'
          'c50734eddf2c410eab66c0a1e1ca660e'
-         '6b793a81d051d5d0b00a6031ceb08308'
-         'b009eb45e26b5c753430630c5e756adc')
+         '6b793a81d051d5d0b00a6031ceb08308')
 
 prepare () {
   cd ${srcdir}/${pkgname}
   
   git submodule init
   git submodule update
-  patch -p1 -i ${srcdir}/CMakeLists_new.diff
+  #patch -p1 -i ${srcdir}/CMakeLists_new.diff
   #sed -i 's|KF5 CONFIG REQUIRED|KF5 REQUIRED|' ${srcdir}/${pkgname}/src/libcalamares/partitionmanager/CMakeLists.txt
 }
 

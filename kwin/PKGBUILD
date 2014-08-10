@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwin
-pkgver=5.0.0.1
+pkgver=5.0.1
 pkgrel=1
 pkgdesc='KDE Window Manager'
 arch=('x86_64')
@@ -14,16 +14,16 @@ depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'lib
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 conflicts=('kde-workspace')
 replaces=('kde-workspace')
-#source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kwin.git#branch=graesslin/kdecoration2")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kwin.git#branch=graesslin/kdecoration2")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

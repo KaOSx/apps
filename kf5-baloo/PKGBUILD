@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-baloo
 _pkgname=baloo
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=1
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -21,7 +21,7 @@ md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
-  sed -e "s/PO_FILES //" -i ${srcdir}/$_pkgname-$pkgver/po/*/CMakeLists.txt
+  #sed -e "s/PO_FILES //" -i ${srcdir}/$_pkgname-$pkgver/po/*/CMakeLists.txt
   cd build
   
   cmake ../${_pkgname}-$pkgver \

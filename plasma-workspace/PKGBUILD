@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
@@ -19,17 +19,15 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 #source=("git://anongit.kde.org/plasma-workspace.git#commit=7fa3dae707ecec7b4093db5585ac5e8ff64d5259"
-        '10-kf5'
-        'rpcclient.diff')
+        '10-kf5')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'beba34da9144bced3ef2a225be532109'
-         '3dd4b8a48a2f5177f0128e8f5ec95eb2')
+         'beba34da9144bced3ef2a225be532109')
 
 build() {
   mkdir -p build
   #sed -i 's|find_package(KdepimLibs 4.70.10 QUIET CONFIG)|find_package(KdepimLibs)|' ${srcdir}/$pkgname/CMakeLists.txt
-  sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
-  patch -p1 -i ${srcdir}/rpcclient.diff 
+  #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
+  #patch -p1 -i ${srcdir}/rpcclient.diff 
   cd build
   
   cmake ../${pkgname}-${pkgver} \

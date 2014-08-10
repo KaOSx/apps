@@ -6,7 +6,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-plasma-nm
 _pkgname=plasma-nm
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
 url="https://projects.kde.org/projects/playground/network/plasma-nm"
@@ -20,7 +20,7 @@ md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   cd $_pkgname-$pkgver
-  sed -e "s/PO_FILES //" -i ${srcdir}/$_pkgname-$pkgver/po/*/CMakeLists.txt
+  #sed -e "s/PO_FILES //" -i ${srcdir}/$_pkgname-$pkgver/po/*/CMakeLists.txt
   mkdir build
   
   cd build
