@@ -1,0 +1,25 @@
+
+pkgname=webcamoid
+pkgver=5.0.0
+pkgrel=1
+pkgdesc="Webcamoid is a full featured webcam capture application."
+url='https://github.com/hipersayanX/Webcamoid'
+license=('GPL')
+arch=('x86_64')
+depends=('qt5-webkit' 'ffmpeg' 'frei0r-plugins')
+makedepends=('bison' 'flex' 'qt5-tools')
+source=("https://github.com/hipersayanX/Webcamoid/archive/v${pkgver}.tar.gz")
+md5sums=('c1cd9f49a417b988e10192c7c2d2cfe6')
+
+build() {
+  cd $srcdir/Webcamoid-${pkgver}
+
+  /usr/lib/qt5/bin/qmake Webcamoid.pro 
+  make -j1
+}
+
+package() {
+  cd $srcdir/Webcamoid-${pkgver}
+
+  make INSTALL_ROOT="${pkgdir}" install
+}
