@@ -1,0 +1,41 @@
+
+pkgname=kf5-about-distro
+_pkgname=about-distro
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="KCM displaying distribution and system information"
+arch=('x86_64')
+url='https://projects.kde.org/about-distro'
+license=('GPL3')
+depends=('kconfigwidgets' 'solid')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+#source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz"
+source=("git://anongit.kde.org/about-distro.git#branch=frameworks"
+        'kcm-about-distrorc'
+        'KaOS.png')
+md5sums=('SKIP'
+         '39751e03a0f8080d1eecbcba83626162'
+         'f4049305cce2be768eabc0ab29239c0b')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="${pkgdir}" install
+  
+  install -Dm644 "$srcdir/kcm-about-distrorc" "$pkgdir/usr/share/config/kcm-about-distrorc"
+  install -Dm644 "$srcdir/KaOS.png" "$pkgdir/usr/share/apps/$pkgname/KaOS.png"
+}
