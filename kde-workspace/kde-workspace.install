@@ -5,7 +5,6 @@ post_install() {
 	        
 	        xdg-icon-resource forceupdate --theme hicolor &>/dev/null
                 update-desktop-database -q
-                genkdmconf --no-old --no-backup &>/dev/null
 		
 		echo "Enabling systemd service"
                         systemctl enable kdm.service
@@ -18,7 +17,6 @@ post_upgrade() {
 	        
 	        xdg-icon-resource forceupdate --theme hicolor &> /dev/null
                 update-desktop-database -q
-                genkdmconf &>/dev/null
 }
 
 pre_remove() {
