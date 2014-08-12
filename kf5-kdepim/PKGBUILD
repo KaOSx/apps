@@ -7,7 +7,7 @@ _pkgname=kdepim
 arch=('x86_64')
 #pkgver=${_kdever}
 pkgver=4.98.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Project that aims to bring together anything to do with personal information management."
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -25,6 +25,7 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
+  #sed -i 's|KF5Baloo "5.0.0" CONFIG|KF5Baloo CONFIG|' ${srcdir}/$_pkgname/CMakeLists.txt
 
   mkdir build
   

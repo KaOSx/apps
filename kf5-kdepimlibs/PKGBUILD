@@ -11,7 +11,7 @@ pkgdesc="KDE Pim Libraries"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 install=kdepimlibs.install
-options=('docs' 'debug')
+#options=('docs' 'debug')
 depends=('kf5-akonadi' 'libical' 'gpgme' 'prison-qt5' 'libdmtx' 'qrencode' 'qjson-qt5' 'kcmutils'
          'kdelibs4support' 'kemoticons' 'kidletime' 'kinit' 'kitemmodels' 'qt5-tools')
 makedepends=('pkg-config' 'extra-cmake-modules' 'boost' 'cyrus-sasl' 'openldap' 'docbook-xsl'
@@ -24,8 +24,8 @@ md5sums=('SKIP')
 
 build() {
 	cd ${srcdir}
-	sed -i 's|sb_add_project(kmime)|#sb_add_project(kmime)|' ${srcdir}/$_pkgname/CMakeLists.txt
-	sed -i 's|add_subdirectory(kmime)|#add_subdirectory(kmime)|' ${srcdir}/$_pkgname/CMakeLists.txt
+	#sed -i 's|sb_add_project(kmime)|#sb_add_project(kmime)|' ${srcdir}/$_pkgname/CMakeLists.txt
+	#sed -i 's|add_subdirectory(kmime)|#add_subdirectory(kmime)|' ${srcdir}/$_pkgname/CMakeLists.txt
 	mkdir -p build
 	cd build
 
@@ -33,10 +33,10 @@ build() {
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_SKIP_RPATH=ON \
-		-DLIB_SUFFIX="" \
-                -DKDEPIMLIBS_SUPERBUILD=TRUE 
+		-DLIB_INSTALL_DIR=lib  
+                #-DKDEPIMLIBS_SUPERBUILD=TRUE 
                 
-	make -j8 sb_all
+	make # -j8 sb_all
 }
 
 package() {
