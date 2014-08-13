@@ -1,0 +1,44 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=okular
+arch=('x86_64')
+#pkgver=${_kdever}
+pkgver=4.9.90
+pkgrel=1
+pkgdesc="KDE document viewer"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+#options=('docs')
+groups=('office')
+install=okular.install
+depends=('kf5-kactivities' 'karchive' 'kbookmarks' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons'
+         'kjs' 'kdelibs4support' 'kio' 'khtml' 'kparts' 'kpty' 'threadweaver' 'kwallet' 'phonon-qt5' 'libkscreen2'
+         'libxxf86vm' 'sane' 'lcms' 'poppler-qt5' 'chmlib' 'djvulibre' 'libspectre' 'ebook-tools' 'qjson-qt5'
+         'json-c') # 'qimageblitz'
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'qca-qt5')
+conflicts=('kdegraphics-okular')
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/okular.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
