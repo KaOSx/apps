@@ -2,19 +2,18 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname="kactivities"
-pkgver=${_kdever}
-pkgrel=1
+pkgname=kactivities
+pkgver=4.13.3
+pkgrel=2
 arch=('x86_64')
 pkgdesc='API for using and interacting with Activities'
 url='http://kde.org/'
 license=('GPL' 'FDL')
-depends=("kdelibs>=${_kdever}")
+depends=('kdelibs')
 makedepends=('cmake' 'automoc4')
 options=('docs' 'debug')
-
-source=($_mirror/${pkgname}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=(http://download.kde.org/stable/4.13.3/src/${pkgname}-$pkgver.tar.xz)
+md5sums=('e56a3aead6f418d973c0acd9c889deb8')
 
 
 build() {
