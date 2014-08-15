@@ -14,20 +14,26 @@ depends=('pyqt-python2' 'qscintilla' 'kdepim-runtime')
 makedepends=('cmake' 'automoc4' 'polkit-qt' 'boost')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
         'pyqt4.10.4.patch'
-        'pyqt4.11.diff')
+        'pyqt4.11.diff'
+        'config_sip.patch')
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'd9d0f4acb0955d1d50e45a254cd87b29'
-         'fcd00f9085b3f1563fafe233a8279d1a')  
+         'fcd00f9085b3f1563fafe233a8279d1a'
+         '612ca1c94fb30dd8930748565b32babd')  
 groups=("kde" "kdebindings" "kde-uninstall")
 provides=('kdebindings-python' 'pykde4')
 replaces=('kdebindings-python')
 conflicts=('kdebindings-python')
 options=('docs' 'debug')
 
+prepare() {
+        cd "${srcdir}"/pykde4-${pkgver}
+        
+        patch -p1 -i ${srcdir}/config_sip.patch
+}
+
 build() {
 	cd "${srcdir}" 
-	patch -p1 -i ${srcdir}/pyqt4.10.4.patch
-	#patch -p1 -i ${srcdir}/pyqt4.11.diff
 	
         rm -rf build 
 	mkdir build && cd build

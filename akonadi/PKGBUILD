@@ -1,7 +1,7 @@
 
 pkgname=akonadi
-pkgver=1.12.91
-_pkgver=1.12.91
+pkgver=1.13.0
+_pkgver=1.13.0
 pkgrel=1
 pkgdesc="PIM layer, which provides an asynchronous API to access all kind of PIM data"
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' 'postgresql')
 install=$pkgname.install
 source=("http://download.kde.org/stable/akonadi/src/${pkgname}-${_pkgver}.tar.bz2")
 #source=("git://anongit.kde.org/akonadi")
-md5sums=('6ba7a7329ac48495d44b410b00bc27b5')
+md5sums=('84eb2e471bd6bdfe54a2a2f1d858c07d')
 
 build() {
  	cd ${srcdir}/${pkgname}-${_pkgver}
@@ -25,6 +25,7 @@ build() {
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DINSTALL_QSQLITE_IN_QT_PREFIX=TRUE \
+		-DDATABASE_BACKEND=SQLITE \
 		-DWITH_SOPRANO=OFF
 	make 
 }
