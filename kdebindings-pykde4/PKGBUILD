@@ -5,21 +5,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdebindings-pykde4
 _pkgname=pykde4
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE bindings for python"
 url="http://kde.org/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('pyqt-python2' 'qscintilla' 'kdepim-runtime')
 makedepends=('cmake' 'automoc4' 'polkit-qt' 'boost')
-source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
-        'pyqt4.10.4.patch'
-        'pyqt4.11.diff'
-        'config_sip.patch')
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'd9d0f4acb0955d1d50e45a254cd87b29'
-         'fcd00f9085b3f1563fafe233a8279d1a'
-         '612ca1c94fb30dd8930748565b32babd')  
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)  
 groups=("kde" "kdebindings" "kde-uninstall")
 provides=('kdebindings-python' 'pykde4')
 replaces=('kdebindings-python')
@@ -29,7 +23,7 @@ options=('docs' 'debug')
 prepare() {
         cd "${srcdir}"/pykde4-${pkgver}
         
-        patch -p1 -i ${srcdir}/config_sip.patch
+        #patch -p1 -i ${srcdir}/config_sip.patch
 }
 
 build() {
