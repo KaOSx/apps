@@ -20,12 +20,12 @@ conflicts=('kdegraphics-gwenview')
 #options=('docs')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/gwenview.git#branch=frameworks")
+source=("git://anongit.kde.org/gwenview.git")
 md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's/KF5 CONFIG REQUIRED/KF5 REQUIRED/' ${srcdir}/${pkgname}/CMakeLists.txt
+  sed -i -e 's/KF5 CONFIG REQUIRED/KF5 REQUIRED/' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
 build() {

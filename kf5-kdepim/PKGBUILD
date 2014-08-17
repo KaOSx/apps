@@ -7,7 +7,7 @@ _pkgname=kdepim
 arch=('x86_64')
 #pkgver=${_kdever}
 pkgver=4.98.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Project that aims to bring together anything to do with personal information management."
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -20,12 +20,12 @@ depends=('grantlee-qt5' 'libxss' 'libsamplerate' 'qrencode' 'libdmtx' 'link-gram
 makedepends=('pkg-config' 'boost' 'docbook-xml' 'extra-cmake-modules' 'kdoctools')
 #source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
 #md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdepim#commit=d150d1d7103c54b398330f7af5a9f797fec24bb2")
+source=("git://anongit.kde.org/kdepim")
 md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  #sed -i 's|KF5Baloo "5.0.0" CONFIG|KF5Baloo CONFIG|' ${srcdir}/$_pkgname/CMakeLists.txt
+  sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/$_pkgname/*/CMakeLists.txt
 
   mkdir build
   
@@ -38,7 +38,8 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DKDEPIM_BUILD_MOBILE=FALSE
   make 
 }
 

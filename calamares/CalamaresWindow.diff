@@ -1,0 +1,20 @@
+--- a/src/calamares/CalamaresWindow.cpp	2014-08-15 18:39:38.565190849 -0400
++++ b/src/calamares/CalamaresWindow.cpp	2014-08-15 20:29:40.315313395 -0400
+@@ -31,7 +31,7 @@
+     : QWidget( parent )
+ {
+     // Hide close button
+-    setWindowFlags( Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint );
++    setWindowFlags( Qt::Window | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint );
+     setMinimumSize( 1010, 600 );
+ 
+     QBoxLayout* mainLayout = new QHBoxLayout;
+@@ -48,7 +48,7 @@
+     QHBoxLayout* logoLayout = new QHBoxLayout;
+     sideLayout->addLayout( logoLayout );
+     logoLayout->addStretch();
+-    QLabel* logoLabel = new QLabel( "branding\ngoes\nhere", sideBox );
++    QLabel* logoLabel = new QLabel( "System\nInstaller", sideBox );
+     {
+         QPalette plt = sideBox->palette();
+         sideBox->setAutoFillBackground( true );

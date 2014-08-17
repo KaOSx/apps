@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.1.0.8
+pkgver=0.1.0.9
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -10,19 +10,24 @@ depends=('qt5-base' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
          'parted' 'libatasmart' 'udisks2')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 source=("git://github.com/calamares/calamares"
-        'settings.conf'
-        'locale.conf')
+        'locale.conf'
+        'GreetingPage.diff'
+        'CalamaresStyle.diff'
+        'CalamaresWindow.diff')
 md5sums=('SKIP'
-         'c50734eddf2c410eab66c0a1e1ca660e'
-         '6b793a81d051d5d0b00a6031ceb08308')
+         '6b793a81d051d5d0b00a6031ceb08308'
+         'bd9f3a37b79230f29637ff2de54beae2'
+         'ad64954254f023a263cf35bcb9f162a2'
+         'b43bcf3d7d34981f32d456832a3437f9')
 
 prepare () {
   cd ${srcdir}/${pkgname}
   
   git submodule init
   git submodule update
-  #patch -p1 -i ${srcdir}/CMakeLists_new.diff
-  #sed -i 's|KF5 CONFIG REQUIRED|KF5 REQUIRED|' ${srcdir}/${pkgname}/src/libcalamares/partitionmanager/CMakeLists.txt
+  patch -p1 -i ${srcdir}/GreetingPage.diff
+  patch -p1 -i ${srcdir}/CalamaresStyle.diff
+  patch -p1 -i ${srcdir}/CalamaresWindow.diff
 }
 
 build() {
@@ -44,7 +49,6 @@ package() {
   
   #rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
   #install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
-  #rm -rf "${pkgdir}/usr/lib/calamares/modules/locale/module.conf"
   install -D -m644 "${srcdir}/locale.conf" "${pkgdir}/etc/calamares/modules/locale.conf"
   sed 's|/path/to/squashfs/image.sqfs|/bootmnt/kdeos/x86_64/root-image.sqfs|' -i "${pkgdir}/usr/share/calamares/modules/unsquashfs.conf"
   sed 's|linux312|linux|' -i "${pkgdir}/usr/share/calamares/modules/initcpio.conf"

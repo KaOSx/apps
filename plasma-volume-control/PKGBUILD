@@ -1,0 +1,43 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=plasma-volume-control
+arch=('x86_64')
+#pkgver=${_kdever}
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="PulseAudio based volume control Plasma widget."
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+options=('!docs')
+depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'plasma-framework' 'pulseaudio' 'glib2')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
+#source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
+#md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/scratch/sitter/plasma-volume-control")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+
+  mkdir build
+  
+  cd build 
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
