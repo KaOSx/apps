@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.1.0.9
+pkgver=0.1.0.10
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=('LGPL')
 depends=('qt5-base' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
          'parted' 'libatasmart' 'udisks2')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
-source=("git://github.com/calamares/calamares"
+source=("git://github.com/KaOSx/calamares"
         'locale.conf'
         'GreetingPage.diff'
         'CalamaresStyle.diff'
@@ -25,6 +25,7 @@ prepare () {
   
   git submodule init
   git submodule update
+  sed -i 's|VERSION 3.0|VERSION 2.8.12|' ${srcdir}/${pkgname}/CMakeLists.txt
   patch -p1 -i ${srcdir}/GreetingPage.diff
   patch -p1 -i ${srcdir}/CalamaresStyle.diff
   patch -p1 -i ${srcdir}/CalamaresWindow.diff
