@@ -1,8 +1,8 @@
 
 pkgname=imagewriter
-pkgver=1.10.6.1
-_pkgver=1.10
-_opensuse_rel=6.1
+pkgver=1.10.7
+_pkgver=1.10.1396965491.a4dcffa
+_opensuse_rel=2.2
 pkgrel=1
 pkgdesc="SUSE Studio Imagewriter"
 arch=('x86_64')
@@ -11,13 +11,13 @@ license=('GPLv2')
 depends=('qt')
 source=("http://download.opensuse.org/source/factory/repo/oss/suse/src/imagewriter-${_pkgver}-${_opensuse_rel}.src.rpm"
         'imagewriter.desktop')
-md5sums=('5b832f1b9a68580c140728417a0b6188'
+md5sums=('bfe4fe8896436977f053c278d5d3cb46'
          '81df0c7c5f744d6a24413a37f6e6ecb6')
 
 build() {
   cd "${srcdir}"
   rm -vf imagewriter.spec
-  tar zxvf imagewriter-${_pkgver}.tar.gz
+  tar xvfJ imagewriter-${_pkgver}.tar.xz
   
   cd "${srcdir}/${pkgname}-${_pkgver}"
   qmake PREFIX=/usr imagewriter.pro
