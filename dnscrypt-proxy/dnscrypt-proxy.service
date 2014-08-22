@@ -6,7 +6,7 @@ After=network.target
 
 [Service]
 EnvironmentFile=/etc/conf.d/dnscrypt-proxy
-ExecStart=/usr/bin/dnscrypt-proxy \
+ExecStart=/usr/sbin/dnscrypt-proxy \
 	--local-address=${DNSCRYPT_LOCALIP}:${DNSCRYPT_LOCALPORT} \
     --resolver-address=${DNSCRYPT_RESOLVERIP}:${DNSCRYPT_RESOLVERPORT} \
     --provider-name=${DNSCRYPT_PROVIDER_NAME} \
