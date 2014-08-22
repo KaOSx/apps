@@ -8,7 +8,7 @@ _default_wp="Elarun"
 pkgname="kde-workspace"
 arch=('x86_64')
 pkgver=4.11.11
-pkgrel=3
+pkgrel=4
 pkgdesc="KDE Workspace"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -58,7 +58,12 @@ source=("http://download.kde.org/stable/4.13.3/src/${pkgname}-${pkgver}.tar.xz"
 	# restart xserver on logout
 	'fix_terminate-server.patch'
 	# "fix" some sytemsettings modules that need root access
-	'fix_root-only-kcms.patch')
+	'fix_root-only-kcms.patch'
+	# port some 4.11.12 graphical fixes
+	# http://bugs.kde.org/show_bug.cgi?id=336589
+	# http://bugs.kde.org/show_bug.cgi?id=317066
+	'4.11.12a.patch'
+	'4.11.12b.patch')
 
 md5sums=('cbd3311713b42d4856c66281fbe7a212'
          `grep kde-wallpapers-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1` # kde-wallpapers
@@ -75,7 +80,9 @@ md5sums=('cbd3311713b42d4856c66281fbe7a212'
          '89d96455c6a446ef59b0620d1b8606af'
          '526f5e6ae26f6712b0a41d1a9eac0e1c'
          '814350c52c135d6f7bdada1e29223d38'
-         '5f963f80a026f0600edae1b1c70411e5')
+         '5f963f80a026f0600edae1b1c70411e5'
+         '723be1bfd588cd3b9b65c95e1ac06e64'
+         '1c83b9af849459348056e266bdb2d53f')
 
 
 build() {
@@ -96,6 +103,9 @@ build() {
         patch -p1 -i ${srcdir}/fix_root-only-kcms.patch
         # autoload kscreen before disabling krandr:
         #sed -i "s/add_subdirectory(randr)//g" ./kcontrol/CMakeLists.txt
+        
+        patch -p1 -i ${srcdir}/4.11.12a.patch
+        patch -p1 -i ${srcdir}/4.11.12b.patch
 
 	msg "starting workspace build ..."
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
