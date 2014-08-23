@@ -1,10 +1,10 @@
 
 pkgname=kf5-libkgapi
 _pkgname=libkgapi
-pkgver=2.1.6
+pkgver=4.71.0
 pkgrel=1
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
-url='https://projects.kde.org/projects/kdereview/libkgapi'
+url='https://projects.kde.org/projects/extragear/libs/libkgapi'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kf5-kdepimlibs')
@@ -16,7 +16,7 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/$_pkgname/CMakeLists.txt
+  #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/$_pkgname/CMakeLists.txt
   mkdir build
   
   cd build 
@@ -28,7 +28,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=ON 
   make 
 }
 

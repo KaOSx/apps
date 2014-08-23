@@ -16,16 +16,16 @@ depends=('grantlee-qt5' 'libxss' 'libsamplerate' 'qrencode' 'libdmtx' 'link-gram
          'qt5-tools' 'sonnet' 'prison-qt5'
          'kdelibs4support' 'kwallet' 'knewstuff' 'kcmutils' 'kdewebkit' 'karchive' 'knotifyconfig'
          'kconfig' 'khtml' 'kservice' 'kdbusaddons' 'kauth' 'ktexteditor' 'kdnssd'
-         'kf5-kdepimlibs' 'kf5-baloo' 'kf5-libkgapi')
+         'kf5-kdepimlibs' 'kf5-baloo' 'kf5-libkgapi' 'kf5-kdepim-runtime')
 makedepends=('pkg-config' 'boost' 'docbook-xml' 'extra-cmake-modules' 'kdoctools')
 #source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
 #md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdepim")
+source=("git://anongit.kde.org/kdepim#commit=67478407fd0e49d7c71e3dadfc9a3eb64d7f1092")
 md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/$_pkgname/*/CMakeLists.txt
+  #sed -i 's|add_subdirectory(incidenceeditor-ng)|#add_subdirectory(incidenceeditor-ng)|' ${srcdir}/$_pkgname/CMakeLists.txt
 
   mkdir build
   
@@ -38,8 +38,8 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF \
     -DKDEPIM_BUILD_MOBILE=FALSE
+    #-DBUILD_TESTING=OFF
   make 
 }
 

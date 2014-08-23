@@ -1,0 +1,45 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kf5-kdepim-runtime
+_pkgname=kdepim-runtime
+arch=('x86_64')
+pkgver=4.70
+pkgrel=1
+pkgdesc="KDE Pim Runtime"
+url="http://www.kde.org"
+license=('GPL' 'LGPL' 'FDL')
+install=${_pkgname}.install
+#options=('docs' 'debug')
+depends=('kf5-kdepimlibs' 'prison-qt5' 'libdmtx' 'qrencode' 'kf5-libkgapi' 'qt5-quick1' 'knotifyconfig' 'kross'
+         'knewstuff') # 'libkolab' 'libkfbapi'
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'boost')
+#groups=("kde" "kdepim" "kde-uninstall" "kde-minimal")
+#source=($_mirror/${pkgbase}-$_kdever.tar.xz)
+#md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kdepim-runtime.git")      
+md5sums=('SKIP')
+
+build() {
+    mkdir -p build
+    cd build
+
+    cmake ../${_pkgname} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins 
+        #-DBUILD_TESTING=OFF \
+        #-DENABLE_TESTING=OFF
+    make
+}
+
+package() {
+    cd ${srcdir}/build
+
+    make DESTDIR=${pkgdir} install
+}
