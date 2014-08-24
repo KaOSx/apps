@@ -10,21 +10,18 @@ pkgdesc="KDE Core Libraries"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs' 'debug')
-depends=("${_qtpkg}>=${_qtver}" "kde-common>=${_kdever}" "oxygen-icons>=${_kdever}" 
-	    'shared-mime-info' 'upower' 'udisks<2.0' 'xz' 'enchant' 'jasper' 'openexr' 'giflib'
-	    'strigi' 'libxtst' 'ca-certificates' 'xdg-utils' 'qca' 'polkit-qt'
-	    'libxss' 'phonon' 'attica' 'krb5' 'libxcursor' 'libutempter'
-	    'hicolor-icon-theme' 'libdbusmenu-qt' 'grantlee' 'media-player-info' 'qtwebkit' 'systemd')
-makedepends=('pkg-config' 'cmake' 'automoc4' 'intltool' 'avahi' 'libgl' 'aspell' 'hspell' 'shared-mime-info' 
-             'docbook-xsl' 'docbook-xml' 'bzip2' 'libzip')
+depends=("${_qtpkg}>=${_qtver}" 'shared-mime-info' 'upower' 'udisks<2.0' 'xz' 'enchant' 'jasper'
+         'openexr' 'giflib' 'strigi' 'libxtst' 'ca-certificates' 'xdg-utils' 'qca' 'polkit-qt'
+         'libxss' 'phonon' 'attica' 'krb5' 'libxcursor' 'libutempter' 'hicolor-icon-theme'
+         'libdbusmenu-qt' 'grantlee' 'media-player-info' 'qtwebkit' 'systemd')
+makedepends=('pkg-config' 'cmake' 'automoc4' 'intltool' 'avahi' 'libgl' 'aspell' 'hspell' 'docbook-xsl'
+             'docbook-xml' 'bzip2' 'libzip')
 optdepends=('phonon-backend-gstreamer: GStreamer Phonon backend (default)'
 	    'phonon-backend-vlc:       VLC Phonon backend'
 	    'avahi:            Service discovery on your local network'
 	    'aspell:           Spell checking'
 	    'hspell:           Hebrew spell checking')
-provides=("${pkgname}=${_kdever}" 'kdelibs-doc')
 groups=("kde" "kde-minimal" "kde-uninstall")
-conflicts=("kdelibs-doc")
 install=${pkgname}.install
 source=($_mirror/${pkgname}-$_kdever.tar.xz
 	'02_kde_applications_menu.patch'
