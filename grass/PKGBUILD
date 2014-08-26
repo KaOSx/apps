@@ -1,6 +1,6 @@
 
 pkgname=grass
-pkgver=6.4.3
+pkgver=6.4.4
 pkgrel=1
 pkgdesc='Geographic Information System (GIS) used for geospatial data management and analysis, image processing, graphics/maps production, spatial modeling, and visualization.'
 arch=('x86_64')
@@ -21,20 +21,13 @@ install='grass.install'
 source=("http://grass.osgeo.org/grass64/source/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}.sh"
         "${pkgname}.conf")
-md5sums=('d82d11b96e1ca1e23078b7657293bf22'
+md5sums=('4b3e0caaeb1567e15c78b523e3674170'
          '23da2e9399b3c5504851dec37821abe1'
          '6103480c2a1adc19a50b9e925e5e6d4c')
 
 build() {
   cd ${pkgname}-${pkgver}
 
-  # python2 fix
-  #sed -i 's_python $< $(GISBASE) > $@_python2 $< $(GISBASE) > $@_' gui/wxpython/Makefile
-  #for file in $(find . -name '*.py' -print) gui/wxpython/scripts/d.rast3d; do
-  #  sed -i 's_^#!.*/usr/bin/python_#!/usr/bin/python2_' $file
-  #  sed -i 's_^#!.*/usr/bin/env.*python_#!/usr/bin/env python2_' $file
-  #done
-  
   # see ${srcdir}/grass-6.4.0/REQUIREMENTS.html for options
   ./configure --enable-64bit \
     --prefix=/opt \
