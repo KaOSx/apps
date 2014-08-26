@@ -1,0 +1,51 @@
+
+pkgname=kf5-k3b
+_pkgname=k3b
+pkgver=2.9.90
+pkgrel=2
+pkgdesc="Feature-rich and easy to handle CD burning application"
+arch=('x86_64')
+url="http://k3b.sourceforge.net/"
+depends=('karchive' 'kconfig' 'ki18n' 'kcmutils' 'kdelibs4support' 'kio' 'knotifyconfig' 'solid'
+         'kf5-libkcddb' 'libsamplerate' 'libmad' 'ffmpeg' 'taglib' 'libmpcdec' 
+         'libdvdread' 'cdrdao' 'cdrtools' 'shared-mime-info' 'libxft' 'docbook-xsl')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'pkg-config' 'dvd+rw-tools')
+optdepends=('dvd+rw-tools: for dvd burning support'
+            'vcdimager:    for vcd burning support'
+            'transcode:    for advanced mpeg conversion support'
+            'emovix:       for bootable multimedia cd/dvd support'
+            'cdparanoia: for cd ripping support')
+license=('GPL')
+install=k3b.install
+groups=('multimedia')
+conflicts=('k3b')
+options=('!libtool')
+source=("git://anongit.kde.org/k3b#branch=kf5")
+md5sums=('SKIP')
+
+prepare() {
+  cd ${srcdir}/${_pkgname}
+  #sed -i -e 's|add_subdirectory(doc)|#add_subdirectory(doc)|' ${srcdir}/${pkgname}/CMakeLists.txt 
+}
+
+build() {
+ mkdir -p build
+  cd build
+
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
+
