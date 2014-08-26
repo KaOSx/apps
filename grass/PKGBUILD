@@ -1,4 +1,6 @@
 
+# build twice, when building on the server, j8 fails to honor without wx first time
+
 pkgname=grass
 pkgver=6.4.4
 pkgrel=1
@@ -6,7 +8,7 @@ pkgdesc='Geographic Information System (GIS) used for geospatial data management
 arch=('x86_64')
 url='http://grass.itc.it/index.php'
 license=('GPL')
-depends=('gdal' 'tk' 'sqlite3' 'python' 'mesa' 'proj' 'libjpeg-turbo' 'libpng' 'libtiff'
+depends=('gdal' 'tk' 'sqlite3' 'python2' 'mesa' 'proj' 'libjpeg-turbo' 'libpng' 'libtiff'
          'cfitsio' 'fftw' 'libxmu' 'postgresql' 'xorg-server' 'glu' 'tcl' 'zlib' 'cairo' 'geos')
 makedepends=('mariadb' 'freetype2' 'r')
 optdepends=('fftw: required for i.fft and i.ifft modules'
