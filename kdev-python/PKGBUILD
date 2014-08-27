@@ -1,7 +1,7 @@
 
 pkgname=kdev-python
-pkgver=1.6.1
-_pkgver=4.6.0
+pkgver=1.7.0
+_pkgver=4.7.0
 pkgrel=1
 pkgdesc='KDevelop plugin which provides Python language support.'
 arch=('x86_64')
@@ -10,16 +10,16 @@ license=('GPL')
 groups=('kde' 'kdevelop-plugins')
 depends=('kdevelop' 'python3')
 makedepends=('kdevelop-pg-qt' 'cmake' 'automoc4')
-source=("http://download.kde.org/stable/kdevelop/$pkgname/$pkgver/src/$pkgname-v$pkgver-py3.tar.xz")
-md5sums=('5e9ee0b4b880bc52be991f033123c20a')
+source=("http://download.kde.org/stable/kdevelop/$_pkgver/src/$pkgname-$pkgver.tar.xz")
+md5sums=('4a28c46ec22cc59722f3fee5d5106e3a')
 
 build() {
-	cd "$srcdir/$pkgname-v$pkgver-py3"
+	cd "$srcdir/$pkgname-$pkgver"
 	
 	mkdir -p "$srcdir/build"
 	cd "$srcdir/build"
 	
-	cmake "../$pkgname-v$pkgver-py3" \
+	cmake "../$pkgname-$pkgver" \
 		-DCMAKE_INSTALL_PREFIX=/usr \
                 -DCMAKE_BUILD_TYPE=Release
 	make
