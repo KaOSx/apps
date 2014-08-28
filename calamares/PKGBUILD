@@ -1,7 +1,7 @@
 
 pkgname=calamares
-pkgver=0.1.0.12
-pkgrel=2
+pkgver=0.2.0
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://github.com/calamares/calamares'
@@ -12,6 +12,7 @@ makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 source=("git://github.com/KaOSx/calamares"
 #source=("calamares.tar.xz"
         'locale.conf'
+        'prepare.conf'
         'settings.conf'
         'unpackfs.conf'
         'launch-calamares.sh'
@@ -20,6 +21,7 @@ source=("git://github.com/KaOSx/calamares"
         'CalamaresWindow.diff')
 md5sums=('SKIP'
          '6b793a81d051d5d0b00a6031ceb08308'
+         '8aef531631254b9201594faddb30369d'
          'd4afc41ba5ef9216e87d0053dc956e2f'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          'a78f755f51a875f54d7e7e9666f4f9de'
@@ -58,6 +60,7 @@ package() {
   rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
   install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
   install -D -m644 "${srcdir}/locale.conf" "${pkgdir}/etc/calamares/modules/locale.conf"
+  install -D -m644 "${srcdir}/prepare.conf" "${pkgdir}/etc/calamares/modules/prepare.conf"
   install -D -m644 "${srcdir}/unpackfs.conf" "${pkgdir}/etc/calamares/modules/unpackfs.conf"
   #sed 's|/path/to/another/filesystem.sqfs|/bootmnt/kdeos/x86_64/root-image.sqfs|' -i "${pkgdir}/usr/share/calamares/modules/unpackfs.conf"
   sed 's|linux312|linux|' -i "${pkgdir}/usr/share/calamares/modules/initcpio.conf"
