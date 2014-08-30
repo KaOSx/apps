@@ -1,0 +1,36 @@
+
+pkgname=kaccounts-providers
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="KDE Accounts Providers"
+arch=('x86_64')
+url="https://projects.kde.org/projects/playground/base/kde-accounts/kaccounts-providers"
+license=('GPL')
+depends=('libaccounts-glib')
+makedepends=('extra-cmake-modules' 'git')
+#groups=('kde-telepathy')
+source=("git://anongit.kde.org/kaccounts-providers.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}

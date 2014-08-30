@@ -1,0 +1,39 @@
+
+pkgname=kf5-ktp-common-internals
+_pkgname=ktp-common-internals
+pkgver=0.9.90
+pkgrel=1
+pkgdesc="Common libraries for telepathy-kde"
+arch=('x86_64')
+url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-common-internals"
+license=('GPL')
+depends=('kcmutils' 'knotifyconfig' 'ktexteditor' 'kwallet' 'kconfig' 'kdelibs4support'
+         'kaccounts-integration' 'telepathy-qt5' 'telepathy-mission-control') # 'telepathy-logger-qt5' 'libkpeople'
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
+#groups=('kde-telepathy')
+conflicts=('ktp-common-internals')
+source=("git://anongit.kde.org/ktp-common-internals.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  
+  mkdir -p build
+  cd build
+
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
