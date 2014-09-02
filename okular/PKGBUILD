@@ -6,7 +6,7 @@ pkgname=okular
 arch=('x86_64')
 #pkgver=${_kdever}
 pkgver=4.9.90
-pkgrel=2
+pkgrel=3
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -16,13 +16,21 @@ install=okular.install
 depends=('kf5-kactivities' 'karchive' 'kbookmarks' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons'
          'kjs' 'kdelibs4support' 'kio' 'khtml' 'kparts' 'kpty' 'threadweaver' 'kwallet' 'phonon-qt5' 'libkscreen2'
          'libxxf86vm' 'sane' 'lcms' 'poppler-qt5' 'chmlib' 'djvulibre' 'libspectre' 'ebook-tools' 'qjson-qt5'
-         'json-c') # 'qimageblitz'
+         'json-c' 'qimageblitz-qt5' 'libkexiv2')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'qca-qt5')
 conflicts=('kdegraphics-okular')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/okular.git#branch=frameworks")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/okular.git#branch=frameworks"
+        'CMakeLists.diff')
+md5sums=('SKIP'
+         'a6454862dcdeb6a50f8dbbf5ec9ca746')
+
+prepare() {
+  cd $pkgname
+  sed -i -e 's|include <QtGui/QPrinter>|include <QtPrintSupport/QPrinter>|' ${srcdir}/${pkgname}/generators/kimgio/generator_kimgio.cpp
+  #patch -p1 -i $srcdir/CMakeLists.diff
+}
 
 build() {
   mkdir -p build
@@ -33,7 +41,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DKF5KExiv2_DIR=/usr/lib/cmake/KEXIV2
   make
 }
 
