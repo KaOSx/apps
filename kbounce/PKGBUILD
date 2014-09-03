@@ -1,0 +1,49 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kbounce
+#pkgver=${_kdever}
+pkgver=4.90.80
+pkgrel=1
+pkgdesc="Ball bouncing game"
+arch=('x86_64')
+url='http://www.kde.org'
+license=('GPL' 'LGPL' 'FDL')
+depends=('libkdegames' 'kcoreaddons' 'kconfig' 'kitemmodels' 'kwidgetsaddons' 'kwindowsystem' 'kcodecs'
+         'karchive' 'kconfig' 'kdbusaddons' 'kdnssd' 'kdeclarative' 'ki18n' 'kguiaddons' 'kservice'
+         'kconfigwidgets' 'kitemviews' 'kiconthemes' 'kcompletion' 'kjobwidgets' 'ktextwidgets'
+         'kglobalaccel' 'kxmlgui' 'kcrash' 'kbookmarks' 'kio' 'knotifyconfig' 'knewstuff' 'kdelibs4support'
+         'phonon-qt5')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
+#groups=('kde' 'kdegames' 'kde-uninstall')
+conflicts=('kdegames-kbounce')
+#options=('docs')
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/clones/kbounce/anujpahuja/gsoc-frameworks.git")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+
+  mkdir build
+  
+  cd build 
+  cmake ../gsoc-frameworks \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
