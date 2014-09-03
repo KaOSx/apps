@@ -1,13 +1,12 @@
 
 pkgname=gpsd
-pkgver=3.10
+pkgver=3.11
 pkgrel=1
 pkgdesc="GPS daemon and library to support USB/serial GPS devices"
 arch=('x86_64')
 url="http://catb.org/gpsd/"
-screenshot="http://www.catb.org/gpsd/gpsd2.png"
 license=('BSD')
-depends=('python2' 'libusb' 'bluez' 'desktop-file-utils' 'qt')
+depends=('python2' 'libusb' 'bluez' 'desktop-file-utils' 'qt5-base')
 optdepends=('php: generate a PHP status page for your GPS')
 makedepends=('scons' 'docbook-xsl' 'chrpath')
 backup=('etc/gpsd.conf')
@@ -15,18 +14,12 @@ options=('!libtool')
 install="${pkgname}.install"
 source=("http://download.savannah.gnu.org/releases/${pkgname}/${pkgname}-${pkgver}.tar.gz"
         'gpsd.conf')
-md5sums=('fc5b03aae38b9b5b6880b31924d0ace3'
+md5sums=('ba28369992886fccb85ce560e4727e20'
          '3e963df3f9f7ef3572ecc648ae829315')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-
-  # fix python 2.7 path
-  sed -i -e "s|#![ ]*/usr/bin/python$|#!/usr/bin/python2|" \
-    -e "s|#![ ]*/usr/bin/env python$|#!/usr/bin/env python2|" \
-    $(find . -name '*.py')
-  sed -i 's|/usr/bin/env python|/usr/bin/env python2|' gegps \
-    gpscat gpsfake gpsprof xgps xgpsspeed
+  sed -i 's|QtNetwork|Qt5Network|' "${srcdir}/${pkgname}-${pkgver}/SConstruct"
 
   scons prefix=/usr \
     systemd=yes \
