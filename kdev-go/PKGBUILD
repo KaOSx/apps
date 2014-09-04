@@ -1,0 +1,29 @@
+
+pkgname=kdev-go
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Go language support for KDevelop'
+arch=('x86_64')
+url="https://projects.kde.org/projects/playground/devtools/plugins/kdev-go"
+license=('GPL')
+groups=('kde' 'kdevelop-plugins')
+depends=('kdevelop')
+makedepends=('cmake' 'automoc4' 'kdevelop-pg-qt')
+source=("git://anongit.kde.org/kdev-go.git")
+md5sums=('SKIP')
+
+build() {	
+    mkdir -p "$srcdir/build"
+    cd "$srcdir/build"
+
+    cmake "../$pkgname" \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release
+    make
+}
+
+package() {
+    cd "$srcdir/build"
+
+    make DESTDIR="$pkgdir" install
+}
