@@ -1,8 +1,8 @@
 
 pkgname=octopi
-pkgver=0.4.2
-pkgrel=4
-_commit=0cd9398
+pkgver=0.4.2.1
+pkgrel=1
+_commit=cb0b033
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
@@ -13,13 +13,11 @@ groups=('system')
 source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
         'octopi.desktop'
         'kaos.diff'
-        "images2.tar.xz"
-        'kf5.patch')
-md5sums=('8a0aa80cee35b4c950f685a1dc3fe9d2'
+        "images2.tar.xz")
+md5sums=('7d763fb51df3b6307b42c82e01b66867'
          '2d9c64cd6402be69d2ee9fde5acc439e'
          '566caa454a10cbcad334ed8abd2d229d'
-         '78e9cc72815ddcfbb6f661d6f303442a'
-         'b11d29750eeb87b5c26ee3718d1901a3')
+         '78e9cc72815ddcfbb6f661d6f303442a')
 
 build() {
    cd "${srcdir}/aarnt-octopi-${_commit}/"
@@ -27,8 +25,8 @@ build() {
    mv -iv "${srcdir}/images/" "${srcdir}/aarnt-octopi-${_commit}/resources/"
 
    patch -p0 -i ${srcdir}/kaos.diff
-   # make kf5 compatible https://github.com/aarnt/octopi/issues/43
-   patch -p1 -i ${srcdir}/kf5.patch
+   # enable the kstatus switch
+   sed -e "s/# DEFINES += KSTATUS/ DEFINES += KSTATUS/" -i ${srcdir}/aarnt-octopi-${_commit}/notifier/octopi-notifier/octopi-notifier.pro
    
    #qmake octopi.pro
    /usr/lib/qt5/bin/qmake octopi.pro
