@@ -1,19 +1,19 @@
 
 pkgname=weston
-pkgver=1.5.0
-pkgrel=2
+pkgver=1.5.92
+pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
 url='http://wayland.freedesktop.org'
 license=('MIT')
 options=('!libtool')
 depends=('libxkbcommon' 'mesa' 'pango' 'poppler-glib' 'mtdev' 'libxcursor' 'glu' 'libunwind'
-         'pixman' 'xkeyboard-config' 'colord' 'libwebp' 'libva')
+         'pixman' 'xkeyboard-config' 'colord' 'libwebp' 'libva' 'libinput')
 replaces=('weston-git')
 provides=('weston-git')
 conflicts=('weston-git')
 source=("http://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
-md5sums=('8eb40d230efc2411f083c20656534780')
+md5sums=('66d4b9b2a063034f79d4f36b7b52929f')
 
 build() {
    cd ${srcdir}/${pkgname}-${pkgver}
