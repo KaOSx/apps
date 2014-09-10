@@ -6,14 +6,14 @@ pkgname=kf5-kdepim-runtime
 _pkgname=kdepim-runtime
 arch=('x86_64')
 pkgver=4.70
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 install=${_pkgname}.install
 #options=('docs' 'debug')
 depends=('kf5-kdepimlibs' 'prison-qt5' 'libdmtx' 'qrencode' 'kf5-libkgapi' 'qt5-quick1' 'knotifyconfig' 'kross'
-         'knewstuff') # 'libkolab' 'libkfbapi'
+         'knewstuff' 'accounts-qt5' 'signon-qt5') # 'libkolab' 'libkfbapi'
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'boost')
 #groups=("kde" "kdepim" "kde-uninstall" "kde-minimal")
 #source=($_mirror/${pkgbase}-$_kdever.tar.xz)
@@ -22,6 +22,10 @@ source=("git://anongit.kde.org/kdepim-runtime.git")
 md5sums=('SKIP')
 
 build() {
+    cd ${srcdir}
+    sed -i 's|AccountsQt 1.11 QUIET|AccountsQt5 1.11 QUIET|' ${srcdir}/$_pkgname/resources/CMakeLists.txt
+    sed -i 's|SignOnQt|SignOnQt5|' ${srcdir}/$_pkgname/resources/CMakeLists.txt
+    
     mkdir -p build
     cd build
 
