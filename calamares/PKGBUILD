@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -21,9 +21,10 @@ source=("git://github.com/KaOSx/calamares"
         'CalamaresStyle.diff'
         'CalamaresWindow.diff')
 md5sums=('SKIP'
+         '492f2fd5231675e0f558c6ce51f915c2'
          '6b793a81d051d5d0b00a6031ceb08308'
          'ebc235d4b2f9a425bf2161d7a252dce3'
-         'd4afc41ba5ef9216e87d0053dc956e2f'
+         'fd38e04dda060fb67334e792c7b4be4f'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          'a78f755f51a875f54d7e7e9666f4f9de'
          'bd9f3a37b79230f29637ff2de54beae2'
@@ -66,5 +67,6 @@ package() {
   #sed 's|/path/to/another/filesystem.sqfs|/bootmnt/kdeos/x86_64/root-image.sqfs|' -i "${pkgdir}/usr/share/calamares/modules/unpackfs.conf"
   sed 's|linux312|linux|' -i "${pkgdir}/usr/share/calamares/modules/initcpio.conf"
   
-  install -Dm755 ${srcdir}/launch-calamares.sh ${pkgdir}/usr/bin/launch-calamares.sh
+  install -Dm755 "${srcdir}/launch-calamares.sh" "${pkgdir}/usr/bin/launch-calamares.sh"
+  install -Dm644 "$srcdir/$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
 }
