@@ -47,15 +47,6 @@
  	   if ( -x $KDEBINPATH.$APPNAME ) {
                $CPROGRAM = $KDEBINPATH.$APPNAME ; }
             else {
-@@ -917,7 +916,7 @@
- 	   shift;
- 	   #Create Target file string
- 	   $TARGET = join("' '", @ARGV) ;
--	   exec "$CPROGRAM --caption \"$APPNAME $ROOTREMINDER\" \'$TARGET\'" ;
-+	   exec "$CPROGRAM --caption \"$APPNAME $ROOTREMINDER\" \"$TARGET\"" ;
- 	   exit $?;
- 	}
- }
 @@ -928,10 +927,10 @@
  	
  	   &copy_dialog_msgs;

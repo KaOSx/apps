@@ -33,10 +33,10 @@ source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_service
 	'agent-shutdown.sh'
 	'appear.desktop')
   
-md5sums=('e20d665d563ab100cc308dedc3f00191'
+md5sums=('e7ee784bb36aa0ce703479683e6bde91'
          'c87a034e2208c72afabf93d0102f978b'
          '630ffe7118eef8608a9e5e393a0b1e12'
-         'dad0545a59429e6aba20448463ef98f0'
+         'e815fcdba963a79cd39989182df1a994'
          'cdb4a289c5cfbf55590327ced615e57a'
          '9fa87f4ad4c00de34286165b7c4d2887'
          '813ccafe48945cb06fdacad9f011cff5'
@@ -57,10 +57,10 @@ package() {
 	install -D -m644 -o root -g root ${srcdir}/backup.desktop ${pkgdir}/usr/share/applications/kde4/backup.desktop
 
 	# install root actions service menu
-	cd ${srcdir}/rootactions_servicemenu_2.8.1/Root_Actions_2.8.1/dolphin-KDE4/
+	cd ${srcdir}/rootactions_servicemenu_2.8.2/Root_Actions_2.8.2/dolphin-KDE4/
 	mkdir -p ${pkgdir}/usr/share/kde4/services/ServiceMenus/
 	install -m755 *.desktop ${pkgdir}/usr/share/kde4/services/ServiceMenus/
-        cd ${srcdir}/rootactions_servicemenu_2.8.1/Root_Actions_2.8.1
+        cd ${srcdir}/rootactions_servicemenu_2.8.2/Root_Actions_2.8.2
         patch -p2 < ${srcdir}/servicemenu-rootactions.patch      
 	install -Dm755 rootactions-servicemenu.pl ${pkgdir}/usr/bin/rootactions-servicemenu.pl
         sed "s~Icon=terminal~Icon=utilities-terminal~g" -i ${pkgdir}/usr/share/kde4/services/ServiceMenus/10-rootactionsfolders.desktop
