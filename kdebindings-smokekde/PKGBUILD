@@ -13,12 +13,20 @@ license=('GPL' 'LGPL' 'FDL')
 depends=("kdebindings-smokeqt>=${_kdever}" "kdepimlibs>=${_kdever}")
 makedepends=('cmake' 'automoc4' "kdebindings-smokegen>=${_kdever}" "kdegraphics-okular>=${_kdever}"
              "kdesdk-kate>=${_kdever}" 'boost' 'mesa')
-source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
+        'akonadi_includes.diff')
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '63fe3b21877e5297ddaf58af8e830745')
 replaces=('kdebindings-common')
 groups=("kde" "kdebindings" "kde-uninstall")
 provides=('smokekde')
 options=('docs')
+
+prepare() {
+  cd "${srcdir}"/${_pkgname}-${pkgver}
+        
+  patch -p0 -i ${srcdir}/akonadi_includes.diff
+}
 
 build() {
   cd "${srcdir}"
@@ -27,8 +35,7 @@ build() {
   cd build
   cmake ../smokekde-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DWITH_SOPRANO=OFF
+    -DCMAKE_INSTALL_PREFIX=/usr 
   make
 }
 
