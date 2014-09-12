@@ -25,7 +25,7 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  #sed -i 's|add_subdirectory(incidenceeditor-ng)|#add_subdirectory(incidenceeditor-ng)|' ${srcdir}/$_pkgname/CMakeLists.txt
+  sed -i 's|KF5::AkonadiPrivate|KF5::KF5AkonadiPrivate|' ${srcdir}/$_pkgname/akonadi_next/CMakeLists.txt
 
   mkdir build
   
