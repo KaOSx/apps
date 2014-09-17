@@ -1,0 +1,51 @@
+
+pkgname=kf5-qupzilla
+_pkgname=qupzilla
+pkgver=1.6.97
+_commit=7a7be29
+pkgrel=1
+pkgdesc="A fast open source browser based on QtWebengine, written in Qt Framework, wayland port"
+arch=('x86_64')
+url="http://www.qupzilla.com/"
+license=('GPL')
+depends=('qtwebengine' 'qt5-script' 'mesa' 'desktop-file-utils' 'hicolor-icon-theme')
+makedepends=('gdb' 'qt5-tools')
+conflicts=('qupzilla')
+groups=('network')
+#source=("https://github.com/jturcotte/qupzilla-qtwebengine/tarball/master/qupzilla-qtwebengine-qtwebengine-${pkgver}.tar.gz"
+source=("https://github.com/jturcotte/qupzilla-qtwebengine/archive/qtwebengine.zip"
+        'speeddial.diff'
+        'preferences.diff'
+        'browserwindow.diff'
+        'defines.diff'
+        'bookmarks_json.diff')
+md5sums=('446d98fb799ea23c6516e2a9b6f4929c'
+         '65cd96b4e2d5b12df25e088f8409acd6'
+         '156986a85a9dca8ab049caa6a460f5b9'
+         'ea860e4bd5a7ca23445482e1fde186b5'
+         'f5207fdb5455567352fbabb63f36f731'
+         'ad89b6d6e006941325aa77856c29f3e3')
+
+build() {
+    cd "${srcdir}/qupzilla-qtwebengine-qtwebengine/"
+    #patch -p0 -i "${srcdir}/speeddial.diff"
+    #patch -p0 -i "${srcdir}/preferences.diff"
+    #patch -p0 -i "${srcdir}/browserwindow.diff"
+    #patch -p0 -i "${srcdir}/defines.diff"
+    #patch -p0 -i "${srcdir}/bookmarks_json.diff"
+
+    export USE_WEBGL="true"
+    export NO_X11="true"
+   
+    /usr/lib/qt5/bin/qmake 
+    make
+}
+
+package() {
+    cd "${srcdir}/qupzilla-qtwebengine-qtwebengine/"
+    make INSTALL_ROOT="$pkgdir/" install
+    
+    cp "$pkgdir/usr/share/qupzilla/locale/de_DE.qm" "$pkgdir/usr/share/qupzilla/locale/de_CH.qm"
+    cp "$pkgdir/usr/share/qupzilla/locale/de_DE.qm" "$pkgdir/usr/share/qupzilla/locale/de_AT.qm"
+    #cp "$pkgdir/usr/share/qupzilla/locale/es_ES.qm" "$pkgdir/usr/share/qupzilla/locale/es_AR.qm"
+}

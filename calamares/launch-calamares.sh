@@ -1,2 +1,2 @@
 #!/bin/sh
-sudo /usr/bin/calamares > /tmp/installation.log 
+sudo /usr/bin/calamares -d > /tmp/installation.log 
