@@ -1,13 +1,13 @@
 
 _prefix=/usr
 
-pkgname=xbmc
-pkgver=13.2
-_pkgver=13.2-Gotham
-pkgrel=2
-pkgdesc="XBMC Media Center"
+pkgname=kodi
+pkgver=14.0a3
+_pkgver=14.0a3-Helix
+pkgrel=1
+pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
-url="http://xbmc.org"
+url="http://kodi.tv/"
 license=('GPL' 'custom')
 depends=( 'bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi' 'python2' 'python-pysqlite'
           'glew' 'jasper' 'libcdio' 'libgl' 'libmad' 'libmms' 'libass' 'yajl' 'libpng12' 'x264'
@@ -25,13 +25,14 @@ optdepends=('unrar: access compressed files without unpacking them'
             'lcms'
             'tk')
 groups=('multimedia')
-install='xbmc.install'
+install='kodi.install'
 options=('makeflags')
+conflicts=('xbmc')
+provides=('xbmc')
+replaces=('xbmc')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
-source=("https://github.com/xbmc/xbmc/archive/$_pkgver.tar.gz"
-        'xbmc.service')
-md5sums=('d80153b2cc78b88966458ab136e9494f'
-         '76fae229ebc3bcfaab7e7f27e4fb51f5')
+source=("https://github.com/xbmc/xbmc/archive/$_pkgver.tar.gz")
+md5sums=('07b9d7b36c7ac5e77e13c67f55538cbb')
 
 build() {
     cd "${srcdir}/xbmc-$_pkgver"
@@ -41,7 +42,7 @@ build() {
     ./bootstrap
     
     export PYTHON_VERSION=2 
-    msg "Configuring XBMC"
+    msg "Configuring Kodi"
     ./configure --prefix=${_prefix} --exec-prefix=$_prefix \
         --disable-debug \
         --enable-optimizations \
@@ -87,8 +88,4 @@ package() {
     for licensef in LICENSE.GPL copying.txt; do
         mv "${pkgdir}${_prefix}/share/doc/xbmc/${licensef}" "${pkgdir}${_prefix}/share/licenses/${pkgname}"
     done
-    
-    # Systemd service
-    install -Dm0644 $srcdir/xbmc.service $pkgdir/usr/lib/systemd/system/xbmc.service
-
 }
