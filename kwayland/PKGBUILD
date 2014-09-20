@@ -1,0 +1,28 @@
+
+pkgname=kwayland
+pkgver=5.0.95
+pkgrel=1
+pkgdesc="KWayland provides a Qt-style Client and Server library wrapper for the Wayland libraries"
+arch=('x86_64')
+url="https://projects.kde.org/projects/kde/workspace/kwayland"
+license=('LGPL3')
+depends=('qt5-base' 'wayland')
+makedepends=('extra-cmake-modules' 'git')
+source=("git://anongit.kde.org/kwayland.git")
+md5sums=('SKIP')
+
+build() {
+  mkdir build
+  
+  cd build
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="${pkgdir}" install
+}
