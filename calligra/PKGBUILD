@@ -19,8 +19,8 @@ pkgname=('calligra-3rdparty'
          'calligra-handbook'
          'calligra-braindump'
          'calligra-flow')
-pkgver=2.8.5
-pkgrel=2
+pkgver=2.8.6
+pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
@@ -31,7 +31,7 @@ makedepends=('kdepimlibs' 'eigen' 'freetds' 'kdegraphics-okular' 'kdeedu-marble'
 groups=('calligra')
 source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz"
         '0001-switch-to-librevenge-based-import-libs.patch')
-md5sums=('8538e740b69dbf6b574312200cac969a'
+md5sums=('fc6d40b7d8df62f6a890457e90aa0779'
          '2c0e8177f01de5ebc1bd08cc26a1c61d')
 
 prepare() {
@@ -84,7 +84,7 @@ package_calligra-interfaces() {
 
 package_calligra-libs() {
   pkgdesc="Libraries for the Calligra office suite"
-  depends=('kdepimlibs' 'lcms2' 'calligra-3rdparty' 'calligra-servicetypes' 'kdeedu-marble' 'create-resources' 'libspnav' 'libvisio')
+  depends=('kdepimlibs' 'lcms2' 'calligra-3rdparty' 'calligra-servicetypes' 'kdeedu-marble' 'libspnav' 'libvisio')
 
   cd "${srcdir}"/build/libs
   make DESTDIR="${pkgdir}" install
