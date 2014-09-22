@@ -1,28 +1,28 @@
 
 pkgname=clementine
 _pkgname=Clementine
-pkgver=1.2.3
-pkgrel=4
+pkgver=1.2.3.80
+pkgrel=1
+_commit=eaad4c3
 pkgdesc="Modern music player and library organiser that takes advantage of Qt4."
 url="http://www.clementine-player.org/"
 license="GPL"
 arch=('x86_64')
 install="${pkgname}.install"
-depends=('gstreamer0.10-base' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
+depends=('gstreamer' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
          'hicolor-icon-theme' 'qtwebkit' 'libimobiledevice' 'qjson' 'protobuf'
          'libcdio-paranoia' 'qca' 'qca-ossl' 'chromaprint' 'sparsehash' 'libmygpo-qt'
-         'gstreamer0.10-bad-plugins' 'gstreamer0.10-good-plugins' 'gstreamer0.10-ugly-plugins')
+         'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'pulseaudio')
 makedepends=('cmake' 'boost' 'mesa')
 groups=('multimedia')
-source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz"
-        'namespace.patch')
-md5sums=('725b92ad4699de1b2ffdf48fe01ed092'
-         '41954cbd927e1348f6826654e7f806c4')
+#source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
+source=("https://github.com/clementine-player/Clementine/tarball/master/${_pkgname}-${pkgver}.tar.gz")
+md5sums=('9fb2977f847017fb0c05762b225db04f')
 
 build() {
-  cd "${srcdir}/${_pkgname}-${pkgver}"
+  cd "${srcdir}/clementine-player-${_pkgname}-${_commit}"
   # https://github.com/clementine-player/Clementine/issues/4401
-  patch -p1 -i $srcdir/namespace.patch
+  #patch -p1 -i $srcdir/namespace.patch
   
   mkdir -p build 
   
@@ -33,7 +33,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${_pkgname}-${pkgver}/build"
+  cd "${srcdir}/clementine-player-${_pkgname}-${_commit}/build"
   
   make install DESTDIR="${pkgdir}"
 }
