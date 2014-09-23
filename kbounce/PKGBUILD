@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kbounce
 #pkgver=${_kdever}
-pkgver=4.90.80
+pkgver=4.90.81
 pkgrel=1
 pkgdesc="Ball bouncing game"
 arch=('x86_64')
@@ -21,7 +21,7 @@ conflicts=('kdegames-kbounce')
 #options=('docs')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/clones/kbounce/anujpahuja/gsoc-frameworks.git")
+source=("git://anongit.kde.org/kbounce.git#branch=frameworks")
 md5sums=('SKIP')
 
 build() {
@@ -30,7 +30,7 @@ build() {
   mkdir build
   
   cd build 
-  cmake ../gsoc-frameworks \
+  cmake ../${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
