@@ -1,18 +1,18 @@
 
 pkgname=qtcurve
 pkgver=1.8.18
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 license=('GPL')
-pkgdesc='A configurable set of widget styles for KDE'
-url='https://github.com/QtCurve/qtcurve'
+pkgdesc='The QtCurve style engine for Qt and other toolkits.'
+url='https://projects.kde.org/projects/playground/base/qtcurve'
 depends=('kde-workspace' 'libx11' 'qt5-x11extras' 'qt5-svg')
 makedepends=('cmake' 'automoc4')
-source=("https://github.com/QtCurve/qtcurve/archive/${pkgver}.tar.gz")
-md5sums=('422d1876d944bb278855f320eda19368')
+source=("http://quickgit.kde.org/?p=qtcurve.git&a=snapshot&h=a51091724d009eca594e9ddc797d174d864425b0")
+md5sums=('8bea623b4c5fde3ae810eec35128facf')
 
 build() {
-	cd ${srcdir}/${pkgname}-${pkgver}
+	cd ${srcdir}/${pkgname}
 	
 	mkdir build
 	cd build
@@ -23,7 +23,7 @@ build() {
 }
 
 package() {
-	cd $srcdir/${pkgname}-${pkgver}/build
+	cd $srcdir/${pkgname}/build
 	
 	make DESTDIR=$pkgdir install
 }
