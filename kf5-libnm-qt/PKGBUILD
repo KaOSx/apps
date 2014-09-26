@@ -1,8 +1,10 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kf5-libnm-qt
 _pkgname=libnm-qt
-pkgver=5.0.93
-_pkgver=5.0.2
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Qt-only wrapper for NetworkManager DBus API'
 arch=('x86_64')
@@ -10,8 +12,8 @@ url='https://projects.kde.org/projects/extragear/libs/libnm-qt'
 license=('LGPL')
 depends=('qt5-base' 'networkmanager')
 makedepends=('extra-cmake-modules')
-source=("http://download.kde.org/stable/plasma/$_pkgver/$_pkgname-$pkgver.tar.xz")
-md5sums=('0079a9adc811ffbaacb9731b9e3646e4')
+source=("http://download.kde.org/stable/plasma/$pkgver/$_pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/libnm-qt.git")
 #md5sums=('SKIP')
 
