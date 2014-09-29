@@ -1,6 +1,6 @@
 
 pkgname=audacity
-pkgver=2.0.5
+pkgver=2.0.6
 pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
@@ -11,13 +11,16 @@ depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk' 'lame' 'hicolor-icon-theme'
 makedepends=('zip' 'python' 'pkgconfig')
 options=('!makeflags')
 install="${pkgname}.install"
-source=("http://audacity.googlecode.com/files/${pkgname}-minsrc-${pkgver}.tar.xz")
-md5sums=('657f71a5a214fe84731ed9842e09fa04')
+source=("http://sourceforge.net/projects/audacity/files/audacity/${pkgver}/${pkgname}-minsrc-${pkgver}.tar.xz")
+md5sums=('fb7b39a1ec8cb562be5ee65725af8832')
 
 build() {
   cd "${srcdir}/${pkgname}-src-${pkgver}"
+  sed -i 's|wx-config|wx-config-2.8|' "${srcdir}/${pkgname}-src-${pkgver}/configure"
+  sed -i 's|wx-config|wx-config-2.8|' "${srcdir}/${pkgname}-src-${pkgver}/lib-src/FileDialog/configure"
+  sed -i 's|wx-config|wx-config-2.8|' "${srcdir}/${pkgname}-src-${pkgver}/lib-src/lib-widget-extra/configure"
   
-  ./configure --prefix=/usr --enable-unicode 
+  ./configure --prefix=/usr --enable-unicode --with-wx-config=wx-config-2.8
   make
 }
 

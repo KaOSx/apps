@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.3.7
+pkgver=0.4.0
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -18,6 +18,7 @@ source=("git://github.com/KaOSx/calamares"
         'settings.conf'
         'unpackfs.conf'
         'launch-calamares.sh'
+        'installer.svg'
         'GreetingPage.diff'
         'CalamaresStyle.diff'
         'CalamaresWindow.diff')
@@ -26,9 +27,10 @@ md5sums=('SKIP'
          'e1cfaec54b0b1bddad582eebdfca9bc2'
          '6b793a81d051d5d0b00a6031ceb08308'
          'ebc235d4b2f9a425bf2161d7a252dce3'
-         '8162211cfde9ee346c859e6c74ef1df9'
+         'da891358617bbf8e4effe92e601e682b'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '2437e44479a54376ad9244d120369f6c'
+         'd5c65f43e057054e9728810530c4a030'
          'bd9f3a37b79230f29637ff2de54beae2'
          'ad64954254f023a263cf35bcb9f162a2'
          '4a4959972e2616894b40589343443546')
@@ -72,4 +74,5 @@ package() {
   
   install -Dm755 "${srcdir}/launch-calamares.sh" "${pkgdir}/usr/bin/launch-calamares.sh"
   install -Dm644 "$srcdir/$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm644 "${srcdir}/installer.svg" "${pkgdir}/usr/share/pixmaps/installer.svg"
 }
