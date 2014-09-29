@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -40,7 +40,8 @@ prepare () {
   
   git submodule init
   git submodule update
-  #sed -i 's|VERSION 3.0|VERSION 2.8.12|' ${srcdir}/${pkgname}/CMakeLists.txt
+  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
+  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
   patch -p1 -i ${srcdir}/GreetingPage.diff
   patch -p1 -i ${srcdir}/CalamaresStyle.diff
   patch -p1 -i ${srcdir}/CalamaresWindow.diff
