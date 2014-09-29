@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.4.1
+pkgver=0.4.2
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -12,6 +12,7 @@ makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 source=("git://github.com/KaOSx/calamares"
 #source=("calamares.tar.xz"
         'calamares.desktop'
+        'displaymanager.conf'
         'grubcfg.conf'
         'locale.conf'
         'prepare.conf'
@@ -24,10 +25,11 @@ source=("git://github.com/KaOSx/calamares"
         'CalamaresWindow.diff')
 md5sums=('SKIP'
          '8c263c9faeec86a33c02e743d9b083f7'
+         '27f8ad3ce42bff7158fa0cb9b252e144'
          'e1cfaec54b0b1bddad582eebdfca9bc2'
          '6b793a81d051d5d0b00a6031ceb08308'
          'ebc235d4b2f9a425bf2161d7a252dce3'
-         'da891358617bbf8e4effe92e601e682b'
+         'b9a7531e7e29abc1712927c7b1b6faa4'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '2437e44479a54376ad9244d120369f6c'
          'd5c65f43e057054e9728810530c4a030'
@@ -66,6 +68,7 @@ package() {
   
   rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
   install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
+  install -D -m644 "${srcdir}/displaymanager.conf" "${pkgdir}/etc/calamares/modules/displaymanager.conf"
   install -D -m644 "${srcdir}/grubcfg.conf" "${pkgdir}/etc/calamares/modules/grubcfg.conf"
   install -D -m644 "${srcdir}/locale.conf" "${pkgdir}/etc/calamares/modules/locale.conf"
   install -D -m644 "${srcdir}/prepare.conf" "${pkgdir}/etc/calamares/modules/prepare.conf"
