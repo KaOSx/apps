@@ -1,6 +1,6 @@
---- a/src/modules/greeting/GreetingPage.cpp	2014-08-15 18:29:29.511131306 -0400
-+++ b/src/modules/greeting/GreetingPage.cpp	2014-08-15 18:29:29.834473872 -0400
-@@ -28,9 +28,10 @@
+--- a/src/modules/greeting/GreetingPage.cpp	2014-08-24 22:44:29.864057985 -0400
++++ b/src/modules/greeting/GreetingPage.cpp	2014-10-03 15:27:56.193972338 -0400
+@@ -28,9 +28,12 @@
      QBoxLayout *mainLayout = new QHBoxLayout;
      setLayout( mainLayout );
  
@@ -8,9 +8,11 @@
 -                                   "This is some random welcome text. "
 -                                   "It should change depending on the branding config." ), this );
 +    QLabel* text = new QLabel( tr( "<h1>Welcome to KaOS.</h1><br/>"
-+                                   "This installer will guide you through the process of installing the KaOS live system<br/> "
-+                                   "on your computer. After the installation you will have a ready-to-use KaOS system.<br/>"
-+                                   "Remember, this installer is in alpha stage" ), this );
++                                   "This installer will guide you through the process of installing the KaOS live system on your computer.<br/> "
++                                   "After the installation you will have a ready-to-use KaOS system.<br/>"
++                                   "Remember, this installer is in alpha stage.<br/>"
++				   "Not implemented yet is closing the installer automatically, branding with proper .svgz,<br/>"
++				   "showing a slideshow during the install or automating the selection of an EFI boot partition" ), this );
      text->setAlignment( Qt::AlignCenter );
  
      mainLayout->addStretch();
