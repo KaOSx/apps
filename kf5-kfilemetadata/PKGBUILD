@@ -32,7 +32,7 @@ build() {
   cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DLIB_INSTALL_DIR=lib
   make
 }
