@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=oxygen-fonts
-pkgver=0.4.2
-_pkgver=${_kdever}
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc='The Oxygen font family. A desktop/gui font family for integrated use with the KDE desktop.'
 arch=('x86_64')
@@ -12,8 +11,9 @@ url='https://projects.kde.org/projects/playground/artwork/oxygen-fonts'
 license=('LGPL')
 depends=('fontforge')
 makedepends=('extra-cmake-modules')
-source=("http://download.kde.org/stable/plasma/$_pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=('29085ed24af681831063d8ae9f7c636c')
+groups=('plasma5')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build

@@ -9,8 +9,9 @@ pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma D
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/breeze'
 license=('LGPL')
-depends=('kwin' 'qt5-tools')
+depends=('kwin' 'qt5-tools' 'frameworkintegration')
 makedepends=('extra-cmake-modules' 'git')
+groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/breeze.git#branch=graesslin/kdecoration2")
