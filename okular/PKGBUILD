@@ -6,7 +6,7 @@ pkgname=okular
 arch=('x86_64')
 #pkgver=${_kdever}
 pkgver=4.9.90
-pkgrel=4
+pkgrel=5
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -28,7 +28,6 @@ md5sums=('SKIP'
 
 prepare() {
   cd $pkgname
-  sed -i -e 's|include <QtGui/QPrinter>|include <QtPrintSupport/QPrinter>|' ${srcdir}/${pkgname}/generators/kimgio/generator_kimgio.cpp
   #patch -p1 -i $srcdir/CMakeLists.diff
 }
 
