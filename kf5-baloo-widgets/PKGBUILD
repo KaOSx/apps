@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-baloo-widgets
 _pkgname=baloo-widgets
 pkgver=4.98.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Widgets for the baloo framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -19,7 +19,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd $_pkgname
-  sed -i -e 's|#include <baloo/completionproposal.h>||' ${srcdir}/${_pkgname}/src/querybuilder.cpp
+  #sed -i -e 's|#include <baloo/completionproposal.h>||' ${srcdir}/${_pkgname}/src/querybuilder.cpp
 }
 
 build() {

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=gwenview
 #pkgver=${_kdever}
-pkgver=4.9.91
+pkgver=4.9.92
 pkgrel=1
 pkgdesc="A fast and easy to use image viewer for KDE"
 arch=('x86_64')
@@ -25,7 +25,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  sed -i -e 's/KF5 CONFIG REQUIRED/KF5 REQUIRED/' ${srcdir}/${pkgname}/CMakeLists.txt
+  #sed -i -e 's/KF5 CONFIG REQUIRED/KF5 REQUIRED/' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
 build() {
