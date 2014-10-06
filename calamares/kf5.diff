@@ -1,0 +1,66 @@
+--- a/src/modules/usercfg/main.py	2014-09-30 14:05:53.277956267 -0400
++++ b/src/modules/usercfg/main.py	2014-10-06 13:44:25.074687534 -0400
+@@ -40,8 +40,8 @@
+                        '.kde4/share/kde4/services/searchproviders',
+                        '.config/autostart'
+     ]
+-    for d in common_dirs:
+-        libcalamares.utils.chroot_call(['/usr/bin/mkdir', '-p', '/home/%s/%s' % (user,  d)])
++    #for d in common_dirs:
++    #    libcalamares.utils.chroot_call(['/usr/bin/mkdir', '-p', '/home/%s/%s' % (user,  d)])
+ 
+     print('setup distribution specific settings')
+     distro_settings = [
+@@ -67,30 +67,30 @@
+                       ('katerc'                      , '.kde4/share/config/')
+     ]
+   
+-    for f,  d in distro_settings:
+-        shutil.copy2('/etc/skel/%s' % f, '%s/home/%s/%s%s' % (install_path,  user,  d,  f))
++    #for f,  d in distro_settings:
++    #    shutil.copy2('/etc/skel/%s' % f, '%s/home/%s/%s%s' % (install_path,  user,  d,  f))
+       
+-    libcalamares.utils.chroot_call(['chown', '-R', '%s:users' % user, "/home/%s" % user])
++    #libcalamares.utils.chroot_call(['chown', '-R', '%s:users' % user, "/home/%s" % user])
+   
+-    print('configure kdmrc')
+-    kdm_conf_path = os.path.join(install_path, "usr/share/config/kdm/kdmrc")
+-    text = []
+-    with open(kdm_conf_path, "r") as kdm_conf:
+-        text = kdm_conf.readlines()
+-    with open(kdm_conf_path, "w") as kdm_conf:
+-        for line in text:
+-            if 'Theme=/usr/share/apps/kdm/themes/elarun' in line:
+-                line = 'Theme=/usr/share/apps/kdm/themes/midna\n'
+-            if '#AntiAliasing=true' in line:
+-                line = 'AntiAliasing=true\n' 
+-            if '#TerminateServer=false' in line:
+-                line = 'TerminateServer=true\n' 
+-            if '#HaltCmd=' in line:
+-                line = 'HaltCmd=/sbin/poweroff\n' 
+-            if '#RebootCmd=' in line:
+-                line = 'RebootCmd=/sbin/reboot\n' 
+-            kdm_conf.write(line)
+-    kdm_conf.close()
++    #print('configure kdmrc')
++    #kdm_conf_path = os.path.join(install_path, "usr/share/config/kdm/kdmrc")
++    #text = []
++    #with open(kdm_conf_path, "r") as kdm_conf:
++    #    text = kdm_conf.readlines()
++    #with open(kdm_conf_path, "w") as kdm_conf:
++    #    for line in text:
++    #        if 'Theme=/usr/share/apps/kdm/themes/elarun' in line:
++    #            line = 'Theme=/usr/share/apps/kdm/themes/midna\n'
++    #        if '#AntiAliasing=true' in line:
++    #            line = 'AntiAliasing=true\n' 
++    #        if '#TerminateServer=false' in line:
++    #            line = 'TerminateServer=true\n' 
++    #        if '#HaltCmd=' in line:
++    #            line = 'HaltCmd=/sbin/poweroff\n' 
++    #        if '#RebootCmd=' in line:
++    #            line = 'RebootCmd=/sbin/reboot\n' 
++    #        kdm_conf.write(line)
++    #kdm_conf.close()
+                     
+     #sddm_conf_path = os.path.join(install_path, "etc/sddm.conf")
+     #text = []

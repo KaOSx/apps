@@ -1,7 +1,7 @@
 
 pkgname=calamares
-pkgver=0.4.4
-pkgrel=2
+pkgver=0.4.5
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://github.com/calamares/calamares'
@@ -22,7 +22,9 @@ source=("git://github.com/KaOSx/calamares"
         'installer.svg'
         'GreetingPage.diff'
         'CalamaresStyle.diff'
-        'CalamaresWindow.diff')
+        'CalamaresWindow.diff'
+        'kf5.diff'
+        'mount.diff')
 md5sums=('SKIP'
          '8c263c9faeec86a33c02e743d9b083f7'
          '27f8ad3ce42bff7158fa0cb9b252e144'
@@ -35,7 +37,9 @@ md5sums=('SKIP'
          'd5c65f43e057054e9728810530c4a030'
          'afd18fd0298d998a6eb16ea9b4740594'
          'ad64954254f023a263cf35bcb9f162a2'
-         '4a4959972e2616894b40589343443546')
+         '4a4959972e2616894b40589343443546'
+         'a58dd7a80a75a7dcff384fbbce64f8a7'
+         'ea59e732fd8846092c0867bc39db0a82')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -47,6 +51,9 @@ prepare () {
   patch -p1 -i ${srcdir}/GreetingPage.diff
   patch -p1 -i ${srcdir}/CalamaresStyle.diff
   patch -p1 -i ${srcdir}/CalamaresWindow.diff
+  # switch on/off for kde4/kf5 builds:
+  patch -p1 -i ${srcdir}/kf5.diff
+  patch -p1 -i ${srcdir}/mount.diff
 }
 
 build() {
