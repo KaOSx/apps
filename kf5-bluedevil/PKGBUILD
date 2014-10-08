@@ -3,12 +3,13 @@ pkgname=kf5-bluedevil
 _pkgname=bluedevil
 pkgver=2.0rc1
 _pkgver=2.0-rc1
-pkgrel=2
+pkgrel=3
 pkgdesc='KDE bluetooth framework'
 arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/base/bluedevil"
 license=('GPL')
-depends=('kf5-libbluedevil' 'bluez' 'kemoticons' 'kdelibs4support' 'ki18n' 'kinit' 'kio' 'kitemmodels' 'solid')
+depends=('kf5-libbluedevil' 'bluez' 'kcoreaddons' 'kwidgetsaddons' 'kdbusaddons' 'ki18n' 'kinit' 'kio'
+         'kiconthemes' 'knotifications')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('bluedevil')
 replaces=('bluedevil')
@@ -18,7 +19,7 @@ md5sums=('SKIP')
 
 build(){
   cd ${srcdir}
-  sed -i 's|KF5 CONFIG REQUIRED|KF5 REQUIRED|' ${srcdir}/$_pkgname/CMakeLists.txt
+  #sed -i 's|KF5 CONFIG REQUIRED|KF5 REQUIRED|' ${srcdir}/$_pkgname/CMakeLists.txt
   
   mkdir build
   
