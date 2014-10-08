@@ -13,7 +13,7 @@ url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('!docs')
 depends=('grantlee-qt5' 'libxss' 'libsamplerate' 'qrencode' 'libdmtx' 'link-grammar' 'phonon-qt5'
-         'qt5-tools' 'sonnet' 'prison-qt5'
+         'qt5-tools' 'sonnet' 'prison-qt5' 'akonadi-search'
          'kdelibs4support' 'kwallet' 'knewstuff' 'kcmutils' 'kdewebkit' 'karchive' 'knotifyconfig'
          'kconfig' 'khtml' 'kservice' 'kdbusaddons' 'kauth' 'ktexteditor' 'kdnssd'
          'kf5-kdepimlibs' 'kf5-baloo' 'kf5-libkgapi' 'kf5-kdepim-runtime')
@@ -25,7 +25,7 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  sed -i 's|KF5::AkonadiPrivate|KF5::KF5AkonadiPrivate|' ${srcdir}/$_pkgname/akonadi_next/CMakeLists.txt
+  #sed -i 's|KF5::AkonadiPrivate|KF5::KF5AkonadiPrivate|' ${srcdir}/$_pkgname/akonadi_next/CMakeLists.txt
 
   mkdir build
   
