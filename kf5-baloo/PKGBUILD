@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-baloo
 _pkgname=baloo
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -14,12 +14,12 @@ depends=('xapian-core' 'kf5-akonadi' 'kf5-kfilemetadata' 'kidletime' 'kcmutils' 
          'kemoticons' 'kf5-kdepimlibs')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('baloo')
-#source=("http://download.kde.org/stable/plasma/$pkgver/baloo-$pkgver.tar.xz"
-#        'CMakeLists.diff')
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         '64c278a55502cf1c80df178dcd6b96fb')
-source=("git://anongit.kde.org/baloo.git")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/plasma/$pkgver/baloo-$pkgver.tar.xz"
+        'CMakeLists.diff')
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '64c278a55502cf1c80df178dcd6b96fb')
+#source=("git://anongit.kde.org/baloo.git")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
