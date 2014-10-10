@@ -27,7 +27,7 @@ build() {
   #sed -i -e 's/find_package(Akonadi/find_package(KF5AkonadiServer/' ${srcdir}/$_pkgname-$pkgver/src/pim/CMakeLists.txt
   cd build
   
-  cmake ../${_pkgname} \
+  cmake ../${_pkgname}-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \

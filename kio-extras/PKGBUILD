@@ -38,10 +38,6 @@ build() {
 
 package() {
   cd build
-  make DESTDIR="${pkgdir}" install
   
-  #rm $pkgdir/usr/bin/ktrash5
-  #rm $pkgdir/usr/lib/qt5/plugins/kcm_trash.so
-  #rm $pkgdir/usr/share/kservices5/kcmtrash.desktop
-  #rm $pkgdir/usr/share/kservices5/trash.protocol
+  make DESTDIR="${pkgdir}" install
 }
