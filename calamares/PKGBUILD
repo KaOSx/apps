@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -48,9 +48,9 @@ prepare () {
   git submodule update
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
-  patch -p1 -i ${srcdir}/GreetingPage.diff
-  patch -p1 -i ${srcdir}/CalamaresStyle.diff
-  patch -p1 -i ${srcdir}/CalamaresWindow.diff
+  #patch -p1 -i ${srcdir}/GreetingPage.diff
+  #patch -p1 -i ${srcdir}/CalamaresStyle.diff
+  #patch -p1 -i ${srcdir}/CalamaresWindow.diff
   # switch on/off for kde4/kf5 builds:
   patch -p1 -i ${srcdir}/kf5.diff
   patch -p1 -i ${srcdir}/mount.diff
