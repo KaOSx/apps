@@ -1,6 +1,6 @@
 
 pkgname=sddm
-pkgver=20141003
+pkgver=20141012
 pkgrel=1
 pkgdesc="QML based X11 display manager"
 arch=('x86_64')
@@ -9,14 +9,14 @@ license=('GPL')
 depends=('qt5-declarative' 'libxcb')
 makedepends=('cmake' 'git' 'qt5-tools' 'python2-docutils')
 conflicts=('sddm-qt5-git' 'kf5-sddm')
-provides=('sddm-qt5-git' 'kf5-sddm')
-replaces=('sddm-qt5-git' 'kf5-sddm')
+provides=('sddm-qt5-git')
+replaces=('sddm-qt5-git')
 backup=('etc/sddm.conf')
 install=sddm.install
 source=('git://github.com/sddm/sddm.git'
         'sddm.conf')
 md5sums=('SKIP'
-         '21d1ba6e499639d5a49ad2310a400435')
+         '7e4de1ad45e6a0e930b96fd051e48da4')
 
 build() {
   cd $srcdir 

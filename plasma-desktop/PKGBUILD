@@ -4,12 +4,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-desktop'
 license=('LGPL')
-depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb-compat' 'libcanberra'
+depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb-compat' 'libcanberra' 'kf5-polkit-kde-agent'
          'systemsettings' 'ksysguard' 'powerdevil' 'oxygen' 'oxygen-fonts' 'kmenuedit')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
@@ -31,6 +31,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }
