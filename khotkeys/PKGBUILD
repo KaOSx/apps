@@ -4,6 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khotkeys
 pkgver=${_kdever}
+_pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='KHotKeys'
 arch=('x86_64')
@@ -12,17 +13,17 @@ license=('LGPL')
 depends=('plasma-workspace')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
-#source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/khotkeys.git")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/khotkeys.git")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
   #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

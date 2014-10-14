@@ -5,6 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkscreen2
 _pkgname=libkscreen
 pkgver=${_kdever}
+_pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
@@ -20,7 +21,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${_pkgname}-${pkgver} \
+  cmake ../${_pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \

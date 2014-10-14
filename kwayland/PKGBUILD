@@ -4,6 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwayland
 pkgver=${_kdever}
+_pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="KWayland provides a Qt-style Client and Server library wrapper for the Wayland libraries"
 arch=('x86_64')
@@ -20,7 +21,7 @@ build() {
   mkdir build
   
   cd build
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DLIB_INSTALL_DIR=lib

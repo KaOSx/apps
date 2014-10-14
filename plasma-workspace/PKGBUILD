@@ -4,6 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_kdever}
+_pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
@@ -27,7 +28,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`
          '13762ce1db9ed589e4c11d82c5198045')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
   
   patch -p1 -i ${srcdir}/gdb.patch  
 }
@@ -38,7 +39,7 @@ build() {
   #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt 
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

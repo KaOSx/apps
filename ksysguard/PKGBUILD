@@ -4,6 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ksysguard
 pkgver=${_kdever}
+_pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='KSysGuard is a program to monitor various elements of your system'
 arch=('x86_64')
@@ -16,14 +17,14 @@ source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/ksysguard.git")
 # grep md5 picks up libksysguard too
-md5sums=('e295cb54ad2150eb79ac5c3aa66231cc')
+md5sums=('48e32cec871bc7ab670df3ddef37bf6b')
 
 build() {
   mkdir -p build
   #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
   cd build
   
-  cmake ../${pkgname}-$pkgver \
+  cmake ../${pkgname}-$_pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

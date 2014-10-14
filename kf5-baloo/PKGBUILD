@@ -5,6 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-baloo
 _pkgname=baloo
 pkgver=${_kdever}
+_pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
@@ -27,7 +28,7 @@ build() {
   #sed -i -e 's/find_package(Akonadi/find_package(KF5AkonadiServer/' ${srcdir}/$_pkgname-$pkgver/src/pim/CMakeLists.txt
   cd build
   
-  cmake ../${_pkgname}-$pkgver \
+  cmake ../${_pkgname}-$_pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \

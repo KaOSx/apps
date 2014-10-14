@@ -5,6 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-libnm-qt
 _pkgname=libnm-qt
 pkgver=${_kdever}
+_pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Qt-only wrapper for NetworkManager DBus API'
 arch=('x86_64')
@@ -19,7 +20,7 @@ md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #md5sums=('SKIP')
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname-$_pkgver
   mkdir build
   
   cd build
@@ -32,7 +33,7 @@ build() {
 }
 
 package() {
-  cd $_pkgname-$pkgver/build
+  cd $_pkgname-$_pkgver/build
   
   make DESTDIR=${pkgdir} install
 }

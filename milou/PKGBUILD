@@ -4,6 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=milou
 pkgver=${_kdever}
+_pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Dedicated search application built on top of Baloo"
 arch=('x86_64')
@@ -21,7 +22,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-$pkgver \
+  cmake ../${pkgname}-$_pkgver \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
