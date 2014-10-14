@@ -1,39 +1,22 @@
 
 pkgname=handbrake
-pkgver=0.9.9
-pkgrel=3
+pkgver=0.9.80
+_commit=c069f98
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Multithreaded video transcoder"
 url="http://handbrake.fr/"
 license=('GPL')
 depends=('bzip2' 'gcc-libs' 'gst-plugins-base' 'libnotify' 'dbus-glib' 'fribidi' 'libass' 'gtk3'
          'fontconfig' 'freetype2' 'libxml2' 'libogg' 'libvorbis' 'libtheora' 'libsamplerate'
-         'libbluray' 'x264' 'desktop-file-utils' 'hicolor-icon-theme')
+         'x264' 'desktop-file-utils' 'hicolor-icon-theme' 'lame')
 makedepends=('intltool' 'python2' 'yasm' 'wget')
-source=("http://downloads.sourceforge.net/project/handbrake/$pkgver/HandBrake-$pkgver.tar.bz2")
-md5sums=('ee81337a46f8af76599d6038f193a2c1')
-
-prepare() {
-  cd "$srcdir/HandBrake-$pkgver"
-  sed -i 's/python /python2 /' gtk/src/Makefile.am
-  # https://forum.handbrake.fr/viewtopic.php?f=13&t=27581
-  sed -i \
-    -e '/MODULES += contrib\/libbluray/d' \
-    -e '/MODULES += contrib\/x264/d' \
-    make/include/main.defs
-
-  # For automake 1.13
-  cd gtk
-  sed -i \
-    -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/' \
-    -e '/AM_PROG_CC_STDC/d' \
-    configure.ac
-
-  autoreconf -vi
-}
+#source=("http://downloads.sourceforge.net/project/handbrake/$pkgver/HandBrake-$pkgver.tar.bz2")
+source=("https://github.com/HandBrake/HandBrake/tarball/master/handbrake-${pkgver}.tar.gz")
+md5sums=('5bb6cf29ba6211c396a58b92d24a90f3')
 
 build() {
-  cd "$srcdir/HandBrake-$pkgver"
+  cd "$srcdir/HandBrake-HandBrake-${_commit}/"
 
   LDFLAGS='-lgmodule-2.0' 
   ./configure --prefix=/usr --force --disable-gtk-update-checks
@@ -42,7 +25,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/HandBrake-$pkgver/build"
+  cd "$srcdir/HandBrake-HandBrake-${_commit}//build"
 
   make DESTDIR="$pkgdir" install
 }
