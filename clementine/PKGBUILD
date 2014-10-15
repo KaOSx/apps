@@ -1,9 +1,9 @@
 
 pkgname=clementine
 _pkgname=Clementine
-pkgver=1.2.3.86
+pkgver=1.2.3.87
 pkgrel=1
-_commit=78804b1
+_commit=88a6300
 pkgdesc="Modern music player and library organiser that takes advantage of Qt4."
 url="http://www.clementine-player.org/"
 license="GPL"
@@ -16,19 +16,11 @@ depends=('gstreamer' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
 makedepends=('cmake' 'boost' 'mesa')
 groups=('multimedia')
 #source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
-source=("https://github.com/clementine-player/Clementine/tarball/master/${_pkgname}-${pkgver}.tar.gz"
-        'pipeline.patch'
-        'playbin.patch')
-md5sums=('b3edb4fa1cb7db184b7d2a493f18a58d'
-         'e6d9f2c081f20c2cc570d11cd7b4a940'
-         '49c7be1a2d0fdaacf222205d24e5d234')
+source=("https://github.com/clementine-player/Clementine/tarball/master/${_pkgname}-${pkgver}.tar.gz")
+md5sums=('82281509db5dc6ad9b0b255bebbbc253')
 
 build() {
   cd "${srcdir}/clementine-player-${_pkgname}-${_commit}"
-  # https://github.com/clementine-player/Clementine/issues/4293
-  patch -p1 -i $srcdir/pipeline.patch
-  patch -p1 -i $srcdir/playbin.patch
-  
   mkdir -p build 
   
   cd build
