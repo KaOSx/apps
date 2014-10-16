@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.6.2
+pkgver=0.6.3
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -24,7 +24,8 @@ source=("git://github.com/KaOSx/calamares"
         'CalamaresStyle.diff'
         'CalamaresWindow.diff'
         'kf5.diff'
-        'mount.diff')
+        'mount.diff'
+        'UEFI.diff')
 md5sums=('SKIP'
          '8c263c9faeec86a33c02e743d9b083f7'
          '27f8ad3ce42bff7158fa0cb9b252e144'
@@ -35,11 +36,12 @@ md5sums=('SKIP'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '2437e44479a54376ad9244d120369f6c'
          'd5c65f43e057054e9728810530c4a030'
-         '64ecf167c3b36be7c390b00882b00c50'
+         'cb881e6d11d1de935d5cf62c23686905'
          'ad64954254f023a263cf35bcb9f162a2'
          '4a4959972e2616894b40589343443546'
          'a58dd7a80a75a7dcff384fbbce64f8a7'
-         'ea59e732fd8846092c0867bc39db0a82')
+         'ea59e732fd8846092c0867bc39db0a82'
+         'a615c3fd0f4128cbeb9fb0e2f84c9ff3')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -54,6 +56,7 @@ prepare () {
   # switch on/off for kde4/kf5 builds:
   #patch -p1 -i ${srcdir}/kf5.diff
   patch -p1 -i ${srcdir}/mount.diff
+  patch -p1 -i ${srcdir}/UEFI.diff
 }
 
 build() {
