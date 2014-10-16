@@ -1,0 +1,24 @@
+
+pkgname=kaqaz
+pkgver=1.1.2
+pkgrel=1
+pkgdesc="Different Note manager for Linux, Windows, Android, iOS and ...."
+url="http://labs.sialan.org/projects/kaqaz"
+arch=('x86_64')
+license=('GPL3')
+depends=('qt5-location' 'qt5-multimedia')
+source=("https://github.com/sialan-labs/kaqaz/archive/${pkgver}.tar.gz")
+md5sums=('afcbbe947148fdcc23417e8d0ecb2712')
+
+build() {
+  cd $srcdir/${pkgname}-${pkgver}
+
+  /usr/lib/qt5/bin/qmake
+  make
+}
+
+package() {
+  cd $srcdir/${pkgname}-${pkgver}
+
+  make INSTALL_ROOT=$pkgdir install
+}
