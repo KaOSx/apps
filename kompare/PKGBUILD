@@ -1,0 +1,44 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kompare
+#pkgver=${_kdever}
+pkgver=4.90.80
+pkgrel=1
+pkgdesc='A KDE visual diff viewer'
+url='http://kde.org/applications/development/kompare/'
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+#groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
+depends=('kdelibs4support' 'kparts' 'ktexteditor' 'kwidgetsaddons' 'libkomparediff2')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'kdelibs')
+install=${pkgname}.install
+conflicts=('kdesdk-kompare')
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kompare#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  #sed -e "s/Qt5::Widgets/Qt5::Widgets KF5::KDELibs4Support/" -i ${srcdir}/$pkgname/CMakeLists.txt
+  
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="${pkgdir}" install
+}

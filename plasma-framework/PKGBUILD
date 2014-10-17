@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://projects.kde.org/projects/playground/libs/plasma-framework'
@@ -14,8 +14,16 @@ depends=('kidletime' 'kitemmodels' 'threadweaver' 'kwallet' 'kdeclarative' 'kuni
          'qt5-quick1' 'qt5-quickcontrols')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        'plasma_crashQt54.diff')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '20d8a8a1569049340f0f19ac41d45bc1')
+
+prepare() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  # Qt 5.4 bug https://bugs.kde.org/show_bug.cgi?id=339875
+  patch -p1 -i ${srcdir}/plasma_crashQt54.diff
+}
 
 build() {
   mkdir -p build
