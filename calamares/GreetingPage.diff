@@ -1,21 +1,15 @@
---- a/src/modules/greeting/GreetingPage.cpp	2014-10-15 18:24:59.002223502 -0400
-+++ a/src/modules/greeting/GreetingPage.cpp	2014-10-15 18:25:17.208473577 -0400
-@@ -28,10 +28,15 @@
-     QBoxLayout *mainLayout = new QHBoxLayout;
-     setLayout( mainLayout );
+--- a/src/modules/greeting/GreetingPage.cpp	2014-10-16 15:53:11.695210482 -0400
++++ b/src/modules/greeting/GreetingPage.cpp	2014-10-16 18:00:34.209630073 -0400
+@@ -32,7 +32,11 @@
  
--    QLabel* text = new QLabel( tr( "<h1>Welcome to Calamares.</h1><br/>"
--                                   "This is some random welcome text. "
--                                   "It should change depending on the branding config." ), this );
-+    QLabel* text = new QLabel( tr( "<h1>Welcome to KaOS.</h1><br/>"
-+                                    "This installer will guide you through the process of installing the KaOS live system on your computer.<br/> "
-+                                    "After the installation you will have a ready-to-use KaOS system.<br/>"
-+                                    "Remember, this installer is in alpha stage.<br/>"
-+                                    "Not implemented yet is closing the installer automatically, branding with proper .svgz,<br/>"
-+                                    "showing a slideshow during the install or setting the locale.<br/>" 
-+                                    "For <b>GPT partioning on BIOS</b> systems and other instructions, read <a href=\"http://kaosx.us/download/\">Known Issues</a>" ), this );
-     text->setAlignment( Qt::AlignCenter );
-+    text->setOpenExternalLinks(true);
- 
-     mainLayout->addStretch();
-     mainLayout->addWidget( text );
+     QLabel* text = new QLabel( tr( "<h1>Welcome to the %1 installer.</h1><br/>"
+                                    "This program will ask you some questions and "
+-                                   "set up %2 on your computer." )
++                                   "set up %2 on your computer." 
++                                   " Remember, this installer is in Beta stage.<br/>"
++                                   "Not implemented yet is closing the installer automatically,<br/>"
++                                   "showing a slideshow during the install or setting the locale.<br/>" 
++                                   "For <b>GPT partioning on BIOS</b> systems and other instructions, read <a href=\"http://kaosx.us/download/\">Known Issues</a>" )
+                                .arg( Calamares::Branding::instance()->
+                                      string( Calamares::Branding::VersionedName ) )
+                                .arg( Calamares::Branding::instance()->
