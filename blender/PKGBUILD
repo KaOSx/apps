@@ -1,8 +1,8 @@
 
 pkgname=blender
 # adjust .desktop for version
-pkgver=2.72
-_pkgver=2.72
+pkgver=2.72.1
+_pkgver=2.72a
 pkgrel=1
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
@@ -12,8 +12,8 @@ depends=('desktop-file-utils' 'shared-mime-info' 'hicolor-icon-theme' 'xdg-utils
 install=blender.install
 source=("http://download.blender.org/release/Blender2.72/$pkgname-$_pkgver-linux-glibc211-x86_64.tar.bz2"
         'blender.desktop')
-md5sums=('4da4801d3c037340b41ce68a1b673b89'
-         '29a35d87a7aef6eedb4f9e2d899da105')
+md5sums=('f538a756c20c0f4b40f830af7dc65161'
+         '2b319544b42e3538df961d0f417ac38b')
 
 package() {
   cd "$srcdir/$pkgname-$_pkgver-linux-glibc211-x86_64"
