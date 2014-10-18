@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -23,7 +23,8 @@ source=("git://github.com/KaOSx/calamares"
         'GreetingPage.diff'
         'CalamaresStyle.diff'
         'kf5.diff'
-        'UEFI.diff')
+        'UEFI.diff'
+        'ProgressTreeDelegate.diff')
 md5sums=('SKIP'
          '8c263c9faeec86a33c02e743d9b083f7'
          '27f8ad3ce42bff7158fa0cb9b252e144'
@@ -35,9 +36,10 @@ md5sums=('SKIP'
          '2437e44479a54376ad9244d120369f6c'
          'd5c65f43e057054e9728810530c4a030'
          '7e60cf6d43c37a924bb6e0cfa0bf60fc'
-         'ad64954254f023a263cf35bcb9f162a2'
+         '68245f2d061ac06d19fc0bab3765eca6'
          'a58dd7a80a75a7dcff384fbbce64f8a7'
-         'f7a20dfcd71feeabc3d92f29d7504c02')
+         'f7a20dfcd71feeabc3d92f29d7504c02'
+         'b329f553eb3d4b72f17e0c4656471c60')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -51,6 +53,7 @@ prepare () {
   # switch on/off for kde4/kf5 builds:
   #patch -p1 -i ${srcdir}/kf5.diff
   patch -p1 -i ${srcdir}/UEFI.diff
+  patch -p1 -i ${srcdir}/ProgressTreeDelegate.diff
 }
 
 build() {
