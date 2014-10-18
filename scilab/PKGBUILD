@@ -1,27 +1,26 @@
 
 pkgname=scilab
-pkgver=5.4.95
-_pkgver=1388748667
+pkgver=5.5.1
 pkgrel=1
 pkgdesc="Scilab is a scientific software package for numerical computations"
 arch=('x86_64')
 url="http://www.scilab.org/"
 license=('custom:CeCILL')
-depends=('libxi' 'libgl' 'libxml2' 'libxtst' 'libxss')
+depends=('libxi' 'libgl' 'libxml2' 'libxtst' 'libxss' 'java-runtime')
 makedepends=('patch')
 opdepends=('gcc-fortran')
 options=('!strip')
-source=("http://downloadarea.scilab.org/download/2014-01-06/scilab-master-$_pkgver.bin.linux-x86_64.tar.gz"
+source=("http://www.scilab.org/download/$pkgver/scilab-$pkgver.bin.linux-x86_64.tar.gz"
 	'fix-thirdparty-path.patch'
 	'scilab.desktop')
-md5sums=('f052e155977b85cae62db2297cdc869b'
-	 '23a7683a782be2cfc76479ba151633aa'
-	 'ad6286f324891fe8b86c60e4012a36b7')
+md5sums=('f84f76afe6646d5a46b8c107f00a0997'
+         '85cdefb014b6af91ff39d84bbe46e2d6'
+         'ad6286f324891fe8b86c60e4012a36b7')
 
 build() {
-	cd "$srcdir/scilab-master-$_pkgver"
+	cd "$srcdir/scilab-$pkgver"
 	
-	#patch -p1 -i "$srcdir/fix-thirdparty-path.patch" 
+	patch -p1 -i "$srcdir/fix-thirdparty-path.patch" 
 }
 
 package() {
@@ -29,13 +28,13 @@ package() {
 	install -d "$pkgdir/usr/share/licenses/$pkgname" &&
 	install -d "$pkgdir/usr/share/applications" &&
 	
-	cp -r "$srcdir/scilab-master-$_pkgver/bin" "$pkgdir/usr" &&
-	cp -r "$srcdir/scilab-master-$_pkgver/include" "$pkgdir/usr" &&
-	cp -r "$srcdir/scilab-master-$_pkgver/share" "$pkgdir/usr" &&
-	cp -r "$srcdir/scilab-master-$_pkgver/lib/scilab" "$pkgdir/usr/lib" &&
-	cp -r "$srcdir/scilab-master-$_pkgver/lib/pkgconfig" "$pkgdir/usr/lib" &&
-	cp -r "$srcdir/scilab-master-$_pkgver/lib/thirdparty" "$pkgdir/usr/lib/scilab" &&
-	cp -r "$srcdir/scilab-master-$_pkgver/thirdparty" "$pkgdir/usr/share/scilab" &&
+	cp -r "$srcdir/scilab-$pkgver/bin" "$pkgdir/usr" &&
+	cp -r "$srcdir/scilab-$pkgver/include" "$pkgdir/usr" &&
+	cp -r "$srcdir/scilab-$pkgver/share" "$pkgdir/usr" &&
+	cp -r "$srcdir/scilab-$pkgver/lib/scilab" "$pkgdir/usr/lib" &&
+	cp -r "$srcdir/scilab-$pkgver/lib/pkgconfig" "$pkgdir/usr/lib" &&
+	cp -r "$srcdir/scilab-$pkgver/lib/thirdparty" "$pkgdir/usr/lib/scilab" &&
+	cp -r "$srcdir/scilab-$pkgver/thirdparty" "$pkgdir/usr/share/scilab" &&
 	install --mode=644 "$srcdir/scilab.desktop" "$pkgdir/usr/share/applications" &&
-	install --mode=644 "$srcdir/scilab-master-$_pkgver/COPYING" "$pkgdir/usr/share/licenses/$pkgname" 
+	install --mode=644 "$srcdir/scilab-$pkgver/COPYING" "$pkgdir/usr/share/licenses/$pkgname" 
 }
