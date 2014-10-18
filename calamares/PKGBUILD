@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.7.2
+pkgver=0.7.1b
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -37,7 +37,7 @@ md5sums=('SKIP'
          'd5c65f43e057054e9728810530c4a030'
          '7e60cf6d43c37a924bb6e0cfa0bf60fc'
          '68245f2d061ac06d19fc0bab3765eca6'
-         'a58dd7a80a75a7dcff384fbbce64f8a7'
+         '75c7823c5e551f7591b5d32f2ca2aa47'
          'f7a20dfcd71feeabc3d92f29d7504c02'
          'b329f553eb3d4b72f17e0c4656471c60')
 
@@ -51,7 +51,7 @@ prepare () {
   patch -p1 -i ${srcdir}/GreetingPage.diff
   patch -p1 -i ${srcdir}/CalamaresStyle.diff
   # switch on/off for kde4/kf5 builds:
-  #patch -p1 -i ${srcdir}/kf5.diff
+  patch -p1 -i ${srcdir}/kf5.diff
   patch -p1 -i ${srcdir}/UEFI.diff
   patch -p1 -i ${srcdir}/ProgressTreeDelegate.diff
 }
