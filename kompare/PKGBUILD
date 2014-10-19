@@ -11,8 +11,8 @@ url='http://kde.org/applications/development/kompare/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 #groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
-depends=('kdelibs4support' 'kparts' 'ktexteditor' 'kwidgetsaddons' 'libkomparediff2')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'kdelibs')
+depends=('kparts' 'ktexteditor' 'kwidgetsaddons' 'libkomparediff2')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 install=${pkgname}.install
 conflicts=('kdesdk-kompare')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
@@ -22,7 +22,7 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  #sed -e "s/Qt5::Widgets/Qt5::Widgets KF5::KDELibs4Support/" -i ${srcdir}/$pkgname/CMakeLists.txt
+  sed -e "s|#include <kdemacros.h>||" -i ${srcdir}/$pkgname/interfaces/kompareinterface.h
   
   mkdir -p build
   cd build
