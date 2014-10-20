@@ -1,38 +1,34 @@
 
 pkgname=system-config-printer
-pkgver=1.4.4
+pkgver=1.5.3
+_pkgver=1.5
 pkgrel=1
 pkgdesc="A CUPS printer configuration tool and status applet"
 url="http://cyberelk.net/tim/software/system-config-printer/"
 arch=('x86_64')
 license=('GPL')
-depends=('pycups' 'dbus-python' 'pysmbc' 'libusbx' 'python-pycurl' 'systemd'
-         'python2-gobject' 'dbus-glib')
-makedepends=('intltool' 'python2' 'xmlto' 'docbook-xsl' 'desktop-file-utils' 'libcups' 'libxml2')
+depends=('pycups' 'dbus-python3' 'pysmbc' 'libusbx' 'python3-pycurl' 'systemd'
+         'python3-gobject3' 'dbus-glib')
+makedepends=('intltool' 'python3' 'xmlto' 'docbook-xsl' 'desktop-file-utils' 'libcups' 'libxml2')
 optdepends=('kdeadmin-print-manager: for the administration tool in KDE System Settings')
 provides=('system-config-printer-common')
-source=("http://cyberelk.net/tim/data/${pkgname}/1.4/${pkgname}-${pkgver}.tar.xz")
-md5sums=('229c6ea422748a0fd7e533bba25595fc')
+source=("http://cyberelk.net/tim/data/${pkgname}/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=('ffedc4d9d175163e1b0e9ddfef51578d')
 
 build() {
   cd ${srcdir}/${pkgname}-${pkgver}
 
-  sed -i -e "s|#![ ]*/usr/bin/python$|#!/usr/bin/python2|" \
-    -e "s|#![ ]*/usr/bin/env python$|#!/usr/bin/env python2|" \
-    $(find . -name '*.py')
-  sed -i "s|#!/usr/bin/python|#!/usr/bin/python2|" udev/udev-add-printer
-
   ./configure --prefix=/usr \
     --sbindir=/usr/bin \
     --sysconfdir=/etc \
-    --with-udev-rules
-
-  make udevhelperdir=/usr/lib/udev
+    --with-udev-rules \
+    --with-udevdir=/usr/lib/udev
+  make 
 }
 
 package() {
   cd ${pkgname}-${pkgver}
   
-  make DESTDIR="${pkgdir}" udevhelperdir=/usr/lib/udev udevrulesdir=/usr/lib/udev/rules.d install
+  make DESTDIR="${pkgdir}" install
   rm ${pkgdir}/usr/share/applications/system-config-printer.desktop
 }
