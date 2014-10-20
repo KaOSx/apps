@@ -4,14 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kompare
 #pkgver=${_kdever}
-pkgver=4.90.80
+pkgver=4.90.81
 pkgrel=1
 pkgdesc='A KDE visual diff viewer'
 url='http://kde.org/applications/development/kompare/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 #groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
-depends=('kparts' 'ktexteditor' 'kwidgetsaddons' 'libkomparediff2')
+depends=('kcoreaddons' 'kcodecs' 'kiconthemes' 'kjobwidgets' 'kconfig' 'kparts' 'ktexteditor'
+         'kwidgetsaddons' 'libkomparediff2')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 install=${pkgname}.install
 conflicts=('kdesdk-kompare')
@@ -22,7 +23,7 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  sed -e "s|#include <kdemacros.h>||" -i ${srcdir}/$pkgname/interfaces/kompareinterface.h
+  #sed -e "s|#include <kdemacros.h>||" -i ${srcdir}/$pkgname/interfaces/kompareinterface.h
   
   mkdir -p build
   cd build
