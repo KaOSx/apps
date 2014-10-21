@@ -24,7 +24,8 @@ source=("git://github.com/KaOSx/calamares"
         'CalamaresStyle.diff'
         'kf5.diff'
         'UEFI.diff'
-        'ProgressTreeDelegate.diff')
+        'ProgressTreeDelegate.diff'
+        'JobQueue.diff')
 md5sums=('SKIP'
          '8c263c9faeec86a33c02e743d9b083f7'
          'ef69daa07bcd1e22b6f0bf3fdb5ef1b1'
@@ -39,7 +40,8 @@ md5sums=('SKIP'
          '68245f2d061ac06d19fc0bab3765eca6'
          '75c7823c5e551f7591b5d32f2ca2aa47'
          'f7a20dfcd71feeabc3d92f29d7504c02'
-         'b329f553eb3d4b72f17e0c4656471c60')
+         'b329f553eb3d4b72f17e0c4656471c60'
+         '7117bc63a9bbd9ca5f2654d3fb772e1f')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -54,6 +56,7 @@ prepare () {
   patch -p1 -i ${srcdir}/kf5.diff
   patch -p1 -i ${srcdir}/UEFI.diff
   patch -p1 -i ${srcdir}/ProgressTreeDelegate.diff
+  patch -p1 -i ${srcdir}/JobQueue.diff
 }
 
 build() {

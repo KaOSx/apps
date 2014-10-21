@@ -1,0 +1,11 @@
+--- a/src/libcalamares/JobQueue.cpp	2014-08-24 22:44:29.860724727 -0400
++++ b/src/libcalamares/JobQueue.cpp	2014-10-21 10:57:37.369625291 -0400
+@@ -84,7 +84,7 @@
+         int jobCount = m_jobs.size();
+         QString message = m_jobIndex < jobCount
+             ? m_jobs.at( m_jobIndex )->prettyName()
+-            : tr( "Done" );
++            : tr( "The install finished succesfully, click the quit button to return to live mode and reboot from there into your newly installed system" );
+ 
+         qreal percent = ( m_jobIndex + jobPercent ) / qreal( jobCount );
+ 
