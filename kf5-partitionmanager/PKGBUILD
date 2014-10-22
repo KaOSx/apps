@@ -2,13 +2,12 @@
 pkgname=kf5-partitionmanager
 _pkgname=partitionmanager
 pkgver=1.1.60
-pkgrel=2
+pkgrel=3
 pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
 arch=('x86_64')
 url="https://sourceforge.net/projects/partitionman"
 license=('GPL2')
-depends=('kconfig' 'frameworkintegration' 'kguiaddons' 'ki18n' 'kiconthemes' 'kinit' 'kio'
-         'kjobwidgets' 'kservice' 'kparts' 'ktexteditor' 'kwindowsystem' 'kxmlgui' 'kwidgetsaddons'
+depends=('kconfig' 'ki18n' 'kinit' 'kio' 'kjobwidgets' 'kwindowsystem' 'kxmlgui' 'kwidgetsaddons'
          'parted' 'libatasmart' 'udisks2')
 makedepends=('extra-cmake-modules' 'git' 'pkgconfig' 'kdoctools')
 optdepends=('e2fsprogs: ext2/3/4 support'
@@ -19,7 +18,7 @@ optdepends=('e2fsprogs: ext2/3/4 support'
 	    'dosfstools: FAT32 support')
 groups=('system')
 install=partitionmanager.install	
-source=("git://anongit.kde.org/partitionmanager#branch=frameworks")
+source=("git://anongit.kde.org/partitionmanager")
 md5sums=('SKIP')
 
 build() {
@@ -27,19 +26,17 @@ build() {
   # filsystem code from src/fs/filesystem.h, set as default
   sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/$_pkgname/src/config.kcfg
   
-  sed -i 's|KF5 CONFIG REQUIRED|KF5 REQUIRED|' ${srcdir}/$_pkgname/CMakeLists.txt
-  
   mkdir build
   cd build
 
   cmake ../$_pkgname \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-        -DENABLE_UDISKS2=on \
         -DLIB_INSTALL_DIR=lib \
         -DSYSCONF_INSTALL_DIR=/etc \
         -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
         -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
         -DBUILD_TESTING=OFF 
 
   make 
