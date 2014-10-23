@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkde-runtime    
 _pkgname=kde-runtime
-pkgver=4.14.3
+pkgver=4.14.2
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Transitional kde-runtime package to make kde 4 apps work in plasma 5"
@@ -18,8 +18,8 @@ replaces=('kde-runtime')
 provides=("kde-runtime=${pkgver}")
 conflicts=('kde-runtime')
 install=kde-runtime.install
-source=($_mirror/${_pkgname}-${pkgver}.tar.xz)
-md5sums=('8b7b7e217744779f33dd8aa38015efa0')   
+source=("http://download.kde.org/stable/${pkgver}/src/${_pkgname}-${pkgver}.tar.xz")
+md5sums=('bf07f140ee8f15a6fe9eebd76e5ea0c0')   
 
 build() {
 	cd ${_pkgname}-${pkgver}
@@ -46,15 +46,15 @@ package() {
 	
 	# remove kf5/plasma 5 provided files
 	rm -rf ${pkgdir}/etc/xdg/menus/kde-information.menu
-	rm -rf ${pkgdir}/usr/bin/*
+	rm -rf ${pkgdir}/usr/bin/khelpcenter
 	rm -rf ${pkgdir}/usr/lib/libmolletnetwork.so
 	rm -rf ${pkgdir}/usr/share/applications
-	rm -rf ${pkgdir}/usr/share/apps/d*
-	rm -rf ${pkgdir}/usr/share/apps/hardwarenotifications
-	rm -rf ${pkgdir}/usr/share/apps/kc*
+	#rm -rf ${pkgdir}/usr/share/apps/d*
+	#rm -rf ${pkgdir}/usr/share/apps/hardwarenotifications
+	#rm -rf ${pkgdir}/usr/share/apps/kc*
 	rm -rf ${pkgdir}/usr/share/config.kcfg
 	rm -rf ${pkgdir}/usr/share/dbus-1/interfaces
-	rm -rf ${pkgdir}/usr/share/desktop-directories/kde-information.directory
+	#rm -rf ${pkgdir}/usr/share/desktop-directories/kde-information.directory
 	rm -rf ${pkgdir}/usr/share/man
 	
 	# put kdesu into the path
