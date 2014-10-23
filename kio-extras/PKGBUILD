@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
-pkgver=${_kdever}
-_pkgver=${_plasmaver}
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
@@ -18,7 +17,7 @@ provides=('kfileaudiopreview')
 replaces=('kfileaudiopreview')
 groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/kio-extras.git")
 #md5sums=('SKIP')
 
@@ -33,6 +32,7 @@ build() {
     -DLIB_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }

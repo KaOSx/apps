@@ -1,0 +1,28 @@
+From: David Edmundson <kde@davidedmundson.co.uk>
+Date: Wed, 15 Oct 2014 20:46:20 +0000
+Subject: Use officially exported cmake paths
+X-Git-Url: http://quickgit.kde.org/?p=kauth.git&a=commitdiff&h=c07b883d938893791346f3ea8283c123fb722ac8
+---
+Use officially exported cmake paths
+
+PLUGIN_INSTALL_DIR is not documented in the header of KDEInstallDirs
+
+More importantly on builds that use KDE_INSTALL_USE_QT_SYS_PATHS this is
+relative, whereas normally it's absolute.
+
+By using the CMAKE_INSTALL_FULL path we avoid that problem as it goes
+through the define_relatve define_absolute macros.
+
+REVIEW: 120603
+BUG: 339539
+---
+
+
+--- a/src/BackendsConfig.h.cmake
++++ b/src/BackendsConfig.h.cmake
+@@ -1,4 +1,4 @@
+ #cmakedefine01 KAUTH_COMPILING_FAKE_BACKEND
+-#define KAUTH_BACKEND_PLUGIN_DIR "${CMAKE_INSTALL_PREFIX}/${PLUGIN_INSTALL_DIR}/${KAUTH_BACKEND_PLUGIN_DIR}"
+-#define KAUTH_HELPER_PLUGIN_DIR "${CMAKE_INSTALL_PREFIX}/${PLUGIN_INSTALL_DIR}/${KAUTH_HELPER_PLUGIN_DIR}"
++#define KAUTH_BACKEND_PLUGIN_DIR "${CMAKE_INSTALL_FULL_PLUGINDIR}/${KAUTH_BACKEND_PLUGIN_DIR}"
++#define KAUTH_HELPER_PLUGIN_DIR "${CMAKE_INSTALL_FULL_PLUGINDIR}/${KAUTH_HELPER_PLUGIN_DIR}"

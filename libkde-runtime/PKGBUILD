@@ -4,18 +4,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkde-runtime    
 _pkgname=kde-runtime
-pkgver=4.13.3
-pkgrel=3
+pkgver=4.14.3
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Transitional kde-runtime package to make kde 4 apps work in plasma 5"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kdelibs' 'libkactivities' 'oxygen-icons'
-         'xorg-xauth' 'hicolor-icon-theme' 'samba' 'rarian' 'pulseaudio' 'libssh'
-         'libcanberra' 'sound-theme-freedesktop' 'libwebp')
+depends=('kdelibs' 'libkactivities' 'oxygen-icons' 'xorg-xauth' 'hicolor-icon-theme' 
+         'samba' 'rarian' 'pulseaudio' 'libssh' 'libcanberra' 'sound-theme-freedesktop' 'libwebp')
 makedepends=('pkgconfig' 'cmake' 'automoc4' 'kdepimlibs' 'openslp' 'docbook-xsl'
              'networkmanager' 'xine-lib' 'libcanberra-pulse' 'boost')
-#groups=("kde" "kde-minimal" "kde-uninstall")
 replaces=('kde-runtime')
 provides=("kde-runtime=${pkgver}")
 conflicts=('kde-runtime')

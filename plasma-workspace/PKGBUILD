@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
-pkgver=${_kdever}
-_pkgver=${_plasmaver}
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
@@ -23,13 +22,13 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.ta
         '10-kf5'
         'gdb.patch'
         'background.png')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
 #md5sums=('SKIP'
          'beba34da9144bced3ef2a225be532109'
          '13762ce1db9ed589e4c11d82c5198045')
 
 prepare() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
   
   patch -p1 -i ${srcdir}/gdb.patch  
 }
@@ -47,6 +46,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }

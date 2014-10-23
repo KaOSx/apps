@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khelpcenter
-pkgver=${_kdever}
-_pkgver=${_plasmaver}
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Application to show KDE Applications documentation'
 arch=('x86_64')
@@ -14,7 +13,7 @@ depends=('kcmutils' 'kdelibs4support' 'kemoticons' 'khtml' 'kinit' 'kitemmodels'
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/khelpcenter.git")
 #md5sums=('SKIP')
 
@@ -27,6 +26,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }

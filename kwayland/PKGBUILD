@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwayland
-pkgver=${_kdever}
-_pkgver=${_plasmaver}
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="KWayland provides a Qt-style Client and Server library wrapper for the Wayland libraries"
 arch=('x86_64')
@@ -15,15 +14,16 @@ makedepends=('extra-cmake-modules' 'git')
 groups=('plasma5')
 #source=("git://anongit.kde.org/kwayland.git")
 source=("http://download.kde.org/unstable/plasma/$pkgver/${pkgname}-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   
   cd build
-  cmake ../${pkgname}-${_pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DLIB_INSTALL_DIR=lib
   make
 }

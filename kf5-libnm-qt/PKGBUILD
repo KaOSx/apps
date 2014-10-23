@@ -4,8 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kf5-libnm-qt
 _pkgname=libnm-qt
-pkgver=${_kdever}
-_pkgver=${_plasmaver}
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Qt-only wrapper for NetworkManager DBus API'
 arch=('x86_64')
@@ -15,12 +14,12 @@ depends=('qt5-base' 'networkmanager')
 makedepends=('extra-cmake-modules')
 groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/$pkgver/$_pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/libnm-qt.git")
 #md5sums=('SKIP')
 
 build() {
-  cd $_pkgname-$_pkgver
+  cd $_pkgname-$pkgver
   mkdir build
   
   cd build

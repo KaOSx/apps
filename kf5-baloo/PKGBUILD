@@ -4,8 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kf5-baloo
 _pkgname=baloo
-pkgver=${_kdever}
-_pkgver=${_plasmaver}
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
@@ -17,7 +16,7 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('baloo')
 source=("http://download.kde.org/stable/plasma/$pkgver/baloo-$pkgver.tar.xz"
         'CMakeLists.diff')
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
          '64c278a55502cf1c80df178dcd6b96fb')
 #source=("git://anongit.kde.org/baloo.git")
 #md5sums=('SKIP')
@@ -28,11 +27,12 @@ build() {
   #sed -i -e 's/find_package(Akonadi/find_package(KF5AkonadiServer/' ${srcdir}/$_pkgname-$pkgver/src/pim/CMakeLists.txt
   cd build
   
-  cmake ../${_pkgname}-$_pkgver \
+  cmake ../${_pkgname}-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DLIB_INSTALL_DIR=lib \
     -DKDEPIM_SUPPORT_BUILD=FALSE
   make

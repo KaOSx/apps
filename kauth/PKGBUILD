@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kauth
-pkgver=${_kdever}
-pkgrel=1
+pkgver=${_kf5ver}
+pkgrel=2
 pkgdesc='KAuth provides a convenient, system-integrated way to offload actions that need to be performed as a privileged user.'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kauth'
@@ -12,8 +12,16 @@ license=('LGPL')
 depends=('kcoreaddons' 'polkit-qt5')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        'path.patch')
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '304086f6d46fd44209c693fce0f11499')
+
+prepare() {
+  cd $pkgname-${pkgver}
+  
+  patch -p1 -i $srcdir/path.patch
+}
 
 build() {
   mkdir -p build
@@ -26,6 +34,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }

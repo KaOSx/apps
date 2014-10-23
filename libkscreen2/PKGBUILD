@@ -4,8 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkscreen2
 _pkgname=libkscreen
-pkgver=${_kdever}
-_pkgver=${_plasmaver}
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
@@ -15,17 +14,18 @@ depends=('qt5-x11extras')
 makedepends=('extra-cmake-modules')
 groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/$pkgver/${_pkgname}-$pkgver.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${_pkgname}-${_pkgver} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DLIB_INSTALL_DIR=lib
   make
 }
