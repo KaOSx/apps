@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khelpcenter
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Application to show KDE Applications documentation'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khelpcenter'
@@ -22,10 +22,11 @@ build() {
   #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
   cd build
   
-  cmake ../${pkgname}-$_pkgver \
+  cmake ../${pkgname}-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make

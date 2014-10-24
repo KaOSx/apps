@@ -19,6 +19,11 @@ conflicts=('kdesdk-kate')
 source=("git://anongit.kde.org/kate")
 md5sums=('SKIP')
 
+prepare() {
+  cd $pkgname
+  #patch -p1 -i "${srcdir}"/pkgbuild-syntax-highlight.patch
+}
+
 build() {
   mkdir -p build
   cd build
