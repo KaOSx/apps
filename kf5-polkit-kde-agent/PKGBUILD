@@ -2,7 +2,7 @@
 pkgname=kf5-polkit-kde-agent
 _pkgname=polkit-kde-agent-1
 pkgver=0.103.0
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE PolicyKit Authentication Agent'
 arch=('x86_64')
 url='https://projects.kde.org/projects/extragear/base/polkit-kde-agent-1'
@@ -21,6 +21,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \

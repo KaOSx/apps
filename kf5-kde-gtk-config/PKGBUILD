@@ -2,7 +2,7 @@
 pkgname=kf5-kde-gtk-config
 _pkgname=kde-gtk-config
 pkgver=4.98.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Configuration dialog to adapt GTK applications appearance to your taste under KDE"
 arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/base/kde-gtk-config"
@@ -20,6 +20,7 @@ build() {
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
         -DLIB_INSTALL_DIR=lib \
+        -DLIBEXEC_INSTALL_DIR=lib \
         -DSYSCONF_INSTALL_DIR=/etc \
         -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
         -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \

@@ -2,7 +2,7 @@
 pkgname=kf5-kdeconnect-kde
 _pkgname=kdeconnect-kde
 pkgver=0.5.2.1
-pkgrel=10
+pkgrel=11
 pkgdesc='KDE Connect adds communication between KDE and your smartphone'
 url='https://projects.kde.org/projects/playground/base/kdeconnect-kde'
 license=('GPL')
@@ -25,6 +25,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
     -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
