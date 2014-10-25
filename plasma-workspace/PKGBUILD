@@ -29,7 +29,7 @@ md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
          '3d46fce215a86380383a7c9dc36e8599')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-5.1.0
   
   patch -p1 -i ${srcdir}/gdb.patch  
 }
@@ -40,7 +40,7 @@ build() {
   #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt 
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-5.1.0 \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
