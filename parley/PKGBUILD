@@ -5,14 +5,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=parley
 #pkgver=${_kdever}
 pkgver=4.9.90
-pkgrel=2
+pkgrel=3
 pkgdesc="Vocabulary Trainer"
 url="http://kde.org/applications/education/parley/"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kconfig' 'kcrash' 'ki18n' 'kio' 'knewstuff' 'kross' 'khtml' 'sonnet' 'kcmutils'
-         'kxmlgui' 'knotifications' 'libkeduvocdocument' 'libxslt' 'libxml2' 'libx11' 'qt5-multimedia') # 'attica'
+         'kxmlgui' 'knotifications' 'libkeduvocdocument' 'libxslt' 'libxml2' 'libx11' 'qt5-multimedia'
+         'kf5-attica')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-parley')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
@@ -32,6 +33,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }

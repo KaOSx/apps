@@ -2,22 +2,22 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kiten
+pkgname=kcharselect
 #pkgver=${_kdever}
-pkgver=4.90.81
+pkgver=4.90.80
 pkgrel=1
-pkgdesc="Japanese Reference/Study Tool"
-url="http://kde.org/applications/education/kiten/"
+pkgdesc="Tool to select special characters from all installed fonts and copy them into the clipboard."
+url="https://projects.kde.org/projects/kde/kdeutils/kcharselect"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'ki18n' 'kxmlgui' 'khtml')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-conflicts=('kdeedu-kiten')
-#groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-install=${pkgname}.install
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+depends=('ki18n' 'kwidgetsaddons' 'kxmlgui')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kdeutils-kcharselect')
+#groups=("kde" "kdeutils" "kde-uninstall")
+install=kdeutils.install
+#source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kiten.git#branch=frameworks")
+source=("git://anongit.kde.org/kcharselect.git#branch=frameworks")
 md5sums=('SKIP')
 
 prepare() {
@@ -44,3 +44,4 @@ package() {
 
   make DESTDIR=${pkgdir} install
 }
+
