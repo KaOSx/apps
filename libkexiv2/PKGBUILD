@@ -5,13 +5,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkexiv2
 #pkgver=${_kdever}
 pkgver=2.70.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Wrapper around exiv2"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('khtml' 'kdelibs4support' 'libjpeg' 'exiv2')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git' 'kdelibs')
 #groups=("kde" "kdegraphics" "kde-uninstall")
 conflicts=('kdegraphics-libkexiv2')
 #options=('docs')
@@ -19,6 +19,11 @@ conflicts=('kdegraphics-libkexiv2')
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/libkexiv2.git#branch=framework")
 md5sums=('SKIP')
+
+prepare() {
+  cd $pkgname
+  #sed -i -e 's|KF5::KDELibs4Support|KF5::KDELibs4Support KF5::KHtml|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+}
 
 build() {
   mkdir -p build
