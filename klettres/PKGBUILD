@@ -2,35 +2,33 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kget
+pkgname=klettres
 #pkgver=${_kdever}
-pkgver=4.90.82
+pkgver=4.90.80
 pkgrel=1
-pkgdesc='Download Manager'
-url='http://kde.org/applications/internet/kget/'
+pkgdesc="Learn The Alphabet"
+url="http://kde.org/applications/education/klettres/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-groups=('network')
-depends=('kcoreaddons' 'kwallet' 'kconfig' 'kdbusaddons' 'ki18n' 'kconfigwidgets' 'knotifications' 'kio'
-         'kdelibs4support' 'kiconthemes' 'kcmutils' 'knotifyconfig' 'solid'  'libmms' 'gpgme' 'qca-qt5') # libktorrent
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
+depends=('kcompletion' 'kemoticons' 'kitemmodels' 'ki18n' 'kdelibs4support' 'knewstuff' 'kwidgetsaddons'
+         'kconfigwidgets' 'kcoreaddons' 'phonon-qt5')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kdeedu-klettres')
+#groups=('kde' 'kdeedu' 'kde-uninstall' 'education' 'kaos-kids')
 install=${pkgname}.install
-conflicts=('kdenetwork-kget')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kget.git#branch=kf5_port")
+source=("git://anongit.kde.org/klettres.git#branch=frameworks")
 md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
-
+  
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
@@ -42,4 +40,3 @@ package() {
 
   make DESTDIR=${pkgdir} install
 }
-
