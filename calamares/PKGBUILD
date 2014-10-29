@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.7.4
+pkgver=0.7.5
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -21,6 +21,7 @@ source=("git://github.com/KaOSx/calamares"
         'launch-calamares.sh'
         'installer.svg'
         'GreetingPage.diff'
+        'CalamaresStyle.diff'
         'kf5.diff'
         'UEFI.diff'
         'JobQueue.diff')
@@ -35,6 +36,7 @@ md5sums=('SKIP'
          '2437e44479a54376ad9244d120369f6c'
          'd5c65f43e057054e9728810530c4a030'
          '7e60cf6d43c37a924bb6e0cfa0bf60fc'
+         '64d7df6bbc7c85441a90855a002b89e9'
          '75c7823c5e551f7591b5d32f2ca2aa47'
          'f7a20dfcd71feeabc3d92f29d7504c02'
          '7117bc63a9bbd9ca5f2654d3fb772e1f')
@@ -47,6 +49,7 @@ prepare () {
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
   patch -p1 -i ${srcdir}/GreetingPage.diff
+  patch -p1 -i ${srcdir}/CalamaresStyle.diff
   # switch on/off for kde4/kf5 builds:
   patch -p1 -i ${srcdir}/kf5.diff
   patch -p1 -i ${srcdir}/UEFI.diff
