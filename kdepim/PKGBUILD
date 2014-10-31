@@ -27,7 +27,7 @@ license=('GPL' 'LGPL' 'FDL')
 options=('!docs')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' "kdelibs>=${_kdever}" "kdepimlibs>=${_kdever}" 'grantlee'
              'kdepim-runtime' 'libxss' 'kde-runtime' 'libsamplerate' 'qrencode' 'libdmtx'
-	     "kde-common>=${_kdever}" 'docbook-xml' 'link-grammar' 'baloo')
+	     "kde-common>=${_kdever}" 'docbook-xml' 'baloo')
 source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -46,7 +46,7 @@ build() {
 package_kdepim-common() {
 	pkgdesc="KDE PIM - Common files and libraries"
 	depends=("kdepimlibs>=${_kdever}" 'libxss' "kde-runtime" "kde-common>=${_kdever}"
-                 'libxss' "kdepim-runtime>=${_pkgver}" 'link-grammar' 'baloo')
+                 'libxss' "kdepim-runtime>=${_pkgver}" 'baloo')
         conflicts=('kdepim-doc')
 	groups=('kde' 'kdepim' 'kde-uninstall')
 	install=${pkgbase}.install

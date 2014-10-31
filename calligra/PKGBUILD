@@ -20,14 +20,14 @@ pkgname=('calligra-3rdparty'
          'calligra-braindump'
          'calligra-flow')
 pkgver=2.8.6
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
-makedepends=('kdepimlibs' 'eigen' 'freetds' 'kdegraphics-okular' 'kdeedu-marble' 'xbase' 'libpqxx' 'libvisio'
+makedepends=('kdelibs' 'eigen' 'freetds' 'xbase' 'libpqxx' 'libvisio'
              'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'glew' 'gsl' 'cmake' 'automoc4' 'libspnav'
              'boost' 'libkdcraw' 'fftw' 'docbook-xsl' 'lcms2' 'libmariadbclient'
-             'vc' 'opencolorio' 'libodfgen')
+             'vc' 'opencolorio' 'libodfgen' 'poppler-qt')
 groups=('calligra')
 source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz"
         '0001-switch-to-librevenge-based-import-libs.patch')
@@ -56,7 +56,7 @@ build() {
 
 package_calligra-3rdparty() {
   pkgdesc="3dparty plugins for the Calligra office suite"
-  depends=('kdepimlibs')
+  depends=('kdelibs')
 
   cd "${srcdir}"/build/3rdparty
   make DESTDIR="${pkgdir}" install
@@ -84,7 +84,7 @@ package_calligra-interfaces() {
 
 package_calligra-libs() {
   pkgdesc="Libraries for the Calligra office suite"
-  depends=('kdepimlibs' 'lcms2' 'calligra-3rdparty' 'calligra-servicetypes' 'kdeedu-marble' 'libspnav' 'libvisio')
+  depends=('kdelibs' 'lcms2' 'calligra-3rdparty' 'calligra-servicetypes' 'libspnav' 'libvisio')
 
   cd "${srcdir}"/build/libs
   make DESTDIR="${pkgdir}" install
@@ -176,7 +176,7 @@ package_calligra-kounavail() {
 
 package_calligra-plan() {
   pkgdesc="Calligra Project Management Component"
-  depends=('calligra-words' 'hicolor-icon-theme' 'calligra-libs' 'kdepimlibs' 'calligra-data' 
+  depends=('calligra-words' 'hicolor-icon-theme' 'calligra-libs' 'kdelibs' 'calligra-data' 
            'calligra-plugins')
   groups=('calligra' 'office')
   install=calligra-plan.install
@@ -201,7 +201,7 @@ package_calligra-stage() {
 package_calligra-krita() {
   pkgdesc="Edit and paint images"
   depends=('calligra-libs' 'calligra-data' 'calligra-plugins' 'glew' 'qimageblitz' 'poppler-qt'
-           'openexr' 'hicolor-icon-theme' 'shared-mime-info' 'lcms2' 'vc' 'opencolorio' 'kdegraphics-libkdcraw')
+           'openexr' 'hicolor-icon-theme' 'shared-mime-info' 'lcms2' 'vc' 'opencolorio' 'libraw')
   optdepends=('calligra-filters: import/export filters')
   provides=('krita')
   groups=('calligra' 'graphics')
@@ -256,7 +256,7 @@ package_calligra-braindump() {
 
 package_calligra-flow() {
   pkgdesc="Flowchart & Diagram Editing"
-  depends=('calligra-words' 'kde-runtime')
+  depends=('calligra-words' 'kdelibs')
   install=calligra-flow.install
   groups=('calligra' 'office')
 
