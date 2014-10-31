@@ -1,37 +1,28 @@
-pkgname=libreoffice
-_LOver=4.3.3.1
+
+pkgbase=libreoffice
+pkgname=('libreoffice-plasma5' 'libreoffice')
+_LOver=4.3.3.2
 pkgver=4.3.3
-_pkgver=4.3.3.1
-pkgrel=1
-pkgdesc="Productivity suite that is compatible with other major office suites"
+_pkgver=4.3.3.2
+pkgrel=2
 arch=('x86_64')
 license=('LGPL3')
 url="http://www.libreoffice.org/"
-depends=("curl>=7.20.0" "hunspell>=1.2.8" 'python3' 'libabw>=0.1.0' 'libwpd>=0.9.2' 'libwps' 'libxaw' "neon>=0.28.6"
+makedepends=("curl>=7.20.0" "hunspell>=1.2.8" 'python3' 'libabw>=0.1.0' 'libwpd>=0.9.2' 'libwps' 'libxaw' "neon>=0.28.6"
          'pango' 'nss' 'libjpeg' 'libxrandr' 'libgl' 'dbus-glib' 'icu' 'libxslt' 'redland' 'graphite'
          'hyphen' 'lpsolve' 'gcc-libs' 'sh' 'librsvg' 'lcms2' 'hicolor-icon-theme' 'desktop-file-utils' 
          'shared-mime-info' 'translate-toolkit' 'xdg-utils' 'ttf-liberation' 'libcups' 
          'poppler' 'sane' 'kdelibs' 'unixodbc' 'libwpg' 'imagemagick'
          'mesa' 'gst-plugins-base' 'java-runtime' 'postgresql-libs' 'libvisio' 'bluez'
-         'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' 'gconf' 'gtk2' 'gtk3'
-         'java-environment' 'beanshell'  'vigra' 'pstoedit' 'libmythes')
-makedepends=('perl-archive-zip' 'zip' 'unzip' 'apache-ant' 'gperf' 'cppunit' 'libldap'
-             'junit' 'doxygen' 'apr' 'serf')
-conflicts=('libreoffice-common'	'libreoffice-base' 'libreoffice-calc' 'libreoffice-draw' 
-           'libreoffice-impress' 'libreoffice-kde4' 'libreoffice-math' 'libreoffice-sdk'
-	   'libreoffice-sdk-doc' 'libreoffice-writer' 'libreoffice-en-US' 'libreoffice-postgresql-connector')
-replaces=('libreoffice-common'	'libreoffice-base' 'libreoffice-calc' 'libreoffice-draw' 
-           'libreoffice-impress' 'libreoffice-kde4' 'libreoffice-math' 'libreoffice-sdk'
-	   'libreoffice-sdk-doc' 'libreoffice-writer' 'libreoffice-en-US' 'libreoffice-postgresql-connector')
-provides=('libreoffice-common'	'libreoffice-base' 'libreoffice-calc' 'libreoffice-draw' 
-           'libreoffice-impress' 'libreoffice-kde4' 'libreoffice-math' 'libreoffice-sdk'
-	   'libreoffice-sdk-doc' 'libreoffice-writer' 'libreoffice-en-US' 'libreoffice-postgresql-connector')
-
+         'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' 
+         'java-environment' 'beanshell'  'vigra' 'pstoedit' 'libmythes'
+         'perl-archive-zip' 'zip' 'unzip' 'apache-ant' 'gperf' 'cppunit' 'libldap'
+         'junit' 'doxygen' 'apr' 'serf' 'gconf' 'gtk2' 'gtk3')
 _mirror="http://download.documentfoundation.org/libreoffice/src/$pkgver"
 #_mirror="http://dev-builds.libreoffice.org/pre-releases/src"
 #_additional_source_url="http://hg.services.openoffice.org/binaries"
 _additional_source_url="http://dev-www.libreoffice.org/src"
-source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz  
+source=(${_mirror}/${pkgbase}{,-help,-translations}-${_LOver}.tar.xz  
 	${_additional_source_url}/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz
 	${_additional_source_url}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 	${_additional_source_url}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
@@ -133,14 +124,14 @@ build() {
 	cd ${srcdir}/libreoffice-$_LOver
 
 	# move external sources into place
-	mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
-	for source in "${noextract[@]}"; do
-	  ln -s ${srcdir}/$source .
-	done
-	popd
+	#mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
+	#for source in "${noextract[@]}"; do
+	#  ln -s ${srcdir}/$source .
+	#done
+	#popd
 
-	rm ${srcdir}/ext_sources/185d60944ea767075d27247c3162b3bc-unowinreg.dll
-        cp -f ${srcdir}/185d60944ea767075d27247c3162b3bc-unowinreg.dll ${srcdir}/ext_sources
+	#rm ${srcdir}/ext_sources/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+        #cp -f ${srcdir}/185d60944ea767075d27247c3162b3bc-unowinreg.dll ${srcdir}/ext_sources
 	
 	#use the CFLAGS but remove the LibO overridden ones
 	for i in $CFLAGS; do
@@ -232,11 +223,50 @@ build() {
 	touch src.downloaded
 	#./download
 	make build
+	# Create split package option
+	#mkdir $srcdir/work
+	make DESTDIR=${srcdir}/work distro-pack-install
 }
 
-package () {
-        cd ${srcdir}/libreoffice-$_LOver
-        make DESTDIR=${pkgdir} distro-pack-install
+package_libreoffice-plasma5() {
+        pkgdesc="Desktop integration package for correct look with Plasma 5"
+        depends=('libreoffice' 'gconf' 'gtk2' 'gtk3' 'kf5-kde-gtk-config')
+        
+        # Create directories from the gnome_list.txt file
+        for dir in $(grep -h ^%dir libreoffice-$_LOver/file-lists/gnome_list.txt); do
+          install -dm755 ${pkgdir}/${dir/\%dir/}
+        done
+        # install files into the pkg from the work dir
+        for file in $(grep -h -v ^%dir libreoffice-$_LOver/file-lists/gnome_list.txt); do
+          dirname=$(dirname $file)
+          [[ -d ${pkgdir}/$dirname ]] || install -dm755 ${pkgdir}/$dirname
+          mv ${srcdir}/work/${file} ${pkgdir}/$file
+        done
+}
+
+package_libreoffice() {
+        pkgdesc="Productivity suite that is compatible with other major office suites"
+        install=${pkgbase}.install
+        depends=("curl>=7.20.0" "hunspell>=1.2.8" 'python3' 'libabw>=0.1.0' 'libwpd>=0.9.2' 'libwps' 'libxaw' "neon>=0.28.6"
+                 'pango' 'nss' 'libjpeg' 'libxrandr' 'libgl' 'dbus-glib' 'icu' 'libxslt' 'redland' 'graphite'
+                 'hyphen' 'lpsolve' 'gcc-libs' 'sh' 'librsvg' 'lcms2' 'hicolor-icon-theme' 'desktop-file-utils' 
+                 'shared-mime-info' 'translate-toolkit' 'xdg-utils' 'ttf-liberation' 'libcups' 
+                 'poppler' 'sane' 'kdelibs' 'unixodbc' 'libwpg' 'imagemagick'
+                 'mesa' 'gst-plugins-base' 'java-runtime' 'postgresql-libs' 'libvisio' 'bluez'
+                 'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' 'gconf' 'gtk2' 'gtk3'
+                 'java-environment' 'beanshell'  'vigra' 'pstoedit' 'libmythes')
+        optdepends=('libreoffice-plasma5: needed for correct desktop integration in Plasma 5')
+        conflicts=('libreoffice-common'	'libreoffice-base' 'libreoffice-calc' 'libreoffice-draw' 
+                   'libreoffice-impress' 'libreoffice-kde4' 'libreoffice-math' 'libreoffice-sdk'
+                   'libreoffice-sdk-doc' 'libreoffice-writer' 'libreoffice-en-US' 'libreoffice-postgresql-connector')
+        replaces=('libreoffice-common'	'libreoffice-base' 'libreoffice-calc' 'libreoffice-draw' 
+                  'libreoffice-impress' 'libreoffice-kde4' 'libreoffice-math' 'libreoffice-sdk'
+                  'libreoffice-sdk-doc' 'libreoffice-writer' 'libreoffice-en-US' 'libreoffice-postgresql-connector')
+        provides=('libreoffice-common'	'libreoffice-base' 'libreoffice-calc' 'libreoffice-draw' 
+                  'libreoffice-impress' 'libreoffice-kde4' 'libreoffice-math' 'libreoffice-sdk'
+                  'libreoffice-sdk-doc' 'libreoffice-writer' 'libreoffice-en-US' 'libreoffice-postgresql-connector')
+
+        mv work/* ${pkgdir}/
  
         # put configuration files into place
         install -dm755 ${pkgdir}/etc/libreoffice
