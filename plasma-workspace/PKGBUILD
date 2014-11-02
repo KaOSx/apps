@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
@@ -21,17 +21,19 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.ta
 #source=("git://anongit.kde.org/plasma-workspace.git"
         '10-kf5'
         'gdb.patch'
-        'background.png')
+        'background.png'
+        'defaults')
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
 #md5sums=('SKIP'
          'beba34da9144bced3ef2a225be532109'
          '13762ce1db9ed589e4c11d82c5198045'
-         '3d46fce215a86380383a7c9dc36e8599')
+         '3d46fce215a86380383a7c9dc36e8599'
+         '013ed988e037d9692d35a42a3b5336c3')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}--${pkgver}
   
-  patch -p1 -i ${srcdir}/gdb.patch  
+  #patch -p1 -i ${srcdir}/gdb.patch  
 }
   
 build() {
@@ -40,7 +42,7 @@ build() {
   #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt 
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}--${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
@@ -62,5 +64,7 @@ package() {
   install -Dm755 "${srcdir}/10-kf5" "${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5"
   
   rm "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png"
-  install -m 644 -p "${srcdir}/background.png" "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png" 
+  install -m 644 -p "${srcdir}/background.png" "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png"
+  rm "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/defaults"
+  install -m 644 -p "${srcdir}/defaults" "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/defaults"
 }
