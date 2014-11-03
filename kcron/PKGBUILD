@@ -2,23 +2,20 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=cantor
+pkgname=kcron
 #pkgver=${_kdever}
-pkgver=4.90.81
+pkgver=14.11.80
 pkgrel=1
-pkgdesc="KDE Frontend to Mathematical Software"
-url="http://kde.org/applications/education/cantor/"
+pkgdesc='GUI crontab editor'
+url='http://userbase.kde.org/KCron'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('libspectre' 'knewstuff' 'ktexteditor' 'kcoreaddons' 'karchive' 'kparts' 'kdelibs4support'
-         'r' 'octave' 'python2')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'icu')
-conflicts=('kdeedu-cantor')
-#groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-install=${pkgname}.install
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#groups=('kde' 'kdeadmin' 'kde-uninstall')
+depends=('kdelibs4support' 'kio')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz") 
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/cantor.git#branch=frameworks")
+source=("git://anongit.kde.org/kcron.git#branch=frameworks")
 md5sums=('SKIP')
 
 prepare() {
