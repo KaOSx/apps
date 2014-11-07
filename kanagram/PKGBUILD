@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kanagram
-#pkgver=${_kdever}
-pkgver=4.9.90
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Letter Order Game"
 url="http://kde.org/applications/education/kanagram/"
@@ -18,20 +17,21 @@ conflicts=('kdeedu-kanagram')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education' 'kaos-kids')
 #options=('docs')
 install=${pkgname}.install
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kanagram.git")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/kanagram.git")
+md5sums=('e4048e0cd8bb0bf14f2585c7cdab7ba3')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }

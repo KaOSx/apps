@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkeduvocdocument
-#pkgver=${_kdever}
-pkgver=4.9.91
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Library to parse, convert, and manipulate KVTML files "
 arch=('x86_64')
@@ -15,20 +14,21 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-libkdeedu' 'libkdeedu')
 #groups=("kde" "kdeedu" "kde-uninstall")
 #options=('docs' 'debug')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkeduvocdocument.git")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/libkeduvocdocument.git")
+md5sums=('e31ecf977e5975ef28c0f63e1a22fe2e')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }

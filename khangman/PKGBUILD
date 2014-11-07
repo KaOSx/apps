@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khangman
-#pkgver=${_kdever}
-pkgver=4.90.81
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Hangman Game"
 url="http://kde.org/applications/education/khangman/"
@@ -17,13 +16,13 @@ conflicts=('kdeedu-khangman')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education' 'kaos-kids')
 #options=('docs')
 install=${pkgname}.install
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/khangman.git#branch=frameworks")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/khangman.git#branch=frameworks")
+md5sums=('f9f9eb2d699c7c6cdde163860cc84d42')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #sed -i -e 's|add_subdirectory( doc )|#add_subdirectory( doc )|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
@@ -31,7 +30,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

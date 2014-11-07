@@ -3,35 +3,35 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kig
-#pkgver=${_kdever}
-pkgver=4.9.90
-pkgrel=2
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc="Interactive Geometry"
 url="http://kde.org/applications/education/kig/"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kparts' 'kdelibs4support' 'ki18n' 'ktexteditor' 'kiconthemes' 'kconfigwidgets' 'karchive' 'kxmlgui'
-         'kemoticons' 'kitemmodels' 'boost')
-makedepends=('extra-cmake-modules' 'kdoctools')
+         'kemoticons' 'kitemmodels' 'boost-libs' 'python2')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kdeedu-kig')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 #options=('docs')
 install=${pkgname}.install
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kig.git#branch=frameworks")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/kig.git#branch=frameworks")
+md5sums=('1dbbc08d0b554e5f04a8d60b913ffccd')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }

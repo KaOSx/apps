@@ -1,21 +1,24 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=okteta
-pkgver=0.9.0
-pkgrel=4
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc="KDE hex editor for viewing and editing the raw data of files"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdesdk/okteta"
 license=('LGPL')
 depends=('kcmutils' 'kcodecs' 'kcompletion' 'kconfigwidgets' 'kdbusaddons' 'ki18n' 'knewstuff' 
          'kparts' 'kservice' 'kwidgetsaddons' 'kxmlgui' 'qca-qt5' 'qt5-tools')
-makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdesdk-okteta')
-replaces=('kdesdk-okteta')
-source=("git://anongit.kde.org/okteta.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+#source=("git://anongit.kde.org/okteta.git")
+md5sums=('3bae768a9b560cb3f9eb8143336434e5')
 
 build() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   mkdir build
   
   cd build
@@ -25,12 +28,13 @@ build() {
         -DSYSCONF_INSTALL_DIR=/etc \
         -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
         -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
         -DBUILD_TESTING=OFF ..
   make
 }
 
 package() {
-  cd $pkgname/build
+  cd $pkgname-${pkgver}/build
   
   make DESTDIR="$pkgdir" install
 }

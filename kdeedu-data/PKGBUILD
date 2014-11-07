@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdeedu-data
-#pkgver=${_kdever}
-pkgver=4.90.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Shared icons, artwork and data files for educational applications"
 url="https://projects.kde.org/projects/kde/kdeedu/kdeedu-data"
@@ -14,16 +13,16 @@ depends=()
 makedepends=('extra-cmake-modules')
 conflicts=('kdeedu-libkdeedu')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdeedu-data.git")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/kdeedu-data.git")
+md5sums=('cf8748f6d0ec1f7586753209e3072904')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
