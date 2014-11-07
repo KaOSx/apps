@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=gwenview
-#pkgver=${_kdever}
-pkgver=4.9.93
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="A fast and easy to use image viewer for KDE"
 arch=('x86_64')
@@ -18,25 +17,26 @@ install=${pkgname}.install
 groups=('graphics')
 conflicts=('kdegraphics-gwenview')
 #options=('docs')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+source=("http://download.kde.org/unstable/applications/src/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/gwenview.git")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/gwenview.git")
+md5sums=('645f3bee0ba3e2e3b086bed3d5e217c2')
 
 prepare() {
-  cd $pkgname
-  sed -i -e 's/Kdcraw/KF5KDcraw/' ${srcdir}/${pkgname}/CMakeLists.txt
+  cd $pkgname-${pkgver}
+  sed -i -e 's/Kdcraw/KF5KDcraw/' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
 }
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }

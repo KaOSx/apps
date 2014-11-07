@@ -3,9 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kate
-#pkgver=${_kdever}
-pkgver=14.11.80
-pkgrel=1
+pkgver=${_kdever}
+pkgrel=2
 pkgdesc='Advanced editor component which is used in numerous KDE applications requiring a text editing component'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/kate'
@@ -14,13 +13,13 @@ depends=('kdelibs4support' 'kconfig' 'kguiaddons' 'ki18n' 'kinit' 'kjobwidgets' 
          'kio' 'knewstuff' 'kparts' 'ktexteditor' 'kwindowsystem' 'kxmlgui' 'plasma-framework')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kdesdk-kate')
-#source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/unstable/applications/src/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kate")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/kate")
+md5sums=('2368d1e4d5a52d33459866f482ea35fd')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #patch -p1 -i "${srcdir}"/pkgbuild-syntax-highlight.patch
 }
 
@@ -28,11 +27,12 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DLIB_INSTALL_DIR=lib
   make
 }

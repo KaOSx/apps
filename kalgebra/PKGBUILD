@@ -1,0 +1,39 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kalgebra
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="Graph Calculator"
+url="http://kde.org/applications/education/kalgebra/"
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('analitza' 'readline' 'ki18n' 'kconfigwidgets' 'kwidgetsaddons' 'kio' 'qt5-webkit')
+makedepends=('extra-cmake-modules' 'kdoctools')
+conflicts=('kdeedu-kalgebra')
+#groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
+install=${pkgname}.install
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+md5sums=('0121c3cc4ea23a11bcfd5facb1252856')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
