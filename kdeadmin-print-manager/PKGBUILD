@@ -15,17 +15,11 @@ makedepends=('cmake' 'automoc4')
 install=${pkgname}.install
 groups=('kde' 'kdeadmin' 'kde-uninstall')
 options=('docs')
-source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
-        'cups2a.diff'
-        'cups2b.diff')
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '4ebba3a0c0289e665e29dda1e6bff4d8'
-         '77a7a54a332678bd64e9cf38ca414b0e')
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
-	#patch -p1 -i ${srcdir}/cups2b.diff
-	#patch -p1 -i ${srcdir}/cups2a.diff
 	
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} \
