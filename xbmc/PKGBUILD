@@ -2,8 +2,8 @@
 _prefix=/usr
 
 pkgname=kodi
-pkgver=14.0a4
-_pkgver=14.0a4-Helix
+pkgver=14.0b2
+_pkgver=14.0b2-Helix
 pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
@@ -32,7 +32,7 @@ provides=('xbmc')
 replaces=('xbmc')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
 source=("https://github.com/xbmc/xbmc/archive/$_pkgver.tar.gz")
-md5sums=('7b93dafe8ef385fb65c8e12e962745a7')
+md5sums=('86c496e8c163ace57609388cf53f8144')
 
 build() {
     cd "${srcdir}/xbmc-$_pkgver"
@@ -73,17 +73,17 @@ package() {
     make DESTDIR="${pkgdir}" install
 
     # various fixes
-    sed -i -e 's/which lsb_release &> \/dev\/null/\[ -f \/etc\/KaOS-release ]/g' "${pkgdir}${_prefix}/bin/xbmc"
-    sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KaOS-release/g" "${pkgdir}${_prefix}/bin/xbmc"
-    sed -i -e 's/python/python2/g' ${pkgdir}${_prefix}/bin/xbmc
+    sed -i -e 's/which lsb_release &> \/dev\/null/\[ -f \/etc\/KaOS-release ]/g' "${pkgdir}${_prefix}/bin/kodi"
+    sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KaOS-release/g" "${pkgdir}${_prefix}/bin/kodi"
+    sed -i -e 's/python/python2/g' "${pkgdir}${_prefix}/bin/kodi"
 
     # Tools
-    install -D -m 0755 "${srcdir}/xbmc-$_pkgver/xbmc-xrandr" "${pkgdir}${_prefix}/share/xbmc/xbmc-xrandr"
-    #install -D -m 0755 "${srcdir}/xbmc-$pkgver/tools/TexturePacker/TexturePacker" "${pkgdir}${_prefix}/share/xbmc/"
+    install -D -m 0755 "${srcdir}/xbmc-$_pkgver/kodi-xrandr" "${pkgdir}${_prefix}/share/kodi/kodi-xrandr"
+    install -D -m 0755 "${srcdir}/xbmc-$_pkgver/tools/TexturePacker/TexturePacker" "${pkgdir}${_prefix}/lib/kodi/"
 
     # Licenses
     install -d -m 0755 "${pkgdir}${_prefix}/share/licenses/${pkgname}"
     for licensef in LICENSE.GPL copying.txt; do
-        mv "${pkgdir}${_prefix}/share/doc/xbmc/${licensef}" "${pkgdir}${_prefix}/share/licenses/${pkgname}"
+        mv "${pkgdir}${_prefix}/share/doc/kodi/${licensef}" "${pkgdir}${_prefix}/share/licenses/${pkgname}"
     done
 }

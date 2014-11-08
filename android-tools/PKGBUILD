@@ -1,6 +1,6 @@
 
 pkgname=android-tools
-pkgver=4.4.4_r2.0.1
+pkgver=5.0.0_r2
 pkgrel=1
 pkgdesc="Android platform tools (adb, fastboot)"
 arch=('x86_64')
@@ -11,14 +11,20 @@ makedepends=('git')
 source=("git+https://android.googlesource.com/platform/system/core#tag=android-${pkgver}"
         "git+https://android.googlesource.com/platform/system/extras#tag=android-${pkgver}"
         "git+https://android.googlesource.com/platform/external/libselinux#tag=android-${pkgver}"
+        "git+https://android.googlesource.com/platform/external/f2fs-tools#tag=android-$pkgver"
         'adbMakefile'
         'fastbootMakefile')
 md5sums=('SKIP'
          'SKIP'
          'SKIP'
-         '887d868e544330ef850334961685cab3'
-         'cd1a1a9d16b523119245bfe17120d73b')
+         'SKIP'
+         '78e6236c2d37468c2c0102d89be48fa5'
+         'f99cbcef4c2289399060eba2e648f511')
 
+prepare() {
+  sed -e 's/f2fs_sparse_file = NULL/f2fs_sparse_file = 0/g' -i extras/f2fs_utils/f2fs_utils.c 
+}         
+         
 build() {
   cd "${srcdir}"/core/adb
   mv ../../adbMakefile makefile
