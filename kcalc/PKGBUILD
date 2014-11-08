@@ -2,39 +2,34 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname="ark"
-arch=('x86_64')
+pkgname="kcalc"
 #pkgver=${_kdever}
 pkgver=14.11.70
 pkgrel=1
-pkgdesc="Archiver for various compression formats"
-url="http://www.kde.org"
+arch=('x86_64')
+pkgdesc="Scientific calculator"
+url="https://www.kde.org/applications/utilities/kcalc"
 license=('GPL' 'LGPL' 'FDL')
-depends=('karchive' 'kconfig' 'kpty' 'khtml' 'kdelibs4support' 'libarchive' 'qjson-qt5' 'p7zip' 'zip'
-         'unzip' 'unrar')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'docbook-xsl')
-#options=('docs')
+depends=('kconfig' 'kconfigwidgets' 'kguiaddons' 'ki18n' 'kinit' 'knotifications' 'kxmlgui')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kdeutils-kcalc')
 #groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
-conflicts=('kdeutils-ark')
-install=ark.install
+install=kdeutils.install
 #source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/ark.git#branch=frameworks")
+source=("git://anongit.kde.org/kcalc.git#branch=frameworks")
 md5sums=('SKIP')
 
 build() {
-  cd ${srcdir}
-  
   mkdir -p build
   cd build
-
+  
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }
@@ -44,3 +39,4 @@ package() {
 
   make DESTDIR=${pkgdir} install
 }
+
