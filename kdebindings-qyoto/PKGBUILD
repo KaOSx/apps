@@ -12,15 +12,18 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=("kdebindings-smokeqt>=${_kdever}" "mono")
 makedepends=('cmake' 'automoc4' "kdebindings-smokegen>=${_kdever}")
-source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 conflicts=('kdebindings-common')
 groups=("kde" "kdebindings" "kde-uninstall")
 provides=('qyoto')
 options=('docs')
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz"
+        'mono.patch')
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'a87bc285bea38ec9140ac6afc858efaa')
 
 build() {
 	cd ${srcdir}/${_pkgname}-${pkgver}
+	patch -p1 -i ${srcdir}/mono.patch
 	
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} 
