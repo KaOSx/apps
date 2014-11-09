@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.7.6
+pkgver=0.7.7
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -78,6 +78,8 @@ package() {
   install -D -m644 "${srcdir}/unpackfs.conf" "${pkgdir}/etc/calamares/modules/unpackfs.conf"
   #sed 's|/path/to/another/filesystem.sqfs|/bootmnt/kdeos/x86_64/root-image.sqfs|' -i "${pkgdir}/usr/share/calamares/modules/unpackfs.conf"
   sed 's|linux312|linux|' -i "${pkgdir}/usr/share/calamares/modules/initcpio.conf"
+  # toggle for kf5/kde 4 ISO
+  #sed 's|KaOS-kf5|KaOS|' -i "${pkgdir}/usr/share/calamares/modules/bootloader.conf"
   
   install -Dm755 "${srcdir}/launch-calamares.sh" "${pkgdir}/usr/bin/launch-calamares.sh"
   #install -Dm644 "$srcdir/$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
