@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=breeze
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=4
 pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/breeze'
@@ -12,11 +12,10 @@ license=('LGPL')
 depends=('kwin' 'qt5-tools' 'frameworkintegration')
 makedepends=('extra-cmake-modules' 'git')
 groups=('plasma5')
-conflict=('wallpapers-midna')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-#md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/breeze.git")
-md5sums=('a4b4160db58c2d58927fecdd56058f4d')
+#md5sums=('SKIP')
 
 #prepare () {
   #cd $pkgname-$pkgver

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=4
+pkgrel=5
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
@@ -21,14 +21,12 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.ta
 #source=("git://anongit.kde.org/plasma-workspace.git"
         '10-kf5'
         'background.png'
-        'defaults'
-        'logout.diff')
+        'metadata.desktop')
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
 #md5sums=('SKIP'
          'beba34da9144bced3ef2a225be532109'
          '3d46fce215a86380383a7c9dc36e8599'
-         '013ed988e037d9692d35a42a3b5336c3'
-         'a0ab3b0e5a2daacd362e399606b6e1fa')
+         '93a7fc07c45491d97a9bcc5dbf1e975f')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -66,5 +64,5 @@ package() {
   rm "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png"
   install -m 644 -p "${srcdir}/background.png" "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png"
   rm "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/defaults"
-  install -m 644 -p "${srcdir}/defaults" "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/defaults"
+  install -m 644 -p "${srcdir}/metadata.desktop" "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/metadata.desktop"
 }
