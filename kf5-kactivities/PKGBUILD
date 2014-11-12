@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-kactivities
 _pkgname=kactivities
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Core components for the KDE's Activities"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kactivities'
@@ -16,11 +16,15 @@ makedepends=('extra-cmake-modules' 'boost')
 conflicts=('kactivities')
 provides=('kactivities')
 replaces=('kactivities')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+        'plugin_dir.diff')
+md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '4b02fb9564d4c6a1a4578e0b362d8469')
 
 prepare() {
-  mkdir -p build
+  cd ${srcdir}/${_pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/plugin_dir.diff
 }
 
 build() {
@@ -33,7 +37,7 @@ build() {
     -DLIB_INSTALL_DIR=lib \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DQT_PLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
