@@ -1,9 +1,9 @@
 
 pkgname=clementine
 _pkgname=Clementine
-pkgver=1.2.3.87
+pkgver=1.2.3.88
 pkgrel=1
-_commit=88a6300
+_commit=9cdb31c
 pkgdesc="Modern music player and library organiser that takes advantage of Qt4."
 url="http://www.clementine-player.org/"
 license="GPL"
@@ -16,11 +16,11 @@ depends=('gstreamer' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
 makedepends=('cmake' 'boost' 'mesa')
 groups=('multimedia')
 #source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
-source=("https://github.com/clementine-player/Clementine/tarball/master/${_pkgname}-${pkgver}.tar.gz")
-md5sums=('82281509db5dc6ad9b0b255bebbbc253')
+source=("https://github.com/clementine-player/Clementine/archive/master.tar.gz")
+md5sums=('915c150250dc08dc15e2aeeaa6512b0a')
 
 build() {
-  cd "${srcdir}/clementine-player-${_pkgname}-${_commit}"
+  cd "${srcdir}/${_pkgname}-master"
   mkdir -p build 
   
   cd build
@@ -30,7 +30,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/clementine-player-${_pkgname}-${_commit}/build"
+  cd "${srcdir}/${_pkgname}-master/build"
   
   make install DESTDIR="${pkgdir}"
 }

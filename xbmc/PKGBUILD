@@ -4,7 +4,7 @@ _prefix=/usr
 pkgname=kodi
 pkgver=14.0b2
 _pkgver=14.0b2-Helix
-pkgrel=1
+pkgrel=2
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
 url="http://kodi.tv/"
@@ -31,7 +31,7 @@ conflicts=('xbmc')
 provides=('xbmc')
 replaces=('xbmc')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
-source=("https://github.com/xbmc/xbmc/archive/$_pkgver.tar.gz")
+source=("archive/$_pkgver.tar.gz")
 md5sums=('86c496e8c163ace57609388cf53f8144')
 
 build() {
@@ -79,7 +79,7 @@ package() {
 
     # Tools
     install -D -m 0755 "${srcdir}/xbmc-$_pkgver/kodi-xrandr" "${pkgdir}${_prefix}/share/kodi/kodi-xrandr"
-    install -D -m 0755 "${srcdir}/xbmc-$_pkgver/tools/TexturePacker/TexturePacker" "${pkgdir}${_prefix}/lib/kodi/"
+    install -D -m 0755 "${srcdir}/xbmc-$_pkgver/tools/TexturePacker/TexturePacker.exe" "${pkgdir}${_prefix}/lib/kodi/"
 
     # Licenses
     install -d -m 0755 "${pkgdir}${_prefix}/share/licenses/${pkgname}"
