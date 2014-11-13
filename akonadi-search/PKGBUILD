@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=akonadi-search
 #pkgver=${_kdever}
-pkgver=4.90.80
+pkgver=4.90.81
 pkgrel=1
 pkgdesc="Libraries and daemons to implement searching in Akonadi."
 arch=('x86_64')
@@ -32,4 +32,6 @@ package() {
   cd build
 
   make DESTDIR=${pkgdir} install
+  # conflicts with kf5-baloo for now
+  rm -r ${pkgdir}/usr/lib/qt5/plugins/kf5/baloo/
 }

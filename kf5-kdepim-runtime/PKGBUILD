@@ -6,7 +6,7 @@ pkgname=kf5-kdepim-runtime
 _pkgname=kdepim-runtime
 arch=('x86_64')
 pkgver=4.70
-pkgrel=3
+pkgrel=4
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -23,8 +23,8 @@ md5sums=('SKIP')
 
 build() {
     cd ${srcdir}
-    sed -i 's|AccountsQt 1.11 QUIET|AccountsQt5 1.11 QUIET|' ${srcdir}/$_pkgname/resources/CMakeLists.txt
-    sed -i 's|SignOnQt|SignOnQt5|' ${srcdir}/$_pkgname/resources/CMakeLists.txt
+    #sed -i 's|AccountsQt 1.11 QUIET|AccountsQt5 1.11 QUIET|' ${srcdir}/$_pkgname/resources/CMakeLists.txt
+    #sed -i 's|SignOnQt|SignOnQt5|' ${srcdir}/$_pkgname/resources/CMakeLists.txt
     
     mkdir -p build
     cd build
