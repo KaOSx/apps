@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/konsole'
@@ -13,10 +13,10 @@ depends=('kio' 'kdelibs4support' 'kiconthemes' 'knotifyconfig' 'knotifications' 
          'kinit' 'kemoticons' 'kitemmodels')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kde-baseapps-konsole')
-source=("http://download.kde.org/unstable/applications/src/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/konsole.git")
-md5sums=('1d1cb2a9f89635e91bf4315657594790')
+md5sums=('27a73676a672c72b866c069f48f6a5ec')
 
 build() {
   mkdir -p build
