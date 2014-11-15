@@ -2,14 +2,14 @@
 pkgname=qupzilla
 pkgver=1.8.4
 _commit=5cf75ce
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast open source browser based on WebKit core, written in Qt Framework"
 arch=('x86_64')
 url="http://www.qupzilla.com/"
 license=('GPL')
-#depends=('qt5' 'qtwebkit-plugins' 'mesa')
-depends=('qtwebkit' 'qtwebkit-plugins' 'mesa' 'kdelibs')
-makedepends=('gdb')
+depends=('qt5-webkit' 'qt5-script' 'mesa' 'kwallet' 'hunspell' 'desktop-file-utils')
+#depends=('qtwebkit' 'qtwebkit-plugins' 'mesa' 'kdelibs')
+makedepends=('gdb' 'qt5-tools')
 groups=('network')
 #source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-${pkgver}.tar.gz"
 source=("https://github.com/QupZilla/qupzilla/releases/download/v${pkgver}/QupZilla-${pkgver}.tar.xz"
@@ -36,10 +36,10 @@ build() {
 
     export USE_WEBGL="true"
     export NO_X11="true"
-    export KDE_INTEGRATION="true"
+    #export KDE_INTEGRATION="true"
    
-    #/usr/lib/qt5/bin/qmake 
-    qmake
+    /usr/lib/qt5/bin/qmake 
+    #qmake
     make clean
     make
 }
