@@ -3,7 +3,7 @@ pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins' 'libkvkontakte')
 pkgver=4.5.0
 _pkgver=4.5.0
-pkgrel=1
+pkgrel=2
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
@@ -13,6 +13,12 @@ makedepends=('kde-runtime' 'kdegraphics-kgamma' 'kdepimlibs' 'lensfun' 'kdeedu-m
              'kdegraphics-libksane' 'qt-gstreamer' 'boost' 'hugin-tools' 'imagemagick' 'eigen3')
 source=("http://download.kde.org/stable/digikam/${pkgname}-${_pkgver}.tar.bz2")
 md5sums=('5fb3ab7b7c765bc7a310ca87c8e37220')
+
+prepare () {
+  cd $pkgname-$pkgver
+
+  sed -i -e 's|add_subdirectory(libkexiv2)|#add_subdirectory(libkexiv2)|' ${srcdir}/${pkgname}-${pkgver}/extra/CMakeLists.txt
+}
 
 build() {
    cd ${srcdir}
