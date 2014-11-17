@@ -1,7 +1,8 @@
 
 pkgname=gcompris-qt
 _pkgname=gcompris
-pkgver=0.18
+pkgver=0.22
+_pkgver=0.23
 pkgrel=1
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
@@ -38,7 +39,7 @@ package() {
   cd "${srcdir}"/build
   
   install -d "${pkgdir}/opt/$_pkgname"
-  make package && ./"$_pkgname-$pkgver"-Linux.sh --prefix="${pkgdir}"/opt/gcompris --skip-license
+  make package && ./"$_pkgname-$_pkgver"-Linux.sh --prefix="${pkgdir}"/opt/gcompris --skip-license
   
   install -d "${pkgdir}/usr/bin"
   install -Dm644 "${srcdir}/gcompris.desktop" "${pkgdir}/usr/share/applications/gcompris.desktop"             
