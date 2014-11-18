@@ -1,21 +1,22 @@
 
 pkgbase="kde-plasma-themes"
 pkgname=("kde-plasma-themes-midna")
-pkgver=1.1.0
+pkgver=1.9.80
 pkgrel=1
 pkgdesc="Mcder's light plasma theme for KaOS"
 arch=('x86_64')
 url="http://kaosx.us"
 license=('GPL' 'Creative-Commons-BY-SA-NC')
-source=("http://sourceforge.net/projects/kaosx/files/sources/plasma-themes/midna_$pkgver.tar.xz")
-md5sums=('39ab6bb14266506925209dc3b504b2bf')
+#source=("http://sourceforge.net/projects/kaosx/files/sources/plasma-themes/midna_$pkgver.tar.xz")
+source=("Midna.tar.gz")
+md5sums=('a2dc9f19b8c383d67d24d664464b4b8a')
 
 package() {
-  mkdir -p $pkgdir/usr/share/apps/desktoptheme/midna
-  cd $srcdir/midna
-  cp -R * $pkgdir/usr/share/apps/desktoptheme/midna
+  mkdir -p $pkgdir/usr/share/plasma/desktoptheme/midna
+  cd $srcdir/Midna
+  cp -R * $pkgdir/usr/share/plasma/desktoptheme/midna
   # fix file rights
-  chmod 755 -R $pkgdir/usr/share/apps/desktoptheme/midna
+  chmod 755 -R $pkgdir/usr/share/plasma/desktoptheme/midna
   # remove nasty files
   find $pkgdir/ -name ".directory" -type f -exec rm -fr {} +
 }
