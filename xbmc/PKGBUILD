@@ -2,9 +2,9 @@
 _prefix=/usr
 
 pkgname=kodi
-pkgver=14.0b2
-_pkgver=14.0b2-Helix
-pkgrel=2
+pkgver=14.0b3
+_pkgver=14.0b3-Helix
+pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
 url="http://kodi.tv/"
@@ -31,12 +31,11 @@ conflicts=('xbmc')
 provides=('xbmc')
 replaces=('xbmc')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
-source=("archive/$_pkgver.tar.gz")
-md5sums=('86c496e8c163ace57609388cf53f8144')
+source=("https://github.com/xbmc/xbmc/archive/$_pkgver.tar.gz")
+md5sums=('575f28c28e04157af45fac16976aa11f')
 
 build() {
     cd "${srcdir}/xbmc-$_pkgver"
-    sed -i -e 's:/usr/bin/lsb_release -d:cat /etc/KaOS-release:' xbmc/utils/SystemInfo.cpp
   
     msg "Bootstrapping XBMC"
     ./bootstrap
@@ -73,7 +72,6 @@ package() {
     make DESTDIR="${pkgdir}" install
 
     # various fixes
-    sed -i -e 's/which lsb_release &> \/dev\/null/\[ -f \/etc\/KaOS-release ]/g' "${pkgdir}${_prefix}/bin/kodi"
     sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KaOS-release/g" "${pkgdir}${_prefix}/bin/kodi"
     sed -i -e 's/python/python2/g' "${pkgdir}${_prefix}/bin/kodi"
 
@@ -86,4 +84,8 @@ package() {
     for licensef in LICENSE.GPL copying.txt; do
         mv "${pkgdir}${_prefix}/share/doc/kodi/${licensef}" "${pkgdir}${_prefix}/share/licenses/${pkgname}"
     done
+    
+    # move from xbmc to kodi leaves conflicting symlinks in place of real files, pacman not handling it
+    rm -r "${pkgdir}${_prefix}/share/xbmc"
+    rm -r "${pkgdir}${_prefix}/lib/xbmc"
 }
