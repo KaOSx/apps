@@ -1,8 +1,8 @@
 
 pkgname=qupzilla
-pkgver=1.8.4
-_commit=5cf75ce
-pkgrel=2
+pkgver=1.8.4.1
+_commit=b1c1299
+pkgrel=1
 pkgdesc="A fast open source browser based on WebKit core, written in Qt Framework"
 arch=('x86_64')
 url="http://www.qupzilla.com/"
@@ -11,23 +11,23 @@ depends=('qt5-webkit' 'qt5-script' 'mesa' 'kwallet' 'hunspell' 'desktop-file-uti
 #depends=('qtwebkit' 'qtwebkit-plugins' 'mesa' 'kdelibs')
 makedepends=('gdb' 'qt5-tools')
 groups=('network')
-#source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-${pkgver}.tar.gz"
-source=("https://github.com/QupZilla/qupzilla/releases/download/v${pkgver}/QupZilla-${pkgver}.tar.xz"
+source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-${pkgver}.tar.gz"
+#source=("https://github.com/QupZilla/qupzilla/releases/download/v${pkgver}/QupZilla-${pkgver}.tar.xz"
         'speeddial.diff'
         'preferences.diff'
         'browserwindow.diff'
         'defines.diff'
         'bookmarks_json.diff')
-md5sums=('8497f7385615b6715547a1e695085a75'
+md5sums=('d0fc2d543507f1bf0eff7829d7e79fb3'
          '65cd96b4e2d5b12df25e088f8409acd6'
-         '156986a85a9dca8ab049caa6a460f5b9'
+         'c747d63df3218d038546fd93ba531178'
          'ea860e4bd5a7ca23445482e1fde186b5'
          'f5207fdb5455567352fbabb63f36f731'
          'd8e71f134f47cd97d908cf6c6190732c')
 
 build() {
-    #cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
-    cd "${srcdir}/QupZilla-${pkgver}"
+    cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
+    #cd "${srcdir}/QupZilla-${pkgver}"
     patch -p0 -i "${srcdir}/speeddial.diff"
     patch -p0 -i "${srcdir}/preferences.diff"
     patch -p0 -i "${srcdir}/browserwindow.diff"
@@ -45,8 +45,8 @@ build() {
 }
 
 package() {
-    #cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
-    cd "${srcdir}/QupZilla-${pkgver}"
+    cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
+    #cd "${srcdir}/QupZilla-${pkgver}"
     make INSTALL_ROOT="$pkgdir/" install
     
     cp "$pkgdir/usr/share/qupzilla/locale/de_DE.qm" "$pkgdir/usr/share/qupzilla/locale/de_CH.qm"
