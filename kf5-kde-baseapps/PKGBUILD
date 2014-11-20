@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-kde-baseapps
 _pkgname=kde-baseapps
 pkgver=4.98.0.1
-pkgrel=8
+pkgrel=9
 pkgdesc="Collection of applications used for file and Internet browsing"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/kde-baseapps'
@@ -14,8 +14,8 @@ depends=('kdelibs4support' 'kdesu' 'kf5-baloo-widgets' 'kf5-kactivities' 'kded' 
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kde-baseapps')
 #source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
-source=("git://anongit.kde.org/kde-baseapps#branch=frameworks")
-md5sums=('SKIP')
+source=("http://quickgit.kde.org/?p=kde-baseapps.git&a=snapshot&h=5b5ba74094d49623552bc21156d9a7941ec95a77")
+md5sums=('cc702a64b6e94b632035345fdd926b76')
 
 build() {
   mkdir -p build
