@@ -1,7 +1,7 @@
 
 pkgname=godot
 pkgver=1.0.3917
-pkgrel=1
+pkgrel=2
 pkgdesc="Full featured, open source, MIT licensed, game engine."
 arch=('x86_64')
 url="http://www.godotengine.org"
@@ -19,13 +19,13 @@ build() {
     cd ${srcdir}/${pkgname}
     sed -n '/\/* Copyright/,/IN THE SOFTWARE./p' main/main.cpp | sed 's/\/\*//' | sed 's/\*\///' > LICENSE
 
-    scons bin/godot 
+    scons platform=x11
 }
 
 package() {
     cd ${srcdir}/${pkgname}
     
-    install -Dm755 bin/godot ${pkgdir}/usr/bin/godot
+    install -Dm755 bin/godot.x11.tools.64 ${pkgdir}/usr/bin/godot
 
     install -Dm644 ${srcdir}/godot.desktop ${pkgdir}/usr/share/applications/godot.desktop
     install -Dm644 ${srcdir}/icon.png ${pkgdir}/usr/share/pixmaps/godot.png  
