@@ -11,7 +11,7 @@ url="http://kde.org/applications/graphics/ksnapshot/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kdelibs4support' 'kio' 'kservice'
-         'kwindowsystem' 'kxmlgui') # 'libkipi' not ported yet
+         'kwindowsystem' 'kxmlgui' 'libkipi')
 makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
 install=${pkgname}.install
 conflicts=('kdegraphics-ksnapshot')
@@ -25,7 +25,7 @@ md5sums=('SKIP'
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's|#include <klocale.h>||' ${srcdir}/${pkgname}/snapshottimer.cpp
+  #sed -i -e 's|ksnapshot KF5::Kipi|ksnapshot KF5::KIPI|' ${srcdir}/${pkgname}/CMakeLists.txt
   #patch -p1 -i ${srcdir}/CMakeLists.diff 
 }
 
