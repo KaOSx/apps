@@ -1,6 +1,6 @@
 
 pkgname=virtualbox-guest-additions
-pkgver=4.3.18
+pkgver=4.3.20
 pkgrel=1
 pkgdesc='The official VirtualBox Guest Additions ISO image'
 arch=('x86_64')
@@ -9,14 +9,17 @@ license=('custom:PUEL')
 install=virtualbox-guest-additions.install
 depends=('make' 'pkg-config')
 source=("http://download.virtualbox.org/virtualbox/$pkgver/VBoxGuestAdditions_$pkgver.iso"
+        'vboxservice.service'
         'LICENSE')
 noextract=(VBoxGuestAdditions_$pkgver.iso)
-md5sums=('c95841f30fa274708b4798c670fb10da'
+md5sums=('4f6861ee0c584bcf6819cc76a2bd65ab'
+         'f50243f38c6dd103e7e944f635d66fa0'
          'c32cd777d97ebc094af7548e2fd866c2')
 
 package() {
   install -Dm 644 VBoxGuestAdditions_$pkgver.iso \
     "$pkgdir/usr/lib/virtualbox/additions/VBoxGuestAdditions.iso"
-    
+  
+  install -Dm0644 vboxservice.service "${pkgdir}/usr/lib/systemd/system/vboxservice.service"
   install -Dm 644 "$srcdir/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
