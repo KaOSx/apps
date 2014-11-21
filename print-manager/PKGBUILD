@@ -1,0 +1,48 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=print-manager
+#pkgver=${_kdever}
+pkgver=14.11.70
+pkgrel=1
+pkgdesc="A KDE tool for managing print jobs and printers"
+url="https://projects.kde.org/projects/kde/kdeutils/print-manager"
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('kconfig' 'kconfigwidgets' 'kcompletion' 'kcoreaddons' 'kdbusaddons' 'kiconthemes'
+         'ki18n' 'kcmutils' 'kio' 'kdelibs4support' 'knotifications' 'plasma-framework'
+         'kwidgetsaddons' 'kwindowsystem' 'libcups' 'system-config-printer' 'qt5-tools')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+install=${pkgname}.install
+#groups=('kde' 'kdeutils' 'kde-uninstall')
+conflicts=('kdeadmin-print-manager')
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/print-manager.git#branch=frameworks")
+md5sums=('SKIP')
+
+prepare() {
+  cd $pkgname
+  #sed -i -e 's|add_subdirectory( doc )|#add_subdirectory( doc )|' ${srcdir}/${pkgname}/CMakeLists.txt
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
