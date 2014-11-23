@@ -1,6 +1,6 @@
 
 pkgname=handbrake
-pkgver=0.9.80
+pkgver=0.10.0
 _commit=c069f98
 pkgrel=1
 arch=('x86_64')
@@ -11,12 +11,13 @@ depends=('bzip2' 'gcc-libs' 'gst-plugins-base' 'libnotify' 'dbus-glib' 'fribidi'
          'fontconfig' 'freetype2' 'libxml2' 'libogg' 'libvorbis' 'libtheora' 'libsamplerate'
          'x264' 'desktop-file-utils' 'hicolor-icon-theme' 'lame')
 makedepends=('intltool' 'python2' 'yasm' 'wget')
-#source=("http://downloads.sourceforge.net/project/handbrake/$pkgver/HandBrake-$pkgver.tar.bz2")
-source=("https://github.com/HandBrake/HandBrake/tarball/master/handbrake-${pkgver}.tar.gz")
-md5sums=('5bb6cf29ba6211c396a58b92d24a90f3')
+source=("http://downloads.sourceforge.net/project/handbrake/$pkgver/HandBrake-$pkgver.tar.bz2")
+#source=("https://github.com/HandBrake/HandBrake/tarball/master/handbrake-${pkgver}.tar.gz")
+md5sums=('0902f724e2884bc9a5e077cc021b578d')
 
 build() {
-  cd "$srcdir/HandBrake-HandBrake-${_commit}/"
+  cd "$srcdir/HandBrake-$pkgver"
+  #cd "$srcdir/HandBrake-HandBrake-${_commit}/"
 
   LDFLAGS='-lgmodule-2.0' 
   ./configure --prefix=/usr --force --disable-gtk-update-checks
@@ -25,7 +26,8 @@ build() {
 }
 
 package() {
-  cd "$srcdir/HandBrake-HandBrake-${_commit}/build"
+  cd "$srcdir/HandBrake-$pkgver/build"
+  #cd "$srcdir/HandBrake-HandBrake-${_commit}/build"
 
   make DESTDIR="$pkgdir" install
 }
