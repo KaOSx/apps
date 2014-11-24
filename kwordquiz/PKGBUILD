@@ -2,24 +2,24 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=print-manager
+pkgname=kwordquiz
 #pkgver=${_kdever}
-pkgver=14.11.71
+pkgver=14.11.70
 pkgrel=1
-pkgdesc="A KDE tool for managing print jobs and printers"
-url="https://projects.kde.org/projects/kde/kdeutils/print-manager"
+pkgdesc="Flash Card Trainer"
+url="http://kde.org/applications/education/kwordquiz/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kconfigwidgets' 'kcompletion' 'kcoreaddons' 'kdbusaddons' 'kiconthemes'
-         'ki18n' 'kcmutils' 'kio' 'kdelibs4support' 'knotifications' 'plasma-framework'
-         'kwidgetsaddons' 'kwindowsystem' 'libcups' 'system-config-printer' 'qt5-tools')
+depends=('ki18n' 'kcrash' 'sonnet' 'kconfig' 'kconfigwidgets' 'kguiaddons' 'kiconthemes' 'kitemviews' 
+         'knotifyconfig' 'kio' 'knewstuff' 'knotifications' 'kxmlgui' 'kdelibs4support' 'kdeclarative'
+         'libkeduvocdocument' 'phonon-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kdeedu-kwordquiz')
+#groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
-#groups=('kde' 'kdeutils' 'kde-uninstall')
-conflicts=('kdeadmin-print-manager')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/print-manager.git#branch=frameworks")
+source=("git://anongit.kde.org/kwordquiz.git")
 md5sums=('SKIP')
 
 prepare() {
@@ -46,3 +46,4 @@ package() {
 
   make DESTDIR=${pkgdir} install
 }
+
