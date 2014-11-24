@@ -1,6 +1,6 @@
 
 pkgname=pidgin
-pkgver=2.10.10
+pkgver=2.10.11
 pkgrel=1
 pkgdesc="Multi-protocol instant messaging client"
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('nss' 'libsasl' 'python2' 'tk' 'ca-certificates' 'intltool' )
 options=('!libtool')
 install=pidgin.install
 source=("http://downloads.sourceforge.net/pidgin/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('5030d4750c73b211c7e82bb67ea3d016')
+md5sums=('7c8bb6f997e05e7929104439872c2844')
 
 build() {
   cd "$srcdir/${pkgname}-$pkgver"
@@ -45,23 +45,9 @@ package(){
     #clean up libpurple
     make -C libpurple DESTDIR="${pkgdir}" uninstall-libLTLIBRARIES
 
-    install -D -m 0644 pidgin.desktop "${pkgdir}"/usr/share/applications/pidgin.desktop
+    install -D -m 0644 pidgin/data/pidgin.desktop "${pkgdir}"/usr/share/applications/pidgin.desktop
 
     rm -f "${pkgdir}"/usr/share/man/man1/finch.1
 }
-#package_finch(){
-#    pkgdesc="A ncurses-based messaging client"
-#    depends=("libpurple=$pkgver" 'python' 'gstreamer0.10')
 
-#    cd "${srcdir}/${pkgbase}-${pkgver}"
-    #for linking
-#    make -C libpurple DESTDIR="${pkgdir}" install-libLTLIBRARIES
-
-#    make -C finch DESTDIR="${pkgdir}" install
-#    make -C doc DESTDIR="${pkgdir}" install
-
-    #clean up libpurple
-#    make -C libpurple DESTDIR="${pkgdir}" uninstall-libLTLIBRARIES
-#    rm -f "${pkgdir}"/usr/share/man/man1/pidgin.1
-#}
 
