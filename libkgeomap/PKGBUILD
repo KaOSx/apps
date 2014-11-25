@@ -2,28 +2,22 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=libkexiv2
+pkgname=libkgeomap
 #pkgver=${_kdever}
 pkgver=4.9.80
 pkgrel=1
-pkgdesc="Wrapper around exiv2"
+pkgdesc="Wrapper around different world-map components, to browse and arrange photos over a map"
 arch=('x86_64')
-url='http://www.kde.org'
+url='https://projects.kde.org/projects/extragear/libs/libkgeomap'
 license=('GPL' 'LGPL' 'FDL')
-depends=('ktextwidgets' 'kcompletion' 'libjpeg-turbo' 'exiv2')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git' 'kdelibs')
+depends=('khtml' 'kparts' 'libkexiv2' 'marble')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'pkg-config')
 #groups=("kde" "kdegraphics" "kde-uninstall")
-conflicts=('kdegraphics-libkexiv2')
-#options=('docs')
+conflicts=('kipi-plugins')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkexiv2.git#branch=frameworks")
+source=("git://anongit.kde.org/libkgeomap.git#branch=frameworks")
 md5sums=('SKIP')
-
-prepare() {
-  cd $pkgname
-  #sed -i -e 's|KF5::KDELibs4Support|KF5::KDELibs4Support KF5::KHtml|' ${srcdir}/${pkgname}/src/CMakeLists.txt
-}
 
 build() {
   mkdir -p build
@@ -34,7 +28,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
   make
 }
 
