@@ -4,15 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kamoso
 #pkgver=${_kdever}
-pkgver=2.80
+pkgver=2.81
 pkgrel=1
 pkgdesc="Kamoso is an application to take pictures and videos out of your webcam."
 url="https://projects.kde.org/projects/extragear/multimedia/kamoso"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kconfigwidgets' 'kcompletion' 'kdelibs4support' 'kwidgetsaddons' 'kio' 'solid'
+depends=('kconfig' 'kconfigwidgets' 'kcompletion' 'kwidgetsaddons' 'kio' 'solid'
          'kdeclarative' 'systemd' 'gst-plugins-base' 'gst-plugins-good' 'qt5-gstreamer') # 'kipi-plugins' 'phonon-t5'
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'kdelibs')
 #groups=('multimedia')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -21,7 +21,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's|add_subdirectory( doc )|#add_subdirectory( doc )|' ${srcdir}/${pkgname}/CMakeLists.txt
+  sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
 }
 
 build() {
