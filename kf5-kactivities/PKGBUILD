@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-kactivities
 _pkgname=kactivities
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc="Core components for the KDE's Activities"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kactivities'
@@ -14,9 +14,9 @@ depends=('qt5-declarative' 'boost-libs' 'kdbusaddons' 'kio' 'kwindowsystem' 'kse
          'kcmutils')
 makedepends=('extra-cmake-modules' 'boost')
 conflicts=('kactivities')
-provides=('kactivities')
-replaces=('kactivities')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+#provides=('kactivities')
+#replaces=('kactivities')
+source=("http://download.kde.org/stable/frameworks/5.4/${_pkgname}-${pkgver}.tar.xz"
         'plugin_dir.diff')
 md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
          '4b02fb9564d4c6a1a4578e0b362d8469')

@@ -1,0 +1,13 @@
+--- a/src/kcmsystemd.cpp	2014-07-26 15:46:02.000000000 -0400
++++ b/src/kcmsystemd.cpp	2014-11-27 15:57:44.277331667 -0500
+@@ -1509,8 +1509,8 @@
+    
+   if (a == edit)
+   {
+-    QProcess kwrite (this);
+-    kwrite.startDetached(kdePrefix + "/lib/kde4/libexec/kdesu", QStringList() << "-t" << "--" << "kwrite" << frpath);
++    QProcess kate (this);
++    kate.startDetached(kdePrefix + "/lib/kde4/libexec/kdesu", QStringList() << "-t" << "--" << "kate" << frpath);
+   }
+   if (a == isolate)
+   {
