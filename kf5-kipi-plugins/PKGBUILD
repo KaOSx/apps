@@ -1,0 +1,52 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kf5-kipi-plugins
+_pkgname=kipi-plugins
+#pkgver=${_kdever}
+pkgver=4.9.80
+pkgrel=1
+pkgdesc="Collection of plugins extending the KDE graphics and image applications as digiKam, Gwenview, and KPhotoalbum."
+url="https://projects.kde.org/projects/extragear/graphics/kipi-plugins"
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('kdelibs4support' 'kparts' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkface' 'libkgeomap' 'libpng' 
+         'libtiff' 'libjpeg-turbo')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kipi-plugins')
+#groups=('kde' 'kde-graphics' 'kde-uninstall')
+install=${_pkgname}.install
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kipi-plugins.git#branch=frameworks")
+md5sums=('SKIP')
+
+prepare() {
+  cd $_pkgname
+  #sed -i -e 's|if(KF5Kipi_FOUND AND KF5Kipi_INCLUDE_DIRS)|if(KF5Kipi_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
+  #sed -i -e 's|if(KF5KDcraw_FOUND AND KF5KDcraw_INCLUDE_DIRS)|if(KF5KDcraw_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
+  #sed -i -e 's|if(KF5KExiv2_FOUND AND KF5KExiv2_INCLUDE_DIRS)|if(KF5KExiv2_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
+  #sed -i -e 's|if(KF5KFace_FOUND AND KF5KFace_INCLUDE_DIRS)|if(KF5KFace_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
+
