@@ -1,30 +1,31 @@
 
 pkgname=jsoncpp
-pkgver=0.5.0
-pkgrel=2
+pkgver=1.0.0
+pkgrel=1
 pkgdesc="A JSON C++ library"
 url='https://github.com/open-source-parsers/jsoncpp'
 license=('custom:Public_Domain')
 arch=('x86_64')
-depends=('gcc-libs')
-makedepends=('scons')
-source=("http://downloads.sourceforge.net/jsoncpp/${pkgname}-src-${pkgver}.tar.gz")
-md5sums=('24482b67c1cb17aac1ed1814288a3a8f')
+depends=('gcc-libs' 'python2')
+makedepends=('cmake')
+source=("https://github.com/open-source-parsers/jsoncpp/archive/${pkgver}.tar.gz")
+md5sums=('4c886ac3bfccc867a79f3a5280ce1152')
 
 build() {
-  cd ${pkgname}-src-${pkgver}
-
-  scons platform=linux-gcc
+  cd ${pkgname}-${pkgver}
+  mkdir -p build/debug
+  cd build/debug
+  
+  cmake -DCMAKE_BUILD_TYPE=debug \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DJSONCPP_LIB_BUILD_SHARED=ON -G "Unix Makefiles" ../..
+  make
 }
 
 package() {
-  cd ${pkgname}-src-${pkgver}
-
-  install -d "${pkgdir}"/usr/include/jsoncpp
-  cp -r include/json "${pkgdir}"/usr/include/jsoncpp/json
-
-  install -Dm644 buildscons/linux-gcc-*/src/lib_json/libjson_linux-gcc*libmt.so \
-    "${pkgdir}"/usr/lib/libjsoncpp.so
-
-  install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+  cd ${pkgname}-${pkgver}/build/debug
+  make DESTDIR=${pkgdir} install
+  
+  cd ../..
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
