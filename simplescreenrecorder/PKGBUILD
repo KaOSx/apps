@@ -1,8 +1,8 @@
  
 pkgname=simplescreenrecorder
-pkgver=0.3.1.1
+pkgver=0.3.1.2
 pkgrel=1
-_commit=c396076
+_commit=65975c6
 pkgdesc="Screen recorder that is actually quite complex, but 'simple' in the sense that it's easy to use"
 arch=('x86_64')
 url="http://www.maartenbaert.be/simplescreenrecorder/"
@@ -11,11 +11,14 @@ depends=('qt5-x11extras' 'ffmpeg' 'alsa-lib' 'pulseaudio' 'jack' 'libgl' 'glu' '
          'libxfixes' 'libxi')
 makedepends=('qt5-tools')
 options=('!libtool')
-source=("https://github.com/MaartenBaert/ssr/tarball/master/ssr-$pkgver.tar.gz")
-md5sums=('097eedbdc3ffdcc907de460cff3049dd')
+source=("https://github.com/MaartenBaert/ssr/tarball/master/ssr-$pkgver.tar.gz"
+        "https://github.com/MaartenBaert/ssr/commit/25fe1743058f0d1f95f6fbb39014b6ac146b5180.patch")
+md5sums=('b82a16234c0b6ddaaf9dfdc2fd2c5683'
+         '6e914426e092d9c2413cfcc6c79caee2')
 
 build() {
   cd MaartenBaert-ssr-${_commit}
+  patch -p1 -Ri ${srcdir}/25fe1743058f0d1f95f6fbb39014b6ac146b5180.patch
   
   ./configure --prefix=/usr --disable-assert --with-qt5=yes
   
