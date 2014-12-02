@@ -1,0 +1,43 @@
+
+pkgname=kf5-kdenlive
+_pkgname=kdenlive
+pkgver=0.9.70
+_pkgver=0.9.70
+pkgrel=1
+pkgdesc="A non-linear video editor for Linux"
+arch=('x86_64')
+url="http://www.kdenlive.org/"
+license=('GPL')
+depends=('karchive' 'kbookmarks' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'kdbusaddons' 'kio'
+         'kdelibs4support' 'kwidgetsaddons' 'kplotting' 'knotifyconfig' 'knewstuff' 'kxmlgui'
+         'mlt-qt5' 'dvgrab' 'qjson-qt5' 'qimageblitz-qt5') #kservice
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'gettext' 'docbook-xsl')
+optdepends=("dvdauthor: for creating dvds")
+groups=('multimedia')
+#source=("http://download.kde.org/stable/kdenlive/$_pkgver/src/$pkgname-$_pkgver.tar.bz2")
+source=("git://anongit.kde.org/kdenlive#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  #sed -e "s/Qt5::core/Qt5::core KF5::KWidgetsAddons/" -i ${srcdir}/$pkgname/libkdegames/CMakeLists.txt
+  
+  mkdir -p build
+  cd build
+
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
