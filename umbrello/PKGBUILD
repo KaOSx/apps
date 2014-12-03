@@ -2,22 +2,23 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=dragon
+pkgname=umbrello
 #pkgver=${_kdever}
-pkgver=14.11.72
+pkgver=14.11.70
 pkgrel=1
-pkgdesc="A multimedia player where the focus is on simplicity, instead of features"
-url='http://kde.org/applications/multimedia/dragonplayer/'
+pkgdesc='UML modeling tool for KDE'
+url='http://kde.org/applications/development/umbrello/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'knotifications'
-         'kwidgetsaddons' 'kwindowsystem' 'kparts' 'solid' 'kxmlgui' 'kjobwidgets' 'phonon-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-#groups=("kde" "kdemultimedia" "kde-uninstall")
-conflicts=('kdemultimedia-dragonplayer')
+depends=('karchive' 'kauth' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kiconthemes' 'kinit'
+         'kio' 'kparts' 'kservice' 'ktexteditor' 'kwindowsystem' 'kwidgetsaddons' 'kxmlgui' )
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
+#groups=('kde' 'kdesdk' 'kde-uninstall' 'programming' )
+conflicts=('kdesk-umbrello')
+install=${pkgname}.install
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/dragon.git#branch=frameworks")
+source=("git://anongit.kde.org/umbrello.git#branch=frameworks")
 md5sums=('SKIP')
 
 prepare() {
