@@ -1,0 +1,48 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=knavalbattle
+#pkgver=${_kdever}
+pkgver=14.11.70
+pkgrel=1
+pkgdesc="Naval Battle"
+arch=('x86_64')
+url='http://www.kde.org'
+license=('GPL' 'LGPL' 'FDL')
+depends=('libkdegames' 'kcoreaddons' 'kconfig' 'kwidgetsaddons' 'kcodecs' 'karchive' 'kdbusaddons'
+         'kdnssd' 'kdeclarative' 'ki18n' 'kguiaddons' 'kservice' 'kconfigwidgets' 'kitemviews' 'kiconthemes'
+         'kcompletion' 'kjobwidgets' 'ktextwidgets' 'kglobalaccel' 'kxmlgui' 'kcrash' 'kbookmarks' 'kio'
+         'knotifyconfig' 'knewstuff' 'kdelibs4support' 'phonon-qt5')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
+#groups=('kde' 'kdegames' 'kde-uninstall')
+conflicts=('kdegames-knavalbattle')
+#options=('docs')
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/knavalbattle#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  #sed -e "s/kdegames/KF5KDEGames/" -i ${srcdir}/$pkgname/src/CMakeLists.txt
+  
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
