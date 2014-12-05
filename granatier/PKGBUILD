@@ -2,25 +2,22 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=libkdegames
+pkgname=granatier
 #pkgver=${_kdever}
-pkgver=4.90.80
-pkgrel=5
-pkgdesc="Shared libraries for KDE games"
+pkgver=14.11.70
+pkgrel=1
+pkgdesc="Granatier is a clone of the classic Bomberman game, inspired by the work of the Clanbomber clone"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kwidgetsaddons' 'kcodecs' 'karchive' 'kconfig' 'kdbusaddons' 'kdnssd' 'kdeclarative'
-         'ki18n' 'kguiaddons' 'kservice' 'kconfigwidgets' 'kitemviews' 'kiconthemes' 'kcompletion' 'kjobwidgets'
-         'ktextwidgets' 'kglobalaccel' 'kxmlgui' 'kcrash' 'kbookmarks' 'kio' 'knewstuff' 'kdelibs4support'
-         'libsndfile' 'openal')
+depends=('libkdegames' 'kcoreaddons' 'kconfig' 'kwidgetsaddons' 'ki18n' 'kguiaddons' 'kconfigwidgets' 'kitemviews'
+         'kiconthemes' 'kxmlgui' 'kio' 'knewstuff' 'knotifyconfig' 'kdelibs4support')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
-conflicts=('kdegames-libkdegames')
-#options=('docs')
 #groups=('kde' 'kdegames' 'kde-uninstall')
+conflicts=('kdegames-granatier')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkdegames#branch=frameworks")
+source=("git://anongit.kde.org/granatier#branch=frameworks")
 md5sums=('SKIP')
 
 build() {
