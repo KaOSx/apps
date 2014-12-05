@@ -1,28 +1,33 @@
 
-pkgname=libkpeople
-pkgver=0.3.0
+pkgname=kf5-libkpeople
+_pkgname=libkpeople
+pkgver=0.4.80
 pkgrel=1
 pkgdesc="A contact aggregation library for KDE"
 arch=('x86_64')
 url='http://community.kde.org/KTp/libkpeople'
 license=('LGPL')
-depends=('kdepimlibs' 'baloo')
-makedepends=('cmake' 'automoc4' 'boost')
-source=("http://download.kde.org/unstable/libkpeople/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('cf9c565742dde9b8743a2dfea2d8259f')
+depends=('kf5-kdepimlibs' 'kf5-baloo' 'kcoreaddons' 'kio' 'ki18n' 'kitemviews')
+makedepends=('extra-cmake-modules' 'boost' 'git')
+#source=("http://download.kde.org/unstable/libkpeople/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+source=("git://anongit.kde.org/libkpeople.git#branch=frameworks")
+md5sums=('SKIP')
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  
+  cmake ../${_pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
   cd build
 
-  make DESTDIR="${pkgdir}/" install
+  make DESTDIR=${pkgdir} install
 }
