@@ -1,0 +1,39 @@
+
+pkgname=telepathy-logger-qt5
+_pkgname=telepathy-logger-qt
+pkgver=0.8.80
+pkgrel=1
+pkgdesc="Qt bindings for telepathy logger"
+arch=('x86_64')
+url="https://projects.kde.org/projects/kdereview/telepathy-logger-qt"
+license=('GPL')
+depends=('telepathy-qt5' 'qt5-gstreamer' 'telepathy-logger' 'boost-libs')
+makedepends=('cmake' 'python2' 'boost' 'doxygen')
+group=('kf5-kde-telepathy')
+#source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+conflicts=('telepathy-logger-qt')
+source=("git://anongit.kde.org/telepathy-logger-qt.git#branch=qt5")
+md5sums=('SKIP')
+
+prepare() {
+  cd $_pkgname
+  sed -i -e 's|QtGLib|Qt5GLib|' ${srcdir}/${_pkgname}/CMakeLists.txt
+}
+
+build() {
+  cd "${srcdir}"
+  mkdir build
+  
+  cd build
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPYTHON_EXECUTABLE=/usr/bin/python2
+  make
+}
+
+package() {
+  cd "${srcdir}/build"
+  
+  make DESTDIR="$pkgdir/" install
+}
