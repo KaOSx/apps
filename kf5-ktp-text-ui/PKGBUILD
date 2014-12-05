@@ -1,0 +1,40 @@
+
+pkgname=kf5-ktp-text-ui
+_pkgname=ktp-text-ui
+pkgver=0.9.90
+_pkgver=0.9.90
+pkgrel=1
+pkgdesc="Telepathy text chat handler"
+arch=('x86_64')
+url="http://www.kde.org"
+license=('GPL')
+depends=('kf5-ktp-common-internals' 'kf5-ktp-contact-list' 'telepathy-logger-qt5' 'qjson')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
+groups=('kf5-kde-telepathy')
+#source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${_pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+conflicts=('ktp-text-ui')
+source=("git://anongit.kde.org/ktp-text-ui.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  
+  mkdir -p build
+  cd build
+
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}

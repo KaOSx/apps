@@ -1,0 +1,39 @@
+
+pkgname=kf5-ktp-filetransfer-handler
+_pkgname=ktp-filetransfer-handler
+pkgver=0.9.90
+pkgrel=1
+pkgdesc="Telepathy file transfer handler"
+arch=('x86_64')
+url="http://www.kde.org"
+license=('GPL')
+depends=('kf5-ktp-common-internals')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+groups=('kf5-kde-telepathy')
+#source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+conflicts=('ktp-filetransfer-handler')
+source=("git://anongit.kde.org/ktp-filetransfer-handler.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  
+  mkdir -p build
+  cd build
+
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
