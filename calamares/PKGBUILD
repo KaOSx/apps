@@ -13,10 +13,8 @@ source=("git://github.com/KaOSx/calamares"
 #source=("calamares.tar.xz"
         'displaymanager.conf'
         'locale.conf'
-        'mount.conf'
         'prepare.conf'
         'settings.conf'
-        'unpackfs.conf'
         'launch-calamares.sh'
         'installer.svg'
         'GreetingPage.diff'
@@ -72,7 +70,6 @@ package() {
   #install -D -m644 "${srcdir}/displaymanager.conf" "${pkgdir}/etc/calamares/modules/displaymanager.conf"
   install -D -m644 "${srcdir}/locale.conf" "${pkgdir}/etc/calamares/modules/locale.conf"
   install -D -m644 "${srcdir}/prepare.conf" "${pkgdir}/etc/calamares/modules/prepare.conf"
-  install -D -m644 "${srcdir}/mount.conf" "${pkgdir}/etc/calamares/modules/mount.conf"
   
   sed 's|linux312|linux|' -i "${pkgdir}/usr/share/calamares/modules/initcpio.conf"
   # toggle for kf5/kde 4 ISO
