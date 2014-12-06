@@ -7,13 +7,14 @@ pkgdesc="Telepathy contact list application "
 arch=('x86_64')
 url="http://www.kde.org"
 license=('GPL')
-depends=('' 'kf5-ktp-common-internals')
+depends=('kdbusaddons' 'kio' 'kcmutils' 'knotifyconfig' 'kdelibs4support' 'kf5-ktp-common-internals'
+         'telepathy-qt5' 'kf5-libkpeople')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 groups=('kf5-kde-telepathy' 'communication')
 install=${_pkgname}.install
 #source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
 conflicts=('kf5-ktp-contact-list')
-source=("git://anongit.kde.org/ktp-contact-list.git#branch=frameworks")
+source=("git://anongit.kde.org/ktp-contact-list.git")
 md5sums=('SKIP')
 
 build() {

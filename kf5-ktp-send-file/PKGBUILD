@@ -5,15 +5,15 @@ pkgver=0.9.90
 pkgrel=1
 pkgdesc="A File manager plugin to launch a file transfer job with a specified contact"
 arch=('x86_64')
-url="http://www.kde.org"
+url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-send-file"
 license=('GPL')
-depends=('kf5-ktp-filetransfer-handler' 'kf5-ktp-contact-list')
+depends=('kf5-ktp-common-internals')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('kf5-kde-telepathy')
 install=${_pkgname}.install
 #source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
 conflicts=('ktp-send-file')
-source=("git://anongit.kde.org/ktp-send-file.git#branch=frameworks")
+source=("git://anongit.kde.org/ktp-send-file.git")
 md5sums=('SKIP')
 
 build() {
