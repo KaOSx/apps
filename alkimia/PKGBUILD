@@ -1,14 +1,14 @@
 
-pkgname=kf5-alkimia	
-_pkgname=alkimia
+pkgname=alkimia
 pkgver=4.100.0
-pkgrel=4
+pkgrel=1
 arch=('x86_64')
 pkgdesc="A library with common classes and functionality used by finance applications for the KDE SC."
 url=('http://kde-apps.org/content/show.php/libalkimia?content=137323')
 depends=('kcoreaddons' 'kdelibs4support')
 makedepends=('extra-cmake-modules' 'kdoctools' 'doxygen')
-conflicts=('alkimia')
+conflicts=('kf5-alkimia')
+replaces=('kf5-alkimia')
 license=('LGPL')
 source=("git://anongit.kde.org/alkimia#branch=frameworks")
 md5sums=('SKIP')
@@ -21,7 +21,7 @@ build() {
   mkdir build
   cd build
 
-  cmake ../${_pkgname} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

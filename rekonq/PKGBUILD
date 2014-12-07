@@ -1,36 +1,42 @@
 
 pkgname=rekonq
-pkgver=2.4.2
-pkgrel=3
+pkgver=2.9.95
+pkgrel=1
 pkgdesc='A WebKit based web browser for KDE'
 arch=('x86_64')
 url='http://rekonq.sourceforge.net/'
 license=('GPL')
-depends=('kde-baseapps' 'qoauth' 'qca-ossl')
-makedepends=('cmake' 'automoc4' 'docbook-xsl')
-groups=('network')
-install=${pkgname}.install
-source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.xz"
-       'background.diff')
-md5sums=('5d2a5ce7817813f68144203c14419669'
+depends=('kauth' 'kbookmarks' 'kcmutils' 'kcompletion' 'kcoreaddons'  'kdbusaddons' 'kdewebkit'
+         'kglobalaccel' 'ki18n' 'kiconthemes' 'kinit' 'kio' 'knotifications' 'kparts' 'kservice' 'kwallet'
+         'kwindowsystem' 'kxmlgui' 'qca-qt5' 'qt5-webkit' 'sonnet')
+makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+conflicts=('kf5-rekonq')
+replaces=('kf5-rekonq')
+source=("git://anongit.kde.org/rekonq.git#branch=frameworks"
+        'background.diff')
+md5sums=('SKIP'
          'bddb916790c3838135d9a5b6cb9f4580')
 
-build(){
-  cd ${srcdir}/${pkgname}-${pkgver}   
-  patch -p1 -i "${srcdir}/background.diff"
+build() {
+  cd $pkgname
+  #sed -i -e 's/KF5 CONFIG REQUIRED/KF5 REQUIRED/' ${srcdir}/${_pkgname}/CMakeLists.txt
+  patch -p1 -i ${srcdir}/background.diff
+  mkdir build
   
-  cd ${srcdir}
-  mkdir -p build 
   cd build
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DCMAKE_INSTALL_PREFIX=/usr 
-  make 
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DBUILD_TESTING=OFF ..
+  make
 }
 
 package() {
-  cd ${srcdir}/build
-  make DESTDIR=${pkgdir} install
+  cd $pkgname/build
   
-  rm ${pkgdir}/usr/share/apps/rekonq/pics/background.png
+  make DESTDIR="$pkgdir" install
 }
+

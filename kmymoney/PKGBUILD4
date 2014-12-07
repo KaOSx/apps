@@ -1,0 +1,30 @@
+
+pkgname=kmymoney
+pkgver=4.7.1
+pkgrel=1
+pkgdesc="An finance manager for KDE4 with HBCI support"
+arch=('x86_64')
+url="http://kmymoney2.sourceforge.net"
+license=('GPL')
+depends=('kde-workspace' 'aqbanking' 'shared-mime-info' 'boost-libs' 'pulseaudio'
+         'libofx' 'alkimia')
+makedepends=('cmake' 'automoc4' 'gwenhywfar' 'docbook-xsl' 'boost' 'doxygen')
+groups=('office')
+source=("http://download.kde.org/stable/kmymoney/$pkgver/src/$pkgname-$pkgver.tar.xz")
+md5sums=('abe1002391df97cf2c985936eb141a2a')
+
+build() {
+  cd ${srcdir}/$pkgname-$pkgver
+
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=RELEASE \
+        -DCMAKE_SKIP_RPATH=YES \
+        -DKDE4_BUILD_TESTS=OFF
+  make VERBOSE=1
+}
+
+package() {
+  cd ${srcdir}/$pkgname-$pkgver
+
+  make DESTDIR=${pkgdir} install
+}
