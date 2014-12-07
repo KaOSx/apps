@@ -1,34 +1,41 @@
 
 pkgname=about-distro
-pkgver=1.1.0
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="KCM displaying distribution and system information"
 arch=('x86_64')
 url='https://projects.kde.org/about-distro'
 license=('GPL3')
-depends=('kdelibs')
-makedepends=('cmake' 'automoc4')
-source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz"
+depends=('kconfigwidgets' 'solid')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kf5-about-distro')
+replaces=('kf5-about-distro')
+#source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz"
+source=("git://anongit.kde.org/about-distro.git"
         'kcm-about-distrorc'
         'KaOS.png')
-md5sums=('99694c8c85947d983b20f21e21fd184c'
-         'c17070c5dde76e5687cefba816c7315a'
+md5sums=('SKIP'
+         '9d2be421140a163b5df77a4472381051'
          'f4049305cce2be768eabc0ab29239c0b')
 
 build() {
-  cd "$srcdir"
-  mkdir build
-  
+  mkdir -p build
   cd build
-  cmake ../$pkgname-$pkgver \
+  
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
-  cd "$srcdir/build"
-  make DESTDIR="$pkgdir" install
+  cd build
+  make DESTDIR="${pkgdir}" install
   
   install -Dm644 "$srcdir/kcm-about-distrorc" "$pkgdir/usr/share/config/kcm-about-distrorc"
   install -Dm644 "$srcdir/KaOS.png" "$pkgdir/usr/share/apps/$pkgname/KaOS.png"
