@@ -1,0 +1,35 @@
+
+pkgname=about-distro
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="KCM displaying distribution and system information"
+arch=('x86_64')
+url='https://projects.kde.org/about-distro'
+license=('GPL3')
+depends=('kdelibs')
+makedepends=('cmake' 'automoc4')
+source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz"
+        'kcm-about-distrorc'
+        'KaOS.png')
+md5sums=('99694c8c85947d983b20f21e21fd184c'
+         'c17070c5dde76e5687cefba816c7315a'
+         'f4049305cce2be768eabc0ab29239c0b')
+
+build() {
+  cd "$srcdir"
+  mkdir build
+  
+  cd build
+  cmake ../$pkgname-$pkgver \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd "$srcdir/build"
+  make DESTDIR="$pkgdir" install
+  
+  install -Dm644 "$srcdir/kcm-about-distrorc" "$pkgdir/usr/share/config/kcm-about-distrorc"
+  install -Dm644 "$srcdir/KaOS.png" "$pkgdir/usr/share/apps/$pkgname/KaOS.png"
+}
