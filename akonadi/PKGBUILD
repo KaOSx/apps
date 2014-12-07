@@ -1,37 +1,42 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=akonadi
-pkgver=1.13.0
-_pkgver=1.13.0
-pkgrel=2
-pkgdesc="PIM layer, which provides an asynchronous API to access all kind of PIM data"
+pkgver=5.0.40
+pkgrel=8
 arch=('x86_64')
-url='http://www.akonadi-project.org'
+url='http://community.kde.org/KDE_PIM/Akonadi'
+pkgdesc="PIM layer, which provides an asynchronous API to access all kind of PIM data"
 license=('LGPL')
-depends=('shared-mime-info' 'boost-libs' 'mariadb' 'libxslt')
-makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' 'postgresql')
-install=$pkgname.install
-source=("http://download.kde.org/stable/akonadi/src/${pkgname}-${_pkgver}.tar.bz2")
-#source=("git://anongit.kde.org/akonadi")
-md5sums=('84eb2e471bd6bdfe54a2a2f1d858c07d')
+depends=('shared-mime-info' 'sqlite' 'qt5-base' 'libxslt')
+makedepends=('extra-cmake-modules' 'postgresql' 'mariadb')
+optdepends=('postgresql: PostgreSQL backend'
+            'mariadb: MySQL backend')
+install=akonadi.install
+conflicts=('kf5-akonadi')
+replaces=('kf5-akonadi')
+#source=("http://download.kde.org/stable/akonadi/src/akonadi-${pkgver}.tar.bz2")
+source=("git://anongit.kde.org/akonadi")
+md5sums=('SKIP')
 
 build() {
- 	cd ${srcdir}/${pkgname}-${_pkgver}
- 	#patch -p1 -i ${srcdir}/dbupdater.diff
-	
-	cd ${srcdir}
-	mkdir -p build
-	cd build
-	cmake ../${pkgname}-${_pkgver} \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DINSTALL_QSQLITE_IN_QT_PREFIX=TRUE \
-		-DDATABASE_BACKEND=SQLITE \
-		-DWITH_SOPRANO=OFF
-	make 
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DINSTALL_QSQLITE_IN_QT_PREFIX=FALSE \
+    -DAKONADI_DATABASE_BACKEND=SQLITE \
+    -DENABLE_ASAN=TRUE
+  make
 }
 
 package() {
-  	cd ${srcdir}/build
-  	
-	make DESTDIR=${pkgdir} install
+  cd build
+  
+  make DESTDIR="${pkgdir}" install
 }

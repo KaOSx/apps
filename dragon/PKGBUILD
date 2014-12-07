@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=dragon
 #pkgver=${_kdever}
-pkgver=14.11.72
+pkgver=14.11.73
 pkgrel=1
 pkgdesc="A multimedia player where the focus is on simplicity, instead of features"
 url='http://kde.org/applications/multimedia/dragonplayer/'
@@ -15,6 +15,7 @@ depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'k
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 #groups=("kde" "kdemultimedia" "kde-uninstall")
 conflicts=('kdemultimedia-dragonplayer')
+replaces=('kdemultimedia-dragonplayer')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/dragon.git#branch=frameworks")
@@ -35,6 +36,7 @@ build() {
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DSYSCONF_INSTALL_DIR=/etc \
     -DBUILD_TESTING=OFF 
   make
 }

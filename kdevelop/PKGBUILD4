@@ -1,0 +1,32 @@
+
+pkgname=kdevelop
+pkgver=4.7.0
+pkgrel=1
+pkgdesc="A C/C++ development environment for KDE"
+arch=('x86_64')
+url="http://www.kdevelop.org/"
+license=('GPL')
+depends=('kde-workspace' 'kdevplatform' 'kdesdk-okteta')
+makedepends=('cmake' 'automoc4' 'perl' 'docbook-xsl')
+groups=('programming')
+install=${pkgname}.install
+source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")      
+md5sums=('0912f881cb1219450aeb155494846bbd')
+
+build() {
+  cd ${srcdir}
+  mkdir build
+  
+  cd build 
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON
+  make 
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}

@@ -1,27 +1,37 @@
 
 pkgname=kdevelop
-pkgver=4.7.0
+pkgver=4.90.90
 pkgrel=1
 pkgdesc="A C/C++ development environment for KDE"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
 license=('GPL')
-depends=('kde-workspace' 'kdevplatform' 'kdesdk-okteta')
-makedepends=('cmake' 'automoc4' 'perl' 'docbook-xsl')
+depends=('kdevplatform' 'kconfig' 'ki18n' 'kitemmodels' 'kitemviews' 'kjobwidgets' 'kcmutils' 'kio'
+         'knewstuff' 'knotifyconfig' 'kparts' 'kservice' 'ktexteditor' 'threadweaver' 'kxmlgui'
+         'kwindowsystem' 'krunner' 'plasma-framework' 'kdelibs4support' 'okteta')
+makedepends=('extra-cmake-modules' 'kdoctools' 'perl' 'docbook-xsl')
+conflicts=('kf5-kdevelop')
+replaces=('kf5-kdevelop')
 groups=('programming')
-install=${pkgname}.install
-source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")      
-md5sums=('0912f881cb1219450aeb155494846bbd')
+install=kdevelop.install
+source=("git://anongit.kde.org/kdevelop.git")      
+md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
   mkdir build
   
   cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON
+    -DCMAKE_SKIP_RPATH=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
   make 
 }
 

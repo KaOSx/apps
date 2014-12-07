@@ -15,7 +15,7 @@ source=("git://anongit.kde.org/about-distro.git"
         'kcm-about-distrorc'
         'KaOS.png')
 md5sums=('SKIP'
-         '9d2be421140a163b5df77a4472381051'
+         '1bc1260a89d137cd331459d510526254'
          'f4049305cce2be768eabc0ab29239c0b')
 
 build() {
@@ -26,6 +26,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
@@ -37,6 +38,6 @@ package() {
   cd build
   make DESTDIR="${pkgdir}" install
   
-  install -Dm644 "$srcdir/kcm-about-distrorc" "$pkgdir/usr/share/config/kcm-about-distrorc"
-  install -Dm644 "$srcdir/KaOS.png" "$pkgdir/usr/share/apps/$pkgname/KaOS.png"
+  install -Dm644 "$srcdir/kcm-about-distrorc" "$pkgdir/etc/xdg/kcm-about-distrorc"
+  install -Dm644 "$srcdir/KaOS.png" "$pkgdir/usr/share/$pkgname/KaOS.png"
 }

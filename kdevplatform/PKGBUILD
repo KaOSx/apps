@@ -1,28 +1,36 @@
 
 pkgname=kdevplatform
-pkgver=1.7.0
-_pkgver=4.7.0
-pkgrel=2
+pkgver=1.90.90
+pkgrel=1
 pkgdesc="A C/C++ development platform for KDE"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
 license=('GPL')
-depends=('kdelibs' 'subversion' 'qjson')
-optdepends=("kdesdk-kompare: difference checking")
-makedepends=('cmake' 'boost' 'automoc4')
-install=${pkgname}.install
-source=("http://download.kde.org/stable/kdevelop/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('72375e077f97b44056c76c7f85ce49ad')
+depends=('karchive' 'kcmutils' 'kemoticons' 'kguiaddons' 'ki18n' 'kinit' 'kio'
+         'kitemmodels' 'kitemviews' 'knewstuff' 'knotifyconfig' 'kparts' 'ktexteditor' 'sonnet' 
+         'threadweaver' 'kwindowsystem' 'kxmlgui' 'plasma-framework' 'qt5-quick1' 'grantlee-qt5'
+         'konsole' 'libkomparediff2')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+conflicts=('kf5-kdevplatform')
+replaces=('kf5-kdevplatform')
+install=kdevplatform.install
+source=("git://anongit.kde.org/kdevplatform.git")
+md5sums=('SKIP')
 
 build() {
-  cd "${srcdir}"/${pkgname}-${pkgver}
-
   cd ${srcdir}
+  #sed -i 's|add_subdirectory(patchreview)|#add_subdirectory(patchreview)|' ${srcdir}/$_pkgname/plugins/CMakeLists.txt
   mkdir build
+  
   cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release 
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
   make 
 }
 
