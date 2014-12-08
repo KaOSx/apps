@@ -8,7 +8,7 @@ arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-auth-handler/"
 license=('GPL')
 depends=('kwallet' 'kwidgetsaddons' 'ki18n' 'kio' 'kdewebkit' 'kf5-ktp-common-internals' 
-         'kaccounts-integration' 'qca-qt5' 'accounts-qt5' 'signon-qt5')
+         'kaccounts-integration' 'qca-qt5' 'signon-ui' 'signon-oauth2' 'signon-kwallet-extension')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('ktp-auth-handler')
 groups=('kf5-kde-telepathy')
@@ -28,6 +28,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }

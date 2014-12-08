@@ -1,0 +1,32 @@
+
+pkgname=signon-kwallet-extension
+pkgver=0.10.0
+pkgrel=1
+pkgdesc="KWallet integration for signon framework (code.google.com/p/accounts-sso)"
+arch=('x86_64')
+url="https://projects.kde.org/projects/kdereview/signon-kwallet-extension"
+license=('LGPL')
+depends=('signon-qt5' 'kwallet')
+makedepends=('extra-cmake-modules' 'git')
+source=("git://anongit.kde.org/signon-kwallet-extension.git")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  mkdir -p build
+
+  cd build
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+
+  make DESTDIR="${pkgdir}" install
+}

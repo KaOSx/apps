@@ -2,7 +2,7 @@
 pkgname=kf5-ktp-accounts-kcm
 _pkgname=ktp-accounts-kcm
 pkgver=0.9.90
-pkgrel=2
+pkgrel=3
 pkgdesc="KCM Module for configuring Telepathy Instant Messaging Accounts"
 arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-accounts-kcm"
@@ -29,6 +29,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }

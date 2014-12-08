@@ -2,7 +2,7 @@
 pkgname=kf5-ktp-contact-list
 _pkgname=ktp-contact-list
 pkgver=0.9.90
-pkgrel=1
+pkgrel=2
 pkgdesc="Telepathy contact list application "
 arch=('x86_64')
 url="http://www.kde.org"
@@ -30,6 +30,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }
