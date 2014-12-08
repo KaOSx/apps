@@ -9,7 +9,7 @@ url="https://github.com/bvaudour/kcp"
 license=('Public Domain')
 install=kcp.install
 depends=('git')
-makedepends=('go')
+makedepends=('gcc-go')
 source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
 #source=("https://github.com/bvaudour/kcp/releases/download/${pkgver}/kcp-${pkgver}.tar.gz")
 md5sums=('e065b634d91928f899430cf9bab79f16')
@@ -17,6 +17,7 @@ md5sums=('e065b634d91928f899430cf9bab79f16')
 build() {
   cd ${srcdir}/bvaudour-${pkgname}-${_commit}
 
+  --enable-gccgo
   make 
 }
 
