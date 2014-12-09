@@ -1,7 +1,7 @@
 
 pkgname=qupzilla
-pkgver=1.8.4.1
-_commit=b1c1299
+pkgver=1.8.4.2
+_commit=9301a5a
 pkgrel=1
 pkgdesc="A fast open source browser based on WebKit core, written in Qt Framework"
 arch=('x86_64')
@@ -18,7 +18,7 @@ source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-$
         'browserwindow.diff'
         'defines.diff'
         'bookmarks_json.diff')
-md5sums=('d0fc2d543507f1bf0eff7829d7e79fb3'
+md5sums=('4189776967bc27bf9443ac7374038602'
          '65cd96b4e2d5b12df25e088f8409acd6'
          'c747d63df3218d038546fd93ba531178'
          'ea860e4bd5a7ca23445482e1fde186b5'
@@ -33,10 +33,12 @@ build() {
     patch -p0 -i "${srcdir}/browserwindow.diff"
     patch -p0 -i "${srcdir}/defines.diff"
     patch -p0 -i "${srcdir}/bookmarks_json.diff"
+    
+    sed -e "s|<KDE/KWallet/Wallet>|<KF5/KWallet/KWallet>|" -i ${srcdir}/QupZilla-qupzilla-${_commit}/src/plugins/KWalletPasswords/kwalletpasswordbackend.h
 
     export USE_WEBGL="true"
-    export NO_X11="true"
-    #export KDE_INTEGRATION="true"
+    #export NO_X11="true"
+    export KDE_INTEGRATION="true"
    
     /usr/lib/qt5/bin/qmake 
     #qmake
