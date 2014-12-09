@@ -1,27 +1,35 @@
 
 pkgname=kdeconnect-kde
-pkgver=0.7.3
+pkgver=0.5.2.1
 pkgrel=1
-pkgdesc='KDE Connect - kded and kcm'
-url='https://albertvaka.wordpress.com/'
+pkgdesc='KDE Connect adds communication between KDE and your smartphone'
+url='https://projects.kde.org/projects/playground/base/kdeconnect-kde'
 license=('GPL')
 arch=('x86_64')
-depends=('kdelibs' 'qjson' 'qca-ossl' 'sshfs' 'libfakekey')
-makedepends=('automoc4' 'cmake')
-install=kdeconnect.install
-source=("http://download.kde.org/unstable/kdeconnect/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('261e2b3412ed28e6f67e0ef2187b1854')
+depends=('kcmutils' 'kconfigwidgets' 'kdelibs4support' 'kdbusaddons' 'knotifications' 
+         'kio' 'ki18n' 'qca-qt5' 'libfakekey')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kf5-kdeconnect-kde')
+replaces=('kf5-kdeconnect-kde')
+#source=("http://download.kde.org/unstable/kdeconnect/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+source=("git://anongit.kde.org/kdeconnect-kde.git#branch=frameworks")
+md5sums=('SKIP')
 
 build() {
-  cd ${srcdir}/
+  cd ${srcdir}
   mkdir build
   
-  cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DKDE4_BUILD_TESTS=OFF \
-        -DCMAKE_BUILD_TYPE=Release \
-        ../${pkgname}-${pkgver}
-  make
+  cd build 
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make 
 }
 
 package() {
