@@ -1,31 +1,31 @@
 
 pkgname=seafile-client
-pkgver=4.0.2
-_commit=cf9fad9
+pkgver=4.0.3
+_commit=2bad540
 pkgrel=1
 pkgdesc="Seafile desktop client."
 arch=('x86_64')
 url="https://github.com/haiwen/seafile-client/"
 license=('Apache' 'GPLv3')
-depends=('qtwebkit' 'seafile')
-makedepends=('libtool' 'intltool' 'vala' 'cmake')
-source=("https://github.com/haiwen/seafile-client/archive/v${pkgver}.tar.gz")
-#source=("https://github.com/haiwen/seafile-client/tarball/qt5/sea-client-${pkgver}.tar.gz")
-md5sums=('e1c26c15c0655a3f365f339ee9be9c8d')
+depends=('qt5-base' 'seafile')
+makedepends=('libtool' 'intltool' 'vala' 'cmake' 'qt5-tools')
+#source=("https://github.com/haiwen/seafile-client/archive/v${pkgver}.tar.gz")
+source=("https://github.com/haiwen/seafile-client/tarball/qt5/sea-client-${pkgver}.tar.gz")
+md5sums=('995b7e1d275380a7587ee17e5ea1b95b')
 
 build() {
-  #cd ${srcdir}/haiwen-${pkgname}-${_commit}
-  cd ${srcdir}/${pkgname}-${pkgver}
+  cd ${srcdir}/haiwen-${pkgname}-${_commit}
+  #cd ${srcdir}/${pkgname}-${pkgver}
   
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release .
-    #-DUSE_QT5=ON .
+    -DCMAKE_BUILD_TYPE=Release \
+    -DUSE_QT5=ON .
   make
 }
 
 package() {
-  #cd ${srcdir}/haiwen-${pkgname}-${_commit}
-  cd ${srcdir}/${pkgname}-${pkgver}
+  cd ${srcdir}/haiwen-${pkgname}-${_commit}
+  #cd ${srcdir}/${pkgname}-${pkgver}
   
   make DESTDIR=${pkgdir} install
 }
