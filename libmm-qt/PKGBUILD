@@ -2,8 +2,7 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kf5-libmm-qt
-_pkgname=libmm-qt
+pkgname=libmm-qt
 pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Qt-only wrapper for ModemManager DBus API'
@@ -13,13 +12,15 @@ license=('LGPL')
 depends=('qt5-base' 'modemmanager')
 makedepends=('extra-cmake-modules')
 groups=('plasma5')
-source=("http://download.kde.org/stable/plasma/$pkgver/$_pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+conflicts=('kf5-libmm-qt')
+replaces=('kf5-libmm-qt')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/libmm-qt.git")
 #md5sums=('SKIP')
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $pkgname-$pkgver
   mkdir build
   
   cd build
@@ -32,7 +33,7 @@ build() {
 }
 
 package() {
-  cd $_pkgname-$pkgver/build
+  cd $pkgname-$pkgver/build
   
   make DESTDIR=${pkgdir} install
 }

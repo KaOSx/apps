@@ -1,29 +1,37 @@
 
 pkgname=kscreen
-pkgver=1.0.2.1
-pkgrel=3
+pkgver=1.9.92
+pkgrel=1
 pkgdesc="KDE's screen management software"
 arch=('x86_64')
 url='https://projects.kde.org/kscreen'
 license=('GPL' 'LGPL')
-depends=('kde-runtime' 'libkscreen')
-makedepends=('cmake' 'automoc4')
-source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('cd3d6ffdb0e44c418c2804fc72b8391b')
+depends=('kdbusaddons' 'kconfigwidgets' 'ki18n' 'kxmlgui' 'kglobalaccel' 'libkscreen2')
+makedepends=('extra-cmake-modules')
+conflicts=('kf5-kscreen')
+replaces=('kf5-kscreen')
+#source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz")
+source=("git://anongit.kde.org/kscreen.git#commit=d6380ef")
+md5sums=('SKIP')
 
 build() {
-  cd "$srcdir"
-  
+  cd "$srcdir"  
   mkdir build
   cd build
-  cmake ../$pkgname-$pkgver \
+
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
-  cd "$srcdir/build"
-  
-  make DESTDIR="$pkgdir" install
+  cd ${srcdir}/build
+ 
+  make DESTDIR="${pkgdir}" install  
 }

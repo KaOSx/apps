@@ -1,0 +1,29 @@
+
+pkgname=kscreen
+pkgver=1.0.2.1
+pkgrel=3
+pkgdesc="KDE's screen management software"
+arch=('x86_64')
+url='https://projects.kde.org/kscreen'
+license=('GPL' 'LGPL')
+depends=('kde-runtime' 'libkscreen')
+makedepends=('cmake' 'automoc4')
+source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz")
+md5sums=('cd3d6ffdb0e44c418c2804fc72b8391b')
+
+build() {
+  cd "$srcdir"
+  
+  mkdir build
+  cd build
+  cmake ../$pkgname-$pkgver \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd "$srcdir/build"
+  
+  make DESTDIR="$pkgdir" install
+}

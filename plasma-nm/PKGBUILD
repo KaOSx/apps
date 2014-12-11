@@ -1,36 +1,43 @@
 
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=plasma-nm
-pkgver=0.9.3.5
-buildver=0.9.3.5
-_pkgver=0.9.3.5
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
-url="https://projects.kde.org/projects/kde/workspace/plasma-nm"
+url="https://projects.kde.org/projects/playground/network/plasma-nm"
 license=('GPL')
-depends=('kde-workspace' 'libnm-qt')
-makedepends=('cmake' 'automoc4' 'mobile-broadband-provider-info' 'openconnect')
-opedepends=('mobile-broadband-provider-info: Database of mobile broadband service providers'
-            'openconnect: OpenConnect support in Plasma NM')
-provides=('kdeplasma-applets-networkmanagement')
-replaces=('kdeplasma-applets-networkmanagement')
-conflicts=('kdeplasma-applets-networkmanagement')
-source=("http://download.kde.org/stable/plasma-nm/$pkgname-$_pkgver.tar.xz")
-#source=('http://quickgit.kde.org/?p=plasma-nm.git&a=snapshot&h=f1e96e738e739ad22fe11d5b058e391894142de1&fmt=tbz2')
-md5sums=('16f5e711de503fa8e5adeef9922c7c98')
+depends=('libmm-qt' 'libnm-qt' 'plasma-framework' 'kemoticons' 'mobile-broadband-provider-info' 'openconnect')
+makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
+groups=('plasma5')
+conflicts=('kf5-plasma-nm')
+replaces=('kf5-plasma-nm')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/plasma-nm.git#commit=9cc253078da509747b2cbe32e628d8426a9bbf8e")
+#md5sums=('SKIP')
 
 build() {
-  cd $pkgname-$_pkgver
+  cd $pkgname-$pkgver
+  #sed -e "s/PO_FILES //" -i ${srcdir}/$_pkgname-$pkgver/po/*/CMakeLists.txt
   mkdir build
   
   cd build
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release ..
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DBUILD_TESTING=OFF ..
   make
 }
 
 package() {
-  cd $pkgname-$_pkgver/build
+  cd $pkgname-$pkgver/build
   
-  make DESTDIR=$pkgdir install
+  make DESTDIR="$pkgdir" install
 }

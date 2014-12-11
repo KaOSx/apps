@@ -1,0 +1,36 @@
+
+pkgname=plasma-nm
+pkgver=0.9.3.5
+buildver=0.9.3.5
+_pkgver=0.9.3.5
+pkgrel=1
+pkgdesc="Plasma applet written in QML for managing network connections"
+arch=('x86_64')
+url="https://projects.kde.org/projects/kde/workspace/plasma-nm"
+license=('GPL')
+depends=('kde-workspace' 'libnm-qt')
+makedepends=('cmake' 'automoc4' 'mobile-broadband-provider-info' 'openconnect')
+opedepends=('mobile-broadband-provider-info: Database of mobile broadband service providers'
+            'openconnect: OpenConnect support in Plasma NM')
+provides=('kdeplasma-applets-networkmanagement')
+replaces=('kdeplasma-applets-networkmanagement')
+conflicts=('kdeplasma-applets-networkmanagement')
+source=("http://download.kde.org/stable/plasma-nm/$pkgname-$_pkgver.tar.xz")
+#source=('http://quickgit.kde.org/?p=plasma-nm.git&a=snapshot&h=f1e96e738e739ad22fe11d5b058e391894142de1&fmt=tbz2')
+md5sums=('16f5e711de503fa8e5adeef9922c7c98')
+
+build() {
+  cd $pkgname-$_pkgver
+  mkdir build
+  
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release ..
+  make
+}
+
+package() {
+  cd $pkgname-$_pkgver/build
+  
+  make DESTDIR=$pkgdir install
+}
