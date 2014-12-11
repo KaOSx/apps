@@ -1,23 +1,23 @@
 
 pkgname=kcp
-pkgver=0.19
+pkgver=0.21
 pkgrel=1
-_commit=743140a
+_commit=ce36a41
 pkgdesc="A command-line tool for KaOS Community Packages"
 arch=('x86_64')
 url="https://github.com/bvaudour/kcp"
 license=('Public Domain')
 install=kcp.install
 depends=('git')
-makedepends=('go' 'gcc-go')
+makedepends=('go')
 source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
 #source=("https://github.com/bvaudour/kcp/releases/download/${pkgver}/kcp-${pkgver}.tar.gz")
-md5sums=('8f9b4fc4e28fb0709678aca9cf7b37df')
+md5sums=('7e0f6c6ec3524b49b8c9fab7533fa471')
  
 build() {
   cd ${srcdir}/bvaudour-${pkgname}-${_commit}
 
-  ./configure --enable-gccgo
+  ./configure 
   make 
 }
 
