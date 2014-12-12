@@ -10,14 +10,13 @@ pkgdesc="Screen Capture Program"
 url="http://kde.org/applications/graphics/ksnapshot/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=("kdelibs>=${_kdever}" "kdegraphics-libkipi>=${_kdever}")
+depends=('kdelibs' "kdegraphics-libkipi>=${_kdever}")
 makedepends=('cmake' 'automoc4')
 optdepends=('kipi-plugins')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 install=${pkgname}.install
-groups=("kde" "kdegraphics" "kde-uninstall")
-groups=('graphics')
+groups=("kde" "kdegraphics" "kde-uninstall" 'graphics')
 provides=('ksnapshot')
 options=('docs')
 

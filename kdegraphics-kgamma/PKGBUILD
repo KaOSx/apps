@@ -13,13 +13,13 @@ license=('GPL' 'LGPL' 'FDL')
 # note on libxxf86vm:
 #       not detected by namcap because libgl depends on it
 #       but nvidia providing libgl does not depend on libxxf86vm
-depends=("kde-runtime>=${_kdever}" 'libxxf86vm' "kdegraphics-libkexiv2>=${_kdever}" "kdegraphics-libkdcraw>=${_kdever}" "kdegraphics-libkipi>=${_kdever}" "kdegraphics-ksaneplugin>=${_kdever}"
-         "kdegraphics-thumbnailers>=${_kdever}" "kdegraphics-strigi-analyzer>=${_kdever}" "kdegraphics-svgpart>=${_kdever}")
+depends=('kde-runtime' 'libxxf86vm' 'kdegraphics-libkexiv2' 'kdegraphics-libkdcraw' 'kdegraphics-libkipi'
+         'kdegraphics-ksaneplugin' 'kdegraphics-thumbnailers' 'kdegraphics-strigi-analyzer' 
+         'kdegraphics-svgpart')
 makedepends=('cmake' 'automoc4')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-groups=("kde" "kdegraphics" "kde-uninstall")
-groups=('graphics')
+groups=("kde" "kdegraphics" "kde-uninstall" 'graphics')
 provides=('kdegraphics-common')
 replaces=('kdegraphics-common' 'kdegraphics-doc')
 conflicts=('kdegraphics-common')

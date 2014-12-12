@@ -19,8 +19,9 @@ install=okular.install
 # note on libxxf86vm:
 #       not detected by namcap because libgl depends on it
 #       but nvidia providing libgl does not depend on libxxf86vm
-depends=("kdelibs>=${_kdever}" "kde-runtime>=${_kdever}" 'libxxf86vm' 'sane' 'lcms' "kdegraphics-libkdcraw>=${_kdever}" "kdegraphics-libkexiv2>=${_kdever}"
-         'qimageblitz' 'poppler-qt' 'chmlib' 'djvulibre' 'libspectre' 'ebook-tools' 'libkscreen' 'kdegraphics-mobipocket')
+depends=('kdelibs' 'kde-runtime' 'libxxf86vm' 'sane' 'lcms' "kdegraphics-libkdcraw>=${_kdever}" 
+         "kdegraphics-libkexiv2>=${_kdever}" 'qimageblitz' 'poppler-qt' 'chmlib' 'djvulibre' 
+         'libspectre' 'ebook-tools' 'libkscreen' 'kdegraphics-mobipocket')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'qca')
 
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
