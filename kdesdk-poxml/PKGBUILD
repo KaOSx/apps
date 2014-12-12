@@ -11,7 +11,7 @@ url='https://projects.kde.org/projects/kde/kdesdk/poxml'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kdesdk' 'kde-uninstall')
-depends=("kde-runtime>=${_kdever}" 'antlr2')
+depends=('kde-runtime' 'antlr2')
 makedepends=('cmake' 'automoc4' 'pkg-config' 'java-runtime')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

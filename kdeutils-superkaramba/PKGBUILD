@@ -11,12 +11,12 @@ pkgdesc="Desktop widgets"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs')
-depends=('qimageblitz' 'python')
+depends=('qimageblitz' 'python2' 'kdelibs')
 conflicts=("kdeutils-common")
 groups=("kde" "kdeutils" "kde-uninstall")
 groups=('utils')
 install=kdeutils.install
-makedepends=('pkg-config' 'cmake' 'automoc4' "kdelibs>=${_kdever}" 'qimageblitz' 'python')
+makedepends=('pkg-config' 'cmake' 'automoc4')
 
 source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

@@ -40,7 +40,7 @@ build() {
 
 package_kde-baseapps() {
 	pkgdesc="KDE Base Applications"
-	depends=("kde-runtime>=${_kdever}" 'libraw1394' 'baloo-widgets')
+	depends=('kde-runtime' 'libraw1394' 'baloo-widgets')
 	optdepends=("cdemu-client: Support transparent CD/DVD image mounting in KDE")
 	conflicts=("kdebase" 'kde-baseapps-doc')
         replaces=('kdebase' 'kde-baseapps-doc')
@@ -105,7 +105,7 @@ package_kde-baseapps() {
 
 package_kde-baseapps-dolphin() {
 	pkgdesc="KDE Base Applications - Dolphin, the default KDE file manager"
-	depends=("${pkgbase}>=${_kdever}")
+	depends=('kde-baseapps')
 	groups=("${pkgbase}" "kde" "kde-complete" "kde-uninstall")
 	conflicts=("kdebase-dolphin")
 	provides=("kdebase-dolphin" "dolphin")
@@ -122,7 +122,7 @@ package_kde-baseapps-dolphin() {
 
 package_kde-baseapps-konqueror() {
 	pkgdesc="KDE Base Applications - Konqueror, the default KDE web browser"
-	depends=("${pkgbase}>=${_kdever}" "${pkgbase}-dolphin>=${_kdever}")
+	depends=('kde-baseapps' 'kde-baseapps-dolphin')
 	groups=("${pkgbase}" "kde" "kde-minimal" "kde-uninstall")
 	conflicts=("kdebase-konqueror")
 	provides=("kdebase-konqueror" "konqueror")
@@ -157,7 +157,7 @@ package_kde-baseapps-konqueror() {
 
 package_kde-baseapps-konq-plugins() {
 	pkgdesc="KDE Base Applications - Extra plugins for Konqueror"
-	depends=("${pkgbase}-konqueror>=${_kdever}")
+	depends=('kde-baseapps-konqueror')
 	groups=("${pkgbase}" "kde" "kde-minimal" "kde-uninstall")
 	conflicts=('konq-plugins')
 	provides=("konq-plugins")

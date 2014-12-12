@@ -11,13 +11,13 @@ pkgdesc="Clean unwanted traces the user leaves on the system"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs')
-depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}")
+depends=('kde-runtime' 'kde-baseapps')
 conflicts=("kdeutils-common")
 groups=("kde" "kdeutils" "kde-uninstall")
 groups=('utils')
 install=kdeutils.install
 provides=("sweeper")
-makedepends=('pkg-config' 'cmake' 'automoc4' "kdelibs>=${_kdever}")
+makedepends=('pkg-config' 'cmake' 'automoc4')
 
 source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

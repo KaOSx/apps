@@ -11,13 +11,13 @@ url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('docs')
 pkgdesc="Configure your remote controls for use with applications"
-depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}")
+depends=('kde-runtime' 'kde-baseapps')
 conflicts=("kdeutils-common")
 provides=("kremotecontrol")
 groups=("kde" "kdeutils" "kde-uninstall")
 groups=('utils')
 install=kdeutils.install
-makedepends=('pkg-config' 'cmake' 'automoc4' "kdelibs>=${_kdever}")
+makedepends=('pkg-config' 'cmake' 'automoc4')
 
 source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

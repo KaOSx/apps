@@ -18,8 +18,8 @@ license=('GPL' 'LGPL' 'FDL')
 
 options=('docs')
 
-makedepends=('pkgconfig' 'cmake' 'automoc4' 'ruby' "kdepimlibs>=${_kdever}" 'boost'
-             "kde-runtime>=${_kdever}" 'tidyhtml' 'kdepim-runtime')
+makedepends=('pkgconfig' 'cmake' 'automoc4' 'ruby' 'kdepimlibs' 'boost' 'kde-runtime' 'tidyhtml' 
+             'kdepim-runtime')
 
 source=($_mirror/${pkgbase}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -40,7 +40,7 @@ build() {
 
 package_kdewebdev-kfilereplace() {
 	pkgdesc="Utility that replace some strings with others in a lot of files in an only operation"
-	depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}")
+	depends=('kde-runtime')
 	groups=("kde" "${pkgbase}" 'kde-uninstall')
 	groups=('utils')
 	conflicts=('kdewebdev-common' 'kdewebdev-doc')
@@ -55,7 +55,7 @@ package_kdewebdev-kfilereplace() {
 
 package_kdewebdev-kimagemapeditor() {
 	pkgdesc="Image map editor"
-	depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}")
+	depends=('kde-runtime')
         conflicts=('kdewebdev-common' 'kdewebdev-doc')
 	groups=("kde" "${pkgbase}" 'kde-uninstall')
 	groups=('graphics')
@@ -70,7 +70,7 @@ package_kdewebdev-kimagemapeditor() {
 
 package_kdewebdev-kommander() {
 	pkgdesc="Kommander, the visual application builder"
-	depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}")
+	depends=('kde-runtime')
         conflicts=('kdewebdev-common' 'kdewebdev-doc')
 	groups=("kde" "${pkgbase}" 'kde-uninstall')
 	groups=('programming')
@@ -85,7 +85,7 @@ package_kdewebdev-kommander() {
 
 package_kdewebdev-klinkstatus() {
 	pkgdesc="A Link checker utility"
-	depends=("kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" 'tidyhtml' "kdepimlibs>=${_kdever}") # "kdepim-runtime>=${_kdever}"
+	depends=('kde-runtime' 'tidyhtml' 'kdepimlibs') 
         conflicts=('kdewebdev-common' 'kdewebdev-doc')
 	groups=("kde" "${pkgbase}" 'kde-uninstall')
 	groups=('utils')

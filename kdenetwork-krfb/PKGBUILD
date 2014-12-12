@@ -11,7 +11,7 @@ url='http://www.kde.org/applications/system/krfb'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
-depends=("kde-runtime>=${_kdever}" 'libvncserver' 'libxdamage' 'ktp-common-internals')
+depends=('kde-runtime' 'libvncserver' 'libxdamage' 'ktp-common-internals')
 makedepends=('cmake' 'automoc4')
 source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

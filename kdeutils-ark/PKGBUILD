@@ -15,10 +15,8 @@ optdepends=('p7zip' 'zip' 'unzip' 'unrar')
 groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 provides=('ark')
 install=kdeutils.install
-depends=("kde-runtime>=${_kdever}" "kde-baseapps>=${_kdever}" 'libarchive' 'qjson')
-makedepends=('pkg-config' 'cmake' 'automoc4' "kdelibs>=${_kdever}"
-             "kde-baseapps>=${_kdever}"  'kde-workspace' 
-	     'libarchive' 'p7zip' 'zip' 'unzip' 'unrar' 'qjson' 'docbook-xsl')
+depends=('kde-runtime' 'kde-baseapps' 'libarchive' 'qjson')
+makedepends=('pkg-config' 'cmake' 'automoc4' 'kde-workspace' 'libarchive')
 
 source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
