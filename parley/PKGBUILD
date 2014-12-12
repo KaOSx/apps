@@ -15,12 +15,12 @@ depends=('kcoreaddons' 'kconfig' 'kcrash' 'ki18n' 'kio' 'knewstuff' 'kross' 'kht
          'kf5-attica')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-parley')
+replaces=('kdeedu-parley')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/parley.git#branch=frameworks")
-md5sums=('f9ec15308b7ef2d7c934de0c8ee6bd38')
+md5sums=('bc5c4c6a021f55256733e1e8cfc4571e')
 
 build() {
   mkdir -p build

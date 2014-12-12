@@ -14,13 +14,12 @@ depends=('ki18n' 'kcrash' 'sonnet' 'kconfig' 'kconfigwidgets' 'kdeclarative' 'ki
          'kdelibs4support' 'libkeduvocdocument' 'phonon-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-kanagram')
+replaces=('kdeedu-kanagram')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education' 'kaos-kids')
-#options=('docs')
 install=${pkgname}.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kanagram.git")
-md5sums=('135735df06d900365859a40221b75056')
+md5sums=('52f133a43abc5ad58eecf3ed3d8840f9')
 
 build() {
   mkdir -p build

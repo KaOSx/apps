@@ -14,13 +14,12 @@ depends=('kparts' 'kdelibs4support' 'ki18n' 'ktexteditor' 'kiconthemes' 'kconfig
          'kemoticons' 'kitemmodels' 'boost-libs' 'python2')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kdeedu-kig')
+replaces=('kdeedu-kig')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-#options=('docs')
 install=${pkgname}.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kig.git#branch=frameworks")
-md5sums=('d9bd4ae198ece952053e7c2e4db85e28')
+md5sums=('da920751486e56f438835a285ef888ce')
 
 build() {
   mkdir -p build

@@ -13,10 +13,12 @@ depends=('kdelibs4support' 'kconfig' 'kguiaddons' 'ki18n' 'kinit' 'kjobwidgets' 
          'kio' 'knewstuff' 'kparts' 'ktexteditor' 'kwindowsystem' 'kxmlgui' 'plasma-framework')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdesdk-kate')
+replaces=('kdesdk-kate')
+provides=('kdesdk-kate')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/kate")
-md5sums=('3c95939c5b7f7408d0e104c8aa8b04b2')
+md5sums=('0783b6e9a2ef7de64c6159e1346f08bb')
 
 prepare() {
   cd $pkgname-${pkgver}

@@ -12,11 +12,13 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('eigen3'  'qt5-svg')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-analitza')
+replaces=('kdeedu-analitza')
+provides=('kdeedu-analitza')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-md5sums=('19341de920e8f5db2101159f7851e05b')
+md5sums=('2feddfa222d4a055506885fec1d8ec35')
 
 build() {
   mkdir -p build

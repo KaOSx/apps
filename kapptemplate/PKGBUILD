@@ -11,12 +11,13 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kconfigwidgets' 'kcompletion' 'karchive' 'kio' 'ki18n')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdesdk--kapptemplate')
+conflicts=('kdesdk-kapptemplate')
+replaces=('kdesdk-kapptemplate')
 #groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
 install=${pkgname}.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-md5sums=('68ae8f7ab634356c9201f2f677193827')
+md5sums=('ea24fbb422edab394fafdf101d1584c8')
 
 build() {
   mkdir -p build

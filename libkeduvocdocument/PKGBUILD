@@ -12,12 +12,11 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'ki18n' 'karchive' 'kio')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-libkdeedu' 'libkdeedu')
+replaces=('kdeedu-libkdeedu' 'libkdeedu')
 #groups=("kde" "kdeedu" "kde-uninstall")
-#options=('docs' 'debug')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/libkeduvocdocument.git")
-md5sums=('1fcbd24691611adec7e5d5e84d115e5f')
+md5sums=('25cadc495491ca5b55f24dba4427416b')
 
 build() {
   mkdir -p build

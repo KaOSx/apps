@@ -13,13 +13,12 @@ depends=('ki18n' 'kcrash' 'kcompletion' 'kconfig' 'kcoreaddons' 'kconfigwidgets'
          'knotifications' 'kxmlgui' 'kdeedu-data' 'libkeduvocdocument' 'phonon-qt5' 'qt5-webkit')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-khangman')
+replaces=('kdeedu-khangman')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education' 'kaos-kids')
-#options=('docs')
 install=${pkgname}.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/khangman.git#branch=frameworks")
-md5sums=('56d5b61ea7e9e5803cf74db5161f763b')
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+md5sums=('f1425c0b337b52dcfc43f6c00a490ded')
 
 prepare() {
   cd $pkgname-${pkgver}

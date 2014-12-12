@@ -13,9 +13,11 @@ depends=('kcmutils' 'kcodecs' 'kcompletion' 'kconfigwidgets' 'kdbusaddons' 'ki18
          'kparts' 'kservice' 'kwidgetsaddons' 'kxmlgui' 'qca-qt5' 'qt5-tools')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdesdk-okteta')
+replaces=('kdesdk-okteta')
+provides=('kdesdk-okteta')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#source=("git://anongit.kde.org/okteta.git")
-md5sums=('3f1f93b1e4721227cd60719857ac2710')
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+md5sums=('acef9d0fab6339314c0977ec4bacfd9d')
 
 build() {
   cd $pkgname-${pkgver}

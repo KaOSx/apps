@@ -13,10 +13,12 @@ depends=('kio' 'kdelibs4support' 'kiconthemes' 'knotifyconfig' 'knotifications' 
          'kinit' 'kemoticons' 'kitemmodels')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kde-baseapps-konsole')
+replaces=('kde-baseapps-konsole')
+provides=('kde-baseapps-konsole')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/konsole.git")
-md5sums=('0644f7a23d284b66f1da0a0dcb2c203f')
+md5sums=('525505713740de3cf0d158cb29900970')
 
 build() {
   mkdir -p build
