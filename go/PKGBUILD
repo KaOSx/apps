@@ -19,6 +19,9 @@ md5sums=('9b44606c28c88a5c3d0cb4a36ce7de54'
 build() {
   cd "$srcdir/$pkgname/src"
 
+  export GOROOT=$srcdir/$pkgname-$pkgver
+  export GOBIN=$GOROOT/bin
+  export GOPATH=$srcdir/
   export GOROOT_FINAL="/usr/lib/go"
   export GOOS=linux
 
@@ -45,47 +48,32 @@ package() {
 
   cd "$srcdir/$pkgname"
 
-  install -Dm644 LICENSE \
-    "$pkgdir/usr/share/licenses/go/LICENSE"
-  install -Dm644 misc/bash/go \
-    "$pkgdir/usr/share/bash-completion/completions/go"
-  install -Dm644 misc/emacs/go-mode-load.el \
-    "$pkgdir/usr/share/emacs/site-lisp/go-mode-load.el"
-  install -Dm644 misc/emacs/go-mode.el \
-    "$pkgdir/usr/share/emacs/site-lisp/go-mode.el"
-  install -Dm644 misc/zsh/go \
-    "$pkgdir/usr/share/zsh/site-functions/_go"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/go/LICENSE"
 
-  for f in ftdetect/gofiletype.vim autoload/go/complete.vim indent/go.vim \
-    ftplugin/go/fmt.vim ftplugin/go/import.vim syntax/go.vim syntax/godoc.vim \
-    plugin/godoc.vim;
-  do
-    install -Dm644 "misc/vim/$f" "$pkgdir/usr/share/vim/vimfiles/$f"
-  done
-
-  mkdir -p "$pkgdir/"{etc/profile.d,usr/{share/go,lib/go,lib/go/src,lib/go/site}}
+  mkdir -p "$pkgdir/"{etc/profile.d,usr/{share/go,lib/go,lib/go/src,lib/go/site/src}}
 
   cp -r doc misc -t "$pkgdir/usr/share/go"
   ln -s /usr/share/go/doc "$pkgdir/usr/lib/go/doc"
-  cp -r --preserve=timestamps bin "$pkgdir/usr"
-  cp -r --preserve=timestamps pkg "$pkgdir/usr/lib/go"
-  cp -r --preserve=timestamps $GOROOT/src/pkg "$pkgdir/usr/lib/go/src/"
-  cp -r --preserve=timestamps $GOROOT/src/cmd "$pkgdir/usr/lib/go/src/cmd"
-  cp -r --preserve=timestamps $GOROOT/src/lib9 "$pkgdir/usr/lib/go/src/"
-  cp -r --preserve=timestamps $GOROOT/lib "$pkgdir/usr/lib/go/"
+  cp -a bin "$pkgdir/usr"
+  cp -a pkg "$pkgdir/usr/lib/go"
+  cp -a $GOROOT/src "$pkgdir/usr/lib/go"
+  cp -a $GOROOT/src/cmd "$pkgdir/usr/lib/go/src/cmd"
+  cp -a $GOROOT/src/lib9 "$pkgdir/usr/lib/go/src/"
+  cp -a $GOROOT/lib "$pkgdir/usr/lib/go/"
+  cp -a $GOROOT/include "$pkgdir/usr/lib/go/"
 
   install -Dm644 src/Make.* "$pkgdir/usr/lib/go/src"
 
   # Remove object files from target src dir
   find "$pkgdir/usr/lib/go/src/" -type f -name '*.[ao]' -delete
   find $pkgdir -type f -name sql.go -exec chmod -x {} \;
-  find "$pkgdir/usr/lib/go/src/pkg" -type f -executable -delete
+  find "$pkgdir/usr/lib/go/src" -type f -executable -delete
 
   # Headers for C modules
-  install -Dm644 src/pkg/runtime/runtime.h \
-    "$pkgdir/usr/lib/go/src/pkg/runtime/runtime.h"
-  install -Dm644 src/pkg/runtime/cgocall.h \
-    "$pkgdir/usr/lib/go/src/pkg/runtime/cgocall.h"
+  install -Dm644 src/runtime/runtime.h \
+    "$pkgdir/usr/lib/go/src/runtime/runtime.h"
+  install -Dm644 src/runtime/cgocall.h \
+    "$pkgdir/usr/lib/go/src/runtime/cgocall.h"
 
   # For packages that source /etc/profile.d/go.sh
   install -Dm755 "$srcdir/$pkgname.sh" "$pkgdir/etc/profile.d/$pkgname.sh"
