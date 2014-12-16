@@ -3,7 +3,7 @@ pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins' 'libkvkontakte')
 pkgver=4.5.0
 _pkgver=4.5.0
-pkgrel=2
+pkgrel=3
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
@@ -25,10 +25,12 @@ build() {
      -DCMAKE_SKIP_RPATH=ON \
      -DBUILD_tests=OFF \
      -DDIGIKAMSC_USE_PRIVATE_KDEGRAPHICS=OFF \
-     -DENABLE_COMPILE_LIBKFACE=ON \
-     -DENABLE_COMPILE_LIBKGEOMAP=ON \
-     -DENABLE_COMPILE_LIBMEDIAWIKI=ON \
-     -DENABLE_COMPILE_LIBKVKONTAKTE=ON 
+     -DDIGIKAMSC_USE_PRIVATE_SHAREDLIBS=ON
+     # use after 4.5.0, remove above line
+     #-DENABLE_COMPILE_LIBKFACE=ON 
+     #-DENABLE_COMPILE_LIBKGEOMAP=ON 
+     #-DENABLE_COMPILE_LIBMEDIAWIKI=ON 
+     #-DENABLE_COMPILE_LIBKVKONTAKTE=ON 
    make 
 }
 
