@@ -1,0 +1,35 @@
+
+pkgname=audiothumbs
+_pkgname=audiothumbs-frameworks
+pkgver=0.1
+pkgrel=1
+pkgdesc="Thumbnail generator for audio files, ported to KF5."
+arch=('x86_64')
+url="https://github.com/eplightning/audiothumbs-frameworks"
+license=('LGPL')
+depends=('taglib' 'kio' 'flac')
+makedepends=('extra-cmake-modules' 'git')
+conflicts=('kdemultimedia-thumbnailers')
+replaces=('kdemultimedia-thumbnailers')
+source=("git://github.com/eplightning/${_pkgname}.git")
+md5sums=('SKIP')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
