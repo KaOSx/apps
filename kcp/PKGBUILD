@@ -1,8 +1,8 @@
 
 pkgname=kcp
-pkgver=0.25
+pkgver=0.27
 pkgrel=1
-_commit=b70c067
+_commit=287fe77
 pkgdesc="A command-line tool for KaOS Community Packages"
 arch=('x86_64')
 url="https://github.com/bvaudour/kcp"
@@ -12,7 +12,7 @@ depends=('git')
 makedepends=('go')
 source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
 #source=("https://github.com/bvaudour/kcp/releases/download/${pkgver}/kcp-${pkgver}.tar.gz")
-md5sums=('2618d40c726750c1b1c4ec6b9934628b')
+md5sums=('b407408aee0c1bc130634efcc646689f')
  
 build() {
   cd ${srcdir}/bvaudour-${pkgname}-${_commit}
@@ -25,6 +25,16 @@ build() {
 package() {
   cd ${srcdir}/bvaudour-${pkgname}-${_commit} 
   make DESTDIR="${pkgdir}" install
+  
+  for files in i18n/*; do
+  if [ -f "$files" ] && [ "$files" != 'i18n/kcp.pot' ]; then
+        STRING_PO=`echo ${files#*/}`
+        STRING=`echo ${STRING_PO%.po}`
+        mkdir -p ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES
+        msgfmt $files -o ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES/kcp.mo
+        echo "${STRING} installed..."
+  fi
+  done
 
   install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
