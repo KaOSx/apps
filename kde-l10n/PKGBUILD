@@ -78,13 +78,13 @@ pkgname=('kde-l10n-ar'
 
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
          
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'FDL')
 depends=('kdelibs')
-makedepends=('automoc4')
+makedepends=('automoc4' 'extra-cmake-modules' 'kdoctools' 'qt5-tools' 'ki18n')
          
 options=('docs')
          
@@ -292,7 +292,7 @@ packs=(
 
  	for it in ${packs[@]} ; do
                 pushd "kde-l10n-$it-$pkgver"
-                sed -i 's|add_subdirectory(5)|#add_subdirectory(5)|' ${srcdir}/kde-l10n-$it-$pkgver/CMakeLists.txt
+                #sed -i 's|add_subdirectory(5)|#add_subdirectory(5)|' ${srcdir}/kde-l10n-$it-$pkgver/CMakeLists.txt
  		cmake -DCMAKE_INSTALL_PREFIX=${_installprefix} -DCMAKE_BUILD_TYPE=Release
  		make
  		#make DESTDIR=${pkgdir} install
