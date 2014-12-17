@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=0.7.16
+pkgver=0.7.17
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -20,7 +20,8 @@ source=("git://github.com/KaOSx/calamares"
         'GreetingPage.diff'
         'CalamaresStyle.diff'
         'UEFI.diff'
-        'JobQueue.diff')
+        'JobQueue.diff'
+        'along_UEFI.dif')
 md5sums=('SKIP'
          'ef69daa07bcd1e22b6f0bf3fdb5ef1b1'
          '6b793a81d051d5d0b00a6031ceb08308'
@@ -40,10 +41,12 @@ prepare () {
   git submodule update
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
+  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
   patch -p1 -i ${srcdir}/GreetingPage.diff
   patch -p1 -i ${srcdir}/CalamaresStyle.diff
   patch -p1 -i ${srcdir}/UEFI.diff
   patch -p1 -i ${srcdir}/JobQueue.diff
+  patch -p1 -i ${srcdir}/along_UEFI.diff
 }
 
 build() {
