@@ -1,7 +1,7 @@
 
 pkgname=calamares
 pkgver=0.7.18
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://github.com/calamares/calamares'
@@ -11,7 +11,7 @@ depends=('qt5-svg' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 source=("git://github.com/KaOSx/calamares"
 #source=("calamares.tar.xz"
-        'displaymanager.conf'
+        'kdm_sddm.conf'
         'locale.conf'
         'prepare.conf'
         'settings.conf'
@@ -23,7 +23,7 @@ source=("git://github.com/KaOSx/calamares"
         'JobQueue.diff'
         'along_UEFI.diff')
 md5sums=('SKIP'
-         'ef69daa07bcd1e22b6f0bf3fdb5ef1b1'
+         '68a774a6bddcfdf83c9734dfffeab6c2'
          '6b793a81d051d5d0b00a6031ceb08308'
          'ebc235d4b2f9a425bf2161d7a252dce3'
          'fe173bd9070189fb02027979d12a0cf1'
@@ -69,7 +69,7 @@ package() {
   
   rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
   install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
-  #install -D -m644 "${srcdir}/displaymanager.conf" "${pkgdir}/etc/calamares/modules/displaymanager.conf"
+  install -D -m644 "${srcdir}/kdm_sddm.conf" "${pkgdir}/etc/calamares/modules/kdm_sddm.conf"
   install -D -m644 "${srcdir}/locale.conf" "${pkgdir}/etc/calamares/modules/locale.conf"
   install -D -m644 "${srcdir}/prepare.conf" "${pkgdir}/etc/calamares/modules/prepare.conf"
   
