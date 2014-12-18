@@ -1,9 +1,9 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins' 'libkvkontakte')
-pkgver=4.5.0
-_pkgver=4.5.0
-pkgrel=3
+pkgver=4.6.0
+_pkgver=4.6.0
+pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
@@ -12,7 +12,7 @@ makedepends=('kde-runtime' 'kdegraphics-kgamma' 'kdepimlibs' 'lensfun' 'kdeedu-m
              'doxygen' 'docbook-xsl' 'qjson' 'kdegraphics-libkexiv2' 'kdegraphics-libkdcraw'
              'kdegraphics-libksane' 'qt-gstreamer' 'boost' 'hugin-tools' 'imagemagick' 'eigen3')
 source=("http://download.kde.org/stable/digikam/${pkgname}-${_pkgver}.tar.bz2")
-md5sums=('5fb3ab7b7c765bc7a310ca87c8e37220')
+md5sums=('705e132f72eda603cb91ee6292f0b34b')
 
 build() {
    cd ${srcdir}
@@ -24,13 +24,12 @@ build() {
      -DCMAKE_INSTALL_PREFIX=/usr \
      -DCMAKE_SKIP_RPATH=ON \
      -DBUILD_tests=OFF \
-     -DDIGIKAMSC_USE_PRIVATE_KDEGRAPHICS=OFF \
-     -DDIGIKAMSC_USE_PRIVATE_SHAREDLIBS=ON
-     # use after 4.5.0, remove above line
-     #-DENABLE_COMPILE_LIBKFACE=ON 
-     #-DENABLE_COMPILE_LIBKGEOMAP=ON 
-     #-DENABLE_COMPILE_LIBMEDIAWIKI=ON 
-     #-DENABLE_COMPILE_LIBKVKONTAKTE=ON 
+     -DDIGIKAMSC_COMPILE_LIBKFACE=ON \
+     -DDIGIKAMSC_COMPILE_LIBKGEOMAP=ON \
+     -DDIGIKAMSC_COMPILE_LIBMEDIAWIKI=ON \
+     -DDIGIKAMSC_COMPILE_LIBKVKONTAKTE=ON \
+     -DENABLE_KDEPIMLIBSSUPPORT=ON \
+     -DENABLE_MYSQLSUPPORT=ON
    make 
 }
 
