@@ -1,28 +1,34 @@
 
 pkgname=yakuake
-pkgver=2.9.9
-pkgrel=3
-pkgdesc="A KDE konsole application with the look and feel of that in the Quake engine"
+pkgver=2.9.9.1
+pkgrel=1
+pkgdesc="A KDE konsole application with the look and feel of that in the Quake engine, kf5 version"
 arch=('x86_64')
 url="http://yakuake.kde.org"
 license=('GPL')
-depends=('kde-baseapps-konsole')
-makedepends=('cmake' 'automoc4')
-categories=('system')
-screenshots=('http://kde-apps.org/CONTENT/content-pre1/29153-1.png')
+depends=('karchive' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kglobalaccel' 'ki18n' 'kiconthemes' 'kio'
+         'knewstuff' 'knotifications' 'knotifyconfig' 'kparts' 'kwidgetsaddons' 'kwindowsystem')
+makedepends=('extra-cmake-modules' 'git')
+conflicts=('kf5-yakuake')
+replaces=('kf5-yakuake')
+groups=('system')
 install="${pkgname}.install"
-source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('ef97612710b28d62e43a58bed49cbead')
+source=("git://anongit.kde.org/yakuake#branch=frameworks")
+md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
   
   mkdir build
   cd build
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../yakuake \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
   make
 }
 

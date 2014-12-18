@@ -1,33 +1,36 @@
 
 pkgname=kde-gtk-config
-pkgver=2.2.1
-pkgrel=4
-pkgdesc="A KCM for Configuring the GTK2 and GTK3 look & feel"
+pkgver=4.98.0
+pkgrel=1
+pkgdesc="Configuration dialog to adapt GTK applications appearance to your taste under KDE"
 arch=('x86_64')
-url="https://projects.kde.org/projects/kdereview/kde-gtk-config"
-license=('GPL')
-depends=('kde-runtime')
-makedepends=('cmake' 'automoc4' 'gtk2' 'gtk3')
-optdepends=('gtk2: GTK+ v2 support'
-	    'gtk3: GTK+ v3 support')
-groups=('gtk-integration')
-source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz")
-install=$pkgname.install
-md5sums=('d155ed431d509e54a60383a70b700e1c')
+url="https://projects.kde.org/projects/extragear/base/kde-gtk-config"
+license=('LGPL')
+depends=('karchive' 'kauth' 'kcmutils' 'kconfigwidgets' 'knewstuff')
+makedepends=('extra-cmake-modules' 'git' 'gtk2' 'gtk3')
+conflicts=('kf5-kde-gtk-config')
+replaces=('kf5-kde-gtk-config')
+source=("git://anongit.kde.org/kde-gtk-config.git")
+md5sums=('SKIP')
 
 build() {
-  cd "$srcdir"
+  cd $pkgname
   mkdir build
-  cd build
   
-  cmake ../$pkgname-$pkgver \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DLIB_INSTALL_DIR=lib \
+        -DLIBEXEC_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DBUILD_TESTING=OFF ..
   make
 }
 
-package(){
-  cd "$srcdir/build"
+package() {
+  cd $pkgname/build
   
   make DESTDIR="$pkgdir" install
 }
