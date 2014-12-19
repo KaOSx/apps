@@ -1,35 +1,39 @@
 
 pkgname=gluon
-pkgver=0.71.0
+pkgver=0.71.80
 _pkgver=0.71
-pkgrel=8
+pkgrel=1
 pkgdesc="A high-level game development library for the KDE desktop enviornment."
 arch=('x86_64')
 url="http://gluon.gamingfreedom.org/"
 license=('GPL')
-depends=('kdelibs' 'libsndfile' 'alure')
-makedepends=('cmake' 'automoc4' 'mesa' 'kdevplatform')
-groups=("kde-uninstall" "kde-support")
-source=("http://download.kde.org/download.php?url=unstable/$pkgname/$_pkgver/src/$pkgname-$pkgver.tar.gz"        
-        "$pkgname-0.71-gcc-4.7.patch::https://projects.kde.org/projects/playground/games/gluon/repository/revisions/bccbda88a6bc53ac20091bb6aefd2f1b501ba31a/diff.diff")
-md5sums=('e4f284c0ae00e5b8a58cc3e6201857fe'
-         'cf8c201b6d289ea63f0458eaefc526b2')
+depends=('kparts' 'kguiaddons' 'kwidgetsaddons' 'kio' 'ktexteditor' 'kxmlgui' 'kcoreaddons' 'kservice'
+         'kcompletion' 'ki18n' 'kconfig' 'kcmutils' 'libsndfile' 'alure' 'openal' 'eigen3' 'qt5-multimedia')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'kdelibs')
 install=gluon.install
-
+groups=("kde-uninstall" "kde-support")
+#source=("http://download.kde.org/download.php?url=unstable/$pkgname/$_pkgver/src/$pkgname-$pkgver.tar.gz"        
+#        "$pkgname-0.71-gcc-4.7.patch::https://projects.kde.org/projects/playground/games/gluon/repository/revisions/bccbda88a6bc53ac20091bb6aefd2f1b501ba31a/diff.diff")
+source=("git://anongit.kde.org/gluon")
+md5sums=('SKIP')
 
 build() {
-  cd "$srcdir"/$pkgname-$pkgver
-  patch -p1 -i "$srcdir"/$pkgname-0.71-gcc-4.7.patch
+  cd "$srcdir"/$pkgname
+  #patch -p1 -i "$srcdir"/$pkgname-0.71-gcc-4.7.patch
 
   cd "$srcdir"
   mkdir build
   cd build
-  cmake ../$pkgname-$pkgver \
+  cmake ../$pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
-    -DBUILD_PHYSICS_COMPONENTS=ON \
-    -DBUILD_PHYSICS_ASSETS=ON
+    -DBUILD_DESKTOP_PLAYER=OFF \
+    -DBUILD_GLUONENGINE=OFF \
+    -DBUILD_TESTS=OFF \
+    -DBUILD_EXAMPLES=OFF \
+    -DBUILD_GLUONPLAYER=OFF \
+    -DBUILD_GLUONCREATOR=OFF
   make
 }
 
