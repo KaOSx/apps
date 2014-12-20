@@ -5,30 +5,27 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkdcraw
 #pkgver=${_kdever}
 pkgver=5.0.90
-pkgrel=3
+pkgrel=5
 pkgdesc="A library for decoding RAW picture files"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdegraphics/libs'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kio' 'threadweaver' 'libjpeg-turbo' 'libraw')
+depends=('kio' 'ki18n' 'kconfig' 'kwidgetsaddons' 'libjpeg-turbo' 'libraw')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 #groups=("kde" "kdegraphics" "kde-uninstall")
 conflicts=('kdegraphics-libkdcraw')
+provides=('kdegraphics-libkdcraw')
+replaces=('kdegraphics-libkdcraw')
 #options=('docs')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkdcraw.git#branch=frameworks"
-        'ractionthreadbase_p.diff'
-        'ractionthreadbase.diff')
-md5sums=('SKIP'
-         '97a1bfa08379be7ee5826c384beb3b4b'
-         'e128758ca71ce183c625356ceeb34d72')
+source=("git://anongit.kde.org/libkdcraw.git#branch=frameworks")
+md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's/libkexiv2_SOURCE_DIR/libkdcraw_SOURCE_DIR/' ${srcdir}/${pkgname}/CMakeLists.txt
+  sed -i -e 's/RActionJob/RActionJob RawFiles/' ${srcdir}/${pkgname}/src/CMakeLists.txt
   #patch -p1 -i $srcdir/ractionthreadbase_p.diff
-  #patch -p1 -i $srcdir/ractionthreadbase.diff
 }
 
 build() {
@@ -39,7 +36,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }

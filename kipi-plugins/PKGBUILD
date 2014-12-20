@@ -2,8 +2,7 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kf5-kipi-plugins
-_pkgname=kipi-plugins
+pkgname=kipi-plugins
 #pkgver=${_kdever}
 pkgver=4.9.80
 pkgrel=1
@@ -14,16 +13,17 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kdelibs4support' 'kparts' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkface' 'libkgeomap' 'libpng' 
          'libtiff' 'libjpeg-turbo')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-conflicts=('kipi-plugins')
+conflicts=('kf5-kipi-plugins')
+replaces=('kf5-kipi-plugins')
 #groups=('kde' 'kde-graphics' 'kde-uninstall')
-install=${_pkgname}.install
+install=${pkgname}.install
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/kipi-plugins.git#branch=frameworks")
 md5sums=('SKIP')
 
 prepare() {
-  cd $_pkgname
+  cd $pkgname
   #sed -i -e 's|if(KF5Kipi_FOUND AND KF5Kipi_INCLUDE_DIRS)|if(KF5Kipi_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
   #sed -i -e 's|if(KF5KDcraw_FOUND AND KF5KDcraw_INCLUDE_DIRS)|if(KF5KDcraw_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
   #sed -i -e 's|if(KF5KExiv2_FOUND AND KF5KExiv2_INCLUDE_DIRS)|if(KF5KExiv2_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
@@ -34,7 +34,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${_pkgname} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
