@@ -1,6 +1,6 @@
 
 pkgname=about-distro
-pkgver=1.9.80
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="KCM displaying distribution and system information"
 arch=('x86_64')
@@ -10,11 +10,10 @@ depends=('kconfigwidgets' 'solid')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kf5-about-distro')
 replaces=('kf5-about-distro')
-#source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz"
-source=("git://anongit.kde.org/about-distro.git"
+source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz"
         'kcm-about-distrorc'
         'KaOS.png')
-md5sums=('SKIP'
+md5sums=('9614ed30b107f3578a36c86f3c3e4925'
          '1bc1260a89d137cd331459d510526254'
          'f4049305cce2be768eabc0ab29239c0b')
 
@@ -22,7 +21,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

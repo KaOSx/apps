@@ -1,31 +1,34 @@
 
 pkgname=sddm-kcm
-pkgver=20140511
+pkgver=20141222
 pkgrel=1
 pkgdesc="SDDM configuration module for KDE"
 arch=('x86_64')
 url="https://github.com/sddm/sddm-kcm"
 license=("GPL")
-depends=('kdelibs' 'sddm')
-makedepends=('git' 'cmake' 'automoc4')
-conflicts=('kcm-sddm-git')
-provides=('kcm-sddm-git')
-replaces=('kcm-sddm-git')
-source=('git://github.com/sddm/sddm-kcm.git')
+depends=('kcoreaddons' 'sddm' 'ki18n' 'kxmlgui' 'kauth' 'kdelibs4support' 'libx11' 'libxcb' 'libxcursor')
+makedepends=('git' 'extra-cmake-modules' 'kdoctools' 'qt5-tools')
+conflicts=('kf5-sddm-kcm')
+replaces=('kf5-sddm-kcm')
+source=('git://anongit.kde.org/sddm-kcm')
 md5sums=('SKIP')
 
 build() {
-  cd ${srcdir}
-
-  mkdir -p ${srcdir}/build
+  mkdir -p build
   cd build
-
-  cmake ../${pkgname} -DCMAKE_INSTALL_PREFIX="`kde4-config --prefix`"
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
-  cd ${srcdir}/build
-  
-  make DESTDIR="${pkgdir}" install
+  cd build
+
+  make DESTDIR=${pkgdir} install
 }
