@@ -8,11 +8,12 @@ post_install() {
 post_upgrade() {
 	  echo -e '\e[1;31m Common instructions for kcp'
 	  echo -e '\e[1;34m ==> To search use: kcp -s partial_package_name'
+	  echo -e '\e[1;34m ==> To update the cache, run once a week: kcp -uc'
           echo -e '\e[1;34m ==> To install use: kcp -i package_name' 
           echo -e '\e[1;34m ==> To install a package needed by another KCP package so pacman -Rns will remove it too: kcp -i package --asdeps'
           echo -e '\e[1;34m ==> To download the files only: kcp -g package_name'
           echo -e '\e[1;34m ==> To list packages by amount of stars: kcp -l --sort'
-          echo -e '\e[1;34m ==> To show packages with newer version available: kcp --outdated'
+          echo -e '\e[1;34m ==> To show packages with newer version available: kcp -l --only-outdated'
           echo -e '\e[1;34m ==> To view all the options: kcp -h \e[0m' 
 }
 
