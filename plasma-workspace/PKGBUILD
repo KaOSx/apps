@@ -4,40 +4,36 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
 license=('LGPL')
 depends=('frameworkintegration' 'kcmutils' 'knotifyconfig' 'krunner' 'kdesu' 'knewstuff' 'khtml'
          'libdbusmenu-qt5' 'glu' 'kjsembed' 'libxkbfile' 'libxcursor' 'lm_sensors' 'libraw1394'
-         'libusb-compat' 'pciutils' 'libbsd' 'kf5-akonadi' 'qt5-webkit' 'kf5-attica'
+         'libusb-compat' 'pciutils' 'libbsd' 'akonadi' 'qt5-webkit' 'kf5-attica'
          'kemoticons' 'libxrandr' 'kded' 'kwin' 'libksysguard' 'ktexteditor' 'kde-cli-tools'
          'khelpcenter' 'kio-extras' 'milou' 'libkscreen2' 'breeze' 'gpsd' 'libqalculate' 'qt5-tools'
          'qimageblitz-qt5' 'oxygen-icons' 'prison-qt5' 'kf5-kdepimlibs')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-#source=("git://anongit.kde.org/plasma-workspace.git"
         '10-kf5'
         'background.png'
-        'metadata.desktop')
+        'metadata.desktop'
+        'kde.pam'
+        'kde-np.pam'
+        'kscreensaver.pam')
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
-#md5sums=('SKIP'
          'beba34da9144bced3ef2a225be532109'
          '3d46fce215a86380383a7c9dc36e8599'
-         '93a7fc07c45491d97a9bcc5dbf1e975f')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  # https://bugs.kde.org/show_bug.cgi?id=338360
-  #patch -p1 -i ${srcdir}/logout.diff  
-}
+         '93a7fc07c45491d97a9bcc5dbf1e975f'
+         '6589fb28bd20d5ec1b4a7b9db9fc4209'
+         '5a035421a9bfaa353caf04250c2b285c'
+         '367a3538f54db71f108b34cfa31088ac')
   
 build() {
   mkdir -p build
-  #sed -i 's|find_package(KdepimLibs 4.70.10 QUIET CONFIG)|find_package(KdepimLibs)|' ${srcdir}/$pkgname/CMakeLists.txt
-  #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt 
   cd build
   
   cmake ../${pkgname}-${pkgver} \
@@ -57,12 +53,17 @@ package() {
   cd build
   make DESTDIR="${pkgdir}" install
   
-  sed 's|qtpaths|qtpaths-qt5|' -i "$pkgdir/usr/bin/startkde"
+  sed 's|qtpaths|qtpaths-qt5|' -i $pkgdir/usr/bin/startkde
   
-  install -Dm755 "${srcdir}/10-kf5" "${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5"
+  install -Dm755 ${srcdir}/10-kf5 ${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5
   
-  rm "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png"
-  install -m 644 -p "${srcdir}/background.png" "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png"
-  rm "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/defaults"
-  install -m 644 -p "${srcdir}/metadata.desktop" "${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/metadata.desktop"
+  rm ${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png
+  install -m 644 -p ${srcdir}/background.png ${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png
+  rm ${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/defaults
+  install -m 644 -p ${srcdir}/metadata.desktop ${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/metadata.desktop
+  
+  # install pam configuration
+  install -D -m644 ${srcdir}/kde.pam ${pkgdir}/etc/pam.d/kde
+  install -D -m644 ${srcdir}/kde-np.pam ${pkgdir}/etc/pam.d/kde-np
+  install -D -m644 ${srcdir}/kscreensaver.pam ${pkgdir}/etc/pam.d/kscreensaver
 }
