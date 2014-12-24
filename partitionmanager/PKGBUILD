@@ -1,39 +1,45 @@
 
 pkgname=partitionmanager
-pkgver=1.1.0
+pkgver=1.1.60
 pkgrel=1
 epoch=1
 pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
 arch=('x86_64')
 url="https://sourceforge.net/projects/partitionman"
 license=('GPL2')
-depends=('kde-runtime' 'parted' 'libatasmart')
-makedepends=('cmake' 'automoc4' 'pkgconfig' 'git')
+depends=('kconfig' 'ki18n' 'kinit' 'kio' 'kjobwidgets' 'kwindowsystem' 'kxmlgui' 'kwidgetsaddons'
+         'parted' 'libatasmart' 'udisks2')
+makedepends=('extra-cmake-modules' 'git' 'pkgconfig' 'kdoctools')
 optdepends=('e2fsprogs: ext2/3/4 support'
 	    'xfsprogs: XFS support'
 	    'jfsutils: JFS support'
 	    'reiserfsprogs: Reiser support'
 	    'ntfsprogs: NTFS support'
 	    'dosfstools: FAT32 support')
+conflicts=('kf5-partitionmanager')
+replaces=('kf5-partitionmanager')
 groups=('system')
 install=partitionmanager.install	
 source=("git://anongit.kde.org/partitionmanager")
 md5sums=('SKIP')
 
 build() {
-  cd "${srcdir}"
+  cd ${srcdir}
   # filsystem code from src/fs/filesystem.h, set as default
   sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/$pkgname/src/config.kcfg
   
   mkdir build
   cd build
-  #patch -p1 < ${srcdir}/tribe.patch
-  #patch -p1 < ${srcdir}/disable-gpt.patch
 
   cmake ../$pkgname \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-        -DENABLE_UDISKS2=off
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+        -DBUILD_TESTING=OFF 
 
   make 
 }
@@ -41,6 +47,6 @@ build() {
 package() {
   cd build
   
-  make DESTDIR="${pkgdir}" install 
+  make DESTDIR=${pkgdir} install 
 }
 
