@@ -1,7 +1,7 @@
 
 pkgname=qtcreator
 pkgver=3.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="http://qt.digia.com/"
@@ -38,6 +38,7 @@ package() {
   cd "${srcdir}/build"
 
   make INSTALL_ROOT="${pkgdir}/usr" install
+  make INSTALL_ROOT="${pkgdir}/usr/" install_docs
 
   install -Dm644 "${srcdir}/qtcreator.desktop" \
     "${pkgdir}/usr/share/applications/qtcreator.desktop"

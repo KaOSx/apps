@@ -4,16 +4,18 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdebindings-qtruby
 _pkgname=qtruby
-pkgver=${_kdever}
-pkgrel=1
+pkgver=4.14.3
+pkgrel=2
 pkgdesc="Qt bindings for ruby"
 url="http://kde.org/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=("kdebindings-smokeqt>=${_kdever}" "ruby")
-makedepends=('cmake' 'automoc4' "kdebindings-smokegen>=${_kdever}")
-source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+depends=('kdebindings-smokeqt' 'ruby')
+makedepends=('cmake' 'automoc4' 'kdebindings-smokegen')
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/${pkgver}/src/${_pkgname}-${pkgver}.tar.xz")
+md5sums=('d9e62c19538912d6cce1245aba80171d')
 conflicts=('kdebindings-common')
 groups=("kde" "kdebindings" "kde-uninstall")
 provides=('qtruby')
