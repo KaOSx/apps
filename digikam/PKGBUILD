@@ -1,6 +1,6 @@
 
 pkgname=digikam
-pkgver=4.9.70
+pkgver=4.9.71
 pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
@@ -18,7 +18,14 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's|ADD_SUBDIRECTORY(imageeditor)|#ADD_SUBDIRECTORY(imageeditor)|' ${srcdir}/${pkgname}/utilities/CMakeLists.txt
+  #sed -i -e 's|<recognitiondatabase.h>|<kface/recognitiondatabase.h>|' ${srcdir}/${pkgname}/app/utils/componentsinfo.h
+  #sed -i -e 's|<kgeomap_widget.h>|<kgeomap/kgeomap_widget.h>|' ${srcdir}/${pkgname}/libs/dialogs/libsinfodlg.cpp
+  #sed -i -e 's|<kgeomap_primitives.h>|<kgeomap/kgeomap_primitives.h>|' ${srcdir}/${pkgname}/libs/kgeomaphelper/digikam2kgeomap.h
+  #sed -i -e 's|<kgeomap_widget.h>|<kgeomap/kgeomap_widget.h>|' ${srcdir}/${pkgname}/libs/imageproperties/imagepropertiesgpstab.cpp
+  #sed -i -e 's|<itemmarkertiler.h>|<kgeomap/itemmarkertiler.h>|' ${srcdir}/${pkgname}/libs/imageproperties/imagepropertiesgpstab.cpp
+  #sed -i -e 's|<kgeomap_primitives.h>|<kgeomap/kgeomap_primitives.h>|' ${srcdir}/${pkgname}/libs/imageproperties/imagegpsmodelhelper.h
+  #sed -i -e 's|<modelhelper.h>|<kgeomap/modelhelper.h>|' ${srcdir}/${pkgname}/libs/imageproperties/imagegpsmodelhelper.h
+  #sed -i -e 's|<kgeomap_widget.h>|<kgeomap/kgeomap_widget.h>|' ${srcdir}/${pkgname}/libs/kgeomaphelper/digikam2kgeomap.cpp
 }
 
 build() {
@@ -29,13 +36,12 @@ build() {
    cmake ../${pkgname} \
      -DCMAKE_BUILD_TYPE=Release \
      -DCMAKE_INSTALL_PREFIX=/usr \
+     -DLIB_INSTALL_DIR=lib \
      -DCMAKE_SKIP_RPATH=ON \
      -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
      -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
      -DBUILD_TESTING=OFF \
-     -DDIGIKAMSC_COMPILE_LIBKFACE=OFF \
-     -DDIGIKAMSC_COMPILE_LIBKGEOMAP=OFF \
      -DENABLE_KDEPIMLIBSSUPPORT=OFF \
      -DENABLE_MYSQLSUPPORT=OFF \
      -DENABLE_BALOOSUPPORT=OFF

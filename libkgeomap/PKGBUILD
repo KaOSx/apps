@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkgeomap
 #pkgver=${_kdever}
 pkgver=4.9.81
-pkgrel=1
+pkgrel=2
 pkgdesc="Wrapper around different world-map components, to browse and arrange photos over a map"
 arch=('x86_64')
 url='https://projects.kde.org/projects/extragear/libs/libkgeomap'
@@ -15,8 +15,17 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'pkg-config')
 #groups=("kde" "kdegraphics" "kde-uninstall")
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkgeomap.git#branch=frameworks")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/libkgeomap.git#branch=frameworks"
+        'CMakeLists.diff')
+md5sums=('SKIP'
+         'a305ca89ed8d7ae03c2be4c48b85c4bd')
+
+prepare() {
+   cd $pkgname
+   sed -i -e 's|<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KGeoMap>|<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KGeoMap;${KF5_INCLUDE_INSTALL_DIR}/KGeoMap/kgeomap>|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+   patch -p1 -i ${srcdir}/CMakeLists.diff
+   #sed -i -e 's|${CMAKE_CURRENT_BINARY_DIR}/libkgeomap_export.h|${CMAKE_CURRENT_BINARY_DIR}/libkgeomap_export.h kgeomap_widget.h kgeomap_primitives.h|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+}
 
 build() {
   mkdir -p build
