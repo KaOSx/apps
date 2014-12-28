@@ -1,6 +1,6 @@
 
 pkgname=digikam
-pkgver=4.9.71
+pkgver=4.9.72
 pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
@@ -8,7 +8,7 @@ license=('GPL')
 pkgdesc="Digital photo management application for kde"
 depends=('kdelibs4support' 'kparts' 'khtml' 'knotifyconfig' 'libksane' 'ki18n' 'lensfun' 
          'marble' 'phonon-qt5' 'jasper' 'libgphoto2' 'liblqr' 'opencv-qt5' 'kipi-plugins' 'lapack'
-         'libgpod' 'eigen3' 'libpgf') # 'kf5-kdepimlibs' 'kf5-baloo'
+         'libgpod' 'eigen3' 'libpgf' 'kf5-baloo') # 'kf5-kdepimlibs' 
 makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'qjson' 'boost' 'imagemagick')
 install=digikam.install
 groups=('graphics')
@@ -19,13 +19,6 @@ md5sums=('SKIP')
 prepare() {
   cd $pkgname
   #sed -i -e 's|<recognitiondatabase.h>|<kface/recognitiondatabase.h>|' ${srcdir}/${pkgname}/app/utils/componentsinfo.h
-  #sed -i -e 's|<kgeomap_widget.h>|<kgeomap/kgeomap_widget.h>|' ${srcdir}/${pkgname}/libs/dialogs/libsinfodlg.cpp
-  #sed -i -e 's|<kgeomap_primitives.h>|<kgeomap/kgeomap_primitives.h>|' ${srcdir}/${pkgname}/libs/kgeomaphelper/digikam2kgeomap.h
-  #sed -i -e 's|<kgeomap_widget.h>|<kgeomap/kgeomap_widget.h>|' ${srcdir}/${pkgname}/libs/imageproperties/imagepropertiesgpstab.cpp
-  #sed -i -e 's|<itemmarkertiler.h>|<kgeomap/itemmarkertiler.h>|' ${srcdir}/${pkgname}/libs/imageproperties/imagepropertiesgpstab.cpp
-  #sed -i -e 's|<kgeomap_primitives.h>|<kgeomap/kgeomap_primitives.h>|' ${srcdir}/${pkgname}/libs/imageproperties/imagegpsmodelhelper.h
-  #sed -i -e 's|<modelhelper.h>|<kgeomap/modelhelper.h>|' ${srcdir}/${pkgname}/libs/imageproperties/imagegpsmodelhelper.h
-  #sed -i -e 's|<kgeomap_widget.h>|<kgeomap/kgeomap_widget.h>|' ${srcdir}/${pkgname}/libs/kgeomaphelper/digikam2kgeomap.cpp
 }
 
 build() {
@@ -43,8 +36,7 @@ build() {
      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
      -DBUILD_TESTING=OFF \
      -DENABLE_KDEPIMLIBSSUPPORT=OFF \
-     -DENABLE_MYSQLSUPPORT=OFF \
-     -DENABLE_BALOOSUPPORT=OFF
+     -DENABLE_MYSQLSUPPORT=OFF 
    make 
 }
 

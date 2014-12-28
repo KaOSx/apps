@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkface
 #pkgver=${_kdever}
 pkgver=4.9.80
-pkgrel=3
+pkgrel=4
 pkgdesc="Qt/C++ library to perform face detection and recognition over pictures"
 url="http://www.digikam.org/"
 arch=('x86_64')
@@ -20,7 +20,7 @@ md5sums=('SKIP')
 
 prepare() {
    cd $pkgname
-   sed -i -e 's|<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFace>|<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFace;${KF5_INCLUDE_INSTALL_DIR}/KFace/kface>|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+   #sed -i -e 's|<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFace>|<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFace;${KF5_INCLUDE_INSTALL_DIR}/KFace/kface>|' ${srcdir}/${pkgname}/src/CMakeLists.txt
 }
 
 build() {
