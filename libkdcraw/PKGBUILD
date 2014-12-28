@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkdcraw
 #pkgver=${_kdever}
 pkgver=5.0.90
-pkgrel=7
+pkgrel=8
 pkgdesc="A library for decoding RAW picture files"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdegraphics/libs'
@@ -45,8 +45,6 @@ build() {
 
 package() {
   cd build
-  make DESTDIR=${pkgdir} install
   
-  install -d ${pkgdir}/usr/share/libkdcraw/data
-  cp -r ${srcdir}/libkdcraw/data/* ${pkgdir}/usr/share/libkdcraw/data
+  make DESTDIR=${pkgdir} install
 }
