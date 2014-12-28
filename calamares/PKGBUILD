@@ -10,34 +10,19 @@ depends=('qt5-svg' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
          'parted' 'libatasmart' 'udisks2' 'polkit-qt5')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 source=("git://github.com/KaOSx/calamares"
-#source=("calamares.tar.xz"
         'calamares.desktop'
         'installer.svg'
         'kdm_sddm.conf'
-        'locale.conf'
-        'prepare.conf'
         'settings.conf'
         'launch-calamares.sh'
-        'installer.svg'
-        'GreetingPage.diff'
-        'CalamaresStyle.diff'
-        'UEFI.diff'
-        'JobQueue.diff'
-        'along_UEFI.diff')
+        'installer.svg')
 md5sums=('SKIP'
          '8c263c9faeec86a33c02e743d9b083f7'
          'd5c65f43e057054e9728810530c4a030'
          '68a774a6bddcfdf83c9734dfffeab6c2'
-         '6b793a81d051d5d0b00a6031ceb08308'
-         'ebc235d4b2f9a425bf2161d7a252dce3'
          'a46269d9ce7dc095625b9328cafe8c2d'
          '2437e44479a54376ad9244d120369f6c'
-         'd5c65f43e057054e9728810530c4a030'
-         'bfeddbe9a2999721bb0c7842062efb63'
-         '64d7df6bbc7c85441a90855a002b89e9'
-         '62fa7d1231cc477a7ea98a857618aca2'
-         '7117bc63a9bbd9ca5f2654d3fb772e1f'
-         '12c30aa20d9ee0a036136aca475dc112')
+         'd5c65f43e057054e9728810530c4a030')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -47,11 +32,6 @@ prepare () {
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
-  #patch -p1 -i ${srcdir}/GreetingPage.diff
-  #patch -p1 -i ${srcdir}/CalamaresStyle.diff
-  #patch -p1 -i ${srcdir}/UEFI.diff
-  #patch -p1 -i ${srcdir}/JobQueue.diff
-  #patch -p1 -i ${srcdir}/along_UEFI.diff
 }
 
 build() {
@@ -74,12 +54,6 @@ package() {
   rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
   install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
   install -D -m644 "${srcdir}/kdm_sddm.conf" "${pkgdir}/etc/calamares/modules/kdm_sddm.conf"
-  install -D -m644 "${srcdir}/locale.conf" "${pkgdir}/etc/calamares/modules/locale.conf"
-  install -D -m644 "${srcdir}/prepare.conf" "${pkgdir}/etc/calamares/modules/prepare.conf"
-  
-  sed 's|linux312|linux|' -i "${pkgdir}/usr/share/calamares/modules/initcpio.conf"
-  # toggle for kf5/kde 4 ISO
-  #sed 's|KaOS-kf5|KaOS|' -i "${pkgdir}/usr/share/calamares/modules/bootloader.conf"
   
   install -Dm755 "${srcdir}/launch-calamares.sh" "${pkgdir}/usr/bin/launch-calamares.sh"
   rm -rf "$pkgdir/usr/share/applications/$pkgname.desktop"
