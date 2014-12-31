@@ -32,6 +32,8 @@ prepare () {
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
+  # toggle on/off for kf5/kde 4 builds
+  sed -i 's|KaOS|KaOS-kf5|' ${srcdir}/${pkgname}/src/modules/bootldr/bootldr.conf
 }
 
 build() {
