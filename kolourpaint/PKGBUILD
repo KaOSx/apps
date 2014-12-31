@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kolourpaint
 #pkgver=${_kdever}
-pkgver=4.90.80
+pkgver=4.90.81
 pkgrel=1
 pkgdesc="Paint Program"
 url="http://kde.org/applications/graphics/kolourpaint/"
@@ -15,6 +15,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 install=${pkgname}.install
 groups=('graphics')
 conflicts=('kdegraphics-kolourpaint')
+replaces=('kdegraphics-kolourpaint')
 options=('docs')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

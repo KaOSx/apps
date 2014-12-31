@@ -4,17 +4,19 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ksnapshot
 #pkgver=${_kdever}
-pkgver=14.11.70
+pkgver=14.11.71
 pkgrel=1
 pkgdesc="Screen Capture Program"
 url="http://kde.org/applications/graphics/ksnapshot/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kdelibs4support' 'kio' 'kservice'
+depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kio' 'kparts' 'kservice'
          'kwindowsystem' 'kxmlgui' 'libkipi')
 makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
 install=${pkgname}.install
 conflicts=('kdegraphics-ksnapshot')
+provides=('kdegraphics-ksnapshot')
+replaces=('kdegraphics-ksnapshot')
 #groups=("kde" "kdegraphics" "kde-uninstall")
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
