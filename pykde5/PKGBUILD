@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=pykde5
 #pkgver=${_kdever}
-pkgver=4.90.80
+pkgver=4.90.81
 pkgrel=1
 pkgdesc="Python bindings for KDE 5"
 url="https://projects.kde.org/projects/kde/kdebindings/python/pykde5"
@@ -13,6 +13,8 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('pyqt5-python3' 'sip3' 'kauth' 'kitemmodels' 'kitemviews' 'karchive' 'kplotting' 'solid'
          'kcoreaddons' 'sonnet' 'kguiaddons' 'kwidgetsaddons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kdebindings-pykde4')
+replaces=('kdebindings-pykde4')
 #groups=("kde" "kdebindings" "kde-uninstall")
 #options=('docs' 'debug')
 #source=("$_mirror/${pkgname}-$_kdever.tar.xz")
