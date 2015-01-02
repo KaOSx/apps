@@ -4,17 +4,18 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=granatier
 #pkgver=${_kdever}
-pkgver=14.11.70
+pkgver=14.11.71
 pkgrel=1
 pkgdesc="Granatier is a clone of the classic Bomberman game, inspired by the work of the Clanbomber clone"
 arch=('x86_64')
-url='http://www.kde.org'
+url='https://projects.kde.org/projects/kde/kdegames/granatier'
 license=('GPL' 'LGPL' 'FDL')
 depends=('libkdegames' 'kcoreaddons' 'kconfig' 'kwidgetsaddons' 'ki18n' 'kguiaddons' 'kconfigwidgets' 'kitemviews'
          'kiconthemes' 'kxmlgui' 'kio' 'knewstuff' 'knotifyconfig' 'kdelibs4support')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
 #groups=('kde' 'kdegames' 'kde-uninstall')
 conflicts=('kdegames-granatier')
+replaces=('kdegames-granatier')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/granatier#branch=frameworks")
