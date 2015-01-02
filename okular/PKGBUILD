@@ -5,8 +5,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=4.9.90
-pkgrel=6
+pkgver=14.12.80
+pkgrel=1
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -19,12 +19,11 @@ depends=('kf5-kactivities' 'karchive' 'kbookmarks' 'kconfig' 'kconfigwidgets' 'k
          'json-c' 'qimageblitz-qt5' 'libkexiv2' 'libkdcraw')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'qca-qt5')
 conflicts=('kdegraphics-okular')
+replaces=('kdegraphics-okular')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/okular.git#branch=frameworks"
-        'CMakeLists.diff')
-md5sums=('SKIP'
-         'a6454862dcdeb6a50f8dbbf5ec9ca746')
+source=("git://anongit.kde.org/okular.git#branch=frameworks")
+md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
