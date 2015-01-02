@@ -3,30 +3,40 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=baloo-widgets
-pkgver=${_kdever}
-pkgrel=1
-pkgdesc="Widgets for Baloo"
+pkgver=4.98.0
+pkgrel=5
+pkgdesc="Widgets for the baloo framework for searching and managing metadata"
 arch=('x86_64')
-url='https://projects.kde.org/projects/playground/base/baloo'
+url='https://projects.kde.org/projects/kde/kdelibs/baloo'
 license=('LGPL')
-depends=('baloo' 'kde-workspace')
-makedepends=('cmake' 'automoc4')
-groups=('kde' 'kde-uninstall')
-source=($_mirror/${pkgname}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+depends=('kf5-baloo' 'kdelibs4support' 'kemoticons')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kf5-baloo-widgets')
+conflicts=('kf5-baloo-widgets')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
+source=("git://anongit.kde.org/baloo-widgets.git")
+md5sums=('SKIP')
+
+prepare() {
+  cd $_pkgname
+  #sed -i -e 's|#include <baloo/completionproposal.h>||' ${srcdir}/${_pkgname}/src/querybuilder.cpp
+}
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
-        -DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_INSTALL_PREFIX=/usr
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DLIB_INSTALL_DIR=lib
   make
 }
 
 package() {
   cd build
-  
-  make DESTDIR="${pkgdir}" install
+
+  make DESTDIR=${pkgdir} install
 }

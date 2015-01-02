@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kiten
 #pkgver=${_kdever}
-pkgver=4.90.81
+pkgver=14.12.80
 pkgrel=1
 pkgdesc="Japanese Reference/Study Tool"
 url="http://kde.org/applications/education/kiten/"
@@ -13,11 +13,12 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'ki18n' 'kxmlgui' 'khtml')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kdeedu-kiten')
+replaces=('kdeedu-kiten')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kiten.git#branch=frameworks")
+source=("git://anongit.kde.org/kiten.git")
 md5sums=('SKIP')
 
 prepare() {
