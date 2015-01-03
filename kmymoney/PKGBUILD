@@ -1,30 +1,42 @@
 
 pkgname=kmymoney
-pkgver=4.7.1
-pkgrel=2
-pkgdesc="An finance manager for KDE4 with HBCI support"
+pkgver=4.100.0
+pkgrel=1
+pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
-url="http://kmymoney2.sourceforge.net"
+url="http://www.kmymoney.org/"
 license=('GPL')
-depends=('kde-workspace' 'aqbanking' 'shared-mime-info' 'boost-libs' 'pulseaudio'
-         'libofx' 'alkimia')
-makedepends=('cmake' 'automoc4' 'gwenhywfar' 'docbook-xsl' 'boost' 'doxygen')
+depends=('kcoreaddons' 'kconfig' 'khtml' 'kdelibs4support' 'kcompletion' 'kcmutils' 'kitemviews' 
+         'kf5-kactivities' 'kf5-kdepimlibs' 'aqbanking' 'shared-mime-info' 'boost-libs'
+         'pulseaudio' 'libofx' 'libical' 'alkimia')
+makedepends=('extra-cmake-modules' 'kdoctools' 'gwenhywfar' 'docbook-xsl' 'boost')
+conflicts=('kf5-kmymoney')
+replaces=('kf5-kmymoney')
 groups=('office')
-source=("http://download.kde.org/stable/kmymoney/$pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('abe1002391df97cf2c985936eb141a2a')
+source=("git://anongit.kde.org/kmymoney#branch=frameworks")
+md5sums=('SKIP')
 
 build() {
-  cd ${srcdir}/$pkgname-$pkgver
+  cd ${srcdir}
+  #sed -e "s/#include <kstdguiitem.h>/#include <kstandardguiitem.h>/" -i ${srcdir}/$_pkgname/kmymoney/dialogs/*.cpp
+  #sed -e "s/Qt5::core/Qt5::core KF5::KWidgetsAddons/" -i ${srcdir}/$_pkgname/kmymoney/CMakeLists.txt
+  
+  mkdir -p build
+  cd build
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=RELEASE \
-        -DCMAKE_SKIP_RPATH=YES \
-        -DKDE4_BUILD_TESTS=OFF
-  make VERBOSE=1
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
 }
 
 package() {
-  cd ${srcdir}/$pkgname-$pkgver
+  cd build
 
   make DESTDIR=${pkgdir} install
 }
