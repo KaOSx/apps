@@ -4,15 +4,17 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcron
 #pkgver=${_kdever}
-pkgver=14.11.80
+pkgver=14.12.80
 pkgrel=1
 pkgdesc='GUI crontab editor'
 url='http://userbase.kde.org/KCron'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 #groups=('kde' 'kdeadmin' 'kde-uninstall')
-depends=('kdelibs4support' 'kio')
+depends=('ki18n' 'kiconthemes' 'kio' 'kxmlgui')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kdeadmin-kcron')
+replaces=('kdeadmin-kcron')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz") 
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/kcron.git#branch=frameworks")

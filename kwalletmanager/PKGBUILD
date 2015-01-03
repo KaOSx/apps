@@ -1,13 +1,18 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kwalletmanager
-pkgver=4.98.0
-pkgrel=3
+pkgver=14.12.80
+pkgrel=1
 pkgdesc="Wallet Manager is a tool to manage the passwords on your KDE system"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeutils/kwalletmanager"
 license=('LGPL')
 depends=('kcmutils' 'kemoticons' 'kdelibs4support' 'kitemmodels' 'kinit' 'kwallet' 'kxmlgui')
 makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+conflicts=('kdeutils-kcalc')
+replaces=('kdeutils-kcalc')
 source=("git://anongit.kde.org/kwalletmanager.git#branch=frameworks")
 md5sums=('SKIP')
 

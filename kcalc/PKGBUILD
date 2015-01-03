@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname="kcalc"
 #pkgver=${_kdever}
-pkgver=14.11.70
+pkgver=14.12.80
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Scientific calculator"
@@ -13,6 +13,7 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kconfigwidgets' 'kguiaddons' 'ki18n' 'kinit' 'knotifications' 'kxmlgui')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kdeutils-kcalc')
+replaces=('kdeutils-kcalc')
 #groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 install=kdeutils.install
 #source=($_mirror/${_pkgname}-$_kdever.tar.xz)

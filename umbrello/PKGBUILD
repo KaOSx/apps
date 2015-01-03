@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=umbrello
 #pkgver=${_kdever}
-pkgver=14.11.70
+pkgver=14.12.80
 pkgrel=1
 pkgdesc='UML modeling tool for KDE'
 url='http://kde.org/applications/development/umbrello/'
@@ -15,6 +15,7 @@ depends=('karchive' 'kauth' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' '
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 #groups=('kde' 'kdesdk' 'kde-uninstall' 'programming' )
 conflicts=('kdesk-umbrello')
+replaces=('kdesk-umbrello')
 install=${pkgname}.install
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

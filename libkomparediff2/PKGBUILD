@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkomparediff2
 #pkgver=${_kdever}
-pkgver=4.90.81
+pkgver=14.12.80
 pkgrel=1
 pkgdesc="Library to compare files and strings"
 url='https://projects.kde.org/projects/kde/kdesdk/libkomparediff2'
@@ -14,6 +14,7 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kcodecs' 'kconfig' 'kxmlgui' 'ki18n' 'kio' 'kparts')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kdesdk-libkomparediff2')
+replaces=('kdesdk-libkomparediff2')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/libkomparediff2#branch=frameworks")
