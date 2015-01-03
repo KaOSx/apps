@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=pairs
 #pkgver=${_kdever}
-pkgver=4.90.80
+pkgver=14.12.80
 pkgrel=1
 pkgdesc="A memory and pairs game for KDE"
 url="https://projects.kde.org/projects/kde/kdeedu/pairs"
@@ -16,6 +16,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education' 'kaos-kids')
 install=${pkgname}.install
 conflicts=('kdeedu-pairs')
+replaces=('kdeedu-pairs')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/pairs.git#branch=frameworks")
