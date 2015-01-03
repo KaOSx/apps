@@ -2,18 +2,22 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kpackage
+pkgname=networkmanager-qt
 pkgver=${_kf5ver}
 pkgrel=1
-pkgdesc='Framework that lets applications manage user installable packages of non-binary assets'
+pkgdesc='Qt wrapper for NetworkManager API.'
 arch=('x86_64')
-url='https://projects.kde.org/projects/frameworks/kpackage'
+url='https://projects.kde.org/projects/frameworks/networkmanager-qt'
 license=('LGPL')
-depends=('karchive' 'ki18n' 'kcoreaddons' 'kconfig')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('networkmanager' 'qt5-base')
+makedepends=('extra-cmake-modules')
+conflicts=('libnm-qt')
+provides=('libnm-qt')
+replaces=('libnm-qt')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
 
 build() {
   mkdir -p build
@@ -23,9 +27,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
-    -DLIBEXEC_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
