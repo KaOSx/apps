@@ -1,7 +1,7 @@
 From: David Woodhouse <David.Woodhouse@intel.com>
 Date: Wed, 03 Dec 2014 14:10:44 +0000
 Subject: Update OpenConnect support for library version 5
-X-Git-Url: http://quickgit.kde.org/?p=plasma-nm.git&a=commitdiff&h=66d9ab613c1ffd3f36df818f28cffe7750a36f6b
+X-Git-Url: http://quickgit.kde.org/?p=plasma-nm.git&a=commitdiff&h=3e6585fa4dd2fb3d9b59c7704bd3d7ae5b2c4167
 ---
 Update OpenConnect support for library version 5
 
@@ -21,7 +21,7 @@ necessary.
 
 --- a/vpn/openconnect/CMakeLists.txt
 +++ b/vpn/openconnect/CMakeLists.txt
-@@ -25,6 +25,8 @@
+@@ -15,6 +15,8 @@
  
      if (${OPENCONNECT_VERSION} VERSION_GREATER ${MINIMUM_OPENCONNECT_VERSION_REQUIRED} OR
          ${OPENCONNECT_VERSION} VERSION_EQUAL ${MINIMUM_OPENCONNECT_VERSION_REQUIRED})
@@ -33,7 +33,7 @@ necessary.
 
 --- a/vpn/openconnect/openconnectauth.cpp
 +++ b/vpn/openconnect/openconnectauth.cpp
-@@ -165,7 +165,7 @@
+@@ -161,7 +161,7 @@
      }
      if (!dataMap[NM_OPENCONNECT_KEY_CACERT].isEmpty()) {
          const QByteArray crt = QFile::encodeName(dataMap[NM_OPENCONNECT_KEY_CACERT]);
@@ -42,7 +42,7 @@ necessary.
      }
      if (dataMap[NM_OPENCONNECT_KEY_CSD_ENABLE] == "yes") {
          char *wrapper;
-@@ -178,12 +178,12 @@
+@@ -174,12 +174,12 @@
      }
      if (!dataMap[NM_OPENCONNECT_KEY_PROXY].isEmpty()) {
          const QByteArray proxy = QFile::encodeName(dataMap[NM_OPENCONNECT_KEY_PROXY]);
@@ -57,10 +57,10 @@ necessary.
  
          if (!crt.isEmpty() && dataMap[NM_OPENCONNECT_KEY_PEM_PASSPHRASE_FSID] == "yes") {
              openconnect_passphrase_from_fsid(d->vpninfo);
-@@ -280,10 +280,10 @@
+@@ -276,10 +276,10 @@
      const VPNHost &host = d->hosts.at(i);
      if (openconnect_parse_url(d->vpninfo, host.address.toAscii().data())) {
-         qWarning() << "Failed to parse server URL" << host.address;
+         kWarning() << "Failed to parse server URL" << host.address;
 -        openconnect_set_hostname(d->vpninfo, strdup(host.address.toAscii().data()));
 +        openconnect_set_hostname(d->vpninfo, OC3DUP(host.address.toAscii().data()));
      }
@@ -70,7 +70,7 @@ necessary.
      d->secrets["lasthost"] = host.name;
      addFormInfo(QLatin1String("dialog-information"), i18n("Contacting host, please wait..."));
      d->worker->start();
-@@ -305,9 +305,13 @@
+@@ -301,9 +301,13 @@
      secrets.insert(QLatin1String(NM_OPENCONNECT_KEY_COOKIE), QLatin1String(openconnect_get_cookie(d->vpninfo)));
      openconnect_clear_cookie(d->vpninfo);
  
@@ -84,27 +84,23 @@ necessary.
      secrets.insert(QLatin1String(NM_OPENCONNECT_KEY_GWCERT), QLatin1String(fingerprint));
      secrets.insert(QLatin1String("certsigs"), d->certificateFingerprints.join("\t"));
      secrets.insert(QLatin1String("autoconnect"), d->ui.chkAutoconnect->isChecked() ? "yes" : "no");
-@@ -581,14 +585,16 @@
-             const QString key = QString("form:%1:%2").arg(QLatin1String(form->auth_id)).arg(QLatin1String(opt->name));
+@@ -578,14 +582,14 @@
              if (opt->type == OC_FORM_OPT_PASSWORD || opt->type == OC_FORM_OPT_TEXT) {
-                 QLineEdit *le = qobject_cast<QLineEdit*>(widget);
--                opt->value = qstrdup(le->text().toUtf8().constData());
--                if (opt->type == OC_FORM_OPT_PASSWORD) {
-+                QByteArray text = le->text().toUtf8();
+                 KLineEdit *le = qobject_cast<KLineEdit*>(widget);
+                 QByteArray text = le->text().toUtf8();
+-                opt->value = strdup(text.data());
 +                openconnect_set_option_value(opt, text.data());
-+                if (opt->type == OC_FORM_OPT_TEXT) {
+                 if (opt->type == OC_FORM_OPT_TEXT) {
                      d->secrets.insert(key,le->text());
                  }
              } else if (opt->type == OC_FORM_OPT_SELECT) {
-                 QComboBox *cbo = qobject_cast<QComboBox*>(widget);
--                opt->value = qstrdup(cbo->currentData().toString().toUtf8().constData());
--                d->secrets.insert(key, cbo->currentData().toString());
-+                QByteArray text = cbo->itemData(cbo->currentIndex()).toString().toAscii();
+                 KComboBox *cbo = qobject_cast<KComboBox*>(widget);
+                 QByteArray text = cbo->itemData(cbo->currentIndex()).toString().toAscii();
+-                opt->value = strdup(text.data());
 +                openconnect_set_option_value(opt, text.data());
-+                d->secrets.insert(key,cbo->itemData(cbo->currentIndex()).toString());
+                 d->secrets.insert(key,cbo->itemData(cbo->currentIndex()).toString());
              }
          }
-     }
 
 --- a/vpn/openconnect/openconnectauthworkerthread.cpp
 +++ b/vpn/openconnect/openconnectauthworkerthread.cpp
