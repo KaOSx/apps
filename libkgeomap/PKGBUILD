@@ -4,21 +4,19 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkgeomap
 #pkgver=${_kdever}
-pkgver=4.9.82
+pkgver=4.9.83
 pkgrel=1
 pkgdesc="Wrapper around different world-map components, to browse and arrange photos over a map"
 arch=('x86_64')
 url='https://projects.kde.org/projects/extragear/libs/libkgeomap'
 license=('GPL' 'LGPL' 'FDL')
-depends=('khtml' 'kparts' 'libkexiv2' 'marble')
+depends=('ki18n' 'kconfig' 'kdelibs4support' 'khtml' 'kparts' 'libkexiv2' 'marble')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'pkg-config')
 #groups=("kde" "kdegraphics" "kde-uninstall")
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkgeomap.git#branch=frameworks"
-        'CMakeLists.diff')
-md5sums=('SKIP'
-         'a305ca89ed8d7ae03c2be4c48b85c4bd')
+source=("git://anongit.kde.org/libkgeomap.git#branch=frameworks")
+md5sums=('SKIP')
 
 prepare() {
    cd $pkgname
