@@ -1,15 +1,15 @@
 
 pkgname=gcompris-qt
 _pkgname=gcompris
-pkgver=0.22
-_pkgver=0.23
-pkgrel=2
+pkgver=0.26
+_pkgver=0.26
+pkgrel=1
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
 url="http://gcompris.net/"
 license=('GPL3')
 depends=('qt5-webkit' 'qt5-tools' 'qt5-quick1' 'qt5-svg' 'qt5-graphicaleffects'
-         'gstreamer0.10-good-plugins' 'gnuchess')
+         'gnuchess' 'gstreamer0.10-good-plugins')
 makedepends=('texinfo' 'intltool' 'git' 'extra-cmake-modules')
 groups=('kaos-kids')
 conflicts=('gcompris')
@@ -19,7 +19,7 @@ source=("git://github.com/bdoin/GCompris-qt.git"
         'gcompris.desktop'
         'gcompris.png')
 md5sums=('SKIP'
-         'a65424b959ff5502a3f7894ad0ae4226'
+         '95b4bcb06168e38332d66fec1dda3aa2'
          '7c7cee3479f1a47376db800b2bc37017')
 
 build() {
@@ -37,13 +37,14 @@ build() {
 
 package() {
   cd "${srcdir}"/build
+  make DESTDIR="${pkgdir}" install
   
-  install -d "${pkgdir}/opt/$_pkgname"
-  make package && ./"$_pkgname-$_pkgver"-Linux.sh --prefix="${pkgdir}"/opt/gcompris --skip-license
+  #install -d "${pkgdir}/opt/$_pkgname"
+  #make package && ./"$_pkgname-$_pkgver"-Linux.sh --prefix="${pkgdir}"/opt/gcompris --skip-license
   
-  install -d "${pkgdir}/usr/bin"
+  #install -d "${pkgdir}/usr/bin"
   install -Dm644 "${srcdir}/gcompris.desktop" "${pkgdir}/usr/share/applications/gcompris.desktop"             
   install -Dm644 "${srcdir}/gcompris.png" "${pkgdir}/usr/share/pixmaps/gcompris.png"
-  ln -s /opt/gcompris/bin/GCompris "$pkgdir/usr/bin/gcompris"
+  #ln -s /opt/gcompris/bin/ "$pkgdir/usr/bin/gcompris-qt"
 }
 
