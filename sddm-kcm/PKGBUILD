@@ -1,7 +1,11 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=sddm-kcm
-pkgver=20141222
+pkgver=${_plasmaver}
 pkgrel=1
+epoch=1
 pkgdesc="SDDM configuration module for KDE"
 arch=('x86_64')
 url="https://github.com/sddm/sddm-kcm"
@@ -10,19 +14,21 @@ depends=('kcoreaddons' 'sddm' 'ki18n' 'kxmlgui' 'kauth' 'kdelibs4support' 'libx1
 makedepends=('git' 'extra-cmake-modules' 'kdoctools' 'qt5-tools')
 conflicts=('kf5-sddm-kcm')
 replaces=('kf5-sddm-kcm')
-source=('git://anongit.kde.org/sddm-kcm')
-md5sums=('SKIP')
+groups=('plasma5')
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DLIBEXEC_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }
