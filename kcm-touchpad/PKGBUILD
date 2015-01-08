@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcm-touchpad
-pkgver=${plasmaver}
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="KCM, daemon and applet for touchpad."
 arch=('x86_64')
@@ -18,12 +18,12 @@ groups=('system' 'plasma5')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         'xlibbackend.diff'
         'x11.diff')
-md5sums=(`grep ${_pkgname}-${plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '417d582f137c4d6c8c80501c817e9f66'
          'bb1c795439814faebfad23f71161f544')
 
 prepare() {
-  cd ${pkgname}
+  cd ${pkgname}-${pkgver}
   patch -p0 -i ${srcdir}/xlibbackend.diff
   patch -p0 -i ${srcdir}/x11.diff
 }
