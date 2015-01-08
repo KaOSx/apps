@@ -1,7 +1,10 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kde-gtk-config
-pkgver=4.98.0
-pkgrel=2
+pkgver=${_plasmaver}
+pkgrel=1
 pkgdesc="Configuration dialog to adapt GTK applications appearance to your taste under KDE"
 arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/base/kde-gtk-config"
@@ -11,11 +14,11 @@ makedepends=('extra-cmake-modules' 'git' 'gtk2' 'gtk3')
 conflicts=('kf5-kde-gtk-config')
 replaces=('kf5-kde-gtk-config')
 provides=('kf5-kde-gtk-config')
-source=("git://anongit.kde.org/kde-gtk-config.git")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   mkdir build
   
   cd build
@@ -26,6 +29,7 @@ build() {
         -DSYSCONF_INSTALL_DIR=/etc \
         -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
         -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
         -DBUILD_TESTING=OFF ..
   make
 }
