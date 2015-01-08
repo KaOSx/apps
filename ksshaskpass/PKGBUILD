@@ -2,16 +2,16 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=user-manager
+pkgname=ksshaskpass
 pkgver=${_plasmaver}
 pkgrel=1
-pkgdesc="Simple system settings module to manage the users of your system"
+pkgdesc="Front-end for ssh-add which stores the password of the sh key in KWallet."
 arch=('x86_64')
-url="https://projects.kde.org/projects/kde/workspace/user-manager"
+url="https://projects.kde.org/projects/kde/workspace/ksshaskpass"
 license=('LGPL')
-depends=('kdelib4support' 'libpwquality')
-makedepends=('extra-cmake-modules')
-#groups=('plasma5')
+depends=('kcoreaddons' 'ki18n' 'kwallet' 'kwidgetsaddons')
+makedepends=('extra-cmake-modules' 'kdoctools')
+groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
