@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
@@ -23,6 +23,7 @@ provides=('homerun' 'kdeplasma-addons-applets-icontasks')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         '10-kf5'
         'background.png'
+        'kde.svgz'
         'metadata.desktop'
         'kde.pam'
         'kde-np.pam'
@@ -59,15 +60,6 @@ package() {
   sed 's|qtpaths|qtpaths-qt5|' -i $pkgdir/usr/bin/startkde
   
   install -Dm755 ${srcdir}/10-kf5 ${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5
-  
-  # ksplash & lockscreen background.png midna
-  rm ${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png
-  rm ${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/artwork/background.png
-  install -m 644 -p ${srcdir}/background.png ${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/splash/images/background.png
-  install -m 644 -p ${srcdir}/background.png ${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/artwork/background.png
-  # add midna wallpaper to settings
-  rm ${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/defaults
-  install -m 644 -p ${srcdir}/metadata.desktop ${pkgdir}/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/metadata.desktop
   
   # install pam configuration
   install -D -m644 ${srcdir}/kde.pam ${pkgdir}/etc/pam.d/kde
