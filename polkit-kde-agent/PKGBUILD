@@ -1,33 +1,41 @@
 
-pkgname=polkit-kde-agent
-pkgver=0.99.0
-pkgrel=5
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=polkit-kde-agent-1
+pkgver=${_plasmaver}
+pkgrel=1
 pkgdesc='KDE PolicyKit Authentication Agent'
 arch=('x86_64')
-url='http://www.kde.org'
-license=('GPL')
-depends=('kdelibs' 'polkit-qt')
-makedepends=('cmake' 'automoc4')
-groups=("kde-uninstall" "kde-support")
-source=("ftp://ftp.kde.org/pub/kde/stable/apps/KDE4.x/admin/${pkgname}-1-${pkgver}.tar.bz2")
-md5sums=('a02d3fddc6270a88bceaf3ba604c92f8')
+url='https://projects.kde.org/projects/extragear/base/polkit-kde-agent-1'
+license=('LGPL')
+depends=('ki18n' 'kwindowsystem' 'kdelibs4support' 'polkit-qt5')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+conflicts=('kf5-polkit-kde-agent')
+replaces=('kf5-polkit-kde-agent')
+#groups=("kde-uninstall" "kde-support")
+source=("http://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 
 build() {
-	cd ${srcdir}/${pkgname}-1-${pkgver}
+  mkdir -p build
+  cd build
 
-	cd ..
-	mkdir -p build
-	cd build
-	export XDG_CONFIG_DIRS=/etc/xdg
-	cmake ../${pkgname}-1-${pkgver} \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_SKIP_RPATH=ON
-	make 
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
 }
 
 package() {
-	cd ${srcdir}/build
-	
-	make DESTDIR=${pkgdir} install
+  cd build
+
+  make DESTDIR=${pkgdir} install
 }

@@ -1,6 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kscreen
-pkgver=1.9.92
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="KDE's screen management software"
 arch=('x86_64')
@@ -10,16 +13,15 @@ depends=('kdbusaddons' 'kconfigwidgets' 'ki18n' 'kxmlgui' 'kglobalaccel' 'libksc
 makedepends=('extra-cmake-modules')
 conflicts=('kf5-kscreen')
 replaces=('kf5-kscreen')
-#source=("http://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz")
-source=("git://anongit.kde.org/kscreen.git#commit=d6380ef")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 
 build() {
-  cd "$srcdir"  
+  cd $srcdir  
   mkdir build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
