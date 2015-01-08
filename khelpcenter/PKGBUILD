@@ -12,17 +12,17 @@ license=('LGPL')
 depends=('kcmutils' 'kdelibs4support' 'kemoticons' 'khtml' 'kinit' 'kitemmodels')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/khelpcenter.git")
-#md5sums=('SKIP')
+#source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+#md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/khelpcenter.git")
+md5sums=('SKIP')
 
 build() {
   mkdir -p build
-  #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
+  #sed -e "s|add_subdirectory( doc )|#add_subdirectory( doc )|" -i ${srcdir}/$pkgname-$pkgver/CMakeLists.txt
   cd build
   
-  cmake ../${pkgname}-$pkgver \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
