@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwallet
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='KWallet Framework'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kwallet-framework'
@@ -12,14 +12,16 @@ license=('LGPL')
 depends=('kconfig' 'ki18n' 'kiconthemes' 'knotifications' 'kwindowsystem' )
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("http://quickgit.kde.org/?p=kwallet.git&a=snapshot&h=07cf81cbd379be614127b391ace10583697e172c&fmt=tbz2")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`
+md5sums=('381360ffc9bbe29eb6f568c4e2a34409')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
