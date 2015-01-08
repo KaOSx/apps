@@ -14,8 +14,9 @@ makedepends=('extra-cmake-modules')
 conflicts=('kf5-kscreen')
 replaces=('kf5-kscreen')
 groups=('plasma5')
-source=("http://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=('cf7963f7ed3fae410db6f6711853d38a')
 
 build() {
   cd $srcdir  
@@ -29,6 +30,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }

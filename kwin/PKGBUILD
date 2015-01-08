@@ -10,15 +10,13 @@ arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kwin'
 license=('LGPL')
 depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'libxcursor'
-         'libepoxy' 'kwayland' 'libinput') # 'kdecoration' 
+         'libepoxy' 'kwayland' 'libinput' 'kdecoration') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('plasma5')
 conflicts=('kde-workspace')
 replaces=('kde-workspace')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kwin.git#branch=graesslin/kdecoration2")
-#md5sums=('SKIP')
 
 build() {
   mkdir -p build

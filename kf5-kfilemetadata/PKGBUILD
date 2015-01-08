@@ -4,7 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kf5-kfilemetadata
 _pkgname=kfilemetadata
-pkgver=${_plasmaver}
+#pkgver=${_plasmaver}
+pkgver=5.5.95
 pkgrel=1
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
@@ -17,9 +18,8 @@ conflicts=('kfilemetadata5' 'kde-l10n')
 provides=('kfilemetadata5')
 replaces=('kfilemetadata5')
 source=("http://download.kde.org/stable/plasma/$pkgver/${_pkgname}-$pkgver.tar.xz")
-md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kfilemetadata.git")
-#md5sums=('SKIP')
+#md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=('dd979e8c8af98603713cde36aa520629')
 
 prepare() {
   cd $_pkgname-${pkgver}

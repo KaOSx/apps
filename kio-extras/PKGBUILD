@@ -9,12 +9,12 @@ pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kio-extras'
 license=('LGPL')
-depends=('exiv2' 'kdelibs4support' 'kdnssd' 'kemoticons' 'khtml' 'kinit' 'kitemmodels' 'libssh'
-         'openexr' 'samba')
+depends=('exiv2' 'kdelibs4support' 'kdnssd' 'kemoticons' 'khtml' 'kinit' 'kitemmodels' 'kpty'
+         'libmtp' 'libssh' 'openexr' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools' 'openslp')
-conflicts=('kfileaudiopreview')
-provides=('kfileaudiopreview')
-replaces=('kfileaudiopreview')
+conflicts=('kfileaudiopreview' 'kio-mtp')
+provides=('kfileaudiopreview''kio-mtp' )
+replaces=('kfileaudiopreview''kio-mtp' )
 groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
