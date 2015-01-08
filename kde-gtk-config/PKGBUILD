@@ -7,7 +7,7 @@ pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Configuration dialog to adapt GTK applications appearance to your taste under KDE"
 arch=('x86_64')
-url="https://projects.kde.org/projects/extragear/base/kde-gtk-config"
+url="https://projects.kde.org/projects/kde/workspace/kde-gtk-config"
 license=('LGPL')
 depends=('karchive' 'kauth' 'kcmutils' 'kconfigwidgets' 'knewstuff')
 makedepends=('extra-cmake-modules' 'git' 'gtk2' 'gtk3')
@@ -35,7 +35,7 @@ build() {
 }
 
 package() {
-  cd $pkgname/build
+  cd $pkgname-${pkgver}/build
   
   make DESTDIR="$pkgdir" install
 }

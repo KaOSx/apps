@@ -2,25 +2,22 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=polkit-kde-agent-1
+pkgname=user-manager
 pkgver=${_plasmaver}
 pkgrel=1
-pkgdesc='KDE PolicyKit Authentication Agent'
+pkgdesc="Simple system settings module to manage the users of your system"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/polkit-kde-agent-1'
+url="https://projects.kde.org/projects/kde/workspace/user-manager"
 license=('LGPL')
-depends=('ki18n' 'kwindowsystem' 'kdelibs4support' 'polkit-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-conflicts=('kf5-polkit-kde-agent')
-replaces=('kf5-polkit-kde-agent')
-#groups=("kde-uninstall" "kde-support")
+depends=('kdelib4-support' 'libpwquality')
+makedepends=('extra-cmake-modules')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
-
+  
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -36,6 +33,6 @@ build() {
 
 package() {
   cd build
-
-  make DESTDIR=${pkgdir} install
+  
+  make DESTDIR=$pkgdir install
 }
