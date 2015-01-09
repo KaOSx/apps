@@ -1,0 +1,22 @@
+From: Lukáš Tinkl <lukas@kde.org>
+Date: Fri, 09 Jan 2015 02:44:52 +0000
+Subject: fix porting error, make sure to actually create the gtkRc file
+X-Git-Url: http://quickgit.kde.org/?p=plasma-desktop.git&a=commitdiff&h=2bf6074c11af2154091cf499dde9bc6493234fe8
+---
+fix porting error, make sure to actually create the gtkRc file
+
+QSaveFile::commit() was missing
+---
+
+
+--- a/kcms/krdb/krdb.cpp
++++ b/kcms/krdb/krdb.cpp
+@@ -386,7 +386,7 @@
+         t << "class \"*MenuItem\" style \"MenuItem\"" << endl;
+         t << endl;
+     }
+-
++    saveFile.commit();
+ }
+ 
+ // -----------------------------------------------------------------------------
