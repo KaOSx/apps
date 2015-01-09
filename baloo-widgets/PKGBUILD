@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=baloo-widgets
 pkgver=4.98.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Widgets for the baloo framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -12,7 +12,8 @@ license=('LGPL')
 depends=('kf5-baloo' 'kdelibs4support' 'kemoticons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kf5-baloo-widgets')
-conflicts=('kf5-baloo-widgets')
+provides=('kf5-baloo-widgets')
+replaces=('kf5-baloo-widgets')
 #source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
 source=("git://anongit.kde.org/baloo-widgets.git")
 md5sums=('SKIP')
