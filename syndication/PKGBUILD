@@ -19,7 +19,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
+  sed -i -e 's/add_subdirectory(autotests)/#add_subdirectory(autotests)/' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
 build() {
@@ -31,11 +31,8 @@ build() {
   cmake ../${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }
