@@ -5,16 +5,21 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kf5-kdepim-runtime
 _pkgname=kdepim-runtime
 arch=('x86_64')
-pkgver=4.70
-pkgrel=4
+pkgver=14.12.80
+pkgrel=1
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 install=${_pkgname}.install
 #options=('docs' 'debug')
-depends=('kf5-kdepimlibs' 'prison-qt5' 'libdmtx' 'qrencode' 'kf5-libkgapi' 'qt5-quick1' 'knotifyconfig' 'kross'
-         'knewstuff' 'accounts-qt5' 'signon-qt5') # 'libkolab' 'libkfbapi'
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kf5-kdepimlibs' 'qt5-quick1' 'knotifyconfig' 'kross' 'knewstuff' 'kcmutils' 'kdelibs4support' 
+         'kconfig' 'kio' 'kitemmodels' 'kcodecs' 'accounts-qt5' 'signon-qt5' 'shared-mime-info' 
+         'akonadi' 'kmime' 'kmailtransport' 'kidentitymanagement' 'kcontacts' 'kalarmcal' 'kcalcore' 
+         'kcalutils' 'kmbox' 'kpimtextedit' 'kimap' 'syndication' 'akonadi-calendar' 'kaccounts-integration'
+         'kf5-libkgapi') # 'libkolab' 'libkfbapi'
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+conflicts=('kdepim-runtime')
+replaces=('kdepim-runtime')
 #groups=("kde" "kdepim" "kde-uninstall" "kde-minimal")
 #source=($_mirror/${pkgbase}-$_kdever.tar.xz)
 #md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
