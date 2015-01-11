@@ -5,6 +5,9 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 # original name (used for the source and pkgnames)
 _origname=kde-l10n
 
+#
+# package info
+#
 pkgbase=('kde-l10n')
 pkgname=('kde-l10n-ar'
 	 'kde-l10n-bg'
@@ -75,14 +78,17 @@ pkgname=('kde-l10n-ar'
 
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
          
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'FDL')
-depends=('ki18n')
-makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
-                 
+depends=('kdelibs')
+makedepends=('automoc4' 'extra-cmake-modules' 'kdoctools' 'qt5-tools' 'ki18n')
+         
+options=('docs')
+         
+         
 source=(${_mirror}/kde-l10n-ar-${pkgver}.tar.xz
 	${_mirror}/kde-l10n-bg-${pkgver}.tar.xz
 	${_mirror}/kde-l10n-bs-${pkgver}.tar.xz
@@ -148,60 +154,63 @@ source=(${_mirror}/kde-l10n-ar-${pkgver}.tar.xz
 	${_mirror}/kde-l10n-zh_CN-${pkgver}.tar.xz
 	${_mirror}/kde-l10n-zh_TW-${pkgver}.tar.xz)
 
-md5sums=('8200304d778f81a4006cb6870973deb0'
-         'f4c1a3a601e7ec2ddbb212b4489bb10d'
-         '44dcc4e5d1a34993fcb0f406c28b72e4'
-         '3def9affaa07b8ee8cebf602f2b228f3'
-         'e19ae6d86a602f694a56fe284f899280'
-         '85face0a0e8e3378e32b5da5ce0121b4'
-         '9f0b07d06eedc1b5c9c8332345c1af46'
-         '4240d7bf6c83fe6af35ef6d37883fbef'
-         '27cc5924eb531cc058f549d29ca419d7'
-         '74333085c75bed63a34e5bbec4759ebf'
-         '56d3aa2d380c4040c89913659a26502e'
-         '82c5dc0fc6efcd94fac4c8e9c3e95a8c'
-         '82f7a660e2d853d8b898c6a02070bc46'
-         'a19c76597a356a75f345e8ee374fad09'
-         '6bd471cecb5722073d916a9236f0c7dd'
-         'de54f347860ce88fcbdfeded283eeadf'
-         '71b4e7d6e342ecada46f81d5dc708a3f'
-         '796cbc7903caa767008a63c7cbe2cde9'
-         '146b8a616deb013b4d6a2b2010c2998d'
-         '205d72293b7d3d3ec972bb40731200a2'
-         '9f5a752c17fe5ea23efaf5de00031284'
-         'ae09f0ab7d759ae8d2196831acb3e821'
-         'e4ee87fc09cf5533ab320e20d051e3b7'
-         '4d3280dbbcb1cbab199357b20933ffa2'
-         '4937f2487068d62c147c7c2d8ad2ed6a'
-         '92bf129257814b19d71f3d4e27fbd3e2'
-         'b9c74ce8597b82369e7e236017369aee'
-         '26351a492d60d83ce7d10f9cfb9641c8'
-         '3a81caf6cb38d3fad5f126b774bf3504'
-         '94dc7e5fcebc838874ae041d55f2c566'
-         '18d48d46409cd53730560b9fc1e193ec'
-         '87ef8e82e440557237361c0c821cdc8e'
-         '6f9dd761cbd01cfe81353fb34ceefecc'
-         '793e48de0e7fb4971446b68a01dc2428'
-         'c6b1bfeb864dddd6a65fb2d36df60cf8'
-         '44b9f27c5258f7d3ba14a1b7a6e2ea92'
-         '2f2fd0356678504b44c39e9b0cc863af'
-         '610fc7ca5299bd8cccc9d2ce12b87e18'
-         '431d42b34580c3d8c924e963642fff44'
-         '58a772611bf53b287e3acc64c9011b86'
-         '1b871b57821b49720399cfdddcadf7a3'
-         '3a4abad8b8bc2415845ad8e04b99a631'
-         'c6bf9b90cfcfe33574d82d8a1e52c751'
-         'acd9242712156216227b9ae0d148e648'
-         'a0ed1fbf67f34487c865fe17d6532d54'
-         'e8ad25629ce24ab4d25743cb157da9fe'
-         'abc8d66d6d9527a449c689e68927abc1'
-         '3c065b00fa1ef7efcd6d91eca577a354'
-         'eedb4b15c3400f2e7a173d6efe1f05b7'
-         '985f76ed6a1e1c7b3100021c25abbb9d'
-         'fe0604de4d626e543e3b1785a63e6c53'
-         '6b50863d2126d585e7ce18cfd7f1ec98'
-         '075e8b58377d43c36b1c2bf1965e3c86')
+md5sums=('cc9ce86ee06a576888c51910199f6d25'
+         '96f5fab8df9a68791aac639893cb71a2'
+         'e3b01b04d164808945845b7a95047240'
+         'b804aa3427a8e520c8cabb2b1bab90a4'
+         '6d8f0e85d448c3cc87269dee49e3c395'
+         'c2949c18272d6dcc3d32ebe020c44cc7'
+         '9b30937606275597e89e9383faec1f3d'
+         'c7b490b6af7bd302f2d34a7b2cb0bf9f'
+         'df1b617108c313bcf5308e00ce963bee'
+         '653e8a54e98754dae878b2489655e248'
+         '25e68dc079cc60ddf3239e493bd2943d'
+         '389b4dab224bf9c9f2764b79688a1d72'
+         'ae6b31e600730a61df3afbc3e8eac7bf'
+         'e29efc4d5455805f94aafc913ee74082'
+         '8429ff30793e1d0e7a75a5f42549eef2'
+         '357a0275d33f118983fa782cac13af55'
+         '9b80f4b5096a265a1f48c8c3c11a5e18'
+         '2fde92b437ca346bf24bcd5eb878408f'
+         '8e4c082953be3d49d96209cd9852424b'
+         '85eda3e7fd4485c50b1bf5c9eeac8022'
+         '422b889d60dfa295adb81c49a9446654'
+         '17a0eddf996ac27a3c4994a2a702221b'
+         '1812e30e3fc19d0118d4e3b2754c3328'
+         'a51a299660c65c008ff8f5dfd21a24aa'
+         'fb20b73bd9516cfd14917dded176c19d'
+         'bda4d07a3190f6245b3b84cda6815297'
+         '06af820d0737f67b1e04babc5fa661d4'
+         '7d2810d8c9fcee5b4699de4d4eb6ecf4'
+         'f679d22ef6689986179c5b93c3e198a1'
+         '89b506da48d7032a466205806c31c8e7'
+         '522ddafb8d204dd3da74bc260570c2b1'
+         '0be93c6cd96fc975a843db7325a6232a'
+         '96fa55af8d6fb6c89a3c99a7a7f37c92'
+         '18c890e09107aabd0baf7b34c463e473'
+         '6a12d6eb6a571faad86a55932a5ec7c4'
+         '638fbe3f340735aeef578e84023951ae'
+         'da20b5c88843c671ef3f1997903cb2a8'
+         'a9815386ef73f5e41d795e53dc976bee'
+         'aca5722363c7a337abf14885f5880a70'
+         'de8f69348518f00ec952586fa7a74d29'
+         'e8e4bc08509d7d4d6075fb53e65773b0'
+         'dba414acd87d8962be325871ca7ba0eb'
+         '1e75bdf6944389fa3668d7be627888b7'
+         'b50eef00e36a1eb587eeca9fc2dcdbdc'
+         'db2b0ac1c1f4cd762d350903a5ebd655'
+         '7134d7c0fb3453b11bdb82ea2c14d12b'
+         '8e98febd63926cca30fe5e78f785bc50'
+         '7fe514833ddf289633e215a818ad8039'
+         '4fe5b8c0e1589c02f5fe8482c0c07a57'
+         '2e3c4822944289e94b69d87ef2132e77'
+         'abad64736db070e096487616b5b22f7d'
+         '669e0ff0355eac28e9b58aedfc5169af'
+         '6a392d329e7be7cdc62ea5dd7ec4b36b')
 
+#
+# build function
+#
 build() {
 	cd $srcdir/
 
@@ -273,11 +282,17 @@ packs=(
        'zh_CN'
        'zh_TW')
 
-
+# 	for it in `find . -maxdepth 1 -type d|sed -e '/^\.$/d'` ; do
+# 		pushd "$it"
+# 		cmake -DCMAKE_INSTALL_PREFIX=${_installprefix} -DCMAKE_BUILD_TYPE=Release
+# 		make
+# 		make DESTDIR=${pkgdir} install
+# 		popd
+# 	done
 
  	for it in ${packs[@]} ; do
                 pushd "kde-l10n-$it-$pkgver"
-                sed -i 's|add_subdirectory(4)|#add_subdirectory(4)|' ${srcdir}/kde-l10n-$it-$pkgver/CMakeLists.txt
+                #sed -i 's|add_subdirectory(5)|#add_subdirectory(5)|' ${srcdir}/kde-l10n-$it-$pkgver/CMakeLists.txt
  		cmake -DCMAKE_INSTALL_PREFIX=${_installprefix} -DCMAKE_BUILD_TYPE=Release
  		make
  		#make DESTDIR=${pkgdir} install
