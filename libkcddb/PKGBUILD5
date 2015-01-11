@@ -1,0 +1,51 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=libkcddb
+#pkgver=${_kdever}
+pkgver=14.12.80
+pkgrel=1
+pkgdesc="KDE CDDB library"
+url='https://projects.kde.org/projects/kde/kdemultimedia/libkcddb'
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('kconfig' 'kcodecs' 'ki18n' 'kio' 'kwidgetsaddons' 'libmusicbrainz')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+#groups=("kde" "kdemultimedia" "kde-uninstall")
+conflicts=('kf5-libkcddb')
+replaces=('kf5-libkcddb')
+provides=('kf5-libkcddb')
+#options=('docs')
+#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/libkcddb#branch=kf5")
+md5sums=('SKIP')
+
+prepare() {
+  cd ${srcdir}/${pkgname}
+  #sed -i -e 's|add_subdirectory( kcmcddb )|#add_subdirectory( kcmcddb )|' ${srcdir}/${_pkgname}/CMakeLists.txt 
+  sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/kcmcddb/doc/index.docbook
+}
+
+build() {
+ mkdir -p build
+  cd build
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
+

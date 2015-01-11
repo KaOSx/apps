@@ -19,17 +19,17 @@ pkgname=('kdepim-common'
          'kdepim-ktimetracker')
          #'kdepim-mobile') 
 arch=('x86_64')
-pkgver=${_kdever}
+pkgver=4.14.4
 pkgrel=1
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 options=('!docs')
-makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' "kdelibs>=${_kdever}" "kdepimlibs>=${_kdever}" 'grantlee'
+makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' 'kdelibs' 'kdepimlibs' 'grantlee'
              'kdepim-runtime' 'libxss' 'kde-runtime' 'libsamplerate' 'qrencode' 'libdmtx'
-	     "kde-common>=${_kdever}" 'docbook-xml' 'baloo')
+	     'kde-common' 'docbook-xml' 'baloo')
 source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
-md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+md5sums=('c050a2ba05301a530d47eadf6c97b95d')
 
 build() {
 	cd ${srcdir}/${pkgbase}-${pkgver}
@@ -45,8 +45,8 @@ build() {
 
 package_kdepim-common() {
 	pkgdesc="KDE PIM - Common files and libraries"
-	depends=("kdepimlibs>=${_kdever}" 'libxss' "kde-runtime" "kde-common>=${_kdever}"
-                 'libxss' "kdepim-runtime>=${_pkgver}" 'baloo')
+	depends=('kdepimlibs' 'libxss' "kde-runtime" 'kde-common'
+                 'libxss' 'kdepim-runtime' 'baloo')
         conflicts=('kdepim-doc')
 	groups=('kde' 'kdepim' 'kde-uninstall')
 	install=${pkgbase}.install

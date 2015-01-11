@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname="kdepimlibs"
 arch=('x86_64')
-pkgver=${_kdever}
+pkgver=4.14.4
 pkgrel=1
 
 pkgdesc="KDE Pim Libraries"
@@ -13,13 +13,13 @@ license=('GPL' 'LGPL' 'FDL')
 
 install=${pkgname}.install
 options=('docs' 'debug')
-depends=("kdelibs>=${_kdever}" 'akonadi' 'libical' 'gpgme' 'prison' 'libdmtx' 'qrencode' 'qjson')
-makedepends=('pkg-config' 'cmake>=2.8.9' 'automoc4' 'boost' 'cyrus-sasl' 'openldap' 'prison' 'docbook-xsl')
+depends=('kdelibs' 'akonadi' 'libical' 'gpgme' 'prison' 'libdmtx' 'qrencode' 'qjson')
+makedepends=('pkg-config' 'cmake' 'automoc4' 'boost' 'cyrus-sasl' 'openldap' 'prison' 'docbook-xsl')
 
 groups=("kde" "kde-uninstall" "kde-minimal")
 
-source=($_mirror/${pkgname}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${pkgver}.tar.xz)
+md5sums=('7cb901a96cfd05f5c7aac94a6301fc9e')
 
 build() {
 	msg "starting build ..."

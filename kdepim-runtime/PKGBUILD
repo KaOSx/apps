@@ -5,19 +5,19 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgbase=kdepim-runtime
 pkgname=${pkgbase}
 arch=('x86_64')
-pkgver=${_kdever}
+pkgver=4.14.4
 pkgrel=1
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 install=${pkgbase}.install
 options=('docs' 'debug')
-depends=("kdepimlibs>=${_kdever}" "kde-runtime>=${_kdever}" "kdelibs>=${_kdever}" 'prison'
+depends=('kdepimlibs' 'kde-runtime' 'kdelibs' 'prison'
          'libdmtx' 'qrencode' 'libkgapi' 'libkolab' 'libkfbapi' 'accountsqt' 'signonqt')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'boost')
 groups=("kde" "kdepim" "kde-uninstall" "kde-minimal")
-source=($_mirror/${pkgbase}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
+md5sums=('ad48ed69c12bb579586e1cd8a0abee57')
 
 build() {
     cd "${srcdir}"/${pkgbase}-${pkgver}

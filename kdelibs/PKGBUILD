@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname="kdelibs"
 arch=('x86_64')
-pkgver=${_kdever}
+pkgver=4.14.4
 pkgrel=1
 pkgdesc="KDE Core Libraries"
 url="http://www.kde.org"
@@ -23,10 +23,10 @@ optdepends=('phonon-backend-gstreamer: GStreamer Phonon backend (default)'
 	    'hspell:           Hebrew spell checking')
 groups=("kde" "kde-minimal" "kde-uninstall")
 install=${pkgname}.install
-source=($_mirror/${pkgname}-$_kdever.tar.xz
+source=($_mirror/${pkgname}-${pkgver}.tar.xz
 	'02_kde_applications_menu.patch'
 	'MergeDir.patch')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=('b83f3b9639c057e264bd65ce733fbaa8'
          'e94450ba5430ea9c1e33bad9ae38ca2d'   # 02_kde_applications_menu.patch
          'f442698bae9d4ffb26f6df9457d7fc5a')   # MergeDir.patch
         
