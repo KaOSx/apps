@@ -7,12 +7,11 @@ pkgdesc="System to administer web accounts for the sites and services across the
 arch=('x86_64')
 url="https://projects.kde.org/projects/kdereview/kaccounts-integration"
 license=('GPL')
-depends=('kaccounts-providers' 'kcmutils' 'kio' 'ki18n' 'kwidgetsaddons' 'kcoreaddons' 
-         'kiconthemes' 'kconfig' 'kwallet' 'kdbusaddons' 'accounts-qt5' 'signon-qt5')
-         #'akonadi' 'kf5-kdepimlibs')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+depends=('kaccounts-providers' 'libkgapi' 'libkfbapi' 'qjson' 'telepathy-qt' 
+         'ktp-common-internals' 'accountsqt' 'signonqt' 'akonadi' 'kdepimlibs')
+makedepends=('cmake' 'automoc4' 'git')
 #groups=('kde-telepathy')
-source=("git://anongit.kde.org/kaccounts-integration.git")
+source=("git://anongit.kde.org/kaccounts-integration.git#branch=stable")
 md5sums=('SKIP')
 
 build() {
@@ -23,18 +22,13 @@ build() {
 
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DCMAKE_INSTALL_PREFIX=/usr 
   make
 }
 
 package() {
   cd build
-
   make DESTDIR=${pkgdir} install
+  
+  rm -r ${pkgdir}/usr/share/icons
 }
