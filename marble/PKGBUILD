@@ -1,17 +1,17 @@
 
 pkgname=marble
 pkgver=1.9.20
-pkgrel=2
+pkgrel=3
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
 license=('LGPL')
-depends=('gpsd' 'phonon-qt5' 'qt5-script' 'qt5-svg' 'qt5-tools' 'qt5-webkit' 'shapelib'
-         'kwallet' 'knewstuff' 'kparts' 'kcoreaddons' 'ki18n' 'phonon-qt5')
+depends=('gpsd' 'phonon-qt5' 'qt5-script' 'qt5-svg' 'qt5-tools' 'qt5-webkit' 'shapelib' 'phonon-qt5')
+         # 'kwallet' 'knewstuff' 'kparts' 'kcoreaddons' 'ki18n' 
 makedepends=('extra-cmake-modules' 'git')
 conflicts=('kdeedu-marble')
 replaces=('kdeedu-marble')
-source=("git://anongit.kde.org/marble.git#branch=kde-frameworks-5")
+source=("git://anongit.kde.org/marble.git")
 md5sums=('SKIP')
 
 build() {
@@ -25,7 +25,6 @@ build() {
         -DSYSCONF_INSTALL_DIR=/etc \
         -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
         -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-        -DWITH_KF5=TRUE \
         -DQT5BUILD=true \
         -DBUILD_MARBLE_TOOLS=YES \
         -DBUILD_MARBLE_TESTS=NO ..
