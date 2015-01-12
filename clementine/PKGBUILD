@@ -16,11 +16,11 @@ depends=('gstreamer' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
 makedepends=('cmake' 'boost' 'mesa')
 groups=('multimedia')
 #source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
-source=("https://github.com/clementine-player/Clementine/archive/master.tar.gz")
+source=("https://github.com/clementine-player/Clementine/tarball/master/${_pkgname}-${pkgver}.tar.gz")
 md5sums=('915c150250dc08dc15e2aeeaa6512b0a')
 
 build() {
-  cd "${srcdir}/${_pkgname}-master"
+  cd "${srcdir}/clementine-player-${_pkgname}-${_commit}"
   mkdir -p build 
   
   cd build
@@ -30,7 +30,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${_pkgname}-master/build"
+  cd "${srcdir}/clementine-player-${_pkgname}-${_commit}/build"
   
   make install DESTDIR="${pkgdir}"
 }
