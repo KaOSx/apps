@@ -2,16 +2,13 @@
 pkgname=qjson-qt5
 _pkgname=qjson
 pkgver=0.8.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc="A qt-based library that maps JSON data to QVariant objects."
 arch=('x86_64')
 license=('GPL')
 url="http://qjson.sourceforge.net"
 depends=('qt5-base')
 makedepends=('cmake' 'git')
-conflicts=('qjson')
-provides=('qjson')
-replaces=('qjson')
 #groups=("kde-uninstall" "kde-support")
 #source=(${pkgname}-${pkgver}.tar.gz::"https://github.com/flavio/${pkgname}/archive/${pkgver}.tar.gz")
 source=("git://github.com/flavio/qjson.git")
@@ -24,7 +21,7 @@ build() {
   cd build
   
   cmake ../${_pkgname} \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr/qt5
   make 
 }
 
