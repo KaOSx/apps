@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khelpcenter
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Application to show KDE Applications documentation'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khelpcenter'
@@ -12,17 +12,17 @@ license=('LGPL')
 depends=('kcmutils' 'kdelibs4support' 'kemoticons' 'khtml' 'kinit' 'kitemmodels')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
-#source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-#md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/khelpcenter.git")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/khelpcenter.git")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
   #sed -e "s|add_subdirectory( doc )|#add_subdirectory( doc )|" -i ${srcdir}/$pkgname-$pkgver/CMakeLists.txt
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
