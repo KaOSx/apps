@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=akonadi
 pkgver=5.0.40
-pkgrel=9
+pkgrel=11
 arch=('x86_64')
 url='http://community.kde.org/KDE_PIM/Akonadi'
 pkgdesc="PIM layer, which provides an asynchronous API to access all kind of PIM data"
@@ -30,9 +30,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DINSTALL_QSQLITE_IN_QT_PREFIX=FALSE \
-    -DAKONADI_DATABASE_BACKEND=SQLITE \
-    -DENABLE_ASAN=TRUE
+    -DDATABASE_BACKEND=SQLITE \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
   make
 }
 

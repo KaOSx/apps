@@ -4,8 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkdegames
 #pkgver=${_kdever}
-pkgver=4.90.80
-pkgrel=5
+pkgver=14.12.80
+pkgrel=1
 pkgdesc="Shared libraries for KDE games"
 arch=('x86_64')
 url='http://www.kde.org'
@@ -101,6 +101,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }
