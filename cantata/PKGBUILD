@@ -2,22 +2,28 @@
 pkgname=cantata
 pkgver=1.5.1
 pkgdesc="A KDE client for the music player daemon (MPD)"
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url="http://kde-apps.org/content/show.php/Cantata?content=147733"
 license=('GPL')
 depends=('qt5-multimedia' 'qt5-svg' 'libmtp' 'libcddb' 'libmusicbrainz5'
-         'mpg123' 'qjson' 'taglib-extras' 'mpd' 'media-player-info')
-makedepends=('cmake' 'automoc4' 'qt5-tools')
+         'mpg123' 'taglib-extras' 'mpd' 'media-player-info')
+makedepends=('cmake' 'qt5-tools')
 install="$pkgname.install"
 source=("https://drive.google.com/uc?export=download&id=0Bzghs6gQWi60UktwaTRMTjRIUW8")
 md5sums=('367dab0b94503d1c1d0f4cfb775effca')
 
-build() {
-  cd "$srcdir/$pkgname-$pkgver"
-  mkdir build
+prepare() {
+  cd $srcdir/$pkgname-$pkgver
+  sed -i -e 's|lconvert|lconvert-qt5|' ${srcdir}/${pkgname}-$pkgver/po/CMakeLists.txt
+  sed -i -e 's|lrelease|lrelease-qt5|' ${srcdir}/${pkgname}-$pkgver/po/CMakeLists.txt
+}
 
-  cmake . \
+build() {
+  mkdir build
+  cd build
+
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_HTTP_STREAM_PLAYBACK=ON \
@@ -27,7 +33,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd build
   
   make DESTDIR="$pkgdir" PREFIX="/usr" install
 }
