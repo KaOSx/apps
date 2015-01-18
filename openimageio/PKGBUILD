@@ -10,11 +10,14 @@ license=('custom')
 depends=('openexr' 'boost-libs' 'jasper' 'glew' 'libtiff' 'opencolorio' 'qt')
 makedepends=('cmake' 'python2' 'boost' 'mesa')
 optdepends=('python2: bindings support')
-source=("https://github.com/OpenImageIO/oiio/archive/Release-${pkgver}.tar.gz")
-md5sums=('8911cf6103e9fe3638912908bb4faa19')
+source=("https://github.com/OpenImageIO/oiio/archive/Release-${pkgver}.tar.gz"
+        'freetype.patch')
+md5sums=('8911cf6103e9fe3638912908bb4faa19'
+         'b1a27daf910718d7a055daf5b0c4b534')
 
 build() {
   cd $srcdir/oiio-Release-$pkgver
+  patch -p1 -i ${srcdir}/freetype.patch
 
   mkdir build 
   cd build
