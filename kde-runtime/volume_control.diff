@@ -1,0 +1,460 @@
+commit b40c51fb0247833a7e92e75ea54931e510c3ffb0
+Author: Albert Astals Cid <aacid@kde.org>
+Date:   Thu Dec 4 22:03:23 2014 +0100
+
+    Make changing the volume on notifications optional and disabled by default
+    
+    I don't see why we should change the volume at all, let the user decide their volume, but since we have the feature i didn't want to remove it completely and instead left if disabled by default.
+    
+    Acked by davidedmundson and sitter
+    REVIEW: 121278
+    FIXED-IN: 15.04
+    BUGS: 324975
+
+diff --git a/kcontrol/knotify/knotify.cpp b/kcontrol/knotify/knotify.cpp
+index 0c1b34e..7c23c90 100644
+--- a/kcontrol/knotify/knotify.cpp
++++ b/kcontrol/knotify/knotify.cpp
+@@ -222,9 +222,10 @@ PlayerSettingsDialog::PlayerSettingsDialog( QWidget *parent )
+     load();
+ 
+     connect( m_ui->cbExternal, SIGNAL( toggled( bool ) ), this, SLOT( externalToggled( bool ) ) );
+-    connect( m_ui->cbArts, SIGNAL(clicked(bool)), this, SLOT(slotChanged()));
++    connect( m_ui->cbSoundSystem, SIGNAL(clicked(bool)), this, SLOT(slotChanged()));
+     connect( m_ui->cbExternal, SIGNAL(clicked(bool)), this, SLOT(slotChanged()));
+     connect( m_ui->cbNone, SIGNAL(clicked(bool)), this, SLOT(slotChanged()));
++    connect( m_ui->cbVolume, SIGNAL(clicked(bool)), this, SLOT(slotChanged()));
+     connect( m_ui->volumeSlider, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
+     connect( m_ui->reqExternal, SIGNAL( textChanged( const QString& ) ), this, SLOT( slotChanged() ) );
+     m_ui->reqExternal->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
+@@ -237,6 +238,7 @@ void PlayerSettingsDialog::load()
+     bool useExternal = config.readEntry( "Use external player", false );
+     m_ui->cbExternal->setChecked( useExternal );
+     m_ui->reqExternal->setUrl( config.readPathEntry( "External player", QString() ) );
++    m_ui->cbVolume->setChecked( config.readEntry( "ChangeVolume", false ) );
+     m_ui->volumeSlider->setValue( config.readEntry( "Volume", 100 ) );
+ 
+     if ( !m_ui->cbExternal->isChecked() )
+@@ -259,6 +261,7 @@ void PlayerSettingsDialog::save()
+     config.writePathEntry( "External player", m_ui->reqExternal->url().path() );
+     config.writeEntry( "Use external player", m_ui->cbExternal->isChecked() );
+     config.writeEntry( "Volume", m_ui->volumeSlider->value() );
++    config.writeEntry( "ChangeVolume", m_ui->cbVolume->isChecked() );
+     config.writeEntry( "No sound",  m_ui->cbNone->isChecked() );
+ 
+     config.sync();
+@@ -277,7 +280,7 @@ void PlayerSettingsDialog::slotChanged()
+ 
+ void PlayerSettingsDialog::defaults()
+ {
+-    m_ui->cbArts->setChecked(true);
++    m_ui->cbSoundSystem->setChecked(true);
+     m_change=true;
+     emit changed(true);
+ }
+diff --git a/kcontrol/knotify/playersettings.ui b/kcontrol/knotify/playersettings.ui
+index 54bb627..2a57078 100644
+--- a/kcontrol/knotify/playersettings.ui
++++ b/kcontrol/knotify/playersettings.ui
+@@ -12,7 +12,7 @@
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+-    <widget class="QRadioButton" name="cbArts">
++    <widget class="QRadioButton" name="cbSoundSystem">
+      <property name="text">
+       <string>Use the &amp;KDE sound system</string>
+      </property>
+@@ -22,83 +22,91 @@
+     </widget>
+    </item>
+    <item>
+-    <layout class="QGridLayout">
+-     <property name="margin">
+-      <number>0</number>
+-     </property>
+-     <item row="1" column="4">
+-      <widget class="QLabel" name="textLabel3">
+-       <property name="text">
+-        <string>100%</string>
+-       </property>
+-      </widget>
+-     </item>
+-     <item row="1" column="3">
+-      <spacer>
+-       <property name="orientation">
+-        <enum>Qt::Horizontal</enum>
+-       </property>
+-       <property name="sizeType">
+-        <enum>QSizePolicy::Expanding</enum>
+-       </property>
+-       <property name="sizeHint" stdset="0">
+-        <size>
+-         <width>261</width>
+-         <height>16</height>
+-        </size>
+-       </property>
+-      </spacer>
+-     </item>
+-     <item row="1" column="2">
+-      <widget class="QLabel" name="textLabel2">
+-       <property name="text">
+-        <string>0%</string>
+-       </property>
+-      </widget>
+-     </item>
+-     <item row="0" column="1">
+-      <widget class="QLabel" name="textLabel4">
+-       <property name="text">
+-        <string>&amp;Volume:</string>
+-       </property>
+-       <property name="buddy">
+-        <cstring>volumeSlider</cstring>
+-       </property>
+-      </widget>
+-     </item>
+-     <item row="0" column="2" colspan="3">
+-      <widget class="QSlider" name="volumeSlider">
+-       <property name="maximum">
+-        <number>100</number>
+-       </property>
+-       <property name="singleStep">
+-        <number>10</number>
+-       </property>
+-       <property name="value">
+-        <number>100</number>
+-       </property>
+-       <property name="orientation">
+-        <enum>Qt::Horizontal</enum>
+-       </property>
+-      </widget>
+-     </item>
+-     <item row="0" column="0" rowspan="2">
+-      <spacer>
+-       <property name="orientation">
+-        <enum>Qt::Horizontal</enum>
+-       </property>
+-       <property name="sizeType">
+-        <enum>QSizePolicy::Fixed</enum>
+-       </property>
+-       <property name="sizeHint" stdset="0">
+-        <size>
+-         <width>20</width>
+-         <height>41</height>
+-        </size>
+-       </property>
+-      </spacer>
+-     </item>
+-    </layout>
++    <widget class="QWidget" name="volumeHolder" native="true">
++     <layout class="QGridLayout">
++      <property name="margin">
++       <number>1</number>
++      </property>
++      <item row="1" column="4">
++       <widget class="QLabel" name="textLabel3">
++        <property name="enabled">
++         <bool>false</bool>
++        </property>
++        <property name="text">
++         <string>100%</string>
++        </property>
++       </widget>
++      </item>
++      <item row="1" column="3">
++       <spacer>
++        <property name="orientation">
++         <enum>Qt::Horizontal</enum>
++        </property>
++        <property name="sizeType">
++         <enum>QSizePolicy::Expanding</enum>
++        </property>
++        <property name="sizeHint" stdset="0">
++         <size>
++          <width>261</width>
++          <height>16</height>
++         </size>
++        </property>
++       </spacer>
++      </item>
++      <item row="1" column="2">
++       <widget class="QLabel" name="textLabel2">
++        <property name="enabled">
++         <bool>false</bool>
++        </property>
++        <property name="text">
++         <string>0%</string>
++        </property>
++       </widget>
++      </item>
++      <item row="0" column="1">
++       <widget class="QCheckBox" name="cbVolume">
++        <property name="text">
++         <string>Force &amp;Volume:</string>
++        </property>
++       </widget>
++      </item>
++      <item row="0" column="2" colspan="3">
++       <widget class="QSlider" name="volumeSlider">
++        <property name="enabled">
++         <bool>false</bool>
++        </property>
++        <property name="maximum">
++         <number>100</number>
++        </property>
++        <property name="singleStep">
++         <number>10</number>
++        </property>
++        <property name="value">
++         <number>100</number>
++        </property>
++        <property name="orientation">
++         <enum>Qt::Horizontal</enum>
++        </property>
++       </widget>
++      </item>
++      <item row="0" column="0" rowspan="2">
++       <spacer>
++        <property name="orientation">
++         <enum>Qt::Horizontal</enum>
++        </property>
++        <property name="sizeType">
++         <enum>QSizePolicy::Fixed</enum>
++        </property>
++        <property name="sizeHint" stdset="0">
++         <size>
++          <width>20</width>
++          <height>41</height>
++         </size>
++        </property>
++       </spacer>
++      </item>
++     </layout>
++    </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="cbExternal">
+@@ -189,98 +197,98 @@
+  <resources/>
+  <connections>
+   <connection>
+-   <sender>cbArts</sender>
++   <sender>cbExternal</sender>
+    <signal>toggled(bool)</signal>
+-   <receiver>volumeSlider</receiver>
++   <receiver>textLabel5</receiver>
+    <slot>setEnabled(bool)</slot>
+    <hints>
+     <hint type="sourcelabel">
+-     <x>84</x>
+-     <y>31</y>
++     <x>91</x>
++     <y>98</y>
+     </hint>
+     <hint type="destinationlabel">
+-     <x>126</x>
+-     <y>60</y>
++     <x>67</x>
++     <y>128</y>
+     </hint>
+    </hints>
+   </connection>
+   <connection>
+-   <sender>cbArts</sender>
++   <sender>cbExternal</sender>
+    <signal>toggled(bool)</signal>
+-   <receiver>textLabel3</receiver>
++   <receiver>reqExternal</receiver>
+    <slot>setEnabled(bool)</slot>
+    <hints>
+     <hint type="sourcelabel">
+-     <x>234</x>
+-     <y>34</y>
++     <x>240</x>
++     <y>98</y>
+     </hint>
+     <hint type="destinationlabel">
+-     <x>308</x>
+-     <y>83</y>
++     <x>312</x>
++     <y>128</y>
+     </hint>
+    </hints>
+   </connection>
+   <connection>
+-   <sender>cbArts</sender>
++   <sender>cbSoundSystem</sender>
+    <signal>toggled(bool)</signal>
+-   <receiver>textLabel4</receiver>
++   <receiver>volumeHolder</receiver>
+    <slot>setEnabled(bool)</slot>
+    <hints>
+     <hint type="sourcelabel">
+-     <x>49</x>
+-     <y>32</y>
++     <x>71</x>
++     <y>13</y>
+     </hint>
+     <hint type="destinationlabel">
+-     <x>62</x>
+-     <y>61</y>
++     <x>11</x>
++     <y>35</y>
+     </hint>
+    </hints>
+   </connection>
+   <connection>
+-   <sender>cbArts</sender>
++   <sender>cbVolume</sender>
+    <signal>toggled(bool)</signal>
+    <receiver>textLabel2</receiver>
+    <slot>setEnabled(bool)</slot>
+    <hints>
+     <hint type="sourcelabel">
+-     <x>161</x>
+-     <y>27</y>
++     <x>72</x>
++     <y>40</y>
+     </hint>
+     <hint type="destinationlabel">
+-     <x>108</x>
+-     <y>85</y>
++     <x>149</x>
++     <y>60</y>
+     </hint>
+    </hints>
+   </connection>
+   <connection>
+-   <sender>cbExternal</sender>
++   <sender>cbVolume</sender>
+    <signal>toggled(bool)</signal>
+-   <receiver>textLabel5</receiver>
++   <receiver>volumeSlider</receiver>
+    <slot>setEnabled(bool)</slot>
+    <hints>
+     <hint type="sourcelabel">
+-     <x>87</x>
+-     <y>114</y>
++     <x>124</x>
++     <y>39</y>
+     </hint>
+     <hint type="destinationlabel">
+-     <x>86</x>
+-     <y>143</y>
++     <x>178</x>
++     <y>50</y>
+     </hint>
+    </hints>
+   </connection>
+   <connection>
+-   <sender>cbExternal</sender>
++   <sender>cbVolume</sender>
+    <signal>toggled(bool)</signal>
+-   <receiver>reqExternal</receiver>
++   <receiver>textLabel3</receiver>
+    <slot>setEnabled(bool)</slot>
+    <hints>
+     <hint type="sourcelabel">
+-     <x>236</x>
+-     <y>112</y>
++     <x>38</x>
++     <y>39</y>
+     </hint>
+     <hint type="destinationlabel">
+-     <x>240</x>
+-     <y>137</y>
++     <x>380</x>
++     <y>64</y>
+     </hint>
+    </hints>
+   </connection>
+diff --git a/knotify/notifybysound.cpp b/knotify/notifybysound.cpp
+index 0f5cc50..698461c 100644
+--- a/knotify/notifybysound.cpp
++++ b/knotify/notifybysound.cpp
+@@ -77,17 +77,19 @@ struct Player
+ class PlayerPool
+ {
+ 	public:
+-		PlayerPool() : m_idlePlayer(0), m_volume(1.0) {}
++		PlayerPool() : m_idlePlayer(0), m_changeVolume(false), m_volume(1.0) {}
+ 
+ 		Player *getPlayer();
+ 		void returnPlayer(Player *);
+ 		void clear();
+ 
++		void setChangeVolume(bool b);
+ 		void setVolume(float volume);
+ 
+ 	private:
+ 		Player *m_idlePlayer;
+ 		QList<Player *> m_playersInUse;
++		bool m_changeVolume;
+ 		float m_volume;
+ };
+ 
+@@ -100,7 +102,9 @@ Player *PlayerPool::getPlayer()
+ 		p = m_idlePlayer;
+ 		m_idlePlayer = 0;
+ 	}
+-	p->setVolume(m_volume);
++	if (m_changeVolume) {
++		p->setVolume(m_volume);
++	}
+ 	m_playersInUse << p;
+ 	return p;
+ }
+@@ -121,11 +125,23 @@ void PlayerPool::clear()
+ 	m_idlePlayer = 0;
+ }
+ 
++void PlayerPool::setChangeVolume(bool b)
++{
++	m_changeVolume = b;
++	if (m_changeVolume) {
++		foreach (Player *p, m_playersInUse) {
++			p->setVolume(m_volume);
++		}
++	}
++}
++
+ void PlayerPool::setVolume(float v)
+ {
+ 	m_volume = v;
+-	foreach (Player *p, m_playersInUse) {
+-		p->setVolume(v);
++	if (m_changeVolume) {
++		foreach (Player *p, m_playersInUse) {
++			p->setVolume(v);
++		}
+ 	}
+ }
+ 
+@@ -141,9 +157,6 @@ class NotifyBySound::Private
+ 		PlayerPool playerPool;
+ 		QBasicTimer poolTimer;
+ 		QQueue<int> closeQueue;
+-
+-		int volume;
+-
+ };
+ 
+ NotifyBySound::NotifyBySound(QObject *parent) : KNotifyPlugin(parent),d(new Private)
+@@ -188,6 +201,7 @@ void NotifyBySound::loadConfig()
+ 		d->playerMode = Private::NoSound;
+ 	}
+ 	// load default volume
++	d->playerPool.setChangeVolume( cg.readEntry( "ChangeVolume", false ) );
+ 	setVolume( cg.readEntry( "Volume", 100 ) );
+ }
+ 
+@@ -263,8 +277,7 @@ void NotifyBySound::setVolume( int volume )
+ {
+ 	if ( volume<0 ) volume=0;
+ 	if ( volume>=100 ) volume=100;
+-	d->volume = volume;
+-	d->playerPool.setVolume(d->volume / 100.0);
++	d->playerPool.setVolume(volume / 100.0);
+ }
+ 
+ 
