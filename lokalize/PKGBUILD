@@ -1,7 +1,7 @@
 
 pkgname=lokalize
-pkgver=4.96.0
-pkgrel=2
+pkgver=14.12.80
+pkgrel=1
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdesdk/lokalize"
@@ -16,7 +16,7 @@ md5sums=('SKIP')
 build() {
   cd $pkgname
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
-  sed -i -e "s|add_subdirectory(doc)|#add_subdirectory(doc)|" ${srcdir}/$pkgname/CMakeLists.txt
+  #sed -i -e "s|add_subdirectory(doc)|#add_subdirectory(doc)|" ${srcdir}/$pkgname/CMakeLists.txt
   mkdir build
   
   cd build
