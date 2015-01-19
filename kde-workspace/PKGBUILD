@@ -39,7 +39,7 @@ backup=('usr/share/config/kdm/kdmrc'
 
 source=("http://download.kde.org/stable/4.13.3/src/${pkgname}-${pkgver}.tar.xz"
 	"$_mirror/kde-wallpapers-$_kdever.tar.xz"
-        "http://kde-apps.org/CONTENT/content-files/114856-wacomtablet-2.0.2.tar.xz"
+        "http://kde-apps.org/CONTENT/content-files/114856-wacomtablet-2.1.0.tar.xz"
         "http://kde-apps.org/CONTENT/content-files/117639-containmentaction-favorites-0.2.tar.gz"
         'kde.pam'
         'kde-np.pam'
@@ -107,7 +107,7 @@ build() {
 	make
 
 	msg "starting kcm_tablet build ..."
-	cd ${srcdir}/wacomtablet-2.0.2
+	cd ${srcdir}/wacomtablet-2.1.0
         # Fix desktop to the new layout
         sed -i -e "s~keyboard-and-mouse~input-devices~g" ${srcdir}/wacomtablet-2.0.2/src/kcmodule/kcm_wacomtablet.desktop
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
@@ -128,7 +128,7 @@ package() {
 	cd ${srcdir}/${pkgname}-${pkgver}
 	make DESTDIR=${pkgdir} install
 
-	cd ${srcdir}/wacomtablet-2.0.2
+	cd ${srcdir}/wacomtablet-2.1.0
 	make DESTDIR=${pkgdir} install
 
 	cd ${srcdir}/containmentaction-favorites-0.2
