@@ -1,31 +1,40 @@
 
 pkgname=ktp-send-file
-pkgver=0.9.0
+pkgver=0.9.90
 pkgrel=1
 pkgdesc="A File manager plugin to launch a file transfer job with a specified contact"
 arch=('x86_64')
-url="http://www.kde.org"
+url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-send-file"
 license=('GPL')
-depends=('ktp-filetransfer-handler' 'ktp-contact-list')
-makedepends=('cmake' 'automoc4')
+depends=('ktp-common-internals')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('kde-telepathy')
-install=${pkgname}.install
-source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('9c9f2e4900f9fb6afd94aab824fad98c')
+install=${_pkgname}.install
+#source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+conflicts=('kf5-ktp-send-file')
+replaces=('kf5-ktp-send-file')
+source=("git://anongit.kde.org/ktp-send-file.git")
+md5sums=('SKIP')
 
 build() {
-  cd "${srcdir}"
-  mkdir build
+  cd ${srcdir}
   
+  mkdir -p build
   cd build
-  cmake ../${pkgname}-${pkgver} \
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
-  cd "${srcdir}"/build
-  
-  make DESTDIR="${pkgdir}" install
+  cd build
+
+  make DESTDIR=${pkgdir} install
 }

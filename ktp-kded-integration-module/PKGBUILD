@@ -1,30 +1,39 @@
 
-pkgname=ktp-kded-integration-module
-pkgver=0.9.0
+pkgname=ktp-kded-module
+pkgver=0.9.90
 pkgrel=1
 pkgdesc="Workspace integration module - provides several plugins like auto-away, the infamous 'Now listening to...' and also an error handler"
 arch=('x86_64')
-url="http://www.kde.org"
+url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-kded-module"
 license=('GPL')
 depends=('ktp-common-internals')
-makedepends=('cmake' 'automoc4')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('kde-telepathy')
-source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('04048e2d410853c84421762fda5462ae')
+#source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+conflicts=('kf5-ktp-kded-integration-module')
+replaces=('kf5-ktp-kded-integration-module')
+source=("git://anongit.kde.org/ktp-kded-module.git")
+md5sums=('SKIP')
 
 build() {
-  cd "${srcdir}"
-  mkdir build
+  cd ${srcdir}
   
+  mkdir -p build
   cd build
-  cmake ../${pkgname}-${pkgver} \
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
-  cd "${srcdir}"/build
-  
-  make DESTDIR="${pkgdir}" install
+  cd build
+
+  make DESTDIR=${pkgdir} install
 }

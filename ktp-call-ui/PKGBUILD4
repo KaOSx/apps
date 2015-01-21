@@ -1,0 +1,33 @@
+
+pkgname=ktp-call-ui
+pkgver=0.9.0
+pkgrel=1
+pkgdesc="Telepathy call handler "
+arch=('x86_64')
+url="http://www.kde.org"
+license=('GPL')
+depends=('ktp-common-internals' 'telepathy-farstream'
+         'telepathy-mission-control' 'telepathy-gabble' 'gst-plugins-base'
+         'gst-plugins-good' 'qt-gstreamer' 'gst-libav' )
+makedepends=('boost' 'cmake' 'automoc4' )
+groups=('kde-telepathy' 'communication')
+source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('1d37e323b276ef6482d328e83265ae07')
+
+build() {
+  cd "${srcdir}"
+  #git clone -b gst-1.0-port http://anongit.kde.org/ktp-call-ui
+  mkdir build
+  
+  cd build
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd "${srcdir}"/build
+  
+  make DESTDIR="${pkgdir}" install
+}

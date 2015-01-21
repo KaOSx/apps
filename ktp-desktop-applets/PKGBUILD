@@ -1,30 +1,39 @@
 
 pkgname=ktp-desktop-applets
-pkgver=0.9.0
+pkgver=0.9.90
 pkgrel=1
 pkgdesc="Plasma applet for managing your Telepathy account presence"
 arch=('x86_64')
-url="http://www.kde.org"
+url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-desktop-applets"
 license=('GPL')
-depends=('ktp-common-internals' 'ktp-contact-list' 'kde-workspace')
-makedepends=('cmake' 'automoc4')
+depends=('ktp-common-internals' 'ktp-accounts-kcm' 'plasma-workspace')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('kde-telepathy' 'utils' 'communication')
-source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('d113bfa36422aee70609a451ba91decb')
+conflicts=('kf5-ktp-desktop-applets')
+replaces=('kf5-ktp-desktop-applets')
+source=("git://anongit.kde.org/ktp-desktop-applets.git#branch=frameworks")
+md5sums=('SKIP')
 
 build() {
-  cd "${srcdir}"
-  mkdir build
+  cd ${srcdir}
   
+  mkdir -p build
   cd build
-  cmake ../${pkgname}-${pkgver} \
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
-  cd "${srcdir}"/build
-  
-  make DESTDIR="${pkgdir}" install
+  cd build
+
+  make DESTDIR=${pkgdir} install
 }
+

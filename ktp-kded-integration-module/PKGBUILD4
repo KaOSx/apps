@@ -1,0 +1,30 @@
+
+pkgname=ktp-kded-integration-module
+pkgver=0.9.0
+pkgrel=1
+pkgdesc="Workspace integration module - provides several plugins like auto-away, the infamous 'Now listening to...' and also an error handler"
+arch=('x86_64')
+url="http://www.kde.org"
+license=('GPL')
+depends=('ktp-common-internals')
+makedepends=('cmake' 'automoc4')
+groups=('kde-telepathy')
+source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('04048e2d410853c84421762fda5462ae')
+
+build() {
+  cd "${srcdir}"
+  mkdir build
+  
+  cd build
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd "${srcdir}"/build
+  
+  make DESTDIR="${pkgdir}" install
+}

@@ -1,31 +1,42 @@
 
 pkgname=ktp-common-internals
-pkgver=0.9.0
+pkgver=0.9.90
 pkgrel=1
 pkgdesc="Common libraries for telepathy-kde"
 arch=('x86_64')
-url="http://www.kde.org"
+url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-common-internals"
 license=('GPL')
-depends=('kdelibs' 'telepathy-qt' 'telepathy-mission-control' 'kdeutils-kwalletmanager'
-         'telepathy-logger-qt' 'libkpeople' 'libotr')
-makedepends=('cmake' 'automoc4' 'boost' 'doxygen')
+depends=('kcmutils' 'knotifyconfig' 'ktexteditor' 'kwallet' 'kconfig' 'kdelibs4support'
+         'telepathy-qt5' 'telepathy-mission-control' 'kf5-libkpeople' 'kaccounts-integration'
+         'libotr' ) #'telepathy-logger-qt5' )
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 groups=('kde-telepathy')
-source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('3fb590f861fa1b342c2ddadb2ed3ee57')
+conflicts=('kf5-ktp-common-internals')
+replaces=('kf5-ktp-common-internals')
+provides=('kf5-ktp-common-internals')
+source=("git://anongit.kde.org/ktp-common-internals.git")
+md5sums=('SKIP')
 
 build() {
-  cd "${srcdir}"
-  mkdir build
+  cd ${srcdir}
   
+  mkdir -p build
   cd build
-  cmake ../${pkgname}-${pkgver} \
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
-  cd "${srcdir}"/build
-  
-  make DESTDIR="${pkgdir}" install
+  cd build
+
+  make DESTDIR=${pkgdir} install
 }
