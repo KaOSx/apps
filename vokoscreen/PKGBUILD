@@ -1,22 +1,23 @@
 
 pkgname=vokoscreen
-pkgver=2.1.0
+pkgver=2.1.8
+_pkgver=2.1.8-beta
 pkgrel=1
 pkgdesc="Easy to use screencast creator to record educational videos, videoconferences, etc"
 arch=('x86_64')
 url="http://www.kohaupt-online.de/"
 license=('GPL2')
-depends=('qt' 'ffmpeg' 'lame' 'mkvtoolnix' 'opencv' 'pulseaudio' 'alsa-utils')
-makedepends=('cmake' 'automoc4' 'gcc')
+depends=('qt5-x11extras' 'ffmpeg' 'lame' 'mkvtoolnix' 'opencv-qt5' 'pulseaudio' 'alsa-utils')
+makedepends=('cmake' 'qt5-tools')
 install=$pkgname.install
 options=('!strip')
-source=("https://github.com/vkohaupt/vokoscreen/archive/$pkgver.tar.gz")
-md5sums=('92c65e4862cc92dee4fb010c78ad9741')
+source=("https://github.com/vkohaupt/vokoscreen/archive/$_pkgver.tar.gz")
+md5sums=('0f85db079d505441c798d22be0737923')
 
 build() {
-    cd ${srcdir}/$pkgname-$pkgver
+    cd ${srcdir}/$pkgname-$_pkgver
     
-    qmake $pkgname.pro -r -config release \
+    /usr/lib/qt5/bin/qmake $pkgname.pro -r -config release \
       "CONFIG+=LINUX_INTEGRATED" \
       "INSTALL_ROOT_PATH=$pkgdir/usr/" \
       "LOWERED_APPNAME=$pkgname"
@@ -24,7 +25,7 @@ build() {
 }
 
 package() {
-    cd ${srcdir}/$pkgname-$pkgver
+    cd ${srcdir}/$pkgname-$_pkgver
     make INSTALL_ROOT=${pkgdir} install
 
     chmod -R 755 ${pkgdir}/usr/share/man
