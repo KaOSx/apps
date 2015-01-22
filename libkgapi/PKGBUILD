@@ -1,30 +1,41 @@
 
 pkgname=libkgapi
-pkgver=2.2.0
+pkgver=4.72.0
 pkgrel=1
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
-url='https://projects.kde.org/projects/kdereview/libkgapi'
+url='https://projects.kde.org/projects/extragear/libs/libkgapi'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kdepimlibs')
-makedepends=('cmake' 'automoc4' 'boost')
-source=("http://download.kde.org/stable/libkgapi/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('f3f2e4e68bb8baf849935f2f2eecf781')
+depends=('kcoreaddons' 'kcalcore' 'kcontacts')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+conflicts=('kf5-libkgapi')
+replaces=('kf5-libkgapi')
+provides=('kf5-libkgapi')
+#source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+source=("git://anongit.kde.org/libkgapi#branch=frameworks")
+md5sums=('SKIP')
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd ${srcdir}
+  #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/$_pkgname/CMakeLists.txt
   mkdir build
   
-  cd build
-  cmake ..\
-    -DCMAKE_BUILD_TYPE=Release \
+  cd build 
+  cmake ../${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE4_BUILD_TESTS=OFF
-  make
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=ON 
+  make 
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}/build"
+  cd ${srcdir}/build
   
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
+

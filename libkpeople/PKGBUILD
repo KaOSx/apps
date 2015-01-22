@@ -1,23 +1,24 @@
 
-pkgname=kf5-libkpeople
-_pkgname=libkpeople
+pkgname=libkpeople
 pkgver=0.4.80
 pkgrel=1
 pkgdesc="A contact aggregation library for KDE"
 arch=('x86_64')
 url='http://community.kde.org/KTp/libkpeople'
 license=('LGPL')
-depends=('kf5-kdepimlibs' 'kf5-baloo' 'kcoreaddons' 'kio' 'ki18n' 'kitemviews')
+depends=('kf5-baloo' 'kcoreaddons' 'kservice' 'kwidgetsaddons' 'ki18n' 'kitemviews')
 makedepends=('extra-cmake-modules' 'boost' 'git')
+conflicts=('kf5-libkpeople')
+replaces=('kf5-libkpeople')
 #source=("http://download.kde.org/unstable/libkpeople/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-source=("git://anongit.kde.org/libkpeople.git#branch=frameworks")
+source=("git://anongit.kde.org/libkpeople.git")
 md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${_pkgname} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
