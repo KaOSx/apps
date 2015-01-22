@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcachegrind
 #pkgver=${_kdever}
-pkgver=0.7.4
+pkgver=14.12.80
 pkgrel=1
 pkgdesc='Visualization of Performance Profiling Data'
 url='http://kde.org/applications/development/kcachegrind/'
@@ -13,6 +13,7 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('karchive' 'kcoreaddons' 'kwidgetsaddons' 'kxmlgui' 'kdelibs4support')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kdesdk-kcachegrind')
+replaces=('kdesdk-kcachegrind')
 optdepends=('php: PHP support')
 install=${pkgname}.install
 #groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
