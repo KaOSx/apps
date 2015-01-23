@@ -12,11 +12,10 @@ license=('GPL' 'LGPL' 'FDL')
 depends=()
 makedepends=('extra-cmake-modules')
 conflicts=('kdeedu-libkdeedu')
+replaces=('kdeedu-libkdeedu')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kdeedu-data.git")
-md5sums=('cf8748f6d0ec1f7586753209e3072904')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
@@ -27,8 +26,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON  
   make
 }
 

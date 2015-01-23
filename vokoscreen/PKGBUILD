@@ -7,7 +7,7 @@ pkgdesc="Easy to use screencast creator to record educational videos, videoconfe
 arch=('x86_64')
 url="http://www.kohaupt-online.de/"
 license=('GPL2')
-depends=('qt5-x11extras' 'ffmpeg' 'lame' 'mkvtoolnix' 'opencv-qt5' 'pulseaudio' 'alsa-utils')
+depends=('qt5-x11extras' 'ffmpeg' 'lame' 'mkvtoolnix' 'opencv-qt5' 'pulseaudio-alsa' 'alsa-utils')
 makedepends=('cmake' 'qt5-tools')
 install=$pkgname.install
 options=('!strip')
@@ -17,18 +17,16 @@ md5sums=('0f85db079d505441c798d22be0737923')
 build() {
     cd ${srcdir}/$pkgname-$_pkgver
     
-    /usr/lib/qt5/bin/qmake $pkgname.pro -r -config release \
+    /usr/lib/qt5/bin/qmake $pkgname.pro \
       "CONFIG+=LINUX_INTEGRATED" \
       "INSTALL_ROOT_PATH=$pkgdir/usr/" \
-      "LOWERED_APPNAME=$pkgname"
-    make
+      "CONFIG+=release" \
+      "CONFIG+=c++14"
+    make -j1
 }
 
 package() {
     cd ${srcdir}/$pkgname-$_pkgver
+    
     make INSTALL_ROOT=${pkgdir} install
-
-    chmod -R 755 ${pkgdir}/usr/share/man
-    chmod -R 755 ${pkgdir}/usr/share/man/man1
-    chmod -R 644 ${pkgdir}/usr/share/man/man1/$pkgname.1.gz
 }
