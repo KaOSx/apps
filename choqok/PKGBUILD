@@ -1,18 +1,17 @@
 
 pkgname=choqok
-pkgver=1.4
-pkgrel=2
+pkgver=1.5
+pkgrel=1
 pkgdesc="A Twitter/identi.ca/laconica client for KDE"
 url="http://choqok.gnufolks.org/"
 license=('GPL')
 arch=('x86_64')
-depends=('kde-runtime' 'qjson' 'qoauth' 'qca-ossl')
-makedepends=('cmake' 'automoc4' 'docbook-xsl')
-optdepends=('kde-baseapps-konqueror: proxy support')
+depends=('kdelibs' 'qjson' 'qoauth' 'qca-ossl' 'telepathy-qt' 'kaccounts-providers')
+makedepends=('cmake' 'automoc4')
 groups=('communication')
 install="${pkgname}.install"
 source=("http://sourceforge.net/projects/choqok/files/Choqok/${pkgname}-${pkgver}.tar.xz")
-md5sums=('2efe34ed903b448a21d9233d8033dbdb')
+md5sums=('f2efdd76199f8276e8ac2f76dc600596')
 
 build() {
   cd ${srcdir}
@@ -26,7 +25,16 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
-  
+  cd ${srcdir}/build  
   make DESTDIR=${pkgdir} install
+  
+  #provided by kaccounts-providers
+  rm -r ${pkgdir}/usr/share/icons/hicolor/16x16/apps/laconica_microblog.png
+  rm -r ${pkgdir}/usr/share/icons/hicolor/16x16/apps/twitter_microblog.png
+  rm -r ${pkgdir}/usr/share/icons/hicolor/22x22/apps/laconica_microblog.png
+  rm -r ${pkgdir}/usr/share/icons/hicolor/22x22/apps/twitter_microblog.png
+  rm -r ${pkgdir}/usr/share/icons/hicolor/32x32/apps/laconica_microblog.png
+  rm -r ${pkgdir}/usr/share/icons/hicolor/32x32/apps/twitter_microblog.png
+  rm -r ${pkgdir}/usr/share/icons/hicolor/48x48/apps/laconica_microblog.png
+  rm -r ${pkgdir}/usr/share/icons/hicolor/48x48/apps/twitter_microblog.png
 }
