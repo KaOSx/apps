@@ -1,7 +1,7 @@
 
 pkgname=oxygen-gtk2
 pkgver=1.4.6
-pkgrel=1
+pkgrel=2
 pkgdesc="The Oxygen engine for GTK2, for better Qt/GKT+ integration."
 arch=('x86_64')
 url=("https://projects.kde.org/projects/playground/artwork/oxygen-gtk")
@@ -11,8 +11,10 @@ makedepends=('gcc' 'cmake' 'gtk2')
 provides=('oxygen-gtk')
 conflicts=('oxygen-gtk')
 groups=('gtk-integration')
-source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('493892fc36302bfe862604f667a6c04e')
+source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2"
+        'kdeglobals')
+md5sums=('493892fc36302bfe862604f667a6c04e'
+         'feadfd1d24392778da98b992cf3b186a')
 
 build() {
 	cd $srcdir/$pkgname-$pkgver
@@ -28,6 +30,8 @@ build() {
 
 package() {
 	cd $srcdir/$pkgname-$pkgver/build
-	
 	make DESTDIR="${pkgdir}" install
+	# kf5 colors/theme are not picked up, use our own kdeglobals for now
+	rm -r ${pkgdir}/usr/share/themes/oxygen-gtk/gtk-2.0/kdeglobals
+	install -D -m644 ${srcdir}/kdeglobals ${pkgdir}/usr/share/themes/oxygen-gtk/gtk-2.0/
 }
