@@ -1,5 +1,6 @@
+
 pkgname=amule
-pkgver=10840
+pkgver=10866
 pkgrel=1
 pkgdesc="An eMule-like client for ed2k p2p network"
 arch=('x86_64')
@@ -7,7 +8,7 @@ url="http://www.amule.org"
 license=('GPL')
 depends=('wxgtk' 'gd' 'geoip' 'libupnp' 'crypto++')
 source=("http://amule.sourceforge.net/tarballs/aMule-SVN-r${pkgver}.tar.bz2")
-md5sums=('445daf0b61f5fe708218a9630745074c')
+md5sums=('877fd8b795845b1258185fd17d4989b8')
 
 build() {
   cd "${srcdir}/aMule-SVN-r${pkgver}"
@@ -36,6 +37,6 @@ package() {
   cd "${srcdir}/aMule-SVN-r${pkgver}" 
   make DESTDIR=${pkgdir}/ install 
   # conflict with glibc
-  rm "${pkgdir}/usr/share/locale/locale.alias"
+  #rm "${pkgdir}/usr/share/locale/locale.alias"
 }
 
