@@ -1,0 +1,19 @@
+
+pkgname=orion-gtk
+pkgver=1.5
+pkgrel=1
+pkgdesc="The Oxygen engine for GTK2, for better Qt/GKT+ integration."
+arch=('x86_64')
+url=("https://github.com/shimmerproject/Orion")
+license=('LGPL3' 'GPL')
+depends=('')
+groups=('gtk-integration')
+source=("https://github.com/shimmerproject/Orion/archive/v${pkgver}.tar.gz")
+md5sums=('da7e92aa221e0d4a57da856a63354dd3')
+
+package() {
+    #cd $srcdir/Orion-$pkgver
+
+    install -dm 755  $pkgdir/usr/share/themes
+    cp -R Orion-$pkgver ${pkgdir}/usr/share/themes/
+}
