@@ -33,10 +33,10 @@ package() {
     ln -s /usr/lib/libudev.so.1 "$pkgdir/opt/google/chrome-unstable/libudev.so.0"
     
     #libgcrypt 1.6.0 fix from gentoo https://bugs.gentoo.org/show_bug.cgi?id=494596
-    install -m755 "$srcdir"/libgcrypt.so.11.8.2 "$pkgdir"/opt/google/chrome-unstable/libgcrypt.so.11
+    #install -m755 "$srcdir"/libgcrypt.so.11.8.2 "$pkgdir"/opt/google/chrome-unstable/libgcrypt.so.11
 
     # Adding man page
-    #gzip "$pkgdir"/usr/share/man/man1/google-chrome.1
+    gzip "$pkgdir"/usr/share/man/man1/google-chrome-unstable.1
     
     # Symlinking icons to /usr/share/icons/hicolor/
     for i in 16 22 24 32 48 64 128 256; do
