@@ -1,7 +1,7 @@
 
 pkgname=inkscape
-pkgver=0.91pre3
-pkgrel=2
+pkgver=0.91pre4
+pkgrel=1
 pkgdesc="A vector-based drawing program - svg compliant"
 url="http://inkscape.sourceforge.net/"
 arch=('x86_64')
@@ -12,15 +12,11 @@ depends=('poppler-glib' 'imagemagick' 'gtkspell' 'gc' 'gtkmm' 'libxslt' 'gsl' 'p
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 install="inkscape.install"
-source=("http://sourceforge.net/projects/inkscape/files/inkscape/${pkgver}/inkscape-${pkgver}.tar.bz2"
-       'poppler0.29.diff')
-md5sums=('0f4663934dcab88e6398a52d63765978'
-         '7925094d3abe1a08ec4e559ccd199012')
+source=("http://sourceforge.net/projects/inkscape/files/inkscape/${pkgver}/inkscape-${pkgver}.tar.bz2")
+md5sums=('429cf9f82b41ec5724e84acf23ca0d2f')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  # poppler fix https://bugs.launchpad.net/inkscape/+bug/1399811
-  patch -p0 -i ${srcdir}/poppler0.29.diff
   sed -i '/extern unsigned GC_version;/c unsigned GC_version=GC_VERSION_MAJOR<<16+GC_VERSION_MINOR<<8+GC_VERSION_MICRO;' configure
 
   ./configure --prefix=/usr \
