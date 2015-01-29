@@ -1,0 +1,39 @@
+
+pkgname=qtcurve-gtk
+_pkgname=qtcurve
+pkgver=1.8.18.1
+pkgrel=1
+arch=('x86_64')
+license=('GPL')
+pkgdesc='The QtCurve style engine for GTK.'
+url='https://projects.kde.org/projects/playground/base/qtcurve'
+depends=('qtcurve' 'gtk2')
+makedepends=('extra-cmake-modules' 'git')
+source=("git://anongit.kde.org/qtcurve.git"
+        'kdeglobals')
+md5sums=('SKIP'
+         '8ca968e7f09201b8d2376d131a8e55df')
+
+build() {
+	cd ${srcdir}/${_pkgname}
+	
+	mkdir build
+	cd build
+	cmake .. -DCMAKE_BUILD_TYPE=Release \
+		 -DCMAKE_INSTALL_PREFIX=/usr \
+		 -DENABLE_GTK2=true \
+		 -DQTC_QT5_ENABLE_KDE=false \
+		 -DQTC_QT4_ENABLE_KDE=false \
+		 -DENABLE_QT5=false \
+		 -DENABLE_QT4=false
+	make
+}
+
+package() {
+	cd $srcdir/${_pkgname}/build
+	make DESTDIR=${pkgdir} install
+	
+	rm -r ${pkgdir}/usr/lib/libqtcurve-utils.so*
+	rm -r ${pkgdir}/usr/share/themes/QtCurve/gtk-2.0/kdeglobals
+	install -D -m644 ${srcdir}/kdeglobals ${pkgdir}/usr/share/themes/QtCurve/gtk-2.0/
+}
