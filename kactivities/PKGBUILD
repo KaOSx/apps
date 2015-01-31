@@ -3,35 +3,45 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kactivities
-pkgver=4.13.3
-pkgrel=5
+pkgver=${_kf5ver}
+pkgrel=1
+pkgdesc="Core components for the KDE's Activities"
 arch=('x86_64')
-pkgdesc='API for using and interacting with Activities'
-url='http://kde.org/'
-license=('GPL' 'FDL')
-depends=('kdelibs')
-makedepends=('cmake' 'automoc4')
-options=('docs' 'debug')
-source=("http://download.kde.org/stable/4.13.3/src/${pkgname}-$pkgver.tar.xz")
-md5sums=('e56a3aead6f418d973c0acd9c889deb8')
+url='https://projects.kde.org/projects/kde/kdelibs/kactivities'
+license=('LGPL')
+depends=('qt5-declarative' 'boost-libs' 'kdbusaddons' 'kio' 'kwindowsystem' 'kservice' 'kdeclarative'
+         'kcmutils')
+makedepends=('extra-cmake-modules' 'boost')
+conflicts=('kf5-kactivities')
+provides=('kf5-kactivities')
+replaces=('kf5-kactivities')
+options=('debug')
+source=("http://download.kde.org/stable/frameworks/5.6/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
+prepare() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  
+  #patch -p1 -i ${srcdir}/plugin_dir.diff
+}
 
 build() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
-
-        rm -rf build
-	mkdir build && cd build
-
-	cmake .. \
-    		-DCMAKE_BUILD_TYPE=Release \
-    		-DCMAKE_INSTALL_PREFIX=/usr \
-    		-DBUILD_nepomuk=OFF
-	make
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
+    -DQT_PLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF
+  make
 }
 
 package() {
-  	cd $srcdir/$pkgname-$pkgver/build
-  	
-	make DESTDIR=$pkgdir install
+  cd build
+  make DESTDIR="${pkgdir}" install
 }
-
