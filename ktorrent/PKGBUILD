@@ -1,25 +1,25 @@
 
 pkgname=ktorrent
 pkgver=4.3.1.1
-pkgrel=3
+pkgrel=4
 ktorver=4.3.1
 pkgdesc="A BitTorrent program for KDE"
 arch=('x86_64')
 url="http://ktorrent.pwsp.net/"
 license=('GPL2')
-depends=('kde-workspace' 'taglib' 'libktorrent')
+depends=('kdelibs' 'taglib' 'libktorrent')
 makedepends=('cmake' 'automoc4' 'docbook-xsl' 'boost' 'git')
 categories=('network')
 options=('libtool')
 #source=("http://ktorrent.pwsp.net/downloads/${ktorver}/ktorrent-${ktorver}.tar.bz2"
-source=('ktorrent.tar.xz'
+source=('http://quickgit.kde.org/?p=ktorrent.git&a=snapshot&h=adc3370e759e8f6f7100b24f46f3a73bafc0d195&fmt=tbz2'
         'desktop.diff')
-md5sums=('b1457de9218969504746041ad6b510d8'
+md5sums=('c0d0caee6135f1cb9dd6e9d8b5e56fb6'
          '02a4066af90062e1f30bc576c825c000')
 
 prepare() {
 	cd "${srcdir}/${pkgname}"
-	patch -p1 -i "${srcdir}"/desktop.diff
+	#patch -p1 -i "${srcdir}"/desktop.diff
 }
 
 build() {
@@ -29,7 +29,8 @@ build() {
 	cd build
 	cmake ../${pkgname} \
 	  -DCMAKE_BUILD_TYPE=Release \
-	  -DCMAKE_INSTALL_PREFIX=/usr 
+	  -DCMAKE_INSTALL_PREFIX=/usr \
+	  -DENABLE_SYNDICATION_PLUGIN=false
 	make
 }
 
