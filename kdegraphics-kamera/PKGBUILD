@@ -2,24 +2,23 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kdegraphics-kamera
-_pkgname=kamera
+pkgname=kamera
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Configure your Kamera"
 arch=('x86_64')
 url="http://kde.org/applications/graphics/kamera/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kde-runtime' 'libgphoto2')
+depends=('kdelibs' 'libgphoto2')
 makedepends=('cmake' 'automoc4')
-source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-groups=("kde" "kdegraphics" "kde-uninstall" 'graphics')
-provides=('kamera')
-options=('docs')
+groups=('kde' 'kdegraphics' 'kde-uninstall' 'graphics')
+provides=('kdegraphics-kamera')
+replaces=('kdegraphics-kamera')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-	cd ${srcdir}/${_pkgname}-${pkgver}
+	cd ${srcdir}/${pkgname}-${pkgver}
 	
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} \
@@ -29,7 +28,7 @@ build() {
 }
 
 package() {
-	cd ${srcdir}/${_pkgname}-${pkgver}
+	cd ${srcdir}/${pkgname}-${pkgver}
 	
 	make DESTDIR=${pkgdir} install 
 
