@@ -15,11 +15,10 @@ depends=('kparts' 'kdelibs4support' 'ki18n' 'ktexteditor' 'kiconthemes' 'kconfig
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kdeedu-kig')
 replaces=('kdeedu-kig')
-#groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
+groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-md5sums=('35bbf82c07d837abf6d15105bc3c365e')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build

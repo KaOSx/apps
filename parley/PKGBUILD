@@ -16,11 +16,10 @@ depends=('kcoreaddons' 'kconfig' 'kcrash' 'ki18n' 'kio' 'knewstuff' 'kross' 'kht
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-parley')
 replaces=('kdeedu-parley')
-#groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
+groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-md5sums=('7093d941751ecc72cafe5c6cf7d654f7')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build

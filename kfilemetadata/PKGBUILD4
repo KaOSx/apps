@@ -1,0 +1,34 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kfilemetadata
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="A library for extracting file metadata"
+arch=('x86_64')
+url='https://projects.kde.org/projects/kde/kdelibs/kfilemetadata'
+license=('LGPL')
+depends=('kdelibs' 'poppler-qt' 'ebook-tools' 'ffmpeg' 'taglib')
+makedepends=('cmake' 'automoc4')
+groups=('kde' 'kde-uninstall')
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+#source=('git://anongit.kde.org/kfilemetadata')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#md5sums=('SKIP')
+
+build() {
+  mkdir build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="${pkgdir}" install
+}

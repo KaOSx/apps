@@ -3,38 +3,40 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=baloo
-pkgver=${_kdever}
+#pkgver=${_plasmaver}
+pkgver=5.6.0
 pkgrel=1
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
 license=('LGPL')
-depends=('kdepimlibs' 'xapian-core' 'kfilemetadata' 'qjson' 'akonadi')
-makedepends=('cmake' 'automoc4' 'boost')
-groups=('kde' 'kde-uninstall')
-conflict=('virtuoso' 'soprano' 'redland-storage-virtuoso' 'nepomuk-widgets' 'nepomuk-core')
-replaces=('virtuoso' 'soprano' 'redland-storage-virtuoso' 'nepomuk-widgets' 'nepomuk-core')
-source=($_mirror/${pkgname}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-
-prepare() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  
-  #patch -p1 -i "${srcdir}/add_disable_kcm.diff"
-}
+depends=('xapian-core' 'akonadi' 'kfilemetadata' 'kidletime' 'kcmutils' 'krunner'
+         'kemoticons') # 'kf5-kdepimlibs')
+makedepends=('extra-cmake-modules' 'kdoctools')
+conflicts=('kf5-baloo')
+replace=('kf5-baloo')
+provides=('kf5-baloo')
+source=("http://download.kde.org/stable/plasma/$pkgver/baloo-$pkgver.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=('2b3ab6d78e2e492d281d27ce4bc00e1a')
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
-        -DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_INSTALL_PREFIX=/usr
+  cmake ../${pkgname}-$pkgver \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib
   make
 }
 
 package() {
   cd build
-  
-  make DESTDIR="${pkgdir}" install
+
+  make DESTDIR=${pkgdir} install
 }

@@ -3,32 +3,43 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kfilemetadata
-pkgver=${_kdever}
-pkgrel=2
+#pkgver=${_plasmaver}
+pkgver=5.6.0
+pkgrel=1
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kfilemetadata'
 license=('LGPL')
-depends=('kdelibs' 'poppler-qt' 'ebook-tools' 'ffmpeg' 'taglib')
-makedepends=('cmake' 'automoc4')
-groups=('kde' 'kde-uninstall')
-source=($_mirror/${pkgname}-$_kdever.tar.xz)
-#source=('git://anongit.kde.org/kfilemetadata')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#md5sums=('SKIP')
+depends=('ebook-tools' 'karchive' 'exiv2' 'kservice' 'poppler-qt5' 'taglib' 'ffmpeg')
+makedepends=('extra-cmake-modules')
+groups=('plasma5')
+conflicts=('kfilemetadata5' 'kf5-kfilemetadata')
+provides=('kfilemetadata5''kf5-kfilemetadata' )
+replaces=('kfilemetadata5''kf5-kfilemetadata')
+source=("http://download.kde.org/stable/plasma/$pkgver/${pkgname}-$pkgver.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=('38104ee93350ef69428e645da1564a0d')
+
+prepare() {
+  cd $pkgname-${pkgver}
+  #sed -i -e 's/ecm_setup_version(5.0.0/ecm_setup_version(1/' ${srcdir}/${_pkgname}-${pkgver}/CMakeLists.txt
+}
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
   
   cmake ../${pkgname}-${pkgver} \
-        -DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DLIB_INSTALL_DIR=lib
   make
 }
 
 package() {
   cd build
-  
+
   make DESTDIR="${pkgdir}" install
 }

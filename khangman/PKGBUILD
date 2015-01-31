@@ -14,11 +14,10 @@ depends=('ki18n' 'kcrash' 'kcompletion' 'kconfig' 'kcoreaddons' 'kconfigwidgets'
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-khangman')
 replaces=('kdeedu-khangman')
-#groups=('kde' 'kdeedu' 'kde-uninstall' 'education' 'kaos-kids')
+groups=('kde' 'kdeedu' 'kde-uninstall' 'education' 'kaos-kids')
 install=${pkgname}.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-md5sums=('e22253f2f889aaa294a4bed34c38f231')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
