@@ -2,40 +2,52 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgbase=kdepim-runtime
-pkgname=${pkgbase}
+pkgname=kdepim-runtime
 arch=('x86_64')
-pkgver=4.14.5
+pkgver=14.12.81
 pkgrel=1
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-install=${pkgbase}.install
-options=('docs' 'debug')
-depends=('kdepimlibs' 'kde-runtime' 'kdelibs' 'prison'
-         'libdmtx' 'qrencode' 'libkgapi' 'libkolab' 'libkfbapi' 'accountsqt' 'signonqt')
-makedepends=('pkg-config' 'cmake' 'automoc4' 'boost')
-groups=("kde" "kdepim" "kde-uninstall" "kde-minimal")
-source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
-md5sums=('e69c5343aab150ed2c8b80bba5b23813')
+depends=('kdepimlibs' 'qt5-quick1' 'knotifyconfig' 'kross' 'knewstuff' 'kcmutils' 'kdelibs4support' 
+         'kconfig' 'kio' 'kitemmodels' 'kcodecs' 'accountsqt' 'signonqt' 'shared-mime-info' 
+         'akonadi' 'kmime' 'kmailtransport' 'kidentitymanagement' 'kcontacts' 'kalarmcal' 'kcalcore' 
+         'kcalutils' 'kmbox' 'kpimtextedit' 'kimap' 'syndication' 'akonadi-calendar' 'kaccounts-integration'
+         'libkgapi' 'libkolab') # 'libkfbapi'
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+install=${pkgname}.install
+options=('debug')
+conflicts=('kf5-kdepim-runtime')
+replaces=('kf5-kdepim-runtime')
+groups=('kde' 'kdepim' 'kde-uninstall')
+#source=($_mirror/${pkgbase}-$_kdever.tar.xz)
+#md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kdepim-runtime.git#commit=05ac2b2ee210f5f46765ade165cd842ea07aae8e")      
+md5sums=('SKIP')
 
 build() {
-    cd "${srcdir}"/${pkgbase}-${pkgver}
-  
     cd ${srcdir}
-    mkdir -p build 
+    sed -i 's|set(KMIME_LIB_VERSION "4.81.0")|set(KMIME_LIB_VERSION "4.80.0")|' ${srcdir}/$pkgname/CMakeLists.txt
+    #sed -i 's|SignOnQt|SignOnQt5|' ${srcdir}/$_pkgname/resources/CMakeLists.txt
     
+    mkdir -p build
     cd build
-    cmake ../${pkgbase}-${pkgver} \
-          -DCMAKE_BUILD_TYPE=${_build_type} \
-	  -DCMAKE_INSTALL_PREFIX=${_installprefix} \
-	  -DCMAKE_SKIP_RPATH=ON \
-	  -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
+
+    cmake ../${pkgname} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins 
+        #-DBUILD_TESTING=OFF \
+        #-DENABLE_TESTING=OFF
     make
 }
 
 package() {
     cd ${srcdir}/build
-    
+
     make DESTDIR=${pkgdir} install
 }
