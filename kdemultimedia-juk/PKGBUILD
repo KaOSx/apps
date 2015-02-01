@@ -2,24 +2,25 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kdemultimedia-juk
-_pkgname=juk
+pkgname=juk
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='A jukebox, tagger and music collection manager'
 url='http://kde.org/applications/multimedia/juk/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kde-runtime' 'taglib')
+depends=('kdelibs' 'taglib')
 makedepends=('cmake' 'automoc4')
-source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-groups=("kde" "kdemultimedia" "kde-uninstall")
-provides=('juk')
-options=('docs')
+groups=('kde' 'kdemultimedia' 'kde-uninstall')
+provides=('kdemultimedia-juk')
+conflicts=('kdemultimedia-juk')
+replaces=('kdemultimedia-juk')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
 
 build() {
-	cd ${srcdir}/${_pkgname}-${pkgver}
+	cd ${srcdir}/${pkgname}-${pkgver}
 	
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
                 -DCMAKE_INSTALL_PREFIX=${_installprefix} \
@@ -30,7 +31,7 @@ build() {
 }
 
 package() {
-	cd ${srcdir}/${_pkgname}-${pkgver}
+	cd ${srcdir}/${pkgname}-${pkgver}
 	
 	make DESTDIR=${pkgdir} install
 }
