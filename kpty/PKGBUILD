@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kpty
-pkgver=${_kdever}
+pkgver=${_kf5ver}
 pkgrel=2
 pkgdesc='Library that provides primitives to interface with pseudo terminal devices and KProcess'
 arch=('x86_64')
@@ -55,7 +55,16 @@ conflicts=('knights'
            'kdeedu-step'
            'kdemultimedia-audiocd-kio'
            'kdemultimedia-kscd'
-           'kdenetwork-kppp') 
+           'kdenetwork-kopete'
+           'kdenetwork-strigi-analyzers'
+           'kdenetwork-zeroconf-ioslave'
+           'kdenetwork-kppp'
+           'kdesdk-dev-scripts'
+           'kdesdk-dev-utils'
+           'kdesdk-dolphin-plugins'
+           'kdesdk-kioslaves'
+           'kdesdk-poxml'
+           'kdesdk-strigi-analyzers') 
 replaces=('knights'
            'kdewebdev-kfilereplace'
            'kdewebdev-kimageeditor'
@@ -98,9 +107,19 @@ replaces=('knights'
            'kdeedu-kturtle'
            'kdeedu-step'
            'kdemultimedia-audiocd-kio'
-           'kdemultimedia-kscd') 
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+           'kdemultimedia-kscd'
+           'kdenetwork-kopete'
+           'kdenetwork-strigi-analyzers'
+           'kdenetwork-zeroconf-ioslave'
+           'kdenetwork-kppp'
+           'kdesdk-dev-scripts'
+           'kdesdk-dev-utils'
+           'kdesdk-dolphin-plugins'
+           'kdesdk-kioslaves'
+           'kdesdk-poxml'
+           'kdesdk-strigi-analyzers') 
+source=("http://download.kde.org/stable/frameworks/5.6/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build

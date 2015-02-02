@@ -2,25 +2,26 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kdenetwork-krfb
-_pkgname=krfb
+pkgname=krfb
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Desktop Sharing Server'
 url='http://www.kde.org/applications/system/krfb'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
-depends=('kde-runtime' 'libvncserver' 'libxdamage' 'ktp-common-internals')
+depends=('kdelibs' 'libvncserver' 'libxdamage' 'ktp-common-internals')
 makedepends=('cmake' 'automoc4')
-source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+conflicts=('kdenetwork-krfb')
+replaces=('kdenetwork-krfb')
+groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   cd build
   
-  cmake ../${_pkgname}-${pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE4_BUILD_TESTS=OFF \
     -DCMAKE_INSTALL_PREFIX=/usr

@@ -2,8 +2,7 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kdenetwork-krdc
-_pkgname=krdc
+pkgname=krdc
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Desktop Sharing Client'
@@ -11,17 +10,19 @@ url='http://kde.org/applications/internet/krdc/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
-depends=('kde-runtime' 'telepathy-qt' 'freerdp')
+depends=('kdelibs' 'telepathy-qt' 'freerdp')
 makedepends=('cmake' 'automoc4' 'libvncserver')
 optdepends=('libvncserver: VNC support')
-source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+conflicts=('kdenetwork-krdc')
+replaces=('kdenetwork-krdc')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   cd build
   
-  cmake ../${_pkgname}-${pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE4_BUILD_TESTS=OFF \
     -DCMAKE_INSTALL_PREFIX=/usr
