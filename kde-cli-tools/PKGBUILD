@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-cli-tools
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kde-cli-tools'
@@ -12,7 +12,8 @@ license=('LGPL')
 depends=('kdesu' 'kdelibs4support' 'kcmutils' 'kemoticons' 'kinit' 'kitemmodels')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
-conflicts=('kde-l10n')
+conflicts=('kde-runtime' 'kde-runtime-debug')
+replaces=('kde-runtime' 'kde-runtime-debug')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/kde-cli-tools.git")

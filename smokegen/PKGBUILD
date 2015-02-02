@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=smokegen
 #pkgver=${_kdever}
-pkgver=4.90.80
+pkgver=14.12.80
 pkgrel=1
 pkgdesc="A general purpose C++ parser with a plugin infrastructure"
 url="https://projects.kde.org/projects/kde/kdebindings/smoke/smokegen"
@@ -12,8 +12,28 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('qt5-base')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-conflicts=('kdebindings-smokegen')
-replaces=('kdebindings-smokegen')
+conflicts=('kdebindings-smokegen'
+           'kdebindings-pykde4'
+           'kdebindings-smokeqt'
+           'kdebindings-smokekde'
+           'kdebindings-qyoto'
+           'kdebindings-kimono'
+           'kdebindings-qtruby'
+           'kdebindings-korundum'
+           'kdebindings-perlqt'
+           'kdebindings-perlkde'
+           'kdebindings-kross-interpreters')
+replaces=('kdebindings-smokegen'
+          'kdebindings-pykde4'
+          'kdebindings-smokeqt'
+          'kdebindings-smokekde'
+          'kdebindings-qyoto'
+          'kdebindings-kimono'
+          'kdebindings-qtruby'
+          'kdebindings-korundum'
+          'kdebindings-perlqt'
+          'kdebindings-perlkde'
+          'kdebindings-kross-interpreters')
 #groups=("kde" "kdebindings" "kde-uninstall")
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
