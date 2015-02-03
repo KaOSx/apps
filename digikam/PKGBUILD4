@@ -1,9 +1,9 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins' 'libkvkontakte')
-pkgver=4.6.0
-_pkgver=4.6.0
-pkgrel=2
+pkgver=4.7.0
+_pkgver=4.7.0-1
+pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
@@ -12,14 +12,14 @@ makedepends=('kde-runtime' 'kdegraphics-kgamma' 'kdepimlibs' 'lensfun' 'kdeedu-m
              'doxygen' 'docbook-xsl' 'qjson' 'kdegraphics-libkexiv2' 'kdegraphics-libkdcraw'
              'kdegraphics-libksane' 'qt-gstreamer' 'boost' 'hugin-tools' 'imagemagick' 'eigen3')
 source=("http://download.kde.org/stable/digikam/${pkgname}-${_pkgver}.tar.bz2")
-md5sums=('705e132f72eda603cb91ee6292f0b34b')
+md5sums=('7ddee71d580153125ec08fba6b9b620c')
 
 build() {
    cd ${srcdir}
  
    mkdir -p build
    cd build
-   cmake ../${pkgname}-${_pkgver} \
+   cmake ../${pkgname}-${pkgver} \
      -DCMAKE_BUILD_TYPE=Release \
      -DCMAKE_INSTALL_PREFIX=/usr \
      -DCMAKE_SKIP_RPATH=ON \
