@@ -1,8 +1,8 @@
 
 pkgname=octopi
-pkgver=0.5.0.86
+pkgver=0.5.0.87
 pkgrel=1
-_commit=6eb3ece
+_commit=a7fb489
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
@@ -14,7 +14,7 @@ source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
         'octopi.desktop'
         'kaos.diff'
         "images2.tar.xz")
-md5sums=('918ba2472cd92e62b24f94134e3a7624'
+md5sums=('70d73a129a7e3214a00b4534792738bd'
          '2d9c64cd6402be69d2ee9fde5acc439e'
          '566caa454a10cbcad334ed8abd2d229d'
          '78e9cc72815ddcfbb6f661d6f303442a')
@@ -28,7 +28,6 @@ build() {
    # enable the kstatus switch
    sed -e "s/# DEFINES += KSTATUS/ DEFINES += KSTATUS/" -i ${srcdir}/aarnt-octopi-${_commit}/notifier/octopi-notifier/octopi-notifier.pro
    
-   #qmake octopi.pro
    /usr/lib/qt5/bin/qmake octopi.pro
    make
    
@@ -40,6 +39,10 @@ build() {
    cd "${srcdir}/aarnt-octopi-${_commit}/notifier/octopi-notifier"
    /usr/lib/qt5/bin/qmake octopi-notifier.pro
    make 
+   
+   cd "${srcdir}/aarnt-octopi-${_commit}/cachecleaner"
+   /usr/lib/qt5/bin/qmake octopi-cachecleaner.pro
+   make
 }
 
 package() {
@@ -66,5 +69,9 @@ package() {
    #Octopi-notifier file
    install -D -m755 ${srcdir}/aarnt-octopi-${_commit}/notifier/bin/octopi-notifier ${pkgdir}/usr/bin/octopi-notifier
    install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/octopi-notifier.desktop ${pkgdir}/usr/share/applications/octopi-notifier.desktop
+   
+   #Octopi-cachecleaner file
+   install -D -m755 ${srcdir}/aarnt-octopi-${_commit}/cachecleaner/bin/octopi-cachecleaner ${pkgdir}/usr/bin/octopi-cachecleaner
+   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/cachecleaner/octopi-cachecleaner.desktop ${pkgdir}/usr/share/applications/octopi-cachecleaner.desktop
 
 }
