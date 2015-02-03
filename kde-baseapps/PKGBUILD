@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-baseapps
-pkgver=14.12.80
+pkgver=14.12.81
 pkgrel=1
 pkgdesc="Collection of applications used for file and Internet browsing"
 arch=('x86_64')
@@ -11,9 +11,21 @@ url='https://projects.kde.org/projects/kde/applications/kde-baseapps'
 license=('LGPL')
 depends=('kdelibs4support' 'kdesu' 'baloo-widgets' 'kactivities' 'kded' 'khtml' 'knewstuff' 'tidyhtml')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-conflicts=('kf5-kde-baseapps' 'kde-baseapps-dolphin' 'kde-baseapps-konqueror' 'kde-baseapps-konq-plugins')
-replaces=('kf5-kde-baseapps' 'kde-baseapps-dolphin' 'kde-baseapps-konqueror' 'kde-baseapps-konq-plugins')
-provides=('kf5-kde-baseapps' 'kde-baseapps-dolphin' 'kde-baseapps-konqueror' 'kde-baseapps-konq-plugins')
+conflicts=('kf5-kde-baseapps' 
+           'kde-baseapps-dolphin' 
+           'kde-baseapps-konqueror' 
+           'kde-baseapps-konq-plugins' 
+           'kde-baseapps-kwrite')
+replaces=('kf5-kde-baseapps' 
+          'kde-baseapps-dolphin' 
+          'kde-baseapps-konqueror' 
+          'kde-baseapps-konq-plugins' 
+          'kde-baseapps-kwrite')
+provides=('kf5-kde-baseapps' 
+          'kde-baseapps-dolphin' 
+          'kde-baseapps-konqueror' 
+          'kde-baseapps-konq-plugins' 
+          'kde-baseapps-kwrite')
 install=kde-baseapps.install
 #source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
 source=("git://anongit.kde.org/kde-baseapps.git#branch=frameworks")

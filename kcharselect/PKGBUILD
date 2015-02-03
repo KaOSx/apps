@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcharselect
 #pkgver=${_kdever}
-pkgver=14.12.80
+pkgver=14.12.81
 pkgrel=1
 pkgdesc="Tool to select special characters from all installed fonts and copy them into the clipboard."
 url="https://projects.kde.org/projects/kde/kdeutils/kcharselect"
@@ -13,12 +13,12 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kwidgetsaddons' 'kxmlgui')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kdeutils-kcharselect')
-replaces=('replaces-kcharselect')
+replaces=('kdeutils-kcharselect')
 #groups=("kde" "kdeutils" "kde-uninstall")
 install=kdeutils.install
 #source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kcharselect.git#branch=frameworks")
+source=("git://anongit.kde.org/kcharselect.git")
 md5sums=('SKIP')
 
 prepare() {
