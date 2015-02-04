@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kpty
 pkgver=${_kf5ver}
-pkgrel=4
+pkgrel=5
 pkgdesc='Library that provides primitives to interface with pseudo terminal devices and KProcess'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kpty'
@@ -70,7 +70,8 @@ conflicts=('kcm-fcitx'
            'redshift-plasmoid'
            'kde-plasma-themes-Kotonaru'
            'kotonaru-colors'
-           'kde-kdm-themes-grey') 
+           'kde-kdm-themes-grey'
+           'libkolab') 
 replaces=('kcm-fcitx'
            'knights'
            'kdewebdev-kfilereplace'
@@ -129,7 +130,8 @@ replaces=('kcm-fcitx'
            'redshift-plasmoid'
            'kde-plasma-themes-Kotonaru'
            'kotonaru-colors'
-           'kde-kdm-themes-grey') 
+           'kde-kdm-themes-grey'
+           'libkolab') 
 source=("http://download.kde.org/stable/frameworks/5.6/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
