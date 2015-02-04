@@ -1,10 +1,10 @@
 post_install() {
   if [ ! -f /home/*/.config/plasmarc ]; then
-    cp /etc/xdg/kdeglobals /home/*/.config
-    cp /etc/xdg/ksplashrc /home/*/.config
-    cp /etc/xdg/plasma-org.kde.plasma.desktop-appletsrc /home/*/.config
-    cp /etc/xdg/plasmarc /home/*/.config
+    cp /opt/xdg/kdeglobals /home/*/.config
+    cp /opt/xdg/ksplashrc /home/*/.config
+    cp /opt/xdg/plasma-org.kde.plasma.desktop-appletsrc /home/*/.config
+    cp /opt/xdg/plasmarc /home/*/.config
     
-    /usr/bin/welcome
+    nohup /usr/bin/kf5trans >/dev/null 2>&1 &
   fi
 }

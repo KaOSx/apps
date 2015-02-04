@@ -1,6 +1,6 @@
 
 pkgname=kf5trans
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
 pkgdesc="Transitional KDE 4 to kf5 package"
 arch=('x86_64')
@@ -16,7 +16,7 @@ source=("kf5trans.tar.gz"
         'plasmarc'
         'plasmashellrc'
         'stylerc')
-md5sums=('6b904f0067b2612706868177c9a939a4'
+md5sums=('73552e4e817be0c4768931773f6884e7'
          '8ca968e7f09201b8d2376d131a8e55df'
          'd1958a1b026c28b0490e5d71e96f24ca'
          'c0b853a2de32c6fefff417bc747d0b8a'
@@ -28,7 +28,7 @@ md5sums=('6b904f0067b2612706868177c9a939a4'
 build() {
     cd "${srcdir}/kf5trans/"
    
-    /usr/lib/qt5/bin/qmake welcome.pro
+    /usr/lib/qt5/bin/qmake kf5trans.pro
     make clean
     make
 }
@@ -37,12 +37,12 @@ package() {
     cd "${srcdir}/kf5trans/"
     make INSTALL_ROOT="$pkgdir/" install
     
-    mkdir -p ${pkgdir}/etc/xdg
-    install -m644 -p ${srcdir}/kdeglobals ${pkgdir}/etc/xdg
-    install -m644 -p ${srcdir}/ksplashrc ${pkgdir}/etc/xdg
-    install -m644 -p ${srcdir}/plasma-org.kde.plasma.desktop-appletsrc ${pkgdir}/etc/xdg
-    install -m644 -p ${srcdir}/plasmarc ${pkgdir}/etc/xdg
-    install -m644 -p ${srcdir}/plasmashellrc ${pkgdir}/etc/xdg
-    install -m644 -p ${srcdir}/libre.sh ${pkgdir}/etc/xdg
-    install -m644 -p ${srcdir}/stylerc ${pkgdir}/etc/xdg
+    mkdir -p ${pkgdir}/opt/xdg
+    install -m775 -p ${srcdir}/kdeglobals ${pkgdir}/opt/xdg
+    install -m775 -p ${srcdir}/ksplashrc ${pkgdir}/opt/xdg
+    install -m775 -p ${srcdir}/plasma-org.kde.plasma.desktop-appletsrc ${pkgdir}/opt/xdg
+    install -m775 -p ${srcdir}/plasmarc ${pkgdir}/opt/xdg
+    install -m775 -p ${srcdir}/plasmashellrc ${pkgdir}/opt/xdg
+    install -m775 -p ${srcdir}/libre.sh ${pkgdir}/opt/xdg
+    install -m775 -p ${srcdir}/stylerc ${pkgdir}/opt/xdg
 }
