@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkdegames
 #pkgver=${_kdever}
-pkgver=14.12.80
+pkgver=14.12.81
 pkgrel=1
 pkgdesc="Shared libraries for KDE games"
 arch=('x86_64')
@@ -33,6 +33,7 @@ conflicts=('kdegames-libkdegames'
 	   'kdegames-klines'
 	   'kdegames-kmahjongg'
 	   'kdegames-knetwalk'
+	   'kdegames-kolf'
 	   'kdegames-kollision'
 	   'kdegames-konquest'
 	   'kdegames-kpat'
@@ -66,6 +67,7 @@ replaces=('kdegames-libkdegames'
 	   'kdegames-klines'
 	   'kdegames-kmahjongg'
 	   'kdegames-knetwalk'
+	   'kdegames-kolf'
 	   'kdegames-kollision'
 	   'kdegames-konquest'
 	   'kdegames-kpat'
@@ -84,7 +86,7 @@ replaces=('kdegames-libkdegames'
 #groups=('kde' 'kdegames' 'kde-uninstall')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkdegames#branch=frameworks")
+source=("git://anongit.kde.org/libkdegames")
 md5sums=('SKIP')
 
 build() {
