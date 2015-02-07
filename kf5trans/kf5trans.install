@@ -1,10 +1,14 @@
+user_name="$(logname)"
+
 post_install() {
-  if [ ! -f /home/*/.config/plasmarc ]; then
-    cp /opt/xdg/kdeglobals /home/*/.config
-    cp /opt/xdg/ksplashrc /home/*/.config
-    cp /opt/xdg/plasma-org.kde.plasma.desktop-appletsrc /home/*/.config
-    cp /opt/xdg/plasmarc /home/*/.config
-    cp /opt/xdg/plasmashellrc /home/*/.config
+  if [ ! -f /home/${user_name}/.config/plasmarc ]; then
+    cp /opt/xdg/kdeglobals /home/${user_name}/.config
+    cp /opt/xdg/ksplashrc /home/${user_name}/.config
+    cp /opt/xdg/plasma-org.kde.plasma.desktop-appletsrc /home/${user_name}/.config
+    cp /opt/xdg/plasmarc /home/${user_name}/.config
+    cp /opt/xdg/plasmashellrc /home/${user_name}/.config
+    
+    chown -R ${user_name}:users /home/${user_name}/.config
     
     nohup /usr/bin/kf5trans >/dev/null 2>&1 &
   fi
