@@ -1,13 +1,13 @@
 
 pkgname=kile
-pkgver=2.9.60
+pkgver=2.9.61
 pkgrel=1
 pkgdesc="User friendly TeX/LaTeX frontend for KDE."
 arch=('x86_64')
 license=('GPL2')
 url="http://kile.sourceforge.net/"
 depends=('kconfig' 'kguiaddons' 'ki18n' 'kinit' 'kjobwidgets' 'kio' 'khtml' 'kparts' 'ktexteditor'
-         'kwindowsystem' 'kxmlgui' 'kdelibs4support' 'texlive-core' 'docbook-xsl' 'okular')
+         'kwindowsystem' 'kxmlgui' 'kdelibs4support' 'texlive-core' 'docbook-xsl') # 'okular')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kf5-kile')
 replaces=('kf5-kile')
@@ -19,7 +19,7 @@ md5sums=('SKIP')
 build() {
   cd ${srcdir}
   #sed -e "s/cmake_minimum_required(VERSION 3.0.0)/cmake_minimum_required(VERSION 2.8.12)/" -i ${srcdir}/$_pkgname/CMakeLists.txt
-  sed -e "s/ADD_SUBDIRECTORY( symbols-ng )/#ADD_SUBDIRECTORY( symbols-ng )/" -i ${srcdir}/$pkgname/src/data/CMakeLists.txt
+  #sed -e "s/ADD_SUBDIRECTORY( symbols-ng )/#ADD_SUBDIRECTORY( symbols-ng )/" -i ${srcdir}/$pkgname/src/data/CMakeLists.txt
   
   mkdir -p build
   cd build
@@ -31,6 +31,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }
