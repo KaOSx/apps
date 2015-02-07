@@ -8,6 +8,9 @@ post_install() {
     cp /opt/xdg/plasmarc /home/${user_name}/.config
     cp /opt/xdg/plasmashellrc /home/${user_name}/.config
     
+    mkdir -p /home/${user_name}/.config/plasma-workspace/env
+    cp /opt/xdg/libre.sh /home/${user_name}/.config/plasma-workspace/env
+    
     chown -R ${user_name}:users /home/${user_name}/.config
     
     nohup /usr/bin/kf5trans >/dev/null 2>&1 &

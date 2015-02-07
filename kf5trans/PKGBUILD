@@ -22,7 +22,7 @@ md5sums=('abde3fa2f8865abd98829dc5f8691a92'
          'c0b853a2de32c6fefff417bc747d0b8a'
          '864fd727733ae15355b98390635ea52b'
          'b2af54273aa39054a97f4ccfc8a4db95'
-         '7877c506a885f785fbf1080a66e58e53'
+         '0d98fc1af5c60564c638fa2b36b8a9bd'
          'c67bc73a3cade9af3a8f1dca6bbc6ab2')
 
 build() {
@@ -38,11 +38,11 @@ package() {
     make INSTALL_ROOT="$pkgdir/" install
     
     mkdir -p ${pkgdir}/opt/xdg
-    install -m775 -p ${srcdir}/kdeglobals ${pkgdir}/opt/xdg
-    install -m775 -p ${srcdir}/ksplashrc ${pkgdir}/opt/xdg
-    install -m775 -p ${srcdir}/plasma-org.kde.plasma.desktop-appletsrc ${pkgdir}/opt/xdg
-    install -m775 -p ${srcdir}/plasmarc ${pkgdir}/opt/xdg
-    install -m775 -p ${srcdir}/plasmashellrc ${pkgdir}/opt/xdg
-    install -m775 -p ${srcdir}/libre.sh ${pkgdir}/opt/xdg
-    install -m775 -p ${srcdir}/stylerc ${pkgdir}/opt/xdg
+    install -m644 -p ${srcdir}/kdeglobals ${pkgdir}/opt/xdg
+    install -m644 -p ${srcdir}/ksplashrc ${pkgdir}/opt/xdg
+    install -m644 -p ${srcdir}/plasma-org.kde.plasma.desktop-appletsrc ${pkgdir}/opt/xdg
+    install -m644 -p ${srcdir}/plasmarc ${pkgdir}/opt/xdg
+    install -m644 -p ${srcdir}/plasmashellrc ${pkgdir}/opt/xdg
+    install -m644 -p ${srcdir}/libre.sh ${pkgdir}/opt/xdg
+    install -m644 -p ${srcdir}/stylerc ${pkgdir}/opt/xdg
 }
