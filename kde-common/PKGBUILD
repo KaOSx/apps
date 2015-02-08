@@ -2,29 +2,19 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-# original name (used for the source and pkgnames)
-_origname=common
-
 pkgname=kde-common
 arch=('x86_64')
 pkgver=${_kdever}
 pkgrel=1
-
-pkgdesc="KDE SC - Common Configuration Files, Scripts and Artwork"
+pkgdesc="KDE Common Configuration Files, Scripts and Artwork"
 url="http://www.kde.org"
 license=('GPL')
 options=('strip')
-
-#groups=("kde" "kde-minimal" "kde-uninstall")
-
-# some obvious dependencies 
+groups=('kde' 'kde-minimal' 'kde-uninstall')
 depends=('qt5-base' 'pinentry' 'openssh' 'bash' 'glibc')
-
-#install=kde-common.install
-
 source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_servicemenu_2.8.2.tar.gz"
         'CopyPath.desktop'
-	"http://www.kde-apps.org/CONTENT/content-files/102825-compressattach.desktop.bz2"
+	#"http://www.kde-apps.org/CONTENT/content-files/102825-compressattach.desktop.bz2"
 	'servicemenu-rootactions.patch'
 	'sysinfo.sh'
 	'agent-startup.sh'
@@ -33,7 +23,7 @@ source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_service
   
 md5sums=('e7ee784bb36aa0ce703479683e6bde91'
          'd626182c47e7bb7785dda99dbfcf4b22'
-         '630ffe7118eef8608a9e5e393a0b1e12'
+         #'630ffe7118eef8608a9e5e393a0b1e12'
          'e815fcdba963a79cd39989182df1a994'
          'cdb4a289c5cfbf55590327ced615e57a'
          '7daec96c125e1e238a35f31ea4a476f0'
@@ -61,8 +51,8 @@ package() {
 	# install all other service menus
 	install -m755 ${srcdir}/CopyPath.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/CopyPath.desktop
 
-	install -m755 ${srcdir}/102825-compressattach.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/compress-attach.desktop
-        sed "s~Icon=attach~Icon=mail-attachment~g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/compress-attach.desktop
+	#install -m755 ${srcdir}/102825-compressattach.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/compress-attach.desktop
+        #sed "s~Icon=attach~Icon=mail-attachment~g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/compress-attach.desktop
 	
 	# install menu entries
 	cd ${srcdir}
