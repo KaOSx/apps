@@ -4,8 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-runtime
 arch=('x86_64')
-pkgver=14.12.81
-pkgrel=2
+pkgver=14.12.82
+pkgrel=1
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -22,12 +22,12 @@ replaces=('kf5-kdepim-runtime')
 groups=('kde' 'kdepim' 'kde-uninstall')
 #source=($_mirror/${pkgbase}-$_kdever.tar.xz)
 #md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdepim-runtime.git#commit=05ac2b2ee210f5f46765ade165cd842ea07aae8e")      
+source=("git://anongit.kde.org/kdepim-runtime.git")      
 md5sums=('SKIP')
 
 build() {
     cd ${srcdir}
-    sed -i 's|set(KMIME_LIB_VERSION "4.81.0")|set(KMIME_LIB_VERSION "4.80.0")|' ${srcdir}/$pkgname/CMakeLists.txt
+    #sed -i 's|set(KMIME_LIB_VERSION "4.81.0")|set(KMIME_LIB_VERSION "4.80.0")|' ${srcdir}/$pkgname/CMakeLists.txt
     #sed -i 's|SignOnQt|SignOnQt5|' ${srcdir}/$_pkgname/resources/CMakeLists.txt
     
     mkdir -p build

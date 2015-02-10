@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepimlibs
-pkgver=14.12.81
+pkgver=14.12.82
 pkgrel=1
 arch=('x86_64')
 pkgdesc="KDE Pim Libraries"
@@ -20,12 +20,12 @@ install=kdepimlibs.install
 options=('debug')
 #source=($_mirror/${pkgname}-$_kdever.tar.xz)
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdepimlibs.git#commit=42e396547fe3ef9b78448b7ea9574108de206aff")      
+source=("git://anongit.kde.org/kdepimlibs.git")      
 md5sums=('SKIP')
 
 build() {
 	cd ${srcdir}
-	sed -i 's|set(KF5_MIME_VERSION "4.81.0")|set(KF5_MIME_VERSION "4.80.0")|' ${srcdir}/$pkgname/akonadi-mime/CMakeLists.txt
+	#sed -i 's|set(KF5_MIME_VERSION "4.81.0")|set(KF5_MIME_VERSION "4.80.0")|' ${srcdir}/$pkgname/akonadi-mime/CMakeLists.txt
 	#sed -i 's|add_subdirectory(kmime)|#add_subdirectory(kmime)|' ${srcdir}/$_pkgname/CMakeLists.txt
 	mkdir -p build
 	cd build

@@ -5,12 +5,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdepim
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=14.12.81
+pkgver=14.12.82
 pkgrel=1
 pkgdesc="Project that aims to bring together anything to do with personal information management."
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-depends=('grantlee-qt5' 'phonon-qt5' 'qt5-tools' 'prison' 'baloo' 'libkgapi' # 'kdepim-runtime'
+depends=('grantlee-qt5' 'phonon-qt5' 'qt5-tools' 'prison' 'baloo' 'libkgapi' 'qtwebengine' # 'kdepim-runtime'
          #frameworks
          'kdelibs4support' 'kwallet' 'knewstuff' 'kcmutils' 'kdewebkit' 'karchive' 'knotifyconfig'
          'kconfig' 'khtml' 'kservice' 'kdbusaddons' 'kauth' 'ktexteditor' 'kdnssd' 'kcodecs' 'kglobalaccel'
@@ -53,7 +53,7 @@ replaces=('kf5-kdepim'
 install=kdepim.install
 #source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
 #md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdepim.git#commit=93f7e1272539ad5663569ee76a7603c46922002b")
+source=("git://anongit.kde.org/kdepim.git")
 md5sums=('SKIP')
 
 build() {
