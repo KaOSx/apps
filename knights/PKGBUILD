@@ -1,29 +1,37 @@
 
 pkgname=knights
-pkgver=2.5.0
+pkgver=2.5.80
 pkgrel=1
 pkgdesc="Chess board for KDE with XBoard protocol support"
 arch=('x86_64')
 url="http://kde-apps.org/content/show.php/Knights?content=122046"
 license=('GPL')
-depends=('kdegames-libkdegames' 'kde-runtime' 'gnuchess')
-makedepends=('cmake' 'automoc4')
+depends=('kdelibs4support' 'plasma-framework' 'kplotting' 'kwallet' 'libkdegames' 'gnuchess')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'kdelibs')
 install=knights.install
-source=("http://dl.dropbox.com/u/2888238/Knights/$pkgname-$pkgver.tar.bz2")
-md5sums=('58237998aeee8b6414f6e6f92d070395')
+source=("git://anongit.kde.org/knights.git#branch=frameworks")
+md5sums=('SKIP')
 
 build() {
-  cd $srcdir/$pkgname-$pkgver
+  cd ${srcdir}
 
   mkdir build
-  cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release ..
-  make
+  
+  cd build 
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
 }
 
 package() {
-  cd $srcdir/$pkgname-$pkgver/build
-
-  make DESTDIR=$pkgdir install
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
 }
