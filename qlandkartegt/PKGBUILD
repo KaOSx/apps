@@ -1,6 +1,6 @@
 
 pkgname=qlandkartegt
-pkgver=1.7.7
+pkgver=1.8.0
 pkgrel=1
 pkgdesc="Use your GPS with Linux"
 screenshot="http://sourceforge.net/dbimage.php?id=176174"
@@ -8,12 +8,12 @@ arch=('x86_64')
 url="http://www.qlandkarte.org"
 license=('GPL')
 depends=('gdal' 'gpsd' 'libdmtx' 'libexif' 'libmariadbclient' 'mesa' 'postgresql-libs'
-         'shared-mime-info' 'qtwebkit' 'unixodbc' 'glu')
-makedepends=('cmake')
+         'shared-mime-info' 'qtwebkit' 'unixodbc' 'glu') # 'qt5-webkit' 'qt5-script'
+makedepends=('cmake') # 'qt5-tools')
 groups=('utils')
 source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
         'qlandkartegt-mimetypes.xml')
-md5sums=('f9ac802cea2719eab920f44f7f773a82'
+md5sums=('75fa7012d337323737960e3cf07681fd'
          'e4808690a9b5381880c573abd81cffdd')
 
 
@@ -26,6 +26,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release ..
+      #-DQK_QT5_PORT=ON \
+      #-DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake \
   make
 }
 
