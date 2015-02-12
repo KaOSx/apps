@@ -1,14 +1,14 @@
 
 
 pkgname=konversation
-pkgver=1.5.82
-_pkgver=1.5.82
+pkgver=1.5.83
+_pkgver=1.5.83
 pkgrel=1
 pkgdesc="A user friendly IRC client for KDE"
 arch=('x86_64')
 url="http://konversation.kde.org"
 license=('GPL2' 'FDL')
-depends=('akonadi' 'kf5-kfilemetadata' 'kidletime' 'kcmutils' 'krunner' 'kemoticons' 
+depends=('akonadi' 'kfilemetadata' 'kidletime' 'kcmutils' 'krunner' 'kemoticons' 
          'knotifyconfig' 'phonon-qt5' 'baloo-widgets' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kf5-konversation')
@@ -21,7 +21,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  sed -i -e 's|find_package(Qca 2.1.0)|find_package(Qca 2.1.0 NAMES Qca-qt5 Qca)|' ${srcdir}/${pkgname}/CMakeLists.txt
+  #sed -i -e 's|find_package(Qca 2.1.0)|find_package(Qca 2.1.0 NAMES Qca-qt5 Qca)|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
 build() {
