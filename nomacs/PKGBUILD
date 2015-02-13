@@ -1,0 +1,36 @@
+
+pkgname=nomacs
+pkgver=2.2.0
+pkgrel=2
+pkgdesc="A Qt image viewer"
+arch=('x86_64')
+url="http://www.nomacs.org/"
+license=('GPL3')
+depends=('qt5-base' 'exiv2' 'libraw' 'opencv')
+makedepends=('cmake' 'qt5-tools')
+#install="$pkgname.install"
+source=("http://downloads.sourceforge.net/project/$pkgname/$pkgname-$pkgver/$pkgname-$pkgver-source.tar.bz2"
+        'qdrag.diff')
+md5sums=('abb5c68d62e2b969ec4a571467464c55'
+         'bdd31541310ed5b6bee1c8f101ef3505')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -p1 -i $srcdir/qdrag.diff
+
+  mkdir build
+}
+
+build() {
+  cd $pkgname-$pkgver/build
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
+           -DENABLE_QT5=ON \
+           -DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake \
+           -DENABLE_QUAZIP=OFF 
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver/build
+  make DESTDIR="$pkgdir/" install
+}
