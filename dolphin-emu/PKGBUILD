@@ -1,31 +1,35 @@
 
 pkgname=dolphin-emu
-pkgver=4.0.2
-pkgrel=6
-pkgdesc='Gamecube / Wii / Triforce emulator'
+pkgver=4.0.2.1
+pkgrel=1
+_commit=73be877
+pkgdesc='GameCube, Wii and Triforce emulator'
 arch=('x86_64')
 url='http://dolphin-emu.org'
 license=('GPL2')
 depends=('bluez' 'ffmpeg' 'glew' 'libao' 'miniupnpc' 'openal' 'portaudio-svn'
-         'sdl2' 'soundtouch' 'wxgtk2.9' 'pulseaudio')
-makedepends=('cmake' 'git' 'opencl-headers')
-source=("${pkgname%-*}::git+https://code.google.com/p/dolphin-emu/#tag=${pkgver}")
-md5sums=('SKIP')
+         'sdl2' 'soundtouch' 'qt5-base' 'pulseaudio')
+makedepends=('cmake' 'opencl-headers')
+source=("https://github.com/dolphin-emu/dolphin/tarball/master/$pkgname-${pkgver}.tar.gz")
+md5sums=('a8def989f873ebd51b0fa5a74f6686e9')
          
 build() {
-  cd "${srcdir}/${pkgname%-*}"
+  cd ${srcdir}/${pkgname}-dolphin-${_commit}
 
   mkdir build 
   cd build
   cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
-           -DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-config-2.9
+           -DENABLE_LTO=ON \
+           -DDISABLE_WX=ON \
+           -DENABLE_QT=ON
   make
 }
 
 package() {
-  cd "${srcdir}/${pkgname%-*}/build"
+  cd ${srcdir}/${pkgname}-dolphin-${_commit}/build
 
   make DESTDIR=${pkgdir} install
+  install -m 755 Binaries/dolphin-emu-qt ${pkgdir}/usr/bin/
 }
 
 
