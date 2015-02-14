@@ -1,7 +1,7 @@
 
 pkgname=dolphin-emu
 pkgver=4.0.2.1
-pkgrel=1
+pkgrel=2
 _commit=73be877
 pkgdesc='GameCube, Wii and Triforce emulator'
 arch=('x86_64')
@@ -29,7 +29,9 @@ package() {
   cd ${srcdir}/${pkgname}-dolphin-${_commit}/build
 
   make DESTDIR=${pkgdir} install
+  
   install -m 755 Binaries/dolphin-emu-qt ${pkgdir}/usr/bin/
+  sed -i -e 's|Exec=dolphin-emu|Exec=dolphin-emu-qt|' ${pkgdir}/usr/share/applications/dolphin-emu.desktop
 }
 
 
