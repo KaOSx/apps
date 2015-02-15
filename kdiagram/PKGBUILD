@@ -1,0 +1,38 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdiagram
+#pkgver=${_kdever}
+pkgver=0.1
+pkgrel=1
+pkgdesc='Powerful libraries (KChart, KGantt) for creating business diagrams'
+arch=('x86_64')
+url='http://quickgit.kde.org/?p=kdiagram.git'
+license=('LGPL')
+depends=('qt5-svg')
+makedepends=('extra-cmake-modules' 'qt5-tools')
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kdiagram.git")
+md5sums=('SKIP')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
