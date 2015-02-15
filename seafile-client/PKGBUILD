@@ -7,11 +7,11 @@ pkgdesc="Seafile desktop client."
 arch=('x86_64')
 url="https://github.com/haiwen/seafile-client/"
 license=('Apache' 'GPLv3')
-depends=('qt5-webkit' 'seafile')
-makedepends=('libtool' 'intltool' 'vala' 'cmake' 'qt5-tools')
+depends=('qtwebkit' 'seafile')
+makedepends=('libtool' 'intltool' 'vala' 'cmake') # 'qt5-tools')
 source=("https://github.com/haiwen/seafile-client/archive/v${pkgver}.tar.gz")
 #source=("https://github.com/haiwen/seafile-client/tarball/qt5/sea-client-${pkgver}.tar.gz")
-md5sums=('bcebb365530961db5a54783bf8d6a754')
+md5sums=('21cec4289b8217bd9b94036d373960ed')
 
 build() {
   #cd ${srcdir}/haiwen-${pkgname}-${_commit}
@@ -19,8 +19,8 @@ build() {
   
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_SHIBBOLETH_SUPPORT=ON \
-    -DUSE_QT5=ON .
+    -DBUILD_SHIBBOLETH_SUPPORT=ON 
+    #-DUSE_QT5=ON .
   make
 }
 
