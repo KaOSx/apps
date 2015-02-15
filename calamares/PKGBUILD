@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -53,9 +53,9 @@ package() {
   cd build 
   make DESTDIR="${pkgdir}" install
   
-  rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
-  install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
-  install -D -m644 "${srcdir}/kdm_sddm.conf" "${pkgdir}/etc/calamares/modules/kdm_sddm.conf"
+  #rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
+  #install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
+  #install -D -m644 "${srcdir}/kdm_sddm.conf" "${pkgdir}/etc/calamares/modules/kdm_sddm.conf"
   
   install -Dm755 "${srcdir}/launch-calamares.sh" "${pkgdir}/usr/bin/launch-calamares.sh"
   rm -rf "$pkgdir/usr/share/applications/$pkgname.desktop"
