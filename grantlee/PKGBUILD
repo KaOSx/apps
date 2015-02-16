@@ -1,15 +1,19 @@
 
 pkgname=grantlee
-pkgver=0.5.1
+pkgver=5.0.0
 pkgrel=1
 pkgdesc="A string template engine based on the Django template system and written in Qt"
 arch=('x86_64')
 url="http://www.gitorious.org/grantlee/pages/Home"
 license=('LGPL3')
-depends=('qt')
+depends=('qt5-base' 'qt5-script')
 makedepends=('cmake' 'doxygen')
+conflicts=('grantlee-qt5')
+provides=('grantlee-qt5')
+replaces=('grantlee-qt5')
+#source=("git://gitorious.org/grantlee/grantlee.git")
 source=("http://downloads.grantlee.org/${pkgname}-${pkgver}.tar.gz")
-md5sums=('775f22dac0953029b414ed3b7379098c')
+md5sums=('feb7f82d08e046fe078ea475dee710f6')
 
 build() {
   mkdir build
@@ -17,7 +21,8 @@ build() {
   cd build
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTS=OFF 
   make
 }
 
