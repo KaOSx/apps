@@ -1,6 +1,7 @@
 
 pkgname=partitionmanager
-pkgver=1.1.80
+pkgver=1.2.0
+_pkgver=1.2.0-1
 pkgrel=1
 epoch=1
 pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
@@ -9,7 +10,7 @@ url="https://sourceforge.net/projects/partitionman"
 license=('GPL2')
 depends=('kconfig' 'ki18n' 'kcrash' 'kinit' 'kio' 'kiconthemes' 'kjobwidgets' 'kwindowsystem' 'kxmlgui' 'kwidgetsaddons'
          'parted' 'libatasmart' 'udisks2')
-makedepends=('extra-cmake-modules' 'git' 'pkgconfig' 'kdoctools')
+makedepends=('extra-cmake-modules' 'pkgconfig' 'kdoctools')
 optdepends=('e2fsprogs: ext2/3/4 support'
 	    'xfsprogs: XFS support'
 	    'jfsutils: JFS support'
@@ -20,6 +21,7 @@ conflicts=('kf5-partitionmanager')
 replaces=('kf5-partitionmanager')
 groups=('system')
 install=partitionmanager.install	
+#source=("http://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${_pkgver}.tar.xz")
 source=("git://anongit.kde.org/partitionmanager")
 md5sums=('SKIP')
 
