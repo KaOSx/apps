@@ -3,18 +3,18 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
-pkgver=${_kdever}
-pkgrel=1
+pkgver=${_kf5ver}
+pkgrel=2
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://projects.kde.org/projects/playground/libs/plasma-framework'
 license=('LGPL')
-depends=('kidletime' 'kitemmodels' 'threadweaver' 'kwallet' 'kdeclarative' 'kunitconversion'
-         'kross' 'kdnssd' 'kdelibs4support' 'kinit' 'kactivities' 'kpackage'
+depends=('kactivities' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'kdeclarative' 'kglobalaccel'
+         'kguiaddons' 'ki18n' 'kiconthemes' 'kio' 'kservice' 'kwindowsystem' 'kxmlgui' 'knotifications' 'kpackage'
          'qt5-quick1' 'qt5-quickcontrols')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
