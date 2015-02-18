@@ -33,7 +33,7 @@ build() {
 package() {
   cd build
   make DESTDIR=${pkgdir} install
-  
+  # install the example and simple player
   install -d ${pkgdir}/usr/bin
   install -m755 src/openshot-* ${pkgdir}/usr/bin
 }
