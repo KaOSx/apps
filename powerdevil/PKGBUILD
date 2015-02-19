@@ -42,5 +42,8 @@ build() {
 package() {
   cd build
 
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
+  # conflict with khotkeys
+  rm -r ${pkgdir}/usr/share/doc/HTML/en_US/kcm/index.cache.bz2
+  rm -r ${pkgdir}/usr/share/doc/HTML/en_US/kcm/index.docbook
 }

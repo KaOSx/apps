@@ -22,7 +22,7 @@ md5sums=('SKIP'
          '8c263c9faeec86a33c02e743d9b083f7'
          'd5c65f43e057054e9728810530c4a030'
          '184d5b6886fc7a6156d4b790657f77f4'
-         '2e74431e345e6286fb75156e341a9e7f'
+         '4de3b3695b8169a536c2c574fba450fe'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '2437e44479a54376ad9244d120369f6c'
          'd5c65f43e057054e9728810530c4a030')
@@ -36,7 +36,7 @@ prepare () {
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
   # toggle on/off for kf5/kde 4 builds
-  sed -i 's|# bootloaderEntryName: KaOS-kf5|bootloaderEntryName: KaOS|' ${srcdir}/${pkgname}/src/modules/bootloader/bootloader.conf
+  #sed -i 's|# bootloaderEntryName: KaOS-kf5|bootloaderEntryName: KaOS|' ${srcdir}/${pkgname}/src/modules/bootloader/bootloader.conf
 }
 
 build() {
