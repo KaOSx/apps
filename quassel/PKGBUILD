@@ -1,6 +1,6 @@
 
 pkgname=quassel
-pkgver=0.11.81
+pkgver=0.11.82
 pkgrel=1
 pkgdesc="Qt irc client with a separated core"
 url="http://quassel-irc.org"
@@ -36,7 +36,7 @@ build() {
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr/ \
     -DUSE_QT5=ON \
-    -DWITH_WEBKIT=ON \
+    -DWITH_WEBKIT=OFF \
     -DWITH_KDE=ON \
     -DCMAKE_BUILD_TYPE="Release" \
     ../${pkgname} \
