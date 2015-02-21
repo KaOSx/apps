@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kamoso
 #pkgver=${_kdever}
 pkgver=2.82
-pkgrel=1
+pkgrel=2
 pkgdesc="Kamoso is an application to take pictures and videos out of your webcam."
 url="https://projects.kde.org/projects/extragear/multimedia/kamoso"
 arch=('x86_64')
@@ -43,4 +43,8 @@ package() {
   cd build
 
   make DESTDIR=${pkgdir} install
+  
+  sed -i 's|KAlgebra|Kamoso|' ${pkgdir}/usr/share/applications/org.kde.kamoso.desktop
+  sed -i 's|Exec=kamoso|Exec=kamoso -qwindowtitle %c|' ${pkgdir}/usr/share/applications/org.kde.kamoso.desktop
+  sed -i 's|Categories=Qt;KDE;Multimedia|Categories=Qt;KDE;AudioVideo;|' ${pkgdir}/usr/share/applications/org.kde.kamoso.desktop
 }
