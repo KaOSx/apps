@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=powerdevil
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE power management tools'
 arch=('x86_64')
 url='https://projects.kde.org/projects/extragear/base/powerdevil'
@@ -43,7 +43,4 @@ package() {
   cd build
 
   make DESTDIR=${pkgdir} install
-  # conflict with khotkeys
-  rm -r ${pkgdir}/usr/share/doc/HTML/en_US/kcm/index.cache.bz2
-  rm -r ${pkgdir}/usr/share/doc/HTML/en_US/kcm/index.docbook
 }
