@@ -1,6 +1,6 @@
 
 pkgname=trojita
-pkgver=0.4.1.2
+pkgver=0.5
 pkgrel=1
 pkgdesc="Trojita is a Qt IMAP e-mail client."
 arch=('x86_64')
@@ -11,14 +11,14 @@ depends=('qt5-webkit' 'qt5-tools')
 #makedepends=('cmake' 'automoc4')
 makedepends=('extra-cmake-modules' 'git')
 groups=('network')
-#source=("http://downloads.sourceforge.net/trojita/$pkgname-$pkgver.tar.bz2")
-#md5sums=('130c9e51bb71564511ab123f88236850')
-source=('git://anongit.kde.org/trojita.git')
-md5sums=('SKIP')
+source=("http://downloads.sourceforge.net/trojita/$pkgname-$pkgver.tar.bz2")
+md5sums=('c583bb4d82620cda1c49e5f1b084f550')
+#source=('git://anongit.kde.org/trojita.git')
+#md5sums=('SKIP')
 
 
 build() {
-  cd $srcdir/$pkgname
+  cd $srcdir/$pkgname-$pkgver
   mkdir build
   
   cd build
@@ -29,8 +29,8 @@ build() {
 }
 
 package() {
-  cd $srcdir/$pkgname/build
+  cd $srcdir/$pkgname-$pkgver/build
   
-  make DESTDIR="$pkgdir" install
+  make DESTDIR=$pkgdir install
 }
 
