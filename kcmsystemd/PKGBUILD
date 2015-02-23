@@ -1,27 +1,29 @@
 
 pkgname=kcmsystemd
-pkgver=0.7.0
-_commit=6250107
-pkgrel=3
+pkgver=1.0.0
+_commit=9d686f3
+pkgrel=1
 pkgdesc="Systemd control module for KDE"
 arch=('x86_64')
 url='https://github.com/rthomsen/kcmsystemd'
 license=('GPL')
-depends=('kde-workspace' 'boost-libs')
-makedepends=('cmake' 'automoc4' 'boost')
+depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'kauth' 'boost-libs')
+makedepends=('extra-cmake-modules' 'boost')
 source=("https://github.com/rthomsen/kcmsystemd/tarball/master/rthomsen-kcmsystemd-$pkgver.tar.gz"
         'kate.diff')
-md5sums=('d7b1efeceb8f32b33b55b9b057a3d28a'
+md5sums=('f46118eb4c0739743164fd930cb8077a'
          '31b985e580c5864987d3aa7ba340fc49')
 
 build() {
   cd $srcdir/rthomsen-kcmsystemd-$_commit
-  patch -p1 -i ${srcdir}/kate.diff
+  #patch -p1 -i ${srcdir}/kate.diff
   
   mkdir build
 
   cd build
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
+           -DCMAKE_INSTALL_LIBDIR=lib \
+           -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
   make
 }
 
