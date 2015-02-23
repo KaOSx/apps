@@ -1,6 +1,6 @@
 
 pkgname=digikam
-pkgver=4.9.78
+pkgver=4.9.79
 pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
@@ -8,7 +8,7 @@ license=('GPL')
 pkgdesc="Digital photo management application for kde"
 depends=('kdelibs4support' 'knotifyconfig' 'libksane' 'ki18n' 'lensfun' 
          'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
-         'kipi-plugins' 'lapack' 'libgpod' 'eigen3' 'libpgf' 'baloo' 'mariadb') # 'kdepimlibs' 
+         'kipi-plugins' 'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb') # 'baloo' 'kdepimlibs' 
 makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick')
 install=digikam.install
 groups=('graphics')
@@ -35,7 +35,7 @@ build() {
      -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
      -DBUILD_TESTING=OFF \
-     -DENABLE_BALOOSUPPORT=ON \
+     -DENABLE_BALOOSUPPORT=OFF \
      -DENABLE_KDEPIMLIBSSUPPORT=OFF \
      -DENABLE_MYSQLSUPPORT=ON 
    make 
