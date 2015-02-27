@@ -1,0 +1,39 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=dolphin
+pkgver=14.12.90
+pkgrel=1
+pkgdesc="KDE File Manager"
+arch=('x86_64')
+url='https://projects.kde.org/projects/kde/applications/dolphin'
+license=('LGPL')
+depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kdbusaddons' 'kbookmarks' 'kconfig' 'kio' 'kparts' 'solid'
+         'kiconthemes' 'kcompletion' 'ktexteditor' 'kwindowsystem' 'knotifications' 'baloo-widgets' 'kactivities' 
+         'kfilemetadata')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+install=dolphin.install
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
+source=("git://anongit.kde.org/dolphin.git")
+md5sums=('SKIP')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DLIB_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR="${pkgdir}" install
+}
