@@ -1,14 +1,14 @@
 
 pkgname=kmymoney
-pkgver=4.100.3
+pkgver=4.100.4
 pkgrel=1
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
 url="http://www.kmymoney.org/"
 license=('GPL')
 depends=('kcoreaddons' 'kconfig' 'khtml' 'kdelibs4support' 'kcompletion' 'kcmutils' 'kitemviews' 'kservice' 'kwallet' 
-         'kf5-kactivities' 'kholidays' 'gpgmepp' 'kcontacts' 'kdepimlibs' 'akonadi' 'kidentitymanagement'
-         'shared-mime-info' 'boost-libs' 'pulseaudio' 'libofx' 'libical' 'alkimia' 'kdiagram') # 'aqbanking')
+         'kholidays' 'gpgmepp' 'kcontacts' 'kdepimlibs' 'akonadi' 'kidentitymanagement'
+         'shared-mime-info' 'boost-libs' 'pulseaudio' 'libofx' 'libical' 'alkimia' 'kdiagram') # 'kactivities' 'aqbanking')
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost')  
 conflicts=('kf5-kmymoney')
 replaces=('kf5-kmymoney')
@@ -19,7 +19,7 @@ md5sums=('SKIP')
 build() {
   cd ${srcdir}
   #sed -e "s/#include <kstdguiitem.h>/#include <kstandardguiitem.h>/" -i ${srcdir}/$_pkgname/kmymoney/dialogs/*.cpp
-  sed -e "s|find_package(KActivities)|find_package(KF5Activities)|" -i ${srcdir}/$pkgname/CMakeLists.txt
+  #sed -e "s|find_package(KActivities)|find_package(KF5Activities)|" -i ${srcdir}/$pkgname/CMakeLists.txt
   
   mkdir -p build
   cd build
