@@ -9,14 +9,14 @@ license=('GPL3')
 depends=('qt5-base' 'exiv2' 'libraw' 'opencv')
 makedepends=('cmake' 'qt5-tools')
 #install="$pkgname.install"
-source=("http://downloads.sourceforge.net/project/$pkgname/$pkgname-$pkgver/$pkgname-$pkgver-source.tar.bz2"
+source=("http://downloads.sourceforge.net/project/nomacs/$pkgname-$pkgver/$pkgname-$pkgver-source.tar.bz2"
         'qdrag.diff')
-md5sums=('abb5c68d62e2b969ec4a571467464c55'
+md5sums=('9b3498b6ef535efc9e7da85361199ef6'
          'bdd31541310ed5b6bee1c8f101ef3505')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -p1 -i $srcdir/qdrag.diff
+  #patch -p1 -i $srcdir/qdrag.diff
 
   mkdir build
 }

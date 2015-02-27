@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ksnapshot
 #pkgver=${_kdever}
-pkgver=14.11.71
+pkgver=14.12.80
 pkgrel=1
 pkgdesc="Screen Capture Program"
 url="http://kde.org/applications/graphics/ksnapshot/"
@@ -17,7 +17,7 @@ install=${pkgname}.install
 conflicts=('kdegraphics-ksnapshot')
 provides=('kdegraphics-ksnapshot')
 replaces=('kdegraphics-ksnapshot')
-#groups=("kde" "kdegraphics" "kde-uninstall")
+groups=('kde' 'kdegraphics' 'kde-uninstall')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/ksnapshot#branch=frameworks"
@@ -40,6 +40,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }
