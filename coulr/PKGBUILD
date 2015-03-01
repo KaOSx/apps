@@ -1,0 +1,29 @@
+
+pkgname=coulr
+pkgver=0.4.2
+_commit=7df959a
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Color box to help developers and designers"
+url="https://github.com/Huluti/Coulr"
+license=('MIT')
+depends=('qt5-base')
+makedepends=('cmake')
+source=("https://github.com/Huluti/Coulr/tarball/master/coulr-${pkgver}.tar.gz")
+md5sums=('2814eba47264fa9fe4a560682e03cf97')
+
+build() {
+  mkdir -p build
+  cd build
+
+  cmake ../Huluti-Coulr-${_commit}/ \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
