@@ -1,6 +1,6 @@
 
 pkgname=nomacs
-pkgver=2.4.0
+pkgver=2.4.2
 pkgrel=1
 pkgdesc="A Qt image viewer"
 arch=('x86_64')
@@ -11,12 +11,13 @@ makedepends=('cmake' 'qt5-tools')
 #install="$pkgname.install"
 source=("http://downloads.sourceforge.net/project/nomacs/$pkgname-$pkgver/$pkgname-$pkgver-source.tar.bz2"
         'qdrag.diff')
-md5sums=('9b3498b6ef535efc9e7da85361199ef6'
+md5sums=('b9deb73ac8c6e12064024bc4fb2aed03'
          'bdd31541310ed5b6bee1c8f101ef3505')
 
 prepare() {
   cd $pkgname-$pkgver
   #patch -p1 -i $srcdir/qdrag.diff
+  sed -i 's|fromAscii|fromLatin1|g' $srcdir/$pkgname-$pkgver/src/DkMetaData.cpp
 
   mkdir build
 }
