@@ -2,17 +2,18 @@
 pkgname=freerdp
 _pkgname=FreeRDP
 pkgver=1.2.0beta
-_pkgver=1.2.0-beta1-android7
-pkgrel=2
+_pkgver=1.2.0-beta1-android9
+pkgrel=3
 pkgdesc="Free RDP client"
 arch=('x86_64')
 url="http://freerdp.sourceforge.net"
 license=('GPL')
 depends=('openssl' 'libxcursor' 'libcups' 'alsa-lib' 'libxext' 'libxdamage'
-	 'ffmpeg' 'libxkbfile' 'libxinerama' 'libxv' 'pulseaudio' 'gst-plugins-base')
+	 'ffmpeg' 'libxkbfile' 'libxinerama' 'libxv' 'pulseaudio' 'libxrender' 
+	 'libxfixes' 'gst-plugins-base')
 makedepends=('krb5' 'cmake' 'damageproto' 'xmlto' 'docbook-xsl')
-source=("https://github.com/FreeRDP/FreeRDP/archive/1.2.0-beta1+android7.tar.gz")
-md5sums=('545037c48430d8c1592a968b05d3c389')
+source=("https://github.com/FreeRDP/FreeRDP/archive/1.2.0-beta1+android9.tar.gz")
+md5sums=('a4a0a4f6e69c871aeab0600091ca6118')
 
 build() {
   mkdir build
@@ -22,8 +23,9 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DWITH_GSTREAMER_0_10=OFF \
-    -DWITH_GSTREAMER_1_0=ON
+    -DWITH_GSTREAMER_1_0=ON \
+    -DWITH_PULSE=ON \
+    -DWITH_CUPS=ON
   make
 }
 
