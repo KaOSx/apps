@@ -2,28 +2,24 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname="kdeutils-sweeper"
-_pkgname="sweeper"
+pkgname="sweeper"
 arch=('x86_64')
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Clean unwanted traces the user leaves on the system"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs')
-depends=('kde-runtime' 'kde-baseapps')
-conflicts=("kdeutils-common")
-groups=("kde" "kdeutils" "kde-uninstall")
-groups=('utils')
-install=kdeutils.install
-provides=("sweeper")
+depends=('kdelibs')
 makedepends=('pkg-config' 'cmake' 'automoc4')
-
-source=($_mirror/${_pkgname}-$_kdever.tar.xz)
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+conflicts=('kdeutils-sweeper')
+replaces=('kdeutils-sweeper')
+groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
+install=kdeutils.install
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-	cd ${srcdir}/${_pkgname}-${pkgver}
+	cd ${srcdir}/${pkgname}-${pkgver}
 
 	msg "starting build ..."
 	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
@@ -34,7 +30,7 @@ build() {
 }
 
 package() {
-	cd ${srcdir}/${_pkgname}-${pkgver}
+	cd ${srcdir}/${pkgname}-${pkgver}
 	
 	make DESTDIR=${pkgdir} install
 }
