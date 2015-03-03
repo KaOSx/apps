@@ -1,21 +1,26 @@
 
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=marble
-pkgver=1.9.20
-pkgrel=3
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
 license=('LGPL')
 depends=('gpsd' 'phonon-qt5' 'qt5-script' 'qt5-svg' 'qt5-tools' 'qt5-webkit' 'shapelib' 'phonon-qt5')
          # 'kwallet' 'knewstuff' 'kparts' 'kcoreaddons' 'ki18n' 
-makedepends=('extra-cmake-modules' 'git')
+makedepends=('extra-cmake-modules')
 conflicts=('kdeedu-marble')
 replaces=('kdeedu-marble')
-source=("git://anongit.kde.org/marble.git")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/marble.git")
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   mkdir build
   
   cd build
@@ -32,7 +37,7 @@ build() {
 }
 
 package() {
-  cd $pkgname/build
+  cd $pkgname-${pkgver}/build
   
   make DESTDIR="$pkgdir" install
 }
