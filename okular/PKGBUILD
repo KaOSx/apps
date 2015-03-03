@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=14.12.82
+pkgver=14.12.83
 pkgrel=1
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
@@ -28,7 +28,7 @@ md5sums=('SKIP')
 prepare() {
   cd $pkgname
   #patch -p1 -i $srcdir/CMakeLists.diff
-  sed -i -e 's|find_package(QCA2 "2.0.0")|find_package(Qca "2.0.0")|' ${srcdir}/${pkgname}/generators/ooo/CMakeLists.txt
+  #sed -i -e 's|find_package(QCA2 "2.0.0")|find_package(Qca "2.0.0")|' ${srcdir}/${pkgname}/generators/ooo/CMakeLists.txt
 }
 
 build() {
