@@ -1,8 +1,8 @@
 
 pkgbase=virtualbox
 pkgname=('virtualbox' 'virtualbox-ext-oracle')
-pkgver=4.3.22
-_build=98236
+pkgver=4.3.24
+_build=98716
 pkgrel=1
 arch=('x86_64')
 url='http://virtualbox.org/'
@@ -19,8 +19,8 @@ source=("VirtualBox-${pkgver}-${_build}-Linux_amd64.run::http://download.virtual
         'virtualbox.conf'
         'vboxsetup.sh'
         'PUEL')
-md5sums=('b5b633ce5ee35b07ed4359a53821e2c2'
-         '0d82d41c54b308b5f5cdaa0b35377704'
+md5sums=('a87eb3d289b1e0d6b530cbcb54dc7fca'
+         '1c22ce836a553595982244b8518bba99'
          '6e2722bfd7013c1b0174382626ac1b8d'
          '564ceec89e559bd98987f08e86f74825'
          '3ac185709bfe688bb753c46e170d0546'
@@ -39,7 +39,6 @@ package_virtualbox() {
   depends=('libidl2' 'libxcursor' 'libxinerama' 'libxslt' 'curl' 'linux-headers'
            'python2' 'make' 'gcc' 'qt')
   optdepends=('virtualbox-ext-oracle: for Oracle extensions'
-              'dkms: for handling kernel modules with dkms'
               'qt: for GUI support'
               'sdl: for VBoxSDL and GUI support'
               'mesa: for OpenGL support'
@@ -151,7 +150,7 @@ package_virtualbox() {
   chmod 0644 "${pkgdir}/etc/vbox/vbox.cfg"
 
   # Create the directory below if it doesn't exist
-  install -d -m 0755 "${pkgdir}/var/run/VirtualBox"
+  #install -d -m 0755 "${pkgdir}/var/run/VirtualBox"
 
   # Use system's Qt
   rm ${pkgdir}/opt/VirtualBox/libQtCoreVBox.so.4 
