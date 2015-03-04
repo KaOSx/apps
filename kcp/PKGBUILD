@@ -1,8 +1,8 @@
 
 pkgname=kcp
-pkgver=0.56
+pkgver=0.57
 pkgrel=1
-_commit=d899d3f
+_commit=c41dbef
 pkgdesc="A command-line tool for KaOS Community Packages"
 arch=('x86_64')
 url="https://github.com/bvaudour/kcp"
@@ -12,7 +12,7 @@ depends=('git')
 makedepends=('go')
 source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
 #source=("https://github.com/bvaudour/kcp/releases/download/${pkgver}/kcp-${pkgver}.tar.gz")
-md5sums=('b6c149ac9de4f3bd6b3cf82a71a0c41a')
+md5sums=('29992645dadf62a1cf306cc1eaf98f4b')
  
 build() {
   cd ${srcdir}/bvaudour-${pkgname}-${_commit}
@@ -36,7 +36,7 @@ package() {
   fi
   done
   
-  for files in i18n/pckcp*; do
+  for files in i18n/pckcp/*; do
   if [ -f "$files" ] && [ "$files" != 'i18n/pckcp/pckcp.pot' ]; then
         STRING_PO=`echo ${files#*/}`
         STRING=`echo ${STRING_PO%.po}`

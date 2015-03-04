@@ -1,19 +1,19 @@
 
 pkgname=spideroak
 _PkgName=SpiderOak
-pkgver=5.1.8
+pkgver=5.1.10
 pkgrel=1
 pkgdesc="Secure and consolidated free online backup, storage, access, sharing & sync tool for Windows, Mac OS X, and Linux."
 url="https://spideroak.com/"
 arch=('x86_64')
-depends=('qt' 'krb5' 'python2')
+depends=('krb5' 'python2')
 license=('custom')
 groups=('network')
 options=('!strip')
 install=spideroak.install
 source=("${_PkgName}-${pkgver}-x86_64-1.tgz"::"https://spideroak.com/getbuild?platform=slackware&arch=x86_64&beta=no"
         "terms.txt")
-md5sums=('4cbc4ebe513a2f6127c5f3a7963df54c'
+md5sums=('720723bd2c5bfa146b2351c18509ec44'
          '9338d3464e8ce876d7222099c22a205b')
 
 package() {
@@ -44,12 +44,6 @@ package() {
 	-e "/^Exec=/s:=.*$:=$_PkgName:" \
 	$pkgdir/usr/share/applications/$_PkgName.desktop
 	
-    # install man page
-    install -Dm644 $srcdir/usr/share/man/man1/$_PkgName.1.gz $pkgdir/usr/share/man/man1/$_PkgName.1.gz
-
-    # install custom license file
     install -Dm644 terms.txt $pkgdir/usr/share/licenses/$pkgname/terms.txt
-    
-    # install man page
     install -Dm644 $srcdir/usr/share/man/man1/$_PkgName.1.gz $pkgdir/usr/share/man/man1/$_PkgName.1.gz
 }
