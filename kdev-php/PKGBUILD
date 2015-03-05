@@ -1,0 +1,57 @@
+
+pkgname=kdev-php
+pkgver=1.9.80
+_pkgver=4.7.1
+pkgrel=1
+pkgdesc="PHP plugin for Kdevelop"
+arch=('x86_64')
+url="http://www.kdevelop.org/"
+license=('GPL')
+depends=('kdevelop' 'kdevelop-pg-qt' 'kdelibs4support' 'threadweaver' 'ktexteditor' 'ki18n')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+groups=('programming')
+options=('!makeflags')
+replaces=('kdevelop-php' 'kdevelop-php-docs')
+conflicts=('kdevelop-php' 'kdevelop-php-docs')
+#source=("http://download.kde.org/stable/kdevelop/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+#        "http://download.kde.org/stable/kdevelop/${_pkgver}/src/${pkgname}-docs-${pkgver}.tar.xz")
+source=("git://anongit.kde.org/kdev-php.git"
+        "git://anongit.kde.org/kdev-php-docs.git")
+md5sums=('SKIP'
+         'SKIP')
+
+build() {
+  cd ${srcdir}
+  mkdir build
+  cd build
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+
+  cd ${srcdir}
+  mkdir build-docs
+  cd build-docs
+  cmake ../${pkgname}-docs \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+  make DESTDIR=${pkgdir} install
+  
+  cd ${srcdir}/build-docs
+  make DESTDIR=${pkgdir} install
+}

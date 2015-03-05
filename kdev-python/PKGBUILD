@@ -1,32 +1,40 @@
 
 pkgname=kdev-python
-pkgver=1.7.1
+pkgver=1.9.80
 _pkgver=4.7.1
 pkgrel=1
 pkgdesc='KDevelop plugin which provides Python language support.'
 arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/kdevelop/plugins/kdev-python"
 license=('GPL')
+depends=('kdevelop' 'python3' 'ki18n' 'knewstuff' 'kitemmodels' 'threadweaver' 'kdelibs4support'
+         'ktexteditor' 'kcmutils')
+makedepends=('extra-cmake-modules' 'kdoctools' 'kdevelop-pg-qt' 'git')
 groups=('kde' 'kdevelop-plugins')
-depends=('kdevelop' 'python3')
-makedepends=('kdevelop-pg-qt' 'cmake' 'automoc4')
-source=("http://download.kde.org/stable/kdevelop/$_pkgver/src/$pkgname-$pkgver.tar.xz")
-md5sums=('4f1be4efbfb6c062bed4fbc825d0d079')
+#source=("http://download.kde.org/stable/kdevelop/$_pkgver/src/$pkgname-$pkgver.tar.xz")
+#md5sums=('4f1be4efbfb6c062bed4fbc825d0d079')
+source=("git://anongit.kde.org/kdev-python.git")
+md5sums=('SKIP')
 
 build() {
-	cd "$srcdir/$pkgname-$pkgver"
-	
-	mkdir -p "$srcdir/build"
-	cd "$srcdir/build"
-	
-	cmake "../$pkgname-$pkgver" \
-		-DCMAKE_INSTALL_PREFIX=/usr \
-                -DCMAKE_BUILD_TYPE=Release
-	make
+  cd ${srcdir}
+  #sed -i 's|add_subdirectory(patchreview)|#add_subdirectory(patchreview)|' ${srcdir}/$_pkgname/plugins/CMakeLists.txt
+  mkdir build
+  
+  cd build 
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
 }
 
 package() {
-	cd "$srcdir/build"
-	
-	make DESTDIR="$pkgdir" install
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
 }

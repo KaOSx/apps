@@ -1,29 +1,36 @@
 
 pkgname=kdev-go
-pkgver=0.1.0
+pkgver=0.9.0
 pkgrel=1
 pkgdesc='Go language support for KDevelop'
 arch=('x86_64')
 url="https://projects.kde.org/projects/playground/devtools/plugins/kdev-go"
 license=('GPL')
+depends=('kdevelop' 'kitemmodels' 'threadweaver' 'ktexteditor' 'ki18n')
+makedepends=('extra-cmake-modules' 'kdevelop-pg-qt' 'git' 'kdelibs')
 groups=('kde' 'kdevelop-plugins')
-depends=('kdevelop')
-makedepends=('cmake' 'automoc4' 'kdevelop-pg-qt')
 source=("git://anongit.kde.org/kdev-go.git")
 md5sums=('SKIP')
 
-build() {	
-    mkdir -p "$srcdir/build"
-    cd "$srcdir/build"
-
-    cmake "../$pkgname" \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release
-    make
+build() {
+  cd ${srcdir}
+  #sed -i 's|add_subdirectory(patchreview)|#add_subdirectory(patchreview)|' ${srcdir}/$_pkgname/plugins/CMakeLists.txt
+  mkdir build
+  
+  cd build 
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
 }
 
 package() {
-    cd "$srcdir/build"
-
-    make DESTDIR="$pkgdir" install
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
 }
