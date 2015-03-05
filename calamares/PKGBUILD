@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=1.0.3.4
+pkgver=1.0.3.5
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -9,15 +9,15 @@ license=('LGPL')
 depends=('qt5-svg' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
          'parted' 'libatasmart' 'udisks2' 'polkit-qt5')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
-#source=("git://github.com/KaOSx/calamares"
-source=("git://github.com/demmm/calamares"
+source=("git://github.com/KaOSx/calamares"
+#source=("git://github.com/demmm/calamares"
         'calamares.desktop'
         'installer.svg'
         'kdm_sddm.conf'
         'settings.conf'
         'unpackfs.conf'
         'launch-calamares.sh'
-        'installer.svg')
+        'luks_removal.patch')
 md5sums=('SKIP'
          '8c263c9faeec86a33c02e743d9b083f7'
          'd5c65f43e057054e9728810530c4a030'
@@ -25,7 +25,7 @@ md5sums=('SKIP'
          '4de3b3695b8169a536c2c574fba450fe'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '2437e44479a54376ad9244d120369f6c'
-         'd5c65f43e057054e9728810530c4a030')
+         'd9d24dda3bdaab2034148673816d478f')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -37,6 +37,7 @@ prepare () {
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
   # toggle on/off for kf5/kde 4 builds
   #sed -i 's|# bootloaderEntryName: KaOS-kf5|bootloaderEntryName: KaOS|' ${srcdir}/${pkgname}/src/modules/bootloader/bootloader.conf
+  #patch -Rp1 -i $srcdir/luks_removal.patch
 }
 
 build() {
@@ -56,12 +57,12 @@ package() {
   cd build 
   make DESTDIR="${pkgdir}" install
   
-  rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
-  install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
-  install -D -m644 "${srcdir}/kdm_sddm.conf" "${pkgdir}/etc/calamares/modules/kdm_sddm.conf"
-  install -D -m644 "${srcdir}/unpackfs.conf" "${pkgdir}/etc/calamares/modules/unpackfs.conf"
+  #rm -rf "${pkgdir}/usr/share/calamares/settings.conf"
+  #install -D -m644 "${srcdir}/settings.conf" "${pkgdir}/usr/share/calamares/settings.conf"
+  #install -D -m644 "${srcdir}/kdm_sddm.conf" "${pkgdir}/etc/calamares/modules/kdm_sddm.conf"
+  #install -D -m644 "${srcdir}/unpackfs.conf" "${pkgdir}/etc/calamares/modules/unpackfs.conf"
   
-  sed 's|linux312|linux|' -i "${pkgdir}/usr/share/calamares/modules/initcpio.conf"
+  #sed 's|linux312|linux|' -i "${pkgdir}/usr/share/calamares/modules/initcpio.conf"
   
   install -Dm755 "${srcdir}/launch-calamares.sh" "${pkgdir}/usr/bin/launch-calamares.sh"
   rm -rf "$pkgdir/usr/share/applications/$pkgname.desktop"

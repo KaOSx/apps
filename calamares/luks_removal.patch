@@ -1,0 +1,83 @@
+From 937838f416b2d99d25be8fc2f169bbf921132fdd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Aur=C3=A9lien=20G=C3=A2teau?= <agateau@kde.org>
+Date: Wed, 25 Jun 2014 16:12:21 +0200
+Subject: [PATCH] Disable luks support (reduce deps)
+
+---
+ src/fs/filesystemfactory.cpp               | 8 ++++++++
+ src/plugins/libparted/libpartedbackend.cpp | 4 ++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/src/fs/filesystemfactory.cpp b/src/fs/filesystemfactory.cpp
+index a4c1284..9dbad4b 100644
+--- a/src/fs/filesystemfactory.cpp
++++ b/src/fs/filesystemfactory.cpp
+@@ -33,7 +33,9 @@
+ #include "fs/hpfs.h"
+ #include "fs/jfs.h"
+ #include "fs/linuxswap.h"
++#ifndef CALAMARES
+ #include "fs/luks.h"
++#endif
+ #include "fs/lvm2_pv.h"
+ #include "fs/nilfs2.h"
+ #include "fs/ntfs.h"
+@@ -70,7 +72,9 @@ void FileSystemFactory::init()
+ 	m_FileSystems.insert(FileSystem::Hpfs, new FS::hpfs(-1, -1, -1, QString()));
+ 	m_FileSystems.insert(FileSystem::Jfs, new FS::jfs(-1, -1, -1, QString()));
+ 	m_FileSystems.insert(FileSystem::LinuxSwap, new FS::linuxswap(-1, -1, -1, QString()));
++#ifndef CALAMARES
+ 	m_FileSystems.insert(FileSystem::Luks, new FS::luks(-1, -1, -1, QString()));
++#endif
+ 	m_FileSystems.insert(FileSystem::Lvm2_PV, new FS::lvm2_pv(-1, -1, -1, QString()));
+ 	m_FileSystems.insert(FileSystem::Nilfs2, new FS::nilfs2(-1, -1, -1, QString()));
+ 	m_FileSystems.insert(FileSystem::Ntfs, new FS::ntfs(-1, -1, -1, QString()));
+@@ -96,7 +100,9 @@ void FileSystemFactory::init()
+ 	FS::hpfs::init();
+ 	FS::jfs::init();
+ 	FS::linuxswap::init();
++#ifndef CALAMARES
+ 	FS::luks::init();
++#endif
+ 	FS::lvm2_pv::init();
+ 	FS::nilfs2::init();
+ 	FS::ntfs::init();
+@@ -139,7 +145,9 @@ FileSystem* FileSystemFactory::create(FileSystem::Type t, qint64 firstsector, qi
+ 		case FileSystem::Hpfs:         fs = new FS::hpfs(firstsector, lastsector, sectorsused, label); break;
+ 		case FileSystem::Jfs:          fs = new FS::jfs(firstsector, lastsector, sectorsused, label); break;
+ 		case FileSystem::LinuxSwap:    fs = new FS::linuxswap(firstsector, lastsector, sectorsused, label); break;
++#ifndef CALAMARES
+ 		case FileSystem::Luks:         fs = new FS::luks(firstsector, lastsector, sectorsused, label); break;
++#endif
+ 		case FileSystem::Lvm2_PV:      fs = new FS::lvm2_pv(firstsector, lastsector, sectorsused, label); break;
+ 		case FileSystem::Nilfs2:       fs = new FS::nilfs2(firstsector, lastsector, sectorsused, label); break;
+ 		case FileSystem::Ntfs:         fs = new FS::ntfs(firstsector, lastsector, sectorsused, label); break;
+diff --git a/src/plugins/libparted/libpartedbackend.cpp b/src/plugins/libparted/libpartedbackend.cpp
+index f3d3b0f..df4a7b5 100644
+--- a/src/plugins/libparted/libpartedbackend.cpp
++++ b/src/plugins/libparted/libpartedbackend.cpp
+@@ -34,7 +34,9 @@
+ #include "fs/fat16.h"
+ #include "fs/hfs.h"
+ #include "fs/hfsplus.h"
++#ifndef CALAMARES
+ #include "fs/luks.h"
++#endif
+ 
+ #include "util/globallog.h"
+ #include "util/helpers.h"
+@@ -370,12 +372,14 @@ void LibPartedBackend::scanDevicePartitions(PedDevice*, Device& d, PedDisk* pedD
+ 		// libparted does not handle LUKS partitions
+ 		QString mountPoint;
+ 		bool mounted;
++        #ifndef CALAMARES
+ 		if (fs->type() == FileSystem::Luks)
+ 		{
+ 			mountPoint = FS::luks::mapperName(node);
+ 			mounted = (mountPoint != QString()) ? true : false;
+ 		}
+ 		else
++        #endif
+ 		{
+ 			mountPoint = mountPoints.findByDevice(node) ? mountPoints.findByDevice(node)->mountPoint() : QString();
+ 			mounted = ped_partition_is_busy(pedPartition);
