@@ -1,8 +1,8 @@
 
 pkgname=kcp
-pkgver=0.58
-pkgrel=2
-_commit=396dab8
+pkgver=0.59
+pkgrel=1
+_commit=3339eda
 pkgdesc="A command-line tool for KaOS Community Packages"
 arch=('x86_64')
 url="https://github.com/bvaudour/kcp"
@@ -12,7 +12,7 @@ depends=('git')
 makedepends=('go')
 source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
 #source=("https://github.com/bvaudour/kcp/releases/download/${pkgver}/kcp-${pkgver}.tar.gz")
-md5sums=('1e76af6fa8154aa34c5f4a6acf106034')
+md5sums=('617f7ad34d74f03536156c49c195dee7')
  
 build() {
   cd ${srcdir}/bvaudour-${pkgname}-${_commit}
@@ -28,7 +28,7 @@ package() {
   
   for files in i18n/kcp/*; do
   if [ -f "$files" ] && [ "$files" != 'i18n/kcp/kcp.pot' ]; then
-        STRING_PO=`echo ${files#*/}`
+        STRING_PO=`echo ${files#*/*/}`
         STRING=`echo ${STRING_PO%.po}`
         mkdir -p ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES
         msgfmt $files -o ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES/kcp.mo
@@ -38,7 +38,7 @@ package() {
   
   for files in i18n/pckcp/*; do
   if [ -f "$files" ] && [ "$files" != 'i18n/pckcp/pckcp.pot' ]; then
-        STRING_PO=`echo ${files#*/}`
+        STRING_PO=`echo ${files#*/*/}`
         STRING=`echo ${STRING_PO%.po}`
         mkdir -p ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES
         msgfmt $files -o ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES/pckcp.mo
