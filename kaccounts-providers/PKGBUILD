@@ -1,16 +1,18 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kaccounts-providers
-pkgver=0.1.0
-pkgrel=2
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc="KDE Accounts Providers"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kdereview/kaccounts-providers"
 license=('GPL')
 depends=('libaccounts-glib')
 makedepends=('extra-cmake-modules' 'git' 'intltool')
-#groups=('kde-telepathy')
-source=("git://anongit.kde.org/kaccounts-providers.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cd ${srcdir}
@@ -18,7 +20,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

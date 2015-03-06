@@ -3,27 +3,24 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kteatime
-#pkgver=${_kdever}
-pkgver=14.12.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="System tray applet that makes sure your tea doesn't get too strong"
 url='http://www.kde.org/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-#groups=('kde' 'kdetoys' 'kde-uninstall' 'accessories')
 depends=('kconfig' 'kcrash' 'ki18n' 'kiconthemes' 'knotifyconfig' 'knotifications' 'kwidgetsaddons'
          'ktextwidgets' 'kxmlgui')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools')
+groups=('kde' 'kdetoys' 'kde-uninstall' 'accessories')
 conflicts=('kdetoys-kteatime')
 replaces=('kdetoys-kteatime')
 install=${pkgname}.install
-#source=($_mirror/${_pkgname}-$_kdever.tar.xz)
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kteatime.git")
-md5sums=('SKIP')
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver} 
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
 }
 
@@ -31,7 +28,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver}  \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

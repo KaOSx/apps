@@ -1,6 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=ktp-send-file
-pkgver=0.9.90
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="A File manager plugin to launch a file transfer job with a specified contact"
 arch=('x86_64')
@@ -13,8 +16,8 @@ install=${pkgname}.install
 #source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
 conflicts=('kf5-ktp-send-file')
 replaces=('kf5-ktp-send-file')
-source=("git://anongit.kde.org/ktp-send-file.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cd ${srcdir}
@@ -22,7 +25,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

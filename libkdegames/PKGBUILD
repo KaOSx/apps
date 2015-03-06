@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkdegames
-#pkgver=${_kdever}
-pkgver=14.12.82
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Shared libraries for KDE games"
 arch=('x86_64')
@@ -24,7 +23,6 @@ conflicts=('kdegames-libkdegames'
 	   'kdegames-kblocks'
 	   'kdegames-kbreakout'
 	   'kdegames-kdiamond'
-	   'kdegames-kfourinline'
 	   'kdegames-kigo'
 	   'kdegames-kgoldrunner'
 	   'kdegames-killbots'
@@ -36,7 +34,6 @@ conflicts=('kdegames-libkdegames'
 	   'kdegames-kolf'
 	   'kdegames-kollision'
 	   'kdegames-konquest'
-	   'kdegames-kpat'
 	   'kdegames-kreversi'
 	   'kdegames-kshisen'
 	   'kdegames-ksirk'
@@ -57,7 +54,6 @@ replaces=('kdegames-libkdegames'
 	   'kdegames-kblocks'
 	   'kdegames-kbreakout'
 	   'kdegames-kdiamond'
-	   'kdegames-kfourinline'
 	   'kdegames-kigo'
 	   'kdegames-kgoldrunner'
 	   'kdegames-killbots'
@@ -69,7 +65,6 @@ replaces=('kdegames-libkdegames'
 	   'kdegames-kolf'
 	   'kdegames-kollision'
 	   'kdegames-konquest'
-	   'kdegames-kpat'
 	   'kdegames-kreversi'
 	   'kdegames-kshisen'
 	   'kdegames-ksirk'
@@ -81,11 +76,9 @@ replaces=('kdegames-libkdegames'
 	   'kdegames-lskat'
 	   'kdegames-palapeli'
 	   'kdegames-picmi')
-#groups=('kde' 'kdegames' 'kde-uninstall')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkdegames")
-md5sums=('SKIP')
+groups=('kde' 'kdegames' 'kde-uninstall')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cd ${srcdir}
@@ -94,7 +87,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

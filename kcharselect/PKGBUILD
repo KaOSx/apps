@@ -3,26 +3,23 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcharselect
-#pkgver=${_kdever}
-pkgver=14.12.81
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Tool to select special characters from all installed fonts and copy them into the clipboard."
 url="https://projects.kde.org/projects/kde/kdeutils/kcharselect"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kwidgetsaddons' 'kxmlgui')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 conflicts=('kdeutils-kcharselect')
 replaces=('kdeutils-kcharselect')
-#groups=("kde" "kdeutils" "kde-uninstall")
+groups=("kde" "kdeutils" "kde-uninstall")
 install=kdeutils.install
-#source=($_mirror/${_pkgname}-$_kdever.tar.xz)
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kcharselect.git")
-md5sums=('SKIP')
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver} 
   #sed -i -e 's|add_subdirectory( doc )|#add_subdirectory( doc )|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
@@ -30,7 +27,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver}  \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

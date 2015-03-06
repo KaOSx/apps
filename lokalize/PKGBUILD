@@ -1,20 +1,23 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=lokalize
-pkgver=14.12.81
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdesdk/lokalize"
 license=('LGPL')
 depends=('hunspell' 'kconfig' 'kcoreaddons' 'ki18n' 'kio' 'knotifications' 'kross' 'kxmlgui' 'sonnet')
-makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdesdk-lokalize')
 replaces=('kdesdk-lokalize')
-source=("git://anongit.kde.org/lokalize.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
   #sed -i -e "s|add_subdirectory(doc)|#add_subdirectory(doc)|" ${srcdir}/$pkgname/CMakeLists.txt
   mkdir build

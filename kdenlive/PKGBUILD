@@ -1,7 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kdenlive
-pkgver=0.9.80
-_pkgver=0.9.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="A non-linear video editor for Linux"
 arch=('x86_64')
@@ -10,14 +12,13 @@ license=('GPL')
 depends=('karchive' 'kbookmarks' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'kdbusaddons' 'kio'
          'kservice' 'kwidgetsaddons' 'kplotting' 'knotifyconfig' 'knewstuff' 'kxmlgui'
          'mlt' 'dvgrab' 'frei0r-plugins' 'qimageblitz') 
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'gettext' 'docbook-xsl')
+makedepends=('extra-cmake-modules' 'kdoctools' 'gettext' 'docbook-xsl')
 optdepends=("dvdauthor: for creating dvds")
 conflicts=('kf5-kdenlive')
 replaces=('kf5-kdenlive')
 groups=('multimedia')
-#source=("http://download.kde.org/stable/kdenlive/$_pkgver/src/$pkgname-$_pkgver.tar.bz2")
-source=("git://anongit.kde.org/kdenlive#branch=15.04")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz") 
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cd ${srcdir}
@@ -26,7 +27,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

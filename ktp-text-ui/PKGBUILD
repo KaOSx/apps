@@ -1,7 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=ktp-text-ui
-pkgver=0.9.90
-_pkgver=0.9.90
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Telepathy text chat handler"
 arch=('x86_64')
@@ -10,11 +12,10 @@ license=('GPL')
 depends=('ktp-common-internals')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 groups=('kde-telepathy')
-#source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${_pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
 conflicts=('kf5-ktp-text-ui')
 replaces=('kf5-ktp-text-ui')
-source=("git://anongit.kde.org/ktp-text-ui.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cd ${srcdir}
@@ -22,7 +23,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

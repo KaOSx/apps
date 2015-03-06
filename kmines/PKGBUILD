@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kmines
-#pkgver=${_kdever}
-pkgver=14.12.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Minesweeper for KDE"
 arch=('x86_64')
@@ -13,16 +12,14 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('libkdegames' 'kcoreaddons' 'kconfig' 'kwidgetsaddons' 'kcodecs' 'karchive' 'kdbusaddons' 'ki18n'
          'kconfigwidgets' 'ktextwidgets' 'kxmlgui' 'kio' 'knotifyconfig' 'kdelibs4support' 'phonon-qt5')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
-#groups=('kde' 'kdegames' 'kde-uninstall')
+groups=('kde' 'kdegames' 'kde-uninstall')
 conflicts=('kdegames-kmines')
 replaces=('kdegames-kmines')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kmines.git#branch=frameworks")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver} 
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
 }
 
@@ -30,7 +27,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

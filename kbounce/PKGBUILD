@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kbounce
-#pkgver=${_kdever}
-pkgver=14.12.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Ball bouncing game"
 arch=('x86_64')
@@ -13,25 +12,23 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('libkdegames' 'kcoreaddons' 'kconfig' 'kitemmodels' 'kwidgetsaddons' 'kwindowsystem' 'kcodecs'
          'karchive' 'kconfig' 'kdbusaddons' 'kdnssd' 'kdeclarative' 'ki18n' 'kguiaddons' 'kservice'
          'kconfigwidgets' 'kitemviews' 'kiconthemes' 'kcompletion' 'kjobwidgets' 'ktextwidgets'
-         'kglobalaccel' 'kxmlgui' 'kcrash' 'kbookmarks' 'kio' 'knotifyconfig' 'knewstuff' 'kdelibs4support'
-         'phonon-qt5')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
-#groups=('kde' 'kdegames' 'kde-uninstall')
+         'kglobalaccel' 'kxmlgui' 'kcrash' 'kbookmarks' 'kio' 'knotifyconfig' 'knewstuff' 'phonon-qt5')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
+groups=('kde' 'kdegames' 'kde-uninstall')
 conflicts=('kdegames-kbounce')
 replaces=('kdegames-kbounce')
-#options=('docs')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kbounce.git#branch=frameworks")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kbounce.git#branch=frameworks")
+#md5sums=('SKIP')
 
 build() {
-  cd ${srcdir}
+  cd ${srcdir}-${pkgver} 
 
   mkdir build
   
   cd build 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \

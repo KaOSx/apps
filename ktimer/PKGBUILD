@@ -2,21 +2,26 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname="kcalc"
+pkgname=ktimer
 pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
-pkgdesc="Scientific calculator"
-url="https://www.kde.org/applications/utilities/kcalc"
+pkgdesc="Timer application"
+url="https://projects.kde.org/projects/kde/kdeutils/ktimer"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kconfigwidgets' 'kguiaddons' 'ki18n' 'kinit' 'knotifications' 'kxmlgui')
-makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdeutils-kcalc')
-replaces=('kdeutils-kcalc')
+depends=('ki18n' 'kwidgetsaddons' 'kxmlgui' 'kio' 'kiconthemes' 'knotifications')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
+conflicts=('kdeutils-ktimer')
+conflicts=('kdeutils-ktimer')
 groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 install=kdeutils.install
 source=($_mirror/${pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+prepare() {
+  cd $pkgname-${pkgver} 
+  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
+}
 
 build() {
   mkdir -p build
@@ -37,4 +42,3 @@ package() {
 
   make DESTDIR=${pkgdir} install
 }
-

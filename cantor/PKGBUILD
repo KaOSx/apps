@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=cantor
-#pkgver=${_kdever}
-pkgver=14.12.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="KDE Frontend to Mathematical Software"
 url="http://kde.org/applications/education/cantor/"
@@ -12,18 +11,16 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'knewstuff' 'ktexteditor' 'kcoreaddons' 'karchive' 'kparts' 'kpty' 'kalgebra'
          'kdelibs4support' 'libspectre' 'r' 'octave' 'python2')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'icu')
+makedepends=('extra-cmake-modules' 'kdoctools' 'icu')
 conflicts=('kdeedu-cantor')
 replaces=('kdeedu-cantor')
-#groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
+groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/cantor.git#branch=frameworks")
-md5sums=('SKIP')
+ource=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver} 
   #sed -i -e 's|add_subdirectory( doc )|#add_subdirectory( doc )|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
@@ -31,7 +28,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

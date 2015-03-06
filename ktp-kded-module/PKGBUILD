@@ -1,6 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=ktp-kded-module
-pkgver=0.9.90
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Workspace integration module - provides several plugins like auto-away, the infamous 'Now listening to...' and also an error handler"
 arch=('x86_64')
@@ -13,8 +16,8 @@ groups=('kde-telepathy')
 conflicts=('ktp-kded-integration-module' 'kf5-ktp-kded-module')
 replaces=('ktp-kded-integration-module' 'kf5-ktp-kded-module')
 provides=('ktp-kded-integration-module')
-source=("git://anongit.kde.org/ktp-kded-module.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cd ${srcdir}
@@ -22,7 +25,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
