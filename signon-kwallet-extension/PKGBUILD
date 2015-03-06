@@ -15,7 +15,6 @@ source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd ${srcdir}
   mkdir -p build
 
   cd build
@@ -29,7 +28,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
 
   make DESTDIR="${pkgdir}" install
 }

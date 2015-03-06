@@ -19,22 +19,22 @@ source=($_mirror/${pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd $pkgname-${pkgver} 
   mkdir build
   
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+  cmake ../${pkgname}-${pkgver} \
+        -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
         -DLIB_INSTALL_DIR=lib \
         -DSYSCONF_INSTALL_DIR=/etc \
         -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
         -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-        -DBUILD_TESTING=OFF ..
+        -DBUILD_TESTING=OFF
   make
 }
 
 package() {
-  cd $pkgname/build
+  cd build
   
-  make DESTDIR="$pkgdir" install
+  make DESTDIR=$pkgdir install
 }

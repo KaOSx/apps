@@ -23,8 +23,6 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #md5sums=('SKIP')
 
 build() {
-  cd ${srcdir}-${pkgver} 
-
   mkdir build
   
   cd build 
@@ -41,7 +39,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }

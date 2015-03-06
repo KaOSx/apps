@@ -10,19 +10,14 @@ url="http://kde.org/applications/education/cantor/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'knewstuff' 'ktexteditor' 'kcoreaddons' 'karchive' 'kparts' 'kpty' 'kalgebra'
-         'kdelibs4support' 'libspectre' 'r' 'octave' 'python2')
+         'kdelibs4support' 'libspectre' 'r' 'octave' 'python2' 'libqalculate')
 makedepends=('extra-cmake-modules' 'kdoctools' 'icu')
 conflicts=('kdeedu-cantor')
 replaces=('kdeedu-cantor')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
-ource=("$_mirror/${pkgname}-$_kdever.tar.xz")
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-
-prepare() {
-  cd $pkgname-${pkgver} 
-  #sed -i -e 's|add_subdirectory( doc )|#add_subdirectory( doc )|' ${srcdir}/${pkgname}/CMakeLists.txt
-}
 
 build() {
   mkdir -p build

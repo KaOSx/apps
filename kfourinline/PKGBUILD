@@ -2,41 +2,40 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=granatier
+pkgname=kfourinline
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Granatier is a clone of the classic Bomberman game, inspired by the work of the Clanbomber clone"
+pkgdesc="Four-in-a-row Board Game"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/kdegames/granatier'
+url='https://projects.kde.org/projects/kde/kdegames/kfourinline'
 license=('GPL' 'LGPL' 'FDL')
-depends=('libkdegames' 'kcoreaddons' 'kconfig' 'kwidgetsaddons' 'ki18n' 'kguiaddons' 'kconfigwidgets' 'kitemviews'
-         'kiconthemes' 'kxmlgui' 'kio' 'knewstuff' 'knotifyconfig')
+depends=('libkdegames' 'kcoreaddons' 'kconfig' 'kitemmodels' 'kdbusaddons' 'kdeclarative' 'ki18n' 'kconfigwidgets'
+         'kitemviews' 'kiconthemes' 'kcompletion' 'kxmlgui' 'kdnssd' 'kio' 'knotifyconfig' 'kdelibs4support')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdegames' 'kde-uninstall')
-conflicts=('kdegames-granatier')
-replaces=('kdegames-granatier')
+conflicts=('kdegames-kfourinline')
+replaces=('kdegames-kfourinline')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/granatier#branch=frameworks")
-#md5sums=('SKIP')
 
 build() {
-  mkdir -p build
-  cd build
-
+  mkdir build
+  
+  cd build 
   cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
     -DLIB_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make
+  make 
 }
 
 package() {
   cd build
-
+  
   make DESTDIR=${pkgdir} install
 }

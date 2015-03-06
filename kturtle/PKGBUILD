@@ -2,32 +2,34 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kiten
+pkgname=kturtle
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Japanese Reference/Study Tool"
-url="http://kde.org/applications/education/kiten/"
+pkgdesc="Educational Programming Environment"
+url="http://kde.org/applications/education/kturtle/"
 arch=('x86_64')
+url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
-depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'ki18n' 'kxmlgui' 'khtml')
+depends=('kio' 'knewstuff' 'ki18n' 'kdelibs4support')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdeedu-kiten')
-replaces=('kdeedu-kiten')
+conflicts=('kdeedu-kturtle')
+replaces=('kdeedu-kturtle')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
+ mkdir -p build
   cd build
-  
+
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }

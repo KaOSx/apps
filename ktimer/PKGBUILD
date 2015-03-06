@@ -18,11 +18,6 @@ install=kdeutils.install
 source=($_mirror/${pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-prepare() {
-  cd $pkgname-${pkgver} 
-  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
-}
-
 build() {
   mkdir -p build
   cd build

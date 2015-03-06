@@ -17,25 +17,23 @@ source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
-  #sed -i -e "s|add_subdirectory(doc)|#add_subdirectory(doc)|" ${srcdir}/$pkgname/CMakeLists.txt
   mkdir build
-  
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DLIB_INSTALL_DIR=lib \
-        -DSYSCONF_INSTALL_DIR=/etc \
-        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-        -DBUILD_TESTING=OFF ..
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
-  cd $pkgname/build
+  cd build
   
   make DESTDIR="$pkgdir" install
 }
