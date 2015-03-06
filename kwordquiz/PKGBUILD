@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwordquiz
-#pkgver=${_kdever}
-pkgver=14.12.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Flash Card Trainer"
 url="http://kde.org/applications/education/kwordquiz/"
@@ -13,18 +12,16 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kcrash' 'sonnet' 'kconfig' 'kconfigwidgets' 'kguiaddons' 'kiconthemes' 'kitemviews' 
          'knotifyconfig' 'kio' 'knewstuff' 'knotifications' 'kxmlgui' 'kdelibs4support' 'kdeclarative'
          'libkeduvocdocument' 'phonon-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-kwordquiz')
 replaces=('kdeedu-kwordquiz')
-#groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
+groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kwordquiz.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #sed -i -e 's|add_subdirectory( doc )|#add_subdirectory( doc )|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
@@ -32,7 +29,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
