@@ -1,0 +1,39 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kmag
+arch=('x86_64')
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="Screen magnifier"
+url="https://projects.kde.org/projects/kde/kdeaccessibility/kmag"
+license=('GPL' 'LGPL' 'FDL')
+depends=('ki18n' 'kio' 'kxmlgui')
+makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools')
+groups=('kdeaccessibility' 'kde' 'kde-uninstall' 'kde-doc')
+conflicts=('kdeaccessibility-kmag')
+replaces=('kdeaccessibility-kmag')
+#source=($_mirror/${pkgname}-$_kdever.tar.xz)
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kmag.git#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}

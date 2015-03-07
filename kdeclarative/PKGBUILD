@@ -3,17 +3,18 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdeclarative
-pkgver=${_kdever}
+pkgver=${_kf5ver}
 pkgrel=1
 pkgdesc='KDeclarative'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kdeclarative'
 license=('LGPL')
-depends=('kconfig' 'ki18n' 'kiconthemes' 'kio' 'kwidgetsaddons' 'kwindowsystem' 'kglobalaccel' 'kguiaddons' 'libepoxy')
+depends=('kconfig' 'ki18n' 'kiconthemes' 'kio' 'kwidgetsaddons' 'kwindowsystem' 'kglobalaccel' 
+         'kguiaddons' 'kpackage' 'libepoxy')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build

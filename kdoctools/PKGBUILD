@@ -3,17 +3,17 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdoctools
-pkgver=${_kdever}
+pkgver=${_kf5ver}
 pkgrel=1
 pkgdesc='KDocTools'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kdoctools-git'
 license=('LGPL')
 depends=('karchive' 'docbook-xsl')
-makedepends=('extra-cmake-modules')
+makedepends=('extra-cmake-modules' 'ki18n' 'perl-uri')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
