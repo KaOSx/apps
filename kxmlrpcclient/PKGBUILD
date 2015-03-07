@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kxmlrpcclient
-#pkgver=${_kdever}
-pkgver=14.12.82
+pkgver=${kf5ver}
 pkgrel=1
 pkgdesc="Interaction with XMLRPC services."
 arch=('x86_64')
@@ -12,10 +11,8 @@ url='https://projects.kde.org/projects/kde/pim/kxmlrpcclient'
 license=('LGPL')
 depends=('kio')
 makedepends=('extra-cmake-modules' 'git')
-#source=($_mirror/${_pkgname}-$_kdever.tar.xz)
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kxmlrpcclient.git")
-md5sums=('SKIP')
+source=($_mirror/${pkgname}-${kf5ver}.tar.xz)
+md5sums=(`grep ${pkgname}-${kf5ver}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname
@@ -28,7 +25,7 @@ build() {
   mkdir build
   
   cd build 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \

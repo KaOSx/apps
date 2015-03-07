@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=krunner
-pkgver=${_kdever}
-pkgrel=2
+pkgver=${kf5ver}
+pkgrel=1
 pkgdesc='Framework for providing different actions given a string query'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/krunner'
@@ -12,8 +12,8 @@ license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kservice' 'plasma-framework' 'solid' 'threadweaver')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/portingAids/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/${pkgver}/portingAids/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
