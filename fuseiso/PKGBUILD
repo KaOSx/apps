@@ -1,0 +1,26 @@
+
+pkgname=fuseiso
+pkgver=20070708
+pkgrel=1
+pkgdesc="FUSE module to mount ISO filesystem images"
+arch=('x86_64')
+url="http://fuse.sourceforge.net/wiki/index.php/FuseIso"
+license=('GPL')
+depends=('fuse' 'glib2' 'zlib')
+makedepends=('pkgconfig')
+source=("http://ubiz.ru/dm/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('4bb50412b6d01f337565e28afddca3a5')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  
+  make DESTDIR=${pkgdir} install
+}
+

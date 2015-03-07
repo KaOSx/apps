@@ -1,0 +1,16 @@
+# Some colored makepkg-like functions
+#!/bin/bash
+# tputcolors
+post_install() {
+	post_upgrade
+}
+
+post_upgrade() {
+	  echo -e '\e[1;34m ==>'
+	  echo -e '\e[1;34m ==> Make sure to properly load the following module:'
+          echo -e '\e[1;34m ==> sudo modprobe fuse' 
+          echo -e '\e[1;34m ==> before using acetoneiso '
+          echo -e '\e[1;34m ==> \e[0m'
+}
+
+
