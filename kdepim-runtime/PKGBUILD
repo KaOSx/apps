@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-runtime
 arch=('x86_64')
-pkgver=14.12.82
+pkgver=14.12.83
 pkgrel=1
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
@@ -40,7 +40,8 @@ build() {
         -DLIB_INSTALL_DIR=lib \
         -DSYSCONF_INSTALL_DIR=/etc \
         -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins 
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
         #-DBUILD_TESTING=OFF \
         #-DENABLE_TESTING=OFF
     make

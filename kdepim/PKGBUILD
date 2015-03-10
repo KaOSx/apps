@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdepim
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=14.12.84
+pkgver=14.12.85
 pkgrel=1
 pkgdesc="Project that aims to bring together anything to do with personal information management."
 url="http://www.kde.org"
@@ -71,7 +71,8 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDEPIM_BUILD_MOBILE=FALSE
+    -DKDEPIM_BUILD_MOBILE=FALSE \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
     #-DBUILD_TESTING=OFF
   make 
 }

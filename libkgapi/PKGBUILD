@@ -1,12 +1,12 @@
 
 pkgname=libkgapi
 pkgver=4.72.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
 url='https://projects.kde.org/projects/extragear/libs/libkgapi'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kcalcore' 'kcontacts')
+depends=('kcoreaddons' 'kio' 'kwindowsystem' 'kcalcore' 'kcontacts')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kf5-libkgapi')
 replaces=('kf5-libkgapi')
@@ -29,6 +29,7 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=ON 
   make 
 }
