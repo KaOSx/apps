@@ -1,0 +1,18 @@
+
+pkgname=lilypond-doc
+pkgver=2.18.2
+pkgrel=1
+pkgdesc='Documentation of Lilypond'
+url='http://lilypond.org/'
+license=('GPL')
+arch=('x86_64')
+depends=('lilypond')
+source=("${url}/download/binaries/documentation/lilypond-${pkgver}-${pkgrel}.documentation.tar.bz2")
+md5sums=('b464f6c347d9c8cab7a47f6f797e6874')
+
+package() {
+	cd "${srcdir}"
+	mkdir -p "${pkgdir}/usr/"
+	mv share/ "${pkgdir}/usr/"
+	install -Dm644 "license/${pkgname}" "${pkgdir}/usr/share/licences/${pkgname}/LICENSE"
+}
