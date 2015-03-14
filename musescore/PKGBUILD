@@ -1,47 +1,27 @@
 
 pkgname=musescore
-pkgver=1.3
-pkgrel=3
-pkgdesc="A music score editor written in Qt4"
+pkgver=2.0rc
+pkgrel=1
+pkgdesc="Music notation and composition software written in Qt"
 arch=('x86_64')
 url="http://www.musescore.org/en/"
 license=('GPL')
-depends=('qt' 'openssl' 'libsndfile' 'qtscriptgenerator' 'portaudio-svn')
-makedepends=('cmake' 'doxygen')
-optdepends=('jack')
-categories=('multimedia')
-source=("http://sourceforge.net/projects/mscore/files/mscore/MuseScore-${pkgver}/mscore-${pkgver}.tar.bz2"
-        'paths.patch'
-        'desktop.patch'
-        'mime.xml'
-        'system_qscriptgenerator.patch'
-        'freetype2.patch')
-md5sums=('e5fde2bef0d40ee7542e1f515a3919d1'
-         '28f61c298f53214adacbc8d43f9c43e9'
-         'c8f37720422ae1e1a0fa02b284bd00ed'
-         '969696178e56de36f9af37d7da61baaa'
-         '51e590842a92cdea7efa01fd60fe715c'
-         '6d5e1dff63e9f0b323f9653759a6029d')
+depends=('qt5-quick1' 'qt5-svg' 'qt5-tools' 'openssl' 'pulseaudio' 'lame' 'portaudio-svn' 'jack')
+makedepends=('cmake' 'doxygen' 'texlive-core')
+groups=('multimedia')
+source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz")
+md5sums=('19db6b3b99540b5cdcaa947c7d408589')
          
 build() {
-  cd $srcdir/mscore-${pkgver}
-  export QT_PLUGINS_DIR=/usr/lib/qt/plugins
-  [ -d build ] && make clean
-  patch -p1 -i $srcdir/paths.patch
-  patch -p1 -i $srcdir/desktop.patch
-  patch -p1 -i $srcdir/system_qscriptgenerator.patch
-  patch -p1 -i $srcdir/freetype2.patch
+  cd $srcdir/MuseScore-${pkgver}
   
   make PREFIX=/usr release
+  
+  #cd build
+  #make doxy
 }
 package() {
-  cd $srcdir/mscore-${pkgver}
-  make PREFIX=/usr DESTDIR="$pkgdir" install
+  cd $srcdir/MuseScore-${pkgver}
   
-  cd $pkgdir/usr/share/mscore-$pkgver/man
-  install -d $pkgdir/usr/share/doc/$pkgname
-  cp * $pkgdir/usr/share/doc/$pkgname/
-  cd ../..
-  rm -r $pkgdir/usr/share/mscore-$pkgver/man
-  install -Dm644 $srcdir/mime.xml $pkgdir/usr/share/mime/packages/x-musescore.xml
+  make PREFIX=/usr DESTDIR=$pkgdir install
 }
