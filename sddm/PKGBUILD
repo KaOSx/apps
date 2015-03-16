@@ -1,6 +1,6 @@
 
 pkgname=sddm
-pkgver=20150125
+pkgver=20150316
 pkgrel=1
 pkgdesc="QML based X11 display manager"
 arch=('x86_64')
@@ -18,7 +18,7 @@ source=('git://github.com/sddm/sddm.git'
         'background.png')
 md5sums=('SKIP'
          '1d36fc405602fd19a43dff80236a2bd5'
-         'b78df22ceb3522a33499e2b1146e5d0c')
+         '15ec57d9f707c6a8050ccff56f31b6d8')
 
 build() {
   cd $srcdir 
@@ -37,7 +37,7 @@ package() {
   cd ${srcdir}/build
   make DESTDIR=${pkgdir} install
   
-  sed -i -e "s|white|deepskyblue|g" $pkgdir/usr/share/sddm/themes/maui/Main.qml
+  sed -i -e "s|white|darkturquoise|g" $pkgdir/usr/share/sddm/themes/maui/Main.qml
   rm ${pkgdir}/usr/share/sddm/themes/maui/background.png
   install -m 644 -p ${srcdir}/background.png ${pkgdir}/usr/share/sddm/themes/maui/
   
