@@ -1,0 +1,42 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=bluez-qt
+arch=('x86_64')
+#pkgver=${_kdever}
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Qt wrapper for Bluez 5 DBus API"
+url="https://projects.kde.org/projects/frameworks/bluezqt"
+license=('GPL' 'LGPL' 'FDL')
+depends=('qt5-declarative')
+makedepends=('extra-cmake-modules' 'git')
+#source=($_mirror/${pkgname}-$_kf5ver.tar.xz)
+#md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/bluez-qt.git")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
