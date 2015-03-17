@@ -1,6 +1,6 @@
 
 pkgname=sddm
-pkgver=20150316
+pkgver=20150317
 pkgrel=1
 pkgdesc="QML based X11 display manager"
 arch=('x86_64')
@@ -15,14 +15,16 @@ backup=('etc/sddm.conf')
 install=sddm.install
 source=('git://github.com/sddm/sddm.git'
         'sddm.conf'
-        'background.png')
+        'background.png'
+        'Main.qml')
 md5sums=('SKIP'
          '1d36fc405602fd19a43dff80236a2bd5'
-         '15ec57d9f707c6a8050ccff56f31b6d8')
-
+         'f6f2ba7460eaf337b9e8e4bce35b03b0'
+         '61fa003d4721c4d3cad2ebbecb529898')
+  
 build() {
   cd $srcdir 
-  mkdir -p $srcdir/build
+  mkdir -p build
   cd build
 
   cmake ../${pkgname} \
@@ -34,12 +36,15 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   make DESTDIR=${pkgdir} install
   
-  sed -i -e "s|white|darkturquoise|g" $pkgdir/usr/share/sddm/themes/maui/Main.qml
+  #sed -i -e "s|white|darkturquoise|g" $pkgdir/usr/share/sddm/themes/maui/Main.qml
   rm ${pkgdir}/usr/share/sddm/themes/maui/background.png
   install -m 644 -p ${srcdir}/background.png ${pkgdir}/usr/share/sddm/themes/maui/
+  
+  rm ${pkgdir}/usr/share/sddm/themes/maui/Main.qml
+  install -m 644 -p ${srcdir}/Main.qml ${pkgdir}/usr/share/sddm/themes/maui/
   
   install -m 644 -p ${srcdir}/sddm.conf ${pkgdir}/etc/
   install -d -g 136 -o 136 ${pkgdir}/var/lib/sddm
