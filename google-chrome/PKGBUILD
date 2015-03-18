@@ -1,6 +1,6 @@
 
 pkgname=google-chrome
-pkgver=43.0.2327.5
+pkgver=43.0.2334.0
 pkgrel=1
 pkgdesc="Google Chrome Browser, developer preview channel for Linux"
 arch=('x86_64')
@@ -15,7 +15,7 @@ source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux
          "https://www.google.com/chrome/intl/en/eula_text.html"
          'libgcrypt.so.11.8.2'
          'google-chrome-unstable.desktop')
-md5sums=('7695539cc5249237e221e51b28b2b781'
+md5sums=('fd1832c0187cee763d0c13501ad705ea'
          'a4fcf95699bbb37e9522695b0d632e0b'
          'a17acc9851185dd5f219458140e6ccda'
          'dc490bcda18c1379056700057800cc8f')
@@ -28,9 +28,6 @@ package() {
 
     msg "Actual installation"
     #mv "$pkgdir/opt/google/chrome/google-chrome.desktop" "$pkgdir/usr/share/applications"
-    
-    # Udev workaround
-    #ln -s /usr/lib/libudev.so.1 "$pkgdir/opt/google/chrome-unstable/libudev.so.0"
     
     #libgcrypt 1.6.0 fix from gentoo https://bugs.gentoo.org/show_bug.cgi?id=494596
     install -m755 "$srcdir"/libgcrypt.so.11.8.2 "$pkgdir"/opt/google/chrome-unstable/libgcrypt.so.11
