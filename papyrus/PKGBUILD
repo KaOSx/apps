@@ -1,0 +1,26 @@
+
+pkgname=papyrus
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Different note manager which is focusing on Security, Better user interface.  Fork of Kaqaz"
+url="http://aseman.co/en/products/papyrus/"
+arch=('x86_64')
+license=('GPL3')
+depends=('qt5-location' 'qt5-multimedia')
+conflicts=('kaqaz')
+replaces=('kaqaz')
+source=("http://aseman.co/downloads/papyrus/1/papyrus-${pkgver}-src.tar.gz")
+md5sums=('5a26e31df96a2fde9a7403d76a368e33')
+
+build() {
+  cd $srcdir/Papyrus
+
+  /usr/lib/qt5/bin/qmake
+  make
+}
+
+package() {
+  cd $srcdir/Papyrus
+
+  make INSTALL_ROOT=$pkgdir install
+}

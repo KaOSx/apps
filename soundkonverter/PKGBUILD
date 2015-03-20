@@ -1,13 +1,14 @@
 
 pkgname=soundkonverter
 pkgver=2.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc="SoundKonverter is a frontend to various audio converters"
 arch=('x86_64')
 url="http://www.kde-apps.org/content/show.php?content=29024"
 license=('GPL')
 depends=('ki18n' 'kxmlgui' 'kio' 'solid' 'kconfig' 'kconfigwidgets' 'kwidgetsaddons' 'kdelibs4support'
-         'libkcddb' 'taglib' 'ffmpeg' 'cdparanoia' 'phonon-qt5' 'sox')
+         'libkcddb' 'taglib' 'ffmpeg' 'cdparanoia' 'phonon-qt5' 'sox' 'vorbis-tools' 'wavpack' 'speex'
+         'flac' 'timidity++')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('multimedia')
 #source=("http://kde-apps.org/CONTENT/content-files/29024-soundkonverter-${pkgver}.tar.gz")
@@ -17,7 +18,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd ${pkgname}
-  sed -i -e 's|add_custom_target|#add_custom_target|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+  #sed -i -e 's|add_custom_target|#add_custom_target|' ${srcdir}/${pkgname}/src/CMakeLists.txt
 }
 
 build() {
