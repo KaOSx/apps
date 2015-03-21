@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
-  #sed -e "s|add_subdirectory( doc )|#add_subdirectory( doc )|" -i ${srcdir}/$pkgname-$pkgver/CMakeLists.txt
+  sed -e "s|add_subdirectory(pt_BR)|#add_subdirectory(pt_BR)|" -i ${srcdir}/$pkgname-$pkgver/doc/CMakeLists.txt
   cd build
   
   cmake ../${pkgname}-$pkgver \

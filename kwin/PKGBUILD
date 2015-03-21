@@ -15,13 +15,15 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('plasma5')
 conflicts=('kde-workspace')
 replaces=('kde-workspace')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
+        'closeview.diff')
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'f3021b035ac6e10df848b44839ad7f84')
 
 prepare () {
   cd ${pkgname}-${pkgver}
   # https://bugs.kde.org/show_bug.cgi?id=341971
-  #patch -p1 -i ${srcdir}/win_deco.diff
+  patch -p1 -i ${srcdir}/closeview.diff
   #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
 }  
 

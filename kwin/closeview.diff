@@ -1,0 +1,123 @@
+From: Thomas Lübking <thomas.luebking@gmail.com>
+Date: Fri, 20 Mar 2015 21:34:42 +0000
+Subject: Fix closeview hiding: move it outside rootgeometry
+X-Git-Url: http://quickgit.kde.org/?p=kwin.git&a=commitdiff&h=e26a3db03090abeb719d0b7e30c2c58c054ddafa
+---
+Fix closeview hiding: move it outside rootgeometry
+
+The closeview is not hidden because that causes
+invalid textures (apparently QML related) and
+deleting/recreating causes massive I/O overhead
+on effect invocation.
+
+As last resort, the window is "hidden" by moving
+it out of the root window geometry.
+
+Jonathan, please RESPIN kwin - sorry for the trouble
+... again.
+
+BUG: 345159
+REVIEW: 123035
+CC: riddell@gmail.com
+---
+
+
+--- a/effects/presentwindows/presentwindows.cpp
++++ b/effects/presentwindows/presentwindows.cpp
+@@ -197,7 +197,7 @@
+ {
+     if (m_motionManager.areWindowsMoving())
+         effects->addRepaintFull();
+-    else if (!m_activated && m_motionManager.managingWindows() && !m_closeWindow) {
++    else if (!m_activated && m_motionManager.managingWindows() && !(m_closeWindow && m_closeView->isVisible())) {
+         // We have finished moving them back, stop processing
+         m_motionManager.unmanageAll();
+ 
+@@ -494,7 +494,8 @@
+         return;
+     if (!m_windowData.contains(w))
+         return;
+-    rearrangeWindows();
++    if (w != m_closeWindow)
++        rearrangeWindows();
+ }
+ 
+ bool PresentWindowsEffect::borderActivated(ElectricBorder border)
+@@ -1593,7 +1594,7 @@
+ 
+ bool PresentWindowsEffect::isVisibleWindow(EffectWindow *w)
+ {
+-    if (w->isDesktop())
++    if (w->isDesktop() || w == m_closeWindow)
+         return true;
+     return isSelectableWindow(w);
+ }
+@@ -1620,7 +1621,7 @@
+ 
+ void PresentWindowsEffect::elevateCloseWindow()
+ {
+-    if (!m_closeView)
++    if (!m_closeView || !m_activated)
+         return;
+     if (EffectWindow *cw = effects->findWindow(m_closeView->winId()))
+         effects->setElevatedWindow(cw, true);
+@@ -1630,7 +1631,8 @@
+ {
+     if (!m_closeView || m_doNotCloseWindows)
+         return;
+-    if (!m_highlightedWindow || m_highlightedWindow->isDesktop()) {
++
++    if (!m_activated || !m_highlightedWindow || m_highlightedWindow->isDesktop()) {
+         m_closeView->hide();
+         return;
+     }
+@@ -1878,6 +1880,7 @@
+     , m_armTimer(new QElapsedTimer())
+     , m_window(new QQuickView())
+     , m_visible(false)
++    , m_posIsValid(false)
+ {
+     m_window->setFlags(Qt::X11BypassWindowManagerHint);
+     m_window->setColor(Qt::transparent);
+@@ -1913,12 +1916,21 @@
+ 
+ void CloseWindowView::show()
+ {
++    if (!m_visible && m_posIsValid) {
++        m_window->setPosition(m_pos);
++        m_posIsValid = false;
++    }
+     m_visible = true;
+     m_window->show();
+ }
+ 
+ void CloseWindowView::hide()
+ {
++    if (!m_posIsValid) {
++        m_pos = m_window->position();
++        m_posIsValid = true;
++        m_window->setPosition(-m_window->width(), -m_window->height());
++    }
+     m_visible = false;
+     QEvent event(QEvent::Leave);
+     qApp->sendEvent(m_window.data(), &event);
+@@ -1940,6 +1952,7 @@
+ 
+ void CloseWindowView::setGeometry(const QRect &geometry)
+ {
++    m_posIsValid = false;
+     m_window->setGeometry(geometry);
+ }
+ 
+
+--- a/effects/presentwindows/presentwindows.h
++++ b/effects/presentwindows/presentwindows.h
+@@ -59,6 +59,8 @@
+     QScopedPointer<QElapsedTimer> m_armTimer;
+     QScopedPointer<QQuickView> m_window;
+     bool m_visible;
++    QPoint m_pos;
++    bool m_posIsValid;
+ };
+ 
+ /**
