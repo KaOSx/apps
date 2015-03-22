@@ -1,32 +1,43 @@
 
 pkgname=skrooge
-pkgver=1.10.0
+pkgver=1.9.90
 pkgrel=1
 pkgdesc="Allows you to manage your personal finances in KDE"
 arch=('x86_64')
 url="http://skrooge.org"
 license=('GPL')
-depends=('grantlee' 'kdepimlibs' 'kde-runtime' 'libofx' 'qca-ossl')
-makedepends=('automoc4' 'cmake' 'docbook-xsl' 'boost')
+depends=('grantlee' 'karchive' 'kcoreaddons' 'kconfig' 'ki18n' 'kitemviews' 'kwidgetsaddons' 
+         'kwindowsystem' 'kcompletion' 'kjobwidgets' 'kconfigwidgets' 'kdesignerplugin' 'kiconthemes' 'kio'
+         'khtml' 'knewstuff' 'kparts' 'kwallet' 'kxmlgui' 'kdelibs4support' 'plasma-workspace' 'aqbanking' 
+         'boost-libs' 'libofx' 'qca-qt5' 'kactivities')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'docbook-xsl' 'boost') # 'kdelibs')
 groups=('office')
-install=$pkgname.install
-source=("http://download.kde.org/stable/skrooge/$pkgname-$pkgver.tar.bz2")
-md5sums=('14f3f4859ccc60a539359eee9e11fa90')
+install=skrooge.install
+source=("git://anongit.kde.org/skrooge.git#branch=kf5")
+md5sums=('SKIP')
 
 build() {
-  cd $srcdir/$pkgname-$pkgver
-
-  mkdir build
+  cd ${srcdir}
+  #sed -e "s/FIND_PACKAGE(QCA2 2.0.0 REQUIRED)/FIND_PACKAGE(Qca 2.0.0 REQUIRED)/" -i ${srcdir}/$pkgname/skgbasemodeler/CMakeLists.txt
+  sed -e "s/FIND_PACKAGE(KActivities)/FIND_PACKAGE(KF5Activities)/" -i ${srcdir}/$pkgname/skgbasegui/CMakeLists.txt
+  
+  mkdir -p build
   cd build
-  cmake \
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    ..
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DSKG_BUILD_TEST=OFF 
   make
 }
- 
+
 package() {
-  cd $srcdir/$pkgname-$pkgver/build
-  
-  make DESTDIR=$pkgdir install
+  cd build
+
+  make DESTDIR=${pkgdir} install
 }
