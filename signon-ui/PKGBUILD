@@ -1,24 +1,25 @@
 
 pkgname=signon-ui
-pkgver=0.15
+pkgver=0.17
+_pkgver=0.17+14.10.20140916
 pkgrel=1
 pkgdesc='UI component responsible for handling the user interactions which can happen during the login process of an online account'
 arch=('x86_64')
 url="https://launchpad.net/online-accounts-signon-ui"
 license=('GPL')
 depends=('accounts-qt5' 'qt5-webkit' 'signon-qt5' 'libnotify')
-source=("https://launchpad.net/online-accounts-signon-ui/trunk/$pkgver/+download/$pkgname-$pkgver.tar.bz2")
-md5sums=('67ac8ce4cc85b69ec6ff67ae892fda90')
+source=("http://archive.ubuntu.com/ubuntu/pool/main/s/signon-ui/${pkgname}_${_pkgver}.orig.tar.gz")
+md5sums=('1d38d956ad324d374cf5ef621eaa50b5')
 
 build() {
-  cd $srcdir/$pkgname-$pkgver
+  cd ${srcdir}/${pkgname}-${_pkgver}
 
   /usr/lib/qt5/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
   make
 }
 
 package() {
-  cd $srcdir/$pkgname-$pkgver
+  cd ${srcdir}/${pkgname}-${_pkgver}
 
-  make INSTALL_ROOT=$pkgdir install
+  make INSTALL_ROOT=${pkgdir} install
 }

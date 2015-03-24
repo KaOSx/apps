@@ -10,7 +10,7 @@ depends=('grantlee' 'karchive' 'kcoreaddons' 'kconfig' 'ki18n' 'kitemviews' 'kwi
          'kwindowsystem' 'kcompletion' 'kjobwidgets' 'kconfigwidgets' 'kdesignerplugin' 'kiconthemes' 'kio'
          'khtml' 'knewstuff' 'kparts' 'kwallet' 'kxmlgui' 'kdelibs4support' 'plasma-workspace' 'aqbanking' 
          'boost-libs' 'libofx' 'qca-qt5' 'kactivities')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'docbook-xsl' 'boost' 'kdelibs')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'docbook-xsl' 'boost') # 'kdelibs')
 groups=('office')
 install=skrooge.install
 source=("git://anongit.kde.org/skrooge.git#branch=kf5")
@@ -19,7 +19,7 @@ md5sums=('SKIP')
 build() {
   cd ${srcdir}
   #sed -e "s/FIND_PACKAGE(QCA2 2.0.0 REQUIRED)/FIND_PACKAGE(Qca 2.0.0 REQUIRED)/" -i ${srcdir}/$pkgname/skgbasemodeler/CMakeLists.txt
-  sed -e "s/FIND_PACKAGE(KActivities)/FIND_PACKAGE(KF5Activities)/" -i ${srcdir}/$pkgname/skgbasegui/CMakeLists.txt
+  #sed -e "s/FIND_PACKAGE(KActivities)/FIND_PACKAGE(KF5Activities)/" -i ${srcdir}/$pkgname/skgbasegui/CMakeLists.txt
   
   mkdir -p build
   cd build
