@@ -1,23 +1,25 @@
 
 pkgname=kcm-fcitx
-pkgver=0.4.3
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="KDE Config Module for Fcitx"
 arch=('x86_64')
 url="https://github.com/fcitx/kcm-fcitx"
 license=('GPL')
-depends=('fcitx' 'kde-runtime')
-makedepends=('cmake' 'intltool' 'automoc4')
+depends=('fcitx-qt5' 'kcoreaddons' 'kwidgetsaddons' 'kcmutils' 'kitemviews' 'ki18n' 'kio' 'knewstuff')
+makedepends=('extra-cmake-modules')
 source=("http://download.fcitx-im.org/$pkgname/$pkgname-${pkgver}.tar.xz")
-md5sums=('4cc0c0a4362ba9a3b814437273d9adb0')
+md5sums=('a751e2b2aa9836e6bfb2c2082973b605')
 
 build() {
     cd "$srcdir/${pkgname}-${pkgver}"
-
     mkdir -p build
     cd build
     
-    cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
+    cmake -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INSTALL_LIBDIR=lib \
+          -DKDE_INSTALL_USE_QT_SYS_PATHS=ON ..
     make
 }
 
