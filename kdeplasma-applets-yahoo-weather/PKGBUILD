@@ -1,0 +1,33 @@
+
+pkgname=kdeplasma-applets-yahoo-weather
+_pkgname=com.librehat.yahooweather
+pkgver=0.5.81
+_commit=0665e38
+pkgrel=1
+pkgdesc="Yahoo! Weather Widget written in QML."
+arch=('x86_64')
+url="http://kde-apps.org/content/show.php?content=164194"
+license=('GPL')
+depends=('plasma-framework')
+makedepends=('git' 'zip')
+groups=('kdeplasma-addons')
+install=$pkgname.install
+source=("https://github.com/librehat/${_pkgname}/tarball/master/${_pkgname}-${pkgver}.tar.gz")
+md5sums=('0f807f35a0019fcb90df6f9b081e7f5f')
+
+build() {
+  cd librehat-${_pkgname}-${_commit}/
+  
+  ./mkplasmoid.sh 
+}
+
+package() {
+  cd librehat-${_pkgname}-${_commit}/
+  
+  mkdir -p ${pkgdir}/usr/share/plasma/plasmoids/${_pkgname}
+  mv contents ${pkgdir}/usr/share/plasma/plasmoids/${_pkgname}/
+  install -D -m644 metadata.desktop ${pkgdir}/usr/share/plasma/plasmoids/${_pkgname}/
+  
+  mkdir -p ${pkgdir}/usr/share/licenses/${pkgname}/
+  install -D -m644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
