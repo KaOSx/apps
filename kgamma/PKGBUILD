@@ -1,24 +1,27 @@
 
-pkgname=kile
-pkgver=2.9.63
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kgamma
+pkgver=${_kdever}
+pkgver=15.03.70
 pkgrel=1
-pkgdesc="User friendly TeX/LaTeX frontend for KDE."
+pkgdesc="Adjust your monitor's gamma settings"
 arch=('x86_64')
-license=('GPL2')
-url="http://kile.sourceforge.net/"
-depends=('kconfig' 'kguiaddons' 'ki18n' 'kio' 'kparts' 'ktexteditor' 'kxmlgui' 'kdelibs4support' 
-         'texlive-core' 'docbook-xsl') # 'okular')
+url='https://projects.kde.org/projects/kde/kdegraphics/kgamma'
+license=('GPL' 'LGPL' 'FDL')
+depends=('kdelibs4support' 'libxxf86vm')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-conflicts=('kf5-kile')
-replaces=('kf5-kile')
-groups=('office')
-install=kile.install
-source=("git://anongit.kde.org/kile#branch=frameworks")
+groups=('kde' 'kdegraphics' 'kde-uninstall' 'graphics')
+replaces=('kdegraphics-kgamma')
+conflicts=('kdegraphics-kgamma')
+#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kgamma#branch=frameworks")
 md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
-  #sed -e "s/cmake_minimum_required(VERSION 3.0.0)/cmake_minimum_required(VERSION 2.8.12)/" -i ${srcdir}/$_pkgname/CMakeLists.txt
   #sed -e "s/ADD_SUBDIRECTORY( symbols-ng )/#ADD_SUBDIRECTORY( symbols-ng )/" -i ${srcdir}/$pkgname/src/data/CMakeLists.txt
   
   mkdir -p build
