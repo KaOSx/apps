@@ -1,31 +1,28 @@
 
 pkgname=audacity
-pkgver=2.0.6
+pkgver=2.1.0
 pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
 url="http://audacity.sourceforge.net/"
 license=('GPL')
-depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk' 'lame' 'hicolor-icon-theme'
+depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk2.9' 'lame' 'hicolor-icon-theme'
          'shared-mime-info' 'desktop-file-utils' 'redland' 'jack' 'soundtouch')
-makedepends=('zip' 'python' 'pkgconfig')
+makedepends=('cmake' 'zip' 'python2' 'pkgconfig')
 options=('!makeflags')
 install="${pkgname}.install"
 source=("http://sourceforge.net/projects/audacity/files/audacity/${pkgver}/${pkgname}-minsrc-${pkgver}.tar.xz")
-md5sums=('fb7b39a1ec8cb562be5ee65725af8832')
+md5sums=('d21a794cc1e2a1567d3d75b53b1f2f02')
 
 build() {
-  cd "${srcdir}/${pkgname}-src-${pkgver}"
-  sed -i 's|wx-config|wx-config-2.8|' "${srcdir}/${pkgname}-src-${pkgver}/configure"
-  sed -i 's|wx-config|wx-config-2.8|' "${srcdir}/${pkgname}-src-${pkgver}/lib-src/FileDialog/configure"
-  sed -i 's|wx-config|wx-config-2.8|' "${srcdir}/${pkgname}-src-${pkgver}/lib-src/lib-widget-extra/configure"
+  cd "${srcdir}/${pkgname}-minsrc-${pkgver}"
   
-  ./configure --prefix=/usr --enable-unicode --with-wx-config=wx-config-2.8
+  ./configure --prefix=/usr --enable-unicode #--with-wx-config=wx-config-2.8
   make
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-src-${pkgver}"
+  cd "${srcdir}/${pkgname}-minsrc-${pkgver}"
   
   make DESTDIR="${pkgdir}" install
 }
