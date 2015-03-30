@@ -7,7 +7,7 @@ arch=('x86_64')
 url="http://audacity.sourceforge.net/"
 license=('GPL')
 depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk2.9' 'lame' 'hicolor-icon-theme'
-         'shared-mime-info' 'desktop-file-utils' 'redland' 'jack' 'soundtouch')
+         'shared-mime-info' 'desktop-file-utils' 'redland' 'jack' 'soundtouch' 'libsoxr' 'lilv')
 makedepends=('cmake' 'zip' 'python2' 'pkgconfig')
 options=('!makeflags')
 install="${pkgname}.install"
@@ -16,9 +16,8 @@ md5sums=('d21a794cc1e2a1567d3d75b53b1f2f02')
 
 build() {
   cd "${srcdir}/${pkgname}-minsrc-${pkgver}"
-  
-  export LD_LIBRARY_PATH=/usr/lib
-  ./configure --prefix=/usr --enable-unicode #--with-wx-config=wx-config-2.8
+
+  ./configure --prefix=/usr --enable-unicode #--with-libresample
   make
 }
 
