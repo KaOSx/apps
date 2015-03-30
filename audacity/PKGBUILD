@@ -17,6 +17,7 @@ md5sums=('d21a794cc1e2a1567d3d75b53b1f2f02')
 build() {
   cd "${srcdir}/${pkgname}-minsrc-${pkgver}"
   
+  export LD_LIBRARY_PATH=/usr/lib
   ./configure --prefix=/usr --enable-unicode #--with-wx-config=wx-config-2.8
   make
 }
