@@ -1,54 +1,34 @@
 
 pkgname=wireshark
-pkgver=1.12.4
+pkgver=1.99.5
 pkgrel=1
 pkgdesc='Network packet analyzer that will try to capture network packets and tries to display that packet data as detailed as possible'
 arch=('x86_64')
 url='http://www.wireshark.org/'
 license=('GPL2')
-depends=('krb5' 'libgcrypt' 'libcap' 'libpcap' 'bash' 'gnutls' 'glib2' 'lua' 'qt5-base')
-makedepends=('python2' 'qt5-tools')
+depends=('krb5' 'libgcrypt' 'libcap' 'libpcap' 'bash' 'geoip' 'gnutls' 'glib2' 'lua' 'qt5-multimedia' 'asciidoc')
+makedepends=('cmake' 'python2' 'qt5-tools')
 install=wireshark.install
-source=("http://www.wireshark.org/download/src/${pkgname}-${pkgver}.tar.bz2"
-        'wireshark.desktop')
-md5sums=('acfa156fd35cb66c867b1ace992e4b5b'
-         'e7d0dbf997c70d23d525c1968ac47be3')
+source=("http://www.wireshark.org/download/src/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('e67475f4c94c28eb5d6979d5fcc3cb6f')
 
 build() {
-    cd ${srcdir}/${pkgname}-${pkgver}
-    sed -i 's|$(AM_V_RCC)rcc|&-qt5|p' ${srcdir}/${pkgname}-${pkgver}/ui/qt/Makefile.am
+  cd ${srcdir}
+  
+  mkdir -p build
+  cd build
 
-    ./autogen.sh
-    sed -i 's|uic-qt4|uic-qt5|p' ${srcdir}/${pkgname}-${pkgver}/configure
-    sed -i 's|moc-qt4|moc-qt5|p' ${srcdir}/${pkgname}-${pkgver}/configure
-    ./configure \
-        --prefix=/usr \
-	--with-qt \
-	--with-gtk2=no \
-	--with-gtk3=no \
-	--with-pcap \
-	--with-zlib \
-	--with-lua \
-	--with-ssl \
-	--with-krb5
-    make all
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_QT5=ON \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins 
+  make
 }
 
 package() {
-    cd ${srcdir}/${pkgname}-${pkgver}
-    make DESTDIR=${pkgdir} install
+  cd build
 
-    # permissisions
-    chgrp 150 ${pkgdir}/usr/bin/dumpcap
-    chmod 754 ${pkgdir}/usr/bin/dumpcap
-
-    # Cli/header files
-    install -dm755 ${pkgdir}/usr/include/${pkgname}/{epan/{crypt,dfilter,dissectors,ftypes,wmem},wiretap,wsutil}
-
-    install -m644 color.h config.h register.h ws_symbol_export.h ${pkgdir}/usr/include/${pkgname}
-    for d in epan epan/crypt epan/dfilter epan/dissectors epan/ftypes epan/wmem wiretap wsutil; do
-	install -m644 ${d}/*.h ${pkgdir}/usr/include/${pkgname}/${d}
-    done
-
-    install -Dm644 ${srcdir}/wireshark.desktop ${pkgdir}/usr/share/applications/wireshark.desktop
+  make DESTDIR=${pkgdir} install
 }
+
