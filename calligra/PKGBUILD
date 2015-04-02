@@ -8,9 +8,9 @@ license=('FDL1.2' 'GPL2' 'LGPL')
 depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kitemmodels' 'kitemviews' 'kwidgetsaddons'
          'threadweaver' 'kcompletion' 'kiconthemes' 'kparts' 'kxmlgui' 'kross' 'kemoticons' 'kconfigwidgets' 'kdelibs4support'
          'eigen3' 'freetds' 'xbase' 'libpqxx' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'glew' 'gsl' 
-         'lcms2' 'libmariadbclient' 'vc' 'opencolorio' 'libodfgen' 'poppler-qt5' 'libspnav' 'fftw' 'hicolor-icon-theme' 
+         'lcms2' 'libmariadbclient' 'opencolorio' 'libodfgen' 'poppler-qt5' 'libspnav' 'fftw' 'hicolor-icon-theme' 
          'sqlite3' 'libkdcraw' 'exiv2' 'qca-qt5' 'qt5-quick1' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
-         'kcontacts' 'kdepimlibs' 'okular')
+         'kcontacts' 'kdepimlibs' 'okular' 'openexr') # 'vc'
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'docbook-xsl') # 'kdelibs')
 #groups=('calligra')
 #source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
@@ -19,7 +19,8 @@ md5sums=('SKIP')
 
 prepare() {
   cd ${srcdir}/${pkgbase}
- 
+  sed -i 's|set(REQUIRED_Xinput_FOUND ${X11_Xinput_FOUND})|set(REQUIRED_Xinput_FOUND TRUE)|' CMakeLists.txt
+  
   #patch -p1 -i $srcdir/0001-switch-to-librevenge-based-import-libs.patch
 }
 

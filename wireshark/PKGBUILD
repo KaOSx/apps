@@ -1,7 +1,7 @@
 
 pkgname=wireshark
 pkgver=1.99.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Network packet analyzer that will try to capture network packets and tries to display that packet data as detailed as possible'
 arch=('x86_64')
 url='http://www.wireshark.org/'
@@ -28,7 +28,9 @@ build() {
 
 package() {
   cd build
-
   make DESTDIR=${pkgdir} install
+  
+  sed -i 's|System;Monitor;GTK;|System;Monitor;Tools;|' ${srcdir}/${pkgname}-${pkgver}/wireshark.desktop
+  install -Dm644 ${srcdir}/${pkgname}-${pkgver}/wireshark.desktop ${pkgdir}/usr/share/applications/wireshark.desktop
 }
 
