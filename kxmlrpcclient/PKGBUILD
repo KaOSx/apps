@@ -40,6 +40,7 @@ build() {
 
 package() {
   cd ${srcdir}/build
-  
   make DESTDIR=${pkgdir} install
+  # locale conflicts with plasma-workspace, re-add with plasma 5.3
+  rm -r ${pkgdir}/usr/share
 }

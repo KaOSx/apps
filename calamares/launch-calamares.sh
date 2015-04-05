@@ -1,2 +1,2 @@
 #!/bin/sh
-sudo /usr/bin/calamares -d -style breeze
+sudo /usr/bin/calamares -d
