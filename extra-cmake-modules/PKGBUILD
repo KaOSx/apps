@@ -1,7 +1,10 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=extra-cmake-modules
-pkgver=1.8.0
-_pkgver=5.8
+pkgver=${_kf5ver}
+_pkgver=5.9
 pkgrel=1
 pkgdesc='Extra CMake modules'
 arch=('x86_64')
@@ -10,7 +13,7 @@ license=('LGPL')
 depends=('cmake' 'python3')
 makedepends=('python2-sphinx' 'qt5-tools')
 source=("http://download.kde.org/stable/frameworks/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('e877d996f478419c3a749cfc425bd6c0')
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
