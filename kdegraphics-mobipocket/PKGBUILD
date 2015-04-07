@@ -6,17 +6,14 @@ pkgname=kdegraphics-mobipocket
 arch=('x86_64')
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="split package"
-url="http://www.kde.org"
+pkgdesc="Collection of plugins to handle mobipocket files"
+url="https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-mobipocket"
 license=('GPL' 'LGPL' 'FDL')
-options=('docs')
-groups=("kde" "kdegraphics" "kde-uninstall")
-provides=('mobipocket')
 depends=('kdelibs' 'strigi')
 makedepends=('automoc4')
+groups=('kde' 'kdegraphics' 'kde-uninstall')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-
 
 build() {
 

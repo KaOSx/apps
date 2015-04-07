@@ -11,12 +11,9 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kdelibs')
 makedepends=('cmake' 'automoc4')
+groups=('kde' 'kdemultimedia' 'kde-uninstall')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-groups=("kde" "kdemultimedia" "kde-uninstall")
-conflicts=('kdemultimedia-common')
-replaces=('kdemultimedia-common')
-options=('docs')
 
 build() {
 	cd ${srcdir}/${pkgname}-${pkgver}
