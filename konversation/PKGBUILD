@@ -1,8 +1,8 @@
 
 
 pkgname=konversation
-pkgver=1.5.85
-_pkgver=1.5.85
+pkgver=1.6
+_pkgver=1.6
 pkgrel=1
 pkgdesc="A user friendly IRC client for KDE"
 arch=('x86_64')
@@ -10,17 +10,17 @@ url="http://konversation.kde.org"
 license=('GPL2' 'FDL')
 depends=('akonadi' 'kfilemetadata' 'kidletime' 'kcmutils' 'krunner' 'kemoticons' 
          'knotifyconfig' 'phonon-qt5' 'baloo-widgets' 'qca-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kf5-konversation')
 replaces=('kf5-konversation')
 groups=('communication')
 install=konversation.install
-#source=("http://download.kde.org/stable/${pkgname}/${_pkgver}/src/${pkgname}-${_pkgver}.tar.xz")
-source=("git://anongit.kde.org/konversation.git")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/${pkgname}/${_pkgver}/src/${pkgname}-${_pkgver}.tar.xz")
+#source=("git://anongit.kde.org/konversation.git")
+md5sums=('02eb219fe4ac7005209819fb50d950fc')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${_pkgver}
   #sed -i -e 's|find_package(Qca 2.1.0)|find_package(Qca 2.1.0 NAMES Qca-qt5 Qca)|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
@@ -28,7 +28,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

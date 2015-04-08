@@ -1,6 +1,6 @@
 
 pkgname=calligra
-pkgver=2.9.71
+pkgver=2.9.72
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -14,14 +14,16 @@ depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kite
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'docbook-xsl') # 'kdelibs')
 #groups=('calligra')
 #source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
-source=("git://anongit.kde.org/calligra.git#branch=frameworks")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/calligra.git#branch=frameworks"
+        'patch.diff')
+md5sums=('SKIP'
+         '82c6b6271eaad823b58bed58f703395f')
 
 prepare() {
-  cd ${srcdir}/${pkgbase}
+  cd ${srcdir}/${pkgname}
   #sed -i 's|set(REQUIRED_Xinput_FOUND ${X11_Xinput_FOUND})|set(REQUIRED_Xinput_FOUND TRUE)|' CMakeLists.txt
   
-  #patch -p1 -i $srcdir/0001-switch-to-librevenge-based-import-libs.patch
+  patch -p1 -i $srcdir/patch.diff
 }
 
 build() {
