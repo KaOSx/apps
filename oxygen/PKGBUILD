@@ -32,6 +32,7 @@ build() {
 package() {
   cd build
 
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
+  rm -r ${pkgdir}/usr/share/locale/*/LC_MESSAGES/breeze_kwin_deco.mo
 }
 
