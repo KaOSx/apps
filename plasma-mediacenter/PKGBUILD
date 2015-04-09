@@ -1,32 +1,32 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=plasma-mediacenter
-pkgver=1.4.0.8
-_pkgver=1.4.0.8
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="A Media Center for the KDE Software Compilation based on plasma technology"
 arch=('x86_64')
 url="https://projects.kde.org/projects/playground/multimedia/plasma-mediacenter"
 license=('GPL3')
-depends=('kguiaddons' 'kio' 'kconfigwidgets' 'plasma-desktop' 'taglib' 'kdelibs4support'
+depends=('kguiaddons' 'kio' 'kconfigwidgets' 'kwindowsystem' 'plasma-desktop' 'taglib'
          'gstreamer0.10-base-plugins' 'gstreamer0.10-ffmpeg' 'ffmpegthumbs')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
-#source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${_pkgver}.tar.bz2")
-#md5sums=('2cb45d02eba7566fe029b5459800c47d')
-source=("git://anongit.kde.org/plasma-mediacenter.git")
-md5sums=('SKIP')
+source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${srcdir}/${pkgname}
-  sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}/CMakeLists.txt 
-  sed -i -e 's|add_subdirectory(test)|#add_subdirectory(test)|' ${srcdir}/${pkgname}/libs/CMakeLists.txt
+  cd ${srcdir}/${pkgname}-${pkgver}
+  #sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}/CMakeLists.txt 
+  #sed -i -e 's|add_subdirectory(test)|#add_subdirectory(test)|' ${srcdir}/${pkgname}/libs/CMakeLists.txt
 }
 
 build () {
   mkdir -p build
 
   cd build
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

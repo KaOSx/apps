@@ -4,26 +4,24 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=bluez-qt
 arch=('x86_64')
-#pkgver=${_kdever}
-pkgver=0.1.0
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Qt wrapper for Bluez 5 DBus API"
 url="https://projects.kde.org/projects/frameworks/bluezqt"
 license=('GPL' 'LGPL' 'FDL')
 depends=('qt5-declarative')
 makedepends=('extra-cmake-modules' 'git')
-#source=($_mirror/${pkgname}-$_kf5ver.tar.xz)
-#md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/bluez-qt.git")
-md5sums=('SKIP')
+conflicts=('libbluedevil')
+provides=('libbluedevil')
+replaces=('libbluedevil')
+source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  cd ${srcdir}
-  
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

@@ -9,8 +9,8 @@ pkgdesc='KDE bluetooth framework'
 arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/base/bluedevil"
 license=('GPL')
-depends=('libbluedevil' 'bluez' 'kcoreaddons' 'kwidgetsaddons' 'kdbusaddons' 'ki18n' 'kinit' 'kio'
-         'kiconthemes' 'knotifications')
+depends=('bluez-qt' 'bluez' 'kcoreaddons' 'kwidgetsaddons' 'kdbusaddons' 'ki18n' 'kinit' 'kio'
+         'kiconthemes' 'knotifications' 'plasma-framework' 'kded')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kf5-bluedevil')
 replaces=('kf5-bluedevil')
@@ -18,8 +18,8 @@ provides=('kf5-bluedevil')
 groups=('plasma5')
 install=bluedevil.install
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-md5sums=('007f7755d4b2f827323d1d379aa55f13')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#md5sums=('007f7755d4b2f827323d1d379aa55f13')
 
 build(){
   cd ${srcdir}
