@@ -4,23 +4,23 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=3
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-desktop'
 license=('LGPL')
 depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb-compat' 'libcanberra' 'polkit-kde-agent-1'
-         'systemsettings' 'ksysguard' 'powerdevil' 'oxygen' 'oxygen-fonts' 'kmenuedit' 'kpeople' 'kdbusaddons')
+         'systemsettings' 'ksysguard' 'powerdevil' 'oxygen' 'oxygen-fonts' 'kmenuedit' 'kpeople' 
+         'kdbusaddons' 'xf86-input-synaptics' 'xorg-server')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
-conflicts=('kde-workspace')
-replaces=('kde-workspace')
+conflicts=('kde-workspace' 'kcm-touchpad')
+replaces=('kde-workspace' 'kcm-touchpad')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
-  #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
   
   cd build
   cmake ../$pkgname-$pkgver \
