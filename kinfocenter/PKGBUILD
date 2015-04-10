@@ -4,20 +4,23 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kinfocenter
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KInfocenter'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kinfocenter'
 license=('LGPL')
-depends=('glu' 'kcmutils' 'kdelibs4support' 'kemoticons' 'libraw1394' 'pciutils' 'plasma-framework')
+depends=('glu' 'kcmutils' 'kdelibs4support' 'kemoticons' 'libraw1394' 'pciutils' 'plasma-framework' 'kwayland')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
 conflicts=('kde-workspace' 'about-distro')
 replaces=('about-distro')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kinfocenter.git")
-#md5sums=('SKIP')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
+        'kcm-about-distrorc'
+        'KaOS.png')
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '41f97acbd0db39afc0db1a9fa4d3d920'
+         '15fce735620422de15d0dca73810a6f8')
+
 
 build() {
   mkdir -p build
@@ -38,5 +41,8 @@ build() {
 package() {
   cd build
   make DESTDIR="${pkgdir}" install
+  
+  install -Dm644 "$srcdir/kcm-about-distrorc" "$pkgdir/etc/xdg/kcm-about-distrorc"
+  install -Dm644 "$srcdir/KaOS.png" "$pkgdir/usr/share/$pkgname/KaOS.png"
 }
 
