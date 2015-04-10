@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kxmlrpcclient
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Interaction with XMLRPC services."
 arch=('x86_64')
@@ -42,5 +42,5 @@ package() {
   cd ${srcdir}/build
   make DESTDIR=${pkgdir} install
   # locale conflicts with plasma-workspace, re-add with plasma 5.3
-  rm -r ${pkgdir}/usr/share
+  #rm -r ${pkgdir}/usr/share
 }
