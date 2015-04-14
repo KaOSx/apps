@@ -4,13 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=purpose
 #pkgver=${_kdever}
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
 url='http://quickgit.kde.org/?p=purpose.git'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kconfig' 'kdeclarative' 'ki18n')
+depends=('kcoreaddons' 'kconfig' 'kdeclarative' 'ki18n' 'kio' 'kaccounts-integration')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 #groups=('')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
@@ -20,7 +20,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's|add_subdirectory( doc )|#add_subdirectory( doc )|' ${srcdir}/${pkgname}/CMakeLists.txt
+  sed -i -e 's|KF5::Purpose|KF5::Purpose KF5::Wallet|' ${srcdir}/${pkgname}/src/plugins/youtube/CMakeLists.txt
 }
 
 build() {
