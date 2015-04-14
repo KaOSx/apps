@@ -1,0 +1,40 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=plasma-sdk
+arch=('x86_64')
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc="Applications useful for Plasma Development."
+url="https://projects.kde.org/projects/extragear/sdk/plasma-sdk"
+license=('GPL' 'LGPL' 'FDL')
+depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdeclarative' 'ki18n'
+         'kiconthemes' 'kio' 'knewstuff' 'kparts' 'plasma-framework' 'kservice' 'ktexteditor'
+         'kwidgetsaddons' 'kxmlgui' 'kwindowsystem' 'kdevplatform')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DPLASMATE_BUILD_WITH_KDEVPLATFORM=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
