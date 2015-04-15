@@ -1,40 +1,41 @@
 
 pkgname=telepathy-logger-qt5
 _pkgname=telepathy-logger-qt
-pkgver=0.8.80
+pkgver=15.04.0
+_pkgver=15.04
 pkgrel=1
-pkgdesc="Qt bindings for telepathy logger"
+pkgdesc="Qt Wrapper around TpLogger client library."
 arch=('x86_64')
-url="https://projects.kde.org/projects/kdereview/telepathy-logger-qt"
+url="https://projects.kde.org/projects/extragear/network/telepathy/telepathy-logger-qt"
 license=('GPL')
 depends=('telepathy-qt5' 'qt5-gstreamer' 'telepathy-logger' 'boost-libs')
-makedepends=('cmake' 'python2' 'boost' 'doxygen')
+makedepends=('extra-cmake-modules' 'python2' 'boost' 'doxygen')
 group=('kde-telepathy')
-#source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
 conflicts=('telepathy-logger-qt')
 replaces=('telepathy-logger-qt')
-source=("git://anongit.kde.org/telepathy-logger-qt.git#branch=qt5")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/${_pkgname}/${_pkgver}/src/${_pkgname}-${pkgver}.tar.xz")
+md5sums=('d5f2811952c7a514a733dacd190b5f3b')
 
 prepare() {
-  cd $_pkgname
+  cd $_pkgname-${pkgver}
   #sed -i -e 's|QtGLib|Qt5GLib|' ${srcdir}/${_pkgname}/CMakeLists.txt
 }
 
 build() {
-  cd "${srcdir}"
+  cd ${srcdir}
   mkdir build
   
   cd build
-  cmake ../${_pkgname} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
     -DPYTHON_EXECUTABLE=/usr/bin/python2
   make
 }
 
 package() {
-  cd "${srcdir}/build"
+  cd ${srcdir}/build
   
-  make DESTDIR="$pkgdir/" install
+  make DESTDIR=$pkgdir/ install
 }
