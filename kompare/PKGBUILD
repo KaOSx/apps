@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kompare
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='A KDE visual diff viewer'
 url='http://kde.org/applications/development/kompare/'
 arch=('x86_64')
@@ -33,7 +33,8 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cd ${srcdir}
-  #sed -e "s|#include <kdemacros.h>||" -i ${srcdir}/$pkgname/interfaces/kompareinterface.h
+  sed -e "s|Exec=kompare -caption %c -o %U|Exec=kompare -o %U|" -i ${srcdir}/$pkgname-${pkgver}/kompare.desktop
+  sed -e "s|X-DBUS-StartupType=Multi||" -i ${srcdir}/$pkgname-${pkgver}/kompare.desktop
   
   mkdir -p build
   cd build
