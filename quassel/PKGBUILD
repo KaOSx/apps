@@ -1,19 +1,20 @@
 
 pkgname=quassel
-pkgver=0.11.83
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="Qt irc client with a separated core"
 url="http://quassel-irc.org"
 arch=('x86_64')
 license=('GPL')
 depends=('qt5-script' 'qt5-webkit' 'hicolor-icon-theme' 'inxi' 'libdbusmenu-qt5' 'phonon-qt5'
-         'kconfigwidgets' 'kcoreaddons' 'knotifications' 'knotifyconfig' 'ktextwidgets' 'kxmlgui' 'qca-qt5')
+         'kconfigwidgets' 'kcoreaddons' 'knotifications' 'knotifyconfig' 'ktextwidgets' 'kwidgetsaddons'
+         'kxmlgui' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 conflicts=('kf5-quassel')
 replaces=('kf5-quassel')
 groups=('communication')
-#source=("http://quassel-irc.org/pub/quassel-${pkgver}.tar.bz2"
-source=("git://github.com/quassel/quassel.git"
+source=("http://quassel-irc.org/pub/quassel-${pkgver}.tar.bz2"
+#source=("git://github.com/quassel/quassel.git"
 	'quassel.service'
         'quassel.conf'
         'irc-channel-active.svgz'
@@ -21,7 +22,7 @@ source=("git://github.com/quassel/quassel.git"
         'quassel.png')
 install=quassel.install
 backup=(etc/conf.d/quassel.conf)
-md5sums=('SKIP'
+md5sums=('a8833326e9cc8e7cbb27b2780cd4f1e2'
          '7f56b8d2d54a1395ed8bada023ec710c'
          '479229556ba0dd94e3ce28e31e5deea9'
          'd22180823cda2ac7bedb238463714c15'
@@ -38,7 +39,7 @@ build() {
     -DWITH_WEBKIT=OFF \
     -DWITH_KDE=ON \
     -DCMAKE_BUILD_TYPE="Release" \
-    ../${pkgname} \
+    ../${pkgname}-${pkgver} \
     -Wno-dev
 
   make
