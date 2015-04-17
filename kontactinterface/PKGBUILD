@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kontactinterface
-#pkgver=${_kdever}
-pkgver=14.12.83
+pkgver=${_pimver}
+#pkgver=15.03.80
 pkgrel=1
 pkgdesc="Library that provides the glue necessary for application parts to be embedded as a Kontact 
          component (or plugin)."
@@ -13,8 +13,8 @@ url='https://projects.kde.org/projects/kde/pim/kontactinterface'
 license=('LGPL')
 depends=('kdelibs4support' 'kparts' 'libx11')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-#source=($_mirror/${_pkgname}-$_kdever.tar.xz)
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=($_mirror/${pkgname}-$_pimver.tar.xz)
+#md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/kontactinterface.git")
 md5sums=('SKIP')
 

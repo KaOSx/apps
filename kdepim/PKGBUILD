@@ -3,10 +3,9 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim
-arch=('x86_64')
-#pkgver=${_kdever}
-pkgver=14.12.87
+pkgver=${_pimver}
 pkgrel=1
+arch=('x86_64')
 pkgdesc="Project that aims to bring together anything to do with personal information management."
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -51,8 +50,8 @@ replaces=('kf5-kdepim'
           'kdepim-korganizer'
           'kdepim-ktimetracker')
 install=kdepim.install
-#source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
-#md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=($_mirror/${pkgname}-${pkgver}.tar.xz)
+#md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/kdepim.git")
 md5sums=('SKIP')
 

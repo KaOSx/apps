@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcalutils
-#pkgver=${_kdever}
-pkgver=14.12.83
+pkgver=${_pimver}
 pkgrel=1
 pkgdesc="Library that provides utility functions for the handling of calendar data."
 arch=('x86_64')
@@ -13,8 +12,8 @@ license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'kdelibs4support' 'kcodecs' 'kcalcore' 
          'kidentitymanagement')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
-#source=($_mirror/${_pkgname}-$_kdever.tar.xz)
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=($_mirror/${pkgname}-$_pimver.tar.xz)
+#md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/kcalutils.git")
 md5sums=('SKIP')
 

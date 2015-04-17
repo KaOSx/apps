@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepimlibs
-pkgver=14.12.84
+pkgver=${_pimver}
 pkgrel=1
 arch=('x86_64')
 pkgdesc="KDE Pim Libraries"
@@ -18,8 +18,8 @@ provides=('kf5-kdepimlibs')
 groups=('kde' 'kde-uninstall')
 install=kdepimlibs.install
 options=('debug')
-#source=($_mirror/${pkgname}-$_kdever.tar.xz)
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=($_mirror/${pkgname}-$_pimver.tar.xz)
+#md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/kdepimlibs.git")      
 md5sums=('SKIP')
 

@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=gpgmepp
-#pkgver=${_kdever}
-pkgver=14.12.83
+pkgver=${_pimver}
+#pkgver=15.03.80
 pkgrel=1
 pkgdesc="C++ wrapper (or C++ bindings) for the GnuPG project's gpgme (GnuPG Made Easy) library"
 arch=('x86_64')
@@ -12,8 +12,8 @@ url='https://projects.kde.org/projects/kde/pim/gpgmepp'
 license=('LGPL')
 depends=('qt5-base' 'gpgme')
 makedepends=('extra-cmake-modules' 'git' 'boost')
-#source=($_mirror/${_pkgname}-$_kdever.tar.xz)
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=($_mirror/${pkgname}-$_pimver.tar.xz)
+#md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/gpgmepp.git")
 md5sums=('SKIP')
 
