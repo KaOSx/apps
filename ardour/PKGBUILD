@@ -2,7 +2,7 @@
 pkgname=ardour
 _pkgname=Ardour
 # adjust .desktop version!
-pkgver=3.5.403
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="A multichannel hard disk recorder and digital audio workstation"
 arch=('x86_64')
@@ -11,26 +11,24 @@ license=('GPL')
 depends=('qjackctl' 'desktop-file-utils' 'gtk2')
 options=('!strip')
 install="$pkgname.install"
-source=("https://sourceforge.net/projects/kaosx/files/sources/ardour/${_pkgname}_64bit-$pkgver-dbg.tar"
+source=("https://sourceforge.net/projects/kaosx/files/sources/ardour/${_pkgname}_64bit-$pkgver.run"
         "$pkgname.desktop")
-md5sums=('8dab33d4a59bf08424275fe674a1db62'
-         'eb8a2f3ea2d276ec434572a00089d27b')
+md5sums=('03c5419b500fb27c1acb7d5542d4e746'
+         'a87425766a860cb8c1477e162b1602fc')
 
 build() {
-  return 0
+  cd "${srcdir}"
+  mkdir build
+  sh "${_pkgname}_64bit-$pkgver.run" --noexec --target build
 }
 
 package() {
-  cd "$srcdir/${_pkgname}_64bit-$pkgver-dbg"
+  cd "${srcdir}"/build
 
   install -d "$pkgdir/opt"
   bsdtar --no-same-owner -jxvf \
-    ${_pkgname}_x86_64-$pkgver-dbg.tar.bz2 \
+   ${_pkgname}_x86_64-$pkgver.tar.bz2 \
     -C "$pkgdir/opt"
-
-  # rm uninstaller and sanity check
-  cd "$pkgdir/opt"
-  rm ${_pkgname}_x86_64-$pkgver-dbg/bin/{*.uninstall.sh,sanityCheck}
 
   install -Dm644 "$srcdir/$pkgname.desktop" \
   "$pkgdir/usr/share/applications/$pkgname.desktop"
