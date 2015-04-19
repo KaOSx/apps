@@ -3,7 +3,7 @@ pkgname=libreoffice
 _LOver=4.4.2.2
 pkgver=4.4.2
 _pkgver=4.4.2.2
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('LGPL3')
 url="http://www.libreoffice.org/"
@@ -229,7 +229,8 @@ build() {
 		--without-system-libgltf \
 		--with-alloc=system \
 		--with-system-clucene \
-		--disable-dependency-tracking
+		--disable-dependency-tracking \
+		--with-theme=sifr
 
 	touch src.downloaded
 	#./download
