@@ -15,6 +15,7 @@ md5sums=('69fb3ebe5fc89f5fb55ca7c46818c3e8')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
+  CXXFLAGS="$CXXFLAGS -DBOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT=1"
 
   ./autogen.sh
   ./configure --prefix=/usr \
