@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kscreengenie
 #pkgver=${_kdever}
-pkgver=15.03.80
+pkgver=15.03.81
 pkgrel=1
 pkgdesc="The new KDE Screenshot Utility"
 url="https://projects.kde.org/projects/playground/graphics/kscreengenie"
@@ -43,6 +43,8 @@ build() {
 
 package() {
   cd build
-
   make DESTDIR=${pkgdir} install
+  
+  # remove icons for now, they are from ksnaphot
+  rm -r ${pkgdir}/usr/share/icons/hicolor/*/apps/ksnapshot.png
 }
