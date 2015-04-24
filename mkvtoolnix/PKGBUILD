@@ -20,6 +20,7 @@ md5sums=('91fd8f34c25b8d3980c3e39b3cb6ae6c')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
+  CXXFLAGS+=' -DBOOST_CODECVT_DO_LENGTH_CONST=const'
   
   ./configure --enable-qt --prefix=/usr --with-boost-libdir=/usr/lib
   rake
