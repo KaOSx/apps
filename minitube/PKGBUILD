@@ -1,25 +1,21 @@
 
 pkgname=minitube
-pkgver=2.3.1
+pkgver=2.4
 pkgrel=1
 pkgdesc="A native YouTube client in QT. Watch YouTube videos without Flash Player"
 arch=('x86_64')
 url="http://flavio.tordini.org/minitube"
 license=('GPL')
-depends=('phonon' 'qt')
-optdepends=('phonon-xine: for xine backend'
-            'phonon-mplayer: for mplayer backend'
-            'phonon-vlc: for vlc backend')
+depends=('phonon-backend-vlc' 'phonon' 'qt')
 groups=('multimedia')
 install=minitube.install
-#source=("http://flavio.tordini.org/files/minitube/minitube-$pkgver.tar.gz"
-source=("https://gitorious.org/minitube/minitube/archive/52cc52d26eef33ad2e3a146923b3bfb6ba82edd8.tar.gz"
+source=("https://github.com/flaviotordini/minitube/archive/${pkgver}.tar.gz"
         'locale.diff')
-md5sums=('3fcdbbf6e850bbd18b54c4368cc32c50'
+md5sums=('90e8f7c8adfe633553e08d98edd77961'
          '61ebe0b289e63790a70388d49cec205e')
 
 build() {
-        cd "${srcdir}/${pkgname}-${pkgname}"
+        cd "${srcdir}/${pkgname}-${pkgver}"
         #patch -p0 -i "${srcdir}/locale.diff"
         
         qmake 
@@ -27,7 +23,7 @@ build() {
 }
 
 package() {
-        cd "${srcdir}/${pkgname}-${pkgname}"
+        cd "${srcdir}/${pkgname}-${pkgver}"
         
         make install INSTALL_ROOT="${pkgdir}" 
 }
