@@ -1,24 +1,24 @@
 
 pkgname=clamav
-pkgver=0.98.6
+pkgver=0.98.7
 pkgrel=1
 pkgdesc='Anti-virus toolkit for Unix'
 arch=('x86_64')
 url='http://www.clamav.net/'
 license=('GPL')
-depends=('bzip2' 'zlib' 'libltdl')
+depends=('bzip2' 'zlib' 'libtool')
 options=('!libtool')
 install="$pkgname.install"
 groups=('system')
 backup=('etc/logrotate.d/clamav')
-source=("https://github.com/vrtadmin/clamav-devel/archive/$pkgname-$pkgver.tar.gz"  
+source=("http://sourceforge.net/projects/clamav/files/clamav/$pkgver/$pkgname-$pkgver.tar.gz"  
         'clamd.conf'
         'clamd.service'
         'freshclam.conf'
         'freshclamd.service'
         'logrotate'
         'tmpfiles.d')
-md5sums=('ffe09229674392c1cf6ed24ee8db4c6d'
+md5sums=('157c601161da1c2d5a0e48ea1b49e067'
          '75584367b1fb2a335061afef95c07ba4'
          'ea0beeef854b4a3cf6b25dc49b228f56'
          '5c646ed6f7100c5223dab648c57d802a'
@@ -27,7 +27,7 @@ md5sums=('ffe09229674392c1cf6ed24ee8db4c6d'
          '89ed33d37ca79d45b8c02418df2486e6')
 
 build() {
-	cd "$srcdir/$pkgname-devel-$pkgname-$pkgver"
+	cd "$srcdir/$pkgname-$pkgver"
 	
 	./configure --prefix=/usr \
 	       --sysconfdir=/etc/clamav \
@@ -37,7 +37,7 @@ build() {
 }
 
 package() {
-	cd "$srcdir/$pkgname-devel-$pkgname-$pkgver"
+	cd "$srcdir/$pkgname-$pkgver"
 	make DESTDIR="$pkgdir" install
 
 	install -Dm644 ../clamd.conf "${pkgdir}"/etc/clamav/clamd.conf
