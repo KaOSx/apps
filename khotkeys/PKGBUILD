@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khotkeys
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KHotKeys'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khotkeys'
@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
-  #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
+  sed -e "s|CommandURL=ksnapshot|CommandURL=kscreengenie|" -i ${srcdir}/$pkgname-$pkgver/data/printscreen.khotkeys
   cd build
   
   cmake ../${pkgname}-$pkgver \

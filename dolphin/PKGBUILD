@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=dolphin
-pkgver=15.03.72
+pkgver=15.03.73
 pkgrel=1
 pkgdesc="KDE File Manager"
 arch=('x86_64')
@@ -15,8 +15,9 @@ depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kdbusaddons' 'kbo
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 install=dolphin.install
 #source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
-source=("git://anongit.kde.org/dolphin.git")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/dolphin.git")
+source=("http://quickgit.kde.org/?p=dolphin.git&a=snapshot&h=7550ef029988626ba6249f1de90e2a42e7a9f632&fmt=tbz2")
+md5sums=('a89baafd5af55a2dc29edb888277411a')
 
 build() {
   mkdir -p build
