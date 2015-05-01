@@ -2,7 +2,7 @@
 pkgname=sigil
 _pkgname=Sigil
 pkgver=0.8.6
-pkgrel=2
+pkgrel=3
 pkgdesc="A multi-platform WYSIWYG ebook editor. It is designed to edit books in ePub format. "
 arch=('x86_64')
 url="https://github.com/user-none/Sigil"
@@ -12,10 +12,8 @@ makedepends=('cmake' 'boost' 'qt5-tools')
 #options=('debug')
 groups=('office')
 install=sigil.install
-source=("https://github.com/user-none/Sigil/archive/$pkgver.tar.gz"
-       'sigil.desktop')
-md5sums=('4c40c1c94b056f374af1f5a184064daf'
-         '68c3f162c7bab1982c0be78e90dad2d7')
+source=("https://github.com/user-none/Sigil/archive/$pkgver.tar.gz")
+md5sums=('4c40c1c94b056f374af1f5a184064daf')
 
 
 build() {
@@ -35,14 +33,12 @@ build() {
 package() {
   cd ${srcdir}/${_pkgname}-${pkgver}/build
   make install DESTDIR=$pkgdir
-  install -d -m 0755 "${pkgdir}"/usr/share/applications
 
   # Desktop integration.
-  install -Dm0644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
   for _pic in 16 32 48 128 256; do
     install -Dm0644 ../src/Sigil/Resource_Files/icon/app_icon_$_pic.png \
       $pkgdir/usr/share/icons/hicolor/$_picx$_pic/apps/$pkgname.png
   done
    install -Dm644 ../src/Sigil/Resource_Files/icon/app_icon_128.png \
-       "$pkgdir/usr/share/pixmaps/$pkgname.png"
+       $pkgdir/usr/share/pixmaps/$pkgname.png
 }
