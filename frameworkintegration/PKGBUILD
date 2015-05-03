@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=frameworkintegration
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Framework providing components to allow applications to integrate with a KDE Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/frameworkintegration'
@@ -13,16 +13,14 @@ depends=('kconfig' 'kconfigwidgets' 'ki18n' 'kiconthemes' 'kio' 'knotifications'
          'libxcursor')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/5.9/${pkgname}-${pkgver}.tar.xz"
-        'file_dialog.diff')
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '8346ba79f6be4dcbab21c80d7d1afd87')
+source=("http://download.kde.org/stable/frameworks/5.9/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
   # http://quickgit.kde.org/?p=frameworkintegration.git&a=commit&h=26406a9aa01d6f4f01a3f084b51451de8385c8fc
   # use only the last patch
-  patch -p1 -i $srcdir/file_dialog.diff
+  #patch -p1 -i $srcdir/file_dialog.diff
 }
 
 build() {
