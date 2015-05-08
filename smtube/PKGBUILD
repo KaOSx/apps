@@ -1,6 +1,7 @@
 
 pkgname=smtube
-pkgver=15.1.0
+pkgver=15.5.7.2
+_pkgver=15.5.7-2
 pkgrel=1
 pkgdesc="YouTube browser for smplayer, mplayer, vlc and dragonplayer"
 arch=('x86_64')
@@ -8,17 +9,18 @@ url="http://smplayer.sourceforge.net"
 license=('GPL')
 depends=('qt5-base')
 makedepends=('qt5-tools' 'qt5-script')
-source=("http://downloads.sourceforge.net/smplayer/$pkgname-$pkgver.tar.bz2")
-md5sums=('7ae4a5b6380f25a74cea1562bb4a5d92')
+#source=("http://downloads.sourceforge.net/smplayer/$pkgname-$pkgver.tar.bz2")
+source=("http://sourceforge.net/projects/smplayer/files/SMTube/15.5/smtube-${_pkgver}.7z")
+md5sums=('85641811e893e729852e7305b91b13f7')
 
 build() {
-  cd $pkgname-$pkgver
+  cd ${pkgname}-${_pkgver}
 
   make PREFIX=/usr QMAKE=/usr/lib/qt5/bin/qmake LRELEASE=/usr/lib/qt5/bin/lrelease
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd ${pkgname}-${_pkgver}
 
-  make PREFIX=/usr DESTDIR="$pkgdir/" install
+  make PREFIX=/usr DESTDIR="${pkgdir}/" install
 }
