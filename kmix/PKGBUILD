@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kmix
-#pkgver=${_kdever}
-pkgver=15.03.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="KDE volume control program"
 url='http://kde.org/applications/multimedia/kmix/'
@@ -16,14 +15,14 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
 conflicts=('kdemultimedia-kmix')
 replaces=('kdemultimedia-kmix')
 provides=('kdemultimedia-kmix')
-#groups=("kde" "kdemultimedia" "kde-uninstall")
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kmix.git")
-md5sums=('SKIP')
+groups=('kde' 'kdemultimedia' 'kde-uninstall')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kmix.git")
+#md5sums=('SKIP')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #sed -i -e 's/KF5 REQUIRED COMPONENTS I18n Init Config Solid KDELibs4Support/KF5 REQUIRED COMPONENTS I18n Init Config Solid KDELibs4Support DBusAddons/' ${srcdir}/${pkgname}/CMakeLists.txt
   #sed -i -e 's/KF5::KDELibs4Support/KF5::KDELibs4Support KF5::DBusAddons K5::GLobalAccel/' ${srcdir}/${pkgname}/CMakeLists.txt
 }
@@ -32,7 +31,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
