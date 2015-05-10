@@ -1,6 +1,6 @@
 
 pkgname=qbittorrent
-pkgver=3.1.81
+pkgver=3.2.0
 _commit=866f9654eb37e55b51f777d6c5f62ba6569584b5
 pkgrel=1
 pkgdesc="A bittorrent client written in C++ / Qt4 using the good libtorrent library"
@@ -12,19 +12,19 @@ depends=('qt5-base' 'libtorrent-rasterbar' 'xdg-utils' 'boost-libs' 'python2')
 makedepends=('boost' 'which' 'qt5-tools')
 groups=('network')
 install=qbittorrent.install
-#source=("http://sourceforge.net/projects/qbittorrent/files/${pkgname}/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("https://github.com/qbittorrent/qBittorrent/archive/${_commit}.zip")
-md5sums=('de55a3544550d330130da7303540f279')
+source=("http://sourceforge.net/projects/qbittorrent/files/${pkgname}/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#source=("https://github.com/qbittorrent/qBittorrent/archive/${_commit}.zip")
+md5sums=('55a582d86db0db9734aee446b8daa267')
 
 build() {
-    cd ${srcdir}/qBittorrent-${_commit}
+    cd ${srcdir}/qbittorrent-${pkgver}
     
     ./configure --prefix=/usr --with-qt5
     make
 }
 
 package(){
-    cd ${srcdir}/qBittorrent-${_commit}
+    cd ${srcdir}/qbittorrent-${pkgver}
     
     make INSTALL_ROOT=${pkgdir} install
 }
