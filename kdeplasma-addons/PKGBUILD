@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdeplasma-addons
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Plasma Addons"
 url="http://www.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
@@ -168,9 +168,16 @@ replaces=('kdeplasma-addons-applets-bball'
          'kdeplasma-applets-menubar'
          'kdeplasma-applets-yawp'
          'kdeplasma-applets-stackfolder')
-source=("http://download.kde.org/stable/plasma/$pkgver/${pkgname}-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-#md5sums=('5412aa209b5a2df0c09f2ccbd0b3a857')
+source=("http://download.kde.org/stable/plasma/$pkgver/${pkgname}-$pkgver.tar.xz"
+        'minimizeall.diff')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '443d28115094c3e1e82f934e21f18cce')
+
+prepare() {
+  cd $pkgname-${pkgver}
+  
+  patch -p1 -i ${srcdir}/minimizeall.diff
+}
 
 build() {
   mkdir -p build
