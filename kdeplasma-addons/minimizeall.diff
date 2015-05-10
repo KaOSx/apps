@@ -1,0 +1,454 @@
+diff --git a/applets/CMakeLists.txt b/applets/CMakeLists.txt
+index 7ada7ac..ba1f8a3 100644
+--- a/applets/CMakeLists.txt
++++ b/applets/CMakeLists.txt
+@@ -19,6 +19,7 @@ if(NOT WIN32)
+ endif(NOT WIN32)
+ 
+ add_subdirectory(kimpanel)
++add_subdirectory(minimizeall)
+ add_subdirectory(showdesktop)
+ 
+ plasma_install_package(webbrowser org.kde.plasma.webbrowser)
+diff --git a/applets/minimizeall/CMakeLists.txt b/applets/minimizeall/CMakeLists.txt
+new file mode 100644
+index 0000000..1288cc1
+--- /dev/null
++++ b/applets/minimizeall/CMakeLists.txt
+@@ -0,0 +1,21 @@
++
++add_definitions(-DTRANSLATION_DOMAIN="plasma_applet_org.kde.plasma.minimizeall")
++
++set(minimizeall_SRCS
++    plugin/minimizeall.cpp
++    plugin/minimizeallplugin.cpp
++)
++
++add_library(minimizeallplugin SHARED ${minimizeall_SRCS})
++
++target_link_libraries(minimizeallplugin
++     Qt5::Core
++     Qt5::Qml
++     Qt5::Quick
++     KF5::WindowSystem
++    )
++
++install(TARGETS minimizeallplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/minimizeall)
++install(FILES plugin/qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/minimizeall)
++
++plasma_install_package(package org.kde.plasma.minimizeall)
+diff --git a/applets/minimizeall/Messages.sh b/applets/minimizeall/Messages.sh
+new file mode 100755
+index 0000000..8c31828
+--- /dev/null
++++ b/applets/minimizeall/Messages.sh
+@@ -0,0 +1,2 @@
++#! /usr/bin/env bash
++$XGETTEXT `find . -name \*.qml -o -name \*.cpp` -o $podir/plasma_applet_org.kde.plasma.minimizeall.pot
+diff --git a/applets/minimizeall/package/contents/config/main.xml b/applets/minimizeall/package/contents/config/main.xml
+new file mode 100644
+index 0000000..12f3414
+--- /dev/null
++++ b/applets/minimizeall/package/contents/config/main.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
++      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
++      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
++  <kcfgfile name=""/>
++
++  <group name="General">
++    <entry name="icon" type="String">
++      <default>user-desktop</default>
++    </entry>
++  </group>
++</kcfg>
+diff --git a/applets/minimizeall/package/contents/ui/main.qml b/applets/minimizeall/package/contents/ui/main.qml
+new file mode 100644
+index 0000000..5c4d1c3
+--- /dev/null
++++ b/applets/minimizeall/package/contents/ui/main.qml
+@@ -0,0 +1,102 @@
++/*
++ *    Copyright 2015 Sebastian Kügler <sebas@kde.org>
++ *
++ *    This program is free software; you can redistribute it and/or modify
++ *    it under the terms of the GNU General Public License as published by
++ *    the Free Software Foundation; either version 2 of the License, or
++ *    (at your option) any later version.
++ *
++ *    This program is distributed in the hope that it will be useful,
++ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ *    GNU General Public License for more details.
++ *
++ *    You should have received a copy of the GNU General Public License along
++ *    with this program; if not, write to the Free Software Foundation, Inc.,
++ *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++ */
++
++import QtQuick 2.1
++import QtQuick.Layouts 1.1
++
++import org.kde.plasma.plasmoid 2.0
++import org.kde.plasma.core 2.0 as PlasmaCore
++
++import org.kde.plasma.private.minimizeall 1.0
++
++
++Item {
++    id: root
++
++    Layout.minimumWidth: Layout.maximumWidth
++    Layout.minimumHeight: Layout.maximumHeight
++
++    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
++    Plasmoid.onActivated: activate()
++
++    function activate() {
++        if (!minimizeall.active) {
++            minimizeall.minimizeAllWindows();
++        } else {
++            minimizeall.unminimizeAllWindows();
++        }
++    }
++
++    MinimizeAll {
++        id: minimizeall
++    }
++
++    PlasmaCore.FrameSvgItem {
++        id: expandedItem
++        anchors.fill: parent
++        imagePath: "widgets/tabbar"
++        prefix: {
++            var prefix;
++            switch (plasmoid.location) {
++                case PlasmaCore.Types.LeftEdge:
++                    prefix = "west-active-tab";
++                    break;
++                case PlasmaCore.Types.TopEdge:
++                    prefix = "north-active-tab";
++                    break;
++                case PlasmaCore.Types.RightEdge:
++                    prefix = "east-active-tab";
++                    break;
++                default:
++                    prefix = "south-active-tab";
++            }
++            if (!hasElementPrefix(prefix)) {
++                prefix = "active-tab";
++            }
++            return prefix;
++        }
++        opacity: minimizeall.active ? 1 : 0
++        Behavior on opacity {
++            NumberAnimation {
++                duration: units.shortDuration
++                easing.type: Easing.InOutQuad
++            }
++        }
++    }
++
++    PlasmaCore.IconItem {
++        id:icon
++        source: plasmoid.configuration.icon
++        active: mouseArea.containsMouse
++        anchors.fill: parent
++    }
++
++    PlasmaCore.ToolTipArea {
++        anchors.fill: parent
++        mainText : i18n("Minimize Windows")
++        subText : i18n("Show the desktop by minimizing all windows")
++        icon : plasmoid.configuration.icon
++
++        MouseArea {
++            id: mouseArea
++            anchors.fill: parent
++            hoverEnabled: true
++            onClicked: activate()
++        }
++    }
++}
+diff --git a/applets/minimizeall/package/metadata.desktop b/applets/minimizeall/package/metadata.desktop
+new file mode 100644
+index 0000000..b913240
+--- /dev/null
++++ b/applets/minimizeall/package/metadata.desktop
+@@ -0,0 +1,19 @@
++[Desktop Entry]
++Name=Minimize all Windows
++Comment=Show the desktop by minimizing all windows
++Type=Service
++Icon=user-desktop
++ServiceTypes=Plasma/Applet
++
++X-KDE-ServiceTypes=Plasma/Applet
++X-KDE-PluginInfo-Author=Sebastian Kügler
++X-KDE-PluginInfo-Email=sebas@kde.org
++X-KDE-PluginInfo-Name=org.kde.plasma.minimizeall
++X-KDE-PluginInfo-Version=1.0
++X-KDE-PluginInfo-Website=http://plasma.kde.org/
++X-KDE-PluginInfo-Category=Windows and Tasks
++X-KDE-PluginInfo-Depends=
++X-KDE-PluginInfo-License=GPL
++X-KDE-PluginInfo-EnabledByDefault=true
++X-Plasma-MainScript=ui/main.qml
++X-Plasma-API=declarativeappletscript
+diff --git a/applets/minimizeall/plugin/minimizeall.h b/applets/minimizeall/plugin/minimizeall.h
+new file mode 100644
+index 0000000..58d0407
+--- /dev/null
++++ b/applets/minimizeall/plugin/minimizeall.h
+@@ -0,0 +1,53 @@
++/*
++ *    Copyright 2015 Sebastian Kügler <sebas@kde.org>
++ *
++ *    This program is free software; you can redistribute it and/or modify
++ *    it under the terms of the GNU General Public License as published by
++ *    the Free Software Foundation; either version 2 of the License, or
++ *    (at your option) any later version.
++ *
++ *    This program is distributed in the hope that it will be useful,
++ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ *    GNU General Public License for more details.
++ *
++ *    You should have received a copy of the GNU General Public License along
++ *    with this program; if not, write to the Free Software Foundation, Inc.,
++ *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++ */
++
++
++#ifndef MINIMIZEALL_HEADER
++#define MINIMIZEALL_HEADER
++
++#include <QObject>
++#include <KWindowSystem>
++
++class MinimizeAll : public QObject
++{
++
++Q_OBJECT
++Q_PROPERTY(bool active READ active NOTIFY activeChanged)
++
++public:
++    MinimizeAll();
++    ~MinimizeAll();
++
++    Q_INVOKABLE void minimizeAllWindows();
++    Q_INVOKABLE void unminimizeAllWindows();
++
++    bool active() const;
++
++public Q_SLOTS:
++    void reset();
++
++Q_SIGNALS:
++    void activeChanged();
++
++private:
++    bool match(const WId &wid, bool includehidden = true) const;
++    QList<WId> m_minimizedWindows;
++    bool m_active;
++};
++
++#endif //MINIMIZEALL_HEADER
+diff --git a/applets/minimizeall/plugin/minimizeall.cpp b/applets/minimizeall/plugin/minimizeall.cpp
+new file mode 100644
+index 0000000..8fece42
+--- /dev/null
++++ b/applets/minimizeall/plugin/minimizeall.cpp
+@@ -0,0 +1,105 @@
++/*
++ *    Copyright 2015 Sebastian Kügler <sebas@kde.org>
++ *
++ *    This program is free software; you can redistribute it and/or modify
++ *    it under the terms of the GNU General Public License as published by
++ *    the Free Software Foundation; either version 2 of the License, or
++ *    (at your option) any later version.
++ *
++ *    This program is distributed in the hope that it will be useful,
++ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ *    GNU General Public License for more details.
++ *
++ *    You should have received a copy of the GNU General Public License along
++ *    with this program; if not, write to the Free Software Foundation, Inc.,
++ *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++ */
++
++#include "minimizeall.h"
++
++#include <KWindowSystem>
++
++#include <QDebug>
++#include <QTimer>
++
++MinimizeAll::MinimizeAll()
++{
++    m_active = false;
++}
++
++MinimizeAll::~MinimizeAll()
++{
++}
++
++bool MinimizeAll::active() const
++{
++    return m_active;
++}
++
++void MinimizeAll::minimizeAllWindows()
++{
++    m_minimizedWindows.clear();
++
++    foreach (const WId &wid, KWindowSystem::self()->stackingOrder()) {
++        if (match(wid, false)) { // skip hidden windows
++            m_minimizedWindows << wid;
++            KWindowSystem::self()->minimizeWindow(wid);
++        }
++    }
++    if (!m_active) {
++        m_active = true;
++        Q_EMIT activeChanged();
++    }
++
++    // delay connecting to the window and desktop changes so we skip the
++    // active window change that happens after minimizing
++    QTimer::singleShot(100, this, [this] () {
++        connect(KWindowSystem::self(), &KWindowSystem::activeWindowChanged,
++                this, &MinimizeAll::reset);
++        connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
++                this, &MinimizeAll::reset);
++    });
++    qDebug() << "Minimized " << m_minimizedWindows.count() << " windows";
++}
++
++void MinimizeAll::unminimizeAllWindows()
++{
++    qDebug() << "UnMini " << m_minimizedWindows.count() << " windows";
++    for (auto wid: m_minimizedWindows) {
++        if (match(wid)) {
++            KWindowSystem::self()->unminimizeWindow(wid);
++        }
++    }
++    reset();
++}
++
++bool MinimizeAll::match(const WId& wid, bool includehidden) const
++{
++    bool _match = true;
++    KWindowInfo info(wid, NET::WMState | NET::WMWindowType | NET::WMDesktop);
++    if (!includehidden && info.hasState(NET::Hidden)) {
++        _match = false;
++    } else if (info.windowType(NET::DockMask ) == NET::Dock) {
++        _match = false;
++    } else if (!info.isOnCurrentDesktop()) {
++        _match = false;
++    }
++
++    return _match;
++}
++
++void MinimizeAll::reset()
++{
++    if (m_active) {
++        disconnect(KWindowSystem::self(), &KWindowSystem::activeWindowChanged,
++                   this, &MinimizeAll::reset);
++        disconnect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
++                   this, &MinimizeAll::reset);
++
++        m_minimizedWindows.clear();
++        m_active = false;
++        Q_EMIT activeChanged();
++    }
++}
++
+diff --git a/applets/minimizeall/plugin/minimizeallplugin.h b/applets/minimizeall/plugin/minimizeallplugin.h
+new file mode 100644
+index 0000000..4102a31
+--- /dev/null
++++ b/applets/minimizeall/plugin/minimizeallplugin.h
+@@ -0,0 +1,36 @@
++/*
++ *    Copyright 2015 Sebastian Kügler <sebas@kde.org>
++ *
++ *    This program is free software; you can redistribute it and/or modify
++ *    it under the terms of the GNU General Public License as published by
++ *    the Free Software Foundation; either version 2 of the License, or
++ *    (at your option) any later version.
++ *
++ *    This program is distributed in the hope that it will be useful,
++ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ *    GNU General Public License for more details.
++ *
++ *    You should have received a copy of the GNU General Public License along
++ *    with this program; if not, write to the Free Software Foundation, Inc.,
++ *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++ */
++
++
++#ifndef MINIMIZEALLPLUGIN_H
++#define MINIMIZEALLPLUGIN_H
++
++#include <QObject>
++#include <QQmlEngine>
++#include <QQmlExtensionPlugin>
++
++class MinimizeAllPlugin : public QQmlExtensionPlugin
++{
++    Q_OBJECT
++    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
++
++public:
++    virtual void registerTypes(const char *uri);
++};
++
++#endif // MINIMIZEALLPLUGIN_H
+diff --git a/applets/minimizeall/plugin/minimizeallplugin.cpp b/applets/minimizeall/plugin/minimizeallplugin.cpp
+new file mode 100644
+index 0000000..ea04132
+--- /dev/null
++++ b/applets/minimizeall/plugin/minimizeallplugin.cpp
+@@ -0,0 +1,28 @@
++/*
++ *    Copyright 2015 Sebastian Kügler <sebas@kde.org>
++ *
++ *    This program is free software; you can redistribute it and/or modify
++ *    it under the terms of the GNU General Public License as published by
++ *    the Free Software Foundation; either version 2 of the License, or
++ *    (at your option) any later version.
++ *
++ *    This program is distributed in the hope that it will be useful,
++ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ *    GNU General Public License for more details.
++ *
++ *    You should have received a copy of the GNU General Public License along
++ *    with this program; if not, write to the Free Software Foundation, Inc.,
++ *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++ */
++
++#include "minimizeallplugin.h"
++#include "minimizeall.h"
++
++#include <QtQml>
++
++void MinimizeAllPlugin::registerTypes(const char *uri)
++{
++    Q_ASSERT(uri == QLatin1String("org.kde.plasma.private.minimizeall"));
++    qmlRegisterType<MinimizeAll>(uri, 1, 0, "MinimizeAll");
++}
+\ No newline at end of file
+diff --git a/applets/minimizeall/plugin/qmldir b/applets/minimizeall/plugin/qmldir
+new file mode 100644
+index 0000000..945a30a
+--- /dev/null
++++ b/applets/minimizeall/plugin/qmldir
+@@ -0,0 +1,2 @@
++module org.kde.plasma.private.minimizeall
++plugin minimizeallplugin
