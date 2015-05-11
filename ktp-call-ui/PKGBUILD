@@ -6,7 +6,8 @@ pkgdesc="Telepathy call handler "
 arch=('x86_64')
 url="http://www.kde.org"
 license=('GPL')
-depends=('ktp-common-internals' 'telepathy-farstream'
+depends=('kconfig' 'kdeclarative' 'kiconthemes' 'ki18n' 'knotifications' 'kxmlgui' 'kcmutils'
+         'ktp-common-internals' 'telepathy-farstream'
          'telepathy-mission-control' 'telepathy-gabble' 'gst-plugins-base'
          'gst-plugins-good' 'qt5-gstreamer' 'gst-libav')
 makedepends=('boost' 'extra-cmake-modules' 'kdoctools' 'git')
@@ -15,6 +16,11 @@ groups=('kde-telepathy' 'communication')
 source=("git://anongit.kde.org/ktp-call-ui.git#branch=frameworks")
 md5sums=('SKIP')
 
+prepare() {
+  cd $pkgname
+  sed -i -e 's|#include <phonon/Global>|#include <phonon4qt5/phonon/Global>|' ${srcdir}/${pkgname}/libktpcall/private/phonon-integration.h
+  sed -i -e 's|#include <phonon/ObjectDescription>|#include <phonon4qt5/phonon/ObjectDescription>|' ${srcdir}/${pkgname}/libktpcall/private/phonon-integration.h
+}
 build() {
   cd ${srcdir}
   
