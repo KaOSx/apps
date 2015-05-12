@@ -1,7 +1,7 @@
 
 pkgname=mkvtoolnix
-pkgver=7.8.0
-pkgrel=3
+pkgver=7.9.0
+pkgrel=1
 pkgdesc="Set of tools to create, edit and inspect Matroska files."
 arch=('x86_64')
 license=('GPL')
@@ -16,17 +16,17 @@ makedepends=('gcc' 'boost' 'ruby')
 groups=('multimedia')
 install=mkvtoolnix.install
 source=("http://www.bunkus.org/videotools/$pkgname/sources/$pkgname-$pkgver.tar.xz"
-        "https://github.com/mbunkus/mkvtoolnix/commit/df0df0f83b2dceb390945c9393621f1c11c466d0.patch")
-md5sums=('91fd8f34c25b8d3980c3e39b3cb6ae6c'
-         '1e591b2aac1cddd1d6abbb49a9493cd9')
+        "https://github.com/mbunkus/mkvtoolnix/commit/8221f3453c9308680db38816934d49c71913c5c0.patch")
+md5sums=('b73789734f7ca3041473ad905c89143f'
+         'fe7a94f4e5e55070fe4d11a3d23d2bbb')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  # boost 1.58.0 build fix
-  patch -p1 -i "$srcdir"/df0df0f83b2dceb390945c9393621f1c11c466d0.patch
+  # US-ASCII build failure fix
+  patch -p1 -i "$srcdir"/8221f3453c9308680db38816934d49c71913c5c0.patch
 
   
-  ./configure --enable-qt --prefix=/usr --with-boost-libdir=/usr/lib
+  ./configure --disable-wxwidgets --prefix=/usr --with-boost-libdir=/usr/lib
   rake
 }
 
