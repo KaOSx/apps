@@ -1,27 +1,38 @@
 
 pkgname=musescore
 pkgver=2.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Music notation and composition software written in Qt"
 arch=('x86_64')
 url="http://www.musescore.org/en/"
 license=('GPL')
 depends=('qt5-quick1' 'qt5-svg' 'qt5-tools' 'openssl' 'pulseaudio' 'lame' 'portaudio-svn' 'jack')
-makedepends=('cmake' 'doxygen' 'texlive-core')
+makedepends=('cmake' 'doxygen' 'texlive-core' 'qt5-tools')
 groups=('multimedia')
 source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz")
 md5sums=('3ad97361c1b95bc1ee7fc7740ba1dbcd')
-         
+
 build() {
-  cd $srcdir/MuseScore-${pkgver}
+  mkdir -p build
+  cd build
   
-  make PREFIX=/usr release
-  
-  #cd build
-  #make doxy
+  cmake ../MuseScore-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_SKIP_RPATH=On
+  make lrelease
+  make
 }
+
 package() {
-  cd $srcdir/MuseScore-${pkgver}
+  cd build
+  make DESTDIR=${pkgdir} install
   
-  make PREFIX=/usr DESTDIR=$pkgdir install
+  # package mscore fonts so they can be used by other apps
+  cd ../MuseScore-${pkgver}
+  install -m755 -d ${pkgdir}/usr/share/fonts/mscore
+  install -m644 fonts/mscoreTab.*tf $pkgdir/usr/share/fonts/mscore/
+  install -m644 fonts/MuseJazz.ttf $pkgdir/usr/share/fonts/mscore/
+  install -m644 fonts/mscore/mscore.otf $pkgdir/usr/share/fonts/mscore/
+  install -m644 fonts/mscore/*.ttf $pkgdir/usr/share/fonts/mscore/
 }
