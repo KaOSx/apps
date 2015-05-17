@@ -1,0 +1,36 @@
+
+pkgname=avidemux
+pkgver=2.6.9
+pkgrel=1
+pkgdesc="Video editor designed for simple cutting, filtering and encoding tasks using a variety of codecs."
+arch=('x86_64')
+url="http://fixounet.free.fr/avidemux/"
+license=('Public Domain')
+depends=('qt5-script' 'flac' 'libva' 'libxv' 'desktop-file-utils' 'x264' 'pulseaudio' 'jack'
+         'lame' 'sqlite')
+makedepends=('cmake' 'yasm' 'pkg-config' 'qt5-tools')
+options=('!makeflags')
+source=("http://downloads.sourceforge.net/avidemux/avidemux_2.6.9.tar.gz")
+md5sums=("660f781a4307681e0c0be4780123e7c0")
+
+prepare() {
+    cd ${srcdir}/${pkgname}_${pkgver}
+    sed 's|hf_hflip|vf_hflip|g' -i ${srcdir}/${pkgname}_${pkgver}/avidemux_plugins/ADM_videoFilters6/horizontalFlip/CMakeLists.txt
+}
+
+build() {
+    cd ${srcdir}/${pkgname}_${pkgver}
+    
+    bash bootStrap.bash --with-core \
+        --with-plugins \
+        --enable-qt5
+}
+
+package() {
+    cd ${srcdir}/${pkgname}_${pkgver}
+    cp -r install/usr/ "$pkgdir"/
+
+    install -Dm644 "${pkgname}_icon.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
+    install -Dm644 "${pkgname}2.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+    sed 's|Exec=avidemux2_gtk|Exec=avidemux3_qt5|' -i "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+}
