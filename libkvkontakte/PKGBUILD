@@ -1,0 +1,39 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=libkvkontakte
+#pkgver=${_kdever}
+pkgver=4.10.90
+pkgrel=1
+pkgdesc="Wrapper around exiv2"
+arch=('x86_64')
+url='http://www.kde.org'
+license=('GPL' 'LGPL' 'FDL')
+depends=('kdelibs' 'qjson')
+makedepends=('pkg-config' 'cmake' 'automoc4')
+groups=('kdegraphics')
+source=("http://download.kde.org/unstable/libkvkontakte/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=('bd25d9dff58a63921a181ccb9db6ff06')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  #sed -i -e 's|KF5::KDELibs4Support|KF5::KDELibs4Support KF5::KHtml|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
