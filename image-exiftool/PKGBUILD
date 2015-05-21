@@ -15,14 +15,17 @@ md5sums=('d9914578c43a538cdd14212f6a2ad8f0')
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
   
-  perl Makefile.PL 
+  perl Makefile.PL INSTALLDIRS=vendor 
+      #INSTALL_BASE=/usr 
+      #INSTALLMAN1DIR=/usr/share/man/man1 \
+      #INSTALLMAN3DIR=/usr/share/man/man3
   make
 }
 
 check() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
 
-  make test
+  #make test
 }
 
 package() {

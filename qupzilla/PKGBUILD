@@ -1,7 +1,7 @@
 
 pkgname=qupzilla
-pkgver=1.8.6
-_commit=cc08957
+pkgver=1.8.6.1
+_commit=bdcd326
 pkgrel=1
 pkgdesc="A fast open source browser based on WebKit core, written in Qt Framework"
 arch=('x86_64')
@@ -11,14 +11,14 @@ depends=('qt5-webkit' 'qt5-script' 'mesa' 'kwallet' 'hunspell' 'desktop-file-uti
 #depends=('qtwebkit' 'qtwebkit-plugins' 'mesa' 'kdelibs')
 makedepends=('gdb' 'qt5-tools')
 groups=('network')
-source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-${pkgver}.tar.gz"
+source=("https://github.com/QupZilla/QupZilla/tarball/v1.8/QupZilla-qupzilla-${pkgver}.tar.gz"
 #source=("https://github.com/QupZilla/qupzilla/releases/download/v${pkgver}/QupZilla-${pkgver}.tar.xz"
         'speeddial.diff'
         'preferences.diff'
         'browserwindow.diff'
         'defines.diff'
         'bookmarks_json.diff')
-md5sums=('72472c0b210e2d436d9a7ce50e40575e'
+md5sums=('6fed9d691d442638dec67aad155c0ddb'
          '65cd96b4e2d5b12df25e088f8409acd6'
          'c747d63df3218d038546fd93ba531178'
          'ea860e4bd5a7ca23445482e1fde186b5'
@@ -34,7 +34,7 @@ build() {
     patch -p0 -i "${srcdir}/defines.diff"
     patch -p0 -i "${srcdir}/bookmarks_json.diff"
     
-    sed -e "s|<KDE/KWallet/Wallet>|<KF5/KWallet/KWallet>|" -i ${srcdir}/QupZilla-qupzilla-${_commit}/src/plugins/KWalletPasswords/kwalletpasswordbackend.h
+    #sed -e "s|<KDE/KWallet/Wallet>|<KF5/KWallet/KWallet>|" -i ${srcdir}/QupZilla-qupzilla-${_commit}/src/plugins/KWalletPasswords/kwalletpasswordbackend.h
 
     export USE_WEBGL="true"
     #export NO_X11="true"
