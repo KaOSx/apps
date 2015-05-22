@@ -16,16 +16,13 @@ build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
   
   perl Makefile.PL INSTALLDIRS=vendor 
-      #INSTALL_BASE=/usr 
-      #INSTALLMAN1DIR=/usr/share/man/man1 \
-      #INSTALLMAN3DIR=/usr/share/man/man3
   make
 }
 
 check() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
 
-  #make test
+  make test
 }
 
 package() {
