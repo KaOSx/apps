@@ -1,6 +1,6 @@
 
 pkgname=jsoncpp
-pkgver=1.4.2
+pkgver=1.6.2
 pkgrel=1
 pkgdesc="A JSON C++ library"
 url='https://github.com/open-source-parsers/jsoncpp'
@@ -8,11 +8,15 @@ license=('custom:Public_Domain')
 arch=('x86_64')
 depends=('gcc-libs' 'python2')
 makedepends=('cmake')
-source=("https://github.com/open-source-parsers/jsoncpp/archive/${pkgver}.tar.gz")
-md5sums=('7cf0f549c5acd6abb2cd7a7abc0a95ee')
+source=("https://github.com/open-source-parsers/jsoncpp/archive/${pkgver}.tar.gz"
+        "https://github.com/open-source-parsers/jsoncpp/commit/e6f1cffdd3fb04a0ed96319e6f8df6a7cbdd1557.patch")
+md5sums=('5a62da8b5c5b0e46a0e782e7363aee3d'
+         'c57797dc180b10b85c9a99c1606acc40')
 
 build() {
   cd ${pkgname}-${pkgver}
+  #patch -p1 -i $srcdir/e6f1cffdd3fb04a0ed96319e6f8df6a7cbdd1557.patch
+  
   mkdir -p build/debug
   cd build/debug
   
