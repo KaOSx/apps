@@ -4,30 +4,33 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkvkontakte
 #pkgver=${_kdever}
-pkgver=4.11.0
+pkgver=4.11.70
 pkgrel=1
 pkgdesc="KDE C++ library for asynchronous interaction with vkontakte.ru social network via its open API."
 arch=('x86_64')
 url='https://projects.kde.org/projects/extragear/libs/libkvkontakte'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kdelibs' 'qjson')
-makedepends=('pkg-config' 'cmake' 'automoc4')
+depends=('kio' 'ki18n' 'kdelibs4support' 'kdewebkit')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
 groups=('kdegraphics')
-source=("http://download.kde.org/stable/libkvkontakte/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('f4a1e9925e21ee2ab9702a115c8e7ca9')
+#source=("http://download.kde.org/stable/libkvkontakte/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+source=("git://anongit.kde.org/libkvkontakte.git#branch=aspotashev-devel")
+md5sums=('SKIP')
 
-prepare() {
-  cd ${pkgname}-${pkgver}
+#prepare() {
+  #cd ${pkgname}-${pkgver}
   #sed -i -e 's|KF5::KDELibs4Support|KF5::KDELibs4Support KF5::KHtml|' ${srcdir}/${pkgname}/src/CMakeLists.txt
-}
+#}
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }
