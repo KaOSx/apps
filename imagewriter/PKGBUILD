@@ -1,31 +1,28 @@
 
 pkgname=imagewriter
-pkgver=1.10.10
-_pkgver=1.10.1420800585.134a9b3
-_opensuse_rel=1.2
-pkgrel=4
+pkgver=1.10.11
+_commit=1d253d9
+pkgrel=1
 pkgdesc="SUSE Studio Imagewriter"
 arch=('x86_64')
 url="https://github.com/mbarringer/imagewriter"
 license=('GPLv2')
-depends=('qt' 'kde-cli-tools')
-source=("http://download.opensuse.org/source/factory/repo/oss/suse/src/imagewriter-${_pkgver}-${_opensuse_rel}.src.rpm"
+depends=('qt5-base' 'kde-cli-tools')
+#source=("http://download.opensuse.org/source/factory/repo/oss/suse/src/imagewriter-${_pkgver}-${_opensuse_rel}.src.rpm"
+source=("https://github.com/openSUSE/imagewriter/tarball/master/imagewriter-${pkgver}.tar.gz"
         'imagewriter.desktop')
-md5sums=('91ed80a77b832e1a3f9593a2ff9353ef'
+md5sums=('b0a65745a7d6938a2cd3db7e694ed062'
          '81df0c7c5f744d6a24413a37f6e6ecb6')
 
-build() {
-  cd "${srcdir}"
-  rm -vf imagewriter.spec
-  tar xvfJ imagewriter-${_pkgver}.tar.xz
+build() { 
+  cd "${srcdir}/openSUSE-${pkgname}-${_commit}"
   
-  cd "${srcdir}/${pkgname}-${_pkgver}"
-  qmake PREFIX=/usr DEFINES=USEUDISKS2 imagewriter.pro
+  /usr/lib/qt5/bin/qmake PREFIX=/usr DEFINES=USEUDISKS2 imagewriter.pro
   make CFLAGS="${CFLAGS} -DKIOSKHACK -Wno-unused-parameter"
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${_pkgver}"
+  cd "${srcdir}/openSUSE-${pkgname}-${_commit}"
   make INSTALL_ROOT="${pkgdir}" install
   
   rm "$pkgdir/usr/share/applications/imagewriter.desktop"
