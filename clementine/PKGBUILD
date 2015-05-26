@@ -1,31 +1,43 @@
 
 pkgname=clementine
 _pkgname=Clementine
-pkgver=1.2.3.89
+pkgver=1.2.3.90
 pkgrel=1
-_commit=9dbd582
+_commit=074e3ba
 pkgdesc="Modern music player and library organiser that takes advantage of Qt4."
 url="http://www.clementine-player.org/"
 license="GPL"
 arch=('x86_64')
 install="${pkgname}.install"
 depends=('gstreamer' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
-         'hicolor-icon-theme' 'qtwebkit' 'libimobiledevice' 'qjson' 'protobuf'
-         'libcdio-paranoia' 'qca' 'qca-ossl' 'chromaprint' 'sparsehash' 'libmygpo-qt'
-         'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'pulseaudio')
-makedepends=('cmake' 'boost' 'mesa')
+         'hicolor-icon-theme' 'qt5-webkit' 'qt5-x11extras' 'libimobiledevice' 'protobuf'
+         'libcdio-paranoia' 'qca-qt5' 'chromaprint' 'sparsehash' 'libmygpo-qt'
+         'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'pulseaudio' 
+         'libechonest' 'libkvkontakte') # 'crypto++' 
+makedepends=('cmake' 'boost' 'mesa' 'qt5-tools')
 groups=('multimedia')
 #source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
-source=("https://github.com/clementine-player/Clementine/tarball/master/${_pkgname}-${pkgver}.tar.gz")
-md5sums=('0c386b6a891379c4c2ee6986992fb1c4')
+source=("https://github.com/clementine-player/Clementine/tarball/qt5/${_pkgname}-${pkgver}.tar.gz")
+md5sums=('9072c6ff9e7e936df8e32d7d54a9c285')
 
 build() {
   cd "${srcdir}/clementine-player-${_pkgname}-${_commit}"
+
+  #sed -i 's|lastfm5/ws.h|lastfm/ws.h|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/CMakeLists.txt
+  #sed -i 's|lastfm5/Track.h|lastfm/Track.h|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/CMakeLists.txt
+  #sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/internet/lastfm/lastfmcompat.h
+  sed -i 's|#include "internet/lastfm/fixlastfm.h"||g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/core/songloader.cpp
+  sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestimages.cpp
+  sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestbiographies.cpp
+  sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestsimilarartists.cpp
+  sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/songkickconcerts.cpp
+  
   mkdir -p build 
   
   cd build
   cmake ../ -DCMAKE_INSTALL_PREFIX=/usr \
-            -DCMAKE_BUILD_TYPE=Release 
+            -DCMAKE_BUILD_TYPE=Release \
+            -DENABLE_VK=ON
   make
 }
 
