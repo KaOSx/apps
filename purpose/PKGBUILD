@@ -3,31 +3,34 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=purpose
-#pkgver=${_kdever}
 pkgver=0.1.2
+_pkgver=0.1-alpha
 pkgrel=1
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
 url='http://quickgit.kde.org/?p=purpose.git'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kconfig' 'kdeclarative' 'ki18n' 'kio' 'kaccounts-integration')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools' 'intltool' 'git')
 #groups=('')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/purpose")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/purpose")
+source=("http://download.kde.org/unstable/purpose/purpose-${_pkgver}.tar.xz"
+        'accounts.diff')
+md5sums=('ccb8ae820b4ed9b76bc7aca4cb5eba0a'
+         'c00351fb0b7a666509db6ccef803d489')
 
 prepare() {
-  cd $pkgname
-  sed -i -e 's|KF5::Purpose|KF5::Purpose KF5::Wallet|' ${srcdir}/${pkgname}/src/plugins/youtube/CMakeLists.txt
+  cd $pkgname-${_pkgver}
+  patch -p1 -i $srcdir/accounts.diff
+  #sed -i -e 's|add_subdirectory(youtube)|#add_subdirectory(youtube)|' ${srcdir}/${pkgname}-${_pkgver}/src/plugins/CMakeLists.txt
 }
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
