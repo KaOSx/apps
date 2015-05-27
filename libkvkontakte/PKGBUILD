@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkvkontakte
 #pkgver=${_kdever}
-pkgver=4.11.70
+pkgver=4.11.71
 pkgrel=1
 pkgdesc="KDE C++ library for asynchronous interaction with vkontakte.ru social network via its open API."
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('kio' 'ki18n' 'kdelibs4support' 'kdewebkit')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
 groups=('kdegraphics')
 #source=("http://download.kde.org/stable/libkvkontakte/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-source=("git://anongit.kde.org/libkvkontakte.git#branch=aspotashev-devel")
+source=("git://anongit.kde.org/libkvkontakte.git#branch=frameworks")
 md5sums=('SKIP')
 
 #prepare() {
@@ -29,6 +29,7 @@ build() {
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
