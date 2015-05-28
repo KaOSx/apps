@@ -1,12 +1,12 @@
 
 pkgname=brackets
-pkgver=1.2
+pkgver=1.3
 pkgrel=1
 pkgdesc="Open source code editor for web designers and front-end developers."
 arch=("x86_64")
 url="http://brackets.io"
 license=("MIT")
-depends=('gconf' 'nodejs' 'nss' 'systemd' 'desktop-file-utils' 'hicolor-icon-theme')
+depends=('gconf' 'nodejs' 'nss' 'systemd' 'desktop-file-utils' 'hicolor-icon-theme' 'gtk2')
 makedepends=('prelink')
 optdepends=("google-chrome: to enable Live Preview"
             "gnuplot: to enable node benchmarking"
@@ -14,7 +14,7 @@ optdepends=("google-chrome: to enable Live Preview"
 install=$pkgname.install
 source=("https://github.com/adobe/brackets/releases/download/release-$pkgver/Brackets.Release.$pkgver.64-bit.deb"
         'libgcrypt.so.11.8.2')
-md5sums=('2e5f65bf9e23744f76d20444f3b14fde'
+md5sums=('12f827d2a15bcc2e6ccdbd8c08e0982b'
          'a17acc9851185dd5f219458140e6ccda')
 
 prepare() {
