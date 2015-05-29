@@ -1,26 +1,36 @@
 
 pkgname=keepassx
-pkgver=0.4.3
+pkgver=1.9.85
 pkgrel=1
+_commit=fc43aa17174b5626a82f643d2dec49f71b4fc7f3
 pkgdesc="Cross platform password manager"
 arch=('x86_64')
 url="http://www.keepassx.org/"
 license=('GPL2')
-depends=('qt' 'libxtst')
-categories=('accessories')
-source=("http://downloads.sourceforge.net/keepassx/keepassx-$pkgver.tar.gz")
-md5sums=('1df67bb22b2e08df49f09e61d156f508')
+#depends=('qt5-base' 'libxtst' 'shared-mime-info')
+#makedepends=('cmake' 'intltool' 'qt5-tools')
+depends=('qt' 'libxtst' 'shared-mime-info')
+makedepends=('cmake' 'intltool')
+groups=('accessories')
+#source=("http://downloads.sourceforge.net/keepassx/keepassx-$pkgver.tar.gz")
+source=("https://github.com/keepassx/keepassx/archive/${_commit}.zip")
+md5sums=('12301b96994ad2c2fb9653171471eebb')
 
 build() {
-    cd "$srcdir/keepassx-$pkgver"
-    sed -i '1,1i#include <unistd.h>' src/lib/random.cpp
-
-    qmake PREFIX=/usr 
-    make 
+  cd "${srcdir}/keepassx-${_commit}"
+  mkdir build
+  
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DWITH_QT5=OFF \
+        -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+        -DWITH_GUI_TESTS=ON ..
+  make 
 }
 
 package() {
-    cd "$srcdir/keepassx-$pkgver"
+    cd "${srcdir}/keepassx-${_commit}/build"
     
-    make INSTALL_ROOT="$pkgdir" install 
+    make DESTDIR="${pkgdir}" install 
 }
