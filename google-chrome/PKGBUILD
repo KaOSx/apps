@@ -1,6 +1,6 @@
 
 pkgname=google-chrome
-pkgver=44.0.2403.9
+pkgver=45.0.2414.0
 pkgrel=1
 pkgdesc="Google Chrome Browser, developer preview channel for Linux"
 arch=('x86_64')
@@ -13,11 +13,9 @@ depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'li
          'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html"
-         'libgcrypt.so.11.8.2'
          'google-chrome-unstable.desktop')
-md5sums=('324e766a06d6c2044822d8595eff1c1f'
+md5sums=('62b3ff935e57201877e78c6d1cf6f894'
          'a4fcf95699bbb37e9522695b0d632e0b'
-         'a17acc9851185dd5f219458140e6ccda'
          'dc490bcda18c1379056700057800cc8f')
 
 
@@ -25,12 +23,6 @@ package() {
     msg "Extracting Google Chrome"
     bsdtar -xf data.tar.xz -C "$pkgdir/" 
     msg2 "Done extracting!"
-
-    msg "Actual installation"
-    #mv "$pkgdir/opt/google/chrome/google-chrome.desktop" "$pkgdir/usr/share/applications"
-    
-    #libgcrypt 1.6.0 fix from gentoo https://bugs.gentoo.org/show_bug.cgi?id=494596
-    install -m755 "$srcdir"/libgcrypt.so.11.8.2 "$pkgdir"/opt/google/chrome-unstable/libgcrypt.so.11
 
     # Adding man page
     gzip "$pkgdir"/usr/share/man/man1/google-chrome-unstable.1
