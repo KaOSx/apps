@@ -1,0 +1,40 @@
+
+pkgname=tellico
+pkgver=2.9.90
+pkgrel=1
+pkgdesc="A collection manager for KDE"
+arch=('x86_64')
+url="http://tellico-project.org/"
+license=('GPL')
+depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'kwidgetsaddons'
+         'kguiaddons' 'kxmlgui' 'kjobwidgets' 'kdelibs4support' 'khtml' 'kdepimlibs'  # 'knewstuff'
+         'qimageblitz' 'libksane' 'taglib' 'libkcddb' 'libdiscid' 'v4l-utils') # 'poppler-qt5' 'yaz' 'exempi' 
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+groups=('office')
+install=$pkgname.install
+#source=("http://tellico-project.org/files/${pkgname}-${pkgver}.tar.bz2")
+source=("git://anongit.kde.org/tellico#branch=frameworks")
+md5sums=('SKIP')
+
+build() {
+  mkdir build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DENABLE_WEBCAM=TRUE
+
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="${pkgdir}" install
+}
