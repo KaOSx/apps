@@ -4,15 +4,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kipi-plugins
 #pkgver=${_kdever}
-pkgver=4.10.70
+pkgver=4.10.71
 pkgrel=1
 pkgdesc="Collection of plugins extending the KDE graphics and image applications as digiKam, Gwenview, and KPhotoalbum."
 url="https://projects.kde.org/projects/extragear/graphics/kipi-plugins"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kdelibs4support' 'kparts' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkface' 'libkgeomap' 'libkvkontakte'
-         'libpng' 'libtiff' 'libjpeg-turbo')
+         'kconfig' 'threadweaver' 'libpng' 'libtiff' 'libjpeg-turbo')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+optdepends=('enblend-enfuse: to work with the panorama tool')
 conflicts=('kf5-kipi-plugins')
 replaces=('kf5-kipi-plugins')
 #groups=('kde' 'kde-graphics' 'kde-uninstall')
@@ -24,10 +25,16 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's|if(KF5Kipi_FOUND AND KF5Kipi_INCLUDE_DIRS)|if(KF5Kipi_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
-  #sed -i -e 's|if(KF5KDcraw_FOUND AND KF5KDcraw_INCLUDE_DIRS)|if(KF5KDcraw_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
-  #sed -i -e 's|if(KF5KExiv2_FOUND AND KF5KExiv2_INCLUDE_DIRS)|if(KF5KExiv2_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
-  #sed -i -e 's|if(KF5KFace_FOUND AND KF5KFace_INCLUDE_DIRS)|if(KF5KFace_FOUND)|' ${srcdir}/${_pkgname}/cmake/modules/MacroLocalLibs.cmake
+  sed -i -e 's|#include <libkdcraw/rawdecodingsettings.h|#include <rawdecodingsettings.h|' ${srcdir}/${pkgname}/panorama/manager/actionthread.h
+  sed -i -e 's|#include <libkdcraw/rawdecodingsettings.h|#include <rawdecodingsettings.h|' ${srcdir}/${pkgname}/panorama/manager/manager.h
+  sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/manager/actionthread.h
+  sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/manager/actions.h
+  sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/tasks/preprocesstask.h
+  sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/tasks/task.cpp
+  sed -i -e 's|#include <libkipi/interface.h|#include <interface.h|' ${srcdir}/${pkgname}/panorama/manager/manager.cpp
+  sed -i -e 's|#include <libkipi/interface.h|#include <interface.h|' ${srcdir}/${pkgname}/panorama/importwizard/importwizarddlg.cpp
+  sed -i -e 's|#include <libkipi/interface.h|#include <interface.h|' ${srcdir}/${pkgname}/panorama/importwizard/preprocessingpage.cpp
+  
 }
 
 build() {
