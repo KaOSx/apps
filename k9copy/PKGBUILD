@@ -1,0 +1,39 @@
+
+pkgname=k9copy
+pkgver=3.0.3
+pkgrel=1
+pkgdesc="A collection manager for KDE"
+arch=('x86_64')
+url="http://k9copy-reloaded.sourceforge.net/#start"
+license=('GPL')
+depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'kwidgetsaddons'
+         'kguiaddons' 'kxmlgui' 'kjobwidgets' 'kdelibs4support' 'khtml' 
+         'dvdauthor' 'cdrkit' 'mplayer' 'libxine' 'libmpg2' 'ffmpeg')  
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+groups=('multimedia')
+install=$pkgname.install
+source=("http://sourceforge.net/projects/k9copy-reloaded/files/${pkgname}-${pkgver}.tar.gz")
+md5sums=('53158282e23a4aa4fb8f4336f1424521')
+
+build() {
+  mkdir build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DENABLE_WEBCAM=TRUE
+
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="${pkgdir}" install
+}
