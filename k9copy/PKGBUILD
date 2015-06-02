@@ -2,18 +2,26 @@
 pkgname=k9copy
 pkgver=3.0.3
 pkgrel=1
-pkgdesc="A collection manager for KDE"
+pkgdesc="K9Copy facilitates several methods for backing up a DVD."
 arch=('x86_64')
 url="http://k9copy-reloaded.sourceforge.net/#start"
 license=('GPL')
 depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'kwidgetsaddons'
-         'kguiaddons' 'kxmlgui' 'kjobwidgets' 'kdelibs4support' 'khtml' 
-         'dvdauthor' 'cdrkit' 'mplayer' 'libxine' 'libmpg2' 'ffmpeg')  
+         'kguiaddons' 'kxmlgui' 'kdesu' 'solid'
+         'dvdauthor' 'cdrkit' 'mplayer' 'xine-lib' 'libmpeg2' 'ffmpeg') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+optdepends=('libdvdcss: for decoding encrypted DVDs')
 groups=('multimedia')
 install=$pkgname.install
 source=("http://sourceforge.net/projects/k9copy-reloaded/files/${pkgname}-${pkgver}.tar.gz")
 md5sums=('53158282e23a4aa4fb8f4336f1424521')
+
+prepare() {
+  cd $pkgname
+  sed -i -e 's|#SET(CMAKE_BUILD_TYPE Debug)|cmake_minimum_required(VERSION 3.2)|' ${srcdir}/${pkgname}/CMakeLists.txt
+  #patch -p1 -i $srcdir/libkipi1.patch
+  #patch -p1 -i $srcdir/libkipi.patch
+}
 
 build() {
   mkdir build
@@ -27,7 +35,7 @@ build() {
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DENABLE_WEBCAM=TRUE
+    -DQT5_BUILD=ON
 
   make
 }
