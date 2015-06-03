@@ -1,0 +1,41 @@
+
+pkgname=portmidi
+pkgver=217
+pkgrel=1
+pkgdesc="Cross-platform, open-source I/O libraries for digital media including MIDI, video, and audio"
+arch=('x86_64')
+url="http://portmedia.sourceforge.net/"
+license=('GPL')
+depends=('alsa-lib')
+makedepends=('cmake' 'java-environment')
+optdepends=('java-runtime: for using pmdefaults')
+options=('!makeflags')
+source=("http://downloads.sourceforge.net/project/portmedia/portmidi/${pkgver}/${pkgname}-src-${pkgver}.zip"
+        'java.patch')
+md5sums=('03f46fd3947e2ef4c8c465baaf832241'
+         '59cb428b29a33bab3bb5811cda479a9b')
+
+prepare() {
+  cd ${pkgname}
+  sed -i "s#/usr/local#/usr#" */CMakeLists.txt pm_python/setup.py
+  mkdir -p pm_java/Release
+
+  patch -p1 -i ${srcdir}/java.patch 
+}
+
+build() {
+  cd ${pkgname}
+  
+  cmake . -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release \
+    -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release \
+    -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release
+  make
+}
+
+package() {
+  cd ${pkgname}
+  make DESTDIR=${pkgdir} install
+
+  ln -s libportmidi.so ${pkgdir}/usr/lib/libporttime.so
+}

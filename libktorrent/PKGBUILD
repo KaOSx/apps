@@ -1,17 +1,17 @@
 
 pkgname=libktorrent
-pkgver=1.3.1
-pkgrel=4
+pkgver=1.3.80
+pkgrel=1
 ktorver=4.3.1
 pkgdesc="A BitTorrent program for KDE"
 arch=('x86_64')
 url="http://ktorrent.pwsp.net/"
 license=('GPL2')
-depends=('kdelibs')
-makedepends=('autoconf' 'perl' 'automoc4' 'cmake' 'boost' 'kde-workspace' 'doxygen')
+depends=('karchive' 'ki18n' 'kio' 'kdelibs4support' 'qca-qt5')
+makedepends=('extra-cmake-modules' 'boost' 'doxygen' 'kdoctools')
 options=('libtool')
 #source=("http://ktorrent.pwsp.net/downloads/${ktorver}/${pkgname}-${pkgver}.tar.bz2")
-source=('git://anongit.kde.org/libktorrent')
+source=('git://anongit.kde.org/libktorrent#branch=frameworks')
 md5sums=('SKIP')
 
 build() {
@@ -21,7 +21,9 @@ build() {
   cd build
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
   make
 }
 
