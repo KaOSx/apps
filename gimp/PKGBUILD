@@ -2,7 +2,7 @@
 pkgname=gimp
 pkgver=2.8.14
 _pkgver=2.8
-pkgrel=2
+pkgrel=3
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
 url="http://www.gimp.org/"
@@ -24,7 +24,9 @@ md5sums=('233c948203383fa078434cc3f8f925cb'
 
 build() {
   cd "${srcdir}/gimp-${pkgver}"
-  PYTHON=/usr/bin/python2 ./configure --prefix=/usr \
+  sed -e "s|gegl-0.2 >= 0.2.0|gegl-0.3 >= 0.3.0|" -i ${srcdir}/gimp-${pkgver}/configure
+  
+  ./configure --prefix=/usr \
     --sysconfdir=/etc \
     --enable-mp \
     --enable-gimp-console \
