@@ -1,9 +1,9 @@
 
 pkgname=clementine
 _pkgname=Clementine
-pkgver=1.2.3.90
+pkgver=1.2.3.91
 pkgrel=1
-_commit=074e3ba
+_commit=cc079ec
 pkgdesc="Modern music player and library organiser that takes advantage of Qt4."
 url="http://www.clementine-player.org/"
 license="GPL"
@@ -13,12 +13,14 @@ depends=('gstreamer' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
          'hicolor-icon-theme' 'qt5-webkit' 'qt5-x11extras' 'libimobiledevice' 'protobuf'
          'libcdio-paranoia' 'qca-qt5' 'chromaprint' 'sparsehash' 'libmygpo-qt'
          'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'pulseaudio' 
-         'libechonest' 'libkvkontakte') # 'crypto++' 
+         'libechonest' 'libkvkontakte' 'crypto++') 
 makedepends=('cmake' 'boost' 'mesa' 'qt5-tools')
 groups=('multimedia')
 #source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
-source=("https://github.com/clementine-player/Clementine/tarball/qt5/${_pkgname}-${pkgver}.tar.gz")
-md5sums=('9072c6ff9e7e936df8e32d7d54a9c285')
+source=("https://github.com/clementine-player/Clementine/tarball/qt5/${_pkgname}-${pkgver}.tar.gz"
+        'tab_color.diff')
+md5sums=('007393e252d8f3269b6a8266526b1977'
+         '0d35b551ae875ca31037efa3601147f9')
 
 build() {
   cd "${srcdir}/clementine-player-${_pkgname}-${_commit}"
@@ -31,6 +33,8 @@ build() {
   sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestbiographies.cpp
   sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestsimilarartists.cpp
   sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/songkickconcerts.cpp
+  
+  patch -p1 -i $srcdir/tab_color.diff
   
   mkdir -p build 
   
