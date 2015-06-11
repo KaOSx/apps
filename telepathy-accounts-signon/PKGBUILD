@@ -1,0 +1,25 @@
+
+pkgname=telepathy-accounts-signon
+pkgver=0.1.27.2
+_commit=7b0d2198e0fec1dee101ce58f8d9c733f78f1907
+pkgrel=1
+pkgdesc='Mission control plugin for Telepathy, integrating with libaccounts and libsignon to provide IM accounts and authentication.'
+arch=('x86_64')
+url="https://github.com/mck182/telepathy-accounts-signon"
+license=('LGPL')
+depends=('qt5-base' 'telepathy-mission-control' 'libaccounts-glib' 'libsignon-glib')
+source=("https://github.com/mck182/telepathy-accounts-signon/archive/${_commit}.zip")
+md5sums=('9f02e5d7d92dbd1686d0c3ce024612d5')
+
+build() {
+  cd $srcdir/${pkgname}-${_commit}
+
+  /usr/lib/qt5/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
+  make
+}
+
+package() {
+  cd $srcdir/${pkgname}-${_commit}
+  
+  make INSTALL_ROOT=${pkgdir} install
+}
