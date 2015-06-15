@@ -4,19 +4,30 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ksystemlog
 #pkgver=${_kdever}
-pkgver=15.03.70
+pkgver=15.03.71
 pkgrel=1
 pkgdesc='System log viewer tool'
 url='http://kde.org/applications/system/ksystemlog/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kdelibs4support' 'karchive')
+depends=('kxmlgui' 'kcoreaddons' 'kwidgetsaddons' 'kitemviews' 'kiconthemes' 'kio' 'kconfig' 'karchive'
+         'ki18n' 'kcompletion' 'ktextwidgets')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('kde' 'kdeadmin' 'kde-uninstall')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/ksystemlog.git#branch=frameworks")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/ksystemlog.git#branch=gsoc2015"
+        'ksystemlogui.rc')
+md5sums=('SKIP'
+         '442c9a8ac0bf18deed43a810bf81ce51')
+
+prepare() {
+  cd $pkgname
+  rm ${srcdir}/${pkgname}/src/ksystemlogui.rc
+  cp ${srcdir}/ksystemlogui.rc ${srcdir}/${pkgname}/src/ksystemlogui.rc
+  
+  sed -i -e 's|<default>systemLogMode</default>|<default>xorgLogMode</default>|' ${srcdir}/${pkgname}/src/config/ksystemlog.kcfg
+}
 
 build() {
   cd ${srcdir}
