@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="ksystemlog" version="6">
+  
+  <MenuBar>
+    
+    <Menu name="file">
+      <Action name="send_mail" />
+      <Action name="log_message" />
+    </Menu>
+    
+    <Menu name="edit">
+      <text>&amp;Edit</text>
+      <Action name="reload" />
+      <!--
+      <Separator/>
+      <Action name="expand_all" />
+      <Action name="collapse_all" />
+      -->
+      <Separator/>
+      <Action name="copy" />
+      <Separator/>
+      <Action name="find" />
+      <Action name="find_next" />
+      <Separator/>
+      <Action name="group_by" />
+      <Action name="details" />
+    </Menu>
+    
+    <Menu name="logs">
+      <text>Logs</text>
+      <ActionList name="log_mode_list" />
+    </Menu>
+    
+    <Menu name="window">
+      <text>&amp;Window</text>
+      <Action name="new_tab" />
+      <Action name="duplicate_tab" />
+      <Action name="close_tab" />
+      <Separator/>
+      <Action name="move_tab_left" />
+      <Action name="move_tab_right" />
+    </Menu>
+    
+    <Menu name="settings">
+      <Action name="show_quick_filter" />
+      <Separator />
+    </Menu>
+    
+  </MenuBar>
+  
+  <ToolBar name="logToolBar" position="top" iconText="textundericon" noMerge="1" >
+    <text>Logs Toolbar</text>
+    <Action name="journaldLogMode" />
+    <Action name="cupsLogMode" />
+    <Action name="xorgLogMode" />
+  </ToolBar>
+  
+  <ToolBar name="mainToolBar" position="top" iconText="textundericon" noMerge="1" >
+    <text>Main Toolbar</text>
+    <Action name="resume_pause_parsing" />
+    <Action name="reload" />
+    <Action name="abort" />
+    <Separator/>
+    <Action name="details" />
+    <Separator/>
+    <Action name="group_by" />
+  </ToolBar>
+  
+</kpartgui>
