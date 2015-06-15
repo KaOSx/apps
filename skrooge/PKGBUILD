@@ -1,6 +1,6 @@
 
 pkgname=skrooge
-pkgver=1.81
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="Allows you to manage your personal finances in KDE"
 arch=('x86_64')
@@ -10,11 +10,12 @@ depends=('grantlee' 'karchive' 'kcoreaddons' 'kconfig' 'ki18n' 'kitemviews' 'kwi
          'kwindowsystem' 'kcompletion' 'kjobwidgets' 'kconfigwidgets' 'kdesignerplugin' 'kiconthemes' 'kio'
          'khtml' 'knewstuff' 'kparts' 'kwallet' 'kxmlgui' 'kdelibs4support' 'plasma-workspace' 'aqbanking' 
          'boost-libs' 'libofx' 'qca-qt5' 'kactivities')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'docbook-xsl' 'boost')
+makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost')
 groups=('office')
 install=skrooge.install
-source=("git://anongit.kde.org/skrooge.git")
-md5sums=('SKIP')
+#source=("git://anongit.kde.org/skrooge.git")
+source=("http://download.kde.org/stable/skrooge/${pkgname}-${pkgver}.tar.xz")
+md5sums=('7162dbacef4d47cabc593ccc6d340b4a')
 
 build() {
   cd ${srcdir}
@@ -24,7 +25,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
