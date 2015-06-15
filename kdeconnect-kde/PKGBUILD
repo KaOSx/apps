@@ -1,13 +1,13 @@
 
 pkgname=kdeconnect-kde
-pkgver=0.7.85
+pkgver=0.7.86
 pkgrel=1
 pkgdesc='KDE Connect adds communication between KDE and your smartphone'
 url='https://projects.kde.org/projects/playground/base/kdeconnect-kde'
 license=('GPL')
 arch=('x86_64')
 depends=('kcmutils' 'kconfigwidgets' 'kiconthemes' 'kdbusaddons' 'knotifications' 
-         'kio' 'ki18n' 'qca-qt5' 'libfakekey')
+         'kio' 'ki18n' 'kdeclarative' 'qca-qt5' 'libfakekey' 'qt5-quickcontrols')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kf5-kdeconnect-kde')
 replaces=('kf5-kdeconnect-kde')
@@ -15,6 +15,11 @@ install=kdeconnect.install
 #source=("http://download.kde.org/unstable/kdeconnect/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
 source=("git://anongit.kde.org/kdeconnect-kde.git")
 md5sums=('SKIP')
+
+prepare() {
+  cd $pkgname
+  sed -i -e 's|import QtQuick.Layouts 1.2|import QtQuick.Layouts 1.1|' ${srcdir}/${pkgname}/app/qml/DeviceDelegate.qml
+}
 
 build() {
   cd ${srcdir}
@@ -29,7 +34,8 @@ build() {
     -DLIBEXEC_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DEXPERIMENTALAPP_ENABLED=ON
   make 
 }
 
