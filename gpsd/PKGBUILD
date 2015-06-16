@@ -1,6 +1,6 @@
 
 pkgname=gpsd
-pkgver=3.14
+pkgver=3.15
 pkgrel=1
 pkgdesc="GPS daemon and library to support USB/serial GPS devices"
 arch=('x86_64')
@@ -8,13 +8,13 @@ url="http://catb.org/gpsd/"
 license=('BSD')
 depends=('python2' 'libusb' 'bluez' 'desktop-file-utils') # 'qt5-base')
 optdepends=('php: generate a PHP status page for your GPS')
-makedepends=('scons' 'docbook-xsl' 'chrpath' 'asciidoc')
+makedepends=('scons' 'docbook-xsl' 'asciidoc')
 backup=('etc/gpsd.conf')
 options=('!libtool')
 install="${pkgname}.install"
 source=("http://download.savannah.gnu.org/releases/${pkgname}/${pkgname}-${pkgver}.tar.gz"
         'gpsd.conf')
-md5sums=('bc7467009b99e07ba461377b5da6c039'
+md5sums=('afd79b87337fadf38ee2a7c4314dac79'
          '3e963df3f9f7ef3572ecc648ae829315')
 
 build() {
@@ -41,12 +41,6 @@ package() {
 
   sed -i 's|/etc/default/gpsd|/etc/conf.d/gpsd|' gpsd.hotplug
   install -D -m755 gpsd.hotplug "${pkgdir}/usr/lib/udev/gpsd.hotplug"
-
-  chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgps.so.22.0.0
-  chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/libgpsd.so.22.0.0
-  chrpath -r /usr/lib/ "${pkgdir}"/usr/bin/{gpsdecode,gpsctl,gpspipe,gpxlogger,lcdgps,cgps,gpsmon,gps2udp,ntpshmmon}
-  chrpath -r /usr/lib/ "${pkgdir}"/usr/sbin/{gpsd,gpsdctl}
-  chrpath -r /usr/lib/ "${pkgdir}"/usr/lib/python2.7/site-packages/gps/{clienthelpers,packet}.so
 
   #install -D -m644 packaging/X11/xgps.desktop "${pkgdir}/usr/share/applications/xgps.desktop"
   #install -D -m644 packaging/X11/xgpsspeed.desktop "${pkgdir}/usr/share/applications/xgpsspeed.desktop"
