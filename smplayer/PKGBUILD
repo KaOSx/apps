@@ -1,8 +1,8 @@
 
 pkgname=smplayer
-pkgver=14.9.0.6915
+pkgver=14.9.0.6966
 _pkgver=14.9.0
-_rev=r6915
+_rev=r6966
 pkgrel=1
 pkgdesc="A complete front-end for MPlayer and MPV"
 arch=('x86_64')
@@ -11,20 +11,20 @@ license=('GPL')
 depends=('qt5-multimedia' 'qt5-script' 'mplayer' 'mpv')
 makedepends=('qt5-tools' 'subversion')
 groups=('multimedia')
-source=("http://sourceforge.net/projects/smplayer/files/SMPlayer/${_pkgver}/smplayer-${_rev}.tar.bz2"
+source=("http://sourceforge.net/projects/smplayer/files/SMPlayer/${_pkgver}/smplayer-${pkgver}.tar.bz2"
 #source=("smplayer::svn+https://subversion.assembla.com/svn/smplayer/smplayer/trunk/"
         'icons.tar.xz'
         'default-theme.zip')
-md5sums=('9c68d5e864667d2c11caf07b171e6be4'
+md5sums=('56eaf954077f34d2dd8e7208093351b3'
          'a65b679cb82e21f8f67e703209654e8f'
          '5f7ef1845f64d0e174a23181e83e29a5')
 
 build() {
-  cd "${srcdir}/${pkgname}-${_rev}"
-  rm -r "${srcdir}/${pkgname}-${_rev}/icons"
-  rm -r "${srcdir}/${pkgname}-${_rev}/src/default-theme"
-  mv -iv "${srcdir}/icons/" "${srcdir}/${pkgname}-${_rev}/"
-  mv -iv "${srcdir}/default-theme/" "${srcdir}/${pkgname}-${_rev}/src/"
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  rm -r "${srcdir}/${pkgname}-${pkgver}/icons"
+  rm -r "${srcdir}/${pkgname}-${pkgver}/src/default-theme"
+  mv -iv "${srcdir}/icons/" "${srcdir}/${pkgname}-${pkgver}/"
+  mv -iv "${srcdir}/default-theme/" "${srcdir}/${pkgname}-${pkgver}/src/"
   
   make PREFIX=/usr QMAKE=/usr/lib/qt5/bin/qmake LRELEASE=/usr/lib/qt5/bin/lrelease
   
@@ -32,7 +32,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${_rev}"
+  cd "${srcdir}/${pkgname}-${pkgver}"
   
   make DOC_PATH=/usr/share/doc/smplayer DESTDIR="$pkgdir" PREFIX="/usr" install
 }
