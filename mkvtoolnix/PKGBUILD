@@ -1,6 +1,6 @@
 
 pkgname=mkvtoolnix
-pkgver=7.9.0
+pkgver=8.0.0
 pkgrel=1
 pkgdesc="Set of tools to create, edit and inspect Matroska files."
 arch=('x86_64')
@@ -15,15 +15,12 @@ optdepends=('flac: for FLAC support (Free Lossless Audio Codec)'
 makedepends=('gcc' 'boost' 'ruby')
 groups=('multimedia')
 install=mkvtoolnix.install
-source=("http://www.bunkus.org/videotools/$pkgname/sources/$pkgname-$pkgver.tar.xz"
-        "https://github.com/mbunkus/mkvtoolnix/commit/8221f3453c9308680db38816934d49c71913c5c0.patch")
-md5sums=('b73789734f7ca3041473ad905c89143f'
-         'fe7a94f4e5e55070fe4d11a3d23d2bbb')
+source=("http://www.bunkus.org/videotools/$pkgname/sources/$pkgname-$pkgver.tar.xz")
+md5sums=('c93f23fd4f91b25566dcd07684bce01a')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  # US-ASCII build failure fix
-  patch -p1 -i "$srcdir"/8221f3453c9308680db38816934d49c71913c5c0.patch
+  #patch -p1 -i "$srcdir"/8221f3453c9308680db38816934d49c71913c5c0.patch
 
   
   ./configure --disable-wxwidgets --prefix=/usr --with-boost-libdir=/usr/lib
