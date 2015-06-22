@@ -1,6 +1,6 @@
 
 pkgname=kdeconnect-kde
-pkgver=0.7.86
+pkgver=0.7.87
 pkgrel=1
 pkgdesc='KDE Connect adds communication between KDE and your smartphone'
 url='https://projects.kde.org/projects/playground/base/kdeconnect-kde'
@@ -19,6 +19,7 @@ md5sums=('SKIP')
 prepare() {
   cd $pkgname
   sed -i -e 's|import QtQuick.Layouts 1.2|import QtQuick.Layouts 1.1|' ${srcdir}/${pkgname}/app/qml/DeviceDelegate.qml
+  sed -i -e 's|import QtQuick.Layouts 1.2|import QtQuick.Layouts 1.1|' ${srcdir}/${pkgname}/app/qml/mpris.qml
 }
 
 build() {

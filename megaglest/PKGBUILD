@@ -1,0 +1,36 @@
+
+pkgname=megaglest
+pkgver=3.11.1
+pkgrel=1
+_commit=3a09d8e
+pkgdesc="Entertaining free (freeware and free software) and open source cross-platform 3D real-time strategy (RTS) game"
+arch=('x86_64')
+url="https://github.com/MegaGlest/megaglest-source"
+license=('GPL3')
+depends=('curl' 'megaglest-data' 'xerces-c' 'sdl' 'libvorbis' 'openal' 'libgl' 'lua' 'icu' 'ftgl' 'glew'
+         'miniupnpc' 'qt5-base' 'glu' 'libx11' 'vlc')
+makedepends=('ftjam' 'cmake' 'git')
+source=("https://github.com/basxto/megaglest-source/tarball/qt4/megaglest-source-${pkgver}.tar.gz")
+md5sums=('7ab65c86683f7d503e64f37be3cc4ab4')
+
+build() {
+  cd basxto-megaglest-source-${_commit}
+
+  mkdir build 
+  cd build
+
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_CXX_FLAGS="-lX11" \
+    -DWANT_GIT_STAMP=0 \
+    -DUSE_QT5=ON 
+    #-QT_FORCED_VERSION=5
+  make VERBOSE=1
+}
+
+package() {
+  cd basxto-megaglest-source-${_commit}/build
+
+  make DESTDIR="$pkgdir" install
+}
