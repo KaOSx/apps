@@ -4,16 +4,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-mediacenter
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="A Media Center for the KDE Software Compilation based on plasma technology"
 arch=('x86_64')
 url="https://projects.kde.org/projects/playground/multimedia/plasma-mediacenter"
 license=('GPL3')
 depends=('kguiaddons' 'kio' 'kconfigwidgets' 'kwindowsystem' 'plasma-desktop' 'taglib'
-         'gstreamer0.10-base-plugins' 'gstreamer0.10-ffmpeg' 'ffmpegthumbs' 'qt5-multimedia')
+         'ffmpegthumbs' 'qt5-multimedia')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
-source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
+source=("http://download.kde.org/stable/plasma/$_plasmaver/${pkgname}-$_plasmaver.tar.xz")
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
