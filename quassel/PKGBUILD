@@ -19,7 +19,8 @@ source=("http://quassel-irc.org/pub/quassel-${pkgver}.tar.bz2"
         'quassel.conf'
         'irc-channel-active.svgz'
         'irc-channel-inactive.svgz'
-        'quassel.png')
+        'quassel.png'
+        'qt55.diff')
 install=quassel.install
 backup=(etc/conf.d/quassel.conf)
 md5sums=('f5473a9c5927a0e8cb3a204ced887aa8'
@@ -27,7 +28,13 @@ md5sums=('f5473a9c5927a0e8cb3a204ced887aa8'
          '479229556ba0dd94e3ce28e31e5deea9'
          'd22180823cda2ac7bedb238463714c15'
          '79f0e1c5261fefeb10cd53c1b01e64ef'
-         '55a01e2e1a15bf4328638f8f27b7383f')
+         '55a01e2e1a15bf4328638f8f27b7383f'
+         'f354205bab03949556db4db57bdf1168')
+
+prepare() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  patch -p1 -i ${srcdir}/qt55.diff
+}
          
 build() {
   mkdir build
