@@ -1,0 +1,34 @@
+From: David Rosca <nowrep@gmail.com>
+Date: Sat, 09 May 2015 12:51:21 +0000
+Subject: Fix saving diffs
+X-Git-Url: http://quickgit.kde.org/?p=kompare.git&a=commitdiff&h=a83bac0689fc6b0f423fc548b64e91643a5d9de5
+---
+Fix saving diffs
+
+This fixes layout and functionality of "Save Diff" dialog.
+Buttons are now correctly displayed on the bottom of dialog and clicking
+on them accepts/rejects the dialog.
+
+REVIEW: 123697
+---
+
+
+--- a/komparepart/kompare_part.cpp
++++ b/komparepart/kompare_part.cpp
+@@ -540,12 +540,15 @@
+ 	dlg.setModal( true );
+ 	dlg.setWindowTitle( i18n("Diff Options") );
+ 	QDialogButtonBox *buttons = new QDialogButtonBox( QDialogButtonBox::Save | QDialogButtonBox::Cancel, &dlg );
++	connect(buttons, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
++	connect(buttons, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
+ 	KompareSaveOptionsWidget* w = new KompareSaveOptionsWidget(
+ 	                                             m_info.localSource,
+ 	                                             m_info.localDestination,
+ 	                                             m_diffSettings, &dlg );
+-	QHBoxLayout *layout = new QHBoxLayout(&dlg);
++	QVBoxLayout *layout = new QVBoxLayout(&dlg);
+ 	layout->addWidget( w );
++	layout->addWidget( buttons );
+ 	dlg.setLayout( layout );
+ 
+ 	if( dlg.exec() ) {
