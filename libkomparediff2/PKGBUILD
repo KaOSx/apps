@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkomparediff2
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library to compare files and strings"
 url='https://projects.kde.org/projects/kde/kdesdk/libkomparediff2'
 arch=('x86_64')
@@ -14,14 +14,21 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdesdk-libkomparediff2')
 replaces=('kdesdk-libkomparediff2')
 groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+source=("git://anongit.kde.org/libkomparediff2.git"
+        'kio.patch')
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=('SKIP'
+         '8b169533bacefe059dcfafaa470a59c4')
 
 build() {
+  cd ${srcdir}
+  patch -p0 -i ${srcdir}/kio.patch
+  
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
