@@ -1,8 +1,8 @@
 
 pkgname=eclipse
-pkgver=4.4.2
+pkgver=4.5
 pkgrel=1
-_date=201502041700
+_date=201506032000
 pkgdesc="An IDE for Java and other languages"
 arch=('x86_64')
 url="http://eclipse.org"
@@ -10,11 +10,11 @@ depends=('java-environment' 'gtk2' 'unzip' 'webkitgtk2' 'libxtst')
 install=${pkgname}.install
 makedepends=('zip')
 license=("EPL/1.0")
-source=("http://www.eclipse.org/downloads/download.php?r=1&file=/eclipse/downloads/drops4/R-$pkgver-${_date}/$pkgname-SDK-$pkgver-linux-gtk-x86_64.tar.gz"
+source=("http://ftp.osuosl.org/pub/eclipse/eclipse/downloads/drops4/R-$pkgver-${_date}/$pkgname-SDK-$pkgver-linux-gtk-x86_64.tar.gz"
 	 'eclipse.sh'
 	 'eclipse.desktop'
 	 'eclipse.svg')
-md5sums=('b531302cc21e0284cac03e33c054f0a8'
+md5sums=('7d54aed3860376823410d1eb61bb2d60'
          '7ea99a30fbaf06ec29261541b8eb1e23'
          'ba2cf02c48e6e35bfe3685401c26bb5b'
          '77cff7543ccf7e177cb6667f5a20ce19')
@@ -29,5 +29,5 @@ package() {
 
   install -Dm644 "$srcdir"/eclipse.svg "$pkgdir"/usr/share/icons/hicolor/scalable/apps/eclipse.svg
 
-  mv $pkgdir/usr/share/eclipse/epl-v10.html "$pkgdir/usr/share/licenses/eclipse/epl-v10.html"
+  #mv $pkgdir/usr/share/eclipse/epl-v10.html "$pkgdir/usr/share/licenses/eclipse/epl-v10.html"
 }
