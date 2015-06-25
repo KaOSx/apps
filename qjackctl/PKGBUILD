@@ -6,16 +6,17 @@ pkgdesc="Qt front-end for the JACK low-latency audio server"
 url="http://qjackctl.sourceforge.net/"
 arch=('x86_64')
 license=('GPL')
-depends=('jack' 'qt')
+depends=('jack' 'qt5-base')
+makedepends=('qt5-tools')
 options=('!makeflags')
-categories=('multimedia')
-source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz")
+groups=('multimedia')
+source=("http://downloads.sourceforge.net/qjackctl/$pkgname-$pkgver.tar.gz")
 md5sums=('f0eac5808f4d1d90b111b8570de4f0f2')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
 
- ./configure --prefix=/usr
+ ./configure --prefix=/usr --enable-qt5
   make
 }
 

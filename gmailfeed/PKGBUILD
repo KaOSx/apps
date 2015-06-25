@@ -1,0 +1,33 @@
+
+pkgname=gmailfeed
+pkgver=1.1
+pkgrel=1
+pkgdesc="Plasmoid that provides a list of unread emails from your Gmail inbox and notifies when you receive new messages"
+arch=('x86_64')
+url="https://github.com/anthon38/gmailfeed"
+license=('GPL')
+depends=('plasma-framework' 'hicolor-icon-theme' 'knotifications' 'kaccounts-integration')
+makedepends=('extra-cmake-modules' 'intltool' 'git')
+source=('git://github.com/anthon38/gmailfeed.git#branch=kaccounts')
+md5sums=('SKIP')
+
+build() {
+  mkdir build 
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  cd build
+  
+  make install DESTDIR="${pkgdir}"
+}
