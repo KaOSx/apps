@@ -1,6 +1,6 @@
 
 pkgname=calligra
-pkgver=2.9.85
+pkgver=2.9.86
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -52,15 +52,14 @@ replaces=('calligra-3rdparty'
          'calligra-flow')
 #source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
 source=("git://anongit.kde.org/calligra.git#branch=frameworks"
-        'patch.diff')
+        'qt55.diff')
 md5sums=('SKIP'
-         '82c6b6271eaad823b58bed58f703395f')
+         'a4c8002be755c052ed0695c7d8c689bf')
 
 prepare() {
   cd ${srcdir}/${pkgname}
   #sed -i 's|set(REQUIRED_Xinput_FOUND ${X11_Xinput_FOUND})|set(REQUIRED_Xinput_FOUND TRUE)|' CMakeLists.txt
-  # needed patch to find libkdcraw
-  #patch -p1 -i $srcdir/patch.diff
+  patch -p1 -i $srcdir/qt55.diff
 }
 
 build() {
