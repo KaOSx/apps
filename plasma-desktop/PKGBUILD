@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-desktop'
@@ -22,7 +22,7 @@ md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 prepare() {
   cd $pkgname-$pkgver
   # https://bugs.kde.org/show_bug.cgi?id=349207
-  sed -i -e 's|X-KDE-Library=plasma_applet_trash||' ${srcdir}/${pkgname}-$pkgver/applets/trash/package/metadata.desktop
+  #sed -i -e 's|X-KDE-Library=plasma_applet_trash||' ${srcdir}/${pkgname}-$pkgver/applets/trash/package/metadata.desktop
 }
 
 build() {
