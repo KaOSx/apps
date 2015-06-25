@@ -9,14 +9,17 @@ license=('GPL3')
 depends=('plasma-framework' 'netctl' 'wpa_supplicant')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 install=netctl-gui.install
-source=("https://github.com/arcan1s/netctl-gui/releases/download/V.${pkgver}/${pkgname}-${pkgver}-src.tar.xz")
-md5sums=('aed674e4c465d849c2044f9464c2671c')
+source=("https://github.com/arcan1s/netctl-gui/releases/download/V.${pkgver}/${pkgname}-${pkgver}-src.tar.xz"
+        'language.diff')
+md5sums=('aed674e4c465d849c2044f9464c2671c'
+         '6e3af42b7fe95c0505dd274d226f7e42')
 
 prepare() {
   cd ${srcdir}/${pkgname}
   
   sed -i 's|WPASUP_PATH=/usr/bin/wpa_supplicant|WPASUP_PATH=/usr/sbin/wpa_supplicant|' ${srcdir}/${pkgname}/helper/netctl-gui.conf
   sed -i 's|WPACLI_PATH=/usr/bin/wpa_cli|WPACLI_PATH=/usr/sbin/wpa_cli|' ${srcdir}/${pkgname}/helper/netctl-gui.conf
+  patch -p1 -i $srcdir/language.diff
 }
 
 build() {
