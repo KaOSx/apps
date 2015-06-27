@@ -1,6 +1,6 @@
 
 pkgname=tellico
-pkgver=2.9.91
+pkgver=2.9.92
 pkgrel=1
 pkgdesc="A collection manager for KDE"
 arch=('x86_64')
@@ -13,10 +13,15 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('office')
 install=$pkgname.install
 #source=("http://tellico-project.org/files/${pkgname}-${pkgver}.tar.bz2")
-source=("git://anongit.kde.org/tellico#branch=frameworks")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/tellico#branch=frameworks"
+        'qt5.5.diff')
+md5sums=('SKIP'
+         'a1fe8acd83685a234a33b19ae99d2a8a')
 
 build() {
+  cd ${srcdir}
+  patch -p0 -i ${srcdir}/qt5.5.diff
+  
   mkdir build
   cd build
   
