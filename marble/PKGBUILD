@@ -15,13 +15,17 @@ depends=('gpsd' 'phonon-qt5' 'qt5-script' 'qt5-svg' 'qt5-tools' 'qt5-webkit' 'sh
 makedepends=('extra-cmake-modules')
 conflicts=('kdeedu-marble')
 replaces=('kdeedu-marble')
-source=("git://anongit.kde.org/marble.git")
-source=($_mirror/${pkgname}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/marble.git")
+source=($_mirror/${pkgname}-$_kdever.tar.xz
+       'qt55.diff')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '8b8e0dc940d57476485ee2f21e2f0f0b')
 
 
 build() {
   cd $pkgname-${pkgver}
+  patch -p1 -i $srcdir/qt55.diff
+  
   mkdir build
   
   cd build

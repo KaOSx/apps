@@ -30,18 +30,20 @@ replaces=('kdesdk-cervisia'
          'kdesdk-strigi-analyzers')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz"
         'save.diff'
-        'qt55.diff'
         'preferences.diff')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '56e39b6d53fa8ab08e752d2199c0a3f4'
-         '8f74d080a7d45376cd1d8e465e97fff3'
          '3af06b0ca1f8a0e8618d7a7a521d6b4e')
 
+prepare() {
+  cd $pkgname-${pkgver}
+
+  patch -p1 -i $srcdir/save.diff
+  patch -p1 -i $srcdir/preferences.diff
+}
+         
 build() {
   cd ${srcdir}
-  patch -p0 -i ${srcdir}/save.diff
-  patch -p0 -i ${srcdir}/qt55.diff
-  patch -p0 -i ${srcdir}/preferences.diff
   
   mkdir -p build
   cd build
