@@ -1,6 +1,6 @@
 
 pkgname=kdevelop
-pkgver=4.90.93
+pkgver=4.90.94
 pkgrel=1
 pkgdesc="A C/C++ development environment for KDE"
 arch=('x86_64')
@@ -16,6 +16,12 @@ groups=('programming')
 install=kdevelop.install
 source=("git://anongit.kde.org/kdevelop.git")      
 md5sums=('SKIP')
+
+prepare() {
+  cd ${srcdir}/${pkgname}
+  
+  #patch -p1 -i $srcdir/qt55.diff
+}
 
 build() {
   cd ${srcdir}

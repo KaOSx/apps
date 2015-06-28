@@ -1,6 +1,6 @@
 
 pkgname=kdevplatform
-pkgver=1.90.93
+pkgver=1.90.94
 pkgrel=1
 pkgdesc="A C/C++ development platform for KDE"
 arch=('x86_64')
@@ -14,12 +14,19 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kf5-kdevplatform')
 replaces=('kf5-kdevplatform')
 install=kdevplatform.install
-source=("git://anongit.kde.org/kdevplatform.git")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/kdevplatform.git"
+        'ref.diff')
+md5sums=('SKIP'
+         '941d039047eabecd41d518a2f56d4e5b')
+
+prepare() {
+  cd ${srcdir}/${pkgname}
+  
+  patch -Rp1 -i $srcdir/ref.diff
+}
 
 build() {
   cd ${srcdir}
-  #sed -i 's|add_subdirectory(patchreview)|#add_subdirectory(patchreview)|' ${srcdir}/$_pkgname/plugins/CMakeLists.txt
   mkdir build
   
   cd build 
