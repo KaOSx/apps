@@ -1,6 +1,6 @@
 
 pkgname=netctl-gui
-pkgver=1.4.6.1
+pkgver=1.4.7
 pkgrel=1
 pkgdesc="Qt5 graphical interface for netctl, including a widget"
 arch=('x86_64')
@@ -9,15 +9,15 @@ license=('GPL3')
 depends=('plasma-framework' 'netctl' 'wpa_supplicant')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 install=netctl-gui.install
-#source=("https://github.com/arcan1s/netctl-gui/releases/download/V.${pkgver}/${pkgname}-${pkgver}-src.tar.xz")
-source=("git://github.com/arcan1s/netctl-gui")
-md5sums=('SKIP')
+source=("https://github.com/arcan1s/netctl-gui/releases/download/V.${pkgver}/${pkgname}-${pkgver}-src.tar.xz")
+#source=("git://github.com/arcan1s/netctl-gui")
+md5sums=('9723d9358412b212880c93e931f26b73')
 
 prepare() {
   cd ${srcdir}/${pkgname}
   
-  git submodule init
-  git submodule update
+  #git submodule init
+  #git submodule update
   
   #sed -i 's|WPASUP_PATH=/usr/bin/wpa_supplicant|WPASUP_PATH=/usr/sbin/wpa_supplicant|' ${srcdir}/${pkgname}/helper/netctl-gui.conf
   #sed -i 's|WPACLI_PATH=/usr/bin/wpa_cli|WPACLI_PATH=/usr/sbin/wpa_cli|' ${srcdir}/${pkgname}/helper/netctl-gui.conf
@@ -29,9 +29,8 @@ build() {
   mkdir build
   cd build
   
-  cmake ../${pkgname}/sources \
+  cmake ../${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCFG_WPASUP_PATH=/usr/sbin \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_GUI:BOOL=1 \
