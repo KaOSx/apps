@@ -1,40 +1,46 @@
 
 pkgname=conky
-pkgver=1.9.0
-pkgrel=4
+pkgver=1.10.0
+pkgrel=1
 pkgdesc="An advanced, highly configurable system monitor for X based on torsmo"
 arch=('x86_64')
 url="http://conky.sourceforge.net/"
 license=('custom')
-replaces=('torsmo')
-depends=('alsa-lib' 'libxml2' 'curl' 'wireless_tools' 'libxft' 'glib2' 'libxdamage' 'imlib2')
-makedepends=('pkgconfig')
+depends=('alsa-lib' 'libxml2' 'curl' 'wireless_tools' 'libxft' 'glib2' 'libxdamage' 'imlib2' 'mpd' 'lua')
+makedepends=('pkgconfig' 'cmake')
 groups=('utils')
 backup=('etc/conky/conky.conf' 'etc/conky/conky_no_x11.conf')
-source=("http://downloads.sourceforge.net/project/${pkgname}/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.bz2"
+source=("https://github.com/brndnmtthws/conky/archive/v${pkgver}.tar.gz"
         'conky.conf')
-md5sums=('d3de615f43aadc98d555e05ad9e902c2'
+md5sums=('cdc0298e5f257829d574ae8114170d9b'
          'dbaeb3608533bfcadef08bc5b68f13f7')
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd ${srcdir}
+  mkdir build
+  cd build
   
-  ./configure --prefix=/usr \
-              --sysconfdir=/etc \
-              --enable-wlan \
-	      --enable-rss \
-	      --enable-ibm \
-	      --enable-imlib2 \
-	      --disable-lua
-  make 
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DDOC_PATH=/etc/conky \
+    -DBUILD_WLAN=true \
+    -DBUILD_IMLIB2=true \
+    -DBUILD_MPD=true \
+    -DBUILD_CURL=true \
+    -DBUILD_RSS=true 
+  make
 }
 
+
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install 
+  cd build
+  make DESTDIR=${pkgdir} install 
   
-  rm ${pkgdir}/etc/conky/conky.conf
+  #rm ${pkgdir}/etc/conky/conky.conf
   install -D -m755 ${srcdir}/conky.conf ${pkgdir}/etc/conky/conky.conf
   
-  install -D -m644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  install -D -m644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
+         
+
