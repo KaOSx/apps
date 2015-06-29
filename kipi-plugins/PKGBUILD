@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kipi-plugins
 #pkgver=${_kdever}
-pkgver=4.80.0
+pkgver=4.80.1
 pkgrel=1
 pkgdesc="Collection of plugins extending the KDE graphics and image applications as digiKam, Gwenview, and KPhotoalbum."
 url="https://projects.kde.org/projects/extragear/graphics/kipi-plugins"
@@ -20,12 +20,14 @@ replaces=('kf5-kipi-plugins')
 install=${pkgname}.install
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kipi-plugins.git#branch=frameworks")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/kipi-plugins.git#branch=frameworks"
+        'qt5.5.diff')
+md5sums=('SKIP'
+         '9d83f9ef48479b8b262d1cc03612f1a8')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's|#         MACRO_OPTIONAL_FIND_PACKAGE(X11)|find_package(X11)|' ${srcdir}/${pkgname}/CMakeLists.txt
+  patch -p1 -i $srcdir/qt5.5.diff
   #sed -i -e 's|#         PRINT_OPTIONAL_LIBRARY_STATUS("libX11"|PRINT_OPTIONAL_LIBRARY_STATUS("libX11"|' ${srcdir}/${pkgname}/CMakeLists.txt
   #sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/manager/actionthread.h
   #sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/manager/actions.h
