@@ -13,7 +13,7 @@ backup=('etc/conky/conky.conf' 'etc/conky/conky_no_x11.conf')
 source=("https://github.com/brndnmtthws/conky/archive/v${pkgver}.tar.gz"
         'conky.conf')
 md5sums=('cdc0298e5f257829d574ae8114170d9b'
-         'dbaeb3608533bfcadef08bc5b68f13f7')
+         '61797e73c5dfee944b3ff14ca49c1b7d')
 
 build() {
   cd ${srcdir}
@@ -28,7 +28,8 @@ build() {
     -DBUILD_IMLIB2=true \
     -DBUILD_MPD=true \
     -DBUILD_CURL=true \
-    -DBUILD_RSS=true 
+    -DBUILD_RSS=true \
+    -DBUILD_XDBE=true
   make
 }
 
