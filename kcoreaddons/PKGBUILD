@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcoreaddons
-pkgver=${_kdever}
-pkgrel=2
+pkgver=${_kf5ver}
+pkgrel=3
 pkgdesc='Utilities for core application functionality and accessing the OS'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kcoreaddons'
@@ -14,7 +14,7 @@ makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
 install=kcoreaddons.install
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
