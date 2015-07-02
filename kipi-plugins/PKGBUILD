@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kipi-plugins
 #pkgver=${_kdever}
-pkgver=4.80.2
+pkgver=4.80.3
 pkgrel=1
 pkgdesc="Collection of plugins extending the KDE graphics and image applications as digiKam, Gwenview, and KPhotoalbum."
 url="https://projects.kde.org/projects/extragear/graphics/kipi-plugins"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kdelibs4support' 'kparts' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkface' 'libkgeomap' 'libkvkontakte'
-         'libmediawiki' 'kconfig' 'threadweaver' 'libpng' 'libtiff' 'libjpeg-turbo')
+         'libmediawiki' 'libksane' 'kconfig' 'threadweaver' 'libpng' 'libtiff' 'libjpeg-turbo')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 optdepends=('enblend-enfuse: to work with the panorama tool')
 conflicts=('kf5-kipi-plugins')
@@ -20,12 +20,14 @@ replaces=('kf5-kipi-plugins')
 install=${pkgname}.install
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kipi-plugins.git#branch=frameworks")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/kipi-plugins.git#branch=frameworks"
+        'qt5.5.diff')
+md5sums=('SKIP'
+         'e253aec6b000fdca4cef00d63318a6bd')
 
 prepare() {
   cd $pkgname
-  #patch -p1 -i $srcdir/qt5.5.diff
+  patch -p1 -i $srcdir/qt5.5.diff
   #sed -i -e 's|#         PRINT_OPTIONAL_LIBRARY_STATUS("libX11"|PRINT_OPTIONAL_LIBRARY_STATUS("libX11"|' ${srcdir}/${pkgname}/CMakeLists.txt
   #sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/manager/actionthread.h
   #sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/manager/actions.h
