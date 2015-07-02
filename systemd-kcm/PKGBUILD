@@ -1,0 +1,36 @@
+
+pkgname=systemd-kcm
+pkgver=1.2.0
+pkgrel=1
+pkgdesc="Systemd control module for KDE"
+arch=('x86_64')
+url='https://projects.kde.org/projects/playground/sysadmin/systemd-kcm/'
+license=('GPL')
+depends=('kconfigwidgets' 'kcoreaddons' 'kwidgetsaddons' 'ki18n' 'kservice' 'kauth' 'boost-libs')
+makedepends=('extra-cmake-modules' 'boost')
+conflicts=('kcmsystemd')
+replaces=('kcmsystemd')
+source=("http://download.kde.org/stable/systemd-kcm/${pkgname}-${pkgver}.tar.xz")
+md5sums=('e660e5c80da60601eb20d721ade91748')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR=${pkgdir} install
+  
+  sed -i -e 's|system-administration|hardware|' ${pkgdir}/usr/share/kservices5/kcm_systemd.desktop
+  rm ${pkgdir}/usr/share/kservices5/settings-system-administration.desktop
+}
