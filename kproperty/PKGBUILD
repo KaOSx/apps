@@ -1,0 +1,36 @@
+
+pkgname=kproperty
+pkgver=2.96.0
+pkgrel=1
+pkgdesc="Property editing framework with editor widget similar to what is known from Qt Designer."
+arch=('x86_64')
+url='https://projects.kde.org/projects/playground/libs/kproperty'
+license=('LGPL')
+depends=('kconfig' 'kcoreaddons' 'kwidgetsaddons' 'kguiaddons') # 'kio'
+makedepends=('extra-cmake-modules' 'git')
+source=("git://anongit.kde.org/kproperty.git")
+md5sums=('SKIP')
+
+prepare() {
+  cd $pkgname
+  #sed -i -e 's|#include <baloo/completionproposal.h>||' ${srcdir}/${_pkgname}/src/querybuilder.cpp
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DLIB_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
