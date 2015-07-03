@@ -1,0 +1,40 @@
+
+pkgname=kpmcore
+pkgver=1.2.1
+pkgrel=1
+pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
+arch=('x86_64')
+url="https://www.kde.org/applications/system/kdepartitionmanager"
+license=('GPL2')
+depends=('kconfig' 'ki18n' 'kio' 'kiconthemes' 'kservice' 'libatasmart' 'parted')
+makedepends=('extra-cmake-modules' 'pkgconfig' 'git')
+groups=('system')	
+#source=("http://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${_pkgver}.tar.xz")
+source=("git://anongit.kde.org/kpmcore")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}
+  
+  mkdir build
+  cd build
+
+  cmake ../$pkgname \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DLIB_INSTALL_DIR=lib \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+        -DBUILD_TESTING=OFF 
+
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install 
+}
+
