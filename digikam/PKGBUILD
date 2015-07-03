@@ -1,6 +1,6 @@
 
 pkgname=digikam
-pkgver=4.80.2
+pkgver=4.80.3
 pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
@@ -14,12 +14,15 @@ makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'im
 install=digikam.install
 groups=('graphics')
 #source=("http://download.kde.org/stable/digikam/${pkgname}-${_pkgver}.tar.bz2")
-source=("git://anongit.kde.org/digikam#branch=frameworks")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/digikam#branch=frameworks"
+        'qt5.5.diff')
+md5sums=('SKIP'
+         '4b8c921241ece0de392002312e386e8d')
 
 prepare() {
   cd $pkgname
   #sed -i -e 's|<recognitiondatabase.h>|<kface/recognitiondatabase.h>|' ${srcdir}/${pkgname}/app/utils/componentsinfo.h
+  patch -p1 -i $srcdir/qt5.5.diff
 }
 
 build() {
