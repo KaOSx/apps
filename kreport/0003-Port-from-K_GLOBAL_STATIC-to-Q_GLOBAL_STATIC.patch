@@ -1,0 +1,49 @@
+diff --git a/src/wrtembed/KReportDpi.h b/src/wrtembed/KReportDpi.h
+index 608f076..f2fa1b1 100644
+--- a/src/wrtembed/KReportDpi.h
++++ b/src/wrtembed/KReportDpi.h
+@@ -47,11 +47,11 @@ public:
+     /// @internal, for KoApplication
+     static void setDPI(int x, int y);
+ 
++    KReportDpi();
+     ~KReportDpi();
+ 
+ private:
+     static KReportDpi* self();
+-    KReportDpi();
+ 
+     int m_dpiX;
+     int m_dpiY;
+-- 
+2.4.5
+
+From e3e44276253a342f90dbe39e5c83dd0a24c0fe04 Mon Sep 17 00:00:00 2001
+From: Heiko Becker <heirecka@exherbo.org>
+Date: Wed, 1 Jul 2015 16:25:42 +0200
+Subject: [PATCH 3/3] Port from K_GLOBAL_STATIC to Q_GLOBAL_STATIC
+
+Also made the constructor public, which is required according to Qt's
+documentation (and results in a compile error otherwise).
+---
+ src/wrtembed/KReportDpi.cpp | 3 +--
+ src/wrtembed/KReportDpi.h   | 2 +-
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/src/wrtembed/KReportDpi.cpp b/src/wrtembed/KReportDpi.cpp
+index 8b5e41c..d3c5e83 100644
+--- a/src/wrtembed/KReportDpi.cpp
++++ b/src/wrtembed/KReportDpi.cpp
+@@ -28,11 +28,10 @@
+ #include <QDesktopWidget>
+ #endif
+ 
+-#include <kglobal.h>
++Q_GLOBAL_STATIC(KReportDpi, s_instance)
+ 
+ KReportDpi* KReportDpi::self()
+ {
+-    K_GLOBAL_STATIC(KReportDpi, s_instance)
+     return s_instance;
+ }
+ 

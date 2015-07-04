@@ -1,0 +1,40 @@
+
+pkgname=kreport
+pkgver=2.96.0
+pkgrel=1
+pkgdesc="Framework for creation and generation of reports in multiple formats"
+arch=('x86_64')
+url='https://projects.kde.org/projects/playground/libs/kreport'
+license=('LGPL')
+depends=('kcoreaddons' 'kwidgetsaddons' 'kguiaddons' 'kross' 'kproperty')
+makedepends=('extra-cmake-modules' 'git')
+source=("git://anongit.kde.org/kreport.git"
+        '0003-Port-from-K_GLOBAL_STATIC-to-Q_GLOBAL_STATIC.patch')
+md5sums=('SKIP'
+         'b080f337080c3c4c8cf01725f16a97a7')
+
+prepare() {
+  cd $pkgname
+  #sed -i -e 's|#include <kglobal.h>|#include <KSharedConfig>|' ${srcdir}/${pkgname}/src/wrtembed/KReportDpi.cpp
+  #sed -i -e 's|K_GLOBAL_STATIC|Q_GLOBAL_STATIC|' ${srcdir}/${pkgname}/src/wrtembed/KReportDpi.cpp
+  patch -p1 -i $srcdir/0003-Port-from-K_GLOBAL_STATIC-to-Q_GLOBAL_STATIC.patch
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DLIB_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
