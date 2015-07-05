@@ -1,0 +1,31 @@
+
+pkgname=discount
+pkgver=2.1.8.1
+_pkgver=2.1.8a
+pkgrel=1
+pkgdesc="Markdown text to html language implementation written in C"
+arch=('x86_64')
+url="http://www.pell.portland.or.us/~orc/Code/discount/"
+license=('custom:BSD')
+source=("http://www.pell.portland.or.us/~orc/Code/discount/${pkgname}-${_pkgver}.tar.bz2"
+        'configure.diff')
+md5sums=('edada8cc01accc2c0a634871991b4e08'
+         '4c324983fde3d81345ee73d20d6ea945')
+
+build() {
+  cd ${srcdir}/${pkgname}-${_pkgver}
+  patch -p1 -i ${srcdir}/configure.diff
+  
+  ./configure.sh --prefix=/usr \
+    --enable-all-features \
+    --with-fenced-code \
+    --shared
+  make
+}
+
+package() {
+  cd ${srcdir}/${pkgname}-${_pkgver}
+  make DESTDIR=${pkgdir} install.everything
+  
+  install -Dm644 COPYRIGHT ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}

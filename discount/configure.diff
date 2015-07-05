@@ -1,0 +1,19 @@
+--- a/configure.inc	2015-04-17 16:49:06.000000000 -0400
++++ b/configure.inc	2015-07-04 17:22:07.024307180 -0400
+@@ -1315,7 +1315,6 @@
+ install)$PROG_INSTALL -c \$FULLNAME "\$1"
+ 	$PROG_LN_S -f \$FULLNAME \$1/\$LIBNAME.\$MAJOR
+ 	$PROG_LN_S -f \$FULLNAME \$1/\$LIBNAME
+-	test "$LDCONFIG" && $LDCONFIG "\$1"
+ 	;;
+ esac
+ EOF
+@@ -1402,7 +1401,7 @@
+ 
+     AC_SUB 'INSTALL' "$PROG_INSTALL"
+     AC_SUB 'INSTALL_PROGRAM' "$PROG_INSTALL -s -m 755"
+-    AC_SUB 'INSTALL_DATA' "$PROG_INSTALL -m 444"
++    AC_SUB 'INSTALL_DATA' "$PROG_INSTALL -m 644"
+ 
+     # finally build a little directory installer
+     # if mkdir -p works, use that, otherwise use install -d,
