@@ -15,12 +15,14 @@ depends=('kdelibs4support' 'kparts' 'libx11')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 #source=($_mirror/${pkgname}-$_pimver.tar.xz)
 #md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kontactinterface.git")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/kontactinterface.git"
+        'qt5.5.diff')
+md5sums=('SKIP'
+         '843da79603720c00ed62bdd652e19ce5')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
+  patch -p1 -i $srcdir/qt5.5.diff
 }
 
 build() {

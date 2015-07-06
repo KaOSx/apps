@@ -23,10 +23,15 @@ options=('debug')
 source=("git://anongit.kde.org/kdepimlibs.git")      
 md5sums=('SKIP')
 
+prepare() {
+        cd $pkgname
+  
+        #patch -p1 -i $srcdir/qt5.5.diff
+}
+
 build() {
 	cd ${srcdir}
-	#sed -i 's|set(KF5_MIME_VERSION "4.81.0")|set(KF5_MIME_VERSION "4.80.0")|' ${srcdir}/$pkgname/akonadi-mime/CMakeLists.txt
-	#sed -i 's|add_subdirectory(kmime)|#add_subdirectory(kmime)|' ${srcdir}/$_pkgname/CMakeLists.txt
+	
 	mkdir -p build
 	cd build
 
