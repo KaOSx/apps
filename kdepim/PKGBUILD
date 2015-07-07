@@ -9,7 +9,7 @@ arch=('x86_64')
 pkgdesc="Project that aims to bring together anything to do with personal information management."
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-depends=('grantlee-qt5' 'phonon-qt5' 'qt5-tools' 'prison' 'baloo' 'libkgapi' 'qtwebengine' 'kdepim-runtime'
+depends=('grantlee-qt5' 'phonon-qt5' 'qt5-tools' 'prison' 'libkgapi' 'qtwebengine'
          #frameworks
          'kdelibs4support' 'kwallet' 'knewstuff' 'kcmutils' 'kdewebkit' 'karchive' 'knotifyconfig'
          'kconfig' 'khtml' 'kservice' 'kdbusaddons' 'kauth' 'ktexteditor' 'kdnssd' 'kcodecs' 'kglobalaccel'
@@ -17,7 +17,7 @@ depends=('grantlee-qt5' 'phonon-qt5' 'qt5-tools' 'prison' 'baloo' 'libkgapi' 'qt
          #kdepimlibs
          'kcontacts' 'kcalcore' 'kidentitymanagement' 'kldap' 'kmailtransport' 'kcalutils' 'kontactinterface'
          'kholidays' 'ktnef' 'kimap' 'kmbox' 'akonadi-calendar' 'syndication' 'gpgmepp' 'kalarmcal' 'kmime'
-         'kxmlrpcclient' 'kblog' 'kdepimlibs' 'akonadi-search')
+         'kxmlrpcclient' 'kblog' 'kdepimlibs' 'akonadi-search' 'kdepim-runtime')
 makedepends=('boost' 'extra-cmake-modules' 'kdoctools' 'git')
 conflicts=('kf5-kdepim'
            'kdepim-common'
@@ -52,12 +52,19 @@ replaces=('kf5-kdepim'
 install=kdepim.install
 #source=($_mirror/${pkgname}-${pkgver}.tar.xz)
 #md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdepim.git")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/kdepim.git"
+        'libcommon.diff')
+md5sums=('SKIP'
+         '945faf5733e4d61aabe62b5b14f0afbe')
+
+prepare() {
+  cd $pkgname
+  #sed -i 's|add_subdirectory(korganizer)|#add_subdirectory(korganizer)|' ${srcdir}/$pkgname/CMakeLists.txt
+  patch -p1 -i $srcdir/libcommon.diff
+}
 
 build() {
   cd ${srcdir}
-  #sed -i 's|KF5::AkonadiPrivate|KF5::KF5AkonadiPrivate|' ${srcdir}/$_pkgname/akonadi_next/CMakeLists.txt
 
   mkdir build
   
@@ -70,11 +77,10 @@ build() {
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDEPIM_BUILD_MOBILE=FALSE \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDEPIM_BUILD_DESKTOP=ON
-    #-DBUILD_TESTING=OFF
-  make 
+    -DBUILD_TESTING=FALSE \
+    -DKDEPIM_NO_TEXTTOSPEECH=TRUE
+  make VERBOSE=1
 }
 
 package() {
