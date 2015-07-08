@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=baloo-widgets
 pkgver=4.98.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Widgets for the baloo framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -32,6 +32,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DLIB_INSTALL_DIR=lib
   make
 }
