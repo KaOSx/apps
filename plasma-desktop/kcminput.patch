@@ -1,0 +1,72 @@
+From: Hrvoje Senjan <hrvoje.senjan@gmail.com>
+Date: Wed, 08 Jul 2015 16:50:38 +0000
+Subject: Allow building kcminput without libusb-compat
+X-Git-Url: http://quickgit.kde.org/?p=plasma-desktop.git&a=commitdiff&h=b30ea5a153bd0cc1c8381eda19ecb09abb5d1b5e
+---
+Allow building kcminput without libusb-compat
+
+Some distros are slowly targetting to get rid of the old libusb
+(see discussion in http://lists.opensuse.org/opensuse-factory/2015-07/msg00158.html)
+
+As the code mouse.[cpp,h] and logitechmouse.[cpp,h] is already ready for such an option,
+allow cmake to recognize this also.
+
+REVIEW: 124275
+---
+
+
+--- a/kcms/CMakeLists.txt
++++ b/kcms/CMakeLists.txt
+@@ -14,7 +14,7 @@
+     add_subdirectory( keyboard )
+ endif()
+ 
+-if (LIBUSB_FOUND AND EVDEV_FOUND)
++if (EVDEV_FOUND)
+     add_subdirectory( input )
+ endif()
+ 
+
+--- a/kcms/input/CMakeLists.txt
++++ b/kcms/input/CMakeLists.txt
+@@ -9,7 +9,9 @@
+ 
+ configure_file (config-kcontrol-input.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kcontrol-input.h )
+ 
++if (LIBUSB_FOUND)
+ include_directories( ${LIBUSB_INCLUDE_DIR} )
++endif ()
+ 
+ 
+ ########### next target ###############
+@@ -30,7 +32,11 @@
+ 
+ ########### next target ###############
+ 
+-set(kcm_input_PART_SRCS mouse.cpp main.cpp logitechmouse.cpp)
++set(kcm_input_PART_SRCS mouse.cpp main.cpp)
++
++if (LIBUSB_FOUND)
++   set(kcm_input_PART_SRCS ${kcm_input_PART_SRCS} logitechmouse.cpp)
++endif ()
+ 
+ set(klauncher_xml ${KINIT_DBUS_INTERFACES_DIR}/kf5_org.kde.KLauncher.xml)
+ 
+@@ -53,13 +59,16 @@
+     KF5::KDELibs4Support
+     ${X11_X11_LIB}
+     ${X11_Xinput_LIB}
+-    ${LIBUSB_LIBRARIES}
+ )
+ if (X11_Xcursor_FOUND)
+    target_link_libraries(kcm_input ${X11_Xcursor_LIB})
+ endif ()
+ if (X11_Xfixes_FOUND)
+    target_link_libraries(kcm_input ${X11_Xfixes_LIB})
++endif ()
++
++if (LIBUSB_FOUND)
++   target_link_libraries(kcm_input ${LIBUSB_LIBRARIES})
+ endif ()
+ 
+ install(TARGETS kcm_input  DESTINATION ${PLUGIN_INSTALL_DIR} )

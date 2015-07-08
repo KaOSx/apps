@@ -4,25 +4,27 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-desktop'
 license=('LGPL')
-depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb-compat' 'libcanberra' 'polkit-kde-agent-1'
+depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb' 'libcanberra' 'polkit-kde-agent-1'
          'systemsettings' 'ksysguard' 'powerdevil' 'oxygen' 'oxygen-fonts' 'kmenuedit' 'kpeople' 
          'kdbusaddons' 'xf86-input-synaptics' 'xorg-server')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
 conflicts=('kde-workspace' 'kcm-touchpad')
 replaces=('kde-workspace' 'kcm-touchpad')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
+        'kcminput.patch')
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'e89a7e9aa63aa0e5b520a161ec5d9546')
 
 prepare() {
   cd $pkgname-$pkgver
-  # https://bugs.kde.org/show_bug.cgi?id=349207
-  #sed -i -e 's|X-KDE-Library=plasma_applet_trash||' ${srcdir}/${pkgname}-$pkgver/applets/trash/package/metadata.desktop
+  # remove last libusb-compat dep
+  patch -p1 -i ${srcdir}/kcminput.patch
 }
 
 build() {
