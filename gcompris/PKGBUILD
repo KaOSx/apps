@@ -1,8 +1,8 @@
 
 pkgname=gcompris
-pkgver=0.40
-_pkgver=0.40
-pkgrel=2
+pkgver=0.41
+_pkgver=0.41
+pkgrel=1
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
 url="http://gcompris.net/"
@@ -14,7 +14,7 @@ groups=('kaos-kids')
 conflicts=('gcompris-qt')
 provides=('gcompris-qt')
 replaces=('gcompris-qt')
-source=("git://github.com/bdoin/GCompris-qt.git"
+source=("git://anongit.kde.org/gcompris.git#branch=KDE/0.40"
         'gcompris.desktop'
         'gcompris.png')
 md5sums=('SKIP'
@@ -26,7 +26,7 @@ build() {
   mkdir build
   
   cd build 
-  cmake ../GCompris-qt \
+  cmake ../gcompris \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON
