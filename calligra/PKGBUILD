@@ -1,6 +1,6 @@
 
 pkgname=calligra
-pkgver=2.9.87
+pkgver=2.9.88
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -52,17 +52,17 @@ replaces=('calligra-3rdparty'
          'calligra-flow')
 #source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
 source=("git://anongit.kde.org/calligra.git#branch=frameworks"
-        "http://pkgs.fedoraproject.org/cgit/calligra.git/tree/0001-adapt-to-libwps-0.4.patch"
+        "libwps-0.4.patch"
         'qt55.diff')
 md5sums=('SKIP'
+         '2529367ef6a10582436003aceb7dc3e8'
          'a4c8002be755c052ed0695c7d8c689bf')
 
 prepare() {
   cd ${srcdir}/${pkgname}
   #sed -i 's|set(REQUIRED_Xinput_FOUND ${X11_Xinput_FOUND})|set(REQUIRED_Xinput_FOUND TRUE)|' CMakeLists.txt
-  patch -p1 -i $srcdir/qt55.diff
-  # http://pkgs.fedoraproject.org/cgit/calligra.git/commit/?id=124c28df44584e08b00d4dbb859362af73c41070
-  patch -p1 -i $srcdir/0001-adapt-to-libwps-0.4.patch
+  #patch -p1 -i $srcdir/qt55.diff
+  patch -p1 -i $srcdir/libwps-0.4.patch
 }
 
 build() {
@@ -76,7 +76,8 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DPRODUCTSET=DESKTOP  
+    -DPRODUCTSET=DESKTOP 
+    # -DCOMPILING_TESTS=FALSE
   make
 }
 
