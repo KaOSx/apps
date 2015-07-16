@@ -1,7 +1,7 @@
 
 pkgname=kreport
 pkgver=2.96.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Framework for creation and generation of reports in multiple formats"
 arch=('x86_64')
 url='https://projects.kde.org/projects/playground/libs/kreport'
@@ -17,7 +17,7 @@ prepare() {
   cd $pkgname
   #sed -i -e 's|#include <kglobal.h>|#include <KSharedConfig>|' ${srcdir}/${pkgname}/src/wrtembed/KReportDpi.cpp
   #sed -i -e 's|K_GLOBAL_STATIC|Q_GLOBAL_STATIC|' ${srcdir}/${pkgname}/src/wrtembed/KReportDpi.cpp
-  patch -p1 -i $srcdir/0003-Port-from-K_GLOBAL_STATIC-to-Q_GLOBAL_STATIC.patch
+  #patch -p1 -i $srcdir/0003-Port-from-K_GLOBAL_STATIC-to-Q_GLOBAL_STATIC.patch
 }
 
 build() {

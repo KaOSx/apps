@@ -1,19 +1,19 @@
 
 pkgname=polkit
-pkgver=0.112
-pkgrel=3
+pkgver=0.113
+pkgrel=1
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=('x86_64')
 license=('LGPL')
 url="http://www.freedesktop.org/wiki/Software/polkit"
-depends=('glib2' 'pam' 'expat>=2.0.1' 'systemd' 'js')
-makedepends=('intltool>=0.41.1' 'gobject-introspection>=0.9.5' 'docbook-xsl')
+depends=('glib2' 'pam' 'expat' 'systemd' 'js')
+makedepends=('intltool' 'gobject-introspection' 'docbook-xsl')
 provides=('consolekit')
 options=('!libtool')
 install=polkit.install
 source=("http://www.freedesktop.org/software/polkit/releases/$pkgname-$pkgver.tar.gz"
         'polkit.pam')
-md5sums=('b0f2fa00a55f47c6a5d88e9b73f80127'
+md5sums=('4b77776c9e4f897dcfe03b2c34198edf'
          '6564f95878297b954f0572bc1610dd15')
 
 build() {
