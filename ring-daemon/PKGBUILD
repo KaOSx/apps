@@ -1,0 +1,37 @@
+
+pkgname=ring-daemon
+pkgver=2.2.0
+pkgrel=1
+pkgdesc="Ring daemon"
+license=('GPL3')
+arch=('x86_64')
+url="http://ring.cx/"
+depends=('alsa-lib' 'boost-libs' 'dbus-c++' 'expat' 'ffmpeg' 'gsm' 'gnutls' 'jack' 'libsamplerate'
+         'libsndfile' 'libsrtp' 'libupnp' 'pulseaudio' 'opendht' 'openssl' 'opus' 'pcre'
+         'speex' 'speexdsp' 'systemd' 'yaml-cpp' 'yasm' ) 
+makedepends=('boost' 'git')
+source=("git+https://gerrit-ring.savoirfairelinux.com/${pkgname}#tag=${pkgver}")
+md5sums=('SKIP')
+
+build() {
+  mkdir -p ${pkgname}/contrib/native
+  cd ${pkgname}/contrib/native
+  
+  ../bootstrap
+  make -j1 .pjproject
+
+  cd ../..
+  
+  ./autogen.sh
+  ./configure --prefix=/usr \
+    --sbindir=/usr/bin \
+    --libexecdir=/usr/bin \
+    --sysconfdir=/etc
+  make
+}
+
+package() {
+  cd ${pkgname}
+  
+  make DESTDIR=${pkgdir} install
+}

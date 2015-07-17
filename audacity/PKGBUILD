@@ -1,6 +1,6 @@
 
 pkgname=audacity
-pkgver=2.1.0
+pkgver=2.1.1
 pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
@@ -11,18 +11,21 @@ depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk2.9' 'lame' 'hicolor-icon-theme'
 makedepends=('cmake' 'zip' 'python2' 'pkgconfig')
 options=('!makeflags')
 install="${pkgname}.install"
-source=("http://sourceforge.net/projects/audacity/files/audacity/${pkgver}/${pkgname}-minsrc-${pkgver}.tar.xz")
-md5sums=('d21a794cc1e2a1567d3d75b53b1f2f02')
+#source=("http://sourceforge.net/projects/audacity/files/audacity/${pkgver}/${pkgname}-minsrc-${pkgver}.tar.xz")
+source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz")
+md5sums=('7cd627dc61da8b3698d234c96aee284d')
 
 build() {
-  cd "${srcdir}/${pkgname}-minsrc-${pkgver}"
+  #cd "${srcdir}/${pkgname}-minsrc-${pkgver}"
+  cd "${srcdir}/${pkgname}-Audacity-${pkgver}"
 
-  ./configure --prefix=/usr --enable-unicode #--with-libresample
+  ./configure --prefix=/usr --enable-unicode --with-ffmpeg=no #--with-libresample
   make
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-minsrc-${pkgver}"
+  #cd "${srcdir}/${pkgname}-minsrc-${pkgver}"
+  cd "${srcdir}/${pkgname}-Audacity-${pkgver}"
   
   make DESTDIR="${pkgdir}" install
 }

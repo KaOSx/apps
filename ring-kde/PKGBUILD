@@ -1,0 +1,39 @@
+
+pkgname=ring-kde
+pkgver=2.1.0
+pkgrel=1
+pkgdesc="KDE client for the Ring communication framework"
+arch=('x86_64')
+url='http://ring.cx/'
+license=('LGPL')
+depends=('kconfig' 'kguiaddons' 'kdbusaddons' 'ki18n' 'kinit' 'kwindowsystem'
+         'kxmlgui' 'knotifications' 'kiconthemes' 'kio' 'kcompletion' 'kcrash'
+         'qt5-svg' 'akonadi' 'ring-lrc')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+source=("git://anongit.kde.org/ring-kde.git#tag=${pkgver}")
+md5sums=('SKIP')
+
+prepare() {
+  cd $pkgname
+  #sed -i -e 's|#include <baloo/completionproposal.h>||' ${srcdir}/${_pkgname}/src/querybuilder.cpp
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DLIB_INSTALL_DIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}

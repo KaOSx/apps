@@ -1,0 +1,33 @@
+
+pkgname=opendht
+pkgver=0.1
+pkgrel=1
+pkgdesc="Lightweight C++11 Distributed Hash Table implementation originally based on dht"
+arch=('x86_64')
+url="https://github.com/savoirfairelinux/opendht"
+license=('GPL3')
+depends=('gnutls')
+makedepends=('git')
+source=("git://github.com/savoirfairelinux/opendht")
+md5sums=('SKIP')
+
+build() {
+  cd ${pkgname}
+
+  ./autogen.sh
+  ./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --libexecdir=/usr/bin \
+    --sysconfdir=/etc \
+    --sharedstatedir=/usr/share/opendht \
+    --localstatedir=/var/lib/opendht \
+    --with-gnu-ld
+  make
+}
+
+package() {
+  cd ${pkgname}
+  
+  make DESTDIR=$pkgdir install
+}
