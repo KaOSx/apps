@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=wacomtablet
 #pkgver=${_kdever}
-pkgver=2.8.1
+pkgver=2.8.2
 pkgrel=1
 pkgdesc="This module implements a GUI for the Wacom Linux Drivers and extends it with profile support to handle 
          different button / pen layouts per profile."
@@ -13,8 +13,8 @@ url='https://projects.kde.org/projects/extragear/base/wacomtablet'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'ki18n' 'kglobalaccel' 'kconfig' 'kxmlgui' 'kwidgetsaddons' 'kwindowsystem' 'knotifications'
          'kdbusaddons' 'plasma-framework' 'xf86-input-wacom')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'pkg-config' 'kdelibs')
-#groups=("kde" "kdegraphics" "kde-uninstall")
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'pkg-config') # 'kdelibs')
+groups=('kde' 'kdegraphics' 'kde-uninstall')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/wacomtablet.git#branch=kf5-port")
@@ -23,7 +23,7 @@ md5sums=('SKIP')
 prepare() {
    cd $pkgname
    #patch -p1 -i ${srcdir}/CMakeLists.diff
-   #sed -i -e 's|${CMAKE_CURRENT_BINARY_DIR}/libkgeomap_export.h|${CMAKE_CURRENT_BINARY_DIR}/libkgeomap_export.h kgeomap_widget.h kgeomap_primitives.h|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+   sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/user/index.docbook
 }
 
 build() {
