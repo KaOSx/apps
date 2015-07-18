@@ -1,7 +1,7 @@
 
 pkgname=ring-kde
 pkgver=2.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE client for the Ring communication framework"
 arch=('x86_64')
 url='http://ring.cx/'
@@ -10,12 +10,14 @@ depends=('kconfig' 'kguiaddons' 'kdbusaddons' 'ki18n' 'kinit' 'kwindowsystem'
          'kxmlgui' 'knotifications' 'kiconthemes' 'kio' 'kcompletion' 'kcrash'
          'qt5-svg' 'akonadi' 'ring-lrc')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-source=("git://anongit.kde.org/ring-kde.git#tag=${pkgver}")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/ring-kde.git#branch=profile"
+        'qt5.5.diff')
+md5sums=('SKIP'
+         '603f6d30dfc2742ae573959a2b519b1b')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's|#include <baloo/completionproposal.h>||' ${srcdir}/${_pkgname}/src/querybuilder.cpp
+  #patch -p1 -i $srcdir/qt5.5.diff
 }
 
 build() {
