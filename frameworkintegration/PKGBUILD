@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=frameworkintegration
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework providing components to allow applications to integrate with a KDE Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/frameworkintegration'
@@ -13,7 +13,7 @@ depends=('kconfig' 'kconfigwidgets' 'ki18n' 'kiconthemes' 'kio' 'knotifications'
          'libxcursor')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/5.9/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/stable/frameworks/5.12/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
@@ -31,7 +31,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }
