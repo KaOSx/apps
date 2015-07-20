@@ -1,24 +1,26 @@
 
-pkgname=spideroak
-_PkgName=SpiderOak
-pkgver=5.2.0
+pkgname=spideroakone
+_PkgName=SpiderOakONE
+pkgver=6.0
 pkgrel=1
 pkgdesc="Secure and consolidated free online backup, storage, access, sharing & sync tool for Windows, Mac OS X, and Linux."
 url="https://spideroak.com/"
 arch=('x86_64')
 depends=('krb5' 'python2')
+provides=('spideroak')
+replaces=('spideroak')
 license=('custom')
 groups=('network')
 options=('!strip')
 install=spideroak.install
 source=("${_PkgName}-${pkgver}-x86_64-1.tgz"::"https://spideroak.com/getbuild?platform=slackware&arch=x86_64&beta=no"
         "terms.txt")
-md5sums=('422f29e815f88f28cc95169f7f8560b0'
+md5sums=('52650eab6b467d8746dd420c96ef508f'
          '9338d3464e8ce876d7222099c22a205b')
 
 package() {
     # install config files
-    install -Dm644 $srcdir/etc/dbus-1/system.d/$_PkgName.dbus.conf $pkgdir/etc/dbus-1/system.d/$_PkgName.dbus.conf
+    install -Dm644 $srcdir/etc/xdg/menus/applications-merged/$_PkgName.menu $pkgdir/etc/xdg/menus/applications-merged/$_PkgName.menu
 
     # install app in /opt
     install -d $pkgdir/opt/
@@ -33,16 +35,7 @@ package() {
     # install desktop and pixmap files
     install -Dm644 $srcdir/usr/share/applications/$_PkgName.desktop $pkgdir/usr/share/applications/$_PkgName.desktop
     install -Dm644 $srcdir/usr/share/pixmaps/$_PkgName.png $pkgdir/usr/share/pixmaps/$_PkgName.png
-
-    # fix desktop file
-    sed -i \
-	-e "/Encoding=UTF-8/d" \
-	-e "/^Name=/s: Backup::" \
-	-e "/^Comment=/s:$_PkgName ::" \
-	-e "/^Categories=/s:$_PkgName;::" \
-	-e "/^Icon=/s:=.*$:=$_PkgName:" \
-	-e "/^Exec=/s:=.*$:=$_PkgName:" \
-	$pkgdir/usr/share/applications/$_PkgName.desktop
+    install -Dm644 $srcdir/usr/share/pixmaps/${_PkgName}GlobalSync.png $pkgdir/usr/share/pixmaps/${_PkgName}GlobalSync.png
 	
     install -Dm644 terms.txt $pkgdir/usr/share/licenses/$pkgname/terms.txt
     install -Dm644 $srcdir/usr/share/man/man1/$_PkgName.1.gz $pkgdir/usr/share/man/man1/$_PkgName.1.gz
