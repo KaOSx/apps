@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=15.03.75
+pkgver=15.03.76
 pkgrel=1
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
@@ -42,6 +42,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
     -DKF5KExiv2_DIR=/usr/lib/cmake/KEXIV2
   make

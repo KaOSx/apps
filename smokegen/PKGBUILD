@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=smokegen
 #pkgver=${_kdever}
-pkgver=14.12.80
+pkgver=15.08.70
 pkgrel=1
 pkgdesc="A general purpose C++ parser with a plugin infrastructure"
 url="https://projects.kde.org/projects/kde/kdebindings/smoke/smokegen"
@@ -21,8 +21,7 @@ conflicts=('kdebindings-smokegen'
            'kdebindings-qtruby'
            'kdebindings-korundum'
            'kdebindings-perlqt'
-           'kdebindings-perlkde'
-           'kdebindings-kross-interpreters')
+           'kdebindings-perlkde')
 replaces=('kdebindings-smokegen'
           'kdebindings-pykde4'
           'kdebindings-smokeqt'
@@ -32,11 +31,10 @@ replaces=('kdebindings-smokegen'
           'kdebindings-qtruby'
           'kdebindings-korundum'
           'kdebindings-perlqt'
-          'kdebindings-perlkde'
-          'kdebindings-kross-interpreters')
+          'kdebindings-perlkde')
 #groups=("kde" "kdebindings" "kde-uninstall")
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/smokegen#branch=Qt5")
 md5sums=('SKIP')
 

@@ -2,10 +2,10 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname="ark"
+pkgname=ark
 arch=('x86_64')
-#pkgver=${_kdever}
-pkgver=15.03.79
+pkgver=${_kdever}
+#pkgver=15.03.79
 pkgrel=1
 pkgdesc="Archiver for various compression formats"
 url="http://www.kde.org"
@@ -17,10 +17,8 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'docbook-xsl')
 conflicts=('kdeutils-ark')
 replaces=('kdeutils-ark')
 install=ark.install
-#source=($_mirror/${_pkgname}-$_kdever.tar.xz)
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/ark.git")
-md5sums=('SKIP')
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cd ${srcdir}
@@ -28,7 +26,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
