@@ -19,24 +19,9 @@ md5sums=('52650eab6b467d8746dd420c96ef508f'
          '9338d3464e8ce876d7222099c22a205b')
 
 package() {
-    # install config files
-    install -Dm644 $srcdir/etc/xdg/menus/applications-merged/$_PkgName.menu $pkgdir/etc/xdg/menus/applications-merged/$_PkgName.menu
-
-    # install app in /opt
-    install -d $pkgdir/opt/
-    cp -r $srcdir/opt/* $pkgdir/opt/
-
-    # install start script file
-    install -Dm755 $srcdir/usr/bin/$_PkgName $pkgdir/usr/bin/$_PkgName
-    cd $pkgdir/usr/bin
-    ln -s $_PkgName $pkgname
-    cd $srcdir
-
-    # install desktop and pixmap files
-    install -Dm644 $srcdir/usr/share/applications/$_PkgName.desktop $pkgdir/usr/share/applications/$_PkgName.desktop
-    install -Dm644 $srcdir/usr/share/pixmaps/$_PkgName.png $pkgdir/usr/share/pixmaps/$_PkgName.png
-    install -Dm644 $srcdir/usr/share/pixmaps/${_PkgName}GlobalSync.png $pkgdir/usr/share/pixmaps/${_PkgName}GlobalSync.png
-	
+    cp -r $srcdir/etc $pkgdir/
+    cp -r $srcdir/opt $pkgdir/
+    cp -r $srcdir/usr $pkgdir/
+    
     install -Dm644 terms.txt $pkgdir/usr/share/licenses/$pkgname/terms.txt
-    install -Dm644 $srcdir/usr/share/man/man1/$_PkgName.1.gz $pkgdir/usr/share/man/man1/$_PkgName.1.gz
 }
