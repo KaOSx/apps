@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=wacomtablet
 #pkgver=${_kdever}
-pkgver=2.8.2
+pkgver=2.8.3
 pkgrel=1
 pkgdesc="This module implements a GUI for the Wacom Linux Drivers and extends it with profile support to handle 
          different button / pen layouts per profile."
@@ -23,7 +23,7 @@ md5sums=('SKIP')
 prepare() {
    cd $pkgname
    #patch -p1 -i ${srcdir}/CMakeLists.diff
-   sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/user/index.docbook
+   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/user/index.docbook
 }
 
 build() {
