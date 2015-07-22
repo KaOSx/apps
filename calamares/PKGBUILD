@@ -32,9 +32,9 @@ prepare () {
   
   git submodule init
   git submodule update
-  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
-  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
-  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
+  sed -i 's|Ext4|Btrfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
+  sed -i 's|Ext4|Btrfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
+  sed -i 's|Ext4|Btrfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
   # toggle on/off for kf5/kde 4 builds
   #sed -i 's|# bootloaderEntryName: KaOS-kf5|bootloaderEntryName: KaOS|' ${srcdir}/${pkgname}/src/modules/bootloader/bootloader.conf
   #patch -Rp1 -i $srcdir/luks_removal.patch

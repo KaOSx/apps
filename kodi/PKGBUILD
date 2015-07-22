@@ -2,9 +2,9 @@
 _prefix=/usr
 
 pkgname=kodi
-pkgver=14.2
-_pkgver=14.2-Helix
-pkgrel=3
+pkgver=15.0
+_pkgver=15.0-Isengard
+pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
 url="http://kodi.tv/"
@@ -12,7 +12,7 @@ license=('GPL' 'custom')
 depends=( 'bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi' 'python2' 'python-pysqlite'
           'glew' 'jasper' 'libcdio' 'libgl' 'libmad' 'libmms' 'libass' 'yajl' 'x264'
           'libmpeg2' 'libmariadbclient' 'libsamplerate' 'libxinerama' 'libpng' 'libbluedevil'
-          'libxrandr' 'libxtst' 'lzo2' 'sdl_image' 'sdl_mixer' 'libvorbis' 'pulseaudio' 'libdvdcss'
+          'libxrandr' 'libxtst' 'lzo2' 'sdl2' 'libvorbis' 'pulseaudio' 'libdvdcss'
           'samba' 'wavpack' 'mesa-demos' 'xorg-utils' 'libmicrohttpd' 'libjpeg-turbo' 'mesa' 'swig'
           'libssh' 'libva' 'libmodplug' 'rtmpdump' 'lsb-release' 'sqlite3' 'libbluray' 'java-runtime'
           'tinyxml' 'taglib' 'libcap' 'glu' 'libusbx' 'hicolor-icon-theme' 'libtiff' 'avahi'
@@ -33,35 +33,28 @@ provides=('xbmc')
 replaces=('xbmc')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
 source=("https://github.com/xbmc/xbmc/archive/$_pkgver.tar.gz")
-md5sums=('aa534c483cdd6cda71e5350c2094175b')
+md5sums=('d3bd3dc9fd705bcf59d8c91199994537')
 
 build() {
     cd "${srcdir}/xbmc-$_pkgver"
   
-    msg "Bootstrapping XBMC"
+    msg "Bootstrapping Kodi"
     ./bootstrap
     
-    export PYTHON_VERSION=2 
     msg "Configuring Kodi"
     ./configure --prefix=${_prefix} --exec-prefix=$_prefix \
         --disable-debug \
         --enable-optimizations \
         --enable-gl \
-        --enable-sdl \
         --enable-vaapi \
 	--enable-vdpau \
-	--enable-xrandr \
-	--enable-x11 \
-	--enable-udev \
 	--enable-pulse \
 	--enable-avahi \
 	--enable-samba \
 	--enable-rtmp \
 	--enable-libbluray \
 	--enable-dvdcss \
-	--enable-libusb \
-	--enable-rtmp \
-	--disable-texturepacker 
+	--enable-rtmp 
 
     msg "Running make"
     make 
@@ -74,11 +67,6 @@ package() {
 
     # various fixes
     sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KaOS-release/g" "${pkgdir}${_prefix}/bin/kodi"
-    sed -i -e 's/python/python2/g' "${pkgdir}${_prefix}/bin/kodi"
-
-    # Tools
-    install -D -m 0755 "${srcdir}/xbmc-$_pkgver/kodi-xrandr" "${pkgdir}${_prefix}/share/kodi/kodi-xrandr"
-    install -D -m 0755 "${srcdir}/xbmc-$_pkgver/tools/TexturePacker/TexturePacker.exe" "${pkgdir}${_prefix}/lib/kodi/"
 
     # Licenses
     install -d -m 0755 "${pkgdir}${_prefix}/share/licenses/${pkgname}"
