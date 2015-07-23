@@ -1,0 +1,37 @@
+
+pkgname=basket
+pkgver=1.90
+pkgrel=1
+pkgdesc="BasKet Note Pads - A system for organizing information in KDE."
+url="https://github.com/keelhub/basket/tree/qt5/basket"
+arch=('x86_64')
+license=('GPL')
+depends=('qt5-base' 'gpgme' 'quazip')
+makedepends=('git' 'qt5-tools') 
+source=("https://github.com/keelhub/basket/archive/qt5.zip")
+md5sums=('SKIP')
+
+build() {
+  cd ${srcdir}/basket-qt5
+   
+  /usr/lib/qt5/bin/qmake basket.pro
+  make
+}
+
+package() {
+  cd ${srcdir}/basket-qt5/basket
+   
+  install -Dm755 basket $pkgdir/usr/bin/basket
+  install -Dm644 src/basket.desktop $pkgdir/usr/share/applications/basket.desktop
+  install -Dm644 file-integration/basketthumbcreator.desktop $pkgdir/usr/share/kservices5/basketthumbcreator.desktop
+  install -Dm644 file-integration/basket.xml $pkgdir/usr/share/appdata/basket.xml
+  
+  sed -i -e 's/X-DBUS-StartupType=Unique//' $pkgdir/usr/share/applications/basket.desktop
+  
+  mkdir -p ${pkgdir}/usr/share/apps/basket
+  cp -r backgrounds $pkgdir/usr/share/apps/basket/backgrounds
+  cp -r welcome $pkgdir/usr/share/apps/basket/welcome
+  
+  mkdir -p ${pkgdir}/usr/share/icons/hicolor/16x16/actions
+  cp -r tags $pkgdir/usr/share/icons/hicolor/16x16/actions
+}
