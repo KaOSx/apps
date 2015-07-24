@@ -9,11 +9,14 @@ license=('GPL')
 depends=('qt5-base')
 makedepends=('extra-cmake-modules' 'git')
 groups=('kde-telepathy')
-source=("git://anongit.kde.org/telegram-qt.git")
-md5sums=('SKIP')
+source=("git+https://github.com/Kaffeine/telegram-qt.git"
+        'qt5.5.diff')
+md5sums=('SKIP'
+         '38f0e93b4d906ba3163e13fc93d61cc9')
 
 build() {
   cd ${srcdir}
+  patch -p1 -i ${srcdir}/qt5.5.diff
   
   mkdir -p build
   cd build
@@ -23,6 +26,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DUSE_QT4=OFF 
+    #-DENABLE_TESTAPP=TRUE
   make
 }
 
