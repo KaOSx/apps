@@ -18,17 +18,12 @@ groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
 install=${pkgname}.install
 #source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdenetwork-filesharing.git#branch=frameworks"
-        'cmake.diff'
-        'include.diff')
-md5sums=('SKIP'
-         '99241e5cdccdb9625d715fa406258c11'
-         '395a344c9c530a875cc83e4591cb10ba')
+source=("git://anongit.kde.org/kdenetwork-filesharing.git#branch=frameworks")
+md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
   #patch -p1 -i ${srcdir}/cmake.diff
-  #patch -p1 -i ${srcdir}/include.diff
 }
 
 build() {
