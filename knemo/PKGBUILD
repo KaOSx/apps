@@ -1,0 +1,41 @@
+
+pkgname=knemo
+pkgver=0.7.6.80
+pkgrel=1
+pkgdesc='The KDE Network Monitor'
+url='http://kde-apps.org/content/show.php?content=12956'
+arch=('x86_64')
+license=('GPL')
+depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kglobalaccel' 'kguiaddons' 'kdbusaddons' 'ki18n' 
+         'kcmutils' 'kio' 'knotifications' 'knotifyconfig' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui'  
+         'kdelibs4support' 'ksysguard' 'iw' 'libnl')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
+install=${pkgname}.install
+source=("git://anongit.kde.org/knemo.git#branch=frameworks")
+md5sums=('SKIP')
+
+prepare() {
+  cd $pkgname
+  #patch -p1 -i ${srcdir}/cmake.diff
+}
+
+build() {
+  mkdir build 
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=$pkgdir install
+}
