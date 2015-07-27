@@ -1,0 +1,33 @@
+
+pkgname=plasma-applet-redshift-control
+pkgver=1.0
+pkgrel=1
+_commit=d16c9b5fce14f3c6b5f07f78bbfd4939a773cef9
+pkgdesc='Plasmoid for enabling and disabling redshift process, providing simple settings and mouse-wheel screen temperature control.'
+arch=('x86_64')
+url='http://kde-apps.org/content/show.php/Redshift+Control?content=170746'
+license=('GPL')
+depends=('plasma-desktop' 'redshift')
+makedepends=('extra-cmake-modules')
+conflicts=('redshift-plasmoid')
+replaces=('redshift-plasmoid')
+source=("https://github.com/kotelnik/plasma-applet-redshift-control/archive/${_commit}.zip")
+md5sums=('c244a7414cbd76505b65ea0e5a95eba8')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR="$pkgdir" install
+}

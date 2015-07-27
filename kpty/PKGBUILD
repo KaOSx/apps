@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kpty
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Library that provides primitives to interface with pseudo terminal devices and KProcess'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kpty'
@@ -54,7 +54,6 @@ conflicts=('kdewebdev-kfilereplace'
            'kdesdk-kioslaves'
            'kdesdk-poxml'
            'kdesdk-strigi-analyzers'
-           'redshift-plasmoid'
            'kde-plasma-themes-Kotonaru'
            'kotonaru-colors'
            'kde-kdm-themes-grey'
@@ -101,12 +100,11 @@ replaces=('kdewebdev-kfilereplace'
            'kdesdk-kioslaves'
            'kdesdk-poxml'
            'kdesdk-strigi-analyzers'
-           'redshift-plasmoid'
            'kde-plasma-themes-Kotonaru'
            'kotonaru-colors'
            'kde-kdm-themes-grey'
            'libkolab') 
-source=("http://download.kde.org/stable/frameworks/5.7/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/stable/frameworks/5.12/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
@@ -118,7 +116,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }

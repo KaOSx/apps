@@ -1,6 +1,6 @@
 
 pkgname=digikam
-pkgver=4.80.3
+pkgver=4.80.4
 pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
@@ -15,14 +15,14 @@ install=digikam.install
 groups=('graphics')
 #source=("http://download.kde.org/stable/digikam/${pkgname}-${_pkgver}.tar.bz2")
 source=("git://anongit.kde.org/digikam#branch=frameworks"
-        'qt5.5.diff')
+        'CMakeLists.diff')
 md5sums=('SKIP'
-         '70e463b4b32279a2808343b25f5ac747')
+         '304a4364d591197963b9b40314d526a4')
 
 prepare() {
   cd $pkgname
-  #sed -i -e 's|<recognitiondatabase.h>|<kface/recognitiondatabase.h>|' ${srcdir}/${pkgname}/app/utils/componentsinfo.h
-  #patch -p1 -i $srcdir/qt5.5.diff
+  #sed -i -e 's|KF5AkonadiContact|KF5AkonadiCore|' ${srcdir}/${pkgname}/utilities/kdesupport/akonadi/CMakeLists.txt
+  patch -p1 -i $srcdir/CMakeLists.diff
 }
 
 build() {
@@ -39,9 +39,10 @@ build() {
      -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
      -DBUILD_TESTING=OFF \
-     -DENABLE_KDEPIMLIBSSUPPORT=ON \
+     -DENABLE_AKONADICONTACTSUPPORT=ON \
      -DENABLE_MYSQLSUPPORT=ON \
-     -DENABLE_KFILEMETADATASUPPORT=ON
+     -DENABLE_KFILEMETADATASUPPORT=ON \
+     -DENABLE_DNGCONVERTER=OFF
    make 
 }
 
