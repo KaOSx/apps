@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcron
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='GUI crontab editor'
 url='http://userbase.kde.org/KCron'
 arch=('x86_64')
@@ -33,6 +33,7 @@ build() {
 
 package() {
   cd build
-
   make DESTDIR=${pkgdir} install
+  
+  sed -e "s|system-administration|session|" -i ${pkgdir}/usr/share/kservices5/kcm_cron.desktop
 }
