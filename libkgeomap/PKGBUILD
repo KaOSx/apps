@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkgeomap
 #pkgver=${_kdever}
-pkgver=4.9.89
+pkgver=4.9.90
 pkgrel=1
 pkgdesc="Wrapper around different world-map components, to browse and arrange photos over a map"
 arch=('x86_64')
@@ -21,7 +21,7 @@ md5sums=('SKIP')
 prepare() {
    cd $pkgname
    #patch -p1 -i ${srcdir}/CMakeLists.diff
-   sed -i -e 's|FIND_LIBRARY( MARBLE_LIBRARIES NAMES marblewidget-qt5 )|FIND_LIBRARY( MARBLE_LIBRARIES NAMES marblewidget )|' ${srcdir}/${pkgname}/cmake/modules/FindMarble.cmake
+   #sed -i -e 's|FIND_LIBRARY( MARBLE_LIBRARIES NAMES marblewidget-qt5 )|FIND_LIBRARY( MARBLE_LIBRARIES NAMES marblewidget )|' ${srcdir}/${pkgname}/cmake/modules/FindMarble.cmake
    #sed -i -e 's|find_dependency(F5Config)||' ${srcdir}/${pkgname}/cmake/templates/KF5KGeoMapConfig.cmake.in
 }
 

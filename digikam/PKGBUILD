@@ -1,6 +1,6 @@
 
 pkgname=digikam
-pkgver=4.80.4
+pkgver=4.80.5
 pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
@@ -22,7 +22,7 @@ md5sums=('SKIP'
 prepare() {
   cd $pkgname
   #sed -i -e 's|KF5AkonadiContact|KF5AkonadiCore|' ${srcdir}/${pkgname}/utilities/kdesupport/akonadi/CMakeLists.txt
-  patch -p1 -i $srcdir/CMakeLists.diff
+  #patch -p1 -i $srcdir/CMakeLists.diff
 }
 
 build() {
@@ -39,10 +39,11 @@ build() {
      -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
      -DBUILD_TESTING=OFF \
-     -DENABLE_AKONADICONTACTSUPPORT=ON \
+     -DENABLE_AKONADICONTACTSUPPORT=OFF \
      -DENABLE_MYSQLSUPPORT=ON \
      -DENABLE_KFILEMETADATASUPPORT=ON \
-     -DENABLE_DNGCONVERTER=OFF
+     -DENABLE_DNGCONVERTER=OFF \
+     -DENABLE_MEDIAPLAYER=ON
    make 
 }
 
