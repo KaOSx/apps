@@ -17,16 +17,13 @@ conflicts=('kdeedu-cantor')
 replaces=('kdeedu-cantor')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        'r32.patch')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'f56ed531462a11f3ef78ad8a13e92aa9')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
   
   sed -i -e 's|add_subdirectory(sage)|#add_subdirectory(sage)|' ${srcdir}/${pkgname}-${pkgver}/src/backends/CMakeLists.txt
-  patch -p1 -i ${srcdir}/r32.patch
 }
 
 build() {

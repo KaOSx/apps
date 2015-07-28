@@ -28,18 +28,13 @@ replaces=('kdesdk-cervisia'
          'kdesdk-poxml'
          'kdesdk-dev-scripts'
          'kdesdk-strigi-analyzers')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        'save.diff'
-        'preferences.diff')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '56e39b6d53fa8ab08e752d2199c0a3f4'
-         '3af06b0ca1f8a0e8618d7a7a521d6b4e')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
 
-  patch -p1 -i $srcdir/save.diff
-  patch -p1 -i $srcdir/preferences.diff
+  #patch -p1 -i $srcdir/save.diff
 }
          
 build() {
