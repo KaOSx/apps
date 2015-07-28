@@ -9,11 +9,14 @@ license=('GPL')
 depends=('qt5-base' 'suil' 'lilv' 'libmad' 'libsamplerate' 'rubberband' 'liblo' 'shared-mime-info')
 makedepends=('ladspa' 'dssi' 'qt5-tools')
 groups=('multimedia')
-source=("http://downloads.sourceforge.net/qtractor/$pkgname-$pkgver.tar.gz")
-md5sums=('787757fba50723dcbadf230b78458820')
+source=("http://www.rncbc.org/archive/$pkgname-$pkgver.tar.gz"
+        'qt5.5.diff')
+md5sums=('dadada3a62e54fd083caad1698c19868'
+         '68b1a342577cf9b9e0280fb4dfad808f')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
+  patch -p1 -i $srcdir/qt5.5.diff
 
   ./configure --prefix=/usr --enable-debug --enable-qt5
   make
