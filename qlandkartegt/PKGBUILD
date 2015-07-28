@@ -1,37 +1,39 @@
 
 pkgname=qlandkartegt
+_pkgname=qlandkartegt-code-4016-QLandkarteGT-trunk
 pkgver=1.8.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Use your GPS with Linux"
-screenshot="http://sourceforge.net/dbimage.php?id=176174"
 arch=('x86_64')
 url="http://www.qlandkarte.org"
 license=('GPL')
 depends=('gdal' 'gpsd' 'libdmtx' 'libexif' 'libmariadbclient' 'mesa' 'postgresql-libs'
-         'shared-mime-info' 'unixodbc' 'glu' 'qtwebkit') # 'qt5-script')
-makedepends=('cmake' 'automoc4') #'qt5-tools')
+         'shared-mime-info' 'unixodbc' 'glu' 'qt5-webkit' 'proj' 'qt5-script')
+makedepends=('cmake' 'extra-cmake-modules' 'qt5-tools')
 groups=('utils')
-source=("http://downloads.sourceforge.net/qlandkartegt/$pkgname-$pkgver.tar.gz"
+#source=("http://downloads.sourceforge.net/qlandkartegt/$pkgname-$pkgver.tar.gz"
+source=("http://sourceforge.net/code-snapshots/svn/q/ql/qlandkartegt/code/${_pkgname}.zip"
         'qlandkartegt-mimetypes.xml')
-md5sums=('2bfe90aff7e21b19572b7b250d76a540'
+md5sums=('35cdc97a7dd7f91932a58ff68c82af89'
          'e4808690a9b5381880c573abd81cffdd')
 
-prepare() {
-  cd $pkgname-$pkgver
-
+#prepare() {
+  #cd $pkgname-$pkgver
+  
+  #patch -p1 -i $srcdir/qt5.patch
   #sed -i 's|toAscii|toLatin1|g' $srcdir/$pkgname-$pkgver/src/CDlgEditWpt.cpp
   #sed -i 's|toAscii|toLatin1|g' $srcdir/$pkgname-$pkgver/src/CRouteToolWidget.cpp
-}
+#}
 
 build() {
   mkdir build
   cd build
  
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${_pkgname} \
       -DCMAKE_INSTALL_PREFIX=/usr \
-      -DCMAKE_BUILD_TYPE=Release 
-      #-DQK_QT5_PORT=ON \
-      #-DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake
+      -DCMAKE_BUILD_TYPE=Release \
+      -DQK_QT5_PORT=ON \
+      -DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake 
   make
 }
 
