@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcontacts
-pkgver=${_pimver}
-#pkgver=15.03.80
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="libkcontacts - new address book API for KDE"
 arch=('x86_64')
@@ -12,25 +11,21 @@ url='https://projects.kde.org/projects/kde/pim/kcontacts'
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kcodecs')
 makedepends=('extra-cmake-modules' 'git')
-#source=($_mirror/${pkgname}-$_pimver.tar.xz)
-#md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kcontacts.git"
-        'qt5.5.diff')
-md5sums=('SKIP'
-         '8547d8594775f5317cd12e67858d26e9')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kcontacts.git")
+#md5sums=('SKIP')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #patch -p1 -i $srcdir/qt5.5.diff
 }
 
 build() {
-  cd ${srcdir}
-
   mkdir build
   
   cd build 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -43,7 +38,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }

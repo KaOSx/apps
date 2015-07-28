@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-runtime
-pkgver=${_pimver}
+pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
 pkgdesc="KDE Pim Runtime"
@@ -13,27 +13,23 @@ depends=('kdepimlibs' 'qt5-quick1' 'knotifyconfig' 'kross' 'knewstuff' 'kcmutils
          'kconfig' 'kio' 'kitemmodels' 'kcodecs' 'accountsqt' 'signonqt' 'shared-mime-info' 
          'akonadi' 'kmime' 'kmailtransport' 'kidentitymanagement' 'kcontacts' 'kalarmcal' 'kcalcore' 
          'kcalutils' 'kmbox' 'kpimtextedit' 'kimap' 'syndication' 'akonadi-calendar' 'kaccounts-integration'
-         'libkgapi' 'libkfbapi')
+         'libkgapi' 'libkfbapi' 'qtspeech')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 install=${pkgname}.install
 options=('debug')
 conflicts=('kf5-kdepim-runtime')
 replaces=('kf5-kdepim-runtime')
 groups=('kde' 'kdepim' 'kde-uninstall')
-#source=($_mirror/${pkgname}-$_pimver.tar.xz)
-#md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdepim-runtime.git")      
-md5sums=('SKIP')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kdepim-runtime.git")      
+#md5sums=('SKIP')
 
-build() {
-    cd ${srcdir}
-    #sed -i 's|set(KMIME_LIB_VERSION "4.81.0")|set(KMIME_LIB_VERSION "4.80.0")|' ${srcdir}/$pkgname/CMakeLists.txt
-    #sed -i 's|SignOnQt|SignOnQt5|' ${srcdir}/$_pkgname/resources/CMakeLists.txt
-    
+build() {    
     mkdir -p build
     cd build
 
-    cmake ../${pkgname} \
+    cmake ../${pkgname}-${pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_SKIP_RPATH=ON \

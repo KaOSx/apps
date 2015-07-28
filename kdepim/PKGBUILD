@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim
-pkgver=${_pimver}
+pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Project that aims to bring together anything to do with personal information management."
@@ -50,26 +50,22 @@ replaces=('kf5-kdepim'
           'kdepim-korganizer'
           'kdepim-ktimetracker')
 install=kdepim.install
-#source=($_mirror/${pkgname}-${pkgver}.tar.xz)
-#md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdepim.git"
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
         'libcommon.diff')
-md5sums=('SKIP'
-         '945faf5733e4d61aabe62b5b14f0afbe')
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+        '945faf5733e4d61aabe62b5b14f0afbe')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #sed -i 's|add_subdirectory(korganizer)|#add_subdirectory(korganizer)|' ${srcdir}/$pkgname/CMakeLists.txt
   patch -p1 -i $srcdir/libcommon.diff
 }
 
 build() {
-  cd ${srcdir}
-
   mkdir build
   
   cd build 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -84,7 +80,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }

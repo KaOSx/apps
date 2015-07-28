@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=akonadi-search
-pkgver=${_pimver}
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Libraries and daemons to implement searching in Akonadi."
 arch=('x86_64')
@@ -12,14 +12,14 @@ license=('LGPL')
 depends=('xapian-core' 'akonadi' 'ki18n' 'kconfig' 'kcrash' 'kdelibs4support' 'kdepimlibs'
          'kcontacts' 'kmime' 'kcalcore')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-source=("git://anongit.kde.org/akonadi-search.git")
-md5sums=('SKIP')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \

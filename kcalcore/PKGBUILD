@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcalcore
-pkgver=${_pimver}
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="KDE calender core libraries"
 arch=('x86_64')
@@ -11,15 +11,13 @@ url='https://projects.kde.org/projects/kde/pim/kcalore'
 license=('LGPL')
 depends=('kdelibs4support' 'libical')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-#source=($_mirror/${pkgname}-$_pimver.tar.xz)
-#md5sums=(`grep ${pkgname}-$_pimver.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kcalcore.git"
-        'qt55.diff')
-md5sums=('SKIP'
-         '242acb81f23d4239fedf51d6e27dae57')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kcalcore.git")
+#md5sums=('SKIP')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #patch -p1 -i $srcdir/qt55.diff
 }
 
@@ -29,7 +27,7 @@ build() {
   mkdir build
   
   cd build 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
