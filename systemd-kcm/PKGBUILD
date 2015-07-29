@@ -31,6 +31,6 @@ package() {
   cd build
   make DESTDIR=${pkgdir} install
   
-  sed -i -e 's|system-administration|hardware|' ${pkgdir}/usr/share/kservices5/kcm_systemd.desktop
+  sed -i -e 's|system-administration|session|' ${pkgdir}/usr/share/kservices5/kcm_systemd.desktop
   rm ${pkgdir}/usr/share/kservices5/settings-system-administration.desktop
 }
