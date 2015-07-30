@@ -1,7 +1,7 @@
 
 pkgname=libkgapi
 pkgver=4.80.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
 url='https://projects.kde.org/projects/extragear/libs/libkgapi'
 arch=('x86_64')
@@ -11,17 +11,15 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kf5-libkgapi')
 replaces=('kf5-libkgapi')
 provides=('kf5-libkgapi')
-#source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-source=("git://anongit.kde.org/libkgapi")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+#source=("git://anongit.kde.org/libkgapi")
+md5sums=('4602f8ded81bbd62f033e589fbd85203')
 
 build() {
-  cd ${srcdir}
-  #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/$_pkgname/CMakeLists.txt
   mkdir build
   
   cd build 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -35,7 +33,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }
