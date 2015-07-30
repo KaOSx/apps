@@ -3,21 +3,21 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwalletmanager
-pkgver=15.03.70
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Wallet Manager is a tool to manage the passwords on your KDE system"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeutils/kwalletmanager"
 license=('LGPL')
 depends=('kcmutils' 'kemoticons' 'kdelibs4support' 'kitemmodels' 'kinit' 'kwallet' 'kxmlgui')
-makedepends=('extra-cmake-modules' 'git' 'kdoctools')
+makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeutils-kwalletmanager')
 replaces=('kdeutils-kwalletmanager')
-source=("git://anongit.kde.org/kwalletmanager.git#branch=frameworks")
-md5sums=('SKIP')
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   mkdir build
   
   cd build
@@ -33,7 +33,7 @@ build() {
 }
 
 package() {
-  cd $pkgname/build
+  cd $pkgname-${pkgver}/build
   
   make DESTDIR="$pkgdir" install
 }
