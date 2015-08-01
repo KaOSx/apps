@@ -1,17 +1,18 @@
 
 pkgname=unetbootin
-pkgver=608
-pkgrel=2
+pkgver=613
+pkgrel=1
 pkgdesc="Allows the creation of bootable Live USB drives."
-url="http://unetbootin.sourceforge.net/"
+url="http://unetbootin.github.io/"
 license=('GPL3')
 arch=('x86_64')
-depends=('kdelibs' 'libpng' 'mtools' 'p7zip' 'qt' 'syslinux') 
+depends=('polkit' 'libpng' 'mtools' 'p7zip' 'qt' 'syslinux') 
 groups=('system')
-source=("http://downloads.sourceforge.net/unetbootin/$pkgname-source-$pkgver.tar.gz")
-md5sums=('8c0f9f565a3dc0b093a0a9afd58fa9a7')
+source=("https://github.com/unetbootin/unetbootin/archive/$pkgver.tar.gz")
+md5sums=('946712f22f962b87f7a2e2ed0847c5f2')
 
 build() {
+  cd $srcdir/$pkgname-$pkgver/src/unetbootin
   lupdate $pkgname.pro
   lrelease $pkgname.pro
   qmake
@@ -20,12 +21,12 @@ build() {
 
 package() {
   # Executable 
-  install -Dm755 $pkgname $pkgdir/usr/bin/$pkgname
+  install -Dm755 $srcdir/$pkgname-$pkgver/src/unetbootin/$pkgname $pkgdir/usr/bin/$pkgname
 
   # Translations 
   mkdir -p $pkgdir/usr/share/$pkgname
-  install -m644 $pkgname_*.qm $pkgdir/usr/share/$pkgname/
+  install -m644 $srcdir/$pkgname-$pkgver/src/unetbootin/$pkgname_*.qm $pkgdir/usr/share/$pkgname/
 
-  install -Dm644 $pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
-  install -Dm644 ${pkgname}_48.png $pkgdir/usr/share/pixmaps/$pkgname.png
+  install -Dm644 $srcdir/$pkgname-$pkgver/src/unetbootin/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+  install -Dm644 $srcdir/$pkgname-$pkgver/src/unetbootin/${pkgname}_48.png $pkgdir/usr/share/pixmaps/$pkgname.png
 }
