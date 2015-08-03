@@ -1,7 +1,7 @@
 
 pkgname=gcompris
-pkgver=0.41
-_pkgver=0.41
+pkgver=0.43
+_pkgver=0.43
 pkgrel=1
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
@@ -9,24 +9,28 @@ url="http://gcompris.net/"
 license=('GPL3')
 depends=('qt5-webkit' 'qt5-tools' 'qt5-quick1' 'qt5-svg' 'qt5-graphicaleffects'
          'gnuchess')
-makedepends=('texinfo' 'intltool' 'git' 'extra-cmake-modules' 'kdoctools')
+makedepends=('texinfo' 'intltool' 'git' 'extra-cmake-modules' 'kdoctools' 'python2')
 groups=('kaos-kids')
 conflicts=('gcompris-qt')
 provides=('gcompris-qt')
 replaces=('gcompris-qt')
-source=("git://anongit.kde.org/gcompris.git#branch=KDE/0.40"
+source=("http://gcompris.net/download/beta/gcompris-$pkgver.tar.bz2"
         'gcompris.desktop'
         'gcompris.png')
-md5sums=('SKIP'
+md5sums=('2845ea5fdebda862739138b44ed1545a'
          '95b4bcb06168e38332d66fec1dda3aa2'
          '7c7cee3479f1a47376db800b2bc37017')
 
+prepare() {
+  cd $pkgname-$pkgver
+  #python2 tools/l10n-fetch-po-files.py
+}
+         
 build() {
-  cd "${srcdir}"
   mkdir build
   
   cd build 
-  cmake ../gcompris \
+  cmake ../$pkgname-$pkgver \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON
@@ -35,7 +39,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}"/build
+  cd build
   make DESTDIR="${pkgdir}" install
   
   #install -d "${pkgdir}/opt/$_pkgname"
