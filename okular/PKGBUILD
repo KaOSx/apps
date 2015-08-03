@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=15.03.76
+pkgver=15.03.77
 pkgrel=1
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
@@ -22,14 +22,12 @@ conflicts=('kdegraphics-okular')
 replaces=('kdegraphics-okular')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/okular.git#branch=frameworks"
-        'pageview.diff')
-md5sums=('SKIP'
-         '4ec382ec55538ce6572f4d34df69ff93')
+source=("git://anongit.kde.org/okular.git#branch=frameworks")
+md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  patch -p1 -i $srcdir/pageview.diff
+  #patch -p1 -i $srcdir/pageview.diff
   #sed -i -e 's|find_package(QCA2 "2.0.0")|find_package(Qca "2.0.0")|' ${srcdir}/${pkgname}/generators/ooo/CMakeLists.txt
 }
 
