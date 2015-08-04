@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=marble
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
@@ -35,6 +35,7 @@ build() {
         -DBUILD_MARBLE_TOOLS=YES \
         -DPHONON_INCLUDE_DIR=/usr/include/phonon4qt5 \
         -DPHONON_LIBRARY=/usr/lib/libphonon4qt5.so.4.8.3 \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
         -DBUILD_MARBLE_TESTS=NO ..
   make
 }
