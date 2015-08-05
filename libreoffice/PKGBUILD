@@ -1,9 +1,9 @@
 
 pkgname=libreoffice
-_LOver=5.0.0.3
+_LOver=5.0.0.5
 pkgver=5.0.0
-_pkgver=5.0.0.3
-pkgrel=2
+_pkgver=5.0.0.5
+pkgrel=3
 arch=('x86_64')
 license=('LGPL3')
 url="http://www.libreoffice.org/"
@@ -18,7 +18,7 @@ depends=("curl>=7.20.0" "hunspell>=1.2.8" 'python3' 'libabw>=0.1.0' 'libwpd>=0.9
          'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' 'gconf' 
          'java-environment' 'beanshell'  'vigra' 'pstoedit' 'libmythes')
 makedepends=('perl-archive-zip' 'zip' 'unzip' 'apache-ant' 'gperf' 'cppunit' 'libldap'
-             'junit' 'doxygen' 'apr' 'serf')
+             'junit' 'doxygen' 'apr' 'serf' 'glm')
 conflicts=('libreoffice-common'	'libreoffice-base' 'libreoffice-calc' 'libreoffice-draw' 'libreoffice-plasma5'
            'libreoffice-impress' 'libreoffice-kde4' 'libreoffice-math' 'libreoffice-sdk'
            'libreoffice-sdk-doc' 'libreoffice-writer' 'libreoffice-en-US' 'libreoffice-postgresql-connector')
@@ -71,7 +71,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/language-subtag-registry-2015-06-08.tar.bz2
 	${_additional_source_url}/libgltf/libgltf-0.0.2.tar.bz2
 	${_additional_source_url}/CoinMP-1.7.6.tgz
-	${_additional_source_url}/bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
+	#${_additional_source_url}/bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
 	${_additional_source_url}/4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2
 	${_additional_source_url}/OpenCOLLADA-master-6509aa13af.tar.bz2
 	${_additional_source_url}/libpagemaker-0.0.2.tar.bz2
@@ -117,7 +117,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	libe-book-0.1.2.tar.bz2
 	language-subtag-registry-2015-06-08.tar.bz2
 	CoinMP-1.7.6.tgz
-	bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
+	#bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
 	4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2
 	OpenCOLLADA-master-6509aa13af.tar.bz2
 	libpagemaker-0.0.2.tar.bz2
@@ -211,7 +211,7 @@ build() {
                 --with-system-cppunit \
                 --with-system-graphite \
                 --with-system-glew \
-		--without-system-glm \
+		--with-system-glm \
 		--with-system-libwpg \
 		--with-system-libwps \
 		--with-system-redland \

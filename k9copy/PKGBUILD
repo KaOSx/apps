@@ -6,19 +6,25 @@ pkgdesc="K9Copy facilitates several methods for backing up a DVD."
 arch=('x86_64')
 url="http://k9copy-reloaded.sourceforge.net/#start"
 license=('GPL')
-depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'kwidgetsaddons'
-         'kguiaddons' 'kxmlgui' 'kdesu' 'solid'
-         'dvdauthor' 'cdrkit' 'mplayer' 'xine-lib' 'libmpeg2' 'ffmpeg') 
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+#depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'kwidgetsaddons'
+#         'kguiaddons' 'kxmlgui' 'kdesu' 'solid'
+depends=('kdelibs'
+         'dvdauthor' 'cdrkit' 'mplayer' 'xine-lib' 'libmpeg2' 'ffmpeg' 'libdvdnav' 'dvd+rw-tools') 
+#makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('cmake' 'automoc4')
 optdepends=('libdvdcss: for decoding encrypted DVDs')
 groups=('multimedia')
 install=$pkgname.install
-source=("http://sourceforge.net/projects/k9copy-reloaded/files/${pkgname}-${pkgver}.tar.gz")
-md5sums=('53158282e23a4aa4fb8f4336f1424521')
+source=("http://sourceforge.net/projects/k9copy-reloaded/files/${pkgname}-${pkgver}.tar.gz"
+        'CMakeLists.txt')
+md5sums=('53158282e23a4aa4fb8f4336f1424521'
+         'e5d0abf2df33190e1cd4362973f31959')
 
 prepare() {
   cd $pkgname
-  sed -i -e 's|#SET(CMAKE_BUILD_TYPE Debug)|cmake_minimum_required(VERSION 3.2)|' ${srcdir}/${pkgname}/CMakeLists.txt
+  #rm CMakeLists.txt
+  #cp ${srcdir}/CMakeLists.txt ${srcdir}/${pkgname}/CMakeLists.txt 
+  #sed -i -e 's|#SET(CMAKE_BUILD_TYPE Debug)|cmake_minimum_required(VERSION 3.2)|' ${srcdir}/${pkgname}/CMakeLists.txt
   #patch -p1 -i $srcdir/libkipi1.patch
   #patch -p1 -i $srcdir/libkipi.patch
 }
@@ -32,10 +38,10 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQT5_BUILD=ON
+    -DQT5_BUILD=OFF
+    #-DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    #-DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    #-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
 
   make
 }
