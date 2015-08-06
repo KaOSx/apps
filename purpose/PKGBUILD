@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=purpose
-pkgver=0.1.2
-_pkgver=0.1-alpha
+pkgver=0.90
+_pkgver=1.0rc1
 pkgrel=1
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
@@ -17,12 +17,12 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'intltool' 'git')
 #source=("git://anongit.kde.org/purpose")
 source=("http://download.kde.org/unstable/purpose/purpose-${_pkgver}.tar.xz"
         'accounts.diff')
-md5sums=('ccb8ae820b4ed9b76bc7aca4cb5eba0a'
+md5sums=('57186bef4f8758a0252bd13f10c90fa2'
          'c00351fb0b7a666509db6ccef803d489')
 
 prepare() {
   cd $pkgname-${_pkgver}
-  patch -p1 -i $srcdir/accounts.diff
+  #patch -p1 -i $srcdir/accounts.diff
   #sed -i -e 's|add_subdirectory(youtube)|#add_subdirectory(youtube)|' ${srcdir}/${pkgname}-${_pkgver}/src/plugins/CMakeLists.txt
 }
 
