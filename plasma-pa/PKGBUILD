@@ -4,26 +4,26 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-pa
 arch=('x86_64')
-#pkgver=${_kdever}
-pkgver=5.3.91
+pkgver=${_plasmaver}
+#pkgver=5.3.91
 pkgrel=1
 pkgdesc="PulseAudio based volume control Plasma widget."
-url="http://www.kde.org"
+url="https://projects.kde.org/projects/kdereview/plasma-pa"
 license=('GPL' 'LGPL' 'FDL')
 options=('!docs')
 depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'kdeclarative' 'plasma-framework' 'pulseaudio' 'glib2')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 conflicts=('plasma-volume-control')
 replaces=('plasma-volume-control')
-#source=($_mirror/${pkgbase}-${pkgver}.tar.xz)
-#md5sums=(`grep ${pkgbase}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/plasma-pa.git")
-md5sums=('SKIP')
+source=($_mirror/${pkgname}-${pkgver}.tar.xz)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/plasma-pa.git")
+#md5sums=('SKIP')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #patch -p1 -i $srcdir/pageview.diff
-  sed -i -e 's|#include "ui_module.h"||' ${srcdir}/${pkgname}/src/kcm/module.cpp
+  #sed -i -e 's|#include "ui_module.h"||' ${srcdir}/${pkgname}/src/kcm/module.cpp
 }
 
 build() {
@@ -32,7 +32,7 @@ build() {
   mkdir build
   
   cd build 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \

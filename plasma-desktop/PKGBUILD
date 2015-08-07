@@ -16,15 +16,13 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
 conflicts=('kde-workspace' 'kcm-touchpad')
 replaces=('kde-workspace' 'kcm-touchpad')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
-        'kcminput.patch')
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'e89a7e9aa63aa0e5b520a161ec5d9546')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-$pkgver
   # remove last libusb-compat dep
-  patch -p1 -i ${srcdir}/kcminput.patch
+  #patch -p1 -i ${srcdir}/kcminput.patch
 }
 
 build() {

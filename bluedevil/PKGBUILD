@@ -17,15 +17,13 @@ replaces=('kf5-bluedevil')
 provides=('kf5-bluedevil')
 groups=('plasma5')
 install=bluedevil.install
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        'bluezqt5.11.patch')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '59499fce76d1110ec83d3f70e631b22c')
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${srcdir}/${pkgname}-${pkgver}
   
-  patch -p1 -i $srcdir/bluezqt5.11.patch
+  #patch -p1 -i $srcdir/bluezqt5.11.patch
 }
          
 build() {
