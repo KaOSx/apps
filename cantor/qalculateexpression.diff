@@ -1,0 +1,14 @@
+--- a/src/backends/qalculate/qalculateexpression.cpp	2015-08-07 12:14:38.967199209 -0400
++++ b/src/backends/qalculate/qalculateexpression.cpp	2015-08-07 12:14:48.946619854 -0400
+@@ -773,9 +773,9 @@
+ 	if (plotParameters.filetype == PLOT_FILETYPE_EPS ||
+ 	    plotParameters.filetype == PLOT_FILETYPE_PS  ||
+ 	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 4 &&
+-	     plotParameters.filename.substr(p-4,4) == QLatin1String(".eps")) ||
++	     QLatin1String(plotParameters.filename.substr(p-4,4)) == QLatin1String(".eps")) ||
+ 	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 3 &&
+-	     plotParameters.filename.substr(p-3,3) == QLatin1String(".ps")))
++	     QLatin1String(plotParameters.filename.substr(p-3,3)) == QLatin1String(".ps")))
+         setResult(new Cantor::EpsResult(QUrl(QString::fromStdString(plotParameters.filename))));
+ 	else
+         setResult(new Cantor::ImageResult(QUrl(QString::fromStdString(plotParameters.filename)));

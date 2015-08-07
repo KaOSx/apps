@@ -1,29 +1,29 @@
 
 pkgname=kaffeine
-pkgver=1.2.2
-pkgrel=2
+pkgver=1.3
+pkgrel=1
 pkgdesc='KDE media player'
 license=('GPL')
 arch=('x86_64')
 url="http://kaffeine.kde.org"
-depends=('kdelibs' 'xine-lib')
+depends=('kdelibs' 'xine-lib' 'vlc')
 makedepends=('cmake' 'automoc4')
 groups=('multimedia')
 install=kaffeine.install
-source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz"
+source=("http://downloads.sourceforge.net/kaffeine/${pkgname}-${pkgver}.tar.gz"
         'gcc47.patch')
-md5sums=('690e48d2e5fe123887109aa9b1bc1c31'
+md5sums=('4b20f3caeae716494f777e37d7a6571c'
          '48afe5ec99b38fe02782db57a847033f')
 
 prepare() {
-	cd "$srcdir/${pkgname}-${pkgver}"
-	patch -p1 -i ${srcdir}/gcc47.patch
+	cd ${pkgname}
+	#patch -p1 -i ${srcdir}/gcc47.patch
 }
 
 build() {
 	mkdir -p build
 	cd build
-	cmake ../${pkgname}-${pkgver} \
+	cmake ../${pkgname} \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_INSTALL_PREFIX=/usr
@@ -31,7 +31,7 @@ build() {
 }
 
 package() {
-        cd "$srcdir/build"
+        cd build
         
 	make DESTDIR="$pkgdir" install
 }
