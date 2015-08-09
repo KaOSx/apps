@@ -1,14 +1,16 @@
 
 pkgname=qmmp
-pkgver=0.8.5
+pkgver=0.9.80
+_commit=dev-code-5352-branches-qmmp-1.0
 pkgrel=1
-pkgdesc="Qt4 based audio-player"
+pkgdesc="Qt based audio-player"
 arch=('x86_64')
 url="http://qmmp.ylsoftware.com/"
 license=('GPL')
-depends=('alsa-lib' 'curl' 'hicolor-icon-theme' 'libmad' 'libvorbis' 'libogg'  'qt' 'taglib' 'xdg-utils')
+depends=('alsa-lib' 'curl' 'hicolor-icon-theme' 'libmad' 'libvorbis' 'libogg'  'qt5-x11extras'
+         'taglib' 'xdg-utils' 'enca')
 makedepends=('cmake'  'flac' 'jack' 'libmpcdec' 'ffmpeg' 'libsamplerate' 'libmodplug' 'libsndfile'
-             'wavpack' 'libcdio-paranoia' 'mesa')
+             'wavpack' 'libcdio-paranoia' 'mesa' 'qt5-tools')
 optdepends=('flac: native FLAC support'
             'jack: JACK sound output'
             'libmpcdec: Musepack support'
@@ -17,18 +19,19 @@ optdepends=('flac: native FLAC support'
             'libcdio-paranoia: for audio CD playback support')
 groups=('multimedia')
 install=$pkgname.install
-source=("http://qmmp.ylsoftware.com/files/$pkgname-$pkgver.tar.bz2")
-md5sums=('c9347ad18913058e8a37b1e88b9c6ce2')
+#source=("http://qmmp.ylsoftware.com/files/$pkgname-$pkgver.tar.bz2")
+source=("http://sourceforge.net/code-snapshots/svn/q/qm/qmmp-dev/code/qmmp-${_commit}.zip")
+md5sums=('321a1a784242fefdf0955ba197495b2a')
 
 build() {
-  cd ${srcdir}/$pkgname-$pkgver
+  cd ${srcdir}/$pkgname-${_commit}
 
   cmake . -DCMAKE_INSTALL_PREFIX=/usr 
   make
 }
 
 package() {
-  cd ${srcdir}/$pkgname-$pkgver
+  cd ${srcdir}/$pkgname-${_commit}
   
   make DESTDIR=${pkgdir} install
 }

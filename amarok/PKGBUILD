@@ -1,33 +1,40 @@
 
 pkgname=amarok
-pkgver=2.8.0
-pkgrel=10
+pkgver=2.8.80
+pkgrel=1
 pkgdesc="A media player for KDE"
 arch=('x86_64')
 url="http://amarok.kde.org"
 license=('GPL2' 'LGPL2' 'FDL')
-depends=('kdelibs' 'mariadb' 'qtscriptgenerator' 'taglib-extras' 'ffmpeg' 'libofa'
-         'mesa' 'loudmouth' 'clamz' 'gst-plugins-bad' 'ifuse' 'libgpod' 'libmtp' )
-makedepends=('pkgconfig' 'automoc4' 'cmake' 'docbook-xsl')
+depends=('kcoreaddons' 'solid' 'kdelibs4support' 'kcodecs' 'ki18n' 'threadweaver' 'plasma-framework'
+         'kcmutils' 'knewstuff' 'ktexteditor' 'kglobalaccel' 'kio' 'knotifyconfig' 'karchive'
+         'mariadb' 'taglib-extras' 'ffmpeg' 'libofa' 'mesa' 'loudmouth' 'clamz' 'gst-plugins-bad' 
+         'ifuse' 'libgpod' 'libmtp'
+         'qca-qt5' 'liblastfm' 'qjson' 'libmygpo-qt')
+makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'git')
 groups=('multimedia')
 install="${pkgname}.install"
-source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('53cfcb4819668b10e13b061478c7b32a')
+#source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
+#md5sums=('53cfcb4819668b10e13b061478c7b32a')
+source=("git://anongit.kde.org/amarok.git#branch=kf5")
+md5sums=('SKIP')
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-
-  mkdir build
+  mkdir -p build
   cd build
-  cmake .. \
+  
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE4_BUILD_TESTS=OFF 
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
   make
 }
 
-package(){
-  cd "${srcdir}/${pkgname}-${pkgver}/build"
-  
-  make DESTDIR="${pkgdir}" install
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
 }
