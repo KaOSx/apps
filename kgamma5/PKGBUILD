@@ -2,11 +2,11 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kgamma
+pkgname=kgamma5
+_pkgname=kgamma
 pkgver=${_plasmaver}
 #pkgver=15.03.71
 pkgrel=1
-epoch=1
 pkgdesc="Adjust your monitor's gamma settings"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdegraphics/kgamma'
@@ -14,8 +14,8 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kdelibs4support' 'libxxf86vm')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('kde' 'kdegraphics' 'kde-uninstall' 'graphics')
-replaces=('kdegraphics-kgamma')
-conflicts=('kdegraphics-kgamma')
+replaces=('kdegraphics-kgamma' 'kgamma')
+conflicts=('kdegraphics-kgamma' 'kgamma')
 source=("$_mirror/${pkgname}-$_plasmaver.tar.xz")
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/kgamma#branch=frameworks")
@@ -28,7 +28,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
