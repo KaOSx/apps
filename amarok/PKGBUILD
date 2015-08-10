@@ -7,17 +7,26 @@ arch=('x86_64')
 url="http://amarok.kde.org"
 license=('GPL2' 'LGPL2' 'FDL')
 depends=('kcoreaddons' 'solid' 'kdelibs4support' 'kcodecs' 'ki18n' 'threadweaver' 'plasma-framework'
-         'kcmutils' 'knewstuff' 'ktexteditor' 'kglobalaccel' 'kio' 'knotifyconfig' 'karchive'
+         'kcmutils' 'knewstuff' 'ktexteditor' 'kglobalaccel' 'kio' 'knotifyconfig' 'karchive' 'kdnssd'
          'mariadb' 'taglib-extras' 'ffmpeg' 'libofa' 'mesa' 'loudmouth' 'clamz' 'gst-plugins-bad' 
          'ifuse' 'libgpod' 'libmtp'
-         'qca-qt5' 'liblastfm' 'qjson' 'libmygpo-qt')
+         'qca-qt5' 'liblastfm' 'qjson' 'libmygpo-qt' 'qt5-webkit')
 makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'git')
 groups=('multimedia')
 install="${pkgname}.install"
 #source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
 #md5sums=('53cfcb4819668b10e13b061478c7b32a')
-source=("git://anongit.kde.org/amarok.git#branch=kf5")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/amarok.git#branch=kf5"
+        'qt5.5.diff')
+md5sums=('SKIP'
+         'e9b525b8df90bdd2880bd095cd5f3826')
+
+prepare() {
+  cd $pkgname
+  patch -p1 -i $srcdir/qt5.5.diff
+  #sed -i -e 's|KF5::Service|KF5::Service KF5::I18n|' ${srcdir}/${pkgname}/src/context/tools/CMakeLists.txt
+  sed -i -e 's|KF5::I18n|KF5::I18n KF5::Service|' ${srcdir}/${pkgname}/src/core/CMakeLists.txt
+}
 
 build() {
   mkdir -p build
