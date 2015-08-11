@@ -8,6 +8,7 @@ url="http://amarok.kde.org"
 license=('GPL2' 'LGPL2' 'FDL')
 depends=('kcoreaddons' 'solid' 'kdelibs4support' 'kcodecs' 'ki18n' 'threadweaver' 'plasma-framework'
          'kcmutils' 'knewstuff' 'ktexteditor' 'kglobalaccel' 'kio' 'knotifyconfig' 'karchive' 'kdnssd'
+         'kconfigwidgets'
          'mariadb' 'taglib-extras' 'ffmpeg' 'libofa' 'mesa' 'loudmouth' 'clamz' 'gst-plugins-bad' 
          'ifuse' 'libgpod' 'libmtp'
          'qca-qt5' 'liblastfm' 'qjson' 'libmygpo-qt' 'qt5-webkit')
@@ -23,9 +24,9 @@ md5sums=('SKIP'
 
 prepare() {
   cd $pkgname
-  patch -p1 -i $srcdir/qt5.5.diff
-  #sed -i -e 's|KF5::Service|KF5::Service KF5::I18n|' ${srcdir}/${pkgname}/src/context/tools/CMakeLists.txt
-  sed -i -e 's|KF5::I18n|KF5::I18n KF5::Service|' ${srcdir}/${pkgname}/src/core/CMakeLists.txt
+  #patch -p1 -i $srcdir/qt5.5.diff
+  sed -i -e 's|find_library( LIBLASTFM_LIBRARY NAMES lastfm|find_library( LIBLASTFM_LIBRARY NAMES lastfm5|' ${srcdir}/${pkgname}/cmake/modules/FindLibLastFm.cmake
+  sed -i -e 's|KIO NotifyConfig Archive)|KIO NotifyConfig Archive ConfigWidgets)|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
 build() {
