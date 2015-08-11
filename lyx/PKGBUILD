@@ -1,33 +1,48 @@
 
 pkgname=lyx
-pkgver=2.1.4
+pkgver=2.1.80
 pkgrel=1
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
 url="http://www.lyx.org"
-depends=('qt' 'texlive-core' 'python2' 'perl' 'imagemagick' 'enchant' 
-         'boost-libs' 'icu' 'libmythes')
-makedepends=('boost' 'bc')
+depends=('qt5-base' 'qt5-svg' 'qt5-x11extras' 'texlive-core' 'python2' 'perl' 'imagemagick' 'enchant' 
+         'boost-libs' 'icu' 'libmythes' 'libxtst') # 'hunspell')
+makedepends=('boost' 'bc' 'cmake' 'qt5-tools')
 groups=('office')
 license=('GPL')
-source=("ftp://ftp.lyx.org/pub/lyx/stable/2.1.x/$pkgname-$pkgver.tar.xz" 
+#source=("ftp://ftp.lyx.org/pub/lyx/stable/2.1.x/$pkgname-$pkgver.tar.xz" 
 #source=("http://frege.brown.edu/lyx/lyx-$pkgver.tar.xz"
+source=("git://git.lyx.org/lyx"
 	'lyx.desktop')
-md5sums=('33f6906e5447a193b27c7231986e9f46'
+md5sums=('SKIP'
          '0ea910b9b881ebaa0f79ebaa618930fd')
-
+         
 build() {
-  cd ${srcdir}/${pkgname}-${pkgver}
-
-  ./configure --prefix=/usr \
-        --without-included-boost \
-        --without-included-mythes
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DLYX_RELEASE=ON \
+    -DLYX_INSTALL_PREFIX=/usr \
+    -DLYX_DATA_SUBDIR=share/lyx2.2/ \
+    -DLYX_MAN_DIR=/usr/share/man/man1 \
+    -DLYX_USE_QT=QT5 \
+    -DLYX_ASPELL=ON \
+    -DLYX_ENCHANT=ON \
+    -DLYX_HUNSPELL=OFF \
+    -DLYX_EXTERNAL_BOOST=ON \
+    -DLYX_INSTALL=ON
+    
   make
+  make translations
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
-
-  install -Dm644 "${srcdir}/lyx.desktop" "${pkgdir}/usr/share/applications/lyx.desktop"
+  cd build
+  make DESTDIR=${pkgdir} install
+  
+  mv ${pkgdir}/usr/share/lyx2.2/locale ${pkgdir}/usr/share/locale
+  mv ${pkgdir}/usr/applications ${pkgdir}/usr/share/applications
+  mv ${pkgdir}/usr/icons ${pkgdir}/usr/share/icons
 }
+
