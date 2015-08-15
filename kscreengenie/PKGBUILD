@@ -4,7 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kscreengenie
 #pkgver=${_kdever}
-pkgver=15.07.90
+pkgver=15.07.91
+_pkgver=2.0.0
 pkgrel=1
 pkgdesc="The new KDE Screenshot Utility"
 url="https://projects.kde.org/projects/playground/graphics/kscreengenie"
@@ -19,11 +20,11 @@ replaces=('ksnapshot')
 groups=('kde' 'kdegraphics' 'kde-uninstall')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kscreengenie")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/kscreengenie/2.0/src/kscreengenie-${_pkgver}.tar.xz")
+md5sums=('cfee1b160488a1e92099b1805ce49d23')
 
 prepare() {
-  cd $pkgname
+  cd ${pkgname}-${_pkgver}
   #sed -i -e 's|ksnapshot KF5::Kipi|ksnapshot KF5::KIPI|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
@@ -31,7 +32,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
