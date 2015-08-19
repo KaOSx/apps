@@ -52,7 +52,7 @@ pkgname=('kde-l10n-ar'
 	 'kde-l10n-nn'
 	 'kde-l10n-nl'
 	 'kde-l10n-pa'
-	 ##'kde-l10n-pl'
+	 'kde-l10n-pl'
 	 'kde-l10n-pt'
 	 'kde-l10n-pt_BR'
 	 'kde-l10n-ro'
@@ -75,7 +75,7 @@ pkgname=('kde-l10n-ar'
 
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
          
 pkgdesc="split package"
 url="http://www.kde.org"
@@ -166,7 +166,7 @@ md5sums=('e5903849df90c741f61c8895839fd479'
          'd2339de4ed3606f28746eb6c4c87a6a2'
          'be09e9ba01127d9234cf26684cafc086'
          '9e9c23f87c2fd0f647847b20fe7eeced'
-         '8aedb3bd5094c657279915fcb958e4b9'
+         '74a0407a12840464ef80f07fdbce1aa0'
          '52bd669f6c5f93b7aa798d674e0b6f8a'
          '85a3b888ed90b5021802d28db2fee2f1'
          'f313d14afe62398665a5132c392a728f'
@@ -184,10 +184,10 @@ md5sums=('e5903849df90c741f61c8895839fd479'
          '86f99c4eb633a40d1ca69523dbc200ad'
          '904982e4c9f77b3be3573c07c3e295e0'
          'fcede11d83121a26d6a0352b00958908'
-         'f236f690bffd0b75726656c59fb822ba'
+         'da44f5435848065d9aa9cc1618e184da'
          '1b732caf38af8cf696e28fb455a1ca31'
          'fbbdcf8efd703f3cd883f2ea3ee0d5f8'
-         'e6f4b57b2c3748ccac97a0b8c7feea8c'
+         '8be4f4e0216762db2fb38cf82e15e883'
          '87a040ba02e1517b03e35cf7c6543894'
          'b3641ae90ec977dbc1bc10e20ed4780c'
          'becb25e7b486ef7c12ea2e3d6376a9c0'
@@ -254,7 +254,7 @@ packs=(
        'nl'
        'nn'
        'pa'
-       ##'pl'
+       'pl'
        'pt'
        'pt_BR'
        'ro'
@@ -280,7 +280,7 @@ packs=(
                 pushd "kde-l10n-$it-$pkgver"
                 sed -i 's|add_subdirectory(4)|#add_subdirectory(4)|' ${srcdir}/kde-l10n-$it-$pkgver/CMakeLists.txt
                 #sed -i 's|add_subdirectory(kdeedu)|#add_subdirectory(kdeedu)|' ${srcdir}/kde-l10n-$it-$pkgver/5/$it/data/kdeedu/CMakeLists.txt
-                sed -i 's|add_subdirectory(kdeedu)|#add_subdirectory(kdeedu)|' ${srcdir}/kde-l10n-$it-$pkgver/5/$it/messages/CMakeLists.txt
+                #sed -i 's|add_subdirectory(kdeedu)|#add_subdirectory(kdeedu)|' ${srcdir}/kde-l10n-$it-$pkgver/5/$it/messages/CMakeLists.txt
  		cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release
  		make
  		#make DESTDIR=${pkgdir} install
