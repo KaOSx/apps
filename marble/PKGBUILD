@@ -5,16 +5,17 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=marble
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
 license=('LGPL')
 depends=('gpsd' 'phonon-qt5' 'qt5-script' 'qt5-svg' 'qt5-tools' 'qt5-webkit' 'shapelib' 'protobuf'
-         'kwallet' 'knewstuff' 'kparts' 'kcoreaddons' 'ki18n' 'krunner')
+         'kwallet' 'knewstuff' 'kparts' 'kcoreaddons' 'ki18n' 'krunner' 'quazip')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-marble')
 replaces=('kdeedu-marble')
+options=(!'emptydirs')
 #source=("git://anongit.kde.org/marble.git")
 source=($_mirror/${pkgname}-$_kdever.tar.xz
        'qt55.diff')
@@ -25,6 +26,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 build() {
   cd $pkgname-${pkgver}
   #patch -p1 -i $srcdir/qt55.diff
+  sed -i -e 's|quazip5|quazip|' ${srcdir}/${pkgname}-${pkgver}/cmake/modules/Findquazip.cmake
   
   mkdir build
   
@@ -44,10 +46,12 @@ package() {
   cd $pkgname-${pkgver}/build
   make DESTDIR="$pkgdir" install
   
-  #rm ${pkgdir}/usr/share/applications/marble-mobile.desktop
+  rm ${pkgdir}/usr/share/applications/marble-mobile.desktop
   rm ${pkgdir}/usr/share/applications/marble-touch.desktop
   rm ${pkgdir}/usr/share/applications/marble_gpx.desktop
   rm ${pkgdir}/usr/share/applications/marble_kml.desktop
   rm ${pkgdir}/usr/share/applications/marble_osm.desktop
   rm ${pkgdir}/usr/share/applications/marble_shp.desktop
+  
+  mv -iv ${pkgdir}/usr/lib/plugins/* ${pkgdir}/usr/lib/qt5/plugins/
 }
