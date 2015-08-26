@@ -1,0 +1,44 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=poxml
+#pkgver=${_kdever}
+pkgver=15.07.70
+pkgrel=1
+pkgdesc='Tools for using .po-files to translate DocBook XML files'
+url='https://projects.kde.org/projects/kde/kdesdk/poxml'
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+groups=('kde' 'kdesdk' 'kde-uninstall')
+depends=('kdoctools')
+makedepends=('extra-cmake-modules' 'pkg-config')
+conflicts=('kdesdk-poxml')
+replaces=('kdesdk-poxml')
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/poxml")
+md5sums=('SKIP')
+
+
+build() {
+    cd ${srcdir}/${pkgname}
+    #sed -i -e 's|XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/tests/lauri.xml
+	
+    cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+    make
+}
+
+package() {
+    cd ${srcdir}/${pkgname}
+	
+    make DESTDIR=${pkgdir} install
+
+}
