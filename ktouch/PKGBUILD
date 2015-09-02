@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktouch
-pkgver=15.03.70
+pkgver=15.07.70
 #pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Touch Typing Tutor"
@@ -12,7 +12,7 @@ arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdeclarative' 'ki18n' 'kio' 'knewstuff' 'kwidgetsaddons'
-         'kxmlgui' 'kitemviews' 'kcmutils' 'ktexteditor') # 'libxkbfile')
+         'kxmlgui' 'kitemviews' 'kcmutils' 'ktexteditor' 'kwindowsystem') # 'libxkbfile')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
@@ -23,11 +23,12 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  sed -i -e 's|target_link_libraries(ktouch ${X11_Xkbfile_LIB}|#target_link_libraries(ktouch ${X11_Xkbfile_LIB}|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+  #sed -i -e 's|target_link_libraries(ktouch ${X11_Xkbfile_LIB}|#target_link_libraries(ktouch ${X11_Xkbfile_LIB}|' ${srcdir}/${pkgname}/src/CMakeLists.txt
   sed -i -e 's|"dtd/kdex.dtd"|"dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
   sed -i -e 's|V4.2-Based Variant|V4.5-Based Variant|' ${srcdir}/${pkgname}/doc/index.docbook
   sed -i -e 's|"dtd/kdex.dtd"|"dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/man-ktouch.1.docbook
   sed -i -e 's|V4.2-Based Variant|V4.5-Based Variant|' ${srcdir}/${pkgname}/doc/man-ktouch.1.docbook
+  sed -i -e 's|KF5::TextEditor|KF5::TextEditor KF5::WindowSystem|' ${srcdir}/${pkgname}/src/CMakeLists.txt
 }
 
 build() {

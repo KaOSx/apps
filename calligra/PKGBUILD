@@ -1,6 +1,6 @@
 
 pkgname=calligra
-pkgver=2.9.94
+pkgver=2.9.95
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -51,7 +51,7 @@ replaces=('calligra-3rdparty'
          'calligra-braindump'
          'calligra-flow')
 #source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
-source=("git://anongit.kde.org/calligra.git#branch=frameworks"
+source=("git://anongit.kde.org/calligra.git"
         "libwps-0.4.patch"
         'qt55.diff')
 md5sums=('SKIP'
@@ -60,7 +60,8 @@ md5sums=('SKIP'
 
 prepare() {
   cd ${srcdir}/${pkgname}
-  #sed -i 's|set(REQUIRED_Xinput_FOUND ${X11_Xinput_FOUND})|set(REQUIRED_Xinput_FOUND TRUE)|' CMakeLists.txt
+  #sed -i 's|#include <knumvalidator.h>||' kexi/widget/kexiqueryparameters.cpp
+  #sed -i 's|#include <knumvalidator.h>||' kexi/plugins/forms/widgets/kexidbslider.cpp
   #patch -p1 -i $srcdir/qt55.diff
   patch -p1 -i $srcdir/libwps-0.4.patch
 }
@@ -76,8 +77,8 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DPRODUCTSET=DESKTOP 
-    # -DCOMPILING_TESTS=FALSE
+    -DPRODUCTSET=DESKTOP \
+    -DBUILD_TESTING=FALSE
   make
 }
 
