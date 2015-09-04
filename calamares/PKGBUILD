@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=1.1.15
+pkgver=1.1.16
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -17,7 +17,8 @@ source=("git://github.com/KaOSx/calamares"
         'settings.conf'
         'unpackfs.conf'
         'launch-calamares.sh'
-        'luks_removal.patch')
+        'license.pdf'
+        'release_notes.html')
 md5sums=('SKIP'
          '8c263c9faeec86a33c02e743d9b083f7'
          'd5c65f43e057054e9728810530c4a030'
@@ -25,7 +26,8 @@ md5sums=('SKIP'
          '4de3b3695b8169a536c2c574fba450fe'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '15867c11ba287b31a61133fd892ec728'
-         'd9d24dda3bdaab2034148673816d478f')
+         'bb33b54d289cfe39ebfd78f172382880'
+         '8a154126d16717aa50a4b90238745b9a')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -37,7 +39,6 @@ prepare () {
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
   # toggle on/off for kf5/kde 4 builds
   #sed -i 's|# bootloaderEntryName: KaOS-kf5|bootloaderEntryName: KaOS|' ${srcdir}/${pkgname}/src/modules/bootloader/bootloader.conf
-  #patch -Rp1 -i $srcdir/luks_removal.patch
 }
 
 build() {
@@ -68,4 +69,6 @@ package() {
   rm -rf "$pkgdir/usr/share/applications/$pkgname.desktop"
   install -Dm644 "$srcdir/$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
   install -Dm644 "${srcdir}/installer.svg" "${pkgdir}/usr/share/pixmaps/installer.svg"
+  install -Dm644 "$srcdir/license.pdf" "$pkgdir/usr/share/calamares/license.pdf"
+  install -Dm644 "$srcdir/release_notes.html" "$pkgdir/usr/share/calamares/release_notes.html"
 }
