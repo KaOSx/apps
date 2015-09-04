@@ -2,13 +2,13 @@
 pkgname=sigil
 _pkgname=Sigil
 pkgver=0.8.7
-pkgrel=1
+pkgrel=2
 pkgdesc="A multi-platform WYSIWYG ebook editor. It is designed to edit books in ePub format. "
 arch=('x86_64')
 url="https://github.com/user-none/Sigil"
 license=('GPL3')
-depends=('qt5-webkit' 'qt5-svg' 'qt5-webchannel' 'boost-libs' 'xerces-c' 'hunspell')
-makedepends=('cmake' 'boost' 'qt5-tools')
+depends=('qt5-webkit' 'qt5-svg' 'qt5-webchannel' 'boost-libs' 'xerces-c')
+makedepends=('cmake' 'boost' 'qt5-tools' 'clang')
 #options=('debug')
 groups=('office')
 install=sigil.install
@@ -20,14 +20,15 @@ build() {
   cd ${srcdir}/${_pkgname}-${pkgver}
   mkdir build 
   cd build
+  
+  export CC=/usr/bin/clang
+  export CXX=/usr/bin/clang++
 
   cmake -G "Unix Makefiles" \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_C_FLAGS:STRING="$CFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$CXXFLAGS" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON ..
-  make
+  make 
 }
 
 package() {
