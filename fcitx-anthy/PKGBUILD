@@ -1,0 +1,26 @@
+
+pkgname=fcitx-anthy
+pkgver=0.2.2
+pkgrel=1
+pkgdesc="Anthy Wrapper for Fcitx, ported from scim-anthy."
+arch=('x86_64')
+url="http://code.google.com/p/fcitx"
+license=('GPL')
+depends=('fcitx' 'anthy')
+makedepends=('cmake' 'intltool')
+source=("http://download.fcitx-im.org/fcitx-anthy/$pkgname-$pkgver.tar.xz")
+md5sums=('956660d67900f59fa7fd80d68cc4ad7c')
+
+build(){
+  cd ${pkgname}-${pkgver}
+
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release .
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+
+  make DESTDIR=${pkgdir} install
+}
