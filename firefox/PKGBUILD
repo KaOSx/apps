@@ -12,7 +12,7 @@ depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk
          'gst-plugins-good' 'gst-plugins-bad' 'gst-libav' 'mozilla-common' 'startup-notification'
          'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libvpx' 'icu' 'libevent' 'sqlite' 'hunspell'
          'pulseaudio')
-makedepends=('unzip' 'zip' 'diffutils' 'python2' 'yasm' 'mesa' 'imake' 'xorg-server' 'inetutils')
+makedepends=('unzip' 'zip' 'diffutils' 'python2' 'yasm' 'mesa' 'imake' 'xorg-server' 'inetutils' 'clang')
 options=('!emptydirs' '!makeflags')
 source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source/firefox-$pkgver.source.tar.bz2"
         'mozconfig'
@@ -20,7 +20,7 @@ source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source
         'firefox-install-dir.patch'
         'vendor.js')
 md5sums=('26a64a80cbd5b77d3b0d9734bff5bbad'
-         'd3b5d448459695179a4f4d598b06a9af'
+         '9a69c9277dfe4357018c4ff0451ca626'
          '174a2a286e32d5c9a48f51a18ffa4e6c'
          'dbf14588e85812ee769bd735823a0146'
          '0d053487907de4376d67d8f499c5502b')
@@ -33,7 +33,7 @@ prepare() {
 
   mkdir ${srcdir}/path
 
-  sed -i '/ac_cpp=/s/$CPPFLAGS/& -O2/' configure
+  #sed -i '/ac_cpp=/s/$CPPFLAGS/& -O2/' configure
 }
 
 build() {
