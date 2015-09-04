@@ -3,27 +3,63 @@ pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='http://www.mozilla.org/projects/firefox'
 pkgver=40.0.3
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
 groups=('network')
 install=firefox.install
 depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk2' 'networkmanager'
-         'gst-plugins-good' 'gst-plugins-bad')
-#source=("http://download-installer.cdn.mozilla.net/pub/firefox/releases/${pkgver}/linux-x86_64/en-US/firefox-${pkgver}.tar.bz2"
-source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${pkgver}/linux-x86_64/en-US/firefox-${pkgver}.tar.bz2"
-        'firefox.desktop' 
-        'firefox-safe.desktop')
-md5sums=('a1538a8a5b4db97f6faa4e535de5877f'
-         'db722eb1f9778aab80159cdbd9f0b56d'
-         '2f004e44dd2ef3138367ea5b1bc1a219')
+         'gst-plugins-good' 'gst-plugins-bad' 'gst-libav' 'mozilla-common' 'startup-notification'
+         'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libvpx' 'icu' 'libevent' 'sqlite' 'hunspell'
+         'pulseaudio')
+makedepends=('unzip' 'zip' 'diffutils' 'python2' 'yasm' 'mesa' 'imake' 'xorg-server' 'inetutils')
+options=('!emptydirs' '!makeflags')
+source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source/firefox-$pkgver.source.tar.bz2"
+        'mozconfig'
+        'firefox.desktop'
+        'firefox-install-dir.patch'
+        'vendor.js')
+md5sums=('26a64a80cbd5b77d3b0d9734bff5bbad'
+         'd3b5d448459695179a4f4d598b06a9af'
+         '174a2a286e32d5c9a48f51a18ffa4e6c'
+         'dbf14588e85812ee769bd735823a0146'
+         '0d053487907de4376d67d8f499c5502b')
+
+prepare() {
+  cd mozilla-release
+
+  cp ../mozconfig .mozconfig
+  patch -p1 -i ${srcdir}/firefox-install-dir.patch
+
+  mkdir ${srcdir}/path
+
+  sed -i '/ac_cpp=/s/$CPPFLAGS/& -O2/' configure
+}
+
+build() {
+  cd mozilla-release
+
+  export PATH=${srcdir}/path:$PATH
+
+  make -f client.mk build MOZ_PGO=0
+}
 
 package() {
-  cd "${srcdir}"
-  mkdir -p "${pkgdir}"/{usr/{bin,share/{applications,pixmaps}},opt}
-  cp -r firefox "${pkgdir}/opt/firefox-${pkgver}"
+  cd mozilla-release
+  make -f client.mk DESTDIR=${pkgdir} INSTALL_SDK= install
 
-  ln -s /opt/firefox-${pkgver}/firefox "${pkgdir}/usr/bin/firefox"
-  install -m644 "${srcdir}"/{firefox.desktop,firefox-safe.desktop} "${pkgdir}/usr/share/applications/"
-  install -m644 "${srcdir}/firefox/browser/icons/mozicon128.png" "${pkgdir}/usr/share/pixmaps/${pkgname}-icon.png"
+  install -Dm644 ../vendor.js ${pkgdir}/usr/lib/firefox/browser/defaults/preferences/vendor.js
+
+  for i in 16 22 24 32 48 256; do
+      install -Dm644 browser/branding/official/default$i.png \
+        ${pkgdir}/usr/share/icons/hicolor/${i}x${i}/apps/firefox.png
+  done
+  install -Dm644 browser/branding/official/content/icon64.png ${pkgdir}/usr/share/icons/hicolor/64x64/apps/firefox.png
+  install -Dm644 browser/branding/official/mozicon128.png ${pkgdir}/usr/share/icons/hicolor/128x128/apps/firefox.png
+  install -Dm644 browser/branding/official/content/about-logo.png ${pkgdir}/usr/share/icons/hicolor/192x192/apps/firefox.png
+  install -Dm644 browser/branding/official/content/about-logo@2x.png ${pkgdir}/usr/share/icons/hicolor/384x384/apps/firefox.png
+
+  install -Dm644 ../firefox.desktop ${pkgdir}/usr/share/applications/firefox.desktop
+
+  ln -sf firefox ${pkgdir}/usr/lib/firefox/firefox-bin
 }
