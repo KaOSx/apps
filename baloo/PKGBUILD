@@ -16,9 +16,10 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kf5-baloo')
 replaces=('kf5-baloo')
 provides=('kf5-baloo')
-source=("http://download.kde.org/stable/plasma/$pkgver/baloo-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
-#md5sums=('2fb26fe7937565d3c8d54a11ee8b21a5')
+source=("http://download.kde.org/stable/plasma/$pkgver/baloo-$pkgver.tar.xz"
+        '97-kde-baloo-filewatch-inotify.conf')
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '0c9e9337b006f5826ffb85e704f414c1')
 
 build() {
   mkdir -p build
@@ -37,6 +38,7 @@ build() {
 
 package() {
   cd build
-
   make DESTDIR=${pkgdir} install
+  
+  install -Dm644 ${srcdir}/97-kde-baloo-filewatch-inotify.conf ${pkgdir}/etc/sysctl.d/97-kde-baloo-filewatch-inotify.conf
 }

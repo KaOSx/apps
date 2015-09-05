@@ -4,12 +4,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kimap
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Job-based API for interacting with IMAP servers"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/kimap'
 license=('LGPL')
-depends=('kcoreaddons' 'kdelibs4support' 'kmime')
+depends=('kcoreaddons' 'kdelibs4support' 'kmime') # 'ki18n' 'kio'
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -18,7 +18,8 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
-  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
+  # https://bugs.kde.org/show_bug.cgi?id=352223
+  sed -i -e 's|utcDateTime.toString(QString::fromAscii|QLocale::c().toString(utcDateTime, QString::fromAscii|' src/appendjob.cpp
 }
 
 build() {
