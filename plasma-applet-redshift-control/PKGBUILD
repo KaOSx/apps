@@ -1,6 +1,6 @@
 
 pkgname=plasma-applet-redshift-control
-pkgver=1.0.5
+pkgver=1.0.6
 pkgrel=1
 _commit=b45d454a6d0e8db022dd963cc50a59ccbda7f1c7
 pkgdesc='Plasmoid for enabling and disabling redshift process, providing simple settings and mouse-wheel screen temperature control.'
@@ -11,14 +11,14 @@ depends=('plasma-desktop' 'redshift')
 makedepends=('extra-cmake-modules')
 conflicts=('redshift-plasmoid')
 replaces=('redshift-plasmoid')
-source=("https://github.com/kotelnik/plasma-applet-redshift-control/archive/${_commit}.zip")
-md5sums=('f670b4a6c5ba51cd64f9e295b0c5b563')
+source=("https://github.com/kotelnik/plasma-applet-redshift-control/archive/v${pkgver}.tar.gz")
+md5sums=('b986b013f11d54a62e2fb80484321322')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
