@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkface
 #pkgver=${_kdever}
 pkgver=4.9.80
-pkgrel=8
+pkgrel=9
 pkgdesc="Qt/C++ library to perform face detection and recognition over pictures"
 url="http://www.digikam.org/"
 arch=('x86_64')
@@ -15,12 +15,15 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 #source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkface.git#branch=frameworks")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/libkface.git#branch=frameworks"
+        'libopencv.diff')
+md5sums=('SKIP'
+         'ea93191e590bb316985190b6f2eaf938')
 
 prepare() {
    cd $pkgname
-   #sed -i -e 's|<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFace>|<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFace;${KF5_INCLUDE_INSTALL_DIR}/KFace/kface>|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+   #sed -i -e 's|#   include <opencv2/face.hpp>||' ${srcdir}/${pkgname}/src/recognition-opencv-lbph/lbphfacemodel.h
+   patch -p1 -i ${srcdir}/libopencv.diff
 }
 
 build() {
@@ -33,7 +36,8 @@ build() {
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DENABLE_OPENCV3=ON
   make
 }
 
