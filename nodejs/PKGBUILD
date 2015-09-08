@@ -1,6 +1,6 @@
 
 pkgname=nodejs
-pkgver=0.12.7
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications."
 arch=('x86_64')
@@ -10,11 +10,11 @@ depends=('python2' 'openssl')
 checkdepends=('curl') 
 options=('!emptydirs')
 source=("http://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.gz")
-md5sums=('5523ec4347d7fe6b0f6dda1d1c7799d5')
+md5sums=('2c1a6100084893c21e895e100b276af7')
 
 build() {
   cd "node-v${pkgver}"
-  export PYTHON=python2
+  #export PYTHON=python2
   
   ./configure --prefix=/usr
   make
