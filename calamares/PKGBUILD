@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=1.1.17
+pkgver=1.1.18
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -37,6 +37,8 @@ prepare () {
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
+  #sed -i 's|ExternalCommand cmd(report, QStringLiteral("mkfs.xfs"), QStringList() << QStringLiteral("-f")|ExternalCommand cmd(report, QStringLiteral("mkfs.xfs"), QStringList() << QStringLiteral("-m") << QStringLiteral("crc=0") << QStringLiteral("-f")|' ${srcdir}/${pkgname}/src/modules/partition/partitionmanager/src/fs/xfs.cpp
+  
   # toggle on/off for kf5/kde 4 builds
   #sed -i 's|# bootloaderEntryName: KaOS-kf5|bootloaderEntryName: KaOS|' ${srcdir}/${pkgname}/src/modules/bootloader/bootloader.conf
 }
