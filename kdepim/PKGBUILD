@@ -58,7 +58,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd $pkgname-${pkgver}
   #sed -i 's|add_subdirectory(korganizer)|#add_subdirectory(korganizer)|' ${srcdir}/$pkgname/CMakeLists.txt
-  patch -p1 -i $srcdir/libcommon.diff
+  #patch -p1 -i $srcdir/libcommon.diff
 }
 
 build() {

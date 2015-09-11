@@ -5,14 +5,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=dolphin
 pkgver=${_kdever}
 #pkgver=15.03.76
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE File Manager"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/dolphin'
 license=('LGPL')
 depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kdbusaddons' 'kbookmarks' 'kconfig' 'kio' 'kparts' 'solid'
-         'kiconthemes' 'kcompletion' 'ktextwidgets' 'kwindowsystem' 'knotifications' 'baloo-widgets' 'kactivities' 
-         'kfilemetadata')
+         'kiconthemes' 'kcompletion' 'ktexteditor' 'kwindowsystem' 'knotifications' 'baloo-widgets' 'kactivities' 
+         'kfilemetadata') #dep for 15.12 'ktextwidgets' remove ktexteditor
 makedepends=('extra-cmake-modules' 'kdoctools')
 install=dolphin.install
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")

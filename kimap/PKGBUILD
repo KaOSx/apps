@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kimap
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Job-based API for interacting with IMAP servers"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/kimap'
@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 prepare() {
   cd $pkgname-${pkgver}
   # https://bugs.kde.org/show_bug.cgi?id=352223
-  sed -i -e 's|utcDateTime.toString(QString::fromAscii|QLocale::c().toString(utcDateTime, QString::fromAscii|' src/appendjob.cpp
+  #sed -i -e 's|utcDateTime.toString(QString::fromAscii|QLocale::c().toString(utcDateTime, QString::fromAscii|' src/appendjob.cpp
 }
 
 build() {

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=cantor
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE Frontend to Mathematical Software"
 url="http://kde.org/applications/education/cantor/"
 arch=('x86_64')
@@ -25,7 +25,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd $pkgname-${pkgver}
   
-  patch -p1 -i $srcdir/qalculateexpression.diff
+  #patch -p1 -i $srcdir/qalculateexpression.diff
   sed -i -e 's|add_subdirectory(sage)|#add_subdirectory(sage)|' ${srcdir}/${pkgname}-${pkgver}/src/backends/CMakeLists.txt
 }
 
