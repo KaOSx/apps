@@ -12,7 +12,7 @@ depends=('kcoreaddons' 'solid' 'kdelibs4support' 'kcodecs' 'ki18n' 'threadweaver
          'mariadb' 'taglib-extras' 'ffmpeg' 'libofa' 'mesa' 'loudmouth' 'clamz' 'gst-plugins-bad' 
          'ifuse' 'libgpod' 'libmtp'
          'qca-qt5' 'liblastfm' 'qjson' 'libmygpo-qt' 'qt5-webkit')
-makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'git') # 'kdelibs')
+makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'git')
 groups=('multimedia')
 install="${pkgname}.install"
 #source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
@@ -25,7 +25,7 @@ md5sums=('SKIP'
 prepare() {
   cd $pkgname
   #patch -p1 -i $srcdir/qt5.5.diff
-  sed -i -e 's|find_library( LIBMYGPO_QT_LIBRARY NAMES mygpo-qt5|find_library( LIBMYGPO_QT_LIBRARY NAMES mygpo-qt|' ${srcdir}/${pkgname}/cmake/modules/FindLibmygpo-qt.cmake
+  #sed -i -e 's|find_library( LIBMYGPO_QT_LIBRARY NAMES mygpo-qt5|find_library( LIBMYGPO_QT_LIBRARY NAMES mygpo-qt|' ${srcdir}/${pkgname}/cmake/modules/FindLibmygpo-qt.cmake
   sed -i -e 's|KIO NotifyConfig Archive)|KIO NotifyConfig Archive ConfigWidgets)|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 

@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=1.1.18
+pkgver=1.1.19
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -27,7 +27,7 @@ md5sums=('SKIP'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '15867c11ba287b31a61133fd892ec728'
          'bb33b54d289cfe39ebfd78f172382880'
-         '8a154126d16717aa50a4b90238745b9a')
+         '8246973de40182b721dc05e61c926a29')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -37,10 +37,6 @@ prepare () {
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
-  #sed -i 's|ExternalCommand cmd(report, QStringLiteral("mkfs.xfs"), QStringList() << QStringLiteral("-f")|ExternalCommand cmd(report, QStringLiteral("mkfs.xfs"), QStringList() << QStringLiteral("-m") << QStringLiteral("crc=0") << QStringLiteral("-f")|' ${srcdir}/${pkgname}/src/modules/partition/partitionmanager/src/fs/xfs.cpp
-  
-  # toggle on/off for kf5/kde 4 builds
-  #sed -i 's|# bootloaderEntryName: KaOS-kf5|bootloaderEntryName: KaOS|' ${srcdir}/${pkgname}/src/modules/bootloader/bootloader.conf
 }
 
 build() {
