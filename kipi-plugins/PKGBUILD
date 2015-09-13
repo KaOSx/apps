@@ -5,15 +5,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kipi-plugins
 #pkgver=${_kdever}
 pkgver=4.80.12
-pkgrel=1
+pkgrel=2
 pkgdesc="Collection of plugins extending the KDE graphics and image applications as digiKam, Gwenview, and KPhotoalbum."
 url="https://projects.kde.org/projects/extragear/graphics/kipi-plugins"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kwidgetsaddons' 'kparts' 'kiconthemes' 'kwindowsystem' 'khtml' 'kconfig' 'kitemmodels'
-         'kconfig' 'threadweaver' 'ki18n' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkgeomap' 
+         'threadweaver' 'ki18n' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkgeomap' 
          'libkvkontakte' 'libmediawiki' 'libpng' 'libtiff' 'libjpeg-turbo' 'qca-qt5' 
-         'kcalcore' 'kwallet') #'libkface' 
+         'kcalcore' 'kwallet') # 'libkface') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 optdepends=('enblend-enfuse: to work with the panorama tool')
 conflicts=('kf5-kipi-plugins')
@@ -46,8 +46,7 @@ build() {
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF \
-    -DENABLE_OPENCV3=ON
+    -DBUILD_TESTING=OFF 
   make
 }
 
