@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepimlibs
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="KDE Pim Libraries"
 url="http://www.kde.org"
@@ -18,15 +18,20 @@ provides=('kf5-kdepimlibs')
 groups=('kde' 'kde-uninstall')
 install=kdepimlibs.install
 options=('debug')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        'itemsync1.diff'
+        'itemsync2.diff')
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '94e081a9dec1c75200741674a6536dc4'
+         '23c11a9ff08eb450e80359defdc9375b')
 #source=("git://anongit.kde.org/kdepimlibs.git")      
 #md5sums=('SKIP')
 
 prepare() {
     cd $pkgname-${pkgver}
   
-    #patch -p1 -i $srcdir/qt5.5.diff
+    patch -p1 -i $srcdir/itemsync1.diff
+    patch -p1 -i $srcdir/itemsync2.diff
 }
 
 build() {
