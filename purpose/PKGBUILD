@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=purpose
-pkgver=0.90
-_pkgver=1.0rc1
+pkgver=1.0
+_pkgver=1.0
 pkgrel=1
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
@@ -15,10 +15,8 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'intltool' 'git')
 #groups=('')
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/purpose")
-source=("http://download.kde.org/unstable/purpose/purpose-${_pkgver}.tar.xz"
-        'accounts.diff')
-md5sums=('57186bef4f8758a0252bd13f10c90fa2'
-         'c00351fb0b7a666509db6ccef803d489')
+source=("http://download.kde.org/stable/purpose/purpose-${_pkgver}.tar.xz")
+md5sums=('8f27161d5bc0193ad67db48cb6782d84')
 
 prepare() {
   cd $pkgname-${_pkgver}

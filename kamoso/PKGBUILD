@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kamoso
-pkgver=2.90
-_pkgver=3.0rc1
+pkgver=3.0
+_pkgver=3.0
 pkgrel=1
 pkgdesc="Kamoso is an application to take pictures and videos out of your webcam."
 url="https://projects.kde.org/projects/extragear/multimedia/kamoso"
@@ -17,8 +17,8 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 #groups=('multimedia')
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/kamoso.git#branch=frameworks")
-source=("http://download.kde.org/unstable/kamoso/kamoso-${_pkgver}.tar.xz")
-md5sums=('357772498c21eca6ee3d8f9bc09ae0a0')
+source=("http://download.kde.org/stable/kamoso/${_pkgver}/src/kamoso-${_pkgver}.tar.xz")
+md5sums=('29f09cf9f6c6cb14989c3c0a8580d175')
 
 prepare() {
   cd $pkgname-${_pkgver}
