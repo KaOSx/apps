@@ -1,6 +1,6 @@
 
 pkgname=calligra
-pkgver=2.9.96
+pkgver=2.9.97
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -11,7 +11,7 @@ depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kite
          'lcms2' 'libmariadbclient' 'opencolorio' 'libodfgen' 'poppler-qt5' 'libspnav' 'fftw' 'hicolor-icon-theme' 
          'sqlite3' 'libkdcraw' 'exiv2' 'qca-qt5' 'qt5-quick1' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
          'kcontacts' 'kdepimlibs' 'knotifyconfig' 'okular' 'openexr' 'vc' 'kreport' 'kdb')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'docbook-xsl') 
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'docbook-xsl' 'clang') 
 conflicts=('calligra-3rdparty'
          'calligra-filters'
          'calligra-interfaces'
@@ -71,6 +71,10 @@ build() {
   
   mkdir build
   cd build
+  
+  export CC=/usr/bin/clang
+  export CXX=/usr/bin/clang++
+  
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
