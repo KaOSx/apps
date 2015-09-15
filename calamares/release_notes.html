@@ -11,44 +11,53 @@
 
 <body>
     <h3>KaOS - 2015.09</h3>It is with great pleasure to present to you the
-    <b>2015.09 ISO</b>. This ISO brings a long list of wonderful improvements
-    to all of KDE. Biggest part undoubtedly is the first time to have the
-    option to run Plasma 5 in a Wayland session. It still is in an early stage
-    so kwin_x11 is of course the default still. KaOS is also approaching a
-    completed switch from Qt 4 to Qt 5 only. This ISO has only one application
-    left that depends on Qt 4, hplip, The repositories have about a dozen left
-    that still need Qt 4. Most notable major updates over the last two months
-    are the Xorg 1.17 stack, Glib2 2.44.2 stack, Qt 5.50, GCC 4.9.3, Linux
-    4.1.5 and Systemd 224. This ISO KaOS uses the Systemd provided Systemd-boot
-    for UEFI installs, Gummiboot is depreciated. As for the desktop this ISO
-    brings all the latest of Plasma 5 (<strong>Frameworks 5.13.0, Plasma
-    5.4RC1</strong>) and <strong>KDE Applications 15.07.90</strong>. All build
-    on Qt 5.5.0. Plasma-volume-control is now part of the Plasma 5 group,
-    renamed to Plasma-pa (for sound plasmoid). Many more applications are now
-    fully ported to Qt5/Frameworks 5, examples of the recent ports are
-    Megaglest, Tellico, KMahjongg, lmms, smb4k, qmmp, Basket and Lyx.
+    <b>2015.09 ISO</b>. 
+    As always with this rolling distribution you will find the very latest
+    packages for the Plasma Desktop, this includes Frameworks 5.14.0, Plasma 5.4.1 
+    and KDE Applications 15.08.1.<br/>
+    Bigger news though are two changes.  This ISO is the first time that the default
+    XFS filesystem is <b>CRC and finobt enabled</b>.  CRCs enable enhanced error detection 
+    due to hardware issues, whilst the format changes also improves crash recovery 
+    algorithms and the ability  of  various  tools to validate and repair metadata
+    corruptions when they are found.  The  free  inode  btree does not index used inodes, 
+    allowing faster, more consistent inode allocation performance as filesystems age.<br/>
+    Second is not so much an enhancement for the user, but vital for this distribution, 
+    the addition of a License Approval page to the installer.  Since KaOS ships with the option
+    to install with proprietary graphics drivers, users accepting the EULA for such drivers
+    was sorely needed.<br/><br/>
+    
+    Changes to SDDM, kwin and kinit make it now possible to start a Plasma Wayland session
+    right from the login manager.  An X11 session is of course still default, but the drop-down
+    menu has now a wayland entry too.  The default web-browser Qupzilla is one of the 
+    first applications that heavily relied on X11 in its code that now is fully 
+    ported to run a Wayland session too. <br/><br/>
+    
+    Most notable major updates over the last six weeks are the Ncurses 6.0 stack, 
+    OpenCV 3.0.0 stack, Xfsprogs 4.2.0, grub 2.02beta, Networkmanager packages 
+    moved to 1.0.6 and Systemd 226. 
+    This ISO KaOS uses the Systemd provided Systemd-boot for UEFI installs, 
+    Gummiboot is depreciated. <br/> 
+    Many more applications are now fully ported to Qt5/Frameworks 5, examples of 
+    the recent ports are Sweeper, KRFB, ksuperkey, Basket and Lyx.
     <b>Calamares, the used installer framework</b>, has received a
     lot of work. Highlights of the additions:
 
     <ul>
-        <li>Added the option of not installing a boot loader on MBR (legacy
-        BIOS boot) systems.</li>
+        <li>An all new WebView module, which allows the deployer to show any 
+        web page in a WebKit environment.</li>
 
-        <li>Added the option of changing the file system type when editing a
-        partition.</li>
+        <li>An all new License module, which allows the deployer to require
+        acceptance of licensing terms for proprietary components</li>
 
-        <li>More robust partition detection and mounting/unmounting</li>
+        <li>Enhanced autologin defaults customization.</li>
 
         <li>Swap partition support in automatic partitioning</li>
 
-        <li>Fixed an issue which could result in the wrong mount point being
-        set for a swap partition</li>
+        <li>Support for blacklisting modules at build time.</li>
 
-        <li>Adjusted the Install page so that the QML slideshow is loaded and
-        started exactly when the install operation starts</li>
+        <li>Service disabling support in the Services module.</li>
 
-        <li>Improved branding mechanism, with distribution branding option on
-        the Welcome page</li>
+        <li>Several bug fixes in the partitioning component.</li>
     </ul><strong>Octopi</strong> is becoming a very crucial part of full system
     maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like
     making sure a mirror is synced before starting any update, looking at the
@@ -61,23 +70,26 @@
     tool to access <b>KCP</b> https://github.com/KaOS-Community-Packages
     has now a much clearer place with the addition of its own "foreign" icon in
     the menu-bar. When viewing package info it is now possible to click the
-    depends of such a package. For UEFI installs, KaOS uses the simple,
+    depends of such a package. <br/>
+    For UEFI installs, KaOS uses the simple,
     transparent but quite powerful systemd-boot as bootloader. This ISO
     presents XFS as the default filesystem option for KaOS. To learn more about
     the goals and ideas behind KaOS, please read the <b>http://kaosx.us/</b>, 
     <b>http://kaosx.us/about/</b> and
-    <b>http://kaosx.us/faq/</b> pages. To avoid any misunderstanding
+    <b>http://kaosx.us/faq/</b> pages. <br/>
+    To avoid any misunderstanding
     and confusion, KaOS is <b>not based upon, derived of, or inspired by</b>
     any one particular distribution. It is completely independent, build
     entirely from scratch with its own repositories. To read more about this
-    see <b>http://kaosx.us/faq/#Isn8217t_KaOS_just_another_Arch_based_distribution</b>.
+    see <b>http://kaosx.us/faq/#Isn8217t_KaOS_just_another_Arch_based_distribution</b>.<br/><br/>
+    
     A <b>rolling release distribution</b> never has a "final" release, every
     ISO is mere a snapshot of the current status of the repositories. An idea
-    what is currently available: The ISO ships with <b>Frameworks 5.13.0,
-    Plasma 5.4RC, KDE Applications 15.07.90 & not yet released ports of KDE
-    Applications</b>, Linux 4.1.5, Systemd 224, Kmod 21, Networkmanager 1.0.4,
-    Calligra 3.0Alpha, Clementine, Plasma-nm 5.4, Xorg-server 1.17.2, Mesa
-    10.6.4, Glibc 2.21, GCC 4.9.4, non-free Nvidia 352.30 and Python3 3.4.3 to
+    what is currently available: The ISO ships with <b>Frameworks 5.14.0,
+    Plasma 5.4.1, KDE Applications 15.08.1 & not yet released ports of KDE
+    Applications</b>, Linux 4.1.5, Systemd 226, Kmod 21, Networkmanager 1.0.6,
+    Calligra 3.0Alpha, Clementine, Plasma-nm 5.4.1, Xorg-server 1.17.2, Mesa
+    10.6.7, Glibc 2.21, GCC 4.9.4, non-free Nvidia 352.41 and Python3 3.4.3 to
     name a few. The package manager is <strong>Pacman 4.2.1</strong>, with the
     simple but powerful Octopi 0.8.0dev as GUI frontend. Default webbrowser is
     Qt based Qupzilla 1.8.6.1. <b>GFXboot</b> is included with KaOS artwork,
@@ -85,10 +97,10 @@
     fully redone since the Plasma 5 move. <b>Repositories</b> of KaOS will stay
     limited in size and expect it to stay at the current maximum of about
     2100-2200. A gist of what is available, beside the stable kernel there is
-    Linux-next 4.1, Libreoffice 5.0.0, Qt 5.5.0, bumblebee packages, VLC,
+    Linux-next 4.2, Libreoffice 5.0.1, Qt 5.5.0, bumblebee packages, VLC,
     Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad
     and Knights. A limited number of the most well-known GTK applications are
-    available, examples Firefox 40.0, Chrome 46, Ardour 4.1.0, Flashplugin
+    available, examples Firefox 40.0.3, Chrome 47, Ardour 4.1.0, Flashplugin
     11.2.202.508, Inkscape 0.91, GIMP 2.8.14 and Google-talkplugin 5.38.5.0.
     Complete language packs are available for KDE, Calligra, Firefox,
     Libreoffice and Thunderbird. For IM, Fcitx 4.2.9 is available as a rather
