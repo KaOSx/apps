@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=baloo
 pkgver=${_kf5ver}
 #pkgver=5.9.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -16,16 +16,23 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kf5-baloo')
 replaces=('kf5-baloo')
 provides=('kf5-baloo')
-source=("http://download.kde.org/stable/plasma/$pkgver/baloo-$pkgver.tar.xz"
-        '97-kde-baloo-filewatch-inotify.conf')
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '0c9e9337b006f5826ffb85e704f414c1')
+source=("http://download.kde.org/stable/frameworks/5.14/baloo-${pkgver}.tar.xz"
+        '97-kde-baloo-filewatch-inotify.conf'
+        'dolphin_db.diff')
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '0c9e9337b006f5826ffb85e704f414c1'
+         '965e3031d46db546e5c2b3080026b8c6')
 
+prepare() {
+  cd ${pkgname}-${pkgver}
+  patch -p1 -i ${srcdir}/dolphin_db.diff
+}
+         
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-$pkgver \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \
