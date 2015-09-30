@@ -1,6 +1,6 @@
 
 pkgname=smplayer
-pkgver=14.9.0.6994
+pkgver=15.9.0
 _pkgver=14.9.0
 _rev=r6994
 pkgrel=1
@@ -11,15 +11,13 @@ license=('GPL')
 depends=('qt5-multimedia' 'qt5-script' 'mplayer' 'mpv')
 makedepends=('qt5-tools' 'subversion')
 groups=('multimedia')
-source=("http://sourceforge.net/projects/smplayer/files/Unstable/releases/smplayer-${pkgver}.tar.bz2"
+source=("http://sourceforge.net/projects/smplayer/files/SMPlayer/${pkgver}/smplayer-${pkgver}.tar.bz2"
 #source=("smplayer::svn+https://subversion.assembla.com/svn/smplayer/smplayer/trunk/"
         'icons.tar.xz'
-        'default-theme.zip'
-        'qt5.5.diff')
-md5sums=('666a589b1fc3480a29e87f0ee7efd511'
+        'default-theme.zip')
+md5sums=('6ab6f96030df63b79f3a28fb3f99107d'
          'a65b679cb82e21f8f67e703209654e8f'
-         '5f7ef1845f64d0e174a23181e83e29a5'
-         '015a4a2cf0754f8ed25f230989feea1d')
+         '5f7ef1845f64d0e174a23181e83e29a5')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -27,8 +25,6 @@ build() {
   rm -r "${srcdir}/${pkgname}-${pkgver}/src/default-theme"
   mv -iv "${srcdir}/icons/" "${srcdir}/${pkgname}-${pkgver}/"
   mv -iv "${srcdir}/default-theme/" "${srcdir}/${pkgname}-${pkgver}/src/"
-  
-  patch -p1 -i "${srcdir}/qt5.5.diff"
   
   make PREFIX=/usr QMAKE=/usr/lib/qt5/bin/qmake LRELEASE=/usr/lib/qt5/bin/lrelease
   
