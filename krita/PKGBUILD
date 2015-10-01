@@ -1,0 +1,48 @@
+
+pkgname=krita
+pkgver=2.9.80
+pkgrel=1
+arch=('x86_64')
+url='http://www.calligra-suite.org'
+license=('FDL1.2' 'GPL2' 'LGPL')
+depends=('calligra') # 'opencolorio' 'vc')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'docbook-xsl' 'clang') 
+#source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
+source=("git://anongit.kde.org/calligra.git#branch=krita-next")
+md5sums=('SKIP')
+
+prepare() {
+  cd ${srcdir}/calligra
+  #sed -i 's|#include <knumvalidator.h>||' kexi/widget/kexiqueryparameters.cpp
+  #patch -p1 -i $srcdir/qt55.diff
+}
+
+build() {
+  cd ${srcdir}
+  
+  mkdir build
+  cd build
+  
+  export CC=/usr/bin/clang
+  export CXX=/usr/bin/clang++
+  
+  cmake ../calligra \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=FALSE \
+    -DUSEOPENGL=TRUE
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+  
+  rm -r ${pkgdir}/usr/share/calligra
+  rm -r ${pkgdir}/usr/share/icons/oxygen
+}
+
