@@ -1,12 +1,16 @@
 
 pkgname=krita
-pkgver=2.9.81
+pkgver=2.9.82
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
-depends=('calligra') # 'opencolorio' 'vc')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'docbook-xsl' 'clang') 
+depends=('karchive' 'kcodecs' 'kcompletion' 'kconfig'  'kconfigwidgets' 'kcoreaddons' 'kguiaddons' 'ki18n' 
+         'kiconthemes' 'kitemmodels' 'kitemviews' 'ktexteditor' 'ktextwidgets' 'kwidgetsaddons' 'kxmlgui'
+         'kdelibs4support' 
+         'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'glew' 'opencolorio' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
+         'libkdcraw' 'qca-qt5' 'qt5-quick1')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'qt5-tools' 'clang') 
 install=krita.install
 #source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
 source=("git://anongit.kde.org/calligra.git#branch=krita-next")
@@ -33,8 +37,7 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=FALSE \
-    -DUSEOPENGL=TRUE
+    -DBUILD_TESTING=FALSE 
   make
 }
 
