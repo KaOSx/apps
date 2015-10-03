@@ -1,6 +1,6 @@
 
 pkgname=krita
-pkgver=2.9.80
+pkgver=2.9.81
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -14,7 +14,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd ${srcdir}/calligra
-  #sed -i 's|#include <knumvalidator.h>||' kexi/widget/kexiqueryparameters.cpp
+  #sed -i 's|kritastore Qt5::Xml Qt5::Gui KF5::Archive|kritastore Qt5::Xml Qt5::Gui KF5::Archive KF5::I18n KF5::WidgetsAddons|' libs/store/CMakeLists.txt
   #patch -p1 -i $srcdir/qt55.diff
 }
 
@@ -43,7 +43,7 @@ package() {
   
   make DESTDIR=${pkgdir} install
   
-  rm -r ${pkgdir}/usr/share/calligra
-  rm -r ${pkgdir}/usr/share/icons/oxygen
+  #rm -r ${pkgdir}/usr/share/calligra
+  #rm -r ${pkgdir}/usr/share/icons/oxygen
 }
 
