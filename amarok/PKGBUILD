@@ -26,6 +26,7 @@ prepare() {
   cd $pkgname
   #patch -p1 -i $srcdir/qt5.5.diff
   #sed -i -e 's|find_library( LIBMYGPO_QT_LIBRARY NAMES mygpo-qt5|find_library( LIBMYGPO_QT_LIBRARY NAMES mygpo-qt|' ${srcdir}/${pkgname}/cmake/modules/FindLibmygpo-qt.cmake
+  sed -i -e 's|LIBLASTFM_LIBRARY NAMES lastfm5|LIBLASTFM_LIBRARY NAMES lastfm|' ${srcdir}/${pkgname}/cmake/modules/FindLibLastFm.cmake
   sed -i -e 's|KIO NotifyConfig Archive)|KIO NotifyConfig Archive ConfigWidgets)|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
