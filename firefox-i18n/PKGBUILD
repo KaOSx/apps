@@ -1,7 +1,7 @@
 
 pkgbase=firefox-i18n
 pkgver=41.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Language pack for Firefox"
 arch=('x86_64')
 url="http://www.mozilla.com/"
@@ -203,5 +203,5 @@ noextract=(${source[@]%%::*})
 _package() {
   pkgdesc="$2 language pack for Firefox"
   install -Dm644 firefox-i18n-$pkgver-$1.xpi \
-    "$pkgdir/opt/firefox-${pkgver}/browser/extensions/langpack-$1@firefox.mozilla.org.xpi"
+    "$pkgdir/usr/lib/firefox/browser/extensions/langpack-$1@firefox.mozilla.org.xpi"
 }
