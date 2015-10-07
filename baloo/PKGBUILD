@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=baloo
 pkgver=${_kf5ver}
 #pkgver=5.9.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A framework for searching and managing metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/baloo'
@@ -16,6 +16,7 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kf5-baloo')
 replaces=('kf5-baloo')
 provides=('kf5-baloo')
+backup=('etc/sysctl.d/97-kde-baloo-filewatch-inotify.conf')
 source=("http://download.kde.org/stable/frameworks/5.14/baloo-${pkgver}.tar.xz"
         '97-kde-baloo-filewatch-inotify.conf'
         'dolphin_db.diff')
