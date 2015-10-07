@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=1.80
+pkgver=1.90
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -10,7 +10,7 @@ depends=('qt5-svg' 'qt5-webkit' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cp
          'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 #source=("git://github.com/KaOSx/calamares"
-source=("calamares-2.0.tar.xz"
+source=("calamares-1.90.tar.xz"
         'calamares.desktop'
         'installer.svg'
         'kdm_sddm.conf'
@@ -19,7 +19,7 @@ source=("calamares-2.0.tar.xz"
         'launch-calamares.sh'
         'license.pdf'
         'release_notes.html')
-md5sums=('4b7bbfc3963087a22147ad8dd4598038'
+md5sums=('30cab8a07721cbc3fdb93c34f9dfd910'
          '8c263c9faeec86a33c02e743d9b083f7'
          'd5c65f43e057054e9728810530c4a030'
          '184d5b6886fc7a6156d4b790657f77f4'
@@ -27,16 +27,16 @@ md5sums=('4b7bbfc3963087a22147ad8dd4598038'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '15867c11ba287b31a61133fd892ec728'
          'bb33b54d289cfe39ebfd78f172382880'
-         '8246973de40182b721dc05e61c926a29')
+         'a1f611fe33a4979b5bd3fbbd497ab7a2')
 
 prepare () {
-  cd ${srcdir}/${pkgname}-2.0-alpha1
+  cd ${srcdir}/${pkgname}-2.0-alpha3
   
   #git submodule init
   #git submodule update
-  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}-2.0-alpha1/src/modules/partition/tests/PartitionJobTests.cpp
-  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}-2.0-alpha1/src/modules/partition/gui/EraseDiskPage.cpp
-  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}-2.0-alpha1/src/modules/partition/gui/ReplacePage.cpp
+  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}-2.0-alpha3/src/modules/partition/tests/PartitionJobTests.cpp
+  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}-2.0-alpha3/src/modules/partition/gui/EraseDiskPage.cpp
+  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}-2.0-alpha3/src/modules/partition/gui/ReplacePage.cpp
   #sed -i 's|ExternalCommand cmd(report, QStringLiteral("mkfs.xfs"), QStringList() << QStringLiteral("-f")|ExternalCommand cmd(report, QStringLiteral("mkfs.xfs"), QStringList() << QStringLiteral("-m") << QStringLiteral("crc=0") << QStringLiteral("-f")|' ${srcdir}/${pkgname}/src/modules/partition/partitionmanager/src/fs/xfs.cpp
   
   # toggle on/off for kf5/kde 4 builds
@@ -48,7 +48,7 @@ build() {
   
   cd build
   
-  cmake ../${pkgname}-2.0-alpha1 \
+  cmake ../${pkgname}-2.0-alpha3 \
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib 
