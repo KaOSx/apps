@@ -1,22 +1,19 @@
 
 pkgname=qtractor
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="Audio/MIDI multitrack sequencer"
 arch=('x86_64')
 url="http://qtractor.sourceforge.net/"
 license=('GPL')
-depends=('qt5-base' 'suil' 'lilv' 'libmad' 'libsamplerate' 'rubberband' 'liblo' 'shared-mime-info')
+depends=('qt5-x11extras' 'suil' 'lilv' 'libmad' 'libsamplerate' 'rubberband' 'liblo' 'shared-mime-info')
 makedepends=('ladspa' 'dssi' 'qt5-tools')
 groups=('multimedia')
-source=("http://www.rncbc.org/archive/$pkgname-$pkgver.tar.gz"
-        'qt5.5.diff')
-md5sums=('dadada3a62e54fd083caad1698c19868'
-         '68b1a342577cf9b9e0280fb4dfad808f')
+source=("http://www.rncbc.org/archive/$pkgname-$pkgver.tar.gz")
+md5sums=('7d4afb517423bc32969daa83dfd58482')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
-  patch -p1 -i $srcdir/qt5.5.diff
 
   ./configure --prefix=/usr --enable-debug --enable-qt5
   make

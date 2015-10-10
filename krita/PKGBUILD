@@ -1,6 +1,6 @@
 
 pkgname=krita
-pkgver=2.9.84
+pkgver=2.9.85
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -18,7 +18,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd ${srcdir}/calligra
-  #sed -i 's|kritastore Qt5::Xml Qt5::Gui KF5::Archive|kritastore Qt5::Xml Qt5::Gui KF5::Archive KF5::I18n KF5::WidgetsAddons|' libs/store/CMakeLists.txt
+  sed -i 's|add_subdirectory(animation)|#add_subdirectory(animation)|' krita/plugins/extensions/dockers/CMakeLists.txt
   #patch -p1 -i $srcdir/qt55.diff
 }
 
