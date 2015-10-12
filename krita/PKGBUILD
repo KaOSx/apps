@@ -12,13 +12,13 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'libkdcraw' 'qca-qt5' 'qt5-quick1')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'qt5-tools' 'clang') 
 install=krita.install
-#source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
+#source=("http://mirrors.mit.edu/kde/stable/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
 source=("git://anongit.kde.org/krita.git")
 md5sums=('SKIP')
 
 prepare() {
-  cd ${srcdir}/calligra
-  sed -i 's|add_subdirectory(animation)|#add_subdirectory(animation)|' krita/plugins/extensions/dockers/CMakeLists.txt
+  cd ${srcdir}/${pkgname}
+  #sed -i 's|add_subdirectory(animation)|#add_subdirectory(animation)|' krita/plugins/extensions/dockers/CMakeLists.txt
   #patch -p1 -i $srcdir/qt55.diff
 }
 
@@ -31,7 +31,7 @@ build() {
   export CC=/usr/bin/clang
   export CXX=/usr/bin/clang++
   
-  cmake ../calligra \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
