@@ -1,16 +1,25 @@
 
 pkgname=wireshark
-pkgver=1.99.8
+pkgver=2.0.0rc1
 pkgrel=1
 pkgdesc='Network packet analyzer that will try to capture network packets and tries to display that packet data as detailed as possible'
 arch=('x86_64')
 url='http://www.wireshark.org/'
 license=('GPL2')
-depends=('krb5' 'libgcrypt' 'libcap' 'libpcap' 'bash' 'geoip' 'gnutls' 'glib2' 'lua' 'qt5-multimedia' 'asciidoc')
+depends=('krb5' 'libgcrypt' 'libcap' 'libpcap' 'bash' 'geoip' 'gnutls' 'glib2' 'lua' 'qt5-multimedia'
+         'asciidoc' 'portaudio-svn')
 makedepends=('cmake' 'python2' 'qt5-tools')
 install=wireshark.install
-source=("http://www.wireshark.org/download/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('1d15377bfc363e46cd7acf479c989075')
+source=("http://www.wireshark.org/download/src/${pkgname}-${pkgver}.tar.bz2"
+        'version.h.in')
+md5sums=('35c0b118cde2df3c9ec79deff5453fc1'
+         '45fa502b3b361dd8d3985101c44cee26')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  cp ${srcdir}/version.h.in ${srcdir}/${pkgname}-${pkgver}/version.h.in
+}
 
 build() {
   cd ${srcdir}
