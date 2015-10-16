@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kget
 #pkgver=${_kdever}
-pkgver=15.07.70
+pkgver=15.07.71
 pkgrel=1
 pkgdesc='Download Manager'
 url='http://kde.org/applications/internet/kget/'
@@ -25,9 +25,9 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  sed -i -e 's|find_package(Qca 2.1.0)|find_package(Qca 2.1.0 NAMES Qca-qt5 Qca)|' ${srcdir}/${pkgname}/CMakeLists.txt
-  sed -i -e 's|find_package(KF5QGpgme)||' ${srcdir}/${pkgname}/CMakeLists.txt
-  sed -i -e 's|if(KF5Gpgme_FOUND)|if(KF5Gpgmepp_FOUND)|' ${srcdir}/${pkgname}/CMakeLists.txt
+  #sed -i -e 's|find_package(Qca 2.1.0)|find_package(Qca 2.1.0 NAMES Qca-qt5 Qca)|' ${srcdir}/${pkgname}/CMakeLists.txt
+  #sed -i -e 's|find_package(KF5QGpgme)||' ${srcdir}/${pkgname}/CMakeLists.txt
+  #sed -i -e 's|if(KF5Gpgme_FOUND)|if(KF5Gpgmepp_FOUND)|' ${srcdir}/${pkgname}/CMakeLists.txt
   
 }
 
