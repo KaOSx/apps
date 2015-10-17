@@ -1,6 +1,6 @@
 
 pkgname=krita
-pkgver=2.9.85
+pkgver=2.9.86
 pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'kio' 
          'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'glew' 'opencolorio' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
          'libkdcraw' 'qca-qt5' 'qt5-quick1')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'qt5-tools' 'clang') 
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'qt5-tools') # 'clang') 
 install=krita.install
 #source=("http://mirrors.mit.edu/kde/stable/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
 source=("git://anongit.kde.org/krita.git")
@@ -29,8 +29,8 @@ build() {
   mkdir build
   cd build
   
-  export CC=/usr/bin/clang
-  export CXX=/usr/bin/clang++
+  #export CC=/usr/bin/clang
+  #export CXX=/usr/bin/clang++
   
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
