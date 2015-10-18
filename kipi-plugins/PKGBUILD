@@ -4,16 +4,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kipi-plugins
 #pkgver=${_kdever}
-pkgver=4.80.12
-pkgrel=2
+pkgver=4.80.13
+pkgrel=1
 pkgdesc="Collection of plugins extending the KDE graphics and image applications as digiKam, Gwenview, and KPhotoalbum."
 url="https://projects.kde.org/projects/extragear/graphics/kipi-plugins"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kwidgetsaddons' 'kparts' 'kiconthemes' 'kwindowsystem' 'khtml' 'kconfig' 'kitemmodels'
-         'threadweaver' 'ki18n' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkgeomap' 
-         'libkvkontakte' 'libmediawiki' 'libpng' 'libtiff' 'libjpeg-turbo' 'qca-qt5' 
-         'kcalcore' 'kwallet') # 'libkface') 
+depends=('kparts' 'kconfig' 'kiconthemes' 'kwindowsystem' 'kxmlgui' 'kio' 'kservice'
+         'threadweaver' 'karchive' 'ki18n' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkgeomap' 
+         'libkvkontakte' 'libmediawiki' 'libpng' 'libtiff' 'libjpeg-turbo' 
+         'kcalcore' 'kwallet' 'phonon-qt5') # 'libkface') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 optdepends=('enblend-enfuse: to work with the panorama tool')
 conflicts=('kf5-kipi-plugins')
@@ -30,10 +30,12 @@ md5sums=('SKIP'
 prepare() {
   cd $pkgname
   #patch -p1 -i $srcdir/qt5.5.diff
-  #sed -i -e 's|#include "ui_flickralbumdialog.h"||' ${srcdir}/${pkgname}/flickr/flickrwindow.cpp
-  #sed -i -e 's|KF5::KIOCore|KF5::KIOCore KF5::Wallet|' ${srcdir}/${pkgname}/googleservices/CMakeLists.txt
-  #sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/manager/actions.h
-  #sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/tasks/preprocesstask.h
+  sed -i -e 's|#include <MediaWiki/Login>|#include <MediaWiki/login.h>|' ${srcdir}/${pkgname}/mediawiki/plugin_wikimedia.h
+  sed -i -e 's|#include <MediaWiki/MediaWiki>|#include <MediaWiki/mediawiki.h>|' ${srcdir}/${pkgname}/mediawiki/plugin_wikimedia.h
+  sed -i -e 's|#include <MediaWiki/Upload>|#include <MediaWiki/upload.h>|' ${srcdir}/${pkgname}/mediawiki/wikimediajob.cpp
+  sed -i -e 's|#include <MediaWiki/MediaWiki>|#include <MediaWiki/mediawiki.h>|' ${srcdir}/${pkgname}/mediawiki/wikimediajob.cpp
+  sed -i -e 's|#include <MediaWiki/Login>|#include <MediaWiki/login.h>|' ${srcdir}/${pkgname}/mediawiki/wmwindow.cpp
+  sed -i -e 's|#include <MediaWiki/MediaWiki>|#include <MediaWiki/mediawiki.h>|' ${srcdir}/${pkgname}/mediawiki/wmwindow.cpp
 }
 
 build() {

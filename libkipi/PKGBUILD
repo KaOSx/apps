@@ -4,13 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkipi
 #pkgver=${_kdever}
-pkgver=15.03.72
+pkgver=15.07.70
 pkgrel=1
 pkgdesc="An interface to use kipi-plugins from a KDE application"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kconfig' 'kxmlgui' 'kio')
+depends=('ki18n' 'kconfig' 'kxmlgui' 'kservice')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'pkg-config')
 #groups=("kde" "kdegraphics" "kde-uninstall")
 install=${pkgname}.install
@@ -19,7 +19,7 @@ provides=('kdegraphics-libkipi')
 replaces=('kdegraphics-libkipi')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkipi.git#branch=frameworks")
+source=("git://anongit.kde.org/libkipi.git")
 md5sums=('SKIP')
 
 build() {
