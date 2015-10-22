@@ -1,6 +1,6 @@
 
 pkgname=liri-browser
-pkgver=0.3.1
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="Minimalistic Google's Material Design web browser, relies on QtWebEngine, the brand new Qt web renderer based on Chromium"
 url="http://liri-browser.github.io/#discover"
@@ -44,11 +44,11 @@ prepare() {
   git submodule update
   
   sed -i -e 's|target.path = /opt/$${TARGET}/bin|target.path = /usr/bin|' ${srcdir}/${pkgname}/deployment.pri
-  sed -i -e 's|https://www.google.de|https://www.google.com|' ${srcdir}/${pkgname}/src/qml/BaseApplication.qml
+  #sed -i -e 's|https://www.google.de|https://www.google.com|' ${srcdir}/${pkgname}/src/qml/BaseApplication.qml
   #KaOS colors
   sed -i -e 's|primaryColor: "#F44336"|primaryColor: "#31A3DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
   sed -i -e 's|primaryDarkColor: "#D32F2F"|primaryDarkColor: "#2397D2"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
-  sed -i -e 's|accentColor: "#FF5722"|accentColor: "#31C0DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
+  sed -i -e 's|accentColor: "#FF5722"|accentColor: "#31A3DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
   sed -i -e 's|darkThemeColor : "#f3f3f3"|darkThemeColor : "#CCCCCC"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
 }
 
