@@ -1,33 +1,66 @@
 
 pkgname=liri-browser
-pkgver=0.3
-_commit=95fa8f24ded636ed8852f886befc3ebcee82ebe3
-pkgrel=2
+pkgver=0.3.1
+pkgrel=1
 pkgdesc="Minimalistic Google's Material Design web browser, relies on QtWebEngine, the brand new Qt web renderer based on Chromium"
 url="http://liri-browser.github.io/#discover"
 arch=('x86_64')
 license=('LGPL')
-depends=('qtwebengine' 'qml-material')
-source=("https://github.com/liri-browser/liri-browser/archive/v${pkgver}.tar.gz"
+depends=('qtwebengine' 'qt5-multimedia' 'vlc' 'qml-material')
+makedepends=('git')
+#source=("https://github.com/liri-browser/liri-browser/archive/v${pkgver}.tar.gz"
+source=("git://github.com/liri-browser/liri-browser"
+        "git://github.com/pierremtb/liri-player"
+        "git://github.com/RSATom/QmlVlc"
+        "git://github.com/RSATom/ya-libvlc-wrapper"
+        "git://github.com/RSATom/libvlc-sdk"
         'liri-browser.desktop')
-md5sums=('4c49707b220463296df0c92982d34deb'
+md5sums=('SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
          '13a5ba458d3ae8135eeb9126ee329633')
 
 prepare() {
-  cd $pkgname-${pkgver}
-  #patch -p1 -i $srcdir/qt5.5.diff
-  sed -i -e 's|target.path = /opt/$${TARGET}/bin|target.path = /usr/bin|' deployment.pri
+  cd ${pkgname}
+  git submodule init
+  git config submodule.dependencies/liri-player.url $srcdir/liri-player
+  git submodule update
+
+  cd dependencies/liri-player
+  git submodule init
+  git config submodule.dependencies/QmlVlc.url $srcdir/QmlVlc
+  git submodule update
+
+  cd dependencies/QmlVlc
+  git submodule init
+  git config submodule.libvlc_wrapper.url $srcdir/ya-libvlc-wrapper
+  git submodule update
+
+  cd libvlc_wrapper
+  git submodule init
+  git config submodule.libvlc-sdk.url $srcdir/libvlc-sdk
+  git submodule update
+  
+  sed -i -e 's|target.path = /opt/$${TARGET}/bin|target.path = /usr/bin|' ${srcdir}/${pkgname}/deployment.pri
+  sed -i -e 's|https://www.google.de|https://www.google.com|' ${srcdir}/${pkgname}/src/qml/BaseApplication.qml
+  #KaOS colors
+  sed -i -e 's|primaryColor: "#F44336"|primaryColor: "#31A3DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
+  sed -i -e 's|primaryDarkColor: "#D32F2F"|primaryDarkColor: "#2397D2"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
+  sed -i -e 's|accentColor: "#FF5722"|accentColor: "#31C0DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
+  sed -i -e 's|darkThemeColor : "#f3f3f3"|darkThemeColor : "#CCCCCC"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
 }
 
 build() {
-   cd $pkgname-${pkgver}
+   cd ${pkgname}
 
    /usr/lib/qt5/bin/qmake 
    make
 }
 
 package() {
-   cd $pkgname-${pkgver}
+   cd ${pkgname}
    make INSTALL_ROOT=$pkgdir install
    
    mkdir -p $pkgdir/usr/share/applications
