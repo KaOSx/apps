@@ -7,7 +7,7 @@ arch=('x86_64')
 url="http://postgis.refractions.net/"
 license=('GPL')
 depends=('postgresql' 'proj' 'geos' 'gdal' 'json-c')
-options=('!libtool')
+options=('!libtool' '!makeflags')
 source=("http://download.osgeo.org/postgis/source/${pkgname}-${pkgver}.tar.gz")
 md5sums=('9b3dbeabb3f821bb27b94b9f82ff2785')
 
@@ -15,7 +15,7 @@ build() {
    cd ${srcdir}/$pkgname-$pkgver
    
    ./configure --prefix=/usr --with-gdalconfig=/usr/bin/gdal-config
-   make -j2
+   make
 }
 
 package() {

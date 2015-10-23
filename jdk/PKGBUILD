@@ -1,8 +1,8 @@
 
 pkgname=jdk
 _major=8
-_minor=60
-_build=b27
+_minor=65
+_build=b17
 _pkgver=${_major}u${_minor}
 pkgver=${_major}.${_minor}
 pkgrel=1
@@ -17,6 +17,7 @@ backup=('etc/derby.conf'
         'etc/profile.d/jdk.csh'
         'etc/profile.d/jdk.sh')
 install=jdk.install
+# check version http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html
 source=("http://download.oracle.com/otn-pub/java/jdk/${_pkgver}-$_build/jdk-${_pkgver}-linux-x64.tar.gz"
         'derby.conf'
         'derby.service'
@@ -27,7 +28,7 @@ source=("http://download.oracle.com/otn-pub/java/jdk/${_pkgver}-$_build/jdk-${_p
         'javaws-launcher'
         'jdk.csh'
         'jdk.sh')
-md5sums=('b8ca513d4f439782c019cb78cd7fd101'  
+md5sums=('196880a42c45ec9ab2f00868d69619c0'  
          '4bdff6982c66d24a879c424aaac3d04d'  
          '77f3b7ddf55c112f97a665a825bf764f'  
          '536ea84bba5eb6bfe8f601b41af9769c'  
