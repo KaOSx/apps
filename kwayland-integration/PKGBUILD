@@ -4,7 +4,6 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwayland-integration
 pkgver=${_plasmaver}
-#pkgver=5.3.70
 pkgrel=1
 pkgdesc="Provides integration plugins for various KDE frameworks for the wayland windowing system."
 arch=('x86_64')
@@ -13,7 +12,7 @@ license=('LGPLv2+')
 depends=('kidletime' 'kwindowsystem' 'kwayland')
 makedepends=('extra-cmake-modules'  'kdoctools')
 groups=('plasma5')
-source=("http://download.kde.org/unstable/plasma/$pkgver/${pkgname}-$pkgver.tar.xz")
+source=("http://download.kde.org/stable/plasma/$pkgver/${pkgname}-$pkgver.tar.xz")
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/kwayland-integration.git")
 #md5sums=('SKIP')
