@@ -1,31 +1,22 @@
 
 pkgname=mumble
-pkgver=1.2.10
+pkgver=1.2.80
+_pkgver=1.3.0~745~g10c902f~snapshot
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Open source, low-latency, high quality voice chat software"
 url="http://mumble.sourceforge.net/"
 license=('BSD')
-depends=('speex' 'lsb-release' 'libxi' 'avahi' 'libsndfile' 'protobuf' 'pulseaudio' 'opus') # 'qt5-svg' 
-makedepends=('boost' 'mesa') # 'qt5-tools')
-source=("https://github.com/mumble-voip/mumble/releases/download/$pkgver/$pkgname-$pkgver.tar.gz")
-#source=("git://github.com/mumble-voip/mumble.git")
-md5sums=('14ab2e9174b7ca87623e63aa56dd6d5b')
-
-#prepare () {
-  #cd ${srcdir}/${pkgname}
-  
-  #git submodule init
-  #git submodule update
-  #sed -i 's|QString::fromAscii|QString::fromLatin1|' src/OSInfo.cpp
-  #sed -i 's|toAscii|toLatin1|' src/OSInfo.cpp
-#}
+depends=('speex' 'lsb-release' 'libxi' 'avahi' 'libsndfile' 'protobuf' 'pulseaudio' 'opus' 'qt5-svg') 
+makedepends=('boost' 'mesa' 'qt5-tools')
+#source=("https://github.com/mumble-voip/mumble/releases/download/$pkgver/$pkgname-$pkgver.tar.gz")
+source=("http://mumble.info/snapshot/$pkgname-$_pkgver.tar.gz")
+md5sums=('9485ecf8005d69aa174dd1b7d613ea75')
 
 build() {
-  cd $srcdir/$pkgname-$pkgver
+  cd $srcdir/$pkgname-$_pkgver
 
-  #/usr/lib/qt5/bin/qmake main.pro \
-  qmake main.pro \
+  /usr/lib/qt5/bin/qmake main.pro \
     CONFIG+="bundled-celt no-bundled-opus no-bundled-speex no-speechd no-g15 no-xevie no-server \
     no-embed-qt-translations no-update packaged" \
     DEFINES+="PLUGIN_PATH=/usr/lib/mumble"
@@ -33,15 +24,15 @@ build() {
 }
 
 package() {
-  cd $srcdir/$pkgname-$pkgver
+  cd $srcdir/$pkgname-$_pkgver
 
   install -m755 -D ./release/mumble $pkgdir/usr/bin/mumble
   install -m755 -D ./scripts/mumble-overlay $pkgdir/usr/bin/mumble-overlay
 
-  install -m755 -D ./release/libmumble.so.$pkgver $pkgdir/usr/lib/mumble/libmumble.so.$pkgver
-  ln -s libmumble.so.$pkgver $pkgdir/usr/lib/mumble/libmumble.so
-  ln -s libmumble.so.$pkgver $pkgdir/usr/lib/mumble/libmumble.so.1
-  ln -s libmumble.so.$pkgver $pkgdir/usr/lib/mumble/libmumble.so.1.2
+  install -m755 -D ./release/libmumble.so.1.3.0 $pkgdir/usr/lib/mumble/libmumble.so.1.3.0
+  ln -s libmumble.so.1.3.0 $pkgdir/usr/lib/mumble/libmumble.so
+  ln -s libmumble.so.1.3.0 $pkgdir/usr/lib/mumble/libmumble.so.1
+  ln -s libmumble.so.1.3.0 $pkgdir/usr/lib/mumble/libmumble.so.1.3
   install -m755 -D ./release/plugins/liblink.so $pkgdir/usr/lib/mumble/liblink.so
   install -m755 -D ./release/plugins/libmanual.so $pkgdir/usr/lib/mumble/libmanual.so
   install -m755 -D ./release/libcelt* $pkgdir/usr/lib/mumble/
