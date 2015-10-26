@@ -1,6 +1,6 @@
 
 pkgname=kdevplatform
-pkgver=1.90.97
+pkgver=4.90.90
 pkgrel=1
 pkgdesc="A C/C++ development platform for KDE"
 arch=('x86_64')
@@ -14,23 +14,20 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kf5-kdevplatform')
 replaces=('kf5-kdevplatform')
 install=kdevplatform.install
-source=("git://anongit.kde.org/kdevplatform.git"
-        'ref.diff')
-md5sums=('SKIP'
-         '941d039047eabecd41d518a2f56d4e5b')
+source=("http://download.kde.org/unstable/kdevelop/${pkgver}/src/kdevplatform-${pkgver}.tar.xz")
+md5sums=('383c49d77b19ba3ff8ee50d8ec8a9e31')
 
 prepare() {
-  cd ${srcdir}/${pkgname}
+  cd ${srcdir}/${pkgname}-${pkgver}
   
   #patch -Rp1 -i $srcdir/ref.diff
 }
 
 build() {
-  cd ${srcdir}
   mkdir build
   
   cd build 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DLIB_INSTALL_DIR=lib \
@@ -42,7 +39,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }
