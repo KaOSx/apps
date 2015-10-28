@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=wacomtablet
-#pkgver=${_kdever}
-pkgver=2.8.3
+pkgver=2.9.80
+_pkgver=3.0.0~beta1
 pkgrel=1
 pkgdesc="This module implements a GUI for the Wacom Linux Drivers and extends it with profile support to handle 
          different button / pen layouts per profile."
@@ -13,24 +13,23 @@ url='https://projects.kde.org/projects/extragear/base/wacomtablet'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'ki18n' 'kglobalaccel' 'kconfig' 'kxmlgui' 'kwidgetsaddons' 'kwindowsystem' 'knotifications'
          'kdbusaddons' 'plasma-framework' 'xf86-input-wacom')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'pkg-config') # 'kdelibs')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdegraphics' 'kde-uninstall')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/wacomtablet.git#branch=kf5-port")
-md5sums=('SKIP')
+source=("http://kde-apps.org/CONTENT/content-files/114856-wacomtablet-${_pkgver}.tar.xz")
+md5sums=('95d1d29063d6de2ab0881c33e8eacb05')
 
 prepare() {
-   cd $pkgname
+   cd ${pkgname}-${_pkgver}
    #patch -p1 -i ${srcdir}/CMakeLists.diff
-   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/user/index.docbook
+   sed -i -e 's|MacroOptionalAddSubdirectory|ECMOptionalAddSubdirectory|' CMakeLists.txt
+   sed -i -e 's|macro_optional_add_subdirectory|ecm_optional_add_subdirectory|' CMakeLists.txt
 }
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

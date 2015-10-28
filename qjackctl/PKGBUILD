@@ -1,18 +1,18 @@
 
 pkgname=qjackctl
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="Qt front-end for the JACK low-latency audio server"
 url="http://qjackctl.sourceforge.net/"
 arch=('x86_64')
 license=('GPL')
-depends=('jack' 'qt5-base')
+depends=('jack' 'qt5-base' 'qt5-x11extras' 'portaudio-svn')
 makedepends=('qt5-tools')
 options=('!makeflags')
 groups=('multimedia')
 source=("http://downloads.sourceforge.net/qjackctl/$pkgname-$pkgver.tar.gz"
         'qt5.5.diff')
-md5sums=('2081b96e4facf3c2be641848b1c184fd'
+md5sums=('6a0a4245e2b9e470e04009e1d0f29f08'
          '2d1e746974d8adac00011619ac0f323d')
 
 build() {
