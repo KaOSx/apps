@@ -1,16 +1,15 @@
 
 pkgname=calamares
-pkgver=1.1.23
+pkgver=1.91
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
 license=('LGPL')
 depends=('qt5-svg' 'qt5-webkit' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
-         'parted' 'libatasmart' 'udisks2' 'polkit-qt5')
+         'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 source=("git://github.com/KaOSx/calamares"
-#source=("git://github.com/demmm/calamares"
         'calamares.desktop'
         'installer.svg'
         'kdm_sddm.conf'
@@ -32,11 +31,13 @@ md5sums=('SKIP'
 prepare () {
   cd ${srcdir}/${pkgname}
   
-  git submodule init
-  git submodule update
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
-  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EraseDiskPage.cpp
+  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/core/PartitionActions.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/ReplacePage.cpp
+  #sed -i 's|ExternalCommand cmd(report, QStringLiteral("mkfs.xfs"), QStringList() << QStringLiteral("-f")|ExternalCommand cmd(report, QStringLiteral("mkfs.xfs"), QStringList() << QStringLiteral("-m") << QStringLiteral("crc=0") << QStringLiteral("-f")|' ${srcdir}/${pkgname}/src/modules/partition/partitionmanager/src/fs/xfs.cpp
+  
+  # toggle on/off for kf5/kde 4 builds
+  #sed -i 's|# bootloaderEntryName: KaOS-kf5|bootloaderEntryName: KaOS|' ${srcdir}/${pkgname}/src/modules/bootloader/bootloader.conf
 }
 
 build() {
@@ -47,7 +48,6 @@ build() {
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DWITH_PARTITIONMANAGER=1 \
     -DCMAKE_INSTALL_LIBDIR=lib 
   make
 }
