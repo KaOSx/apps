@@ -2,7 +2,7 @@
 pkgname=sigil
 _pkgname=Sigil
 _commit=adef8f662a1cd85675bed7f45b156baaf20c85e2
-pkgver=0.8.80
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="A multi-platform WYSIWYG ebook editor. It is designed to edit books in ePub format. "
 arch=('x86_64')
@@ -14,13 +14,13 @@ makedepends=('cmake' 'boost' 'qt5-tools' 'clang')
 #options=('debug')
 groups=('office')
 install=sigil.install
-#source=("https://github.com/user-none/Sigil/archive/$pkgver.tar.gz")
-source=("https://github.com/Sigil-Ebook/Sigil/archive/${_commit}.zip")
-md5sums=('b8e7744846803169db9e05621d6e7956')
+source=("https://github.com/user-none/Sigil/archive/$pkgver.tar.gz")
+#source=("https://github.com/Sigil-Ebook/Sigil/archive/${_commit}.zip")
+md5sums=('c46c392d5220cdd48c5026b6f8d6a0a6')
 
 
 build() {
-  cd ${srcdir}/${_pkgname}-${_commit}
+  cd ${srcdir}/${_pkgname}-${pkgver}
   mkdir build 
   cd build
   
@@ -35,7 +35,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/${_pkgname}-${_commit}/build
+  cd ${srcdir}/${_pkgname}-${pkgver}/build
   make install DESTDIR=$pkgdir
 
   # Desktop integration.
