@@ -1,18 +1,18 @@
 
 pkgname=seafile
 pkgver=4.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Open source cloud storage with advanced features on privacy protection and teamwork."
 arch=('x86_64')
 url="https://github.com/haiwen/seafile/"
 license=('GPLv3')
 depends=('ccnet' 'fuse' 'python2')
 makedepends=('intltool' 'vala')
-source=("https://github.com/haiwen/seafile/archive/v${pkgver}-server.tar.gz")
-md5sums=('ffe22390c2a97961acc7aadf325f7639')
+source=("https://github.com/haiwen/seafile/archive/v${pkgver}.tar.gz")
+md5sums=('6110af59556ed8c403242d93be013657')
 
 build() {
-  cd ${srcdir}/${pkgname}-${pkgver}-server
+  cd ${srcdir}/${pkgname}-${pkgver}
 
   ./autogen.sh
   ./configure --prefix=/usr
@@ -20,7 +20,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/${pkgname}-${pkgver}-server
+  cd ${srcdir}/${pkgname}-${pkgver}
 
   make DESTDIR=${pkgdir} install
 }

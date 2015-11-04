@@ -1,7 +1,7 @@
 
 pkgname=python2-pyside
-_pkgname=pyside
-pkgver=1.2.2
+_pkgname=PySide
+pkgver=1.2.4
 pkgrel=1
 pkgdesc="Provides LGPL Qt bindings for Python and related tools for binding generation."
 arch=('x86_64')
@@ -10,18 +10,11 @@ url="http://www.pyside.org"
 _qtver=4.8
 depends=('qt' 'phonon' 'qtwebkit' "shiboken>=${pkgver}")
 makedepends=('cmake')
-source=("http://download.qt-project.org/official_releases/pyside/pyside-qt${_qtver}+${pkgver}.tar.bz2"
-        "CMakeLists.patch")
-md5sums=('1969c2ff90eefaa4b200d234059d2287'
-         'f07ba9bebf9bd038cb1033c4624c92a2')
-
-prepare() {
-  cd $srcdir
-  patch ${_pkgname}-qt${_qtver}+$pkgver/CMakeLists.txt < CMakeLists.patch 
-}
+source=("https://github.com/PySide/PySide/archive/${pkgver}.tar.gz")
+md5sums=('c28563e1f3c3ce269a7cc634f97d271c')
 
 build () {
-  cd $srcdir/${_pkgname}-qt${_qtver}+$pkgver/
+  cd ${_pkgname}-${pkgver}
   mkdir -p build 
   cd build
   
@@ -32,7 +25,7 @@ build () {
 }
 
 package() {
-    cd $srcdir/${_pkgname}-qt${_qtver}+$pkgver/build
+    cd ${_pkgname}-${pkgver}/build
     
     make DESTDIR=$pkgdir install
 }
