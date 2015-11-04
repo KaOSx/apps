@@ -2,8 +2,8 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='http://www.mozilla.org/projects/firefox'
-pkgver=41.0.2
-pkgrel=2
+pkgver=42.0
+pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
 groups=('network')
@@ -20,7 +20,7 @@ source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source
         'firefox-install-dir.patch'
         'vendor.js'
         'freetype.patch')
-md5sums=('d71f0f761c51aeae03e367001afc9f8d'
+md5sums=('d610bf10a75afb4734045e1a43d8eba4'
          '9a69c9277dfe4357018c4ff0451ca626'
          '174a2a286e32d5c9a48f51a18ffa4e6c'
          'dbf14588e85812ee769bd735823a0146'
@@ -28,7 +28,7 @@ md5sums=('d71f0f761c51aeae03e367001afc9f8d'
          '9cc39c983f88318669884e1fb80c6320')
 
 prepare() {
-  cd mozilla-release
+  cd $pkgname-$pkgver
 
   cp ../mozconfig .mozconfig
   patch -p1 -i ${srcdir}/firefox-install-dir.patch
@@ -38,7 +38,7 @@ prepare() {
 }
 
 build() {
-  cd mozilla-release
+  cd $pkgname-$pkgver
 
   export PATH=${srcdir}/path:$PATH
 
@@ -46,7 +46,7 @@ build() {
 }
 
 package() {
-  cd mozilla-release
+  cd $pkgname-$pkgver
   make -f client.mk DESTDIR=${pkgdir} INSTALL_SDK= install
 
   install -Dm644 ../vendor.js ${pkgdir}/usr/lib/firefox/browser/defaults/preferences/vendor.js

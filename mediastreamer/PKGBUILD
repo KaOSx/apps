@@ -1,6 +1,6 @@
 
 pkgname=mediastreamer
-pkgver=2.11.2
+pkgver=2.12.0
 pkgrel=1
 pkgdesc="A library written in C that allows you to create and run audio and video streams."
 arch=('x86_64')
@@ -9,13 +9,13 @@ license=('GPL')
 depends=('ortp' 'speex' 'v4l-utils' 'ffmpeg' 'libxv' 'glew' 'libupnp')
 makedepends=('cmake' 'intltool' 'vim')
 source=("http://download-mirror.savannah.gnu.org/releases/linphone/mediastreamer/mediastreamer-$pkgver.tar.gz")
-md5sums=('8b654c3e8938d50df9e83d2e353888a6')
+md5sums=('f4570034ce3875cf238e0e1249b5ec2e')
 
 build() {
 
   cd "$srcdir"/$pkgname-$pkgver
   
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr --disable-strict
   make
 }
 
