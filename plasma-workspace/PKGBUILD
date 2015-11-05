@@ -24,21 +24,17 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.ta
         '10-kf5'
         'kde.pam'
         'kde-np.pam'
-        'kscreensaver.pam'
-        'startkde.diff')
+        'kscreensaver.pam')
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
          'beba34da9144bced3ef2a225be532109'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
-         '367a3538f54db71f108b34cfa31088ac'
-         '1e329113df88bef23b0a316dbe2a94a4')
+         '367a3538f54db71f108b34cfa31088ac')
 
 prepare () {
   cd ${srcdir}/${pkgname}-${pkgver}
   
   #sed -i 's|find_package(Prison "1.2.0" QUIET CONFIG)|find_package(KF5Prison "1.2.0" QUIET CONFIG)|' ${srcdir}/${pkgname}-${pkgver}/klipper/CMakeLists.txt
-  # https://bugs.kde.org/show_bug.cgi?id=347872
-  patch -p1 -i ${srcdir}/startkde.diff
 }         
          
 build() {
