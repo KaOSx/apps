@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
@@ -25,15 +25,13 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.ta
         'kde.pam'
         'kde-np.pam'
         'kscreensaver.pam'
-        'startkde.diff'
-        'digitalclock.diff')
+        'startkde.diff')
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
          'beba34da9144bced3ef2a225be532109'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
          '367a3538f54db71f108b34cfa31088ac'
-         '1e329113df88bef23b0a316dbe2a94a4'
-         '5b0d750627c8686d733be2e91cbcc822')
+         '1e329113df88bef23b0a316dbe2a94a4')
 
 prepare () {
   cd ${srcdir}/${pkgname}-${pkgver}
@@ -41,8 +39,6 @@ prepare () {
   #sed -i 's|find_package(Prison "1.2.0" QUIET CONFIG)|find_package(KF5Prison "1.2.0" QUIET CONFIG)|' ${srcdir}/${pkgname}-${pkgver}/klipper/CMakeLists.txt
   # https://bugs.kde.org/show_bug.cgi?id=347872
   patch -p1 -i ${srcdir}/startkde.diff
-  
-  patch -p1 -i ${srcdir}/digitalclock.diff
 }         
          
 build() {
