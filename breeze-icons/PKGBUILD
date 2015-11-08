@@ -10,7 +10,7 @@ arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/breeze-gtk'
 license=('LGPL')
 makedepends=('extra-cmake-modules')
-groups=('kf5')
+#groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/$pkgver/$pkgname-$pkgver.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
@@ -29,8 +29,7 @@ build () {
     -DLIB_INSTALL_DIR=lib \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
   make
 }
 
