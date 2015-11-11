@@ -1,8 +1,8 @@
 
 pkgbase=virtualbox
 pkgname=('virtualbox' 'virtualbox-ext-oracle')
-pkgver=5.0.8
-_build=103449
+pkgver=5.0.10
+_build=104061
 pkgrel=1
 arch=('x86_64')
 url='http://virtualbox.org/'
@@ -19,8 +19,8 @@ source=("VirtualBox-${pkgver}-${_build}-Linux_amd64.run::http://download.virtual
         'virtualbox.conf'
         'vboxsetup.sh'
         'PUEL')
-md5sums=('d4fcaf6034b3a14f7588d00d9259e690'
-         '65a06c792bf2d6a266dd86b427c82e7a'
+md5sums=('e1969a8f5ed28ef70603459d9217d6b4'
+         'b076c9b043de012526a946f39913d31b'
          '6e2722bfd7013c1b0174382626ac1b8d'
          '564ceec89e559bd98987f08e86f74825'
          '3ac185709bfe688bb753c46e170d0546'
@@ -37,7 +37,7 @@ package_virtualbox() {
   arch=('x86_64')
   license=('GPL2')
   depends=('libidl2' 'libxcursor' 'libxinerama' 'libxslt' 'curl' 'linux-headers'
-           'python2' 'make' 'gcc' 'qt')
+           'python2' 'make' 'gcc')
   optdepends=('virtualbox-ext-oracle: for Oracle extensions'
               'qt: for GUI support'
               'sdl: for VBoxSDL and GUI support'
@@ -67,9 +67,6 @@ package_virtualbox() {
     ln -sf "${_installdir}/${_lib}" "components/${_lib}"
   done
   chmod go-w .
-
-  # Patch "vboxshell.py" to use Python 2.x instead of Python 3
-  sed -i 's#/usr/bin/python#\02#' "${pkgdir}/${_installdir}/vboxshell.py"
 
   # Update new initscripts way of life in VBox.sh
   sed -i -e 's,sudo /etc/init.d/vboxdrv setup,/usr/bin/vboxsetup setup,g' \
@@ -151,17 +148,6 @@ package_virtualbox() {
 
   # Create the directory below if it doesn't exist
   #install -d -m 0755 "${pkgdir}/var/run/VirtualBox"
-
-  # Use system's Qt
-  rm ${pkgdir}/opt/VirtualBox/libQtCoreVBox.so.4 
-  rm ${pkgdir}/opt/VirtualBox/libQtGuiVBox.so.4 
-  rm ${pkgdir}/opt/VirtualBox/libQtOpenGLVBox.so.4 
-  rm ${pkgdir}/opt/VirtualBox/libQtNetworkVBox.so.4 
-  cd ${pkgdir}/opt/VirtualBox
-  ln -s /usr/lib/libQtCore.so.4 libQtCoreVBox.so.4
-  ln -s /usr/lib/libQtGui.so.4 libQtGuiVBox.so.4
-  ln -s /usr/lib/libQtOpenGL.so.4 libQtOpenGLVBox.so.4
-  ln -s /usr/lib/libQtNetwork.so.4 libQtNetworkVBox.so.4
 }
 
 package_virtualbox-ext-oracle() {
