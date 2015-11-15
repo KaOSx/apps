@@ -2,18 +2,17 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-# on spectacle rename remove libkipi dep
 pkgname=kscreengenie
 #pkgver=${_kdever}
 pkgver=15.07.92
 _pkgver=2.0.1
 pkgrel=2
 pkgdesc="The new KDE Screenshot Utility"
-url="https://projects.kde.org/projects/playground/graphics/kscreengenie"
+url="https://projects.kde.org/projects/kde/kdegraphics/spectacle"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'knotifications' 'kconfig' 'ki18n' 'kio' 'kxmlgui' 'kwidgetsaddons'
-         'kwindowsystem' 'libkipi' 'libkscreen' 'xcb-util-cursor')
+         'kwindowsystem' 'libkipi' 'libkscreen' 'xcb-util-cursor') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
 install=${pkgname}.install
 conflicts=('ksnapshot')
