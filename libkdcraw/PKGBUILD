@@ -3,27 +3,26 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkdcraw
-#pkgver=${_kdever}
-pkgver=5.0.90
-pkgrel=15
+pkgver=${_kdever}
+#pkgver=5.0.90
+pkgrel=1
 pkgdesc="A library for decoding RAW picture files"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdegraphics/libs'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kio' 'ki18n' 'kconfig' 'kwidgetsaddons' 'libjpeg-turbo' 'libraw')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
-#groups=("kde" "kdegraphics" "kde-uninstall")
+groups=('kdegraphics')
 conflicts=('kdegraphics-libkdcraw')
 provides=('kdegraphics-libkdcraw')
 replaces=('kdegraphics-libkdcraw')
-#options=('docs')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkdcraw.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/libkdcraw.git")
+#md5sums=('SKIP')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #sed -i -e 's|add_subdirectory(src)|add_subdirectory(src) add_subdirectory(data)|' ${srcdir}/${pkgname}/CMakeLists.txt
   #patch -p1 -i $srcdir/CMakeLists.diff
 }
@@ -32,7 +31,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

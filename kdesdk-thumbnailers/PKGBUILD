@@ -3,28 +3,28 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdesdk-thumbnailers
-#pkgver=${_kdever}
-pkgver=15.07.70
+pkgver=${_kdever}
+#pkgver=15.07.70
 pkgrel=1
 pkgdesc='Thumbnailers for several development files'
 url="https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-thumbnailers"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kio' 'ki18n')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-#groups=('kde' 'kdesdk' 'kde-uninstall')
+makedepends=('extra-cmake-modules' 'kdoctools')
+groups=('kdesdk')
 conflicts=('kf5-kdesdk-thumbnailers')
 replaces=('kf5-kdesdk-thumbnailers')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdesdk-thumbnailers.git#branch=frameworks")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kdesdk-thumbnailers.git#branch=frameworks")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
