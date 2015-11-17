@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=krfb
-#pkgver=${_kdever}
-pkgver=15.11.74
+pkgver=${_kdever}
+#pkgver=15.11.74
 pkgrel=1
 pkgdesc='Desktop Sharing Server'
 url='http://www.kde.org/applications/system/krfb'
@@ -12,20 +12,20 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kcompletion' 'kconfig' 'kcrash' 'kcoreaddons' 'kdnssd' 'knotifications' 'kwallet' 'kwidgetsaddons'
          'kdbusaddons' 'kxmlgui' 'libvncserver' 'libxdamage' 'ktp-common-internals')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdenetwork-krfb')
 replaces=('kdenetwork-krfb')
 groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/krfb.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/krfb.git")
+#md5sums=('SKIP')
 
 build() {
   mkdir build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

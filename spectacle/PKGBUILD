@@ -2,11 +2,11 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kscreengenie
-#pkgver=${_kdever}
-pkgver=15.07.92
-_pkgver=2.0.1
-pkgrel=2
+pkgname=spectacle
+pkgver=${_kdever}
+#pkgver=15.07.92
+#_pkgver=2.0.1
+pkgrel=
 pkgdesc="The new KDE Screenshot Utility"
 url="https://projects.kde.org/projects/kde/kdegraphics/spectacle"
 arch=('x86_64')
@@ -15,16 +15,16 @@ depends=('kcoreaddons' 'knotifications' 'kconfig' 'ki18n' 'kio' 'kxmlgui' 'kwidg
          'kwindowsystem' 'libkipi' 'libkscreen' 'xcb-util-cursor') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
 install=${pkgname}.install
-conflicts=('ksnapshot')
-replaces=('ksnapshot')
+conflicts=('ksnapshot' 'kscreengenie')
+replaces=('ksnapshot' 'kscreengenie')
 groups=('kde' 'kdegraphics' 'kde-uninstall')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("http://download.kde.org/stable/kscreengenie/2.0/src/kscreengenie-${_pkgver}.tar.xz")
-md5sums=('06d4f83ae20dcaed950c2343640b5d90')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("http://download.kde.org/stable/kscreengenie/2.0/src/kscreengenie-${_pkgver}.tar.xz")
+#md5sums=('06d4f83ae20dcaed950c2343640b5d90')
 
 prepare() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's|ksnapshot KF5::Kipi|ksnapshot KF5::KIPI|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
@@ -32,7 +32,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
