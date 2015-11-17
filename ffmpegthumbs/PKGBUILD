@@ -3,28 +3,28 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ffmpegthumbs
-#pkgver=${_kdever}
-pkgver=15.07.70
+pkgver=${_kdever}
+#pkgver=15.07.70
 pkgrel=1
 pkgdesc="ffmpeg-based thumbnail creator for video files."
 url="https://projects.kde.org/projects/kde/kdemultimedia/ffmpegthumbs"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('ffmpeg' 'kio')
-makedepends=('extra-cmake-modules' 'git')
+makedepends=('extra-cmake-modules')
 conflicts=('kdemultimedia-thumbnailers')
 replaces=('kdemultimedia-thumbnailers')
 groups=('kde' 'kdemultimedia' 'kde-uninstall')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/ffmpegthumbs.git#branch=frameworks")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/ffmpegthumbs.git#branch=frameworks")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
