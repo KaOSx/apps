@@ -1,6 +1,6 @@
 
 pkgname=sddm
-pkgver=20151104
+pkgver=20151119
 pkgrel=1
 pkgdesc="QML based X11 display manager"
 arch=('x86_64')
@@ -43,5 +43,5 @@ package() {
   
   install -m 644 -p ${srcdir}/sddm.conf ${pkgdir}/etc/
   install -d -g 136 -o 136 ${pkgdir}/var/lib/sddm
-  install -Dm644 $srcdir/wayland.desktop $pkgdir/usr/share/wayland-sessions/wayland.desktop
+  #install -Dm644 $srcdir/wayland.desktop $pkgdir/usr/share/wayland-sessions/wayland.desktop
 }
