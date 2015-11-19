@@ -1,6 +1,6 @@
 
 pkgname=liri-browser
-pkgver=0.3.9
+pkgver=0.3.10
 pkgrel=1
 pkgdesc="Minimalistic Google's Material Design web browser, relies on QtWebEngine, the brand new Qt web renderer based on Chromium"
 url="http://liriproject.me/browser/index.html#discover"
@@ -18,6 +18,7 @@ prepare() {
   cd ${pkgname}
   
   sed -i -e 's|target.path = /opt/$${TARGET}/bin|target.path = /usr/bin|' ${srcdir}/${pkgname}/deployment.pri
+  sed -i -e 's|target.path=/opt/liri-browser-build|target.path=/usr/bin|' ${srcdir}/${pkgname}/liri-browser.pro
   sed -i -e 's|property bool darkTheme: true|property bool darkTheme: false|' ${srcdir}/${pkgname}/src/qml/BaseApplication.qml
   #KaOS colors
   sed -i -e 's|primaryColor: "#F44336"|primaryColor: "#31A3DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
@@ -30,7 +31,7 @@ prepare() {
 build() {
    cd ${pkgname}
 
-   /usr/lib/qt5/bin/qmake 
+   /usr/lib/qt5/bin/qmake liri-browser.pro
    make
 }
 
@@ -46,4 +47,5 @@ package() {
   done
   
   install -m755 $srcdir/liri-browser.desktop ${pkgdir}/usr/share/applications/liri-browser.desktop
+  rm ${pkgdir}/usr/bin/liri-browser.desktop
 }
