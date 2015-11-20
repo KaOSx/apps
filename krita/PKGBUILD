@@ -1,6 +1,6 @@
 
 pkgname=krita
-pkgver=2.9.92
+pkgver=2.9.93
 pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
@@ -20,7 +20,7 @@ md5sums=('SKIP')
 prepare() {
   cd ${srcdir}/${pkgname}
   #sed -i 's|add_subdirectory(animation)|#add_subdirectory(animation)|' krita/plugins/extensions/dockers/CMakeLists.txt
-  #patch -p1 -i $srcdir/qt55.diff
+  #patch -p1 -i $srcdir/desktop_files.patch
 }
 
 build() {
@@ -47,7 +47,7 @@ package() {
   
   make DESTDIR=${pkgdir} install
   
-  #rm -r ${pkgdir}/usr/share/calligra
+  #sed -i 's|X-DBUS-StartupType=Multi|#X-DBUS-StartupType=Multi|' ${pkgdir}/usr/share/applications/krita*.desktop
   #rm -r ${pkgdir}/usr/share/icons/oxygen
 }
 

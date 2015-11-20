@@ -2,7 +2,7 @@
 # build twice, when building on the server, j8 fails to honor without wx first time
 
 pkgname=grass
-pkgver=6.4.5
+pkgver=7.0.2
 pkgrel=1
 pkgdesc='Geographic Information System (GIS) used for geospatial data management and analysis, image processing, graphics/maps production, spatial modeling, and visualization.'
 arch=('x86_64')
@@ -20,10 +20,10 @@ optdepends=('fftw: required for i.fft and i.ifft modules'
 options=('!libtool' '!makeflags')
 groups=('graphics')
 install='grass.install'
-source=("http://grass.osgeo.org/grass64/source/${pkgname}-${pkgver}.tar.gz"
+source=("http://grass.osgeo.org/grass70/source/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}.sh"
         "${pkgname}.conf")
-md5sums=('c58ab8db635ebd06cfd93dce7b70b6cb'
+md5sums=('1f2c8f5cba2fe2d681a01b9519180e9e'
          '23da2e9399b3c5504851dec37821abe1'
          '6103480c2a1adc19a50b9e925e5e6d4c')
 
@@ -42,8 +42,13 @@ build() {
     --with-python \
     --with-blas \
     --with-lapack \
+    --with-readline \
+    --with-pthread \
+    --with-netcdf \
+    --with-nls \
     --with-geos \
     --with-cairo \
+    --with-postgres \
     --with-proj-libs=/usr/lib \
     --with-proj-includes=/usr/include \
     --with-proj-share=/usr/share/proj \
