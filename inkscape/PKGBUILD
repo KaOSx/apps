@@ -18,11 +18,14 @@ md5sums=('278dfa4514adcde23546370ec2c84581')
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   sed -i '/extern unsigned GC_version;/c unsigned GC_version=GC_VERSION_MAJOR<<16+GC_VERSION_MINOR<<8+GC_VERSION_MICRO;' configure
+  # needed for newer libsic++, glibmm, don't use older libsigc++ to build any longer
+  CXXFLAGS+=' -std=c++11'
 
   ./configure --prefix=/usr \
               --enable-lcms \
               --enable-poppler-cairo \
-              --disable-dependency-tracking
+              --disable-dependency-tracking \
+              --disable-strict-build
 
   make
 }
