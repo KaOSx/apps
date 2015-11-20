@@ -15,11 +15,10 @@ optdepends=('fftw: required for i.fft and i.ifft modules'
             'postgresql: PostgreSQL database interface'
             'r: R language interface'
             'lapack: required for GMATH library'
-            'blas: required for GMATH library'
             'xorg-server: required for the graphical interface')
 options=('!libtool' '!makeflags')
 groups=('graphics')
-install='grass.install'
+#install='grass.install'
 source=("http://grass.osgeo.org/grass70/source/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}.sh"
         "${pkgname}.conf")
@@ -29,10 +28,14 @@ md5sums=('1f2c8f5cba2fe2d681a01b9519180e9e'
 
 build() {
   cd ${pkgname}-${pkgver}
+  sed -i '/^\s*INSTDIR/ s/".*"//' configure
+  export CFLAGS="$CPPFLAGS $CFLAGS"
+  export CXXFLAGS="$CPPFLAGS $CXXFLAGS"
+  unset CPPFLAGS
 
   # see ${srcdir}/grass-6.4.0/REQUIREMENTS.html for options
   ./configure --enable-64bit \
-    --prefix=/opt \
+    --prefix=/opt/grass \
     --with-mysql-includes=/usr/include/mysql \
     --with-mysql \
     --with-sqlite \
@@ -67,26 +70,13 @@ package() {
   cd ${pkgname}-${pkgver}
 
   make \
-    INST_DIR=${pkgdir}/opt/grass-${pkgver} \
+    exec_prefix=$pkgdir/usr \
+    INST_DIR=${pkgdir}/opt/grass \
     BINDIR=${pkgdir}/usr/bin \
     install
 
-  # fix $GISBASE path
-  sed -i "s|GISBASE=${pkgdir}/opt/grass-${pkgver}|GISBASE=/opt/grass-${pkgver}|g" ${pkgdir}/usr/bin/grass64
-
-  # strip html docs
-  #rm -r ${pkgdir}/opt/grass-${pkgver}/docs/html
-
-  # install profile.d file
-  install -D ${srcdir}/grass.sh ${pkgdir}/etc/profile.d/grass.sh
-
-  # install some freedesktop.org compatibility
-   install -D -m644 gui/icons/grass.desktop ${pkgdir}/usr/share/applications/grass.desktop
-
-  sed -i -e 's/grass65/grass64/' -e 's_/usr/share/icons_/usr/share/pixmaps_' \
-    ${pkgdir}/usr/share/applications/grass.desktop
-
-  install -D -m644 gui/icons/grass-48x48.png ${pkgdir}/usr/share/pixmaps/grass-48x48.png
+  install -D -m644 gui/icons/grass-48x48.png ${pkgdir}/usr/share/icons/hicolor/48x48/apps/grass.png
+  install -D -m644 gui/icons/grass-64x64.png $pkgdir/usr/share/icons/hicolor/64x64/apps/grass.png
 
   install -D -m644 ${srcdir}/grass.conf ${pkgdir}/etc/ld.so.conf.d/grass.conf
 }
