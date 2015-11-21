@@ -1,25 +1,25 @@
 
 pkgname=libkgapi
-pkgver=5.0.0
+pkgver=5.39.80
 pkgrel=1
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
 url='https://projects.kde.org/projects/extragear/libs/libkgapi'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kio' 'kwindowsystem' 'kcalcore' 'kcontacts')
-makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'boost')
+makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'boost' 'git')
 conflicts=('kf5-libkgapi')
 replaces=('kf5-libkgapi')
 provides=('kf5-libkgapi')
-source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-#source=("git://anongit.kde.org/libkgapi")
-md5sums=('beeb6a9a147f6477cd3303e85fb5c440')
+#source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+source=("git://anongit.kde.org/libkgapi")
+md5sums=('SKIP')
 
 build() {
   mkdir build
   
   cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \

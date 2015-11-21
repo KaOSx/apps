@@ -26,7 +26,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 build() {
   cd $pkgname-${pkgver}
   #patch -p1 -i $srcdir/qt55.diff
-  sed -i -e 's|quazip5|quazip|' ${srcdir}/${pkgname}-${pkgver}/cmake/modules/Findquazip.cmake
+  #sed -i -e 's|quazip5|quazip|' ${srcdir}/${pkgname}-${pkgver}/cmake/modules/Findquazip.cmake
   
   mkdir build
   
@@ -47,8 +47,8 @@ package() {
   cd $pkgname-${pkgver}/build
   make DESTDIR="$pkgdir" install
   
-  rm ${pkgdir}/usr/share/applications/marble-mobile.desktop
-  rm ${pkgdir}/usr/share/applications/marble-touch.desktop
+  #rm ${pkgdir}/usr/share/applications/marble-mobile.desktop
+  #rm ${pkgdir}/usr/share/applications/marble-touch.desktop
   rm ${pkgdir}/usr/share/applications/marble_gpx.desktop
   rm ${pkgdir}/usr/share/applications/marble_kml.desktop
   rm ${pkgdir}/usr/share/applications/marble_osm.desktop
