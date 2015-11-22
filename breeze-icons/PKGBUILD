@@ -4,14 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=breeze-icons
 pkgver=${_kf5ver}
-pkgrel=1
-pkgdesc='Widget theme for GTK 2 and 3'
+pkgrel=2
+pkgdesc='Breeze icon theme.'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/breeze-gtk'
+url='https://projects.kde.org/projects/frameworks/breeze-icons'
 license=('LGPL')
+depends=('qt5-base')
 makedepends=('extra-cmake-modules')
 #groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/$pkgver/$pkgname-$pkgver.tar.xz")
+source=("http://download.kde.org/stable/frameworks/5.16/$pkgname-$pkgver.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare () {
