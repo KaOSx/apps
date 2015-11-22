@@ -1,6 +1,6 @@
 
 pkgname=calligra
-pkgver=2.9.106
+pkgver=2.9.107
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -93,5 +93,7 @@ package() {
   cd ${srcdir}/build
   
   make DESTDIR=${pkgdir} install
+  
+  sed -i 's|X-DBUS-StartupType=Multi|#X-DBUS-StartupType=Multi|' ${pkgdir}/usr/share/applications/*.desktop
 }
 
