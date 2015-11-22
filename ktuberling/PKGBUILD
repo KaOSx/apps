@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktuberling
-#pkgver=${_kdever}
-pkgver=15.03.70
+pkgver=${_kdever}
+#pkgver=15.03.70
 pkgrel=1
 pkgdesc="Potato-Man, constructor game suitable for children and adults alike"
 arch=('x86_64')
@@ -13,17 +13,17 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kconfig' 'kitemmodels' 'kwidgetsaddons' 'kwindowsystem' 'kdbusaddons' 'ki18n'
          'kconfigwidgets' 'ktextwidgets' 'kxmlgui' 'kio' 'knotifyconfig' 'knewstuff' 'kdelibs4support'
          'libkdegames' 'phonon-qt5')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdegames' 'kde-uninstall' 'kaos-kids')
 conflicts=('kdegames-ktuberling')
 replaces=('kdegames-ktuberling')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/ktuberling#branch=frameworks")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/ktuberling#branch=frameworks")
+#md5sums=('SKIP')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #sed -i -e 's|add_subdirectory( doc )|#add_subdirectory( doc )|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
@@ -31,7 +31,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

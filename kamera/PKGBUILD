@@ -3,28 +3,28 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kamera
-#pkgver=${_kdever}
-pkgver=15.11.71
+pkgver=${_kdever}
+#pkgver=15.11.71
 pkgrel=1
 pkgdesc="Configure your Kamera"
 arch=('x86_64')
 url="http://kde.org/applications/graphics/kamera/"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfigwidgets' 'kxmlgui' 'kio' 'ki18n' 'kconfig' 'libgphoto2')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdegraphics' 'kde-uninstall' 'graphics')
 provides=('kdegraphics-kamera')
 replaces=('kdegraphics-kamera')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kamera.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kamera.git")
+#md5sums=('SKIP')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

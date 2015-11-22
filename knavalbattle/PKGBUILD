@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=knavalbattle
-#pkgver=${_kdever}
-pkgver=15.07.70
+pkgver=${_kdever}
+#pkgver=15.07.70
 pkgrel=1
 pkgdesc="Naval Battle"
 arch=('x86_64')
@@ -14,14 +14,14 @@ depends=('libkdegames' 'kcoreaddons' 'kconfig' 'kwidgetsaddons' 'kcodecs' 'karch
          'kdnssd' 'kdeclarative' 'ki18n' 'kguiaddons' 'kservice' 'kconfigwidgets' 'kitemviews' 'kiconthemes'
          'kcompletion' 'kjobwidgets' 'ktextwidgets' 'kglobalaccel' 'kxmlgui' 'kcrash' 'kbookmarks' 'kio'
          'knotifyconfig' 'knewstuff' 'kdelibs4support' 'phonon-qt5')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdegames' 'kde-uninstall')
 conflicts=('kdegames-knavalbattle')
 replaces=('kdegames-knavalbattle')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/knavalbattle#branch=frameworks")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/knavalbattle#branch=frameworks")
+#md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
@@ -30,7 +30,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

@@ -9,7 +9,7 @@ arch=('x86_64')
 pkgdesc="Project that aims to bring together anything to do with personal information management."
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-depends=('grantlee-qt5' 'phonon-qt5' 'qt5-tools' 'prison' 'libkgapi' 'qtwebengine' # fails with Qt5.5.1 'qtspeech'
+depends=('grantlee' 'phonon-qt5' 'qt5-tools' 'prison' 'libkgapi' 'qt5-webkit' # fails with Qt5.5.1 'qtspeech'
          #frameworks
          'kdelibs4support' 'kwallet' 'knewstuff' 'kcmutils' 'kdewebkit' 'karchive' 'knotifyconfig'
          'kconfig' 'khtml' 'kservice' 'kdbusaddons' 'kauth' 'ktexteditor' 'kdnssd' 'kcodecs' 'kglobalaccel'
@@ -76,7 +76,7 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE \
     -DKDEPIM_NO_TEXTTOSPEECH=TRUE
-  make VERBOSE=1
+  make #VERBOSE=1
 }
 
 package() {

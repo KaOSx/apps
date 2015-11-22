@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdenetwork-filesharing
-#pkgver=${_kdever}
-pkgver=15.07.71
+pkgver=${_kdever}
+#pkgver=15.07.71
 pkgrel=1
 pkgdesc='Properties dialog plugin to share a directory with the local network'
 url='https://projects.kde.org/projects/kde/kdenetwork/kdenetwork-filesharing'
@@ -13,16 +13,16 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kio' 'kdbusaddons' 'kbookmarks' 'kconfig'
          'kparts' 'solid' 'kiconthemes' 'kcompletion' 'ktexteditor' 'kwindowsystem' 'knotifications'
          'kwidgetsaddons'  'kdelibs4support' 'samba')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
 install=${pkgname}.install
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdenetwork-filesharing.git#branch=frameworks")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kdenetwork-filesharing.git#branch=frameworks")
+#md5sums=('SKIP')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${pkgver}
   #patch -p1 -i ${srcdir}/cmake.diff
 }
 
@@ -30,7 +30,7 @@ build() {
   mkdir build 
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
