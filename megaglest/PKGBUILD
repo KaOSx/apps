@@ -2,19 +2,19 @@
 pkgname=megaglest
 pkgver=3.11.1
 pkgrel=2
-_commit=3a09d8e
 pkgdesc="Entertaining free (freeware and free software) and open source cross-platform 3D real-time strategy (RTS) game"
 arch=('x86_64')
 url="https://github.com/MegaGlest/megaglest-source"
 license=('GPL3')
 depends=('curl' 'megaglest-data' 'xerces-c' 'sdl' 'libvorbis' 'openal' 'libgl' 'lua' 'icu' 'ftgl' 'glew'
-         'miniupnpc' 'qt5-base' 'glu' 'libx11' 'vlc')
+         'miniupnpc' 'glu' 'libx11' 'vlc')
 makedepends=('ftjam' 'cmake' 'git')
-source=("https://github.com/basxto/megaglest-source/tarball/qt4/megaglest-source-${pkgver}.tar.gz")
+#source=("https://github.com/basxto/megaglest-source/tarball/qt4/megaglest-source-${pkgver}.tar.gz")
+source=("https://github.com/MegaGlest/megaglest-source/archive/${pkgver}.tar.gz")
 md5sums=('7ab65c86683f7d503e64f37be3cc4ab4')
 
 build() {
-  cd basxto-megaglest-source-${_commit}
+  cd megaglest-source-${pkgver}
 
   mkdir build 
   cd build
@@ -24,13 +24,15 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_CXX_FLAGS="-lX11" \
     -DWANT_GIT_STAMP=0 \
-    -DUSE_QT5=ON 
-    #-QT_FORCED_VERSION=5
+    -DBUILD_MEGAGLEST_MAP_EDITOR=Off \
+    -DBUILD_MEGAGLEST_MODEL_IMPORT_EXPORT_TOOLS=Off \
+    -DBUILD_MEGAGLEST_MODEL_VIEWER=Off
+    
   make VERBOSE=1
 }
 
 package() {
-  cd basxto-megaglest-source-${_commit}/build
+  cd megaglest-source-${pkgver}/build
 
   make DESTDIR="$pkgdir" install
 }
