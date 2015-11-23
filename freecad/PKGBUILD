@@ -1,7 +1,7 @@
 
 pkgname=freecad
 pkgver=0.15.4671
-pkgrel=2
+pkgrel=3
 pkgdesc='A general purpose 3D CAD modeler'
 arch=('x86_64')
 url='http://www.freecadweb.org/'
@@ -19,6 +19,7 @@ md5sums=('7afa95d3e8cd845bef83202e76db7f24'
          '0a4d0635dbd97d9f594ac8e927284316'
          'c2f4154c8e4678825411de8e7fa54c6b')
 
+         
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}/"
 
@@ -26,6 +27,7 @@ build() {
   cd build
 
   cmake -DCMAKE_INSTALL_PREFIX:PATH=/opt/${pkgname} .. \
+        -DCMAKE_BUILD_TYPE=Release \
   	-DOCC_INCLUDE_DIR:PATH=/opt/opencascade/inc/ \
 	-DFREECAD_USE_EXTERNAL_PIVY:BOOL=ON
   make
