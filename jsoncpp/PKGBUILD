@@ -1,7 +1,7 @@
 
 pkgname=jsoncpp
 pkgver=1.6.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A JSON C++ library"
 url='https://github.com/open-source-parsers/jsoncpp'
 license=('custom:Public_Domain')
@@ -14,22 +14,20 @@ md5sums=('2bb16bb8d2b867acbdd71d1855062a89'
          'c57797dc180b10b85c9a99c1606acc40')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  #patch -p1 -i $srcdir/e6f1cffdd3fb04a0ed96319e6f8df6a7cbdd1557.patch
+  mkdir -p build
+  cd build
   
-  mkdir -p build/debug
-  cd build/debug
-  
-  cmake -DCMAKE_BUILD_TYPE=debug \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DJSONCPP_LIB_BUILD_SHARED=ON -G "Unix Makefiles" ../..
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_SHARED_LIBS=ON 
   make
 }
 
 package() {
-  cd ${pkgname}-${pkgver}/build/debug
+  cd build
   make DESTDIR=${pkgdir} install
   
-  cd ../..
+  cd ../${pkgname}-${pkgver}
   install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }

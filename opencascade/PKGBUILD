@@ -1,20 +1,19 @@
 
 pkgname=opencascade
-pkgver=6.8.0
-pkgrel=1
-epoch=1
+pkgver=6.9.1
+pkgrel=2
 pkgdesc="Open CASCADE Technology, 3D modeling & numerical simulation"
 arch=('x86_64')
 url="http://www.opencascade.org"
 license=('custom')
-depends=('tk' 'mesa' 'java-runtime' 'libxmu' 'ftgl')
+depends=('tk' 'mesa' 'java-runtime' 'libxmu' 'ftgl' 'vtk')
 makedepends=('java-environment')
 options=('!libtool')
-source=("http://files.opencascade.com/OCCT/OCC_${pkgver}_release/$pkgname-${pkgver}.tgz"
+source=("http://files.opencascade.com/occt/OCC_${pkgver}_release/$pkgname-${pkgver}.tgz"
         'env.sh'
         'opencascade.sh'
         'opencascade.conf')
-md5sums=('af0c31c8b45ca520c052408d99d9b9b1'
+md5sums=('ba87fe9f5ca47e3dfd62aad7223f0e7f'
          'a96f28ee7f4273ae1771ee033a2a3af3'
          'd9368b8d348ced3ec4462012977552d2'
          '2924ecf57c95d25888f51071fdc72ad0')
@@ -30,8 +29,12 @@ build() {
   # fix for automake 1.13
   sed -i -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/' configure.ac
   ./build_configure
-  ./configure --disable-debug --enable-production \
-    --with-java-include=${JAVA_HOME}/include --prefix="$pkgdir/opt/$pkgname"
+  ./configure --disable-debug \
+    --enable-production \
+    --with-java-include=${JAVA_HOME}/include \
+    --with-vtk-library=/usr/lib/ \
+    --with-vtk-include=/usr/include/vtk/ \
+    --prefix="$pkgdir/opt/$pkgname"
   make
 }
 
