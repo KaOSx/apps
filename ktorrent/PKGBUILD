@@ -1,41 +1,36 @@
 
 pkgname=ktorrent
-pkgver=4.3.1.1
-pkgrel=4
+pkgver=4.3.70
+pkgrel=1
 ktorver=4.3.1
 pkgdesc="A BitTorrent program for KDE"
 arch=('x86_64')
 url="http://ktorrent.pwsp.net/"
 license=('GPL2')
-depends=('kdelibs' 'taglib' 'libktorrent')
-makedepends=('cmake' 'automoc4' 'docbook-xsl' 'boost' 'git')
+depends=('kdelibs4support' 'ki18n' 'kio' 'kxmlgui' 'knotifications' 'knotifyconfig' 'solid'
+         'kconfig' 'kcoreaddons' 'kross' 'sonnet' 'kdbusaddons' 'kcrash' 'taglib' 'libktorrent')
+makedepends=('extra-cmake-modules' 'boost' 'kdoctools' 'git')
 categories=('network')
 options=('libtool')
 #source=("http://ktorrent.pwsp.net/downloads/${ktorver}/ktorrent-${ktorver}.tar.bz2"
-source=('http://quickgit.kde.org/?p=ktorrent.git&a=snapshot&h=adc3370e759e8f6f7100b24f46f3a73bafc0d195&fmt=tbz2'
-        'desktop.diff')
-md5sums=('c0d0caee6135f1cb9dd6e9d8b5e56fb6'
-         '02a4066af90062e1f30bc576c825c000')
-
-prepare() {
-	cd "${srcdir}/${pkgname}"
-	#patch -p1 -i "${srcdir}"/desktop.diff
-}
+source=('git://anongit.kde.org/ktorrent#branch=frameworks')
+md5sums=('SKIP')
 
 build() {
-	cd "${srcdir}"
-	mkdir build
-	
-	cd build
-	cmake ../${pkgname} \
-	  -DCMAKE_BUILD_TYPE=Release \
-	  -DCMAKE_INSTALL_PREFIX=/usr \
-	  -DENABLE_SYNDICATION_PLUGIN=false
-	make
+  cd ${srcdir}
+  mkdir build
+  
+  cd build
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
+  make
 }
 
 package() {
-	cd "${srcdir}/build"
-	
-	make DESTDIR="${pkgdir}" install
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
 }
