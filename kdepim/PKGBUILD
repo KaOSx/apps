@@ -18,7 +18,7 @@ depends=('grantlee' 'phonon-qt5' 'qt5-tools' 'prison' 'libkgapi' 'qt5-webkit' # 
          'kcontacts' 'kcalcore' 'kidentitymanagement' 'kldap' 'kmailtransport' 'kcalutils' 'kontactinterface'
          'kholidays' 'ktnef' 'kimap' 'kmbox' 'akonadi-calendar' 'syndication' 'gpgmepp' 'kalarmcal' 'kmime'
          'kxmlrpcclient' 'kblog' 'kdepimlibs' 'akonadi-search' 'kdepim-runtime')
-makedepends=('boost' 'extra-cmake-modules' 'kdoctools' 'clang')
+makedepends=('boost' 'extra-cmake-modules' 'kdoctools') # 'clang')
 conflicts=('kf5-kdepim'
            'kdepim-common'
            'kdepim-akonadiconsole'
@@ -50,25 +50,27 @@ replaces=('kf5-kdepim'
           'kdepim-korganizer'
           'kdepim-ktimetracker')
 install=kdepim.install
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
+#source=($_mirror/${pkgname}-${_kdever}.tar.xz
+source=("http://quickgit.kde.org/?p=kdepim.git&a=snapshot&h=f193321078488cff03afbbd14bc8fe71afed79a7&fmt=tbz2"
         'CMakeLists.diff')
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=('3b723f5695ddd1186489708d233fe0b4'
         '69c05e3495c13fde4b06e08ae8a8b4cc')
 
-prepare() {
-  cd $pkgname-${pkgver}
+#prepare() {
+#  cd $pkgname-${pkgver}
   #sed -i 's|add_subdirectory(korganizer)|#add_subdirectory(korganizer)|' ${srcdir}/$pkgname/CMakeLists.txt
-  patch -p1 -i $srcdir/CMakeLists.diff
-}
+  #patch -p1 -i $srcdir/CMakeLists.diff
+#}
 
 build() {
   mkdir build
   
-  export CC=/usr/bin/clang
-  export CXX=/usr/bin/clang++
+  #export CC=/usr/bin/clang
+  #export CXX=/usr/bin/clang++
   
   cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -79,7 +81,7 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE \
     -DKDEPIM_NO_TEXTTOSPEECH=TRUE
-  make #VERBOSE=1
+  make VERBOSE=1
 }
 
 package() {
