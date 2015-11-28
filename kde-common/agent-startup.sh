@@ -11,7 +11,7 @@
 # properly kill the agents when the session ends.
 
 if [ -x /usr/bin/gpg-agent ]; then
-  eval "$(/usr/bin/gpg-agent --daemon --pinentry-program /usr/bin/pinentry-qt4)"
+  eval "$(/usr/bin/gpg-agent --daemon --pinentry-program /usr/bin/pinentry-qt)"
 fi 
 #
 if [ -x /usr/bin/ssh-agent ]; then
