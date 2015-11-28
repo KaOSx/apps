@@ -1,0 +1,35 @@
+
+pkgname=zulucrypt
+_pkgname=zuluCrypt
+pkgver=4.7.7
+pkgrel=1
+pkgdesc="Simple,feature rich and powerful solution for hard drives encryption."
+url="http://mhogomchungu.github.io/zuluCrypt/"
+arch=('x86_64')
+license=('GPL') 
+depends=('cryptsetup' 'libpwquality' 'libsecret' 'libxkbcommon' 'qt5-base' 'kwalletmanager')
+makedepends=('cmake')
+source=("https://github.com/mhogomchungu/zuluCrypt/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.xz") 
+md5sums=('1fca343dcb5dcc3410303fc41c6ca9da')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${_pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr/ \
+    -DCMAKE_BUILD_TYPE=release \
+    -DLIB_SUFFIX=lib \
+    -DNOGUI=OFF \
+    -DQT5=ON \
+    -DHOMEMOUNTPREFIX=OFF \
+    -DNOKDE=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=$pkgdir install
+}
+
