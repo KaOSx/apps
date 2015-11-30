@@ -1,14 +1,14 @@
 
 pkgname=gimp
-pkgver=2.8.16
-_pkgver=2.8
+pkgver=2.9.2
+_pkgver=2.9
 pkgrel=1
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
 url="http://www.gimp.org/"
 license=('GPL3' 'LGPL3')
 depends=('pygtk' 'lcms' 'libxpm' 'libwmf' 'librsvg' 'libmng' 'libgudev' 'dbus-glib' 
-         'jasper' 'libexif' 'gegl' 'desktop-file-utils' 'hicolor-icon-theme')
+         'jasper' 'libexif' 'gegl' 'desktop-file-utils' 'hicolor-icon-theme' 'gexiv2')
 makedepends=('intltool' 'webkitgtk2' 'poppler-glib' 'alsa-lib' 'iso-codes' 'curl' 'ghostscript')
 optdepends=('gutenprint: for sophisticated printing only as gimp has built-in cups print support'
             'webkitgtk2: for the help browser or web-page plug-ins'
@@ -19,22 +19,19 @@ options=('!libtool' '!makeflags')
 install=gimp.install
 source=("http://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${pkgver}.tar.bz2"
         'linux.gpl')
-md5sums=('30e0a1b7c18b0e3415f4ac54567252ac'
+md5sums=('aa8a846a497e3328c5b7d2fd33f5cf63'
          'bb27bc214261d36484093e857f015f38')
 
 build() {
   cd "${srcdir}/gimp-${pkgver}"
-  sed -e "s|gegl-0.2 >= 0.2.0|gegl-0.3 >= 0.3.0|" -i ${srcdir}/gimp-${pkgver}/configure
+  #sed -e "s|gegl-0.2 >= 0.2.0|gegl-0.3 >= 0.3.0|" -i ${srcdir}/gimp-${pkgver}/configure
   
   ./configure --prefix=/usr \
     --sysconfdir=/etc \
     --enable-mp \
     --enable-gimp-console \
     --enable-python \
-    --with-libcurl \
-    --with-gif-compression=lzw \
-    --without-aa \
-    --without-gvfs
+    --without-aa 
   make
 }
 
