@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kamoso
-pkgver=3.0
-_pkgver=3.0
+pkgver=3.1.0
+_pkgver=3.1
 pkgrel=1
 pkgdesc="Kamoso is an application to take pictures and videos out of your webcam."
 url="https://projects.kde.org/projects/extragear/multimedia/kamoso"
@@ -17,11 +17,11 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 #groups=('multimedia')
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/kamoso.git#branch=frameworks")
-source=("http://download.kde.org/stable/kamoso/${_pkgver}/src/kamoso-${_pkgver}.tar.xz")
-md5sums=('29f09cf9f6c6cb14989c3c0a8580d175')
+source=("http://download.kde.org/stable/kamoso/${_pkgver}/src/kamoso-${pkgver}.tar.xz")
+md5sums=('923af7f7e13caec1082efd9a04670409')
 
 prepare() {
-  cd $pkgname-${_pkgver}
+  cd $pkgname-${pkgver}
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
 }
 
@@ -29,7 +29,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
