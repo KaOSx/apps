@@ -1,11 +1,11 @@
 
 pkgname=calligra
-pkgver=2.9.107
+pkgver=2.9.108
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
-depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kitemmodels' 'kitemviews' 'kwidgetsaddons'
+depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons' 'ki18n' 'kitemmodels' 'kitemviews' 'kwidgetsaddons'
          'threadweaver' 'kcompletion' 'kiconthemes' 'kparts' 'kxmlgui' 'kross' 'kemoticons' 'kconfigwidgets' 'ktexteditor' 
          'kdelibs4support' 'eigen3' 'freetds' 'xbase' 'libpqxx' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'glew' 'gsl' 
          'lcms2' 'libmariadbclient' 'opencolorio' 'libodfgen' 'poppler-qt5' 'libspnav' 'fftw' 'hicolor-icon-theme' 
@@ -62,11 +62,6 @@ md5sums=('SKIP'
 
 prepare() {
   cd ${srcdir}/${pkgname}
-  sed -i 's|X-DBUS-StartupType=Multi|#X-DBUS-StartupType=Multi|' words/part/author/author.desktop
-  sed -i 's|X-DBUS-StartupType=Multi|#X-DBUS-StartupType=Multi|' braindump/data/braindump.desktop
-  sed -i 's|X-DBUS-StartupType=Multi|#X-DBUS-StartupType=Multi|' sheets/sheets.desktop
-  sed -i 's|X-DBUS-StartupType=Multi|#X-DBUS-StartupType=Multi|' stage/app/stage.desktop
-  sed -i 's|X-DBUS-StartupType=Multi|#X-DBUS-StartupType=Multi|' words/app/words.desktop
   #patch -p1 -i $srcdir/qt55.diff
   patch -p1 -i $srcdir/libwps-0.4.patch
 }
