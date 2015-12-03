@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
-  sed -e "s|CommandURL=ksnapshot|CommandURL=kscreengenie|" -i ${srcdir}/$pkgname-$pkgver/data/printscreen.khotkeys
+  #sed -e "s|CommandURL=ksnapshot|CommandURL=kscreengenie|" -i ${srcdir}/$pkgname-$pkgver/data/printscreen.khotkeys
   cd build
   
   cmake ../${pkgname}-$pkgver \
