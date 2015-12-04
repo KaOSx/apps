@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kate
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Advanced editor component which is used in numerous KDE applications requiring a text editing component'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/kate'
@@ -15,10 +15,8 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdesdk-kate' 'kdesdk-kate-debug')
 replaces=('kdesdk-kate' 'kdesdk-kate-debug')
 provides=('kdesdk-kate')
-source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        'org.kde.kate.desktop')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '74cc96d80949fc8973e4d542ba17193b')
+source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}

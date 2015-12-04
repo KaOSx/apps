@@ -50,12 +50,8 @@ replaces=('kf5-kdepim'
           'kdepim-korganizer'
           'kdepim-ktimetracker')
 install=kdepim.install
-#source=($_mirror/${pkgname}-${_kdever}.tar.xz
-source=("http://quickgit.kde.org/?p=kdepim.git&a=snapshot&h=f193321078488cff03afbbd14bc8fe71afed79a7&fmt=tbz2"
-        'CMakeLists.diff')
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-md5sums=('3b723f5695ddd1186489708d233fe0b4'
-        '69c05e3495c13fde4b06e08ae8a8b4cc')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 #prepare() {
 #  cd $pkgname-${pkgver}
@@ -70,7 +66,7 @@ build() {
   #export CXX=/usr/bin/clang++
   
   cd build 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
