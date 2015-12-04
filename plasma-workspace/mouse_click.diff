@@ -1,0 +1,50 @@
+From: Anthony Fieroni <bvbfan@abv.bg>
+Date: Tue, 01 Dec 2015 09:27:15 +0000
+Subject: Forward mouse enter and leave events on feathered edges
+X-Git-Url: http://quickgit.kde.org/?p=plasma-workspace.git&a=commitdiff&h=76cb47f1279ea012a9eda11c4ead7f28db4c1399
+---
+Forward mouse enter and leave events on feathered edges
+
+REVIEW: 126175
+BUG: 354651
+---
+
+
+--- a/shell/panelview.cpp
++++ b/shell/panelview.cpp
+@@ -748,6 +748,7 @@
+      * on the mouse edge, forward the click in the containment boundaries
+      */
+     switch (e->type()) {
++        case QEvent::Enter:
+         case QEvent::MouseMove:
+         case QEvent::MouseButtonPress:
+         case QEvent::MouseButtonRelease: {
+@@ -755,8 +756,25 @@
+ 
+             //first, don't mess with position if the cursor is actually outside the view:
+             //somebody is doing a click and drag that must not break when the cursor i outside
+-            if (geometry().contains(me->screenPos().toPoint()) && !containmentContainsPosition(me->windowPos())) {
+-                auto me2 = new QMouseEvent(me->type(),
++            if (geometry().contains(me->screenPos().toPoint())) {
++                if (!containmentContainsPosition(me->windowPos())) {
++                    auto me2 = new QMouseEvent(me->type(),
++                                    positionAdjustedForContainment(me->windowPos()),
++                                    positionAdjustedForContainment(me->windowPos()),
++                                    positionAdjustedForContainment(me->windowPos()) + position(),
++                                    me->button(), me->buttons(), me->modifiers());
++
++                    QCoreApplication::postEvent(this, me2);
++                    return true;
++                }
++            }
++            break;
++        }
++        case QEvent::Leave: {
++            QMouseEvent *me = static_cast<QMouseEvent *>(e);
++            // don't forget to trigger QEvent::Leave if current mouse position is outside the panel
++            if (!geometry().contains(me->screenPos().toPoint())) {
++                auto me2 = new QMouseEvent(QEvent::Leave,
+                                 positionAdjustedForContainment(me->windowPos()),
+                                 positionAdjustedForContainment(me->windowPos()),
+                                 positionAdjustedForContainment(me->windowPos()) + position(),
