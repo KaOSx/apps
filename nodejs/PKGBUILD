@@ -1,21 +1,26 @@
 
 pkgname=nodejs
-pkgver=5.1.0
+pkgver=5.1.1
 pkgrel=1
 pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications."
 arch=('x86_64')
 url='http://nodejs.org/'
 license=('MIT')
-depends=('python2' 'openssl')
+depends=('python2' 'openssl' 'zlib' 'icu')
+makedepends=('procps-ng')
 checkdepends=('curl') 
 options=('!emptydirs')
 source=("http://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.xz")
-md5sums=('d952bd87d951906936eb9b126efa4ac6')
+md5sums=('24eec5a4471cca9d0efbeab28669e1de')
 
 build() {
   cd "node-v${pkgver}"
   
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr \
+    --with-intl=system-icu \
+    --without-npm \
+    --shared-openssl \
+    --shared-zlib 
   make
 }
 
