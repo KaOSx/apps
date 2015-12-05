@@ -3,7 +3,7 @@ pkgname=smplayer
 pkgver=15.11.0
 _pkgver=15.11.0
 _rev=r6994
-pkgrel=1
+pkgrel=2
 pkgdesc="A complete front-end for MPlayer and MPV"
 arch=('x86_64')
 url="http://smplayer.sourceforge.net/"
@@ -12,10 +12,11 @@ depends=('qt5-multimedia' 'qt5-script' 'mplayer' 'mpv')
 makedepends=('qt5-tools' 'subversion')
 groups=('multimedia')
 source=("http://sourceforge.net/projects/smplayer/files/SMPlayer/${pkgver}/smplayer-${pkgver}.tar.bz2"
-#source=("smplayer::svn+https://subversion.assembla.com/svn/smplayer/smplayer/trunk/"
+        "smplayer-themes::svn+https://subversion.assembla.com/svn/smplayer/smplayer-themes/trunk/"
         'icons.tar.xz'
         'default-theme.zip')
 md5sums=('e6f459f640908df2403381a39a27cdba'
+         'SKIP'
          'a65b679cb82e21f8f67e703209654e8f'
          '835366d318e2424bfa5636606b737b7f')
 
@@ -29,10 +30,22 @@ build() {
   make PREFIX=/usr QMAKE=/usr/lib/qt5/bin/qmake LRELEASE=/usr/lib/qt5/bin/lrelease
   
   DOC_PATH="\\\"/usr/share/doc/smplayer\\\"" QMAKE_OPTS=DEFINES+=NO_DEBUG_ON_CONSOLE
+  
+  cd "${srcdir}/smplayer-themes/themes"
+  rcc-qt5 -binary Breeze.qrc -o Breeze/Breeze.rcc
+  rcc-qt5 -binary Breeze-dark.qrc -o Breeze-dark/Breeze-dark.rcc
 }
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   
-  make DOC_PATH=/usr/share/doc/smplayer DESTDIR="$pkgdir" PREFIX="/usr" install
+  make DOC_PATH=/usr/share/doc/smplayer DESTDIR="${pkgdir}" PREFIX="/usr" install
+  
+  cd "${srcdir}/smplayer-themes"
+  mkdir -p "${pkgdir}/usr/share/smplayer/themes/Breeze"
+  install -m 644 themes/Breeze/Breeze.rcc "${pkgdir}"/usr/share/smplayer/themes/Breeze/
+  install -m 644 themes/Breeze/README.txt "${pkgdir}"/usr/share/smplayer/themes/Breeze/
+  mkdir -p "${pkgdir}/usr/share/smplayer/themes/Breeze-dark"
+  install -m 644 themes/Breeze-dark/Breeze-dark.rcc "${pkgdir}"/usr/share/smplayer/themes/Breeze-dark/
+  install -m 644 themes/Breeze-dark/README.txt "${pkgdir}"/usr/share/smplayer/themes/Breeze-dark/
 }

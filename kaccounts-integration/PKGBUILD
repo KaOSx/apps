@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kaccounts-integration
-pkgver=${_kdever}
-pkgrel=1
+pkgver=15.08.3
+pkgrel=2
 pkgdesc="System to administer web accounts for the sites and services across the KDE desktop, 
         including: Google, Facebook, Owncloud, IMAP, Jabber and others"
 arch=('x86_64')
@@ -13,8 +13,17 @@ license=('GPL')
 depends=('kcmutils' 'kio' 'ki18n' 'kwidgetsaddons' 'kcoreaddons' 
          'kiconthemes' 'kconfig' 'kwallet' 'kdbusaddons' 'accountsqt' 'signonqt' 'akonadi' 'kdepimlibs')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/applications/15.08.3/src/kaccounts-integration-15.08.3.tar.xz"
+       'createaccount.diff')
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+md5sums=('ffefdb1009cfc113b38f860baf9f2f29'
+         'f4cedb3e11b2aa44517e9a7b378c2078')
+
+prepare () {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/createaccount.diff
+}    
 
 build() {
   cd ${srcdir}
