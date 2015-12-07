@@ -1,6 +1,7 @@
 
 pkgname=digikam
-pkgver=4.80.10
+pkgver=4.90.0
+_pkgver=5.0.0-beta2
 pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
@@ -13,14 +14,11 @@ depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kw
 makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick')
 install=digikam.install
 groups=('graphics')
-#source=("http://download.kde.org/stable/digikam/${pkgname}-${_pkgver}.tar.bz2")
-source=("git://anongit.kde.org/digikam"
-        'CMakeLists.diff')
-md5sums=('SKIP'
-         '304a4364d591197963b9b40314d526a4')
+source=("http://download.kde.org/unstable/digikam/${pkgname}-${_pkgver}.tar.bz2")
+md5sums=('596cb78532868355764865311f2def16')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${_pkgver}
   #sed -i -e 's|KF5AkonadiContact|KF5AkonadiCore|' ${srcdir}/${pkgname}/utilities/kdesupport/akonadi/CMakeLists.txt
   #patch -p1 -i $srcdir/CMakeLists.diff
 }
@@ -30,7 +28,7 @@ build() {
  
    mkdir -p build
    cd build
-   cmake ../${pkgname} \
+   cmake ../${pkgname}-${_pkgver} \
      -DCMAKE_BUILD_TYPE=Release \
      -DCMAKE_INSTALL_PREFIX=/usr \
      -DLIB_INSTALL_DIR=lib \
