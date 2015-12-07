@@ -1,5 +1,6 @@
 
-pkgname=digikam
+pkgbase=digikam
+pkgname=('digikam' 'kipi-plugins')
 pkgver=4.90.0
 _pkgver=5.0.0-beta2
 pkgrel=1
@@ -7,19 +8,21 @@ url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
 pkgdesc="Digital photo management application for kde"
-depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
+makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
          'solid' 'kiconthemes' 'kfilemetadata' 'libksane' 'ki18n' 'lensfun' 
          'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
-         'kipi-plugins' 'libkface' 'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb' 'kdepimlibs') 
-makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick')
-install=digikam.install
-groups=('graphics')
-source=("http://download.kde.org/unstable/digikam/${pkgname}-${_pkgver}.tar.bz2")
+         'libkface' 'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb' 'kdepimlibs'
+         'kparts' 'kconfig' 'kxmlgui' 'kservice' 'threadweaver' 'karchive' 'libkexiv2' 
+         'libkdcraw' 'libkipi' 'libkgeomap' 'libkvkontakte' 'libmediawiki' 'libtiff'
+         'kcalcore' 'kwallet' 'phonon-qt5' # 'libkface') 
+         'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick')
+source=("http://download.kde.org/unstable/digikam/${pkgbase}-${_pkgver}.tar.bz2")
 md5sums=('596cb78532868355764865311f2def16')
 
 prepare() {
-  cd $pkgname-${_pkgver}
-  #sed -i -e 's|KF5AkonadiContact|KF5AkonadiCore|' ${srcdir}/${pkgname}/utilities/kdesupport/akonadi/CMakeLists.txt
+  cd ${pkgbase}-${_pkgver}
+  sed -i -e 's|${KF5_MIN_VERSION}||' ${srcdir}/${pkgbase}-${_pkgver}/core/CMakeLists.txt
+  sed -i -e 's|${KF5_MIN_VERSION}||' ${srcdir}/${pkgbase}-${_pkgver}/extra/kipi-plugins/CMakeLists.txt
   #patch -p1 -i $srcdir/CMakeLists.diff
 }
 
@@ -28,7 +31,7 @@ build() {
  
    mkdir -p build
    cd build
-   cmake ../${pkgname}-${_pkgver} \
+   cmake ../${pkgbase}-${_pkgver} \
      -DCMAKE_BUILD_TYPE=Release \
      -DCMAKE_INSTALL_PREFIX=/usr \
      -DLIB_INSTALL_DIR=lib \
@@ -37,7 +40,7 @@ build() {
      -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
      -DBUILD_TESTING=OFF \
-     -DENABLE_AKONADICONTACTSUPPORT=OFF \
+     -DENABLE_AKONADICONTACTSUPPORT=ON \
      -DENABLE_MYSQLSUPPORT=ON \
      -DENABLE_KFILEMETADATASUPPORT=ON \
      -DENABLE_DNGCONVERTER=OFF \
@@ -46,9 +49,39 @@ build() {
    make 
 }
 
-package() {
-  cd $srcdir/build
+package_digikam() {
+  pkgdesc="Digital photo management application for kde"
+  depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
+           'solid' 'kiconthemes' 'kfilemetadata' 'libksane' 'ki18n' 'lensfun' 
+           'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
+           'kipi-plugins' 'libkface' 'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb' 'kdepimlibs')
+  install=digikam.install
+  groups=('graphics')
   
+  cd $srcdir/build/core
+  make DESTDIR=$pkgdir/ install
+  
+  cd $srcdir/build/doc/digikam/digikam
+  make DESTDIR=$pkgdir/ install
+  
+  cd $srcdir/build/doc/digikam/showfoto
+  make DESTDIR=$pkgdir/ install
+}
+
+package_kipi-plugins () {
+  pkgdesc="Collection of plugins extending the KDE graphics and image applications as digiKam, Gwenview, and KPhotoalbum."
+  depends=('kparts' 'kconfig' 'kiconthemes' 'kwindowsystem' 'kxmlgui' 'kio' 'kservice'
+           'threadweaver' 'karchive' 'ki18n' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkgeomap' 
+           'libkvkontakte' 'libmediawiki' 'libtiff'
+           'kcalcore' 'kwallet' 'phonon-qt5') # 'libkface') 
+  optdepends=('hugin-tools: to work with the panorama tool')
+  groups=('kde' 'kde-graphics' 'kde-uninstall')
+  install=kipi-plugins.install
+  
+  cd $srcdir/build/extra/kipi-plugins
+  make DESTDIR=$pkgdir/ install
+  
+  cd $srcdir/build/doc/kipi-plugins
   make DESTDIR=$pkgdir/ install
 }
 
