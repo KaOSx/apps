@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
@@ -17,9 +17,6 @@ depends=('frameworkintegration' 'kcmutils' 'knotifyconfig' 'krunner' 'kdesu' 'kn
          'qimageblitz' 'oxygen-icons' 'prison' 'sddm-kcm' 'networkmanager-qt' 'kxmlrpcclient' 'kscreenlocker')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
-conflicts=('homerun' 'kdeplasma-addons-applets-icontasks' 'grub2-editor' 'kcm-ufw')
-replaces=('homerun' 'kdeplasma-addons-applets-icontasks' 'grub2-editor' 'kcm-ufw')
-provides=('homerun' 'kdeplasma-addons-applets-icontasks')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         '10-kf5'
         'kde.pam'

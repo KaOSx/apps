@@ -1,33 +1,36 @@
 
 pkgname=grub2-editor
-_pkgname=kcm-grub2
-pkgver=0.6.4
-pkgrel=5
-pkgdesc="A KDE4 control module for configuring the GRUB2 bootloader."
+pkgver=0.5.8
+pkgrel=1
+_commit=12ce19f114b4ac4784bc9da5e099e882644ceeb1
+pkgdesc="A KDE control module for configuring the GRUB2 bootloader."
 arch=('x86_64')
-_kdeapps=139643
-url="http://kde-apps.org/content/show.php?content=${_kdeapps}"
+url="https://github.com/maz-1/grub2-editor"
 license=('GPL3')
-depends=('kde-workspace' 'hwinfo' 'imagemagick' 'libwmf' 'librsvg' 'grub-common')
-makedepends=('cmake' 'automoc4')
+depends=('kcoreaddons' 'ki18n' 'kauth' 'kconfigwidgets' 'kio' 'solid'
+         'imagemagick' 'hwinfo' 'librsvg' 'grub' 'os-prober')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('system')
-source=("http://sourceforge.net/projects/kcm-grub2/files/${pkgver}/${_pkgname}-${pkgver}.tar.gz")
-md5sums=('b3ff8fb938be8112dcc6e42b3e56efc6')
+source=("https://github.com/maz-1/grub2-editor/archive/${_commit}.zip")
+md5sums=('7b4c84bbc51b41b928a833cabad635dc')
 
-build(){
-  cd "${srcdir}/${_pkgname}-${pkgver}"
+build() {
   mkdir -p build
-  
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo  \
-        ../
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DBUILD_TESTING=OFF \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DLIB_INSTALL_DIR=lib
   make
 }
 
-package(){
-  cd "${srcdir}/${_pkgname}-${pkgver}/build"
+package() {
+  cd build
   
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
 
