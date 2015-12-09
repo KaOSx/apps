@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=breeze-gtk
-pkgver=5.5.0.1
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Widget theme for GTK 2 and 3'
 arch=('x86_64')
@@ -12,12 +12,11 @@ license=('LGPL')
 depends=('qt5-base' 'kcoreaddons' 'kconfig')
 makedepends=('extra-cmake-modules' 'gtk2')
 opdepends=("gtk2: GTK+2 theme" "gtk3: GTK+3 theme")
-source=("http://download.kde.org/stable/plasma/5.5.0/$pkgname-5.5.0.1.tar.xz")
-#md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
-md5sums=('11dab5283d96062e1157cf05f2376e3f')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare () {
-  cd $pkgname-5.5.0
+  cd $pkgname-$pkgver
   #sed -i -e 's|devices emblems places status|devices emblems emotes mimetypes places status|' icons-dark/CMakeLists.txt
 }
   
@@ -25,7 +24,7 @@ build () {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-5.5.0 \
+  cmake ../${pkgname}-$pkgver \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
