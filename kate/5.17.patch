@@ -1,0 +1,57 @@
+From: Andreas Hartmetz <ahartmetz@gmail.com>
+Date: Sat, 05 Dec 2015 15:31:24 +0000
+Subject: setQuitOnLastWindowClosed(false) causes lingering processes. Remove.
+X-Git-Url: http://quickgit.kde.org/?p=kate.git&a=commitdiff&h=cd0163d7b956ace0e786a76d8211d06790a2c174
+---
+setQuitOnLastWindowClosed(false) causes lingering processes. Remove.
+
+Previously, it was set to true again later from
+KMainWindowPrivate::init(). I have changed that in KMainWindowPrivate
+so that applications have a better chance to set the property as they
+like - commit 155f524dd79add7d in kxmlgui.
+For Kate, true seems to be the correct setting.
+---
+
+
+--- a/kate/main.cpp
++++ b/kate/main.cpp
+@@ -133,7 +133,6 @@
+     app.setApplicationDisplayName(aboutData.displayName());
+     app.setOrganizationDomain(aboutData.organizationDomain());
+     app.setApplicationVersion(aboutData.version());
+-    app.setQuitOnLastWindowClosed(false);
+ 
+     /**
+      * set the program icon
+From: Michal Humpula <michal.humpula@hudrydum.cz>
+Date: Sun, 29 Nov 2015 10:24:42 +0000
+Subject: fix opening new files trough dbus
+X-Git-Url: http://quickgit.kde.org/?p=kate.git&a=commitdiff&h=d61b121264d7b43d41c1c6417a18bbfb9078eb9d
+---
+fix opening new files trough dbus
+
+REVIEW: 126197
+---
+
+
+--- a/urlinfo.h
++++ b/urlinfo.h
+@@ -33,7 +33,7 @@
+         : cursor(KTextEditor::Cursor::invalid())
+     {
+         // convert to an url
+-        const QRegularExpression withProtocol(QStringLiteral("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
++        const QRegularExpression withProtocol(QStringLiteral("^[a-zA-Z]+://")); // TODO: remove after Qt supports this on its own
+         if (withProtocol.match(path).hasMatch()) {
+             url = QUrl::fromUserInput(path);
+         } else {
+@@ -50,7 +50,7 @@
+                 int line = match.captured(1).toInt() - 1;
+                 // don't use an invalid column when the line is valid
+                 int column = qMax(0, match.captured(2).toInt() - 1);
+-                url = QUrl::fromLocalFile(path);
++                url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(path));
+                 cursor = {line, column};
+             }
+         }
+
