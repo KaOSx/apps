@@ -9,7 +9,7 @@ pkgdesc='Advanced editor component which is used in numerous KDE applications re
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/kate'
 license=('LGPL')
-depends=('kconfig' 'kguiaddons' 'ki18n' 'kjobwidgets' 'kitemmodels' 'threadweaver'
+depends=('kconfig' 'kguiaddons' 'ki18n' 'kjobwidgets' 'kitemmodels' 'threadweaver' 'kinit'
          'kio' 'knewstuff' 'kparts' 'ktexteditor' 'kwindowsystem' 'kxmlgui' 'plasma-framework')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdesdk-kate' 'kdesdk-kate-debug')
@@ -17,8 +17,10 @@ replaces=('kdesdk-kate' 'kdesdk-kate-debug')
 provides=('kdesdk-kate')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
         '5.17.patch')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'ec696effc50f0e2847a339cd0157361e')
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+#         'ec696effc50f0e2847a339cd0157361e')
+md5sums=('7064ffcac129354bf244592c5437dc3e'
+         '68306571b999c3ba02a6ba146bbbf6f4')
 
 prepare() {
   cd $pkgname-${pkgver}
