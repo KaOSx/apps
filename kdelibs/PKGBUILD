@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname="kdelibs"
 arch=('x86_64')
-pkgver=4.14.14
+pkgver=4.14.15
 pkgrel=1
 pkgdesc="KDE Core Libraries"
 url="http://www.kde.org"
@@ -13,7 +13,7 @@ options=('docs')
 depends=("${_qtpkg}>=${_qtver}" 'shared-mime-info' 'upower' 'udisks<2.0' 'xz' 'enchant' 'jasper'
          'openexr' 'giflib' 'strigi' 'libxtst' 'ca-certificates' 'xdg-utils' 'qca' 'polkit-qt'
          'libxss' 'phonon' 'attica' 'krb5' 'libxcursor' 'libutempter' 'hicolor-icon-theme'
-         'libdbusmenu-qt' 'grantlee' 'media-player-info' 'qtwebkit' 'systemd' 'sni-qt' 'qtcurve4')
+         'libdbusmenu-qt' 'grantlee' 'media-player-info' 'qtwebkit' 'systemd' 'qtcurve4')
 makedepends=('pkg-config' 'cmake' 'automoc4' 'intltool' 'avahi' 'libgl' 'aspell' 'hspell' 'docbook-xsl'
              'docbook-xml' 'bzip2' 'libzip')
 optdepends=('phonon-backend-gstreamer: GStreamer Phonon backend (default)'
@@ -26,7 +26,7 @@ install=${pkgname}.install
 source=($_mirror/${pkgname}-${pkgver}.tar.xz
 	'02_kde_applications_menu.patch'
 	'MergeDir.patch')
-md5sums=('776249fcf634ebc71f92e53b2d7c0a7d'
+md5sums=('9baf72bc13c7a97eb6a0c153c916a3fb'
          'e94450ba5430ea9c1e33bad9ae38ca2d'   # 02_kde_applications_menu.patch
          'f442698bae9d4ffb26f6df9457d7fc5a')   # MergeDir.patch
         
