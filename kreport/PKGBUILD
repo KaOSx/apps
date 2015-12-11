@@ -1,6 +1,6 @@
 
 pkgname=kreport
-pkgver=2.96.3
+pkgver=2.97.0
 pkgrel=1
 pkgdesc="Framework for creation and generation of reports in multiple formats"
 arch=('x86_64')
@@ -29,7 +29,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib
+    -DLIB_INSTALL_DIR=lib \
+    -DBUILD_TESTING=OFF
   make
 }
 
