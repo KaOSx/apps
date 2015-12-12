@@ -1,27 +1,27 @@
 
 pkgname=spideroakone
 _PkgName=SpiderOakONE
-pkgver=6.0.1
+pkgver=6.1
 pkgrel=1
 pkgdesc="Secure and consolidated free online backup, storage, access, sharing & sync tool for Windows, Mac OS X, and Linux."
 url="https://spideroak.com/"
 arch=('x86_64')
 depends=('krb5' 'python2')
+makedepends=('desktop-file-utils')
 provides=('spideroak')
 replaces=('spideroak')
 license=('custom')
 groups=('network')
 options=('!strip')
 install=spideroak.install
-source=("${_PkgName}-${pkgver}-x86_64-1.tgz"::"https://spideroak.com/getbuild?platform=slackware&arch=x86_64&beta=no"
+source=("${_PkgName}-${pkgver}-amd64.deb"::"https://spideroak.com/getbuild?platform=ubuntu&arch=x86_64&beta=no"
         "terms.txt")
-md5sums=('9029348bf3b80abbc1c3f8217cded7a8'
+md5sums=('be2409fe67bb10c59f2a0a02e1392a67'
          '9338d3464e8ce876d7222099c22a205b')
 
 package() {
-    cp -r $srcdir/etc $pkgdir/
-    cp -r $srcdir/opt $pkgdir/
-    cp -r $srcdir/usr $pkgdir/
+    tar -zxvf ${srcdir}/data.tar.gz -C $pkgdir/
     
+    rm -r $pkgdir/etc/apt
     install -Dm644 terms.txt $pkgdir/usr/share/licenses/$pkgname/terms.txt
 }
