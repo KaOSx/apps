@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kapptemplate
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Template Generator'
 url='http://kde.org/applications/development/kapptemplate/'
 arch=('x86_64')
@@ -15,8 +15,16 @@ conflicts=('kdesdk-kapptemplate')
 replaces=('kdesdk-kapptemplate')
 groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
 install=${pkgname}.install
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+        'template.diff')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '096a81c21b4b9774690dffac211e1fab')
+
+prepare() {
+  cd $pkgname-${pkgver}
+  
+  patch -p1 -i ${srcdir}/template.diff
+}
 
 build() {
   mkdir -p build
