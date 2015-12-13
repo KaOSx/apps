@@ -22,7 +22,8 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.ta
         'kde.pam'
         'kde-np.pam'
         'kscreensaver.pam'
-        'mouse_click.diff')
+        'rb126331.patch')
+        #'mouse_click.diff')
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
          'beba34da9144bced3ef2a225be532109'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
@@ -32,7 +33,8 @@ md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
 
 prepare () {
   cd ${srcdir}/${pkgname}-${pkgver}
-  patch -p1 -R -i $srcdir/mouse_click.diff
+  #patch -p1 -R -i $srcdir/mouse_click.diff
+  patch -p1 -i $srcdir/rb126331.patch
   #sed -i 's|find_package(Prison "1.2.0" QUIET CONFIG)|find_package(KF5Prison "1.2.0" QUIET CONFIG)|' ${srcdir}/${pkgname}-${pkgver}/klipper/CMakeLists.txt
 }         
          
