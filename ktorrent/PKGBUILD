@@ -1,6 +1,6 @@
 
 pkgname=ktorrent
-pkgver=4.3.73
+pkgver=4.3.75
 pkgrel=1
 ktorver=4.3.1
 pkgdesc="A BitTorrent program for KDE"
@@ -11,17 +11,24 @@ depends=('kdelibs4support' 'ki18n' 'kio' 'kxmlgui' 'knotifications' 'knotifyconf
          'kconfig' 'kcoreaddons' 'kross' 'kcmutils' 'sonnet' 'kdbusaddons' 'kcrash' 
          'taglib' 'libktorrent')
 makedepends=('extra-cmake-modules' 'boost' 'kdoctools' 'git')
+install=ktorrent.install
 groups=('network')
 options=('libtool')
 #source=("http://ktorrent.pwsp.net/downloads/${ktorver}/ktorrent-${ktorver}.tar.bz2"
 source=('git://anongit.kde.org/ktorrent#branch=frameworks')
 md5sums=('SKIP')
 
+prepare() {
+  cd ${pkgname}
+  sed -i 's|Exec=ktorrent %i -caption %c %u|Exec=ktorrent -qwindowtitle %c %u|g' ktorrent/org.kde.ktorrent.desktop
+  sed -i 's|ui.rc DESTINATION ${DATA_INSTALL_DIR}|ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}|g' plugins/*/CMakeLists.txt
+  sed -i 's|TARGETS ktorrent_app ${INSTALL_TARGETS_DEFAULT_ARGS}|TARGETS ktorrent_app ${KDE_INSTALL_TARGETS_DEFAULT_ARGS}|g' ktorrent/CMakeLists.txt
+}
+
 build() {
-  cd ${srcdir}
   mkdir build
-  
   cd build
+  
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -31,7 +38,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }
