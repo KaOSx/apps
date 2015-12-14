@@ -27,8 +27,6 @@ build() {
 
 package() {
   cd build
-  make DESTDIR=${pkgdir} install
   
-  #mv "${pkgdir}"/usr/lib64/libsnore-qt5 "${pkgdir}"/usr/lib/libsnore-qt5
-  #rmdir "${pkgdir}"/usr/lib64
+  make DESTDIR=${pkgdir} install
 }
