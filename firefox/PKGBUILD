@@ -2,7 +2,7 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='http://www.mozilla.org/projects/firefox'
-pkgver=42.0
+pkgver=43.0
 pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
@@ -18,9 +18,8 @@ source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source
         'mozconfig'
         'firefox.desktop'
         'firefox-install-dir.patch'
-        'vendor.js'
-        'freetype.patch')
-md5sums=('d610bf10a75afb4734045e1a43d8eba4'
+        'vendor.js')
+md5sums=('a49c7f286a87112a5da836675200b060'
          '9a69c9277dfe4357018c4ff0451ca626'
          '174a2a286e32d5c9a48f51a18ffa4e6c'
          'dbf14588e85812ee769bd735823a0146'
@@ -32,7 +31,6 @@ prepare() {
 
   cp ../mozconfig .mozconfig
   patch -p1 -i ${srcdir}/firefox-install-dir.patch
-  patch -p1 -i ${srcdir}/freetype.patch
 
   mkdir ${srcdir}/path
 }
