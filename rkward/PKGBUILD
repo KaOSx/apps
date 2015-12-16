@@ -1,0 +1,43 @@
+
+pkgname=rkward
+pkgver=0.6.4.1
+pkgrel=1
+pkgdesc="Provides an easily extensible, easy to use IDE/GUI for R."
+arch=('x86_64')
+url="http://rkward.sourceforge.net/"
+license=('GPL')
+depends=('kcoreaddons' 'ki18n' 'kxmlgui' 'ktexteditor' 'kwidgetsaddons' 'kdelibs4support' 'kdewebkit' 'kparts'
+         'qt5-webkit' 'qt5-script' 'r')
+makedepends=('extra-cmake-modules' 'kdoctools' 'icu')
+groups=('education')
+source=("git://anongit.kde.org/rkward.git#branch=frameworks")
+md5sums=('SKIP')
+
+prepare() {
+  cd $pkgname
+  
+  sed -i -e 's|#include <ktexteditor/highlightinterface.h>|#include <ktexteditor/view.h>|' rkward/windows/rkcommandeditorwindow.cpp
+  sed -i -e 's|-caption|-qwindowtitle|g' rkward/rkward.desktop
+}
+
+build() { 
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DR_LIBDIR="/usr/lib/R/library" \
+    -DNO_R_XML=1 \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
