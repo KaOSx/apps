@@ -1,17 +1,17 @@
 
 pkgname=nomacs
-pkgver=2.4.6
-pkgrel=3
-pkgdesc="A Qt image viewer"
+pkgver=3.0.0
+pkgrel=1
+pkgdesc="Qt based image viewer for all common image formats including RAW and psd images."
 arch=('x86_64')
 url="http://www.nomacs.org/"
 license=('GPL3')
-depends=('qt5-base' 'exiv2' 'libraw' 'opencv')
+depends=('qt5-svg' 'exiv2' 'libraw' 'opencv') # 'quazip')
 makedepends=('cmake' 'qt5-tools')
 #install="$pkgname.install"
-source=("http://downloads.sourceforge.net/project/nomacs/$pkgname-$pkgver/$pkgname-$pkgver-source.tar.bz2"
+source=("https://github.com/nomacs/nomacs/releases/download/$pkgver/$pkgname-$pkgver-source.tar.bz2"
         'qdrag.diff')
-md5sums=('a154966dc5c1fed71279bc70d8078935'
+md5sums=('e1630a4371d0e0f8aba9358ab20d43e5'
          'bdd31541310ed5b6bee1c8f101ef3505')
 
 prepare() {
@@ -23,15 +23,14 @@ prepare() {
 }
 
 build() {
-  cd $pkgname-$pkgver/build
+  cd build
   cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
-           -DENABLE_QT5=ON \
-           -DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake \
-           -DENABLE_QUAZIP=OFF 
+           -DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake 
+           #-DUSE_SYSTEM_QUAZIP=ON 
   make
 }
 
 package() {
-  cd $pkgname-$pkgver/build
+  cd build
   make DESTDIR="$pkgdir/" install
 }

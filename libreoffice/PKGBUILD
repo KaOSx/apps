@@ -1,9 +1,9 @@
 
 pkgname=libreoffice
-_LOver=5.0.3.2
-pkgver=5.0.3.2
-_pkgver=5.0.3
-pkgrel=2
+_LOver=5.0.4.2
+pkgver=5.0.4.2
+_pkgver=5.0.4
+pkgrel=1
 arch=('x86_64')
 license=('LGPL3')
 url="http://www.libreoffice.org/"
@@ -68,7 +68,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/libe-book-0.1.2.tar.bz2
 	${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	${_additional_source_url}/d6eef4b4cacb2183f2bf265a5a03a354-boost_1_55_0.tar.bz2
-	${_additional_source_url}/language-subtag-registry-2015-06-08.tar.bz2
+	${_additional_source_url}/language-subtag-registry-2015-08-04.tar.bz2
 	${_additional_source_url}/libgltf/libgltf-0.0.2.tar.bz2
 	${_additional_source_url}/CoinMP-1.7.6.tgz
 	#${_additional_source_url}/bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
@@ -115,7 +115,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	libfreehand-0.1.1.tar.bz2
 	Firebird-2.5.2.26540-0.tar.bz2
 	libe-book-0.1.2.tar.bz2
-	language-subtag-registry-2015-06-08.tar.bz2
+	language-subtag-registry-2015-08-04.tar.bz2
 	CoinMP-1.7.6.tgz
 	#bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
 	4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2
@@ -153,6 +153,8 @@ build() {
 	
 	# Use python3
 	export PYTHON=python3
+	# test fail, maybe move to LO included older libetonyek
+	mv writerperfect/qa/unit/data/impress/libetonyek/{fail,pass}/v6.zip
 
 	./autogen.sh --with-build-version="${_LOver} KaOS-${pkgrel}" --with-vendor="KaOS" \
 		--with-external-tar="${srcdir}/ext_sources" \

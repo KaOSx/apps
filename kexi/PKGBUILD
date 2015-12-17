@@ -1,0 +1,50 @@
+
+pkgname=kexi
+pkgver=2.9.80
+pkgrel=1
+pkgdesc="Visual database applications creator"
+arch=('x86_64')
+url='https://projects.kde.org/projects/calligra/kexi'
+license=('FDL1.2' 'GPL2' 'LGPL')
+depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 
+         'kiconthemes' 'kitemmodels' 'kitemviews' 'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem'  'kio' 
+         'kreport' 'kdb'
+         'eigen3' 'gsl' 'lcms2' 'openexr' 'glew' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
+         'libmariadbclient' 'sqlite3' 'qca-qt5' 'qt5-quick1')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'qt5-tools') # 'clang') 
+install=kexi.install
+#source=("http://mirrors.mit.edu/kde/stable/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("git://anongit.kde.org/kexi.git")
+md5sums=('SKIP')
+
+prepare() {
+  cd ${srcdir}/${pkgname}
+  #sed -i 's|add_subdirectory(animation)|#add_subdirectory(animation)|' CMakeLists.txt
+  #patch -p1 -i $srcdir/desktop_files.patch
+}
+
+build() {
+  cd ${srcdir}
+  
+  mkdir build
+  cd build
+  
+  #export CC=/usr/bin/clang
+  #export CXX=/usr/bin/clang++
+  
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=FALSE 
+  make
+}
+
+package() {
+  cd ${srcdir}/build
+  
+  make DESTDIR=${pkgdir} install
+}
+
