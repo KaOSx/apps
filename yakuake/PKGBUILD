@@ -1,6 +1,6 @@
 
 pkgname=yakuake
-pkgver=2.9.9.7
+pkgver=2.9.9.8
 pkgrel=1
 pkgdesc="A KDE konsole application with the look and feel of that in the Quake engine, kf5 version"
 arch=('x86_64')
@@ -18,7 +18,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  sed -i -e 's|<default>default<default>|<default>breezeV1.0</default>|' ${srcdir}/${pkgname}/app/config/yakuake.kcfg
+  #sed -i -e 's|<default>default<default>|<default>breezeV1.0</default>|' ${srcdir}/${pkgname}/app/config/yakuake.kcfg
   #patch -p1 -i $srcdir/default_skin.diff
   
 }
