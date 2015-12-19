@@ -1,0 +1,25 @@
+diff --git a/src/k3bjobprogressdialog.h b/src/k3bjobprogressdialog.h
+index a210494..5607da2 100644
+--- a/src/k3bjobprogressdialog.h
++++ b/src/k3bjobprogressdialog.h
+@@ -97,7 +97,6 @@ namespace K3b {
+          * \reimpl from QDialog
+          */
+         void reject() override;
+-        virtual void slotButtonClicked( int button );
+ 
+ 	void slotShowDebuggingOutput();
+ 
+diff --git a/src/rip/k3baudiocdview.cpp b/src/rip/k3baudiocdview.cpp
+index 1810d48..c1bf705 100644
+--- a/src/rip/k3baudiocdview.cpp
++++ b/src/rip/k3baudiocdview.cpp
+@@ -405,7 +405,7 @@ void K3b::AudioCdView::slotEditAlbumCddb()
+     } else {
+         spinYear->setValue( d->trackModel->cddbInfo().get( KCDDB::Year ).toInt() );
+     }
+-    QFrame* line = new QFrame( w );
++    QFrame* line = new QFrame( this );
+     line->setFrameShape( QFrame::HLine );
+     line->setFrameShadow( QFrame::Sunken );
+     KComboBox* comboGenre = new KComboBox( this );

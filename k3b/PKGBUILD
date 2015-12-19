@@ -1,7 +1,7 @@
 
 pkgname=k3b
 pkgver=2.9.90
-pkgrel=4
+pkgrel=5
 pkgdesc="Feature-rich and easy to handle CD burning application"
 arch=('x86_64')
 url="http://k3b.sourceforge.net/"
@@ -21,13 +21,21 @@ groups=('multimedia')
 conflicts=('kf5-k3b')
 replaces=('kf5-k3b')
 options=('!libtool')
-source=("git://anongit.kde.org/k3b#branch=kf5")
-md5sums=('SKIP')
+source=("git://anongit.kde.org/k3b#branch=kf5"
+        'k3b-fix-mp3decoder.diff'
+        'k3b-fixbuild.diff'
+        'CMakeLists.diff')
+md5sums=('SKIP'
+         'de45f28b3a1046171228e5b4bc52ae53'
+         'c95a90586edf732db4f0c02ceb4e2d73'
+         '3476490f581d9c6166b5e38a3ae4aada')
 
 prepare() {
   cd ${srcdir}/${pkgname}
-  #patch -p1 -i ${srcdir}/CMakeLists.diff
-  #sed -i -e 's|KF5 REQUIRED COMPONENTS|KF5 5.0.0 REQUIRED COMPONENTS|' ${srcdir}/${pkgname}/CMakeLists.txt 
+  patch -p1 -i ${srcdir}/k3b-fix-mp3decoder.diff
+  patch -p1 -i ${srcdir}/k3b-fixbuild.diff
+  patch -p1 -i ${srcdir}/CMakeLists.diff
+  sed -i -e 's|set(TAGLIB_MIN_VERSION "1.4")|set(TAGLIB_MIN_VERSION "1.10")|' ${srcdir}/${pkgname}/cmake/modules/FindTaglib.cmake 
 }
 
 build() {
