@@ -1,34 +1,38 @@
 
 pkgname=cantata
-pkgver=1.5.2
+pkgver=1.9.50
+pkgrel=1
+_commit=d60f2973918f5ef50903297620777f9973e7ca22
 pkgdesc="A KDE client for the music player daemon (MPD)"
-pkgrel=4
 arch=('x86_64')
 url="https://github.com/cdrummond/cantata"
 license=('GPL')
 depends=('qt5-multimedia' 'qt5-svg' 'libmtp' 'libcddb' 'libmusicbrainz5'
-         'mpg123' 'taglib-extras' 'mpd' 'media-player-info')
+         'mpg123' 'taglib-extras' 'mpd' 'media-player-info' 'udisks2')
 makedepends=('cmake' 'qt5-tools')
 install="$pkgname.install"
-source=("https://drive.google.com/uc?export=download&id=0Bzghs6gQWi60LV9rM3RMQk85Z1E")
-md5sums=('0b29d30f1b03ecac23eb608309fbeaa1')
+source=("https://github.com/CDrummond/cantata/archive/${_commit}.zip")
+md5sums=('f3c05dab19a9e0174dc89efafa3c9f40')
 
 prepare() {
-  cd $srcdir/$pkgname-$pkgver
-  sed -i -e 's|lconvert|lconvert-qt5|' ${srcdir}/${pkgname}-$pkgver/po/CMakeLists.txt
-  sed -i -e 's|lrelease|lrelease-qt5|' ${srcdir}/${pkgname}-$pkgver/po/CMakeLists.txt
+  cd ${pkgname}-${_commit}
+  #sed -i -e 's|lconvert|lconvert-qt5|' ${srcdir}/${pkgname}-$pkgver/po/CMakeLists.txt
+  #sed -i -e 's|lrelease|lrelease-qt5|' ${srcdir}/${pkgname}-$pkgver/po/CMakeLists.txt
 }
 
 build() {
   mkdir build
   cd build
 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_HTTP_STREAM_PLAYBACK=ON \
+    -DENABLE_LIBVLC=OFF \
     -DENABLE_KDE=OFF \
-    -DENABLE_QT5=ON 
+    -DENABLE_QT5=ON \
+    -DLCONVERT_EXECUTABLE=/usr/lib/qt5/bin/lconvert \
+    -DLRELEASE_EXECUTABLE=/usr/lib/qt5/bin/lrelease
   make
 }
 

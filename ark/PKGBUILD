@@ -6,7 +6,7 @@ pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
 #pkgver=15.03.79
-pkgrel=2
+pkgrel=3
 pkgdesc="Archiver for various compression formats"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -17,12 +17,18 @@ groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 conflicts=('kdeutils-ark')
 replaces=('kdeutils-ark')
 install=ark.install
-source=($_mirror/${pkgname}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-$_kdever.tar.xz
+       'rar.diff')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '78b05ae08c58b836c1e17d651c6dc869')
 
-build() {
-  cd ${srcdir}
+prepare() {
+  cd ${pkgname}-${pkgver}
   
+  patch -p1 -i ${srcdir}/rar.diff
+}
+
+build() {  
   mkdir -p build
   cd build
 
