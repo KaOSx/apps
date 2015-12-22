@@ -1,0 +1,30 @@
+
+pkgname=obs-studio
+pkgver=0.12.4
+pkgrel=1
+pkgdesc="Free and open source software for video recording and live streaming."
+arch=('x86_64')
+url="https://obsproject.com/"
+license=('GPL2')
+depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon' 'qt5-x11extras'
+         'libxcomposite' 'x264' 'pulseaudio')
+makedepends=('cmake')
+source=("https://github.com/jp9000/obs-studio/archive/$pkgver.tar.gz")
+md5sums=('612c8afae44691e09f686484703d353d')
+
+build() {
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUNIX_STRUCTURE=1 \
+    -DOBS_VERSION_OVERRIDE=$pkgver 
+  make 
+}
+
+package() {
+  cd build
+
+  make install DESTDIR="$pkgdir"
+}
