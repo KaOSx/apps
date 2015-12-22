@@ -1,6 +1,6 @@
 
 pkgname=calligra
-pkgver=2.9.109
+pkgver=2.9.110
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -10,7 +10,7 @@ depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons'
          'kdelibs4support' 'eigen3' 'freetds' 'xbase' 'libpqxx' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'glew' 'gsl' 
          'lcms2' 'libmariadbclient' 'libodfgen' 'poppler-qt5' 'libspnav' 'fftw' 'hicolor-icon-theme' 
          'sqlite3' 'libkdcraw' 'exiv2' 'qca-qt5' 'qt5-quick1' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
-         'kcontacts' 'kdepimlibs' 'knotifyconfig' 'knotifications' 'okular' 'openexr' 'vc' 'kreport' 'kdb')
+         'kcontacts' 'kdepimlibs' 'knotifyconfig' 'knotifications' 'okular' 'openexr' 'vc' 'kreport')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'docbook-xsl' 'clang' 'postgresql') 
 optdepends=('postgresql: PostgreSQL database driver')
 conflicts=('calligra-3rdparty'
@@ -53,7 +53,8 @@ replaces=('calligra-3rdparty'
          'calligra-flow')
 install=calligra.install
 #source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
-source=("git://anongit.kde.org/calligra.git"
+#source=("git://anongit.kde.org/calligra.git"
+source=("git://anongit.kde.org/clones/calligra/staniek/work.git")
         "libwps-0.4.patch"
         'qt55.diff')
 md5sums=('SKIP'
