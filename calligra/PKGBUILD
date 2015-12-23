@@ -54,42 +54,40 @@ replaces=('calligra-3rdparty'
 install=calligra.install
 #source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
 #source=("git://anongit.kde.org/calligra.git"
-source=("git://anongit.kde.org/clones/calligra/staniek/work.git")
-        "libwps-0.4.patch"
+source=("git://anongit.kde.org/clones/calligra/staniek/work.git"
+        'libwps-0.4.patch'
         'qt55.diff')
 md5sums=('SKIP'
          '2529367ef6a10582436003aceb7dc3e8'
          'a4c8002be755c052ed0695c7d8c689bf')
 
 prepare() {
-  cd ${srcdir}/${pkgname}
+  #cd ${pkgname}
+  cd work
   #patch -p1 -i $srcdir/qt55.diff
   patch -p1 -i $srcdir/libwps-0.4.patch
 }
 
 build() {
-  cd ${srcdir}
-  
   mkdir build
   cd build
   
   export CC=/usr/bin/clang
   export CXX=/usr/bin/clang++
   
-  cmake ../${pkgname} \
+  cmake ../work \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DPRODUCTSET=DESKTOP \
-    -DBUILD_TESTING=FALSE \
-    -DUSEOPENGL=TRUE
+    -DBUILD_TESTING=FALSE 
   make
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }
