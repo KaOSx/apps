@@ -6,7 +6,7 @@ pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
 #pkgver=15.03.79
-pkgrel=3
+pkgrel=4
 pkgdesc="Archiver for various compression formats"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -20,7 +20,7 @@ install=ark.install
 source=($_mirror/${pkgname}-$_kdever.tar.xz
        'rar.diff')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '78b05ae08c58b836c1e17d651c6dc869')
+         '08f592ce289b3a68398fcbbc7d97e3a9')
 
 prepare() {
   cd ${pkgname}-${pkgver}
