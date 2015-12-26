@@ -14,11 +14,11 @@ depends=('karchive' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreadd
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'qt5-tools') # 'clang') 
 install=kexi.install
 #source=("http://mirrors.mit.edu/kde/stable/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("git://anongit.kde.org/scratch/staniek/kexi3.git")
+source=("git://anongit.kde.org/scratch/kexi.git")
 md5sums=('SKIP')
 
 prepare() {
-  cd ${pkgname}3
+  cd ${pkgname}
   
   #patch -p1 -i $srcdir/desktop_files.patch
 }
@@ -30,7 +30,7 @@ build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
   
-  cmake ../${pkgname}3 \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \

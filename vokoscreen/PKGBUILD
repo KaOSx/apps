@@ -1,8 +1,8 @@
 
 pkgname=vokoscreen
-pkgver=2.4.0
-_commit=41784d9d92bb2b95bd9c7dd6485423b1ba2ee43c
-pkgrel=2
+pkgver=2.4.9
+_commit=72c47ea2ab67a08ddf3be4ec8196e89d02c26dca
+pkgrel=1
 pkgdesc="Easy to use screencast creator to record educational videos, videoconferences, etc"
 arch=('x86_64')
 url="http://www.kohaupt-online.de/"
@@ -12,14 +12,12 @@ makedepends=('cmake' 'qt5-tools')
 install=$pkgname.install
 options=('!strip')
 #source=("https://github.com/vkohaupt/vokoscreen/archive/$_pkgver.tar.gz")
-source=("https://github.com/vkohaupt/vokoscreen/archive/$_commit.zip"
-        'qt5.5.diff')
-md5sums=('4ae661761d29772eacd8af198c39bd13'
-         '54a408936998b720057202e374dcbb53')
+source=("https://github.com/vkohaupt/vokoscreen/archive/$_commit.zip")
+md5sums=('a876fad75dd0614e4b4ffd57844268c8')
 
 build() {
     cd ${srcdir}/$pkgname-$_commit
-    patch -p1 -i $srcdir/qt5.5.diff
+    #patch -p1 -i $srcdir/qt5.5.diff
     
     /usr/lib/qt5/bin/qmake $pkgname.pro \
       "CONFIG+=LINUX_INTEGRATED" \
