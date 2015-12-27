@@ -17,20 +17,24 @@ md5sums=('e1630a4371d0e0f8aba9358ab20d43e5'
 prepare() {
   cd $pkgname-$pkgver
   #patch -p1 -i $srcdir/qdrag.diff
-  #sed -i 's|fromAscii|fromLatin1|g' $srcdir/$pkgname-$pkgver/src/DkMetaData.cpp
+  #sed -i 's|fromAscii|fromLatin1|g' $srcdir/$pkgname-$pkgver/cmake/Unix.cmake
 
-  mkdir build
 }
 
 build() {
+  mkdir -p build
   cd build
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
-           -DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake 
-           #-DUSE_SYSTEM_QUAZIP=ON 
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake 
+    #-DUSE_SYSTEM_QUAZIP=ON 
   make
 }
 
 package() {
   cd build
+  
   make DESTDIR="$pkgdir/" install
 }
