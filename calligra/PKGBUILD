@@ -1,6 +1,6 @@
 
 pkgname=calligra
-pkgver=2.9.110
+pkgver=2.9.111
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -53,8 +53,7 @@ replaces=('calligra-3rdparty'
          'calligra-flow')
 install=calligra.install
 #source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
-#source=("git://anongit.kde.org/calligra.git"
-source=("git://anongit.kde.org/clones/calligra/staniek/work.git"
+source=("git://anongit.kde.org/calligra.git"
         'libwps-0.4.patch'
         'qt55.diff')
 md5sums=('SKIP'
@@ -62,8 +61,7 @@ md5sums=('SKIP'
          'a4c8002be755c052ed0695c7d8c689bf')
 
 prepare() {
-  #cd ${pkgname}
-  cd work
+  cd ${pkgname}
   #patch -p1 -i $srcdir/qt55.diff
   patch -p1 -i $srcdir/libwps-0.4.patch
 }
@@ -75,7 +73,7 @@ build() {
   export CC=/usr/bin/clang
   export CXX=/usr/bin/clang++
   
-  cmake ../work \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
