@@ -24,10 +24,6 @@ prepare() {
   
   sed -i -e 's|-6.1||' adm/cmake/TKIVtk/CMakeLists.txt
   sed -i -e 's|-6.1||' adm/cmake/TKIVtkDraw/CMakeLists.txt
-  
-  sed -i -e 's|${OS_WITH_BIT}/${COMPILER}/lib${BUILD_POSTFIX}|lib${BUILD_POSTFIX}|' adm/templates/3rdparty_macro.cmake
-  sed -i -e 's|${OS_WITH_BIT}/${COMPILER}/lib${BUILD_POSTFIX}|lib${BUILD_POSTFIX}|' adm/templates/freetype.cmake
-  sed -i -e 's|${OS_WITH_BIT}/${COMPILER}/lib${BUILD_POSTFIX}|lib${BUILD_POSTFIX}|' adm/templates/vtk.cmake
 }
          
 build() {
