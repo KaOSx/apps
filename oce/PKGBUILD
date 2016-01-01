@@ -1,0 +1,54 @@
+
+pkgname=oce
+pkgver=0.17
+pkgrel=1
+epoch=1
+pkgdesc="Open CASCADE Community Edition, 3D modeling & numerical simulation"
+arch=('x86_64')
+url="https://github.com/tpaviot/oce"
+license=('custom')
+depends=('tk' 'mesa' 'libxmu' 'ftgl' 'vtk' 'openmpi')
+makedepends=('cmake')
+options=('!libtool')
+source=("https://github.com/tpaviot/oce/archive/OCE-${pkgver}.tar.gz"
+        'opencascade-draw.desktop'
+        'oce.png')
+md5sums=('f1a89395c4b0d199bea3db62b85f818d')
+
+prepare() {
+  cd ${pkgname}-OCE-${pkgver}
+  
+  #sed -i -e 's|-6.1||' adm/cmake/TKIVtk/CMakeLists.txt
+}
+         
+build() {
+  mkdir -p build
+  cd build
+  
+  CXXFLAGS+=' -DvtkFloatingPointType=double'
+
+  cmake ../${pkgname}-OCE-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DOCE_INSTALL_PREFIX=/usr \
+    -DOCE_INSTALL_LIB_DIR=/usr/lib \
+    -DOCE_DRAW=ON \
+    -OCE_WITH_GL2PS=ON \
+    -DOCE_WITH_VTK=ON \
+    -DOCE_MULTITHREAD_LIBRARY:STRING=OPENMP \
+    -DCMAKE_SKIP_RPATH=FALSE 
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+  
+  install -dm755 $pkgdir/usr/share/licenses/${pkgname}/
+  install -m644 ${srcdir}/${pkgname}-OCE-${pkgver}/LICENSE_LGPL_21.txt  ${pkgdir}/usr/share/licenses/${pkgname}
+  install -m644 ${srcdir}/${pkgname}-OCE-${pkgver}/OCCT_LGPL_EXCEPTION.txt ${pkgdir}/usr/share/licenses/${pkgname}
+  
+  install -Dm644 ${srcdir}/opencascade-draw.desktop ${pkgdir}/usr/share/applications/opencascade-draw.desktop 
+  install -Dm644 ${srcdir}/oce.png ${pkgdir}/usr/share/pixmaps/oce.png
+}
+
