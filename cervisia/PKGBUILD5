@@ -10,12 +10,12 @@ pkgdesc='CVS GUI frontend for KDE'
 url='http://kde.org/applications/development/cervisia/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
-depends=('kparts' 'kinit')
+depends=('kparts' 'kinit' 'kiconthemes' 'knotifications' 'kwidgetsaddons' 'kdesu')
 makedepends=('extra-cmake-modules' 'git' 'kdoctools')
 conflicts=('kdesdk-cervisia')
 replaces=('kdesdk-cervisia')
 install=${pkgname}.install
+groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
 #source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/cervisia#branch=frameworks")
@@ -25,7 +25,7 @@ prepare() {
   cd ${pkgname}
 
   sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
-  sed -i -e 's|#include <QRegExp>|#include <QtCore/QRegExp>|' ${srcdir}/${pkgname}/cvsservice/cvsaskpass.cpp
+  #sed -i -e 's|#include <QRegExp>|#include <QtCore/QRegExp>|' ${srcdir}/${pkgname}/cvsservice/cvsaskpass.cpp
 }
 
 build() {
