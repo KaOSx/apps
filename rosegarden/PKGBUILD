@@ -1,7 +1,7 @@
 
 pkgname=rosegarden
-pkgver=15.11.80
-_commit=14415
+pkgver=15.12.1
+_pkgver=15.12
 pkgrel=1
 pkgdesc="MIDI/audio sequencer and notation editor"
 arch=('x86_64')
@@ -15,14 +15,14 @@ optdepends=('cups: printing support'
             'wavpack')
 groups=('multimedia')
 install=${pkgname}.install
-source=("http://sourceforge.net/code-snapshots/svn/r/ro/rosegarden/code/${pkgname}-code-${_commit}-trunk.zip")
-md5sums=('61866b3e34563947b35ce28e72c834e0')
+source=("http://sourceforge.net/projects/rosegarden/files/${pkgname}/${_pkgver}/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('1a28e25e92de174192d6cc3223017d92')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-code-${_commit}-trunk/${pkgname} \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
