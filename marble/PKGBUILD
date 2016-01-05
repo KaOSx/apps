@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=marble
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
@@ -17,7 +17,7 @@ conflicts=('kdeedu-marble')
 replaces=('kdeedu-marble')
 options=('!emptydirs')
 #source=("git://anongit.kde.org/marble.git")
-source=($_mirror/${pkgname}-$_kdever.tar.xz
+source=("http://download.kde.org/stable/applications/$_kdever/src//${pkgname}-$_kdever.tar.xz"
        'qt55.diff')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '8b8e0dc940d57476485ee2f21e2f0f0b')
@@ -34,7 +34,7 @@ build() {
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_LIBDIR=lib \
-        -DQT5BUILD=true \
+        -DQT_PLUGINS_DIR=lib/qt5/plugins \
         -DBUILD_MARBLE_TOOLS=YES \
         -DPHONON_INCLUDE_DIR=/usr/include/phonon4qt5 \
         -DPHONON_LIBRARY=/usr/lib/libphonon4qt5.so.4.8.3 \
@@ -48,11 +48,9 @@ package() {
   make DESTDIR="$pkgdir" install
   
   #rm ${pkgdir}/usr/share/applications/marble-mobile.desktop
-  #rm ${pkgdir}/usr/share/applications/marble-touch.desktop
+  rm ${pkgdir}/usr/share/applications/marble-qt.desktop
   rm ${pkgdir}/usr/share/applications/marble_gpx.desktop
   rm ${pkgdir}/usr/share/applications/marble_kml.desktop
   rm ${pkgdir}/usr/share/applications/marble_osm.desktop
   rm ${pkgdir}/usr/share/applications/marble_shp.desktop
-  
-  mv -iv ${pkgdir}/usr/lib/plugins/* ${pkgdir}/usr/lib/qt5/plugins/
 }
