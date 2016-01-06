@@ -1,17 +1,18 @@
 
 pkgname=calligra
-pkgver=2.9.111
+pkgver=2.9.112
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
 depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons' 'ki18n' 'kitemviews' 'kwidgetsaddons'
          'threadweaver' 'kcompletion' 'kiconthemes' 'kparts' 'kxmlgui' 'kross' 'kconfigwidgets' 'ktexteditor' 
-         'kdelibs4support' 'eigen3' 'freetds' 'xbase' 'libpqxx' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'glew' 'gsl' 
+         'kdelibs4support' 'kio'
+         'eigen3' 'freetds' 'xbase' 'libpqxx' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'glew' 'gsl' 
          'lcms2' 'libmariadbclient' 'libodfgen' 'poppler-qt5' 'libspnav' 'fftw' 'hicolor-icon-theme' 
          'sqlite3' 'libkdcraw' 'exiv2' 'qca-qt5' 'qt5-quick1' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
          'kcontacts' 'kdepimlibs' 'knotifyconfig' 'knotifications' 'okular' 'openexr' 'vc' 'kreport')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'docbook-xsl' 'clang' 'postgresql') 
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'docbook-xsl' 'postgresql') # 'clang' vc fails clang
 optdepends=('postgresql: PostgreSQL database driver')
 conflicts=('calligra-3rdparty'
          'calligra-filters'
@@ -70,8 +71,8 @@ build() {
   mkdir build
   cd build
   
-  export CC=/usr/bin/clang
-  export CXX=/usr/bin/clang++
+  #export CC=/usr/bin/clang
+  #export CXX=/usr/bin/clang++
   
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
