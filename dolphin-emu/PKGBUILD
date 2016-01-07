@@ -1,8 +1,8 @@
 
 pkgname=dolphin-emu
-pkgver=4.0.2.6
+pkgver=4.0.2.7
 pkgrel=1
-_commit=4826376
+_commit=dd1192b
 pkgdesc='GameCube, Wii and Triforce emulator'
 arch=('x86_64')
 url='http://dolphin-emu.org'
@@ -11,7 +11,7 @@ depends=('bluez' 'ffmpeg' 'glew' 'libao' 'miniupnpc' 'openal' 'portaudio-svn'
          'sdl2' 'soundtouch' 'qt5-base' 'pulseaudio' 'gtk2' 'glu')
 makedepends=('cmake' 'opencl-headers')
 source=("https://github.com/dolphin-emu/dolphin/tarball/master/$pkgname-${pkgver}.tar.gz")
-md5sums=('0858054495d5e8078e6585189c01dffe')
+md5sums=('3ad2f41409852358faaf70d6abcc81d4')
          
 build() {
   cd ${srcdir}/${pkgname}-dolphin-${_commit}
@@ -21,7 +21,7 @@ build() {
   cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
            -DCMAKE_CXX_FLAGS='-fno-inline-functions -fpermissive' \
            -DENABLE_LTO=ON \
-           -DENABLE_QT=ON
+           -DENABLE_QT2=ON
            #-DDISABLE_WX=ON 
   make
 }
@@ -31,7 +31,7 @@ package() {
 
   make DESTDIR=${pkgdir} install
   
-  install -m 755 Binaries/dolphin-emu-qt ${pkgdir}/usr/bin/
+  install -m 755 Binaries/dolphin-emu-qt2 ${pkgdir}/usr/bin/
   #sed -i -e 's|Exec=dolphin-emu|Exec=dolphin-emu-qt|' ${pkgdir}/usr/share/applications/dolphin-emu.desktop
 }
 
