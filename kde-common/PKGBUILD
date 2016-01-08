@@ -5,14 +5,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kde-common
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Common Configuration Files, Scripts and Artwork"
 url="http://www.kde.org"
 license=('GPL')
 options=('strip')
 groups=('kde' 'kde-minimal' 'kde-uninstall')
 depends=('qt5-base' 'pinentry' 'openssh' 'bash' 'glibc')
-source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_servicemenu_2.8.6.tar.gz"
+source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_servicemenu.tar.gz"
         'CopyPath.desktop'
 	#"http://www.kde-apps.org/CONTENT/content-files/102825-compressattach.desktop.bz2"
 	'servicemenu-rootactions.patch'
@@ -21,7 +21,7 @@ source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_service
 	'agent-shutdown.sh'
 	'appear.desktop')
   
-md5sums=('477d9601e6aa8c0b3ec35ab97efdcae1'
+md5sums=('412a4e659514a6404691b552f2416ce0'
          'd626182c47e7bb7785dda99dbfcf4b22'
          #'630ffe7118eef8608a9e5e393a0b1e12'
          'e815fcdba963a79cd39989182df1a994'
@@ -39,10 +39,10 @@ package() {
 	install -D -m755 -o root -g root ${srcdir}/sysinfo.sh ${pkgdir}/usr/bin/sysinfo
 
 	# install root actions service menu
-	cd ${srcdir}/rootactions_servicemenu_2.8.6/Root_Actions_2.8.6/dolphin-KDE4/
+	cd ${srcdir}/rootactions_servicemenu_2.8.7/Root_Actions_2.8.7/dolphin-KDE4/
 	mkdir -p ${pkgdir}/usr/share/kservices5/ServiceMenus/
 	install -m755 *.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/
-        cd ${srcdir}/rootactions_servicemenu_2.8.6/Root_Actions_2.8.6
+        cd ${srcdir}/rootactions_servicemenu_2.8.7/Root_Actions_2.8.7
         patch -p2 < ${srcdir}/servicemenu-rootactions.patch      
 	install -Dm755 rootactions-servicemenu.pl ${pkgdir}/usr/bin/rootactions-servicemenu.pl
         sed "s~Icon=terminal~Icon=utilities-terminal~g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/10-rootactionsfolders.desktop
