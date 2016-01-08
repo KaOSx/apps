@@ -6,7 +6,7 @@ pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
 #pkgver=15.03.79
-pkgrel=4
+pkgrel=1
 pkgdesc="Archiver for various compression formats"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -25,7 +25,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  patch -p1 -i ${srcdir}/rar.diff
+  #patch -p1 -i ${srcdir}/rar.diff
 }
 
 build() {  
