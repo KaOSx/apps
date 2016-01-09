@@ -1,7 +1,7 @@
 
 pkgname=qtcreator
 pkgver=3.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="http://qt.digia.com/"
@@ -20,7 +20,13 @@ source=("http://download.qt-project.org/official_releases/${pkgname}/3.6/${pkgve
         'qtcreator.desktop')
 md5sums=('6b0052a6d671318fca540a190cacd97d'
          '5162b73dd63f457bdb02bd9c8b1cc66b')
-         
+
+prepare() {
+  cd qt-creator-opensource-src-${pkgver}
+
+  sed -i 's|$$IDE_OUTPUT_PATH/libexec/qtcreator|$$IDE_OUTPUT_PATH/lib/qtcreator|' qtcreator.pri
+  sed -i 's|$$QTC_PREFIX/libexec/qtcreator|$$QTC_PREFIX/lib/qtcreator|' qtcreator.pri
+}         
 
 build() {
   cd "${srcdir}"
