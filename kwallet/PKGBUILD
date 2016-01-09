@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwallet
-pkgver=${_kdever}
-pkgrel=1
+pkgver=${_kf5ver}
+pkgrel=2
 pkgdesc='KWallet Framework'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kwallet-framework'
@@ -14,7 +14,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #source=("http://quickgit.kde.org/?p=kwallet.git&a=snapshot&h=07cf81cbd379be614127b391ace10583697e172c&fmt=tbz2")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #md5sums=('381360ffc9bbe29eb6f568c4e2a34409')
 
 build() {
