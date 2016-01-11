@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=breeze
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/breeze'
@@ -12,12 +12,16 @@ license=('LGPL')
 depends=('kwin' 'frameworkintegration' 'breeze-icons')
 makedepends=('extra-cmake-modules')
 groups=('plasma5')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
+        'palette_helper.patch')
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '75a91020ed78965095ce6d7be1cee600')
 
 prepare () {
   cd $pkgname-$pkgver
   #sed -i -e 's|devices emblems places status|devices emblems emotes mimetypes places status|' icons-dark/CMakeLists.txt
+  # https://bugs.kde.org/show_bug.cgi?id=357800
+  patch -p1 -i $srcdir/palette_helper.patch
 }
   
 build () {  
