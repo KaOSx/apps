@@ -1,6 +1,6 @@
 
 pkgname=partitionmanager
-pkgver=1.9.50
+pkgver=2.0.0
 #_pkgver=1.2.1
 pkgrel=1
 epoch=1
@@ -17,24 +17,24 @@ optdepends=('e2fsprogs: ext2/3/4 support'
 	    'reiserfsprogs: Reiser support'
 	    'ntfsprogs: NTFS support'
 	    'dosfstools: FAT32 support')
-conflicts=('kf5-partitionmanager') # 'kpmcore')
-replaces=('kf5-partitionmanager') # 'kpmcore')
+conflicts=('kf5-partitionmanager')
+replaces=('kf5-partitionmanager')
 groups=('system')
 install=partitionmanager.install	
-#source=("http://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${_pkgver}.tar.xz")
-source=("git://anongit.kde.org/partitionmanager")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${pkgver}.tar.xz")
+#source=("git://anongit.kde.org/partitionmanager")
+md5sums=('d50698661f443fa5ac99de6329f9d0cf')
 
 build() {
   cd ${srcdir}
   # filsystem code from src/fs/filesystem.h, set as default
   #sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/${pkgname}-${pkgver}/src/config.kcfg
-  sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/${pkgname}/src/partitionmanager.kcfg
+  sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/${pkgname}-${pkgver}/src/partitionmanager.kcfg
   
   mkdir build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DLIB_INSTALL_DIR=lib \
