@@ -1,0 +1,32 @@
+ 
+pkgname=user-kcm
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="KCM user modules"
+arch=('x86_64')
+url="https://github.com/kaosx"
+license=("GPL")
+depends=('icu' 'qt5-base' 'hwinfo' 'kitemmodels' 'kauth' 'kconfigwidgets'
+         'kcoreaddons' 'kcmutils' 'knotifications' 'xdg-utils')
+makedepends=('git' 'extra-cmake-modules' 'kdoctools' 'qt5-tools')
+source=("user-kcm.tar.xz")
+md5sums=('e069a4ca25ffcdf8ba899b0eb4483651')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../user-kcm \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DSYSCONF_INSTALL_DIR=/etc
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}

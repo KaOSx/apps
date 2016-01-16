@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=4
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-desktop'
@@ -21,7 +21,7 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.ta
         'font_viewer.patch')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          'f8469e2f5e90c965feb69da2488dccd9'
-         '15a5395abc6573bb9ab1dbe0c0d6db52')
+         'b472cc96e8883efacaacf7ffc0df3b37')
 
 prepare() {
   cd ${pkgname}-${pkgver}
