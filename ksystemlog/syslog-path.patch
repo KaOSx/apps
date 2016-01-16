@@ -1,11 +1,12 @@
---- kdeadmin-4.6.0/ksystemlog/src/modes/system/systemConfiguration.h~	2011-01-27 14:24:29.840000005 +0100
-+++ kdeadmin-4.6.0/ksystemlog/src/modes/system/systemConfiguration.h	2011-01-27 14:24:53.803333335 +0100
-@@ -39,7 +39,7 @@
- 		SystemConfiguration() :
- 			GenericLogModeConfiguration(
- 					QLatin1String( SYSTEM_LOG_MODE_ID ),
--					QStringList() << QLatin1String( "/var/log/syslog" ),
-+					QStringList() << QLatin1String( "/var/log/messages.log" ),
- 					QList<int>() << INFORMATION_LOG_LEVEL_ID
- 			) {
- 
+--- a/src/modes/system/systemConfiguration.h	2015-11-15 07:46:00.000000000 -0500
++++ b/src/modes/system/systemConfiguration.h	2016-01-16 14:49:39.645115221 -0500
+@@ -38,7 +38,7 @@
+ public:
+     SystemConfiguration()
+         : GenericLogModeConfiguration(QStringLiteral(SYSTEM_LOG_MODE_ID),
+-                                      QStringList() << QStringLiteral("/var/log/syslog"),
++                                      QStringList() << QStringLiteral("/var/log/pacman.log"),
+                                       QList<int>() << Globals::INFORMATION_LOG_LEVEL_ID)
+     {
+         /*
+

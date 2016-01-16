@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ksystemlog
 pkgver=${_kdever}
 #pkgver=15.07.71
-pkgrel=1
+pkgrel=2
 pkgdesc='System log viewer tool'
 url='http://kde.org/applications/system/ksystemlog/'
 arch=('x86_64')
@@ -14,17 +14,17 @@ depends=('kxmlgui' 'kcoreaddons' 'kwidgetsaddons' 'kitemviews' 'kiconthemes' 'ki
          'ki18n' 'kcompletion' 'ktextwidgets')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdeadmin' 'kde-uninstall')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        'ksystemlogui.rc')
+source=("http://download.kde.org/stable/applications/$_kdever/src//${pkgname}-$_kdever.tar.xz"
+        'syslog-path.patch')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '442c9a8ac0bf18deed43a810bf81ce51')
+         '5486c901f707d7ea191eed58d3aef2c1')
 
 prepare() {
   cd $pkgname-${pkgver}
-  rm src/ksystemlogui.rc
-  cp ${srcdir}/ksystemlogui.rc src/ksystemlogui.rc
   
-  sed -i -e 's|<default>systemLogMode</default>|<default>xorgLogMode</default>|' src/config/ksystemlog.kcfg
+  sed -i -e 's|<Action name="kernelLogMode" />|<Action name="cupsLogMode" />|' src/ksystemlogui.rc
+  sed -i -e 's|i18n("System Log")|i18n("Pacman Log")|' src/modes/system/systemLogMode.cpp
+  patch -p1 -i ${srcdir}/syslog-path.patch
 }
 
 build() {
