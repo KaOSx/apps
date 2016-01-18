@@ -1,6 +1,6 @@
 
 pkgname=smb4k
-pkgver=1.2.73
+pkgver=1.2.74
 pkgrel=1
 pkgdesc='Advanced network neighborhood browser and Samba share mounting utility for KDE.'
 url='https://sourceforge.net/p/smb4k/home/Home/'
@@ -18,6 +18,7 @@ md5sums=('SKIP')
 prepare() {
   cd $pkgname
   #patch -p1 -i ${srcdir}/cmake.diff
+  sed -i -e 's|Unknown|UnknownNetworkItem|' core/smb4kbasicnetworkitem.h
 }
 
 build() {

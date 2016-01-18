@@ -6,7 +6,7 @@ pkgname=spectacle
 pkgver=${_kdever}
 #pkgver=15.07.92
 #_pkgver=2.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The new KDE Screenshot Utility"
 url="https://projects.kde.org/projects/kde/kdegraphics/spectacle"
 arch=('x86_64')
@@ -21,12 +21,12 @@ groups=('kde' 'kdegraphics' 'kde-uninstall')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz"
         'region.patch')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '4c235a2b5f1bceb08daadd3c67feec10')
+         '1e6adebed6511cab96d9f822c395f87d')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|ksnapshot KF5::Kipi|ksnapshot KF5::KIPI|' ${srcdir}/${pkgname}/CMakeLists.txt
-  #patch -p1 -i $srcdir/region.patch
+  patch -p1 -i $srcdir/region.patch
 }
 
 build() {
