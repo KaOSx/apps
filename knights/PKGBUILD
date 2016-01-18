@@ -1,15 +1,17 @@
 
 pkgname=knights
-pkgver=2.5.81
+pkgver=2.5.82
 pkgrel=1
 pkgdesc="Chess board for KDE with XBoard protocol support"
 arch=('x86_64')
 url="http://kde-apps.org/content/show.php/Knights?content=122046"
 license=('GPL')
-depends=('kdelibs4support' 'plasma-framework' 'kplotting' 'kwallet' 'libkdegames' 'gnuchess' 'qtspeech')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'kdelibs')
+depends=('kcoreaddons' 'kconfig' 'kwidgetsaddons' 'kdbusaddons' 'ki18n' 'kconfigwidgets'
+         'ktextwidgets' 'kxmlgui' 'kio' 'plasma-framework' 'kplotting' 'knotifyconfig'
+         'kwallet' 'kcompletion' 'libkdegames' 'gnuchess' 'qtspeech')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 install=knights.install
-source=("git://anongit.kde.org/knights.git#branch=frameworks")
+source=("git://anongit.kde.org/knights.git")
 md5sums=('SKIP')
 
 build() {
