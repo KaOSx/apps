@@ -1,7 +1,7 @@
 
 pkgname=libopenshot
-pkgver=0.0.6
-pkgrel=2
+pkgver=0.0.9
+pkgrel=1
 pkgdesc="Open-source project dedicated to delivering high quality video editing, animation, and playback solutions to the world."
 arch=('x86_64')
 url="http://www.openshot.org/"
@@ -11,22 +11,23 @@ depends=('libopenshot-audio' 'ffmpeg' 'imagemagick' 'libx11' 'libxcursor' 'libxi
 makedepends=('cmake' 'swig' 'doxygen')
 # http://bazaar.launchpad.net/~openshot.code/libopenshot/trunk/files
 source=("https://launchpad.net/libopenshot/0.0/$pkgver/+download/libopenshot-$pkgver.tar.gz")
-md5sums=('092d31af6db060ef10cb8b057a0b1e26')
+md5sums=('65933d9a5de7ad3a75c9d5d300b80a1d')
 
-prepare () {
-  cd ${pkgname}-${pkgver}
+#prepare () {
+  #cd ${pkgname}-${pkgver}
   
-  sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
-}   
+  #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
+#}   
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../ \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DMAGICKCORE_HDRI_ENABLE=1
+    -DMAGICKCORE_HDRI_ENABLE=1 \
+    -DDISABLE_TESTS=true
   make
 }
 
