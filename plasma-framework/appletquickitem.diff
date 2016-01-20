@@ -1,0 +1,34 @@
+From: David Rosca <nowrep@gmail.com>
+Date: Sun, 17 Jan 2016 16:53:53 +0000
+Subject: Ignore check if just one part of size is zero in compactRepresentationCheck
+X-Git-Url: http://quickgit.kde.org/?p=plasma-framework.git&a=commitdiff&h=11937533e83659dc4dab6f7e8e6019863a28ddae
+---
+Ignore check if just one part of size is zero in compactRepresentationCheck
+
+When debugging the linked bug, it looks like when item's geometry change
+eg. from 0x0 to 100x100, geometryChanged may be called twice, first with 100x0
+and then finally with 100x100.
+This was not issue before, because we used timer to call compactRepresentationCheck.
+This changes compactRepresentationCheck so that it early returns also when just
+one part of item's size is zero.
+
+Fixes regression from 344dbeb938
+
+REVIEW: 126778
+BUG: 358039
+---
+
+
+--- a/src/plasmaquick/appletquickitem.cpp
++++ b/src/plasmaquick/appletquickitem.cpp
+@@ -255,8 +255,8 @@
+         return;
+     }
+ 
+-    //ignore 0,0 sizes;
+-    if (q->width() <= 0 && q->height() <= 0) {
++    //ignore 0 sizes;
++    if (q->width() <= 0 || q->height() <= 0) {
+         return;
+     }
+ 
