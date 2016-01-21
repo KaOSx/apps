@@ -34,7 +34,7 @@ build() {
   sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/internet/lastfm/lastfmsettingspage.cpp
   #sed -i 's|#include "internet/lastfm/fixlastfm.h"||g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/core/songloader.cpp
   sed -i 's|<lastfm5/Track.h>|<lastfm/Track.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/core/song.cpp
-  #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestimages.cpp
+  sed -i 's|Exec=clementine %U|Exec=clementine|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/dist/clementine.desktop
   #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestbiographies.cpp
   #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestsimilarartists.cpp
   #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/songkickconcerts.cpp
