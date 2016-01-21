@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://projects.kde.org/projects/playground/libs/plasma-framework'
@@ -17,7 +17,7 @@ groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/5.18/${pkgname}-${pkgver}.tar.xz"
         'appletquickitem.diff')
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '97972274c0c0564a37202c11291bbe66')
+         '4212a5bc00f030d5444ccf5e9292dc7a')
 
 prepare() {
   cd ${pkgname}-${pkgver}
