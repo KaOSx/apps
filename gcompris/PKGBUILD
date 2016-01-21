@@ -1,7 +1,7 @@
 
 pkgname=gcompris
-pkgver=0.50
-_pkgver=0.50
+pkgver=0.52
+_pkgver=0.52
 pkgrel=1
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
@@ -14,15 +14,15 @@ groups=('kaos-kids')
 conflicts=('gcompris-qt')
 provides=('gcompris-qt')
 replaces=('gcompris-qt')
-source=("http://gcompris.net/download/beta/gcompris-$pkgver.tar.bz2"
+source=("http://gcompris.net/download/beta/gcompris-qt-$pkgver.tar.xz"
         'gcompris.desktop'
         'gcompris.png')
-md5sums=('c0dd5a6a1252f84bff881dc20d68e96e'
+md5sums=('fb81f8971a0ed56e181365d2defe5a86'
          '95b4bcb06168e38332d66fec1dda3aa2'
          '7c7cee3479f1a47376db800b2bc37017')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname-qt-$pkgver
   #python2 tools/l10n-fetch-po-files.py
 }
          
@@ -30,7 +30,7 @@ build() {
   mkdir build
   
   cd build 
-  cmake ../$pkgname-$pkgver \
+  cmake ../$pkgname-qt-$pkgver \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
