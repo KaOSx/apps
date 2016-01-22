@@ -3,29 +3,43 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=krdc
-pkgver=${_kdever}
+#pkgver=${_kdever}
+pkgver=16.03.70
 pkgrel=1
 pkgdesc='Desktop Sharing Client'
 url='http://kde.org/applications/internet/krdc/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
-depends=('kdelibs' 'telepathy-qt' 'freerdp')
-makedepends=('cmake' 'automoc4' 'libvncserver')
+depends=('kconfig' 'kcmutils' 'kdnssd' 'knotifyconfig' 'knotifications' 'kbookmarks' 'kiconthemes'
+         'kxmlgui' 'kcompletion' 'kwallet' 'kwidgetsaddons' 'ki18n' 'freerdp')
+         # not ported yet/removed? 'telepathy-qt5')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'libvncserver')
 optdepends=('libvncserver: VNC support')
 conflicts=('kdenetwork-krdc')
 replaces=('kdenetwork-krdc')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/krdc.git#branch=frameworks")
+md5sums=('SKIP')
+
+prepare() {
+  cd ${pkgname}
+
+  sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
+}
 
 build() {
   mkdir build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DKDE4_BUILD_TESTS=OFF \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
   make
 }
 
