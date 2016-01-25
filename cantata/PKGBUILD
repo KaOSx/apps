@@ -1,6 +1,6 @@
 
 pkgname=cantata
-pkgver=1.9.50
+pkgver=2.0.0
 pkgrel=1
 _commit=d60f2973918f5ef50903297620777f9973e7ca22
 pkgdesc="A KDE client for the music player daemon (MPD)"
@@ -11,11 +11,12 @@ depends=('qt5-multimedia' 'qt5-svg' 'libmtp' 'libcddb' 'libmusicbrainz5'
          'mpg123' 'taglib-extras' 'mpd' 'media-player-info' 'udisks2')
 makedepends=('cmake' 'qt5-tools')
 install="$pkgname.install"
-source=("https://github.com/CDrummond/cantata/archive/${_commit}.zip")
-md5sums=('f3c05dab19a9e0174dc89efafa3c9f40')
+#source=("https://github.com/CDrummond/cantata/archive/${_commit}.zip")
+source=("https://github.com/CDrummond/cantata/releases/download/v${pkgver}/cantata-${pkgver}.tar.bz2")
+md5sums=('dc7a65145692c5b2cac4c2c8a7c767c5')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's|lconvert|lconvert-qt5|' ${srcdir}/${pkgname}-$pkgver/po/CMakeLists.txt
   #sed -i -e 's|lrelease|lrelease-qt5|' ${srcdir}/${pkgname}-$pkgver/po/CMakeLists.txt
 }
@@ -24,7 +25,7 @@ build() {
   mkdir build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_HTTP_STREAM_PLAYBACK=ON \
