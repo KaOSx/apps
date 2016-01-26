@@ -1,23 +1,23 @@
 
 pkgname=kdevelop
 pkgver=4.90.97
-_pkgver=4.90.90
-pkgrel=2
+_pkgver=4.90.91
+pkgrel=3
 pkgdesc="A C/C++ development environment for KDE"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
 license=('GPL')
 depends=('kdevplatform' 'kconfig' 'kdeclarative' 'kiconthemes' 'ki18n' 'kitemmodels' 'kitemviews'
          'kjobwidgets' 'kcmutils' 'kio' 'knewstuff' 'knotifyconfig' 'kparts' 'kservice' 'ktexteditor' 
-         'threadweaver' 'kxmlgui' 'kwindowsystem' 'krunner' 'plasma-framework' 'okteta' 'kdevelop-pg-qt'
-         'clang' 'llvm')
+         'threadweaver' 'kxmlgui' 'kwindowsystem' 'krunner' 'libksysguard' 'plasma-framework' 'okteta' 
+         'kdevelop-pg-qt' 'clang' 'llvm')
 makedepends=('extra-cmake-modules' 'kdoctools' 'perl' 'docbook-xsl')
 conflicts=('kf5-kdevelop')
 replaces=('kf5-kdevelop')
 groups=('programming')
 install=kdevelop.install
 source=("http://download.kde.org/unstable/kdevelop/${_pkgver}/src/kdevelop-${_pkgver}.tar.xz")      
-md5sums=('14be029163d2be0e35264f983586e453')
+md5sums=('14ab40652807ead32bfc2ada115da2c0')
 
 prepare() {
   cd ${srcdir}/${pkgname}-${_pkgver}
@@ -27,8 +27,8 @@ prepare() {
 
 build() {
   mkdir build
-  
   cd build 
+  
   cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \

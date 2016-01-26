@@ -1,6 +1,6 @@
 
 pkgname=kdev-php
-pkgver=4.90.90
+pkgver=4.90.91
 pkgrel=1
 pkgdesc="PHP plugin for Kdevelop"
 arch=('x86_64')
@@ -13,12 +13,12 @@ options=('!makeflags')
 replaces=('kdevelop-php' 'kdevelop-php-docs')
 conflicts=('kdevelop-php' 'kdevelop-php-docs')
 source=("http://download.kde.org/unstable/kdevelop/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('9c9dbf443c677a08cf00e03ce46f3711')
+md5sums=('c6063e86356d687f430c7cb441b57767')
 
 build() {
   mkdir build
-  
   cd build
+  
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
