@@ -10,12 +10,10 @@ pkgdesc="Library that provides the glue necessary for application parts to be em
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/kontactinterface'
 license=('LGPL')
-depends=('kdelibs4support' 'kparts' 'libx11')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+depends=('kparts' 'libx11')
+makedepends=('extra-cmake-modules' 'kdoctools')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kontactinterface.git")
-#md5sums=('SKIP')
 
 prepare() {
   cd $pkgname-${pkgver}
@@ -24,7 +22,6 @@ prepare() {
 
 build() {
   cd ${srcdir}
-
   mkdir build
   
   cd build 
