@@ -13,15 +13,15 @@ md5sums=('1a94bd7fbe99e87f530dc9bc1d7a8c45')
 
 
 build() {
-  	cd "$srcdir/$pkgname"
+  cd $pkgname
   	
-   	/usr/lib/qt5/bin/qmake
-   	make
+  /usr/lib/qt5/bin/qmake
+  make
 }
 
 package() {
-	cd "$srcdir/$pkgname"
+  cd $pkgname
 	
-	make INSTALL_ROOT="$pkgdir" install
+  make INSTALL_ROOT=$pkgdir install
 }
 
