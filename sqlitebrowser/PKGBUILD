@@ -1,0 +1,30 @@
+
+pkgname=sqlitebrowser
+pkgver=3.8.0
+pkgrel=1
+pkgdesc="High quality, visual, open source tool to create, design, and edit database files compatible with SQLite"
+arch=('x86_64')
+url="http://sqlitebrowser.org/"
+license=('GPL')
+depends=('qt5-base' 'sqlite')
+makedepends=('cmake' 'qt5-tools')
+source=("https://github.com/sqlitebrowser/sqlitebrowser/archive/v${pkgver}.tar.gz")
+md5sums=('c7cfddc4b1327dd4558b95fddfdf2c7b')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=/usr/lib \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DUSE_QT5=TRUE
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}

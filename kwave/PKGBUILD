@@ -21,11 +21,11 @@ build() {
   cd build
   
   cmake ../${pkgname} \
-  -DCMAKE_INSTALL_PREFIX=/usr \
-  -DLIB_INSTALL_DIR=/usr/lib \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-  -DWITH_MP3=OFF  # id3lib not in repo, upstream works on taglib
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=/usr/lib \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DWITH_MP3=OFF  # id3lib not in repo, upstream works on taglib
   make
 }
 
