@@ -1,37 +1,42 @@
 
 pkgname=kaffeine
-pkgver=1.3.1
+pkgver=1.3.80
+_commit=ea1d0b7c0f6206acc56892bb8d99b48ccae7ff8a
 pkgrel=1
 pkgdesc='KDE media player'
 license=('GPL')
 arch=('x86_64')
 url="http://kaffeine.kde.org"
-depends=('kdelibs' 'xine-lib' 'vlc')
-makedepends=('cmake' 'automoc4')
+depends=('kcompletion' 'kdbusaddons' 'ki18n' 'kiconthemes' 'kio' 'knotifications'
+         'kwidgetsaddons' 'kxmlgui' 'qt5-x11extras' 'vlc')
+makedepends=('extra-cmake-modules' 'git') 
 groups=('multimedia')
 install=kaffeine.install
-source=("http://downloads.sourceforge.net/kaffeine/${pkgname}-${pkgver}.tar.gz"
-        'gcc47.patch')
-md5sums=('f2308cf7abf5ec7ad5c724593594c198'
-         '48afe5ec99b38fe02782db57a847033f')
+#source=("http://downloads.sourceforge.net/kaffeine/${pkgname}-${pkgver}.tar.gz")
+#md5sums=('f2308cf7abf5ec7ad5c724593594c198')
+source=("git://github.com/matijaskala/kaffeine5")
+md5sums=('SKIP')
 
 prepare() {
-	cd ${pkgname}-${pkgver}
-	#patch -p1 -i ${srcdir}/gcc47.patch
+  cd ${pkgname}5
+  #patch -p1 -i ${srcdir}/gcc47.patch
+  #sed -i 's|${X11_Xscreensaver_INCLUDE_PATH}||' CMakeLists.txt
 }
 
 build() {
-	mkdir -p build
-	cd build
-	cmake ../${pkgname}-${pkgver} \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_SKIP_RPATH=ON \
-		-DCMAKE_INSTALL_PREFIX=/usr
-	make
+  mkdir build
+  cd build
+  
+  cmake ../${pkgname}5 \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DBUILD_TESTING=OFF 
+  make
 }
 
 package() {
-        cd build
-        
-	make DESTDIR="$pkgdir" install
+  cd build
+  
+  make DESTDIR=$pkgdir install
 }

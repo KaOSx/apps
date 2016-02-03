@@ -12,7 +12,7 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
 depends=('kconfig' 'kcmutils' 'kdnssd' 'knotifyconfig' 'knotifications' 'kbookmarks' 'kiconthemes'
-         'kxmlgui' 'kcompletion' 'kwallet' 'kwidgetsaddons' 'ki18n' 'freerdp')
+         'kxmlgui' 'kcompletion' 'kwallet' 'kwidgetsaddons' 'ki18n') # 'freerdp')
          # not ported yet/removed? 'telepathy-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'libvncserver')
 optdepends=('libvncserver: VNC support')
@@ -39,7 +39,8 @@ build() {
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DHAVE_XFREERDP=ON
   make
 }
 
