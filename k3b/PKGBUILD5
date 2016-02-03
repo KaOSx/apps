@@ -34,12 +34,12 @@ prepare() {
   cd ${srcdir}/${pkgname}
   #patch -p1 -i ${srcdir}/k3b-fix-mp3decoder.diff
   #patch -p1 -i ${srcdir}/k3b-fixbuild.diff
-  patch -p1 -i ${srcdir}/CMakeLists.diff
+  #patch -p1 -i ${srcdir}/CMakeLists.diff
   #sed -i -e 's|set(TAGLIB_MIN_VERSION "1.4")|set(TAGLIB_MIN_VERSION "1.10")|' ${srcdir}/${pkgname}/cmake/modules/FindTaglib.cmake 
 }
 
 build() {
- mkdir -p build
+  mkdir -p build
   cd build
 
   cmake ../${pkgname} \
