@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kde-common
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Common Configuration Files, Scripts and Artwork"
 url="http://www.kde.org"
 license=('GPL')
@@ -19,16 +19,20 @@ source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_service
 	'sysinfo.sh'
 	'agent-startup.sh'
 	'agent-shutdown.sh'
-	'appear.desktop')
+	'appear.desktop'
+	'md5sha1calc.sh'
+	'md5sha1calc.desktop')
   
 md5sums=('412a4e659514a6404691b552f2416ce0'
-         'd626182c47e7bb7785dda99dbfcf4b22'
+         'c87a034e2208c72afabf93d0102f978b'
          #'630ffe7118eef8608a9e5e393a0b1e12'
          'e815fcdba963a79cd39989182df1a994'
          'cdb4a289c5cfbf55590327ced615e57a'
          '2c479e69c92e7f6a1dd9cfb03ed8ee4f'
          '18e8d01124b19f7df2937c06e177bf7f'
-         'fe5f56600ed1a99eb6cd11e608a86ddb')
+         'fe5f56600ed1a99eb6cd11e608a86ddb'
+         'e140f2cc274fade2cf94296b3de8fa87'
+         'd6b14291c0f6e78715da54f1ca3cc6cd')
 
 package() {
 	# install scripts for gpg/ssh-agent
@@ -59,4 +63,8 @@ package() {
 	#install -m755 -d ${pkgdir}/usr/share/desktop-directories
 	install -m755 -d ${pkgdir}/usr/share/applications
 	install -m755 ${srcdir}/appear.desktop ${pkgdir}/usr/share/applications/appear.desktop
+	
+	# install md5sha1calc
+	install -D -m755 md5sha1calc.sh ${pkgdir}/usr/bin/md5sha1calc
+	install -D -m644 md5sha1calc.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/md5sha1calc.desktop
 }
