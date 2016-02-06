@@ -1,14 +1,14 @@
 pkgname=mixxx
 pkgver=2.0.0
 _pkgver=release-2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Free, open source software for digital DJ'ing."
 arch=('x86_64')
 url='http://www.mixxx.org'
 license=('GPL')
 depends=('faad2' 'fftw' 'libid3tag' 'libmad' 'libmodplug' 'libogg' 'libshout' 'libsndfile' 'libusb' 
          'portaudio-svn' 'portmidi' 'protobuf' 'qt5-svg' 'qt5-script' 'qt5-webkit' 'rubberband'
-         'taglib' 'wavpack')
+         'taglib' 'wavpack' 'opusfile')
 makedepends=('scons' 'glu' 'qt5-tools')
 source=("https://github.com/mixxxdj/mixxx/archive/${_pkgver}.tar.gz")
 md5sums=('784e9aafc133c6a31d13b32904d18d39')
@@ -16,7 +16,7 @@ md5sums=('784e9aafc133c6a31d13b32904d18d39')
 build() {
   cd "${srcdir}/${pkgname}-${_pkgver}"
 
-  scons qtdir=/usr/lib/qt5 prefix=/usr faad=1 qt5=1 wv=1 modplug=1 
+  scons qtdir=/usr/lib/qt5 prefix=/usr faad=1 qt5=1 wv=1 modplug=1 opus=1
 }
 
 package() {
