@@ -1,0 +1,36 @@
+From: Pino Toscano <pino@kde.org>
+Date: Mon, 08 Feb 2016 21:48:00 +0000
+Subject: info: remove extra defined(@array)
+X-Git-Url: http://quickgit.kde.org/?p=kio-extras.git&a=commitdiff&h=af92d6180d479d1e56bc549bbda30a3036687182
+---
+info: remove extra defined(@array)
+
+Such syntax is long deprecated and a fatal error in Perl 5.22.0 [1].
+
+BUG: 359015
+FIXED-IN: 15.12.2
+
+[1] http://perldoc.perl.org/perl5220delta.html
+---
+
+
+--- a/info/kde-info2html
++++ b/info/kde-info2html
+@@ -171,7 +171,7 @@
+ 		next if $looking && !/\* Menu/;
+ 		$looking = 0;
+ 		my @item = &ParseMenuItem($_,'dir');
+-		if (!defined(@item)) { next }
++		if (!@item) { next }
+     		my ($MenuLinkTag, $MenuLinkFile, $MenuLinkRef, $MenuLinkText) = @item;
+ 		if ($MenuLinkRef eq $FileName) {
+ 			&Redirect($MenuLinkFile, $MenuLinkTag);
+@@ -429,7 +429,7 @@
+ sub MenuItem2HTML {
+     my ($Line, $BaseInfoFile) = @_;
+     my @parse_results = &ParseMenuItem($Line, $BaseInfoFile);
+-    if (!defined (@parse_results)) { return $Line; }
++    if (!@parse_results) { return $Line; }
+     my ($MenuLinkTag, $MenuLinkFile, $MenuLinkRef, $MenuLinkText) = @parse_results;
+     #-- produce a HTML line
+     return "<tr class=\"infomenutr\"><td class=\"infomenutd\" style=\"width:30%\"><ul><li><a href=\"info:/$MenuLinkFile/$MenuLinkTag\">$MenuLinkRef</a></ul></td><td class=\"infomenutd\">$MenuLinkText";
