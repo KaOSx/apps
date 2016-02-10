@@ -1,7 +1,7 @@
 
 pkgname=quassel
-pkgver=0.12.2
-pkgrel=5
+pkgver=0.12.3
+pkgrel=1
 pkgdesc="Qt irc client with a separated core"
 url="http://quassel-irc.org"
 arch=('x86_64')
@@ -20,26 +20,19 @@ source=("http://quassel-irc.org/pub/quassel-${pkgver}.tar.bz2"
         'irc-channel-active.svgz'
         'irc-channel-inactive.svgz'
         'quassel.png'
-        'qt55.diff'
-        "https://github.com/quassel/quassel/commit/476aaa050f26d6a31494631d172724409e4c569b.diff"
         "https://github.com/sandsmark/quassel/commit/56e1d275c2f8a59eaf9d19ba76aca5f1d3163683.diff")
 install=quassel.install
 backup=(etc/conf.d/quassel.conf)
-md5sums=('f5473a9c5927a0e8cb3a204ced887aa8'
+md5sums=('a1eec91b56df7d538dfc7cafa8dfabae'
          '7f56b8d2d54a1395ed8bada023ec710c'
          '479229556ba0dd94e3ce28e31e5deea9'
          'd22180823cda2ac7bedb238463714c15'
          '79f0e1c5261fefeb10cd53c1b01e64ef'
          '55a01e2e1a15bf4328638f8f27b7383f'
-         'f354205bab03949556db4db57bdf1168'
-         '49bd03869e63e2f36d29352e47da87df'
          'c746703719f94932cef4285812c0277f')
 
 prepare() {
   cd ${srcdir}/${pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/qt55.diff
-  # https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-8547
-  patch -p1 -i ${srcdir}/476aaa050f26d6a31494631d172724409e4c569b.diff
   # spellchecking through sonnet
   patch -p1 -i ${srcdir}/56e1d275c2f8a59eaf9d19ba76aca5f1d3163683.diff
 }
