@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=15.11.73
+pkgver=15.11.72
 pkgrel=1
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
@@ -16,15 +16,14 @@ install=okular.install
 depends=('kactivities' 'karchive' 'kbookmarks' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons'
          'kjs' 'kdelibs4support' 'kio' 'khtml' 'kparts' 'kpty' 'threadweaver' 'kwallet' 'phonon-qt5' 
          'libxxf86vm' 'sane' 'lcms' 'poppler-qt5' 'chmlib' 'djvulibre' 'libspectre' 'ebook-tools'
-         'json-c' 'qimageblitz-qt5' 'libkexiv2' 'libkdcraw' 'qtspeech' 'libkscreen' 'poppler-glib')
+         'json-c' 'qimageblitz-qt5' 'libkexiv2' 'libkdcraw' 'qtspeech')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'qca-qt5')
 conflicts=('kdegraphics-okular')
 replaces=('kdegraphics-okular')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/okular.git#branch=frameworks")
-source=("http://quickgit.kde.org/?p=okular.git&a=snapshot&h=71950016aaaadf1a5f296b25e589400b71f4e9ff&fmt=tbz2")
-md5sums=('59234aa65f877874df5fbf491ef3f92f')
+source=("git://anongit.kde.org/okular.git#branch=frameworks")
+md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
