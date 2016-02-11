@@ -3,7 +3,7 @@ pkgname=libreoffice
 _LOver=5.1.0.3
 pkgver=5.1.0.3
 _pkgver=5.1.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('LGPL3')
 url="http://www.libreoffice.org/"
@@ -16,7 +16,7 @@ depends=("curl>=7.20.0" "hunspell>=1.2.8" 'python3' 'libabw>=0.1.0' 'libwpd>=0.9
          'poppler' 'sane' 'unixodbc' 'libwpg' 'imagemagick'
          'mesa' 'gst-plugins-base' 'java-runtime' 'postgresql-libs' 'libvisio' 'bluez'
          'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' 'gconf' 
-         'java-environment' 'beanshell'  'vigra' 'pstoedit' 'libmythes' 'gtk2' 'gtk3')
+         'java-environment' 'beanshell'  'vigra' 'pstoedit' 'libmythes' 'gtk2')
 makedepends=('perl-archive-zip' 'zip' 'unzip' 'apache-ant' 'gperf' 'cppunit' 'libldap'
              'junit' 'doxygen' 'apr' 'serf' 'glm')
 conflicts=('libreoffice-common'	'libreoffice-base' 'libreoffice-calc' 'libreoffice-draw' 'libreoffice-plasma5'
@@ -170,7 +170,7 @@ build() {
 		--enable-graphite\
 		--enable-gio\
 		--enable-gtk \
-		--enable-gtk3 \
+		--disable-gtk3 \
 		--disable-kde4 \
 		--disable-gstreamer-0-10 \
 		--enable-odk \
