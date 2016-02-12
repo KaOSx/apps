@@ -16,14 +16,12 @@ conflicts=('kfileaudiopreview' 'kio-mtp')
 provides=('kfileaudiopreview' 'kio-mtp' )
 replaces=('kfileaudiopreview' 'kio-mtp' )
 groups=('plasma5')
-source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
-        'info2html.diff')
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '0d075bf99b0a0154da15b6ce7e5140b8')
+source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/info2html.diff
+  #patch -p1 -i ${srcdir}/info2html.diff
 }
 
 build() {

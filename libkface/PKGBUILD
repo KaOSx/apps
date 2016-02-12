@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkface
 pkgver=${_kdever}
 #pkgver=4.9.80
-pkgrel=2
+pkgrel=1
 pkgdesc="Qt/C++ library to perform face detection and recognition over pictures"
 url="http://www.digikam.org/"
 arch=('x86_64')
@@ -24,8 +24,8 @@ prepare() {
    cd $pkgname-${pkgver}
    #sed -i -e 's|OPENCV_TEST_VERSION(3,0,0)|OPENCV_TEST_VERSION(3,1,0)|' src/recognition-opencv-lbph/facerec_borrowed.h
    #sed -i -e 's|OPENCV_TEST_VERSION(3,0,0)|OPENCV_TEST_VERSION(3,1,0)|' src/recognition-opencv-lbph/lbphfacemodel.cpp
-   sed -i -e 's|OPENCV_TEST_VERSION(3,0,0)|OPENCV_TEST_VERSION(3,1,0)|' src/libopencv.h.cmake.in
-   patch -p1 -i ${srcdir}/opencv31.diff
+   #sed -i -e 's|OPENCV_TEST_VERSION(3,0,0)|OPENCV_TEST_VERSION(3,1,0)|' src/libopencv.h.cmake.in
+   #patch -p1 -i ${srcdir}/opencv31.diff
 }
 
 build() {
