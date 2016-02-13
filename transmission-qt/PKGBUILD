@@ -1,21 +1,23 @@
 
 pkgbase=transmission
 pkgname=('transmission-cli' 'transmission-qt')
-pkgver=2.84
-pkgrel=2
+pkgver=2.84.1
+_pkgver=2.84+
+pkgrel=1
 arch=('x86_64')
 url="http://www.transmissionbt.com/"
 license=('GNU GPLv2')
 makedepends=('intltool' 'curl' 'pkgconfig' 'desktop-file-utils' 'qt5-declarative' 'libevent' 'gettext')
-source=("https://transmission.cachefly.net/${pkgbase}-${pkgver}.tar.xz"
+#source=("https://transmission.cachefly.net/${pkgbase}-${pkgver}.tar.xz"
+source=("https://build.transmissionbt.com/job/trunk-linux/lastBuild/artifact/transmission-trunk-r14679.tar.xz"
         'transmission.systemd'
         'transmission.tmpfiles')
-md5sums=('411aec1c418c14f6765710d89743ae42'
+md5sums=('172303d3ed03c2c222a19694354d9e50'
          '5c289c8901221a94be74665368ab5c2c'
          '23f2320361ad54373c3a4551ef634fe8')
 
 build() {
-  cd "${srcdir}/${pkgbase}-${pkgver}"
+  cd "${srcdir}/${pkgbase}-${_pkgver}"
 
   export CFLAGS="$CFLAGS -fno-strict-aliasing"
 
@@ -31,7 +33,7 @@ package_transmission-cli() {
   depends=('curl' 'libevent')
   groups=('network')
 
-  cd "${srcdir}/${pkgbase}-${pkgver}"
+  cd "${srcdir}/${pkgbase}-${_pkgver}"
 
   for dir in daemon cli web utils
   do
@@ -50,7 +52,7 @@ package_transmission-qt() {
   groups=('network')
   install=transmission-qt.install
 
-  cd "${srcdir}/${pkgbase}-${pkgver}"
+  cd "${srcdir}/${pkgbase}-${_pkgver}"
   make -C qt INSTALL_ROOT="${pkgdir}"/usr install
 
   install -D -m644 COPYING "${pkgdir}/usr/share/licenses/transmission-qt/COPYING"
