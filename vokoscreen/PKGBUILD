@@ -1,19 +1,19 @@
 
 pkgname=vokoscreen
-pkgver=2.4.15
-_commit=73049d6efdf787f9b296a91e45374635069cab06
+pkgver=2.4.16
+_commit=4b6119b349627a8878c046c43fa538722b46543f
 pkgrel=1
 pkgdesc="Easy to use screencast creator to record educational videos, videoconferences, etc"
 arch=('x86_64')
 url="http://www.kohaupt-online.de/"
 license=('GPL2')
-depends=('qt5-x11extras' 'ffmpeg' 'lame' 'pulseaudio-alsa' 'alsa-utils' 'v4l-utils')
+depends=('qt5-x11extras' 'ffmpeg' 'lame' 'pulseaudio-alsa' 'alsa-utils' 'v4l-utils' 'mpv')
 makedepends=('cmake' 'qt5-tools')
 install=$pkgname.install
 options=('!strip')
 #source=("https://github.com/vkohaupt/vokoscreen/archive/$_pkgver.tar.gz")
 source=("https://github.com/vkohaupt/vokoscreen/archive/$_commit.zip")
-md5sums=('b08180b1cb583da4ce73437d65080c58')
+md5sums=('71c26d84c5ad5dcc54d6a1f41944219b')
 
 build() {
     cd ${srcdir}/$pkgname-$_commit
