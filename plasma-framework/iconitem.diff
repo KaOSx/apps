@@ -1,0 +1,30 @@
+From: Dan Vrátil <dvratil@kde.org>
+Date: Tue, 16 Feb 2016 16:59:32 +0000
+Subject: Fix IconItem not loading non-theme icons with name
+X-Git-Url: http://quickgit.kde.org/?p=plasma-framework.git&a=commitdiff&h=525bf2d377c21b41971a72d694a507bf2af0ada6
+---
+Fix IconItem not loading non-theme icons with name
+
+Commit 5184ac introduced a small regression that caused IconItem
+to no longer load non-theme icons with name set, for instance icons
+coming from sni-qt, causing sni-qt apps to not show in systray.
+
+BUG: 359388
+FIXED-IN: 5.20
+REVIEW: 127091
+---
+
+
+--- a/src/declarativeimports/core/iconitem.cpp
++++ b/src/declarativeimports/core/iconitem.cpp
+@@ -148,6 +148,10 @@
+                 //fail, use QIcon
+                 } else {
+                     m_icon = QIcon::fromTheme(sourceString);
++                    if (m_icon.isNull()) {
++                        // fallback for non-theme icons
++                        m_icon = source.value<QIcon>();
++                    }
+                     delete m_svgIcon;
+                     m_svgIcon = 0;
+                     m_imageIcon = QImage();

@@ -5,15 +5,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=akonadi
 pkgver=${_kdever}
 #pkgver=5.0.51
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='http://community.kde.org/KDE_PIM/Akonadi'
 pkgdesc="PIM layer, which provides an asynchronous API to access all kind of PIM data"
 license=('LGPL')
-depends=('shared-mime-info' 'sqlite' 'qt5-base' 'libxslt')
-makedepends=('extra-cmake-modules' 'postgresql' 'mariadb')
-optdepends=('postgresql: PostgreSQL backend'
-            'mariadb: MySQL backend')
+depends=('shared-mime-info' 'mariadb' 'qt5-base' 'libxslt')
+makedepends=('extra-cmake-modules' 'postgresql')
+optdepends=('postgresql: PostgreSQL backend')
 install=akonadi.install
 conflicts=('kf5-akonadi')
 replaces=('kf5-akonadi')
@@ -32,7 +31,6 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DDATABASE_BACKEND=SQLITE \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
   make
 }
