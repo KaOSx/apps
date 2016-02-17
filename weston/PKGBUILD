@@ -1,19 +1,19 @@
 
 pkgname=weston
-pkgver=1.9.0
-pkgrel=3
+pkgver=1.10.0
+pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
 url='http://wayland.freedesktop.org'
 license=('MIT')
 options=('!libtool')
 depends=('libxkbcommon' 'mesa' 'pango' 'poppler-glib' 'mtdev' 'libxcursor' 'glu' 'libunwind'
-         'pixman' 'xkeyboard-config' 'colord' 'libwebp' 'libva' 'libinput')
+         'pixman' 'xkeyboard-config' 'colord' 'libwebp' 'libva' 'libinput' 'wayland-protocols')
 replaces=('weston-git')
 provides=('weston-git')
 conflicts=('weston-git')
 source=("http://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
-md5sums=('66bbba12f546570b4d97f676bc79a28e')
+md5sums=('1cd17c54ecac6d9a3cd90bf12eaa3e20')
 
 build() {
    cd ${srcdir}/${pkgname}-${pkgver}
@@ -22,7 +22,8 @@ build() {
        --prefix=/usr \
        --libexecdir=/usr/lib/weston \
        --enable-demo-clients-install \
-       --with-cairo=gl
+       --with-cairo=gl \
+       --enable-systemd-notify
    make
 }
 

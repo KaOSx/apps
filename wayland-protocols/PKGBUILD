@@ -1,0 +1,27 @@
+
+pkgname=wayland-protocols
+pkgver=1.0
+pkgrel=1
+pkgdesc='Contains protocols and protocol extensions complementing the Wayland core protocol with additional functionality.'
+arch=('x86_64')
+url='http://wayland.freedesktop.org'
+license=('MIT')
+options=('!libtool')
+depends=('wayland')
+source=("http://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
+md5sums=('1ee04fc828cffaf278fdc684a13981eb')
+
+build() {
+   cd ${pkgname}-${pkgver}
+
+   ./configure \
+       --prefix=/usr 
+   make
+}
+
+package() {
+   cd ${pkgname}-${pkgver}
+   make DESTDIR="${pkgdir}" install
+
+   install -Dm644 COPYING "$pkgdir/usr/share/licenses/${pkgname}/COPYING"
+}
