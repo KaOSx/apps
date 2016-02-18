@@ -1,0 +1,31 @@
+
+pkgname=msgpack-c
+_pkgname=msgpack
+pkgver=1.4.0
+pkgrel=1
+pkgdesc="Efficient binary serialization format, which lets you exchange data among multiple languages like JSON"
+arch=('x86_64')
+url="https://github.com/msgpack/msgpack-c"
+license=('GPL3')
+depends=('gnutls' 'readline' 'python3-cython')
+makedepends=('cmake')
+source=("https://github.com/msgpack/msgpack-c/releases/download/cpp-${pkgver}/${_pkgname}-${pkgver}.tar.gz")
+md5sums=('9f394079730fa8dc096f3e281c10e901')
+
+build() {
+  mkdir -p build
+  cd build
+
+  cmake ../${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DMSGPACK_CXX11=ON \
+    -DMSGPACK_BUILD_EXAMPLES=OFF
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}

@@ -1,19 +1,17 @@
 
 pkgname=ring-kde
-pkgver=2.1.0
-pkgrel=2
+pkgver=2.2.0
+pkgrel=1
 pkgdesc="KDE client for the Ring communication framework"
 arch=('x86_64')
 url='http://ring.cx/'
 license=('LGPL')
 depends=('kconfig' 'kguiaddons' 'kdbusaddons' 'ki18n' 'kinit' 'kwindowsystem'
          'kxmlgui' 'knotifications' 'kiconthemes' 'kio' 'kcompletion' 'kcrash'
-         'qt5-svg' 'akonadi' 'ring-lrc')
+         'knotifyconfig' 'qt5-svg' 'akonadi' 'kdepimlibs' 'ring-lrc')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-source=("git://anongit.kde.org/ring-kde.git#branch=profile"
-        'qt5.5.diff')
-md5sums=('SKIP'
-         '603f6d30dfc2742ae573959a2b519b1b')
+source=("git://anongit.kde.org/ring-kde.git")
+md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
