@@ -1,17 +1,17 @@
 
 pkgname=bitcoin
-pkgver=0.11.2
+pkgver=0.12.0
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Bitcoin is a peer-to-peer network based digital currency"
 url="http://www.bitcoin.org/"
 license=('MIT')
-depends=('boost-libs' 'qt5-base' 'miniupnpc' 'qrencode' 'protobuf')
+depends=('boost-libs' 'qt5-base' 'miniupnpc' 'qrencode' 'protobuf' 'libevent')
 makedepends=('boost' 'qt5-tools')
 install=bitcoin.install
 #source=("git://github.com/bitcoin/bitcoin.git")
 source=("https://github.com/bitcoin/bitcoin/archive/v$pkgver.tar.gz")
-md5sums=('8f55f1bddcafc7f18a28d36c3a5264b4')
+md5sums=('f20443dccd114a4fbfcad04ca6ea5b76')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
