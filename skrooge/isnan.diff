@@ -1,0 +1,34 @@
+From: Rex Dieter <rdieter@math.unl.edu>
+Date: Thu, 11 Feb 2016 17:22:41 +0000
+Subject: fix build with gcc6
+X-Git-Tag: V2.3.0
+X-Git-Url: http://quickgit.kde.org/?p=skrooge.git&a=commitdiff&h=973f65ccfc9d8776d3417070b9f49ab7b70b112b
+---
+fix build with gcc6
+
+Turns out gcc6's cmath now only defines it's own overloads, and
+no longer implicitly includes math.h anymore
+---
+
+
+--- a/plugins/import/skrooge_import_gnc/skgimportplugingnc.cpp
++++ b/plugins/import/skrooge_import_gnc/skgimportplugingnc.cpp
+@@ -27,6 +27,7 @@
+ 
+ #include <qdom.h>
+ #include <qfileinfo.h>
++#include <math.h>
+ #include <cmath>
+ 
+ #include "skgtraces.h"
+
+--- a/skgbasemodeler/skgdocument.cpp
++++ b/skgbasemodeler/skgdocument.cpp
+@@ -42,6 +42,7 @@
+ #include <qurl.h>
+ 
+ #include <sqlite3.h>
++#include <math.h>
+ #include <cmath>
+ 
+ #include "skgtraces.h"
