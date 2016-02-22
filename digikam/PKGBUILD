@@ -3,19 +3,19 @@ pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
 pkgver=4.90.1
 _pkgver=5.0.0-beta3
-pkgrel=2
+pkgrel=3
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
 pkgdesc="Digital photo management application for kde"
 makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
-         'solid' 'kiconthemes' 'kfilemetadata' 'libksane' 'ki18n' 'lensfun' 
+         'solid' 'kiconthemes' 'kfilemetadata' 'libksane' 'ki18n' 'kitemmodels' 'lensfun' 
          'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
-         'libkface' 'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb' 'kdepimlibs'
+         'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb' 'kdepimlibs'
          'kparts' 'kconfig' 'kxmlgui' 'kservice' 'threadweaver' 'karchive' 'libkexiv2' 
          'libkdcraw' 'libkipi' 'libkgeomap' 'libkvkontakte' 'libmediawiki' 'libtiff'
          'kcalcore' 'kwallet' 'phonon-qt5' 
-         'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick')
+         'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang')
 source=("http://download.kde.org/unstable/digikam/${pkgbase}-${_pkgver}.tar.bz2")
 md5sums=('e10fffa4cfd6ef14e3d09a0c87616b3f')
 
@@ -44,16 +44,17 @@ build() {
      -DENABLE_MYSQLSUPPORT=ON \
      -DENABLE_KFILEMETADATASUPPORT=ON \
      -DENABLE_MEDIAPLAYER=ON \
-     -DENABLE_OPENCV3=ON
+     -DENABLE_OPENCV3=ON \
+     -DCMAKE_C_COMPILER=clang
    make 
 }
 
 package_digikam() {
   pkgdesc="Digital photo management application for kde"
   depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
-           'solid' 'kiconthemes' 'kfilemetadata' 'libksane' 'ki18n' 'lensfun' 
+           'solid' 'kiconthemes' 'kfilemetadata' 'kitemmodels' 'libksane' 'ki18n' 'lensfun' 
            'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
-           'kipi-plugins' 'libkface' 'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb' 'kdepimlibs')
+           'kipi-plugins' 'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb' 'kdepimlibs')
   install=digikam.install
   groups=('graphics')
   
