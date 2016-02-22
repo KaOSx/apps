@@ -2,7 +2,7 @@
 pkgname=scribus
 _pkgname=Scribus
 pkgver=1.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="http://www.scribus.net"
@@ -11,19 +11,18 @@ install=scribus.install
 depends=('libcups' 'lcms2' 'qt5-webkit' 'ghostscript' 'libart-lgpl' 'python2' 'libxml2' 'hyphen'
          'cairo' 'desktop-file-utils' 'shared-mime-info' 'ruby' 'aspell' 'podofo' 'librevenge' 'poppler'
          'hunspell' 'graphicsmagick' 'libvisio')
-makedepends=('cmake' 'boost' 'qt5-tools' 'subversion')
+makedepends=('cmake' 'boost' 'qt5-tools')
 groups=('office')
 options=('!libtool' '!makeflags')
-#source=("http://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("scribus::svn://scribus.net/trunk")
-md5sums=('SKIP')
+source=("http://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#source=("scribus::svn://scribus.net/trunk")
+md5sums=('496b7f486bab544875a03f7465aa6269')
 
 build() {
-	cd ${srcdir}
 	mkdir build
 	
 	cd build
-	cmake ../${pkgname}/${_pkgname} \
+	cmake ../${pkgname}-${pkgver} \
 	   -DCMAKE_INSTALL_PREFIX=/usr \
 	   -DCMAKE_BUILD_TYPE=Release \
 	   -DCMAKE_SKIP_RPATH=ON \
@@ -33,9 +32,9 @@ build() {
 }
 
 package() {
-	cd ${srcdir}/build
+	cd build
 	make DESTDIR=${pkgdir} install
 
-	install -Dm644 ${srcdir}/${pkgname}/${_pkgname}/scribus.desktop \
+	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/scribus.desktop \
 	   ${pkgdir}/usr/share/applications/scribus.desktop
 }
