@@ -2,7 +2,7 @@
 pkgname=vtk
 pkgver=7.0.0
 _pkgver=7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Open-source software system for 3D computer graphics, image processing, and visualization.'
 arch=('x86_64')
 url='https://gitlab.kitware.com/vtk/vtk'
@@ -38,7 +38,7 @@ build() {
     cmake_system_flags+="-DVTK_USE_SYSTEM_${lib}:BOOL=ON "
   done
 
-  cmake \
+  cmake ../VTK-$pkgver \
     -Wno-dev \
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_SHARED_LIBS:BOOL=ON \
@@ -57,9 +57,9 @@ build() {
     -DCMAKE_CXX_FLAGS="-D__STDC_CONSTANT_MACROS" \
     -DVTK_CUSTOM_LIBRARY_SUFFIX="" \
     -DVTK_INSTALL_INCLUDE_DIR:PATH=include/vtk \
+    -DVTK_RENDERING_BACKEND="OpenGL" \
     ${cmake_system_flags} \
-    -DCMAKE_BUILD_TYPE=Release \
-    "${srcdir}/VTK-$pkgver"
+    -DCMAKE_BUILD_TYPE=Release 
 
   make
 }
