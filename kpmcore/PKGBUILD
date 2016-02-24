@@ -1,6 +1,6 @@
 
 pkgname=kpmcore
-pkgver=2.0.0.80
+pkgver=2.0.2
 pkgrel=1
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('x86_64')
@@ -10,17 +10,15 @@ depends=('ki18n' 'kio' 'kiconthemes' 'kservice' 'libatasmart' 'parted')
 makedepends=('extra-cmake-modules' 'pkgconfig' 'git')
 groups=('system')
 options=('debug')
-#source=("http://download.kde.org/stable/kpmcore/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-source=("git://anongit.kde.org/kpmcore")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/kpmcore/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+#source=("git://anongit.kde.org/kpmcore")
+md5sums=('9d175a1e703e4d86923ec4de52481c98')
 
 build() {
-  cd ${srcdir}
-  
   mkdir build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DLIB_INSTALL_DIR=lib \
