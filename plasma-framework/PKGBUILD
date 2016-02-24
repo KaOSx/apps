@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=3
+pkgrel=4
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://projects.kde.org/projects/playground/libs/plasma-framework'
@@ -15,7 +15,7 @@ depends=('kactivities' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbu
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 options=('debug')
-source=("http://download.kde.org/stable/frameworks/5.18/${pkgname}-${pkgver}.tar.xz"
+source=("http://download.kde.org/stable/frameworks/5.19/${pkgname}-${pkgver}.tar.xz"
         'iconitem.diff')
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          'dd5b9a2455ca404f2026d63bdfacc960')
