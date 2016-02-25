@@ -1,7 +1,8 @@
 
 pkgname=kwave
 pkgver=0.9.1
-pkgrel=1
+_pkgver=0.9.1-1
+pkgrel=2
 pkgdesc="Sound editor designed for the Plasma Desktop Environment"
 arch=('x86_64')
 url="http://kwave.sourceforge.net/"
@@ -13,14 +14,14 @@ depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'k
          'qt5-multimedia') # for mp3 support: 'libmad' 'id3lib'
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 options=('!libtool')
-source=('git://anongit.kde.org/kwave')
-md5sums=('SKIP')  
+source=("https://sourceforge.net/projects/kwave/files/kwave/${pkgver}/${pkgname}-${_pkgver}.tar.bz2")
+md5sums=('414ff3024368a1aea8af8d5ad1d784be')  
 
 build() {
   mkdir build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=/usr/lib \
     -DCMAKE_BUILD_TYPE=Release \
