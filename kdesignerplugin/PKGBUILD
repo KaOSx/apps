@@ -3,17 +3,18 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdesignerplugin
-pkgver=${_kdever}
-pkgrel=2
+pkgver=${_kf5ver}
+pkgrel=3
 pkgdesc='KDesignerPlugin'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kdesignerplugin'
 license=('LGPL')
-depends=('kio' 'kplotting' 'kdewebkit')
+depends=('kio' 'kplotting' 'kcompletion' 'kconfigwidgets' 'kiconthemes' 'kitemviews' 'kplotting'
+         'ktextwidgets' 'kwidgetsaddons' 'kxmlgui' 'sonnet')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'kdoctools')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   #export XDG_DATA_DIRS="/opt/kf5/share:$XDG_DATA_DIRS"
