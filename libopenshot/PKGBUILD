@@ -1,6 +1,6 @@
 
 pkgname=libopenshot
-pkgver=0.0.9
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="Open-source project dedicated to delivering high quality video editing, animation, and playback solutions to the world."
 arch=('x86_64')
@@ -10,14 +10,14 @@ depends=('libopenshot-audio' 'ffmpeg' 'imagemagick' 'libx11' 'libxcursor' 'libxi
          'ruby' 'x264' 'qt5-multimedia')
 makedepends=('cmake' 'swig' 'doxygen')
 # http://bazaar.launchpad.net/~openshot.code/libopenshot/trunk/files
-source=("https://launchpad.net/libopenshot/0.0/$pkgver/+download/libopenshot-$pkgver.tar.gz")
-md5sums=('65933d9a5de7ad3a75c9d5d300b80a1d')
+source=("https://launchpad.net/libopenshot/0.1/$pkgver/+download/libopenshot-$pkgver.tar.gz")
+md5sums=('4dbcb1b7f3d3f37642d43efbfb1b8658')
 
-#prepare () {
-  #cd ${pkgname}-${pkgver}
+prepare () {
+  cd ${pkgname}-${pkgver}
   
-  #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
-#}   
+  sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
+}   
 
 build() {
   mkdir -p build
