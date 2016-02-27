@@ -1,0 +1,29 @@
+From: David Faure <faure@kde.org>
+Date: Fri, 22 Jan 2016 08:23:45 +0000
+Subject: Revert BlockingQueuedConnection hack, Qt 5.6 will contain a better fix
+X-Git-Tag: v5.19.0
+X-Git-Url: http://quickgit.kde.org/?p=kded.git&a=commitdiff&h=5e9c9ff09cc88448d41d9043ee156a5be1a9d880
+---
+Revert BlockingQueuedConnection hack, Qt 5.6 will contain a better fix
+
+https://codereview.qt-project.org/146639
+---
+
+
+--- a/src/kded.cpp
++++ b/src/kded.cpp
+@@ -141,14 +141,7 @@
+         return;
+     }
+ 
+-#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+-    // messageFilter runs in a secondary thread since Qt 5.6, so we use invokeMethod
+-    // to load the module in the main thread. But we need to block so that the object
+-    // can then process the message.
+-    QMetaObject::invokeMethod(self(), "loadModule", Qt::BlockingQueuedConnection, Q_ARG(QString, obj), Q_ARG(bool, true));
+-#else
+     self()->loadModule(obj, true);
+-#endif
+ }
+ 
+ static int phaseForModule(const KPluginMetaData &module)
