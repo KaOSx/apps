@@ -1,26 +1,29 @@
 
 pkgname=qgis
-pkgver=2.12.3
-pkgrel=2
+pkgver=2.14.0
+pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='http://qgis.org/'
 license=('GPL')
 arch=('x86_64')
-depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'pyqt-python2' 'giflib' 'gsl' 'grass'
-         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python2-qscintilla' 'python2-psycopg2'
-         'postgis' 'fcgi' 'icu' 'python2-six' 'python2-dateutil' 'python2-jinja' 'python2-pytz' 'qca')
-makedepends=('cmake')
+depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python3' 'giflib' 'gsl' 'grass'
+         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'qscintilla-qt5' 'python3-psycopg2'
+         'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'pyqt5-python3' 'python3-six' 'qca-qt5') # 'qt5-webkit' 
+makedepends=('cmake'  'netcdf' 'sip' 'qt5-tools' 'qca')
 install=${pkgname}.install
 source=("http://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('f57ad5f04451d30032dbdd1836e0cb22') 
+md5sums=('e58294f6abd70951be3fcb3162ff6bc8') 
          
 prepare() {
      cd $pkgname-$pkgver
+     #cd "$srcdir/QGIS"
      #patch -p1 -i "$srcdir/canvas-qt-flicker.patch" 
+     sed -i -e 's|set(QCA_LIBRARY_NAMES qca qca2)|set(QCA_LIBRARY_NAMES qca-qt5 qca2-qt5)|' cmake/FindQCA.cmake
+     sed -i -e 's|set(QWT_LIBRARY_NAMES qwt-qt5 qwt6-qt5)|set(QWT_LIBRARY_NAMES qwt qwt6)|' cmake/FindQwt.cmake
 }
 
  build() {
-      mkdir -p build
+      mkdir build
       cd build
      
       cmake ../${pkgname}-${pkgver} \
@@ -30,14 +33,14 @@ prepare() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DGRASS_PREFIX=/opt/grass \
         -DQGIS_MANUAL_SUBDIR=share/man \
-        -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so \
-        -DPYTHON_EXECUTABLE=/usr/bin/python2 \
-        -DPYTHON_SITE_PACKAGES_DIR=/usr/lib/python2.7/site-packages \
-        -DPYTHON_INCLUDE_PATH=/usr/include/python2.7 \
+        -DPYTHON_LIBRARY=/usr/lib/libpython3.so \
+        -DPYTHON_EXECUTABLE=/usr/bin/python3 \
+        -DPYTHON_SITE_PACKAGES_DIR=/usr/lib/python3.5/site-packages \
+        -DPYTHON_INCLUDE_PATH=/usr/include/python3.5m \
         -DWITH_INTERNAL_SIX=FALSE \
-        -DWITH_INTERNAL_DATEUTIL=FALSE \
-        -DWITH_INTERNAL_JINJA2=FALSE \
-        -DWITH_INTERNAL_PYTZ=FALSE 
+        -DWITH_QWTPOLAR=FALSE \
+        -DWITH_QTWEBKIT=FALSE \
+        -DENABLE_QT5=TRUE 
      
       make
 }
@@ -47,18 +50,20 @@ package() {
      
       make DESTDIR=${pkgdir} install
      
+      # create a more user-friendly application name link
+      ln -s /usr/bin/qgis $pkgdir/usr/bin/quantum-gis
+     
       # install some freedesktop.org compatibility
-      install -D -m644 $srcdir/${pkgname}-${pkgver}/debian/qgis.desktop $pkgdir/usr/share/applications/qgis.desktop
-      install -D -m644 $srcdir/${pkgname}-${pkgver}/debian/qbrowser.desktop $pkgdir/usr/share/applications
-      install -D -m644 $srcdir/${pkgname}-${pkgver}/debian/qgis-icon512x512.png $pkgdir/usr/share/pixmaps/qgis.png
-      install -D -m644 $srcdir/${pkgname}-${pkgver}/debian/qbrowser-icon512x512.png $pkgdir/usr/share/pixmaps/qbrowser.png
-      install -D -m644 $srcdir/${pkgname}-${pkgver}/images/icons/qgis-mime-icon.png $pkgdir/usr/share/pixmaps/qgis-mime.png
-  
-      install -dm755 $pkgdir/usr/share/mimelnk/application
+      install -D -m644 "$srcdir"/"${pkgname}-${pkgver}"/debian/qgis.desktop \
+                          "$pkgdir"/usr/share/applications/qgis.desktop
+      install -m644 "$srcdir"/"${pkgname}-${pkgver}"/debian/qbrowser.desktop "$pkgdir"/usr/share/applications
+      install -dm755 $pkgdir/usr/share/pixmaps $pkgdir/usr/share/mimelnk/application
       for mime in $srcdir/${pkgname}-${pkgver}/debian/mime/application/*.desktop
         do install -m644 ${mime} $pkgdir/usr/share/mimelnk/application
       done
-      
-      python2 -m compileall -q $pkgdir
+      ln -s /usr/share/qgis/images/icons/qgis-icon.png $pkgdir/usr/share/pixmaps/qgis-icon.png
+      ln -s /usr/share/qgis/images/icons/qgis-mime-icon.png $pkgdir/usr/share/pixmaps/qgis-mime-icon.png
      
+      # enable qgis for python by setting PYTHONPATH
+      install -Dm644 ${srcdir}/qgis.sh ${pkgdir}/etc/profile.d/qgis.sh
 }

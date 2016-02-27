@@ -1,0 +1,64 @@
+
+pkgname=qgis
+pkgver=2.12.3
+pkgrel=2
+pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
+url='http://qgis.org/'
+license=('GPL')
+arch=('x86_64')
+depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'pyqt-python2' 'giflib' 'gsl' 'grass'
+         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python2-qscintilla' 'python2-psycopg2'
+         'postgis' 'fcgi' 'icu' 'python2-six' 'python2-dateutil' 'python2-jinja' 'python2-pytz' 'qca')
+makedepends=('cmake')
+install=${pkgname}.install
+source=("http://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('f57ad5f04451d30032dbdd1836e0cb22') 
+         
+prepare() {
+     cd $pkgname-$pkgver
+     #patch -p1 -i "$srcdir/canvas-qt-flicker.patch" 
+}
+
+ build() {
+      mkdir -p build
+      cd build
+     
+      cmake ../${pkgname}-${pkgver} \
+        -DENABLE_TESTS=OFF \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DGRASS_PREFIX=/opt/grass \
+        -DQGIS_MANUAL_SUBDIR=share/man \
+        -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so \
+        -DPYTHON_EXECUTABLE=/usr/bin/python2 \
+        -DPYTHON_SITE_PACKAGES_DIR=/usr/lib/python2.7/site-packages \
+        -DPYTHON_INCLUDE_PATH=/usr/include/python2.7 \
+        -DWITH_INTERNAL_SIX=FALSE \
+        -DWITH_INTERNAL_DATEUTIL=FALSE \
+        -DWITH_INTERNAL_JINJA2=FALSE \
+        -DWITH_INTERNAL_PYTZ=FALSE 
+     
+      make
+}
+
+package() {
+      cd build
+     
+      make DESTDIR=${pkgdir} install
+     
+      # install some freedesktop.org compatibility
+      install -D -m644 $srcdir/${pkgname}-${pkgver}/debian/qgis.desktop $pkgdir/usr/share/applications/qgis.desktop
+      install -D -m644 $srcdir/${pkgname}-${pkgver}/debian/qbrowser.desktop $pkgdir/usr/share/applications
+      install -D -m644 $srcdir/${pkgname}-${pkgver}/debian/qgis-icon512x512.png $pkgdir/usr/share/pixmaps/qgis.png
+      install -D -m644 $srcdir/${pkgname}-${pkgver}/debian/qbrowser-icon512x512.png $pkgdir/usr/share/pixmaps/qbrowser.png
+      install -D -m644 $srcdir/${pkgname}-${pkgver}/images/icons/qgis-mime-icon.png $pkgdir/usr/share/pixmaps/qgis-mime.png
+  
+      install -dm755 $pkgdir/usr/share/mimelnk/application
+      for mime in $srcdir/${pkgname}-${pkgver}/debian/mime/application/*.desktop
+        do install -m644 ${mime} $pkgdir/usr/share/mimelnk/application
+      done
+      
+      python2 -m compileall -q $pkgdir
+     
+}
