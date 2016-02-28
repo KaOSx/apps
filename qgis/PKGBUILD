@@ -6,9 +6,9 @@ pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vect
 url='http://qgis.org/'
 license=('GPL')
 arch=('x86_64')
-depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python3' 'giflib' 'gsl' 'grass'
-         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'qscintilla-qt5' 'python3-psycopg2'
-         'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'pyqt5-python3' 'python3-six' 'qca-qt5') # 'qt5-webkit' 
+depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python2' 'giflib' 'gsl' 'grass'
+         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python2-qscintilla' 'python2-psycopg2'
+         'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'python2-six' 'python2-dateutil' 'python2-jinja' 'python2-pytz' 'pyqt5-python3' 'qca-qt5') # 'qt5-webkit'
 makedepends=('cmake'  'netcdf' 'sip' 'qt5-tools' 'qca')
 install=${pkgname}.install
 source=("http://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2")
@@ -18,7 +18,7 @@ prepare() {
      cd $pkgname-$pkgver
      #cd "$srcdir/QGIS"
      #patch -p1 -i "$srcdir/canvas-qt-flicker.patch" 
-     sed -i -e 's|set(QCA_LIBRARY_NAMES qca qca2)|set(QCA_LIBRARY_NAMES qca-qt5 qca2-qt5)|' cmake/FindQCA.cmake
+     #sed -i -e 's|set(QCA_LIBRARY_NAMES qca-qt5 qca2-qt5)|set(QCA_LIBRARY_NAMES qca qca2)|' cmake/FindQCA.cmake
      sed -i -e 's|set(QWT_LIBRARY_NAMES qwt-qt5 qwt6-qt5)|set(QWT_LIBRARY_NAMES qwt qwt6)|' cmake/FindQwt.cmake
 }
 
@@ -33,14 +33,18 @@ prepare() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DGRASS_PREFIX=/opt/grass \
         -DQGIS_MANUAL_SUBDIR=share/man \
-        -DPYTHON_LIBRARY=/usr/lib/libpython3.so \
-        -DPYTHON_EXECUTABLE=/usr/bin/python3 \
-        -DPYTHON_SITE_PACKAGES_DIR=/usr/lib/python3.5/site-packages \
-        -DPYTHON_INCLUDE_PATH=/usr/include/python3.5m \
+        -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so \
+        -DPYTHON_EXECUTABLE=/usr/bin/python2 \
+        -DPYTHON_SITE_PACKAGES_DIR=/usr/lib/python2.7/site-packages \
+        -DPYTHON_INCLUDE_PATH=/usr/include/python2.7 \
         -DWITH_INTERNAL_SIX=FALSE \
+        -DWITH_INTERNAL_DATEUTIL=FALSE \
+        -DWITH_INTERNAL_JINJA2=FALSE \
+        -DWITH_INTERNAL_PYTZ=FALSE \
         -DWITH_QWTPOLAR=FALSE \
         -DWITH_QTWEBKIT=FALSE \
-        -DENABLE_QT5=TRUE 
+        -DENABLE_QT5=TRUE \
+        -DDPYTHON2=TRUE
      
       make
 }
