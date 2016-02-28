@@ -1,6 +1,6 @@
 
 pkgname=krita
-pkgver=2.9.101
+pkgver=2.9.102
 pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
@@ -10,7 +10,7 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'kiconthemes' 'kitemmodels' 'kitemviews' 'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem'
          'kio' 'kimageformats'
          'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'glew' 'opencolorio' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
-         'libraw' 'qca-qt5' 'qt5-quick1')
+         'libraw' 'qca-qt5' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'qt5-tools') # 'clang') 
 install=krita.install
 #source=("http://mirrors.mit.edu/kde/stable/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
@@ -19,7 +19,7 @@ md5sums=('SKIP')
 
 prepare() {
   cd ${srcdir}/${pkgname}
-  #sed -i 's|add_subdirectory(animation)|#add_subdirectory(animation)|' krita/plugins/extensions/dockers/CMakeLists.txt
+  sed -i 's|if (!isnan(value))|if (!std::isnan(value))|' libs/widgets/KoUnitDoubleSpinBox.cpp
   #patch -p1 -i $srcdir/desktop_files.patch
 }
 

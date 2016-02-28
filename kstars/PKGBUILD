@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kstars
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="Desktop Planetarium"
 url="http://kde.org/applications/education/kstars/"
 arch=('x86_64')
@@ -12,18 +12,21 @@ url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kwidgetsaddons' 'kguiaddons' 'knewstuff' 'kdbusaddons' 'ki18n' 'ktexteditor' 
          'kxmlgui' 'kwindowsystem' 'kinit' 'kdeclarative' 'kplotting' 'kjobwidgets' 'kio' 'kiconthemes'
-         'cfitsio' 'wcslib' 'xplanet' 'qt5-multimedia' 'qt5-quick1' 'libindi')
+         'cfitsio' 'wcslib' 'xplanet' 'qt5-multimedia' 'libindi')
 makedepends=('extra-cmake-modules' 'kdoctools' 'eigen3')
 conflicts=('kdeedu-kstars')
 replaces=('kdeedu-kstars')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 install=${pkgname}.install
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+        'isnan.diff')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '132dfb3da1d339b9990d55aae0fa148e')
 
 prepare() {
   cd ${srcdir}/${pkgname}-${pkgver} 
-  #sed -i -e 's|add_subdirectory(doc)|#add_subdirectory(doc)|' ${srcdir}/${pkgname}/CMakeLists.txt 
+  #sed -i -e 's|add_subdirectory(doc)|#add_subdirectory(doc)|' ${srcdir}/${pkgname}/CMakeLists.txt
+  patch -p1 -i $srcdir/isnan.diff 
 }
 
 build() {
