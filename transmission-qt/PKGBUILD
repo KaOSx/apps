@@ -1,31 +1,39 @@
 
 pkgbase=transmission
 pkgname=('transmission-cli' 'transmission-qt')
-pkgver=2.84.1
+pkgver=2.90
 _pkgver=2.84+
 pkgrel=1
 arch=('x86_64')
 url="http://www.transmissionbt.com/"
 license=('GNU GPLv2')
-makedepends=('intltool' 'curl' 'pkgconfig' 'desktop-file-utils' 'qt5-declarative' 'libevent' 'gettext')
-#source=("https://transmission.cachefly.net/${pkgbase}-${pkgver}.tar.xz"
-source=("https://build.transmissionbt.com/job/trunk-linux/lastBuild/artifact/transmission-trunk-r14679.tar.xz"
+makedepends=('intltool' 'curl' 'pkgconfig' 'desktop-file-utils' 'qt5-declarative' 'libevent'
+             'gettext' 'cmake' 'qt5-tools' 'miniupnpc')
+source=("https://download.transmissionbt.com/files/${pkgbase}-${pkgver}.tar.xz"
+#source=("https://build.transmissionbt.com/job/trunk-linux/lastBuild/artifact/transmission-trunk-r14679.tar.xz"
         'transmission.systemd'
         'transmission.tmpfiles')
-md5sums=('172303d3ed03c2c222a19694354d9e50'
+md5sums=('0792c67fcbf722f7823e964e09eb16bc'
          '5c289c8901221a94be74665368ab5c2c'
          '23f2320361ad54373c3a4551ef634fe8')
 
 build() {
-  cd "${srcdir}/${pkgbase}-${_pkgver}"
+  mkdir -p build
+  cd build
 
-  export CFLAGS="$CFLAGS -fno-strict-aliasing"
-
-  ./configure --prefix=/usr --enable-nls
-  make
-  pushd qt
-  /usr/lib/qt5/bin/qmake qtr.pro
-  make
+  cmake ../${pkgbase}-${pkgver} \
+        -DENABLE_TESTS=OFF \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DENABLE_GTK=OFF \
+        -DENABLE_QT=ON \
+        -DENABLE_CLI=ON \
+        -DUSE_QT5=ON \
+        -DINSTALL_LIB=OFF \
+        -DWITH_CRYPTO="openssl" \
+        -DWITH_INOTIFY=ON
+     
+      make
 }
 
 package_transmission-cli() {
@@ -33,38 +41,27 @@ package_transmission-cli() {
   depends=('curl' 'libevent')
   groups=('network')
 
-  cd "${srcdir}/${pkgbase}-${_pkgver}"
+  cd build
 
-  for dir in daemon cli web utils
+  for dir in daemon cli utils
   do
       make -C "${dir}" DESTDIR="${pkgdir}" install
   done
 
   install -D -m644 "$srcdir/transmission.systemd" "$pkgdir/usr/lib/systemd/system/transmission.service"
   install -D -m644 "$srcdir/transmission.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/transmission.conf"
-  install -D -m644 COPYING "${pkgdir}/usr/share/licenses/transmission-cli/COPYING"
+  install -D -m644 "$srcdir/${pkgbase}-${pkgver}/COPYING" "${pkgdir}/usr/share/licenses/transmission-cli/COPYING"
 }
 
 package_transmission-qt() {
   pkgdesc="Fast, easy, and free BitTorrent client (Qt GUI)"
-  depends=('curl' 'qt5-declarative' 'libevent')
-  optdepends=('transmission-cli: daemon and web support')
+  depends=('curl' 'qt5-declarative' 'libevent' 'miniupnpc')
+  optdepends=('transmission-cli: daemon support')
   groups=('network')
   install=transmission-qt.install
 
-  cd "${srcdir}/${pkgbase}-${_pkgver}"
-  make -C qt INSTALL_ROOT="${pkgdir}"/usr install
+  cd build
+  make -C qt DESTDIR="${pkgdir}" install
 
-  install -D -m644 COPYING "${pkgdir}/usr/share/licenses/transmission-qt/COPYING"
-  install -D -m644 qt/icons/transmission.png "${pkgdir}/usr/share/pixmaps/transmission-qt.png"
-  install -D -m644 qt/transmission-qt.desktop "${pkgdir}/usr/share/applications/transmission-qt.desktop"
- 
-  #mkdir -p "${pkgdir}/usr/share/transmission/i18n"
-  install -D -m644 qt/translations/transmission_en.ts "${pkgdir}/usr/share/transmission/i18n/transmission_en.ts"
-  install -D -m644 qt/translations/transmission_es.ts "${pkgdir}/usr/share/transmission/i18n/transmission_es.ts"
-  install -D -m644 qt/translations/transmission_eu.ts "${pkgdir}/usr/share/transmission/i18n/transmission_eu.ts"
-  install -D -m644 qt/translations/transmission_kk.ts "${pkgdir}/usr/share/transmission/i18n/transmission_kk.ts"
-  install -D -m644 qt/translations/transmission_lt.ts "${pkgdir}/usr/share/transmission/i18n/transmission_lt.ts"
-  install -D -m644 qt/translations/transmission_pt_BR.ts "${pkgdir}/usr/share/transmission/i18n/transmission_pt_BR.ts"
-  install -D -m644 qt/translations/transmission_ru.ts "${pkgdir}/usr/share/transmission/i18n/transmission_ru.ts"
+  install -D -m644 "${srcdir}/${pkgbase}-${pkgver}/COPYING" "${pkgdir}/usr/share/licenses/transmission-qt/COPYING"
 }
