@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
 #_pkgver=5.5.1
-pkgrel=5
+pkgrel=6
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kde-workspace'
@@ -24,18 +24,21 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.ta
         'kde.pam'
         'kde-np.pam'
         'kscreensaver.pam'
-        'systemtray_plugin.diff')
+        'systemtray_plugin.diff'
+        'statusnotifier.diff')
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
          'beba34da9144bced3ef2a225be532109'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
          '367a3538f54db71f108b34cfa31088ac'
-         'f9dba15f55de8cd3652d657ee0e1f6b6')
+         'f9dba15f55de8cd3652d657ee0e1f6b6'
+         'd1ea614640529e32f4375bd93fcfbbf5')
 
 prepare () {
   cd ${srcdir}/${pkgname}-${pkgver}
   #patch -p1 -R -i $srcdir/mouse_click.diff
   patch -p1 -i $srcdir/systemtray_plugin.diff
+  patch -p1 -i $srcdir/statusnotifier.diff
   #sed -i 's|find_package(Prison "1.2.0" QUIET CONFIG)|find_package(KF5Prison "1.2.0" QUIET CONFIG)|' ${srcdir}/${pkgname}-${pkgver}/klipper/CMakeLists.txt
 }         
          
