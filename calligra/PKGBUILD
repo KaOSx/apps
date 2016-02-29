@@ -1,6 +1,6 @@
 
 pkgname=calligra
-pkgver=2.9.113
+pkgver=2.9.114
 pkgrel=1
 arch=('x86_64')
 url='http://www.calligra-suite.org'
@@ -65,6 +65,7 @@ prepare() {
   cd ${pkgname}
   #patch -p1 -i $srcdir/qt55.diff
   patch -p1 -i $srcdir/libwps-0.4.patch
+  sed -i 's|if (!isnan(value))|if (!std::isnan(value))|' libs/widgets/KoUnitDoubleSpinBox.cpp
 }
 
 build() {
