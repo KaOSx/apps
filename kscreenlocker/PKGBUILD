@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kscreenlocker
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=1
 pkgdesc="Library and components for secure lock screen architecture."
 url="https://projects.kde.org/projects/kde/workspace/kscreenlocker"
 license=('GPL' 'LGPL' 'FDL')
@@ -13,16 +13,12 @@ depends=('plasma-framework' 'kcmutils' 'kdeclarative' 'kidletime' 'kdelibs4suppo
          'kglobalaccel' 'kwayland')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        'greeter.diff')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '378d62c696d206f0d9609bf9a51a030c')
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
   #sed -i -e 's|#include "ui_module.h"||' ${srcdir}/${pkgname}/src/kcm/module.cpp
-  # https://bugs.kde.org/show_bug.cgi?id=358125
-  patch -p1 -i $srcdir/greeter.diff
 }
 
 build() {
