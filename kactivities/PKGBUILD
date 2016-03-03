@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kactivities
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc="Core components for the KDE's Activities"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kactivities'
@@ -12,9 +12,6 @@ license=('LGPL')
 depends=('qt5-declarative' 'boost-libs' 'kdbusaddons' 'kio' 'kwindowsystem' 'kservice' 'kdeclarative'
          'kcmutils')
 makedepends=('extra-cmake-modules' 'boost')
-conflicts=('kf5-kactivities')
-provides=('kf5-kactivities')
-replaces=('kf5-kactivities')
 options=('debug')
 source=("http://download.kde.org/stable/frameworks/5.15/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
@@ -37,11 +34,14 @@ build() {
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DQT_PLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DKACTIVITIES_LIBRARY_ONLY=ON
   make
 }
 
 package() {
   cd build
   make DESTDIR="${pkgdir}" install
+  # temp workaround until translations location is clarified, now files are also in plasma-desktop & kactivitymanagerd
+  rm -r ${pkgdir}/usr/share/locale
 }

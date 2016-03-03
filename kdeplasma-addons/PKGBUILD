@@ -9,8 +9,9 @@ pkgrel=1
 pkgdesc="KDE Plasma Addons"
 url="http://www.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kactivities' 'knewstuff' 'plasma-framework' 'kdelibs4support' 'kjs' 'threadweaver' 'kidletime' 'kcmutils' 'krunner'
-         'kross' 'phonon-qt5' 'qca-qt5' 'purpose')
+depends=('kactivities' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'ki18n' 'kio' 'kcmutils' 'plasma-framework' 
+         'krunner' 'kservice' 'kunitconversion' 'kdelibs4support' 'knewstuff' 'kross' 
+         'plasma-workspace' 'phonon-qt5' 'qca-qt5' 'purpose')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
 conflicts=('kdeplasma-addons-applets-bball'
@@ -175,7 +176,7 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd $pkgname-${pkgver}
   
-  patch -p1 -i ${srcdir}/minimizeall.diff
+  #patch -p1 -i ${srcdir}/minimizeall.diff
 }
 
 build() {

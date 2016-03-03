@@ -12,10 +12,11 @@ url='https://projects.kde.org/projects/kde/kde-workspace'
 license=('LGPL')
 depends=('frameworkintegration' 'kcmutils' 'knotifyconfig' 'krunner' 'kdesu' 'knewstuff' 'khtml'
          'libdbusmenu-qt5' 'glu' 'kjsembed' 'libxkbfile' 'libxcursor' 'lm_sensors' 'libraw1394'
-         'libusb' 'pciutils' 'libbsd' 'kf5-attica'
+         'libusb' 'pciutils' 'libbsd' 'kf5-attica' 
          'kemoticons' 'libxrandr' 'kded' 'kwin' 'libksysguard' 'ktexteditor' 'kde-cli-tools'
          'khelpcenter' 'kio-extras' 'baloo' 'milou' 'libkscreen' 'breeze' 'gpsd' 'libqalculate' 'qt5-tools'
-         'qimageblitz' 'oxygen-icons' 'prison' 'sddm-kcm' 'networkmanager-qt' 'kxmlrpcclient' 'kscreenlocker')
+         'qimageblitz' 'oxygen-icons' 'prison' 'sddm-kcm' 'networkmanager-qt' 'kxmlrpcclient' 'kscreenlocker'
+         'kactivitymanagerd' 'iso-codes')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
 options=('debug')
@@ -33,7 +34,7 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          'd1ea614640529e32f4375bd93fcfbbf5')
 
 prepare () {
-  cd ${srcdir}/${pkgname}-${_pkgver}
+  cd ${srcdir}/${pkgname}-${pkgver}
   
   #patch -p1 -i $srcdir/statusnotifier.diff
   #sed -i 's|find_package(Prison "1.2.0" QUIET CONFIG)|find_package(KF5Prison "1.2.0" QUIET CONFIG)|' ${srcdir}/${pkgname}-${pkgver}/klipper/CMakeLists.txt
@@ -43,7 +44,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

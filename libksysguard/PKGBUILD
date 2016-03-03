@@ -13,15 +13,13 @@ depends=('libxres' 'kcoreaddons' 'kconfig' 'ki18n' 'kwindowsystem' 'kcompletion'
          'kwidgetsaddons' 'kiconthemes' 'kconfigwidgets' 'kservice' 'plasma-framework')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
-source=("http://download.kde.org/unstable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
-        'isnan.diff')
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '87d7e8da81bc9cd305da69d633c60a52')
+source=("http://download.kde.org/unstable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  patch -p1 -i ${srcdir}/isnan.diff
+  #patch -p1 -i ${srcdir}/isnan.diff
 }
 
 build() {

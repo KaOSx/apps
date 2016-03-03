@@ -9,12 +9,9 @@ pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/libkscreen'
 license=('LGPL')
-depends=('qt5-x11extras')
+depends=('qt5-x11extras' 'kwayland')
 makedepends=('extra-cmake-modules')
 groups=('plasma5')
-conflicts=('libkscreen2')
-replaces=('libkscreen2')
-provides=('libkscreen2')
 source=("http://download.kde.org/stable/plasma/$pkgver/${pkgname}-$pkgver.tar.xz")
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
