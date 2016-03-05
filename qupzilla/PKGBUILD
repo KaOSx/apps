@@ -1,25 +1,25 @@
 
 pkgname=qupzilla
-pkgver=1.8.9
-_commit=ddea545
+pkgver=1.9.90
+_commit=46e0b9d
 pkgrel=1
-pkgdesc="A fast open source browser based on WebKit core, written in Qt Framework"
+pkgdesc="A fast open source browser based on QtWebengine, written in Qt Framework"
 arch=('x86_64')
 url="http://www.qupzilla.com/"
 license=('GPL')
-depends=('qt5-webkit' 'qt5-script' 'mesa' 'kwallet' 'hunspell' 'desktop-file-utils')
-#depends=('qtwebkit' 'qtwebkit-plugins' 'mesa' 'kdelibs')
+depends=('qtwebengine' 'mesa' 'desktop-file-utils' 'hicolor-icon-theme') # no longer needed in Qt 5.6'qt5-script' 
 makedepends=('gdb' 'qt5-tools')
+conflicts=('kf5-qupzilla')
+replaces=('kf5-qupzilla')
 groups=('network')
-source=("https://github.com/QupZilla/QupZilla/tarball/v1.8/QupZilla-qupzilla-${pkgver}.tar.gz"
-#source=("https://github.com/QupZilla/qupzilla/releases/download/v${pkgver}/QupZilla-${pkgver}.tar.xz"
+source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-${pkgver}.tar.gz"
         'speeddial.diff'
         'preferences.diff'
         'browserwindow.diff'
         'defines.diff'
         'bookmarks_json.diff')
-md5sums=('2d4879a7506ed85ed245b8f9268401e3'
-         '9c059bf71b8240cbd70254762b1c5a1c'
+md5sums=('043a7eb792ed71dea83857a5c932aa08'
+         '1c25658e49b591d756c3b88ce37f0012'
          'c747d63df3218d038546fd93ba531178'
          'ea860e4bd5a7ca23445482e1fde186b5'
          'f5207fdb5455567352fbabb63f36f731'
@@ -27,28 +27,21 @@ md5sums=('2d4879a7506ed85ed245b8f9268401e3'
 
 build() {
     cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
-    #cd "${srcdir}/QupZilla-${pkgver}"
     patch -p0 -i "${srcdir}/speeddial.diff"
-    patch -p0 -i "${srcdir}/preferences.diff"
-    patch -p0 -i "${srcdir}/browserwindow.diff"
-    patch -p0 -i "${srcdir}/defines.diff"
+    #patch -p0 -i "${srcdir}/preferences.diff"
+    #patch -p0 -i "${srcdir}/browserwindow.diff"
+    #patch -p0 -i "${srcdir}/defines.diff"
     patch -p0 -i "${srcdir}/bookmarks_json.diff"
-    
-    #sed -e "s|<KDE/KWallet/Wallet>|<KF5/KWallet/KWallet>|" -i ${srcdir}/QupZilla-qupzilla-${_commit}/src/plugins/KWalletPasswords/kwalletpasswordbackend.h
 
     export USE_WEBGL="true"
-    #export NO_X11="true"
-    export KDE_INTEGRATION="true"
+    export NO_X11="true"
    
     /usr/lib/qt5/bin/qmake 
-    #qmake
-    make clean
     make
 }
 
 package() {
     cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
-    #cd "${srcdir}/QupZilla-${pkgver}"
     make INSTALL_ROOT="$pkgdir/" install
     
     cp "$pkgdir/usr/share/qupzilla/locale/de_DE.qm" "$pkgdir/usr/share/qupzilla/locale/de_CH.qm"

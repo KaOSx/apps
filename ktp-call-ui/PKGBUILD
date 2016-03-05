@@ -1,6 +1,6 @@
 
 pkgname=ktp-call-ui
-pkgver=0.9.90
+pkgver=0.9.91
 pkgrel=1
 pkgdesc="Telepathy call handler "
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('kconfig' 'kdeclarative' 'kiconthemes' 'ki18n' 'knotifications' 'kxmlgu
 makedepends=('boost' 'extra-cmake-modules' 'kdoctools' 'git')
 groups=('kde-telepathy' 'communication')
 #source=("ftp://mirrors.mit.edu/kde/stable/kde-telepathy/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-source=("git://anongit.kde.org/ktp-call-ui.git#branch=frameworks")
+source=("git://anongit.kde.org/ktp-call-ui.git")
 md5sums=('SKIP')
 
 prepare() {
@@ -21,9 +21,8 @@ prepare() {
   sed -i -e 's|#include <phonon/Global>|#include <phonon4qt5/phonon/Global>|' ${srcdir}/${pkgname}/libktpcall/private/phonon-integration.h
   sed -i -e 's|#include <phonon/ObjectDescription>|#include <phonon4qt5/phonon/ObjectDescription>|' ${srcdir}/${pkgname}/libktpcall/private/phonon-integration.h
 }
+
 build() {
-  cd ${srcdir}
-  
   mkdir -p build
   cd build
 

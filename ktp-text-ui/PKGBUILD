@@ -4,22 +4,26 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktp-text-ui
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Telepathy text chat handler"
 arch=('x86_64')
 url="http://www.kde.org"
 license=('GPL')
-depends=('ktp-common-internals')
+depends=('ktp-common-internals' 'qtwebengine')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 groups=('kde-telepathy')
-conflicts=('kf5-ktp-text-ui')
-replaces=('kf5-ktp-text-ui')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+        '0001-Port-to-QWebEngine.patch')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'f93f5690f8d6c64678235e463008da33')
+         
+prepare() {
+  cd $pkgname-${pkgver}
+  
+  patch -p1 -i $srcdir/0001-Port-to-QWebEngine.patch
+}
 
 build() {
-  cd ${srcdir}
-  
   mkdir -p build
   cd build
 
