@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kauth
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='KAuth provides a convenient, system-integrated way to offload actions that need to be performed as a privileged user.'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kauth'
@@ -13,14 +13,14 @@ depends=('kcoreaddons' 'polkit-qt5')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        'path.patch')
+        'deadlock.patch')
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '304086f6d46fd44209c693fce0f11499')
+         '150cefa733d5f51d174b91c6183a638d')
 
 prepare() {
   cd $pkgname-${pkgver}
   
-  #patch -p1 -i $srcdir/path.patch
+  patch -p1 -i $srcdir/deadlock.patch
 }
 
 build() {
