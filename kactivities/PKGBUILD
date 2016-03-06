@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kactivities
 pkgver=${_kf5ver}
-pkgrel=3
+pkgrel=1
 pkgdesc="Core components for the KDE's Activities"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kactivities'
@@ -43,5 +43,5 @@ package() {
   cd build
   make DESTDIR="${pkgdir}" install
   # temp workaround until translations location is clarified, now files are also in plasma-desktop & kactivitymanagerd
-  rm -r ${pkgdir}/usr/share/locale
+  #rm -r ${pkgdir}/usr/share/locale
 }
