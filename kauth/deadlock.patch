@@ -1,0 +1,26 @@
+From: Xuetian Weng <wengxt@gmail.com>
+Date: Sat, 05 Mar 2016 18:29:53 +0000
+Subject: Fix kded5 dead lock when a program using kauth exits.
+X-Git-Tag: v5.20.0-rc1
+X-Git-Url: http://quickgit.kde.org/?p=kauth.git&a=commitdiff&h=702475557d5d2f6680f01169b4e33881be9b35b7
+---
+Fix kded5 dead lock when a program using kauth exits.
+
+REVIEW: 127261
+---
+
+
+--- a/src/backends/dbus/DBusHelperProxy.cpp
++++ b/src/backends/dbus/DBusHelperProxy.cpp
+@@ -52,6 +52,10 @@
+ 
+ DBusHelperProxy::~DBusHelperProxy()
+ {
++    // workaround for Qt 5.6.0 bug which leads to kded5 deadlocking when a program using kauth exits
++#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0) && QT_VERSION < QT_VERSION_CHECK(5, 7, 0)
++    disconnect();
++#endif
+ }
+ 
+ void DBusHelperProxy::stopAction(const QString &action, const QString &helperID)
+
