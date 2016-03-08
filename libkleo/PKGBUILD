@@ -1,0 +1,45 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=libkleo
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="This lib provides crypto for mails."
+arch=('x86_64')
+url='https://projects.kde.org/projects/kde/pim/libkleo'
+license=('LGPL')
+depends=('gpgmepp' 'kpimtextedit' 'kconfig' 'ki18n' 'kwidgetsaddons' 'kcompletion' 'kwindowsystem'
+         'kcoreaddons')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'git')
+#source=("http://download.kde.org/stable/applications/15.12.0/src/${pkgname}-${_kdever}.tar.xz")
+#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/libkleo.git")
+md5sums=('SKIP')
+
+#prepare() {
+#  cd $pkgname-${pkgver}
+  #patch -p1 -i $srcdir/qt55.diff
+#}
+
+build() {
+  mkdir build
+  cd build 
+  
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
