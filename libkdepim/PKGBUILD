@@ -2,19 +2,19 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=libkleo
+pkgname=libkdepim
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="This lib provides crypto for mails."
+pkgdesc="Lib for common kdepim apps."
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/pim/libkleo'
+url='https://projects.kde.org/projects/kde/pim/libkdepim'
 license=('LGPL')
-depends=('gpgmepp' 'kpimtextedit' 'kconfig' 'ki18n' 'kwidgetsaddons' 'kcompletion' 'kwindowsystem'
-         'kcoreaddons')
-makedepends=('extra-cmake-modules' 'git')
+depends=('kdepimlibs' 'ki18n' 'kmime' 'kcmutils' 'kcodecs' 'kcompletion' 'kwallet' 'kitemsview'
+         'kiconthemes' 'kldap' 'kcontacts' 'akonadi-search')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'git')
 #source=("http://download.kde.org/stable/applications/15.12.0/src/${pkgname}-${_kdever}.tar.xz")
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkleo.git")
+source=("git://anongit.kde.org/libkdepim.git")
 md5sums=('SKIP')
 
 #prepare() {
