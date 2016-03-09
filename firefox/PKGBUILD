@@ -20,7 +20,7 @@ source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$pkgver/source
         'firefox-install-dir.patch'
         'vendor.js')
 md5sums=('09cbada824841f9e1d77f095e7cd02c1'
-         '40529c88881abb964813f44157918dae'
+         '2ece19ad1e6c344eeae1342fc05563db'
          '174a2a286e32d5c9a48f51a18ffa4e6c'
          'dbf14588e85812ee769bd735823a0146'
          '0d053487907de4376d67d8f499c5502b')
@@ -32,6 +32,8 @@ prepare() {
   patch -p1 -i ${srcdir}/firefox-install-dir.patch
 
   mkdir ${srcdir}/path
+  
+  sed -i '/ac_cpp=/s/$CPPFLAGS/& -O2/' configure
 }
 
 build() {
