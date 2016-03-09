@@ -3,6 +3,8 @@
 ac_add_options --prefix=/usr
 ac_add_options --libdir=/usr/lib
 ac_add_options --enable-pie
+ac_add_options --enable-release
+ac_add_options --enable-gold
 
 ac_add_options --with-system-nspr
 ac_add_options --with-system-nss
@@ -29,14 +31,15 @@ ac_add_options --disable-crashreporter
 ac_add_options --disable-updater
 ac_add_options --disable-installer
 ac_add_options --disable-debug-symbols
+ac_cv_visibility_pragma=no
 
 export CC=clang
 export CXX=clang++
-export BUILD_OFFICIAL=1
-export MOZILLA_OFFICIAL=1
-export USE_SHORT_LIBNAME=1
-export GRE_CONFIG_PATH=/etc/cb.conf.d
-mk_add_options BUILD_OFFICIAL=1
-mk_add_options MOZILLA_OFFICIAL=1
-mk_add_options USE_SHORT_LIBNAME=1
+#export BUILD_OFFICIAL=1
+#export MOZILLA_OFFICIAL=1
+#export USE_SHORT_LIBNAME=1
+#export GRE_CONFIG_PATH=/etc/cb.conf.d
+#mk_add_options BUILD_OFFICIAL=1
+#mk_add_options MOZILLA_OFFICIAL=1
+#mk_add_options USE_SHORT_LIBNAME=1
 
