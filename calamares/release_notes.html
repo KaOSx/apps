@@ -12,18 +12,16 @@
 <body>
     <h3>KaOS - 2016.03</h3>KaOS is proud to announce the availability of the March 
     release of a new stable ISO.  <br/>
-    As always with this rolling distribution you will find the very latest
-    packages for the Plasma Desktop, this includes Frameworks 5.20.0, Plasma 5.5.5 
-    and KDE Applications 15.12.2.  Plasma 5.5 has brought new features in the Widget Explorer, 
-    expanded options in the Applications Launchers, new widgets including Color Picker & Disk Quota,
-    restored support for legacy system tray icons, default font has moved to Noto and
-    and Desktop Tweaks for different handling of widgets plus option to disable the desktop toolbox.
-    Among the new Applications in 15.12 are Spectacle, the new screenshot capture program.
-    Many more are now fully ported to Frameworks 5 and are part of the stable tar release in their
-    frameworks version.<br/>
+    The Plasma Desktop includes Frameworks 5.20.0, Plasma 5.5.5 and KDE Applications 15.12.2. 
+    A few enhancements to the Plasma 5 experience have been added, these are KaOS specific extras.
+    You now have the option to calculate the md5sum from any file from the Dolphin service menu. 
+    Since the kf5 move there has not been a fully working GUI for user management, 
+    there is one added now for KaOS, you will find it under systemsettings, account details. 
+    From there you can create new users, change existing user(s) role or delete a user. 
+    Also added it is a KCM for locale/language settings.<br/>
     Most notable major updates to the base of the system  are a Glibc 2.23/Binutils 2.26 based new toolchain, 
-    a move of the xorg stack to 1.18, GRUB updated with the the latest security fixes, a move to Pacman 5, Linux 4.4.4,
-    Mesa 11.1.2 and LLVM/Clang moved to 3.7.1<br/>
+    a move of the xorg stack to 1.18, gstreamer group is at 1.6.3, a move to Pacman 5, Linux 4.4.4,
+    Mesa 11.1.2, Pulseaudio 8.0 and Mariadb 10.1.12<br/>
     
     The artwork received a redesign in many elements. A new icon theme for light and dark themes has arrived. 
     The Midna Dark theme received a complete overhaul with a new plasma theme, window decorations, 
@@ -44,8 +42,8 @@
     This ISO KaOS uses the Systemd provided Systemd-boot for UEFI installs, 
     Gummiboot is depreciated. <br/> 
     Among the new applications that are now fully ported to Qt5/Frameworks 5, 
-    Rosegarden, Doxygen, Genymotion, Ktorrent, Kwave and Kbibtex.
-    <b>Calamares, the used installer framework</b>, has moved to the 2.0 series.
+    Kjots, Keneric, Kcolorchooser, SqliteBrowser and Kbibtex.
+    <b>Calamares, the used installer framework</b>, has moved to the 2.1 series.
     Highlights of the changes and additions:
 
     <ul>
@@ -61,12 +59,14 @@
         <li>All new non-blocking asynchronous device rescans with spinner UI throughout 
         the partitioning module</li>
 
-        <li>Many improvements in the manual partitioning interface (including rescans and selection).</li>
+        <li>Added support for setting partition flags (including the EFI system partition flag) 
+        while creating or editing a partition in the manual partitioning page.</li>
 
         <li>Overhauled modules system, allowing for much more flexibility in configuring
         and arranging views and jobs.</li>
 
-        <li>Several bug fixes in the partitioning component.</li>
+        <li>Added a check and warning when installing in EFI mode with manual partitioning 
+        without setting up a mount point and/or flag for the EFI system partition.</li>
     </ul><strong>Octopi</strong> is becoming a very crucial part of full system
     maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like
     making sure a mirror is synced before starting any update, looking at the
@@ -96,7 +96,7 @@
     ISO is mere a snapshot of the current status of the repositories. An idea
     what is currently available: The ISO ships with <b>Frameworks 5.20.0,
     Plasma 5.5.5, KDE Applications 15.12.2 & not yet released ports of KDE
-    Applications</b>, Linux 4.4.4, Systemd 229, Kmod 22, Networkmanager 1.0.10,
+    Applications</b>, Linux 4.4.5, Systemd 229, Kmod 22, Networkmanager 1.0.10,
     Calligra 3.0Alpha, Clementine, Plasma-nm 5.5.5, Xorg-server 1.18.1, Mesa
     11.1.2, Glibc 2.23, GCC 4.9.3, non-free Nvidia 361.28 and Python3 3.5.1 to
     name a few. The package manager is <strong>Pacman 5.0.1</strong>, with the
@@ -106,11 +106,11 @@
     fully redone for 2016. <b>Repositories</b> of KaOS will stay
     limited in size and expect it to stay at the current maximum of about
     2100-2200. A gist of what is available, beside the stable kernel there is
-    Linux-next 4.5, Libreoffice 5.1.0, Qt 5.5.1, bumblebee packages, VLC,
+    Linux-next 4.5, Libreoffice 5.1.1, Qt 5.5.1, bumblebee packages, VLC,
     Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad
     and Knights. A limited number of the most well-known GTK applications are
-    available, examples Firefox 44.0, Chrome 50, Ardour 4.7.0, Flashplugin
-    11.2.202.569, Inkscape 0.91, GIMP 2.8.14 and Google-talkplugin 5.38.5.0.
+    available, examples Firefox 45.0, Chrome 50, Ardour 4.7.0, Flashplugin
+    11.2.202.577, Inkscape 0.91, GIMP 2.8.14 and Google-talkplugin 5.38.5.0.
     Complete language packs are available for KDE, Calligra, Firefox,
     Libreoffice and Thunderbird. For IM, Fcitx 4.2.9.1 is available as a rather
     complete group. <b>Known issues:</b>

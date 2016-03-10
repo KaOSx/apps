@@ -1,6 +1,6 @@
 
 pkgname=partitionmanager
-pkgver=2.0.3
+pkgver=2.0.90
 #_pkgver=1.2.1
 pkgrel=1
 epoch=1
@@ -22,20 +22,20 @@ replaces=('kf5-partitionmanager')
 groups=('system')
 options=('debug')
 install=partitionmanager.install	
-source=("http://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${pkgver}.tar.xz")
-#source=("git://anongit.kde.org/partitionmanager")
-md5sums=('ff0a14cd2fbeb1543309b81965d78ffc')
+#source=("http://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${pkgver}.tar.xz")
+source=("git://anongit.kde.org/partitionmanager")
+md5sums=('SKIP')
 
 build() {
   cd ${srcdir}
   # filsystem code from src/fs/filesystem.h, set as default
   #sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/${pkgname}-${pkgver}/src/config.kcfg
-  sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/${pkgname}-${pkgver}/src/partitionmanager.kcfg
+  sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/${pkgname}/src/partitionmanager.kcfg
   
   mkdir build
   cd build
 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DLIB_INSTALL_DIR=lib \
