@@ -26,7 +26,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 build() {
   cd $pkgname-${pkgver}
   #patch -p1 -i $srcdir/qt55.diff
-  #sed -i -e 's|quazip5|quazip|' ${srcdir}/${pkgname}-${pkgver}/cmake/modules/Findquazip.cmake
+  sed -i -e 's|isnan|std::isnan|g' ${srcdir}/${pkgname}-${pkgver}/src/plugins/positionprovider/gpsd/GpsdPositionProviderPlugin.cpp
   
   mkdir build
   
