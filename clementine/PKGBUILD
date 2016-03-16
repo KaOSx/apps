@@ -3,7 +3,7 @@ pkgname=clementine
 _pkgname=Clementine
 pkgver=1.2.3.94
 pkgrel=1
-_commit=abc6370
+_commit=abc6370b00ba0ead39a9c46582a3a1a28183af76
 pkgdesc="Modern music player and library organiser that takes advantage of Qt."
 url="http://www.clementine-player.org/"
 license="GPL"
@@ -17,24 +17,24 @@ depends=('gstreamer' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
 makedepends=('cmake' 'boost' 'mesa' 'qt5-tools')
 groups=('multimedia')
 #source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
-source=("https://github.com/clementine-player/Clementine/tarball/qt5/${_pkgname}-${pkgver}.tar.gz"
+source=("https://github.com/clementine-player/Clementine/archive/${_commit}.zip"
         'tab_color.diff')
-md5sums=('104f18ec155d112dd0372d56112e706a'
+md5sums=('41de9cd40360e2dd7e664143d504505e'
          '0d35b551ae875ca31037efa3601147f9')
 
 build() {
-  cd "${srcdir}/clementine-player-${_pkgname}-${_commit}"
+  cd ${_pkgname}-${_commit}
 
   #sed -i 's|LASTFM5_LIBRARIES lastfm5|LASTFM5_LIBRARIES lastfm|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/CMakeLists.txt
-  sed -i 's|lastfm5/ws.h|lastfm/ws.h|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/CMakeLists.txt
-  sed -i 's|lastfm5/Track.h|lastfm/Track.h|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/CMakeLists.txt
+  sed -i 's|lastfm5/ws.h|lastfm/ws.h|g' ${srcdir}/${_pkgname}-${_commit}/CMakeLists.txt
+  sed -i 's|lastfm5/Track.h|lastfm/Track.h|g' ${srcdir}/${_pkgname}-${_commit}/CMakeLists.txt
   
-  sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/internet/lastfm/lastfmcompat.h
-  sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/internet/lastfm/lastfmservice.cpp
-  sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/internet/lastfm/lastfmsettingspage.cpp
+  sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/${_pkgname}-${_commit}/src/internet/lastfm/lastfmcompat.h
+  sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/${_pkgname}-${_commit}/src/internet/lastfm/lastfmservice.cpp
+  sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/${_pkgname}-${_commit}/src/internet/lastfm/lastfmsettingspage.cpp
   #sed -i 's|#include "internet/lastfm/fixlastfm.h"||g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/core/songloader.cpp
-  sed -i 's|<lastfm5/Track.h>|<lastfm/Track.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/core/song.cpp
-  sed -i 's|Exec=clementine %U|Exec=clementine|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/dist/clementine.desktop
+  sed -i 's|<lastfm5/Track.h>|<lastfm/Track.h>|g' ${srcdir}/${_pkgname}-${_commit}/src/core/song.cpp
+  sed -i 's|Exec=clementine %U|Exec=clementine|g' ${srcdir}/${_pkgname}-${_commit}/dist/clementine.desktop
   #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestbiographies.cpp
   #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestsimilarartists.cpp
   #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/songkickconcerts.cpp
@@ -51,7 +51,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/clementine-player-${_pkgname}-${_commit}/build"
+  cd ${_pkgname}-${_commit}/build
   
   make install DESTDIR="${pkgdir}"
 }
