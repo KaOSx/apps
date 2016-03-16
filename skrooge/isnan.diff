@@ -1,34 +1,64 @@
-From: Rex Dieter <rdieter@math.unl.edu>
-Date: Thu, 11 Feb 2016 17:22:41 +0000
-Subject: fix build with gcc6
-X-Git-Tag: V2.3.0
-X-Git-Url: http://quickgit.kde.org/?p=skrooge.git&a=commitdiff&h=973f65ccfc9d8776d3417070b9f49ab7b70b112b
----
-fix build with gcc6
-
-Turns out gcc6's cmath now only defines it's own overloads, and
-no longer implicitly includes math.h anymore
----
-
-
---- a/plugins/import/skrooge_import_gnc/skgimportplugingnc.cpp
-+++ b/plugins/import/skrooge_import_gnc/skgimportplugingnc.cpp
-@@ -27,6 +27,7 @@
- 
- #include <qdom.h>
- #include <qfileinfo.h>
-+#include <math.h>
- #include <cmath>
- 
- #include "skgtraces.h"
-
 --- a/skgbasemodeler/skgdocument.cpp
 +++ b/skgbasemodeler/skgdocument.cpp
-@@ -42,6 +42,7 @@
+@@ -42,7 +42,6 @@
  #include <qurl.h>
  
  #include <sqlite3.h>
-+#include <math.h>
+-#include <math.h>
  #include <cmath>
  
  #include "skgtraces.h"
+@@ -51,11 +50,6 @@
+ #include "skgpropertyobject.h"
+ #include "skgtransactionmng.h"
+ #include "skgreport.h"
+-
+-#ifdef Q_OS_WIN
+-#define isnan(a) _isnan(a)
+-#define isinf(a) !_finite(a)
+-#endif
+ 
+ #ifdef SKGCIPHER
+ #define SQLDRIVERNAME QStringLiteral("SKGSQLCIPHER")
+@@ -2693,7 +2687,7 @@
+     if (iValue > 0) {
+         p = '+' % p;
+     }
+-    if (p.count() > 10 || isnan(iValue) || isinf(iValue)) {
++    if (p.count() > 10 || std::isnan(iValue) || std::isinf(iValue)) {
+         p = QChar(8734);
+     }
+     return "<font color=\"" %
+
+--- a/plugins/import/skrooge_import_gnc/skgimportplugingnc.cpp
++++ b/plugins/import/skrooge_import_gnc/skgimportplugingnc.cpp
+@@ -27,7 +27,6 @@
+ 
+ #include <qdom.h>
+ #include <qfileinfo.h>
+-#include <math.h>
+ #include <cmath>
+ 
+ #include "skgtraces.h"
+@@ -36,11 +35,6 @@
+ #include "skgobjectbase.h"
+ #include "skgpayeeobject.h"
+ #include "skgimportexportmanager.h"
+-
+-#ifdef Q_OS_WIN
+-#define isnan(a) _isnan(a)
+-#define isinf(a) !_finite(a)
+-#endif
+ 
+ /**
+  * This plugin factory.
+@@ -386,7 +380,7 @@
+                                         }
+                                     }
+ 
+-                                    if (!isnan(info.value)) {
++                                    if (!std::isnan(info.value)) {
+                                         QChar accountType = mapIdType[info.account.text()];
+                                         if (accountType == 'C') {
+                                             suboperationsList.push_front(info);
+                                             

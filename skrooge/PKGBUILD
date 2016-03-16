@@ -1,7 +1,7 @@
 
 pkgname=skrooge
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Allows you to manage your personal finances in KDE"
 arch=('x86_64')
 url="http://skrooge.org"
@@ -9,7 +9,7 @@ license=('GPL')
 depends=('grantlee' 'karchive' 'kcoreaddons' 'kconfig' 'ki18n' 'kitemviews' 'kwidgetsaddons' 
          'kwindowsystem' 'kcompletion' 'kjobwidgets' 'kconfigwidgets' 'kdesignerplugin' 'kiconthemes' 'kio'
          'khtml' 'knewstuff' 'kparts' 'kwallet' 'kxmlgui' 'kdelibs4support' 'plasma-workspace' # 'aqbanking' 
-         'boost-libs' 'libofx' 'qca-qt5' 'kactivities' 'sqlcipher')
+         'boost-libs' 'libofx' 'qca-qt5' 'kactivities' 'sqlcipher' 'qt5-webkit')
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost' 'clang')
 groups=('office')
 install=skrooge.install
@@ -17,13 +17,13 @@ install=skrooge.install
 source=("http://download.kde.org/stable/skrooge/${pkgname}-${pkgver}.tar.xz"
         'isnan.diff')
 md5sums=('667c634c976bad737e0cfa1915db7566'
-         'f4d73c06353a20cbe9e7334e8475283d')
+         '3f5bba63a8672cb4edcb8f213369fa54')
 
 prepare() {
   cd $pkgname-${pkgver}
   #sed -e "s/FIND_PACKAGE(QCA2 2.0.0 REQUIRED)/FIND_PACKAGE(Qca 2.0.0 REQUIRED)/" -i ${srcdir}/$pkgname/skgbasemodeler/CMakeLists.txt
   #sed -e "s/FIND_PACKAGE(KActivities)/FIND_PACKAGE(KF5Activities)/" -i ${srcdir}/$pkgname/skgbasegui/CMakeLists.txt
-  #patch -p1 -Ri ${srcdir}/isnan.diff
+  patch -p1 -i ${srcdir}/isnan.diff
 }
          
 build() {
