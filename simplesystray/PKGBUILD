@@ -2,31 +2,29 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kscreen
+pkgname=simplesystray
 pkgver=${_plasmaver}
 pkgrel=1
-pkgdesc="KDE's screen management software"
+pkgdesc="Experimental systemtray replacement"
 arch=('x86_64')
-url='https://projects.kde.org/kscreen'
-license=('GPL' 'LGPL')
-depends=('kdbusaddons' 'kconfigwidgets' 'ki18n' 'kxmlgui' 'kglobalaccel' 'libkscreen')
-makedepends=('extra-cmake-modules')
-conflicts=('kf5-kscreen')
-replaces=('kf5-kscreen')
-groups=('plasma5')
+url="https://projects.kde.org/projects/kde/workspace/simplesystray"
+license=('LGPL')
+depends=('kauth' 'plasma-framework' 'ki18n' 'kcmutils' 'knewstuff' 'kdelibs4support' 'knotifyconfig'
+         'kf5-attica' 'kwallet' 'krunner' 'plasma-workspace' 'kactivities')
+makedepends=('extra-cmake-modules' 'kdoctools')
+#groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-md5sums=('5a43b4ca376cf5321294ae6a02e84416')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  cd $srcdir  
-  mkdir build
+  mkdir -p build
   cd build
-
+  
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
+    -DLIBEXEC_INSTALL_DIR=lib \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
@@ -36,7 +34,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
- 
-  make DESTDIR="${pkgdir}" install  
+  cd build
+  
+  make DESTDIR=$pkgdir install
 }
