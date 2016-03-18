@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ki18n
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Ki18n'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/ki18n'
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('kjs' 'qt5-script' 'qt5-declarative')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/stable/frameworks/5.20/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
@@ -33,4 +33,9 @@ package() {
   cd build
   
   make DESTDIR="${pkgdir}" install
+  # conflicts with kde-l10n since kf5 5.20.0
+  rm ${pkgdir}/usr/share/locale/nb/LC_SCRIPTS/ki18n5/ki18n5.js
+  rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/ki18n5.js
+  rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/skjermelement.pmap
+  rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/skjermelement.pmapc
 }
