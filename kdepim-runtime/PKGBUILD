@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-runtime
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
@@ -13,7 +13,7 @@ depends=('kdepimlibs' 'knotifyconfig' 'kross' 'knewstuff' 'kcmutils' 'kdelibs4su
          'kconfig' 'kio' 'kitemmodels' 'kcodecs' 'accountsqt' 'signonqt' 'shared-mime-info' 
          'akonadi' 'kmime' 'kmailtransport' 'kidentitymanagement' 'kcontacts' 'kalarmcal' 'kcalcore' 
          'kcalutils' 'kmbox' 'kpimtextedit' 'kimap' 'syndication' 'akonadi-calendar' 'kaccounts-integration'
-         'libkgapi' 'libkolab') # not used 'libkfbapi' disable 'qtspeech', might cause crashes
+         'libkgapi' 'libkolab' 'qt5-webkit') # not used 'libkfbapi' disable 'qtspeech', might cause crashes
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 install=${pkgname}.install
 options=('debug')

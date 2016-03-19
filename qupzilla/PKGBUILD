@@ -1,7 +1,7 @@
 
 pkgname=qupzilla
-pkgver=1.9.90
-_commit=46e0b9d
+pkgver=1.9.91
+_commit=a16c21b
 pkgrel=1
 pkgdesc="A fast open source browser based on QtWebengine, written in Qt Framework"
 arch=('x86_64')
@@ -18,19 +18,19 @@ source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-$
         'browserwindow.diff'
         'defines.diff'
         'bookmarks_json.diff')
-md5sums=('043a7eb792ed71dea83857a5c932aa08'
+md5sums=('d0c5f02663d4f7c1080cea198a0f7424'
          '1c25658e49b591d756c3b88ce37f0012'
-         'c747d63df3218d038546fd93ba531178'
-         'ea860e4bd5a7ca23445482e1fde186b5'
+         '65337a0fb92c5c3222d72969771388ce'
+         '0a1a394a6cd9aaff40d2129203cb5479'
          'f5207fdb5455567352fbabb63f36f731'
          'ad89b6d6e006941325aa77856c29f3e3')
 
 build() {
     cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
     patch -p0 -i "${srcdir}/speeddial.diff"
-    #patch -p0 -i "${srcdir}/preferences.diff"
-    #patch -p0 -i "${srcdir}/browserwindow.diff"
-    #patch -p0 -i "${srcdir}/defines.diff"
+    patch -p0 -i "${srcdir}/preferences.diff"
+    patch -p0 -i "${srcdir}/browserwindow.diff"
+    patch -p0 -i "${srcdir}/defines.diff"
     patch -p0 -i "${srcdir}/bookmarks_json.diff"
 
     export USE_WEBGL="true"
