@@ -6,10 +6,10 @@ pkgname=kdepim
 pkgver=${_kdever}
 pkgrel=2
 arch=('x86_64')
-pkgdesc="Project that aims to bring together anything to do with personal information management."
+pkgdesc="KDE's Personal Information Management suite"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
-depends=('grantlee' 'phonon-qt5' 'qt5-tools' 'prison' 'libkgapi' 'qt5-webkit' # fails with Qt5.5.1 'qtspeech'
+depends=('grantlee' 'phonon-qt5' 'qt5-tools' 'prison' 'libkgapi' 'qtwebkit' 'qywebengine' # fails with Qt5.5.1 'qtspeech'
          #frameworks
          'kdelibs4support' 'kwallet' 'knewstuff' 'kcmutils' 'kdewebkit' 'karchive' 'knotifyconfig'
          'kconfig' 'khtml' 'kservice' 'kdbusaddons' 'kauth' 'ktexteditor' 'kdnssd' 'kcodecs' 'kglobalaccel'
@@ -17,38 +17,10 @@ depends=('grantlee' 'phonon-qt5' 'qt5-tools' 'prison' 'libkgapi' 'qt5-webkit' # 
          #kdepimlibs
          'kcontacts' 'kcalcore' 'kidentitymanagement' 'kldap' 'kmailtransport' 'kcalutils' 'kontactinterface'
          'kholidays' 'ktnef' 'kimap' 'kmbox' 'akonadi-calendar' 'syndication' 'gpgmepp' 'kalarmcal' 'kmime'
-         'kxmlrpcclient' 'kblog' 'kdepimlibs' 'akonadi-search' 'kdepim-runtime')
+         'kxmlrpcclient' 'kblog' 'kdepimlibs' 'akonadi-search' 'kdepim-runtime' 'libgravatar' 'mailimporter'
+         'mailcommon' 'kdepim-apps-libs' 'libkleo' 'grantleetheme' 'pimcommon' 'libkdepim' 'incidenceditor'
+         'messagelib' 'calendersupport' 'eventviews' 'kdgantt2' 'kmailtransport')
 makedepends=('boost' 'extra-cmake-modules' 'kdoctools' 'clang')
-conflicts=('kf5-kdepim'
-           'kdepim-common'
-           'kdepim-akonadiconsole'
-           'kdepim-akregator'
-           'kdepim-blogilo'
-           'kdepim-kaddressbook'
-           'kdepim-kalarm'
-           'kdepim-kjots'
-	   'kdepim-kleopatra'
-           'kdepim-kmail'
-           'kdepim-knode'
-           'kdepim-knotes'
-           'kdepim-kontact'
-           'kdepim-korganizer'
-           'kdepim-ktimetracker') 
-replaces=('kf5-kdepim'
-          'kdepim-common'
-	  'kdepim-akonadiconsole'
-          'kdepim-akregator'
-          'kdepim-blogilo'
-          'kdepim-kaddressbook'
-          'kdepim-kalarm'
-          'kdepim-kjots'
-	  'kdepim-kleopatra'
-          'kdepim-kmail'
-          'kdepim-knode'
-          'kdepim-knotes'
-          'kdepim-kontact'
-          'kdepim-korganizer'
-          'kdepim-ktimetracker')
 install=kdepim.install
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
         'CMakeLists.diff')
@@ -78,7 +50,8 @@ build() {
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE \
-    -DKDEPIM_NO_TEXTTOSPEECH=TRUE
+    -DKDEPIM_NO_TEXTTOSPEECH=TRUE \
+    -DQTWEBENGINE_EXPERIMENTAL_OPTION=TRUE
   make VERBOSE=1
 }
 

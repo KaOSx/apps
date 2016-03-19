@@ -6,7 +6,7 @@ pkgname=kdepim-addons
 pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
-pkgdesc="Project that aims to bring together anything to do with personal information management."
+pkgdesc="Addons for kdepim apps (as kmail addons/ kmail theme/ kaddressbook addons etc.)"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 depends=('libkgapi' 'qtwebengine' 
@@ -15,10 +15,8 @@ depends=('libkgapi' 'qtwebengine'
          #kdepimlibs
          'kdepimlibs' 'mailcommon' 'kdepim-apps-libs' 'libkleo' 'grantleetheme'
          'pimcommon' 'libkdepim' 'incidenceeditor'
-         'messagelib' 'calendarsupport' '*eventviews' 'akonadi' 'libgravatar' 'ktnef')
-makedepends=('boost' 'extra-cmake-modules' 'kdoctools' 'clang')
-conflicts=('kdepim') 
-replaces=('kdepim')
+         'messagelib' 'calendarsupport' 'eventviews' 'akonadi' 'libgravatar' 'ktnef')
+makedepends=('extra-cmake-modules' 'kdoctools' 'clang')
 install=kdepim-addons.install
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
         'CMakeLists.diff')

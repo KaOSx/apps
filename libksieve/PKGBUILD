@@ -2,20 +2,19 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=mailcommon
+pkgname=libksieve
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Lib which provides support for mail apps"
+pkgdesc="Lib which manages sieve support"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/pim/mailcommon'
+url='https://quickgit.kde.org/?p=libksieve.git'
 license=('LGPL')
-depends=('akonadi' 'ki18n' 'kmime' 'kdepimlibs' 'kcodecs' 'kiconthemes' 'karchive' 'kitemsviews'
-         'kwindowsystem' 'kxmlgui' 'messagelib' 'libkdepim' 'pimcommon' 'mailimporter' 'kmailtransport'
-         'kldap' 'phonon-qt5')
+depends=('akonadi' 'qt5-webkit' 'ki18n' 'kiconthemes' 'pimcommon' 'libkdepim' 'knewstuff' 'kwindowsystem'
+         'karchive' 'kmime' 'kidentitymanagement' 'kmailtransport' 'kpimtextedit' 'qtwebengine')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/mailcommon.git")
+#source=("git://anongit.kde.org/libksive.git")
 #md5sums=('SKIP')
 
 prepare() {
@@ -35,7 +34,8 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQTWEBENGINE_EXPERIMENTAL_OPTION=TRUE
   make 
 }
 
