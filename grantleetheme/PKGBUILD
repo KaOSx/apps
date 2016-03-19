@@ -2,30 +2,29 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=libkdepim
+pkgname=grantleetheme
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Lib for common kdepim apps."
+pkgdesc="Lib which provides grantlee theme support"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/pim/libkdepim'
+url='https://projects.kde.org/projects/kde/pim/grantleetheme'
 license=('LGPL')
-depends=('kdepimlibs' 'ki18n' 'kmime' 'kcmutils' 'kcodecs' 'kcompletion' 'kwallet' 'kitemsview'
-         'kiconthemes' 'kldap' 'kcontacts' 'akonadi-search')
-makedepends=('extra-cmake-modules' 'qt5-tools' 'git')
-source=("http://download.kde.org/stable/applications/15.12.0/src/${pkgname}-${_kdever}.tar.xz")
+depends=('ki18n' 'kiconthemes' 'knewstuff' 'grantlee')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/libkdepim.git")
+#source=("git://anongit.kde.org/grantleetheme.git")
 #md5sums=('SKIP')
 
-#prepare() {
-#  cd $pkgname-${pkgver}
-  #patch -p1 -i $srcdir/qt55.diff
-#}
+prepare() {
+  cd $pkgname-${pkgver}
+  #sed -i -e 's|set(AKONADIMIME_LIB_VERSION "4.81.0")|set(AKONADIMIME_LIB_VERSION "4.80.0")|' ${srcdir}/${pkgname}/CMakeLists.txt
+}
 
 build() {
   mkdir build
-  cd build 
   
+  cd build 
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \

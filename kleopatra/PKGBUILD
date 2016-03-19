@@ -12,10 +12,10 @@ license=('LGPL')
 depends=('gnupg' 'pinentry' 'gpgmepp' 'kmime' 'kcodecs' 'kdbusaddons' 'kcmutils' 'kconfig'
          'ki18n' 'kiconthemes' 'knotifications' 'kxmlgui' 'kwindowsystem' 'ktextwidgets')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'git')
-#source=("http://download.kde.org/stable/applications/15.12.0/src/${pkgname}-${_kdever}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kleopatra.git")
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/applications/15.12.0/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kleopatra.git")
+#md5sums=('SKIP')
 
 #prepare() {
 #  cd $pkgname-${pkgver}
@@ -26,7 +26,7 @@ build() {
   mkdir build
   cd build 
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \

@@ -1,0 +1,50 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=messagelib
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="All libs for messages"
+arch=('x86_64')
+url='https://projects.kde.org/projects/kde/pim/messagelib'
+license=('LGPL')
+depends=('akonadi' 'ki18n' 'kmime' 'kdepimlibs' 'kdepim-apps-libs' 'libkdepim' 'karchive' 
+         'kldap' 'kpimtextedit' 'kmailtransport' 'kidentitymanagement' 'kwebkit' 'kiconthemes'
+         'kcompletion' 'kcodecs' 'kconfig' 'kxmlgui' 'akonadi-search' 'kcontacts' 'kmbox'  
+         'libgravatar' 'grantleetheme' 'libkleo' 'pimcommon' 'grantlee' 'qtwebengine')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/messagelib.git")
+#md5sums=('SKIP')
+
+prepare() {
+  cd $pkgname-${pkgver}
+  #sed -i -e 's|set(KMIME_LIB_VERSION "4.81.0")|set(KMIME_LIB_VERSION "4.80.0")|' ${srcdir}/${pkgname}/CMakeLists.txt
+  #sed -i -e 's|set(AKONADI_LIB_VERSION "4.81.0")|set(AKONADI_LIB_VERSION "4.80.0")|' ${srcdir}/${pkgname}/CMakeLists.txt
+  #sed -i -e 's|set(AKONADIMIME_LIB_VERSION "4.81.0")|set(AKONADIMIME_LIB_VERSION "4.80.0")|' ${srcdir}/${pkgname}/CMakeLists.txt
+}
+
+build() {
+  mkdir build
+  
+  cd build 
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF \
+    -DQTWEBENGINE_EXPERIMENTAL_OPTION=TRUE 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
