@@ -1,6 +1,6 @@
 
 pkgname=qtcurve
-pkgver=1.8.18.10
+pkgver=1.8.18.11
 pkgrel=1
 arch=('x86_64')
 license=('GPL')
@@ -14,20 +14,20 @@ source=("git://anongit.kde.org/qtcurve.git")
 md5sums=('SKIP')
 
 build() {
-	cd ${srcdir}/${pkgname}
-	
-	mkdir build
-	cd build
-	cmake .. -DCMAKE_BUILD_TYPE=Release \
-		 -DCMAKE_INSTALL_PREFIX=/usr \
-		 -DENABLE_GTK2=false \
-		 -DQTC_QT5_ENABLE_KDE=true \
-		 -DQTC_QT4_ENABLE_KDE=false
-	make
+    mkdir build
+    cd build
+    
+    cmake ../${pkgname} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DENABLE_GTK2=false \
+        -DQTC_QT5_ENABLE_KDE=true \
+        -DQTC_QT4_ENABLE_KDE=false
+    make
 }
 
 package() {
-	cd $srcdir/${pkgname}/build
+    cd build
 	
-	make DESTDIR=${pkgdir} install
+    make DESTDIR=${pkgdir} install
 }
