@@ -3,28 +3,28 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcolorchooser
-#pkgver=${_kdever}
-pkgver=15.11.80
+pkgver=${_kdever}
+#pkgver=15.11.80
 pkgrel=1
 pkgdesc="Color Chooser"
 url="http://kde.org/applications/graphics/kcolorchooser/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kwidgetsaddons' 'kxmlgui')
-makedepends=('extra-cmake-modules' 'git')
+makedepends=('extra-cmake-modules')
 install=${pkgname}.install
 groups=('kdegraphics' 'graphics')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kcolorchooser.git")
-md5sums=('SKIP')
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/kcolorchooser.git")
+#md5sums=('SKIP')
 
 
 build() {
   mkdir build  
   cd build 
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
