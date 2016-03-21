@@ -1,16 +1,14 @@
 
-pkgname=google-chrome
+pkgbase=google-chrome
+pkgname=('google-chrome' 'pepper-flash')
 pkgver=51.0.2679.0
-pkgrel=2
-pkgdesc="Google Chrome Browser, developer preview channel for Linux"
+pkgrel=3
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
 license=('custom:chrome')
-groups=('network')
 options=('!strip' '!emptydirs')
-install=$pkgname.install
-depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
-         'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
+makedepends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
+            'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html"
          'google-chrome-unstable.desktop')
@@ -19,7 +17,13 @@ md5sums=('84a88ea7276e3c2d915e8e36f3427c19'
          'dc490bcda18c1379056700057800cc8f')
 
 
-package() {
+package_google-chrome() {
+    pkgdesc="Google Chrome Browser, developer preview channel for Linux"
+    depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
+             'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils' 'pepper-flash')
+    groups=('network')
+    install=$pkgname.install
+    
     bsdtar -xf data.tar.xz -C ${pkgdir}/ 
 
     # Adding man page
@@ -35,13 +39,29 @@ package() {
     
     rm -r ${pkgdir}/etc/cron.daily/ ${pkgdir}/opt/google/chrome-unstable/cron/
     rm ${pkgdir}/opt/google/chrome-unstable/product_logo_*.png
+    # use in pepper-flash package
+    rm ${pkgdir}/opt/google/chrome-unstable/PepperFlash/manifest.json
+    rm ${pkgdir}/opt/google/chrome-unstable/PepperFlash/libpepflashplayer.so
     
     rm ${pkgdir}/usr/share/applications/google-chrome-unstable.desktop
     install -m755 $srcdir/google-chrome-unstable.desktop ${pkgdir}/usr/share/applications/google-chrome-unstable.desktop
+}
+
+package_pepper-flash() {
+    pkgdesc="Google Chrome's Pepper Flash plugin"
+    depends=('pulseaudio')
+    provides=('flashplugin')
+    replaces=('flashplugin')
+    conflicts=('flashplugin')
+    install=$pkgname.install
     
-    # Set pepperflash for system-wide usage
+    bsdtar -xf data.tar.xz
+    
+    install -Dm644 opt/google/chrome-unstable/PepperFlash/manifest.json ${pkgdir}/opt/google/chrome-unstable/PepperFlash/manifest.json
+    install -Dm755 opt/google/chrome-unstable/PepperFlash/libpepflashplayer.so ${pkgdir}/opt/google/chrome-unstable/PepperFlash/libpepflashplayer.so
+    
     mkdir -p ${pkgdir}/usr/lib/PepperFlash
     cd ${pkgdir}
-    ln -s opt/google/chrome-unstable/PepperFlash/manifest.json ${pkgdir}/usr/lib/PepperFlash/manifest.json
-    ln -s opt/google/chrome-unstable/PepperFlash/libpepflashplayer.so ${pkgdir}/usr/lib/PepperFlash/libpepflashplayer.so
+    ln -s /opt/google/chrome-unstable/PepperFlash/manifest.json ${pkgdir}/usr/lib/PepperFlash/manifest.json
+    ln -s /opt/google/chrome-unstable/PepperFlash/libpepflashplayer.so ${pkgdir}/usr/lib/PepperFlash/libpepflashplayer.so
 }

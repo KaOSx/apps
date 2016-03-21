@@ -1,0 +1,33 @@
+
+pkgname=freshplayerplugin
+pkgver=0.3.4
+pkgrel=1
+pkgdesc='ppapi2npapi compatibility layer.'
+arch=('x86_64' )
+url='https://github.com/i-rinat/freshplayerplugin'
+license=('MIT')
+depends=('alsa-lib' 'ffmpeg' 'freetype2' 'gtk2' 'jack' 'libevent' 'libgl' 'v4l-utils' 
+         'openssl' 'pango' 'pulseaudio' 'pepper-flash')
+makedepends=('cmake' 'ragel')
+source=("https://github.com/i-rinat/freshplayerplugin/archive/v${pkgver}.tar.gz")
+md5sums=('e5d5df12de8dbb1caf4e349b4e4ae520')
+
+build() {
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DWITH_GTK=2 \
+    -DWITH_PULSEAUDIO=1
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR=${pkgdir} install
+
+  install -Dm644 ../${pkgname}-${pkgver}/data/freshwrapper.conf.example ${pkgdir}/usr/share/${pkgname}/freshwrapper.conf.example
+  install -Dm644 ../${pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
