@@ -1,7 +1,7 @@
 
 pkgname=google-chrome
 pkgver=51.0.2679.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Google Chrome Browser, developer preview channel for Linux"
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
@@ -20,27 +20,28 @@ md5sums=('84a88ea7276e3c2d915e8e36f3427c19'
 
 
 package() {
-    msg "Extracting Google Chrome"
-    bsdtar -xf data.tar.xz -C "$pkgdir/" 
-    msg2 "Done extracting!"
+    bsdtar -xf data.tar.xz -C ${pkgdir}/ 
 
     # Adding man page
-    gzip "$pkgdir"/usr/share/man/man1/google-chrome-unstable.1
+    gzip ${pkgdir}/usr/share/man/man1/google-chrome-unstable.1
     
-    # Symlinking icons to /usr/share/icons/hicolor/
+    # icons to /usr/share/icons/hicolor/ too
     for i in 16 22 24 32 48 64 128 256; do
-    install -Dm644 "$pkgdir"/opt/google/chrome-unstable/product_logo_${i}.png "$pkgdir"/usr/share/icons/hicolor/${i}x${i}/apps/google-chrome.png
+    install -Dm644 ${pkgdir}/opt/google/chrome-unstable/product_logo_${i}.png ${pkgdir}/usr/share/icons/hicolor/${i}x${i}/apps/google-chrome.png
     done
 
     # License
-    install -Dm644 "$srcdir"/eula_text.html "$pkgdir"/usr/share/licenses/google-chrome/eula_text.html
+    install -Dm644 $srcdir/eula_text.html ${pkgdir}/usr/share/licenses/google-chrome/eula_text.html
     
-    msg2 "Removing cron job and duplicated images"
-    rm -r "$pkgdir"/etc/cron.daily/ "$pkgdir"/opt/google/chrome-unstable/cron/
-    rm "$pkgdir"/opt/google/chrome-unstable/product_logo_*.png
+    rm -r ${pkgdir}/etc/cron.daily/ ${pkgdir}/opt/google/chrome-unstable/cron/
+    rm ${pkgdir}/opt/google/chrome-unstable/product_logo_*.png
     
-    rm "$pkgdir"/usr/share/applications/google-chrome-unstable.desktop
-    install -m755 "$srcdir"/google-chrome-unstable.desktop "$pkgdir"/usr/share/applications/google-chrome-unstable.desktop
-
-    msg2 "Installation finished!"
+    rm ${pkgdir}/usr/share/applications/google-chrome-unstable.desktop
+    install -m755 $srcdir/google-chrome-unstable.desktop ${pkgdir}/usr/share/applications/google-chrome-unstable.desktop
+    
+    # Set pepperflash for system-wide usage
+    mkdir -p ${pkgdir}/usr/lib/PepperFlash
+    cd ${pkgdir}
+    ln -s opt/google/chrome-unstable/PepperFlash/manifest.json ${pkgdir}/usr/lib/PepperFlash/manifest.json
+    ln -s opt/google/chrome-unstable/PepperFlash/libpepflashplayer.so ${pkgdir}/usr/lib/PepperFlash/libpepflashplayer.so
 }
