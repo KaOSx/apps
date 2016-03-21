@@ -5,12 +5,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kactivitymanagerd
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="System service to manage user's activities, track the usage patterns etc"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/workspace/kactivitymanagerd"
 license=('GPL')
-depends=('kdbusaddons' 'ki18n' 'boost-libs' 'kactivities')
+depends=('kdbusaddons' 'ki18n' 'kconfig' 'kcoreaddons' 'kwindowsystem' 'kglobalaccel'
+         'kxmlgui' 'kio' 'boost-libs')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
@@ -36,6 +37,6 @@ package() {
   cd $pkgname-$pkgver/build
   
   make DESTDIR="$pkgdir" install
-  # temp workaround until translations location is clarified, now files are also in plasma-desktop & kactivies
-  rm -r ${pkgdir}/usr/share/locale
+  # temp workaround until translations location is clarified, now files are also in plasma-desktop 
+  rm -r ${pkgdir}/usr/share/locale/*/LC_MESSAGES/kactivities5.mo
 }

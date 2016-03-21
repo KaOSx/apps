@@ -4,31 +4,33 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/kio-extras'
+url='https://github.com/KDE/kio-extras'
 license=('LGPL')
 depends=('exiv2' 'kdelibs4support' 'kdnssd' 'kemoticons' 'khtml' 'kinit' 'kitemmodels' 'kpty'
-         'libmtp' 'libssh' 'openexr' 'samba')
+         'kactivities' 'libmtp' 'libssh' 'openexr' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools' 'openslp')
 conflicts=('kfileaudiopreview' 'kio-mtp')
 provides=('kfileaudiopreview' 'kio-mtp' )
 replaces=('kfileaudiopreview' 'kio-mtp' )
 groups=('plasma5')
-source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kio-extras.git")
+md5sums=('SKIP')
 
-prepare() {
-  cd ${pkgname}-${pkgver}
+#prepare() {
+  #cd ${pkgname}-${pkgver}
   #patch -p1 -i ${srcdir}/info2html.diff
-}
+#}
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
