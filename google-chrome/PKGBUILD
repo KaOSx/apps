@@ -50,6 +50,7 @@ package_google-chrome() {
 package_pepper-flash() {
     pkgdesc="Google Chrome's Pepper Flash plugin"
     depends=('pulseaudio')
+    opdepends=('freshplayerplugin: required for flash support in Firefox')
     provides=('flashplugin')
     replaces=('flashplugin')
     conflicts=('flashplugin')
@@ -64,4 +65,6 @@ package_pepper-flash() {
     cd ${pkgdir}
     ln -s /opt/google/chrome-unstable/PepperFlash/manifest.json ${pkgdir}/usr/lib/PepperFlash/manifest.json
     ln -s /opt/google/chrome-unstable/PepperFlash/libpepflashplayer.so ${pkgdir}/usr/lib/PepperFlash/libpepflashplayer.so
+    
+    install -Dm644 $srcdir/eula_text.html ${pkgdir}/usr/share/licenses/pepper-flash/eula_text.html
 }
