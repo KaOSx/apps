@@ -1,0 +1,32 @@
+
+pkgname=socat
+pkgver=1.7.3.1
+pkgrel=1
+arch=('x86_64')
+pkgdesc='Relay for bidirectional data transfer between two independent data channels.'
+url='http://www.dest-unreach.org/socat/'
+license=('GPL2')
+depends=('openssl' 'readline')
+source=("http://www.dest-unreach.org/socat/download/${pkgname}-${pkgver}.tar.gz")
+        #'add-missing-checks.patch')
+md5sums=('fbab6334919cbd71433213db18dbbdf0')
+
+prepare() {
+    cd ${pkgname}-${pkgver}
+    #patch -Np1 -i ../add-missing-checks.patch
+}
+
+build() {
+    cd ${pkgname}-${pkgver}
+    
+    ./configure \
+        --prefix=/usr \
+        --mandir=/usr/share/man \
+    make
+}
+
+package() {
+    cd ${pkgname}-${pkgver}
+    
+    make DESTDIR=${pkgdir} install
+}
