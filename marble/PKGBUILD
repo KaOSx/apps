@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=marble
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
@@ -26,7 +26,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 build() {
   cd $pkgname-${pkgver}
   #patch -p1 -i $srcdir/qt55.diff
-  sed -i -e 's|isnan|std::isnan|g' ${srcdir}/${pkgname}-${pkgver}/src/plugins/positionprovider/gpsd/GpsdPositionProviderPlugin.cpp
+  #sed -i -e 's|isnan|std::isnan|g' ${srcdir}/${pkgname}-${pkgver}/src/plugins/positionprovider/gpsd/GpsdPositionProviderPlugin.cpp
   
   mkdir build
   

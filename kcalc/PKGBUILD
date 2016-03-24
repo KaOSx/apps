@@ -2,9 +2,9 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname="kcalc"
+pkgname=kcalc
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Scientific calculator"
 url="https://www.kde.org/applications/utilities/kcalc"
@@ -21,7 +21,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://bugs.kde.org/show_bug.cgi?id=360105
-  sed -i -e 's|setFixedSize(minimumSize());|if ( ! minimumSize().isEmpty() ) setFixedSize(minimumSize());|' kcalc.cpp
+  #sed -i -e 's|setFixedSize(minimumSize());|if ( ! minimumSize().isEmpty() ) setFixedSize(minimumSize());|' kcalc.cpp
 }
 
 build() {
