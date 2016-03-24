@@ -26,7 +26,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${srcdir}/${pkgname}-${pkgver} 
   #sed -i -e 's|add_subdirectory(doc)|#add_subdirectory(doc)|' ${srcdir}/${pkgname}/CMakeLists.txt
-  patch -p1 -i $srcdir/isnan.diff 
+  #patch -p1 -i $srcdir/isnan.diff 
 }
 
 build() {
