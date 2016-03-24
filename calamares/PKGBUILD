@@ -7,7 +7,7 @@ arch=('x86_64')
 url='http://calamares.io/'
 license=('LGPL')
 depends=('qt5-svg' 'qtwebengine' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
-         'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts' 'kcoreaddons')
+         'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools')
 options=('debug' '!staticlibs')
 #source=("git://github.com/KaOSx/calamares#commit=8d1145719acb6e3cc11d22f4ab4c61a1dfb9cd81"
@@ -34,8 +34,8 @@ md5sums=('SKIP'
 prepare () {
   cd ${srcdir}/${pkgname}
   
-  #git submodule init
-  #git submodule update
+  git submodule init
+  git submodule update
   
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/core/PartitionActions.cpp
@@ -52,7 +52,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DWITH_CRASHREPORTER=OFF
+    -DWITH_CRASHREPORTER=ON
   make
 }
 
