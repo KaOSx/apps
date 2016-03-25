@@ -10,9 +10,10 @@ arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/kdepim-apps-libs'
 license=('LGPL')
 depends=('kdepimlibs' 'ki18n' 'kconfig' 'kservice' 'libkleo' 'grantleetheme' 'kcontacts'
-         'kxmlgui' 'kcompletion' 'sonnet' 'kmime' 'kwebkit' 'kdepimtextedit' 'pimcommon'
+         'kxmlgui' 'kcompletion' 'sonnet' 'kmime' 'kdewebkit' 'kpimtextedit' 'pimcommon'
          'kcoreaddons' 'kdbusaddons' 'kwidgetsaddons' 'grantlee')
-makedepends=('extra-cmake-modules' 'qt5-tools' 'git')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'kdoctools')
+groups=('kde' 'kdepim' 'kde-uninstall')
 source=("http://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/kdepim-apps-libs")

@@ -10,7 +10,8 @@ pkgdesc="KDE Pim Libraries"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
 depends=('akonadi' 'kio' 'kcompletion' 'kcodecs' 'phonon-qt5' 'kcontacts' 'kcalcore'
-         'kmime' 'ki18n' 'kitemviews' 'kconfig' 'solid' 'qt5-tools' 'kldap' 'kmbox' 'prison')
+         'kmime' 'ki18n' 'kitemviews' 'kconfig' 'solid' 'qt5-tools' 'kldap' 'kmbox' 
+         'prison' 'qtwebengine' 'grantlee')
 makedepends=('extra-cmake-modules' 'boost' 'kdoctools')
 conflicts=('kf5-kdepimlibs')
 replaces=('kf5-kdepimlibs')
@@ -45,8 +46,8 @@ build() {
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	-DCMAKE_SKIP_RPATH=ON \
-	-DLIB_INSTALL_DIR=lib  
-        #-DKDEPIMLIBS_SUPERBUILD=TRUE 
+	-DLIB_INSTALL_DIR=lib \
+        -DQTWEBENGINE_EXPERIMENTAL_OPTION=TRUE  
                 
     make # -j8 sb_all
 }

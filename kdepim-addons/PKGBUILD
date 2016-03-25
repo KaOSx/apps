@@ -19,15 +19,13 @@ depends=('libkgapi' 'qtwebengine'
 makedepends=('extra-cmake-modules' 'kdoctools' 'clang')
 groups=('kde' 'kdepim' 'kde-uninstall')
 install=kdepim-addons.install
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        'CMakeLists.diff')
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '2218a2df5d6f3fb09c0616a68e4e13f2')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
   #sed -i 's|add_subdirectory(korganizer)|#add_subdirectory(korganizer)|' ${srcdir}/$pkgname/CMakeLists.txt
-  patch -p1 -i $srcdir/CMakeLists.diff
+  #patch -p1 -i $srcdir/CMakeLists.diff
 }
 
 build() {
@@ -47,10 +45,9 @@ build() {
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE \
-    -DKDEPIM_NO_TEXTTOSPEECH=TRUE \
     -DQTWEBENGINE_EXPERIMENTAL_OPTION=TRUE \
-    -KDEPIMADDONS_BUILD_EXAMPLES=TRUE
-  make VERBOSE=1
+    -DKDEPIMADDONS_BUILD_EXAMPLES=TRUE
+  make 
 }
 
 package() {

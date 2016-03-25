@@ -18,14 +18,15 @@ depends=('grantlee' 'phonon-qt5' 'qt5-tools' 'prison' 'libkgapi' 'qt5-webkit' 'q
          'kcontacts' 'kcalcore' 'kidentitymanagement' 'kldap' 'kmailtransport' 'kcalutils' 'kontactinterface'
          'kholidays' 'ktnef' 'kimap' 'kmbox' 'akonadi-calendar' 'syndication' 'gpgmepp' 'kalarmcal' 'kmime'
          'kxmlrpcclient' 'kblog' 'kdepimlibs' 'akonadi-search' 'kdepim-runtime' 'libgravatar' 'mailimporter'
-         'mailcommon' 'kdepim-apps-libs' 'libkleo' 'grantleetheme' 'pimcommon' 'libkdepim' 'incidenceditor'
-         'messagelib' 'calendersupport' 'eventviews' 'kdgantt2' 'kmailtransport')
+         'mailcommon' 'kdepim-apps-libs' 'libkleo' 'grantleetheme' 'pimcommon' 'libkdepim' 'incidenceeditor'
+         'messagelib' 'calendarsupport' 'eventviews' 'kdgantt2' 'libksieve')
 makedepends=('boost' 'extra-cmake-modules' 'kdoctools' 'clang')
 groups=('kde' 'kdepim' 'kde-uninstall')
 install=kdepim.install
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
         'CMakeLists.diff')
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+# too many kdepim names, hardcode md5
+md5sums=('6fe937c78a106da9fc9af610f04a27db'
          '2218a2df5d6f3fb09c0616a68e4e13f2')
 
 prepare() {
@@ -51,7 +52,6 @@ build() {
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE \
-    -DKDEPIM_NO_TEXTTOSPEECH=TRUE \
     -DQTWEBENGINE_EXPERIMENTAL_OPTION=TRUE
   make VERBOSE=1
 }
