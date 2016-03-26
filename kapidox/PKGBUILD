@@ -4,29 +4,19 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kapidox
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Frameworks API Documentation Tools'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kapidox'
 license=('LGPL')
-depends=('python2-jinja')
+depends=('python3-jinja')
 makedepends=('extra-cmake-modules' 'qt5-base')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
-build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr
-  make
-}
-
 package() {
-  cd build
+  cd ${pkgname}-${pkgver}
   
-  make DESTDIR="${pkgdir}" install
+  python3 setup.py install --root=${pkgdir}
 }

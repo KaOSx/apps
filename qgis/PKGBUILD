@@ -1,18 +1,19 @@
 
 pkgname=qgis
-pkgver=2.14.0
+pkgver=2.14.1
 pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='http://qgis.org/'
 license=('GPL')
 arch=('x86_64')
-depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python2' 'giflib' 'gsl' 'grass'
-         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python2-qscintilla' 'python2-psycopg2'
-         'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'python2-six' 'python2-dateutil' 'python2-jinja' 'python2-pytz' 'pyqt5-python3' 'qca-qt5') # 'qt5-webkit'
+depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python3' 'giflib' 'gsl' 'grass'
+         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt5' 
+         'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
+         'python3-pytz' 'python3-jinja' 'pyqt5-python3' 'qca-qt5') # 'qt5-webkit'
 makedepends=('cmake'  'netcdf' 'sip' 'qt5-tools' 'qca')
 install=${pkgname}.install
 source=("http://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('e58294f6abd70951be3fcb3162ff6bc8') 
+md5sums=('60e0708650303f28fdfe84b555c41c18') 
          
 prepare() {
      cd $pkgname-$pkgver
@@ -33,18 +34,18 @@ prepare() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DGRASS_PREFIX=/opt/grass \
         -DQGIS_MANUAL_SUBDIR=share/man \
-        -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so \
-        -DPYTHON_EXECUTABLE=/usr/bin/python2 \
-        -DPYTHON_SITE_PACKAGES_DIR=/usr/lib/python2.7/site-packages \
-        -DPYTHON_INCLUDE_PATH=/usr/include/python2.7 \
+        -DENABLE_PYTHON3=ON \
+        -DPYTHON_LIBRARY=/usr/lib/libpython3.5mu.so \
+        -DPYTHON_EXECUTABLE=/usr/bin/python3 \
+        -DPYTHON_SITE_PACKAGES_DIR=/usr/lib/python3.5/site-packages \
+        -DPYTHON_INCLUDE_PATH=/usr/include/python3.5 \
         -DWITH_INTERNAL_SIX=FALSE \
         -DWITH_INTERNAL_DATEUTIL=FALSE \
         -DWITH_INTERNAL_JINJA2=FALSE \
         -DWITH_INTERNAL_PYTZ=FALSE \
         -DWITH_QWTPOLAR=FALSE \
         -DWITH_QTWEBKIT=FALSE \
-        -DENABLE_QT5=TRUE \
-        -DDPYTHON2=TRUE
+        -DENABLE_QT5=TRUE 
      
       make
 }
