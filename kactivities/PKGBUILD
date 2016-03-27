@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kactivities
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc="Core components for the KDE's Activities"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kactivities'
@@ -34,8 +34,7 @@ build() {
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DQT_PLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF \
-    -DKACTIVITIES_LIBRARY_ONLY=ON
+    -DBUILD_TESTING=OFF 
   make
 }
 
