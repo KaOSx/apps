@@ -12,7 +12,7 @@ license=('GPL')
 options=('strip')
 groups=('kde' 'kde-minimal' 'kde-uninstall')
 depends=('qt5-base' 'pinentry' 'openssh' 'bash' 'glibc')
-source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_servicemenu.tar.gz"
+source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_servicemenu_2.9.tar.gz"
         'CopyPath.desktop'
 	#"http://www.kde-apps.org/CONTENT/content-files/102825-compressattach.desktop.bz2"
 	'servicemenu-rootactions.patch'
@@ -23,7 +23,7 @@ source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_service
 	'md5sha1calc.sh'
 	'md5sha1calc.desktop')
   
-md5sums=('412a4e659514a6404691b552f2416ce0'
+md5sums=('49766914f737331d32415f887ac5d0ba'
          'c87a034e2208c72afabf93d0102f978b'
          #'630ffe7118eef8608a9e5e393a0b1e12'
          'e815fcdba963a79cd39989182df1a994'
@@ -43,10 +43,10 @@ package() {
 	install -D -m755 -o root -g root ${srcdir}/sysinfo.sh ${pkgdir}/usr/bin/sysinfo
 
 	# install root actions service menu
-	cd ${srcdir}/rootactions_servicemenu_2.8.7/Root_Actions_2.8.7/dolphin-KDE4/
+	cd ${srcdir}/rootactions_servicemenu_2.9/Root_Actions_2.9/dolphin-KDE4/
 	mkdir -p ${pkgdir}/usr/share/kservices5/ServiceMenus/
 	install -m755 *.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/
-        cd ${srcdir}/rootactions_servicemenu_2.8.7/Root_Actions_2.8.7
+        cd ${srcdir}/rootactions_servicemenu_2.9/Root_Actions_2.9
         patch -p2 < ${srcdir}/servicemenu-rootactions.patch      
 	install -Dm755 rootactions-servicemenu.pl ${pkgdir}/usr/bin/rootactions-servicemenu.pl
         sed "s~Icon=terminal~Icon=utilities-terminal~g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/10-rootactionsfolders.desktop
