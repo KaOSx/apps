@@ -1,8 +1,8 @@
 
 pkgname=kdeplasma-applets-yahoo-weather
 _pkgname=com.librehat.yahooweather
-pkgver=0.5.81
-_commit=0665e38
+pkgver=0.5.82
+_commit=bde12d2
 pkgrel=1
 pkgdesc="Yahoo! Weather Widget written in QML."
 arch=('x86_64')
@@ -12,17 +12,17 @@ depends=('plasma-framework')
 makedepends=('git' 'zip')
 groups=('kdeplasma-addons')
 install=$pkgname.install
-source=("https://github.com/librehat/${_pkgname}/tarball/master/${_pkgname}-${pkgver}.tar.gz")
-md5sums=('0f807f35a0019fcb90df6f9b081e7f5f')
+source=("https://github.com/bvbfan/${_pkgname}/tarball/master/${_pkgname}-${pkgver}.tar.gz")
+md5sums=('dd887b31cb64896341f13bbcfbb28939')
 
 build() {
-  cd librehat-${_pkgname}-${_commit}/
+  cd bvbfan-${_pkgname}-${_commit}/
   
   ./mkplasmoid.sh 
 }
 
 package() {
-  cd librehat-${_pkgname}-${_commit}/
+  cd bvbfan-${_pkgname}-${_commit}/
   
   mkdir -p ${pkgdir}/usr/share/plasma/plasmoids/${_pkgname}
   mv contents ${pkgdir}/usr/share/plasma/plasmoids/${_pkgname}/
