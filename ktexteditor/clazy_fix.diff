@@ -1,0 +1,25 @@
+From: Kåre Särs <kare.sars@iki.fi>
+Date: Fri, 25 Mar 2016 21:32:28 +0000
+Subject: Fix "Clazy fix" mistake that broke selection handling/layout cache
+X-Git-Url: http://quickgit.kde.org/?p=ktexteditor.git&a=commitdiff&h=f7f330b21aa394a62ac95ea9bee075f372ff6d9c
+---
+Fix "Clazy fix" mistake that broke selection handling/layout cache
+
+Among the Clazy warning fixes, was one "count() -> !isEmpty()" that
+should not have been there in katelayoutcache.cpp
+
+CCMAIL: kwrite-devel@kde.org
+---
+
+
+--- a/src/render/katelayoutcache.cpp
++++ b/src/render/katelayoutcache.cpp
+@@ -165,7 +165,7 @@
+ {
+     //qCDebug(LOG_KTE) << startPos << " nvlc " << newViewLineCount << " vls " << viewLinesScrolled;
+ 
+-    int oldViewLineCount = !m_textLayouts.isEmpty();
++    int oldViewLineCount = m_textLayouts.count();
+     if (newViewLineCount == -1) {
+         newViewLineCount = oldViewLineCount;
+     }
