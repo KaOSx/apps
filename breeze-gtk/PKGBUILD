@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=breeze-gtk
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Widget theme for GTK 2 and 3'
 arch=('x86_64')
 url='https://github.com/KDE/breeze-gtk'
@@ -12,16 +12,14 @@ license=('LGPL')
 depends=('qt5-base' 'kcoreaddons' 'kconfig')
 makedepends=('extra-cmake-modules' 'gtk2')
 opdepends=("gtk2: GTK+2 theme" "gtk3: GTK+3 theme")
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/breeze-gtk/commit/1a547a83dc1bb1c4a0e6d61df747b0426c53531a.diff")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'cff62ac8eebbc911d7941274c0f522ae')
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare () {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|devices emblems places status|devices emblems emotes mimetypes places status|' icons-dark/CMakeLists.txt
-  # Fix installation of breeze-dark REVIEW:127465
-  patch -p1 -i $srcdir/1a547a83dc1bb1c4a0e6d61df747b0426c53531a.diff
+
+  #patch -p1 -i $srcdir/1a547a83dc1bb1c4a0e6d61df747b0426c53531a.diff
 }
   
 build () {  

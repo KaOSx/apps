@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kactivitymanagerd
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc="System service to manage user's activities, track the usage patterns etc"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/workspace/kactivitymanagerd"
@@ -38,5 +38,5 @@ package() {
   
   make DESTDIR="$pkgdir" install
   # temp workaround until translations location is clarified, now files are also in plasma-desktop 
-  rm -r ${pkgdir}/usr/share/locale/*/LC_MESSAGES/kactivities5.mo
+  #rm -r ${pkgdir}/usr/share/locale/*/LC_MESSAGES/kactivities5.mo
 }

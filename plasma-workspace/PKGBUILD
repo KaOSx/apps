@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
 _pkgver=5.5.5
-pkgrel=2
+pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -38,8 +38,8 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare () {
   cd ${srcdir}/${pkgname}-${pkgver}
   
-  patch -p1 -i $srcdir/cc5ee1a8495aaf126abf1e7c7d3163ea5813d279.diff
-  patch -p1 -i $srcdir/1c70951abe9f52948b6e1c3ea0dc191997e26b2a.diff
+  #patch -p1 -i $srcdir/cc5ee1a8495aaf126abf1e7c7d3163ea5813d279.diff
+  #patch -p1 -i $srcdir/1c70951abe9f52948b6e1c3ea0dc191997e26b2a.diff
   #sed -i 's|find_package(Prison "1.2.0" QUIET CONFIG)|find_package(KF5Prison "1.2.0" QUIET CONFIG)|' ${srcdir}/${pkgname}-${pkgver}/klipper/CMakeLists.txt
 }         
          
