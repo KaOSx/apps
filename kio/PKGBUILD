@@ -4,12 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=4
+pkgrel=5
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kio'
 license=('LGPL')
-depends=('krb5' 'solid' 'knotifications' 'kjobwidgets' 'kbookmarks' 'qt5-script' 'libxslt' 'kwallet')
+depends=('karchive' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'ki18n' 'kservice' 'solid'
+         'kbookmarks' 'kcompletion' 'kconfigwidgets' 'kiconthemes' 'kitemviews' 'kjobwidgets'
+         'kwidgetsaddons' 'kwindowsystem' 'kwallet' 'knotifications' 'krb5' 'qt5-script')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 install=kio.install
