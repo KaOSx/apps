@@ -1,0 +1,42 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kopete
+#pkgver=${_kdever}
+pkgver=16.03.70
+pkgrel=1
+pkgdesc='Instant Messenger'
+url='http://kde.org/applications/internet/kopete/'
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
+depends=('kcoreaddons' 'ki18n' 'kcmutils' 'khtml' 'knotifyconfig' 'kparts' 'kwallet'
+         'kdelibs4support' 'kconfig' 'kemoticons' 'kdbusaddons' 'kcontacts' 'kleopatra' 'gpgmepp'
+         'libotr' 'libidn' 'qimageblitz' 'libgadu' 'ortp' 'libxss' 'v4l-utils' 'mediastreamer'
+         'jsoncpp' 'qca-qt5' 'sqlite' 'speex' 'phonon-qt5')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
+install=${pkgname}.install
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git://anongit.kde.org/kopete.git#branch=kf5")
+md5sums=('SKIP')
+         
+build() {
+  mkdir build
+  cd build
+  
+  cmake ../${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DCMAKE_SKIP_RPATH=ON
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=$pkgdir install
+}
