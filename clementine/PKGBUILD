@@ -1,9 +1,9 @@
 
 pkgname=clementine
 _pkgname=Clementine
-pkgver=1.2.3.94
+pkgver=1.2.3.95
 pkgrel=1
-_commit=abc6370b00ba0ead39a9c46582a3a1a28183af76
+_commit=ecd7aa8fa85a353dc95e9214153540b77ed684a5
 pkgdesc="Modern music player and library organiser that takes advantage of Qt."
 url="http://www.clementine-player.org/"
 license="GPL"
@@ -19,7 +19,7 @@ groups=('multimedia')
 #source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
 source=("https://github.com/clementine-player/Clementine/archive/${_commit}.zip"
         'tab_color.diff')
-md5sums=('41de9cd40360e2dd7e664143d504505e'
+md5sums=('e8b1370ff5c4fa975105230aa7d46329'
          '0d35b551ae875ca31037efa3601147f9')
 
 build() {
@@ -28,16 +28,19 @@ build() {
   #sed -i 's|LASTFM5_LIBRARIES lastfm5|LASTFM5_LIBRARIES lastfm|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/CMakeLists.txt
   sed -i 's|lastfm5/ws.h|lastfm/ws.h|g' ${srcdir}/${_pkgname}-${_commit}/CMakeLists.txt
   sed -i 's|lastfm5/Track.h|lastfm/Track.h|g' ${srcdir}/${_pkgname}-${_commit}/CMakeLists.txt
-  
   sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/${_pkgname}-${_commit}/src/internet/lastfm/lastfmcompat.h
   sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/${_pkgname}-${_commit}/src/internet/lastfm/lastfmservice.cpp
   sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/${_pkgname}-${_commit}/src/internet/lastfm/lastfmsettingspage.cpp
   #sed -i 's|#include "internet/lastfm/fixlastfm.h"||g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/core/songloader.cpp
   sed -i 's|<lastfm5/Track.h>|<lastfm/Track.h>|g' ${srcdir}/${_pkgname}-${_commit}/src/core/song.cpp
+  
   sed -i 's|Exec=clementine %U|Exec=clementine|g' ${srcdir}/${_pkgname}-${_commit}/dist/clementine.desktop
-  #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestbiographies.cpp
-  #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/echonestsimilarartists.cpp
-  #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/songinfo/songkickconcerts.cpp
+  
+  sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/${_pkgname}-${_commit}/src/songinfo/echonestimages.h
+  #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/${_pkgname}-${_commit}/src/songinfo/echonestbiographies.cpp
+  #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/${_pkgname}-${_commit}/src/songinfo/echonestsimilarartists.cpp
+  
+  sed -i 's|SELECT fts3_tokenizer|SELECT fts5_tokenizer|g' ${srcdir}/${_pkgname}-${_commit}/src/core/database.cpp
   
   patch -p1 -i $srcdir/tab_color.diff
   
