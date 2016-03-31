@@ -1,0 +1,40 @@
+
+pkgname=fatrat
+pkgver=1.2.0.1
+_commit=fb0e0dbd00c3a35daa68c079e12096bf7e65d3da
+pkgrel=1
+pkgdesc='Open source download manager for Linux written in C++ and built on top of Qt'
+url='http://fatrat.dolezel.info/'
+arch=('x86_64')
+license=('GPLv3')
+groups=('network')
+depends=('curl' 'libtorrent-rasterbar' 'qt5-svg' 'qt5-webkit')
+makedepends=('cmake' 'qt5-tools' 'boost')
+source=("https://github.com/LubosD/fatrat/archive/${_commit}.zip")
+md5sums=('b1e4434f53a6bd20bdd88bf7c0b81ff2')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+  #sed -i -e 's|find_package(Qca 2.1.0)|find_package(Qca 2.1.0 NAMES Qca-qt5 Qca)|' ${srcdir}/${pkgname}/CMakeLists.txt
+}
+
+build() {
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DWITH_BITTORRENT=ON \
+    -DWITH_SFTP=ON \
+    -DWITH_NLS=ON \
+    -DWITH_CURL=ON  
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
+
