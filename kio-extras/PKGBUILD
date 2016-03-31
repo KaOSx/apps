@@ -4,27 +4,31 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://github.com/KDE/kio-extras'
 license=('LGPL')
-depends=('exiv2' 'kdelibs4support' 'kdnssd' 'kemoticons' 'khtml' 'kinit' 'kitemmodels' 'kpty'
-         'kactivities' 'libmtp' 'libssh' 'openexr' 'samba')
+depends=('exiv2' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdnssd' 'kiconthemes' 'ki18n'
+         'kio' 'khtml' 'kdelibs4support' 'kpty' 'solid' 'kbookmarks' 'kguiaddons' 'kactivities' 
+         'libmtp' 'libssh' 'openexr' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools' 'openslp')
 conflicts=('kfileaudiopreview' 'kio-mtp')
 provides=('kfileaudiopreview' 'kio-mtp' )
 replaces=('kfileaudiopreview' 'kio-mtp' )
 groups=('plasma5')
-source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kio-extras/commit/cba927613b6da1b36ecbd5cfadfff3bff8729f86.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '4d956ddf1f53e7f15f0c6d1eadc39964')
 #source=("git://anongit.kde.org/kio-extras.git")
 #md5sums=('SKIP')
 
-#prepare() {
-  #cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/info2html.diff
-#}
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # fix mtp device detection, window phones in particular
+  patch -p1 -i ${srcdir}/cba927613b6da1b36ecbd5cfadfff3bff8729f86.diff
+}
 
 build() {
   mkdir -p build
