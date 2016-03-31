@@ -12,7 +12,8 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
 depends=('kcoreaddons' 'ki18n' 'kcmutils' 'khtml' 'knotifyconfig' 'kparts' 'kwallet'
-         'kdelibs4support' 'kconfig' 'kemoticons' 'kdbusaddons' 'kcontacts' 'kleopatra' 'gpgmepp'
+         'kdelibs4support' 'kconfig' 'kemoticons' 'kdbusaddons' 'kcontacts' 'libkleo'
+         'ktexteditor' 'kdnssd' 'kio' 'solid' 'gpgmepp' # 'kdepimlibs'
          'libotr' 'libidn' 'qimageblitz' 'libgadu' 'ortp' 'libxss' 'v4l-utils' 'mediastreamer'
          'jsoncpp' 'qca-qt5' 'sqlite' 'speex' 'phonon-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
@@ -21,17 +22,25 @@ install=${pkgname}.install
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("git://anongit.kde.org/kopete.git#branch=kf5")
 md5sums=('SKIP')
-         
+
+prepare() {
+  cd $srcdir/$pkgname
+  sed -i -e 's|NAMES kleo/kleo_export.h|NAMES libkleo/kleo_export.h|' cmake/modules/FindKleopatra.cmake
+  #patch -p1 -i "$srcdir/kde_bug309119.diff" 
+}
+
 build() {
   mkdir build
   cd build
   
-  cmake ../${_pkgname} \
+  cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DCMAKE_SKIP_RPATH=ON
+    -DCMAKE_SKIP_RPATH=ON \
+    -DDWITH_jabber=ON \
+    -DWITH_skype=ON
   make
 }
 
