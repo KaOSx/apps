@@ -1,7 +1,7 @@
 
 pkgname=fcitx
 pkgver=4.2.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A Flexible Input Method Framework"
 arch=('x86_64')
 license=('GPL')
@@ -11,14 +11,13 @@ depends=('pango' 'dbus-core' 'opencc' 'iso-codes' 'icu' 'libxkbfile' 'enchant' '
 makedepends=('extra-cmake-modules' 'doxygen' 'gobject-introspection')
 groups=('localization')
 install=fcitx.install
-source=("http://download.fcitx-im.org/$pkgname/$pkgname-${pkgver}_dict.tar.xz")
+source=("http://download.fcitx-im.org/${pkgname}/${pkgname}-${pkgver}_dict.tar.xz")
 md5sums=('9b566df835413a7aa964488c5b0c60d8')
 
-build() {
-  cd $srcdir/  
-  mkdir -p $srcdir/build
-
-  cd $srcdir/build
+build() { 
+  mkdir -p build
+  cd build
+  
   cmake ../${pkgname}-${pkgver} \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release \
@@ -32,8 +31,8 @@ build() {
 }
 
 package(){
-    cd $srcdir/build
+    cd build
     
-    make DESTDIR=$pkgdir install
+    make DESTDIR=${pkgdir} install
 }
 
