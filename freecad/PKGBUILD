@@ -1,7 +1,7 @@
 
 pkgname=freecad
 pkgver=0.15.4671
-pkgrel=4
+pkgrel=5
 pkgdesc='A general purpose 3D CAD modeler'
 arch=('x86_64')
 url='http://www.freecadweb.org/'
@@ -21,7 +21,9 @@ md5sums=('7afa95d3e8cd845bef83202e76db7f24'
 
          
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}/"
+  cd ${pkgname}-${pkgver}/
+  # boost 1.60.0 fix, part of https://github.com/FreeCAD/FreeCAD/commit/e0683f4db0fb56f8139f78ca2e500b21ec2a67f0
+  sed -i 's|boost::re_detail::string_out_iterator<std::string > out(newfragment);|std::back_insert_iterator<std::string> out(newfragment);|' src/Mod/Drawing/App/FeaturePage.cpp
 
   mkdir -p build
   cd build
@@ -40,25 +42,24 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}/build"
+  cd ${pkgname}-${pkgver}/build
 
   # Install main program
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 
   # Symlink to /usr/bin
-  mkdir -p "${pkgdir}/usr/bin/"
-  ln -sf "/opt/${pkgname}/bin/FreeCAD" "${pkgdir}/usr/bin/freecad"
-  ln -sf "/opt/${pkgname}/bin/FreeCADCmd" "${pkgdir}/usr/bin/freecadcmd"
+  mkdir -p ${pkgdir}/usr/bin/
+  ln -sf /opt/${pkgname}/bin/FreeCAD ${pkgdir}/usr/bin/freecad
+  ln -sf /opt/${pkgname}/bin/FreeCADCmd ${pkgdir}/usr/bin/freecadcmd
 
   # Installs Qt plugin
   #install -Dm755 ../src/Tools/plugins/widget/libFreeCAD_widgets.so "${pkgdir}/usr/lib/qt/plugins/designer/libFreeCAD_widgets.so"
 
   # Install pixmaps and desktop shortcut
   desktop-file-install \
-    --dir="${pkgdir}/usr/share/applications" \
-    "${srcdir}/${pkgname}.desktop"
+    --dir=${pkgdir}/usr/share/applications ${srcdir}/${pkgname}.desktop
 
    # Mime info
-   install -D -m644 "${srcdir}/${pkgname}.xml" "${pkgdir}/usr/share/mime/packages/${pkgname}.xml"
+   install -D -m644 ${srcdir}/${pkgname}.xml ${pkgdir}/usr/share/mime/packages/${pkgname}.xml
 }
 
