@@ -1,6 +1,6 @@
 
 pkgname=qtractor
-pkgver=0.7.5
+pkgver=0.7.6
 pkgrel=1
 pkgdesc="Audio/MIDI multitrack sequencer"
 arch=('x86_64')
@@ -9,19 +9,19 @@ license=('GPL')
 depends=('qt5-x11extras' 'suil' 'lilv' 'libmad' 'libsamplerate' 'rubberband' 'liblo' 'shared-mime-info')
 makedepends=('ladspa' 'dssi' 'qt5-tools')
 groups=('multimedia')
-source=("http://www.rncbc.org/archive/$pkgname-$pkgver.tar.gz")
-md5sums=('6bcce2b3e1353f66d192a50751c2686b')
+source=("http://www.rncbc.org/archive/${pkgname}-${pkgver}.tar.gz")
+md5sums=('0af22ac58d657c0cd295c3269c1318e1')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd ${pkgname}-${pkgver}
 
   ./configure --prefix=/usr --enable-debug --enable-qt5
   make
 }
 
 package () {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd ${pkgname}-${pkgver}
 
-  make DESTDIR="$pkgdir/" install
+  make DESTDIR=${pkgdir}/ install
 }
 
