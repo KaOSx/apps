@@ -1,0 +1,229 @@
+
+pkgbase=krita-l10n
+pkgver=2.99.89
+pkgrel=1
+pkgdesc="Language pack for Krita"
+arch=('x86_64')
+url="https://krita.org/"
+license=('LGPL')
+depends=("krita=$pkgver")
+
+_languages=(
+  'af     "Afrikaans"'
+  'ar     "Arabic"'
+  'as     "Assamese"'
+  'ast    "Asturian"'
+  'be     "Belarusian"'
+  'bg     "Bulgarian"'
+  'bn     "Bengali"'
+  'bn_IN  "Bengali (India)"'
+  'br     "Breton"'
+  'bs     "Bosnian"'
+  'ca     "Catalan"'
+  'ca@valencia "Valencian (southern Catalan)"'
+  'crh    "Crimean Tatar"'
+  'cs     "Czech"'
+  'csb    "Kashubian"'
+  'cy     "Welsh"'
+  'da     "Danish"'
+  'de     "German"'
+  'el     "Greek"'
+  'en_GB  "English (United Kingdom)"'
+  'eo     "Esperanto"'
+  #'es-AR  "Spanish (Argentina)"'
+  'es     "Spanish"'
+  'et     "Estonian"'
+  'eu     "Basque"'
+  'fa     "Farsi (Persian)"'
+  'fi     "Finnish"'
+  'fr     "French"'
+  'fy     "Frisian"'
+  'ga     "Irish Gaelic"'
+  #'gd     "Gaelic"'
+  'gl     "Galician"'
+  'gu     "Gujarati"'
+  'ha     "Hausa"'
+  'he     "Hebrew"'
+  'hi     "Hindi"'
+  'hne    "Chhattisgarhi"'
+  'hr     "Croatian"'
+  'hsb    "Upper Sorbian"'
+  'hu     "Hungarian"'
+  'hy     "Armenian"'
+  'ia     "Interlingua"'
+  'id     "Indonesian"'
+  'is     "Icelandic"'
+  'it     "Italian"'
+  'ja     "Japanese"'
+  'ka     "Georgian"'
+  'kk     "Kazakh"'
+  'km     "Khmer"'
+  'kn     "Kannada"'
+  'ko     "Korean"'
+  'ku     "Kurdish"'
+  'lb     "Luxembourgish"'
+  'lt     "Lithuanian"'
+  'lv     "Latvian"'
+  'mai    "Maithili"'
+  'mk     "Macedonian"'
+  'ml     "Malayalam"'
+  'mr     "Marathi"'
+  'ms     "Malay"'
+  'nb     "Norwegian Bokmal"'
+  'nl     "Dutch"'
+  'nn     "Norwegian"'
+  'nso    "Sesotho sa Leboa"'
+  'oc     "Occitan"'
+  'or     "Oriya"'
+  'pa     "Punjabi"'
+  'pl     "Polish"'
+  'ps     "Pashto"'
+  'pt_BR  "Brazilian Portuguese"'
+  'pt     "Portuguese"'
+  #'rm     "Romansh"'
+  'ro     "Romanian"'
+  'ru     "Russian"'
+  'se     "Northern Sami"'
+  'sk     "Slovak"'
+  'sl     "Slovenian"'
+  'sq     "Albanian"'
+  #'sr     "Serbian"'
+  'sv     "Swedish"'
+  'ta     "Tamil (Sri Lanka)"'
+  'tg     "Tajik"'
+  'th     "Thai"'
+  'tr     "Turkish"'
+  'ug     "Uyghur"'
+  'uk     "Ukrainian"'
+  'uz     "Uzbek"'
+  'uz@cyrillic "Uzbek (Cyrillic)"'
+  'vi     "Vietnamese"'
+  'wa     "Walloon"'
+  'xh     "Xhosa"'
+  'zh_CN  "Chinese (simplified)"'
+  'zh_TW  "Chinese (traditional)"'
+)
+
+pkgname=()
+source=()
+
+for _lang in "${_languages[@]}"; do
+  _locale=${_lang%% *}
+  _pkgname=krita-l10n-${_locale,,}
+  
+  pkgname+=($_pkgname)
+  source+=("http://download.kde.org/unstable/krita/${pkgver}/${pkgbase}/${pkgbase}-$_locale-${pkgver}.tar.xz")
+  eval "package_$_pkgname() {
+    _package $_lang
+  }"
+done
+
+md5sums=('fae7a099ac8f205b3abb5a8d294c66a0'
+         'ee3c1e99ce88c33457bfe339d5cad40e'
+         '2dded0aaf302c1a4404409d1be5a7663'
+         'fbd103cd14cedbbfb5273d79e584b0c6'
+         '318f88be10d84061bb82b5544dabe25f'
+         'e33184e44072fd05b487b0f7b7e82873'
+         '76542bbfbdb27c6cd739e8973cde77e3'
+         '2ed44a5299405ce060fcb09bcb3c2114'
+         '12ac6f38a9af58c73aad20e3c679d725'
+         'a6dd5349efecfa0409a26649de739706'
+         '9154c0dc6fc80a1c3dc47c8327103625'
+         'aed6dbca2bec6c11fc7e9d32ca93de81'
+         'ba1ace885ee8e6f1e5ea162c8b7d68de'
+         'a17c55b9faed988194cf6935a6c07a09'
+         'a1e8f694e86bf89db68a5dcfdfb54d4e'
+         '1b9e364668992209fa210dd61d1e97b2'
+         'f8955b950bc61bcef709582f38eee7ff'
+         'f5e1d30c004027f4d19c513e99344e77'
+         'f2ae7704ed4910140e759b88ffc546ea'
+         'f7885214a40daf7a3628012830237119'
+         'fa29c83e25fdef8e8a4c46ef3b7a18f0'
+         '2d39bc386572e5f996c09a89d7bac43b'
+         '57e2e3d4fd2a3e36e61effd72463ecf9'
+         '70000a06b5b393ed7cbef0a08e30e50f'
+         'a6e6fede4d6eaa49b6eaf68a45371e92'
+         '89d238be0ef6fb0e412d08634ccf19a1'
+         'b3d4ddd05794a9e61b6e11a21132cc78'
+         '8a4954d8cd5c4199802ae10c2c022c8b'
+         '6029f725fe4a37d016191c20219b218d'
+         '1a77d854d7bb9a93b15703773bba25a0'
+         '6b07504573d5ca2d07a42a3714955f23'
+         'a217d7b7e7ca6e9847bb6020f4cb0e7d'
+         '7207e7c1ca7c68d0d41fe3430d55d409'
+         '954331db80669391451b9f8c318ee6fc'
+         '254f09901e74cc26fa5661a817446c26'
+         'df2718b0bb528f6870d803c1938c4391'
+         '97e7c2bfe4de5b54487f241d8e6daa62'
+         '189f42453aab06009ab82a675076c2e3'
+         '20bdea9ffa1250306f5e3c247794f187'
+         'ca8802c6a8434a29812c720802db352a'
+         'c653eda621d418bae921b098fc7aa2ef'
+         'b8cf3e6587a60c4d5fc8cdc234d830f0'
+         'b52fa95da4d0ad3cddb95196500f9538'
+         '76caa2310ee17ec23dabbdea420fa75a'
+         'efdabfcf6f6dc2005ac50062e836ec30'
+         '4a39ec444c82a56f7630835b80a1444e'
+         'a09cba9ea9779ec590aa57f32d73fe14'
+         '26ff750c277275d3ff2fddbd8deb7bea'
+         '8bcdc69d1809555a4951e88c9597d3d3'
+         '2d75d89e33266d818f277186bdf2ee32'
+         '798caea612643d289a773ac6c4e5b2bd'
+         'acc2566d5403e15b1c22769dd300ccce'
+         '8c663eebae0d964079ee53e72e7301d0'
+         '708c9f48b30aa8fed61e6d61a40eef4a'
+         '1d1ea727f953b27523014fc558bd2c8f'
+         '02bd3091153c7e35065bd48dba1eb07e'
+         '639e4e9663c1230e504fe1fd5085612d'
+         '4c0e912432619070af28fcf501dc1297'
+         'b6af3314b902439609fcedfdf0094779'
+         'beb683472ad11d35bd85d1ac89ae1db1'
+         '728eed23dbcb6747ec0aa972dab8ce75'
+         'f1a5f52f79f20e84d7b402fd8328df87'
+         '5e4ca5d65c51373cd6e0d0603d9be522'
+         'a9b0c8ff7c735e5e178345e28b413291'
+         'cdb67cce342309d3f1f48e30d1193348'
+         '8c5a3c6cd4cb3e926c0c6516395f1152'
+         '6db8eb4dbd39e193ec0dec035db4c461'
+         '22a122926dfb8ee155747f022c75b9cd'
+         '5da1ca25acf4e38e3f92da1cb6bbee0d'
+         '3e5a41b5e5520b049f2d814abb6822b2'
+         'fe12df34ffa816106198410a8d37d130'
+         'ec4ee1711fd477806a385af7f03b3b89'
+         'd06eb75fb256a996b39d03297304c923'
+         '7cb38f33c4bd46ebd00ee886fc63d252'
+         '2610e6bdebb09296d93ee3ca9ed17659'
+         '226b7a708918c9c4eef66c8967f52885'
+         '8da606c415e239145cb5f790f2b81c9e'
+         '4ac23cdb573fde34be05a7ba218d1a14'
+         'd31473b5808d2436f77734255fed04c8'
+         '511f46b59cb7c5e9cb6ad743a92ca900'
+         'f92be69f97dde8b8977171d2c159b20b'
+         'd673c51393834d66e32ed3c967e7f44f'
+         '85e58912d2b190c23ad02b467c260a4d'
+         'f53cec0c780a63f29bf21836afaceb1b'
+         '4b146d4a4a5d4ea8fa8f7de5a3872f10'
+         '6d56624890783815a01366847bc7a541'
+         '0f85e8012a5db42fcc4bb8117464b6b2'
+         '54b9538c413edf1ebfee79d4e0b03b76'
+         '9031cd71fb797c8ee304bc1456e6fe50')
+build() {
+  for _lang in "${_languages[@]}"; do
+    _locale=${_lang%% *}
+    
+    mkdir -p build/${_locale}
+    cd build/${_locale}
+      cmake ${srcdir}/krita-l10n-${_locale}-${pkgver} \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_INSTALL_PREFIX=/usr
+    make 
+    cd ../..
+  done
+}
+
+_package() {
+  pkgdesc="$2 language pack for Krita"
+  
+  cd build/$1
+  make DESTDIR="$pkgdir" install
+}

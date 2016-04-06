@@ -18,9 +18,11 @@ makedepends=('cmake' 'boost' 'mesa' 'qt5-tools')
 groups=('multimedia')
 #source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
 source=("https://github.com/clementine-player/Clementine/archive/${_commit}.zip"
-        'tab_color.diff')
+        'tab_color.diff'
+        'tokenizer.diff')
 md5sums=('e8b1370ff5c4fa975105230aa7d46329'
-         '0d35b551ae875ca31037efa3601147f9')
+         '0d35b551ae875ca31037efa3601147f9'
+         'c6fe10e74adbd8650ad323d31c905f97')
 
 build() {
   cd ${_pkgname}-${_commit}
@@ -40,16 +42,18 @@ build() {
   #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/${_pkgname}-${_commit}/src/songinfo/echonestbiographies.cpp
   #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/${_pkgname}-${_commit}/src/songinfo/echonestsimilarartists.cpp
   
-  sed -i 's|SELECT fts3_tokenizer|SELECT fts5_tokenizer|g' ${srcdir}/${_pkgname}-${_commit}/src/core/database.cpp
+  #sed -i 's|SELECT fts3_tokenizer|SELECT fts5_tokenizer|g' ${srcdir}/${_pkgname}-${_commit}/src/core/database.cpp
   
-  patch -p1 -i $srcdir/tab_color.diff
+  #patch -p1 -i ${srcdir}/tab_color.diff
+  patch -p1 -i ${srcdir}/tokenizer.diff
   
   mkdir -p build 
   
   cd build
   cmake ../ -DCMAKE_INSTALL_PREFIX=/usr \
             -DCMAKE_BUILD_TYPE=Release \
-            -DENABLE_VK=ON
+            -DENABLE_VK=ON \
+            -DSQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER=1
   make
 }
 
