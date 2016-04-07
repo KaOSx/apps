@@ -1,24 +1,24 @@
 
 pkgname=sparsehash
-pkgver=2.0.2
-pkgrel=2
+pkgver=2.0.3
+pkgrel=1
 pkgdesc="Library that contains several hash-map implementations"
 arch=('x86_64')
-url="http://code.google.com/p/sparsehash"
+url="https://github.com/sparsehash/sparsehash"
 license=('BSD')
-source=("http://sparsehash.googlecode.com/files/$pkgname-$pkgver.tar.gz")
-md5sums=('1db92ed7f257d9b5f14a309d75e8a1d4')
+source=("https://github.com/sparsehash/sparsehash/archive/${pkgname}-${pkgver}.tar.gz")
+md5sums=('d8d5e2538c1c25577b3f066d7a55e99e')
 
 build() {
-    cd "$srcdir/$pkgname-$pkgver"
+    cd ${pkgname}-${pkgname}-${pkgver}
 
     ./configure --prefix=/usr
     make
 }
 
 package() {
-    cd "$srcdir/$pkgname-$pkgver"
-    make DESTDIR="$pkgdir/" install
+    cd ${pkgname}-${pkgname}-${pkgver}
+    make DESTDIR=${pkgdir}/ install
 
-    install -D -m644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+    install -D -m644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
 }
