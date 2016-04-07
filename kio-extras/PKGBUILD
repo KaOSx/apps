@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=1
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://github.com/KDE/kio-extras'
@@ -27,7 +27,7 @@ md5sums=('923f3af3c0287678ab2633bd41996c3b'
 prepare() {
   cd ${pkgname}-${pkgver}
   # fix mtp device detection, window phones in particular
-  patch -p1 -i ${srcdir}/cba927613b6da1b36ecbd5cfadfff3bff8729f86.diff
+  #patch -p1 -i ${srcdir}/cba927613b6da1b36ecbd5cfadfff3bff8729f86.diff
 }
 
 build() {
