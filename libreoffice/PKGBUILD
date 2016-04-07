@@ -1,9 +1,9 @@
 
 pkgname=libreoffice
-_LOver=5.1.1.3
-pkgver=5.1.1.3
-_pkgver=5.1.1
-pkgrel=3
+_LOver=5.1.2.2
+pkgver=5.1.2.2
+_pkgver=5.1.2
+pkgrel=1
 arch=('x86_64')
 license=('LGPL3')
 url="http://www.libreoffice.org/"
@@ -68,7 +68,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/libe-book-0.1.2.tar.bz2
 	${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	${_additional_source_url}/boost_1_59_0.tar.bz2
-	${_additional_source_url}/language-subtag-registry-2015-08-04.tar.bz2
+	${_additional_source_url}/language-subtag-registry-2016-02-10.tar.bz2
 	${_additional_source_url}/libgltf/libgltf-0.0.2.tar.bz2
 	${_additional_source_url}/CoinMP-1.7.6.tgz
 	#${_additional_source_url}/bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
@@ -76,8 +76,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/OpenCOLLADA-master-6509aa13af.tar.bz2
 	${_additional_source_url}/libpagemaker-0.0.2.tar.bz2
 	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
-	intro.png
-	glibc2.3.diff)
+	intro.png)
 	
 	noextract=(18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
         185d60944ea767075d27247c3162b3bc-unowinreg.dll
@@ -116,7 +115,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	libfreehand-0.1.1.tar.bz2
 	Firebird-2.5.4.26856-0.tar.bz2
 	libe-book-0.1.2.tar.bz2
-	language-subtag-registry-2015-08-04.tar.bz2
+	language-subtag-registry-2016-02-10.tar.bz2
 	CoinMP-1.7.6.tgz
 	#bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
 	4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2
@@ -154,9 +153,6 @@ build() {
 	
 	# Use python3
 	export PYTHON=python3
-	
-	# fix for glibc 2.23
-	patch -p1 -i ${srcdir}/glibc2.3.diff
 
 	./autogen.sh --with-build-version="${_LOver} KaOS-${pkgrel}" --with-vendor="KaOS" \
 		--with-external-tar="${srcdir}/ext_sources" \
