@@ -1,9 +1,9 @@
 
 pkgname=basket
 pkgver=1.90
-pkgrel=1
+pkgrel=2
 pkgdesc="BasKet Note Pads - A system for organizing information in KDE."
-url="https://github.com/keelhub/basket/tree/qt5/basket"
+url="tree/qt5/basket"
 arch=('x86_64')
 license=('GPL')
 depends=('qt5-base' 'gpgme' 'quazip')
@@ -13,6 +13,9 @@ md5sums=('SKIP')
 
 build() {
   cd ${srcdir}/basket-qt5
+  sed -i -e 's|<quazip/JlCompress.h>|<quazip5/JlCompress.h>|' basket/src/archive.cpp
+  sed -i -e 's|<quazip/JlCompress.h>|<quazip5/JlCompress.h>|' basket/src/backup.cpp
+  sed -i -e 's|LIBS += -lquazip|LIBS += -lquazip5|' basket/basket.pro
    
   /usr/lib/qt5/bin/qmake basket.pro
   make
@@ -26,7 +29,7 @@ package() {
   install -Dm644 file-integration/basketthumbcreator.desktop $pkgdir/usr/share/kservices5/basketthumbcreator.desktop
   install -Dm644 file-integration/basket.xml $pkgdir/usr/share/appdata/basket.xml
   
-  sed -i -e 's/X-DBUS-StartupType=Unique//' $pkgdir/usr/share/applications/basket.desktop
+  sed -i -e 's|X-DBUS-StartupType=Unique||' $pkgdir/usr/share/applications/basket.desktop
   
   mkdir -p ${pkgdir}/usr/share/apps/basket
   cp -r backgrounds $pkgdir/usr/share/apps/basket/backgrounds
