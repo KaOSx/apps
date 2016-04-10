@@ -1,18 +1,20 @@
 
 pkgname=inxi
-pkgver=2.2.36
+pkgver=2.2.38
+_commit=b8647b9d7307835ba1302b3d38472249d0194523
 pkgrel=1
 pkgdesc="Script to get system information"
 arch=('x86_64')
 url="http://smxi.org/docs/inxi.htm"
 license=('GPL')
 depends=('mesa-demos' 'coreutils' 'gawk' 'grep' 'pciutils' 'procps-ng' 'sed' 'dmidecode')
-source=("inxi-${pkgver}.tar.gz::https://github.com/smxi/inxi/raw/master/inxi.tar.gz")
-md5sums=('d6538e150a6c703024f2e32f424467b2')
+source=("https://github.com/smxi/inxi/archive/${_commit}.zip")
+md5sums=('9bbf572bf853cb63b294a2149b4747f5')
 
 package() {
-  cd "$srcdir"
-  install -D -m755 inxi "$pkgdir/usr/bin/inxi"
-  install -D -m755 inxi.1.gz "$pkgdir/usr/share/man/man1/inxi.1.gz"
+  cd ${pkgname}-${_commit}
+  
+  install -D -m755 inxi ${pkgdir}/usr/bin/inxi
+  install -D -m755 inxi.1.gz ${pkgdir}/usr/share/man/man1/inxi.1.gz
 }
 
