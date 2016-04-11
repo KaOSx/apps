@@ -1,0 +1,32 @@
+
+pkgname=dvb-apps
+pkgver=1505
+_pkgver=3d43b280298c
+pkgrel=1
+pkgdesc='Linux DVB API applications and utilities'
+arch=('x86_64')
+url='http://www.linuxtv.org/'
+license=('GPL')
+depends=('glibc')
+source=("http://www.linuxtv.org/hg/dvb-apps/archive/tip.tar.bz2")
+md5sums=('97eadd74e017d035fcf49de9cba1ba60')
+
+prepare() {
+  cd ${pkgname}-${_pkgver}
+  
+  #sed -i '/$(sharedir)\/dvb\//d' util/scan/Makefile
+}
+
+build() {
+  cd ${pkgname}-${_pkgver}
+  
+  make
+}
+
+package() {
+  cd ${pkgname}-${_pkgver}
+  make DESTDIR=$pkgdir install
+  
+  # part of xbase
+  rm $pkgdir/usr/bin/zap
+}

@@ -1,49 +1,33 @@
 
 pkgname=graphviz
-pkgver=2.30.1
+pkgver=2.38.90
+_pkgver=2.39.20160325.1353
 pkgrel=1
-pkgdesc="Creates acircular graph images"
+pkgdesc="Open source graph visualization software"
 arch=('x86_64')
-license=('CPL')
-depends=('gd' 'librsvg' 'libxaw' 'ghostscript' 'pango' 'libltdl')
-makedepends=('swig' 'guile' 'lua' 'ocaml' 'perl' 'php' 'python2' 'r' 'ruby' 'tk' 'qt')
-optdepends=('guile: guile bindings'
-            'lua: lua bindings'
-            'ocaml: ocaml bindings'
-            'perl: perl bindings'
-            'php: php bindings'
-            'python2: python bindings'
-            'r: r bindings'
-            'ruby: ruby bindings'
-            'tcl: tcl bindings'
-            'qt: gvedit')
 url="http://www.graphviz.org/"
+license=('CPL')
+depends=('gd' 'librsvg' 'libxaw' 'ghostscript' 'pango' 'libtool' 'perl' 'python2')
+makedepends=('swig' 'guile')
 options=('!libtool')
-categories=('graphics')
-source=(${url}/pub/${pkgname}/stable/SOURCES/${pkgname}-${pkgver}.tar.gz
+#source=("http://www.graphviz.org/pub/${pkgname}/stable/SOURCES/${pkgname}-${pkgver}.tar.gz"
+source=("http://www.graphviz.org/pub/graphviz/development/SOURCES/graphviz-${_pkgver}.tar.gz"
        'LICENSE')
 install='graphviz.install'
-sha1sums=('96739220c4bbcf1bd3bd52e7111f4e60497185c6'
-          '5a83febc0974e17d6b2356a4b1be9a834b715378')
+md5sums=('2e5341e502f79062cc99041873c391af'
+         '3e75bb9ec12a51993bd30e51011b4229')
 
 build() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
+    cd ${pkgname}-${_pkgver}
+    sed -i '/LIBPOSTFIX="64"/d' configure
 
-	sed \
-		-e '/"archdir"/s:$:+" '"$(echo -I/usr/include/ruby-1.9.1/{$CARCH-linux,ruby/backward,})"'":' \
-		-e '/CONFIG/s:site:vendor:' \
-		-i config/config_ruby.rb
-	sed -i '/LIBPOSTFIX="64"/d' configure
-	export PYTHON=python2
-
-	./configure --prefix=/usr --disable-swig
-	make
+    ./configure --prefix=/usr 
+    make
 }
 
 package() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
-	make DESTDIR="${pkgdir}" install
+    cd ${pkgname}-${_pkgver}
+    make DESTDIR=${pkgdir} install
 
-	# cf. http://www.graphviz.org/License.php
-	install -Dm644 ../LICENSE "${pkgdir}"/usr/share/licenses/graphviz/LICENSE
+    install -Dm644 ../LICENSE ${pkgdir}/usr/share/licenses/graphviz/LICENSE
 }

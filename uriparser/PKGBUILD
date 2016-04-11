@@ -1,0 +1,30 @@
+
+pkgname=uriparser
+pkgver=0.8.4
+pkgrel=1
+pkgdesc="Strictly RFC 3986 compliant, cross-platform, fast URI parsing library, fast, supports Unicode"
+arch=('x86_64')
+url="http://sourceforge.net/projects/uriparser/"
+license=("custom")
+makedepends=('doxygen' 'graphviz')
+options=('!libtool')
+source=("http://downloads.sourceforge.net/sourceforge/uriparser/${pkgname}-${pkgver}.tar.bz2"
+        'Makefile.diff')
+md5sums=('9aabdc3611546f553f4af372167de6d6'
+         'c2738fa9cf521adb98552de548e02e14')
+
+build() {
+  cd ${pkgname}-${pkgver}
+
+  ./configure --prefix=/usr --disable-test
+  patch -p1 -i ${srcdir}/Makefile.diff 
+
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  make DESTDIR=${pkgdir} install
+  
+  install -D -m644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
