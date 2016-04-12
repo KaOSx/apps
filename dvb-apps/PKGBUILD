@@ -11,12 +11,6 @@ depends=('glibc')
 source=("http://www.linuxtv.org/hg/dvb-apps/archive/tip.tar.bz2")
 md5sums=('97eadd74e017d035fcf49de9cba1ba60')
 
-prepare() {
-  cd ${pkgname}-${_pkgver}
-  
-  #sed -i '/$(sharedir)\/dvb\//d' util/scan/Makefile
-}
-
 build() {
   cd ${pkgname}-${_pkgver}
   
