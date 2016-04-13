@@ -1,0 +1,22 @@
+From: Scott Petrovic <scottpetrovic@gmail.com>
+Date: Wed, 13 Apr 2016 18:48:56 +0000
+Subject: fix windows build with missing netinet/in.h
+X-Git-Url: http://quickgit.kde.org/?p=krita.git&a=commitdiff&h=444d7317e45fd4fef6acfdd57042be83c456df54
+---
+fix windows build with missing netinet/in.h
+---
+
+
+--- a/plugins/impex/xcf/3rdparty/xcftools/xcftools.h
++++ b/plugins/impex/xcf/3rdparty/xcftools/xcftools.h
+@@ -55,9 +55,7 @@
+ # define __ATTRIBUTE__(x)
+ #endif
+ 
+-#if HAVE_NETINET_IN_H
+-# include <netinet/in.h>
+-#elif HAVE_ARPA_INET_H
++#if HAVE_ARPA_INET_H
+ # include <arpa/inet.h>
+ #elif WORDS_BIGENDIAN
+ # define ntohl(x) (x)
