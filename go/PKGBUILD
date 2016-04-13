@@ -1,6 +1,6 @@
 
 pkgname=go
-pkgver=1.6
+pkgver=1.6.1
 pkgrel=1
 pkgdesc='Google Go compiler and tools (release version)'
 arch=('x86_64')
@@ -12,7 +12,7 @@ options=('!strip' 'staticlibs')
 install="$pkgname.install"
 # check for versions: http://golang.org/dl/
 source=("https://storage.googleapis.com/golang/${pkgname}$pkgver.linux-amd64.tar.gz")
-md5sums=('6a33d46fa4646b2ccfa7612b939677fa')
+md5sums=('e277d18dac8a0b9945d4c53adf6e52ee')
 
 build() {
   cd "$pkgname/src"
@@ -40,7 +40,7 @@ build() {
 
   $GOROOT/bin/go get -d golang.org/x/tools/cmd/godoc
   $GOROOT/bin/go build -o $srcdir/godoc golang.org/x/tools/cmd/godoc
-  for tool in vet cover; do
+  for tool in benchcmp bundle callgraph digraph eg fiximports html2article oracle present ssadump stress stringer cover; do
     $GOROOT/bin/go get -d golang.org/x/tools/cmd/${tool}
     $GOROOT/bin/go build -o $GOROOT/pkg/tool/${GOOS}_amd64/${tool} golang.org/x/tools/cmd/${tool}
   done

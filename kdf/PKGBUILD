@@ -4,7 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
     
 pkgname=kdf
 arch=('x86_64')
-pkgver=${_kdever}
+#pkgver=${_kdever}
+pkgver=16.03.70
 pkgrel=1
 pkgdesc="Displays the available file devices along with information on their capacity, free space, type and mount point."
 url="https://www.kde.org/applications/system/kdiskfree/"
@@ -21,9 +22,9 @@ md5sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' doc/app/index.docbook
-  sed -i -e 's|V4.2-Based Variant|V4.5-Based Variant|' doc/kcontrol/index.docbook
-  sed -i -e 's|dtd/kdex.dtd|dtd/kdedbx45.dtd|' doc/kcontrol/index.docbook
+  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' doc/app/index.docbook
+  #sed -i -e 's|V4.2-Based Variant|V4.5-Based Variant|' doc/kcontrol/index.docbook
+  #sed -i -e 's|dtd/kdex.dtd|dtd/kdedbx45.dtd|' doc/kcontrol/index.docbook
 }
 
 build() {
