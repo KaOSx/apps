@@ -38,13 +38,6 @@ build() {
   
   sed -i 's|Exec=clementine %U|Exec=clementine|g' ${srcdir}/${_pkgname}-${_commit}/dist/clementine.desktop
   
-  sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/${_pkgname}-${_commit}/src/songinfo/echonestimages.h
-  #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/${_pkgname}-${_commit}/src/songinfo/echonestbiographies.cpp
-  #sed -i 's|<echonest/Artist.h>|<echonest5/Artist.h>|g' ${srcdir}/${_pkgname}-${_commit}/src/songinfo/echonestsimilarartists.cpp
-  
-  #sed -i 's|SELECT fts3_tokenizer|SELECT fts5_tokenizer|g' ${srcdir}/${_pkgname}-${_commit}/src/core/database.cpp
-  
-  #patch -p1 -i ${srcdir}/tab_color.diff
   patch -p1 -i ${srcdir}/tokenizer.diff
   
   mkdir -p build 
