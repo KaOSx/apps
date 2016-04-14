@@ -1,7 +1,8 @@
 
 pkgname=krita
-pkgver=2.99.89.1
-pkgrel=1
+pkgver=2.99.89
+_pkgver=2.99.88
+pkgrel=3
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -11,28 +12,26 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'kio' 'kimageformats'
          'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'glew' 'opencolorio' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
          'libraw' 'qca-qt5' 'qt5-svg')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools' 'git') # 'clang') 
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools') # 'clang') 
 install=krita.install
-#source=("http://mirrors.mit.edu/kde/unstable/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("git://anongit.kde.org/krita.git"
-        'xfctools.diff')
-md5sums=('SKIP'
-         'e512883f96e8dba79d9e9cf2a58e8d8e')
+source=("http://mirrors.mit.edu/kde/unstable/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#source=("git://anongit.kde.org/krita.git")
+md5sums=('d16b99b0c7962db5b98365e2175015d8')
 
 prepare() {
-  cd ${pkgname}
-  #sed -i 's|if (!isnan(value))|if (!std::isnan(value))|' libs/widgets/KoUnitDoubleSpinBox.cpp
-  patch -p1 -R -i $srcdir/xfctools.diff
+  cd ${srcdir}/${pkgname}-${pkgver}
+  sed -i 's|X-KDE-Import": "image/x-krita-raw|X-KDE-Import": "image/x-nikon-nef,image/x-canon-cr2,image/x-sony-sr2,image/x-canon-crw,image/x-pentax-pef,image/x-sigma-x3f,image/x-kodak-kdc,image/x-minolta-mrw,image/x-sony-arw,image/x-kodak-k25,image/x-kodak-dcr,image/x-olympus-orf,image/x-panasonic-raw,image/x-panasonic-raw2,image/x-fuji-raf,image/x-sony-srf,image/x-adobe-dng|' plugins/impex/raw/krita_raw_import.json
+  #patch -p1 -i $srcdir/desktop_files.patch
 }
 
 build() {
-  #mkdir build
+  mkdir build
   cd build
   
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \

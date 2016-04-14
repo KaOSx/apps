@@ -1,5 +1,5 @@
 pkgname=docker
-pkgver=1.10.3
+pkgver=1.11.0
 pkgrel=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64')
@@ -13,7 +13,7 @@ install=$pkgname.install
 source=("https://github.com/docker/docker/archive/v$pkgver.tar.gz"
         'docker.sysusers'
         "https://github.com/docker/docker/commit/6f89a8ee1ba6b598dc1f76e829d6db6f830cdb8e.patch")
-md5sums=('34da67232c13c0bcc1bba8980151174d'
+md5sums=('08cb0f7a7136f7aacc429392279ebd65'
          '4324edeb9adc210a2c22f44eb4cb8a74'
          '3eff94e59391015f020686d57ffb3c06')
 
@@ -35,7 +35,6 @@ build() {
 package() {
   cd $pkgname-$pkgver
   install -Dm755 "bundles/$pkgver/dynbinary/docker-$pkgver" "$pkgdir/usr/bin/docker"
-  install -Dm755 "bundles/$pkgver/dynbinary/dockerinit-$pkgver" "$pkgdir/usr/lib/docker/dockerinit"
 
   install -Dm644 'contrib/completion/bash/docker' "$pkgdir/usr/share/bash-completion/completions/docker"
   install -Dm644 'contrib/completion/zsh/_docker' "$pkgdir/usr/share/zsh/site-functions/_docker"
