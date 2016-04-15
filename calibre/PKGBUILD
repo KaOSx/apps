@@ -1,6 +1,6 @@
 
 pkgname=calibre
-pkgver=2.54.0
+pkgver=2.55.0
 pkgrel=1
 pkgdesc="Ebook management application."
 arch=('x86_64') 
@@ -10,22 +10,22 @@ depends=('python2')
 makedepends=('xdg-utils')
 groups=('office')
 install=calibre.install
-source=("http://download.calibre-ebook.com/${pkgver}/calibre-"${pkgver}"-x86_64.txz"
+source=("http://download.calibre-ebook.com/${pkgver}/calibre-${pkgver}-x86_64.txz"
         'calibre.desktop'
         'calibre.png')
-md5sums=('da73eff141a7e4a515822af03efc9346'
+md5sums=('f64cdd86d3537f34821caa7f94d68fff'
          'bda3df9bbc0b793d94a4d3d10bdf194a'
          '5c523427b55c62d7fee06b0cc056c46e')
 
 package() {
-  cd "${srcdir}"
+  cd ${srcdir}
   
-  install -d "${pkgdir}/opt/calibre"
-  tar xvf "${srcdir}"/calibre-"${pkgver}"-x86_64.txz -C "$pkgdir"/opt/calibre
+  install -d ${pkgdir}/opt/calibre
+  tar xvf ${srcdir}/calibre-${pkgver}-x86_64.txz -C ${pkgdir}/opt/calibre
 
-  install -d "${pkgdir}/usr/bin"
-  install -Dm644 "${srcdir}/calibre.desktop" "${pkgdir}/usr/share/applications/calibre.desktop"             
-  install -Dm644 "${srcdir}/calibre.png" "${pkgdir}/usr/share/pixmaps/calibre.png"
-  ln -s /opt/calibre/calibre "$pkgdir/usr/bin/calibre"
+  install -d ${pkgdir}/usr/bin
+  install -Dm644 calibre.desktop ${pkgdir}/usr/share/applications/calibre.desktop             
+  install -Dm644 calibre.png ${pkgdir}/usr/share/pixmaps/calibre.png
+  ln -s /opt/calibre/calibre $pkgdir/usr/bin/calibre
 }
 

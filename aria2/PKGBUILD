@@ -1,6 +1,6 @@
 
 pkgname=aria2
-pkgver=1.21.0
+pkgver=1.22.0
 pkgrel=1
 pkgdesc='Download utility that supports HTTP(S), FTP, BitTorrent, and Metalink'
 arch=('x86_64')
@@ -8,11 +8,11 @@ url='https://aria2.github.io/'
 license=('GPL')
 depends=('gnutls' 'libxml2' 'sqlite' 'c-ares' 'ca-certificates')
 checkdepends=('cppunit')
-source=("https://github.com/tatsuhiro-t/aria2/releases/download/release-$pkgver/aria2-$pkgver.tar.xz")
-md5sums=('70479675494a9fd619c2317dad438442')
+source=("https://github.com/tatsuhiro-t/aria2/releases/download/release-${pkgver}/aria2-${pkgver}.tar.xz")
+md5sums=('42abc7f2e1b42afa415a34bddad0512e')
 
 build() {
-  cd $pkgname-$pkgver
+  cd ${pkgname}-${pkgver}
 
   ./configure \
     --prefix=/usr \
@@ -22,11 +22,11 @@ build() {
 }
 
 package() {
-  cd $pkgname-$pkgver
-  make DESTDIR="$pkgdir" install
+  cd ${pkgname}-${pkgver}
+  make DESTDIR=${pkgdir} install
 
-  install -d "$pkgdir"/usr/share/bash-completion/completions
-  install -m644 "$pkgdir"/usr/share/doc/aria2/bash_completion/aria2c \
-    "$pkgdir"/usr/share/bash-completion/completions
-  rm -rf "$pkgdir"/usr/share/doc/aria2/bash_completion
+  install -d ${pkgdir}/usr/share/bash-completion/completions
+  install -m644 ${pkgdir}/usr/share/doc/aria2/bash_completion/aria2c \
+    ${pkgdir}/usr/share/bash-completion/completions
+  rm -rf ${pkgdir}/usr/share/doc/aria2/bash_completion
 }

@@ -1,6 +1,6 @@
 
 pkgname=scons
-pkgver=2.4.1
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="Extensible Python-based build utility"
 arch=('x86_64')
@@ -9,10 +9,10 @@ license=('MIT')
 depends=('python2')
 groups=('programming')
 source=("http://downloads.sourceforge.net/sourceforge/scons/${pkgname}-${pkgver}.tar.gz")
-md5sums=('9a0ddf33d9839f04380e0fae87cc4b40')
+md5sums=('9e00fa0df8f5ca5c5f5975b40e0ed354')
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd ${pkgname}-${pkgver}
 
   python2 setup.py install --standard-lib \
                            --prefix=/usr \
@@ -20,6 +20,6 @@ package() {
                            --optimize=1 \
                            --root="${pkgdir}" \
 
-  install -D -m644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -D -m644 LICENSE.txt ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
 
