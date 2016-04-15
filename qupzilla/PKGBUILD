@@ -1,13 +1,13 @@
 
 pkgname=qupzilla
-pkgver=2.0.0
-_commit=e546053
+pkgver=2.0.0.1
+_commit=236eea9
 pkgrel=1
 pkgdesc="A fast open source browser based on QtWebengine, written in Qt Framework"
 arch=('x86_64')
 url="http://www.qupzilla.com/"
 license=('GPL')
-depends=('qtwebengine' 'mesa' 'desktop-file-utils' 'hicolor-icon-theme') # no longer needed in Qt 5.6'qt5-script' 
+depends=('qtwebengine' 'mesa' 'desktop-file-utils' 'hicolor-icon-theme')  
 makedepends=('gdb' 'qt5-tools')
 conflicts=('kf5-qupzilla')
 replaces=('kf5-qupzilla')
@@ -18,7 +18,7 @@ source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-$
         'browserwindow.diff'
         'defines.diff'
         'bookmarks_json.diff')
-md5sums=('b0c35bab1232eda5a376ed5f964e4186'
+md5sums=('641ee9909e07ed14b47a5dc6eac4906b'
          '1c25658e49b591d756c3b88ce37f0012'
          '65337a0fb92c5c3222d72969771388ce'
          '0a1a394a6cd9aaff40d2129203cb5479'
@@ -26,12 +26,12 @@ md5sums=('b0c35bab1232eda5a376ed5f964e4186'
          'ad89b6d6e006941325aa77856c29f3e3')
 
 build() {
-    cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
-    patch -p0 -i "${srcdir}/speeddial.diff"
-    patch -p0 -i "${srcdir}/preferences.diff"
-    patch -p0 -i "${srcdir}/browserwindow.diff"
-    patch -p0 -i "${srcdir}/defines.diff"
-    patch -p0 -i "${srcdir}/bookmarks_json.diff"
+    cd QupZilla-qupzilla-${_commit}/
+    patch -p0 -i ${srcdir}/speeddial.diff
+    patch -p0 -i ${srcdir}/preferences.diff
+    patch -p0 -i ${srcdir}/browserwindow.diff
+    patch -p0 -i ${srcdir}/defines.diff
+    patch -p0 -i ${srcdir}/bookmarks_json.diff
 
     export USE_WEBGL="true"
     export NO_X11="true"
@@ -41,10 +41,10 @@ build() {
 }
 
 package() {
-    cd "${srcdir}/QupZilla-qupzilla-${_commit}/"
-    make INSTALL_ROOT="$pkgdir/" install
+    cd QupZilla-qupzilla-${_commit}/
+    make INSTALL_ROOT=${pkgdir}/ install
     
-    cp "$pkgdir/usr/share/qupzilla/locale/de_DE.qm" "$pkgdir/usr/share/qupzilla/locale/de_CH.qm"
-    cp "$pkgdir/usr/share/qupzilla/locale/de_DE.qm" "$pkgdir/usr/share/qupzilla/locale/de_AT.qm"
-    #cp "$pkgdir/usr/share/qupzilla/locale/es_ES.qm" "$pkgdir/usr/share/qupzilla/locale/es_AR.qm"
+    cp ${pkgdir}/usr/share/qupzilla/locale/de_DE.qm ${pkgdir}/usr/share/qupzilla/locale/de_CH.qm
+    cp ${pkgdir}/usr/share/qupzilla/locale/de_DE.qm ${pkgdir}/usr/share/qupzilla/locale/de_AT.qm
+    #cp ${pkgdir}/usr/share/qupzilla/locale/es_ES.qm ${pkgdir}/usr/share/qupzilla/locale/es_AR.qm
 }
