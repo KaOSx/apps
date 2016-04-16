@@ -10,18 +10,23 @@
 </head>
 
 <body>
-    <h3>KaOS - 2016.04</h3>KaOS is proud to announce the availability of the March 
-    release of a new stable ISO.  <br/>
-    The Plasma Desktop includes Frameworks 5.21.0, Plasma 5.6.2 and KDE Applications 16.04RC. 
-    A few enhancements to the Plasma 5 experience have been added, these are KaOS specific extras.
-    You now have the option to calculate the md5sum from any file from the Dolphin service menu. 
-    Since the kf5 move there has not been a fully working GUI for user management, 
-    there is one added now for KaOS, you will find it under systemsettings, account details. 
-    From there you can create new users, change existing user(s) role or delete a user. 
-    Also added it is a KCM for locale/language settings.<br/>
-    Most notable major updates to the base of the system  are a Glibc 2.23/Binutils 2.26 based new toolchain, 
-    a move of the xorg stack to 1.18, gstreamer group is at 1.8.0, a move to Pacman 5, Linux 4.4.4,
+    <h3>KaOS - 2016.04</h3>Not the customary bi-monthly release this time, but celebrating the
+    three year anniversary of KaOS by releasing 2016.04.  Reason for this earlier release
+    is the move to Qt 5.6 and with that an update and/or rebuild of the complete Desktop<br/>
+    QtWebengine has now replaced QtWebkit as the base for the default web-browser <b>Qupzilla</b>
+    You will find a much better multimedia experience, were full-screen video is now supported, 
+    sites like Vimeo just work and there is no longer a need to use the unmaintained 
+    since 2012 flashplugin. Pepperflash is fully compatible with new Qupzilla 2.0</br>
+    The Plasma Desktop includes Frameworks 5.21.0, <b>Plasma 5.6.2</b> and KDE Applications 16.04.0<br/>
+    Most notable major updates to the base of the system  are Boost 1.60.0, ICU 57.1, Xorg-server 1.18.3, 
+    gstreamer group is at 1.8.0, Libarchive 3.2RC, Alsa packages moved to 1.1.1, Linux 4.4.5,
     Mesa 11.2.0, Pulseaudio 8.0 and Mariadb 10.1.12<br/>
+    Some KDE applications look like they might not make the kf5 migration. One such app is kget, 
+    it was partially ported, but all work on it has stalled for too long to keep it an option for KaOS. 
+    A new and very complete download manager has replaced kget. Fatrat will be part of KaOS 
+    default installs from now on.  Another change is the move to Cantata as the default Music Manager,
+    Clementine's focus is still on developing for Qt 4 plus has security issues which new Sqlite tried
+    to avoid.  Cantata is fully Qt 5 ported and very well integrated in the Plasma 5 desktop.
     
     The artwork received a redesign in many elements. A new icon theme for light and dark themes has arrived. 
     The Midna Dark theme received a complete overhaul with a new plasma theme, window decorations, 
@@ -47,23 +52,17 @@
     Highlights of the changes and additions:
 
     <ul>
-        <li>Thoroughly rewritten partitioning feature, now based on KPMcore 
-        (the same library used by KDE Partition Manager)</li>
+        <li>Full support for NVME SSDs</li>
 
-        <li>The choice page in the partitioning module now shows disk changes in
-        real life, with much improved preview widgets, which are now not just 
-        preview but also selection widgets for the Replace feature</li>
+        <li>Replaced QtWebKit with QtWebEngine in webview module if building with Qt 5.6 or greater;</li>
 
         <li>Tooltips in partition views.</li>
 
-        <li>All new non-blocking asynchronous device rescans with spinner UI throughout 
-        the partitioning module</li>
+        <li>Automated Breakpad and GDB-based crash reporting with libcrashreporter-qt</li>
 
-        <li>Added support for setting partition flags (including the EFI system partition flag) 
-        while creating or editing a partition in the manual partitioning page.</li>
+        <li>Added much deserved credit for translators in About dialog.</li>
 
-        <li>Overhauled modules system, allowing for much more flexibility in configuring
-        and arranging views and jobs.</li>
+        <li>Support for “replacing” free space</li>
 
         <li>Added a check and warning when installing in EFI mode with manual partitioning 
         without setting up a mount point and/or flag for the EFI system partition.</li>
@@ -90,15 +89,15 @@
     and confusion, KaOS is <b>not based upon, derived of, or inspired by</b>
     any one particular distribution. It is completely independent, build
     entirely from scratch with its own repositories. To read more about this
-    see <b>http://kaosx.us/faq/#Isn8217t_KaOS_just_another_Arch_based_distribution</b>.<br/><br/>
+    see <b>https://kaosx.us/faq/#KaOS_is_NOT_another_Arch_based_distribution_right</b>.<br/><br/>
     
     A <b>rolling release distribution</b> never has a "final" release, every
     ISO is mere a snapshot of the current status of the repositories. An idea
     what is currently available: The ISO ships with <b>Frameworks 5.21.0,
-    Plasma 5.6.2, KDE Applications 16.04RC & not yet released ports of KDE
+    Plasma 5.6.2, KDE Applications 16.04.0 & not yet released ports of KDE
     Applications</b>, Linux 4.4.5, Systemd 229, Kmod 22, Networkmanager 1.0.12,
     Calligra 3.0Alpha, Cantata, Plasma-nm 5.6.2, Xorg-server 1.18.3, Mesa
-    11.2.0, Glibc 2.23, GCC 4.9.3, non-free Nvidia 364.12, pepperflash and Python3 3.5.1 to
+    11.2.0, Glibc 2.23, GCC 4.9.3, non-free Nvidia 364.12, Pepperflash and Python3 3.5.1 to
     name a few. The package manager is <strong>Pacman 5.0.1</strong>, with the
     simple but powerful Octopi 0.9dev as GUI frontend. Default webbrowser is
     Qt based Qupzilla 2.0.0. <b>GFXboot</b> is included with KaOS artwork,
@@ -109,7 +108,7 @@
     Linux-next 4.5, Libreoffice 5.1.2, Qt 5.6.0, bumblebee packages, VLC,
     Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad
     and Knights. A limited number of the most well-known GTK applications are
-    available, examples Firefox 45.0.1, Chrome 51, Ardour 4.7.0, Inkscape 0.91, 
+    available, examples Firefox 45.0.2, Chrome 51, Ardour 4.7.0, Inkscape 0.91, 
     GIMP 2.8.14 and Google-talkplugin 5.38.5.0.
     Complete language packs are available for KDE, Calligra, Firefox,
     Libreoffice and Thunderbird. For IM, Fcitx 4.2.9.1 is available as a rather
