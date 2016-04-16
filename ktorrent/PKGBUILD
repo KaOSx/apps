@@ -1,25 +1,25 @@
 
 pkgname=ktorrent
-pkgver=4.3.78
+pkgver=5.0
 pkgrel=1
-ktorver=4.3.1
+ktorver=5.0
 pkgdesc="A BitTorrent program for KDE"
 arch=('x86_64')
 url="http://ktorrent.pwsp.net/"
 license=('GPL2')
 depends=('kdelibs4support' 'ki18n' 'kio' 'kxmlgui' 'knotifications' 'knotifyconfig' 'solid'
          'kconfig' 'kcoreaddons' 'kross' 'kcmutils' 'sonnet' 'kdbusaddons' 'kcrash' 'kdnssd'
-         'taglib' 'libktorrent' 'plasma-workspace')
-makedepends=('extra-cmake-modules' 'boost' 'kdoctools' 'git')
+         'taglib' 'libktorrent' 'plasma-workspace' 'kdewebkit')
+makedepends=('extra-cmake-modules' 'boost' 'kdoctools')
 install=ktorrent.install
 groups=('network')
 options=('libtool')
-#source=("http://ktorrent.pwsp.net/downloads/${ktorver}/ktorrent-${ktorver}.tar.bz2"
-source=('git://anongit.kde.org/ktorrent')
-md5sums=('SKIP')
+source=("http://download.kde.org/stable/ktorrent/${ktorver}/${pkgname}-${pkgver}.tar.xz")
+#source=('git://anongit.kde.org/ktorrent')
+md5sums=('7b4c6a1e57a10abcf60b4ef25a2eb246')
 
 prepare() {
-  cd ${pkgname}
+  cd ${pkgname}-${pkgver}
   #sed -i 's|Exec=ktorrent %i -caption %c %u|Exec=ktorrent -qwindowtitle %c %u|g' ktorrent/org.kde.ktorrent.desktop
   #sed -i 's|ui.rc DESTINATION ${DATA_INSTALL_DIR}|ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}|g' plugins/*/CMakeLists.txt
   sed -i 's|TARGETS ktorrent_app ${INSTALL_TARGETS_DEFAULT_ARGS}|TARGETS ktorrent_app ${KDE_INSTALL_TARGETS_DEFAULT_ARGS}|g' ktorrent/CMakeLists.txt
@@ -29,7 +29,7 @@ build() {
   mkdir build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
