@@ -1,14 +1,14 @@
 
 pkgname=calamares
 pkgver=2.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
 license=('LGPL')
-depends=('qt5-svg' 'qtwebengine' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
+depends=('qt5-svg' 'qt5-webkit' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
          'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts')
-makedepends=('extra-cmake-modules' 'git' 'qt5-tools' 'clang')
+makedepends=('extra-cmake-modules' 'git' 'qt5-tools') # 'clang')
 options=('debug' '!staticlibs')
 #source=("git://github.com/KaOSx/calamares#commit=8d1145719acb6e3cc11d22f4ab4c61a1dfb9cd81"
 source=("git://github.com/KaOSx/calamares"
@@ -29,7 +29,7 @@ md5sums=('SKIP'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          'd1e19fbb01e59e1296adb8017fbacbf4'
          'bb33b54d289cfe39ebfd78f172382880'
-         'a92b32d6fcc82a55336cc7d5434f5bd1')
+         'c28565af497bc3e1483bdf329eded869')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -40,12 +40,12 @@ prepare () {
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/core/PartitionActions.cpp
   sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EditExistingPartitionDialog.cpp
-  #sed -i 's|ExternalCommand cmd(report, QStringLiteral("mkfs.xfs"), QStringList() << QStringLiteral("-f")|ExternalCommand cmd(report, QStringLiteral("mkfs.xfs"), QStringList() << QStringLiteral("-m") << QStringLiteral("crc=0") << QStringLiteral("-f")|' ${srcdir}/${pkgname}/src/modules/partition/partitionmanager/src/fs/xfs.cpp
+  sed -i 's|VERSION_LESS 5.6|VERSION_LESS 5.7|' ${srcdir}/${pkgname}/src/modules/webview/CMakeLists.txt
 }
 
 build() {
-  export CC=/usr/bin/clang
-  export CXX=/usr/bin/clang++
+  #export CC=/usr/bin/clang
+  #export CXX=/usr/bin/clang++
   
   mkdir -p build
   cd build
