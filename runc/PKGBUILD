@@ -1,0 +1,25 @@
+pkgname=runc
+pkgver=0.1.0
+pkgrel=1
+arch=('x86_64')
+pkgdesc="CLI tool for spawning and running containers according to the OCI specification."
+url="http://runc.io/"
+license=('APACHE')
+depends=('glibc')
+makedepends=('go')
+source=("https://github.com/opencontainers/runc/archive/v${pkgver}.tar.gz")
+md5sums=('73971b4020a39445f071c3b3d5361a30')
+
+build() {
+    cd runc-${pkgver}
+    export GOPATH=~/gocode
+    export PATH=$PATH:$GOPATH/bin
+    
+    make
+}
+
+package() {
+    cd runc-${pkgver}
+    
+    install -Dm755 runc $pkgdir/usr/bin/runc
+}

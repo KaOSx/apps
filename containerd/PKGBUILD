@@ -1,0 +1,33 @@
+
+pkgname=containerd
+pkgver=0.2.0
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Daemon to control runC, built for performance and density."
+url="https://containerd.tools/"
+license=('APACHE')
+depends=('runc')
+makedepends=('go')
+source=("https://github.com/docker/containerd/archive/v${pkgver}.tar.gz")
+md5sums=('bf5be6fb33f02855af5ecfa97dae99f9')
+
+prepare() {
+    cd ${srcdir}
+    
+    install -d src/github.com/docker
+    mv ${pkgname}-${pkgver} src/github.com/docker/${pkgname}
+}
+
+build() {
+    cd src/github.com/docker/${pkgname}
+    
+    LDFLAGS="" GOPATH="$srcdir:$srcdir/${pkgname}/vendor" make
+}
+
+package() {
+    cd src/github.com/docker/${pkgname}/bin
+    
+    install -Dm755 containerd ${pkgdir}/usr/bin/containerd
+    install -Dm755 containerd-shim ${pkgdir}/usr/bin/containerd-shim
+    install -Dm755 ctr ${pkgdir}/usr/bin/ctr
+}
