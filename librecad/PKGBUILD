@@ -1,6 +1,6 @@
 
 pkgname=librecad
-pkgver=2.0.9
+pkgver=2.0.10
 pkgrel=1
 pkgdesc="2D CAD drawing tool based on the community edition of QCad"
 arch=('x86_64')
@@ -9,10 +9,10 @@ license=('GPL')
 depends=('qt5-svg' 'muparser' 'qt5-tools')
 makedepends=('boost' 'imagemagick')
 source=("https://github.com/LibreCAD/LibreCAD/archive/${pkgver}.tar.gz")
-md5sums=('288b9184b684b26aa7ebc3604ac8fc70')
+md5sums=('c88d89b6556500e5760b723219efd940')
 
 build() {
-	cd "${srcdir}/LibreCAD-${pkgver}"
+	cd LibreCAD-${pkgver}
 
 	sed -i "/^SCMREVISION/c SCMREVISION=\"${pkgver}\"" librecad/src/src.pro
 	sed -i 's/qcollectiongenerator/qcollectiongenerator-qt5/g' scripts/postprocess-unix.sh
@@ -24,23 +24,23 @@ build() {
 }
 
 package() {
-	cd "${srcdir}/LibreCAD-${pkgver}"
+	cd LibreCAD-${pkgver}
 
-	install -D -m0755 unix/librecad "${pkgdir}/usr/bin/librecad"
-	install -D -m0755 unix/ttf2lff "${pkgdir}/usr/bin/ttf2lff"
+	install -D -m0755 unix/librecad ${pkgdir}/usr/bin/librecad
+	install -D -m0755 unix/ttf2lff ${pkgdir}/usr/bin/ttf2lff
 
-	install -D -m0644 desktop/librecad.desktop "${pkgdir}/usr/share/applications/librecad.desktop"
-	install -D -m0644 desktop/librecad.1 "${pkgdir}/usr/share/man/man1/librecad.1"
+	install -D -m0644 desktop/librecad.desktop ${pkgdir}/usr/share/applications/librecad.desktop
+	install -D -m0644 desktop/librecad.1 ${pkgdir}/usr/share/man/man1/librecad.1
 
 	for SIZE in 16 24 32 48 64 96 128; do
 		convert -scale ${SIZE} \
 			desktop/graphics_icons_and_splash/Icon\ LibreCAD/Icon_Librecad.svg \
 			${srcdir}/librecad.png
-		install -D -m0644 ${srcdir}/librecad.png "${pkgdir}/usr/share/icons/hicolor/${SIZE}x${SIZE}/apps/librecad.png"
+		install -D -m0644 ${srcdir}/librecad.png ${pkgdir}/usr/share/icons/hicolor/${SIZE}x${SIZE}/apps/librecad.png
 	done
-	install -D -m0644 desktop/graphics_icons_and_splash/Icon\ LibreCAD/Icon_Librecad.svg "${pkgdir}/usr/share/icons/hicolor/scalable/apps/librecad.svg"
+	install -D -m0644 desktop/graphics_icons_and_splash/Icon\ LibreCAD/Icon_Librecad.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/librecad.svg
 
-	mkdir -p "${pkgdir}/usr/share/librecad/"
-	cp -r unix/resources/{library,patterns,fonts,qm} "${pkgdir}/usr/share/librecad/"
+	mkdir -p ${pkgdir}/usr/share/librecad/
+	cp -r unix/resources/{library,patterns,fonts,qm} ${pkgdir}/usr/share/librecad/
 }
 
