@@ -1,7 +1,7 @@
 
 pkgname=kdevplatform
 pkgver=4.90.91
-pkgrel=3
+pkgrel=4
 pkgdesc="A C/C++ development platform for KDE"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
@@ -9,7 +9,7 @@ license=('GPL')
 depends=('karchive' 'kconfig' 'kwidgetsaddons' 'kiconthemes' 'kcmutils' 'kemoticons' 'kguiaddons' 'ki18n' 'kinit' 'kio'
          'kitemmodels' 'kitemviews' 'kjobwidgets' 'knewstuff' 'knotifications' 'knotifyconfig' 'kparts' 'kservice' 
          'ktexteditor' 'sonnet' 'threadweaver' 'kwindowsystem' 'kdeclarative' 'kxmlgui' 'plasma-framework' 
-         'qt5-declarative' 'grantlee-qt5' 'konsole' 'libkomparediff2' 'subversion' 'qt5-webkit')
+         'qt5-declarative' 'grantlee' 'konsole' 'libkomparediff2' 'subversion' 'qt5-webkit')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kf5-kdevplatform')
 replaces=('kf5-kdevplatform')
@@ -18,7 +18,7 @@ source=("http://download.kde.org/unstable/kdevelop/${pkgver}/src/kdevplatform-${
 md5sums=('a324b71ad9a7d10dd84788fe062376dc')
 
 prepare() {
-  cd ${srcdir}/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
   
   #patch -Rp1 -i $srcdir/ref.diff
 }
