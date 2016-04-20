@@ -1,8 +1,8 @@
 
 pkgname=kcp
-pkgver=0.84
+pkgver=0.85
 pkgrel=1
-_commit=ab6e76f
+_commit=14700af
 pkgdesc="A command-line tool for KaOS Community Packages"
 arch=('x86_64')
 url="https://github.com/bvaudour/kcp"
@@ -12,10 +12,10 @@ depends=('git')
 makedepends=('go')
 source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
 #source=("https://github.com/bvaudour/kcp/releases/download/${pkgver}/kcp-${pkgver}.tar.gz")
-md5sums=('eaeb8c76e1ea76b5715e623245ad5bcd')
+md5sums=('55331f48f07965f66788669e70af7c46')
  
 build() {
-  cd ${srcdir}/bvaudour-${pkgname}-${_commit}
+  cd bvaudour-${pkgname}-${_commit}
   
   export GOPATH=${GOPATH}:"${srcdir}"
   ./configure 
@@ -23,7 +23,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/bvaudour-${pkgname}-${_commit} 
+  cd bvaudour-${pkgname}-${_commit} 
   make DESTDIR="${pkgdir}" install
   
   for files in i18n/kcp/*; do

@@ -32,17 +32,15 @@ conflicts=('xbmc')
 provides=('xbmc')
 replaces=('xbmc')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
-source=("https://github.com/xbmc/xbmc/archive/$_pkgver.tar.gz")
+source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
 md5sums=('ce887b7e831bca8843c5262313f28913')
 
 build() {
-    cd "${srcdir}/xbmc-$_pkgver"
+    cd xbmc-${_pkgver}
   
-    msg "Bootstrapping Kodi"
     ./bootstrap
     
-    msg "Configuring Kodi"
-    ./configure --prefix=${_prefix} --exec-prefix=$_prefix \
+    ./configure --prefix=${_prefix} --exec-prefix=${_prefix} \
         --disable-debug \
         --enable-optimizations \
         --enable-gl \
@@ -56,25 +54,24 @@ build() {
 	--enable-dvdcss \
 	--enable-rtmp 
 
-    msg "Running make"
     make 
 }
 
 package() {
-    cd "${srcdir}/xbmc-$_pkgver"
-    msg "Running make install"
-    make DESTDIR="${pkgdir}" install
+    cd xbmc-${_pkgver}
+
+    make DESTDIR=${pkgdir} install
 
     # various fixes
-    sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KaOS-release/g" "${pkgdir}${_prefix}/bin/kodi"
+    sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KaOS-release/g" ${pkgdir}${_prefix}/bin/kodi
 
     # Licenses
-    install -d -m 0755 "${pkgdir}${_prefix}/share/licenses/${pkgname}"
+    install -d -m 0755 ${pkgdir}${_prefix}/share/licenses/${pkgname}
     for licensef in LICENSE.GPL copying.txt; do
-        mv "${pkgdir}${_prefix}/share/doc/kodi/${licensef}" "${pkgdir}${_prefix}/share/licenses/${pkgname}"
+        mv ${pkgdir}${_prefix}/share/doc/kodi/${licensef} ${pkgdir}${_prefix}/share/licenses/${pkgname}
     done
     
     # move from xbmc to kodi leaves conflicting symlinks in place of real files, pacman not handling it
-    rm -r "${pkgdir}${_prefix}/share/xbmc"
-    rm -r "${pkgdir}${_prefix}/lib/xbmc"
+    rm -r ${pkgdir}${_prefix}/share/xbmc
+    rm -r ${pkgdir}${_prefix}/lib/xbmc
 }
