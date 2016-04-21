@@ -1,0 +1,26 @@
+
+pkgname=xclip
+pkgver=0.12.1
+pkgrel=1
+_commit=0a1bbcc10d1a17969587d5995e4d47ca543a129c
+pkgdesc='Command line interface to the X11 clipboard'
+url='https://github.com/astrand/xclip'
+arch=('x86_64')
+license=('GPL')
+depends=('libxmu')
+source=("https://github.com/astrand/xclip/archive/${_commit}.zip")
+md5sums=('2895be01f62ffa1de146461761eaa8a0')
+
+build() {
+  cd ${pkgname}-${_commit}
+  
+  ./bootstrap
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd ${pkgname}-${_commit}
+  
+  make DESTDIR=${pkgdir} install
+}
