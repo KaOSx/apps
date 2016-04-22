@@ -23,6 +23,7 @@ build() {
 package() {
   cd ${pkgname}-${_commit}
   
+  #make DESTDIR=${pkgdir} install
   install -Dm755 micro $pkgdir/usr/bin/micro
   install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }

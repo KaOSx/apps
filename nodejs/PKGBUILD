@@ -1,6 +1,6 @@
 
 pkgname=nodejs
-pkgver=5.10.1
+pkgver=5.11.0
 pkgrel=1
 pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications."
 arch=('x86_64')
@@ -11,10 +11,10 @@ makedepends=('procps-ng')
 checkdepends=('curl') 
 options=('!emptydirs')
 source=("http://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.xz")
-md5sums=('4e3019dd1e3f18416bd649ff64cfb2f7')
+md5sums=('37a9b6af8f85d50900285c680a319b91')
 
 build() {
-  cd "node-v${pkgver}"
+  cd node-v${pkgver}
   
   ./configure --prefix=/usr \
     --with-intl=system-icu \
@@ -24,18 +24,18 @@ build() {
 }
 
 check() {
-  cd "node-v${pkgver}"
+  cd node-v${pkgver}
   
   make test 
 }
 
 package() {
-  cd "node-v${pkgver}"
-  make install DESTDIR="${pkgdir}"
+  cd node-v${pkgver}
+  make install DESTDIR=${pkgdir}
 
 
-  install -d "${pkgdir}/usr/share/doc/nodejs"
-  cp -r doc/api/* "${pkgdir}/usr/share/doc/nodejs"
-  install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/nodejs/LICENSE"
+  install -d ${pkgdir}/usr/share/doc/nodejs
+  cp -r doc/api/* ${pkgdir}/usr/share/doc/nodejs
+  install -D -m644 LICENSE ${pkgdir}/usr/share/licenses/nodejs/LICENSE
 }
 
