@@ -4,13 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcalutils
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library that provides utility functions for the handling of calendar data."
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/kcalutils'
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'kdelibs4support' 'kcodecs' 'kcalcore' 
-         'kidentitymanagement')
+         'kidentitymanagement' 'grantlee')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -32,8 +32,8 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -KDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -KDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }
