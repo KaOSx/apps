@@ -1,19 +1,19 @@
 
 pkgname=filezilla
 _pkgname=FileZilla
-pkgver=3.16.1
+pkgver=3.17.0
 pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client."
 arch=('x86_64')
 url="http://filezilla-project.org/"
 license=('GPL2')
-depends=('dbus-core' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'wxgtk2.9' 'sqlite'
+depends=('dbus' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'wxgtk2.9' 'sqlite'
          'libfilezilla')
-source=("http://downloads.sourceforge.net/project/filezilla/${_pkgname}_Client/$pkgver/${_pkgname}_${pkgver}_src.tar.bz2")
-md5sums=('1855d511b98fd16630e1fc69d2cb83d5')
+source=("http://downloads.sourceforge.net/project/filezilla/${_pkgname}_Client/${pkgver}/${_pkgname}_${pkgver}_src.tar.bz2")
+md5sums=('0a69a0b4a7a805a3d0fe50177698c98e')
 
 build() {
-  cd $srcdir/$pkgname-$pkgver
+  cd ${_pkgname}_${pkgver}
 
   ./configure --prefix=/usr \
     --disable-manualupdatecheck \
@@ -24,7 +24,7 @@ build() {
 }
 
 package() {
-  cd $srcdir/$pkgname-$pkgver
+  cd ${_pkgname}_${pkgver}
 
-  make DESTDIR=$pkgdir install
+  make DESTDIR=${pkgdir} install
 }
