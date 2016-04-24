@@ -1,7 +1,7 @@
 
 pkgname=godot
-pkgver=2.0
-_pkgver=2.0-stable
+pkgver=2.0.2
+_pkgver=2.0.2-stable
 pkgrel=1
 pkgdesc="Full featured, open source, MIT licensed, game engine."
 arch=('x86_64')
@@ -10,21 +10,21 @@ license=('MIT')
 depends=('glu' 'libxcursor' 'alsa-lib' 'freetype2' 'mesa' 'libwebp' 'libxinerama')
 makedepends=('scons')
 source=("https://github.com/okamstudio/godot/archive/${_pkgver}.tar.gz"
-	'godot.desktop'
-	'icon.png')
-md5sums=('83e1ec74ca3156af548f0e829085cdf7'
-	 'dca7c5c5682bdc8cc83386034e0d7d07'
+        'godot.desktop'
+        'icon.png')
+md5sums=('7a7ef730a1083518a04bb9ac746c0a19'
+         'dca7c5c5682bdc8cc83386034e0d7d07'
          'f756e85756a9cbc06a328414abf74585')
 
 build() {
-    cd ${srcdir}/${pkgname}-${_pkgver}
+    cd ${pkgname}-${_pkgver}
     sed -n '/\/* Copyright/,/IN THE SOFTWARE./p' main/main.cpp | sed 's/\/\*//' | sed 's/\*\///' > LICENSE
 
     scons platform=x11
 }
 
 package() {
-    cd ${srcdir}/${pkgname}-${_pkgver}
+    cd ${pkgname}-${_pkgver}
     
     install -Dm755 bin/godot.x11.tools.64 ${pkgdir}/usr/bin/godot
 
