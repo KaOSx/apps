@@ -6,7 +6,7 @@ pkgname=spectacle
 pkgver=${_kdever}
 #pkgver=15.07.92
 #_pkgver=2.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The new KDE Screenshot Utility"
 url="https://projects.kde.org/projects/kde/kdegraphics/spectacle"
 arch=('x86_64')
@@ -18,13 +18,16 @@ install=${pkgname}.install
 conflicts=('ksnapshot' 'kscreengenie')
 replaces=('ksnapshot' 'kscreengenie')
 groups=('kde' 'kdegraphics' 'kde-uninstall')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+        "https://github.com/KDE/spectacle/commit/2f5e7b8257663d59d12c0413f79ebfaaa918437a.diff")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'd3c805cd3348c483e2c666933b13fe99')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|ksnapshot KF5::Kipi|ksnapshot KF5::KIPI|' ${srcdir}/${pkgname}/CMakeLists.txt
-  #patch -p1 -i $srcdir/region.patch
+  # fix rectagular selection on nvidia
+  patch -p1 -i $srcdir/2f5e7b8257663d59d12c0413f79ebfaaa918437a.diff
 }
 
 build() {
