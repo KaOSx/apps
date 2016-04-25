@@ -1,7 +1,7 @@
 
 pkgname=krusader
-pkgver=16.03.70
-#_pkgver=2.4.0-beta3
+pkgver=16.03.71
+_commit=ae4dbb25d880c8c32be1c972e37550017cfafa87
 pkgrel=1
 pkgdesc="An alternative file manager for KDE resembling Midnight Commander"
 url="http://krusader.sourceforge.net/"
@@ -10,26 +10,25 @@ license=('GPL')
 depends=('karchive' 'kbookmarks' 'kcodecs' 'kcompletion' 'kconfig' 'ki18n' 'kiconthemes' 'kitemviews'
          'kio' 'knotifications' 'kparts' 'solid' 'ktextwidgets' 'kwallet' 'kwidgetsaddons'
          'kwindowsystem' 'kxmlgui' 'acl' 'ark' 'kde-baseapps' 'konsole' 'kate')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'docbook-xsl')
-#groups=('system')
+makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl')
+groups=('system')
 install=${pkgname}.install
 #source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${_pkgver}.tar.bz2")
-source=("git://anongit.kde.org/krusader.git")
-md5sums=('SKIP')
+source=("https://github.com/KDE/krusader/archive/${_commit}.zip")
+md5sums=('703d8f40bae161be68069f6d157a6498')
 
 prepare() {
-  cd $srcdir/$pkgname
+  cd ${pkgname}-${_commit}
 
   #patch -p1 -i "$srcdir/kde_bug309119.diff" 
   #patch -p1 -i "$srcdir/kde_bug325801.diff" 
 }
 
 build() {
-  cd ${srcdir}
   mkdir build
-  
   cd build
-  cmake ../${pkgname} \
+  
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
@@ -38,7 +37,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install 
 }

@@ -3,34 +3,49 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=cervisia
-pkgver=${_kdever}
+#pkgver=${_kdever}
+pkgver=16.07.70
+_commit=02ace8e114010aa1ab273100f428dcf712a9af60
 pkgrel=1
 pkgdesc='CVS GUI frontend for KDE'
 url='http://kde.org/applications/development/cervisia/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
-depends=('kdelibs')
-makedepends=('cmake' 'automoc4')
+depends=('kparts' 'kinit' 'kiconthemes' 'knotifications' 'kwidgetsaddons' 'kdesu')
+makedepends=('extra-cmake-modules' 'kdoctools' 'kdelibs')
 conflicts=('kdesdk-cervisia')
 replaces=('kdesdk-cervisia')
 install=${pkgname}.install
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
+#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://github.com/KDE/cervisia/archive/${_commit}.zip")
+md5sums=('db45b56b48fa471ff4c1d0c20dc00ca4')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+
+  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
+  #sed -i -e 's|#include <QRegExp>|#include <QtCore/QRegExp>|' ${srcdir}/${pkgname}/cvsservice/cvsaskpass.cpp
+}
 
 build() {
   mkdir build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DKDE4_BUILD_TESTS=OFF \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DSYSCONF_INSTALL_DIR=/etc \
+    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
   cd build
   
-  make DESTDIR=$pkgdir install
+  make DESTDIR=${pkgdir} install
 }
