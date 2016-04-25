@@ -1,0 +1,36 @@
+pkgname=qtox
+_pkgname=qTox
+pkgver=1.4.0
+pkgrel=1
+pkgdesc='Powerful Tox client that follows the Tox design guidelines while running on all major platforms.'
+arch=('x86_64')
+url='https://github.com/tux3/qTox'
+license=('GPL3')
+depends=('desktop-file-utils' 'filter_audio' 'libxkbcommon' 'libxss' 'openal' 'opencv'
+         'qrencode' 'qt5-svg' 'sqlcipher' 'toxcore')
+makedepends=('qt5-tools')
+source=("https://github.com/tux3/qTox/archive/v${pkgver}.tar.gz")
+md5sums=('e05b5f52f8c693800382712f93d223fa')
+
+build() {
+  cd ${_pkgname}-${pkgver}
+  mkdir -p build
+  cd build
+  
+  /usr/lib/qt5/bin/qmake ENABLE_SYSTRAY_UNITY_BACKEND=NO \
+                         ENABLE_SYSTRAY_STATUSNOTIFIER_BACKEND=NO \
+                         ENABLE_SYSTRAY_GTK_BACKEND=NO ..
+  make
+}
+
+package() {
+  cd ${_pkgname}-${pkgver}
+
+  install -Dm755 build/qtox ${pkgdir}/usr/bin/qtox
+  install -Dm644 qTox.desktop ${pkgdir}/usr/share/applications/qTox.desktop
+
+  cd img/icons
+  install -Dm644 48x48/qtox.png ${pkgdir}/usr/share/icons/hicolor/48x48/apps/qtox.png
+  install -Dm644 256x256/qtox.png ${pkgdir}/usr/share/icons/hicolor/256x256/apps/qtox.png
+  install -Dm644 qtox.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/qTox.svg
+}

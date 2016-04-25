@@ -1,6 +1,7 @@
 
 pkgname=ring-daemon
-pkgver=2.3.0
+pkgver=2.3.0.1
+_commit=fc613326db4f9a5115e132d25c07e8c448514c10
 pkgrel=1
 pkgdesc="Ring daemon"
 license=('GPL3')
@@ -8,14 +9,14 @@ arch=('x86_64')
 url="https://github.com/savoirfairelinux/ring-daemon"
 depends=('alsa-lib' 'boost-libs' 'dbus-c++' 'expat' 'ffmpeg' 'gsm' 'gnutls' 'jack' 'libsamplerate'
          'libsndfile' 'libsrtp' 'libupnp' 'pulseaudio' 'opendht' 'openssl' 'opus' 'pcre'
-         'speex' 'speexdsp' 'systemd' 'yaml-cpp' 'yasm' ) 
+         'speex' 'speexdsp' 'systemd' 'yaml-cpp' 'yasm' 'jsoncpp') 
 makedepends=('boost' 'git')
-source=("git+https://gerrit-ring.savoirfairelinux.com/${pkgname}")
-md5sums=('SKIP')
+source=("https://github.com/savoirfairelinux/ring-daemon/archive/${_commit}.zip")
+md5sums=('311cec7c4c8a7c4d6ec06aef54a846dd')
 
 build() {
-  mkdir -p ${pkgname}/contrib/native
-  cd ${pkgname}/contrib/native
+  mkdir -p ${pkgname}-${_commit}/contrib/native
+  cd ${pkgname}-${_commit}/contrib/native
   
   ../bootstrap
   make -j1 .pjproject
@@ -31,7 +32,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}
+  cd ${pkgname}-${_commit}
   
   make DESTDIR=${pkgdir} install
 }

@@ -1,6 +1,7 @@
 
 pkgname=ring-kde
-pkgver=2.2.0
+pkgver=2.2.0.1
+_commit=6bf47831303915376e7dbc96cdb329755f50a6e9
 pkgrel=1
 pkgdesc="KDE client for the Ring communication framework"
 arch=('x86_64')
@@ -10,11 +11,11 @@ depends=('kconfig' 'kguiaddons' 'kdbusaddons' 'ki18n' 'kinit' 'kwindowsystem'
          'kxmlgui' 'knotifications' 'kiconthemes' 'kio' 'kcompletion' 'kcrash'
          'knotifyconfig' 'qt5-svg' 'akonadi' 'kdepimlibs' 'ring-lrc')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-source=("git://anongit.kde.org/ring-kde.git")
-md5sums=('SKIP')
+source=("https://github.com/KDE/ring-kde/archive/${_commit}.zip")
+md5sums=('610dc4bf7b00c22017b96f5446ec130a')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${_commit}
   #patch -p1 -i $srcdir/qt5.5.diff
 }
 
@@ -22,7 +23,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \
