@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktp-accounts-kcm
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KCM Module for configuring Telepathy Instant Messaging Accounts"
 arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-accounts-kcm"
@@ -19,9 +19,12 @@ replaces=('kf5-ktp-accounts-kcm')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
+prepare() {
+  cd ${pkgname}-${pkgver}
+  sed -i -e 's|add_subdirectory (sipe)|#add_subdirectory (sipe)|' plugins/CMakeLists.txt
+}
+
 build() {
-  cd ${srcdir}
-  
   mkdir -p build
   cd build
 
@@ -39,6 +42,8 @@ build() {
 
 package() {
   cd build
-
   make DESTDIR=${pkgdir} install
+  # remove sipe protocol from accounts view
+  rm ${pkgdir}/usr/share/accounts/providers/kde/ktp-sipe.provider
+  rm ${pkgdir}/usr/share/accounts/providers/kde/ktp-sipe-haze.provider
 }
