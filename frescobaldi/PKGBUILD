@@ -1,26 +1,28 @@
 
 pkgname=frescobaldi
-pkgver=2.19.0
+pkgver=2.70.0
+_commit=ef771c03f858693fdb7bc62e4a8ded61535b1cbf
 pkgrel=1
 pkgdesc="A LilyPond sheet music editor. It aims to be powerful, yet lightweight and easy to use."
 arch=('x86_64')
 url="http://www.frescobaldi.org/"
 license=("GPL")
-depends=('lilypond' 'python3-poppler-qt' 'pyqt-python3' 'python3-ly')
+depends=('lilypond' 'python3-poppler-qt' 'pyqt5-python3' 'python3-ly')
 optdepends=('lilypond-doc')
-makedepends=('automoc4' 'cmake' 'docbook-xsl' 'python3')
+makedepends=('cmake' 'docbook-xsl' 'python3')
 install=${pkgname}.install
-source=("https://github.com/wbsoft/frescobaldi/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('e5ff8cdbec7b83601afb576c94e7aecb')
+#source=("https://github.com/wbsoft/frescobaldi/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+source=("https://github.com/wbsoft/frescobaldi/archive/${_commit}.zip")
+md5sums=('a705567c0e19c8149c1a97a9f9f1f60f')
 
 prepare() {
-    cd ${pkgname}-${pkgver}
+    cd ${pkgname}-${_commit}
     #Prevent windows script to execute
     #sed -i '1,4d' setup.cfg
 }
 
 package() {
-    cd ${pkgname}-${pkgver}
+    cd ${pkgname}-${_commit}
     python3 setup.py install --root=${pkgdir}/ --optimize=1
 
     find ${pkgdir} -name '*.py' -exec sed -i -e 's/^#!\/usr\/bin\/env python$/#!\/usr\/bin\/env python3/' \
