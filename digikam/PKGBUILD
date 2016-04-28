@@ -1,9 +1,9 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
-pkgver=4.90.3
-_pkgver=5.0.0-beta5
-pkgrel=2
+pkgver=4.90.4
+_pkgver=5.0.0-beta6
+pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
@@ -17,7 +17,7 @@ makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons'
          'kcalcore' 'kwallet' 'phonon-qt5' 
          'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang')
 source=("http://download.kde.org/unstable/digikam/${pkgbase}-${_pkgver}.tar.bz2")
-md5sums=('7ecb33929acc31a2e7d9f52c09c2c2e4')
+md5sums=('34903d116329891699021d29da0e58cc')
 
 prepare() {
   cd ${pkgbase}-${_pkgver}
@@ -55,7 +55,6 @@ package_digikam() {
            'solid' 'kiconthemes' 'kfilemetadata' 'kitemmodels' 'libksane' 'ki18n' 'lensfun' 
            'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
            'kipi-plugins' 'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb' 'kdepimlibs')
-  install=digikam.install
   groups=('graphics')
   
   cd $srcdir/build/core
@@ -76,7 +75,6 @@ package_kipi-plugins () {
            'kcalcore' 'kwallet' 'phonon-qt5') # 'libkface') 
   optdepends=('hugin-tools: to work with the panorama tool')
   groups=('kde' 'kde-graphics' 'kde-uninstall')
-  install=kipi-plugins.install
   
   cd $srcdir/build/extra/kipi-plugins
   make DESTDIR=$pkgdir/ install

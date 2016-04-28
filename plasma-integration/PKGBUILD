@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-integration
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='The plugin KDEPlatformTheme provides KDE integration for QPlatformThemePlugin.'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-integration'
@@ -13,14 +13,15 @@ depends=('kconfig' 'kconfigwidgets' 'ki18n' 'kiconthemes' 'kio' 'knotifications'
          'kwayland' 'noto-fonts' 'oxygen-fonts')
 makedepends=('extra-cmake-modules')
 groups=('plasma5')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
+        "https://github.com/KDE/plasma-integration/commit/4240c588aa3c2643d8d00a0da562197f1784cad6.diff")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'ce12e54584b1f54dd41a768520f0dc61')
 
 prepare () {
   cd $pkgname-$pkgver
-  #sed -i -e 's|devices emblems places status|devices emblems emotes mimetypes places status|' icons-dark/CMakeLists.txt
-
-  #patch -p1 -i $srcdir/c2008d6d3a62b3f7f6e5198e047d39b4a40ecf7e.diff
+  # patch by frugalware to fix reading from default lnf package
+  patch -p1 -i $srcdir/4240c588aa3c2643d8d00a0da562197f1784cad6.diff
 }
   
 build () {  
