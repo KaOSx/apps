@@ -1,0 +1,29 @@
+
+pkgname=qpdfview
+pkgver=0.4.16
+pkgrel=1
+pkgdesc='Tabbed document viewer using Poppler, libspectre, DjVuLibre, CUPS and Qt'
+arch=('x86_64')
+url='https://launchpad.net/qpdfview'
+license=('GPL2')
+depends=('desktop-file-utils' 'djvulibre' 'hicolor-icon-theme' 'libcups' 'libspectre' 
+         'poppler-qt5' 'qt5-svg' 'texlive-bin')
+makedepends=('qt5-tools')
+#conflicts=('okular')
+#replaces=('okular')
+source=("https://launchpad.net/qpdfview/trunk/${pkgver}/+download/${pkgname}-${pkgver}.tar.gz")
+md5sums=('4b317c4536332a7fe437abe50eca1716')
+
+build() {
+  cd ${pkgname}-${pkgver}
+
+  /usr/lib/qt5/bin/lrelease qpdfview.pro
+  /usr/lib/qt5/bin/qmake qpdfview.pro
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+
+  make INSTALL_ROOT=${pkgdir} install
+}
