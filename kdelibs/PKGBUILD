@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdelibs
 arch=('x86_64')
 pkgver=4.14.19
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Core Libraries"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -22,13 +22,14 @@ optdepends=('phonon-backend-gstreamer: GStreamer Phonon backend (default)'
 	    'aspell:           Spell checking'
 	    'hspell:           Hebrew spell checking')
 groups=("kde" "kde-minimal" "kde-uninstall")
-install=${pkgname}.install
 source=($_mirror/${pkgname}-${pkgver}.tar.xz
-	'02_kde_applications_menu.patch'
-	'MergeDir.patch')
+        '02_kde_applications_menu.patch'
+        'MergeDir.patch'
+        'kde.xml')
 md5sums=('f4a8e9a726a8d2a0bbdc53feeed044a9'
          'e94450ba5430ea9c1e33bad9ae38ca2d'   # 02_kde_applications_menu.patch
-         'f442698bae9d4ffb26f6df9457d7fc5a')   # MergeDir.patch
+         'f442698bae9d4ffb26f6df9457d7fc5a'   # MergeDir.patch
+         '23d0ed25ff275d736dec48bb9bda70ad')
         
 build() {
 	# main patches
@@ -68,4 +69,8 @@ package() {
 	# link cert bundle to the one from ca-certificates
 	rm -f ${pkgdir}/usr/share/apps/kssl/ca-bundle.crt
 	ln -sf /etc/ssl/certs/ca-certificates.crt ${pkgdir}/usr/share/apps/kssl/ca-bundle.crt
+	# stop hook warnings, remove the all/all sections from default kde.xml
+	rm -f ${pkgdir}/usr/share/mime/packages/kde.xml
+	install -Dm644 ../kde.xml ${pkgdir}/usr/share/mime/packages/kde.xml
+	
 }
