@@ -3,7 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-baseapps
-pkgver=15.11.72
+pkgver=16.03.7
+_commit=eed061da7b6bd4763a8e1387abb18d037263fca4
 pkgrel=1
 pkgdesc="Collection of applications used for file and Internet browsing"
 arch=('x86_64')
@@ -28,27 +29,26 @@ provides=('kf5-kde-baseapps'
           'kde-baseapps-konqueror' 
           'kde-baseapps-konq-plugins' 
           'kde-baseapps-kwrite')
-install=kde-baseapps.install
 #source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
-source=("git://anongit.kde.org/kde-baseapps.git#branch=frameworks")
-md5sums=('SKIP')
+source=("https://github.com/KDE/kde-baseapps/archive/${_commit}.zip")
+md5sums=('b705116ed05b54fe38e96138c7d5cfa8')
 
 prepare() {
-  cd $pkgname
-  sed -i -e 's|#include <buffio.h>|#include <tidybuffio.h>|' ${srcdir}/${pkgname}/konq-plugins/validators/tidy_validator.cpp
+  cd $pkgname-${_commit}
+  sed -i -e 's|#include <buffio.h>|#include <tidybuffio.h>|' konq-plugins/validators/tidy_validator.cpp
 }
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib
+    -DKDE_INSTALL_LIBDIR=lib
   make
 }
 

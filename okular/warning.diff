@@ -12,7 +12,7 @@
      QApplication app(argc, argv);
  
 +    bool exit = false;
-+     QSettings settings;
++     QSettings settings("KaOS", "okular");
 +     settings.beginGroup("MainWindow");
 +     if (settings.value("quitWithoutPrompt").toBool()) {
 +      exit = true;

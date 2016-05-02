@@ -1,0 +1,216 @@
+--- a/karbon/main.cpp	2016-04-29 23:49:59.000000000 -0400
++++ b/karbon/main.cpp	2016-05-01 19:13:27.645203702 -0400
+@@ -36,6 +36,9 @@
+ #include <KarbonDocument.h>
+ #include <ui/KarbonAboutData.h>
+ 
++#include <QMessageBox>
++#include <QCheckBox>
++
+ #ifdef MAINTANER_WANTED_SPLASH
+ class KoSplashScreen : public QSplashScreen
+ {
+@@ -56,6 +59,30 @@
+ 
+     KoApplication app(KARBON_MIME_TYPE, *aboutData, argc, argv);
+ 
++    bool exit = false;
++    QSettings settings("KaOS", "karbon");
++    settings.beginGroup("MainWindow");
++    if (settings.value("quitWithoutPrompt").toBool()) {
++      exit = true;
++    } else {
++      QMessageBox quitQuestion;
++      QCheckBox checkBox;
++      checkBox.setText("Do not ask again");
++      quitQuestion.setCheckBox(&checkBox);
++      quitQuestion.setText("Do you understand KaOS ships an unreleased Frameworks 5 based version of Karbon? Will you report bugs on the KaOS tracker and not in the offical KDE Bugtracker?");
++      quitQuestion.setWindowTitle("Calligra Frameworks");
++      quitQuestion.setStandardButtons(QMessageBox::Ok);
++      quitQuestion.exec();
++      if (quitQuestion.result() == QMessageBox::Ok) {
++       settings.setValue("quitWithoutPrompt", checkBox.isChecked());
++       exit = true;
++      }
++      }
++      settings.endGroup();
++      if (exit) {
++       QCoreApplication::quit();
++      }
++
+     delete aboutData;
+ 
+     if (!app.start()) {  // parses command line args, create initial docs and mainwindows
+--- a/plan/main.cpp	2016-04-29 23:49:59.000000000 -0400
++++ b/plan/main.cpp	2016-05-01 19:36:35.962159391 -0400
+@@ -26,6 +26,10 @@
+ #include <QSplashScreen>
+ #include <QHideEvent>
+ 
++#include <QMessageBox>
++#include <QCheckBox>
++#include <QSettings>
++
+ #ifdef MAINTANER_WANTED_SPLASH
+ class KoSplashScreen : public QSplashScreen
+ {
+@@ -46,6 +50,30 @@
+ 
+     KoApplication app(PLAN_MIME_TYPE, *aboutData, argc, argv);
+ 
++    bool exit = false;
++    QSettings settings("KaOS", "CalligraPlan");
++    settings.beginGroup("MainWindow");
++    if (settings.value("quitWithoutPrompt").toBool()) {
++      exit = true;
++    } else {
++      QMessageBox quitQuestion;
++      QCheckBox checkBox;
++      checkBox.setText("Do not ask again");
++      quitQuestion.setCheckBox(&checkBox);
++      quitQuestion.setText("Do you understand KaOS ships an unreleased Frameworks 5 based version of Calligra Plan? Will you report bugs on the KaOS tracker and not in the offical KDE Bugtracker?");
++      quitQuestion.setWindowTitle("Calligra Frameworks");
++      quitQuestion.setStandardButtons(QMessageBox::Ok);
++      quitQuestion.exec();
++      if (quitQuestion.result() == QMessageBox::Ok) {
++       settings.setValue("quitWithoutPrompt", checkBox.isChecked());
++       exit = true;
++      }
++      }
++      settings.endGroup();
++      if (exit) {
++       QCoreApplication::quit();
++      }
++
+     delete aboutData;
+ 
+     if (!app.start()) {
+--- a/sheets/part/Main.cpp	2016-04-29 23:49:59.000000000 -0400
++++ b/sheets/part/Main.cpp	2016-05-01 19:45:23.848699440 -0400
+@@ -24,6 +24,10 @@
+ 
+ #include "sheets_common_export.h"
+ 
++#include <QMessageBox>
++#include <QCheckBox>
++#include <QSettings>
++
+ using namespace Calligra::Sheets;
+ 
+ extern "C" CALLIGRA_SHEETS_COMMON_EXPORT int kdemain(int argc, char **argv)
+@@ -35,6 +39,30 @@
+ 
+     KoApplication app(SHEETS_MIME_TYPE, *aboutData, argc, argv);
+ 
++    bool exit = false;
++    QSettings settings("KaOS", "CalligraSheets");
++    settings.beginGroup("MainWindow");
++    if (settings.value("quitWithoutPrompt").toBool()) {
++      exit = true;
++    } else {
++      QMessageBox quitQuestion;
++      QCheckBox checkBox;
++      checkBox.setText("Do not ask again");
++      quitQuestion.setCheckBox(&checkBox);
++      quitQuestion.setText("Do you understand KaOS ships an unreleased Frameworks 5 based version of Calligra Sheets? Will you report bugs on the KaOS tracker and not in the offical KDE Bugtracker?");
++      quitQuestion.setWindowTitle("Calligra Frameworks");
++      quitQuestion.setStandardButtons(QMessageBox::Ok);
++      quitQuestion.exec();
++      if (quitQuestion.result() == QMessageBox::Ok) {
++       settings.setValue("quitWithoutPrompt", checkBox.isChecked());
++       exit = true;
++      }
++      }
++      settings.endGroup();
++      if (exit) {
++       QCoreApplication::quit();
++      }
++
+     delete aboutData;
+ 
+     if (!app.start()) {
+--- a/stage/app/main.cpp	2016-04-29 23:49:59.000000000 -0400
++++ b/stage/app/main.cpp	2016-05-01 19:35:46.873973701 -0400
+@@ -22,12 +22,40 @@
+ 
+ #include <KoApplication.h>
+ 
++#include <QMessageBox>
++#include <QCheckBox>
++#include <QSettings>
++
+ extern "C" STAGE_EXPORT int kdemain( int argc, char **argv )
+ {
+     KAboutData* aboutData = newKPresenterAboutData();
+ 
+     KoApplication app(STAGE_MIME_TYPE, *aboutData, argc, argv);
+ 
++    bool exit = false;
++    QSettings settings("KaOS", "CalligraStage");
++    settings.beginGroup("MainWindow");
++    if (settings.value("quitWithoutPrompt").toBool()) {
++      exit = true;
++    } else {
++      QMessageBox quitQuestion;
++      QCheckBox checkBox;
++      checkBox.setText("Do not ask again");
++      quitQuestion.setCheckBox(&checkBox);
++      quitQuestion.setText("Do you understand KaOS ships an unreleased Frameworks 5 based version of Calligra Stage? Will you report bugs on the KaOS tracker and not in the offical KDE Bugtracker?");
++      quitQuestion.setWindowTitle("Calligra Frameworks");
++      quitQuestion.setStandardButtons(QMessageBox::Ok);
++      quitQuestion.exec();
++      if (quitQuestion.result() == QMessageBox::Ok) {
++       settings.setValue("quitWithoutPrompt", checkBox.isChecked());
++       exit = true;
++      }
++      }
++      settings.endGroup();
++      if (exit) {
++       QCoreApplication::quit();
++      }
++
+     delete aboutData;
+ 
+     if (!app.start()) {
+--- a/words/app/main.cpp	2016-04-29 23:49:59.000000000 -0400
++++ b/words/app/main.cpp	2016-05-01 19:14:40.032951176 -0400
+@@ -22,12 +22,39 @@
+ 
+ #include <KoApplication.h>
+ 
++#include <QMessageBox>
++#include <QCheckBox>
++
+ extern "C" WORDS_EXPORT int kdemain(int argc, char **argv)
+ {
+     KAboutData* aboutData = newWordsAboutData();
+ 
+     KoApplication app(WORDS_MIME_TYPE, *aboutData, argc, argv);
+ 
++    bool exit = false;
++    QSettings settings("KaOS", "CalligraWords");
++    settings.beginGroup("MainWindow");
++    if (settings.value("quitWithoutPrompt").toBool()) {
++      exit = true;
++    } else {
++      QMessageBox quitQuestion;
++      QCheckBox checkBox;
++      checkBox.setText("Do not ask again");
++      quitQuestion.setCheckBox(&checkBox);
++      quitQuestion.setText("Do you understand KaOS ships an unreleased Frameworks 5 based version of Calligra Words? Will you report bugs on the KaOS tracker and not in the offical KDE Bugtracker?");
++      quitQuestion.setWindowTitle("Calligra Frameworks");
++      quitQuestion.setStandardButtons(QMessageBox::Ok);
++      quitQuestion.exec();
++      if (quitQuestion.result() == QMessageBox::Ok) {
++       settings.setValue("quitWithoutPrompt", checkBox.isChecked());
++       exit = true;
++      }
++      }
++      settings.endGroup();
++      if (exit) {
++       QCoreApplication::quit();
++      }
++
+     delete aboutData;
+ 
+     if (!app.start()) {

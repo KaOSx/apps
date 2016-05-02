@@ -1,7 +1,7 @@
 
 pkgname=calligra
 pkgver=2.9.117
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
 url='http://www.calligra-suite.org'
@@ -56,14 +56,14 @@ replaces=('calligra-3rdparty'
 #source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
 source=("git://anongit.kde.org/calligra.git"
         'libwps-0.4.patch'
-        'qt55.diff')
+        'warnings.diff')
 md5sums=('SKIP'
          '2529367ef6a10582436003aceb7dc3e8'
-         'a4c8002be755c052ed0695c7d8c689bf')
+         'f0faae3b9d05c8a216d521019ae097b7')
 
 prepare() {
   cd ${pkgname}
-  #patch -p1 -i $srcdir/qt55.diff
+  patch -p1 -i $srcdir/warnings.diff
   patch -p1 -i $srcdir/libwps-0.4.patch
   #sed -i 's|if (!isnan(value))|if (!std::isnan(value))|' libs/widgets/KoUnitDoubleSpinBox.cpp
 }
