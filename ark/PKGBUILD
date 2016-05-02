@@ -6,7 +6,7 @@ pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
 #pkgver=15.03.79
-pkgrel=1
+pkgrel=2
 pkgdesc="Archiver for various compression formats"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -16,16 +16,15 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 conflicts=('kdeutils-ark')
 replaces=('kdeutils-ark')
-install=ark.install
 source=($_mirror/${pkgname}-$_kdever.tar.xz
-       'rar.diff')
+       "https://github.com/KDE/ark/commit/0eb4f86e5d6e2860bfc908a0ccf805470aea8675.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '08f592ce289b3a68398fcbbc7d97e3a9')
+         '00b7577a7fd46e4f319dd947ab001499')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
-  #patch -p1 -i ${srcdir}/rar.diff
+  # fix opening .deb files
+  patch -p1 -i ${srcdir}/0eb4f86e5d6e2860bfc908a0ccf805470aea8675.diff
 }
 
 build() {  
@@ -35,8 +34,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
