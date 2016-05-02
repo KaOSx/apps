@@ -24,7 +24,7 @@ replaces=('kdegraphics-okular')
 source=("git://anongit.kde.org/okular.git#branch=frameworks"
         'warning.diff')
 md5sums=('SKIP'
-         '6e17e7071df6e8c9dcbf4f47c6274b68')
+         '27efc9757204a7e150b89ae4473c8e17')
 
 prepare() {
   cd $pkgname
@@ -39,8 +39,8 @@ build() {
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
     -DKF5KExiv2_DIR=/usr/lib/cmake/KEXIV2
