@@ -1,0 +1,46 @@
+
+pkgname=avogadrolibs
+pkgver=0.9.0
+pkgrel=1
+pkgdesc="Libraries provide 3D rendering, visualization, analysis and data processing useful in computational chemistry and related areas."
+arch=('x86_64')
+url="http://www.openchemistry.org/projects/avogadro2/"
+license=('GPL2')
+depends=('qt5-base' 'boost-libs' 'glew' 'hdf5' 'jsoncpp')
+makedepends=('cmake' 'boost' 'eigen3' 'git')
+groups=('education')
+conflicts=('avogadro'
+replaces=('avogadro')
+source=("http://sourceforge.net/projects/avogadro/files/avogadro2/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('af5c0a0c782cfa528d1c203840c69cf6')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  #patch -p1 -i ${srcdir}/boost.patch
+  #patch -p1 -i ${srcdir}/avogadro-0001-fix-undefined-reference-to-symbol-XInitThreads.patch
+}
+
+build() {
+  mkdir build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DUSE_BOOST_PYTHON=ON \
+    -DUSE_MOLEQUEUE=OFF \
+    -DUSE_HDF5=ON \
+    -DUSE_VTK=OFF
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR=${pkgdir} install
+  
+  # use system jsoncpp
+  rm ${pkgdir}/usr/lib/libjsoncpp.a
+  
+  install -Dm644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
