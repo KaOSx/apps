@@ -1,0 +1,49 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kalzium
+#pkgver=${_kdever}
+pkgver=16.03.70
+_commit=9b1fe3393b63a2e0e6b4161abb154fe989ee3f6f
+pkgrel=1
+pkgdesc="Periodic Table of Elements"
+url="http://kde.org/applications/education/kalzium/"
+arch=('x86_64')
+license=('GPL' 'LGPL' 'FDL')
+depends=('avogadrolibs' 'eigen3' 'ocaml' 'chemical-mime-data' # 'openbabel'
+         'karchive' 'kconfig' 'kcoreaddons' 'ki18n' 'kdelibs4support' 'khtml'
+         'knewstuff' 'kparts' 'kplotting' 'solid' 'kunitconversion' 'kwidgetsaddons')
+makedepends=('extra-cmake-modules' 'kdoctools' 'facile')
+groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
+#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://github.com/KDE/kalzium/archive/${_commit}.zip")
+md5sums=('66afb97911907426c854b9fc93b88409')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+
+  sed -i -e 's|Exec=kalzium -caption %c %i|Exec=kalzium %u|' src/org.kde.kalzium.desktop
+}
+
+build() {  
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR=${pkgdir} install
+  
+  install -Dm644 ../${pkgname}-${_commit}/src/hisc-app-kalzium.svgz ${pkgdir}/usr/share/icons/hicolor/scalable/apps/kalzium.svgz
+}
