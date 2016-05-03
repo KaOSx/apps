@@ -1,6 +1,6 @@
 
 pkgname=zanshin
-pkgver=0.3.91
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="A Getting Things Done application which aims at getting your mind like water."
 url="https://zanshin.kde.org/"
@@ -10,9 +10,8 @@ depends=('akonadi-calendar' 'kdepimlibs' 'akonadi-search' 'kidentitymanagement' 
          'kldap' 'krunner' 'kwallet' 'kmime' 'kcalcore' 'kparts' 'kcoreaddons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('office')
-install=${pkgname}.install
 source=("http://files.kde.org/zanshin/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('d2aee20e8e338448be2f82aa4a30323f')
+md5sums=('9d2826edf8f8b7d98cd06a248f877eee')
 
 build() {
   mkdir -p build
@@ -21,8 +20,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
