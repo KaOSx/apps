@@ -1,6 +1,6 @@
 
 pkgname=clamav
-pkgver=0.99.1
+pkgver=0.99.2
 pkgrel=1
 pkgdesc='Anti-virus toolkit for Unix'
 arch=('x86_64')
@@ -11,14 +11,14 @@ options=('!libtool')
 install="$pkgname.install"
 groups=('system')
 backup=('etc/logrotate.d/clamav')
-source=("http://sourceforge.net/projects/clamav/files/clamav/$pkgver/$pkgname-$pkgver.tar.gz"  
+source=("http://www.clamav.net/downloads/production/${pkgname}-${pkgver}.tar.gz"  
         'clamd.conf'
         'clamd.service'
         'freshclam.conf'
         'freshclamd.service'
         'logrotate'
         'tmpfiles.d')
-md5sums=('cf1f3cbe62a08c9165801f79239166ff'
+md5sums=('61b51a04619aeafd965892a53f86d192'
          '75584367b1fb2a335061afef95c07ba4'
          'ea0beeef854b4a3cf6b25dc49b228f56'
          '5c646ed6f7100c5223dab648c57d802a'
@@ -27,7 +27,7 @@ md5sums=('cf1f3cbe62a08c9165801f79239166ff'
          '89ed33d37ca79d45b8c02418df2486e6')
 
 build() {
-	cd "$srcdir/$pkgname-$pkgver"
+	cd ${pkgname}-${pkgver}
 	
 	./configure --prefix=/usr \
 	       --sysconfdir=/etc/clamav \
@@ -37,16 +37,16 @@ build() {
 }
 
 package() {
-	cd "$srcdir/$pkgname-$pkgver"
-	make DESTDIR="$pkgdir" install
+	cd ${pkgname}-${pkgver}
+	make DESTDIR=${pkgdir} install
 
-	install -Dm644 ../clamd.conf "${pkgdir}"/etc/clamav/clamd.conf
-	install -Dm644 ../freshclam.conf "${pkgdir}"/etc/clamav/freshclam.conf
-	install -Dm644 ../freshclamd.service "${pkgdir}"/usr/lib/systemd/system/freshclamd.service
-	install -Dm644 ../clamd.service "${pkgdir}"/usr/lib/systemd/system/clamd.service
-	install -Dm644 ../tmpfiles.d "${pkgdir}"/usr/lib/tmpfiles.d/clamav.conf
-	install -Dm644 ../logrotate "${pkgdir}"/etc/logrotate.d/clamav
-	install -d -o 64 -g 64 "${pkgdir}"/run/clamav
-	install -d -o 64 -g 64 "${pkgdir}"/var/log/clamav
-	install -d -o 64 -g 64 "${pkgdir}"/var/lib/clamav
+	install -Dm644 ../clamd.conf ${pkgdir}/etc/clamav/clamd.conf
+	install -Dm644 ../freshclam.conf ${pkgdir}/etc/clamav/freshclam.conf
+	install -Dm644 ../freshclamd.service ${pkgdir}/usr/lib/systemd/system/freshclamd.service
+	install -Dm644 ../clamd.service ${pkgdir}/usr/lib/systemd/system/clamd.service
+	install -Dm644 ../tmpfiles.d ${pkgdir}/usr/lib/tmpfiles.d/clamav.conf
+	install -Dm644 ../logrotate ${pkgdir}/etc/logrotate.d/clamav
+	install -d -o 64 -g 64 ${pkgdir}/run/clamav
+	install -d -o 64 -g 64 ${pkgdir}/var/log/clamav
+	install -d -o 64 -g 64 ${pkgdir}/var/lib/clamav
 }
