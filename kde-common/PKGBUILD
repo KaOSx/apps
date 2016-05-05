@@ -19,7 +19,7 @@ source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_service
 	'sysinfo.sh'
 	'agent-startup.sh'
 	'agent-shutdown.sh'
-	'appear.desktop'
+	#'appear.desktop'
 	'md5sha1calc.sh'
 	'md5sha1calc.desktop')
   
@@ -62,7 +62,7 @@ package() {
 	cd ${srcdir}
 	#install -m755 -d ${pkgdir}/usr/share/desktop-directories
 	install -m755 -d ${pkgdir}/usr/share/applications
-	install -m755 ${srcdir}/appear.desktop ${pkgdir}/usr/share/applications/appear.desktop
+	#install -m755 ${srcdir}/appear.desktop ${pkgdir}/usr/share/applications/appear.desktop
 	
 	# install md5sha1calc
 	install -D -m755 md5sha1calc.sh ${pkgdir}/usr/bin/md5sha1calc

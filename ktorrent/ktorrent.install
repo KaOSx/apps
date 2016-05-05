@@ -3,8 +3,6 @@
 user_name="$(logname)"
 
 post_install() {
-    xdg-icon-resource forceupdate --theme hicolor &> /dev/null
-    update-desktop-database -q
     
     if [ ! -f /home/${user_name}/.local/share/ktorrent ]; then
         mkdir -p /home/${user_name}/.local/share/ktorrent
