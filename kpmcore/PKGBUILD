@@ -1,30 +1,31 @@
 
 pkgname=kpmcore
-pkgver=2.1.1
+pkgver=2.1.1.1
+_commit=1cb464c6b0832ad5eafc25352aac776b62fc8d7f
 pkgrel=1
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('x86_64')
-url="https://projects.kde.org/projects/extragear/sysadmin/kpmcore"
+url="https://github.com/KDE/kpmcore"
 license=('GPL2')
 depends=('ki18n' 'kio' 'kiconthemes' 'kservice' 'libatasmart' 'parted')
 makedepends=('extra-cmake-modules' 'pkgconfig' 'git')
 groups=('system')
 options=('debug')
-source=("http://download.kde.org/stable/kpmcore/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-#source=("git://anongit.kde.org/kpmcore")
-md5sums=('bbba1178c9cafddbf2a90a7188e3918a')
+#source=("http://download.kde.org/stable/kpmcore/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+source=("https://github.com/KDE/kpmcore/archive/${_commit}.zip")
+md5sums=('530f07dd6c84ea2338413fddbc059fbc')
 
 build() {
   mkdir build
   cd build
 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-        -DLIB_INSTALL_DIR=lib \
-        -DSYSCONF_INSTALL_DIR=/etc \
-        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DKDE_INSTALL_LIBDIR=lib \
+        -DKDE_INSTALL_SYSCONFDIR=/etc \
+        -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+        -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
         -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
         -DBUILD_TESTING=OFF 
 
