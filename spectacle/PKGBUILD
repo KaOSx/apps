@@ -6,7 +6,7 @@ pkgname=spectacle
 pkgver=${_kdever}
 #pkgver=15.07.92
 #_pkgver=2.0.1
-pkgrel=3
+pkgrel=1
 pkgdesc="The new KDE Screenshot Utility"
 url="https://github.com/KDE/spectacle"
 arch=('x86_64')
@@ -28,9 +28,7 @@ prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|ksnapshot KF5::Kipi|ksnapshot KF5::KIPI|' ${srcdir}/${pkgname}/CMakeLists.txt
   # fix rectangular selection on nvidia
-  patch -p1 -i $srcdir/2f5e7b8257663d59d12c0413f79ebfaaa918437a.diff
-  # ungreak HiDPI
-  patch -p1 -i $srcdir/6dca37a73272b4f71a7d4344f490490090a847fd.diff
+  #patch -p1 -i $srcdir/2f5e7b8257663d59d12c0413f79ebfaaa918437a.diff
 }
 
 build() {
