@@ -1,6 +1,6 @@
 pkgname=docker
 pkgver=1.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64')
 url='http://www.docker.io/'
@@ -46,6 +46,12 @@ package() {
 
   install -Dm644 'contrib/syntax/vim/syntax/dockerfile.vim' "$pkgdir/usr/share/vim/vimfiles/syntax/dockerfile.vim"
   install -Dm644 'contrib/syntax/vim/ftdetect/dockerfile.vim' "$pkgdir/usr/share/vim/vimfiles/ftdetect/dockerfile.vim"
+  
+  # symlink runc & containerd binariers https://github.com/KaOSx/apps/issues/54
+  ln -s runc "$pkgdir/usr/bin/docker-runc"
+  ln -s containerd "$pkgdir/usr/bin/docker-containerd"
+  ln -s containerd-shim "$pkgdir/usr/bin/docker-containerd-shim"
+  ln -s ctr "$pkgdir/usr/bin/docker-containerd-ctr"
 
   install -dm755 "$pkgdir/usr/share/man"
   mv man/man* "$pkgdir/usr/share/man"
