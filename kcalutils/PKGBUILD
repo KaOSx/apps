@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcalutils
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Library that provides utility functions for the handling of calendar data."
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/kcalutils'
@@ -32,8 +32,8 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -KDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -KDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }
