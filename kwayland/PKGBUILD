@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwayland
-pkgver=${_plasmaver}
+pkgver=${_kf5ver}
 pkgrel=1
 pkgdesc="KWayland provides a Qt-style Client and Server library wrapper for the Wayland libraries"
 arch=('x86_64')
@@ -11,10 +11,10 @@ url="https://github.com/KDE/kwayland"
 license=('LGPLv2+')
 depends=('qt5-base' 'wayland')
 makedepends=('extra-cmake-modules' 'git')
-groups=('plasma5')
+groups=('kf5')
 #source=("git://anongit.kde.org/kwayland.git")
-source=("http://download.kde.org/unstable/plasma/$pkgver/${pkgname}-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build

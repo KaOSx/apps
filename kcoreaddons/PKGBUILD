@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcoreaddons
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Utilities for core application functionality and accessing the OS'
 arch=('x86_64')
 url='https://github.com/KDE/kcoreaddons'
@@ -12,15 +12,13 @@ license=('LGPL')
 depends=('qt5-base' 'shared-mime-info' 'gamin')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/kcoreaddons/commit/78212436643af95779facd9593c82fb149c2213d.diff")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'df4b2fcc77b9fa25670f00baa3f109fd')
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # fix rand() was not seeded
-  patch -p1 -i ${srcdir}/78212436643af95779facd9593c82fb149c2213d.diff
+  
+  #patch -p1 -i ${srcdir}/78212436643af95779facd9593c82fb149c2213d.diff
 }
 
 build() {
