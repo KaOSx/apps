@@ -1,6 +1,6 @@
 
 pkgname=subtitlecomposer
-pkgver=0.6.3
+pkgver=0.6.4
 pkgrel=1
 pkgdesc="Open source text-based subtitle editor that supports basic and more advanced operations "
 arch=('x86_64')
@@ -10,26 +10,33 @@ depends=('kauth' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'ki18n' 'kio' 'kxmlgui
          'kross' 'kcodecs' 'ktextwidgets' 'kwidgetsaddons' 'khtml' 
          'gettext' 'mplayer' 'mpv' 'icu')
 makedepends=('extra-cmake-modules')
-source=("https://github.com/maxrd2/${pkgname}/archive/v${pkgver}.tar.gz")
+source=("https://github.com/maxrd2/${pkgname}/archive/v${pkgver}.tar.gz"
+        "https://github.com/maxrd2/subtitlecomposer/commit/a62048cd9c458de856b3bcfd3a96164ca5017350.diff")
 #source=("https://github.com/maxrd2/subtitlecomposer/archive/${_commit}.zip")
-md5sums=('577091398cd7016f4cc00fe5508b9182')
+md5sums=('d16f5c94d763c2ee0c1fa039f029d161'
+         '342c57ec1026b6943a4c26e60bcdc625')
 
 prepare() {
   cd $pkgname-${pkgver}
-  #patch -p1 -i $srcdir/qt5.5.diff
+  patch -p1 -Ri ${srcdir}/a62048cd9c458de856b3bcfd3a96164ca5017350.diff
   #sed -i -e 's|KF5::SonnetUi|KF5::SonnetUi KF5::KHtml|' src/common/CMakeLists.txt
   #sed -i -e 's|I18n KIO XmlGui|I18n KIO KHtml XmlGui|' CMakeLists.txt
 }
 
 build() {
-    cd ${pkgname}-${pkgver}
+    mkdir -p build
+    cd build
 
-    cmake -DCMAKE_INSTALL_PREFIX=/usr
+    cmake ../${pkgname}-${pkgver} \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+        -DLIB_INSTALL_DIR=lib
     make
 }
 
 package() {
-    cd ${pkgname}-${pkgver}
+    cd build
 
     make DESTDIR=${pkgdir} install
 }
