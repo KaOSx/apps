@@ -1,6 +1,6 @@
 
 pkgname=mc
-pkgver=4.8.16
+pkgver=4.8.17
 pkgrel=1
 pkgdesc="Text based filemanager/shell that emulates Norton Commander"
 arch=('x86_64')
@@ -14,10 +14,10 @@ optdepends=('p7zip: support for 7zip archives'
 groups=('system')
 options=('!emptydirs' '!makeflags')
 source=("http://www.midnight-commander.org/downloads/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('b93706dfe66ffe4f61c1a2650798d207')
+md5sums=('6e9c07066e40af06b263a13fad17a07f')
 
 build() {
-	cd ${srcdir}/${pkgname}-${pkgver}
+	cd ${pkgname}-${pkgver}
 
 	./configure \
 	    --prefix=/usr \
@@ -31,7 +31,7 @@ build() {
 }
 
 package() {
-	cd ${srcdir}/${pkgname}-${pkgver}
+	cd ${pkgname}-${pkgver}
 	make DESTDIR=${pkgdir} install
 
 	sed -i 's|op_has_zipinfo = 0|op_has_zipinfo = 1|' ${pkgdir}/usr/lib/mc/extfs.d/uzip

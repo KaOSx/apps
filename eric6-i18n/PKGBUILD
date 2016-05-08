@@ -1,7 +1,7 @@
 
 pkgname=eric6-i18n
 _pkgbase=eric6
-pkgver=6.1.4
+pkgver=6.1.5
 pkgrel=1
 pkgdesc="i18n files for Eric6"
 arch=('x86_64')
@@ -19,19 +19,19 @@ source=("http://downloads.sourceforge.net/project/eric-ide/${_pkgbase}/stable/${
         "http://downloads.sourceforge.net/project/eric-ide/${_pkgbase}/stable/${pkgver}/${pkgname}-en-${pkgver}.tar.gz"
         "http://downloads.sourceforge.net/project/eric-ide/${_pkgbase}/stable/${pkgver}/${pkgname}-de-${pkgver}.tar.gz"
         "http://downloads.sourceforge.net/project/eric-ide/${_pkgbase}/stable/${pkgver}/${pkgname}-cs-${pkgver}.tar.gz")
-md5sums=('a148c6589d806340bf5e909c78fbaab7'
-         '8598a0af5498d263204ac481a3c521ea'
-         '369828aeb70243467361323a3606b7b1'
-         'f5f58ef92554cec2ae98bced1f015e63'
-         'e4402d9861676486e06a2afa64a1831b'
-         'a86b6986e855881ef658dbd72c2ebc44'
-         '9e77c42195b932cf41f4e200fbfcec66'
-         '5e1ce5ce9e85b0d80dac11e6d81e3f52'
-         '7ff46ddea7304b06bc80ec3aea0986e7'
-         'ace3799cdcd38f5c91167d72b4250780')
+md5sums=('05a48b9cd2d877fac36f6151cbe889e8'
+         '367330b6b4aa71bfaad3e8c0ec0de3c2'
+         'd47cc62dff435b31cbb8685b35acc85f'
+         '92633d16a1c640cbed551b4f28fa46b4'
+         'c56a0112d1af979f033dd5396e7e22ec'
+         'c4317bd816d0f697a1165928add2f5cc'
+         '867ddd4d6c47e9dc10a52b55c382fde3'
+         '68a9ef40b997adb7903da3943d75ec4b'
+         'c83b56a59fd0989038675fc47a30f126'
+         '6261c0b6aab74283c813be4db9e5a178')
 
 package() {
-  cd ${srcdir}/${_pkgbase}-${pkgver}/eric/i18n
+  cd ${_pkgbase}-${pkgver}/eric/i18n
 
   install -d ${pkgdir}/usr/lib/python3.5/site-packages/${_pkgbase}/i18n
   install *.qm ${pkgdir}/usr/lib/python3.5/site-packages/${_pkgbase}/i18n/
