@@ -22,8 +22,8 @@ md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # 5.22.0 early tar https://bugs.kde.org/show_bug.cgi?id=362805
-  patch -p1 -i ${srcdir}/87e774825b779ba846315a8b2ffe6479dd9f9814.diff
-  #patch -p1 -Ri ${srcdir}/b3a95ba0540e01a9bb10db53fc449cc49ce9a9e8.diff
+  #patch -p1 -i ${srcdir}/87e774825b779ba846315a8b2ffe6479dd9f9814.diff
+  patch -p1 -Ri ${srcdir}/b3a95ba0540e01a9bb10db53fc449cc49ce9a9e8.diff
 }
 
 build() {
@@ -43,5 +43,5 @@ build() {
 package() {
   cd build
   
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
