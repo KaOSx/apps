@@ -18,22 +18,21 @@ source=("http://download.kde.org/stable/frameworks/5.20/${pkgname}-${pkgver}.tar
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${srcdir}/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/0001-Fix-crash-in-rename-dialog.patch
 }
          
 build() {
-  cd ${srcdir}
   mkdir -p build
   cd build
   
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DLIBEXEC_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make

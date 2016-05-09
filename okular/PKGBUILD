@@ -6,6 +6,7 @@ pkgname=okular
 arch=('x86_64')
 #pkgver=${_kdever}
 pkgver=16.03.71
+_commit=d01a5704bf14d0b1b9795512ce235a8abb680fc1
 pkgrel=2
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
@@ -21,22 +22,22 @@ conflicts=('kdegraphics-okular')
 replaces=('kdegraphics-okular')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/okular.git#branch=frameworks"
+source=("https://github.com/KDE/okular/archive/${_commit}.zip"
         'warning.diff')
-md5sums=('SKIP'
+md5sums=('e6c771e4406a10acb8a5159f79a5a8ab'
          '27efc9757204a7e150b89ae4473c8e17')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${_commit}
   patch -p1 -i $srcdir/warning.diff
-  #sed -i -e 's|find_package(QCA2 "2.0.0")|find_package(Qca "2.0.0")|' ${srcdir}/${pkgname}/generators/ooo/CMakeLists.txt
+  #sed -i -e 's|add_subdirectory( mobile )|#add_subdirectory( mobile )|' ${srcdir}/${pkgname}-${_commit}/CMakeLists.txt
 }
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

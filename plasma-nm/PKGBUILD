@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-nm
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/workspace/plasma-nm"
@@ -29,10 +29,10 @@ build() {
   cd build
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
-        -DLIB_INSTALL_DIR=lib \
-        -DSYSCONF_INSTALL_DIR=/etc \
-        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DKDE_INSTALL_LIBDIR=lib \
+        -DKDE_INSTALL_SYSCONFDIR=/etc \
+        -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+        -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
         -DBUILD_TESTING=OFF ..
   make
 }
