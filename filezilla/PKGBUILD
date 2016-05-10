@@ -1,7 +1,7 @@
 
 pkgname=filezilla
 _pkgname=FileZilla
-pkgver=3.17.0
+pkgver=3.17.0.1
 pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client."
 arch=('x86_64')
@@ -10,10 +10,10 @@ license=('GPL2')
 depends=('dbus' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'wxgtk2.9' 'sqlite'
          'libfilezilla')
 source=("http://downloads.sourceforge.net/project/filezilla/${_pkgname}_Client/${pkgver}/${_pkgname}_${pkgver}_src.tar.bz2")
-md5sums=('0a69a0b4a7a805a3d0fe50177698c98e')
+md5sums=('eaebf6951335e97f0175964e5acc23ca')
 
 build() {
-  cd ${_pkgname}_${pkgver}
+  cd ${pkgname}-${pkgver}
 
   ./configure --prefix=/usr \
     --disable-manualupdatecheck \
@@ -24,7 +24,7 @@ build() {
 }
 
 package() {
-  cd ${_pkgname}_${pkgver}
+  cd ${pkgname}-${pkgver}
 
   make DESTDIR=${pkgdir} install
 }
