@@ -1,6 +1,6 @@
 
 pkgname=thunderbird
-pkgver=45.0
+pkgver=45.1.0
 pkgrel=1
 pkgdesc="Standalone Mail/News reader"
 arch=('x86_64')
@@ -10,19 +10,16 @@ depends=('alsa-lib' 'cairo' 'dbus-glib' 'desktop-file-utils' 'fontconfig' 'freet
          'gtk2' 'hicolor-icon-theme' 'hunspell' 'libevent' 'libjpeg' 'libmng' 'libpng'
          'libvpx' 'libxt' 'mozilla-common' 'nspr' 'nss' 'shared-mime-info' 'sqlite'
          'startup-notification' 'libcanberra')
-install=$pkgname.install
 source=("https://ftp.mozilla.org/pub/mozilla.org/thunderbird/releases/$pkgver/linux-x86_64/en-US/thunderbird-$pkgver.tar.bz2"
         'thunderbird.desktop'
         'vendor.js')
-md5sums=('c245e53ac0c1c8d376a4f4fb4d64480c'
+md5sums=('17ef928a1306c886c3d031137692326e'
          '81da98196b2004e539eba80b8fd4d0fd'
          '5a53179d14ae9631b7afe5e4d0fc0b25')
 
 package() {
-  msg2 "Creating directories"
   install -d "$pkgdir"/{usr/bin,opt}
 
-  msg2 "Moving files in place"
   cp -r thunderbird/ "$pkgdir"/opt/$pkgname-$pkgver/
   cp vendor.js "$pkgdir"/opt/$pkgname-$pkgver/defaults/pref/
   
