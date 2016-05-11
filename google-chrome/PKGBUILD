@@ -1,7 +1,7 @@
 
 pkgbase=google-chrome
 pkgname=('google-chrome' 'pepper-flash')
-pkgver=52.0.2723.2
+pkgver=52.0.2729.3
 pkgrel=1
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
@@ -9,10 +9,11 @@ license=('custom:chrome')
 options=('!strip' '!emptydirs')
 makedepends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
             'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
+# version:  curl -s https://dl.google.com/linux/chrome/rpm/stable/x86_64/repodata/other.xml.gz | gzip -df | awk -F\" '/pkgid/{ sub(".*-","",$4); print $4": "$10 }'
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html"
          'google-chrome-unstable.desktop')
-md5sums=('c7c8abbac410511dc7a5a39ab3d9f5e9'
+md5sums=('8f85c7083388a21a224fcda4bee658b8'
          'da54da9383ddffa44c5db45513239da2'
          'dc490bcda18c1379056700057800cc8f')
 
