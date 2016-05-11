@@ -1,6 +1,7 @@
 
 pkgname=qtcreator
-pkgver=3.6.1
+pkgver=4.0.0
+_pkgver=4.0
 pkgrel=1
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
@@ -15,9 +16,9 @@ optdepends=('qt5-docs: for the integrated Qt documentation'
             'mercurial: for mercurial support'
             'bzr: for bazaar support')
 groups=('programming')
-source=("http://download.qt-project.org/official_releases/${pkgname}/3.6/${pkgver}/qt-creator-opensource-src-${pkgver}.tar.gz"
+source=("http://download.qt-project.org/official_releases/${pkgname}/${_pkgver}/${pkgver}/qt-creator-opensource-src-${pkgver}.tar.gz"
         'qtcreator.desktop')
-md5sums=('3b6631cf6ff00bb2a2146553ea6864bf'
+md5sums=('4846b041e2a0dcc5edfc91a8eed720d7'
          '5162b73dd63f457bdb02bd9c8b1cc66b')
 
 prepare() {
@@ -28,8 +29,6 @@ prepare() {
 }         
 
 build() {
-  cd "${srcdir}"
-
   mkdir build
   cd build
 
@@ -39,13 +38,13 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/build"
+  cd build
 
-  make INSTALL_ROOT="${pkgdir}/usr" install
-  make INSTALL_ROOT="${pkgdir}/usr/" install_docs
+  make INSTALL_ROOT=${pkgdir}/usr install
+  make INSTALL_ROOT=${pkgdir}/usr/ install_docs
 
-  install -Dm644 "${srcdir}/qtcreator.desktop" \
-    "${pkgdir}/usr/share/applications/qtcreator.desktop"
-  install -Dm644 "${srcdir}/qt-creator-opensource-src-${pkgver}/LGPL_EXCEPTION.TXT" \
-    "${pkgdir}/usr/share/licenses/qtcreator/LGPL_EXCEPTION.TXT"
+  install -Dm644 ${srcdir}/qtcreator.desktop \
+    ${pkgdir}/usr/share/applications/qtcreator.desktop
+  install -Dm644 ${srcdir}/qt-creator-opensource-src-${pkgver}/LICENSE.GPL3-EXCEPT \
+    ${pkgdir}/usr/share/licenses/qtcreator/LICENSE.GPL3-EXCEPT
 }
