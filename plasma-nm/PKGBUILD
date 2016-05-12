@@ -5,10 +5,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-nm
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
-url="https://projects.kde.org/projects/kde/workspace/plasma-nm"
+url="https://github.com/KDE/plasma-nm"
 license=('GPL')
 depends=('modemmanager-qt' 'networkmanager-qt' 'ki18n' 'kwindowsystem' 'kservice' 'kcompletion' 'kwidgetsaddons'
          'kio' 'kcoreaddons' 'kwallet' 'kitemviews' 'kxmlgui' 'kconfigwidgets' 'kiconthemes' 'solid'
@@ -18,12 +18,14 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('plasma5')
 conflicts=('kf5-plasma-nm')
 replaces=('kf5-plasma-nm')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
+        "https://github.com/KDE/plasma-nm/commit/c5eb19bb44c8b10d848628557405b597b680bbe8.diff")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '7e1a9ddba632831480585601d539ad3b')
 
 build() {
   cd $pkgname-$pkgver
-  #patch -p1 -i ${srcdir}/modemmanager.diff
+  patch -p1 -i ${srcdir}/c5eb19bb44c8b10d848628557405b597b680bbe8.diff
   mkdir build
   
   cd build
