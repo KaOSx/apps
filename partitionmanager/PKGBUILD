@@ -1,7 +1,7 @@
 
 pkgname=partitionmanager
-pkgver=2.1.0.1
-_commit=98835662ca49c60465a28c3b9138aded6aa3e515
+pkgver=2.1.0.2
+_commit=ca6398fe99c494d4ec04ddb650929856bb739a65
 pkgrel=1
 epoch=1
 pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
@@ -12,18 +12,18 @@ depends=('kconfig' 'ki18n' 'kcrash' 'kinit' 'kio' 'kiconthemes' 'kjobwidgets' 'k
          'parted' 'libatasmart' 'udisks2' 'kpmcore')
 makedepends=('extra-cmake-modules' 'pkgconfig' 'kdoctools')
 optdepends=('e2fsprogs: ext2/3/4 support'
-	    'xfsprogs: XFS support'
-	    'jfsutils: JFS support'
-	    'reiserfsprogs: Reiser support'
-	    'ntfsprogs: NTFS support'
-	    'dosfstools: FAT32 support')
+            'xfsprogs: XFS support'
+            'jfsutils: JFS support'
+            'reiserfsprogs: Reiser support'
+            'ntfsprogs: NTFS support'
+            'dosfstools: FAT32 support')
 conflicts=('kf5-partitionmanager')
 replaces=('kf5-partitionmanager')
 groups=('system')
 options=('debug')	
 #source=("http://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${pkgver}.tar.xz")
 source=("https://github.com/KDE/partitionmanager/archive/${_commit}.zip")
-md5sums=('01df053f16703b3941cc60e47b1a7176')
+md5sums=('f2d8e6552adb20fc187a449f8d982ee3')
 
 build() {
   cd ${srcdir}
