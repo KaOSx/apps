@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kde-common
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Common Configuration Files, Scripts and Artwork"
 url="http://www.kde.org"
 license=('GPL')
@@ -21,7 +21,8 @@ source=("http://www.kde-apps.org/CONTENT/content-files/48411-rootactions_service
 	'agent-shutdown.sh'
 	#'appear.desktop'
 	'md5sha1calc.sh'
-	'md5sha1calc.desktop')
+	'md5sha1calc.desktop'
+	"http://kde-apps.org/CONTENT/content-files/176001-kompare_servicemenu.desktop")
   
 md5sums=('49766914f737331d32415f887ac5d0ba'
          'c87a034e2208c72afabf93d0102f978b'
@@ -32,7 +33,8 @@ md5sums=('49766914f737331d32415f887ac5d0ba'
          '18e8d01124b19f7df2937c06e177bf7f'
          #'fe5f56600ed1a99eb6cd11e608a86ddb'
          'e140f2cc274fade2cf94296b3de8fa87'
-         'd6b14291c0f6e78715da54f1ca3cc6cd')
+         'd6b14291c0f6e78715da54f1ca3cc6cd'
+         'a8a51d833d9207f5a497638c1f43dd35')
 
 package() {
 	# install scripts for gpg/ssh-agent
@@ -67,4 +69,7 @@ package() {
 	# install md5sha1calc
 	install -D -m755 md5sha1calc.sh ${pkgdir}/usr/bin/md5sha1calc
 	install -D -m644 md5sha1calc.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/md5sha1calc.desktop
+	
+	# install kompare desktop
+	install -D -m644 176001-kompare_servicemenu.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/kompare_servicemenu.desktop
 }
