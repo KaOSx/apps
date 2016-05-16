@@ -1,8 +1,8 @@
 
 pkgname=gcompris
-pkgver=0.52
-_pkgver=0.52
-pkgrel=3
+pkgver=0.60
+_pkgver=0.60
+pkgrel=1
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
 url="http://gcompris.net/"
@@ -17,16 +17,16 @@ replaces=('gcompris-qt')
 source=("http://gcompris.net/download/beta/gcompris-qt-$pkgver.tar.xz"
         'gcompris.desktop'
         'gcompris.png'
-        'Menu_qml.diff')
-md5sums=('fb81f8971a0ed56e181365d2defe5a86'
+        'https://github.com/KDE/gcompris/commit/134db8042f25b0446523653d9a8829916eda3006.diff')
+md5sums=('97497975bc56b285d04d8823750fd321'
          '95b4bcb06168e38332d66fec1dda3aa2'
          '7c7cee3479f1a47376db800b2bc37017'
-         '9c1a7a218969080cb6362de844f421de')
+         '6afef263379444064f2638fe20780098')
 
 prepare() {
   cd $pkgname-qt-$pkgver
   #python2 tools/l10n-fetch-po-files.py
-  patch -p1 -i ${srcdir}/Menu_qml.diff
+  #patch -p1 -i ${srcdir}/134db8042f25b0446523653d9a8829916eda3006.diff
 }
          
 build() {
