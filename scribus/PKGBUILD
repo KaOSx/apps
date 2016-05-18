@@ -1,8 +1,8 @@
 
 pkgname=scribus
 _pkgname=Scribus
-pkgver=1.5.1
-pkgrel=5
+pkgver=1.5.2
+pkgrel=1
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="http://www.scribus.net"
@@ -15,7 +15,13 @@ groups=('office')
 options=('!libtool' '!makeflags')
 source=("http://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #source=("scribus::svn://scribus.net/trunk")
-md5sums=('496b7f486bab544875a03f7465aa6269')
+md5sums=('031661a8fe0ba0131c360d3e9edc2fc0')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  sed -i 's|hunspell-1.3 hunspell-1.2|hunspell-1.3 hunspell-1.4|' cmake/modules/FindHUNSPELL.cmake
+}
 
 build() {
 	mkdir build

@@ -1,7 +1,7 @@
 
 pkgname=lftp
-pkgver=4.7.1
-_pkgver=4.7.1
+pkgver=4.7.2
+_pkgver=4.7.2
 pkgrel=1
 pkgdesc="Sophisticated command line based FTP client with openssl"
 arch=('x86_64')
@@ -11,21 +11,21 @@ depends=('gcc-libs' 'readline' "gnutls" "expat" 'perl' 'sh')
 makedepends=('autoconf')
 categories=('network')
 source=("http://lftp.yar.ru/ftp/${pkgname}-${_pkgver}.tar.xz")
-md5sums=('7dfb03c6544efeef633bc28ba7df8b77')
+md5sums=('24b64dcd74426803eb1e9bf75a5a590a')
 
 build() {
-  cd ${srcdir}/${pkgname}-${_pkgver}
+  cd ${pkgname}-${_pkgver}
   
   ./configure --prefix=/usr \
         --with-gnutls \
         --without-included-regex \
-	--without-openssl \
-	--disable-static
+        --without-openssl \
+        --disable-static
   make
 }
 
 package() {
-  cd ${srcdir}/${pkgname}-${_pkgver}
+  cd ${pkgname}-${_pkgver}
   make DESTDIR=${pkgdir} install
   
   rm -rf ${pkgdir}/usr/lib
