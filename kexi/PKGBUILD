@@ -1,10 +1,11 @@
 
 pkgname=kexi
-pkgver=2.9.82
+pkgver=2.9.83
+_commit=3b25ce8271af15ac98badd8b023db2c936e96db2
 pkgrel=1
 pkgdesc="Visual database applications creator"
 arch=('x86_64')
-url='https://projects.kde.org/projects/calligra/kexi'
+url='http://kexi-project.org/'
 license=('FDL1.2' 'GPL2' 'LGPL')
 depends=('karchive' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 
          'kguiaddons' 'ki18n' 'kiconthemes' 'kitemviews' 'kio' 'ktexteditor' 'ktextwidgets' 
@@ -13,11 +14,11 @@ depends=('karchive' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreadd
          'libmariadbclient' 'sqlite3' 'qt5-webkit' 'xbase' 'freetds' 'postgresql') # will switch to qtwebengine
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'qt5-tools') # 'clang') 
 #source=("http://mirrors.mit.edu/kde/stable/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("git://anongit.kde.org/kexi.git")
-md5sums=('SKIP')
+source=("https://github.com/KDE/kexi/archive/${_commit}.zip")
+md5sums=('974c943d21ad107fd98533d7db6d6708')
 
 prepare() {
-  cd ${pkgname}
+  cd ${pkgname}-${_commit}
   
   #patch -p1 -i $srcdir/desktop_files.patch
 }
@@ -29,7 +30,7 @@ build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \

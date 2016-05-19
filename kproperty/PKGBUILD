@@ -1,18 +1,19 @@
 
 pkgname=kproperty
-pkgver=2.98.0
+pkgver=2.98.1
+_commit=87a953a4c79a6df524175235fc531104e1b8f3ec
 pkgrel=1
 pkgdesc="Property editing framework with editor widget similar to what is known from Qt Designer."
 arch=('x86_64')
-url='https://projects.kde.org/projects/playground/libs/kproperty'
+url='https://github.com/KDE/kproperty'
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'kwidgetsaddons' 'kguiaddons') # 'kio'
 makedepends=('extra-cmake-modules' 'git')
-source=("git://anongit.kde.org/kproperty.git")
-md5sums=('SKIP')
+source=("https://github.com/KDE/kproperty/archive/${_commit}.zip")
+md5sums=('eec17a6367a134f76be18fd73609e6b9')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${_commit}
   #sed -i -e 's|#include <baloo/completionproposal.h>||' ${srcdir}/${_pkgname}/src/querybuilder.cpp
 }
 
@@ -20,7 +21,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DSYSCONF_INSTALL_DIR=/etc \

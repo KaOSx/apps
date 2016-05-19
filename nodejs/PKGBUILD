@@ -10,11 +10,11 @@ depends=('python2' 'openssl' 'zlib' 'icu' 'libuv' 'c-ares')
 makedepends=('procps-ng')
 checkdepends=('curl') 
 options=('!emptydirs')
-source=("http://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.xz")
-md5sums=('b12d2110b0dc3391437e16181ff1b95a')
+source=("https://github.com/nodejs/node/archive/v${pkgver}.tar.gz")
+md5sums=('d41327277454b477f2bae84e817e7253')
 
 build() {
-  cd node-v${pkgver}
+  cd node-${pkgver}
   
   ./configure --prefix=/usr \
     --with-intl=system-icu \
@@ -25,13 +25,13 @@ build() {
 }
 
 check() {
-  cd node-v${pkgver}
+  cd node-${pkgver}
   
   make test
 }
 
 package() {
-  cd node-v${pkgver}
+  cd node-${pkgver}
   make install DESTDIR=${pkgdir}
 
 
