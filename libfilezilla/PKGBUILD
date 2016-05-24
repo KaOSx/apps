@@ -1,17 +1,17 @@
 
 pkgname=libfilezilla
-pkgver=0.5.1
+pkgver=0.5.2
 pkgrel=1
 pkgdesc="Small C++ library, offering a typesafe, multi-threaded event system and process handling for spawning child processes."
 arch=('x86_64')
 url="https://lib.filezilla-project.org/"
 license=('GPL2')
 depends=('gcc')
-source=("https://sourceforge.net/projects/filezilla/files/libfilezilla/$pkgver/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('47a86eebbc0f7c7d0f68401d57633bba')
+source=("https://sourceforge.net/projects/filezilla/files/libfilezilla/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('be50726969cabda0f1b1c9ee432c1f4e')
 
 build() {
-  cd $pkgname-$pkgver
+  cd ${pkgname}-${pkgver}
 
   ./configure --prefix=/usr \
     --disable-static 
@@ -19,7 +19,7 @@ build() {
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd ${pkgname}-${pkgver}
 
-  make DESTDIR=$pkgdir install
+  make DESTDIR=${pkgdir} install
 }
