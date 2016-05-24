@@ -7,7 +7,7 @@ arch=('x86_64')
 #pkgver=${_kdever}
 pkgver=16.03.71
 _commit=d01a5704bf14d0b1b9795512ce235a8abb680fc1
-pkgrel=3
+pkgrel=4
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -52,4 +52,6 @@ package() {
   cd build
 
   make DESTDIR=${pkgdir} install
+  # fix non-working menu item in lost & found
+  echo "NoDisplay=true" >> ${pkgdir}/usr/share/applications/org.kde.mobile.okular.desktop
 }
