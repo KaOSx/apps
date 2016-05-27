@@ -1,6 +1,6 @@
 
 pkgname=kpmcore
-pkgver=2.1.50
+pkgver=2.2.0
 _commit=3bfb0b4b5b6ee4504944433fe3208707f37df82e
 pkgrel=1
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
@@ -8,18 +8,18 @@ arch=('x86_64')
 url="https://github.com/KDE/kpmcore"
 license=('GPL2')
 depends=('ki18n' 'kio' 'kiconthemes' 'kservice' 'libatasmart' 'parted')
-makedepends=('extra-cmake-modules' 'pkgconfig' 'git')
+makedepends=('extra-cmake-modules' 'pkgconfig')
 groups=('system')
 options=('debug')
-#source=("http://download.kde.org/stable/kpmcore/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-source=("https://github.com/KDE/kpmcore/archive/${_commit}.zip")
-md5sums=('a10d6026d6bb272f7f156ae8fe44cc8c')
+source=("http://download.kde.org/stable/kpmcore/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+#source=("https://github.com/KDE/kpmcore/archive/${_commit}.zip")
+md5sums=('62123e863e00c535170bb9ce93a324d3')
 
 build() {
   mkdir build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DKDE_INSTALL_LIBDIR=lib \

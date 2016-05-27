@@ -1,6 +1,6 @@
 
 pkgname=partitionmanager
-pkgver=2.1.0.2
+pkgver=2.2.0
 _commit=ca6398fe99c494d4ec04ddb650929856bb739a65
 pkgrel=1
 epoch=1
@@ -21,20 +21,22 @@ conflicts=('kf5-partitionmanager')
 replaces=('kf5-partitionmanager')
 groups=('system')
 options=('debug')	
-#source=("http://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${pkgver}.tar.xz")
-source=("https://github.com/KDE/partitionmanager/archive/${_commit}.zip")
-md5sums=('f2d8e6552adb20fc187a449f8d982ee3')
+source=("http://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${pkgver}.tar.xz")
+#source=("https://github.com/KDE/partitionmanager/archive/${_commit}.zip")
+md5sums=('2a57843092a9ebb67de70a65fa0f84af')
 
-build() {
-  cd ${srcdir}
+prepare() {
+  cd ${pkgname}-${pkgver}
   # filsystem code from src/fs/filesystem.h, set as default
   #sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/${pkgname}-${pkgver}/src/config.kcfg
-  sed -i -e 's/FileSystem::Ext4/FileSystem::Xfs/' ${srcdir}/${pkgname}-${_commit}/src/partitionmanager.kcfg
-  
+  sed -i -e 's/FileSystem::Ext4/FileSystem::Xfs/' src/partitionmanager.kcfg
+}
+
+build() {
   mkdir build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DKDE_INSTALL_LIBDIR=lib \
