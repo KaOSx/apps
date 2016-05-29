@@ -1,6 +1,6 @@
 
 pkgname=link-grammar
-pkgver=5.3.3
+pkgver=5.3.7
 pkgrel=1
 pkgdesc="Syntactic parser, based on link grammar, an original theory of English syntax."
 arch=('x86_64')
@@ -9,18 +9,18 @@ license=('BSD')
 depends=('aspell')
 options=('!libtool' '!makeflags')
 source=("http://www.abisource.com/downloads/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('c2224854590327bffc75e76c260f5046')
+md5sums=('d0567e53bad87a8b669dcaab4c7c109a')
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd ${pkgname}-${pkgver}
 
   ./configure --prefix=/usr
   make
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
+  cd ${pkgname}-${pkgver}
+  make DESTDIR=${pkgdir} install
 
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/link-grammar/LICENSE"
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/link-grammar/LICENSE
 }
