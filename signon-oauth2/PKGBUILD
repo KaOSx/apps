@@ -1,6 +1,6 @@
 
 pkgname=signon-oauth2
-pkgver=0.23
+pkgver=0.24
 _commit=b74b5397992caddeb32a6158c9295126c55a3025
 pkgrel=1
 pkgdesc='OAuth 2 plugin for signon'
@@ -9,18 +9,18 @@ url="https://gitlab.com/accounts-sso"
 license=('LGPL')
 depends=('signonqt' 'qt5-xmlpatterns')
 # https://groups.google.com/forum/#!forum/accounts-sso-announce
-source=("https://gitlab.com/accounts-sso/signon-plugin-oauth2/repository/archive.tar.bz2?ref=${_commit}")
-md5sums=('3797f5eca30fcdf826688184d4e14dda')
+source=("https://gitlab.com/accounts-sso/signon-plugin-oauth2/repository/archive.tar.bz2?ref=VERSION_${pkgver}")
+md5sums=('5fa973a8f0fa5564bc3705ac389dc1b9')
 
 build() {
-  cd $srcdir/signon-plugin-oauth2-${_commit}-${_commit}
+  cd signon-plugin-oauth2-VERSION_${pkgver}-*
 
   /usr/lib/qt5/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
   make
 }
 
 package() {
-  cd $srcdir/signon-plugin-oauth2-${_commit}-${_commit}
+  cd signon-plugin-oauth2-VERSION_${pkgver}-*
   make INSTALL_ROOT=$pkgdir install
   
   # kaccounts-providers conflict

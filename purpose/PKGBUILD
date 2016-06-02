@@ -3,20 +3,20 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=purpose
-pkgver=1.0
-_pkgver=1.0
+pkgver=1.1
+_pkgver=1.1
 pkgrel=1
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
 url='http://quickgit.kde.org/?p=purpose.git'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kconfig' 'ki18n' 'kio' 'kaccounts-integration')
+depends=('kcoreaddons' 'kconfig' 'ki18n' 'kio' 'kaccounts-integration') # dep needs Ubuntu.OnlineAccounts-QMLModule 'kdeconnect-kde')
 makedepends=('extra-cmake-modules' 'kdoctools' 'intltool' 'git')
 #groups=('')
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/purpose")
 source=("http://download.kde.org/stable/purpose/purpose-${_pkgver}.tar.xz")
-md5sums=('8f27161d5bc0193ad67db48cb6782d84')
+md5sums=('9d97612738bb3d7b43ac6dcbcb864a4f')
 
 prepare() {
   cd $pkgname-${_pkgver}
