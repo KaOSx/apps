@@ -1,0 +1,40 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kgpg
+arch=('x86_64')
+#pkgver=${_kdever}
+pkgver=16.07.70
+_commit=2490f061b9c5d954ab69e146bf43ab72abdb3ee0
+pkgrel=1
+pkgdesc="GPG encryption and key management"
+url="https://github.com/KDE/kgpg"
+license=('GPL' 'LGPL' 'FDL')
+depends=('kdepimlibs' 'karchive' 'ki18n' 'kiconthemes' 'kcodecs' 'kio'
+         'kdelibs4support' 'kservice' 'kwidgetsaddons' 'gpgme')
+makedepends=('extra-cmake-modules' 'kdoctools')
+groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
+#source=($_mirror/${_pkgname}-$_kdever.tar.xz)
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://github.com/KDE/kgpg/archive/${_commit}.zip")
+md5sums=('c65ef07dcd4fedc2f77f021a2bb3598b')
+
+build() {
+  mkdir build
+  cd build
+
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib \
+    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
