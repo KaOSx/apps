@@ -4,41 +4,50 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=breeze-gtk
 pkgver=${_plasmaver}
-pkgrel=1
+#pkgver=5.6.4
+pkgrel=2
 pkgdesc='Widget theme for GTK 2 and 3'
 arch=('x86_64')
 url='https://github.com/KDE/breeze-gtk'
 license=('LGPL')
 depends=('qt5-base' 'kcoreaddons' 'kconfig')
-makedepends=('extra-cmake-modules' 'gtk2')
+makedepends=('extra-cmake-modules' 'gtk2' 'git')
 opdepends=("gtk2: GTK+2 theme" "gtk3: GTK+3 theme")
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz" breeze-gtk-3.20-{1,2,3}.patch)
+# md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=('39d7e635079545938fa225fef0e29d05'
+         '15817d45cf3adf8b8b8aada41676a520'
+         'a9dda4b30690cfedf65188dd797c8b48'
+         '5bc3bbd044806189704a493032e96576')
 
-prepare () {
-  cd ${pkgname}-${pkgver}
-  #sed -i -e 's|devices emblems places status|devices emblems emotes mimetypes places status|' icons-dark/CMakeLists.txt
-
-  #patch -p1 -i $srcdir/1a547a83dc1bb1c4a0e6d61df747b0426c53531a.diff
+prepare() {
+    if [[ -d build ]]; then
+        rm -Rf build
+    fi
+    mkdir -p build
+  
+    cd ${pkgname}-${pkgver}
+    msg2 "Apply patch for GTK 3.20 compatibility"
+    for _n in 1 2 3; do
+        git apply -p1 < ../breeze-gtk-3.20-$_n.patch
+    done
 }
   
-build () {  
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
-  make
+build() {  
+    cd build
+    
+    cmake ../${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DLIB_INSTALL_DIR=lib \
+        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+        -DWITH_GTK3_VERSION=3.20
+    make
 }
 
-package () {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+package() {
+    make -C build DESTDIR=${pkgdir} install
 }
 
