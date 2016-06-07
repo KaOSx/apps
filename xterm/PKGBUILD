@@ -1,6 +1,6 @@
  
 pkgname=xterm
-pkgver=324
+pkgver=325
 pkgrel=1
 pkgdesc="X Terminal Emulator"
 arch=('x86_64')
@@ -10,11 +10,11 @@ depends=('libxft' 'libxaw' 'ncurses' 'xorg-apps' 'xbitmaps' 'libutempter')
 groups=('system')
 source=("ftp://invisible-island.net/xterm/${pkgname}-${pkgver}.tgz"
         'LICENSE')
-md5sums=('7c325c29d67637cf7ff8e904a23c222e'
+md5sums=('e78a0bbc4d5fa3780917e447ae8ebc6b'
          '10ecc3f8ee91e3189863a172f68282d2')
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd ${pkgname}-${pkgver}
   ./configure --prefix=/usr \
       --libdir=/etc \
       --mandir=/usr/share/man \
@@ -46,13 +46,12 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
-  chmod 0755 "${pkgdir}/usr/bin/xterm"
+  cd ${pkgname}-${pkgver}
+  make DESTDIR=${pkgdir} install
+  chmod 0755 ${pkgdir}/usr/bin/xterm
 
-  install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
-  install -m644 "${srcdir}/LICENSE" \
-      "${pkgdir}/usr/share/licenses/${pkgname}/"
+  install -m755 -d ${pkgdir}/usr/share/licenses/${pkgname}
+  install -m644 ${srcdir}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/
   install -m755 -d ${pkgdir}/usr/share/applications
   install -m644 ${srcdir}/${pkgname}-${pkgver}/{xterm,uxterm}.desktop ${pkgdir}/usr/share/applications/
 }
