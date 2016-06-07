@@ -1,7 +1,7 @@
 
 pkgname=octopi
 pkgver=0.8.81
-pkgrel=1
+pkgrel=2
 _commit=dea7426
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
@@ -23,7 +23,8 @@ build() {
    mv -iv ${srcdir}/images/ ${srcdir}/aarnt-octopi-${_commit}/resources/
 
    # enable the kstatus switch
-   sed -e "s/# DEFINES += KSTATUS/ DEFINES += KSTATUS/" -i ${srcdir}/aarnt-octopi-${_commit}/notifier/octopi-notifier/octopi-notifier.pro
+   sed -e "s|# DEFINES += KSTATUS| DEFINES += KSTATUS|" -i ${srcdir}/aarnt-octopi-${_commit}/notifier/octopi-notifier/octopi-notifier.pro
+   sed -e "s|https://kaosx.us/feed/|https://kaosx.us/feed.xml|" -i ${srcdir}/aarnt-octopi-${_commit}/src/utils.cpp
    
    /usr/lib/qt5/bin/qmake octopi.pro
    make
