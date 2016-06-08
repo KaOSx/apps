@@ -1,6 +1,6 @@
 
 pkgname=kaffeine
-pkgver=2.0.1
+pkgver=2.0.2
 _commit=ea1d0b7c0f6206acc56892bb8d99b48ccae7ff8a
 pkgrel=1
 pkgdesc='KDE media player'
@@ -9,12 +9,10 @@ arch=('x86_64')
 url="http://kaffeine.kde.org"
 depends=('kcoreaddons' 'kdbusaddons' 'ki18n' 'solid' 'kio' 'knotifications'
          'kwidgetsaddons' 'kxmlgui' 'kidletime' 'qt5-x11extras' 'vlc')
-makedepends=('extra-cmake-modules') 
+makedepends=('extra-cmake-modules' 'kdoctools') 
 groups=('multimedia')
-source=("http://download.kde.org/stable/kaffeine/${pkgver}/src/kaffeine-${pkgver}.tar.bz2")
-md5sums=('d8637d2ad2e76d0097030f01d159400f')
-#source=("git://github.com/matijaskala/kaffeine5")
-#md5sums=('SKIP')
+source=("http://download.kde.org/stable/kaffeine/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=('14776e1f1e21dc5fb725f2991f03ed04')
 
 #prepare() {
   #cd ${pkgname}-${pkgver}
@@ -26,7 +24,7 @@ build() {
   mkdir build
   cd build
   
-  cmake .. \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
