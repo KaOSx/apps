@@ -1,0 +1,26 @@
+
+pkgname=accounts-qml-module
+pkgver=0.7
+pkgrel=1
+pkgdesc='Client library for using Online Accounts from QML applications.'
+arch=('x86_64')
+url="https://gitlab.com/accounts-sso/accounts-qml-module"
+license=('LGPL')
+depends=('accountsqt' 'signonqt' 'qt5-declarative')
+makedepends=('qt5-tools')
+source=("https://gitlab.com/accounts-sso/accounts-qml-module/repository/archive.tar.bz2?ref=VERSION_${pkgver}")
+md5sums=('633ae6f6c84f073d1e1bb978086e7dfd')
+
+build() {
+  cd accounts-qml-module-VERSION_${pkgver}-*
+
+  /usr/lib/qt5/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
+  make
+}
+
+package() {
+  cd accounts-qml-module-VERSION_${pkgver}-*
+  make INSTALL_ROOT=$pkgdir install
+  
+  rm -r $pkgdir/usr/share
+}
