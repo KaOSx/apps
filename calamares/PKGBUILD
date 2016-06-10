@@ -20,7 +20,10 @@ source=("git://github.com/KaOSx/calamares"
         'unpackfs.conf'
         'launch-calamares.sh'
         'license.pdf'
-        'release_notes.html')
+        'release_notes.html'
+        "https://github.com/calamares/calamares/commit/09f650ecf586fd7dc43b8b131931a6d0e1d04f98.patch"
+        "https://github.com/calamares/calamares/commit/4a2cd903f7c75bab951fe22d96f46d732b35bdf5.patch"
+        'LabelsView.diff')
 md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
          'd5c65f43e057054e9728810530c4a030'
@@ -29,7 +32,10 @@ md5sums=('SKIP'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '037d95d2537291d9e0c107c161d266ba'
          'bb33b54d289cfe39ebfd78f172382880'
-         '0a7a5f08aeede9bc7e949f60cb45a656')
+         '0a7a5f08aeede9bc7e949f60cb45a656'
+         'c1f0e130b2c60b215f26cc2496d32f83'
+         '16ee4cca7a62ab53dd1b187173c99963'
+         '9093bf784e6ae5b4ff0e332f011e55f1')
 
 prepare () {
   cd ${srcdir}/${pkgname}
@@ -37,10 +43,14 @@ prepare () {
   git submodule init
   git submodule update
   
-  sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/tests/PartitionJobTests.cpp
+  sed -i 's|Ext4|Xfs|' src/modules/partition/tests/PartitionJobTests.cpp
   #sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/core/PartitionActions.cpp
   #sed -i 's|Ext4|Xfs|' ${srcdir}/${pkgname}/src/modules/partition/gui/EditExistingPartitionDialog.cpp
-  sed -i 's|VERSION_LESS 5.6|VERSION_LESS 5.8|' ${srcdir}/${pkgname}/src/modules/webview/CMakeLists.txt
+  sed -i 's|VERSION_LESS 5.6|VERSION_LESS 5.8|' src/modules/webview/CMakeLists.txt
+  
+  patch -p1 -Ri ${srcdir}/09f650ecf586fd7dc43b8b131931a6d0e1d04f98.patch
+  patch -p1 -Ri ${srcdir}/4a2cd903f7c75bab951fe22d96f46d732b35bdf5.patch
+  patch -p1 -i ${srcdir}/LabelsView.diff
 }
 
 build() {
