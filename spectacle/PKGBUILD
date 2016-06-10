@@ -6,7 +6,7 @@ pkgname=spectacle
 pkgver=${_kdever}
 #pkgver=15.07.92
 #_pkgver=2.0.1
-pkgrel=2
+pkgrel=1
 pkgdesc="The new KDE Screenshot Utility"
 url="https://github.com/KDE/spectacle"
 arch=('x86_64')
@@ -26,7 +26,7 @@ prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|ksnapshot KF5::Kipi|ksnapshot KF5::KIPI|' ${srcdir}/${pkgname}/CMakeLists.txt
   # fix invalid KHotkeys file version
-  patch -p1 -i $srcdir/760315e9754fc5372924f06bcf31d70f6fa5fcb5.diff
+  #patch -p1 -i $srcdir/760315e9754fc5372924f06bcf31d70f6fa5fcb5.diff
 }
 
 build() {
