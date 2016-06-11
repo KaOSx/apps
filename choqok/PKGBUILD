@@ -1,6 +1,7 @@
 
 pkgname=choqok
-pkgver=1.5.98
+pkgver=1.5.99
+_commit=55e30c3fdfc952ea89eba2835f1cc11679e4aa5f
 pkgrel=1
 pkgdesc="KDE Micro-Blogging client, Currently supports Pump.io, GNU social and Twitter.com"
 url="http://choqok.gnufolks.org/"
@@ -11,13 +12,11 @@ depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'kemoticons' 'kglobalaccel' 'kgu
          'kio' 'kjobwidgets' 'telepathy-qt5' 'kaccounts-providers' 'qoauth' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'git' 'kdoctools')
 groups=('communication')
-install="${pkgname}.install"
-source=("git://anongit.kde.org/choqok.git")
-#source=('http://quickgit.kde.org/?p=choqok.git&a=snapshot&h=6da2d0246a801abd5988c95e509e28abb02d1cd2&fmt=tbz2')
-md5sums=('SKIP')
+source=("https://github.com/KDE/choqok/archive/${_commit}.zip")
+md5sums=('d458340e7864a09107cf371e44e9eea5')
 
 #prepare() {
-#  cd ${pkgname}
+#  cd ${pkgname}-${_commit}
   
 #  sed -i 's|#include <klocale.h>||' ${srcdir}/${pkgname}/plugins/imstatus/imstatussettings.h
 #}
@@ -26,7 +25,7 @@ build() {
   mkdir build
   
   cd build
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
