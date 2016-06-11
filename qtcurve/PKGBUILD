@@ -1,6 +1,7 @@
 
 pkgname=qtcurve
-pkgver=1.8.18.12
+pkgver=1.8.18.13
+_commit=34a1e3277aa21c59029576bffe2576a9ddd4b1a7
 pkgrel=1
 arch=('x86_64')
 license=('GPL')
@@ -8,15 +9,15 @@ pkgdesc='The QtCurve style engine for Qt5 and Plasma 5.'
 url='https://projects.kde.org/projects/playground/base/qtcurve'
 depends=('karchive' 'kconfig' 'kconfigwidgets' 'ki18n' 'kdelibs4support' 'kio'
          'kwidgetsaddons' 'kxmlgui' 'kguiaddons' 'kiconthemes' 'libx11' 'qt5-x11extras' 'qt5-svg')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-source=("git://anongit.kde.org/qtcurve.git")
-md5sums=('SKIP')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=("https://github.com/KDE/qtcurve/archive/${_commit}.zip")
+md5sums=('47f2b33ec1a2ffe41c4cca999330951c')
 
 build() {
     mkdir build
     cd build
     
-    cmake ../${pkgname} \
+    cmake ../${pkgname}-${_commit} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DENABLE_GTK2=false \

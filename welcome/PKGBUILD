@@ -1,18 +1,18 @@
 
 pkgname=welcome
-pkgver=3.10
+pkgver=3.11
 pkgrel=1
 pkgdesc="Live Welcome app for KaOS"
 arch=('x86_64')
 url="http://kaosx.us/"
 license=('GPL')
-depends=('qt5-declarative')
+depends=('qt5-base')
 makedepends=('git')
 source=("git://github.com/KaOSx/welcome.git")
 md5sums=('SKIP')
 
 build() {
-    cd "${srcdir}/welcome/"
+    cd welcome/
    
     /usr/lib/qt5/bin/qmake welcome.pro
     make clean
@@ -20,7 +20,7 @@ build() {
 }
 
 package() {
-    cd "${srcdir}/welcome/"
+    cd welcome/
    
-    make INSTALL_ROOT="$pkgdir/" install
+    make INSTALL_ROOT=${pkgdir}/ install
 }
