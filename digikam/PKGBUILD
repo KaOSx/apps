@@ -1,8 +1,8 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
-pkgver=4.90.4
-_pkgver=5.0.0-beta6
+pkgver=4.90.5
+_pkgver=5.0.0-beta7
 pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
@@ -11,13 +11,13 @@ pkgdesc="Digital photo management application for kde"
 makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
          'solid' 'kiconthemes' 'kfilemetadata' 'libksane' 'ki18n' 'kitemmodels' 'lensfun' 
          'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
-         'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb' 'kdepimlibs'
+         'lapack' 'libgpod' 'eigen3' 'mariadb' 'kdepimlibs'
          'kparts' 'kconfig' 'kxmlgui' 'kservice' 'threadweaver' 'karchive' 'libkexiv2' 
          'libkdcraw' 'libkipi' 'libkgeomap' 'libkvkontakte' 'libmediawiki' 'libtiff'
          'kcalcore' 'kwallet' 'phonon-qt5' 
-         'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang')
-source=("http://download.kde.org/unstable/digikam/${pkgbase}-${_pkgver}.tar.bz2")
-md5sums=('34903d116329891699021d29da0e58cc')
+         'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang' 'ruby')
+source=("http://download.kde.org/unstable/digikam/${pkgbase}-${_pkgver}.tar.xz")
+md5sums=('707b98bcec72b2fa9ae49ec7f8b90134')
 
 prepare() {
   cd ${pkgbase}-${_pkgver}
@@ -45,7 +45,8 @@ build() {
      -DENABLE_KFILEMETADATASUPPORT=ON \
      -DENABLE_MEDIAPLAYER=ON \
      -DENABLE_OPENCV3=ON \
-     -DCMAKE_C_COMPILER=clang
+     -DCMAKE_C_COMPILER=clang \
+     -DDIGIKAMSC_CHECKOUT_DOC=ON
    make 
 }
 
@@ -54,17 +55,17 @@ package_digikam() {
   depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
            'solid' 'kiconthemes' 'kfilemetadata' 'kitemmodels' 'libksane' 'ki18n' 'lensfun' 
            'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
-           'kipi-plugins' 'lapack' 'libgpod' 'eigen3' 'libpgf' 'mariadb' 'kdepimlibs')
+           'kipi-plugins' 'lapack' 'libgpod' 'eigen3' 'mariadb' 'kdepimlibs')
   groups=('graphics')
   
-  cd $srcdir/build/core
-  make DESTDIR=$pkgdir/ install
+  cd ${srcdir}/build/core
+  make DESTDIR=${pkgdir}/ install
   
-  cd $srcdir/build/doc/digikam/digikam
-  make DESTDIR=$pkgdir/ install
+  cd ${srcdir}/build/doc/digikam/digikam
+  make DESTDIR=${pkgdir}/ install
   
-  cd $srcdir/build/doc/digikam/showfoto
-  make DESTDIR=$pkgdir/ install
+  cd ${srcdir}/build/doc/digikam/showfoto
+  make DESTDIR=${pkgdir}/ install
 }
 
 package_kipi-plugins () {
@@ -76,10 +77,10 @@ package_kipi-plugins () {
   optdepends=('hugin-tools: to work with the panorama tool')
   groups=('kde' 'kde-graphics' 'kde-uninstall')
   
-  cd $srcdir/build/extra/kipi-plugins
-  make DESTDIR=$pkgdir/ install
+  cd ${srcdir}/build/extra/kipi-plugins
+  make DESTDIR=${pkgdir}/ install
   
-  cd $srcdir/build/doc/kipi-plugins
-  make DESTDIR=$pkgdir/ install
+  cd ${srcdir}/build/doc/kipi-plugins
+  make DESTDIR=${pkgdir}/ install
 }
 
