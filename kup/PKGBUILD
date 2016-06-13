@@ -1,7 +1,7 @@
 
 pkgname=kup
-pkgver=0.6.0
-pkgrel=2
+pkgver=0.6.1
+pkgrel=1
 pkgdesc="Kup is created for helping people to keep up-to-date backups of their personal files."
 arch=('x86_64')
 url="https://github.com/spersson/Kup"
@@ -10,7 +10,7 @@ depends=('solid' 'kio' 'kidletime' 'ki18n' 'knotifications' 'kcoreaddons' 'kicon
          'kdbusaddons' 'kconfig' 'kinit')
 makedepends=('extra-cmake-modules')
 source=("https://github.com/spersson/Kup/archive/${pkgname}-${pkgver}.tar.gz")
-md5sums=('ba71ce5caf38f63e3881ecf5d56e7eab')
+md5sums=('b949d2ad1970bb981264440ce2fcfd27')
 
 build() {
   mkdir -p build
@@ -20,6 +20,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  make
 }
 
 package() {
