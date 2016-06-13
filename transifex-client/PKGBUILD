@@ -1,23 +1,24 @@
 
 pkgname=transifex-client
-pkgver=0.11.1
-pkgrel=2
+pkgver=0.12.1
+pkgrel=1
 pkgdesc="Command line tool that enables you to easily manage your translations within a project without the need of an elaborate UI system."
 arch=('x86_64')
 url="https://github.com/transifex/transifex-client"
 license=('GPL2')
-depends=('python3' 'python3-setuptools')
-source=("https://github.com/transifex/${pkgname}/archive/${pkgver}-beta.tar.gz")
-md5sums=('33f2b48e56e23b025f1af5b626ea20d3')
+depends=('python3-urllib3')
+makedepends=('python3-setuptools')
+source=("https://github.com/transifex/transifex-client/archive/${pkgver}.tar.gz")
+md5sums=('e11d658993ab2483c61a354f497a2400')
 
 build() {
-  cd ${pkgname}-${pkgver}-beta
+  cd ${pkgname}-${pkgver}
 
   python3 setup.py build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}-beta
+  cd ${pkgname}-${pkgver}
 
   python3 setup.py install --root=${pkgdir} --optimize=1
 }
