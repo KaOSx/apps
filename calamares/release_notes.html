@@ -10,122 +10,61 @@
 </head>
 
 <body>
-    <h3>KaOS - 2016.06</h3>Not the customary bi-monthly release this time, but celebrating the
-    three year anniversary of KaOS by releasing 2016.04.  Reason for this earlier release
-    is the move to Qt 5.6 and with that an update and/or rebuild of the complete Desktop<br/>
-    QtWebengine has now replaced QtWebkit as the base for the default web-browser <b>Qupzilla</b>
-    You will find a much better multimedia experience, were full-screen video is now supported, 
-    sites like Vimeo just work and there is no longer a need to use the unmaintained 
-    since 2012 flashplugin. Pepperflash is fully compatible with new Qupzilla 2.0</br>
-    The Plasma Desktop includes Frameworks 5.22.0, <b>Plasma 5.6.4, KDE Applications 16.04.1
-    & not yet released ports of KDE</b><br/>
-    Most notable major updates to the base of the system  are Boost 1.60.0, ICU 57.1, Xorg-server 1.18.3, 
-    gstreamer group is at 1.8.0, Libarchive 3.2, Alsa packages moved to 1.1.1, Linux 4.4.5,
-    Mesa 11.2.0, Pulseaudio 8.0 and Mariadb 10.1.12<br/>
-    Some KDE applications look like they might not make the kf5 migration. One such app is kget, 
-    it was partially ported, but all work on it has stalled for too long to keep it an option for KaOS. 
-    A new and very complete download manager has replaced kget. Fatrat will be part of KaOS 
-    default installs from now on.  Another change is the move to Cantata as the default Music Manager,
-    Clementine's focus is still on developing for Qt 4 plus has security issues which new Sqlite tried
-    to avoid.  Cantata is fully Qt 5 ported and very well integrated in the Plasma 5 desktop.
+    <h3>KaOS - 2016.06</h3>
+    <p>It is with great pleasure to present to you KaOS 2016.06</p>
     
-    The artwork received a redesign in many elements. A new icon theme for light and dark themes has arrived. 
-    The Midna Dark theme received a complete overhaul with a new plasma theme, window decorations, 
-    colorscheme and new sddm & splash themes. The new work brings to Midna Dark a complete unified look.<br/>
+    <p>QtWebengine has now replaced QtWebkit as the base for the default web-browser <b>Qupzilla</b>. You will find a much better multimedia experience, where full-screen video is now supported, sites like Vimeo just work and there is no longer a need to use the unmaintained since 2012 flashplugin. Pepperflash is fully compatible with new Qupzilla 2.0</p>
     
-    This ISO uses the <b>CRC and finobt enabled</b> XFS filesystem as default.  
-    CRCs enable enhanced error detection due to hardware issues, whilst the format 
-    changes also improves crash recovery 
-    algorithms and the ability  of  various  tools to validate and repair metadata
-    corruptions when they are found.  The  free  inode  btree does not index used inodes, 
-    allowing faster, more consistent inode allocation performance as filesystems age.<br/>
-    <br/>
+    <p>The Plasma Desktop includes Frameworks 5.23.0, <b>Plasma 5.6.95</b>, KDE Applications 16.04.2 &amp; <strong>not yet released ports of KDE Applications</strong></p>
     
-    KaOS specific settings for kinit make it possible to start a Plasma Wayland session
-    right from the login manager.  An X11 session is of course still default, but the drop-down
-    menu has a wayland entry too.  With Plasma 5.6, the Wayland session is now possible on more systems. <br/><br/>
+    <p>Most notable major updates to the base of the system  are Glib2 2.48, Systemd 230, Xorg-server 1.18.3, GStreamer group is at 1.8.2, Libarchive 3.2.0, Networkmanager 1.2.2, Linux 4.6.2, Mesa 11.2.2, Pulseaudio 8.0 and Mariadb 10.1.14</p>
     
-    This ISO KaOS uses the Systemd provided Systemd-boot for UEFI installs, 
-    Gummiboot is depreciated. <br/> 
-    Among the new applications that are now fully ported to Qt5/Frameworks 5, 
-    Kjots, Keneric, Kcolorchooser, SqliteBrowser and Kbibtex.
-    <b>Calamares, the used installer framework</b>, has moved to the 2.1 series.
-    Highlights of the changes and additions:
+    <p>Some KDE applications look like they might not make the kf5 migration. One such app is kget, it was partially ported, but all work on it has stalled for too long to keep it an option for KaOS.  A new and very complete download manager has replaced kget. Fatrat will be part of KaOS default installs from now on.  Another change is the move to Cantata as the default Music Manager, Clementine's focus is still on developing for Qt 4 plus has security issues which new Sqlite tried to avoid.  Cantata is fully Qt 5 ported and very well-integrated in the Plasma 5 desktop.</p>
+    
+    <p>The artwork received a redesign in many elements. A new icon theme for light and dark themes has arrived. The Midna Dark theme received a complete overhaul with a new plasma theme, window decorations, colorscheme and new sddm &amp; splash themes. The new work brings to Midna Dark a complete unified look.</p>
 
+    <p>This ISO uses the <b>CRC and finobt enabled</b> XFS filesystem as default. CRCs enable enhanced error detection due to hardware issues, whilst the format changes also improves crash recovery algorithms and the ability  of  various  tools to validate and repair metadata corruptions when they are found.  The  free  inode  btree does not index used inodes, allowing faster, more consistent inode allocation performance as filesystems age.</p>
+
+    <p>KaOS specific settings for kinit make it possible to start a Plasma Wayland session right from the login manager.  An X11 session is of course still default, but the drop-down menu has a wayland entry too.  With Plasma 5.6, the Wayland session is now possible on more systems.</p>
+
+    <p>This ISO KaOS uses the Systemd provided Systemd-boot for UEFI installs, Gummiboot is depreciated.</p>
+
+    <p><b>Calamares</b>, the used installer framework, has moved to the 2.3 series. Highlights of the changes and additions:
     <ul>
         <li>Full support for NVME SSDs</li>
-
         <li>Replaced QtWebKit with QtWebEngine in webview module if building with Qt 5.6 or greater;</li>
-
         <li>Tooltips in partition views.</li>
-
         <li>Automated Breakpad and GDB-based crash reporting with libcrashreporter-qt</li>
-
         <li>Added much deserved credit for translators in About dialog.</li>
-
-        <li>Support for “replacing” free space</li>
-
-        <li>Added a check and warning when installing in EFI mode with manual partitioning 
-        without setting up a mount point and/or flag for the EFI system partition.</li>
-    </ul><strong>Octopi</strong> is becoming a very crucial part of full system
-    maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like
-    making sure a mirror is synced before starting any update, looking at the
-    pacman logs, an option to get a paste from a complete snapshot of all info
-    of a system with the SysInfo tool are included. Also included are very
-    simple ways to open files, like copy to clipboard the file path shown in
-    Octopi. To make sure the system doesn't start using too much disk space for
-    the pacman cache, but still giving the user the option to retain some
-    recent packages, the cache-cleaner tool is a great addition. The built-in
-    tool to access <b>KCP</b> https://github.com/KaOS-Community-Packages
-    has now a much clearer place with the addition of its own "foreign" icon in
-    the menu-bar. When viewing package info it is now possible to click the
-    depends of such a package. <br/>
-    For UEFI installs, KaOS uses the simple,
-    transparent but quite powerful systemd-boot as bootloader. This ISO
-    presents XFS as the default filesystem option for KaOS. To learn more about
-    the goals and ideas behind KaOS, please read the <b>http://kaosx.us/</b>, 
-    <b>http://kaosx.us/about/</b> and
-    <b>http://kaosx.us/faq/</b> pages. <br/>
-    To avoid any misunderstanding
-    and confusion, KaOS is <b>not based upon, derived of, or inspired by</b>
-    any one particular distribution. It is completely independent, build
-    entirely from scratch with its own repositories. To read more about this
-    see <b>https://kaosx.us/faq/#KaOS_is_NOT_another_Arch_based_distribution_right</b>.<br/><br/>
+        <li>Support for &ldquo;replacing&rdquo; free space</li>
+        <li>Added a check and warning when installing in EFI mode with manual partitioning without setting up a mount point and/or flag for the EFI system partition.</li>
+    </ul></p>
     
-    A <b>rolling release distribution</b> never has a "final" release, every
-    ISO is mere a snapshot of the current status of the repositories. An idea
-    what is currently available: The ISO ships with <b>Frameworks 5.21.0,
-    Plasma 5.6.2, KDE Applications 16.04.0 & not yet released ports of KDE
-    Applications</b>, Linux 4.4.5, Systemd 229, Kmod 22, Networkmanager 1.0.12,
-    Calligra 3.0Alpha, Cantata, Plasma-nm 5.6.2, Xorg-server 1.18.3, Mesa
-    11.2.0, Glibc 2.23, GCC 4.9.3, non-free Nvidia 364.12, Pepperflash and Python3 3.5.1 to
-    name a few. The package manager is <strong>Pacman 5.0.1</strong>, with the
-    simple but powerful Octopi 0.9dev as GUI frontend. Default webbrowser is
-    Qt based Qupzilla 2.0.0. <b>GFXboot</b> is included with KaOS artwork,
-    Grub theme is Midna, Look & Feel is a KaOS exclusive version "Midna",
-    fully redone for 2016. <b>Repositories</b> of KaOS will stay
-    limited in size and expect it to stay at the current maximum of about
-    2100-2200. A gist of what is available, beside the stable kernel there is
-    Linux-next 4.5, Libreoffice 5.1.2, Qt 5.6.0, bumblebee packages, VLC,
-    Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad
-    and Knights. A limited number of the most well-known GTK applications are
-    available, examples Firefox 45.0.2, Chrome 51, Ardour 4.7.0, Inkscape 0.91, 
-    GIMP 2.8.14 and Google-talkplugin 5.38.5.0.
-    Complete language packs are available for KDE, Calligra, Firefox,
-    Libreoffice and Thunderbird. For IM, Fcitx 4.2.9.1 is available as a rather
-    complete group. <b>Known issues:</b>
-
+    <p><strong>Octopi</strong> is becoming a very crucial part of full system maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like making sure a mirror is synced before starting any update, looking at the pacman logs, an option to get a paste from a complete snapshot of all info of a system with the SysInfo tool are included. Also included are very simple ways to open files, like copy to clipboard the file path shown in Octopi. To make sure the system doesn't start using too much disk space for the pacman cache, but still giving the user the option to retain some recent packages, the cache-cleaner tool is a great addition. The built-in tool to access <b>KCP</b> has now a much clearer place with the addition of its own "foreign" icon in the menu-bar. When viewing package info it is now possible to click the depends of such a package.</p>
+    
+    <p>For UEFI installs, KaOS uses the simple, transparent but quite powerful systemd-boot as bootloader.</p>
+    
+    <p>This ISO presents XFS as the default filesystem option for KaOS.</p>
+    
+    <p>To learn more about the goals and ideas behind KaOS, please read the <b>http://kaosx.us/</b>, <b>http://kaosx.us/about/</b> and <b>http://kaosx.us/faq/</b> pages.</p>
+    
+    <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a "final" release, every ISO is mere a snapshot of the current status of the repositories. An idea what is currently available:</p>
+    
+    <p>The ISO ships with <b>Frameworks 5.23.0, Plasma 5.6.95, KDE Applications 16.04.2 &amp; not yet released ports of KDE Applications</b>, Linux 4.6.2, Systemd 230, Kmod 22, Networkmanager 1.2.2, Calligra 3.0Alpha, Krita 3.0, Cantata, Plasma-nm 5.6.95, Xorg-server 1.18.3, Mesa 11.2.2, Glibc 2.23, GCC 4.9.3, non-free Nvidia 367.27, Pepperflash and Python3 3.5.1 to name a few.</p>
+    
+    <p>The package manager is <strong>Pacman 5.0.1</strong>, with the simple but powerful Octopi 0.9dev as GUI frontend. Default web browser is Qt based Qupzilla 2.0.1. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna", fully redone for 2016.</p>
+    
+    <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, beside the stable kernel there is Linux-next 4.6, Libreoffice 5.1.3, Qt 5.7.0, bumblebee packages, VLC, Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad and Knights.<br />
+    A limited number of the most well-known GTK applications are available, examples Firefox 47.0, Chrome 53, Ardour 4.7.0, Inkscape 0.91, GIMP 2.8.16 and Google-talkplugin 5.38.5.0.<br />
+    Complete language packs are available for KDE, Calligra, Firefox, Libreoffice and Thunderbird. For IM, Fcitx 4.2.9.1 is available as a rather complete group.</p>
+    
+    <p><b>Known issues:</b></p>
     <ul>
-        <li>If you want to use a GPT partition table on a BIOS system, make
-        sure to set it up following <b>http://kaosx.us/gpt-partitioning/</b>, 
-            the installer's partitioner can
-            only handle GPT correctly for UEFI
-        </li>
-        <li>Installing on RAID, LVM, LUKS is currently not possible</li>
-    </ul>To create <b>reliable</b> installation media, please follow the
-    instructions from the <b>http://kaosx.us/download/</b>
-    page. KaOS's ISO's <b>do not support unetbootin</b>, and DVDs need a burn
-    speed <b>no higher than 4x</b>.<br>
-    <br>
+        <li>On systems running the Nouveau graphics driver, Qupzilla will not start.  Either install the <b> https://kaosx.us/docs/nvidia/, non-free nvidia driver</b> or use another browser.  Nouveau is not compatible with QtWebEngine.</li>
+        <li>If you want to use a GPT partition table on a BIOS system, make sure to set it up following <b>https://kaosx.us/docs/bios_gpt/</b>, the installer's partitioner can only handle GPT correctly for UEFI</li>
+        <li>Installing on RAID or LVM is currently not possible</li>
+    </ul>
+    
+    <p>To create <b>reliable</b> installation media, please follow the instructions from the <b>http://kaosx.us/download/</b> page. KaOS's ISO's <b>do not support unetbootin</b>, and DVDs need a burn speed <b>no higher than 4x</b>.</p>
 </body>
 </html>
