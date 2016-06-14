@@ -1,16 +1,17 @@
 
 pkgbase=virtualbox
 pkgname=('virtualbox' 'virtualbox-ext-oracle')
-pkgver=5.0.20
-_build=106931
+pkgver=5.1.0beta2
+_pkgver=5.1.0_BETA2
+_build=107840
 pkgrel=1
 arch=('x86_64')
 url='http://virtualbox.org/'
 license=('GPL2' 'custom:PUEL')
 options=('!strip')
 makedepends=('libidl2' 'libxcursor' 'libxinerama' 'libxslt' 'curl' 'linux-headers' 'python2' 'make' 'gcc')
-source=("VirtualBox-${pkgver}-${_build}-Linux_amd64.run::http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}-${_build}-Linux_amd64.run"
-        "http://download.virtualbox.org/virtualbox/${pkgver}/Oracle_VM_VirtualBox_Extension_Pack-${pkgver}-${_build}.vbox-extpack"
+source=("VirtualBox-${_pkgver}-${_build}-Linux_amd64.run::http://download.virtualbox.org/virtualbox/${_pkgver}/VirtualBox-${_pkgver}-${_build}-Linux_amd64.run"
+        "http://download.virtualbox.org/virtualbox/${_pkgver}/Oracle_VM_VirtualBox_Extension_Pack-${_pkgver}-${_build}.vbox-extpack"
         '10-vboxdrv.rules'
         'vboxdrv.conf'
         'vboxweb.conf'
@@ -19,8 +20,8 @@ source=("VirtualBox-${pkgver}-${_build}-Linux_amd64.run::http://download.virtual
         'virtualbox.conf'
         'vboxsetup.sh'
         'PUEL')
-md5sums=('e90aefaf44239273529aaf804eb64183'
-         'ad35ea928dfbb2e0d46cd0c86b82e8e5'
+md5sums=('99f261f29aae321b890b9e61d5eeb650'
+         '194092c091f107c723d2dfdc4a0e01de'
          '6e2722bfd7013c1b0174382626ac1b8d'
          '564ceec89e559bd98987f08e86f74825'
          '3ac185709bfe688bb753c46e170d0546'
@@ -39,7 +40,6 @@ package_virtualbox() {
   depends=('libidl2' 'libxcursor' 'libxinerama' 'libxslt' 'curl' 'linux-headers'
            'python2' 'make' 'gcc')
   optdepends=('virtualbox-ext-oracle: for Oracle extensions'
-              'qt: for GUI support'
               'sdl: for VBoxSDL and GUI support'
               'mesa: for OpenGL support'
               'libgl: for shared OpenGL support'
@@ -50,8 +50,8 @@ package_virtualbox() {
   install=${pkgname}.install
   
   # Check and unpack the run package via sh(1)
-  sh "VirtualBox-${pkgver}-${_build}-Linux_amd64.run" --check
-  echo yes | sh "VirtualBox-${pkgver}-${_build}-Linux_amd64.run" --target "${srcdir}" \
+  sh "VirtualBox-${_pkgver}-${_build}-Linux_amd64.run" --check
+  echo yes | sh "VirtualBox-${_pkgver}-${_build}-Linux_amd64.run" --target "${srcdir}" \
     --nox11 --noexec &> /dev/null
 
   # Unpack bundled files
@@ -159,8 +159,8 @@ package_virtualbox-ext-oracle() {
   
   cd "${srcdir}"
   
-  install -D -m 644 "Oracle_VM_VirtualBox_Extension_Pack-${pkgver}-${_build}.vbox-extpack" \
-    "${pkgdir}/usr/share/virtualbox/extensions/Oracle_VM_VirtualBox_Extension_Pack-${pkgver}.vbox-extpack"
+  install -D -m 644 "Oracle_VM_VirtualBox_Extension_Pack-${_pkgver}-${_build}.vbox-extpack" \
+    "${pkgdir}/usr/share/virtualbox/extensions/Oracle_VM_VirtualBox_Extension_Pack-${_pkgver}.vbox-extpack"
   install -D -m 644 PUEL "${pkgdir}/usr/share/licenses/${pkgname}/PUEL"
 }
 
