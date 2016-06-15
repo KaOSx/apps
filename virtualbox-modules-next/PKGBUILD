@@ -1,0 +1,42 @@
+
+_extramodules=extramodules-4.6-next
+_kernver="$(cat /lib/modules/$_extramodules/version)"
+#_kernver=4.6.2-2-next  # hardcode in case system not running linux-next
+
+pkgname=virtualbox-modules-next
+pkgver=5.1.0beta2
+_pkgver=5.1.0_beta2
+pkgrel=1
+pkgdesc="Kernel modules for VirtualBox"
+url="http://www.virtualbox.org"
+arch=('x86_64')
+license=('GPL-2')
+depends=('linux-next>=4.6' 'linux-next<4.7')
+makedepends=('linux-next-headers')
+provides=('virtualbox-modules')
+source=("http://dev.gentoo.org/~polynomial-c/virtualbox/vbox-kernel-module-src-${_pkgver}.tar.xz"
+        'virtualbox-modules-depmod.patch')
+install=${pkgname}.install
+md5sums=('5c238a8b06b00550b3a9e492773ef6f6'
+         'c9f84fb084a79275d269c542ff53ba4d')
+
+prepare() {
+    cd .
+    
+    patch -p0 -i ${srcdir}/virtualbox-modules-depmod.patch
+}
+
+build() {
+    mkdir -p lib/modules/${_kernver}/misc
+    
+    make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
+        MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc
+}
+
+package() {
+    
+    make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
+        MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc INSTALL_MOD_PATH=${pkgdir} install
+
+    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/virtualbox-modules-next.install"
+}
