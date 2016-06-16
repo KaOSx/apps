@@ -1,21 +1,67 @@
-#!/bin/bash
-
 post_install() {
-  # Add vboxusers group, GID 108 is reserved
+  # Add vboxusers group, GID 108 is reserved (http://wiki.archlinux.org/index.php/UID_and_GID_list),
   getent group vboxusers &> /dev/null || groupadd -f -g 108 vboxusers
 
   # Load new udev rule for module vboxdrv
   udevadm control --reload-rules
+
+  # Build new module
+  /usr/bin/vboxsetup setup
+
+  # (Re-)Create USB nodes
+  /usr/bin/vboxsetup fixusb
+
+  # Show warnings
+  /bin/cat <<EOF
+
+==> Remember to add allowed users to the vboxusers group:
+==> # gpasswd -a USERNAME vboxusers
+==>
+==> To start virtualbox web service automatically you need to enable and start the service through systemctl
+==> To fix missing usb devices, you can call 'vboxsetup fixusb' or reboot your computer
+==>
+EOF
 }
 
-post_upgrade()
-{
-	rm -rf /tmp/{.,}*vbox*  
+pre_upgrade() {
+  pre_remove 
 
+  # Remove any stuff remaining from the module compilation
+  rm -Rf "/opt/VirtualBox"
+}
+
+post_upgrade() {
+  post_install
+}
+
+pre_remove() {
+  # Stop running services
+  _service="vboxweb.service"
+  systemctl is-active ${_service} &>/dev/null
+  if [[ "$?" -eq 0 ]]; then
+    systemctl stop ${_service}
+  fi
+  systemctl is-enabled ${_service} &>/dev/null
+  if [[ "$?" -eq 0 ]]; then
+    systemctl disable ${_service}
+  fi
+  
+  # Remove modules
+  if [[ -f /usr/bin/vboxsetup ]]; then
+    /usr/bin/vboxsetup remove
+  else
+    echo -e "\n==> Modules could not be deleted. Please check manually.\n"
+  fi
 }
 
 post_remove() {
+  # Remove any stuff remaining from the module compilation
+  rm -Rf "/opt/VirtualBox"
+  
+  # Remove any run files
+  rm -Rf "/var/run/VirtualBox"
 
-  udevadm control --reload-rules
+  # remove vboxusers group
+  groupdel vboxusers &>/dev/null || true
 }
 

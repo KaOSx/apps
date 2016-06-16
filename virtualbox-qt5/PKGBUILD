@@ -1,0 +1,168 @@
+
+pkgbase=virtualbox-qt5
+pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
+pkgver=5.1.0beta2
+_pkgver=5.1.0_BETA2
+pkgrel=1
+arch=('x86_64')
+url='http://virtualbox.org'
+license=('GPL' 'custom')
+makedepends=('alsa-lib' 'bin86' 'cdrkit' 'curl' 'device-mapper' 'glu' 'iasl' 'openjdk'
+             'libidl2' 'libstdc++5' 'libvncserver' 'libvpx' 'libxcomposite' 'libxcursor' 'libxinerama'
+             'libxml2' 'libxmu' 'libxrandr' 'libxslt' 'libxtst' 'linux-headers' 'mesa' 'pulseaudio'
+             'python2' 'qt5-tools' 'qt5-x11extras' 'sdl' 'sdl_ttf' 'xf86driproto' 
+             'xf86-input-mouse' 'xorg-server' )
+source=("http://download.virtualbox.org/virtualbox/${_pkgver}/VirtualBox-${_pkgver}.tar.bz2"
+        '60-vboxdrv.rules'
+        '60-vboxguest.rules'
+        'LocalConfig.kmk'
+        'vboxservice.service'
+        'driver-path.patch'
+        'include-path.patch')
+md5sums=('9491ec18ccb660a2f99b39f71cc62226'
+         '6e2722bfd7013c1b0174382626ac1b8d'
+         'ed1341881437455d9735875ddf455fbe'
+         'ddcf16554f135918e1f767103e4a7390'
+         '8ba9179c4a3516904417d773816dd992'
+         '9be7e2703afeee1fca9368bd8750e710'
+         '9e49bbaa2192b141c27ee43cef8cbab7')
+
+prepare() {
+    cd VirtualBox-${_pkgver}
+
+    patch -p1 -i ${srcdir}/driver-path.patch
+    patch -p1 -i ${srcdir}/include-path.patch
+    
+    sed -i -e 's|/usr/X11R6/bin/xterm|/usr/X11R6/bin/xterm|' src/VBox/Runtime/VBox/RTAssertShouldPanic-vbox.cpp
+    sed -i -e 's|X11R6/||' configure
+    sed -i -e 's|X11R6/||' Config.kmk
+    sed -i -e 's|*&& check_makeself||' configure
+    sed -i -e 's|smc-napa|smcnapa|' configure
+
+    cp ${srcdir}/LocalConfig.kmk .
+
+    echo "VBOX_GCC_OPT=$CXXFLAGS" >> LocalConfig.kmk
+}
+
+build() {
+    cd VirtualBox-${_pkgver}
+
+    ./configure \
+        --disable-docs \
+        --disable-kmods \
+        --disable-vmmraw \
+        --enable-pulse \
+        --nofatal
+
+    source ./env.sh
+    kmk all
+}
+
+package_virtualbox-qt5() {
+    pkgdesc='Oracle VM VirtualBox is powerful x86 virtualization for enterprise as well as home use'
+    depends=('glibc' 'openssl' 'curl' 'gcc-libs' 'libpng' 'python2' 'sdl'
+             'libvpx' 'libxml2' 'procps-ng' 'shared-mime-info' 'zlib'
+             'libxcursor' 'libxinerama' 'libx11' 'libxext' 'libxmu' 'libxt' 'xf86-input-mouse'
+             'qt5-x11extras' 'virtualbox-modules')
+    optdepends=('virtualbox-guest-iso: Guest Additions CD image'
+                'net-tools: Host-only or bridged networking support')
+    conflicts=('virtualbox' 'virtualbox-ext-oracle')
+    replaces=('virtualbox' 'virtualbox-ext-oracle')
+    provides=('virtualbox')
+    backup=('etc/vbox/vbox.cfg')
+    install=virtualbox.install
+
+    source VirtualBox-${_pkgver}/env.sh
+    cd VirtualBox-${_pkgver}/out/linux.amd64/release/bin
+
+    # binaries
+    install -dm755 ${pkgdir}/usr/bin
+    install -m755 VBox.sh ${pkgdir}/usr/bin/VBox
+    for i in VBoxHeadless VBoxManage VBoxSDL VirtualBox VBoxBalloonCtrl; do
+        ln -sf VBox ${pkgdir}/usr/bin/$i
+        ln -sf VBox ${pkgdir}/usr/bin/${i,,}
+    done
+    install -m755 VBoxTunctl ${pkgdir}/usr/bin
+
+    # libraries
+    install -dm755 ${pkgdir}/usr/lib/virtualbox
+    install -m755 *.so ${pkgdir}/usr/lib/virtualbox
+    install -m644 *.r0 VBoxEFI*.fd ${pkgdir}/usr/lib/virtualbox
+    ## setuid root binaries
+    install -m4755 VBoxSDL VirtualBox VBoxHeadless VBoxNetDHCP VBoxNetAdpCtl VBoxNetNAT -t ${pkgdir}/usr/lib/virtualbox
+    ## other binaries
+    install -m755 VBoxManage VBoxSVC VBoxExtPackHelperApp VBoxXPCOMIPCD VBoxTestOGL VBoxBalloonCtrl -t ${pkgdir}/usr/lib/virtualbox
+
+    # components
+    install -dm755 ${pkgdir}/usr/lib/virtualbox/components
+    install -m755 components/* -t ${pkgdir}/usr/lib/virtualbox/components
+
+    # extensions packs, disable for now, experimental according to ExtPack.xml
+    #install -dm755 ${pkgdir}/usr/lib/virtualbox/ExtensionPacks
+    #install -m755 ExtensionPacks/* -t ${pkgdir}/usr/lib/virtualbox/ExtensionPacks
+
+    # languages
+    install -dm755 ${pkgdir}/usr/share/virtualbox/nls
+    install -m755 nls/*.qm -t ${pkgdir}/usr/share/virtualbox/nls
+
+    # scripts
+    install -m755 VBoxCreateUSBNode.sh VBoxSysInfo.sh -t ${pkgdir}/usr/share/virtualbox
+
+    # icons
+    install -Dm644 VBox.png ${pkgdir}/usr/share/pixmaps/VBox.png
+
+    pushd icons >/dev/null
+    for i in *; do
+        install -d ${pkgdir}/usr/share/icons/hicolor/$i/mimetypes
+        cp $i/* ${pkgdir}/usr/share/icons/hicolor/$i/mimetypes
+    done
+    popd >/dev/null
+
+    #desktop
+    install -Dm644 virtualbox.desktop ${pkgdir}/usr/share/applications/virtualbox.desktop
+    install -Dm644 virtualbox.xml ${pkgdir}/usr/share/mime/packages/virtualbox.xml
+
+    #install configuration files
+    install -dm755 ${pkgdir}/etc/vbox
+    echo 'INSTALL_DIR=/usr/lib/virtualbox' > ${pkgdir}/etc/vbox/vbox.cfg
+    install -dm755 ${pkgdir}/etc/ld.so.conf.d
+    echo '/usr/lib/virtualbox' > ${pkgdir}/etc/ld.so.conf.d/virtualbox.conf
+
+    cd ${srcdir}
+
+    install -Dm644 VirtualBox-${_pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
+
+    # systemd
+    install -Dm644 60-vboxdrv.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxdrv.rules
+}
+
+package_virtualbox-guest-utils() {
+    pkgdesc='Oracle VM VirtualBox Guest userspace utilities'
+    depends=('glibc' 'pam' 'libx11' 'libxcomposite' 'libxdamage' 'libxext' 'libxfixes' 
+             'libxmu' 'libxt' 'xorg-server-utils')
+    install=virtualbox-guest-utils.install
+
+    source VirtualBox-${_pkgver}/env.sh
+    
+    pushd VirtualBox-${_pkgver}/out/linux.amd64/release/bin/additions
+    install -d ${pkgdir}/usr/bin
+    install -m755 VBoxClient VBoxControl VBoxService mount.vboxsf ${pkgdir}/usr/bin
+    install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
+        ${pkgdir}/usr/bin/VBoxClient-all
+    install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
+        ${pkgdir}/etc/xdg/autostart/vboxclient.desktop
+    install -D vboxvideo_drv_system.so \
+        ${pkgdir}/usr/lib/xorg/modules/drivers/vboxvideo.so
+    install -d ${pkgdir}/usr/lib/xorg/modules/dri
+    install -m755 VBoxOGL*.so ${pkgdir}/usr/lib
+    ln -s /usr/lib/VBoxOGL.so ${pkgdir}/usr/lib/xorg/modules/dri/vboxvideo_dri.so
+    install -m755 -D pam_vbox.so ${pkgdir}/usr/lib/security/pam_vbox.so
+    popd
+ 
+    install -Dm644 60-vboxguest.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxguest.rules
+    install -Dm644 vboxservice.service ${pkgdir}/usr/lib/systemd/system/vboxservice.service
+
+    install -Dm644 VirtualBox-${_pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
+}
+
+
