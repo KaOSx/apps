@@ -15,7 +15,7 @@ depends=('frameworkintegration' 'kcmutils' 'knotifyconfig' 'krunner' 'kdesu' 'kn
          'kemoticons' 'libxrandr' 'kded' 'kwin' 'libksysguard' 'ktexteditor' 'kde-cli-tools'
          'khelpcenter' 'kio-extras' 'baloo' 'milou' 'libkscreen' 'breeze' 'gpsd' 'libqalculate' 'qt5-tools'
          'qimageblitz' 'oxygen-icons' 'prison' 'sddm-kcm' 'networkmanager-qt' 'kxmlrpcclient' 'kscreenlocker'
-         'kactivitymanagerd' 'iso-codes')
+         'kactivitymanagerd' 'iso-codes' 'kholidays')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
 options=('debug')
@@ -23,23 +23,17 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.ta
         '10-kf5'
         'kde.pam'
         'kde-np.pam'
-        'kscreensaver.pam'
-        "https://github.com/KDE/plasma-workspace/commit/46229c9e47409f5d82d3d7644b949944086dcec2.diff"
-        'kdevelop_u30524.patch')
+        'kscreensaver.pam')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          'beba34da9144bced3ef2a225be532109'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
-         '367a3538f54db71f108b34cfa31088ac'
-         'cdd3a717d17a406b0737c39bacb0e692'
-         'd5c3c9c79429d30b25fa869b52c910a2')
+         '367a3538f54db71f108b34cfa31088ac')
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  # fix ever growing notification list 
-  patch -p1 -i $srcdir/46229c9e47409f5d82d3d7644b949944086dcec2.diff
   # from review board, long awaited multi monitor fix, looks like won't be committed until distros move to Qt 5.6
-  patch -p1 -i $srcdir/kdevelop_u30524.patch
+  #patch -p1 -i $srcdir/kdevelop_u30524.patch
   #sed -i 's|find_package(Prison "1.2.0" QUIET CONFIG)|find_package(KF5Prison "1.2.0" QUIET CONFIG)|' ${srcdir}/${pkgname}-${pkgver}/klipper/CMakeLists.txt
 }         
          

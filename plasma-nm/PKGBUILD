@@ -18,14 +18,12 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('plasma5')
 conflicts=('kf5-plasma-nm')
 replaces=('kf5-plasma-nm')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
-        "https://github.com/KDE/plasma-nm/commit/c5eb19bb44c8b10d848628557405b597b680bbe8.diff")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '7e1a9ddba632831480585601d539ad3b')
+source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   cd $pkgname-$pkgver
-  patch -p1 -i ${srcdir}/c5eb19bb44c8b10d848628557405b597b680bbe8.diff
+  #patch -p1 -i ${srcdir}/c5eb19bb44c8b10d848628557405b597b680bbe8.diff
   mkdir build
   
   cd build
