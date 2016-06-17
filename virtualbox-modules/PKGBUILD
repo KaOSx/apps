@@ -3,8 +3,8 @@ _extramodules=extramodules-4.6
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-modules
-pkgver=5.1.0beta2
-_pkgver=5.1.0_beta2
+pkgver=5.1.0beta3
+_pkgver=5.1.0_beta3
 pkgrel=1
 pkgdesc="Kernel modules for VirtualBox"
 url="http://www.virtualbox.org"
@@ -12,19 +12,20 @@ arch=('x86_64')
 license=('GPL-2')
 depends=('linux>=4.6' 'linux<4.7')
 makedepends=('linux-headers')
-source=("http://dev.gentoo.org/~polynomial-c/virtualbox/vbox-kernel-module-src-${_pkgver}.tar.xz"
+source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-kernel-module-src-${_pkgver}.tar.xz"
         'virtualbox-modules-depmod.patch')
 install=${pkgname}.install
-md5sums=('5c238a8b06b00550b3a9e492773ef6f6'
+md5sums=('b8cb4c32d6755884f89c85b7d3092a48'
          'c9f84fb084a79275d269c542ff53ba4d')
 
 prepare() {
-    cd .
+    cd vbox-kernel-module-src-${_pkgver}
     
     patch -p0 -i ${srcdir}/virtualbox-modules-depmod.patch
 }
 
 build() {
+    cd vbox-kernel-module-src-${_pkgver}
     mkdir -p lib/modules/${_kernver}/misc
     
     make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
@@ -32,6 +33,7 @@ build() {
 }
 
 package() {
+    cd vbox-kernel-module-src-${_pkgver}
     
     make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
         MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc INSTALL_MOD_PATH=${pkgdir} install
