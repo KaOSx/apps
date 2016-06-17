@@ -14,16 +14,14 @@ depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'kdeclarative' 'plasma-framework
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 conflicts=('plasma-volume-control')
 replaces=('plasma-volume-control')
-source=($_mirror/${pkgname}-${pkgver}.tar.xz
-       'pa-streams-applet.diff')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '0d709b6e92999d31e17161d6cf2cdb04')
+source=($_mirror/${pkgname}-${pkgver}.tar.xz)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/plasma-pa.git")
 #md5sums=('SKIP')
 
 prepare() {
   cd $pkgname-${pkgver}
-  patch -p1 -i $srcdir/pa-streams-applet.diff
+  #patch -p1 -i $srcdir/pa-streams-applet.diff
   #sed -i -e 's|#include "ui_module.h"||' ${srcdir}/${pkgname}/src/kcm/module.cpp
 }
 

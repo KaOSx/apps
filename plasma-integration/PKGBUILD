@@ -10,7 +10,7 @@ arch=('x86_64')
 url='https://github.com/KDE/plasma-integration'
 license=('LGPL')
 depends=('kconfig' 'kconfigwidgets' 'ki18n' 'kiconthemes' 'kio' 'knotifications' 'kwidgetsaddons'
-         'kwayland' 'noto-fonts' 'oxygen-fonts')
+         'kwayland' 'noto-fonts' 'oxygen-fonts' 'breeze')
 makedepends=('extra-cmake-modules')
 groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
@@ -21,7 +21,7 @@ md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare () {
   cd ${pkgname}-${pkgver}
   # patch by frugalware to fix reading from default lnf package
-  patch -p1 -i ${srcdir}/4240c588aa3c2643d8d00a0da562197f1784cad6.diff
+  #patch -p1 -i ${srcdir}/4240c588aa3c2643d8d00a0da562197f1784cad6.diff
 }
   
 build () {  
