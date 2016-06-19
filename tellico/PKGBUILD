@@ -1,6 +1,7 @@
 
 pkgname=tellico
-pkgver=2.9.101
+pkgver=2.9.102
+_commit=a8df4d656bb72858f113d1fa2be58f1dd595d526
 pkgrel=1
 pkgdesc="A collection manager for KDE"
 arch=('x86_64')
@@ -11,16 +12,15 @@ depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'k
          'kwallet' 'qimageblitz' 'libksane' 'taglib' 'libdiscid' 'poppler-qt5' 'v4l-utils') # 'libkcddb' 'yaz' 'exempi' 
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('office')
-install=$pkgname.install
 #source=("http://tellico-project.org/files/${pkgname}-${pkgver}.tar.bz2")
-source=("git://anongit.kde.org/tellico")
-md5sums=('SKIP')
+source=("https://github.com/KDE/tellico/archive/${_commit}.zip")
+md5sums=('59de0ba60911aaade5f0daf37e0d32b2')
 
 build() {
   mkdir build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
