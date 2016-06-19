@@ -4,37 +4,49 @@ common_install()
     depmod -a $(cat /lib/modules/$EXTRAMODULES/version)
 }
 
+load()
+{
+    modules=(vboxnetadp vboxnetflt vboxpci vboxdrv)
+
+    echo -n 'Loading modules: '
+        for _m in "${modules[@]}"; do
+    modprobe "$_m" && echo -n "$_m "
+    done
+    echo
+}
+
+unload()
+{
+    modules=(vboxnetadp vboxnetflt vboxpci vboxdrv)
+
+    echo -n 'Unloading modules: '
+    for _m in "${modules[@]}"; do
+        lsmod|grep -q "$_m" && rmmod "$_m" && echo -n "$_m "
+    done
+    echo
+}
+
 post_install()
 {
 	common_install
-	modprobe vboxnetflt
+	load
 }
 
 post_upgrade()
 {
 	common_install
-	## if that exist package upgraded, no new kernel
+	
 	## on a new kernel do nothing because one has to reboot anyway
 	if [ -e /lib/modules/`uname -r`/misc/vboxdrv.ko ]; then
-		## see if is loaded , if yes kill it and modprobe again if not do nothing
-		#if grep -q vboxdrv /proc/modules; then
-			echo -n "reloading vboxdrv kernel module.."
-				rmmod vboxnetflt
-				rmmod vboxdrv
-				sleep 1
-                		modprobe vboxnetflt
-			echo " done."
-		#fi
+		unload
+		load
 	fi
 }
 
 post_remove()
 {
-	if grep -q vboxdrv /proc/modules; then
-		rmmod vboxnetflt
-		rmmod vboxdrv
-	fi
-	common_install
+    unload
+    common_install
 }
 
 op=$1
