@@ -6,7 +6,7 @@ _kernver="$(cat /lib/modules/$_extramodules/version)"
 pkgname=virtualbox-modules-next
 pkgver=5.1.0beta3
 _pkgver=5.1.0_beta3
-pkgrel=2
+pkgrel=3
 pkgdesc="Kernel modules for VirtualBox"
 url="http://www.virtualbox.org"
 arch=('x86_64')
@@ -44,5 +44,5 @@ package() {
 
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/virtualbox-modules-next.install"
     
-    install -D -m644 ../vbox-modules-next.conf ${pkgdir}/etc/modprobe-load/vbox-modules-next.conf
+    install -D -m644 ../vbox-modules-next.conf ${pkgdir}/etc/modules-load.d/vbox-modules-next.conf
 }

@@ -1,6 +1,6 @@
 common_install()
 {
-	EXTRAMODULES='extramodules-4.6-next'
+    EXTRAMODULES='extramodules-4.6-next'
     depmod -a $(cat /lib/modules/$EXTRAMODULES/version)
 }
 
@@ -28,19 +28,19 @@ unload()
 
 post_install()
 {
-	common_install
-	load
+    common_install
+    load
 }
 
 post_upgrade()
 {
-	common_install
-	
-	## on a new kernel do nothing because one has to reboot anyway
-	if [ -e /lib/modules/`uname -r`/misc/vboxdrv.ko ]; then
-		unload
-		load
-	fi
+    common_install
+
+    ## on a new kernel do nothing because one has to reboot anyway
+    if [ -e /lib/modules/`uname -r`/misc/vboxdrv.ko ]; then
+        unload
+        load
+    fi
 }
 
 post_remove()
