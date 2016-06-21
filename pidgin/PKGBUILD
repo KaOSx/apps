@@ -1,19 +1,18 @@
 
 # perl issue on server, build locally only
 pkgname=pidgin
-pkgver=2.10.12
+pkgver=2.11.0
 pkgrel=1
 pkgdesc="Multi-protocol instant messaging client"
 arch=('x86_64')
 url="http://pidgin.im/"
 license=('GPL')
-depends=("libpurple=$pkgver" 'startup-notification' 'gtkspell' 'libxss' 'hicolor-icon-theme'
+depends=("libpurple=$pkgver" 'startup-notification' 'gtk2' 'libxss' 'hicolor-icon-theme'
          'libsm' 'libidn' 'avahi' 'networkmanager' 'gst-plugins-good' 'farstream')
 makedepends=('nss' 'libsasl' 'python2' 'tk' 'ca-certificates' 'intltool' )
 options=('!libtool')
-install=pidgin.install
 source=("http://downloads.sourceforge.net/pidgin/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('14e0f5cfb2ed065e4dc80391a806ac76')
+md5sums=('7b167474db669aab2f71fa46835fb83f')
 
 build() {
   cd ${pkgname}-$pkgver
@@ -26,7 +25,8 @@ build() {
                 --enable-cyrus-sasl \
                 --enable-nm \
                 --with-python=/usr/bin/python2 \
-                --with-system-ssl-certs=/etc/ssl/certs
+                --with-system-ssl-certs=/etc/ssl/certs \
+                --disable-gtkspell
     make
 }
 
