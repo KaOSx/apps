@@ -1,35 +1,35 @@
 
 pkgname=sddm
 pkgver=20151119
-pkgrel=1
+_commit=7cb27598a951ca0fb229c95377f7fdb3b7c6e789
+pkgrel=2
 pkgdesc="QML based X11 display manager"
 arch=('x86_64')
 url="http://github.com/sddm/sddm"
 license=('GPL')
 depends=('qt5-declarative' 'libxcb')
-makedepends=('cmake' 'git' 'qt5-tools' 'python2-docutils')
+makedepends=('cmake' 'qt5-tools' 'python2-docutils')
 conflicts=('sddm-qt5-git' 'kf5-sddm')
 provides=('sddm-qt5-git' 'kf5-sddm')
 replaces=('sddm-qt5-git' 'kf5-sddm')
 backup=('etc/sddm.conf')
 install=sddm.install
-source=('git://github.com/sddm/sddm.git'
+source=("https://github.com/sddm/sddm/archive/${_commit}.zip"
         'sddm.conf'
         'background.png'
         'Main.qml'
         'wayland.desktop')
-md5sums=('SKIP'
+md5sums=('cb404cca15aadda4923289887ea6b958'
          '2efe887cceb93366a655b2ae3f03c1dc'
          'f6f2ba7460eaf337b9e8e4bce35b03b0'
          '61fa003d4721c4d3cad2ebbecb529898'
          '177ad40d119220786a32f1bf2ac44486')
   
 build() {
-  cd $srcdir 
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib/sddm \
@@ -44,4 +44,6 @@ package() {
   install -m 644 -p ${srcdir}/sddm.conf ${pkgdir}/etc/
   install -d -g 136 -o 136 ${pkgdir}/var/lib/sddm
   #install -Dm644 $srcdir/wayland.desktop $pkgdir/usr/share/wayland-sessions/wayland.desktop
+  # fix systemd 230 double mounting of /
+  sed -i 's|PrivateTmp=true|PrivateTmp=no|' ${pkgdir}/usr/lib/systemd/system/sddm.service
 }
