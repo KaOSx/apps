@@ -13,14 +13,16 @@ depends=('grantlee' 'karchive' 'kcoreaddons' 'kconfig' 'ki18n' 'kitemviews' 'kwi
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost' 'clang')
 groups=('office')
 #source=("git://anongit.kde.org/skrooge.git")
-source=("http://download.kde.org/stable/skrooge/${pkgname}-${pkgver}.tar.xz")
-md5sums=('b37571afed7750be72816c87e77967ee')
+source=("http://download.kde.org/stable/skrooge/${pkgname}-${pkgver}.tar.xz"
+        'sqlite3.patch')
+md5sums=('b37571afed7750be72816c87e77967ee'
+         'd4491543af26fdfac41dadf823109459')
 
 prepare() {
   cd $pkgname-${pkgver}
   #sed -e "s/FIND_PACKAGE(QCA2 2.0.0 REQUIRED)/FIND_PACKAGE(Qca 2.0.0 REQUIRED)/" -i ${srcdir}/$pkgname/skgbasemodeler/CMakeLists.txt
   #sed -e "s/FIND_PACKAGE(KActivities)/FIND_PACKAGE(KF5Activities)/" -i ${srcdir}/$pkgname/skgbasegui/CMakeLists.txt
-  #patch -p1 -i ${srcdir}/isnan.diff
+  patch -p1 -i ${srcdir}/sqlite3.patch
 }
          
 build() {
