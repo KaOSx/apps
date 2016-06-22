@@ -4,8 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=poxml
 pkgver=${_kdever}
-#pkgver=15.07.70
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools for using .po-files to translate DocBook XML files'
 url='https://projects.kde.org/projects/kde/kdesdk/poxml'
 arch=('x86_64')
@@ -17,9 +16,6 @@ conflicts=('kdesdk-poxml')
 replaces=('kdesdk-poxml')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/poxml")
-#md5sums=('SKIP')
-
 
 build() {
     cd ${srcdir}/${pkgname}-${pkgver}
