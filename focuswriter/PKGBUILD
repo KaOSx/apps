@@ -1,6 +1,6 @@
 
 pkgname=focuswriter
-pkgver=1.5.5
+pkgver=1.5.6
 pkgrel=1
 pkgdesc="A simple fullscreen word processor."
 arch=('x86_64')
@@ -8,18 +8,18 @@ url="http://gottcode.org/focuswriter/"
 license=('GPL3')
 depends=('enchant' 'libzip' 'qt5-declarative' 'sdl_mixer' 'qt5-multimedia')
 groups=('office')
-source=("http://gottcode.org/focuswriter/$pkgname-$pkgver-src.tar.bz2")
-md5sums=('81bb10f9e551fb31fd162b1872362632')
+source=("http://gottcode.org/focuswriter/${pkgname}-${pkgver}-src.tar.bz2")
+md5sums=('e0a84963bcf73bfadd1a78eaed3d556f')
 
 build() {
-  cd $srcdir/$pkgname-$pkgver
+  cd ${pkgname}-${pkgver}
   
   /usr/lib/qt5/bin/qmake PREFIX=/usr
   make
 }
 
 package() {
-  cd $srcdir/$pkgname-$pkgver
+  cd ${pkgname}-${pkgver}
   
-  make INSTALL_ROOT=$pkgdir install
+  make INSTALL_ROOT=${pkgdir} install
 }

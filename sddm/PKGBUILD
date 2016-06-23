@@ -2,7 +2,7 @@
 pkgname=sddm
 pkgver=20151119
 _commit=7cb27598a951ca0fb229c95377f7fdb3b7c6e789
-pkgrel=2
+pkgrel=3
 pkgdesc="QML based X11 display manager"
 arch=('x86_64')
 url="http://github.com/sddm/sddm"
@@ -45,5 +45,5 @@ package() {
   install -d -g 136 -o 136 ${pkgdir}/var/lib/sddm
   #install -Dm644 $srcdir/wayland.desktop $pkgdir/usr/share/wayland-sessions/wayland.desktop
   # fix systemd 230 double mounting of /
-  sed -i 's|PrivateTmp=true|PrivateTmp=no|' ${pkgdir}/usr/lib/systemd/system/sddm.service
+  sed -i 's|PrivateTmp=yes|PrivateTmp=no|' ${pkgdir}/usr/lib/systemd/system/sddm.service
 }
