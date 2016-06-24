@@ -1,6 +1,6 @@
 
 pkgname=kid3
-pkgver=3.4.0
+pkgver=3.4.1
 pkgrel=1
 pkgdesc="Easily tag multiple MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, and more, plus have control over both ID3v1 and ID3v2 tags"
 arch=('x86_64')
@@ -11,11 +11,10 @@ makedepends=('extra-cmake-modules' 'docbook-xsl' 'qt5-tools' 'kdoctools')
 groups=('multimedia')
 install=${pkgname}.install
 source=("http://sourceforge.net/projects/kid3/files/kid3/$pkgver/$pkgname-$pkgver.tar.gz")
-md5sums=('29006b663d1cbaee4a566ef92f8db9f0')
+md5sums=('d89e7f50453098b6028c81873148a348')
 
 build() {
-  cd ${srcdir}
-  mkdir build
+  mkdir -p build
   cd build
   
   cmake ../${pkgname}-${pkgver} \
@@ -28,7 +27,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }
