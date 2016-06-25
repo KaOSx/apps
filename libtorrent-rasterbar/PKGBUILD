@@ -14,6 +14,8 @@ md5sums=('3a291044b5b33fec3e30b22a94fda31f')
 build() {
   cd ${pkgname}-${pkgver}
   
+  CXXFLAGS="-std=c++11"
+  
   ./configure --prefix=/usr --enable-python-binding --with-libgeoip=system
   make
 }

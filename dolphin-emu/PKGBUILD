@@ -1,6 +1,6 @@
 
 pkgname=dolphin-emu
-pkgver=4.0.2.9
+pkgver=5.0
 pkgrel=1
 _commit=dbd67c6
 pkgdesc='GameCube, Wii and Triforce emulator'
@@ -10,11 +10,12 @@ license=('GPL2')
 depends=('bluez' 'ffmpeg' 'glew' 'libao' 'miniupnpc' 'openal' 'portaudio-svn'
          'sdl2' 'soundtouch' 'qt5-base' 'pulseaudio' 'gtk2' 'glu')
 makedepends=('cmake' 'opencl-headers')
-source=("https://github.com/dolphin-emu/dolphin/tarball/master/${pkgname}-${pkgver}.tar.gz")
-md5sums=('d9e5c8de431bd0daae289eda96aa72ca')
+#source=("https://github.com/dolphin-emu/dolphin/tarball/master/${pkgname}-${pkgver}.tar.gz")
+source=("https://github.com/dolphin-emu/dolphin/archive/${pkgver}.tar.gz")
+md5sums=('ed94272956adbec690808f6e4d8ff065')
          
 build() {
-  cd ${pkgname}-dolphin-${_commit}
+  cd dolphin-${pkgver}
 
   mkdir build 
   cd build
@@ -27,7 +28,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-dolphin-${_commit}/build
+  cd dolphin-${pkgver}/build
 
   make DESTDIR=${pkgdir} install
   
