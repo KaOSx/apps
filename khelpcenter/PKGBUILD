@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khelpcenter
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Application to show KDE Applications documentation'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khelpcenter'
@@ -12,17 +12,17 @@ license=('LGPL')
 depends=('karchive' 'kbookmarks' 'kconfig' 'kcoreaddons' 'ki18n' 'kinit' 'khtml' 'kservice'
          'kwindowsystem' 'grantlee' 'xapian-core')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("http://download.kde.org/stable/applications/$pkgver/$pkgname-$pkgver.tar.xz")
+source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/khelpcenter.git")
 #md5sums=('SKIP')
 
 build() {
   mkdir -p build
-  #sed -e "s|add_subdirectory(pt_BR)|#add_subdirectory(pt_BR)|" -i ${srcdir}/$pkgname-$pkgver/doc/CMakeLists.txt
+  #sed -e "s|add_subdirectory(pt_BR)|#add_subdirectory(pt_BR)|" -i ${srcdir}/${pkgname}-${pkgver}/doc/CMakeLists.txt
   cd build
   
-  cmake ../${pkgname}-$pkgver \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
