@@ -1,7 +1,8 @@
 
 pkgname=amarok
-pkgver=2.8.81
-pkgrel=1
+pkgver=2.8.82
+pkgrel=2
+_commit=8c8392e95455bd9bf83fa4ddc910f9835351aa3b
 pkgdesc="A media player for KDE"
 arch=('x86_64')
 url="http://amarok.kde.org"
@@ -12,21 +13,20 @@ depends=('kcoreaddons' 'solid' 'kdelibs4support' 'kcodecs' 'ki18n' 'threadweaver
          'mariadb' 'taglib-extras' 'ffmpeg' 'libofa' 'mesa' 'loudmouth' 'clamz' 'gst-plugins-bad' 
          'ifuse' 'libgpod' 'libmtp'
          'qca-qt5' 'liblastfm' 'qjson' 'libmygpo-qt' 'qt5-webkit')
-makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
-install="${pkgname}.install"
-#source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-#md5sums=('53cfcb4819668b10e13b061478c7b32a')
-source=("git://anongit.kde.org/amarok.git#branch=kf5"
-        'qt5.5.diff')
-md5sums=('SKIP'
-         'e9b525b8df90bdd2880bd095cd5f3826')
+source=("https://github.com/KDE/amarok/archive/${_commit}.zip"
+        "https://github.com/KDE/amarok/commit/745b2e18c5b58cfabcbf6e7863572122d673692e.diff")
+md5sums=('2bc69fcd0756f787e8862de0249f9022'
+         'bcbfd9543ce6768181f0342f89745de6')
 
 prepare() {
-  cd $pkgname
-  #patch -p1 -i $srcdir/qt5.5.diff
-  #sed -i -e 's|find_library( LIBMYGPO_QT_LIBRARY NAMES mygpo-qt5|find_library( LIBMYGPO_QT_LIBRARY NAMES mygpo-qt|' ${srcdir}/${pkgname}/cmake/modules/FindLibmygpo-qt.cmake
-  #sed -i -e 's|LIBLASTFM_LIBRARY NAMES lastfm5|LIBLASTFM_LIBRARY NAMES lastfm|' ${srcdir}/${pkgname}/cmake/modules/FindLibLastFm.cmake
+  cd ${pkgname}-${_commit}
+  patch -p1 -i $srcdir/745b2e18c5b58cfabcbf6e7863572122d673692e.diff
+  sed -i -e 's|Qt::Key_Space||' src/ActionClasses.cpp
+  sed -i -e 's|setScheme( "http" )|setScheme( "https" )|' src/context/engines/tabs/TabsEngine.cpp
+  sed -i -e 's|KUrl( KStandardDirs::locate|KUrl( KStandardDirs::locateLocal|' src/scripting/scriptconsole/ScriptConsole.cpp
+  sed -i -e 's|PATH_SUFFIXES lastfm5|PATH_SUFFIXES lastfm|' cmake/modules/FindLibLastFm.cmake
   #sed -i -e 's|KIO NotifyConfig Archive)|KIO NotifyConfig Archive ConfigWidgets)|' ${srcdir}/${pkgname}/CMakeLists.txt
 }
 
@@ -34,7 +34,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
