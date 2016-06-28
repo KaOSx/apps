@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kde-baseapps
 pkgver=16.03.70
 _commit=49c1e2dd95d613432135071316960875e6a61ac1
-pkgrel=1
+pkgrel=2
 pkgdesc="Collection of applications used for file and Internet browsing"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/kde-baseapps'
@@ -57,6 +57,8 @@ package() {
 
   make DESTDIR="${pkgdir}" install
   
-  # conflict with kio 5.16.0
-  #rm -r ${pkgdir}//usr/share/kservicetypes5/konqpopupmenuplugin.desktop
+  # konqueror kf5 is not usable
+  rm -r ${pkgdir}/usr/share/applications/konquerorsu.desktop
+  rm -r ${pkgdir}/usr/share/applications/konqbrowser.desktop
+  rm -r ${pkgdir}/usr/bin/konqueror
 }
