@@ -1,7 +1,7 @@
 
 pkgname=qupzilla
-pkgver=2.0.1.2
-_commit=671832e
+pkgver=2.0.1.3
+_commit=f0e2b93
 pkgrel=1
 pkgdesc="A fast open source browser based on QtWebengine, written in Qt Framework"
 arch=('x86_64')
@@ -18,7 +18,7 @@ source=("https://github.com/QupZilla/QupZilla/tarball/master/QupZilla-qupzilla-$
         'browserwindow.diff'
         'defines.diff'
         'bookmarks_json_new.diff')
-md5sums=('43e073cfaf7cff76c9d14507e9362dea'
+md5sums=('6394d98e2bb0986a62ae8e54d810929c'
          'c2d612128738d21e073dbb9a2e11a319'
          '65337a0fb92c5c3222d72969771388ce'
          '0a1a394a6cd9aaff40d2129203cb5479'
@@ -28,8 +28,8 @@ md5sums=('43e073cfaf7cff76c9d14507e9362dea'
 build() {
     cd QupZilla-qupzilla-${_commit}/
     patch -p0 -i ${srcdir}/speeddial.diff
-    #patch -p0 -i ${srcdir}/preferences.diff
-    #patch -p0 -i ${srcdir}/browserwindow.diff
+    patch -p0 -i ${srcdir}/preferences.diff
+    patch -p0 -i ${srcdir}/browserwindow.diff
     patch -p0 -i ${srcdir}/defines.diff
     patch -p0 -i ${srcdir}/bookmarks_json_new.diff
 
