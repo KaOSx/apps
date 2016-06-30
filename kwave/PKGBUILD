@@ -1,8 +1,8 @@
 
 pkgname=kwave
-pkgver=0.9.1
-_pkgver=0.9.1-1
-pkgrel=2
+pkgver=0.9.2
+_pkgver=0.9.2-1
+pkgrel=1
 pkgdesc="Sound editor designed for the Plasma Desktop Environment"
 arch=('x86_64')
 url="http://kwave.sourceforge.net/"
@@ -14,7 +14,7 @@ depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons'
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 options=('!libtool')
 source=("https://sourceforge.net/projects/kwave/files/kwave/${pkgver}/${pkgname}-${_pkgver}.tar.bz2")
-md5sums=('414ff3024368a1aea8af8d5ad1d784be')  
+md5sums=('bac78ea1b4e5b7e07998ac0a6a7c2fe0')  
 
 build() {
   mkdir build
@@ -22,7 +22,7 @@ build() {
   
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=/usr/lib \
+    -KDE_INSTALL_LIBDIR=/usr/lib \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DWITH_MP3=OFF  # id3lib not in repo, upstream works on taglib
