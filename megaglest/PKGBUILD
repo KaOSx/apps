@@ -10,11 +10,14 @@ depends=('curl' 'megaglest-data' 'xerces-c' 'sdl2' 'libvorbis' 'openal' 'libgl' 
          'miniupnpc' 'glu' 'libx11' 'vlc')
 makedepends=('ftjam' 'cmake' 'git')
 #source=("https://github.com/basxto/megaglest-source/tarball/qt4/megaglest-source-${pkgver}.tar.gz")
-source=("https://github.com/MegaGlest/megaglest-source/archive/${pkgver}.tar.gz")
+source=("https://github.com/MegaGlest/megaglest-source/archive/${pkgver}.tar.gz"
+        "https://github.com/MegaGlest/megaglest-source/commit/a85d12aed1983eb69d630b431b81ae656d83b3ac.patch")
 md5sums=('78dbd3a4992e02a5a753d94832943792')
 
 build() {
   cd megaglest-source-${pkgver}
+  # miniupnpc 2.0 needed patch
+  patch -p1 -i $srcdir/a85d12aed1983eb69d630b431b81ae656d83b3ac.patch
 
   mkdir build 
   cd build
