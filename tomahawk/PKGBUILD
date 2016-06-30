@@ -1,0 +1,46 @@
+
+pkgname=tomahawk
+pkgver=0.8.70
+_commit=525068a7067b62e498e6c4e8b67d9208cec065db
+pkgrel=1
+pkgdesc="Free multi-source and cross-platform music player."
+arch=('x86_64')
+url="https://www.tomahawk-player.org/"
+license=('GPL3')
+depends=('kf5-attica' 'taglib-extras' 'qca-qt5' 'liblastfm' 'qjson' 'libmygpo-qt' 'qt5-webkit'
+         'libechonest' 'sparsehash' 'gnutls' 'quazip' 'qtkeychain' 'telepathy-qt5' 'vlc' 
+         'luceneplusplus' 'websocketpp')
+makedepends=('extra-cmake-modules' 'qt5-tools')
+groups=('multimedia')
+source=("https://github.com/tomahawk-player/tomahawk/archive/${_commit}.zip")
+md5sums=('82fcf5e53d755cd0eda311ab1661ebe9')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+  
+  sed -i -e 's|NAMES lastfm${LASTFM_LIB_SUFFIX}/Track.h|NAMES lastfm/Track.h|' CMakeModules/FindLibLastFm.cmake
+  sed -i -e 's|#include <lastfm5/ws.h>|#include <lastfm/ws.h>|' src/libtomahawk/utils/TomahawkUtils.cpp
+  sed -i -e 's|#include <lastfm5/|#include <lastfm/|' src/libtomahawk/accounts/lastfm/LastFmConfig.cpp
+  sed -i -e 's|#include <lastfm5/|#include <lastfm/|' src/libtomahawk/accounts/lastfm/LastFmInfoPlugin.h
+  sed -i -e 's|#include <lastfm5/|#include <lastfm/|' src/libtomahawk/accounts/lastfm/LastFmInfoPlugin.cpp
+  sed -i -e 's|#include <lastfm5/|#include <lastfm/|' src/tomahawk/TomahawkApp.h
+  sed -i -e 's|#include <lastfm5/|#include <lastfm/|' src/tomahawk/Scrobbler.h
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
