@@ -1,7 +1,7 @@
 
 pkgname=tomahawk
 pkgver=0.8.70
-_commit=525068a7067b62e498e6c4e8b67d9208cec065db
+_commit=a439427ca54287ef60cecf3e95e18667afdf9115
 pkgrel=1
 pkgdesc="Free multi-source and cross-platform music player."
 arch=('x86_64')
@@ -9,11 +9,13 @@ url="https://www.tomahawk-player.org/"
 license=('GPL3')
 depends=('kf5-attica' 'taglib-extras' 'qca-qt5' 'liblastfm' 'qjson' 'libmygpo-qt' 'qt5-webkit'
          'libechonest' 'sparsehash' 'gnutls' 'quazip' 'qtkeychain' 'telepathy-qt5' 'vlc' 
-         'luceneplusplus' 'websocketpp')
-makedepends=('extra-cmake-modules' 'qt5-tools')
+         'luceneplusplus' 'websocketpp' 'boost-libs')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'boost')
 groups=('multimedia')
-source=("https://github.com/tomahawk-player/tomahawk/archive/${_commit}.zip")
-md5sums=('82fcf5e53d755cd0eda311ab1661ebe9')
+source=("https://github.com/tomahawk-player/tomahawk/archive/${_commit}.zip"
+        'trackview.diff')
+md5sums=('07c2793cd37b66a794f88297fca9d756'
+         'c8d9e81382a6b3f8b408b0e24ff35a15')
 
 prepare() {
   cd ${pkgname}-${_commit}
@@ -25,6 +27,8 @@ prepare() {
   sed -i -e 's|#include <lastfm5/|#include <lastfm/|' src/libtomahawk/accounts/lastfm/LastFmInfoPlugin.cpp
   sed -i -e 's|#include <lastfm5/|#include <lastfm/|' src/tomahawk/TomahawkApp.h
   sed -i -e 's|#include <lastfm5/|#include <lastfm/|' src/tomahawk/Scrobbler.h
+  
+  patch -p1 -i $srcdir/trackview.diff
 }
 
 build() {
@@ -34,8 +38,7 @@ build() {
   cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF 
+    -DCMAKE_INSTALL_LIBDIR=lib 
   make
 }
 
