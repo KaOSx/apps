@@ -1,6 +1,6 @@
 
 pkgname=links
-pkgver=2.12
+pkgver=2.13
 pkgrel=1
 pkgdesc="A text WWW browser, similar to Lynx"
 arch=('x86_64')
@@ -13,11 +13,11 @@ optdepends=('libx11: for using xlinks'
             'libpng: for using xlinks')
 source=("http://links.twibright.com/download/${pkgname}-${pkgver}.tar.bz2"
         'links.desktop')
-md5sums=('5d763ab72dc57bbc310feb95679c9d14'
+md5sums=('af418c83909ee73c09b95470bda6e377'
          '7c47b15aaef51f1de129ff3a2afb7eac')
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd ${pkgname}-${pkgver}
   (cd intl; ./gen-intl; ./synclang)
   
   ./configure --prefix=/usr \
@@ -39,16 +39,16 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
+  cd ${pkgname}-${pkgver}
+  make DESTDIR=${pkgdir} install
 
-  install -m755 xlinks "${pkgdir}/usr/bin/xlinks"
-  ln -s links.1.gz "${pkgdir}/usr/share/man/man1/xlinks.1.gz"
+  install -m755 xlinks ${pkgdir}/usr/bin/xlinks
+  ln -s links.1.gz ${pkgdir}/usr/share/man/man1/xlinks.1.gz
 
-  install -D -m644 "${srcdir}/links.desktop" "${pkgdir}/usr/share/applications/links.desktop"
-  install -d "${pkgdir}/usr/share/pixmaps"
-  install -m644 links_16x16_1.xpm links_16x16_2.xpm links_32x32.xpm "${pkgdir}/usr/share/pixmaps/"
+  install -D -m644 ${srcdir}/links.desktop ${pkgdir}/usr/share/applications/links.desktop
+  install -d ${pkgdir}/usr/share/pixmaps
+  install -m644 links_16x16_1.xpm links_16x16_2.xpm links_32x32.xpm ${pkgdir}/usr/share/pixmaps/
 
-  install -d "${pkgdir}/usr/share/doc/links/calibration"
-  install -m644 doc/links_cal/* "${pkgdir}/usr/share/doc/links/calibration/"
+  install -d ${pkgdir}/usr/share/doc/links/calibration
+  install -m644 doc/links_cal/* ${pkgdir}/usr/share/doc/links/calibration/
 }
