@@ -1,19 +1,18 @@
 
 pkgname=hotot
 pkgver=0.9.8.16
-pkgrel=5
+pkgrel=6
 pkgdesc="Lightweight & open source microblogging software (twitter identi.ca)"
 arch=('x86_64')
 url="http://www.hotot.org/"
 license=('LGPL3')
 depends=('qt5-webkit')
 makedepends=('cmake' 'intltool' 'python2')
-install="hotot.install"
 source=("https://github.com/ManiacTwister/Hotot/archive/${pkgver}.tar.gz")
 md5sums=('5cae5f3b757dfdd476f68697959121f2')
 
 build() {
-  cd ${srcdir}/Hotot-$pkgver
+  cd Hotot-${pkgver}
   mkdir build 
   
   cd build
@@ -26,14 +25,14 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/Hotot-$pkgver/build
-  make DESTDIR="$pkgdir/" install
+  cd Hotot-${pkgver}/build
+  make DESTDIR=${pkgdir}/ install
   
   # fix user retweets error
-  find "$pkgdir" -name lib.twitter.js -exec \
+  find ${pkgdir} -name lib.twitter.js -exec \
     sed -i 's/1\/statuses\/retweeted_by/1.1\/statuses\/retweets_of/' {} \;
-  find "$pkgdir" -name lib.twitter.js -exec \
+  find ${pkgdir} -name lib.twitter.js -exec \
     sed -i 's/1\/statuses\/retweeted_to_me/1.1\/statuses\/retweets_of_me/' {} \;
   
-  rm $pkgdir/usr/share/applications/hotot.desktop
+  rm ${pkgdir}/usr/share/applications/hotot.desktop
 }

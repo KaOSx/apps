@@ -1,31 +1,31 @@
 
 pkgname=oxygen-gtk3
-pkgver=1.4.1
+pkgver=1.4.1.1
+_commit=705b755f67b50213ec596a51b8cfabf2780bc24b
 pkgrel=1
 pkgdesc="The Oxygen engine for GTK3, for better Qt/GKT+ integration."
 arch=('x86_64')
-url=("http://projects.kde.org/projects/playground/artwork/oxygen-gtk/")
+url=("https://github.com/KDE/oxygen-gtk")
 license=('LGPL3' 'GPL')
 depends=('cairo' 'dbus-glib')
-makedepends=('gcc' 'cmake' 'gtk3')
+makedepends=('cmake' 'gtk3' 'gtk2')
 groups=('gtk-integration' 'system')
-source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('231854fbe379dd441518195c45d08201')
+source=("https://github.com/KDE/oxygen-gtk/archive/${_commit}.zip")
+md5sums=('bebfedf79ce5507b405f73e4852eb16b')
 
 build() {
-	cd $srcdir/$pkgname-$pkgver
-	rm -rf build
-	mkdir build 
-	
+	mkdir -p build 
 	cd build
-	cmake -DCMAKE_BUILD_TYPE=Release \
-	      -DCMAKE_SKIP_RPATH=ON \
-	      -DCMAKE_INSTALL_PREFIX=/usr .. 
+	
+	cmake ../oxygen-gtk-${_commit} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DCMAKE_INSTALL_PREFIX=/usr  
 	make
 }
 
 package() {
-	cd $srcdir/$pkgname-$pkgver/build
+	cd build
 	
-	make DESTDIR="${pkgdir}" install
+	make DESTDIR=${pkgdir} install
 }

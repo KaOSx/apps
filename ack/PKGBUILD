@@ -1,7 +1,7 @@
 
 pkgname=ack
 pkgver=2.14
-pkgrel=1
+pkgrel=2
 pkgdesc="A Perl-based grep replacement, aimed at programmers with large trees of heterogeneous source code"
 arch=('x86_64')
 url="http://betterthangrep.com/"
@@ -9,18 +9,18 @@ license=('GPL' 'PerlArtistic')
 depends=('perl-file-next')
 options=('!emptydirs')
 groups=('programming')
-source=("http://search.cpan.org/CPAN/authors/id/P/PE/PETDANCE/$pkgname-$pkgver.tar.gz")
+source=("http://search.cpan.org/CPAN/authors/id/P/PE/PETDANCE/${pkgname}-${pkgver}.tar.gz")
 md5sums=('43cfa05123ba0440fa3958690ee03bac')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd ${pkgname}-${pkgver}
   PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
   
   make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd ${pkgname}-${pkgver}
   
-  make DESTDIR="$pkgdir" install
+  make DESTDIR=${pkgdir} install
 }

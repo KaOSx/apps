@@ -4,10 +4,11 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kmag
 arch=('x86_64')
-pkgver=${_kdever}
+#pkgver=${_kdever}
+pkgver=15.03.70
 pkgrel=1
 pkgdesc="Screen magnifier"
-url="https://projects.kde.org/projects/kde/kdeaccessibility/kmag"
+url="https://github.com/KDE/kmag"
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kio' 'kxmlgui')
 makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools')
@@ -16,14 +17,14 @@ conflicts=('kdeaccessibility-kmag')
 replaces=('kdeaccessibility-kmag')
 #source=($_mirror/${pkgname}-$_kdever.tar.xz)
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kmag.git#branch=frameworks")
-md5sums=('SKIP')
+source=("https://github.com/KDE/kmag/archive/frameworks.zip")
+md5sums=('550f67d416f96a251b18c11f374164bc')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-frameworks \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

@@ -1,7 +1,7 @@
 
 pkgname=dfc
 pkgver=3.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Display file system space usage using graphs and colors"
 arch=('x86_64')
 url="http://projects.gw-computing.net/projects/dfc"
@@ -13,16 +13,16 @@ install='dfc.install'
 md5sums=('3e6443c54966751f5e9fdaca33d873d1')
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd ${pkgname}-${pkgver}
 
   cmake . -DPREFIX=/usr -DSYSCONFDIR=/etc -DCMAKE_BUILD_TYPE=RELEASE
   make
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
+  cd ${pkgname}-${pkgver}
+  make DESTDIR=${pkgdir} install
 
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
 
