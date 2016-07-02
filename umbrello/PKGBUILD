@@ -2,10 +2,8 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-# keep git build until upstream truly releases kf5 version
 pkgname=umbrello
 pkgver=${_kdever}
-#pkgver=15.08.0
 pkgrel=1
 pkgdesc='UML modeling tool for KDE'
 url='http://kde.org/applications/development/umbrello/'
@@ -13,17 +11,17 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('karchive' 'kauth' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kiconthemes' 'kinit'
          'kio' 'kparts' 'kservice' 'ktexteditor' 'kwindowsystem' 'kwidgetsaddons' 'kxmlgui' )
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kde' 'kdesdk' 'kde-uninstall' 'programming' )
 conflicts=('kdesdk-umbrello')
 replaces=('kdesdk-umbrello')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/umbrello.git#branch=frameworks")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("git://anongit.kde.org/umbrello.git#branch=frameworks")
+#md5sums=('SKIP')
 
 prepare() {
-  cd $pkgname
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
 }
 
@@ -31,13 +29,15 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DBUILD_UNITTESTS=OFF \
+    -DBUILD_KF5=ON
   make
 }
 
