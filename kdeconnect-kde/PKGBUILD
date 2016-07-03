@@ -2,7 +2,7 @@
 pkgname=kdeconnect-kde
 pkgver=0.9.2
 _pkgver=0.9g
-pkgrel=2
+pkgrel=3
 pkgdesc='KDE Connect adds communication between KDE and your smartphone'
 url='https://projects.kde.org/projects/playground/base/kdeconnect-kde'
 license=('GPL')
@@ -31,9 +31,9 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
-    -DLIB_INSTALL_DIR=lib \
-    -DLIBEXEC_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
     -DEXPERIMENTALAPP_ENABLED=ON

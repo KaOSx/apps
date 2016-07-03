@@ -1,8 +1,8 @@
 
 pkgname=kmymoney
 pkgver=4.100.7
-_commit=4604c7eca3bc50902a60fdbfe95ee47482f487c8
-pkgrel=8
+_commit=5e883c11a3ef5001c67ceb680701dbc4bb97ce95
+pkgrel=9
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
 url="http://www.kmymoney.org/"
@@ -16,7 +16,7 @@ conflicts=('kf5-kmymoney')
 replaces=('kf5-kmymoney')
 groups=('office')
 source=("https://github.com/KDE/kmymoney/archive/${_commit}.zip")
-md5sums=('97de640e5b7db2f1d8fe73cb6057a413')
+md5sums=('b39d1d399a9e34b64ef7721fa3e671ca')
 
 build() {
   cd ${srcdir}
@@ -31,10 +31,11 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -KDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DENABLE_SQLCIPHER=OFF
   make
 }
 
