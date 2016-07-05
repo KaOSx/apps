@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kinit
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KInit'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kinit'
@@ -17,7 +17,7 @@ md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  sed -i -e 's|set(KDEINIT_OOM_PROTECT 1)|set(KDEINIT_OOM_PROTECT 0)|' src/CMakeLists.txt
+  #sed -i -e 's|set(KDEINIT_OOM_PROTECT 1)|set(KDEINIT_OOM_PROTECT 0)|' src/CMakeLists.txt
 }
 
 build() {
