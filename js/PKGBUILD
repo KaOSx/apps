@@ -1,7 +1,7 @@
 
 pkgname=js
 pkgver=17.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="JavaScript interpreter and libraries"
 arch=('x86_64')
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/17"
@@ -11,11 +11,11 @@ makedepends=('python2' 'zip')
 replaces=('spidermonkey' 'js185')
 conflicts=('spidermonkey' 'js185')
 provides=('spidermonkey' 'js185')
-source=("http://ftp.mozilla.org/pub/mozilla.org/js/mozjs$pkgver.tar.gz")
+source=("http://ftp.mozilla.org/pub/mozilla.org/js/mozjs${pkgver}.tar.gz")
 md5sums=('20b6f8f1140ef6e47daa3b16965c9202')
 
 build() {
-  cd "$srcdir/mozjs$pkgver/js/src"
+  cd mozjs${pkgver}/js/src
 
   unset CPPFLAGS
 
@@ -29,9 +29,9 @@ build() {
 }
 
 package() {
-  cd "$srcdir/mozjs$pkgver/js/src"
-  make DESTDIR="$pkgdir" install
+  cd mozjs${pkgver}/js/src
+  make DESTDIR=${pkgdir} install
 
-  find "$pkgdir"/usr/{lib/pkgconfig,include} -type f -exec chmod -x {} +
+  find ${pkgdir}/usr/{lib/pkgconfig,include} -type f -exec chmod -x {} +
 }
 

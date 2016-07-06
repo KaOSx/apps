@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=purpose
 pkgver=1.1
 _pkgver=1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
 url='http://quickgit.kde.org/?p=purpose.git'
@@ -19,7 +19,7 @@ source=("http://download.kde.org/stable/purpose/purpose-${_pkgver}.tar.xz")
 md5sums=('9d97612738bb3d7b43ac6dcbcb864a4f')
 
 prepare() {
-  cd $pkgname-${_pkgver}
+  cd ${pkgname}-${_pkgver}
   #patch -p1 -i $srcdir/accounts.diff
   #sed -i -e 's|add_subdirectory(youtube)|#add_subdirectory(youtube)|' ${srcdir}/${pkgname}-${_pkgver}/src/plugins/CMakeLists.txt
 }
