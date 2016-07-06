@@ -1,7 +1,7 @@
 
 pkgname=js
 pkgver=17.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc="JavaScript interpreter and libraries"
 arch=('x86_64')
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/17"
@@ -16,6 +16,8 @@ md5sums=('20b6f8f1140ef6e47daa3b16965c9202')
 
 build() {
   cd mozjs${pkgver}/js/src
+  # http://www.linuxfromscratch.org/blfs/view/svn/general/JS2.html needed for newer perl
+  sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
 
   unset CPPFLAGS
 
