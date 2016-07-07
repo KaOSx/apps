@@ -5,10 +5,9 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
-#pkgver=15.03.79
 pkgrel=1
 pkgdesc="Archiver for various compression formats"
-url="http://www.kde.org"
+url="https://github.com/KDE/ark"
 license=('GPL' 'LGPL' 'FDL')
 depends=('karchive' 'kconfig' 'kpty' 'khtml' 'kdbusaddons' 'ki18n' 'kiconthemes'
          'kio' 'kservice' 'kwidgetsaddons' 'libarchive' 'p7zip' 'zip' 'unzip' 'unrar' 'kde-baseapps')
@@ -17,14 +16,14 @@ groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 conflicts=('kdeutils-ark')
 replaces=('kdeutils-ark')
 source=($_mirror/${pkgname}-$_kdever.tar.xz
-       "https://github.com/KDE/ark/commit/0eb4f86e5d6e2860bfc908a0ccf805470aea8675.diff")
+       "https://github.com/KDE/ark/commit/132743e572fb7550cbfbbe8db848f2a28a0001cb.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '00b7577a7fd46e4f319dd947ab001499')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # fix opening .deb files
-  #patch -p1 -i ${srcdir}/0eb4f86e5d6e2860bfc908a0ccf805470aea8675.diff
+  # plasma 5.7 fix
+  patch -p1 -i ${srcdir}/132743e572fb7550cbfbbe8db848f2a28a0001cb.diff
 }
 
 build() {  
