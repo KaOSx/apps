@@ -1,19 +1,19 @@
 
 pkgname=amule
-pkgver=2.3.71
-_commit=66affa232bacf8f9e0333c55936955d31000da24
+pkgver=2.3.72
+_commit=59fb77b36b4328367d882a2238a9d647dfda7586
 pkgrel=1
 epoch=1
 pkgdesc="An eMule-like client for ed2k p2p network"
 arch=('x86_64')
 url="http://www.amule.org"
 license=('GPL')
-depends=('wxgtk' 'gd' 'geoip' 'libupnp' 'crypto++')
+depends=('wxgtk2.9' 'gd' 'geoip' 'libupnp' 'crypto++')
 source=("https://github.com/amule-project/amule/archive/${_commit}.zip")
-md5sums=('856e91c8f0b9d69df9b5acde4cd6da6b')
+md5sums=('6e7d9eb4b86bcb255a9d1fcf7b89fa2c')
 
 build() {
-  cd "${srcdir}/amule-${_commit}"
+  cd amule-${_commit}
   ./autogen.sh
 
   ./configure --prefix=/usr \
@@ -31,13 +31,13 @@ build() {
               --enable-ccache \
               --enable-geoip \
               --enable-upnp \
-              --with-wx-config=wx-config-2.8
+              --with-wx-config=wx-config
 
   make 
 }
 
 package() {
-  cd "${srcdir}/amule-${_commit}" 
+  cd amule-${_commit} 
   
   make DESTDIR=${pkgdir}/ install 
   # conflict with glibc

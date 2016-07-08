@@ -1,12 +1,13 @@
 
 pkgname=conky
 pkgver=1.10.3
-pkgrel=1
+pkgrel=2
 pkgdesc="An advanced, highly configurable system monitor for X based on torsmo"
 arch=('x86_64')
 url="http://conky.sourceforge.net/"
 license=('custom')
-depends=('alsa-lib' 'libxml2' 'curl' 'wireless_tools' 'libxft' 'glib2' 'libxdamage' 'imlib2' 'mpd' 'lua')
+depends=('alsa-lib' 'libxml2' 'curl' 'wireless_tools' 'libxft' 'glib2' 'libxdamage' 'imlib2' 'mpd' 'lua'
+         'libxinerama')
 makedepends=('pkgconfig' 'cmake')
 groups=('utils')
 backup=('etc/conky/conky.conf' 'etc/conky/conky_no_x11.conf')
@@ -16,8 +17,7 @@ md5sums=('b0ea9ce03d5a109317988de702eddd06'
          '3e8bc1cf7cf7587ccc5b333ef33284e0')
 
 build() {
-  cd ${srcdir}
-  mkdir build
+  mkdir -p build
   cd build
   
   cmake ../${pkgname}-${pkgver} \
