@@ -14,7 +14,8 @@ md5sums=('aed4a9e1f40f1298a31f183506066fac')
 
 build() {
   cd ${pkgname}-${pkgver}
-  #sed -i 's|QT_VERSION < 0x050100|QT_VERSION < 0x050700|' configure
+  
+  CXXFLAGS="-std=c++11"
 
   ./configure --prefix=/usr --enable-debug
   make

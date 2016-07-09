@@ -13,6 +13,8 @@ md5sums=('1fc967c1aa0b468e9be1916e6fe836a4')
 
 build() {
   cd ${pkgname}-${pkgver}
+  
+  CXXFLAGS="-std=c++11"
 
   ./configure --prefix=/usr --enable-qt5
   make
