@@ -1,6 +1,7 @@
 
 pkgname=ktorrent
-pkgver=5.0.1
+pkgver=5.0.1.1
+_commit=499ed1dffaff60a37e60fa566254188ee970bfdf
 pkgrel=1
 ktorver=5.0
 pkgdesc="A BitTorrent program for KDE"
@@ -14,25 +15,24 @@ makedepends=('extra-cmake-modules' 'boost' 'kdoctools')
 install=ktorrent.install
 groups=('network')
 options=('libtool')
-source=("http://download.kde.org/stable/ktorrent/${ktorver}/${pkgname}-${pkgver}.tar.xz")
-#source=('git://anongit.kde.org/ktorrent')
-md5sums=('017a63c19ef8a6cf2275c34b31c5ce4c')
+#source=("http://download.kde.org/stable/ktorrent/${ktorver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://github.com/KDE/ktorrent/archive/${_commit}.zip")
+md5sums=('934ddf0ec035de18d82bb15bbce1f35c')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
-  #sed -i 's|Exec=ktorrent %i -caption %c %u|Exec=ktorrent -qwindowtitle %c %u|g' ktorrent/org.kde.ktorrent.desktop
-  #sed -i 's|ui.rc DESTINATION ${DATA_INSTALL_DIR}|ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}|g' plugins/*/CMakeLists.txt
-  sed -i 's|TARGETS ktorrent_app ${INSTALL_TARGETS_DEFAULT_ARGS}|TARGETS ktorrent_app ${KDE_INSTALL_TARGETS_DEFAULT_ARGS}|g' ktorrent/CMakeLists.txt
+  cd ${pkgname}-${_commit}
+
+  #sed -i 's|TARGETS ktorrent_app ${INSTALL_TARGETS_DEFAULT_ARGS}|TARGETS ktorrent_app ${KDE_INSTALL_TARGETS_DEFAULT_ARGS}|g' ktorrent/CMakeLists.txt
 }
 
 build() {
   mkdir build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
   make
 }

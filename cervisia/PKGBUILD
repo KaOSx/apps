@@ -4,22 +4,22 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=cervisia
 #pkgver=${_kdever}
-pkgver=16.07.70
-_commit=02ace8e114010aa1ab273100f428dcf712a9af60
+pkgver=16.07.71
+_commit=c788b78153b30a1b9bad9fd6bcc06b3a610a1b98
 pkgrel=1
 pkgdesc='CVS GUI frontend for KDE'
 url='http://kde.org/applications/development/cervisia/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kparts' 'kinit' 'kiconthemes' 'knotifications' 'kwidgetsaddons' 'kdesu')
-makedepends=('extra-cmake-modules' 'kdoctools' 'kdelibs')
+depends=('kparts' 'kinit' 'kiconthemes' 'knotifications' 'kwidgetsaddons' 'kitemviews' 'kdesu')
+makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdesdk-cervisia')
 replaces=('kdesdk-cervisia')
 groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
 #source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/cervisia/archive/${_commit}.zip")
-md5sums=('db45b56b48fa471ff4c1d0c20dc00ca4')
+md5sums=('fd8e6101e592d0d31e935622e0cd39ff')
 
 prepare() {
   cd ${pkgname}-${_commit}
