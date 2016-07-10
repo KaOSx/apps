@@ -2,16 +2,15 @@
 pkgname=opencpn
 pkgver=4.2.0
 _pkgver=4.1.1329
-pkgrel=1
+pkgrel=2
 pkgdesc="Open Source Chart Plotting / Marine Navigation"
 url="http://opencpn.org"
 arch=('x86_64')
 license=("GPL2")
-depends=('wxgtk2.9' 'gpsd' 'portaudio-svn' 'tinyxml' 'hicolor-icon-theme')
+depends=('wxgtk2.9' 'gpsd' 'portaudio' 'tinyxml' 'hicolor-icon-theme')
 makedepends=('cmake')
-install=opencpn.install
 groups=('education' 'science')
-source=("http://downloads.sourceforge.net/project/opencpn/opencpn/$pkgver/OpenCPN-$pkgver-Source.tar.gz")
+source=("http://downloads.sourceforge.net/project/opencpn/opencpn/${pkgver}/OpenCPN-${pkgver}-Source.tar.gz")
 md5sums=('3227a666b58befdbd414a3cf5b5fa8d9')
  
 build() {
@@ -25,6 +24,6 @@ build() {
 package() {
   cd OpenCPN-${_pkgver}-Source
   
-  make DESTDIR="$pkgdir" install
+  make DESTDIR=${pkgdir} install
 }
 

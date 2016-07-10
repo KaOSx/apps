@@ -1,18 +1,17 @@
 
 pkgname=libkgapi
 pkgver=5.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
-url='https://projects.kde.org/projects/extragear/libs/libkgapi'
+url='https://github.com/KDE/libkgapi'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kio' 'kwindowsystem' 'kcalcore' 'kcontacts')
-makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'boost' 'git')
+depends=('kcoreaddons' 'kio' 'kwindowsystem' 'kcalcore' 'kcontacts' 'qt5-webkit')
+makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'boost')
 conflicts=('kf5-libkgapi')
 replaces=('kf5-libkgapi')
 provides=('kf5-libkgapi')
 source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-#source=("git://anongit.kde.org/libkgapi")
 md5sums=('a65d1d637f18655b9b9bd22acf3813ec')
 
 build() {
@@ -23,10 +22,10 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=ON 
   make 

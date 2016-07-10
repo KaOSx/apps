@@ -1,6 +1,7 @@
 
 pkgname=mkvtoolnix
-pkgver=9.2.0
+pkgver=9.2.0.1
+_commit=1d0bad94420f292715bfb8b5f4e7bb76652494aa
 pkgrel=1
 pkgdesc="Set of tools to create, edit and inspect Matroska files."
 arch=('x86_64')
@@ -14,20 +15,25 @@ optdepends=('flac: for FLAC support (Free Lossless Audio Codec)'
             'curl: for online update checks')
 makedepends=('gcc' 'boost' 'ruby')
 groups=('multimedia')
-source=("http://www.bunkus.org/videotools/mkvtoolnix/sources/$pkgname-$pkgver.tar.xz")
-md5sums=('a24b7635100cff6bc9ab0021068466c0')
+#source=("http://www.bunkus.org/videotools/mkvtoolnix/sources/$pkgname-$pkgver.tar.xz"
+source=("https://github.com/mbunkus/mkvtoolnix/archive/${_commit}.zip"
+        "https://github.com/mbunkus/mkvtoolnix/commit/684f7c7c7b6a2e92f3befea665bcd3c0636f2c21.diff")
+md5sums=('f22594b1f0b3b363c14245e32b33b501'
+         '28cbad1bc474e85899b70d36c4d01026')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  #patch -p1 -i $srcdir/8221f3453c9308680db38816934d49c71913c5c0.patch
-
+  cd ${pkgname}-${_commit}
+  # fix for Qt 5.7 compile flags, c++11 needed
+  #patch -p1 -i $srcdir/684f7c7c7b6a2e92f3befea665bcd3c0636f2c21.diff
+  #CXXFLAGS="-std=c++11"
   
+  ./autogen.sh
   ./configure --prefix=/usr --with-boost-libdir=/usr/lib
   rake
 }
 
 package () {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
   
   rake DESTDIR=${pkgdir} install
 }

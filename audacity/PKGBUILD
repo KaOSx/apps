@@ -1,7 +1,7 @@
 
 pkgname=audacity
 pkgver=2.1.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
 url="http://web.audacityteam.org/"
@@ -10,27 +10,22 @@ depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk2.9' 'lame' 'hicolor-icon-theme'
          'shared-mime-info' 'desktop-file-utils' 'redland' 'jack' 'soundtouch' 'libsoxr' 'lilv')
 makedepends=('cmake' 'zip' 'python2' 'pkgconfig')
 options=('!makeflags')
-install="${pkgname}.install"
-#source=("http://sourceforge.net/projects/audacity/files/audacity/${pkgver}/${pkgname}-minsrc-${pkgver}.tar.xz")
 source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz"
         'ffmpeg.patch')
 md5sums=('84488cd755fe14cbc39769dd1abb7113'
          '62bd98bd4f27e8152556d3b274c8a8c7')
 
 build() {
-  #cd "${srcdir}/${pkgname}-minsrc-${pkgver}"
-  cd "${srcdir}/${pkgname}-Audacity-${pkgver}"
+  cd ${pkgname}-Audacity-${pkgver}
   patch -p1 -i "${srcdir}/ffmpeg.patch"
 
-  #WX_CONFIG=/usr/bin/wx-config-2.8 \
-  ./configure --prefix=/usr --enable-unicode  # --with-wx-config=$WX_CONFIG # --with-ffmpeg=no
+  ./configure --prefix=/usr --enable-unicode # --with-ffmpeg=no
   make
 }
 
 package() {
-  #cd "${srcdir}/${pkgname}-minsrc-${pkgver}"
-  cd "${srcdir}/${pkgname}-Audacity-${pkgver}"
+  cd ${pkgname}-Audacity-${pkgver}
   
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
 
