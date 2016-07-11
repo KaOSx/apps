@@ -1,7 +1,7 @@
 
 pkgname=krusader
-pkgver=16.03.72
-_commit=9c6eafb510509b78b70805186864b296738738e3
+pkgver=16.03.73
+_commit=52757fc37fc96064449edeee8ad4a4eb89d87723
 pkgrel=1
 pkgdesc="An alternative file manager for KDE resembling Midnight Commander"
 url="http://krusader.sourceforge.net/"
@@ -14,7 +14,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl')
 groups=('system')
 #source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${_pkgver}.tar.bz2")
 source=("https://github.com/KDE/krusader/archive/${_commit}.zip")
-md5sums=('0e06f1fae10c35dc89c437d7e386d610')
+md5sums=('8baf06094123992ee83f5094b79140da')
 
 prepare() {
   cd ${pkgname}-${_commit}
@@ -30,7 +30,7 @@ build() {
   cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
   make 
 }
