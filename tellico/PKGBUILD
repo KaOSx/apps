@@ -1,7 +1,7 @@
 
 pkgname=tellico
-pkgver=2.9.102
-_commit=a8df4d656bb72858f113d1fa2be58f1dd595d526
+pkgver=2.9.103
+_commit=a75986c59653128868f49dc790a9b4123bd3e697
 pkgrel=1
 pkgdesc="A collection manager for KDE"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('office')
 #source=("http://tellico-project.org/files/${pkgname}-${pkgver}.tar.bz2")
 source=("https://github.com/KDE/tellico/archive/${_commit}.zip")
-md5sums=('59de0ba60911aaade5f0daf37e0d32b2')
+md5sums=('36a5ab846092819d2d88efdf35b31cde')
 
 build() {
   mkdir build
@@ -23,10 +23,10 @@ build() {
   cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DENABLE_WEBCAM=TRUE
 
