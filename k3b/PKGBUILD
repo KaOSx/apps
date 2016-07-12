@@ -1,46 +1,60 @@
 
 pkgname=k3b
-pkgver=2.0.3
-_pkgver=2.0.3a
-pkgrel=1
-epoch=1
+pkgver=2.9.90
+pkgrel=6
 pkgdesc="Feature-rich and easy to handle CD burning application"
 arch=('x86_64')
 url="http://k3b.sourceforge.net/"
-depends=('kdelibs' 'libkcddb' 'libsamplerate' 'libmad'
-         'ffmpeg' 'taglib' 'libmpcdec' 'libdvdread'
-         'cdrdao' 'cdrtools' 'shared-mime-info' 'libxft' 'docbook-xsl')
-makedepends=('cmake' 'pkgconfig' 'automoc4' 'dvd+rw-tools')
+depends=('karchive' 'kconfig' 'ki18n' 'kcmutils' 'kcoreaddons' 'knotifyconfig' 'solid'
+         'kfilemetadata' 'kiconthemes' 'kjobwidgets' 'kio' 'knotifications' 'kservice' 'kwidgetsaddons'
+         'kxmlgui' 'libkcddb5' 'libsamplerate' 'libmad' 'ffmpeg' 'taglib' 'libmpcdec' 
+         'libdvdread' 'cdrdao' 'cdrtools' 'shared-mime-info' 'libxft' 'qt5-webkit')
+makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'pkg-config' 'dvd+rw-tools')
 optdepends=('dvd+rw-tools: for dvd burning support'
             'vcdimager:    for vcd burning support'
             'transcode:    for advanced mpeg conversion support'
             'emovix:       for bootable multimedia cd/dvd support'
             'cdparanoia: for cd ripping support')
 license=('GPL')
-install=$pkgname.install
 groups=('multimedia')
-options=(!libtool)
-source=("http://download.kde.org/stable/k3b/k3b-${_pkgver}.tar.xz")
-md5sums=('52e78aabe8e483347d04e88be0aed150')
+conflicts=('kf5-k3b')
+replaces=('kf5-k3b')
+options=('!libtool')
+source=("git://anongit.kde.org/k3b#branch=kf5"
+        'k3b-fix-mp3decoder.diff'
+        'k3b-fixbuild.diff'
+        'CMakeLists.diff')
+md5sums=('SKIP'
+         'de45f28b3a1046171228e5b4bc52ae53'
+         'c95a90586edf732db4f0c02ceb4e2d73'
+         '12bbe740174463231e19049d35f76ffa')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
-  
-  sed -i -e 's|^cmake_minimum_required|#cmake_minimum_required|' CMakeLists.txt 
+  cd ${pkgname}
+  #patch -p1 -i ${srcdir}/k3b-fix-mp3decoder.diff
+  #patch -p1 -i ${srcdir}/k3b-fixbuild.diff
+  #patch -p1 -i ${srcdir}/CMakeLists.diff
+  #sed -i -e 's|set(TAGLIB_MIN_VERSION "1.4")|set(TAGLIB_MIN_VERSION "1.10")|' ${srcdir}/${pkgname}/cmake/modules/FindTaglib.cmake 
 }
 
-build() {  
-  mkdir build
+build() {
+  mkdir -p build
   cd build
-  cmake ../${pkgname}-${pkgver} \
+
+  cmake ../${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
-  cd "${srcdir}/build"
-  
-  make DESTDIR="${pkgdir}" install
+  cd build
+
+  make DESTDIR=${pkgdir} install
 }
 
