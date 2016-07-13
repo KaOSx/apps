@@ -1,19 +1,20 @@
 
 pkgname=kdb
 pkgver=2.96.3
-pkgrel=1
+_commit=d842d28a52489f5b04df9c9db3ad6a4ab1c01e10
+pkgrel=2
 pkgdesc="Database connectivity and creation framework for various database vendors"
 arch=('x86_64')
-url='https://projects.kde.org/projects/playground/libs/kdb'
+url='https://github.com/KDE/kdb'
 license=('LGPL')
 depends=('kcoreaddons' 'sqlite')
-makedepends=('extra-cmake-modules' 'git' 'icu' 'python2' 'postgresql')
+makedepends=('extra-cmake-modules' 'icu' 'python2' 'postgresql')
 optdepends=('postgresql: PostgreSQL database driver')
-source=("git://anongit.kde.org/kdb.git")
-md5sums=('SKIP')
+source=("https://github.com/KDE/kdb/archive/${_commit}.zip")
+md5sums=('8085052d4cd573a17773545fc8b0025b')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-${_commit}
   #sed -i -e 's|K_GLOBAL_STATIC|Q_GLOBAL_STATIC|' ${srcdir}/${pkgname}/src/wrtembed/KReportDpi.cpp
   #patch -p1 -i $srcdir/0003-Port-from-K_GLOBAL_STATIC-to-Q_GLOBAL_STATIC.patch
 }
@@ -22,11 +23,11 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make

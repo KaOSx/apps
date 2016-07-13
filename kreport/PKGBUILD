@@ -1,7 +1,7 @@
 
 pkgname=kreport
-pkgver=2.97.2
-_commit=aaf9faf002d7854435e6c95a12556ca4aa46ff6a
+pkgver=2.97.3
+_commit=3c791e9bf95fea16cada9c43f74d88795a506dc8
 pkgrel=1
 pkgdesc="Framework for creation and generation of reports in multiple formats"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('LGPL')
 depends=('kcoreaddons' 'kwidgetsaddons' 'kguiaddons' 'kross' 'kproperty')
 makedepends=('extra-cmake-modules' 'git')
 source=("https://github.com/KDE/kreport/archive/${_commit}.zip")
-md5sums=('0f01446fc681bbdf4b0199093f15c543')
+md5sums=('f4c55013423fa7c948a46016d8bdee3c')
 
 prepare() {
   cd $pkgname-${_commit}
@@ -26,9 +26,9 @@ build() {
   cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF
   make
 }

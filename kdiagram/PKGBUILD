@@ -5,27 +5,28 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdiagram
 #pkgver=${_kdever}
 pkgver=0.2
-pkgrel=3
+_commit=08f7670de417dfd755ae92af684a7b47ba17119a
+pkgrel=4
 pkgdesc='Powerful libraries (KChart, KGantt) for creating business diagrams'
 arch=('x86_64')
-url='http://quickgit.kde.org/?p=kdiagram.git'
+url='https://github.com/KDE/kdiagram/'
 license=('LGPL')
 depends=('qt5-svg')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kdiagram.git")
-md5sums=('SKIP')
+source=("https://github.com/KDE/kdiagram/archive/${_commit}.zip")
+md5sums=('e2070d0615a457203219650d4e050263')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DBUILD_TESTING=OFF
   make
