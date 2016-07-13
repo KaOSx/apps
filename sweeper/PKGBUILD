@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=sweeper
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=16.03.70
+pkgver=16.03.71
 pkgrel=1
 pkgdesc="Clean unwanted traces the user leaves on the system"
 url="https://projects.kde.org/projects/kde/kdeutils/sweeper"
@@ -33,10 +33,10 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR_DIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }
