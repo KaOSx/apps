@@ -2,8 +2,8 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='http://www.mozilla.org/projects/firefox'
-pkgver=47.0.1
-pkgrel=2
+pkgver=48.0b7
+pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
 groups=('network')
@@ -13,7 +13,7 @@ depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk
          'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libvpx' 'icu' 'libevent' 'sqlite' 'hunspell'
          'pulseaudio')
 makedepends=('unzip' 'zip' 'diffutils' 'python2' 'yasm' 'mesa' 'imake' 'xorg-server' 
-             'inetutils' 'gconf' 'autoconf2.13') #clang
+             'inetutils' 'gconf' 'autoconf2.13' 'rust') #clang
 optdepends=('freshplayerplugin: full flash support in firefox')
 options=('!emptydirs' '!makeflags')
 source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${pkgver}/source/firefox-${pkgver}.source.tar.xz"
@@ -21,8 +21,8 @@ source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${pkgver}/sour
         'firefox.desktop'
         'firefox-install-dir.patch'
         'vendor.js')
-md5sums=('aba4b673b10e3fdcee80f88300829613'
-         '02eba2915190cb93535d48c6edf04b21'
+md5sums=('15187f67b2489aa1f617654f8656703c'
+         'cabbbc7c72fc34fde4005d535f3166b0'
          '174a2a286e32d5c9a48f51a18ffa4e6c'
          'dbf14588e85812ee769bd735823a0146'
          '0d053487907de4376d67d8f499c5502b')
@@ -35,7 +35,7 @@ prepare() {
 
   mkdir ${srcdir}/path
   
-  sed -i '/ac_cpp=/s/$CPPFLAGS/& -O2/' configure
+  #sed -i '/ac_cpp=/s/$CPPFLAGS/& -O2/' configure
 }
 
 build() {
