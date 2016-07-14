@@ -5,20 +5,20 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kgpg
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=16.07.70
-_commit=2490f061b9c5d954ab69e146bf43ab72abdb3ee0
+pkgver=16.07.71
+_commit=e0f2e9ee8cd7de6edc145104aeffab3f910f85d6
 pkgrel=1
 pkgdesc="GPG encryption and key management"
 url="https://github.com/KDE/kgpg"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kdepimlibs' 'karchive' 'ki18n' 'kiconthemes' 'kcodecs' 'kio'
-         'kdelibs4support' 'kservice' 'kwidgetsaddons' 'gpgme')
-makedepends=('extra-cmake-modules' 'kdoctools')
+         'kdelibs4support' 'ktexteditor' 'kxmlgui' 'kservice' 'kwidgetsaddons' 'gpgme')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 #source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/kgpg/archive/${_commit}.zip")
-md5sums=('c65ef07dcd4fedc2f77f021a2bb3598b')
+md5sums=('811fe482ca7d05f86923d65826179033')
 
 build() {
   mkdir build
