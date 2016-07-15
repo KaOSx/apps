@@ -129,11 +129,11 @@
      delete aboutData;
  
      if (!app.start()) {
---- a/words/app/main.cpp	2016-04-29 23:49:59.000000000 -0400
-+++ b/words/app/main.cpp	2016-05-01 19:14:40.032951176 -0400
-@@ -22,6 +22,9 @@
- 
- #include <KoApplication.h>
+--- a/words/app/main.cpp	2016-07-15 13:00:34.081097117 -0400
++++ b/words/app/main.cpp	2016-07-15 13:00:33.350116230 -0400
+@@ -25,6 +25,9 @@
+ #include <QMessageBox>
+ #include <QCheckBox>
  
 +#include <QMessageBox>
 +#include <QCheckBox>
@@ -141,10 +141,10 @@
  #include <QLoggingCategory>
  
  extern "C" WORDS_EXPORT int kdemain(int argc, char **argv)
-@@ -41,6 +44,31 @@
+@@ -44,6 +47,30 @@
      KAboutData* aboutData = newWordsAboutData();
  
-     KoApplication app(WORDS_MIME_TYPE, *aboutData, argc, argv);
+     KoApplication app(WORDS_MIME_TYPE, QStringLiteral("calligrawords"), *aboutData, argc, argv);
 +    
 +    bool exit = false;
 +    QSettings settings("KaOS", "CalligraWords");
@@ -169,6 +169,5 @@
 +      if (exit) {
 +       QCoreApplication::quit();
 +      }
-+
  
      delete aboutData;

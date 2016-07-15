@@ -1,7 +1,7 @@
 
 pkgname=kexi
-pkgver=2.9.83
-_commit=3b25ce8271af15ac98badd8b023db2c936e96db2
+pkgver=2.9.84
+_commit=4ffa6af5e60263b09087303008777b325d9bc99c
 pkgrel=1
 pkgdesc="Visual database applications creator"
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('karchive' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreadd
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'qt5-tools') # 'clang') 
 #source=("http://mirrors.mit.edu/kde/stable/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
 source=("https://github.com/KDE/kexi/archive/${_commit}.zip")
-md5sums=('974c943d21ad107fd98533d7db6d6708')
+md5sums=('7ee4ae5e66023f3910bb5b22767f2574')
 
 prepare() {
   cd ${pkgname}-${_commit}
@@ -34,7 +34,7 @@ build() {
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE 
   make

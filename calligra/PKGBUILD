@@ -1,7 +1,7 @@
 
 pkgname=calligra
-pkgver=2.9.118
-_commit=e8ce75a59da9d137fb9449dddb7af46db070aa46
+pkgver=2.9.119
+_commit=9f1ebd6d901a818a46cdff3a4a3432ac85034436
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
@@ -58,15 +58,15 @@ replaces=('calligra-3rdparty'
 source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
         'libwps-0.4.patch'
         'warnings.diff')
-md5sums=('2f1d0c135842779edf325f90e14e6a70'
+md5sums=('d0c16f640aa540b0d8b9ebaf7072f3d8'
          '2529367ef6a10582436003aceb7dc3e8'
-         '3f864863da6addb1e7eaca7c002b0d45')
+         '124aa66f055f957d2d618f7a18f35d43')
 
 prepare() {
   cd ${pkgname}-${_commit}
   patch -p1 -i $srcdir/warnings.diff
   patch -p1 -i $srcdir/libwps-0.4.patch
-  #sed -i 's|if (!isnan(value))|if (!std::isnan(value))|' libs/widgets/KoUnitDoubleSpinBox.cpp
+  sed -i 's|(std::isfinite(maxSnapDistance)|(isfinite(maxSnapDistance)|' libs/flake/KoSnapStrategy.cpp
 }
 
 build() {
@@ -80,7 +80,7 @@ build() {
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DPRODUCTSET=DESKTOP \
     -DBUILD_TESTING=FALSE \
