@@ -1,0 +1,36 @@
+
+pkgname=mediainfolib
+_pkgname=MediaInfoLib
+pkgver=0.7.87
+pkgrel=1
+pkgdesc="Convenient unified display of the most relevant technical and tag data for video and audio files, shared libraries"
+arch=('x86_64')
+url="https://github.com/MediaArea/MediaInfoLib"
+license=('GPL')
+depends=('curl' 'libmms' 'zenlib')
+makedepends=('libtool')
+conflicts=('libmediainfo')
+replaces=('libmediainfo')
+source=("https://github.com/MediaArea/MediaInfoLib/archive/v${pkgver}.tar.gz")
+md5sums=('c5f3495c6fa809cbbc8a10062d983e11')
+
+build() {
+  cd ${_pkgname}-${pkgver}/Project/GNU/Library
+  
+  ./autogen.sh
+  ./configure --prefix=/usr \
+    --enable-shared \
+    --disable-static \
+    --with-libcurl \
+    --with-libmms
+  make
+}
+package() {
+  cd ${_pkgname}-${pkgver}/Project/GNU/Library
+  make DESTDIR=${pkgdir} install
+  
+  cd ../../..
+
+  install -dm 755 ${pkgdir}/usr/lib/pkgconfig
+  install -m 644 Project/GNU/Library/libmediainfo.pc $pkgdir/usr/lib/pkgconfig
+}

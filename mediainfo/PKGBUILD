@@ -1,0 +1,48 @@
+
+pkgname=mediainfo
+_pkgname=MediaInfo
+pkgver=0.7.87
+pkgrel=1
+pkgdesc="Convenient unified display of the most relevant technical and tag data for video and audio files."
+arch=('x86_64')
+url="https://github.com/MediaArea/MediaInfo"
+license=('GPL')
+depends=('mediainfolib' 'qt5-base')
+makedepends=('libtool')
+source=("https://github.com/MediaArea/MediaInfo/archive/v${pkgver}.tar.gz"
+        'mediainfo-qt5.patch')
+md5sums=('79d09071a42ef170e49ae73824708231'
+         '87c3909289a1e9c11711e6a75ea42ab8')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+  
+  # patch from crazy, frugalware developer
+  patch -p1 -i ${srcdir}/mediainfo-qt5.patch
+  sed -i 's|Exec=mediainfo-gui %f|Exec=mediainfo-qt5-gui|' Project/GNU/GUI/mediainfo-gui.desktop
+}
+
+build() {
+  cd ${_pkgname}-${pkgver}/Project/GNU/CLI
+  
+  ./autogen.sh
+  ./configure --prefix=/usr
+  make
+  
+  cd ${srcdir}/${_pkgname}-${pkgver}/Project/QMake/GUI
+  
+  /usr/lib/qt5/bin/qmake
+  make
+}
+
+package() {
+  cd ${_pkgname}-${pkgver}/Project/GNU/CLI
+  make DESTDIR=${pkgdir} install
+  
+  install -D -m755 ${srcdir}/${_pkgname}-${pkgver}/Project/QMake/GUI/mediainfo-qt5-gui \
+    ${pkgdir}/usr/bin/mediainfo-qt5-gui
+  install -D -m644 ${srcdir}/${_pkgname}-${pkgver}/Project/GNU/GUI/mediainfo-gui.desktop \
+    ${pkgdir}/usr/share/applications/mediainfo-gui.desktop
+  install -Dm 644 ${srcdir}/${_pkgname}-${pkgver}/Source/Resource/Image/MediaInfo.svg \
+    ${pkgdir}/usr/share/icons/hicolor/scalable/apps/mediainfo.svg
+}

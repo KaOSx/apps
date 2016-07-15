@@ -1,0 +1,31 @@
+
+pkgname=zenlib
+_pkgname=ZenLib
+pkgver=0.4.33
+pkgrel=1
+pkgdesc="Small C++ derivate classes to have an easier life"
+arch=('x86_64')
+url="https://github.com/MediaArea/ZenLib"
+license=('BSD')
+depends=('gcc-libs')
+makedepends=('libtool')
+conflicts=('libzen')
+replaces=('libzen')
+source=("https://github.com/MediaArea/ZenLib/archive/v${pkgver}.tar.gz")
+md5sums=('e11f912753a02da55976fb89311248cc')
+
+build() {
+  cd ${_pkgname}-${pkgver}/Project/GNU/Library
+  
+  ./autogen.sh
+  ./configure --prefix=/usr --enable-shared
+  make
+}
+
+package() {
+  cd ${_pkgname}-${pkgver}/Project/GNU/Library
+  make DESTDIR=${pkgdir} install
+  
+  cd ../../..
+  install -D -m 644 License.txt ${pkgdir}/usr/share/licenses/zenlib/License.txt
+}
