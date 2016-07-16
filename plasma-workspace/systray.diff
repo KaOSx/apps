@@ -1,0 +1,30 @@
+diff --git a/applets/systemtray/package/contents/config/main.xml b/applets/systemtray/package/contents/config/main.xml
+index 65a7029..f0defc3 100644
+--- a/applets/systemtray/package/contents/config/main.xml
++++ b/applets/systemtray/package/contents/config/main.xml
+@@ -45,6 +45,9 @@
+     <entry name="knownItems" type="StringList">
+       <default></default>
+     </entry>
++    <entry name="iconSize" type="Int">
++      <default>1</default>
++    </entry>
+   </group>
+ 
+ </kcfg>
+diff --git a/applets/systemtray/package/contents/ui/main.qml b/applets/systemtray/package/contents/ui/main.qml
+index a66ea69..fff8dc4 100644
+--- a/applets/systemtray/package/contents/ui/main.qml
++++ b/applets/systemtray/package/contents/ui/main.qml
+@@ -30,8 +30,10 @@ MouseArea {
+ 
+     Layout.minimumHeight: vertical ? tasksRow.implicitHeight+ expander.implicitHeight + units.smallSpacing : units.smallSpacing
+ 
++    property var iconSizes: ["small", "smallMedium", "medium", "large", "huge", "enormous"];
++
+     property bool vertical: plasmoid.formFactor == PlasmaCore.Types.Vertical
+-    property int itemSize: Math.min(Math.min(width, height), units.iconSizes.medium)
++    property int itemSize: Math.min(Math.min(width, height), units.iconSizes[iconSizes[plasmoid.configuration.iconSize]])
+     property int hiddenItemSize: units.iconSizes.smallMedium
+     property alias expanded: dialog.visible
+     property Item activeApplet
