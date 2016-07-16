@@ -5,17 +5,17 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=wacomtablet
 pkgver=2.9.80
 _pkgver=3.0.0~beta1
-pkgrel=1
-pkgdesc="This module implements a GUI for the Wacom Linux Drivers and extends it with profile support to handle 
+pkgrel=2
+pkgdesc="Implements a GUI for the Wacom Linux Drivers and extends it with profile support to handle 
          different button / pen layouts per profile."
 arch=('x86_64')
-url='https://projects.kde.org/projects/extragear/base/wacomtablet'
+url='https://github.com/KDE/wacomtablet'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'ki18n' 'kglobalaccel' 'kconfig' 'kxmlgui' 'kwidgetsaddons' 'kwindowsystem' 'knotifications'
          'kdbusaddons' 'plasma-framework' 'xf86-input-wacom')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdegraphics' 'kde-uninstall')
-source=("http://kde-apps.org/CONTENT/content-files/114856-wacomtablet-${_pkgver}.tar.xz")
+source=("https://dl.opendesktop.org/api/files/download/id/1466630714/114856-wacomtablet-${_pkgver}.tar.xz")
 md5sums=('95d1d29063d6de2ab0881c33e8eacb05')
 
 prepare() {
@@ -32,8 +32,8 @@ build() {
   cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
