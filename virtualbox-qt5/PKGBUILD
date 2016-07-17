@@ -70,9 +70,10 @@ package_virtualbox-qt5() {
              'libxcursor' 'libxinerama' 'libx11' 'libxext' 'libxmu' 'libxt' 'xf86-input-mouse'
              'qt5-x11extras' 'virtualbox-modules')
     optdepends=('virtualbox-guest-iso: Guest Additions CD image'
+                'virtualbox-ext-oracle: for Oracle extensions'
                 'net-tools: Host-only or bridged networking support')
-    conflicts=('virtualbox' 'virtualbox-ext-oracle')
-    replaces=('virtualbox' 'virtualbox-ext-oracle')
+    conflicts=('virtualbox')
+    replaces=('virtualbox')
     provides=('virtualbox')
     backup=('etc/vbox/vbox.cfg')
     install=virtualbox.install

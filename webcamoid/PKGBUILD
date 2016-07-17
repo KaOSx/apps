@@ -1,6 +1,6 @@
 
 pkgname=webcamoid
-pkgver=7.0.0
+pkgver=7.1.0
 pkgrel=1
 pkgdesc="Webcamoid is a full featured webcam capture application."
 url='https://webcamoid.github.io/'
@@ -9,17 +9,17 @@ arch=('x86_64')
 depends=('qt5-quickcontrols' 'qt5-svg' 'ffmpeg' 'v4l-utils')
 makedepends=('qt5-tools')
 source=("https://github.com/webcamoid/webcamoid/archive/${pkgver}.tar.gz")
-md5sums=('6b32736c321a9ced699cba7faa601bb6')
+md5sums=('6784e6f3b86ff99eb2e1b13c59214ac3')
 
 build() {
-  cd $srcdir/webcamoid-${pkgver}
+  cd webcamoid-${pkgver}
 
   /usr/lib/qt5/bin/qmake Webcamoid.pro 
   make -j1
 }
 
 package() {
-  cd $srcdir/webcamoid-${pkgver}
+  cd webcamoid-${pkgver}
 
-  make INSTALL_ROOT="${pkgdir}" install
+  make INSTALL_ROOT=${pkgdir} install
 }
