@@ -10,38 +10,35 @@
 </head>
 
 <body>
-    <h3>KaOS - 2016.06</h3>
-    <p>It is with great pleasure to present to you KaOS 2016.06</p>
+    <h3>KaOS - 2016.07</h3>
+    <p>KaOS is proud to present the 2016.07 ISO. The policy is, once a first pacman -Syu becomes a major update, it is time for a new ISO so new users are not faced with a difficult first update.  With all the needed rebuilds for the move to GCC 5 most systems will see 70-80% of their install replaced by new packages so a new ISO is more than due.</p>
     
-    <p>With the move to the Linux kernel 4.6 it is now possible to fully automate the Early Microcode update.  This new kernel now has all needed ucode build-in, thanks to commits like these <strong>https://lkml.org/lkml/2016/3/14/393</strong>.  For users, this means no need to install any ucode package, no need to adjust bootloaders or have an extra initrd just for Microcode loading. Many modern CPUs require loading microcode before everything else, as the update causes system instability otherwise. 
+    <p>With the move to the Linux kernel 4.6 it is now possible to fully automate the Early Microcode update.  This new kernel has all needed ucode build-in, thanks to commits like these <strong>https://lkml.org/lkml/2016/3/14/393</strong>.  For users, this means no need to install any ucode package, no need to adjust bootloaders or have an extra initrd just for Microcode loading. Many modern CPUs require loading microcode before everything else, as the update causes system instability otherwise. 
     </p>
     
-    <p>The Plasma Desktop includes Frameworks 5.23.0, <b>Plasma 5.6.95</b>, KDE Applications 16.04.2 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.7.0.</strong>  Changes in Plasma 5.6.95 include improved workflows, the return of the agenda view in the calendar, the Volume Control applet gained the ability to control volume on a per-application basis &amp; allows you to move application output between devices using drag &amp; drop, new System Tray &amp; Task Manager, plus huge steps towards a Wayland-based windowing system</p>
+    <p>The Plasma Desktop includes Frameworks 5.24.0, <b>Plasma 5.7.1</b>, KDE Applications 16.04.3 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.7.0.</strong>  Changes in Plasma 5.7 include improved workflows, the return of the agenda view in the calendar, the Volume Control applet gained the ability to control volume on a per-application basis &amp; allows you to move application output between devices using drag &amp; drop, new System Tray &amp; Task Manager, plus huge steps towards a Wayland-based windowing system</p>
     
-    <p>Complete new for KaOS is the inclusion of encrypted file system support in the installer.  <strong>LUKS encryption</strong> is available for both the automated install options as well as manual. 
+    <p>Encrypted file system support is included in the installer.  <strong>LUKS encryption</strong> is available for both the automated install options as well as manual. 
     
-    <p>Most notable major updates to the base of the system  are Glib2 2.48, Systemd 230, Xorg-server 1.18.3, GStreamer group is at 1.8.2, Libarchive 3.2.1, NetworkManager 1.2.2, Linux 4.6.2, Mesa 11.2.2, Pulseaudio 8.0 and MariaDB 10.1.14</p>
+    <p>Most notable major updates to the base of the system  are a GCC 5.4.0, Binutils 2.26.1 new toolchain, Linux 4.6.4, LLVM/Clnag 3.8.1, Poppler 0.45.0, Python 3.5.2, Pulseaudio 9.0 and MariaDB 10.1.15</p>
     
-    <p>This ISO marks the end of Qt 4 in the KaOS repositories.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
+    <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
     
-    <p>The artwork received a redesign in many elements. A new icon theme for light and dark themes has arrived. The Midna Dark theme received a complete overhaul with a new plasma theme, window decorations, color scheme and new sddm &amp; splash themes. The new work brings to Midna Dark a complete unified look.</p>
+    <p>The artwork includes custom icon themes for light and dark themes. Midna and Midna Dark both create a complete unified look from boot-up all the way through logout..</p>
 
     <p>This ISO uses the <b>CRC and finobt enabled</b> XFS filesystem as default. CRCs enable enhanced error detection due to hardware issues, whilst the format changes also improves crash recovery algorithms and the ability  of  various  tools to validate and repair metadata corruptions when they are found.  The  free  inode  btree does not index used inodes, allowing faster, more consistent inode allocation performance as filesystems age.</p>
 
-    <p>KaOS specific settings for kinit make it possible to start a Plasma Wayland session right from the login manager.  An X11 session is of course still default, but the drop-down menu has a Wayland entry too.  With Plasma 5.6.95, the Wayland session is now possible on more systems.</p>
-
-    <p>KaOS uses the Systemd provided Systemd-boot for UEFI installs, Gummiboot is depreciated.</p>
+    <p>It is possible for both the Live session and installed system to start a Plasma Wayland session right from the login manager.  An X11 session is of course still default, but the drop-down menu has a Wayland entry too.  With Plasma 5.7, the Wayland session is now possible on more systems.</p>
 
     <p><b>Calamares</b>, the used installer framework, has moved to the 2.3 series. Highlights of the changes and additions:
     <ul>
-        <li>Support for full-disk autoinstall with LUKS</li>
-        <li>Support for LUKS filesystem creation in the Manual partitioning interface.</li>
-        <li>Support for Alongside (i.e. shrink+autoinstall) and Replace (i.e. replace+autoinstall) with LUKS.</li>
-        <li>Automated Breakpad and GDB-based crash reporting with libcrashreporter-qt</li>
-        <li>Added support for NVME device naming scheme in fstab module.</li>
+        <li>Fixed a long standing and hard to debug issue with occasional unwanted resize operations being executed</li>
+        <li>Support for Alongside (i.e. shrink+autoinstall), Replace (i.e. replace+autoinstall) and Manual partitioning with LUKS.</li>
+        <li>Implemented type to search support in the keyboard module</li>
+        <li>Improved support for NVME devices in fstab.</li>
         <li>Added support for generating /etc/crypttab, this relies on a single master passphrase.</li>
         <li>Improved reboot configuration handling in the Finished module.</li>
-        <li>Fixed an issue which caused zram devices to be included in the devices list.</li>
+        <li>Much improved mke2fs and e2fsck handling, which fixes a multitude of random (but not very frequent) install failures.</li>
     </ul></p>
     
     <p><strong>Octopi</strong> is becoming a very crucial part of full system maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like making sure a mirror is synced before starting any update, looking at the pacman logs, an option to get a paste from a complete snapshot of all info of a system with the SysInfo tool are included. Also included are very simple ways to open files, like copy to clipboard the file path shown in Octopi. To make sure the system doesn't start using too much disk space for the pacman cache, but still giving the user the option to retain some recent packages, the cache-cleaner tool is a great addition. The built-in tool to access <b>KCP</b> has now a much clearer place with the addition of its own "foreign" icon in the menu-bar. When viewing package info it is now possible to click the depends of such a package.</p>
@@ -54,12 +51,12 @@
     
     <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a "final" release, every ISO is mere a snapshot of the current status of the repositories. An idea what is currently available:</p>
     
-    <p>The ISO ships with <b>Frameworks 5.23.0, Plasma 5.6.95, KDE Applications 16.04.2 &amp; not yet released ports of KDE Applications</b>, Linux 4.6.2, Systemd 230, Kmod 22, NetworkManager 1.2.2, Calligra 3.0Alpha, Krita 3.0, Cantata, Plasma-nm 5.6.95, Xorg-server 1.18.3, Mesa 11.2.2, Glibc 2.23, GCC 4.9.3, non-free Nvidia 367.27, Pepperflash and Python3 3.5.1 to name a few.</p>
+    <p>The ISO ships with <b>Frameworks 5.24.0, Plasma 5.7.1, KDE Applications 16.04.3 &amp; not yet released ports of KDE Applications</b>, Linux 4.6.4, Systemd 230, Kmod 22, NetworkManager 1.2.2, Calligra 3.0Alpha, Krita 3.0, Cantata, Plasma-nm 5.7.1, Xorg-server 1.18.3, Mesa 11.2.2, Glibc 2.23, GCC 5.4.0, non-free Nvidia 367.35, Pepperflash and Python3 3.5.2 to name a few.</p>
     
     <p>The package manager is <strong>Pacman 5.0.1</strong>, with the simple but powerful Octopi 0.9dev as GUI frontend. Default web browser is Qt based Qupzilla 2.0.1. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna", fully redone for 2016.</p>
     
-    <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 4.6, Libreoffice 5.1.3, Qt 5.7.0, bumblebee packages, VLC, Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad and Knights.<br />
-    A limited number of the most well-known GTK applications are available, examples Firefox 47.0, Chrome 53, Ardour 4.7.0, Inkscape 0.91, GIMP 2.8.16 and Google-talkplugin 5.38.5.0.<br />
+    <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 4.7, Libreoffice 5.1.4, Qt 5.7.0, bumblebee packages, VLC, Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad and Knights.<br />
+    A limited number of the most well-known GTK applications are available, examples Firefox 47.0.1, Chrome 53, Ardour 4.7.0, Inkscape 0.91, GIMP 2.9.4 and Google-talkplugin 5.38.5.0.<br />
     Complete language packs are available for KDE, Calligra, Firefox, Libreoffice and Thunderbird. For IM, Fcitx 4.2.9.1 is available as a rather complete group.</p>
     
     <p><b>Known issues:</b></p>
@@ -67,6 +64,7 @@
         <li>On systems running the Nouveau graphics driver, Qupzilla will not start.  Either install the <b> https://kaosx.us/docs/nvidia/, non-free Nvidia driver</b> or use another browser.  Nouveau is not compatible with QtWebEngine.</li>
         <li>If you want to use a GPT partition table on a BIOS system, make sure to set it up following <b>https://kaosx.us/docs/bios_gpt/</b>, the installer's partitioner can only handle GPT correctly for UEFI</li>
         <li>Installing on RAID or LVM is currently not possible</li>
+        <li>Hibernate on LUKS enabled swap partitions needs manual intervention, the installer misses some settings to fully support this</li>
     </ul>
     
     <p>To create <b>reliable</b> installation media, please follow the instructions from the <b>http://kaosx.us/download/</b> page. KaOS's ISO's <b>do not support unetbootin</b>, and DVDs need a burn speed <b>no higher than 4x</b>.</p>
