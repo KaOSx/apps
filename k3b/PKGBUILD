@@ -1,6 +1,7 @@
 
 pkgname=k3b
-pkgver=2.9.90
+pkgver=2.9.91
+_commit=81d2d66aac78e6d59ecc907915a68a2b06ac5a54
 pkgrel=1
 epoch=1
 pkgdesc="Feature-rich and easy to handle CD burning application"
@@ -21,17 +22,17 @@ groups=('multimedia')
 conflicts=('kf5-k3b')
 replaces=('kf5-k3b')
 options=('!libtool')
-source=("git://anongit.kde.org/k3b#branch=kf5"
+source=("https://github.com/KDE/k3b/archive/${_commit}.zip"
         'k3b-fix-mp3decoder.diff'
         'k3b-fixbuild.diff'
         'CMakeLists.diff')
-md5sums=('SKIP'
+md5sums=('b2d8c5ce5b13dcd10b26c07eaf5b6247'
          'de45f28b3a1046171228e5b4bc52ae53'
          'c95a90586edf732db4f0c02ceb4e2d73'
          '12bbe740174463231e19049d35f76ffa')
 
 prepare() {
-  cd ${pkgname}
+  cd ${pkgname}-${_commit}
   #patch -p1 -i ${srcdir}/k3b-fix-mp3decoder.diff
   #patch -p1 -i ${srcdir}/k3b-fixbuild.diff
   #patch -p1 -i ${srcdir}/CMakeLists.diff
@@ -42,7 +43,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
