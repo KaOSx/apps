@@ -1,6 +1,6 @@
 
 pkgname=go
-pkgver=1.6.2
+pkgver=1.6.3
 pkgrel=1
 pkgdesc='Google Go compiler and tools (release version)'
 arch=('x86_64')
@@ -9,17 +9,17 @@ license=('BSD')
 depends=('perl' 'gawk')
 makedepends=('inetutils' 'go')
 options=('!strip' 'staticlibs')
-install="$pkgname.install"
+install="${pkgname}.install"
 # check for versions: http://golang.org/dl/
-source=("https://storage.googleapis.com/golang/${pkgname}$pkgver.linux-amd64.tar.gz")
-md5sums=('ebfb8b38330c8779b121c43433c4b9be')
+source=("https://storage.googleapis.com/golang/${pkgname}${pkgver}.linux-amd64.tar.gz")
+md5sums=('804291a6ffdafe3749b4cda60255dba6')
 
 build() {
-  cd "$pkgname/src"
+  cd go/src
 
-  export GOROOT="$srcdir/$pkgname"
+  export GOROOT="${srcdir}/${pkgname}"
   export GOBIN="$GOROOT/bin"
-  export GOPATH="$srcdir/"
+  export GOPATH="${srcdir}/"
   export GOROOT_FINAL=/usr/lib/go
   export GOROOT_BOOTSTRAP="$GOROOT_FINAL"
 
@@ -39,7 +39,7 @@ build() {
   GOOS=linux
 
   $GOROOT/bin/go get -d golang.org/x/tools/cmd/godoc
-  $GOROOT/bin/go build -o $srcdir/godoc golang.org/x/tools/cmd/godoc
+  $GOROOT/bin/go build -o ${srcdir}/godoc golang.org/x/tools/cmd/godoc
   for tool in benchcmp bundle callgraph digraph eg fiximports html2article oracle present ssadump stress stringer cover; do
     $GOROOT/bin/go get -d golang.org/x/tools/cmd/${tool}
     $GOROOT/bin/go build -o $GOROOT/pkg/tool/${GOOS}_amd64/${tool} golang.org/x/tools/cmd/${tool}
@@ -47,58 +47,58 @@ build() {
 }
 
 check() {
-  cd "$pkgname"
+  cd go
 
   export GO386=387
 
   export GOOS=linux
   export GOARCH=amd64
-  export GOROOT="$srcdir/$pkgname"
+  export GOROOT="${srcdir}/${pkgname}"
   export GOBIN="$GOROOT/bin"
-  export PATH="$srcdir/$pkgname-$pkgver/bin:$PATH"
+  export PATH="${srcdir}/${pkgname}-$pkgver/bin:$PATH"
 
   cd src && bash run.bash --no-rebuild || true
 }
 
 package() {
-  cd "$pkgname"
+  cd go
 
-  export GOROOT="$srcdir/$pkgname"
+  export GOROOT="${srcdir}/${pkgname}"
   export GOBIN="$GOROOT/bin"
 
-  install -Dm755 "$srcdir/godoc" "$pkgdir/usr/bin/godoc"
+  install -Dm755 "${srcdir}/godoc" "${pkgdir}/usr/bin/godoc"
 
   install -Dm644 LICENSE \
-    "$pkgdir/usr/share/licenses/go/LICENSE"
+    "${pkgdir}/usr/share/licenses/go/LICENSE"
 
   mkdir -p \
-    "$pkgdir/"{etc/profile.d,usr/{share/go,lib/go,lib/go/src,lib/go/site/src}}
+    "${pkgdir}/"{etc/profile.d,usr/{share/go,lib/go,lib/go/src,lib/go/site/src}}
 
-  cp -r doc misc -t "$pkgdir/usr/share/go"
-  ln -s /usr/share/go/doc "$pkgdir/usr/lib/go/doc"
-  cp -a bin "$pkgdir/usr"
-  cp -a pkg "$pkgdir/usr/lib/go"
-  cp -a "$GOROOT/src" "$pkgdir/usr/lib/go/"
-  cp -a "$GOROOT/src/cmd" "$pkgdir/usr/lib/go/src/cmd"
-  cp -a "$GOROOT/lib" "$pkgdir/usr/lib/go/"
+  cp -r doc misc -t "${pkgdir}/usr/share/go"
+  ln -s /usr/share/go/doc "${pkgdir}/usr/lib/go/doc"
+  cp -a bin "${pkgdir}/usr"
+  cp -a pkg "${pkgdir}/usr/lib/go"
+  cp -a "$GOROOT/src" "${pkgdir}/usr/lib/go/"
+  cp -a "$GOROOT/src/cmd" "${pkgdir}/usr/lib/go/src/cmd"
+  cp -a "$GOROOT/lib" "${pkgdir}/usr/lib/go/"
 
-  install -Dm644 src/Make.* "$pkgdir/usr/lib/go/src"
+  install -Dm644 src/Make.* "${pkgdir}/usr/lib/go/src"
 
-  find "$pkgdir/usr/lib/go/src/" -type f -name '*.[ao]' -delete
-  find "$pkgdir" -type f -name sql.go -exec chmod -x {} \;
-  find "$pkgdir/usr/lib/go/src" -type f -executable -delete
+  find "${pkgdir}/usr/lib/go/src/" -type f -name '*.[ao]' -delete
+  find "${pkgdir}" -type f -name sql.go -exec chmod -x {} \;
+  find "${pkgdir}/usr/lib/go/src" -type f -executable -delete
 
-  ln -sf /usr/bin "$pkgdir/usr/lib/go/bin"
+  ln -sf /usr/bin "${pkgdir}/usr/lib/go/bin"
 
-  install -Dm755 src/make.bash "$pkgdir/usr/lib/go/src/make.bash"
-  install -Dm755 src/run.bash "$pkgdir/usr/lib/go/src/run.bash"
-  cp -r misc/ "$pkgdir/usr/lib/go/"
+  install -Dm755 src/make.bash "${pkgdir}/usr/lib/go/src/make.bash"
+  install -Dm755 src/run.bash "${pkgdir}/usr/lib/go/src/run.bash"
+  cp -r misc/ "${pkgdir}/usr/lib/go/"
 
-  install -Dm644 favicon.ico "$pkgdir/usr/lib/go/favicon.ico"
+  install -Dm644 favicon.ico "${pkgdir}/usr/lib/go/favicon.ico"
 
-  rm -f "$pkgdir/usr/share/go/doc/articles/wiki/get.bin"
+  rm -f "${pkgdir}/usr/share/go/doc/articles/wiki/get.bin"
 
-  install -Dm644 VERSION "$pkgdir/usr/lib/go/VERSION"
+  install -Dm644 VERSION "${pkgdir}/usr/lib/go/VERSION"
 
-  find "$pkgdir/usr/"{lib/go/pkg,bin} -type f -exec touch '{}' +
+  find "${pkgdir}/usr/"{lib/go/pkg,bin} -type f -exec touch '{}' +
 }
