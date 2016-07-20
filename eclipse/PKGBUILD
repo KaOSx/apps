@@ -7,10 +7,9 @@ pkgdesc="An IDE for Java and other languages"
 arch=('x86_64')
 url="http://eclipse.org"
 depends=('java-environment' 'gtk2' 'unzip' 'webkitgtk2' 'libxtst')
-install=${pkgname}.install
 makedepends=('zip')
 license=("EPL/1.0")
-source=("http://ftp.osuosl.org/pub/eclipse/eclipse/downloads/drops4/R-$pkgver-${_date}/$pkgname-SDK-$pkgver-linux-gtk-x86_64.tar.gz"
+source=("http://ftp.osuosl.org/pub/eclipse/eclipse/downloads/drops4/R-${pkgver}-${_date}/$pkgname-SDK-${pkgver}-linux-gtk-x86_64.tar.gz"
         'eclipse.sh'
         'eclipse.desktop'
         'eclipse.svg')
@@ -20,14 +19,14 @@ md5sums=('32139c59f14d14f64eaee1836566e14f'
          '77cff7543ccf7e177cb6667f5a20ce19')
 
 package() {
-  install -m755 -d "$pkgdir/usr/share/licenses/eclipse/"
-  mv eclipse "$pkgdir/usr/share/"
+  install -m755 -d ${pkgdir}/usr/share/licenses/eclipse/
+  mv eclipse ${pkgdir}/usr/share/
 
-  install -d $pkgdir/usr/bin $pkgdir/usr/share/applications $pkgdir/usr/share/icons/hicolor/apps
-  install -m755 eclipse.sh "$pkgdir/usr/bin/eclipse"
-  install -m644 eclipse.desktop "$pkgdir/usr/share/applications/"
+  install -d ${pkgdir}/usr/bin ${pkgdir}/usr/share/applications ${pkgdir}/usr/share/icons/hicolor/apps
+  install -m755 eclipse.sh ${pkgdir}/usr/bin/eclipse
+  install -m644 eclipse.desktop ${pkgdir}/usr/share/applications/
 
-  install -Dm644 "$srcdir"/eclipse.svg "$pkgdir"/usr/share/icons/hicolor/scalable/apps/eclipse.svg
+  install -Dm644 ${srcdir}/eclipse.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/eclipse.svg
 
-  #mv $pkgdir/usr/share/eclipse/epl-v10.html "$pkgdir/usr/share/licenses/eclipse/epl-v10.html"
+  #mv ${pkgdir}/usr/share/eclipse/epl-v10.html $pkgdir/usr/share/licenses/eclipse/epl-v10.html
 }
