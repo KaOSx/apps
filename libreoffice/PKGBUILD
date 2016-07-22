@@ -252,4 +252,6 @@ package() {
         # replace beta splash screen
         rm -f ${pkgdir}/usr/lib/libreoffice/program/intro.png
         install -m644 ${srcdir}/intro.png ${pkgdir}/usr/lib/libreoffice/program/
+        # more then half the package size is from sdk docs
+        rm -r ${pkgdir}/usr/share/doc
 }

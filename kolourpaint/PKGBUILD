@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kolourpaint
-#pkgver=${_kdever}
-pkgver=16.03.71
+pkgver=${_kdever}
+#pkgver=16.03.71
 _commit=6c8d56fc966311468c13bcc855c8fffbf5240394
 pkgrel=1
 pkgdesc="Painting program to quickly create raster images plus useful as a touch-up tool and simple image editing tasks."
@@ -16,16 +16,16 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('graphics')
 conflicts=('kdegraphics-kolourpaint')
 replaces=('kdegraphics-kolourpaint')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/kolourpaint/archive/${_commit}.zip")
-md5sums=('c3a9547479929e4f3db29eb7d2946185')
+source=("$_mirror/${_pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("https://github.com/KDE/kolourpaint/archive/${_commit}.zip")
+#md5sums=('c3a9547479929e4f3db29eb7d2946185')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
@@ -37,5 +37,5 @@ build() {
 package() {
   cd build
   
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
