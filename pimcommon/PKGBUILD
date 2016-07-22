@@ -9,10 +9,10 @@ pkgdesc="Common lib for kdepim."
 arch=('x86_64')
 url='https://github.com/KDE/pimcommon'
 license=('LGPL')
-depends=('kdepimlibs' 'ki18n' 'kmime' 'kimap' 'kcontacts' 'kcodecs' 'kwallet' 'kdbusaddons'
+depends=('akonadi-contacts' 'ki18n' 'kmime' 'kimap' 'kcontacts' 'kcodecs' 'kwallet' 'kdbusaddons'
          'kxmlgui' 'kconfig' 'sonnet' 'karchive' 'knewstuff' 'kdelibs4support' 'ktextwidgets'
          'libkdepim' 'kpimtextedit' 'grantlee' 'qt5-webkit')
-makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
+makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'boost')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=("http://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -34,8 +34,8 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }

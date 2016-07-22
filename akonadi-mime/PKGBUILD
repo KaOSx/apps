@@ -9,9 +9,9 @@ pkgdesc="Libraries and daemons to implement basic email handling."
 arch=('x86_64')
 url='https://github.com/KDE/akonadi-mime'
 license=('LGPL')
-depends=('kdbusaddons' 'kio' 'kconfig' 'ki18n' 'kxmlgui' 'kmime' 'kitemmodels'
-         'akonadi' 'shared-mime-info' 'libxlst')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kdbusaddons' 'kio' 'kconfig' 'ki18n' 'kxmlgui' 'kmime' 'kitemmodels' 'kdelibs4support'
+         'akonadi' 'shared-mime-info' 'libxslt')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -32,8 +32,8 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }

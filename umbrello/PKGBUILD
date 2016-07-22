@@ -11,14 +11,12 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('karchive' 'kauth' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kiconthemes' 'kinit'
          'kio' 'kparts' 'kservice' 'ktexteditor' 'kwindowsystem' 'kwidgetsaddons' 'kxmlgui' )
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost') # 'clang')
 groups=('kde' 'kdesdk' 'kde-uninstall' 'programming' )
 conflicts=('kdesdk-umbrello')
 replaces=('kdesdk-umbrello')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/umbrello.git#branch=frameworks")
-#md5sums=('SKIP')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -36,7 +34,6 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
-    -DBUILD_UNITTESTS=OFF \
     -DBUILD_KF5=ON
   make
 }

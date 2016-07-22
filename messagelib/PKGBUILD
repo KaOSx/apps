@@ -9,7 +9,7 @@ pkgdesc="All libs for messages"
 arch=('x86_64')
 url='https://github.com/KDE/messagelib'
 license=('LGPL')
-depends=('akonadi' 'ki18n' 'kmime' 'kdepimlibs' 'kdepim-apps-libs' 'libkdepim' 'karchive' 
+depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'akonadi-notes' 'kdepim-apps-libs' 'libkdepim' 'karchive' 
          'kldap' 'kpimtextedit' 'kmailtransport' 'kidentitymanagement' 'kdewebkit' 'kiconthemes'
          'kcompletion' 'kcodecs' 'kconfig' 'kxmlgui' 'akonadi-search' 'kcontacts' 'kmbox'  
          'libgravatar' 'grantleetheme' 'libkleo' 'pimcommon' 'grantlee' 'qtwebengine')
@@ -36,8 +36,8 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF \
     -DQTWEBENGINE_EXPERIMENTAL_OPTION=TRUE 
   make 

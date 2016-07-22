@@ -10,7 +10,7 @@ arch=('x86_64')
 url='https://github.com/KDE/libgravatar'
 license=('LGPL')
 depends=('ki18n' 'kconfig' 'kwidgetsaddons' 'pimcommon')
-makedepends=('extra-cmake-modules' 'kdoctools')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/libgravatar")
@@ -31,8 +31,8 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }

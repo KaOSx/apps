@@ -13,7 +13,7 @@ depends=('libkgapi' 'qtwebengine' 'boost-libs'
          #frameworks
          'ki18n' 'khtml' 'kconfig' 'kdbusaddons' 'kxmlgui' 
          #kdepimlibs
-         'kdepimlibs' 'mailcommon' 'kdepim-apps-libs' 'libkleo' 'grantleetheme'
+         'mailcommon' 'kdepim-apps-libs' 'libkleo' 'grantleetheme'
          'pimcommon' 'libkdepim' 'incidenceeditor'
          'messagelib' 'calendarsupport' 'eventviews' 'akonadi' 'libgravatar' 'ktnef')
 makedepends=('extra-cmake-modules' 'kdoctools' 'clang' 'boost')
@@ -40,14 +40,13 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DLIB_INSTALL_DIR=lib \
-    -DLIBEXEC_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE \
-    -DQTWEBENGINE_EXPERIMENTAL_OPTION=TRUE \
     -DKDEPIMADDONS_BUILD_EXAMPLES=TRUE
   make 
 }

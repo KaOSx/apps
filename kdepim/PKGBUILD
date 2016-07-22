@@ -17,15 +17,16 @@ depends=('grantlee' 'phonon-qt5' 'qt5-tools' 'prison' 'libkgapi' 'qt5-webkit' 'q
          #kdepimlibs
          'kcontacts' 'kcalcore' 'kidentitymanagement' 'kldap' 'kmailtransport' 'kcalutils' 'kontactinterface'
          'kholidays' 'ktnef' 'kimap' 'kmbox' 'akonadi-calendar' 'syndication' 'gpgmepp' 'kalarmcal' 'kmime'
-         'kxmlrpcclient' 'kblog' 'kdepimlibs' 'akonadi-search' 'kdepim-runtime' 'libgravatar' 'mailimporter'
-         'mailcommon' 'kdepim-apps-libs' 'libkleo' 'grantleetheme' 'pimcommon' 'libkdepim' 'incidenceeditor'
-         'messagelib' 'calendarsupport' 'eventviews' 'kdgantt2' 'libksieve' 'kdepim-addons')
+         'kxmlrpcclient' 'kblog' 'akonadi-mime' 'akonadi-contacts' 'akonadi-notes' 'akonadi-search' 
+         'kdepim-runtime' 'libgravatar' 'mailimporter' 'mailcommon' 'kdepim-apps-libs' 'libkleo' 
+         'grantleetheme' 'pimcommon' 'libkdepim' 'incidenceeditor' 'messagelib' 'calendarsupport' 
+         'eventviews' 'kdgantt2' 'libksieve' 'kdepim-addons')
 makedepends=('boost' 'extra-cmake-modules' 'kdoctools' 'clang')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
         'CMakeLists.diff')
 # too many kdepim names, hardcode md5
-md5sums=('39fb897ca8651e953ce49f65c9c925de'
+md5sums=('6300163026d6afee02ca62a494a38aa0'
          '2218a2df5d6f3fb09c0616a68e4e13f2')
 
 prepare() {
@@ -44,14 +45,13 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DLIB_INSTALL_DIR=lib \
-    -DLIBEXEC_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=FALSE \
-    -DQTWEBENGINE_EXPERIMENTAL_OPTION=TRUE
+    -DBUILD_TESTING=FALSE
   make VERBOSE=1
 }
 

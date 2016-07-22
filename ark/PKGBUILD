@@ -15,15 +15,12 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 conflicts=('kdeutils-ark')
 replaces=('kdeutils-ark')
-source=($_mirror/${pkgname}-$_kdever.tar.xz
-       "https://github.com/KDE/ark/commit/132743e572fb7550cbfbbe8db848f2a28a0001cb.diff")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '75557ff4b52bbd41fd9515e8d5655831')
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # plasma 5.7 fix
-  patch -p1 -i ${srcdir}/132743e572fb7550cbfbbe8db848f2a28a0001cb.diff
+  #patch -p1 -i ${srcdir}/132743e572fb7550cbfbbe8db848f2a28a0001cb.diff
 }
 
 build() {  

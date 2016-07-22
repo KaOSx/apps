@@ -9,7 +9,7 @@ pkgdesc="Lib which provides support for mail apps"
 arch=('x86_64')
 url='https://github.com/KDE/mailcommon'
 license=('LGPL')
-depends=('akonadi' 'ki18n' 'kmime' 'kdepimlibs' 'kcodecs' 'kiconthemes' 'karchive' 'kitemviews'
+depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'kcodecs' 'kiconthemes' 'karchive' 'kitemviews'
          'kwindowsystem' 'kxmlgui' 'messagelib' 'libkdepim' 'pimcommon' 'mailimporter' 'kmailtransport'
          'kldap' 'phonon-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
@@ -33,8 +33,8 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }
