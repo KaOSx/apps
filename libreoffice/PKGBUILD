@@ -13,7 +13,7 @@ depends=("curl>=7.20.0" 'python3' 'libabw>=0.1.0' 'libwpd>=0.9.2' 'libwps' 'libx
          'hyphen' 'lpsolve' 'gcc-libs' 'sh' 'librsvg' 'lcms2' 'hicolor-icon-theme' 'desktop-file-utils' 
          'shared-mime-info' 'translate-toolkit' 'xdg-utils' 'ttf-liberation' 'libcups' 
          'poppler' 'sane' 'unixodbc' 'libwpg' 'imagemagick' 'hunspell'
-         'mesa' 'gst-plugins-base' 'java-runtime' 'postgresql-libs' 'libvisio' 'bluez' 'liblangtag'
+         'mesa' 'gst-plugins-base' 'java-runtime' 'postgresql-libs' 'libvisio' 'bluez' # 'liblangtag'
          'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' 'gconf' 
          'java-environment' 'beanshell'  'vigra' 'pstoedit' 'libmythes' 'gtk2')
 makedepends=('perl-archive-zip' 'zip' 'unzip' 'apache-ant' 'gperf' 'cppunit' 'libldap'
@@ -56,6 +56,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/10d61fbaa6a06348823651b1bd7940fe-libexttextcat-3.4.4.tar.bz2 
 	${_additional_source_url}/libcmis-0.5.1.tar.gz 
 	${_additional_source_url}/liborcus-0.11.2.tar.gz
+	${_additional_source_url}/aa899eff126216dafe721149fbdb511b-liblangtag-0.5.8.tar.bz2
 	${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 	${_additional_source_url}/libcdr-0.1.2.tar.bz2
 	${_additional_source_url}/libmspub-0.1.2.tar.bz2
@@ -101,6 +102,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
 	ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
 	liborcus-0.11.2.tar.gz
+	aa899eff126216dafe721149fbdb511b-liblangtag-0.5.8.tar.bz2
 	0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 	17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	boost_1_60_0.tar.bz2
@@ -192,7 +194,7 @@ build() {
         --without-system-libmspub \
 		--without-system-libexttextcat \
 		--without-system-orcus \
-		--with-system-liblangtag \
+		--without-system-liblangtag \
 		--with-system-dicts \
         --with-system-hunspell \
 		--with-external-hyph-dir=/usr/share/hyphen \
