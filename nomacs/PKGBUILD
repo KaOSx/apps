@@ -1,6 +1,6 @@
 
 pkgname=nomacs
-pkgver=3.2.0
+pkgver=3.4
 pkgrel=1
 pkgdesc="Qt based image viewer for all common image formats including RAW and psd images."
 arch=('x86_64')
@@ -8,13 +8,13 @@ url="http://www.nomacs.org/"
 license=('GPL3')
 depends=('qt5-svg' 'exiv2' 'libraw' 'opencv') # 'quazip')
 makedepends=('cmake' 'qt5-tools')
-source=("https://github.com/nomacs/nomacs/releases/download/$pkgver/$pkgname-$pkgver-source.tar.bz2"
+source=("https://github.com/nomacs/nomacs/archive/${pkgver}.tar.gz"
         'qdrag.diff')
-md5sums=('2f453b4106c395b0c5316563e67d9255'
+md5sums=('5f1a6586f51cebd01cb2ab71b38de649'
          'bdd31541310ed5b6bee1c8f101ef3505')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd ${pkgname}-${pkgver}
   #patch -p1 -i $srcdir/qdrag.diff
   #sed -i 's|OpenCV 2.1.0 REQUIRED|OpenCV 3.1.0 REQUIRED|g' $srcdir/$pkgname-$pkgver/cmake/Unix.cmake
 
@@ -24,7 +24,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${pkgver}/ImageLounge \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake
@@ -35,5 +35,5 @@ build() {
 package() {
   cd build
   
-  make DESTDIR="$pkgdir/" install
+  make DESTDIR=${pkgdir}/ install
 }
