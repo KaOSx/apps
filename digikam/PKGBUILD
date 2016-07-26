@@ -3,7 +3,7 @@ pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
 pkgver=5.0.0
 _pkgver=5.0.0
-pkgrel=2
+pkgrel=3
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
@@ -11,7 +11,7 @@ pkgdesc="Digital photo management application for kde"
 makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
          'solid' 'kiconthemes' 'kfilemetadata' 'libksane' 'ki18n' 'kitemmodels' 'lensfun' 
          'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
-         'lapack' 'libgpod' 'eigen3' 'mariadb' 'kdepimlibs'
+         'lapack' 'libgpod' 'eigen3' 'mariadb' 'akonadi-contacts'
          'kparts' 'kconfig' 'kxmlgui' 'kservice' 'threadweaver' 'karchive' 'libkexiv2' 
          'libkdcraw' 'libkipi' 'libkgeomap' 'libkvkontakte' 'libmediawiki' 'libtiff'
          'kcalcore' 'kwallet' 'phonon-qt5' 
@@ -34,10 +34,10 @@ build() {
    cmake ../${pkgbase}-${_pkgver} \
      -DCMAKE_BUILD_TYPE=Release \
      -DCMAKE_INSTALL_PREFIX=/usr \
-     -DLIB_INSTALL_DIR=lib \
+     -DKDE_INSTALL_LIBDIR=lib \
      -DCMAKE_SKIP_RPATH=ON \
-     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
      -DBUILD_TESTING=OFF \
      -DENABLE_AKONADICONTACTSUPPORT=ON \
