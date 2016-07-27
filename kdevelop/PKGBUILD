@@ -2,7 +2,7 @@
 pkgname=kdevelop
 pkgver=4.90.97
 _pkgver=4.90.91
-pkgrel=3
+pkgrel=4
 pkgdesc="A C/C++ development environment for KDE"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
@@ -15,28 +15,27 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'perl' 'docbook-xsl')
 conflicts=('kf5-kdevelop')
 replaces=('kf5-kdevelop')
 groups=('programming')
-install=kdevelop.install
 source=("http://download.kde.org/unstable/kdevelop/${_pkgver}/src/kdevelop-${_pkgver}.tar.xz")      
 md5sums=('14ab40652807ead32bfc2ada115da2c0')
 
 prepare() {
-  cd ${srcdir}/${pkgname}-${_pkgver}
+  cd ${pkgname}-${_pkgver}
   
   #patch -p1 -i $srcdir/qt55.diff
 }
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build 
   
   cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make 

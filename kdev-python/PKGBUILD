@@ -1,7 +1,7 @@
 
 pkgname=kdev-python
 pkgver=4.90.91
-pkgrel=1
+pkgrel=2
 pkgdesc='KDevelop plugin which provides Python language support.'
 arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/kdevelop/plugins/kdev-python"
@@ -12,20 +12,17 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'kdevelop-pg-qt')
 groups=('kde' 'kdevelop-plugins')
 source=("http://download.kde.org/unstable/kdevelop/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
 md5sums=('782342b33a124d396c18b241a50a2592')
-#source=("git://anongit.kde.org/kdev-python.git")
-#md5sums=('SKIP')
 
 build() {
-  mkdir build  
+  mkdir -p build  
   cd build 
   
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }

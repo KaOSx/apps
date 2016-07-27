@@ -1,7 +1,7 @@
 
 pkgname=kdev-php
 pkgver=4.90.91
-pkgrel=1
+pkgrel=2
 pkgdesc="PHP plugin for Kdevelop"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
@@ -16,22 +16,22 @@ source=("http://download.kde.org/unstable/kdevelop/${pkgver}/src/${pkgname}-${pk
 md5sums=('c6063e86356d687f430c7cb441b57767')
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
   
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }

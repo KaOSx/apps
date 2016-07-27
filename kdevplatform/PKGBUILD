@@ -1,7 +1,7 @@
 
 pkgname=kdevplatform
 pkgver=4.90.91
-pkgrel=4
+pkgrel=5
 pkgdesc="A C/C++ development platform for KDE"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
@@ -13,7 +13,6 @@ depends=('karchive' 'kconfig' 'kwidgetsaddons' 'kiconthemes' 'kcmutils' 'kemotic
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kf5-kdevplatform')
 replaces=('kf5-kdevplatform')
-install=kdevplatform.install
 source=("http://download.kde.org/unstable/kdevelop/${pkgver}/src/kdevplatform-${pkgver}.tar.xz")
 md5sums=('a324b71ad9a7d10dd84788fe062376dc')
 
@@ -24,16 +23,16 @@ prepare() {
 }
 
 build() {
-  mkdir build
+  mkdir -p build
   
   cd build 
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }
