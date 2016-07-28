@@ -1,0 +1,30 @@
+
+pkgname=routino
+pkgver=3.1.1
+pkgrel=1
+pkgdesc='Finding a route between two points using the dataset of topographical information collected by OpenStreetMap Data'
+arch=('x86_64')
+url='http://www.routino.org/'
+license=('AGPL3')
+depends=('zlib' 'bzip2')
+source=("http://www.routino.org/download/${pkgname}-${pkgver}.tgz")
+md5sums=('46c0bedf095071a1d034de6da2fb0e3c')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  sed -i 's|prefix=/usr/local|prefix=/usr|' Makefile.conf
+  sed -i 's|docdir=$(prefix)/doc/routino|docdir=$(prefix)/share/doc/routino|' Makefile.conf
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+    
+  make DESTDIR=${pkgdir} install
+}
