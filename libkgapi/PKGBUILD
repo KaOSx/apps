@@ -1,6 +1,6 @@
 
 pkgname=libkgapi
-pkgver=5.2.80
+pkgver=5.3.0
 _commit=08805e4dc5afbad5833635b7945ba65e4a5a4abe
 pkgrel=1
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
@@ -12,15 +12,15 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'boost')
 conflicts=('kf5-libkgapi')
 replaces=('kf5-libkgapi')
 provides=('kf5-libkgapi')
-#source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-source=("https://github.com/KDE/libkgapi/archive/${_commit}.zip")
-md5sums=('396a8a774c5aae3386b92bb59592b799')
+source=("http://download.kde.org/stable/${pkgname}/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+#source=("https://github.com/KDE/libkgapi/archive/${_commit}.zip")
+md5sums=('13f187699c144809b2449e786c81dde4')
 
 build() {
-  mkdir build
+  mkdir -p build
   
   cd build 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
