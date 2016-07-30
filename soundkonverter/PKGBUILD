@@ -1,7 +1,8 @@
 
 pkgname=soundkonverter
-pkgver=2.1.80
-pkgrel=2
+pkgver=2.2.0
+_commit=000a5e1d360707e1b518c79c020053aae655cdfe
+pkgrel=1
 pkgdesc="SoundKonverter is a frontend to various audio converters"
 arch=('x86_64')
 url="http://www.kde-apps.org/content/show.php?content=29024"
@@ -9,16 +10,15 @@ license=('GPL')
 depends=('ki18n' 'kxmlgui' 'kio' 'solid' 'kconfig' 'kconfigwidgets' 'kwidgetsaddons' 'kdelibs4support'
          'libkcddb5' 'taglib' 'ffmpeg' 'cdparanoia' 'phonon-qt5' 'sox' 'vorbis-tools' 'wavpack' 'speex'
          'flac' 'timidity++')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
-conflicts=('k3b')
 #source=("http://kde-apps.org/CONTENT/content-files/29024-soundkonverter-${pkgver}.tar.gz")
 #md5sums=('4f09193d6602de7952b985b9505731f8')
-source=("git://github.com/valeth/soundkonverter#branch=frameworks")
-md5sums=('SKIP')
+source=("https://github.com/isoft-linux/soundkonverter/archive/${_commit}.zip")
+md5sums=('a4d1712fc6bf6f9079c311bf17586bc1')
 
 prepare() {
-  cd ${pkgname}
+  cd ${pkgname}-${_commit}
   #sed -i -e 's|add_custom_target|#add_custom_target|' ${srcdir}/${pkgname}/src/CMakeLists.txt
 }
 
@@ -26,11 +26,11 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}/src \
+  cmake ../${pkgname}-${_commit}/src \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DKF5_BUILD=ON 
   make
