@@ -1,17 +1,17 @@
 
 pkgname=dnscrypt-proxy
-pkgver=1.6.1
+pkgver=1.7.0
 pkgrel=1
 pkgdesc="Tool for securing communications between a client and a DNS resolver"
 arch=('x86_64')
 url="http://dnscrypt.org/"
 license=('custom:ISC')
 depends=('libsodium')
-source=("http://download.dnscrypt.org/$pkgname/$pkgname-$pkgver.tar.gz")
-md5sums=('6fc2a8c57007d582dee3313979a4d1b5')
+source=("http://download.dnscrypt.org/${pkgname}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('95df7262964dc22da62f7f6f0466c50e')
 
 build() {
-  cd $pkgname-$pkgver
+  cd ${pkgname}-${pkgver}
   #patch -p1 -i $srcdir/a66823e1ad8d8eb6d36a5d2e050b20765089754d.patch
   
   ./configure --prefix=/usr --with-systemd 
@@ -19,15 +19,15 @@ build() {
 }
 
 package() {
-  cd $pkgname-$pkgver
-  make DESTDIR=$pkgdir install
+  cd ${pkgname}-${pkgver}
+  make DESTDIR=${pkgdir} install
 
-  mkdir -p $pkgdir/{usr/share/{licenses,doc}/$pkgname,usr/lib/systemd/system}
-  install -m 644 COPYING $pkgdir/usr/share/licenses/$pkgname
-  install -m 644 AUTHORS NEWS README README.markdown $pkgdir/usr/share/doc/$pkgname
+  mkdir -p ${pkgdir}/{usr/share/{licenses,doc}/${pkgname},usr/lib/systemd/system}
+  install -m 644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}
+  install -m 644 AUTHORS NEWS README README.markdown ${pkgdir}/usr/share/doc/${pkgname}
   
-  install -m 644 dnscrypt-proxy.service $pkgdir/usr/lib/systemd/system
-  install -m 644 dnscrypt-proxy.socket $pkgdir/usr/lib/systemd/system
-  sed -i 's|/usr/local/sbin|/usr/sbin|' $pkgdir/usr/lib/systemd/system/dnscrypt-proxy.service
+  install -m 644 dnscrypt-proxy.service ${pkgdir}/usr/lib/systemd/system
+  install -m 644 dnscrypt-proxy.socket ${pkgdir}/usr/lib/systemd/system
+  sed -i 's|/usr/local/sbin|/usr/sbin|' ${pkgdir}/usr/lib/systemd/system/dnscrypt-proxy.service
 }
 
