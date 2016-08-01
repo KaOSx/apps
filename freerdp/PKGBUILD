@@ -1,20 +1,20 @@
 
 pkgname=freerdp
 _pkgname=FreeRDP
-pkgver=1.2.0beta
-_pkgver=1.2.0-beta1-android9
-_commit=11d113872fe254a2472e99a40f8be7237d5a82d3
-pkgrel=5
+pkgver=2.0.0beta
+#_pkgver=1.2.0-beta1-android9
+_commit=5b2455f3147aca395a441fc65b602938600f0788
+pkgrel=1
 pkgdesc="Free RDP client"
 arch=('x86_64')
 url="http://www.freerdp.com/"
 license=('GPL')
 depends=('openssl' 'libxcursor' 'libcups' 'alsa-lib' 'libxext' 'libxdamage'
-	 'ffmpeg' 'libxkbfile' 'libxinerama' 'libxv' 'pulseaudio' 'libxrender' 
-	 'libxfixes' 'gst-plugins-base')
+        'ffmpeg' 'libxkbfile' 'libxinerama' 'libxv' 'pulseaudio' 'libxrender' 
+        'libxfixes' 'gst-plugins-base' 'libxkbcommon' 'libxrandr') 
 makedepends=('krb5' 'cmake' 'damageproto' 'xmlto' 'docbook-xsl')
 source=("https://github.com/FreeRDP/FreeRDP/archive/${_commit}.zip")
-md5sums=('f7bbd310e483f4ce296291121be4444c')
+md5sums=('02b6b125b31950a536ab61e1775fbe1c')
 
 build() {
   mkdir build

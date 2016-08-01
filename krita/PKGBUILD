@@ -1,7 +1,7 @@
 
 pkgname=krita
 pkgver=3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -12,14 +12,17 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'opencolorio' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
          'libraw' 'qca-qt5' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools') # 'clang') 
-source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tgz")
+source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tgz"
+        "https://github.com/KDE/krita/commit/100a148e3a35b91716c94add45925f7648af8dd6.diff")
 #source=("git://anongit.kde.org/krita.git")
-md5sums=('beb7140471d1b6b0ae92d664743c067f')
+md5sums=('beb7140471d1b6b0ae92d664743c067f'
+         '6674e6aee6a60a5ed680927ba55edee6')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   sed -i 's|X-KDE-Import": "image/x-krita-raw|X-KDE-Import": "image/x-nikon-nef,image/x-canon-cr2,image/x-sony-sr2,image/x-canon-crw,image/x-pentax-pef,image/x-sigma-x3f,image/x-kodak-kdc,image/x-minolta-mrw,image/x-sony-arw,image/x-kodak-k25,image/x-kodak-dcr,image/x-olympus-orf,image/x-panasonic-raw,image/x-panasonic-raw2,image/x-fuji-raf,image/x-sony-srf,image/x-adobe-dng|' plugins/impex/raw/krita_raw_import.json
-  #patch -p1 -i $srcdir/desktop_files.patch
+  
+  patch -p1 -i $srcdir/100a148e3a35b91716c94add45925f7648af8dd6.diff
 }
 
 build() {
@@ -33,7 +36,7 @@ build() {
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE \
     -DPACKAGERS_BUILD=true
