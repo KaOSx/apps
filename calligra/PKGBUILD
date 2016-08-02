@@ -1,7 +1,7 @@
 
 pkgname=calligra
-pkgver=2.9.119
-_commit=9f1ebd6d901a818a46cdff3a4a3432ac85034436
+pkgver=2.9.120
+_commit=0e1d52b5c3ae8389be4478133199d04bd4e6eca6
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
@@ -58,7 +58,7 @@ replaces=('calligra-3rdparty'
 source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
         'libwps-0.4.patch'
         'warnings.diff')
-md5sums=('d0c16f640aa540b0d8b9ebaf7072f3d8'
+md5sums=('ba3ad25589ad6f458c27dde07d37ad27'
          '2529367ef6a10582436003aceb7dc3e8'
          '124aa66f055f957d2d618f7a18f35d43')
 
@@ -94,7 +94,7 @@ package() {
   make DESTDIR=${pkgdir} install
   
   # fix some bugs in .desktop files
-  sed -i 's|X-DBUS-StartupType=multi|#X-DBUS-StartupType=multi|' ${pkgdir}/usr/share/applications/braindump.desktop
+  sed -i 's|X-DBUS-StartupType=multi|#X-DBUS-StartupType=multi|' ${pkgdir}/usr/share/applications/org.kde.braindump.desktop
   rm ${pkgdir}/usr/share/applications/calligra_filter_odt2docx.desktop
   
 }
