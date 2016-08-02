@@ -42,6 +42,7 @@ build() {
   cd ${pkgname}-${pkgver}
 
   export PATH=${srcdir}/path:$PATH
+  unset CPPFLAGS
 
   make -f client.mk build MOZ_PGO=0
 }
