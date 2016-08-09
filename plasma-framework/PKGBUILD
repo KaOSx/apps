@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-framework'
@@ -16,14 +16,18 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 options=('debug')
 source=("http://download.kde.org/stable/frameworks/5.19/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/plasma-framework/commit/bb70febdbe397b617e5c41aff5494fdbc185fa88.diff")
+        #"https://github.com/KDE/plasma-framework/commit/bb70febdbe397b617e5c41aff5494fdbc185fa88.diff"
+        'rb128640.patch'
+        'rb128641.patch')
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'f79c4362e5e59a95518af7b92b58c68a')
+         '8082b73601bda7295b2c3683add1ae87'
+         '612e01f0d6d97720f2dad3b68cf338b3')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # revert commit, stops the option to drag widgets to the desktop/panel
-  patch -R -p1 -i ${srcdir}/bb70febdbe397b617e5c41aff5494fdbc185fa88.diff
+  patch -p1 -i ${srcdir}/rb128640.patch
+  patch -p1 -i ${srcdir}/rb128641.patch
 }
 
 build() {
