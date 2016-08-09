@@ -1,7 +1,7 @@
 
 pkgname=skanlite
 pkgver=2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Image Scanning Application for KDE"
 arch=('x86_64')
 url='https://projects.kde.org/projects/extragear/graphics/skanlite'
@@ -15,7 +15,7 @@ source=("http://download.kde.org/stable/skanlite/$pkgver/${pkgname}-${pkgver}.ta
 md5sums=('7282a95f0b67636198522ef9d384fadb')
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
   
   cmake ../${pkgname}-${pkgver} \
