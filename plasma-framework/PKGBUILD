@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-framework'
@@ -15,13 +15,15 @@ depends=('kactivities' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbu
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 options=('debug')
-source=("http://download.kde.org/stable/frameworks/5.19/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/5.19/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/plasma-framework/commit/bb70febdbe397b617e5c41aff5494fdbc185fa88.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'f79c4362e5e59a95518af7b92b58c68a')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # https://bugs.kde.org/show_bug.cgi?id=359388
-  #patch -p1 -i ${srcdir}/iconitem.diff
+  # revert commit, stops the option to drag widgets to the desktop/panel
+  patch -R -p1 -i ${srcdir}/bb70febdbe397b617e5c41aff5494fdbc185fa88.diff
 }
 
 build() {
@@ -31,9 +33,9 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
   make
 }
