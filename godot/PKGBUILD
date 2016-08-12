@@ -7,7 +7,7 @@ pkgdesc="Full featured, open source, MIT licensed, game engine."
 arch=('x86_64')
 url="http://www.godotengine.org"
 license=('MIT')
-depends=('glu' 'libxcursor' 'alsa-lib' 'freetype2' 'mesa' 'libwebp' 'libxinerama')
+depends=('glu' 'libxcursor' 'alsa-lib' 'freetype2' 'mesa' 'libwebp' 'libxinerama' 'pulseaudio')
 makedepends=('scons')
 source=("https://github.com/okamstudio/godot/archive/${_pkgver}.tar.gz"
         'godot.desktop'
@@ -27,8 +27,8 @@ package() {
     
     install -Dm755 bin/godot.x11.tools.64 ${pkgdir}/usr/bin/godot
 
-    install -Dm644 ${srcdir}/godot.desktop ${pkgdir}/usr/share/applications/godot.desktop
-    install -Dm644 ${srcdir}/icon.png ${pkgdir}/usr/share/pixmaps/godot.png  
+    install -Dm644 ../godot.desktop ${pkgdir}/usr/share/applications/godot.desktop
+    install -Dm644 ../icon.png ${pkgdir}/usr/share/pixmaps/godot.png  
     install -Dm644 LICENSE.md ${pkgdir}/usr/share/licenses/godot/LICENSE.md
 }
 
