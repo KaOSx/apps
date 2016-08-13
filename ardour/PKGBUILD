@@ -2,32 +2,31 @@
 pkgname=ardour
 _pkgname=Ardour
 # adjust .desktop version!
-pkgver=4.7.0
-pkgrel=2
+pkgver=5.0.0
+pkgrel=1
 pkgdesc="A multichannel hard disk recorder and digital audio workstation"
 arch=('x86_64')
 url="http://ardour.org/"
 license=('GPL')
 depends=('qjackctl' 'desktop-file-utils')
 options=('!strip')
-source=("https://sourceforge.net/projects/kaosx/files/sources/ardour/${_pkgname}_64bit-$pkgver.run"
-        "$pkgname.desktop")
-md5sums=('db1d4019541248508070ab9330a6dbf7'
-         '274d4906754e5891efcef9e5c0f816f7')
+source=("https://sourceforge.net/projects/kaosx/files/sources/ardour/${_pkgname}_64bit-${pkgver}.run"
+        'ardour.desktop')
+md5sums=('387ba3910a944973c6f58e9a61a16850'
+         '11f25d8f922bc2204bf51b277f7cff75')
 
 build() {
   mkdir -p build
-  sh "${_pkgname}_64bit-$pkgver.run" --noexec --target build
+  sh ${_pkgname}_64bit-${pkgver}.run --noexec --target build
 }
 
 package() {
   cd build
 
-  install -d "$pkgdir/opt"
+  install -d ${pkgdir}/opt
   bsdtar --no-same-owner -jxvf \
-   ${_pkgname}_x86_64-$pkgver.tar.bz2 \
-    -C "$pkgdir/opt"
+   ${_pkgname}_x86_64-gcc5-${pkgver}.tar \
+    -C ${pkgdir}/opt
 
-  install -Dm644 "$srcdir/$pkgname.desktop" \
-  "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
 }
