@@ -5,8 +5,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=16.07.72
-_commit=411bdee0ebaf67d603b2c8c9eab81768939e1bd5
+pkgver=16.07.73
+_commit=5e77764ac5608e87baf20043836ee0710f292734
 pkgrel=1
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
@@ -14,7 +14,7 @@ license=('GPL' 'LGPL' 'FDL')
 #options=('docs')
 groups=('office')
 depends=('kactivities' 'karchive' 'kbookmarks' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons'
-         'kjs' 'kdelibs4support' 'kio' 'khtml' 'kparts' 'kpty' 'threadweaver' 'kiconthemes' 'kwallet' 'kwindowsystem'
+         'kjs' 'kio' 'khtml' 'kparts' 'kpty' 'threadweaver' 'kiconthemes' 'kwallet' 'kwindowsystem'
          'phonon-qt5' 'libxxf86vm' 'sane' 'lcms' 'poppler-qt5' 'chmlib' 'djvulibre' 'libspectre' 'ebook-tools'
          'json-c' 'qimageblitz-qt5' 'libkexiv2' 'libkdcraw') # 'qtspeech')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'qca-qt5')
@@ -24,7 +24,7 @@ replaces=('kdegraphics-okular')
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/okular/archive/${_commit}.zip"
         'warning.diff')
-md5sums=('1f1de96453443bfca0be0bfee5a8d200'
+md5sums=('47788fa234f2de6fb6fc0e931a4c24f5'
          '27efc9757204a7e150b89ae4473c8e17')
 
 prepare() {

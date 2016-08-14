@@ -1,14 +1,14 @@
 
 pkgname=kmymoney
 pkgver=4.100.7
-_commit=37cff1df2c6f6f68838130cf0d16473773787b52
-pkgrel=10
+_commit=4604c7eca3bc50902a60fdbfe95ee47482f487c8
+pkgrel=11
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
 url="http://www.kmymoney.org/"
 license=('GPL')
 depends=('kcoreaddons' 'kconfig' 'ki18n' 'khtml' 'kdelibs4support' 'kcompletion' 'kcmutils' 'kitemviews' 'kservice' 'kwallet' 
-         'kholidays' 'gpgmepp' 'kcontacts' 'kdepimlibs' 'akonadi' 'kidentitymanagement' 'kross'
+         'kholidays' 'gpgmepp' 'kcontacts' 'akonadi-contacts' 'akonadi' 'kidentitymanagement' 'kross'
          'shared-mime-info' 'boost-libs' 'pulseaudio' 'libofx' 'libical' 'alkimia' 'kdiagram'
          'kactivities' 'aqbanking') # 'sqlcipher')
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost')  
@@ -16,7 +16,7 @@ conflicts=('kf5-kmymoney')
 replaces=('kf5-kmymoney')
 groups=('office')
 source=("https://github.com/KDE/kmymoney/archive/${_commit}.zip")
-md5sums=('6df7d3aeabe2bc1c8756e2cab1f91b75')
+md5sums=('97de640e5b7db2f1d8fe73cb6057a413')
 
 build() {
   cd ${srcdir}
