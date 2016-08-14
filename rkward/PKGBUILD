@@ -1,6 +1,7 @@
 
 pkgname=rkward
-pkgver=0.6.9.1
+pkgver=0.6.9.2
+_commit=9e706930cb0dc79a6ba31c3d9ba87c3c7c725d0d
 pkgrel=1
 pkgdesc="Provides an easily extensible, easy to use IDE/GUI for R."
 arch=('x86_64')
@@ -10,27 +11,29 @@ depends=('kcoreaddons' 'ki18n' 'kxmlgui' 'ktexteditor' 'kwidgetsaddons' 'kdewebk
          'kwindowsystem' 'qt5-webkit' 'qt5-script' 'r')
 makedepends=('extra-cmake-modules' 'kdoctools' 'icu')
 groups=('science')
-source=("git://anongit.kde.org/rkward.git#branch=frameworks")
-md5sums=('SKIP')
+source=("https://github.com/KDE/rkward/archive/${_commit}.zip")
+md5sums=('02efdaaf495e9f3df4e8ecb39682b4fa')
 
 prepare() {
-  cd $pkgname
+  cd ${pkgname}-${_commit}
   
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd|V4.5-Based Variant V1.1//EN" "dtd/kdex45.dtd|' doc/rkwardplugins/index.docbook
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd|V4.5-Based Variant V1.1//EN" "dtd/kdex45.dtd|' doc/rkward/index.docbook
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd|V4.5-Based Variant V1.1//EN" "dtd/kdex45.dtd|' doc/rkward/man-rkward.1.docbook
   sed -i -e 's|-caption|-qwindowtitle|g' rkward/rkward.desktop
+  
+  scripts/import_translations.py es fr de nl
 }
 
 build() { 
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DR_LIBDIR="/usr/lib/R/library" \
     -DNO_R_XML=1 \
