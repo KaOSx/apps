@@ -1,0 +1,27 @@
+ 
+pkgname=isowriter
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Tool for creating bootable installation USB flash drives"
+arch=('x86_64')
+url="https://github.com/KaOSx/isowriter"
+license=('GPLv2')
+depends=('qt5-base')
+makedepends=('qt5-tools')
+conflicts=('rosa-imagewriter')
+replaces=('rosa-imagewriter')
+source=("git://github.com/KaOSx/isowriter")
+md5sums=('SKIP')
+
+build() { 
+  cd ${pkgname}
+  
+  /usr/lib/qt5/bin/qmake ImageWriter.pro
+  make 
+}
+
+package() {
+  cd ${pkgname}
+  
+  make INSTALL_ROOT=${pkgdir}/ install
+}
