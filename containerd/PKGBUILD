@@ -1,6 +1,6 @@
 
 pkgname=containerd
-pkgver=0.2.2.1
+pkgver=0.2.3
 _commit=0ac3cd1be170d180b2baed755e8f0da547ceb267
 pkgrel=1
 arch=('x86_64')
@@ -9,15 +9,15 @@ url="https://containerd.tools/"
 license=('APACHE')
 depends=('runc')
 makedepends=('go')
-#source=("https://github.com/docker/containerd/archive/v${pkgver}.tar.gz")
-source=("https://github.com/docker/containerd/archive/${_commit}.zip")
-md5sums=('700dabc4b0fec97f24708d8aa9aaea23')
+source=("https://github.com/docker/containerd/archive/v${pkgver}.tar.gz")
+#source=("https://github.com/docker/containerd/archive/${_commit}.zip")
+md5sums=('aa2979c51960332878038147c420aa7d')
 
 prepare() {
     cd ${srcdir}
     
     install -d src/github.com/docker
-    mv ${pkgname}-${_commit} src/github.com/docker/${pkgname}
+    mv ${pkgname}-${pkgver} src/github.com/docker/${pkgname}
 }
 
 build() {
