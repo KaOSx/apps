@@ -1,7 +1,7 @@
 
 pkgname=subtitlecomposer
 pkgver=0.6.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Open source text-based subtitle editor that supports basic and more advanced operations "
 arch=('x86_64')
 url="https://github.com/maxrd2/subtitlecomposer"
@@ -31,7 +31,7 @@ build() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
         -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-        -DLIB_INSTALL_DIR=lib
+        -DKDE_INSTALL_LIBDIR=lib
     make
 }
 
