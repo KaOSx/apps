@@ -1,7 +1,8 @@
 
 pkgname=kdevplatform
-pkgver=4.90.91
-pkgrel=5
+pkgver=5.0
+_pkgver=5.0.0
+pkgrel=1
 pkgdesc="A C/C++ development platform for KDE"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
@@ -13,8 +14,8 @@ depends=('karchive' 'kconfig' 'kwidgetsaddons' 'kiconthemes' 'kcmutils' 'kemotic
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kf5-kdevplatform')
 replaces=('kf5-kdevplatform')
-source=("http://download.kde.org/unstable/kdevelop/${pkgver}/src/kdevplatform-${pkgver}.tar.xz")
-md5sums=('a324b71ad9a7d10dd84788fe062376dc')
+source=("http://download.kde.org/stable/kdevelop/${_pkgver}/src/kdevplatform-${pkgver}.tar.xz")
+md5sums=('b4066713d7d66ba5a119d1671251095b')
 
 prepare() {
   cd ${pkgname}-${pkgver}

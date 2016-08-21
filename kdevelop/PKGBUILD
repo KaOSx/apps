@@ -1,8 +1,8 @@
 
 pkgname=kdevelop
-pkgver=4.90.97
-_pkgver=4.90.91
-pkgrel=4
+pkgver=5.0
+_pkgver=5.0.0
+pkgrel=1
 pkgdesc="A C/C++ development environment for KDE"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
@@ -15,11 +15,11 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'perl' 'docbook-xsl')
 conflicts=('kf5-kdevelop')
 replaces=('kf5-kdevelop')
 groups=('programming')
-source=("http://download.kde.org/unstable/kdevelop/${_pkgver}/src/kdevelop-${_pkgver}.tar.xz")      
-md5sums=('14ab40652807ead32bfc2ada115da2c0')
+source=("http://download.kde.org/stable/kdevelop/${_pkgver}/src/kdevelop-${pkgver}.tar.xz")      
+md5sums=('d735d75ca5e87d886aceffb995fd5ab3')
 
 prepare() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
   
   #patch -p1 -i $srcdir/qt55.diff
 }
@@ -28,7 +28,7 @@ build() {
   mkdir -p build
   cd build 
   
-  cmake ../${pkgname}-${_pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \

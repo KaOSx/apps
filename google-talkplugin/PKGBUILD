@@ -1,7 +1,8 @@
 
 pkgname=google-talkplugin
-pkgver=5.41.0.0
-pkgrel=2
+pkgver=5.41.3.0.1
+_pkgver=5.41.3.0-1
+pkgrel=1
 pkgdesc="Video chat browser plug-in for Google Talk"
 arch=('x86_64')
 url="http://www.google.com/chat/video"
@@ -10,15 +11,15 @@ license=('unknown')
 depends=('libgl' 'glew' 'glib2' 'libx11' 'libxfixes' 'libxt' 'openssl' 'gtk2')
 optdepends=('libnotify' 'pulseaudio')
 groups=('communication')
-md5sums=('7bfeea18335d2ab7aab2dc40dd67355d'
+md5sums=('03ea81590baa680d286d28533c4d40e1'
          '2fc8d2491008850e6f83874f2716257f')
-
-source=("http://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb"
+# version at #https://dl.google.com/linux/talkplugin/deb/dists/stable/main/binary-i386/Packages
+source=("https://dl.google.com/linux/talkplugin/deb/pool/main/g/google-talkplugin/google-talkplugin_${_pkgver}_amd64.deb"
         'license.html')
 
 package() {
     msg "Extracting..."
-    ar -xv google-talkplugin_current_amd64.deb
+    ar -xv google-talkplugin_${_pkgver}_amd64.deb
     tar -xvf data.tar.gz
     msg2 "Done extracting!"
     msg "Moving files"
