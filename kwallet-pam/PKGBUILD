@@ -12,13 +12,14 @@ license=('LGPL')
 depends=('kwallet' 'pam' 'socat')
 makedepends=('extra-cmake-modules')
 #groups=('plasma5')
-source=($_mirror/${pkgname}-${_plasmaver}.tar.xz)
+#source=($_mirror/${pkgname}-${_plasmaver}.tar.xz)
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir build
-  
+  mkdir -p build  
   cd build
+  
   cmake ../${pkgname}-$pkgver \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \

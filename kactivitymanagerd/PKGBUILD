@@ -14,11 +14,12 @@ depends=('kdbusaddons' 'ki18n' 'kconfig' 'kcoreaddons' 'kwindowsystem' 'kglobala
          'kxmlgui' 'kio' 'boost-libs')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname-${pkgver}
   #patch -p1 -i ${srcdir}/modemmanager.diff
   mkdir build
   
@@ -34,7 +35,7 @@ build() {
 }
 
 package() {
-  cd $pkgname-$pkgver/build
+  cd $pkgname-${pkgver}/build
   
-  make DESTDIR="$pkgdir" install
+  make DESTDIR=${pkgdir} install
 }

@@ -14,8 +14,9 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbu
          'plasma-framework' 'kservice' 'ktexteditor' 'kwidgetsaddons' 'kxmlgui' 'kwindowsystem'
          'qt5-webkit' 'kdevplatform')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build

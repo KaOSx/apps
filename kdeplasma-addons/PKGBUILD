@@ -168,7 +168,8 @@ replaces=('kdeplasma-addons-applets-bball'
          'kdeplasma-applets-menubar'
          'kdeplasma-applets-yawp'
          'kdeplasma-applets-stackfolder')
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+#source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         'notes.diff')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '4cb9dce7d4cc863ecc4793385ac083d8')

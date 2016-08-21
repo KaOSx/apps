@@ -12,14 +12,12 @@ license=('LGPL')
 depends=('kcmutils' 'kdelibs4support' 'kemoticons' 'khtml' 'kinit' 'kitemmodels' 'plasma-framework')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
-source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/systemsettings.git#branch=sebas/quick")
-#md5sums=('SKIP')
+#source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
-  #sed -e "s/PO_FILES //" -i ${srcdir}/$pkgname-$pkgver/po/*/CMakeLists.txt
   cd build
   
   cmake ../${pkgname}-${pkgver} \

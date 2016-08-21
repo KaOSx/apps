@@ -16,15 +16,11 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('kde' 'kdegraphics' 'kde-uninstall' 'graphics')
 replaces=('kdegraphics-kgamma' 'kgamma')
 conflicts=('kdegraphics-kgamma' 'kgamma')
-source=("$_mirror/${pkgname}-$_plasmaver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kgamma#branch=frameworks")
-#md5sums=('SKIP')
+#source=("$_mirror/${pkgname}-$_plasmaver.tar.xz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  cd ${srcdir}
-  #sed -e "s/ADD_SUBDIRECTORY( symbols-ng )/#ADD_SUBDIRECTORY( symbols-ng )/" -i ${srcdir}/$pkgname/src/data/CMakeLists.txt
-  
   mkdir -p build
   cd build
 

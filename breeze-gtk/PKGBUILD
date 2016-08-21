@@ -12,8 +12,9 @@ license=('LGPL')
 depends=('qt5-base' 'kcoreaddons' 'kconfig')
 makedepends=('extra-cmake-modules' 'gtk2')
 opdepends=("gtk2: GTK+2 theme" "gtk3: GTK+3 theme")
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare () {
   cd ${pkgname}-${pkgver}

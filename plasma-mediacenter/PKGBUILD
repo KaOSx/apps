@@ -13,8 +13,9 @@ depends=('kguiaddons' 'kio' 'kconfigwidgets' 'kwindowsystem' 'plasma-desktop' 't
          'ffmpegthumbs' 'qt5-multimedia')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
-source=("http://download.kde.org/stable/plasma/$_plasmaver/${pkgname}-$_plasmaver.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("http://download.kde.org/stable/plasma/$_plasmaver/${pkgname}-$_plasmaver.tar.xz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${srcdir}/${pkgname}-${pkgver}

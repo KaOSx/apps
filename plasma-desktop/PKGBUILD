@@ -16,7 +16,8 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
 conflicts=('kde-workspace' 'kcm-touchpad')
 replaces=('kde-workspace' 'kcm-touchpad')
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
