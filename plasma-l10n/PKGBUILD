@@ -1,0 +1,75 @@
+pkgname=plasma-l10n
+pkgver=5.7.4
+pkgrel=1
+pkgdesc="Language packs for Plasma 5"
+arch=('x86_64')
+url="https://websvn.kde.org/trunk/l10n-kf5/"
+license=('GPL')
+depends=('ki18n')
+makedepends=('extra-cmake-modules' 'kdoctools' 'gettext' 'subversion' 'imake')
+groups=('localization')
+source=("svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/ar"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/ast"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/ca"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/cs"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/es"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/de"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/fr"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/hr"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/hu"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/id"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/it"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/nl"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/pl"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/pt"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/pt_BR"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/ro"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/ru"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/sr"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/tr"
+        "svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/zh_CN"
+        'autogen.sh')
+md5sums=('SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         '2c79e790e4ce39f654ddf9755975925f')
+
+_locales=(ar ast ca cs es de fr hr hu id it nl pl pt pt_BR ro ru sr tr zh_CN)
+ 
+build() {
+  for l in ${_locales[@]}; do
+    ${srcdir}/autogen.sh $l
+    mkdir -p build/$l
+    cd build/$l
+    cmake ../../$l \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release
+    make
+    cd ../..
+  done
+}
+ 
+package() {
+  for l in ${_locales[@]}; do
+    cd build/$l
+    make DESTDIR=${pkgdir} install
+    cd ../..
+  done
+}
