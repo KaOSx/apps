@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=milou
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc="Dedicated search application built on top of Baloo"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kdereview/milou'
@@ -14,13 +14,13 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
 #source=("http://download.kde.org/stable/plasma/$pkgver/${pkgname}-$pkgver.tar.xz")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-$pkgver \
+  cmake ../${pkgname}-${__pkgver} \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DQML_INSTALL_DIR=/usr/lib/qt5/qml \

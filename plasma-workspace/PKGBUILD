@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=7
+pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -25,21 +25,17 @@ source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/
         'kde.pam'
         'kde-np.pam'
         'kscreensaver.pam'
-        'systray.diff'
-        "https://github.com/KDE/plasma-workspace/commit/cd19257085e89015b6ca38e255d555c613b21527.diff")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+        'systray.diff')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
          'd102c44c3bddf29f6d440d1d582d4433'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
          '367a3538f54db71f108b34cfa31088ac'
-         'baa8b0bfccc0190db901b3a85336bbff'
-         '7bb68a2ee13551840cb5d88bf17bd68c')
+         'baa8b0bfccc0190db901b3a85336bbff')
 
 prepare () {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${__pkgver}
   patch -p1 -i $srcdir/systray.diff
-  # fix empty space on show all items in systray
-  patch -p1 -i $srcdir/cd19257085e89015b6ca38e255d555c613b21527.diff
   #sed -i 's|find_package(Prison "1.2.0" QUIET CONFIG)|find_package(KF5Prison "1.2.0" QUIET CONFIG)|' ${srcdir}/${pkgname}-${pkgver}/klipper/CMakeLists.txt
 }         
          
@@ -47,7 +43,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${__pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

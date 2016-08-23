@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khotkeys
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KHotKeys'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khotkeys'
@@ -15,13 +15,13 @@ groups=('plasma5')
 #source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         'dbus_action.diff')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
          'b72371a922acbf0b812d92cd509595a9')
 #source=("git://anongit.kde.org/khotkeys.git")
 #md5sums=('SKIP')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${__pkgver}
   
   patch -p1 -i $srcdir/dbus_action.diff
 }
@@ -30,7 +30,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${__pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

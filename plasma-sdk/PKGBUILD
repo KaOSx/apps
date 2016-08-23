@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-sdk
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc="Applications useful for Plasma Development."
 url="https://projects.kde.org/projects/extragear/sdk/plasma-sdk"
 license=('GPL' 'LGPL' 'FDL')
@@ -16,13 +16,13 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbu
 makedepends=('extra-cmake-modules' 'kdoctools')
 #source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${__pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \

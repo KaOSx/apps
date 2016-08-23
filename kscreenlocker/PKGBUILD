@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kscreenlocker
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc="Library and components for secure lock screen architecture."
 url="https://projects.kde.org/projects/kde/workspace/kscreenlocker"
 license=('GPL' 'LGPL' 'FDL')
@@ -15,10 +15,10 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
 #source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname-${pkgver}
+  cd $pkgname-${__pkgver}
   #sed -i -e 's|#include "ui_module.h"||' ${srcdir}/${pkgname}/src/kcm/module.cpp
 }
 
@@ -26,7 +26,7 @@ build() {
   mkdir build
   
   cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${__pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \

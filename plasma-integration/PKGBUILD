@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-integration
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='The plugin KDEPlatformTheme provides KDE integration for QPlatformThemePlugin.'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-integration'
@@ -16,11 +16,11 @@ groups=('plasma5')
 #source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         "https://github.com/KDE/plasma-integration/commit/4240c588aa3c2643d8d00a0da562197f1784cad6.diff")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
          'ce12e54584b1f54dd41a768520f0dc61')
 
 prepare () {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${__pkgver}
   # patch by frugalware to fix reading from default lnf package
   #patch -p1 -i ${srcdir}/4240c588aa3c2643d8d00a0da562197f1784cad6.diff
 }
@@ -29,7 +29,7 @@ build () {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${__pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
