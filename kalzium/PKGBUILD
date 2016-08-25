@@ -4,8 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kalzium
 #pkgver=${_kdever}
-pkgver=16.03.70
-_commit=9b1fe3393b63a2e0e6b4161abb154fe989ee3f6f
+pkgver=16.07.70
+_commit=6cf5ae4841d356af89dd88e45f98b13feeeccabd
 pkgrel=1
 pkgdesc="Periodic Table of Elements"
 url="http://kde.org/applications/education/kalzium/"
@@ -19,7 +19,7 @@ groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/kalzium/archive/${_commit}.zip")
-md5sums=('66afb97911907426c854b9fc93b88409')
+md5sums=('a70cc4dfbf093dd637b2d654bcb7a9c4')
 
 prepare() {
   cd ${pkgname}-${_commit}
