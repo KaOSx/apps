@@ -1,20 +1,20 @@
 
 pkgname=libtorrent-rasterbar
-pkgver=1.1.0
-pkgrel=3
+pkgver=1.1.1
+pkgrel=1
 pkgdesc="A C++ library that aims to be a good alternative to all the other bittorrent implementations around"
 url="http://www.rasterbar.com/products/libtorrent/"
 arch=('x86_64')
 license=('custom')
 depends=('boost-libs' 'python2' 'geoip')
 makedepends=('boost')
-source=("https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_1/${pkgname}-${pkgver}.tar.gz")
-md5sums=('3a291044b5b33fec3e30b22a94fda31f')
+source=("https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_1_1/${pkgname}-${pkgver}.tar.gz")
+md5sums=('4c635943c7ca2ca5db9fba8b04e78a3f')
 
 build() {
   cd ${pkgname}-${pkgver}
   
-  CXXFLAGS="-std=c++11"
+  #CXXFLAGS="-std=c++11"
   
   ./configure --prefix=/usr --enable-python-binding --with-libgeoip=system
   make

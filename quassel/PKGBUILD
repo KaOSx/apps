@@ -1,7 +1,7 @@
 
 pkgname=quassel
 pkgver=0.12.4
-pkgrel=3
+pkgrel=4
 pkgdesc="Qt irc client with a separated core"
 url="http://quassel-irc.org"
 arch=('x86_64')
@@ -32,9 +32,9 @@ md5sums=('56abcde46decc5e341888a05189cece3'
          'c746703719f94932cef4285812c0277f')
 
 prepare() {
-  cd ${srcdir}/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
   # spellchecking through sonnet
-  patch -p1 -i ${srcdir}/56e1d275c2f8a59eaf9d19ba76aca5f1d3163683.diff
+  #patch -p1 -i ${srcdir}/56e1d275c2f8a59eaf9d19ba76aca5f1d3163683.diff
 }
          
 build() {
@@ -47,6 +47,7 @@ build() {
     -DWITH_WEBKIT=ON \
     -DWITH_KDE=ON \
     -DCMAKE_BUILD_TYPE="Release" \
+    -DHAVE_SSL=ON \
     ../${pkgname}-${pkgver} \
     -Wno-dev
 
