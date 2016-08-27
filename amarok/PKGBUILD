@@ -1,7 +1,7 @@
 
 pkgname=amarok
 pkgver=2.8.82
-pkgrel=2
+pkgrel=3
 _commit=8c8392e95455bd9bf83fa4ddc910f9835351aa3b
 pkgdesc="A media player for KDE"
 arch=('x86_64')
@@ -16,13 +16,17 @@ depends=('kcoreaddons' 'solid' 'kdelibs4support' 'kcodecs' 'ki18n' 'threadweaver
 makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
 source=("https://github.com/KDE/amarok/archive/${_commit}.zip"
-        "https://github.com/KDE/amarok/commit/745b2e18c5b58cfabcbf6e7863572122d673692e.diff")
+        "https://github.com/KDE/amarok/commit/745b2e18c5b58cfabcbf6e7863572122d673692e.diff"
+        'rb126682.patch')
 md5sums=('2bc69fcd0756f787e8862de0249f9022'
-         'bcbfd9543ce6768181f0342f89745de6')
+         'bcbfd9543ce6768181f0342f89745de6'
+         'f9189d509b4f54fa382da09434ac250f')
 
 prepare() {
   cd ${pkgname}-${_commit}
   patch -p1 -i $srcdir/745b2e18c5b58cfabcbf6e7863572122d673692e.diff
+  # ffmpeg 3.1.3 needed patch
+  patch -p1 -i $srcdir/rb126682.patch
   sed -i -e 's|Qt::Key_Space||' src/ActionClasses.cpp
   sed -i -e 's|setScheme( "http" )|setScheme( "https" )|' src/context/engines/tabs/TabsEngine.cpp
   sed -i -e 's|KUrl( KStandardDirs::locate|KUrl( KStandardDirs::locateLocal|' src/scripting/scriptconsole/ScriptConsole.cpp
