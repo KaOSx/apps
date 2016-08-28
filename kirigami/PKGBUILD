@@ -1,0 +1,33 @@
+ 
+pkgname=kirigami
+pkgver=1.0.2
+pkgrel=1
+pkgdesc='Set of QtQuick components at the moment targeted for mobile use (in the future desktop as well)'
+arch=('x86_64')
+url='https://github.com/KDE/kirigami'
+license=('LGPL')
+depends=('plasma-framework' 'purpose')
+makedepends=('extra-cmake-modules' 'qt5-tools')
+source=("http://download.kde.org/stable/kirigami/${pkgname}-${pkgver}.tar.xz")
+md5sums=('e16e1d34d5ab03db3ea272c603a87898')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DBUILD_TESTING=OFF
+    
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
