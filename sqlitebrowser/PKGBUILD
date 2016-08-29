@@ -7,9 +7,15 @@ arch=('x86_64')
 url="http://sqlitebrowser.org/"
 license=('GPL')
 depends=('qt5-base' 'sqlite' 'sqlcipher')
-makedepends=('cmake' 'qt5-tools' 'antlr2')
+makedepends=('cmake' 'qt5-tools')
 source=("https://github.com/sqlitebrowser/sqlitebrowser/archive/v${pkgver}.tar.gz")
 md5sums=('6471af3f02e1802ec4548d561ee8f4ae')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  sed -e "s|DB Browser for SQLite|sqlitebrowser|" -i CMakeLists.txt
+}
 
 build() {
   mkdir -p build
@@ -17,7 +23,6 @@ build() {
   
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=/usr/lib \
     -DCMAKE_BUILD_TYPE=Release \
     -DUSE_QT5=TRUE
   make
