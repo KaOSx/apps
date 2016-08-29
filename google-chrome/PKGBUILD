@@ -1,8 +1,8 @@
 
 pkgbase=google-chrome
-pkgname=('google-chrome' 'pepper-flash')
+pkgname=('google-chrome' 'pepper-flash' 'widevine')
 pkgver=54.0.2837.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
 license=('custom:chrome')
@@ -21,7 +21,7 @@ md5sums=('5a0de9f5e2f9cbfee7134bd436d38ddf'
 package_google-chrome() {
     pkgdesc="Google Chrome Browser, developer preview channel for Linux"
     depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
-             'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils' 'pepper-flash')
+             'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils' 'pepper-flash' 'widevine')
     groups=('network')
     install=$pkgname.install
     
@@ -43,6 +43,9 @@ package_google-chrome() {
     # use in pepper-flash package
     rm ${pkgdir}/opt/google/chrome-unstable/PepperFlash/manifest.json
     rm ${pkgdir}/opt/google/chrome-unstable/PepperFlash/libpepflashplayer.so
+    # use in widevine package
+    rm ${pkgdir}/opt/google/chrome-unstable/libwidevinecdm.so
+    rm ${pkgdir}/opt/google/chrome-unstable/libwidevinecdmadapter.so
     
     rm ${pkgdir}/usr/share/applications/google-chrome-unstable.desktop
     install -m755 $srcdir/google-chrome-unstable.desktop ${pkgdir}/usr/share/applications/google-chrome-unstable.desktop
@@ -70,4 +73,21 @@ package_pepper-flash() {
     ln -s /opt/google/chrome-unstable/PepperFlash/libpepflashplayer.so ${pkgdir}/usr/lib/PepperFlash/libpepflashplayer.so
     
     install -Dm644 $srcdir/eula_text.html ${pkgdir}/usr/share/licenses/pepper-flash/eula_text.html
+}
+
+package_widevine() {
+    pkgdesc="Google Chrome's plugin for viewing premium video content"
+    depends=('pulseaudio')
+    
+    bsdtar -xf data.tar.xz
+    
+    install -Dm644 opt/google/chrome-unstable/libwidevinecdm.so ${pkgdir}/opt/google/chrome-unstable/libwidevinecdm.so
+    install -Dm755 opt/google/chrome-unstable/libwidevinecdmadapter.so ${pkgdir}/opt/google/chrome-unstable/libwidevinecdmadapter.so
+    
+    mkdir -p ${pkgdir}/usr/lib/chromium
+    cd ${pkgdir}
+    ln -s /opt/google/chrome-unstable/libwidevinecdm.so ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
+    ln -s opt/google/chrome-unstable/libwidevinecdmadapter.so ${pkgdir}/usr/lib/chromium/libwidevinecdmadapter.so
+    
+    install -Dm644 $srcdir/eula_text.html ${pkgdir}/usr/share/licenses/widevine/eula_text.html
 }
