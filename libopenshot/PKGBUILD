@@ -1,17 +1,17 @@
 
 pkgname=libopenshot
-pkgver=0.1.1
-pkgrel=3
+pkgver=0.1.2
+pkgrel=1
 pkgdesc="Open-source project dedicated to delivering high quality video editing, animation, and playback solutions to the world."
 arch=('x86_64')
 url="http://www.openshot.org/"
 license=('LGPL3')
 depends=('libopenshot-audio' 'ffmpeg' 'imagemagick' 'libx11' 'libxcursor' 'libxinerama' 'python3'
-         'ruby' 'x264' 'qt5-multimedia')
+         'ruby' 'x264' 'qt5-multimedia' 'zeromq')
 makedepends=('cmake' 'swig' 'doxygen')
 # http://bazaar.launchpad.net/~openshot.code/libopenshot/trunk/files
 source=("https://launchpad.net/libopenshot/0.1/$pkgver/+download/libopenshot-$pkgver.tar.gz")
-md5sums=('5f6a241dc64ffa3d8316babdb19fab3e')
+md5sums=('1491f454af8ef23b6c2f7f3e4ce39291')
 
 prepare () {
   #cd ${pkgname}-${pkgver}
@@ -26,8 +26,7 @@ build() {
   cmake ../ \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DMAGICKCORE_HDRI_ENABLE=1 \
-    -DDISABLE_TESTS=true
+    -DMAGICKCORE_HDRI_ENABLE=1 
   make
 }
 
