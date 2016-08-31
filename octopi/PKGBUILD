@@ -2,52 +2,60 @@
 pkgname=octopi
 pkgver=0.8.92
 pkgrel=1
-_commit=a76e2da
+_commit=a45ca53c2e3281776caae632cd6b6bf325ae2e7c
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
 license=('GPL3')
-depends=('qt5-quickcontrols' 'pacman' 'pkgfile' 'knotifications' 'gist')
+depends=('qt5-quickcontrols' 'pacman' 'pkgfile' 'knotifications' 'gist' 'alpm_octopi_utils')
 makedepends=('cmake' 'asciidoc')
-groups=('system') 
-source=("https://github.com/aarnt/octopi/tarball/master/octopi-${pkgver}.tar.gz"
+groups=('system')
+install=octopi.install
+source=("https://github.com/aarnt/octopi/archive/a45ca53c2e3281776caae632cd6b6bf325ae2e7c.zip"
         'octopi.desktop'
         "images2.tar.xz")
-md5sums=('ffb34bf84044e4c7230cbadf1af235a5'
+md5sums=('c49ca28c172b27ff40fea7e23cf4717e'
          '2d9c64cd6402be69d2ee9fde5acc439e'
          '858db0982326bcbc77526a7945d35bc7')
 
-build() {
-   cd aarnt-octopi-${_commit}/
-   rm -r ${srcdir}/aarnt-octopi-${_commit}/resources/images
-   mv -iv ${srcdir}/images/ ${srcdir}/aarnt-octopi-${_commit}/resources/
+prepare() {
+   cd ${pkgname}-${_commit}/
+   rm -r resources/images
+   mv -iv ${srcdir}/images/ resources/
 
    # enable the kstatus switch
-   sed -e "s|# DEFINES += KSTATUS| DEFINES += KSTATUS|" -i ${srcdir}/aarnt-octopi-${_commit}/notifier/octopi-notifier/octopi-notifier.pro
+   sed -e "s|# DEFINES += KSTATUS| DEFINES += KSTATUS|" -i notifier/octopi-notifier/octopi-notifier.pro
+   # enable alpm backend
+   sed -e "s|#ALPM_BACKEND|ALPM_BACKEND|" -i octopi.pro
+}
+         
+build() {
+   cd ${pkgname}-${_commit}/
    
    /usr/lib/qt5/bin/qmake octopi.pro
    make
    
-   cd ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper
-
+   cd notifier/pacmanhelper
    /usr/lib/qt5/bin/qmake pacmanhelper.pro
-   make 
+   make
+   cd ../..
    
-   cd ${srcdir}/aarnt-octopi-${_commit}/notifier/octopi-notifier
+   cd notifier/octopi-notifier
    /usr/lib/qt5/bin/qmake octopi-notifier.pro
-   make 
+   make
+   cd ../..
    
-   cd ${srcdir}/aarnt-octopi-${_commit}/cachecleaner
+   cd cachecleaner
    /usr/lib/qt5/bin/qmake octopi-cachecleaner.pro
    make
 }
 
 package() {
-   cd aarnt-octopi-${_commit}/
+   cd ${pkgname}-${_commit}/
    
    mkdir -p ${pkgdir}/usr/share/icons
-   install -m 644 -p ${srcdir}/aarnt-octopi-${_commit}/resources/images/octopi_green.png ${pkgdir}/usr/share/icons/octopi.png
-   install -m 644 -p ${srcdir}/aarnt-octopi-${_commit}/resources/images/octopi_yellow.png ${pkgdir}/usr/share/icons/octopi_yellow.png
+   install -m 644 -p resources/images/octopi_green.png ${pkgdir}/usr/share/icons/octopi.png
+   install -m 644 -p resources/images/octopi_yellow.png ${pkgdir}/usr/share/icons/octopi_yellow.png
    
    mkdir -p ${pkgdir}/usr/bin
    cp bin/octopi ${pkgdir}/usr/bin
@@ -56,19 +64,19 @@ package() {
    install -m644 -p ${srcdir}/octopi.desktop ${pkgdir}/usr/share/applications
    
    #Pacmanhelper service files
-   install -D -m755 ${srcdir}/aarnt-octopi-${_commit}/notifier/bin/pacmanhelper ${pkgdir}/usr/lib/octopi/pacmanhelper
+   install -D -m755 notifier/bin/pacmanhelper ${pkgdir}/usr/lib/octopi/pacmanhelper
 
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacman.policy ${pkgdir}/usr/share/polkit-1/actions/org.octopi.pacman.policy
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.conf ${pkgdir}/etc/dbus-1/system.d/org.octopi.pacmanhelper.conf
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.xml ${pkgdir}/usr/share/dbus-1/interfaces/org.octopi.pacmanhelper.xml
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.service ${pkgdir}/usr/share/dbus-1/system-services/org.octopi.pacmanhelper.service
+   install -D -m644 notifier/pacmanhelper/polkit/org.octopi.pacman.policy ${pkgdir}/usr/share/polkit-1/actions/org.octopi.pacman.policy
+   install -D -m644 notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.conf ${pkgdir}/etc/dbus-1/system.d/org.octopi.pacmanhelper.conf
+   install -D -m644 notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.xml ${pkgdir}/usr/share/dbus-1/interfaces/org.octopi.pacmanhelper.xml
+   install -D -m644 notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.service ${pkgdir}/usr/share/dbus-1/system-services/org.octopi.pacmanhelper.service
    
    #Octopi-notifier file
-   install -D -m755 ${srcdir}/aarnt-octopi-${_commit}/notifier/bin/octopi-notifier ${pkgdir}/usr/bin/octopi-notifier
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/octopi-notifier.desktop ${pkgdir}/usr/share/applications/octopi-notifier.desktop
+   install -D -m755 notifier/bin/octopi-notifier ${pkgdir}/usr/bin/octopi-notifier
+   install -D -m644 octopi-notifier.desktop ${pkgdir}/usr/share/applications/octopi-notifier.desktop
    
    #Octopi-cachecleaner file
-   install -D -m755 ${srcdir}/aarnt-octopi-${_commit}/cachecleaner/bin/octopi-cachecleaner ${pkgdir}/usr/bin/octopi-cachecleaner
-   install -D -m644 ${srcdir}/aarnt-octopi-${_commit}/cachecleaner/octopi-cachecleaner.desktop ${pkgdir}/usr/share/applications/octopi-cachecleaner.desktop
+   install -D -m755 cachecleaner/bin/octopi-cachecleaner ${pkgdir}/usr/bin/octopi-cachecleaner
+   install -D -m644 cachecleaner/octopi-cachecleaner.desktop ${pkgdir}/usr/share/applications/octopi-cachecleaner.desktop
 
 }

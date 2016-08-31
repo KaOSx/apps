@@ -1,0 +1,15 @@
+ 
+#!/bin/bash
+# Some colored makepkg-like functions
+# tputcolors
+post_install() {
+	post_upgrade
+}
+
+post_upgrade() {
+  echo -e '\e[1;31m Used backend options have changed'
+  echo -e '\e[1;34m ==> If you would like to use the new backend, alpm'
+  echo -e '\e[1;34m ==> edit ~/.config/octopi/octopi.conf'
+  echo -e '\e[1;34m ==> and replace pacman with alpm in the Backend= line' 
+  echo -e '\e[1;34m ==> this will add a Download Size column \e[0m'
+}
