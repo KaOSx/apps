@@ -1,6 +1,6 @@
 # install go before building
 pkgname=micro
-pkgver=0.0.5
+pkgver=1.0.1
 pkgrel=1
 _commit=c409f1cc07f5c0e4b6e9766ab9bb10f1ebd92015
 pkgdesc='Terminal-based text editor that aims to be easy to use and intuitive, with full capabilities of modern terminals.'
@@ -9,19 +9,25 @@ arch=('x86_64')
 license=('MIT')
 depends=('xclip')
 makedepends=('go')
-source=("https://github.com/zyedidia/micro/archive/${_commit}.zip")
-md5sums=('b79cfacdf97b8fcc68e81cfec8cbf32f')
+source=("https://github.com/zyedidia/micro/archive/v${pkgver}.tar.gz")
+md5sums=('e3f6c18c694b64835e4f40ed72263ef4')
 
 build() {
-  cd ${pkgname}-${_commit}
-  export GOPATH=~/gocode
-  export PATH=$PATH:$GOPATH/bin
+  cd ${pkgname}-${pkgver}
+  export GOPATH=`pwd`
+
+  # run makefile commands, runtime:
+  go get -u github.com/jteeuwen/go-bindata/...
+  $GOPATH/bin/go-bindata -nometadata -o runtime.go runtime/...
+  # tcell:
+  go get -d ./cmd/micro
+  git -C $GOPATH/src/github.com/zyedidia/tcell pull
   
-  make
+  make build
 }
 
 package() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   
   #make DESTDIR=${pkgdir} install
   install -Dm755 micro $pkgdir/usr/bin/micro
