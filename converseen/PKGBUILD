@@ -1,29 +1,30 @@
 
 pkgname=converseen
-pkgver=0.9.2
-pkgrel=3
-pkgdesc="Open source image converter and resizer written in C++ with the powerful Qt4 libraries"
+pkgver=0.9.5
+pkgrel=1
+pkgdesc="Open source image converter and resizer written in C++ with the powerful Qt5 libraries"
 arch=('x86_64')
-url="http://converseen.sourceforge.net/"
+url="http://converseen.fasterland.net/"
 license=('GPL3')
 groups=('graphics')
-depends=('imagemagick' 'qt' 'libwmf' 'libwebp' 'openexr')
+depends=('imagemagick' 'qt5-base' 'libwmf' 'libwebp' 'openexr')
+makedepends=('qt5-tools')
 source=("https://github.com/Faster3ck/Converseen/archive/v${pkgver}.tar.gz")
-md5sums=('27161b10c5be6de6b96dad35c9d4b4e7')
+md5sums=('bc6c39dce47f44637e689e59c60c729a')
 
 build() {
-  cd "${srcdir}"
-  mkdir build
-  
+  mkdir -p build
   cd build
+  
   cmake ../Converseen-${pkgver} \
-          -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+    
   make
 }
 
 package() {
-  cd "${srcdir}/build"
+  cd build
 
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
