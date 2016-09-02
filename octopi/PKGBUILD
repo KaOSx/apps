@@ -12,10 +12,8 @@ makedepends=('cmake' 'asciidoc')
 groups=('system')
 install=octopi.install
 source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
-        'octopi.desktop'
         "images2.tar.xz")
 md5sums=('c49ca28c172b27ff40fea7e23cf4717e'
-         '2d9c64cd6402be69d2ee9fde5acc439e'
          '858db0982326bcbc77526a7945d35bc7')
 
 prepare() {
@@ -53,15 +51,12 @@ build() {
 package() {
    cd ${pkgname}-${_commit}/
    
-   mkdir -p ${pkgdir}/usr/share/icons
-   install -m 644 -p resources/images/octopi_green.png ${pkgdir}/usr/share/icons/octopi.png
-   install -m 644 -p resources/images/octopi_yellow.png ${pkgdir}/usr/share/icons/octopi_yellow.png
+   install -D -m644 resources/images/octopi_green.png ${pkgdir}/usr/share/icons/octopi.png
+   install -D -m644 resources/images/octopi_yellow.png ${pkgdir}/usr/share/icons/octopi_yellow.png
    
-   mkdir -p ${pkgdir}/usr/bin
-   cp bin/octopi ${pkgdir}/usr/bin
+   install -D -m755 bin/octopi ${pkgdir}/usr/bin
    
-   mkdir -p ${pkgdir}/usr/share/applications
-   install -m644 -p ${srcdir}/octopi.desktop ${pkgdir}/usr/share/applications
+   install -D -m644 octopi.desktop ${pkgdir}/usr/share/applications
    
    #Pacmanhelper service files
    install -D -m755 notifier/bin/pacmanhelper ${pkgdir}/usr/lib/octopi/pacmanhelper
