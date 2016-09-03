@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=sddm-kcm
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="SDDM configuration module for KDE"
 arch=('x86_64')
@@ -16,8 +16,16 @@ conflicts=('kf5-sddm-kcm')
 replaces=('kf5-sddm-kcm')
 groups=('plasma5')
 #source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
+        'themesmodel.diff')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
+         '23e2cdd7eaa16b1c4f9fef11e3398121')
+
+prepare() {
+   cd ${pkgname}-${__pkgver}
+
+   patch -p1 -i ${srcdir}/themesmodel.diff
+}
 
 build() {
   mkdir -p build
