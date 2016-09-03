@@ -1,0 +1,15 @@
+--- a/src/themesmodel.cpp	2016-09-03 15:38:30.754030301 -0400
++++ b/src/themesmodel.cpp	2016-09-03 15:38:31.255020155 -0400
+@@ -84,10 +84,10 @@
+ 
+ void ThemesModel::populate()
+ {
+-    QString themesBaseDir = KSharedConfig::openConfig(SDDM_CONFIG_FILE, KConfig::SimpleConfig)->group("General").readEntry("ThemesDir");
++    QString themesBaseDir = KSharedConfig::openConfig(SDDM_CONFIG_FILE, KConfig::SimpleConfig)->group("General").readEntry("ThemeDir");
+ 
+     if (themesBaseDir.isEmpty()) {
+-        themesBaseDir = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "sddm", QStandardPaths::LocateDirectory) + "/themes";
++        themesBaseDir = "/usr/share/sddm/themes";
+     }
+ 
+     QDir dir(themesBaseDir);
