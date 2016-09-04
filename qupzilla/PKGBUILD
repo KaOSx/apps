@@ -2,7 +2,7 @@
 pkgname=qupzilla
 pkgver=2.0.1.5
 _commit=d4facf2
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast open source browser based on QtWebengine, written in Qt Framework"
 arch=('x86_64')
 url="http://www.qupzilla.com/"
@@ -30,7 +30,7 @@ build() {
     patch -p0 -i ${srcdir}/speeddial.diff
     patch -p0 -i ${srcdir}/preferences.diff
     patch -p0 -i ${srcdir}/browserwindow.diff
-    patch -p0 -i ${srcdir}/defines.diff
+    #patch -p0 -i ${srcdir}/defines.diff
     patch -p0 -i ${srcdir}/bookmarks_json_new.diff
 
     export USE_WEBGL="true"
