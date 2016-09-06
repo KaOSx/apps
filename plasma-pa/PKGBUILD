@@ -5,22 +5,25 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-pa
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="PulseAudio based volume control Plasma widget."
 url="https://projects.kde.org/projects/kdereview/plasma-pa"
 license=('GPL' 'LGPL' 'FDL')
 options=('!docs')
-depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'kdeclarative' 'plasma-framework' 'pulseaudio' 'glib2')
+depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'kdeclarative' 'plasma-framework' 'pulseaudio' 'glib2'
+         'libcanberra' 'gconf')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 conflicts=('plasma-volume-control')
 replaces=('plasma-volume-control')
 #source=($_mirror/${pkgname}-${pkgver}.tar.xz)
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
+        "https://github.com/KDE/plasma-pa/commit/99f623cf945abcb3369dd2bd4e87c6fd6013a451.diff")
+md5sums=('2b03dc3be8cfdc0eccee0216f66a09bd'
+         '403459fab22df7ce42c1f23eb7524f62')
 
 prepare() {
   cd $pkgname-${__pkgver}
-  #patch -p1 -i $srcdir/pa-streams-applet.diff
+  #patch -p1 -i $srcdir/99f623cf945abcb3369dd2bd4e87c6fd6013a451.diff
   #sed -i -e 's|#include "ui_module.h"||' ${srcdir}/${pkgname}/src/kcm/module.cpp
 }
 
@@ -32,10 +35,10 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }

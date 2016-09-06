@@ -1,6 +1,6 @@
 
 pkgname=kexi
-pkgver=2.9.84
+pkgver=2.99.89
 _commit=4ffa6af5e60263b09087303008777b325d9bc99c
 pkgrel=1
 pkgdesc="Visual database applications creator"
@@ -9,16 +9,16 @@ url='http://kexi-project.org/'
 license=('FDL1.2' 'GPL2' 'LGPL')
 depends=('karchive' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 
          'kguiaddons' 'ki18n' 'kiconthemes' 'kitemviews' 'kio' 'ktexteditor' 'ktextwidgets' 
-         'kwidgetsaddons' 'kxmlgui' 'marble'
+         'kwidgetsaddons' 'kxmlgui' 'marble' 'breeze-icons'
          'kproperty' 'kreport' 'kdb'
          'libmariadbclient' 'sqlite3' 'qt5-webkit' 'xbase' 'freetds' 'postgresql') # will switch to qtwebengine
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'qt5-tools') # 'clang') 
-#source=("http://mirrors.mit.edu/kde/stable/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("https://github.com/KDE/kexi/archive/${_commit}.zip")
-md5sums=('7ee4ae5e66023f3910bb5b22767f2574')
+source=("https://sourceforge.net/projects/kaosx/files/sources/kexi/${pkgname}-${pkgver}.tar.xz")
+#source=("https://github.com/KDE/kexi/archive/${_commit}.zip")
+md5sums=('b78127035f4463368462a865d1cead13')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   
   #patch -p1 -i $srcdir/desktop_files.patch
 }
@@ -30,7 +30,7 @@ build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
