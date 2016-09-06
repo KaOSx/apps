@@ -9,12 +9,15 @@ license=('custom:opera')
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext' 'glib2' 'gconf' 'shared-mime-info' 'hicolor-icon-theme'
         'desktop-file-utils' 'gtk2' 'libnotify' 'chromium-ffmpeg-codecs')
 groups=('internet')
-source=("http://get.geo.opera.com.global.prod.fastly.net/pub/opera/desktop/${pkgver}/linux/opera-stable_${pkgver}_amd64.deb")
-md5sums=('00c1b197578337456930269ed4d12297')
+source=("http://get.geo.opera.com.global.prod.fastly.net/pub/opera/desktop/${pkgver}/linux/opera-stable_${pkgver}_amd64.rpm")
+md5sums=('d64744fe0233e8c804a1a096a116d1ca')
 
 package() {
-	bsdtar -xJf data.tar.xz -C ${pkgdir}/
-	chmod 4755 ${pkgdir}/usr/lib/x86_64-linux-gnu/opera/opera_sandbox
+	#bsdtar -xJf data.tar.xz -C ${pkgdir}/
+	#chmod 4755 ${pkgdir}/usr/lib/x86_64-linux-gnu/opera/opera_sandbox
+
+	cp -r * ${pkgdir}/
+	#chmod 4755 ${pkgdir}/usr/lib/opera/opera_sandbox
 	
 	mkdir -p ${pkgdir}/usr/lib/x86_64-linux-gnu/opera/lib_extra
 	ln -s /usr/lib/chromium/libs/libffmpeg.so ${pkgdir}/usr/lib/x86_64-linux-gnu/opera/lib_extra/libffmpeg.so
