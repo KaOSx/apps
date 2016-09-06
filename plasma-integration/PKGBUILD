@@ -10,7 +10,7 @@ arch=('x86_64')
 url='https://github.com/KDE/plasma-integration'
 license=('LGPL')
 depends=('kconfig' 'kconfigwidgets' 'ki18n' 'kiconthemes' 'kio' 'knotifications' 'kwidgetsaddons'
-         'kwayland' 'noto-fonts' 'oxygen-fonts' 'breeze')
+         'kwayland' 'noto-fonts' 'breeze') # 'ttf-hack' replacing oxygen-fonts
 makedepends=('extra-cmake-modules')
 groups=('plasma5')
 #source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
@@ -32,11 +32,13 @@ build () {
   cmake ../${pkgname}-${__pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_DISABLE_FIND_PACKAGE_FontNotoSans=false 
+    #-DCMAKE_DISABLE_FIND_PACKAGE_FontHack=false
   make
 }
 

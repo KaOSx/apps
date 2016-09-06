@@ -10,7 +10,8 @@ arch=('x86_64')
 url='https://github.com/KDE/kwin'
 license=('LGPL')
 depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'xcb-util-cursor'
-         'libepoxy' 'kwayland' 'kdecoration' 'libinput' 'kscreenlocker' 'breeze' 'qt5-virtualkeyboard')
+         'libepoxy' 'kwayland' 'kdecoration' 'libinput' 'kscreenlocker' 'breeze' 'qt5-virtualkeyboard'
+         'xorg-server')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('plasma5')
 conflicts=('kde-workspace')
@@ -32,7 +33,7 @@ build() {
   cmake ../${pkgname}-${__pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \

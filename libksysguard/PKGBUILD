@@ -10,7 +10,8 @@ arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/libksysguard'
 license=('LGPL')
 depends=('libxres' 'kcoreaddons' 'kconfig' 'ki18n' 'kwindowsystem' 'kcompletion' 'kauth'
-         'kwidgetsaddons' 'kiconthemes' 'kconfigwidgets' 'kservice' 'plasma-framework')
+         'kwidgetsaddons' 'kiconthemes' 'kconfigwidgets' 'kservice' 'plasma-framework'
+         'qt5-webkit')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
 #source=("http://download.kde.org/unstable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
@@ -30,8 +31,8 @@ build() {
   cmake ../${pkgname}-${__pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DLIBEXEC_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make

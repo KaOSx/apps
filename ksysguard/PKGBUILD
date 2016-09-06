@@ -9,14 +9,13 @@ pkgdesc='KSysGuard is a program to monitor various elements of your system'
 arch=('x86_64')
 url='https://github.com/KDE/ksysguard'
 license=('LGPL')
-depends=('kcoreaddons' 'kconfig' 'ki18n' 'kiconthemes' 'knewstuff' 'kdelibs4support' 'libksysguard' 'lm_sensors'
-          'qt5-webkit') # needed for GUI
+depends=('kcoreaddons' 'kconfig' 'ki18n' 'kiconthemes' 'knewstuff' 'kdelibs4support' 'libksysguard' 'lm_sensors')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
 #source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 # grep md5 picks up libksysguard too
-md5sums=('ead7f7c9c7d3cd4a13545c185b46ee44')
+md5sums=('896aea7af583d2d153baeec45698150e')
 
 prepare() {
   cd ${pkgname}-${__pkgver}
