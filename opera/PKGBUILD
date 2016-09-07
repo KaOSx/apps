@@ -15,10 +15,18 @@ md5sums=('d64744fe0233e8c804a1a096a116d1ca')
 package() {
 	#bsdtar -xJf data.tar.xz -C ${pkgdir}/
 	#chmod 4755 ${pkgdir}/usr/lib/x86_64-linux-gnu/opera/opera_sandbox
-
-	cp -r * ${pkgdir}/
-	#chmod 4755 ${pkgdir}/usr/lib/opera/opera_sandbox
 	
-	mkdir -p ${pkgdir}/usr/lib/x86_64-linux-gnu/opera/lib_extra
-	ln -s /usr/lib/chromium/libs/libffmpeg.so ${pkgdir}/usr/lib/x86_64-linux-gnu/opera/lib_extra/libffmpeg.so
+	install -dm755 ${pkgdir}/usr/lib
+	cp -r usr/lib64/* ${pkgdir}/usr/lib/
+	
+	install -dm755 ${pkgdir}/usr/share
+	cp -r usr/share/* ${pkgdir}/usr/share/
+	
+	install -dm755 ${pkgdir}/usr/bin
+	ln -s /usr/lib/opera/opera ${pkgdir}/usr/bin/opera
+	
+	chmod 4755 ${pkgdir}/usr/lib/opera/opera_sandbox
+	
+	mkdir -p ${pkgdir}/usr/lib/opera/lib_extra
+	ln -s /usr/lib/chromium/libs/libffmpeg.so ${pkgdir}/usr/lib/opera/lib_extra/libffmpeg.so
 }

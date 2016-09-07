@@ -1,7 +1,8 @@
 
 pkgname=krita
-pkgver=3.0
-pkgrel=4
+pkgver=3.0.1
+_pkgver=3
+pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -12,11 +13,13 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'opencolorio' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
          'libraw' 'qca-qt5' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools') # 'clang') 
-source=("http://mirrors.mit.edu/kde/stable/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tgz"
+conflict=('krita-l10n')
+replaces=('krita-l10n')
+source=("http://files.kde.org/krita/${_pkgver}/source/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/KDE/krita/commit/100a148e3a35b91716c94add45925f7648af8dd6.diff"
         "https://github.com/KDE/krita/commit/c5aa1b180bc24c548e37203a8a6007beba5ea47a.diff")
 #source=("git://anongit.kde.org/krita.git")
-md5sums=('beb7140471d1b6b0ae92d664743c067f'
+md5sums=('728dc40eac12fe41964588f8f38be407'
          '6674e6aee6a60a5ed680927ba55edee6'
          '9f87d7d4e8a55549b9d3adbf2347c08f')
 
@@ -24,13 +27,13 @@ prepare() {
   cd ${pkgname}-${pkgver}
   sed -i 's|X-KDE-Import": "image/x-krita-raw|X-KDE-Import": "image/x-nikon-nef,image/x-canon-cr2,image/x-sony-sr2,image/x-canon-crw,image/x-pentax-pef,image/x-sigma-x3f,image/x-kodak-kdc,image/x-minolta-mrw,image/x-sony-arw,image/x-kodak-k25,image/x-kodak-dcr,image/x-olympus-orf,image/x-panasonic-raw,image/x-panasonic-raw2,image/x-fuji-raf,image/x-sony-srf,image/x-adobe-dng|' plugins/impex/raw/krita_raw_import.json
   # fix build with gcc5/ new boost
-  patch -p1 -i $srcdir/100a148e3a35b91716c94add45925f7648af8dd6.diff
+  #patch -p1 -i $srcdir/100a148e3a35b91716c94add45925f7648af8dd6.diff
   # don't hardcode fusion style
-  patch -p1 -i $srcdir/c5aa1b180bc24c548e37203a8a6007beba5ea47a.diff
+  #patch -p1 -i $srcdir/c5aa1b180bc24c548e37203a8a6007beba5ea47a.diff
 }
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
   
   #export CC=/usr/bin/clang
@@ -53,6 +56,8 @@ package() {
   make DESTDIR=${pkgdir} install
   
   #sed -i 's|X-DBUS-StartupType=Multi|#X-DBUS-StartupType=Multi|' ${pkgdir}/usr/share/applications/krita*.desktop
-  #rm -r ${pkgdir}/usr/share/icons/oxygen
+  # part of Breeze
+  rm ${pkgdir}/usr/share/color-schemes/BreezeDark.colors
+  rm ${pkgdir}/usr/share/color-schemes/BreezeHighContrast.colors
 }
 
