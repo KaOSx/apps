@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-runtime
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
@@ -20,16 +20,19 @@ conflicts=('kf5-kdepim-runtime')
 replaces=('kf5-kdepim-runtime')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        'itemsync.diff')
+        "https://github.com/KDE/kdepim-runtime/commit/c25dcbd8852879a2f7ee102ef0f6555583b3dad7.diff"
+        "https://github.com/KDE/kdepim-runtime/commit/acb496c86356d2b2fb6df23c108436db879a58ab.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '8c2d457095de512532a6440ca1c866dc')
+         'cd9e2e6f43e37d80208f36f3f5d93280'
+         '402065cc23d9b8c5b88c0cab57f1d4b4')
 #source=("git://anongit.kde.org/kdepim-runtime.git")      
 #md5sums=('SKIP')
 
 prepare() {
     cd $pkgname-${pkgver}
   
-    #patch -p1 -i $srcdir/itemsync.diff
+    patch -p1 -i $srcdir/c25dcbd8852879a2f7ee102ef0f6555583b3dad7.diff
+    patch -p1 -i $srcdir/acb496c86356d2b2fb6df23c108436db879a58ab.diff
     #sed -i -e 's/Libkolabxml 1.2 QUIET/Libkolabxml 1.1 QUIET/' resources/CMakeLists.txt
 }
 
