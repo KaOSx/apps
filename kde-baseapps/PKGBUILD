@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-baseapps
-pkgver=16.07.72
-_commit=b057e85e7ae31b38060cd2b709530e2fad9d37a6
+pkgver=16.07.73
+_commit=276f3d80150773c15302bb587141f1dc08c0821d
 pkgrel=1
 pkgdesc="Collection of applications used for file and Internet browsing"
 arch=('x86_64')
@@ -31,7 +31,7 @@ provides=('kf5-kde-baseapps'
           'kde-baseapps-kwrite')
 #source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
 source=("https://github.com/KDE/kde-baseapps/archive/${_commit}.zip")
-md5sums=('49478d447f7485372ddc79994e2120b2')
+md5sums=('fd73504e12b268a71592e4368ce5a818')
 
 prepare() {
   cd $pkgname-${_commit}
@@ -58,7 +58,7 @@ package() {
   make DESTDIR="${pkgdir}" install
   
   # konqueror kf5 is not usable
-  rm -r ${pkgdir}/usr/share/applications/konquerorsu.desktop
-  rm -r ${pkgdir}/usr/share/applications/konqbrowser.desktop
-  rm -r ${pkgdir}/usr/bin/konqueror
+  #rm -r ${pkgdir}/usr/share/applications/konquerorsu.desktop
+  #rm -r ${pkgdir}/usr/share/applications/konqbrowser.desktop
+  #rm -r ${pkgdir}/usr/bin/konqueror
 }

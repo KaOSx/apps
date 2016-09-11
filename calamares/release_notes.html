@@ -11,14 +11,17 @@
 
 <body>
     <h3>KaOS - 2016.09</h3>
-    <p>It is with great pleasure to present to you KaOS 2016.09. With this ISO KaOS has gone back to a fully intgrated build of the different KDE parts.  Frameworks, Plasma and KDE Applications all have their own release schedules.</p>
+    <p>It is with great pleasure to present to you KaOS 2016.09. With this ISO KaOS has gone back to a fully intgrated build of the different KDE parts.  Instead of building Frameworks, Plasma and KDE Applications on their own separate release schedules all are now build the same day of any Frameworks release.  To acclompish this Plasma 5 is now build from the latest commits, no longer uses released tars.</p>
     
-    <p>First run wizard
-    </p>
+    <p>A new additon for KaOS is a First Run Wizard.  It will run on the newly installed system and enables with just a few clicks to adjust mouse behavior, menu launcher, desktop theme, used wallpaper, color scheme, widget style, window decoration and virtual desktops used.  With one click this Wizard will also link to KaOS Documentation and all contact info.</p>
     
-    <p>The Plasma Desktop includes Frameworks 5.24.0, <b>Plasma 5.7.2</b>, KDE Applications 16.04.3 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.7.0.</strong>  Changes in Plasma 5.7 include improved workflows, the return of the agenda view in the calendar, the Volume Control applet gained the ability to control volume on a per-application basis &amp; allows you to move application output between devices using drag &amp; drop, new System Tray &amp; Task Manager, plus huge steps towards a Wayland-based windowing system</p>
+    <p>Another first on this ISO is a new tool to write ISO files to USB.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do.</p>
     
-    <p>Encrypted file system support is included in the installer.  <strong>LUKS encryption</strong> is available for both the automated install options as well as manual. 
+    <p>The Plasma Desktop includes Frameworks 5.26.0, Plasma 5.7.95, KDE Applications 16.08.1 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.7.0.</strong></p>
+    
+    <p>For Plasma 5.8 the used Midna theme has been updated in many parts, this includes on all new SDDM theme, new gfxboot splashscreen, redone panel launchers, updated Logout and Lock screen, several new icons, including icons for the system tray.</p>
+    
+    <p>The installer now automates setting your location on the world map and has improved volume scanning so it won't show live USB or optical drives as install options.</p>
     
     <p>Most notable major updates to the base of the system  are a Boost 1.61.0, FFMPEG 3.1.3, Linux 4.7.4, Systemd 231, Poppler 0.47.0, Python 3.5.2, Gstreamer 1.8.3, Protobuf 3.0.0 and MariaDB 10.1.17</p>
     
@@ -32,13 +35,11 @@
 
     <p><b>Calamares</b>, the used installer framework, has moved to the 2.3 series. Highlights of the changes and additions:
     <ul>
-        <li>Fixed a long standing and hard to debug issue with occasional unwanted resize operations being executed</li>
-        <li>Support for Alongside (i.e. shrink+autoinstall), Replace (i.e. replace+autoinstall) and Manual partitioning with LUKS.</li>
-        <li>Implemented type to search support in the keyboard module</li>
-        <li>Improved support for NVME devices in fstab.</li>
+        <li>Fixed how the timezone setting is applied, so certain environments always obey the setting on first boot</li>
+        <li>Fixed timezone selector behavior, so that a timezone changes affect the live system immediately.</li>
+        <li>Rewritten large portions of the locale module, with new locale and timezone autodetection functionality and smarter management of locale.conf values</li>
+        <li>Fixed a user name validation issue which could in some specific situations cause a failed installation.</li>
         <li>Added support for generating /etc/crypttab, this relies on a single master passphrase.</li>
-        <li>Improved reboot configuration handling in the Finished module.</li>
-        <li>Much improved mke2fs and e2fsck handling, which fixes a multitude of random (but not very frequent) install failures.</li>
     </ul></p>
     
     <p><strong>Octopi</strong> is becoming a very crucial part of full system maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like making sure a mirror is synced before starting any update, looking at the pacman logs, an option to get a paste from a complete snapshot of all info of a system with the SysInfo tool are included. Also included are very simple ways to open files, like copy to clipboard the file path shown in Octopi. To make sure the system doesn't start using too much disk space for the pacman cache, but still giving the user the option to retain some recent packages, the cache-cleaner tool is a great addition. The built-in tool to access <b>KCP</b> has now a much clearer place with the addition of its own "foreign" icon in the menu-bar. When viewing package info it is now possible to click the depends of such a package.</p>
@@ -51,7 +52,7 @@
     
     <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a "final" release, every ISO is mere a snapshot of the current status of the repositories. An idea what is currently available:</p>
     
-    <p>The ISO ships with <b>Frameworks 5.26.0, Plasma 5.7.95, KDE Applications 16.08.1 &amp; not yet released ports of KDE Applications</b>, Linux 4.6.4, Systemd 230, Kmod 22, NetworkManager 1.2.2, Calligra 3.0Alpha, Krita 3.0.1, Cantata, Plasma-nm 5.7.95, Xorg-Server 1.18.4, Mesa 12.0.2, Glibc 2.23, GCC 5.4.0, non-free Nvidia 371.28, Pepperflash and Python3 3.5.2 to name a few.</p>
+    <p>The ISO ships with <b>Frameworks 5.26.0, Plasma 5.7.95, KDE Applications 16.08.1 &amp; not yet released ports of KDE Applications</b>, Linux 4.7.3, Systemd 231, Kmod 23, NetworkManager 1.4.0, Calligra 3.0Alpha, Krita 3.0.1, Cantata, Plasma-nm 5.7.95, Xorg-Server 1.18.4, Mesa 12.0.2, Glibc 2.23, GCC 5.4.0, non-free Nvidia 371.28, Pepperflash and Python3 3.5.2 to name a few.</p>
     
     <p>The package manager is <strong>Pacman 5.0.1</strong>, with the simple but powerful Octopi 0.9dev as GUI frontend. Default web browser is Qt based Qupzilla 2.0.1. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna", fully redone for 2016.</p>
     

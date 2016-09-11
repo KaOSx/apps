@@ -1,9 +1,9 @@
 
 pkgname=smplayer
-pkgver=16.8.0
+pkgver=16.9.0
 _pkgver=16.8.0
 _rev=r6994
-pkgrel=2
+pkgrel=1
 pkgdesc="Media player with built-in codecs that can play virtually all video and audio formats"
 arch=('x86_64')
 url="http://smplayer.sourceforge.net/"
@@ -12,40 +12,40 @@ depends=('qt5-multimedia' 'qt5-script' 'mpv')
 makedepends=('qt5-tools' 'subversion')
 groups=('multimedia')
 source=("http://sourceforge.net/projects/smplayer/files/SMPlayer/${pkgver}/smplayer-${pkgver}.tar.bz2"
-        "smplayer-themes::svn+https://subversion.assembla.com/svn/smplayer/smplayer-themes/trunk/"
+        "https://sourceforge.net/projects/smplayer/files/SMPlayer-themes/${_pkgver}/smplayer-themes-${_pkgver}.tar.bz2"
         'icons.tar.xz'
         'default-theme.tar.xz')
-md5sums=('48b001b6c00e5495be4316c9e1589d11'
-         'SKIP'
+md5sums=('1f17b5d35819a8729963e815c9761f0a'
+         '30dde6d9ee016879b121d4d28a427b2a'
          'a65b679cb82e21f8f67e703209654e8f'
-         '46ffcb967e03cd15c5e71ce800d6220f')
+         '8a5a849c90973ad0df98c01044dd3db4')
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  rm -r "${srcdir}/${pkgname}-${pkgver}/icons"
-  rm -r "${srcdir}/${pkgname}-${pkgver}/src/default-theme"
-  mv -iv "${srcdir}/icons/" "${srcdir}/${pkgname}-${pkgver}/"
-  mv -iv "${srcdir}/default-theme/" "${srcdir}/${pkgname}-${pkgver}/src/"
+  cd ${pkgname}-${pkgver}
+  rm -r icons
+  rm -r src/default-theme
+  mv -iv ${srcdir}/icons/ .
+  mv -iv ${srcdir}/default-theme/ src/
   
   make PREFIX=/usr QMAKE=/usr/lib/qt5/bin/qmake LRELEASE=/usr/lib/qt5/bin/lrelease
   
   DOC_PATH="\\\"/usr/share/doc/smplayer\\\"" QMAKE_OPTS=DEFINES+=NO_DEBUG_ON_CONSOLE
   
-  cd "${srcdir}/smplayer-themes/themes"
+  cd ../smplayer-themes-${_pkgver}/themes
   rcc-qt5 -binary Breeze.qrc -o Breeze/Breeze.rcc
   rcc-qt5 -binary Breeze-dark.qrc -o Breeze-dark/Breeze-dark.rcc
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd ${pkgname}-${pkgver}
   
-  make DOC_PATH=/usr/share/doc/smplayer DESTDIR="${pkgdir}" PREFIX="/usr" install
+  make DOC_PATH=/usr/share/doc/smplayer DESTDIR=${pkgdir} PREFIX=/usr install
   
-  cd "${srcdir}/smplayer-themes"
-  mkdir -p "${pkgdir}/usr/share/smplayer/themes/Breeze"
-  install -m 644 themes/Breeze/Breeze.rcc "${pkgdir}"/usr/share/smplayer/themes/Breeze/
-  install -m 644 themes/Breeze/README.txt "${pkgdir}"/usr/share/smplayer/themes/Breeze/
-  mkdir -p "${pkgdir}/usr/share/smplayer/themes/Breeze-dark"
-  install -m 644 themes/Breeze-dark/Breeze-dark.rcc "${pkgdir}"/usr/share/smplayer/themes/Breeze-dark/
-  install -m 644 themes/Breeze-dark/README.txt "${pkgdir}"/usr/share/smplayer/themes/Breeze-dark/
+  cd ../smplayer-themes-${_pkgver}
+  mkdir -p ${pkgdir}/usr/share/smplayer/themes/Breeze
+  install -m 644 themes/Breeze/Breeze.rcc ${pkgdir}/usr/share/smplayer/themes/Breeze/
+  install -m 644 themes/Breeze/README.txt ${pkgdir}/usr/share/smplayer/themes/Breeze/
+  mkdir -p ${pkgdir}/usr/share/smplayer/themes/Breeze-dark
+  install -m 644 themes/Breeze-dark/Breeze-dark.rcc ${pkgdir}/usr/share/smplayer/themes/Breeze-dark/
+  install -m 644 themes/Breeze-dark/README.txt ${pkgdir}/usr/share/smplayer/themes/Breeze-dark/
 }
