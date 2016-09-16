@@ -1,6 +1,6 @@
 
 pkgname=calligra-l10n
-pkgver=2.9.90
+pkgver=2.9.91
 pkgrel=1
 pkgdesc="Localization for Calligra"
 arch=('x86_64')
@@ -142,6 +142,7 @@ package() {
     cd build/$l
     make DESTDIR=${pkgdir} install
     rm ${pkgdir}/usr/share/locale/$l/LC_MESSAGES/krita.mo
+    rm ${pkgdir}/usr/share/locale/$l/LC_MESSAGES/*kexi*.mo
     cd ../..
   done
 }
