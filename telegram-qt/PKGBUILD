@@ -2,7 +2,7 @@
 pkgname=telegram-qt
 pkgver=0.1.0
 _commit=3dd83d4c1d7d61a431bb94dbc3472beb9f18e928
-pkgrel=1
+pkgrel=2
 pkgdesc="Qt-based client library for Telegram IM"
 arch=('x86_64')
 url="https://github.com/KDE/telegram-qt"
@@ -10,14 +10,14 @@ license=('GPL')
 depends=('qt5-base')
 makedepends=('extra-cmake-modules' 'git')
 #groups=('kde-telepathy')
-source=("https://github.com/KDE/telegram-qt/archive/${_commit}.zip")
-md5sums=('493e5915787382a76f147118b72a4180')
+source=("https://github.com/Kaffeine/telegram-qt/archive/${pkgname}-${pkgver}.tar.gz")
+md5sums=('fcc498a8c2655ee0d9877b1784e76cec')
 
 build() {  
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \

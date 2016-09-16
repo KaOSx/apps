@@ -1,7 +1,7 @@
 
 pkgname=qjackctl
-pkgver=0.4.2
-pkgrel=2
+pkgver=0.4.3
+pkgrel=1
 pkgdesc="Qt front-end for the JACK low-latency audio server"
 url="http://qjackctl.sourceforge.net/"
 arch=('x86_64')
@@ -10,19 +10,15 @@ depends=('jack' 'qt5-base' 'qt5-x11extras' 'portaudio')
 makedepends=('qt5-tools')
 options=('!makeflags')
 groups=('multimedia')
-source=("http://downloads.sourceforge.net/qjackctl/${pkgname}-${pkgver}.tar.gz"
-        'translations.diff')
-md5sums=('272cacd4878521e4ba43fd23b19da8a5'
-         '1f7a646e76dfbec5be1cd0d367801d6f')
+source=("http://downloads.sourceforge.net/qjackctl/${pkgname}-${pkgver}.tar.gz")
+md5sums=('cc4ec4c8e8fadbe8df3f38d4294402eb')
 
 build() {
   cd ${pkgname}-${pkgver}
-  # fix for https://github.com/rncbc/qjackctl/issues/16
-  patch -p1 -i ${srcdir}/translations.diff
   
   CXXFLAGS="-std=c++11"
 
- ./configure --prefix=/usr --enable-qt5
+ ./configure --prefix=/usr
   make
 }
 
