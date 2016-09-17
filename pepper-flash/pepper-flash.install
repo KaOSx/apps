@@ -1,0 +1,12 @@
+# Some colored makepkg-like functions
+#!/bin/bash
+# tputcolors
+post_install() {
+	post_upgrade
+}
+
+post_upgrade() {
+	  echo -e '\e[0;32m Firefox users make sure to add freshplayerplugin'
+	  echo -e '\e[0;32m sudo pacman -S freshplayerplugin'
+      echo -e '\e[0;32m This way it is no longer needed to use adobe flash \e[0m'
+}
