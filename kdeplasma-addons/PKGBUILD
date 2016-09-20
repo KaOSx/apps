@@ -27,11 +27,11 @@ prepare() {
   
   patch -p1 -i ${srcdir}/notes.diff
   
-  cp ${srcdir}/metadata.desktop applets/activitypager/
+  #cp ${srcdir}/metadata.desktop applets/activitypager/
 }
 
 build() {
-  #mkdir -p build
+  mkdir -p build
   cd build
   
   cmake ../${pkgname}-${__pkgver} \

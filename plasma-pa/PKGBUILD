@@ -18,7 +18,7 @@ replaces=('plasma-volume-control')
 #source=($_mirror/${pkgname}-${pkgver}.tar.xz)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         "https://github.com/KDE/plasma-pa/commit/99f623cf945abcb3369dd2bd4e87c6fd6013a451.diff")
-md5sums=('2b03dc3be8cfdc0eccee0216f66a09bd'
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
          '403459fab22df7ce42c1f23eb7524f62')
 
 prepare() {
