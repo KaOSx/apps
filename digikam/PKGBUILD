@@ -1,9 +1,9 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
-pkgver=5.1.0
-_pkgver=5.1.0
-pkgrel=2
+pkgver=5.2.0
+_pkgver=5.2.0
+pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
@@ -17,7 +17,7 @@ makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons'
          'kcalcore' 'kwallet' 'phonon-qt5' 
          'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang' 'ruby')
 source=("http://download.kde.org/stable/digikam/${pkgbase}-${_pkgver}.tar.xz")
-md5sums=('321b615a3839e449034e88a02d634699')
+md5sums=('ff23619501eb4611ddac84831fc30010')
 
 prepare() {
   cd ${pkgbase}-${_pkgver}
@@ -46,7 +46,8 @@ build() {
      -DENABLE_MEDIAPLAYER=ON \
      -DENABLE_OPENCV3=ON \
      -DCMAKE_C_COMPILER=clang \
-     -DDIGIKAMSC_CHECKOUT_DOC=ON
+     -DDIGIKAMSC_CHECKOUT_DOC=ON \
+     -DENABLE_APPSTYLES=ON
    make 
 }
 
@@ -61,11 +62,8 @@ package_digikam() {
   cd ${srcdir}/build/core
   make DESTDIR=${pkgdir}/ install
   
-  cd ${srcdir}/build/doc/digikam/digikam
-  make DESTDIR=${pkgdir}/ install
-  
-  cd ${srcdir}/build/doc/digikam/showfoto
-  make DESTDIR=${pkgdir}/ install
+  cd ${srcdir}/build/doc
+  make DESTDIR=${pkgdir}/ 
 }
 
 package_kipi-plugins () {
@@ -80,7 +78,7 @@ package_kipi-plugins () {
   cd ${srcdir}/build/extra/kipi-plugins
   make DESTDIR=${pkgdir}/ install
   
-  cd ${srcdir}/build/doc/kipi-plugins
+  cd ${srcdir}/build/po
   make DESTDIR=${pkgdir}/ install
 }
 
