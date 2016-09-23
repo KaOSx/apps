@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-baseapps
-pkgver=16.07.73
-_commit=276f3d80150773c15302bb587141f1dc08c0821d
+pkgver=16.07.74
+_commit=65aa5f682fbfaf69159a9217494fa60243c30ed9
 pkgrel=1
 pkgdesc="Collection of applications used for file and Internet browsing"
 arch=('x86_64')
@@ -31,11 +31,11 @@ provides=('kf5-kde-baseapps'
           'kde-baseapps-kwrite')
 #source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
 source=("https://github.com/KDE/kde-baseapps/archive/${_commit}.zip")
-md5sums=('fd73504e12b268a71592e4368ce5a818')
+md5sums=('ff5b6a8314ebaa08b266fb5136cf4335')
 
 prepare() {
   cd $pkgname-${_commit}
-  sed -i -e 's|#include <buffio.h>|#include <tidybuffio.h>|' konq-plugins/validators/tidy_validator.cpp
+  sed -i -e 's|#include <buffio.h>|#include <tidybuffio.h>|' konqueror/plugins/validators/tidy_validator.cpp
 }
 
 build() {
