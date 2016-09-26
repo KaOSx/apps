@@ -1,25 +1,26 @@
 
 pkgname=octopi
-pkgver=0.8.92
+pkgver=0.8.93
 pkgrel=1
-_commit=a45ca53c2e3281776caae632cd6b6bf325ae2e7c
+_commit=e5b27d290b52589403f6d8e2fd1265310bffe336
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
-license=('GPL3')
+license=('GPL2')
 depends=('qt5-quickcontrols' 'pacman' 'pkgfile' 'knotifications' 'gist' 'alpm_octopi_utils')
 #makedepends=('cmake' 'asciidoc')
 groups=('system')
 install=octopi.install
-source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
+source=("https://github.com/demmm/octopi/archive/${_commit}.zip"
         "images2.tar.xz")
-md5sums=('c49ca28c172b27ff40fea7e23cf4717e'
+md5sums=('d84ff607d9bcd91c28485d915150b3e3'
          '858db0982326bcbc77526a7945d35bc7')
 
 prepare() {
    cd ${pkgname}-${_commit}/
    rm -r resources/images
    mv -iv ${srcdir}/images/ resources/
+   cp resources/images/octopi_green.png resources/images/octopi.png
 
    # enable the kstatus switch
    sed -e "s|# DEFINES += KSTATUS| DEFINES += KSTATUS|" -i notifier/octopi-notifier/octopi-notifier.pro
@@ -28,7 +29,7 @@ prepare() {
 }
          
 build() {
-   cd ${pkgname}-${_commit}/
+   cd ${pkgname}-${_commit}
    
    /usr/lib/qt5/bin/qmake octopi.pro
    make
@@ -49,29 +50,17 @@ build() {
 }
 
 package() {
-   cd ${pkgname}-${_commit}/
+   cd ${pkgname}-${_commit}
+   make INSTALL_ROOT=${pkgdir} install
    
-   install -D -m644 resources/images/octopi_green.png ${pkgdir}/usr/share/icons/octopi.png
-   install -D -m644 resources/images/octopi_yellow.png ${pkgdir}/usr/share/icons/octopi_yellow.png
+   cd notifier/pacmanhelper
+   make INSTALL_ROOT=${pkgdir} install
+   cd ../..
    
-   install -D -m755 bin/octopi ${pkgdir}/usr/bin
+   cd notifier/octopi-notifier
+   make INSTALL_ROOT=${pkgdir} install
+   cd ../..
    
-   install -D -m644 octopi.desktop ${pkgdir}/usr/share/applications
-   
-   #Pacmanhelper service files
-   install -D -m755 notifier/bin/pacmanhelper ${pkgdir}/usr/lib/octopi/pacmanhelper
-
-   install -D -m644 notifier/pacmanhelper/polkit/org.octopi.pacman.policy ${pkgdir}/usr/share/polkit-1/actions/org.octopi.pacman.policy
-   install -D -m644 notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.conf ${pkgdir}/etc/dbus-1/system.d/org.octopi.pacmanhelper.conf
-   install -D -m644 notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.xml ${pkgdir}/usr/share/dbus-1/interfaces/org.octopi.pacmanhelper.xml
-   install -D -m644 notifier/pacmanhelper/polkit/org.octopi.pacmanhelper.service ${pkgdir}/usr/share/dbus-1/system-services/org.octopi.pacmanhelper.service
-   
-   #Octopi-notifier file
-   install -D -m755 notifier/bin/octopi-notifier ${pkgdir}/usr/bin
-   install -D -m644 octopi-notifier.desktop ${pkgdir}/usr/share/applications
-   
-   #Octopi-cachecleaner file
-   install -D -m755 cachecleaner/bin/octopi-cachecleaner ${pkgdir}/usr/bin
-   install -D -m644 cachecleaner/octopi-cachecleaner.desktop ${pkgdir}/usr/share/applications
-
+   cd cachecleaner
+   make INSTALL_ROOT=${pkgdir} install
 }

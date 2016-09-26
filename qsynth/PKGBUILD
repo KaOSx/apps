@@ -1,7 +1,7 @@
 
 pkgname=qsynth
-pkgver=0.4.1
-pkgrel=2
+pkgver=0.4.2
+pkgrel=1
 pkgdesc="Qt GUI for FluidSynth"
 arch=('x86_64')
 url="http://qsynth.sourceforge.net/"
@@ -9,14 +9,14 @@ license=('GPL')
 depends=('fluidsynth' 'qt5-base' 'qt5-x11extras')
 makedepends=('qt5-tools')
 source=("http://downloads.sourceforge.net/qsynth/${pkgname}-${pkgver}.tar.gz")
-md5sums=('1fc967c1aa0b468e9be1916e6fe836a4')
+md5sums=('1a343dd1d939af7ae455ba927e042d7b')
 
 build() {
   cd ${pkgname}-${pkgver}
   
   CXXFLAGS="-std=c++11"
 
-  ./configure --prefix=/usr --enable-qt5
+  ./configure --prefix=/usr 
   make
 }
 
