@@ -3,7 +3,7 @@ pkgname=qgis
 _pkgname=QGIS
 pkgver=2.90.0
 _commit=03923ebb75013345e46da7820d9e4a021c03a128
-pkgrel=1
+pkgrel=2
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='http://qgis.org/'
 license=('GPL')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python2' 'giflib' 'gsl' 'grass'
          'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt5' 
          'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
-         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5' 'qt5-webkit')
+         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5' 'qt5-webkit' 'python3-gdal')
 makedepends=('cmake'  'netcdf' 'sip3' 'qt5-tools') 
 conflicts=('pyqt-python2' 'python2-qscintilla' 'pyqt-python3')
 #replaces=('pyqt-python2' 'python2-qscintilla' 'pyqt-python3')
@@ -67,5 +67,5 @@ package() {
       ln -s /usr/share/qgis/images/icons/qgis-icon.png ${pkgdir}/usr/share/pixmaps/qgis-icon.png
       ln -s /usr/share/qgis/images/icons/qgis-mime-icon.png ${pkgdir}/usr/share/pixmaps/qgis-mime-icon.png
      
-      #python3 -m compileall -q ${pkgdir}
+      python2 -m compileall -q ${pkgdir}
 }
