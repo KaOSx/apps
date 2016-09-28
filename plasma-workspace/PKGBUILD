@@ -61,11 +61,12 @@ package() {
   
   sed 's|qtpaths|qtpaths-qt5|' -i $pkgdir/usr/bin/startkde
   sed 's|qtpaths|qtpaths-qt5|' -i $pkgdir/usr/bin/startplasmacompositor
+  #sed 's|qdbus|qdbus-qt5|' -i $pkgdir/usr/lib/startplasma
   
   install -Dm755 ${srcdir}/10-kf5 ${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5
   
-  # install pam configuration
-  install -D -m644 ${srcdir}/kde.pam ${pkgdir}/etc/pam.d/kde
-  install -D -m644 ${srcdir}/kde-np.pam ${pkgdir}/etc/pam.d/kde-np
-  install -D -m644 ${srcdir}/kscreensaver.pam ${pkgdir}/etc/pam.d/kscreensaver
+  # install pam configuration, comment out for now, all provided by sddm
+  #install -D -m644 ${srcdir}/kde.pam ${pkgdir}/etc/pam.d/kde
+  #install -D -m644 ${srcdir}/kde-np.pam ${pkgdir}/etc/pam.d/kde-np
+  #install -D -m644 ${srcdir}/kscreensaver.pam ${pkgdir}/etc/pam.d/kscreensaver
 }
