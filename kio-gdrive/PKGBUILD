@@ -1,0 +1,32 @@
+
+pkgname=kio-gdrive
+pkgver=0.9.90
+pkgrel=1
+pkgdesc="KIO Slave to access Google Drive"
+arch=('x86_64')
+url='https://github.com/KDE/kio-gdrive'
+license=('LGPL2')
+depends=('ki18n' 'kio' 'libkgapi' 'qtkeychain' 'dolphin')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=("http://download.kde.org/unstable/kio-gdrive/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=('a74010221dfca399c140c2e079d7abcf')
+
+build() {
+  mkdir -p build
+  cd build 
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
