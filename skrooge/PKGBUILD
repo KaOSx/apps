@@ -1,7 +1,7 @@
 
 pkgname=skrooge
-pkgver=2.4.0
-pkgrel=2
+pkgver=2.5.0
+pkgrel=1
 pkgdesc="Allows you to manage your personal finances in KDE"
 arch=('x86_64')
 url="http://skrooge.org"
@@ -12,17 +12,15 @@ depends=('grantlee' 'karchive' 'kcoreaddons' 'kconfig' 'ki18n' 'kitemviews' 'kwi
          'boost-libs' 'libofx' 'qca-qt5' 'kactivities' 'sqlcipher' 'qt5-webkit')
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost' 'clang')
 groups=('office')
-#source=("git://anongit.kde.org/skrooge.git")
 source=("http://download.kde.org/stable/skrooge/${pkgname}-${pkgver}.tar.xz"
         'sqlite3.patch')
-md5sums=('b37571afed7750be72816c87e77967ee'
+md5sums=('d20b61680563cf0ed89f25a1b93f6a63'
          '5e98360d8ce1c90baef8ed7bd881d884')
 
 prepare() {
   cd $pkgname-${pkgver}
-  #sed -e "s/FIND_PACKAGE(QCA2 2.0.0 REQUIRED)/FIND_PACKAGE(Qca 2.0.0 REQUIRED)/" -i ${srcdir}/$pkgname/skgbasemodeler/CMakeLists.txt
   #sed -e "s/FIND_PACKAGE(KActivities)/FIND_PACKAGE(KF5Activities)/" -i ${srcdir}/$pkgname/skgbasegui/CMakeLists.txt
-  patch -p1 -i ${srcdir}/sqlite3.patch
+  #patch -p1 -i ${srcdir}/sqlite3.patch
 }
          
 build() {
