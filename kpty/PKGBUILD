@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kpty
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Library that provides primitives to interface with pseudo terminal devices and KProcess'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kpty'
@@ -98,8 +98,17 @@ replaces=('kdewebdev-kfilereplace'
            'kotonaru-colors'
            'kde-kdm-themes-grey'
            'kdelibs-debug') 
-source=("http://download.kde.org/stable/frameworks/5.15/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/5.15/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kpty/commit/394eeff0dfba16de7418a25810edde66de541d61.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'ce96f4385235f0f6fa67702728a87e58')
+
+prepare() {
+    cd ${pkgname}-${pkgver}
+    
+    patch -p1 -i ${srcdir}/394eeff0dfba16de7418a25810edde66de541d61.diff
+}
+
 
 build() {
   mkdir -p build
@@ -108,9 +117,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
 }
