@@ -1,0 +1,60 @@
+ 
+From: Gabriel Craciunescu <crazy@frugalware.org>
+Date: Tue, 04 Oct 2016 10:05:57 +0000
+Subject: Fix usage of qdbus variable in startkde
+X-Git-Url: http://quickgit.kde.org/?p=plasma-workspace.git&a=commitdiff&h=99e5f4316c5ac1045d6a4c97e51a18a69a1ead06
+---
+Fix usage of qdbus variable in startkde
+
+$qdbus is a full path to the qdbus binary, not relying on it being in
+$PATH
+
+It was completely unset in startplasma and startkde made a call to
+ksplash using qdbus assuming it's in the path
+
+Reviewed-by: David Edmundson
+---
+
+
+--- a/startkde/startkde.cmake
++++ b/startkde/startkde.cmake
+@@ -359,7 +359,7 @@
+   exit 1
+ fi
+ 
+-qdbus org.kde.KSplash /KSplash org.kde.KSplash.setStage kinit
++$qdbus org.kde.KSplash /KSplash org.kde.KSplash.setStage kinit &
+ 
+ # finally, give the session control to the session manager
+ # see kdebase/ksmserver for the description of the rest of the startup sequence
+
+--- a/startkde/startplasma.cmake
++++ b/startkde/startplasma.cmake
+@@ -49,6 +49,18 @@
+   esac
+ fi
+ 
++# in case we have been started with full pathname spec without being in PATH
++bindir=`echo "$0" | sed -n 's,^\(/.*\)/[^/][^/]*$,\1,p'`
++if [ -n "$bindir" ]; then
++  qbindir=`qtpaths --binaries-dir`
++  qdbus=$qbindir/qdbus
++  case $PATH in
++    $bindir|$bindir:*|*:$bindir|*:$bindir:*) ;;
++    *) PATH=$bindir:$PATH; export PATH;;
++  esac
++else
++  qdbus=qdbus
++fi
+ 
+ # Activate the kde font directories.
+ #
+@@ -128,7 +140,7 @@
+   exit 1
+ fi
+ 
+-qdbus org.kde.KSplash /KSplash org.kde.KSplash.setStage kinit
++$qdbus org.kde.KSplash /KSplash org.kde.KSplash.setStage kinit &
+ 
+ # finally, give the session control to the session manager
+ # see kdebase/ksmserver for the description of the rest of the startup sequence
