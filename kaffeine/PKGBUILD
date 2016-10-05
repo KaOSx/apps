@@ -12,7 +12,7 @@ depends=('kcoreaddons' 'kdbusaddons' 'ki18n' 'solid' 'kio' 'knotifications'
 makedepends=('extra-cmake-modules' 'kdoctools') 
 groups=('multimedia')
 source=("http://download.kde.org/stable/kaffeine/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('122a04b1fe74e0be05803b08b4366123')
+md5sums=('4e034c0da0837f3fbdf3e831a1f3e6fb')
 
 #prepare() {
   #cd ${pkgname}-${pkgver}
@@ -27,7 +27,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF 
   make
 }
