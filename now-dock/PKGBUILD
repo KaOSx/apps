@@ -1,25 +1,37 @@
 
 pkgname=now-dock
-pkgver=0.3.0
-_commit=21813cd21529946a7edcb3f967513e74bb8f254c
+pkgver=0.3.2
+_commit=12404e4c0d537eee58a6e456a3d78a1000abf25d
 pkgrel=1
 pkgdesc="Plasmoid for Plasma 5 which is trying to implement a mac style effect for tasks"
 arch=('x86_64')
 url="https://www.kde-look.org/p/1151047/"
 license=('GPL')
 depends=('plasma-framework')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma-addons')
 install=${pkgname}.install
 source=("https://github.com/psifidotos/nowdock-plasmoid/archive/${_commit}.zip")
-md5sums=('cd06a3ba52452475cca272e7b5c60961')
+md5sums=('d7d7ba6dce4a28189940e66d410e0fea')
+
+build() {
+  mkdir -p build
+  cd build 
+  
+  cmake ../nowdock-plasmoid-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
 
 package() {
-  cd nowdock-plasmoid-${_commit}/
+  cd build
+  make DESTDIR=${pkgdir} install
   
-  mkdir -p ${pkgdir}/usr/share/plasma/plasmoids/org.kdelook.nowdock
-  mv contents ${pkgdir}/usr/share/plasma/plasmoids/org.kdelook.nowdock/
-  install -D -m644 metadata.desktop ${pkgdir}/usr/share/plasma/plasmoids/org.kdelook.nowdock/
-  
-  mkdir -p ${pkgdir}/usr/share/licenses/${pkgname}/
-  install -D -m644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  install -D -m644 ../nowdock-plasmoid-${_commit}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
+
