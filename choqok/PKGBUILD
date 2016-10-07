@@ -1,7 +1,7 @@
 
 pkgname=choqok
-pkgver=1.5.100
-_commit=905ff6536670e6de0e8cbb8851421329afd4dc5f
+pkgver=1.6.0
+_pkgver=1.6
 pkgrel=1
 pkgdesc="KDE Micro-Blogging client, Currently supports Pump.io, GNU social and Twitter.com"
 url="http://choqok.gnufolks.org/"
@@ -12,8 +12,8 @@ depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'kemoticons' 'kglobalaccel' 'kgu
          'kio' 'kjobwidgets' 'telepathy-qt5' 'kaccounts-providers' 'qoauth' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'git' 'kdoctools')
 groups=('communication')
-source=("https://github.com/KDE/choqok/archive/${_commit}.zip")
-md5sums=('954d1dba3d677f5e57f8a596971c116b')
+source=("http://download.kde.org/stable/choqok/${_pkgver}/src/choqok-${pkgver}.tar.xz")
+md5sums=('f61ff13a748a78bb01433c5419c7cc13')
 
 #prepare() {
 #  cd ${pkgname}-${_commit}
@@ -25,17 +25,16 @@ build() {
   mkdir build
   
   cd build
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib
   make
 }
 
 package() {
-  cd ${srcdir}/build  
+  cd build  
   make DESTDIR=${pkgdir} install
   
   #sed -i 's|Exec=choqok %i -caption %c|Exec=choqok -qwindowtitle %c|' ${pkgdir}/usr/share/applications/choqok.desktop
