@@ -1,6 +1,6 @@
 # install go before building
 pkgname=micro
-pkgver=1.0.3
+pkgver=1.1.0
 pkgrel=1
 _commit=c409f1cc07f5c0e4b6e9766ab9bb10f1ebd92015
 pkgdesc='Terminal-based text editor that aims to be easy to use and intuitive, with full capabilities of modern terminals.'
@@ -10,10 +10,11 @@ license=('MIT')
 depends=('xclip')
 makedepends=('go')
 source=("https://github.com/zyedidia/micro/archive/v${pkgver}.tar.gz")
-md5sums=('24d240fc1d73a7e3112b370bc759a655')
+md5sums=('0cddf9a8651e8abf79e84e58aa67ffc1')
 
 build() {
   cd ${pkgname}-${pkgver}
+  sed -i 's|$(shell go run tools/build-version.go)|$(shell git describe --tags --abbrev=0)|' Makefile
   export GOPATH=`pwd`
 
   # run makefile commands, runtime:
