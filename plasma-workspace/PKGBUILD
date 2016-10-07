@@ -61,6 +61,8 @@ package() {
   
   sed 's|qtpaths|qtpaths-qt5|' -i $pkgdir/usr/bin/startkde
   sed 's|qtpaths|qtpaths-qt5|' -i $pkgdir/usr/bin/startplasmacompositor
+  #enable if/when startkde qdbus changes move to 5.8
+  #sed 's|qdbu|qdbus-qt5|' -i $pkgdir/usr/bin/startkde
   
   install -Dm755 ${srcdir}/10-kf5 ${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5
   
