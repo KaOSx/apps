@@ -2,7 +2,7 @@
 pkgname=amule
 pkgver=2.3.72
 _commit=59fb77b36b4328367d882a2238a9d647dfda7586
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="An eMule-like client for ed2k p2p network"
 arch=('x86_64')
@@ -14,6 +14,9 @@ md5sums=('6e7d9eb4b86bcb255a9d1fcf7b89fa2c')
 
 build() {
   cd amule-${_commit}
+  #sed -i -e 's|MULE_PREPEND([GDLIB_LIBS], [-lgd])|GDLIB_LIBS="-lgd"|' configure.ac
+  #sed -i -e 's|CRYPTOPP_LIBS="-l$CRYPTOPP_LIB_NAME"|CRYPTOPP_LIBS="-l$CRYPTOPP_LIB_NAME"|' configure.ac
+  
   ./autogen.sh
 
   ./configure --prefix=/usr \
