@@ -1,6 +1,6 @@
 
 pkgname=dianara
-pkgver=1.3.4
+pkgver=1.3.5
 pkgrel=1
 pkgdesc="A Qt pump.io client"
 arch=('x86_64')
@@ -8,7 +8,7 @@ url="http://dianara.nongnu.org/"
 license=('GPL')
 depends=('qjson' 'qoauth' 'qca-qt5')
 source=("http://download-mirror.savannah.gnu.org/releases/dianara/${pkgname}-v${pkgver}.tar.gz")
-md5sums=('7a1991d8e7af6ca71427f20d46e822a3')
+md5sums=('e2ac3bb0a981889ea18b5cbff76e6b97')
 
 build() {
   cd ${pkgname}-v${pkgver}
@@ -16,6 +16,7 @@ build() {
   
   cd build
   /usr/lib/qt5/bin/qmake ..
+  sed -i 's|include5|include|' Makefile
   make
 }
 
