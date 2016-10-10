@@ -1,23 +1,19 @@
 
 pkgname=amule
-pkgver=2.3.72
-_commit=59fb77b36b4328367d882a2238a9d647dfda7586
-pkgrel=2
-epoch=1
+pkgver=2.3.2
+pkgrel=1
+epoch=2
 pkgdesc="An eMule-like client for ed2k p2p network"
 arch=('x86_64')
 url="http://www.amule.org"
 license=('GPL')
 depends=('wxgtk2.9' 'gd' 'geoip' 'libupnp' 'crypto++')
-source=("https://github.com/amule-project/amule/archive/${_commit}.zip")
-md5sums=('6e7d9eb4b86bcb255a9d1fcf7b89fa2c')
+#source=("https://github.com/amule-project/amule/archive/${_commit}.zip")
+source=("https://sourceforge.net/projects/amule/files/aMule/${pkgver}/aMule-${pkgver}.tar.xz")
+md5sums=('4e666c33f2c87874d389d6d45eb82b7a')
 
 build() {
-  cd amule-${_commit}
-  #sed -i -e 's|MULE_PREPEND([GDLIB_LIBS], [-lgd])|GDLIB_LIBS="-lgd"|' configure.ac
-  #sed -i -e 's|CRYPTOPP_LIBS="-l$CRYPTOPP_LIB_NAME"|CRYPTOPP_LIBS="-l$CRYPTOPP_LIB_NAME"|' configure.ac
-  
-  ./autogen.sh
+  cd aMule-${pkgver}
 
   ./configure --prefix=/usr \
               --mandir=/usr/share/man \
@@ -31,16 +27,16 @@ build() {
               --enable-webserver \
               --disable-debug \
               --enable-optimize \
-              --enable-ccache \
               --enable-geoip \
               --enable-upnp \
-              --with-wx-config=wx-config
+              --with-wx-config=wx-config \
+              --without-boost
 
   make 
 }
 
 package() {
-  cd amule-${_commit} 
+  cd aMule-${pkgver} 
   
   make DESTDIR=${pkgdir}/ install 
   # conflict with glibc
