@@ -1,6 +1,6 @@
 
 pkgname=atom
-pkgver=1.10.2
+pkgver=1.11.0
 pkgrel=1
 pkgdesc="Hackable text editor from the 21st Century"
 arch=('x86_64')
@@ -12,18 +12,19 @@ makedepends=('git')
 conflicts=('atom-editor')
 replaces=('atom-editor')
 source=("https://github.com/atom/atom/archive/v${pkgver}.tar.gz")
-md5sums=('ea511e7a2f8c9fac6bc2062e52435cd9')
+md5sums=('a43f37b84237b174783ce4cd5b78c8ee')
 
 build() {
   cd ${pkgname}-${pkgver}
+  sed -i "s|('/usr', 'local')|('${pkgdir}/usr')|" script/lib/install-application.js
 
-  script/build --build-dir ${srcdir}/atom-build
+  script/build --compress-artifacts
 }
 
 package() {
   cd ${pkgname}-${pkgver}
 
-  script/grunt install --build-dir ${srcdir}/atom-build --install-dir ${pkgdir}/usr
+  script/build --install 
   
   sed -e "s|<%= appName %>|Atom|" \
     -e "s|<%= description %>|$pkgdesc|" \
