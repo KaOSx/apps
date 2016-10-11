@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=1
 pkgdesc="Archiver for various compression formats"
 url="https://github.com/KDE/ark"
 license=('GPL' 'LGPL' 'FDL')
@@ -22,10 +22,9 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/9a9a851049cd904f08c9594cc6aacf696886404e.diff
+  #patch -p1 -i ${srcdir}/9a9a851049cd904f08c9594cc6aacf696886404e.diff
   
   #sed -i 's|application/x-rar|application/vnd.rar|' plugins/clirarplugin/CMakeLists.txt
-  #sed -i 's|application/x-rar|application/vnd.rar|' plugins/clirarplugin/kerfuffle_clirar.json.cmake
 }
 
 build() {  

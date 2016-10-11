@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=messagelib
 pkgver=${_kdever}
 _commit=f601f9ffb706f7d3a5893b04f067a1f75da62c99
-pkgrel=3
+pkgrel=1
 pkgdesc="All libs for messages"
 arch=('x86_64')
 url='https://github.com/KDE/messagelib'
@@ -15,21 +15,20 @@ depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'akonadi-notes' 'kdepim-apps-l
          'kcompletion' 'kcodecs' 'kconfig' 'kxmlgui' 'akonadi-search' 'kcontacts' 'kmbox'  
          'libgravatar' 'grantleetheme' 'libkleo' 'pimcommon' 'grantlee' 'qtwebengine')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-#source=($_mirror/${pkgname}-${_kdever}.tar.xz
-source=("https://github.com/KDE/messagelib/archive/${_commit}.zip"
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+#source=("https://github.com/KDE/messagelib/archive/${_commit}.zip"
         "https://github.com/KDE/messagelib/commit/c335c60684fb6de58fae567234c72277a3b1bf58.diff"
         "https://github.com/KDE/messagelib/commit/dfc6a86f1b25f1da04b8f1df5320fcdd7085bcc1.diff"
         "https://github.com/KDE/messagelib/commit/f601f9ffb706f7d3a5893b04f067a1f75da62c99.diff"
         "https://github.com/KDE/messagelib/commit/299a04f3ad04b1a90ce895aea355ca5b9474f054.diff")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-md5sums=('db9c1e039a93cfa2b1a35a5a70e78880'
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '80f15cb443af8a0e7a3f39fc8ef72753'
          'a4fae9d65684d5e84830dc0c563d8386'
          '826a8a6f3e791dac8e856bf7197eb920'
          '99e7ceeb9ed38f8bbc43115064b1c836')
 
 prepare() {
-  cd $pkgname-${_commit}
+  cd $pkgname-${pkgver}
   #sed -i -e 's|set(KMIME_LIB_VERSION "4.81.0")|set(KMIME_LIB_VERSION "4.80.0")|' ${srcdir}/${pkgname}/CMakeLists.txt
   # kmail crashes
   #patch -p1 -i $srcdir/c335c60684fb6de58fae567234c72277a3b1bf58.diff
@@ -37,14 +36,14 @@ prepare() {
   #patch -p1 -i $srcdir/dfc6a86f1b25f1da04b8f1df5320fcdd7085bcc1.diff
   #patch -p1 -i $srcdir/f601f9ffb706f7d3a5893b04f067a1f75da62c99.diff
   # revert versioning
-  patch -p1 -R -i $srcdir/299a04f3ad04b1a90ce895aea355ca5b9474f054.diff
+  #patch -p1 -R -i $srcdir/299a04f3ad04b1a90ce895aea355ca5b9474f054.diff
 }
 
 build() {
   mkdir -p build
   cd build 
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
