@@ -1,51 +1,52 @@
 
 pkgname=liri-browser
-pkgver=0.3.11
+pkgver=0.3.12
+_commit=664b54978df29362da0dca9975412effacaae168
 pkgrel=1
-pkgdesc="Minimalistic Google's Material Design web browser, relies on QtWebEngine, the brand new Qt web renderer based on Chromium"
+pkgdesc="Cross-platform material design web browser"
 url="http://liriproject.me/browser/index.html#discover"
 arch=('x86_64')
 license=('LGPL')
-depends=('qtwebengine' 'qt5-multimedia' 'qml-material')
+depends=('qtwebengine' 'qt5-multimedia' 'fluid' 'slime-engine')
 makedepends=('git')
-#source=("https://github.com/liri-browser/liri-browser/archive/v${pkgver}.tar.gz"
-source=("git://github.com/liri-browser/liri-browser"
+source=("https://github.com/lirios/browser/archive/${_commit}.zip"
         'liri-browser.desktop')
-md5sums=('SKIP'
+md5sums=('b7dab107ff4defc16ef0922d3178840e'
          '13a5ba458d3ae8135eeb9126ee329633')
 
 prepare() {
-  cd ${pkgname}
+  cd browser-${_commit}
   
-  sed -i -e 's|target.path = /opt/$${TARGET}/bin|target.path = /usr/bin|' ${srcdir}/${pkgname}/deployment.pri
-  sed -i -e 's|target.path=/opt/liri-browser-build|target.path=/usr/bin|' ${srcdir}/${pkgname}/liri-browser.pro
-  sed -i -e 's|property bool darkTheme: true|property bool darkTheme: false|' ${srcdir}/${pkgname}/src/qml/BaseApplication.qml
+  sed -i -e 's|target.path = /opt/$${TARGET}/bin|target.path = /usr/bin|' deployment/deployment.pri
+  #sed -i -e 's|target.path=/opt/liri-browser-build|target.path=/usr/bin|' ${srcdir}/${pkgname}/liri-browser.pro
+  #sed -i -e 's|property bool darkTheme: true|property bool darkTheme: false|' ${srcdir}/${pkgname}/src/qml/BaseApplication.qml
   #KaOS colors
-  sed -i -e 's|primaryColor: "#F44336"|primaryColor: "#31A3DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
-  sed -i -e 's|primaryDarkColor: "#D32F2F"|primaryDarkColor: "#2397D2"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
-  sed -i -e 's|accentColor: "#FF5722"|accentColor: "#31A3DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
-  sed -i -e 's|darkThemeColor : "#f3f3f3"|darkThemeColor : "#CCCCCC"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
-  sed -i -e 's|lightThemeColor: "#FAFAFA"|lightThemeColor: "#E8EFF7"|' ${srcdir}/${pkgname}/src/qml/BaseApplication.qml
+  #sed -i -e 's|primaryColor: "#F44336"|primaryColor: "#31A3DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
+  #sed -i -e 's|primaryDarkColor: "#D32F2F"|primaryDarkColor: "#2397D2"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
+  #sed -i -e 's|accentColor: "#FF5722"|accentColor: "#31A3DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
+  #sed -i -e 's|darkThemeColor : "#f3f3f3"|darkThemeColor : "#CCCCCC"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
+  #sed -i -e 's|lightThemeColor: "#FAFAFA"|lightThemeColor: "#E8EFF7"|' ${srcdir}/${pkgname}/src/qml/BaseApplication.qml
 }
 
 build() {
-   cd ${pkgname}
+   mkdir -p build
+   cd build
 
-   /usr/lib/qt5/bin/qmake liri-browser.pro
+   /usr/lib/qt5/bin/qmake CONFIG+=QTWEBENGINE_ENABLED ../browser-${_commit}/liri-browser.pro
    make
 }
 
 package() {
-   cd ${pkgname}
+   cd build
    make INSTALL_ROOT=${pkgdir} install
    
    mkdir -p ${pkgdir}/usr/share/applications
 
-  for i in 16x16 22x22 32x32 48x48 64x64 128x128 256x256; do
-    install -Dm644 icons/liri-browser.png ${pkgdir}/usr/share/icons/hicolor/$i/apps/liri-browser.png
-    install -Dm644 icons/liri-browser-ubuntu.png ${pkgdir}/usr/share/icons/hicolor/$i/apps/liri-browser-ubuntu.png
-  done
+   #for i in 16x16 22x22 32x32 48x48 64x64 128x128 256x256; do
+   #  install -Dm644 icons/liri-browser.png ${pkgdir}/usr/share/icons/hicolor/$i/apps/liri-browser.png
+   #  install -Dm644 icons/liri-browser-ubuntu.png ${pkgdir}/usr/share/icons/hicolor/$i/apps/liri-browser-ubuntu.png
+   #done
   
-  install -m755 $srcdir/liri-browser.desktop ${pkgdir}/usr/share/applications/liri-browser.desktop
-  rm ${pkgdir}/usr/bin/liri-browser.desktop
+  install -m755 ${srcdir}/liri-browser.desktop ${pkgdir}/usr/share/applications/liri-browser.desktop
+  #rm ${pkgdir}/usr/bin/liri-browser.desktop
 }

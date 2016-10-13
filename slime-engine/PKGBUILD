@@ -1,0 +1,26 @@
+
+pkgname=slime-engine
+pkgver=0.2
+_commit=6d490358058139a91923411aaf97c13ec5572ab0
+pkgrel=1
+pkgdesc="QML webview wrapper to support both QtWebEngine and Oxide through one simple QML API."
+url="https://github.com/tim-sueberkrueb/slime-engine"
+arch=('x86_64')
+license=('LGPL')
+depends=('qtwebengine')
+source=("https://github.com/tim-sueberkrueb/slime-engine/archive/${_commit}.zip")
+md5sums=('118c743ca8f57131f5f9a2d1ff397694')
+
+build() {
+   mkdir -p build
+   cd build
+
+   /usr/lib/qt5/bin/qmake CONFIG+=QTWEBENGINE_ENABLED ../${pkgname}-${_commit}/slime-engine.pro
+   make
+}
+
+package() {
+   cd build
+   
+   make INSTALL_ROOT=${pkgdir} install
+}
