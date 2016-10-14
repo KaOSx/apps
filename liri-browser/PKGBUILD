@@ -4,11 +4,10 @@ pkgver=0.3.12
 _commit=664b54978df29362da0dca9975412effacaae168
 pkgrel=1
 pkgdesc="Cross-platform material design web browser"
-url="http://liriproject.me/browser/index.html#discover"
+url="https://github.com/lirios/browser"
 arch=('x86_64')
 license=('LGPL')
 depends=('qtwebengine' 'qt5-multimedia' 'fluid' 'slime-engine')
-makedepends=('git')
 source=("https://github.com/lirios/browser/archive/${_commit}.zip"
         'liri-browser.desktop')
 md5sums=('b7dab107ff4defc16ef0922d3178840e'
@@ -42,8 +41,8 @@ package() {
    
    mkdir -p ${pkgdir}/usr/share/applications
 
-   #for i in 16x16 22x22 32x32 48x48 64x64 128x128 256x256; do
    #  install -Dm644 icons/liri-browser.png ${pkgdir}/usr/share/icons/hicolor/$i/apps/liri-browser.png
+   #for i in 16x16 22x22 32x32 48x48 64x64 128x128 256x256; do
    #  install -Dm644 icons/liri-browser-ubuntu.png ${pkgdir}/usr/share/icons/hicolor/$i/apps/liri-browser-ubuntu.png
    #done
   
