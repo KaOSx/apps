@@ -1,7 +1,7 @@
  
 pkgname=simplescreenrecorder
-pkgver=0.3.6
-pkgrel=2
+pkgver=0.3.7
+pkgrel=1
 _commit=65975c6
 pkgdesc="Screen recorder that is actually quite complex, but 'simple' in the sense that it's easy to use"
 arch=('x86_64')
@@ -11,14 +11,12 @@ depends=('qt5-x11extras' 'ffmpeg' 'alsa-lib' 'pulseaudio' 'jack' 'libgl' 'glu' '
          'libxfixes' 'libxi')
 makedepends=('qt5-tools')
 options=('!libtool')
-source=("https://github.com/MaartenBaert/ssr/archive/$pkgver.tar.gz"
-        "https://github.com/MaartenBaert/ssr/commit/cc17c8f2d08354ad6e337d7f0f8745539da373a8.diff")
-md5sums=('3c0dcf288c0cc1b21f4cd2010c73d5ae'
-         'a315dcd62a10dd8857a7107284b3f8c8')
+source=("https://github.com/MaartenBaert/ssr/archive/$pkgver.tar.gz")
+md5sums=('629e2516ea5737efc079f99e3bc9f0ab')
 
 build() {
   cd ssr-$pkgver
-  patch -p1 -i $srcdir/cc17c8f2d08354ad6e337d7f0f8745539da373a8.diff
+  #patch -p1 -i $srcdir/cc17c8f2d08354ad6e337d7f0f8745539da373a8.diff
   
   export CPPFLAGS="-fPIC"
   
