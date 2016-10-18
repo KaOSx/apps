@@ -1,7 +1,7 @@
 
 pkgname=octopi
 pkgver=0.8.95
-pkgrel=1
+pkgrel=2
 _commit=4d0bc6caa92eaf9637af8970dd57779208c5281c
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
@@ -22,7 +22,7 @@ prepare() {
    cp resources/images/octopi_green.png resources/images/octopi.png
 
    # enable the kstatus switch
-   sed -e "s|# DEFINES += KSTATUS| DEFINES += KSTATUS|" -i notifier/octopi-notifier/octopi-notifier.pro
+   sed -e "s|#KSTATUS|KSTATUS|" -i notifier/octopi-notifier/octopi-notifier.pro
 }
          
 build() {
