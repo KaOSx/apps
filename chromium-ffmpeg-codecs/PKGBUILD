@@ -1,6 +1,6 @@
  
 pkgname=chromium-ffmpeg-codecs
-pkgver=53.0.2785.101
+pkgver=54.0.2840.71
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
@@ -9,30 +9,42 @@ license=('LGPL2.1')
 depends=('gtk2' 'libexif' 'pulseaudio' 'libxss')
 makedepends=('ninja' 'nss' 'pciutils' 'python2' 'xdg-utils')
 options=('!strip')
-source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver.tar.xz")
-md5sums=('2fd535c2e8028ef5587df842cfa3b3e4')
+source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver.tar.xz"
+        'gn.patch')
+md5sums=('30bb11c67bfbb30a28ca0b0cb6e06740'
+         '3354997dd0bfde3443499133a6e16a85')
 
 build() {
   cd chromium-${pkgver}
-  touch chrome/test/data/webui/i18n_process_css_test.html
+  #touch chrome/test/data/webui/i18n_process_css_test.html
+  sed -i "s|ld = os.environ.get('LD', cxx)|ld = cxx|g" tools/gn/bootstrap/bootstrap.py
+  patch -p1 -i ${srcdir}/gn.patch
 
-  build/gyp_chromium \
-    --depth=. \
-    -Dclang=0 \
-    -Duse_gnome_keyring=0 \
-    -Duse_gconf=0 \
-    -Dlinux_use_bundled_binutils=0 \
-    -Dlinux_use_bundled_gold=0 \
-    -Dlinux_use_gold_flags=0 \
-    -Dsysroot='' \
-    -Dcomponent=shared_library \
-    -Dffmpeg_branding=ChromeOS
+  local flags=("ffmpeg_branding=\"ChromeOS\""
+                'proprietary_codecs=true'
+                'enable_hevc_demuxing=true'
+                'use_gconf=false'
+                'use_gio=false'
+                'use_gnome_keyring=false'
+                'use_kerberos=false'
+                'use_cups=false'
+                'use_sysroot=false'
+                'use_gold=false'
+                'linux_use_bundled_binutils=false'
+                'fatal_linker_warnings=false'
+                'treat_warnings_as_errors=false'
+                'is_component_build=true'
+                'is_debug=false'
+                'symbol_level=0')
+  
+  python2 tools/gn/bootstrap/bootstrap.py -v --gn-gen-args ${flags}
+  out/Release/gn gen out/Release -v --args=${flags} --script-executable=/usr/bin/python2
 
-  ninja -C out/Release ffmpeg
+  ninja -C out/Release -v media/ffmpeg
 }
 
 package() {
   cd chromium-${pkgver}
 
-  install -Dm644 out/Release/lib/libffmpeg.so ${pkgdir}/usr/lib/chromium/libs/libffmpeg.so
+  install -Dm644 out/Release/libffmpeg.so ${pkgdir}/usr/lib/chromium/libs/libffmpeg.so
 }
