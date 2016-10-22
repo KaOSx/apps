@@ -17,10 +17,10 @@ md5sums=('30bb11c67bfbb30a28ca0b0cb6e06740'
 build() {
   cd chromium-${pkgver}
   #touch chrome/test/data/webui/i18n_process_css_test.html
-  sed -i "s|ld = os.environ.get('LD', cxx)|ld = cxx|g" tools/gn/bootstrap/bootstrap.py
-  patch -p1 -i ${srcdir}/gn.patch
+  #sed -i "s|ld = os.environ.get('LD', cxx)|ld = cxx|g" tools/gn/bootstrap/bootstrap.py
+  #patch -p1 -i ${srcdir}/gn.patch
 
-  local flags=("ffmpeg_branding=\"ChromeOS\""
+  local _flags=("ffmpeg_branding=\"ChromeOS\""
                 'proprietary_codecs=true'
                 'enable_hevc_demuxing=true'
                 'use_gconf=false'
@@ -31,16 +31,19 @@ build() {
                 'use_sysroot=false'
                 'use_gold=false'
                 'linux_use_bundled_binutils=false'
+                'use_allocator="none"'
+                'is_clang=false'
+                'clang_use_chrome_plugins=false'
                 'fatal_linker_warnings=false'
                 'treat_warnings_as_errors=false'
                 'is_component_build=true'
                 'is_debug=false'
                 'symbol_level=0')
   
-  python2 tools/gn/bootstrap/bootstrap.py -v --gn-gen-args ${flags}
-  out/Release/gn gen out/Release -v --args=${flags} --script-executable=/usr/bin/python2
+  python2 tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_flags[*]}"
+  out/Release/gn gen out/Release -v --args="${_flags[*]}" --script-executable=/usr/bin/python2
 
-  ninja -C out/Release -v media/ffmpeg
+  ninja -C out/Release media/ffmpeg
 }
 
 package() {
