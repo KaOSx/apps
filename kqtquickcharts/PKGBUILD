@@ -2,23 +2,21 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=ktouch
+pkgname=kqtquickcharts
 pkgver=16.11.70
 #pkgver=${_kdever}
-_commit=be44b176fa51fb6fadf5963b571a36ecb9762257
+_commit=21f89e481c926de6e65e399d11f20931772c1715
 pkgrel=1
-pkgdesc="Touch Typing Tutor"
-url="http://kde.org/applications/education/ktouch/"
+pkgdesc="QtQuick plugin to render beautiful and interactive charts"
+url="https://github.com/KDE/kqtquickcharts"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdeclarative' 'ki18n' 'kio' 'knewstuff' 'kwidgetsaddons'
-         'kxmlgui' 'kitemviews' 'kcmutils' 'ktexteditor' 'kwindowsystem' 'kqtquickcharts') # 'libxkbfile')
+depends=('qt5-declarative')
 makedepends=('extra-cmake-modules' 'kdoctools')
-groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/ktouch/archive/${_commit}.zip")
-md5sums=('8b6adab3355bd0c4a3ab265779ef3e3a')
+source=("https://github.com/KDE/kqtquickcharts/archive/${_commit}.zip")
+md5sums=('2a359597da9e75e5968d424ee0b7076e')
 
 prepare() {
   cd ${pkgname}-${_commit}
@@ -34,8 +32,6 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }
