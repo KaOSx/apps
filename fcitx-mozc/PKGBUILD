@@ -2,30 +2,24 @@
 # check https://github.com/google/mozc/issues/327 for Qt5 build
 pkgname=fcitx-mozc
 _bldtype=Release
-_zipcode_rel=201504
-_protobuf_rev=172019c40bf548908ab09bfd276074c929d48415
-_gyp_rev=f06a5a0e46ce3a1d3a51fbd7fa8df5c72f47d881
-_jsoncpp_rev=11086dd6a7eba04289944367ca82cea71299ed70
-_japanese_usage_dictionary_rev=10
-_mozc_rev=b4d9d5c4b1fe5ccac63446d917315d71398dd564
-_fonttools_rev=5ba7d98a4153fad57258fca23b0bcb238717aec3
-_jsr305_ver=2.0.2
-_fcitx_patchver=2.17.2102.102.1
+_zipcode_rel=201609
+_protobuf_rev=a428e42072765993ff674fda72863c9f1aa2d268
+_gyp_rev=920ee58c3d3109dea3cd37d88054014891a93db7
+_japanese_usage_dictionary_rev=e5b3425575734c323e1d947009dd74709437b684
+_mozc_rev=05464eadaf8c0dc3255bc8a9c64019af58da35ea
+_fcitx_patchver=2.18.2612.102.1
 pkgdesc="Japanese Input Method Editor designed for multi-platform"
-pkgver=2.17.2240.102
+pkgver=2.18.2612.102.1
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/google/mozc"
 license=('custom')
-depends=('qt' 'fcitx' 'zinnia')
-makedepends=('pkg-config' 'python2' 'curl' 'gtk2' 'mesa' 'subversion' 'ninja' 'git' 'clang')
+depends=('qt5-base' 'fcitx' 'zinnia')
+makedepends=('pkg-config' 'python2' 'curl' 'gtk2' 'mesa' 'ninja' 'git' 'clang')
 source=("mozc::git+https://github.com/google/mozc.git#commit=${_mozc_rev}"
-        "jsoncpp::git+https://github.com/open-source-parsers/jsoncpp.git#commit=${_jsoncpp_rev}"
-        "japanese_usage_dictionary::svn+http://japanese-usage-dictionary.googlecode.com/svn/trunk#revision=$_japanese_usage_dictionary_rev"
+        "japanese_usage_dictionary::git+https://github.com/hiroyuki-komatsu/japanese-usage-dictionary.git#commit=${_japanese_usage_dictionary_rev}"
         "gyp::git+https://chromium.googlesource.com/external/gyp#commit=${_gyp_rev}"
         "protobuf::git+https://github.com/google/protobuf.git#commit=${_protobuf_rev}"
-        "http://findbugs.googlecode.com/svn/repos/release-repository/com/google/code/findbugs/jsr305/$_jsr305_ver/jsr305-$_jsr305_ver.jar"
-        "fontTools::git+https://github.com/googlei18n/fonttools.git#commit=${_fonttools_rev}"
         "http://downloads.sourceforge.net/pnsft-aur/x-ken-all-${_zipcode_rel}.zip"
         "http://downloads.sourceforge.net/pnsft-aur/jigyosyo-${_zipcode_rel}.zip"
         "http://download.fcitx-im.org/fcitx-mozc/fcitx-mozc-${_fcitx_patchver}.patch"
@@ -34,12 +28,9 @@ md5sums=('SKIP'
          'SKIP'
          'SKIP'
          'SKIP'
-         'SKIP'
-         '144c0767e2aaf0c21a935908d0e52c68'
-         'SKIP'
-         '5fa1b29d7e06a482b4eb99baf2b8597d'
-         '22e7aeec439f889b0cda4bd23126414c'
-         'd32e372c9e1fbbc028062e9f962089a7'
+         '965901bcf9764f116be561adbd421717'
+         '81093452dc6c39d5d86f28759a1e87c9'
+         'f364b7df92eb13a4e90aace81bfe4d11'
          '80fe2ef127b70649df22d133822ac8a7')
 
 prepare() {
@@ -48,15 +39,14 @@ prepare() {
   rm unix/fcitx -rf
   patch -p2 -i ${srcdir}/fcitx-mozc-${_fcitx_patchver}.patch
 
-  python2 dictionary/gen_zip_code_seed.py --zip_code="${srcdir}/x-ken-all.csv" --jigyosyo="${srcdir}/JIGYOSYO.CSV" >> data/dictionary_oss/dictionary09.txt
+  # disable Japanese zip code in dictionary, python import fails to find dictionary
+  #python2 dictionary/gen_zip_code_seed.py --zip_code="${srcdir}/x-ken-all.csv" --jigyosyo="${srcdir}/JIGYOSYO.CSV" >> data/dictionary_oss/dictionary09.txt
 
   cd ${srcdir}
-  for dep in jsoncpp gyp protobuf japanese_usage_dictionary fontTools
+  for dep in gyp protobuf japanese_usage_dictionary
   do
     cp -a $dep mozc/src/third_party/
   done
-
-  install -D jsr305-$_jsr305_ver.jar mozc/src/third_party/jsr305/jsr305-$_jsr305_ver.jar
 }
 
 build() {
