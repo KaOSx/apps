@@ -1,23 +1,24 @@
 
 pkgname=system-config-printer
-pkgver=1.5.7
-_pkgver=1.5
+pkgver=1.5.8
 pkgrel=2
 pkgdesc="A CUPS printer configuration tool and status applet"
-url="http://cyberelk.net/tim/software/system-config-printer/"
+url="https://github.com/zdohnal/system-config-printer"
 arch=('x86_64')
 license=('GPL')
 depends=('pycups' 'dbus-python3' 'pysmbc' 'libusbx' 'python3-pycurl' 'systemd'
-         'python3-gobject3' 'dbus-glib')
+         'python3-gobject3' 'dbus-glib' 'gtk3' 'python3-requests')
 makedepends=('intltool' 'python3' 'xmlto' 'docbook-xsl' 'desktop-file-utils' 'libcups' 'libxml2')
 optdepends=('print-manager: for the administration tool in KDE System Settings')
 provides=('system-config-printer-common')
-source=("http://cyberelk.net/tim/data/${pkgname}/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('1a0c6a4566a5479733945f6db32d6f00')
+source=("https://github.com/zdohnal/system-config-printer/archive/${pkgver}.tar.gz")
+md5sums=('69b4f36478abcc0c745bdc23abb03246')
 
 build() {
-  cd ${srcdir}/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
+  sed -i "s|cups.socket|org.cups.cupsd.socket|g" udev/configure-printer@.service.in
 
+  ./bootstrap
   ./configure --prefix=/usr \
     --sbindir=/usr/bin \
     --sysconfdir=/etc \
@@ -29,6 +30,7 @@ build() {
 package() {
   cd ${pkgname}-${pkgver}
   
-  make DESTDIR="${pkgdir}" install
-  rm ${pkgdir}/usr/share/applications/system-config-printer.desktop
+  make DESTDIR=${pkgdir} install
+  
+  #rm ${pkgdir}/usr/share/applications/system-config-printer.desktop
 }
