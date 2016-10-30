@@ -1,17 +1,17 @@
 
 pkgname=gnuchess
-pkgver=6.2.2
+pkgver=6.2.4
 pkgrel=1
 pkgdesc="Program to play chess against the computer on a terminal or, as a chess engine for graphical chess frontends such as knights"
 url="http://www.gnu.org/software/chess/chess.html"
 arch=('x86_64')
 license=('GPL')
 depends=('glibc' 'ncurses' 'readline')
-source=("http://ftp.gnu.org/pub/gnu/chess/$pkgname-$pkgver.tar.gz")
-md5sums=('c181b5e218695a154a550292fddedc6d')
+source=("http://ftp.gnu.org/pub/gnu/chess/${pkgname}-${pkgver}.tar.gz")
+md5sums=('4e1268030ba1ae83cbd03b3eac2f44a5')
 
 build() {
-  cd "$srcdir"/$pkgname-$pkgver
+  cd ${pkgname}-${pkgver}
 
   ./configure --prefix=/usr
 
@@ -19,7 +19,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir"/$pkgname-$pkgver
+  cd ${pkgname}-${pkgver}
 
-  make prefix="$pkgdir"/usr install
+  make prefix=${pkgdir}/usr install
 }
