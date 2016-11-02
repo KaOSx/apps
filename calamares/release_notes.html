@@ -11,34 +11,35 @@
 
 <body>
     <h3>KaOS - 2016.11</h3>
-    <p>It is with great pleasure to present to you KaOS 2016.11. With this ISO KaOS has gone back to a fully intgrated build of the different KDE parts.  Instead of building Frameworks, Plasma and KDE Applications on their own separate release schedules all are now build the same day of any Frameworks release.  To acclompish this Plasma 5 is now build from the latest commits, no longer uses released tars.</p>
+    <p>KaOS is pleased to announce the 2016.11 release. As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.27.0, Plasma 5.8.3, KDE Applications 16.08.2 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.7.0.</strong></p>
     
-    <p>A new additon for KaOS is a First Run Wizard.  It will run on the newly installed system and enables with just a few clicks to adjust mouse behavior, menu launcher, desktop theme, used wallpaper, color scheme, widget style, window decoration and virtual desktops used.  With one click this Wizard will also link to KaOS Documentation and all contact info.</p>
+    <p>For Plasma 5.8 the used Window Decoration in the Midna theme has been updated to accommodate changes in a Wayland session.
+    Aurorae based decoration cannot be used in Wayland thus this change was needed.  You will also find an updated wallpaper selection as part of the artwork changes.</p>
     
-    <p>Another first on this ISO is a new tool to write ISO files to USB.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do.</p>
+    <p>The installer now automates setting your location on the world map and has improved system requirements configuration checking.</p>
     
-    <p>The Plasma Desktop includes Frameworks 5.27.0, Plasma 5.8.1, KDE Applications 16.08.2 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.7.0.</strong></p>
+    <p>Mesa includes experimental Nouveau patches so QtWebengine based applications and web-browsers can again be used on systems running the Nouveau driver.  This fixes a long standing bug going back to the middle of 2015.</p>
     
-    <p>For Plasma 5.8 the used Midna theme has been updated in many parts, this includes on all new SDDM theme, new gfxboot splashscreen, redone panel launchers, updated Logout and Lock screen, several new icons, including icons for the system tray.</p>
+    <p>KaOS uses a First Run Wizard.  It will run on the newly installed system and enables with just a few clicks to adjust mouse behavior, menu launcher, desktop theme, used wallpaper, color scheme, widget style, window decoration and virtual desktops used.  With one click this Wizard will also link to KaOS Documentation and all contact info.</p>
     
-    <p>The installer now automates setting your location on the world map and has improved volume scanning so it won't show live USB or optical drives as install options.</p>
+    <p>Also included is a KaOS specific tool to write ISO files to USB.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do.</p>
     
-    <p>Most notable major updates to the base of the system  are a Boost 1.61.0, FFMPEG 3.1.5, Linux 4.7.9, Systemd 231, Poppler 0.48.0, Python 3.5.2, Gstreamer 1.8.3, Protobuf 3.0.2 and MariaDB 10.1.18</p>
+    <p>Most notable major updates to the base of the system  are Glib2 2.50.1, FFMPEG 3.2, Linux 4.8.6, Mesa 13.0.0, Poppler 0.48.0, Gstreamer 1.10.0 and MariaDB 10.1.18</p>
     
     <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
     
-    <p>The artwork includes custom icon themes for light and dark themes. Midna and Midna Dark both create a complete unified look from boot-up all the way through logout..</p>
+    <p>The artwork includes custom icon themes for light and dark themes. Midna and Midna Dark both create a complete unified look from boot-up all the way through logout.</p>
 
     <p>This ISO uses the <b>CRC and finobt enabled</b> XFS filesystem as default. CRCs enable enhanced error detection due to hardware issues, whilst the format changes also improves crash recovery algorithms and the ability  of  various  tools to validate and repair metadata corruptions when they are found.  The  free  inode  btree does not index used inodes, allowing faster, more consistent inode allocation performance as filesystems age.</p>
 
-    <p>It is possible for both the Live session and installed system to start a Plasma Wayland session right from the login manager.  An X11 session is of course still default, but the drop-down menu has a Wayland entry too.  With Plasma 5.8.1, the Wayland session is now possible on more systems.</p>
+    <p>It is possible for both the Live session and installed system to start a Plasma Wayland session right from the login manager.  An X11 session is of course still default, but the drop-down menu has a Wayland entry too.  With Plasma 5.8.3, the Wayland session is now possible on more systems.</p>
 
     <p><b>Calamares</b>, the used installer framework, has moved to the 2.4 series. Highlights of the changes and additions:
     <ul>
-        <li>Fixed how the timezone setting is applied, so certain environments always obey the setting on first boot</li>
-        <li>Fixed timezone selector behavior, so that a timezone changes affect the live system immediately.</li>
-        <li>Rewritten large portions of the locale module, with new locale and timezone autodetection functionality and smarter management of locale.conf values</li>
-        <li>Fixed a user name validation issue which could in some specific situations cause a failed installation.</li>
+        <li>Improved system requirements configuration checking</li>
+        <li>Fixed user creation so it obeys the list of default groups for new users</li>
+        <li>Fixed an issue which could cause a failed install with LUKS if other LUKS partitions are already present</li>
+        <li>Added support for NVME devices to set correct ESP flag with UEFI installs</li>
         <li>Added support for generating /etc/crypttab, this relies on a single master passphrase.</li>
     </ul></p>
     
@@ -46,13 +47,11 @@
     
     <p>For UEFI installs, KaOS uses the simple, transparent but quite powerful systemd-boot as bootloader.</p>
     
-    <p>This ISO presents XFS as the default filesystem option for KaOS.</p>
-    
     <p>To learn more about the goals and ideas behind KaOS, please read the <b>http://kaosx.us/</b>, <b>http://kaosx.us/about/</b> and <b>http://kaosx.us/faq/</b> pages.</p>
     
     <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a "final" release, every ISO is mere a snapshot of the current status of the repositories. An idea what is currently available:</p>
     
-    <p>The ISO ships with <b>Frameworks 5.27.0, Plasma 5.8.1, KDE Applications 16.08.2 &amp; not yet released ports of KDE Applications</b>, Linux 4.7.9, Systemd 231, Kmod 23, NetworkManager 1.4.2, Calligra 3.0Alpha, Krita 3.0.1, Cantata, Plasma-nm 5.8.1, Xorg-Server 1.18.4, Mesa 12.0.3, Glibc 2.23, GCC 5.4.0, non-free Nvidia 371.28, Pepperflash and Python3 3.5.2 to name a few.</p>
+    <p>The ISO ships with <b>Frameworks 5.27.0, Plasma 5.8.3, KDE Applications 16.08.2 &amp; not yet released ports of KDE Applications</b>, Linux 4.8.6, Systemd 231, Kmod 23, NetworkManager 1.4.2, Calligra 3.0Alpha, Krita 3.0.1, Cantata, Plasma-nm 5.8.3, Xorg-Server 1.18.4, Mesa 13.0.0, Glibc 2.23, GCC 5.4.0, non-free Nvidia 371.28, Pepperflash and Python3 3.5.2 to name a few.</p>
     
     <p>The package manager is <strong>Pacman 5.0.1</strong>, with the simple but powerful Octopi 0.9dev as GUI frontend. Default web browser is Qt based Qupzilla 2.0.2. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna", fully redone for 2016.</p>
     
@@ -62,12 +61,11 @@
     
     <p><b>Known issues:</b></p>
     <ul>
-        <li>On systems running the Nouveau graphics driver, Qupzilla will not start.  Either install the <b> https://kaosx.us/docs/nvidia/, non-free Nvidia driver</b> or use another browser.  Nouveau is not compatible with QtWebEngine.</li>
         <li>If you want to use a GPT partition table on a BIOS system, make sure to set it up following <b>https://kaosx.us/docs/bios_gpt/</b>, the installer's partitioner can only handle GPT correctly for UEFI</li>
         <li>Installing on RAID or LVM is currently not possible</li>
         <li>Hibernate on LUKS enabled swap partitions needs manual intervention, the installer misses some settings to fully support this</li>
     </ul>
     
-    <p>To create <b>reliable</b> installation media, please follow the instructions from the <b>http://kaosx.us/download/</b> page. KaOS's ISO's <b>do not support unetbootin or rufus</b>, and DVDs need a burn speed <b>no higher than 4x</b>.</p>
+    <p>To create <b>reliable</b> installation media, please follow the instructions from the <b>http://kaosx.us/download/</b> page. KaOS's ISO's <b>do not support Unetbootin or Rufus</b>, and DVDs need a burn speed <b>no higher than 4x</b>.</p>
 </body>
 </html>

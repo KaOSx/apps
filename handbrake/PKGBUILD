@@ -2,7 +2,7 @@
 pkgname=handbrake
 pkgver=0.10.5
 _commit=c069f98
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Multithreaded video transcoder"
 url="http://handbrake.fr/"
@@ -11,13 +11,13 @@ depends=('bzip2' 'gcc-libs' 'gst-plugins-base' 'libnotify' 'dbus-glib' 'fribidi'
          'fontconfig' 'freetype2' 'libxml2' 'libogg' 'libvorbis' 'libtheora' 'libsamplerate'
          'libgudev' 'x264' 'desktop-file-utils' 'hicolor-icon-theme' 'lame')
 makedepends=('intltool' 'python2' 'yasm' 'wget')
-source=("https://handbrake.fr/mirror/HandBrake-$pkgver.tar.bz2")
+source=("https://handbrake.fr/mirror/HandBrake-${pkgver}.tar.bz2")
 #source=("https://github.com/HandBrake/HandBrake/tarball/master/handbrake-${pkgver}.tar.gz")
 md5sums=('ef889f9cb1c7a8230c19cf9d403d7981')
 
 build() {
-  cd "$srcdir/HandBrake-$pkgver"
-  #cd "$srcdir/HandBrake-HandBrake-${_commit}/"
+  cd HandBrake-${pkgver}
+  #cd HandBrake-HandBrake-${_commit}/
 
   LDFLAGS='-lgmodule-2.0' 
   ./configure --prefix=/usr --force --disable-gtk-update-checks
@@ -26,9 +26,9 @@ build() {
 }
 
 package() {
-  cd "$srcdir/HandBrake-$pkgver/build"
-  #cd "$srcdir/HandBrake-HandBrake-${_commit}/build"
+  cd HandBrake-${pkgver}/build
+  #cd HandBrake-HandBrake-${_commit}/build
 
-  make DESTDIR="$pkgdir" install
+  make DESTDIR=${pkgdir} install
 }
 
