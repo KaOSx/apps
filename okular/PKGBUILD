@@ -5,8 +5,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=16.07.74
-_commit=34ea79c2c31810ba0ce3ba9b17e03b33a28e6175
+pkgver=16.07.75
+_commit=3c8464a4a0f7e104dd4318314393a630404320e0
 pkgrel=1
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
@@ -22,10 +22,8 @@ conflicts=('kdegraphics-okular')
 replaces=('kdegraphics-okular')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/okular/archive/${_commit}.zip"
-        'warning.diff')
-md5sums=('bb7aa8a8bb19a9a2779a5981143333b8'
-         '27efc9757204a7e150b89ae4473c8e17')
+source=("https://github.com/KDE/okular/archive/${_commit}.zip")
+md5sums=('98e69946fe5cffd4d0906ca6925ca6a9')
 
 prepare() {
   cd $pkgname-${_commit}

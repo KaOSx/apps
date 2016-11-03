@@ -1,8 +1,8 @@
 
 pkgname=calligra
-pkgver=2.9.123
-_commit=ddcb376adc34753abf019e0841162e8b6e20127e
-pkgrel=2
+pkgver=2.9.124
+_commit=d6cbb49eabf5e1ffed04e70f2f4404f30538dc60
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
 url='http://www.calligra-suite.org'
@@ -20,15 +20,16 @@ optdepends=('postgresql: PostgreSQL database driver')
 source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
         'libwps-0.4.patch'
         'warnings.diff')
-md5sums=('cf9ec4584e904b2d69fb5c2c9ae4faaa'
+md5sums=('39ac686a3e3ab458f7e2a33e9d295cf7'
          '2529367ef6a10582436003aceb7dc3e8'
          '124aa66f055f957d2d618f7a18f35d43')
 
 prepare() {
   cd ${pkgname}-${_commit}
-  patch -p1 -i $srcdir/warnings.diff
-  patch -p1 -i $srcdir/libwps-0.4.patch
-  sed -i 's|(std::isfinite(maxSnapDistance)|(isfinite(maxSnapDistance)|' libs/flake/KoSnapStrategy.cpp
+  #patch -p1 -i $srcdir/warnings.diff
+  #patch -p1 -i $srcdir/libwps-0.4.patch
+  #sed -i 's|(std::isfinite(maxSnapDistance)|(isfinite(maxSnapDistance)|' libs/flake/KoSnapStrategy.cpp
+  sed -i 's|Okular5 1.0.0 QUIET|Okular5 0.99.60 QUIET|' CMakeLists.txt
 }
 
 build() {
@@ -56,7 +57,7 @@ package() {
   make DESTDIR=${pkgdir} install
   
   # fix some bugs in .desktop files
-  sed -i 's|X-DBUS-StartupType=multi|#X-DBUS-StartupType=multi|' ${pkgdir}/usr/share/applications/org.kde.braindump.desktop
+  #sed -i 's|X-DBUS-StartupType=multi|#X-DBUS-StartupType=multi|' ${pkgdir}/usr/share/applications/org.kde.braindump.desktop
   rm ${pkgdir}/usr/share/applications/calligra_filter_odt2docx.desktop
   
 }
