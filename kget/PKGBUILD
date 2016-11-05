@@ -5,21 +5,22 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kget
 #pkgver=${_kdever}
 pkgver=16.11.70
-_commit=808b0f0af009f06b0263783bacb1abb89eca4271
+_commit=3336063f2b7b5c793a9f23c929097844878d629d
 pkgrel=1
 pkgdesc='Download Manager'
 url='http://kde.org/applications/internet/kget/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('network')
-depends=('kwidgetsaddons' 'kcoreaddons' 'kwallet' 'kconfig' 'kdbusaddons' 'ki18n' 'kconfigwidgets' 'knotifications' 'kio'
-         'kdelibs4support' 'kiconthemes' 'kcmutils' 'knotifyconfig' 'solid'  'libmms' 'gpgmepp' 
-         'qca-qt5' 'libktorrent')
+depends=('kcompletion' 'kwidgetsaddons' 'kcoreaddons' 'kwallet' 'kconfig' 'kdbusaddons' 'ki18n'
+         'kconfigwidgets' 'knotifications' 'kio' 'kdelibs4support' 'kiconthemes' 'kcmutils' 
+         'knotifyconfig' 'solid'
+         'libmms' 'gpgme' 'qca-qt5' 'libktorrent')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/kget/archive/${_commit}.zip")
-md5sums=('85e5eda5094b4f0dfa9626eae6c8023f')
+md5sums=('a73992f887e9d2483adcea09f70a1c1e')
 
 prepare() {
   cd ${pkgname}-${_commit}
