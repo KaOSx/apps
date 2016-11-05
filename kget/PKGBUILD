@@ -4,27 +4,25 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kget
 #pkgver=${_kdever}
-pkgver=15.11.70
+pkgver=16.11.70
+_commit=808b0f0af009f06b0263783bacb1abb89eca4271
 pkgrel=1
 pkgdesc='Download Manager'
 url='http://kde.org/applications/internet/kget/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('network')
-depends=('kcoreaddons' 'kwallet' 'kconfig' 'kdbusaddons' 'ki18n' 'kconfigwidgets' 'knotifications' 'kio'
+depends=('kwidgetsaddons' 'kcoreaddons' 'kwallet' 'kconfig' 'kdbusaddons' 'ki18n' 'kconfigwidgets' 'knotifications' 'kio'
          'kdelibs4support' 'kiconthemes' 'kcmutils' 'knotifyconfig' 'solid'  'libmms' 'gpgmepp' 
          'qca-qt5' 'libktorrent')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
-install=${pkgname}.install
-conflicts=('kdenetwork-kget')
-replaces=('kdenetwork-kget')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kget.git#branch=kf5_port")
-md5sums=('SKIP')
+source=("https://github.com/KDE/kget/archive/${_commit}.zip")
+md5sums=('85e5eda5094b4f0dfa9626eae6c8023f')
 
 prepare() {
-  cd $pkgname
+  cd ${pkgname}-${_commit}
   #sed -i -e 's|find_package(Qca 2.1.0)|find_package(Qca 2.1.0 NAMES Qca-qt5 Qca)|' ${srcdir}/${pkgname}/CMakeLists.txt
   #sed -i -e 's|find_package(KF5QGpgme)||' ${srcdir}/${pkgname}/CMakeLists.txt
   #sed -i -e 's|if(KF5Gpgme_FOUND)|if(KF5Gpgmepp_FOUND)|' ${srcdir}/${pkgname}/CMakeLists.txt
@@ -35,13 +33,13 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
