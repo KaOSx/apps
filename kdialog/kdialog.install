@@ -1,0 +1,14 @@
+# Some colored makepkg-like functions
+#!/bin/bash
+# tputcolors
+post_install() {
+	post_upgrade
+}
+
+post_upgrade() {
+    echo -e '\e[0;32m The kde-baseapps package is split into 4 new packages'
+    echo -e '\e[0;32m besides kdialog, install the other components you wish to keep:'
+    echo -e '\e[0;32m sudo pacman -S kfind' 
+    echo -e '\e[0;32m sudo pacman -S keditbookmarks'
+    echo -e '\e[0;32m sudo pacman -S konqueror \e[0m'
+}

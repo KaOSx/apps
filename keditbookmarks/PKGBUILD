@@ -1,0 +1,38 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=keditbookmarks
+pkgver=16.11.70
+_commit=576065537ebbb78b96433a5759b9922d7e5c1dbf
+pkgrel=1
+pkgdesc="Collection of applications used for file and Internet browsing"
+arch=('x86_64')
+url='https://github.com/KDE/keditbookmarks'
+license=('LGPL')
+depends=('kbookmarks' 'kcoreaddons' 'ki18n' 'kio' 'kparts' 'kwindowsystem'
+         'kiconthemes')
+makedepends=('extra-cmake-modules' 'kdoctools')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
+source=("https://github.com/KDE/keditbookmarks/archive/${_commit}.zip")
+md5sums=('ee3a8e7b59744659ce6660427f4d6f77')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBDIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}

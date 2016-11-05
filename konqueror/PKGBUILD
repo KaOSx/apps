@@ -1,0 +1,44 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=konqueror
+pkgver=16.11.70
+_commit=fc206b30e193316ab5af9eb57d70ad6e30863dc3
+pkgrel=1
+pkgdesc="KDE File Manager & Web Browser"
+arch=('x86_64')
+url='https://github.com/KDE/konqueror'
+license=('LGPL')
+depends=('kparts' 'kcmutils' 'khtml' 'kdelibs4support' 'karchive' 'kcrash' 'kded' 'kactivities'
+         'kwidgetsaddons' 'kiconthemes' 'kdesu' 'kio' 'ki18n' 'kfind' 'kdialog' 'keditbookmarks'
+         'tidyhtml' 'qtwebengine') # 'qtspeech')
+makedepends=('extra-cmake-modules' 'kdoctools')
+#source=("http://download.kde.org/unstable/plasma/$pkgver/src/${_pkgname}-$pkgver.tar.xz")
+source=("https://github.com/KDE/konqueror/archive/${_commit}.zip")
+md5sums=('c1bb4dc5d6a5f1e80ad720d6a7db463d')
+
+prepare() {
+  cd $pkgname-${_commit}
+  sed -i -e 's|#include <buffio.h>|#include <tidybuffio.h>|' plugins/validators/tidy_validator.cpp
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBDIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
