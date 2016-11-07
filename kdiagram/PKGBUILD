@@ -4,25 +4,23 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdiagram
 #pkgver=${_kdever}
-pkgver=0.2
+pkgver=2.6.0
 _commit=8bf3a958316609a581243443075725523dec998d
-pkgrel=5
+pkgrel=1
 pkgdesc='Powerful libraries (KChart, KGantt) for creating business diagrams'
 arch=('x86_64')
 url='https://github.com/KDE/kdiagram/'
 license=('LGPL')
 depends=('qt5-svg')
 makedepends=('extra-cmake-modules' 'qt5-tools')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/kdiagram/archive/${_commit}.zip")
-md5sums=('f4691c9f33041febecc255e0f6e6b324')
+source=("http://download.kde.org/stable/kdiagram/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=('a767fbe0b4e90ccc48e83ad04c47cf8b')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
