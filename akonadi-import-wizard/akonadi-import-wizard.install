@@ -1,0 +1,16 @@
+# Some colored makepkg-like functions
+#!/bin/bash
+# tputcolors
+post_install() {
+	post_upgrade
+}
+
+post_upgrade() {
+    echo -e '\e[0;32m Kdepim is split into 16 new packages'
+    echo -e '\e[0;32m besides akonadi-import-wizard, install the other components you wish to keep'
+    echo -e '\e[0;32m examples are:'
+    echo -e '\e[0;32m sudo pacman -S kmail' 
+    echo -e '\e[0;32m sudo pacman -S korganizer'
+    echo -e '\e[0;32m or install the complete group:'
+    echo -e '\e[0;32m sudo pacman -S kdepim \e[0m'
+}
