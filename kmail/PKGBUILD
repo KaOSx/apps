@@ -1,0 +1,50 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kmail
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="Email client, supporting POP3 and IMAP mailboxes."
+arch=('x86_64')
+url='https://github.com/KDE/kmail'
+license=('LGPL')
+depends=('kcrash' 'kbookmarks' 'kcodecs' 'kconfig' 'kconfigwidgets' 'kdbusaddons' 'kguiaddons' 'ki18n' 'kitemviews'
+         'kjobwidgets' 'kio' 'kcmutils' 'knotifications' 'knotifyconfig' 'kparts' 'kservice' 'sonnet'
+         'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 
+         'akonadi' 'akonadi-contacts' 'akonadi-mime' 'kcontacts' 'kcalcore' 'kcalutils' 'kidentitymanagement'
+         'kldap' 'kmailtransport' 'kpimtextedit' 'kontactinterface' 'kmime' 'libkgravatar' 'kdepim-apps-libs'
+         'libkdepim' 'libkleo' 'libksieve' 'mailcommon' 'messagelib' 'pimcommon'
+         'qt5-webengine' 'gpgme' 'kdepim-addons'
+         'akonadi-import-wizard' 'grantlee-editor' 'kmail-account-wizard' 'mbox-importer' 'pim-data-exporter'
+         'pim-sieve-editor' 'pim-storage-service-manager')
+makedepends=('extra-cmake-modules' 'kdoctools')
+groups=('kdepim')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+prepare() {
+  cd $pkgname-${pkgver}
+  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
+}
+
+build() {
+  mkdir build
+  cd build 
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}

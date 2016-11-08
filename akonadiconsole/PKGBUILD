@@ -1,0 +1,45 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=akonadiconsole
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="Application for debugging Akonadi Resources."
+arch=('x86_64')
+url='https://github.com/KDE/akonadiconsole'
+license=('LGPL')
+depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kdbusaddons' 'ki18n' 'kitemmodels'
+         'ktextwidgets' 'kwidgetsaddons' 'kxmlgui' 'kcrash'
+         'kpimtextedit' 'akonadi' 'kcontacts' 'kcalcore' 'akonadi-contacts' 'calendarsupport'
+         'akonadi-mime' 'messagelib' 'kmime' 'libkdepim' 'libkleo')
+makedepends=('extra-cmake-modules' 'kdoctools')
+groups=('kdepim')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+prepare() {
+  cd $pkgname-${pkgver}
+  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
+}
+
+build() {
+  mkdir build
+  cd build 
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
