@@ -3,25 +3,26 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=sweeper
-arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=16.03.71
+pkgver=16.08.70
+_commit=e0cf7fda47e71e515d7f70f84b634f6a9a93f1e6
 pkgrel=1
+arch=('x86_64')
 pkgdesc="Clean unwanted traces the user leaves on the system"
-url="https://projects.kde.org/projects/kde/kdeutils/sweeper"
+url="https://github.com/KDE/sweeper"
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kcrash' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdelibs4support')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeutils-sweeper')
 replaces=('kdeutils-sweeper')
 groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 #source=($_mirror/${pkgname}-$_kdever.tar.xz)
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/sweeper.git#branch=frameworks")
-md5sums=('SKIP')
+source=("https://github.com/KDE/sweeper/archive/${_commit}.zip")
+md5sums=('752ffe8a50807529116a7ca8bb1031b8')
 
 prepare() {
-  cd $pkgname
+  cd ${pkgname}-${_commit}
   #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
 }
 
@@ -29,12 +30,11 @@ build() {
   mkdir build
   
   cd build 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR_DIR=/etc \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
