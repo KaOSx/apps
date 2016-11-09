@@ -1,8 +1,8 @@
 
 pkgname=0ad
-pkgver=a20
-_pkgver=0.0.20-alpha
-pkgrel=6
+pkgver=a21
+_pkgver=0.0.21-alpha
+pkgrel=1
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="http://play0ad.com/"
@@ -11,11 +11,11 @@ depends=('binutils' 'boost-libs' 'curl' 'enet>=1.3' 'libogg' 'libpng' 'libvorbis
          'openal' 'sdl2' 'zlib' 'libgl' '0ad-data' 'glu' 'gamin' 'libxcursor' 'mesa'
          'libjpeg' 'libtiff' 'openexr' 'gloox')
 makedepends=('boost' 'cmake' 'zip' 'python2')
-source=("https://sourceforge.net/projects/zero-ad/files/releases/$pkgname-$_pkgver-unix-build.tar.xz")
-md5sums=('3218564020a07ce905a3db84476a3408')
+source=("http://releases.wildfiregames.com/${pkgname}-${_pkgver}-unix-build.tar.xz")
+md5sums=('095eade8c9b3deaf25d0d7fa423ff860')
 
 build() {
-  cd "$srcdir/$pkgname-$_pkgver/build/workspaces"
+  cd ${pkgname}-${_pkgver}/build/workspaces
 
   unset CPPFLAGS 
 
@@ -26,20 +26,20 @@ build() {
       --disable-atlas \
       --datadir=/usr/share/${pkgname}/data
 
-  cd "$srcdir/$pkgname-$_pkgver/build/workspaces/gcc"
+  cd gcc
 
   make 
 }
 
 package() {
-  install -d "${pkgdir}"/usr/{bin,lib/0ad,share/"${pkgname}"/data}
+  install -d ${pkgdir}/usr/{bin,lib/0ad,share/${pkgname}/data}
 
-  install -Dm755 "${srcdir}"/${pkgname}-${_pkgver}/binaries/system/pyrogenesis "${pkgdir}/usr/bin"
-  install -Dm755 "${srcdir}"/${pkgname}-${_pkgver}/binaries/system/*.so* "${pkgdir}/usr/lib/0ad"
+  install -Dm755 ${srcdir}/${pkgname}-${_pkgver}/binaries/system/pyrogenesis ${pkgdir}/usr/bin
+  install -Dm755 ${srcdir}/${pkgname}-${_pkgver}/binaries/system/*.so* ${pkgdir}/usr/lib/0ad
   
-  cp -r "${srcdir}"/${pkgname}-${_pkgver}/binaries/data/l10n/ "${pkgdir}"/usr/share/${pkgname}/data/
+  cp -r ${srcdir}/${pkgname}-${_pkgver}/binaries/data/l10n/ ${pkgdir}/usr/share/${pkgname}/data/
 
-  install -Dm755 "${srcdir}/${pkgname}-${_pkgver}/build/resources/${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
-  install -Dm644 "${srcdir}/$pkgname-$_pkgver/build/resources/${pkgname}.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
-  install -Dm644 "${srcdir}/$pkgname-$_pkgver/build/resources/${pkgname}.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
+  install -Dm755 ${srcdir}/${pkgname}-${_pkgver}/build/resources/${pkgname}.sh ${pkgdir}/usr/bin/${pkgname}
+  install -Dm644 ${srcdir}/$pkgname-$_pkgver/build/resources/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
+  install -Dm644 ${srcdir}/$pkgname-$_pkgver/build/resources/${pkgname}.png ${pkgdir}/usr/share/pixmaps/${pkgname}.png
 }

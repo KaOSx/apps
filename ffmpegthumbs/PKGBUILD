@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ffmpegthumbs
 pkgver=${_kdever}
 #pkgver=15.07.70
-pkgrel=2
+pkgrel=1
 pkgdesc="ffmpeg-based thumbnail creator for video files."
 url="https://projects.kde.org/projects/kde/kdemultimedia/ffmpegthumbs"
 arch=('x86_64')
@@ -25,8 +25,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
