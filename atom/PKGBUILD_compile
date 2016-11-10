@@ -1,0 +1,40 @@
+
+pkgname=atom
+pkgver=1.12.0
+pkgrel=1
+pkgdesc="Hackable text editor from the 21st Century"
+arch=('x86_64')
+url="https://github.com/atom/atom"
+license=('MIT')
+depends=('alsa-lib' 'gconf' 'gtk2' 'libgnome-keyring' 'libnotify' 'libxtst' 'nodejs'
+         'nss' 'python2' 'libxkbfile')
+makedepends=('git')
+conflicts=('atom-editor')
+replaces=('atom-editor')
+source=("https://github.com/atom/atom/archive/v${pkgver}.tar.gz")
+md5sums=('38832327e234cbf382d34187722b00e0')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  sed -i "s|('/usr', 'local')|('${pkgdir}/usr')|" script/lib/install-application.js
+  sed -i "s|var child = cp.spawn|var child = cp.spawn|" script/postinstall.js
+
+  script/build --compress-artifacts
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+
+  script/build --install 
+  
+  sed -e "s|<%= appName %>|Atom|" \
+    -e "s|<%= description %>|$pkgdesc|" \
+    -e "s|<%= installDir %>/share/<%= appFileName %>|/usr/bin|"\
+    -e "s|<%= iconPath %>|atom|"\
+    -e "s|GNOME;GTK;Utility;TextEditor;Development;|Utility;TextEditor;Development;|"\
+    resources/linux/atom.desktop.in > resources/linux/Atom.desktop
+
+  install -Dm644 resources/linux/Atom.desktop ${pkgdir}/usr/share/applications/atom.desktop
+  install -Dm644 resources/app-icons/stable/png/128.png ${pkgdir}/usr/share/pixmaps/atom.png
+  install -Dm644 LICENSE.md ${pkgdir}/usr/share/licenses/$pkgname/LICENSE.md
+}
