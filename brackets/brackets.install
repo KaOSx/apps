@@ -23,9 +23,6 @@ post_install() {
 	if [ ! -f /opt/brackets/libudev.so.0 ]; then
 		ln -s /usr/lib/libudev.so /opt/brackets/libudev.so.0
 	fi
-	xdg-icon-resource forceupdate --theme hicolor &> /dev/null
-	update-desktop-database -q
-	update-mime-database usr/share/mime
 }
 
 post_upgrade() {
@@ -33,8 +30,5 @@ post_upgrade() {
 }
 
 post_remove() {
-	xdg-icon-resource forceupdate --theme hicolor &> /dev/null
-	update-desktop-database -q
-	update-mime-database usr/share/mime
 	rm -rf /opt/brackets
 }
