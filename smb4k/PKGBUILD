@@ -1,6 +1,6 @@
 
 pkgname=smb4k
-pkgver=1.2.78
+pkgver=1.9.80
 _commit=3056bb01733ec009d789e831636e4fe487d79598
 pkgrel=1
 pkgdesc='Advanced network neighborhood browser and Samba share mounting utility for KDE.'
@@ -12,11 +12,11 @@ depends=('kconfig' 'kauth' 'kiconthemes' 'solid' 'kwidgetsaddons' 'ki18n' 'kcomp
          'kwindowsystem' 'plasma-framework' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
-source=("https://github.com/KDE/smb4k/archive/${_commit}.zip")
-md5sums=('e5e21c5deaaa4e8c1d7743d14b4f44a8')
+source=("https://sourceforge.net/projects/smb4k/files/Development/${pkgname}-${pkgver}.tar.xz")
+md5sums=('ec3fe3d3840cb46f66c6812a4369d7b4')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   #patch -p1 -i ${srcdir}/cmake.diff
   #sed -i -e 's|Unknown|UnknownNetworkItem|' core/smb4kbasicnetworkitem.h
 }
@@ -25,7 +25,7 @@ build() {
   mkdir build 
   cd build
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -38,5 +38,5 @@ build() {
 package() {
   cd build
   
-  make DESTDIR=$pkgdir install
+  make DESTDIR=${pkgdir} install
 }

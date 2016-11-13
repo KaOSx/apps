@@ -4,14 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=sweeper
 #pkgver=${_kdever}
-pkgver=16.08.70
-_commit=e0cf7fda47e71e515d7f70f84b634f6a9a93f1e6
+pkgver=16.08.71
+_commit=e3240994ea7ca928d52202c8e094033a59dc8213
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Clean unwanted traces the user leaves on the system"
 url="https://github.com/KDE/sweeper"
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kcrash' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdelibs4support')
+depends=('kbookmarks' 'kcrash' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'ki18n' 'kio'
+         'ktextwidgets' 'kxmlgui')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeutils-sweeper')
 replaces=('kdeutils-sweeper')
@@ -19,7 +20,7 @@ groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 #source=($_mirror/${pkgname}-$_kdever.tar.xz)
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/sweeper/archive/${_commit}.zip")
-md5sums=('752ffe8a50807529116a7ca8bb1031b8')
+md5sums=('372195800e1622aa1fd9bdc1d438f103')
 
 prepare() {
   cd ${pkgname}-${_commit}
