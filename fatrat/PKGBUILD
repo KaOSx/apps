@@ -1,17 +1,17 @@
 
 pkgname=fatrat
-pkgver=1.2.0.2
-_commit=cd646de21a9327eff75bad0df14f59f83f04c33a
+pkgver=1.2.0.3
+_commit=3f34e47d36f3480409a2e31b8ea5a5847aeb5a60
 pkgrel=1
 pkgdesc='Open source download manager for Linux written in C++ and built on top of Qt'
 url='http://fatrat.dolezel.info/'
 arch=('x86_64')
 license=('GPLv3')
 groups=('network')
-depends=('curl' 'qt5-svg' 'qtwebengine' 'boost-libs') #'libtorrent-rasterbar' 
+depends=('curl' 'qt5-svg' 'qtwebengine' 'boost-libs' 'libtorrent-rasterbar')
 makedepends=('cmake' 'qt5-tools' 'boost')
 source=("https://github.com/LubosD/fatrat/archive/${_commit}.zip")
-md5sums=('73830840ade79671f6a5c1dbddcde789')
+md5sums=('a80be2dfb87f227fdd0ab565edba559e')
 
 prepare() {
   cd ${pkgname}-${_commit}
@@ -25,7 +25,7 @@ build() {
   cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DWITH_BITTORRENT=OFF \
+    -DWITH_BITTORRENT=ON \
     -DWITH_NLS=ON \
     -DWITH_CURL=ON  
   make
