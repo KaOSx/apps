@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkcompactdisc
 #pkgver=${_kdever}
-pkgver=16.03.71
+pkgver=16.11.70
 pkgrel=1
 pkgdesc="A library for interfacing with CDs"
 url='https://github.com/KDE/libkcompactdisc'
@@ -12,10 +12,10 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kcrash' 'kcoreaddons' 'kio' 'solid' 'kdelibs4support')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-groups=('kde' 'kdemultimedia' 'kde-uninstall')
+groups=('kdemultimedia')
 #source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkcompactdisc.git#branch=frameworks")
+source=("git://anongit.kde.org/libkcompactdisc.git")
 md5sums=('SKIP')
 
 prepare() {
@@ -31,8 +31,8 @@ build() {
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
   make 
 }

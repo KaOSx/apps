@@ -2,22 +2,23 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kdegraphics-mobipocket
+pkgname=svgpart
 #pkgver=${_kdever}
 pkgver=16.11.70
-_commit=efa85d7ff306b818c924816bca05674a2d145eff
+_commit=53e0e7a2ef1df772a55a42b79c72542e0ea6a48c
 pkgrel=1
+pkgdesc="A KPart for viewing SVGs"
 arch=('x86_64')
-pkgdesc="Collection of plugins to handle mobipocket files"
-url="https://github.com/KDE/kdegraphics-mobipocket"
+url='https://github.com/KDE/svgpart'
 license=('GPL' 'LGPL' 'FDL')
-depends=('qt5-base' 'kio')
-makedepends=('extra-cmake-modules')
+depends=('kcoreaddons' 'kparts' 'qt5-svg')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdegraphics')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/kdegraphics-mobipocket/archive/${_commit}.zip")
-md5sums=('8483df7ea1999cb68bce8ec36d38ae09')
+#source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://github.com/KDE/svgpart/archive/${_commit}.zip")
+md5sums=('26cf0ff27f75f66856522596a3e2f81e')
+
 
 build() {
   mkdir -p build
