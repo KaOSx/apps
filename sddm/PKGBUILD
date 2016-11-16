@@ -15,17 +15,14 @@ replaces=('sddm-qt5-git' 'kf5-sddm')
 backup=('etc/sddm.conf')
 install=sddm.install
 source=("https://github.com/sddm/sddm/archive/${_commit}.zip"
-        'sddm.conf'
-        'background.png'
-        'Main.qml'
-        'wayland.desktop')
+        'sddm.conf')
 md5sums=('8a0f7bf5bf630eb9a12d37379a3f30b8'
-         '93fa7a39377cc02494f652ffd2018554'
-         'f6f2ba7460eaf337b9e8e4bce35b03b0'
-         '61fa003d4721c4d3cad2ebbecb529898'
-         '177ad40d119220786a32f1bf2ac44486')
+         '93fa7a39377cc02494f652ffd2018554')
+         
 prepare() {
   cd $pkgname-${_commit}
+  
+  #patch -p1 -i ${srcdir}/combobox.diff
   sed -i -e 's|%1 (Wayland)|%1Wayland|' src/common/Session.cpp
 }
 
