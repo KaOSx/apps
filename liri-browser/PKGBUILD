@@ -33,7 +33,7 @@ build() {
    mkdir -p build
    cd build
 
-   /usr/lib/qt5/bin/qmake CONFIG+=QTWEBENGINE_ENABLED ../browser-${_commit}/liri-browser.pro
+   PREFIX=/usr /usr/lib/qt5/bin/qmake CONFIG+=QTWEBENGINE_ENABLED ../browser-${_commit}/liri-browser.pro
    make
 }
 
