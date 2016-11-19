@@ -3,9 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=audiocd-kio
-#pkgver=${_kdever}
-pkgver=16.11.70
-_commit=de851a44487d4d9f9701c7eea37320533dcfeb8f
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Kioslave for accessing audio CDs"
 url='https://github.com/KDE/audiocd-kio'
@@ -14,17 +12,14 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kdelibs4support' 'kio' 'libkcddb5' 'libkcompactdisc' 'lame')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdemultimedia')
-#source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/audiocd-kio/archive/${_commit}.zip")
-md5sums=('c0795749824398a3481d16d7e666b0b7')
-
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

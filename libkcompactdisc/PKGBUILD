@@ -3,32 +3,23 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkcompactdisc
-#pkgver=${_kdever}
-pkgver=16.11.70
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="A library for interfacing with CDs"
 url='https://github.com/KDE/libkcompactdisc'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kcrash' 'kcoreaddons' 'kio' 'solid' 'kdelibs4support')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdemultimedia')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/libkcompactdisc.git")
-md5sums=('SKIP')
-
-prepare() {
-  cd $pkgname
-
-  #patch -p1 -i "$srcdir/kde_bug309119.diff" 
-}
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir build
   
   cd build
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

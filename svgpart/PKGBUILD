@@ -3,9 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=svgpart
-#pkgver=${_kdever}
-pkgver=16.11.70
-_commit=53e0e7a2ef1df772a55a42b79c72542e0ea6a48c
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="A KPart for viewing SVGs"
 arch=('x86_64')
@@ -14,17 +12,15 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kparts' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdegraphics')
-#source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/svgpart/archive/${_commit}.zip")
-md5sums=('26cf0ff27f75f66856522596a3e2f81e')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 
 build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
