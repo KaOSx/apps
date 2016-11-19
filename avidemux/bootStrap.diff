@@ -1,12 +1,12 @@
---- a/bootStrap.bash	2016-07-23 11:52:13.367322309 -0400
-+++ b/bootStrap.bash	2016-07-23 11:52:12.979335370 -0400
-@@ -15,7 +15,8 @@
- qt_ext=Qt5
+--- a/bootStrap.bash	2016-11-19 11:05:40.683856328 -0500
++++ b/bootStrap.bash	2016-11-19 11:05:40.318826786 -0500
+@@ -18,7 +18,8 @@
  QT_FLAVOR="-DENABLE_QT5=True"
+ COMPILER=""
  export QT_SELECT=5 # default for ubuntu, harmless for others
 -export O_PARAL="-j $(nproc)"
 +export O_PARAL="-j 1"
 +export CXXFLAGS="-std=c++11"
+ install_prefix="$default_install_prefix"
  fail()
  {
-         echo "** Failed at $1**"
