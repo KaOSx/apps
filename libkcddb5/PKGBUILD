@@ -4,8 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkcddb5
 _pkgname=libkcddb
-_commit=df41315cc50e2275f83404e20005903d3e3fc3e4
-pkgver=16.07.70
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="KDE CDDB library"
 url='https://projects.kde.org/projects/kde/kdemultimedia/libkcddb'
@@ -13,17 +12,14 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kcodecs' 'ki18n' 'kio' 'kwidgetsaddons' 'libmusicbrainz')
 makedepends=('extra-cmake-modules' 'kdoctools')
-#groups=("kde" "kdemultimedia" "kde-uninstall")
 conflicts=('kf5-libkcddb' 'libkcddb')
 replaces=('kf5-libkcddb')
 provides=('kf5-libkcddb' 'libkcddb')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/libkcddb/archive/${_commit}.zip")
-md5sums=('d6607f78060ccbcb1580e47f40f4c654')
+source=("$_mirror/${_pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}-${_commit}
+  cd ${_pkgname}-${pkgver}
   #sed -i -e 's|add_subdirectory( kcmcddb )|#add_subdirectory( kcmcddb )|' ${srcdir}/${_pkgname}/CMakeLists.txt 
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/kcmcddb/doc/index.docbook
 }
@@ -32,7 +28,7 @@ build() {
  mkdir -p build
   cd build
 
-  cmake ../${_pkgname}-${_commit} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

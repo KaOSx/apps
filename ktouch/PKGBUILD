@@ -3,9 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktouch
-pkgver=16.11.70
-#pkgver=${_kdever}
-_commit=be44b176fa51fb6fadf5963b571a36ecb9762257
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Touch Typing Tutor"
 url="http://kde.org/applications/education/ktouch/"
@@ -15,13 +13,11 @@ depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdeclarative' 'ki18n' 'kio' '
          'kxmlgui' 'kitemviews' 'kcmutils' 'ktexteditor' 'kwindowsystem' 'kqtquickcharts') # 'libxkbfile')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/ktouch/archive/${_commit}.zip")
-md5sums=('8b6adab3355bd0c4a3ab265779ef3e3a')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's|"dtd/kdex.dtd"|"dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
 }
 
@@ -29,7 +25,7 @@ build() {
   mkdir build
   
   cd build
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

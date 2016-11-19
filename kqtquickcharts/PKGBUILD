@@ -3,9 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kqtquickcharts
-pkgver=16.11.70
-#pkgver=${_kdever}
-_commit=21f89e481c926de6e65e399d11f20931772c1715
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="QtQuick plugin to render beautiful and interactive charts"
 url="https://github.com/KDE/kqtquickcharts"
@@ -13,13 +11,11 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('qt5-declarative')
 makedepends=('extra-cmake-modules' 'kdoctools')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/kqtquickcharts/archive/${_commit}.zip")
-md5sums=('2a359597da9e75e5968d424ee0b7076e')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's|"dtd/kdex.dtd"|"dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
 }
 
@@ -27,7 +23,7 @@ build() {
   mkdir build
   
   cd build
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
