@@ -1,7 +1,7 @@
 
 pkgname=atom
-pkgver=1.12.0
-pkgrel=1
+pkgver=1.12.5
+pkgrel=2
 pkgdesc="Hackable text editor from the 21st Century"
 arch=('x86_64')
 url="https://github.com/atom/atom"
@@ -12,12 +12,11 @@ makedepends=('git')
 conflicts=('atom-editor')
 replaces=('atom-editor')
 source=("https://github.com/atom/atom/archive/v${pkgver}.tar.gz")
-md5sums=('38832327e234cbf382d34187722b00e0')
+md5sums=('406d6bca26af740014cc67c8eb7e1812')
 
 build() {
   cd ${pkgname}-${pkgver}
   sed -i "s|('/usr', 'local')|('${pkgdir}/usr')|" script/lib/install-application.js
-  sed -i "s|var child = cp.spawn|var child = cp.spawn|" script/postinstall.js
 
   script/build --compress-artifacts
 }

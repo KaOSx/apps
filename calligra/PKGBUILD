@@ -1,7 +1,7 @@
 
 pkgname=calligra
-pkgver=2.9.124
-_commit=d6cbb49eabf5e1ffed04e70f2f4404f30538dc60
+pkgver=2.9.125
+_commit=6657dac8e5f14e89586790e2f51a5c858432b05b
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
@@ -20,15 +20,15 @@ optdepends=('postgresql: PostgreSQL database driver')
 source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
         'libwps-0.4.patch'
         'warnings.diff')
-md5sums=('39ac686a3e3ab458f7e2a33e9d295cf7'
+md5sums=('796b71d0d59608aecb721f414e81b31f'
          '2529367ef6a10582436003aceb7dc3e8'
-         '124aa66f055f957d2d618f7a18f35d43')
+         '34ee1612f3fbb3342ff8dcfa8f91821f')
 
 prepare() {
   cd ${pkgname}-${_commit}
   #patch -p1 -i $srcdir/warnings.diff
   #patch -p1 -i $srcdir/libwps-0.4.patch
-  #sed -i 's|(std::isfinite(maxSnapDistance)|(isfinite(maxSnapDistance)|' libs/flake/KoSnapStrategy.cpp
+  sed -i 's|"Karbon app (for Desktop)"  UNMAINTAINED  REQUIRES|"Karbon app (for Desktop)"  REQUIRES|' CalligraProducts.cmake
   sed -i 's|Okular5 1.0.0 QUIET|Okular5 0.99.60 QUIET|' CMakeLists.txt
 }
 
@@ -47,7 +47,8 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DPRODUCTSET=DESKTOP \
     -DBUILD_TESTING=FALSE \
-    -DPACKAGERS_BUILD=true
+    -DPACKAGERS_BUILD=true 
+    #-DBUILD_UNMAINTAINED=TRUE
   make
 }
 
