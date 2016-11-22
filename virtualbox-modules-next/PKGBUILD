@@ -4,9 +4,9 @@ _kernver="$(cat /lib/modules/$_extramodules/version)"
 #_kernver=4.8.3-1-next  # hardcode in case system not running linux-next
 
 pkgname=virtualbox-modules-next
-pkgver=5.1.8
-_pkgver=5.1.8
-pkgrel=8
+pkgver=5.1.10
+_pkgver=5.1.10
+pkgrel=1
 pkgdesc="Kernel modules for VirtualBox"
 url="http://www.virtualbox.org"
 arch=('x86_64')
@@ -19,7 +19,7 @@ source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules
         'vbox-modules-next.conf'
         'linux4.9.diff')
 install=${pkgname}.install
-md5sums=('9039e58aac762671bb3dabff48516a21'
+md5sums=('6376702af8948f98fbf89261e4ca7fad'
          'c9f84fb084a79275d269c542ff53ba4d'
          'f122361a8d2075e4dc819757b6ba34cc'
          'c381a1fbf85549ce64d1cfd6b38cdb5e')
@@ -28,7 +28,7 @@ prepare() {
     cd vbox-kernel-module-src-${_pkgver}
     
     patch -p0 -i ${srcdir}/virtualbox-modules-depmod.patch
-    patch -p1 -i ${srcdir}/linux4.9.diff
+    #patch -p1 -i ${srcdir}/linux4.9.diff
     
 }
 
