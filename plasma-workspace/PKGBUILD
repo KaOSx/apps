@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=4
+pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -37,7 +37,7 @@ prepare () {
   cd ${pkgname}-${__pkgver}
   # CPU load with animation fix from master
   patch -p1 -i $srcdir/749f60b89f4a166833fb64a5b593a801f63f9615.diff
-  sed -i 's|find_package(KF5Prison ${KF5_MIN_VERSION})|find_package(KF5Prison 1.2.2)|' klipper/CMakeLists.txt
+  sed -i 's|find_package(KF5Prison 5.25)|find_package(KF5Prison 1.2.2)|' klipper/CMakeLists.txt
   sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
 }         
          
