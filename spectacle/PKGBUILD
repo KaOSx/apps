@@ -17,10 +17,10 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
 conflicts=('ksnapshot' 'kscreengenie')
 replaces=('ksnapshot' 'kscreengenie')
 groups=('kde' 'kdegraphics' 'kde-uninstall')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        "https://github.com/KDE/spectacle/commit/760315e9754fc5372924f06bcf31d70f6fa5fcb5.diff")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '24fea421ee9061f05c747fe665dbda14')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("https://github.com/KDE/spectacle/archive/${_commit}.zip")
+#md5sums=('2f6f442c125f771069e7ab93b7ef7318')
 
 prepare() {
   cd ${pkgname}-${pkgver}

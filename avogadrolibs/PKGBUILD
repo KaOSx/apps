@@ -1,12 +1,12 @@
 
 pkgname=avogadrolibs
 pkgver=0.9.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Libraries provide 3D rendering, visualization, analysis and data processing useful in computational chemistry and related areas."
 arch=('x86_64')
 url="http://www.openchemistry.org/projects/avogadro2/"
 license=('GPL2')
-depends=('qt5-base' 'boost-libs' 'hdf5' 'jsoncpp' 'python3')
+depends=('qt5-base' 'glew' 'hdf5' 'jsoncpp')
 makedepends=('cmake' 'boost' 'eigen3' 'git')
 groups=('education')
 conflicts=('avogadro')
@@ -28,8 +28,10 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DUSE_BOOST_PYTHON=ON \
+    -DUSE_BOOST_PYTHON=OFF \
     -DUSE_MOLEQUEUE=OFF \
+    -DUSE_OPENGL=ON \
+    -DUSE_QT=ON \
     -DUSE_HDF5=ON \
     -DUSE_VTK=OFF
   make
