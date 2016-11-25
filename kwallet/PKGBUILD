@@ -4,12 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwallet
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KWallet Framework'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kwallet-framework'
 license=('LGPL')
-depends=('kconfig' 'ki18n' 'kiconthemes' 'knotifications' 'kwindowsystem' 'gpgmepp')
+depends=('kcoreaddons' 'kconfig' 'kwindowsystem' 'ki18n' 'kiconthemes' 'knotifications'
+         'kconfigwidgets' 'kdbusaddons' 'kservice' 'kwidgetsaddons' 'gpgme')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
