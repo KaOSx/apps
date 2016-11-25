@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktouch
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Touch Typing Tutor"
 url="http://kde.org/applications/education/ktouch/"
 arch=('x86_64')
@@ -18,7 +18,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #sed -i -e 's|"dtd/kdex.dtd"|"dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
+  sed -i -e 's|Exec=ktouch -caption %c %i|Exec=ktouch -qwindowtitle %c %u|' org.kde.ktouch.desktop
 }
 
 build() {

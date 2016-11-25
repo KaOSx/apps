@@ -2,7 +2,7 @@
 pkgname=cutemarked
 _pkgname=CuteMarkEd
 pkgver=0.11.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Qt-based, open source markdown editor with live HTML preview, math expressions and syntax highlighting."
 url="https://github.com/cloose/CuteMarkEd"
 arch=('x86_64')
@@ -13,13 +13,13 @@ source=("https://github.com/cloose/CuteMarkEd/archive/v$pkgver.tar.gz")
 md5sums=('c8ec68d01e4afd337f9212f150e7351f')
 
 build() {
-  cd ${srcdir}/${_pkgname}-${pkgver}
+  cd ${_pkgname}-${pkgver}
 
   /usr/lib/qt5/bin/qmake
   make 
 }
 package() {
-  cd ${srcdir}/${_pkgname}-${pkgver}
+  cd ${_pkgname}-${pkgver}
   
   make INSTALL_ROOT=${pkgdir} install
 }
