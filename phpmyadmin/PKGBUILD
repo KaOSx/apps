@@ -1,6 +1,6 @@
 
 pkgname=phpmyadmin
-pkgver=4.6.5
+pkgver=4.6.5.1
 pkgrel=1
 pkgdesc='PHP and hence web-based tool to administrate MySQL over the WWW'
 arch=('x86_64')
@@ -8,20 +8,20 @@ url='http://www.phpmyadmin.net'
 license=('GPL')
 depends=('mariadb-clients' 'php')
 backup=(etc/webapps/phpmyadmin/config.inc.php)
-source=("https://files.phpmyadmin.net/phpMyAdmin/$pkgver/phpMyAdmin-$pkgver-all-languages.zip")
-md5sums=('ff5229f91d71e6b002dc2fb91beb8599')
+source=("https://files.phpmyadmin.net/phpMyAdmin/${pkgver}/phpMyAdmin-${pkgver}-all-languages.zip")
+md5sums=('c3b2c89dc815a91f813754fa4e4b6338')
 
 package() {
-  _instdir="$pkgdir"/usr/share/webapps/phpMyAdmin
-  mkdir -p "$_instdir" "$pkgdir"/etc/webapps/phpmyadmin
-  cd "$_instdir"
+  _instdir=${pkgdir}/usr/share/webapps/phpMyAdmin
+  mkdir -p ${_instdir} ${pkgdir}/etc/webapps/phpmyadmin
+  cd ${_instdir}
 
   cp -ra "$srcdir"/phpMyAdmin-$pkgver-all-languages/* .
 
-  ln -s /etc/webapps/phpmyadmin/config.inc.php "$_instdir"/config.inc.php
-  cp "$_instdir"/config.sample.inc.php "$pkgdir"/etc/webapps/phpmyadmin/config.inc.php
+  ln -s /etc/webapps/phpmyadmin/config.inc.php ${_instdir}/config.inc.php
+  cp ${_instdir}/config.sample.inc.php ${pkgdir}/etc/webapps/phpmyadmin/config.inc.php
 
-  cat >"$pkgdir"/etc/webapps/phpmyadmin/apache.example.conf <<EOF
+  cat >${pkgdir}/etc/webapps/phpmyadmin/apache.example.conf <<EOF
 	Alias /phpmyadmin "/usr/share/webapps/phpMyAdmin"
 	<Directory "/usr/share/webapps/phpMyAdmin">
 		AllowOverride All
