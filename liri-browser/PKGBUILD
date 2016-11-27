@@ -1,7 +1,7 @@
 
 pkgname=liri-browser
-pkgver=0.3.13
-_commit=9ef9abb08a655f08b518886435b8091e665f8c2b
+pkgver=0.3.14
+_commit=e43e7bbd956e005d6df01b25af412bed1feb8d4f
 pkgrel=1
 pkgdesc="Cross-platform material design web browser"
 url="https://github.com/lirios/browser"
@@ -11,7 +11,7 @@ depends=('qtwebengine' 'qt5-multimedia' 'fluid' 'slime-engine')
 source=("https://github.com/lirios/browser/archive/${_commit}.zip"
         "https://github.com/lirios/lirios.github.io/raw/master/images/logo-100.png"
         'liri-browser.desktop')
-md5sums=('297a387557c47c87aaf3b2ab0fa1b2b2'
+md5sums=('b63cd5eaa7051f726adcb0c023899795'
          '6ab30e7a852ee94011735507db62a957'
          '532df3c09336cd38c6dcabe66a43de14')
 
@@ -19,7 +19,8 @@ prepare() {
   cd browser-${_commit}
   
   sed -i -e 's|target.path = /opt/$${TARGET}/bin|target.path = /usr/bin|' deployment/deployment.pri
-  #sed -i -e 's|target.path=/opt/liri-browser-build|target.path=/usr/bin|' ${srcdir}/${pkgname}/liri-browser.pro
+  sed -i -e 's|SearchEngine::DuckDuckGo|SearchEngine::Google|' src/core/settings/searchconfig.cpp
+  sed -i -e 's|startUrl: "https://www.duckduckgo.com"|startUrl: "https://www.google.com"|' src/ui/window/BrowserWindow.qml
   #sed -i -e 's|property bool darkTheme: true|property bool darkTheme: false|' ${srcdir}/${pkgname}/src/qml/BaseApplication.qml
   #KaOS colors
   #sed -i -e 's|primaryColor: "#F44336"|primaryColor: "#31A3DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
