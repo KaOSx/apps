@@ -18,7 +18,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  sed -i -e 's|Exec=ktouch -caption %c %i|Exec=ktouch -qwindowtitle %c %u|' org.kde.ktouch.desktop
+  sed -i -e 's|Exec=ktouch|Exec=ktouch -qwindowtitle %c %u|' org.kde.ktouch.desktop
 }
 
 build() {
