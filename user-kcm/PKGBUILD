@@ -1,7 +1,7 @@
  
 pkgname=user-kcm
-pkgver=1.0.1
-pkgrel=2
+pkgver=1.0.2
+pkgrel=1
 pkgdesc="KCM user modules"
 arch=('x86_64')
 url="https://github.com/KaOSx/user-kcm"
@@ -19,9 +19,9 @@ build() {
   cmake ../${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DSYSCONF_INSTALL_DIR=/etc
+    -DKDE_INSTALL_SYSCONFDIR=/etc
   make
 }
 
