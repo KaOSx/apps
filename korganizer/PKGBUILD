@@ -4,19 +4,19 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=korganizer
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Organizational assistant, providing calendars and other similar functionality to help you organize your life."
 arch=('x86_64')
 url='https://github.com/KDE/korganizer'
 license=('LGPL')
 depends=('knewstuff' 'kcmutils' 'kconfig' 'kservice' 'kdbusaddons' 'kcodecs' 'kcrash'  
          'kpimtextedit' 'akonadi' 'kcontacts' 'kcalcore' 'akonadi-contacts' 'kidentitymanagement'
-         'kmailtransport' 'akonadi-mime' 'kcalutils' 'kholidays' 'kldap' 'kontactinterface' 'kmime'
-         'akonadi-notes' 'kdepim-apps-libs' 'pimcommon' 'libkdepim' 'incidenceeditor' 'calendarsupport'
-         'eventviews' 'akonadi-search'
+         'kmailtransport' 'akonadi-mime' 'kcalutils' 'kholidays' 'kldap' 'akonadi-calendar' 'kontactinterface'
+         'kmime' 'akonadi-notes' 'kdepim-apps-libs' 'pimcommon' 'libkdepim' 'incidenceeditor' 'calendarsupport'
+         'eventviews' 'akonadi-search' 'kdepim-runtime'
          'phonon-qt5' 'qt5-x11extras' 'kdepim-addons'
          'akonadi-import-wizard' 'pim-data-exporter')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
