@@ -13,19 +13,19 @@ depends=('kdbusaddons' 'kcmutils' 'kcrash' 'libkleo'
          'kpimtextedit' 'akonadi' 'kontactinterface' 'mailcommon' 'libkdepim' 'kdepim-apps-libs'
          'pimcommon' 'grantleetheme'
          'akonadi-import-wizard' 'pim-data-exporter'
-         'kdepim-addons')
-makedepends=('extra-cmake-modules' 'kdoctools')
+         'kdepim-addons' 'prison')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
+  cd ${pkgname}-${pkgver}
+  sed -i -e 's|KF5Prison ${KF5_VERSION}|KF5Prison 1.2.2|' CMakeLists.txt
 }
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build 
   
   cmake ../${pkgname}-${pkgver} \

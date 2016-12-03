@@ -11,18 +11,13 @@ url='https://github.com/KDE/pim-storage-service-manager'
 license=('LGPL')
 depends=('kdbusaddons' 'ki18n' 'kxmlgui' 'knotifyconfig' 'kcrash' 'kio' 'knotifications'
          'kpimtextedit' 'libkdepim' 'pimcommon')
-makedepends=('extra-cmake-modules' 'kdoctools')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-prepare() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
-}
-
 build() {
-  mkdir build
+  mkdir -p build
   cd build 
   
   cmake ../${pkgname}-${pkgver} \

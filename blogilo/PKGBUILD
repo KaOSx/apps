@@ -10,21 +10,16 @@ arch=('x86_64')
 url='https://github.com/KDE/blogilo'
 license=('LGPL')
 depends=('kdbusaddons' 'kxmlgui' 'ktextwidgets' 'kwallet' 'pimcommon' 'kcrash'
-         'kblog' 'kpimtextedit' 'libkdepim'
-         'qt5-webengine' 'libkgapi'
-         'akonadi-import-wizard' 'pim-data-exporter')
-makedepends=('extra-cmake-modules' 'kdoctools')
+         'syntax-highlighting' 'ktexteditor'
+         'kblog' 'kpimtextedit' 'libkdepim' 'messagelib'
+         'qtwebengine' 'libkgapi')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-prepare() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
-}
-
 build() {
-  mkdir build
+  mkdir -p build
   cd build 
   
   cmake ../${pkgname}-${pkgver} \
