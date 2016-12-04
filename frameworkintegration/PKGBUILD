@@ -9,8 +9,8 @@ pkgdesc='Framework providing components to allow applications to integrate with 
 arch=('x86_64')
 url='https://github.com/KDE/frameworkintegration'
 license=('LGPL')
-depends=('kconfig' 'kconfigwidgets' 'ki18n' 'kiconthemes' 'kio' 'knotifications' 'kwidgetsaddons' 'noto-fonts'
-         'libxcursor' 'ttf-dejavu')
+depends=('kconfig' 'kconfigwidgets' 'ki18n' 'kiconthemes' 'kio' 'knotifications' 'kwidgetsaddons' 'kpackage'
+         'noto-fonts' 'libxcursor' 'ttf-dejavu')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/5.15/${pkgname}-${pkgver}.tar.xz")
@@ -30,7 +30,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make

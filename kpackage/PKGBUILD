@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kpackage
 pkgver=${_kf5ver}
-pkgrel=3
+pkgrel=1
 pkgdesc='Framework that lets applications manage user installable packages of non-binary assets'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kpackage'
@@ -20,7 +20,7 @@ md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  patch -p1 -i ${srcdir}/e7861d979c71815a614f2baf0b3d25f329fadef0.diff
+  #patch -p1 -i ${srcdir}/e7861d979c71815a614f2baf0b3d25f329fadef0.diff
 }
 
 build() {

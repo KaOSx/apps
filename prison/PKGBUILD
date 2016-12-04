@@ -1,24 +1,24 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=prison
-pkgver=1.2.2
-_commit=041c75afe7c1667cbed78f216fc07667964ea7a0
+pkgver=${_kf5ver}
 pkgrel=1
 arch=('x86_64')
 pkgdesc="A barcode api to produce QRCode barcodes and DataMatrix barcode"
 url="https://github.com/KDE/prison"
 license=('GPL' 'LGPL' 'FDL')
 depends=('qt5-base' 'libdmtx' 'qrencode')
-makedepends=('extra-cmake-modules' 'git')
-#source=("http://download.kde.org/stable/${pkgname}/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-#md5sums=('0901ebed8be8da7055fcf534d55bd6cc')
-source=("https://github.com/KDE/prison/archive/${_commit}.zip")
-md5sums=('6e0cd02bc2d02b98d71428618cd38f88')
+makedepends=('extra-cmake-modules')
+source=("http://download.kde.org/stable/${pkgname}/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build 
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \

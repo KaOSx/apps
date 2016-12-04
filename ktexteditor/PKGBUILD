@@ -15,13 +15,6 @@ groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/5.12/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
-prepare () {
-  cd ${pkgname}-${pkgver}
-  # syntax highlighting for PKGBUILD files
-  sed -i -e 's/.bash_login;.profile/.bash_login;.profile;PKGBUILD/' ${srcdir}/${pkgname}-${pkgver}/src/syntax/data/bash.xml
-  #patch -p1 -i ${srcdir}/clazy_fix.diff
-}
-
 build() {
   mkdir -p build
   cd build
