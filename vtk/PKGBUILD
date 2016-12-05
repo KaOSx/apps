@@ -1,8 +1,8 @@
 
 pkgname=vtk
-pkgver=7.0.0
-_pkgver=7.0
-pkgrel=2
+pkgver=7.1.0
+_pkgver=7.1
+pkgrel=1
 pkgdesc='Open-source software system for 3D computer graphics, image processing, and visualization.'
 arch=('x86_64')
 url='https://gitlab.kitware.com/vtk/vtk'
@@ -15,15 +15,15 @@ source=("http://www.vtk.org/files/release/${_pkgver}/VTK-${pkgver}.tar.gz"
         "http://www.vtk.org/files/release/${_pkgver}/VTKData-${pkgver}.tar.gz"
         "http://www.vtk.org/files/release/${_pkgver}/VTKLargeData-${pkgver}.tar.gz"
         'gdal2.patch')
-md5sums=('5fe35312db5fb2341139b8e4955c367d'
-         'ee5c50794ec93758ec5812e4b6219599'
-         '86a4b223a0d224365c6b5d59a2246801'
+md5sums=('a7e814c1db503d896af72458c2d0228f'
+         '551786cdcb59fada678ecf0475cfcf55'
+         '2c4ea7e97282ae17ed5a08f28c7402a9'
          'e85edd330937a2395a233e0cb6be0b83')
 
 prepare() {
   cd VTK-$pkgver
 
-  patch -p1 -i ${srcdir}/gdal2.patch
+  #patch -p1 -i ${srcdir}/gdal2.patch
 }
 
 build() {

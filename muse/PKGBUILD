@@ -1,0 +1,36 @@
+
+pkgname=muse
+pkgver=2.9.70
+pkgrel=1
+_commit=6e2b81a1ac20dab32cd76edbc8d20d3899a612ed
+pkgdesc="MIDI/Audio sequencer with recording and editing capabilities, aims to be a complete multitrack virtual studio for Linux."
+arch=('x86_64')
+url='http://muse-sequencer.org/'
+license=('GPL2')
+depends=('qt5-svg' 'qt5-tools' 'dssi' 'fluidsynth' 'jack' 'ladspa' 'liblo' 'libsamplerate' 'libsndfile' 'lv2' 'lilv') 
+makedepends=('cmake')
+groups=('multimedia')
+source=("https://github.com/muse-sequencer/muse/archive/${_commit}.zip")
+md5sums=('59878731efba8655fac2f6e6648d9fb0')
+
+build() {
+  mkdir -p build
+  cd build 
+  
+  CXXFLAGS+="-std=c++11"
+  
+  cmake ../${pkgname}-${_commit}/muse3 \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DENABLE_LV2_SUPPLIED=OFF \
+    -DENABLE_EXPERIMENTAL=OFF \
+    -DENABLE_PYTHON=OFF \
+    -DENABLE_LASH=OFF 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
