@@ -1,6 +1,6 @@
 
 pkgname=calligra
-pkgver=2.9.126
+pkgver=3.0.0
 _commit=6b8b84d61edd513c54db4077f3c53e95558d3393
 pkgrel=1
 arch=('x86_64')
@@ -16,20 +16,17 @@ depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons'
          'kcontacts' 'akonadi-contacts' 'knotifyconfig' 'knotifications' 'okular' 'openexr' 'vc' 'kreport' 'qt5-webkit')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'docbook-xsl' 'postgresql') # 'clang' vc fails clang
 optdepends=('postgresql: PostgreSQL database driver')
-#source=("http://mirrors.mit.edu/kde/stable/${pkgbase}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
-source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
-        'libwps-0.4.patch'
-        'warnings.diff')
+source=("http://mirrors.mit.edu/kde/stable/${pkgname}-${pkgver}/${pkgbase}-${pkgver}.tar.xz")
+#source=("https://github.com/KDE/calligra/archive/${_commit}.zip")
 md5sums=('d8d56dcb4e4fa339c58c9a13edb8657a'
          '2529367ef6a10582436003aceb7dc3e8'
          '34ee1612f3fbb3342ff8dcfa8f91821f')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgname}
   #patch -p1 -i $srcdir/warnings.diff
-  #patch -p1 -i $srcdir/libwps-0.4.patch
   #sed -i 's|"Karbon app (for Desktop)"  UNMAINTAINED  REQUIRES|"Karbon app (for Desktop)"  REQUIRES|' CalligraProducts.cmake
-  sed -i 's|Okular5 1.0.0 QUIET|Okular5 0.99.60 QUIET|' CMakeLists.txt
+  #sed -i 's|Okular5 1.0.0 QUIET|Okular5 0.99.60 QUIET|' CMakeLists.txt
 }
 
 build() {
@@ -39,7 +36,7 @@ build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgname} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -57,9 +54,6 @@ package() {
   
   make DESTDIR=${pkgdir} install
   
-  # fix some bugs in .desktop files
-  #sed -i 's|X-DBUS-StartupType=multi|#X-DBUS-StartupType=multi|' ${pkgdir}/usr/share/applications/org.kde.braindump.desktop
   rm ${pkgdir}/usr/share/applications/calligra_filter_odt2docx.desktop
-  
 }
 
