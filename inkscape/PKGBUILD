@@ -1,37 +1,34 @@
 
 pkgname=inkscape
-pkgver=0.91
-pkgrel=20
+pkgver=0.91.90
+_pkgver=0.92pre3
+pkgrel=1
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
 license=('GPL' 'LGPL')
 depends=('poppler-glib' 'imagemagick' 'aspell' 'gc' 'gtkmm' 'libxslt' 'gsl' 'pyxml'
          'desktop-file-utils' 'popt' 'hicolor-icon-theme' 'python2-lxml' 'python2-numpy'
-         'libwpg' 'libvisio')
+         'libwpg' 'libvisio' 'libwpd')
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
-source=("https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-${pkgver}.tar.bz2")
-md5sums=('278dfa4514adcde23546370ec2c84581')
+#source=("https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-${pkgver}.tar.bz2")
+source=("https://inkscape.org/en/gallery/item/10384/inkscape-${_pkgver}.tar.bz2")
+md5sums=('ed83c0fa1e9973403e9ca65fc77787cb')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  sed -i '/extern unsigned GC_version;/c unsigned GC_version=GC_VERSION_MAJOR<<16+GC_VERSION_MINOR<<8+GC_VERSION_MICRO;' configure
-  # needed for newer libsic++, glibmm, don't use older libsigc++ to build any longer
-  CXXFLAGS+=' -std=c++11'
-
-  ./configure --prefix=/usr \
-              --enable-lcms \
-              --enable-poppler-cairo \
-              --disable-dependency-tracking \
-              --disable-strict-build
-
-  make
+  mkdir -p build
+  cd build 
+  
+  cmake ../${pkgname}-${_pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DWITH_MESH=ON 
+  make 
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd build
   
   make DESTDIR=${pkgdir} install
 }
-
