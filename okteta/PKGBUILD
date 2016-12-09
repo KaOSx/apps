@@ -25,10 +25,10 @@ build() {
   cd build
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
-        -DLIB_INSTALL_DIR=lib \
-        -DSYSCONF_INSTALL_DIR=/etc \
-        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+        -DKDE_INSTALL_LIBDIR=lib \
+        -DKDE_INSTALL_SYSCONFDIR=/etc \
+        -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+        -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
         -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
         -DBUILD_TESTING=OFF ..
   make
@@ -37,5 +37,5 @@ build() {
 package() {
   cd $pkgname-${pkgver}/build
   
-  make DESTDIR="$pkgdir" install
+  make DESTDIR=$pkgdir install
 }
