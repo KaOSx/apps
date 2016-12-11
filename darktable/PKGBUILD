@@ -1,27 +1,27 @@
 
 pkgname=darktable
-pkgver=2.0.7
-_pkgver=2.0.7
-pkgrel=2
+pkgver=2.2.0rc2
+_pkgver=2.2.0.rc2
+pkgrel=1
 pkgdesc="Open source photography workflow application and RAW developer"
 arch=('x86_64')
 url="http://darktable.sf.net/"
 license=('GPL3')
 depends=('exiv2' 'intltool' 'lcms2' 'lensfun' 'libglade' 'dbus-glib' 'curl' 'kwallet'
          'libgphoto2' 'openexr' 'sqlite' 'libxslt' 'libsoup' 'json-glib' 'flickcurl' 'librsvg'
-         'colord' 'graphicsmagick' 'sdl' 'libwebp' 'openjpeg' 'gtk3' 'pugixml')
+         'colord' 'graphicsmagick' 'libwebp' 'gtk3' 'pugixml' 'openjpeg')
 makedepends=('cmake')
 options=('!libtool')
-#source=("https://github.com/darktable-org/darktable/releases/download/release-${pkgver}/darktable-${pkgver}.tar.xz")
-source=("https://github.com/darktable-org/darktable/archive/release-${pkgver}.tar.gz")
-md5sums=('7ad1d6629653270eb915f4fc6a0189d8')
+source=("https://github.com/darktable-org/darktable/releases/download/release-${pkgver}/darktable-${_pkgver}.tar.xz")
+#source=("https://github.com/darktable-org/darktable/archive/release-${pkgver}.tar.gz")
+md5sums=('eb0388b7bb72a8a0604ede72628ebe1f')
 
 build() {
   mkdir -p build
   cd build
   
   CXXFLAGS+=" -fpermissive"
-  cmake ../${pkgname}-release-${pkgver} \
+  cmake ../${pkgname}-2.2.0~rc2 \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release \
       -DBINARY_PACKAGE_BUILD=1 \
