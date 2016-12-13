@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kalzium
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Periodic Table of Elements"
 url="http://kde.org/applications/education/kalzium/"
 arch=('x86_64')
@@ -14,13 +14,15 @@ depends=('avogadrolibs' 'eigen3' 'ocaml' 'chemical-mime-data' 'openbabel'
          'knewstuff' 'kparts' 'kplotting' 'solid' 'kunitconversion' 'kwidgetsaddons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'facile')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
+        "https://github.com/KDE/kalzium/commit/e16b0159acc01efcdc8b51b04b8eb6303b16b0db.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '7637b5e997101d00f2fa8c00a40a93cf')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #sed -i -e 's|Exec=kalzium -caption %c %i|Exec=kalzium %u|' src/org.kde.kalzium.desktop
+  patch -p1 -i ${srcdir}/e16b0159acc01efcdc8b51b04b8eb6303b16b0db.diff
 }
 
 build() {  
