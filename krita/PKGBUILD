@@ -1,8 +1,8 @@
 
 pkgname=krita
-pkgver=3.0.1.1
+pkgver=3.1.0
 _pkgver=3
-pkgrel=2
+pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -19,7 +19,7 @@ source=("http://download.kde.org/stable/krita/${pkgver}/${pkgname}-${pkgver}.tar
         "https://github.com/KDE/krita/commit/100a148e3a35b91716c94add45925f7648af8dd6.diff"
         "https://github.com/KDE/krita/commit/c5aa1b180bc24c548e37203a8a6007beba5ea47a.diff")
 #source=("git://anongit.kde.org/krita.git")
-md5sums=('ea0c41c44269b18dfce17130d9341654'
+md5sums=('0b4a254161632a91eeb52b9fab924778'
          '6674e6aee6a60a5ed680927ba55edee6'
          '9f87d7d4e8a55549b9d3adbf2347c08f')
 
@@ -57,7 +57,7 @@ package() {
   
   #sed -i 's|X-DBUS-StartupType=Multi|#X-DBUS-StartupType=Multi|' ${pkgdir}/usr/share/applications/krita*.desktop
   # part of Breeze
-  rm ${pkgdir}/usr/share/color-schemes/BreezeDark.colors
-  rm ${pkgdir}/usr/share/color-schemes/BreezeHighContrast.colors
+  #rm ${pkgdir}/usr/share/color-schemes/BreezeDark.colors
+  #rm ${pkgdir}/usr/share/color-schemes/BreezeHighContrast.colors
 }
 
