@@ -15,7 +15,8 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools') # 'clang') 
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
-source=("http://download.kde.org/stable/krita/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+source=("http://download.kde.org/stable/krita/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        'launch_krita.sh')
 md5sums=('7ab46fd35b1c344627b65eedcc5de93a')
 
 prepare() {
@@ -43,7 +44,9 @@ build() {
 
 package() {
   cd build
-  
   make DESTDIR=${pkgdir} install
+  # don't override system defaults
+  install -Dm755 ${srcdir}/launch_krita.sh ${pkgdir}/usr/bin/launch_krita.sh
+  sed 's|Exec=krita %U|Exec=launch_krita.sh|' -i ${pkgdir}/usr/share/applications/org.kde.krita.desktop
 }
 
