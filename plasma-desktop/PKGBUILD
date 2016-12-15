@@ -24,8 +24,9 @@ prepare() {
   cd ${pkgname}-${__pkgver}
   # prep for plasma 5.5, move to noto, no longer use oxygen-fonts in KaOS, uncomment with 5.5
   sed -i -e 's|QFont f1("Oxygen Mono", 9); // fixed font|QFont f1("DejaVu Sans Mono", 9); // fixed font|' kcms/fonts/fonts.cpp
-  
-  #patch -p1 -i ${srcdir}/font_viewer.patch
+  # adjust default settings for panel & kicker
+  patch -p1 -i ${srcdir}/layout_desktop_panel.diff
+  patch -p1 -i ${srcdir}/main_desktop_kicker.diff
 }
 
 build() {
