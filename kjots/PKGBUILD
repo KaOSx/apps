@@ -1,7 +1,8 @@
 
 pkgname=kjots
 pkgver=5.0.1
-pkgrel=3
+_commit=d36f81a92266d696a263564519428adc19b53fe4
+pkgrel=4
 arch=('x86_64')
 pkgdesc="Note taking application for KDE using Akonadi"
 url="https://projects.kde.org/projects/playground/pim/kjots"
@@ -10,27 +11,28 @@ depends=('kcmutils' 'kio' 'kconfig' 'kconfigwidgets' 'kparts' 'kbookmarks' 'kxml
          'akonadi' 'kmime' 'akonadi-notes' 'kpimtextedit' 'kontactinterface'
          'grantlee')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-source=("http://download.kde.org/stable/kjots/${pkgver}/src/kjots-${pkgver}.tar.xz"
+source=("https://github.com/KDE/kjots/archive/${_commit}.zip"
+#source=("http://download.kde.org/stable/kjots/${pkgver}/src/kjots-${pkgver}.tar.xz"
         "https://github.com/KDE/kjots/commit/d536dbdf606d18baa437d03a9852fa6bb7289953.diff"
         "https://github.com/KDE/kjots/commit/01fc847ef4baefddbaade39cfb97f9e7d59b0cc8.diff")
-md5sums=('edb0a82781dbb75d1fe69f2eb6f7cf28'
+md5sums=('033e63a51d721daab20cdd40c09f4106'
          'c425116b8dbdcec2f6860f1c691c3026'
          'd41cdc0e93e6b0a641ecd321cd7cacaa')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
   
   # fix .desktop file
-  patch -p1 -i ${srcdir}/d536dbdf606d18baa437d03a9852fa6bb7289953.diff
+  #patch -p1 -i ${srcdir}/d536dbdf606d18baa437d03a9852fa6bb7289953.diff
   # fix build, not finding ktextwidgets
-  patch -p1 -i ${srcdir}/01fc847ef4baefddbaade39cfb97f9e7d59b0cc8.diff
+  #patch -p1 -i ${srcdir}/01fc847ef4baefddbaade39cfb97f9e7d59b0cc8.diff
 }
   
 build() {
   mkdir -p build
   cd build 
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \

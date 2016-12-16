@@ -1,0 +1,37 @@
+
+pkgname=nowdock-panel
+pkgver=0.5.0
+pkgrel=1
+pkgdesc="Panel plasmoid which is trying to implement a mac style effect for its applets icludes the Now Dock plasmoid"
+arch=('x86_64')
+url="https://store.kde.org/p/1154578/"
+license=('GPL')
+depends=('plasma-framework' 'kwindowsystem' 'kcoreaddons' 'kdelibs4support')
+makedepends=('extra-cmake-modules' 'kdoctools')
+groups=('kdeplasma-addons')
+conflicts=('now-dock')
+replaces=('now-dock')
+#install=${pkgname}.install
+source=("https://github.com/psifidotos/nowdock-panel/archive/v${pkgver}.tar.gz")
+md5sums=('4ffa0f6dd9c56dc3f58cdd6e37e6efbf')
+
+build() {
+  mkdir -p build
+  cd build 
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins 
+  make 
+}
+
+package() {
+  cd build
+  make DESTDIR=${pkgdir} install
+  
+  install -D -m644 ../${pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
+
