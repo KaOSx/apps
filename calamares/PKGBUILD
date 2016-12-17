@@ -1,13 +1,13 @@
 
 pkgname=calamares
-pkgver=2.4.81
+pkgver=2.4.82
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
 license=('LGPL')
 depends=('qt5-svg' 'qtwebengine' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
-         'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts')
+         'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts' 'pythonqt')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools') # 'clang')
 options=('debug' '!staticlibs')
 #source=("git://github.com/KaOSx/calamares#commit=8d1145719acb6e3cc11d22f4ab4c61a1dfb9cd81"
@@ -49,7 +49,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DWITH_CRASHREPORTER=ON
+    -DWITH_CRASHREPORTER=ON \
+    -DWITH_PYTHONQT=ON
   make
 }
 

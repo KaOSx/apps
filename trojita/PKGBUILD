@@ -1,7 +1,7 @@
 
 pkgname=trojita
 pkgver=0.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Trojita is a Qt IMAP e-mail client."
 arch=('x86_64')
 url="http://trojita.flaska.net"
@@ -11,17 +11,20 @@ depends=('qt5-webkit' 'qt5-tools' 'qtkeychain')
 #makedepends=('cmake' 'automoc4')
 makedepends=('extra-cmake-modules' 'git')
 groups=('network')
-source=("http://downloads.sourceforge.net/trojita/$pkgname-$pkgver.tar.xz")
+source=("http://downloads.sourceforge.net/trojita/${pkgname}-${pkgver}.tar.xz")
 md5sums=('b2b5720be888ec6298a88798b113ad5f')
 #source=('git://anongit.kde.org/trojita.git')
 #md5sums=('SKIP')
 
 
 build() {
-  cd $srcdir/$pkgname-$pkgver
-  mkdir build
+  cd ${pkgname}-${pkgver}
+  sed -e "s|KF5Gpgmepp|QGpgme|" -i CMakeLists.txt
+  sed -e "s|Cryptography KF5::Gpgmepp-pthread KF5::QGpgme|Cryptography QGpgme|" -i CMakeLists.txt
   
+  mkdir -p build
   cd build
+  
   cmake .. -DCMAKE_BUILD_TYPE=Release \
            -DCMAKE_INSTALL_PREFIX=/usr \
            -DWITH_QT5=ON
@@ -29,8 +32,8 @@ build() {
 }
 
 package() {
-  cd $srcdir/$pkgname-$pkgver/build
+  cd ${pkgname}-${pkgver}/build
   
-  make DESTDIR=$pkgdir install
+  make DESTDIR=${pkgdir} install
 }
 

@@ -1,8 +1,8 @@
 
 pkgname=octopi
-pkgver=0.8.100
+pkgver=0.8.101
 pkgrel=1
-_commit=9929836cc42c4e23afc1def5bc87a62fda6fe94c
+_commit=0f814c8e16ec4c0515b70bf2e5e49a7d9bbe3a65
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
@@ -12,7 +12,7 @@ groups=('system')
 #install=octopi.install
 source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
         "images2.tar.xz")
-md5sums=('2aa3c06427ebaaa8198bb01c7ff3583d'
+md5sums=('56359dd8ae73ae997f7e66c84b7fd00c'
          '858db0982326bcbc77526a7945d35bc7')
 
 prepare() {
@@ -23,6 +23,8 @@ prepare() {
 
    # enable the kstatus switch
    sed -e "s|#KSTATUS|KSTATUS|" -i notifier/octopi-notifier/octopi-notifier.pro
+   # enable mirror-check
+   #sed -e "s|//doMirrorCheck();|doMirrorCheck();|" -i src/mainwindow_refresh.cpp
 }
          
 build() {
