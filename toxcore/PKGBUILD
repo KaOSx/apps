@@ -1,36 +1,37 @@
 
 pkgname=toxcore
-pkgver=0.0.0.2
-_commit=dcf2aaa53005060608353b9d66b9917fd7ed18a9
+pkgver=0.1.1
 pkgrel=1
 pkgdesc='Easy to use, all-in-one communication platform that ensures full privacy and secure message delivery.'
 arch=('x86_64')
 url='https://tox.chat'
 license=('GPL3')
-depends=('systemd' 'libconfig' 'libsodium' 'libvpx' 'opus')
-makedepends=('check')
+depends=('systemd' 'libconfig' 'libsndfile' 'libsodium' 'libvpx' 'opus' 'opencv' 'portaudio')
+makedepends=('check' 'msgpack-c')
 options=('!staticlibs')
-source=("https://github.com/irungentoo/toxcore/archive/${_commit}.zip")
-md5sums=('d23ddbda57dac3404bf72ac9db37f825')
+source=("https://github.com/TokTok/c-toxcore/archive/v${pkgver}.tar.gz")
+md5sums=('234f0936567000070b07a782591386ad')
 
 build() {
-  cd ${pkgname}-${_commit}
+  cd c-${pkgname}-${pkgver}
   
-  autoreconf -i
+  ./autogen.sh
   ./configure \
     --prefix=/usr \
-    --enable-tests
+    --enable-tests \
+    --enable-daemon
   make
 }
 
 check() {
-  cd ${pkgname}-${_commit}
-  
-  #make check tests hang/keep repeating
+  cd c-${pkgname}-${pkgver}
+  # tox_test & toxav_basic_test fail
+  #make check 
 }
 
 package() {
-  cd ${pkgname}-${_commit}
+  cd c-${pkgname}-${pkgver}
   
   make DESTDIR=${pkgdir} install
 }
+
