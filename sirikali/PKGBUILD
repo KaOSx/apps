@@ -1,0 +1,36 @@
+
+pkgname=sirikali
+pkgver=1.2.2
+pkgrel=1
+pkgdesc="GUI application that manages ecryptfs, cryfs, encfs, gocryptfs and securefs based encrypted folders."
+url="https://mhogomchungu.github.io/sirikali/"
+arch=('x86_64')
+license=('GPL') 
+depends=('encfs' 'libgcrypt' 'libpwquality'  'libxkbcommon' 'qt5-base' 'kwalletmanager' 'libsecret')
+makedepends=('cmake')
+conflicts=('cryfs-gui')
+replaces=('cryfs-gui')
+source=("https://github.com/mhogomchungu/sirikali/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz") 
+md5sums=('1f4c9de524a4f4dc88fb49db216fd35c')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../SiriKali-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr/ \
+    -DCMAKE_BUILD_TYPE=release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DQT5=true \
+    -DNOSECRETSUPPORT=false \
+    -DNOKDESUPPORT=false \
+    -DINTERNAL_LXQT_WALLET=false
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=$pkgdir install
+}
+
