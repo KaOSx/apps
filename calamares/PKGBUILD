@@ -1,12 +1,12 @@
 
 pkgname=calamares
 pkgver=2.4.83
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
 license=('LGPL')
-depends=('qt5-svg' 'qt5-webkit' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
+depends=('qt5-svg' 'qtwebengine' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
          'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts' 'pythonqt')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools') # 'clang')
 options=('debug' '!staticlibs')
@@ -35,7 +35,7 @@ prepare () {
   git submodule init
   git submodule update
   
-  sed -i 's|VERSION_LESS 5.6|VERSION_LESS 5.9|' src/modules/webview/CMakeLists.txt
+  #sed -i 's|VERSION_LESS 5.6|VERSION_LESS 5.9|' src/modules/webview/CMakeLists.txt
 }
 
 build() {
