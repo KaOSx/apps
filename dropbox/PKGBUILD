@@ -1,6 +1,6 @@
 
 pkgname=dropbox
-pkgver=16.4.29
+pkgver=16.4.30
 pkgrel=1
 epoch=1
 pkgdesc="Free service that lets you bring your photos, docs, and videos anywhere and share them easily."
@@ -11,30 +11,30 @@ depends=('dbus-glib' 'qt5-base' 'libsm' 'libxmu')
 options=('!strip' '!upx')
 #source=("https://dl-web.dropbox.com/u/17/${pkgname}-lnx.x86_64-${pkgver}.tar.gz"
 # get latest builds at https://www.dropboxforum.com/hc/en-us/community/topics/200210355-Desktop-Client-Builds?sort_by=recent_activity
-source=("https://d1ilhw0800yew8.cloudfront.net/client/dropbox-lnx.x86_64-${pkgver}.tar.gz"
+source=("https://dl.dropboxusercontent.com/u/17/dropbox-lnx.x86_64-${pkgver}.tar.gz"
         "dropbox.png"
         "dropbox.desktop"
         "terms.txt"
         "dropbox.service")
-md5sums=('de743946ee27e2597006dbf87c4a7465'
+md5sums=('123226f448e5c8379a6a411c9057aa63'
          '9ec50da2ce59ed8c17606394b9c5e1c0'
          '20c97082211cf02af494043b93d5feb8'
          '5331288d5f5972dc2e9311d0f28dac76'
          '9061a4055570fc33d059dddec508b14a')
 
 package() {
-	install -d "$pkgdir/opt"
-	cp -R "$srcdir"/.dropbox-dist/dropbox-lnx.x86_64-$pkgver "$pkgdir/opt/dropbox"
+	install -d ${pkgdir}/opt
+	cp -R ${srcdir}/.dropbox-dist/dropbox-lnx.x86_64-${pkgver} ${pkgdir}/opt/dropbox
 
-	find "$pkgdir/opt/dropbox/" -type f -exec chmod 644 {} \;
-	chmod 755 "$pkgdir/opt/dropbox/dropboxd"
-	chmod 755 "$pkgdir/opt/dropbox/dropbox"
+	find ${pkgdir}/opt/dropbox/ -type f -exec chmod 644 {} \;
+	chmod 755 ${pkgdir}/opt/dropbox/dropboxd
+	chmod 755 ${pkgdir}/opt/dropbox/dropbox
 
-	install -d "$pkgdir/usr/bin"
-	ln -s "/opt/dropbox/dropboxd" "$pkgdir/usr/bin/dropboxd"
+	install -d ${pkgdir}/usr/bin
+	ln -s /opt/dropbox/dropboxd ${pkgdir}/usr/bin/dropboxd
 
-	install -Dm644 "$srcdir/dropbox.desktop" "$pkgdir/usr/share/applications/dropbox.desktop"
-	install -Dm644 "$srcdir/dropbox.png" "$pkgdir/usr/share/pixmaps/dropbox.png"
-	install -Dm644 "$srcdir/terms.txt" "$pkgdir/usr/share/licenses/$pkgname/terms.txt"
-	install -Dm644 "$srcdir/dropbox.service" "$pkgdir/usr/lib/systemd/system/dropbox@.service"
+	install -Dm644 ${srcdir}/dropbox.desktop ${pkgdir}/usr/share/applications/dropbox.desktop
+	install -Dm644 ${srcdir}/dropbox.png ${pkgdir}/usr/share/pixmaps/dropbox.png
+	install -Dm644 ${srcdir}/terms.txt ${pkgdir}/usr/share/licenses/$pkgname/terms.txt
+	install -Dm644 ${srcdir}/dropbox.service ${pkgdir}/usr/lib/systemd/system/dropbox@.service
 }
