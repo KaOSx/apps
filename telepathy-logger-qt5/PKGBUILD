@@ -3,7 +3,7 @@ pkgname=telepathy-logger-qt5
 _pkgname=telepathy-logger-qt
 pkgver=15.04.0
 _pkgver=15.04
-pkgrel=2
+pkgrel=3
 pkgdesc="Qt Wrapper around TpLogger client library."
 arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/network/telepathy/telepathy-logger-qt"
@@ -13,11 +13,11 @@ makedepends=('extra-cmake-modules' 'python2' 'boost' 'doxygen')
 group=('kde-telepathy')
 conflicts=('telepathy-logger-qt')
 replaces=('telepathy-logger-qt')
-source=("http://download.kde.org/stable/${_pkgname}/${_pkgver}/src/${_pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/stable/telepathy-logger-qt/${_pkgver}/src/${_pkgname}-${pkgver}.tar.xz")
 md5sums=('d5f2811952c7a514a733dacd190b5f3b')
 
 prepare() {
-  cd $_pkgname-${pkgver}
+  cd ${_pkgname}-${pkgver}
   #sed -i -e 's|QtGLib|Qt5GLib|' ${srcdir}/${_pkgname}/CMakeLists.txt
 }
 
@@ -36,5 +36,5 @@ build() {
 package() {
   cd build
   
-  make DESTDIR=$pkgdir/ install
+  make DESTDIR=${pkgdir}/ install
 }
