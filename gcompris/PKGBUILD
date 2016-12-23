@@ -1,7 +1,7 @@
 
 pkgname=gcompris
-pkgver=0.61
-_pkgver=0.61
+pkgver=0.70
+_pkgver=0.70
 pkgrel=1
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
@@ -18,7 +18,7 @@ source=("http://gcompris.net/download/qt/src/gcompris-qt-${pkgver}.tar.xz"
         'gcompris.desktop'
         'gcompris.png'
         'https://github.com/KDE/gcompris/commit/134db8042f25b0446523653d9a8829916eda3006.diff')
-md5sums=('b0590750d47540f73551c56d7c66c8f4'
+md5sums=('7ff70da4546f2db54bdc02cd76e4e4a1'
          '95b4bcb06168e38332d66fec1dda3aa2'
          '7c7cee3479f1a47376db800b2bc37017'
          '6afef263379444064f2638fe20780098')
@@ -39,7 +39,6 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DQML_BOX2D_MODULE=system \
     -DQML_BOX2D_LIBRARY=/usr/lib/qt5/qml/Box2D.2.0 \
-    -DLCONVERT_EXECUTABLE=/usr/lib/qt5/bin/lconvert \
     -DLRELEASE_EXECUTABLE=/usr/lib/qt5/bin/lrelease
   make 
   make BuildTranslations
