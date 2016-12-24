@@ -1,7 +1,7 @@
 
 pkgname=darktable
-pkgver=2.2.0rc3
-_pkgver=2.2.0.rc3
+pkgver=2.2.0
+_pkgver=2.2.0
 pkgrel=1
 pkgdesc="Open source photography workflow application and RAW developer"
 arch=('x86_64')
@@ -14,14 +14,14 @@ makedepends=('cmake')
 options=('!libtool')
 source=("https://github.com/darktable-org/darktable/releases/download/release-${pkgver}/darktable-${_pkgver}.tar.xz")
 #source=("https://github.com/darktable-org/darktable/archive/release-${pkgver}.tar.gz")
-md5sums=('cff116f7f6acf691f9cbfb28e415300a')
+md5sums=('3297a30d69a0adea87ccf0b9c47d5c9f')
 
 build() {
   mkdir -p build
   cd build
   
   CXXFLAGS+=" -fpermissive"
-  cmake ../${pkgname}-2.2.0~rc3 \
+  cmake ../${pkgname}-${_pkgver} \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release \
       -DBINARY_PACKAGE_BUILD=1 \
