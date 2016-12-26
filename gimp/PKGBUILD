@@ -2,12 +2,12 @@
 pkgname=gimp
 pkgver=2.9.4
 _pkgver=2.9
-pkgrel=2
+pkgrel=3
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
 url="http://www.gimp.org/"
 license=('GPL3' 'LGPL3')
-depends=('pygtk' 'lcms' 'libxpm' 'libwmf' 'librsvg' 'libmng' 'libgudev' 'dbus-glib' 
+depends=('pygtk' 'lcms' 'libxpm' 'librsvg' 'libmng' 'libgudev' 'dbus-glib' 
          'jasper' 'libexif' 'gegl' 'desktop-file-utils' 'hicolor-icon-theme' 'gexiv2' 'libmypaint')
 makedepends=('intltool' 'webkitgtk2' 'poppler-glib' 'alsa-lib' 'iso-codes' 'curl' 'ghostscript')
 optdepends=('gutenprint: for sophisticated printing only as gimp has built-in cups print support'
@@ -31,7 +31,8 @@ build() {
     --enable-gimp-console \
     --enable-python \
     --without-aa \
-    --enable-vector-icons
+    --without-wmf 
+    #--enable-vector-icons
   make
 }
 
