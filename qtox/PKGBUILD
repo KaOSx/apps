@@ -1,6 +1,6 @@
 pkgname=qtox
 _pkgname=qTox
-pkgver=1.6.0.1
+pkgver=1.7.0
 _commit=0a1a781249f1c044dc06c67fda8966f7c91b743c
 pkgrel=1
 pkgdesc='Powerful Tox client that follows the Tox design guidelines while running on all major platforms.'
@@ -10,12 +10,12 @@ license=('GPL3')
 depends=('ffmpeg' 'filter_audio' 'libxkbcommon' 'libxss' 'openal' 'qrencode' 'qt5-svg'
          'sqlcipher' 'toxcore' 'libvpx')
 makedepends=('qt5-tools')
-#source=("https://github.com/qTox/qTox/archive/v${pkgver}.tar.gz")
-source=("https://github.com/qTox/qTox/archive/${_commit}.zip")
-md5sums=('fe18bc44fbc180787d7a3a65809f84a4')
+source=("https://github.com/qTox/qTox/archive/v${pkgver}.tar.gz")
+#source=("https://github.com/qTox/qTox/archive/${_commit}.zip")
+md5sums=('42eaea14093e8537113bc12f653454ee')
 
 build() {
-  cd ${_pkgname}-${_commit}
+  cd ${_pkgname}-${pkgver}
   mkdir -p build
   cd build
   
@@ -27,7 +27,7 @@ build() {
 }
 
 package() {
-  cd ${_pkgname}-${_commit}/build
+  cd ${_pkgname}-${pkgver}/build
 
   make INSTALL_ROOT=${pkgdir}/ install
 }
