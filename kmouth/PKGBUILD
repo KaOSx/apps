@@ -2,38 +2,35 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname="kmouth"
+pkgname=kmouth
 arch=('x86_64')
 #pkgver=${_kdever}
-pkgver=1.2.0
-pkgrel=2
+pkgver=1.2.1
+_commit=99e0b06b2b444e73627dba5234efa615a1e4b2f1
+pkgrel=1
 pkgdesc="Speech synthesizer"
-url="http://www.kde.org"
+url="https://github.com/KDE/kmouth/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kcrash' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kio' 'kdelibs4support' 
-         'qtspeech' 'speech-dispatcher')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+depends=('ki18n' 'kcrash' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kio' 'kwidgetsaddons' 'kxmlgui' 
+         'qt5-speech' 'speech-dispatcher')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeaccessibility' 'kde' 'kde-uninstall')
-conflicts=('kdeaccessibility-kmouth')
-replaces=('kdeaccessibility-kmouth')
 #source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kmouth.git#branch=frameworks")
-md5sums=('SKIP')
+source=("https://github.com/KDE/kmouth/archive/${_commit}.zip")
+md5sums=('ddb34b5df4bf2cd4d0a14f70e372da6c')
 
 build() {
-  cd ${srcdir}
-  
   mkdir -p build
   cd build
 
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make

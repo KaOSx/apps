@@ -1,40 +1,48 @@
 
 pkgname=knights
-pkgver=2.5.84
+pkgver=2.5.85
 pkgrel=1
+_commit=d2496a97f8854ceebd242a487665ebbb14f55996
 pkgdesc="Chess board for KDE with XBoard protocol support"
 arch=('x86_64')
-url="http://kde-apps.org/content/show.php/Knights?content=122046"
+url="https://www.linux-apps.com/content/show.php/Knights?content=122046"
 license=('GPL')
 depends=('kcoreaddons' 'kconfig' 'kwidgetsaddons' 'kdbusaddons' 'ki18n' 'kconfigwidgets'
          'ktextwidgets' 'kxmlgui' 'kio' 'plasma-framework' 'kplotting' 'knotifyconfig'
-         'kwallet' 'kcompletion' 'libkdegames' 'gnuchess') # disable until 5.7 'qtspeech')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-install=knights.install
-#source=("git://anongit.kde.org/knights.git")
-source=("http://quickgit.kde.org/?p=knights.git&a=snapshot&h=2c5d65d2e088acf9459c1583b173dcc46ab3df37&fmt=tbz2")
-md5sums=('e2072a8a2eddaed9490598c7167bc548')
+         'kwallet' 'kcompletion' 'libkdegames' 'gnuchess' 'qt5-speech')
+makedepends=('extra-cmake-modules' 'kdoctools' 'clang')
+source=("https://github.com/KDE/knights/archive/${_commit}.zip"
+        'historywidget.diff')
+md5sums=('f79e841dad0743a58f6c5a5a1c3b5c33'
+         '4ad894eb4ab4f0a362b2a0fd77d89c31')
+
+prepare() {
+  cd $pkgname-${_commit}
+  
+  patch -p1 -i $srcdir/historywidget.diff
+}
 
 build() {
-  cd ${srcdir}
-
-  mkdir build
-  
+  mkdir -p build
   cd build 
-  cmake ../${pkgname} \
+  
+  export CC=/usr/bin/clang
+  export CXX=/usr/bin/clang++
+  
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://github.com/KDE/kio-extras'
@@ -21,8 +21,6 @@ source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${
         "https://github.com/KDE/kio-extras/commit/cba927613b6da1b36ecbd5cfadfff3bff8729f86.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '4d956ddf1f53e7f15f0c6d1eadc39964')
-#source=("git://anongit.kde.org/kio-extras.git")
-#md5sums=('SKIP')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -37,9 +35,9 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
