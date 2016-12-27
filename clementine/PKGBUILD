@@ -1,9 +1,9 @@
 
 pkgname=clementine
 _pkgname=Clementine
-pkgver=1.3.1
-pkgrel=7
-_commit=afe34ee68659c17bbbe3d71ad901852d6435a2d8
+pkgver=1.3.1.1
+pkgrel=1
+_commit=03428b53c2cd59569860f5b831ee096a9e635131
 pkgdesc="Modern music player and library organiser that takes advantage of Qt."
 url="http://www.clementine-player.org/"
 license="GPL"
@@ -12,16 +12,16 @@ depends=('gstreamer' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp' 'libplist'
          'hicolor-icon-theme' 'qt5-webkit' 'qt5-x11extras' 'libimobiledevice' 'protobuf'
          'libcdio-paranoia' 'qca-qt5' 'chromaprint' 'sparsehash' 
          'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly' 'pulseaudio' 
-         'libkvkontakte' 'crypto++') # needs newer version, builds from 3rd party 'libmygpo-qt'
+         'libkvkontakte' 'crypto++' 'libmygpo-qt')
 makedepends=('cmake' 'boost' 'mesa' 'qt5-tools')
 groups=('multimedia')
 #source=("https://github.com/clementine-player/${_pkgname}/archive/${pkgver}.tar.gz")
 source=("https://github.com/clementine-player/Clementine/archive/${_commit}.zip"
         'tab_color.diff'
         'tokenizer.diff')
-md5sums=('20204754ba5677c0b52df5ff992b9322'
+md5sums=('f39160688da2f2f959aef33c31fd3505'
          '0d35b551ae875ca31037efa3601147f9'
-         'c6fe10e74adbd8650ad323d31c905f97')
+         'baa891a12a4ed23846507644e3ad049f')
 
 build() {
   cd ${_pkgname}-${_commit}
@@ -51,6 +51,6 @@ build() {
 package() {
   cd ${_pkgname}-${_commit}/build
   
-  make install DESTDIR="${pkgdir}"
+  make install DESTDIR=${pkgdir}
 }
 
