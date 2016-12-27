@@ -5,12 +5,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=bluez-qt
 arch=('x86_64')
 pkgver=${_kf5ver}
-pkgrel=3
+pkgrel=4
 pkgdesc="Qt wrapper for Bluez 5 DBus API"
 url="https://projects.kde.org/projects/frameworks/bluezqt"
 license=('GPL' 'LGPL' 'FDL')
-depends=('qt5-declarative')
-makedepends=('extra-cmake-modules' 'git')
+depends=('qt5-declarative' 'bluez')
+makedepends=('extra-cmake-modules')
 conflicts=('libbluedevil')
 provides=('libbluedevil')
 replaces=('libbluedevil')
@@ -24,10 +24,10 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DUDEV_RULES_INSTALL_DIR=/usr/lib/udev/rules.d \
     -DBUILD_TESTING=OFF 
