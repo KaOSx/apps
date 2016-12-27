@@ -19,7 +19,7 @@
     
     <p>Linux 4.9 has a change as to how the kernel image is created. Instead of using an install file that only gets called on kernel updates, a new hook file is used. Advantage of this is that image creation is now triggered for many more instances like filesystem and systemd updates, so you won’t see the mismatched systemd version on systemd updates without manually updating the kernel image.</p>
     
-    <p>The installer now automates setting your location on the world map and has improved system requirements configuration checking.</p>
+    <p>The installer has more robust support for operating system detection with automatic dual boot setup in GRUB</p>
     
     <p>Mesa includes experimental Nouveau patches so QtWebengine based applications and web-browsers can again be used on systems running the Nouveau driver.  This fixes a long standing bug going back to the middle of 2015.</p>
     
@@ -40,10 +40,10 @@
     <p><b>Calamares</b>, the used installer framework, has moved to the 2.5 series. Highlights of the changes and additions:
     <ul>
         <li>Improved system requirements configuration checking</li>
-        <li>Fixed user creation so it obeys the list of default groups for new users</li>
-        <li>Fixed an issue which could cause a failed install with LUKS if other LUKS partitions are already present</li>
+        <li>Fixed a path handling issue which could sometimes occur when reusing an existing EFI system partition</li>
+        <li>Fixed operating system detection for automatic dual boot setup in GRUB</li>
         <li>Added support for NVME devices to set correct ESP flag with UEFI installs</li>
-        <li>Added support for generating /etc/crypttab, this relies on a single master passphrase.</li>
+        <li>Added Btrfs subvolumes setup for @ and @home in automated install modes (note: manual partitioning still doesn’t support Btrfs subvolumes, as this requires further work in both KPMcore and Calamares)</li>
     </ul></p>
     
     <p><strong>Octopi</strong> is becoming a very crucial part of full system maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like making sure a mirror is synced before starting any update, looking at the pacman logs, an option to get a paste from a complete snapshot of all info of a system with the SysInfo tool are included. Also included are very simple ways to open files, like copy to clipboard the file path shown in Octopi. To make sure the system doesn't start using too much disk space for the pacman cache, but still giving the user the option to retain some recent packages, the cache-cleaner tool is a great addition. The built-in tool to access <b>KCP</b> has now a much clearer place with the addition of its own "foreign" icon in the menu-bar. New added is the option to select custom icons for the systemtray.</p>
