@@ -1,7 +1,7 @@
 
 pkgname=mkvtoolnix
-pkgver=9.6.0
-pkgrel=2
+pkgver=9.7.0
+pkgrel=1
 pkgdesc="Set of tools to create, edit and inspect Matroska files."
 arch=('x86_64')
 license=('GPL')
@@ -12,13 +12,16 @@ optdepends=('flac: for FLAC support (Free Lossless Audio Codec)'
             'bzip2: for additional compression capabilities'
             'file: for automatic content type detection'
             'curl: for online update checks')
-makedepends=('gcc' 'boost' 'ruby') 
+makedepends=('gcc' 'boost' 'ruby') # 'clang') 
 groups=('multimedia')
 source=("https://mkvtoolnix.download/sources/${pkgname}-${pkgver}.tar.xz")
-md5sums=('8ae4c5b6d35ab13e9c84096b87da366d')
+md5sums=('f8af26912717d63670ac06b538d7bca2')
 
 build() {
   cd ${pkgname}-${pkgver}
+  
+  #export CC=/usr/bin/clang
+  #export CXX=/usr/bin/clang++
   
   ./configure --prefix=/usr --with-boost-libdir=/usr/lib
   rake
