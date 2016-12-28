@@ -1,7 +1,7 @@
 
 pkgname=octopi
 pkgver=0.8.102
-pkgrel=1
+pkgrel=2
 _commit=c9cbafcf405b0add10f6953f8baa7ac664e75c93
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
@@ -25,6 +25,8 @@ prepare() {
    sed -e "s|#KSTATUS|KSTATUS|" -i notifier/octopi-notifier/octopi-notifier.pro
    # enable mirror-check
    #sed -e "s|//doMirrorCheck();|doMirrorCheck();|" -i src/mainwindow_refresh.cpp
+   
+   sed -e "s|pacman -U --force|pacman -U|" -i src/pacmanexec.cpp
 }
          
 build() {
