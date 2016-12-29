@@ -1,6 +1,6 @@
 
 pkgname=kile
-pkgver=2.9.71
+pkgver=2.9.72
 _commit=3bf485d21fa721723fce6bc600f86c73c818ce69
 pkgrel=1
 pkgdesc="User friendly TeX/LaTeX frontend for KDE."
@@ -17,10 +17,6 @@ source=("https://github.com/KDE/kile/archive/${_commit}.zip")
 md5sums=('96a98eae1eef33cb63896d73e7466902')
 
 build() {
-  cd ${srcdir}
-  #sed -e "s/cmake_minimum_required(VERSION 3.0.0)/cmake_minimum_required(VERSION 2.8.12)/" -i ${srcdir}/$_pkgname/CMakeLists.txt
-  #sed -e "s/ADD_SUBDIRECTORY( symbols-ng )/#ADD_SUBDIRECTORY( symbols-ng )/" -i ${srcdir}/$pkgname/src/data/CMakeLists.txt
-  
   mkdir -p build
   cd build
 
@@ -29,7 +25,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -KDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
