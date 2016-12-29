@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kde-common
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=4
+pkgrel=5
 pkgdesc="KDE Common Configuration Files, Scripts and Artwork"
 url="http://www.kde.org"
 license=('GPL')
@@ -24,6 +24,8 @@ source=("https://dl.opendesktop.org/api/files/download/id/1466046059/48411-roota
 	'md5sha1calc.desktop'
 	'checkiso.sh'
 	'checkiso.desktop'
+	'org.freedesktop.blkid.policy'
+	'org.freedesktop.head.policy'
 	"https://dl.opendesktop.org/api/files/download/id/1463155225/176001-kompare_servicemenu.desktop")
   
 md5sums=('49766914f737331d32415f887ac5d0ba'
@@ -36,8 +38,10 @@ md5sums=('49766914f737331d32415f887ac5d0ba'
          '543432fa49677efd496ac2ab15ad46e7'
          'ac56df816efbbb853e21d70a3d62bb4d'
          '9015a113e6308800bb0704f1f8b4de75'
-         'baad690f02cf8f51a4f488ff92549a56'
-         '160470af322d72d0e8140bf7a0a5254d'
+         '61b1c56cb9e6529ce3cbe275673e8895'
+         '9bb1c9c96d03286ae27bc0c3c624af01'
+         '453e083b8ef8164c1810275046dd7c81'
+         'e97a9f4b8f70462b88ad166909e4122d'
          'a8a51d833d9207f5a497638c1f43dd35')
 
 package() {
@@ -80,4 +84,6 @@ package() {
 	# install checkiso
 	install -D -m755 checkiso.sh ${pkgdir}/usr/bin/checkiso
 	install -D -m644 checkiso.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/checkiso.desktop
+	install -D -m755 org.freedesktop.blkid.policy ${pkgdir}/usr/bin/org.freedesktop.blkid.policy
+	install -D -m755 org.freedesktop.head.policy ${pkgdir}/usr/bin/org.freedesktop.head.policy
 }
