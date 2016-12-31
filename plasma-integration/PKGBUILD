@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-integration
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='The plugin KDEPlatformTheme provides KDE integration for QPlatformThemePlugin.'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-integration'
@@ -15,14 +15,13 @@ makedepends=('extra-cmake-modules')
 groups=('plasma5')
 #source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
-        "https://github.com/KDE/plasma-integration/commit/4240c588aa3c2643d8d00a0da562197f1784cad6.diff")
+        'fix_switched_open_save.patch')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
-         'ce12e54584b1f54dd41a768520f0dc61')
+         '07517f31cddac433f5bfdbaff7eb506f')
 
 prepare () {
   cd ${pkgname}-${__pkgver}
-  # patch by frugalware to fix reading from default lnf package
-  #patch -p1 -i ${srcdir}/4240c588aa3c2643d8d00a0da562197f1784cad6.diff
+  patch -p1 -i ${srcdir}/fix_switched_open_save.patch
 }
   
 build () {  
