@@ -1,7 +1,7 @@
 
 pkgname=kodi
-pkgver=17.0b7
-_pkgver=17.0b7-Krypton
+pkgver=17.0rc2
+_pkgver=17.0rc2-Krypton
 pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
@@ -23,12 +23,9 @@ optdepends=('unrar: access compressed files without unpacking them'
             'tk')
 groups=('multimedia')
 options=('makeflags')
-conflicts=('xbmc')
-provides=('xbmc')
-replaces=('xbmc')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
 source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
-md5sums=('8edef21d6bc891dbf2662c855c85c7b3')
+md5sums=('5a6bf08196aff4297a9ccd3c483e9a33')
 
 build() {
     cd xbmc-${_pkgver}
