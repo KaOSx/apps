@@ -1,24 +1,24 @@
 
 pkgname=plasma-applet-weather-widget
-pkgver=1.6.7
+pkgver=1.6.8
 pkgrel=1
 pkgdesc="Plasmoid for Plasma 5. Shows weather information from yr.no server."
 arch=('x86_64')
 url="https://github.com/kotelnik/plasma-applet-weather-widget"
 license=('GPL')
-depends=('plasma-framework')
-makedepends=('extra-cmake-modules' 'git')
-source=("git://github.com/kotelnik/plasma-applet-weather-widget.git")
-md5sums=('SKIP')
+depends=('plasma-workspace')
+makedepends=('extra-cmake-modules')
+source=("https://github.com/kotelnik/plasma-applet-weather-widget/archive/v${pkgver}.tar.gz")
+md5sums=('f737d76863bb3d219959357c5c5ecd86')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 }
 
