@@ -1,7 +1,7 @@
 
 pkgname=dvdauthor
-pkgver=0.7.1
-pkgrel=4
+pkgver=0.7.2
+pkgrel=1
 pkgdesc="DVD authoring tools"
 arch=('x86_64')
 url="http://dvdauthor.sourceforge.net/"
@@ -10,19 +10,19 @@ depends=('libdvdread' 'imagemagick' 'libxml2' 'libpng' 'fribidi')
 groups=('multimedia')
 source=("http://downloads.sourceforge.net/dvdauthor/${pkgname}-${pkgver}.tar.gz"
         'glibc220.patch')
-md5sums=('2694a5a3ef460106ea3caf0f7f60ff80'
+md5sums=('1173dcb8d40e74fc90c0f3a25dbd642d'
          '61a24ecc4ffd7d4fa211bd716a90a8f3')
 
 build() {
-  cd "${srcdir}/${pkgname}"
-  patch -p1 -i "${srcdir}"/glibc220.patch
+  cd ${pkgname}
+  #patch -p1 -i ${srcdir}/glibc220.patch
   
   ./configure --prefix=/usr --sysconfdir=/etc 
   make 
 }
 
 package() {
-  cd "${srcdir}/${pkgname}"
+  cd ${pkgname}
 
-  make DESTDIR="${pkgdir}" install 
+  make DESTDIR=${pkgdir} install 
 }
