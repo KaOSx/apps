@@ -1,8 +1,7 @@
 
 pkgname=inkscape
-pkgver=0.91.90
-_pkgver=0.92pre3
-pkgrel=3
+pkgver=0.92.0
+pkgrel=1
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
@@ -13,14 +12,14 @@ depends=('poppler-glib' 'imagemagick' 'aspell' 'gc' 'gtkmm' 'libxslt' 'gsl' 'pyx
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 #source=("https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-${pkgver}.tar.bz2")
-source=("https://inkscape.org/en/gallery/item/10384/inkscape-${_pkgver}.tar.bz2")
-md5sums=('ed83c0fa1e9973403e9ca65fc77787cb')
+source=("https://inkscape.org/en/gallery/item/10552/inkscape-${pkgver}.tar.bz2")
+md5sums=('52117503fcf9aad43cf091c6401571d0')
 
 build() {
   mkdir -p build
   cd build 
   
-  cmake ../${pkgname}-${_pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DWITH_MESH=ON 
