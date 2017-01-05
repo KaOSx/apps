@@ -1,7 +1,7 @@
 
 pkgname=fluid
-pkgver=0.8.3
-_commit=f789049b0f56c196304e7c93030087f5b9e5983a
+pkgver=0.9.0
+_commit=145bef0559667c83d421993a7f9a1c7754965443
 pkgrel=1
 arch=('x86_64')
 url='https://github.com/lirios/fluid'
@@ -10,7 +10,7 @@ license=('LGPL')
 depends=('qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'gdb')
 source=("https://github.com/lirios/fluid/archive/${_commit}.zip") 
-md5sums=('09905b9d5a25e0ebf8ab7b40332d01c1')
+md5sums=('845aada2d6240469eab1c4f76af14dfe')
 
 prepare() {
   cd ${pkgname}-${_commit}
@@ -26,9 +26,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_QMLDIR=lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins
+    -DKDE_INSTALL_LIBEXECDIR=lib
   make
 }
 
