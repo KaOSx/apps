@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Archiver for various compression formats"
 url="https://github.com/KDE/ark"
 license=('GPL' 'LGPL' 'FDL')
@@ -16,13 +16,14 @@ groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 conflicts=('kdeutils-ark')
 replaces=('kdeutils-ark')
 source=($_mirror/${pkgname}-$_kdever.tar.xz
-       "https://github.com/KDE/ark/commit/9a9a851049cd904f08c9594cc6aacf696886404e.diff")
+       "https://github.com/KDE/ark/commit/82fdfd24d46966a117fa625b68784735a40f9065.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'bc9b4dcf1c671831743432f8a889dd9c')
+         '53f6535f34cf38069975f1d47e733e02')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/9a9a851049cd904f08c9594cc6aacf696886404e.diff
+  # security issue, fixed in 16.12.1
+  patch -p1 -i ${srcdir}/82fdfd24d46966a117fa625b68784735a40f9065.diff
   
   #sed -i 's|application/x-rar|application/vnd.rar|' plugins/clirarplugin/CMakeLists.txt
 }
