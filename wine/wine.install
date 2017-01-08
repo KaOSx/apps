@@ -1,0 +1,40 @@
+#!/bin/bash
+
+desktop=$(ps -e | grep kwin)
+timestamp=$( date +%F-%T )
+
+post_install() {
+  
+    if [[ -n ${desktop} ]]; then
+
+        kdialog --yesno "KaOS is 64bit only, most applications you will try to load in Wine are 32bit.<br>
+        Do not open bug reports for such failing 32bit applications, use only 64bit instead.<br>
+        This makes Wine of very limited use on KaOS, see https://kaosx.us/about/32bit/ <b>why no 32bit in KaOS</b>.<br><br>
+        Do you want to save this output?"
+
+        save=${?}
+
+            if [[ ${save} == 1 ]]; then
+
+                kdialog --msgbox "Output not saved"
+
+            else
+
+                echo "KaOS is 64bit only, most applications you will try to load in Wine are 32bit.<br>
+                      Do not open bug reports for such failing 32bit applications, use only 64bit instead.<br>
+                      This makes Wine of very limited use on KaOS, see https://kaosx.us/about/32bit/. <b>why no 32bit in KaOS</b>" > /var/log/wine_install${timestamp}.txt
+
+                kdialog --msgbox "Output is saved in /var/log/wine_install${timestamp}.txt"
+                
+            fi   
+
+    else
+
+        echo -e "KaOS is 64bit only, most applications you will try to load in Wine are 32bit."
+        echo -e "Do not open bug reports for such failing 32bit applications, use only 64bit instead."
+        echo -e "This makes Wine of very limited use on KaOS, see https://kaosx.us/about/32bit/ \e[0m"
+
+    fi
+}
+
+

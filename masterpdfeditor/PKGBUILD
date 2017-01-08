@@ -1,6 +1,6 @@
 
 pkgname=masterpdfeditor
-pkgver=3.7.10
+pkgver=4.0.10
 pkgrel=1
 pkgdesc="Complete solution for creation and editing PDF files. (Free for non-commercial use)"
 url="http://code-industry.net/free-pdf-editor.php"
@@ -9,18 +9,18 @@ license=('custom')
 depends=('qt5-base')
 source=("http://get.code-industry.net/public/master-pdf-editor-${pkgver}_qt5.amd64.tar.gz"
         'masterpdfeditor.desktop')
-md5sums=('0cd9920d3d84333338d905eafddaabe0'
+md5sums=('55e32cef66df95c2f0bab04d093cbd20'
          '690a249b40f9feff3f96729e62abc2f9')
 
 package() {
 	mkdir -p ${pkgdir}/opt/masterpdfeditor
-	cd master-pdf-editor-3
+	cd master-pdf-editor-4
 	
 	/bin/tar cf - * | ( cd ${pkgdir}/opt/masterpdfeditor; tar xfp - )
-	install -D -m755 ${srcdir}/master-pdf-editor-3/lang/*.qm ${pkgdir}/opt/masterpdfeditor/lang
-	install -D -m755 ${srcdir}/master-pdf-editor-3/lang/*.ts ${pkgdir}/opt/masterpdfeditor/lang
-	install -D -m644 ${srcdir}/master-pdf-editor-3/license.txt ${pkgdir}/usr/share/licenses/masterpdfeditor/LICENSE
-	install -D -m644 ${srcdir}/master-pdf-editor-3/masterpdfeditor3.png ${pkgdir}/usr/share/pixmaps/pdfeditor.png
+	install -D -m755 ${srcdir}/master-pdf-editor-4/lang/*.qm ${pkgdir}/opt/masterpdfeditor/lang
+	install -D -m755 ${srcdir}/master-pdf-editor-4/lang/*.ts ${pkgdir}/opt/masterpdfeditor/lang
+	install -D -m644 ${srcdir}/master-pdf-editor-4/license.txt ${pkgdir}/usr/share/licenses/masterpdfeditor/LICENSE
+	install -D -m644 ${srcdir}/master-pdf-editor-4/masterpdfeditor4.png ${pkgdir}/usr/share/pixmaps/pdfeditor.png
 	install -D -m644 ${srcdir}/masterpdfeditor.desktop ${pkgdir}/usr/share/applications/masterpdfeditor.desktop
 	rm ${pkgdir}/opt/masterpdfeditor/license.txt
 	mkdir -p ${pkgdir}/usr/bin

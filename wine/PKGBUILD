@@ -1,6 +1,7 @@
 
 pkgname=wine
-pkgver=1.9.24
+pkgver=2.0rc4
+_pkgver=2.0-rc4
 pkgrel=1
 pkgdesc="Compatibility layer capable of running Windows applications on several POSIX-compliant operating systems."
 url="http://www.winehq.com"
@@ -12,15 +13,16 @@ depends=('fontconfig' 'glu' 'libxcursor' 'libxrandr' 'libxdamage' ' libxxf86dga'
          'ncurses' 'libcl' 'libxcomposite' 'alsa-plugins' 'samba' 'gst-plugins-base' 'pulseaudio'
          'gsm' 'sane' 'libgphoto2' 'opencl-headers')
 makedepends=('autoconf' 'perl' 'fontforge' 'flex' 'libxpm' 'libxmu' 'libxxf86dga')
+install=wine.install
 groups=('system')
-source=("http://sourceforge.net/projects/wine/files/Source/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('6c225b7f41f6ce7ca9acf019c45c9258')
+source=("http://sourceforge.net/projects/wine/files/Source/${pkgname}-${_pkgver}.tar.bz2")
+md5sums=('e8569b4cf0fa21afb5304cff71296c0e')
 
 build() {
     mkdir -p build
     cd build
 
-    ../${pkgname}-${pkgver}/configure \
+    ../${pkgname}-${_pkgver}/configure \
         --prefix=/usr \
         --sysconfdir=/etc \
         --libdir=/usr/lib \
