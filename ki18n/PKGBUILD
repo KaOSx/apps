@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ki18n
 pkgver=${_kf5ver}
-pkgrel=3
+pkgrel=1
 pkgdesc='Ki18n'
 arch=('x86_64')
 url='https://github.com/KDE/ki18n'
@@ -12,8 +12,16 @@ license=('LGPL')
 depends=('kjs' 'qt5-script' 'qt5-declarative')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/5.20/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/5.20/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/ki18n/commit/e02b02a4e1a0897f959cad8c7e92c8f60f168b40.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '2194625dfdcc2623fce121df9b0711c4')
+
+prepare () {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/e02b02a4e1a0897f959cad8c7e92c8f60f168b40.diff
+}
 
 build() {
   mkdir -p build
@@ -22,9 +30,9 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
   make
 }

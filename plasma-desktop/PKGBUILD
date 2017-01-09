@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=1
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
@@ -19,8 +19,7 @@ replaces=('kde-workspace' 'kcm-touchpad')
 #source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         'layout_desktop_panel.diff'
-        'main_desktop_kicker.diff'
-        "https://github.com/KDE/plasma-desktop/commit/b7976f0c2628db05ee11841aa455afb426f946d7.diff")
+        'main_desktop_kicker.diff')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
          '5a22b33c2f9ed93c8b8f580601e00a8e'
          '22b66401945f92bd9f99e6d334bc306e'
@@ -33,8 +32,6 @@ prepare() {
   # adjust default settings for panel & kicker
   patch -p1 -i ${srcdir}/layout_desktop_panel.diff
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
-  # fix empty favorites
-  patch -p1 -i ${srcdir}/b7976f0c2628db05ee11841aa455afb426f946d7.diff
 }
 
 build() {

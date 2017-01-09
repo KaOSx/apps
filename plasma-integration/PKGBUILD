@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-integration
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='The plugin KDEPlatformTheme provides KDE integration for QPlatformThemePlugin.'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-integration'
@@ -21,7 +21,7 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
 
 prepare () {
   cd ${pkgname}-${__pkgver}
-  patch -p1 -i ${srcdir}/fix_switched_open_save.patch
+  #patch -p1 -i ${srcdir}/fix_switched_open_save.patch
 }
   
 build () {  
