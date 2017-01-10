@@ -1,23 +1,23 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
-pkgver=5.3.0
-_pkgver=5.3.0
-pkgrel=4
+pkgver=5.4.0
+_pkgver=5.4.0
+pkgrel=1
 url="http://digikam.sourceforge.net"
 arch=('x86_64')
 license=('GPL')
 pkgdesc="Digital photo management application for kde"
 makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
          'solid' 'kiconthemes' 'kfilemetadata' 'libksane' 'ki18n' 'kitemmodels' 'lensfun' 
-         'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
+         'marble' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
          'lapack' 'libgpod' 'eigen3' 'mariadb' 'akonadi-contacts'
          'kparts' 'kconfig' 'kxmlgui' 'kservice' 'threadweaver' 'karchive' 'libkexiv2' 
          'libkdcraw' 'libkipi' 'libkgeomap' 'libkvkontakte' 'libmediawiki' 'libtiff'
          'kcalcore' 'kwallet' 'phonon-qt5' 
          'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang' 'ruby')
 source=("http://download.kde.org/stable/digikam/${pkgbase}-${_pkgver}.tar.xz")
-md5sums=('ec4b121451c13d6fcaae654ed0e5518a')
+md5sums=('e556cfca0ae442011ada8ba1233af95c')
 
 prepare() {
   cd ${pkgbase}-${_pkgver}
@@ -43,7 +43,7 @@ build() {
      -DENABLE_AKONADICONTACTSUPPORT=ON \
      -DENABLE_MYSQLSUPPORT=ON \
      -DENABLE_KFILEMETADATASUPPORT=ON \
-     -DENABLE_MEDIAPLAYER=ON \
+     -DENABLE_MEDIAPLAYER=OFF \
      -DENABLE_OPENCV3=ON \
      -DCMAKE_C_COMPILER=clang \
      -DDIGIKAMSC_CHECKOUT_DOC=ON \
@@ -55,7 +55,7 @@ package_digikam() {
   pkgdesc="Digital photo management application for kde"
   depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
            'solid' 'kiconthemes' 'kfilemetadata' 'kitemmodels' 'libksane' 'ki18n' 'lensfun' 
-           'marble' 'qt5-multimedia' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
+           'marble' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
            'kipi-plugins' 'lapack' 'libgpod' 'eigen3' 'mariadb' 'kdepimlibs')
   groups=('graphics')
   

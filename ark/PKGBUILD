@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Archiver for various compression formats"
 url="https://github.com/KDE/ark"
 license=('GPL' 'LGPL' 'FDL')
@@ -23,7 +23,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # security issue, fixed in 16.12.1
-  patch -p1 -i ${srcdir}/82fdfd24d46966a117fa625b68784735a40f9065.diff
+  #patch -p1 -i ${srcdir}/82fdfd24d46966a117fa625b68784735a40f9065.diff
   
   #sed -i 's|application/x-rar|application/vnd.rar|' plugins/clirarplugin/CMakeLists.txt
 }

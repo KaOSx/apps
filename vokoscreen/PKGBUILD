@@ -1,7 +1,7 @@
 
 pkgname=vokoscreen
-pkgver=2.5.0
-_commit=8325c8658d6e777d34d2e6b8c8bc03f8da9b3d2f
+pkgver=2.5.2
+_commit=61b8447ef6369e1fa92f593ebe58374b19312357
 pkgrel=1
 pkgdesc="Easy to use screencast creator to record educational videos, videoconferences, etc"
 arch=('x86_64')
@@ -12,22 +12,22 @@ depends=('qt5-x11extras' 'ffmpeg' 'lame' 'pulseaudio-alsa' 'alsa-utils' 'v4l-uti
 makedepends=('cmake' 'qt5-tools')
 options=('!strip')
 #source=("https://github.com/vkohaupt/vokoscreen/archive/$_pkgver.tar.gz")
-source=("https://github.com/vkohaupt/vokoscreen/archive/$_commit.zip")
-md5sums=('07cc7912f5afae46e379ff144d1d476b')
+source=("https://github.com/vkohaupt/vokoscreen/archive/${_commit}.zip")
+md5sums=('f79c26458b310e176f716763c95c4cc0')
 
 build() {
-    cd $pkgname-$_commit
+    cd ${pkgname}-${_commit}
     
-    /usr/lib/qt5/bin/qmake $pkgname.pro \
+    /usr/lib/qt5/bin/qmake ${pkgname}.pro \
       "CONFIG+=LINUX_INTEGRATED" \
-      "INSTALL_ROOT_PATH=$pkgdir/usr/" \
+      "INSTALL_ROOT_PATH=${pkgdir}/usr/" \
       "CONFIG+=release" \
       "CONFIG+=c++14"
     make -j1
 }
 
 package() {
-    cd $pkgname-$_commit
+    cd ${pkgname}-${_commit}
     
     make INSTALL_ROOT=${pkgdir} install
 }
