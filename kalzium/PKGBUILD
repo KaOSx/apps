@@ -41,7 +41,6 @@ build() {
 
 package() {
   cd build
-  make DESTDIR=${pkgdir} install
   
-  install -Dm644 ../${pkgname}-${pkgver}/src/hisc-app-kalzium.svgz ${pkgdir}/usr/share/icons/hicolor/scalable/apps/kalzium.svgz
+  make DESTDIR=${pkgdir} install
 }
