@@ -1,0 +1,7 @@
+post_upgrade() {
+    getent group "lpadmin" &>/dev/null || groupadd -g 111 lpadmin >/dev/null
+}
+
+post_install() {
+    post_upgrade
+}
