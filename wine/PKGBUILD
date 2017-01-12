@@ -7,12 +7,12 @@ pkgdesc="Compatibility layer capable of running Windows applications on several 
 url="http://www.winehq.com"
 arch=('x86_64')
 license=('LGPL')
-depends=('fontconfig' 'glu' 'libxcursor' 'libxrandr' 'libxdamage' ' libxxf86dga' 'alsa-lib' 
+depends=('fontconfig' 'glu' 'libxcursor' 'libxrandr' 'libxdamage' 'libxxf86dga' 'alsa-lib' 
          'desktop-file-utils' 'giflib' 'libpng' 'libxml2' 'libldap' 'lcms2' 'openal' 'jack'
          'cups' 'gnutls' 'v4l-utils' 'libjpeg-turbo' 'mpg123' 'libxinerama' 'libxslt'
          'ncurses' 'libcl' 'libxcomposite' 'alsa-plugins' 'samba' 'gst-plugins-base' 'pulseaudio'
          'gsm' 'sane' 'libgphoto2' 'opencl-headers')
-makedepends=('autoconf' 'perl' 'fontforge' 'flex' 'libxpm' 'libxmu' 'libxxf86dga')
+makedepends=('autoconf' 'perl' 'fontforge' 'flex' 'libxpm' 'libxmu')
 install=wine.install
 groups=('system')
 source=("http://sourceforge.net/projects/wine/files/Source/${pkgname}-${_pkgver}.tar.bz2")
@@ -35,8 +35,9 @@ build() {
 
 package() {
     cd build
-    
     make prefix=${pkgdir}/usr libdir=${pkgdir}/usr/lib dlldir=${pkgdir}/usr/lib/wine install
+    
+    sed -i -e 's|wine start /unix %f|wine64 start /unix %f|' ${pkgdir}/usr/share/applications/wine.desktop
 }
 
 
