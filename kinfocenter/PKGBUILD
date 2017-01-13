@@ -14,11 +14,11 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
 conflicts=('kde-workspace' 'about-distro')
 replaces=('about-distro')
-#source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz"
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
+source=("http://download.kde.org/unstable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         'kcm-about-distrorc'
         'KaOS.png')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          'df8749d99a71076017cb1e17cd610038'
          '0957d15eee83c30c1351571d3b875bc9')
 
@@ -27,12 +27,12 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${__pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
@@ -44,5 +44,7 @@ package() {
   
   install -Dm644 ${srcdir}/kcm-about-distrorc ${pkgdir}/etc/xdg/kcm-about-distrorc
   install -Dm644 ${srcdir}/KaOS.png ${pkgdir}/usr/share/${pkgname}/KaOS.png
+  
+  rm -r ${pkgdir}/usr/share/locale
 }
 
