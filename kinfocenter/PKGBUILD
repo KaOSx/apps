@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kinfocenter
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KInfocenter'
 arch=('x86_64')
 url='https://github.com/KDE/kinfocenter'
@@ -19,7 +19,7 @@ source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/
         'kcm-about-distrorc'
         'KaOS.png')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
-         '598273ffd5442cacfd262b3920516c46'
+         'df8749d99a71076017cb1e17cd610038'
          '0957d15eee83c30c1351571d3b875bc9')
 
 
@@ -42,7 +42,7 @@ package() {
   cd build
   make DESTDIR=${pkgdir} install
   
-  install -Dm644 "$srcdir/kcm-about-distrorc" "$pkgdir/etc/xdg/kcm-about-distrorc"
-  install -Dm644 "$srcdir/KaOS.png" "$pkgdir/usr/share/$pkgname/KaOS.png"
+  install -Dm644 ${srcdir}/kcm-about-distrorc ${pkgdir}/etc/xdg/kcm-about-distrorc
+  install -Dm644 ${srcdir}/KaOS.png ${pkgdir}/usr/share/${pkgname}/KaOS.png
 }
 
