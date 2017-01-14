@@ -1,0 +1,34 @@
+
+pkgname=greenisland
+pkgver=0.9.0.1
+_commit=088b657a26d5f909bfe42fd7b5fec4d96265afe9
+pkgrel=1
+arch=('x86_64')
+url='https://github.com/greenisland/greenisland'
+pkgdesc="Wayland compositor for QtQuick as well as pluggable hardware abstraction, extensions and tools Wayland clients."
+license=('LGPL')
+depends=('fontconfig' 'freetype2' 'libdrm' 'libinput' 'libxcomposite' 'libxkbcommon' 'qt5-declarative'
+         'systemd' 'wayland-protocols' 'xkeyboard-config' 'xcb-util-cursor')
+makedepends=('extra-cmake-modules' 'gdb')
+source=("https://github.com/greenisland/greenisland/archive/${_commit}.zip") 
+md5sums=('3889106898b122bedc91f23540b406c8')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_QMLDIR=lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
