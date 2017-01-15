@@ -12,8 +12,22 @@ license=('LGPL')
 depends=('kf5-attica' 'kconfigwidgets' 'kio')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/knewstuff/commit/7993c90088779a3140187c5adf5ee1f04b6c8ff4.diff"
+        "https://github.com/KDE/knewstuff/commit/7f910418644bf376ad3d7b81d26db5a353ed199e.diff"
+        "https://github.com/KDE/knewstuff/commit/7407ca5b4780d8fd91e2c50f25705a4ecc14de87.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'b417b6045b88659188c6f3f0bc7f7922'
+         '1a1a3d8c6c32dba5b8c2bebf685dd90e'
+         '2e235fcbc6e8a22865759cb14daf0913')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # fix getting new wallpapers from GHNS, add one more patch then is included in respon 5.30.1
+  patch -p1 -i ${srcdir}/7993c90088779a3140187c5adf5ee1f04b6c8ff4.diff
+  patch -p1 -i ${srcdir}/7f910418644bf376ad3d7b81d26db5a353ed199e.diff
+  #patch -p1 -i ${srcdir}/7407ca5b4780d8fd91e2c50f25705a4ecc14de87.diff
+}
 
 build() {
   mkdir -p build
@@ -31,5 +45,5 @@ build() {
 
 package() {
   cd build
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
