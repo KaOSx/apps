@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwin
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Window Manager'
 arch=('x86_64')
 url='https://github.com/KDE/kwin'
@@ -16,6 +16,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('plasma5')
 conflicts=('kde-workspace')
 replaces=('kde-workspace')
+options=('debug')
 #source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
