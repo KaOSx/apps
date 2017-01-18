@@ -1,11 +1,11 @@
 
 pkgname=kodi
-pkgver=17.0rc2
-_pkgver=17.0rc2-Krypton
+pkgver=17.0rc3
+_pkgver=17.0rc3-Krypton
 pkgrel=2
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
-url="http://kodi.tv/"
+url="https://kodi.tv/"
 license=('GPL' 'custom')
 depends=( 'bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi' 'python2' 'python-pysqlite'
           'glew' 'libcdio' 'libgl' 'libmad' 'libmms' 'libass' 'yajl' 'x264'
@@ -15,7 +15,7 @@ depends=( 'bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi' 'python2' 
           'libssh' 'libva' 'libmodplug' 'lsb-release' 'sqlite3' 'libbluray' 'java-runtime'
           'tinyxml' 'taglib' 'libcap' 'glu' 'libusb' 'hicolor-icon-theme' 'libtiff' 'avahi'
           'gnutls' 'nettle' 'libnfs' 'dcadec' 'crossguid' 'python2-pillow' 'python2-simplejson' 'lcms2')
-makedepends=('boost' 'cmake' 'gperf' 'nasm' 'libvdpau' 'zip' 'unzip' 'autoconf' 'automake'
+makedepends=('boost' 'cmake' 'gperf' 'nasm' 'libvdpau' 'zip' 'unzip' 'cmake'
              'doxygen' 'upower')
 optdepends=('unrar: access compressed files without unpacking them'
             'upower: used to trigger suspend functionality'
@@ -25,30 +25,25 @@ groups=('multimedia')
 options=('makeflags')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
 source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
-md5sums=('5a6bf08196aff4297a9ccd3c483e9a33')
+md5sums=('b13478e7f21a6e33bb8288a4e467076f')
 
 build() {
-    cd xbmc-${_pkgver}
-  
-    ./bootstrap
+    mkdir -p build
+    cd build
     
-    ./configure --prefix=/usr --exec-prefix=/usr \
-        --disable-debug \
-        --enable-optimizations \
-        --enable-gl \
-        --enable-vaapi \
-        --enable-vdpau \
-        --enable-pulse \
-        --enable-avahi \
-        --enable-samba \
-        --enable-libbluray 
-    make
+    cmake ../xbmc-${_pkgver}/project/cmake \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+        -DENABLE_EVENTCLIENTS=OFF 
+    make VERBOSE=1
+  
     # use when switched to cmake build
-    #make -C tools/depends/target/binary-addons PREFIX=/usr
+    #make -C ../xbmc-${_pkgver}/tools/depends/target/binary-addons PREFIX=/usr
 }
 
 package() {
-    cd xbmc-${_pkgver}
+    cd build
 
     make DESTDIR=${pkgdir} install
 
@@ -62,6 +57,6 @@ package() {
     done
     
     # move from xbmc to kodi leaves conflicting symlinks in place of real files, pacman not handling it
-    rm -r ${pkgdir}/usr/share/xbmc
-    rm -r ${pkgdir}/usr/lib/xbmc
+    #rm -r ${pkgdir}/usr/share/xbmc
+    #rm -r ${pkgdir}/usr/lib/xbmc
 }
