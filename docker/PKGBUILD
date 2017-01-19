@@ -1,8 +1,8 @@
 pkgname=docker
-pkgver=1.12.6
+pkgver=1.13.0
 # add commit associated with the release tag
 # build runc & containerd from https://github.com/docker/docker/blob/master/hack/dockerfile/binaries-commits
-DOCKER_GITCOMMIT=78d1802
+DOCKER_GITCOMMIT=49bf474
 pkgrel=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64')
@@ -16,7 +16,7 @@ install=$pkgname.install
 source=("https://github.com/docker/docker/archive/v$pkgver.tar.gz"
         'docker.sysusers'
         "https://github.com/docker/docker/commit/6f89a8ee1ba6b598dc1f76e829d6db6f830cdb8e.patch")
-md5sums=('2db317ab9811641449784fe0fb29d74f'
+md5sums=('23d3875ac67d5b67dd1918c45ba98537'
          '4324edeb9adc210a2c22f44eb4cb8a74'
          '3eff94e59391015f020686d57ffb3c06')
 
@@ -40,7 +40,7 @@ package() {
   cd $pkgname-$pkgver
   install -Dm755 "bundles/$pkgver/dynbinary-client/docker-$pkgver" "$pkgdir/usr/bin/docker"
   install -Dm755 "bundles/$pkgver/dynbinary-daemon/dockerd-$pkgver" "$pkgdir/usr/bin/dockerd"
-  install -Dm755 "bundles/$pkgver/dynbinary-daemon/docker-proxy-$pkgver" "$pkgdir/usr/bin/docker-proxy"
+  #install -Dm755 "bundles/$pkgver/dynbinary-daemon/docker-proxy-$pkgver" "$pkgdir/usr/bin/docker-proxy"
 
   install -Dm644 'contrib/completion/bash/docker' "$pkgdir/usr/share/bash-completion/completions/docker"
   install -Dm644 'contrib/completion/zsh/_docker' "$pkgdir/usr/share/zsh/site-functions/_docker"
