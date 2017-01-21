@@ -1,18 +1,18 @@
 
 pkgname=guile1.8
 pkgver=1.8.8
-pkgrel=2
+pkgrel=3
 pkgdesc='Portable, embeddable Scheme implementation written in C. Legacy branch.'
-url="http://www.gnu.org/software/guile/"
+url="https://www.gnu.org/software/guile/"
 arch=('x86_64')
 license=('GPL')
 depends=('gmp' 'libltdl' 'ncurses' 'texinfo')
 options=('!libtool')
-source=("ftp://ftp.gnu.org/pub/gnu/guile/guile-$pkgver.tar.gz")
+source=("https://ftp.gnu.org/pub/gnu/guile/guile-${pkgver}.tar.gz")
 md5sums=('18661a8fdfef13e2fcb7651720aa53f3')
 
 build() {
-  cd guile-$pkgver
+  cd guile-${pkgver}
   ./configure --prefix=/usr \
 	--disable-static  \
 	--disable-error-on-warning \
@@ -21,10 +21,10 @@ build() {
 }
 
 package() {
-  cd guile-$pkgver
-  make DESTDIR="$pkgdir" install
+  cd guile-${pkgver}
+  make DESTDIR=${pkgdir} install
   
-  rm -rf "$pkgdir"/usr/share/info
-  sed -i '1s/guile/guile1.8/' -i "$pkgdir"/usr/bin/guile-config1.8
-  mv "$pkgdir"/usr/share/aclocal/guile.m4 "$pkgdir"/usr/share/aclocal/guile18.m4
+  rm -rf ${pkgdir}/usr/share/info
+  sed -i '1s/guile/guile1.8/' -i ${pkgdir}/usr/bin/guile-config1.8
+  mv ${pkgdir}/usr/share/aclocal/guile.m4 ${pkgdir}/usr/share/aclocal/guile18.m4
 }
