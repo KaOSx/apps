@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdenlive
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="A non-linear video editor for Linux"
 arch=('x86_64')
 url="http://www.kdenlive.org/"
@@ -18,13 +18,18 @@ optdepends=("dvdauthor: for creating dvds")
 conflicts=('kf5-kdenlive')
 replaces=('kf5-kdenlive')
 groups=('multimedia')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz") 
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+        "https://cgit.kde.org/kdenlive.git/patch/?id=8a20fca86e9e2ce3d04b3e024b0752e19f9d8c8e") 
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'f8a7398628108c736df294a6ed446c6a')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/?id=8a20fca86e9e2ce3d04b3e024b0752e19f9d8c8e
+}
 
 build() {
-  cd ${srcdir}
-  #sed -e "s/Qt5::core/Qt5::core KF5::KWidgetsAddons/" -i ${srcdir}/$pkgname/libkdegames/CMakeLists.txt
-  
   mkdir -p build
   cd build
 

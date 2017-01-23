@@ -4,8 +4,8 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=5.1.12
-_pkgver=5.1.12
+pkgver=5.1.14
+_pkgver=5.1.14
 pkgrel=1
 arch=('x86_64')
 url='http://virtualbox.org'
@@ -22,10 +22,10 @@ source=("http://download.virtualbox.org/virtualbox/${_pkgver}/VirtualBox-${_pkgv
         'vboxservice.service'
         'driver-path.patch'
         'include-path.patch')
-md5sums=('58fd51b90358ac42811e044988d53438'
+md5sums=('21eaec9f21477d555559a63761779880'
          '6e2722bfd7013c1b0174382626ac1b8d'
          'ed1341881437455d9735875ddf455fbe'
-         '2c97432fc8bbe33fdba5c31f0de7eb9a'
+         'debd220f22dec74a8ae03126e4d3e678'
          '8ba9179c4a3516904417d773816dd992'
          '9be7e2703afeee1fca9368bd8750e710'
          '9e49bbaa2192b141c27ee43cef8cbab7')
@@ -42,6 +42,7 @@ prepare() {
     sed -i -e 's|X11R6/||' Config.kmk
     sed -i -e 's|*&& check_makeself||' configure
     sed -i -e 's|smc-napa|smcnapa|' configure
+    sed -i -e 's|$(filter-out vboxvideo_drv_%,$(DLLS)) vboxvideo_drv_system|$(filter-out vboxvideo_drv_%,$(DLLS))|' src/VBox/Additions/x11/vboxvideo/Makefile.kmk
 
     cp ${srcdir}/LocalConfig.kmk .
 
@@ -157,8 +158,7 @@ package_virtualbox-guest-utils() {
         ${pkgdir}/usr/bin/VBoxClient-all
     install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
         ${pkgdir}/etc/xdg/autostart/vboxclient.desktop
-    install -D vboxvideo_drv_system.so \
-        ${pkgdir}/usr/lib/xorg/modules/drivers/vboxvideo.so
+    #install -D vboxvideo_drv_system.so ${pkgdir}/usr/lib/xorg/modules/drivers/vboxvideo.so
     install -d ${pkgdir}/usr/lib/xorg/modules/dri
     install -m755 VBoxOGL*.so ${pkgdir}/usr/lib
     ln -s /usr/lib/VBoxOGL.so ${pkgdir}/usr/lib/xorg/modules/dri/vboxvideo_dri.so
