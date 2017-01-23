@@ -4,11 +4,11 @@ pkgver=1.7
 pkgrel=1
 pkgdesc='Contains protocols and protocol extensions complementing the Wayland core protocol with additional functionality.'
 arch=('x86_64')
-url='http://wayland.freedesktop.org'
+url='https://wayland.freedesktop.org'
 license=('MIT')
 options=('!libtool')
 depends=('wayland')
-source=("http://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
+source=("https://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
 md5sums=('9acfc9556f7cfedc44d97af60da66a5f')
 
 build() {
@@ -21,7 +21,7 @@ build() {
 
 package() {
    cd ${pkgname}-${pkgver}
-   make DESTDIR="${pkgdir}" install
+   make DESTDIR=${pkgdir} install
 
-   install -Dm644 COPYING "$pkgdir/usr/share/licenses/${pkgname}/COPYING"
+   install -Dm644 COPYING $pkgdir/usr/share/licenses/${pkgname}/COPYING
 }
