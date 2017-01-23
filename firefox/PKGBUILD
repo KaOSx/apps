@@ -2,8 +2,8 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='http://www.mozilla.org/projects/firefox'
-pkgver=50.1.0
-pkgrel=3
+pkgver=51.0
+pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
 groups=('network')
@@ -13,29 +13,25 @@ depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk
          'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libvpx' 'icu' 'libevent' 'sqlite' 'hunspell'
          'pulseaudio')
 makedepends=('unzip' 'zip' 'diffutils' 'python2' 'yasm' 'mesa' 'imake' 'xorg-server' 
-             'inetutils' 'gconf' 'autoconf2.13' 'rust')
+             'inetutils' 'gconf' 'autoconf2.13' 'rust' 'cargo')
 optdepends=('freshplayerplugin: full flash support in firefox')
 options=('!emptydirs' '!makeflags')
 source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${pkgver}/source/firefox-${pkgver}.source.tar.xz"
         'mozconfig'
         'firefox.desktop'
         'firefox-install-dir.patch'
-        'vendor.js'
-        'keybits_h2.patch')
-md5sums=('0f6a56cd8da8fa9deedfd61bcb43a65d'
+        'vendor.js')
+md5sums=('733e8503d2241ef44dad1911085b60db'
          '62beb8e4eb0de0cd68b63c1f3be5d31c'
          '174a2a286e32d5c9a48f51a18ffa4e6c'
          'dbf14588e85812ee769bd735823a0146'
-         '0d053487907de4376d67d8f499c5502b'
-         'bdb7bb8014a1f6a254d926540717b2a8')
+         '0d053487907de4376d67d8f499c5502b')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
   cp ../mozconfig .mozconfig
   patch -p1 -i ${srcdir}/firefox-install-dir.patch
-  # nss 3.28 issue, https://hg.mozilla.org/mozilla-central/rev/361ac226da2a
-  patch -p1 -i ${srcdir}/keybits_h2.patch
 
   mkdir ${srcdir}/path
   
@@ -48,7 +44,7 @@ build() {
   export PATH=${srcdir}/path:$PATH
   unset CPPFLAGS
 
-  make -f client.mk build MOZ_PGO=0
+  make -f client.mk build # MOZ_PGO=0
 }
 
 package() {
