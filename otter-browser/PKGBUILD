@@ -1,0 +1,40 @@
+pkgname=otter-browser
+pkgver=0.9.12.1
+pkgrel=1
+_commit=d2258684b03afd149165708e482061b1453ef576
+pkgdesc='Browser aiming to recreate the best aspects of the classic Opera (12.x) UI using Qt5.'
+arch=('x86_64')
+url="http://www.otter-browser.org"
+license=('GPL3')
+depends=('qtwebkit-tp' 'qt5-multimedia' 'desktop-file-utils' 'hicolor-icon-theme' 'hunspell') 
+makedepends=('cmake' 'qt5-tools')
+source=("https://github.com/OtterBrowser/otter-browser/archive/${_commit}.tar.gz")
+md5sums=('197a43194686f0df08508fc7f61e4819')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+  
+  sed -i -e 's|hunspell-1.3|hunspell-1.6|' cmake/FindHunspell.cmake
+}
+
+build() {
+  cd ${pkgname}-${_commit}
+  /usr/lib/qt5/bin/lrelease resources/translations/*.ts
+
+  mkdir -p build
+  cd build
+  
+  cmake ../ \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_QTWEBENGINE=OFF \
+    -DENABLE_QTWEBKIT=ON 
+  make
+}
+
+package() {
+  cd ${pkgname}-${_commit}/build
+  make DESTDIR=${pkgdir} install
+  
+  install -D -m0644 ../../${pkgname}-${_commit}/COPYING  ${pkgdir}/usr/share/licenses/otter-browser/COPYING
+}
+

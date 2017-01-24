@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=akonadi
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url='http://community.kde.org/KDE_PIM/Akonadi'
 pkgdesc="PIM layer, which provides an asynchronous API to access all kind of PIM data"
@@ -17,8 +17,8 @@ optdepends=('postgresql: PostgreSQL backend')
 conflicts=('kf5-akonadi')
 replaces=('kf5-akonadi')
 provides=('kf5-akonadi')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz") 
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz") 
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
@@ -36,5 +36,5 @@ build() {
 package() {
   cd build
   
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
