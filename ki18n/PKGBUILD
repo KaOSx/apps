@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ki18n
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Ki18n'
 arch=('x86_64')
 url='https://github.com/KDE/ki18n'
@@ -20,7 +20,7 @@ md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare () {
   cd ${pkgname}-${pkgver}
   
-  patch -p1 -i ${srcdir}/e02b02a4e1a0897f959cad8c7e92c8f60f168b40.diff
+  #patch -p1 -i ${srcdir}/e02b02a4e1a0897f959cad8c7e92c8f60f168b40.diff
 }
 
 build() {
