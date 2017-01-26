@@ -2,7 +2,7 @@
 pkgname=qgis
 _pkgname=QGIS
 pkgver=2.90.1
-_commit=b119744773572df195ed6e0acb2f74fc793fe23d
+_commit=958dff9d825a356d131e3037d4ecfb66886c7edc
 pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='http://qgis.org/'
@@ -11,14 +11,11 @@ arch=('x86_64')
 depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python2' 'giflib' 'gsl' 'grass'
          'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt5' 
          'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
-         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5' 'qt5-webkit'
+         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5' # 'qtwebkit-tp'
          'python3-gdal' 'python3-numpy' 'qjson')
 makedepends=('cmake'  'netcdf' 'sip3' 'qt5-tools') 
-conflicts=('pyqt-python2' 'python2-qscintilla' 'pyqt-python3')
-#replaces=('pyqt-python2' 'python2-qscintilla' 'pyqt-python3')
-#source=("http://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2")
 source=("https://github.com/qgis/QGIS/archive/${_commit}.zip")
-md5sums=('24a535edab92c9b728765bfc1203c445') 
+md5sums=('a1c9195a9755a9520b44650e87195185') 
          
 prepare() {
      cd ${_pkgname}-${_commit}
@@ -47,7 +44,7 @@ prepare() {
         -DWITH_INTERNAL_JINJA2=FALSE \
         -DWITH_INTERNAL_PYTZ=FALSE \
         -DWITH_QWTPOLAR=FALSE \
-        -DWITH_QTWEBKIT=TRUE
+        -DWITH_QTWEBKIT=FALSE
      
       make
 }
@@ -67,5 +64,5 @@ package() {
       ln -s /usr/share/qgis/images/icons/qgis-icon.png ${pkgdir}/usr/share/pixmaps/qgis-icon.png
       ln -s /usr/share/qgis/images/icons/qgis-mime-icon.png ${pkgdir}/usr/share/pixmaps/qgis-mime-icon.png
      
-      python3 -m compileall -q ${pkgdir}
+      #python3 -m compileall -q ${pkgdir}
 }
