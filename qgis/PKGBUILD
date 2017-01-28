@@ -3,7 +3,7 @@ pkgname=qgis
 _pkgname=QGIS
 pkgver=2.90.1
 _commit=958dff9d825a356d131e3037d4ecfb66886c7edc
-pkgrel=2
+pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='http://qgis.org/'
 license=('GPL')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python2' 'giflib' 'gsl' 'grass'
          'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt5' 
          'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
-         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5' 'qtwebkit-tp'
+         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5') # 'qtwebkit-tp'
          'python3-gdal' 'python3-numpy' 'python3-httplib2' 'python3-requests' 'qjson')
 makedepends=('cmake'  'netcdf' 'sip3' 'qt5-tools') 
 source=("https://github.com/qgis/QGIS/archive/${_commit}.zip")
@@ -25,10 +25,15 @@ prepare() {
      sed -i -e 's|libqt5scintilla2|libqtscintilla2|' cmake/FindQScintilla.cmake
      
      sed -i 's/\(env \|\/usr\/bin\/\)python$/&3/' $(find . -iname "*.py")
+     
+     # fix build with qtwebkit-tp
+     #sed -i -e 's|<QWebPage>|<QtWebKitWidgets/QWebPage>|' src/core/qgswebpage.h
+     #sed -i -e 's|<QWebFrame>|<QtWebKitWidgets/QWebFrame>|' src/core/qgswebframe.h
+     #sed -i -e 's|<QWebView>|<QtWebKitWidgets/QWebView>|' src/core/qgswebview.h
 }
 
  build() {
-      mkdir -p build
+      #mkdir -p build
       cd build
      
       cmake ../${_pkgname}-${_commit} \
@@ -41,10 +46,13 @@ prepare() {
         -DPYTHON_EXECUTABLE=/usr/bin/python3 \
         -DWITH_INTERNAL_SIX=FALSE \
         -DWITH_INTERNAL_DATEUTIL=FALSE \
+        -DWITH_INTERNAL_HTTPLIB2=FALSE \
         -DWITH_INTERNAL_JINJA2=FALSE \
+        -DWITH_INTERNAL_MARKUPSAFE=FALSE \
+        -DWITH_INTERNAL_NOSE2=FALSE \
         -DWITH_INTERNAL_PYTZ=FALSE \
         -DWITH_QWTPOLAR=FALSE \
-        -DWITH_QTWEBKIT=TRUE
+        -DWITH_QTWEBKIT=FALSE
      
       make
 }

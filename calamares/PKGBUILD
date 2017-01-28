@@ -1,12 +1,12 @@
 
 pkgname=calamares
-pkgver=2.4.90
+pkgver=3.0.1
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
 license=('LGPL')
-depends=('qt5-svg' 'qtwebengine' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
+depends=('qt5-svg' 'qtwebkit-tp' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-cpp'
          'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts' 'pythonqt')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools') # 'clang')
 options=('debug' '!staticlibs')
@@ -34,8 +34,6 @@ prepare () {
   
   git submodule init
   git submodule update
-  
-  #sed -i 's|VERSION_LESS 5.6|VERSION_LESS 5.9|' src/modules/webview/CMakeLists.txt
 }
 
 build() {
@@ -50,7 +48,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DWITH_CRASHREPORTER=ON \
-    -DWITH_PYTHONQT=ON
+    -DWITH_PYTHONQT=ON \
+    -DWEBVIEW_FORCE_WEBKIT=ON
   make
 }
 
