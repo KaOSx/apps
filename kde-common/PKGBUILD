@@ -5,14 +5,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kde-common
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Common Configuration Files, Scripts and Artwork"
 url="http://www.kde.org"
 license=('GPL')
 options=('strip')
 groups=('kde' 'kde-minimal' 'kde-uninstall')
 depends=('qt5-base' 'pinentry' 'openssh' 'bash' 'xclip' 'kdialog')
-source=("https://dl.opendesktop.org/api/files/download/id/1466046059/48411-rootactions_servicemenu_2.9.tar.gz"
+source=("https://dl.opendesktop.org/api/files/download/id/1485341541/rootactions_servicemenu_2.9.1.tar.gz"
         'CopyPath.desktop'
 	#"http://www.kde-apps.org/CONTENT/content-files/102825-compressattach.desktop.bz2"
 	'servicemenu-rootactions.patch'
@@ -28,7 +28,7 @@ source=("https://dl.opendesktop.org/api/files/download/id/1466046059/48411-roota
 	'org.freedesktop.head.policy'
 	"https://dl.opendesktop.org/api/files/download/id/1463155225/176001-kompare_servicemenu.desktop")
   
-md5sums=('49766914f737331d32415f887ac5d0ba'
+md5sums=('44769ab05560bb1ba5a69a30be8b1c92'
          '091595cec9e9e4222daedee71c01bc70'
          #'630ffe7118eef8608a9e5e393a0b1e12'
          'e815fcdba963a79cd39989182df1a994'
@@ -53,14 +53,18 @@ package() {
 	install -D -m755 -o root -g root ${srcdir}/sysinfo.sh ${pkgdir}/usr/bin/sysinfo
 
 	# install root actions service menu
-	cd ${srcdir}/rootactions_servicemenu_2.9/Root_Actions_2.9/dolphin-KDE4/
+	cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1/dolphin-KDE4/
 	mkdir -p ${pkgdir}/usr/share/kservices5/ServiceMenus/
 	install -m755 *.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/
-        cd ${srcdir}/rootactions_servicemenu_2.9/Root_Actions_2.9
-        patch -p2 < ${srcdir}/servicemenu-rootactions.patch      
+	
+    cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1
+    patch -p2 < ${srcdir}/servicemenu-rootactions.patch      
 	install -Dm755 rootactions-servicemenu.pl ${pkgdir}/usr/bin/rootactions-servicemenu.pl
         sed "s~Icon=terminal~Icon=utilities-terminal~g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/10-rootactionsfolders.desktop
         sed "s~Icon=terminal~Icon=utilities-terminal~g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/11-rootactionsfiles.desktop
+        
+    cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1/krusader-KDE4/
+    install -Dm644 krusader_rootactions.xml ${pkgdir}/usr/share/krusader/krusader_rootactions.xml
  
 	# install all other service menus
 	install -m755 ${srcdir}/CopyPath.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/CopyPath.desktop
