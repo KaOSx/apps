@@ -1,20 +1,25 @@
 pkgname=mixxx
 pkgver=2.0.0
 _pkgver=release-2.0.0
-pkgrel=7
+pkgrel=8
 pkgdesc="Free, open source software for digital DJ'ing."
 arch=('x86_64')
 url='http://www.mixxx.org'
 license=('GPL')
 depends=('faad2' 'fftw' 'libid3tag' 'libmad' 'libmodplug' 'libogg' 'libshout' 'libsndfile' 'libusb' 
-         'portaudio' 'portmidi' 'protobuf' 'qt5-svg' 'qt5-script' 'qt5-webkit' 'rubberband'
+         'portaudio' 'portmidi' 'protobuf' 'qt5-svg' 'qt5-script' 'qtwebkit-tp' 'rubberband'
          'taglib' 'wavpack' 'opusfile' 'chromaprint')
 makedepends=('scons' 'glu' 'qt5-tools')
-source=("https://github.com/mixxxdj/mixxx/archive/${_pkgver}.tar.gz")
-md5sums=('784e9aafc133c6a31d13b32904d18d39')
+source=("https://github.com/mixxxdj/mixxx/archive/${_pkgver}.tar.gz"
+        'chromaprint4.2.diff')
+md5sums=('784e9aafc133c6a31d13b32904d18d39'
+         '7c8a70dfc7e463e4a34c654fad2c0e46')
 
 build() {
   cd ${pkgname}-${_pkgver}
+  # chromaprint 1.4.2 needed patch, from:
+  # https://github.com/mixxxdj/mixxx/commit/5b252f36ce091d3a0d56afd10ad4085747c6708f
+  patch -p1 -i ${srcdir}/chromaprint4.2.diff
   
   CXXFLAGS="-std=c++11"
 
