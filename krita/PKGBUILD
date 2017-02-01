@@ -1,8 +1,8 @@
 
 pkgname=krita
-pkgver=3.1.1
-_pkgver=3
-pkgrel=2
+pkgver=3.1.2.1
+_pkgver=3.1.2
+pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -15,9 +15,9 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools') # 'clang') 
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
-source=("http://download.kde.org/stable/krita/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+source=("http://download.kde.org/stable/krita/${_pkgver}/${pkgname}-${pkgver}.tar.gz"
         'launch_krita.sh')
-md5sums=('322831adc0bc5c7d7ed298f152d57fe7'
+md5sums=('340c7199409daa94e4f66b479abcb726'
          '673003bb648af0d4f801043ee0a17c2a')
 
 prepare() {
@@ -38,8 +38,7 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=FALSE \
-    -DPACKAGERS_BUILD=true 
+    -DBUILD_TESTING=FALSE 
   make
 }
 
