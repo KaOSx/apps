@@ -16,14 +16,16 @@ groups=('kdegraphics')
 conflicts=('kdegraphics-libkexiv2')
 replaces=('kdegraphics-libkexiv2')
 provides=('kdegraphics-libkexiv2')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+        "https://github.com/KDE/libkexiv2/commit/2bcdea1a25b7ee69b4db93a12b8197a5bfa0bc1a.diff")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '63577aa5da06464ef90cd96ab876b74d')
 #source=("git://anongit.kde.org/libkexiv2.git")
 #md5sums=('SKIP')
 
 prepare() {
   cd $pkgname-${pkgver}
-  #sed -i -e 's|KF5::KDELibs4Support|KF5::KDELibs4Support KF5::KHtml|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+  patch -p1 -i ${srcdir}/2bcdea1a25b7ee69b4db93a12b8197a5bfa0bc1a.diff
 }
 
 build() {

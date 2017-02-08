@@ -13,9 +13,9 @@ depends=('ki18n' 'opencv')
 makedepends=('extra-cmake-modules' 'kdoctools')
 #groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 source=("http://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-$_kdever.tar.xz"
-        'opencv-3.1-support.patch')
+        'https://github.com/KDE/libkface/commit/0684ee86b6510423bdd79325cd769e7a7c3d0e7c.diff')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '7bf2ad08a02167a149201ec39f25e7b8')
+         'f9a71330409a5f0d250f1f7970db94f3')
 #source=("git://anongit.kde.org/libkface.git")
 #md5sums=('SKIP')
 
@@ -23,7 +23,7 @@ prepare() {
    cd $pkgname-${pkgver}
    sed -i -e 's|OPENCV_TEST_VERSION(3,1,0)|OPENCV_TEST_VERSION(3,2,0)|' src/recognition-opencv-lbph/facerec_borrowed.cpp
    sed -i -e 's|OPENCV_TEST_VERSION(3,1,0)|OPENCV_TEST_VERSION(3,2,0)|' src/recognition-opencv-lbph/facerec_borrowed.h
-   #patch -p1 -i ${srcdir}/opencv-3.1-support.patch
+   patch -p1 -i ${srcdir}/0684ee86b6510423bdd79325cd769e7a7c3d0e7c.diff
 }
 
 build() {

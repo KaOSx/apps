@@ -12,7 +12,7 @@ license=('GPL')
 depends=('karchive' 'kbookmarks' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'kdbusaddons' 'kio'
          'kservice' 'kwidgetsaddons' 'kplotting' 'knotifyconfig' 'knewstuff' 'kxmlgui' 'knotifications'
          'kguiaddons' 'ktextwidgets' 'kiconthemes' 'kfilemetadata'
-         'mlt' 'dvgrab' 'frei0r-plugins' 'qimageblitz' 'qt5-webkit') 
+         'mlt' 'dvgrab' 'frei0r-plugins' 'qimageblitz' 'qtwebkit-tp') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'gettext' 'docbook-xsl')
 optdepends=("dvdauthor: for creating dvds")
 conflicts=('kf5-kdenlive')
@@ -26,7 +26,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/?id=8a20fca86e9e2ce3d04b3e024b0752e19f9d8c8e
+  #patch -p1 -i ${srcdir}/?id=8a20fca86e9e2ce3d04b3e024b0752e19f9d8c8e
 }
 
 build() {
