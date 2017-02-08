@@ -1,0 +1,20 @@
+--- a/src/backends/python/pythonhighlighter.cpp	2017-02-07 21:53:23.692637361 -0500
++++ b/src/backends/python/pythonhighlighter.cpp	2017-02-07 21:54:24.983217630 -0500
+@@ -87,7 +87,7 @@
+     while (pos < text.length()) {
+         // Trying to close current environments
+         bool triggered = false;
+-        for (int i = 0; i < flags.size() and not triggered; i++) {
++        for (int i = 0; i < flags.size() && !triggered; i++) {
+             int flag = flags[i];
+             QRegExp &regexp = regexps[i];
+             QTextCharFormat &format = formats[i];
+@@ -126,7 +126,7 @@
+         singleLineCommentStart.indexIn(text, pos);
+ 
+         if (singleLineCommentStartPos != -1
+-            and singleLineCommentStartPos < minPos) {
++            && singleLineCommentStartPos < minPos) {
+             setFormat(pos, text.length() - pos, commentFormat());
+         break;
+             } else if (minRegexp) {

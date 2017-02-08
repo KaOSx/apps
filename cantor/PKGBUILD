@@ -17,16 +17,16 @@ conflicts=('kdeedu-cantor')
 replaces=('kdeedu-cantor')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        'qalculateexpression.diff')
+        'pythonhighlighter.diff')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '8a14d450ac8cec6b6ccf1ba14d82ed88')
+         '8da6949371a3181e42d510e9b59a2876')
 
 prepare() {
   cd $pkgname-${pkgver}
   
-  #patch -p1 -i $srcdir/qalculateexpression.diff
-  sed -i -e 's|add_subdirectory(sage)|#add_subdirectory(sage)|' ${srcdir}/${pkgname}-${pkgver}/src/backends/CMakeLists.txt
-  #sed -i -e 's|python3.3m python3.4m|python3.3m python3.4m python3.5m|' ${srcdir}/${pkgname}-${pkgver}/cmake/FindPythonLibs3.cmake
+  sed -i -e 's|add_subdirectory(sage)|#add_subdirectory(sage)|' src/backends/CMakeLists.txt
+  # needed changes for e-c-m 5.31.0
+  patch -p1 -i $srcdir/pythonhighlighter.diff
 }
 
 build() {
@@ -36,8 +36,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
