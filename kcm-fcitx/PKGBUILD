@@ -1,7 +1,7 @@
 
 pkgname=kcm-fcitx
-pkgver=0.5.3
-pkgrel=2
+pkgver=0.5.4
+pkgrel=1
 pkgdesc="KDE Config Module for Fcitx"
 arch=('x86_64')
 url="https://github.com/fcitx/kcm-fcitx"
@@ -9,10 +9,10 @@ license=('GPL')
 depends=('fcitx-qt5' 'kcoreaddons' 'kwidgetsaddons' 'kcmutils' 'kitemviews' 'ki18n' 'kio' 'knewstuff')
 makedepends=('extra-cmake-modules')
 source=("http://download.fcitx-im.org/kcm-fcitx/$pkgname-${pkgver}.tar.xz")
-md5sums=('ac667d34378bae9562344feb7e995758')
+md5sums=('1af0b33880db48f7bc0f20f93a178419')
 
 build() {
-    cd "$srcdir/${pkgname}-${pkgver}"
+    cd ${pkgname}-${pkgver}
     mkdir -p build
     cd build
     
@@ -24,7 +24,7 @@ build() {
 }
 
 package () {
-    cd "$srcdir/${pkgname}-${pkgver}/build"
+    cd ${pkgname}-${pkgver}/build
     
     make DESTDIR=${pkgdir} install
 }
