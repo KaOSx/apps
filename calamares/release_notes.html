@@ -10,24 +10,22 @@
 </head>
 
 <body>
-    <h3>KaOS - 2017.01</h3>
-    <p>It is with great pleasure to present to you a first KaOS ISO for 2017.</p>
+    <h3>KaOS - 2017.02</h3>
+    <p>KaOS is proud to announce the availability of the February release of a new stable ISO.</p>
     
-    <p>Starting the New Year with a fresh new look.  All parts of the Midna artwork have been updated, most notably a new sddm theme that uses a layered QML model. This makes selecting between the default regular Plasma session or optional Wayland much clearer.  New is also a move to a right vertical panel as default.
+    <p>The policy is, once a first pacman -Syu becomes a major update, it is time for a new ISO so new users are not faced with a difficult first update. With the exceptional large amounts of updates the last four to five weeks a new ISO is needed a bit sooner than usual.
     
-    <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.29.0, Plasma 5.8.5, KDE Applications 16.12.0 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.7.1.</strong></p>
-    
-    <p>Linux 4.8.15 has a change as to how the kernel image is created. Instead of using an install file that only gets called on kernel updates, a new hook file is used. Advantage of this is that image creation is now triggered for many more instances like filesystem and systemd updates, so you won’t see the mismatched systemd version on systemd updates without manually updating the kernel image.</p>
+    <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.31.0, Plasma 5.9.1, KDE Applications 16.12.2 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.8.0.</strong></p>
     
     <p>Also included is a KaOS specific tool to write ISO files to USB.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. Newly added is the option to verify the written USB in comparison to the used ISO file.</p>
     
-    <p>The installer has more robust support for operating system detection with automatic dual boot setup in GRUB</p>
+    <p>The installer has fixes for using passwords with non-Latin1 characters and now has a proper warning for missing features when doing an offline install.</p>
     
     <p>Mesa includes experimental Nouveau patches so QtWebengine based applications and web-browsers can again be used on systems running the Nouveau driver.  This fixes a long standing bug going back to the middle of 2015.</p>
     
     <p>KaOS uses a First Run Wizard.  It will run on the newly installed system and enables with just a few clicks to adjust mouse behavior, menu launcher, desktop theme, used wallpaper, color scheme, widget style, window decoration and virtual desktops used.  With one click this Wizard will also link to KaOS Documentation and all contact info.</p>
     
-    <p>Most notable major updates to the base of the system are Boost 1.62.0, ICU 58.2, Ruby 2.4.0, Systemd 232, FFMPEG 3.2, Linux 4.8.15, Mesa 13.0.2, Hunspell 1.6.0, Gpgme 1.8.0, Gstreamer 1.10.2 and a move to Openjpeg 2 (2.1.2)</p>
+    <p>Most notable major updates to the base of the system are Qt 5.8.0, Readline 7.0, Bash 4.4 Perl 5.24.1, Systemd 232, Xorg-Server 1.19.1, Linux 4.9.9, Mesa 13.0.3, Protobuf 3.2.0, Libwebp 0.6.0, Gstreamer 1.10.3 and a move to qtwebkit-tp replacing  no longer maintained qt5-webkit</p>
     
     <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
     
@@ -35,15 +33,16 @@
 
     <p>This ISO uses the <b>CRC and finobt enabled</b> XFS filesystem as default. CRCs enable enhanced error detection due to hardware issues, whilst the format changes also improves crash recovery algorithms and the ability  of  various  tools to validate and repair metadata corruptions when they are found.  The  free  inode  btree does not index used inodes, allowing faster, more consistent inode allocation performance as filesystems age.</p>
 
-    <p>It is possible for both the Live session and installed system to start a Plasma Wayland session right from the login manager.  An X11 session is of course still default, but the drop-down menu has a Wayland entry too.  With Plasma 5.8, the Wayland session is now possible on more systems.</p>
+    <p>It is possible for both the Live session and installed system to start a Plasma Wayland session right from the login manager.  An X11 session is of course still default, but the drop-down menu has a Wayland entry too.  With Plasma 5.9, the Wayland session is now possible on more systems.</p>
 
-    <p><b>Calamares</b>, the used installer framework, has moved to the 2.5 series. Highlights of the changes and additions:
+    <p><b>Calamares</b>, the used installer framework, has moved to the 3.1 series. Highlights of the changes and additions:
     <ul>
-        <li>Improved system requirements configuration checking</li>
-        <li>Fixed a path handling issue which could sometimes occur when reusing an existing EFI system partition</li>
+        <li>Fix for an issue in the users module, which could break login if the chosen password had non-Latin1 characters</li>
+        <li>Proper exception handling in the networkcfg module</li>
         <li>Fixed operating system detection for automatic dual boot setup in GRUB</li>
-        <li>Added support for NVME devices to set correct ESP flag with UEFI installs</li>
-        <li>Added Btrfs subvolumes setup for @ and @home in automated install modes (note: manual partitioning still doesn’t support Btrfs subvolumes, as this requires further work in both KPMcore and Calamares)</li>
+        <li>Improved check for internet connection availability</li>
+        <li>Double-click as a way to edit a partition in the manual partitioning view</li>
+        <li>Fixed an issue in the partition module to always set the correct flags for an EFI system partition</li>
     </ul></p>
     
     <p><strong>Octopi</strong> is becoming a very crucial part of full system maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like making sure a mirror is synced before starting any update, looking at the pacman logs, an option to get a paste from a complete snapshot of all info of a system with the SysInfo tool are included. Also included are very simple ways to open files, like copy to clipboard the file path shown in Octopi. To make sure the system doesn't start using too much disk space for the pacman cache, but still giving the user the option to retain some recent packages, the cache-cleaner tool is a great addition. The built-in tool to access <b>KCP</b> has now a much clearer place with the addition of its own "foreign" icon in the menu-bar. New added is the option to select custom icons for the systemtray.</p>
@@ -54,17 +53,16 @@
     
     <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a "final" release, every ISO is mere a snapshot of the current status of the repositories. An idea what is currently available:</p>
     
-    <p>The ISO ships with <b>Frameworks 5.29.0, Plasma 5.8.5, KDE Applications 16.12.0 &amp; not yet released ports of KDE Applications</b>, Linux 4.8.15, Systemd 232, Kmod 23, NetworkManager 1.4.4, Calligra 3.0.0.1, Krita 3.1.1, Cantata, Plasma-nm 5.8.5, Xorg-Server 1.18.4, Mesa 13.0.2, Glibc 2.23, GCC 5.4.0, non-free Nvidia 375.26, Pepperflash and Python3 3.5.2 to name a few.</p>
+    <p>The ISO ships with <b>Frameworks 5.31.0, Plasma 5.9.1, KDE Applications 16.12.2 &amp; not yet released ports of KDE Applications</b>, Linux 4.9.9, Systemd 232, Kmod 23, NetworkManager 1.6.0, Calligra 3.0.0.1, Krita 3.1.2, Cantata, Plasma-nm 5.9.1, Xorg-Server 1.19.1, Mesa 13.0.3, Glibc 2.23, GCC 5.4.0, non-free Nvidia 375.26, Pepperflash and Python3 3.5.3 to name a few.</p>
     
-    <p>The package manager is <strong>Pacman 5.0.1</strong>, with the simple but powerful Octopi 0.9dev as GUI frontend. Default web browser is Qt based Qupzilla 2.0.2. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna", fully redone for 2016.</p>
+    <p>The package manager is <strong>Pacman 5.0.1</strong>, with the simple but powerful Octopi 0.9dev as GUI frontend. Default web browser is Qt based Qupzilla 2.1.0. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna", fully redone for 2016.</p>
     
-    <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 4.9, Libreoffice 5.2.4, Qt 5.7.1, bumblebee packages, VLC, Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad and Knights.<br />
-    A limited number of the most well-known GTK applications are available, examples Firefox 50.1.0, Chrome 57, Ardour 5.5.0, Inkscape 0.91.90, GIMP 2.9.4 and Google-talkplugin 5.38.5.0.<br />
+    <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 4.9, Libreoffice 5.3.0, Qt 5.8.0, bumblebee packages, VLC, Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad and Knights.<br />
+    A limited number of the most well-known GTK applications are available, examples Firefox 51.0.1, Chrome 58, Ardour 5.5.0, Inkscape 0.92.0, GIMP 2.9.4 and Google-talkplugin 5.38.5.0.<br />
     Complete language packs are available for KDE, Calligra, Firefox, Libreoffice and Thunderbird. For IM, Fcitx 4.2.9.1 is available as a rather complete group.</p>
     
     <p><b>Known issues:</b></p>
     <ul>
-        <li>If you do not want to install a bootloader, do not use any of the automated partitioning options, select manual for this.</li>
         <li>If you want to use a GPT partition table on a BIOS system, make sure to set it up following <b>https://kaosx.us/docs/bios_gpt/</b>, the installer's partitioner can only handle GPT correctly for UEFI</li>
         <li>Installing on RAID or LVM is currently not possible</li>
         <li>Hibernate on LUKS enabled swap partitions needs manual intervention, the installer misses some settings to fully support this</li>
