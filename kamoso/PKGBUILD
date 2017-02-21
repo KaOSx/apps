@@ -1,9 +1,6 @@
 
-# include global config
-source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
-
 pkgname=kamoso
-pkgver=3.2
+pkgver=3.2.3
 _pkgver=3.2
 pkgrel=1
 pkgdesc="Kamoso is an application to take pictures and videos out of your webcam."
@@ -14,11 +11,9 @@ depends=('kconfig' 'kconfigwidgets' 'kcompletion' 'kwidgetsaddons' 'kio' 'solid'
          'kdeclarative' 'systemd' 'gst-plugins-base' 'gst-plugins-good' 'qt5-gstreamer' 
          'kipi-plugins' 'phonon-qt5' 'qt5-graphicaleffects' 'qt5-quickcontrols' 'purpose')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
-#groups=('multimedia')
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kamoso.git#branch=frameworks")
+groups=('multimedia')
 source=("http://download.kde.org/stable/kamoso/${_pkgver}/src/kamoso-${pkgver}.tar.xz")
-md5sums=('55d026b0db2053ff0a434d1ffb0f4fca')
+md5sums=('5d92d3a3219d53e9b3e8054b2327e06a')
 
 prepare() {
   cd $pkgname-${pkgver}
@@ -32,8 +27,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
