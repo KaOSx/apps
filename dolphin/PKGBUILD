@@ -4,7 +4,6 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=dolphin
 pkgver=${_kdever}
-#pkgver=15.03.76
 pkgrel=1
 pkgdesc="KDE File Manager"
 arch=('x86_64')
@@ -14,9 +13,16 @@ depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kdbusaddons' 'kbo
          'kiconthemes' 'kcompletion' 'ktextwidgets' 'kwindowsystem' 'knotifications' 'baloo-widgets' 'kactivities' 
          'kfilemetadata') 
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#source=("git://anongit.kde.org/dolphin.git")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+        "https://github.com/KDE/dolphin/commit/0bdd8e0b0516555c6233fdc7901e9b417cf89791.diff")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '4deb6cf177469a503c951a5f9f10ed98')
+
+prepare() {
+  cd $pkgname-${pkgver}
+  # keep kdesu option for dolphin, comment out for now, wait for upstream decision
+  #patch -R -p1 -i ${srcdir}/0bdd8e0b0516555c6233fdc7901e9b417cf89791.diff
+}
 
 build() {
   mkdir -p build
@@ -25,10 +31,10 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib
+    -DKDE_INSTALL_LIBDIR=lib
   make
 }
 
