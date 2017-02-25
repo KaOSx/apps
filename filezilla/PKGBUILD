@@ -2,15 +2,17 @@
 pkgname=filezilla
 _pkgname=FileZilla
 pkgver=3.24.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client."
 arch=('x86_64')
 url="https://filezilla-project.org/"
 license=('GPL2')
-depends=('dbus' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'wxgtk2.9' 'sqlite'
-         'libfilezilla')
-source=("https://downloads.sourceforge.net/project/filezilla/${_pkgname}_Client/${pkgver}/${_pkgname}_${pkgver}_src.tar.bz2")
-md5sums=('29f19bfca4c77d3903ec0efa3f191ff0')
+depends=('dbus' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'wxgtk' 'sqlite'
+         'libfilezilla' 'pugixml')
+source=("https://downloads.sourceforge.net/project/filezilla/${_pkgname}_Client/${pkgver}/${_pkgname}_${pkgver}_src.tar.bz2"
+        'filezilla.desktop')
+md5sums=('29f19bfca4c77d3903ec0efa3f191ff0'
+         '18fe9dc5377f1a84f71f78eae4cca7f9')
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -19,12 +21,14 @@ build() {
     --disable-manualupdatecheck \
     --disable-autoupdatecheck \
     --disable-static \
-    --with-pugixml=builtin
+    --with-pugixml=system
   make
 }
 
 package() {
   cd ${pkgname}-${pkgver}
-
   make DESTDIR=${pkgdir} install
+  
+  rm ${pkgdir}/usr/share/applications/filezilla.desktop
+  install -D -m644 ${srcdir}/filezilla.desktop ${pkgdir}/usr/share/applications/filezilla.desktop
 }
