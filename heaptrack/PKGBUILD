@@ -1,0 +1,36 @@
+
+pkgname=heaptrack
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='A heap memory profiler for Linux'
+arch=('x86_64')
+url="https://github.com/KDE/heaptrack"
+license=('GPL')
+depends=('boost-libs' 'libunwind' 'elfutils' 'kcoreaddons' 'ki18n' 'kitemmodels' 'threadweaver'
+         'kio' 'kconfigwidgets' 'kdiagram' 'sparsehash')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+groups=('kde')
+source=("https://download.kde.org/stable/heaptrack/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=('6fe8c891b8b8f7af7672072ef80889ff')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  #patch -p1 -i $srcdir/bluezqt5.11.patch
+}
+         
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr 
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
