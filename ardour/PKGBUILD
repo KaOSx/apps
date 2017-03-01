@@ -2,7 +2,7 @@
 pkgname=ardour
 _pkgname=Ardour
 # adjust .desktop version!
-pkgver=5.6.0
+pkgver=5.8.0
 pkgrel=1
 pkgdesc="A multichannel hard disk recorder and digital audio workstation"
 arch=('x86_64')
@@ -10,14 +10,14 @@ url="http://ardour.org/"
 license=('GPL')
 depends=('qjackctl' 'desktop-file-utils')
 options=('!strip')
-source=("https://sourceforge.net/projects/kaosx/files/sources/ardour/${_pkgname}_64bit-${pkgver}.run"
+source=("https://sourceforge.net/projects/kaosx/files/sources/ardour/${_pkgname}-${pkgver}-x86_64.run"
         'ardour.desktop')
-md5sums=('a8ef4b0ed077d608c665851ba733eeaf'
-         'f1b6ddff46933f5677461b3956952157')
+md5sums=('f87792f27b9fa22219efa259e0fbdae2'
+         '0ae9921a6626bf9fb22229c866138bfd')
 
 build() {
   mkdir -p build
-  sh ${_pkgname}_64bit-${pkgver}.run --noexec --target build
+  sh ${_pkgname}-${pkgver}-x86_64.run --noexec --target build
 }
 
 package() {

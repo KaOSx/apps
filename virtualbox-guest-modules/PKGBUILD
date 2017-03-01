@@ -1,0 +1,47 @@
+
+_extramodules=extramodules-4.9
+_kernver="$(cat /lib/modules/$_extramodules/version)"
+
+pkgname=virtualbox-guest-modules
+pkgver=5.1.14
+_pkgver=5.1.14
+pkgrel=2
+pkgdesc='VirtualBox guest kernel modules, to use with guest-utils'
+arch=('x86_64')
+license=('GPL' 'custom')
+url='http://virtualbox.org'
+depends=('linux>=4.9' 'linux<4.10')
+makedepends=('linux-headers')
+install=virtualbox-guest-modules.install
+source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-guest-module-src-${_pkgver}.tar.xz"
+        'vbox-guest-modules.conf')
+md5sums=('21eaec9f21477d555559a63761779880')
+
+build() {
+    cd vbox-guest-module-src-${_pkgver}
+    
+    source VirtualBox-${pkgver}/env.sh
+    mkdir -p lib/modules/${_kernver}/misc
+    
+    make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
+        MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc
+}
+
+
+
+package() {
+    cd vbox-guest-module-src-${_pkgver}
+    
+    install -dm755 ${pkgdir}/lib/modules/$_extramodules/
+    install -m644 *.ko ${pkgdir}/lib/modules/$_extramodules/
+    
+    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" ../../../virtualbox-guest-modules.install
+    
+    install -Dm644 ${srcdir}/VirtualBox-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+    # check if needed to activate
+    #install -D -m644 ../vbox-guest-modules.conf ${pkgdir}/etc/modules-load.d/vbox-guest-modules.conf
+}
+    
+
+
+

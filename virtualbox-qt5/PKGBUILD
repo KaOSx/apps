@@ -1,11 +1,10 @@
 
 # create vbox-modules tar from the /VirtualBox-${_pkgver}/out/linux.amd64/release/bin/src dir
 # rename /src to vbox-kernel-module-src-${_pkgver} and compress to tar.xz
-_extramodules=extramodules-4.9
-_kernver="$(cat /lib/modules/$_extramodules/version)"
+# repeat for guest-modules from /VirtualBox-${_pkgver}/out/linux.amd64/release/bin/additions/src
 
 pkgbase=virtualbox-qt5
-pkgname=('virtualbox-qt5' 'virtualbox-guest-modules' 'virtualbox-guest-utils')
+pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
 pkgver=5.1.14
 _pkgver=5.1.14
 pkgrel=2
@@ -143,30 +142,6 @@ package_virtualbox-qt5() {
 
     # systemd
     install -Dm644 60-vboxdrv.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxdrv.rules
-}
-
-package_virtualbox-guest-modules() {
-    pkgdesc='VirtualBox guest kernel modules, to use with guest-utils'
-    depends=('make')
-    install=virtualbox-guest-modules.install
-    
-    #install -dm755 ${pkgdir}/usr/src
-    source VirtualBox-${pkgver}/env.sh
-    
-    mkdir -p lib/modules/${_kernver}/misc
-    cd VirtualBox-${pkgver}/out/linux.amd64/release/bin/additions/src
-    #cp -r src ${pkgdir}/usr/src/vboxguest-${pkgver}_OSE
-    
-    make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
-        MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc 
-    #make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
-        #MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc INSTALL_MOD_PATH=${pkgdir} install
-    install -dm755 ${pkgdir}/lib/modules/$_extramodules/
-    install -m644 *.ko ${pkgdir}/lib/modules/$_extramodules/
-    
-    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/virtualbox-guest-modules.install"
-    
-    install -Dm644 ${srcdir}/VirtualBox-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
     
 package_virtualbox-guest-utils() {
