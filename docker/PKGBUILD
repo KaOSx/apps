@@ -1,5 +1,6 @@
 pkgname=docker
-pkgver=1.13.1
+pkgver=17.03.0.1
+_pkgver=17.03.0-ce
 # add commit associated with the release tag
 # build runc & containerd from https://github.com/docker/docker/blob/master/hack/dockerfile/binaries-commits
 DOCKER_GITCOMMIT=092cba3
@@ -13,21 +14,21 @@ makedepends=('git' 'go' 'btrfs-progs' 'go-md2man')
 optdepends=('btrfs-progs: btrfs backend support')
 options=('!strip')
 install=$pkgname.install
-source=("https://github.com/docker/docker/archive/v$pkgver.tar.gz"
+source=("https://github.com/docker/docker/archive/v${_pkgver}.tar.gz"
         'docker.sysusers'
         "https://github.com/docker/docker/commit/6f89a8ee1ba6b598dc1f76e829d6db6f830cdb8e.patch")
-md5sums=('032c39b2390a0f387cdb49bab8c4c712'
+md5sums=('ae104d1f25766d217bda5f23cf11c90b'
          '4324edeb9adc210a2c22f44eb4cb8a74'
          '3eff94e59391015f020686d57ffb3c06')
 
 prepare() {
-    cd $pkgname-$pkgver
+    cd ${pkgname}-${_pkgver}
     # fix build with go 1.5
     #patch -p1 -i $srcdir/6f89a8ee1ba6b598dc1f76e829d6db6f830cdb8e.patch
 }
          
 build() {
-  cd $pkgname-$pkgver
+  cd ${pkgname}-${_pkgver}
   export AUTO_GOPATH=1
   export DOCKER_GITCOMMIT
   
@@ -37,28 +38,28 @@ build() {
 }
 
 package() {
-  cd $pkgname-$pkgver
-  install -Dm755 "bundles/$pkgver/dynbinary-client/docker-$pkgver" "$pkgdir/usr/bin/docker"
-  install -Dm755 "bundles/$pkgver/dynbinary-daemon/dockerd-$pkgver" "$pkgdir/usr/bin/dockerd"
+  cd ${pkgname}-${_pkgver}
+  install -Dm755 "bundles/${_pkgver}/dynbinary-client/docker-${_pkgver}" "${pkgdir}/usr/bin/docker"
+  install -Dm755 "bundles/${_pkgver}/dynbinary-daemon/dockerd-${_pkgver}" "${pkgdir}/usr/bin/dockerd"
 
-  install -Dm644 'contrib/completion/bash/docker' "$pkgdir/usr/share/bash-completion/completions/docker"
-  install -Dm644 'contrib/completion/zsh/_docker' "$pkgdir/usr/share/zsh/site-functions/_docker"
-  install -Dm644 'contrib/completion/fish/docker.fish' "$pkgdir/usr/share/fish/completions/docker.fish"
+  install -Dm644 'contrib/completion/bash/docker' "${pkgdir}/usr/share/bash-completion/completions/docker"
+  install -Dm644 'contrib/completion/zsh/_docker' "${pkgdir}/usr/share/zsh/site-functions/_docker"
+  install -Dm644 'contrib/completion/fish/docker.fish' "${pkgdir}/usr/share/fish/completions/docker.fish"
 
-  install -Dm644 'contrib/init/systemd/docker.service' "$pkgdir/usr/lib/systemd/system/docker.service"
-  install -Dm644 'contrib/init/systemd/docker.socket' "$pkgdir/usr/lib/systemd/system/docker.socket"
-  install -Dm644 "$srcdir/$pkgname.sysusers" "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
+  install -Dm644 'contrib/init/systemd/docker.service' "${pkgdir}/usr/lib/systemd/system/docker.service"
+  install -Dm644 'contrib/init/systemd/docker.socket' "${pkgdir}/usr/lib/systemd/system/docker.socket"
+  install -Dm644 "$srcdir/$pkgname.sysusers" "${pkgdir}/usr/lib/sysusers.d/$pkgname.conf"
 
-  install -Dm644 'contrib/syntax/vim/syntax/dockerfile.vim' "$pkgdir/usr/share/vim/vimfiles/syntax/dockerfile.vim"
-  install -Dm644 'contrib/syntax/vim/ftdetect/dockerfile.vim' "$pkgdir/usr/share/vim/vimfiles/ftdetect/dockerfile.vim"
+  install -Dm644 'contrib/syntax/vim/syntax/dockerfile.vim' "${pkgdir}/usr/share/vim/vimfiles/syntax/dockerfile.vim"
+  install -Dm644 'contrib/syntax/vim/ftdetect/dockerfile.vim' "${pkgdir}/usr/share/vim/vimfiles/ftdetect/dockerfile.vim"
   
   # symlink runc & containerd binariers https://github.com/KaOSx/apps/issues/54
-  ln -s runc "$pkgdir/usr/bin/docker-runc"
-  ln -s containerd "$pkgdir/usr/bin/docker-containerd"
-  ln -s containerd-shim "$pkgdir/usr/bin/docker-containerd-shim"
-  ln -s ctr "$pkgdir/usr/bin/docker-containerd-ctr"
+  ln -s runc "${pkgdir}/usr/bin/docker-runc"
+  ln -s containerd "${pkgdir}/usr/bin/docker-containerd"
+  ln -s containerd-shim "${pkgdir}/usr/bin/docker-containerd-shim"
+  ln -s ctr "${pkgdir}/usr/bin/docker-containerd-ctr"
 
-  install -dm755 "$pkgdir/usr/share/man"
-  mv man/man* "$pkgdir/usr/share/man"
+  install -dm755 "${pkgdir}/usr/share/man"
+  mv man/man* "${pkgdir}/usr/share/man"
 }
 
