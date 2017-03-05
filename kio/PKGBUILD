@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kio'
@@ -22,7 +22,7 @@ md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # CVE fix
-  patch -p1 -i ${srcdir}/f9d0cb47cf94e209f6171ac0e8d774e68156a6e4.diff
+  #patch -p1 -i ${srcdir}/f9d0cb47cf94e209f6171ac0e8d774e68156a6e4.diff
   #sed -i -e 's|-caption=|-qwindowtitle|' src/core/desktopexecparser.cpp
 }
          
