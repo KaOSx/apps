@@ -1,6 +1,6 @@
 
 pkgname=kaffeine
-pkgver=2.0.6
+pkgver=2.0.8
 _commit=ea1d0b7c0f6206acc56892bb8d99b48ccae7ff8a
 pkgrel=1
 pkgdesc='KDE media player'
@@ -11,14 +11,16 @@ depends=('kcoreaddons' 'kdbusaddons' 'ki18n' 'solid' 'kio' 'knotifications'
          'kwidgetsaddons' 'kxmlgui' 'kidletime' 'qt5-x11extras' 'vlc')
 makedepends=('extra-cmake-modules' 'kdoctools') 
 groups=('multimedia')
-source=("http://download.kde.org/stable/kaffeine/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('0e390ba5833a731310c488b61e85199a')
+source=("http://download.kde.org/stable/kaffeine/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kaffeine/commit/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff")
+md5sums=('f8da191180265ef7dbeb673eef201cf3'
+         '2cd0bb8f539ba0835d3db5b125de45d4')
 
-#prepare() {
-  #cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/gcc47.patch
+prepare() {
+  cd ${pkgname}-${pkgver}
+  patch -p1 -i ${srcdir}/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff
   #sed -i 's|${X11_Xscreensaver_INCLUDE_PATH}||' CMakeLists.txt
-#}
+}
 
 build() {
   mkdir build
