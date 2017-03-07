@@ -25,7 +25,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 
 prepare() {
   cd $pkgname-${pkgver}
-  patch -p1 -i ${srcdir}/2bcdea1a25b7ee69b4db93a12b8197a5bfa0bc1a.diff
+  #patch -p1 -i ${srcdir}/2bcdea1a25b7ee69b4db93a12b8197a5bfa0bc1a.diff
 }
 
 build() {
@@ -35,8 +35,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
   make
 }

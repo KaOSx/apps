@@ -1,7 +1,7 @@
 
 pkgname=liri-browser
-pkgver=0.3.18
-_commit=f3865127c4102096463925bdd63168493cecdd07
+pkgver=0.3.19
+_commit=9112e78185b443bb5b6aed1485df90617e0b5499
 pkgrel=1
 pkgdesc="Cross-platform material design web browser"
 url="https://github.com/lirios/browser"
@@ -11,16 +11,16 @@ depends=('qtwebengine' 'qt5-multimedia' 'fluid' 'slime-engine' 'qt5-location' 'q
 source=("https://github.com/lirios/browser/archive/${_commit}.zip"
         "https://github.com/lirios/lirios.github.io/raw/master/images/logo-100.png"
         'liri-browser.desktop')
-md5sums=('d8aa3763606f3c2d8357cc00eeccc2ae'
+md5sums=('7710f38d06a436a956c9117e69684083'
          '6ab30e7a852ee94011735507db62a957'
          '532df3c09336cd38c6dcabe66a43de14')
 
 prepare() {
   cd browser-${_commit}
   # quazip fixes
-  #sed -i -e 's|include <quazip|include <quazip5|' src/core/extensions/extensionsmanager.h
-  #sed -i -e 's|include <quazip|include <quazip5|' src/core/extensions/extensionparser.h
-  #sed -i -e 's|L/usr/local/lib -lquazip|L/usr/local/lib -lquazip5|' liri-browser.pro
+  sed -i -e 's|include <quazip|include <quazip5|' src/core/extensions/extensionsmanager.h
+  sed -i -e 's|include <quazip|include <quazip5|' src/core/extensions/extensionparser.h
+  sed -i -e 's|L/usr/local/lib -lquazip|L/usr/local/lib -lquazip5|' liri-browser.pro
   # settings
   sed -i -e 's|SearchEngine::DuckDuckGo|SearchEngine::Google|' src/core/settings/searchconfig.cpp
   sed -i -e 's|{"engine", "duckduckgo"}|{"engine", "google"}|' src/core/settings/settings.cpp
