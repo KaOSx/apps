@@ -1,6 +1,6 @@
 
 pkgname=nodejs
-pkgver=7.7.1
+pkgver=7.7.2
 pkgrel=1
 pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications."
 arch=('x86_64')
@@ -11,7 +11,7 @@ makedepends=('procps-ng')
 checkdepends=('curl') 
 options=('!emptydirs')
 source=("https://github.com/nodejs/node/archive/v${pkgver}.tar.gz")
-md5sums=('c4d3b9d83ffe880f76d3d7251361b3e8')
+md5sums=('9a32cfde2247f44354c70ab636185226')
 
 build() {
   cd node-${pkgver}
@@ -26,7 +26,7 @@ build() {
 
 check() {
   cd node-${pkgver}
-  
+  # 1 test fails bc of system-icu use
   make -j1 test
 }
 

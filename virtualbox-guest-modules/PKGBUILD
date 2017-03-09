@@ -21,7 +21,6 @@ md5sums=('8bd51502205a57782001ee71de14edc7'
 build() {
     cd vbox-guest-module-src-${_pkgver}
     
-    #source VirtualBox-${pkgver}/env.sh
     mkdir -p lib/modules/${_kernver}/misc
     
     make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
