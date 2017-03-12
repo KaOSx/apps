@@ -1,6 +1,6 @@
 
 pkgname=smb4k
-pkgver=1.9.80
+pkgver=2.0.0
 _commit=3056bb01733ec009d789e831636e4fe487d79598
 pkgrel=1
 pkgdesc='Advanced network neighborhood browser and Samba share mounting utility for KDE.'
@@ -12,17 +12,19 @@ depends=('kconfig' 'kauth' 'kiconthemes' 'solid' 'kwidgetsaddons' 'ki18n' 'kcomp
          'kwindowsystem' 'plasma-framework' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
-source=("https://sourceforge.net/projects/smb4k/files/Development/${pkgname}-${pkgver}.tar.xz")
-md5sums=('ec3fe3d3840cb46f66c6812a4369d7b4')
+source=("https://sourceforge.net/projects/smb4k/files/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        'po.patch')
+md5sums=('7252df36cb3695daac416689a836741a'
+         '6a95a47f6dddb16d63a0768c92b7d675')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/cmake.diff
+  patch -p1 -i ${srcdir}/po.patch
   #sed -i -e 's|Unknown|UnknownNetworkItem|' core/smb4kbasicnetworkitem.h
 }
 
 build() {
-  mkdir build 
+  mkdir -p build 
   cd build
   
   cmake ../${pkgname}-${pkgver} \
