@@ -1,6 +1,6 @@
 
 pkgname=kexi
-pkgver=3.0.1
+pkgver=3.0.1.1
 _pkgver=3.0.1
 pkgrel=1
 pkgdesc="Visual database applications creator"
@@ -13,12 +13,12 @@ depends=('karchive' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreadd
          'kproperty' 'kreport' 'kdb'
          'libmariadbclient' 'sqlite3' 'qtwebkit-tp' 'xbase' 'freetds' 'postgresql') # will switch to qtwebengine
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'qt5-tools') # 'clang') 
-source=("http://download.kde.org/stable/kexi/src/${pkgname}-${_pkgver}.tar.xz")
+source=("http://download.kde.org/stable/kexi/src/${pkgname}-${pkgver}.tar.xz")
 #source=("https://github.com/KDE/kexi/archive/${_commit}.zip")
-md5sums=('92e43dc079cd3666c7a53c525bf1f515')
+md5sums=('40523d9165832e7d752696778dbd5a5a')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
   
   #patch -p1 -i $srcdir/desktop_files.patch
 }
@@ -30,7 +30,7 @@ build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
