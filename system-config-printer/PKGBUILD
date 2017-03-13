@@ -1,7 +1,7 @@
 
 pkgname=system-config-printer
 pkgver=1.5.9
-pkgrel=1
+pkgrel=2
 pkgdesc="A CUPS printer configuration tool and status applet"
 url="https://github.com/zdohnal/system-config-printer"
 arch=('x86_64')
@@ -17,6 +17,8 @@ md5sums=('8b449c4b00fb170d79a6b781eab75bb3')
 build() {
   cd ${pkgname}-${pkgver}
   sed -i "s|cups.socket|org.cups.cupsd.socket|g" udev/configure-printer@.service.in
+  sed -i "s|gi.require_version('GnomeKeyring', '1.0')|#gi.require_version('GnomeKeyring', '1.0')|g" jobviewer.py
+  sed -i "s|from gi.repository import GnomeKeyring|#from gi.repository import GnomeKeyring|g" jobviewer.py
 
   ./bootstrap
   ./configure --prefix=/usr \
