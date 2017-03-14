@@ -1,8 +1,8 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
-pkgver=5.4.0
-_pkgver=5.4.0
+pkgver=5.5.0
+_pkgver=5.5.0
 pkgrel=1
 url="https://www.digikam.org/"
 arch=('x86_64')
@@ -17,11 +17,11 @@ makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons'
          'kcalcore' 'kwallet' 'phonon-qt5' 
          'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang' 'ruby')
 source=("http://download.kde.org/stable/digikam/${pkgbase}-${_pkgver}.tar.xz")
-md5sums=('e556cfca0ae442011ada8ba1233af95c')
+md5sums=('bc45d94538f97d805f5a5edd942c56fb')
 
 prepare() {
   cd ${pkgbase}-${_pkgver}
-  #sed -i -e 's|${KF5_MIN_VERSION}||' ${srcdir}/${pkgbase}-${_pkgver}/core/CMakeLists.txt
+  sed -i -e 's|add_subdirectory( sv )|#add_subdirectory( sv )|' doc-translated/CMakeLists.txt
   #sed -i -e 's|${KF5_MIN_VERSION}||' ${srcdir}/${pkgbase}-${_pkgver}/extra/kipi-plugins/CMakeLists.txt
   #patch -p1 -i $srcdir/CMakeLists.diff
 }
