@@ -2,7 +2,7 @@
 pkgbase=calligra
 pkgname=('calligra' 'calligra-l10n')
 pkgver=3.0.0.1
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
 url='http://www.calligra-suite.org'
@@ -10,7 +10,7 @@ license=('FDL1.2' 'GPL2' 'LGPL')
 makedepends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons' 'ki18n' 'kitemviews' 'kwidgetsaddons'
          'threadweaver' 'kcompletion' 'kiconthemes' 'kparts' 'kxmlgui' 'kross' 'kconfigwidgets' 'ktexteditor' 
          'kdelibs4support' 'kio'
-         'eigen3' 'freetds' 'xbase' 'libpqxx' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
+         'eigen3' 'freetds' 'xbase' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
          'lcms2' 'libmariadbclient' 'libodfgen' 'poppler-qt5' 'libspnav' 'fftw' 'hicolor-icon-theme' 
          'sqlite3' 'libkdcraw' 'exiv2' 'qca-qt5' 'qt5-declarative' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
          'kcontacts' 'akonadi-contacts' 'knotifyconfig' 'knotifications' 'okular' 'openexr' 'vc' 'kreport' 'qt5-webkit'
@@ -22,8 +22,8 @@ md5sums=('c4cffca0a8008b5efd285414eeeddcff')
 prepare() {
   cd ${pkgbase}-${pkgver}
   #patch -p1 -i $srcdir/warnings.diff
-  #sed -i 's|"Karbon app (for Desktop)"  UNMAINTAINED  REQUIRES|"Karbon app (for Desktop)"  REQUIRES|' CalligraProducts.cmake
-  #sed -i 's|Okular5 1.0.0 QUIET|Okular5 0.99.60 QUIET|' CMakeLists.txt
+  sed -i 's|KReport 3.0.0 EXACT QUIET|KReport 3.0 QUIET|' CMakeLists.txt
+  sed -i 's|KPropertyWidgets 3.0.0 EXACT QUIET|KPropertyWidgets 3.0 QUIET|' CMakeLists.txt
 }
 
 build() {
