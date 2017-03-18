@@ -2,12 +2,12 @@
 pkgbase=google-chrome
 pkgname=('google-chrome' 'widevine')
 pkgver=58.0.3043.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
 license=('custom:chrome')
 options=('!strip' '!emptydirs')
-makedepends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
+makedepends=('gcc-libs' 'gtk3' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
             'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils')
 # version:  curl -s https://dl.google.com/linux/chrome/rpm/stable/x86_64/repodata/other.xml.gz | gzip -df | awk -F\" '/pkgid/{ sub(".*-","",$4); print $4": "$10 }'
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
@@ -20,7 +20,7 @@ md5sums=('ac644a6601f02506a0d69e9175cbb7f2'
 
 package_google-chrome() {
     pkgdesc="Google Chrome Browser, developer preview channel for Linux"
-    depends=('gcc-libs' 'gtk2' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
+    depends=('gcc-libs' 'gtk3' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
              'libpng' 'alsa-lib' 'libxss' 'hicolor-icon-theme' 'xdg-utils' 'widevine')
     groups=('network')
     install=$pkgname.install
