@@ -1,0 +1,32 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kde-dev-utils
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc='Small utilities for developers using KDE/Qt libs/frameworks'
+url='https://github.com/KDE/kde-dev-utils'
+arch=('x86_64')
+license=('GPL2' 'LGPL' 'FDL')
+groups=('kde' 'kdesdk' 'kde-uninstall')
+depends=('kcoreaddons' 'kjobwidgets' 'kio' 'ki18n' 'kparts' 'kwidgetsaddons')
+makedepends=('extra-cmake-modules' 'qt5-tools')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
