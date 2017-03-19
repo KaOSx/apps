@@ -1,40 +1,45 @@
 
 pkgname=basket
-pkgver=1.90
-pkgrel=2
+pkgver=2.49.80
+_commit=8de0345d99f3eb08d9406bd07e88b31afe46f315
+pkgrel=1
 pkgdesc="BasKet Note Pads - A system for organizing information in KDE."
-url="tree/qt5/basket"
+url="https://github.com/basket-notepads/basket"
 arch=('x86_64')
 license=('GPL')
-depends=('qt5-base' 'gpgme' 'quazip')
-makedepends=('git' 'qt5-tools') 
-source=("https://github.com/keelhub/basket/archive/qt5.zip")
-md5sums=('SKIP')
+depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash'
+         'kdbusaddons' 'kfilemetadata' 'kglobalaccel' 'kguiaddons' 'ki18n' 'kiconthemes'
+         'kcmutils' 'kio' 'knotifications' 'kparts' 'kservice' 'ktextwidgets' 'kwidgetsaddons'
+         'kwindowsystem' 'kxmlgui' 'gpgme')
+makedepends=('extra-cmake-modules' 'kdoctools') 
+source=("https://github.com/basket-notepads/basket/archive/${_commit}.zip")
+md5sums=('a273cfd653a31d6ead14fb2ec76e8109')
+
+prepare() {
+  cd basket-${_commit}
+  sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' doc/en/index.docbook
+  #sed -i -e 's|<quazip/JlCompress.h>|<quazip5/JlCompress.h>|' basket/src/backup.cpp
+  #sed -i -e 's|LIBS += -lquazip|LIBS += -lquazip5|' basket/basket.pro
+}
 
 build() {
-  cd ${srcdir}/basket-qt5
-  sed -i -e 's|<quazip/JlCompress.h>|<quazip5/JlCompress.h>|' basket/src/archive.cpp
-  sed -i -e 's|<quazip/JlCompress.h>|<quazip5/JlCompress.h>|' basket/src/backup.cpp
-  sed -i -e 's|LIBS += -lquazip|LIBS += -lquazip5|' basket/basket.pro
-   
-  /usr/lib/qt5/bin/qmake basket.pro
-  make
+  mkdir -p build
+  cd build 
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make 
 }
 
 package() {
-  cd ${srcdir}/basket-qt5/basket
-   
-  install -Dm755 basket $pkgdir/usr/bin/basket
-  install -Dm644 src/basket.desktop $pkgdir/usr/share/applications/basket.desktop
-  install -Dm644 file-integration/basketthumbcreator.desktop $pkgdir/usr/share/kservices5/basketthumbcreator.desktop
-  install -Dm644 file-integration/basket.xml $pkgdir/usr/share/appdata/basket.xml
+  cd build
   
-  sed -i -e 's|X-DBUS-StartupType=Unique||' $pkgdir/usr/share/applications/basket.desktop
-  
-  mkdir -p ${pkgdir}/usr/share/apps/basket
-  cp -r backgrounds $pkgdir/usr/share/apps/basket/backgrounds
-  cp -r welcome $pkgdir/usr/share/apps/basket/welcome
-  
-  mkdir -p ${pkgdir}/usr/share/icons/hicolor/16x16/actions
-  cp -r tags $pkgdir/usr/share/icons/hicolor/16x16/actions
+  make DESTDIR=${pkgdir} install
 }
