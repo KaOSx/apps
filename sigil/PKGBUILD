@@ -2,31 +2,31 @@
 pkgname=sigil
 _pkgname=Sigil
 _commit=adef8f662a1cd85675bed7f45b156baaf20c85e2
-pkgver=0.9.7
-pkgrel=2
+pkgver=0.9.8
+pkgrel=1
 pkgdesc="A multi-platform WYSIWYG ebook editor. It is designed to edit books in ePub format. "
 arch=('x86_64')
 url="https://github.com/user-none/Sigil"
 license=('GPL3')
 depends=('qtwebkit-tp' 'qt5-svg' 'qt5-webchannel' 'boost-libs' 'xerces-c' 'python3-lxml'
-         'python3-pillow' 'python3-six')
+         'python3-pillow' 'python3-six' 'pyqt5-python3' 'hunspell')
 makedepends=('cmake' 'boost' 'qt5-tools' 'clang')
 #options=('debug')
 groups=('office')
 source=("https://github.com/user-none/Sigil/archive/${pkgver}.tar.gz")
 #source=("https://github.com/Sigil-Ebook/Sigil/archive/${_commit}.zip")
-md5sums=('80a033799baa71a165afba9eba1b3f70')
+md5sums=('bd36d282c724d41c4d2910135df18dc0')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  # fix build with qtwebkit-tp
-  #sed -i -e 's|<QWebPage>|<QtWebKitWidgets/QWebPage>|' src/MainUI/MainWindow.cpp
+  # 0.9.8 tar misses correct version commit
+  sed -i -e 's|SIGIL_REVISION_VERSION 7|SIGIL_REVISION_VERSION 8|' CMakeLists.txt
 }
 
 build() {
   cd ${_pkgname}-${pkgver}
-  mkdir build 
+  mkdir -p build 
   cd build
   
   export CC=/usr/bin/clang
@@ -35,6 +35,7 @@ build() {
   cmake -G "Unix Makefiles" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
+    -DUSE_SYSTEM_LIBS=1 \
     -DCMAKE_SKIP_RPATH=ON ..
   make 
 }
