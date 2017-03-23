@@ -1,33 +1,35 @@
 
 pkgname=fluid
 pkgver=0.10.0
-_commit=e817b12681d81ee4652acb3607e51c0897e6e4a2
-pkgrel=1
+_commit=59b33b6534e529a3c6954a3dee71a1f84e2c8139
+pkgrel=2
 arch=('x86_64')
 url='https://github.com/lirios/fluid'
 pkgdesc="Modules for fluid and dynamic applications development with QtQuick."
 license=('LGPL')
 depends=('qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'gdb')
-source=("https://github.com/lirios/fluid/releases/download/v${pkgver}/fluid-${pkgver}.tar.xz") 
-md5sums=('0861e1e23f39b85cc693eba745881c60')
+#source=("https://github.com/lirios/fluid/releases/download/v${pkgver}/fluid-${pkgver}.tar.xz") 
+source=("https://github.com/lirios/fluid/archive/${_commit}.zip")
+md5sums=('3309f639b736e9f47a61af36081a4c0c')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
   
-  #./scripts/fetch_icons.sh
+  ./scripts/fetch_icons.sh
 }
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_LIBEXECDIR=lib
-  make
+  LIRI_INSTALL_PREFIX=/usr /usr/lib/qt5/bin/qmake ../fluid-${_commit}
+  #cmake ../${pkgname}-${_commit} \
+  #  -DCMAKE_BUILD_TYPE=Release \
+  #  -DCMAKE_INSTALL_PREFIX=/usr \
+  #  -DKDE_INSTALL_LIBDIR=lib \
+  #  -DKDE_INSTALL_LIBEXECDIR=lib
+  make -j1
 }
 
 package() {

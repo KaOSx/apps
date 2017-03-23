@@ -1,17 +1,17 @@
 
 pkgname=liri-browser
-pkgver=0.3.120
-_commit=7be4a4b98b8a9c2be720f7b9364bcc3cdde5f742
-pkgrel=1
+pkgver=0.3.121
+_commit=b64bca00fddf65f5a0dcfdbce939074ea3eb8e25
+pkgrel=2
 pkgdesc="Cross-platform material design web browser"
 url="https://github.com/lirios/browser"
 arch=('x86_64')
-license=('LGPL')
+license=('GPLv3')
 depends=('qtwebengine' 'qt5-multimedia' 'fluid' 'slime-engine' 'qt5-location' 'quazip')
 source=("https://github.com/lirios/browser/archive/${_commit}.zip"
         "https://github.com/lirios/lirios.github.io/raw/master/images/logo-100.png"
         'liri-browser.desktop')
-md5sums=('36efbbc5e4090751a85df6627ac26fdc'
+md5sums=('88f7e09436c4c87cef8128e589c8ab5b'
          '6ab30e7a852ee94011735507db62a957'
          '532df3c09336cd38c6dcabe66a43de14')
 
@@ -38,21 +38,22 @@ build() {
    mkdir -p build
    cd build
 
-   PREFIX=/usr /usr/lib/qt5/bin/qmake CONFIG+=QTWEBENGINE_ENABLED ../browser-${_commit}/liri-browser.pro
+   LIRI_INSTALL_PREFIX=/usr /usr/lib/qt5/bin/qmake CONFIG+=QTWEBENGINE_ENABLED ../browser-${_commit}/liri-browser.pro
    make
 }
 
 package() {
    cd build
-   make INSTALL_ROOT=${pkgdir} install
+   #make INSTALL_ROOT=${pkgdir} install
+   mkdir -p ${pkgdir}/usr/bin
+   install -m755 liri-browser ${pkgdir}/usr/bin
    
+   cd ../browser-${_commit}
    mkdir -p ${pkgdir}/usr/share/applications
+   install -m755 res/io.liri.Browser.desktop ${pkgdir}/usr/share/applications/io.liri.Browser.desktop
 
-   #  install -Dm644 icons/liri-browser.png ${pkgdir}/usr/share/icons/hicolor/$i/apps/liri-browser.png
+   install -Dm644 res/icon/512x512/apps/io.liri.Browser.svg ${pkgdir}/usr/share/icons/hicolor/512x512/apps/io.liri.Browser.svg
    #for i in 16x16 22x22 32x32 48x48 64x64 128x128 256x256; do
-   install -Dm644 ${srcdir}/logo-100.png ${pkgdir}/usr/share/icons/hicolor/64x64/apps/liri-browser.png
+   #install -Dm644 ${srcdir}/logo-100.png ${pkgdir}/usr/share/icons/hicolor/64x64/apps/liri-browser.png
    #done
-  
-  install -m755 ${srcdir}/liri-browser.desktop ${pkgdir}/usr/share/applications/liri-browser.desktop
-  #rm ${pkgdir}/usr/bin/liri-browser.desktop
 }
