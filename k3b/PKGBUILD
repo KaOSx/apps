@@ -1,7 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=k3b
-pkgver=2.9.96
-_commit=8102d390e763abc1e4db2954798930e5f04d6370
+pkgver=${_kdever}
 pkgrel=1
 epoch=1
 pkgdesc="Feature-rich and easy to handle CD burning application"
@@ -12,7 +14,7 @@ depends=('karchive' 'kconfig' 'ki18n' 'kcmutils' 'kcoreaddons' 'knotifyconfig' '
          'kservice' 'kwidgetsaddons' 'kxmlgui' 'libkcddb5' 'libsamplerate' 
          'libmad' 'ffmpeg' 'taglib' 'libmpcdec' 'libdvdread' 'cdrdao' 'cdrtools' 
          'shared-mime-info' 'libxft' 'qt5-webkit' 'libburn')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'pkg-config' 'dvd+rw-tools')
+makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config' 'dvd+rw-tools')
 optdepends=('dvd+rw-tools: for dvd burning support'
             'vcdimager:    for vcd burning support'
             'emovix:       for bootable multimedia cd/dvd support'
@@ -22,11 +24,11 @@ groups=('multimedia')
 conflicts=('kf5-k3b')
 replaces=('kf5-k3b')
 options=('!libtool')
-source=("https://github.com/KDE/k3b/archive/${_commit}.zip")
-md5sums=('07422f0e3162e6e3d9b7b35042e1bf84')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   #patch -p1 -i ${srcdir}/k3b-fix-mp3decoder.diff
   #sed -i -e 's|set(TAGLIB_MIN_VERSION "1.4")|set(TAGLIB_MIN_VERSION "1.10")|' cmake/modules/FindTaglib.cmake 
 }
@@ -35,7 +37,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

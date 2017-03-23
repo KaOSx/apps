@@ -1,20 +1,18 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=libkgapi
-pkgver=5.3.1
-_commit=08805e4dc5afbad5833635b7945ba65e4a5a4abe
-pkgrel=2
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
 url='https://github.com/KDE/libkgapi'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kio' 'kwindowsystem' 'kcalcore' 'kcontacts' 'qt5-webkit')
+depends=('kcoreaddons' 'kio' 'kwindowsystem' 'kcalcore' 'kcontacts' 'qtwebkit-tp')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'boost')
-conflicts=('kf5-libkgapi')
-replaces=('kf5-libkgapi')
-provides=('kf5-libkgapi')
-source=("http://download.kde.org/stable/libkgapi/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-#source=("https://github.com/KDE/libkgapi/archive/${_commit}.zip")
-md5sums=('5f3b1e15ce5dff404bf2a552ae67d890')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build

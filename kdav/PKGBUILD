@@ -2,16 +2,15 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=pim-storage-service-manager
+pkgname=kdav
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Assistant to help with managing external and cloud data storage providers such as Owncloud and Google Drive."
+pkgdesc="DAV protocoll implemention with KJobs"
 arch=('x86_64')
-url='https://github.com/KDE/pim-storage-service-manager'
+url='https://github.com/KDE/kdav'
 license=('LGPL')
-depends=('kdbusaddons' 'ki18n' 'kxmlgui' 'knotifyconfig' 'kcrash' 'kio' 'knotifications'
-         'kpimtextedit' 'libkdepim' 'pimcommon')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kcoreaddons' 'kio')
+makedepends=('extra-cmake-modules')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
