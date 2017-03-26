@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=marble
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
@@ -13,36 +13,30 @@ license=('LGPL')
 depends=('gpsd' 'phonon-qt5' 'qt5-script' 'qt5-svg' 'qt5-tools' 'shapelib' 'protobuf'
          'kwallet' 'knewstuff' 'kparts' 'kcoreaddons' 'ki18n' 'krunner' 'qtwebkit-tp') # 'quazip')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdeedu-marble')
-replaces=('kdeedu-marble')
 options=('!emptydirs')
-source=("http://download.kde.org/stable/applications/$_kdever/src//${pkgname}-$_kdever.tar.xz"
-       'qt55.diff')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '8b8e0dc940d57476485ee2f21e2f0f0b')
+source=("http://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 
 build() {
-  cd $pkgname-${pkgver}
-  #patch -p1 -i $srcdir/qt55.diff
-  #sed -i -e 's|isnan|std::isnan|g' ${srcdir}/${pkgname}-${pkgver}/src/plugins/positionprovider/gpsd/GpsdPositionProviderPlugin.cpp
-  
-  mkdir build
-  
+  mkdir -p build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_LIBDIR=lib \
-        -DQT_PLUGINS_DIR=lib/qt5/plugins \
-        -DBUILD_MARBLE_TOOLS=YES \
-        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-        -DBUILD_MARBLE_TESTS=NO ..
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DQT_PLUGINS_DIR=lib/qt5/plugins \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DBUILD_MARBLE_TOOLS=YES \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_MARBLE_TESTS=NO 
   make
 }
 
 package() {
-  cd $pkgname-${pkgver}/build
-  make DESTDIR="$pkgdir" install
+  cd build
+  make DESTDIR=${pkgdir} install
   
   #rm ${pkgdir}/usr/share/applications/marble-mobile.desktop
   #rm ${pkgdir}/usr/share/applications/marble-qt.desktop
