@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdialog
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDialog can be used to show nice dialog boxes from shell scripts"
 arch=('x86_64')
 url='https://github.com/KDE/kdialog'
@@ -15,8 +15,19 @@ conflicts=('kde-baseapps')
 replaces=('kde-baseapps')
 provides=('kde-baseapps')
 install=kdialog.install
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
+        "https://github.com/KDE/kdialog/commit/da7c7c8218fc55af7706e649449684bc3d2782fb.diff"
+        "https://github.com/KDE/kdialog/commit/d72ab46df8879024cda620beec9da71a674873dc.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'd256c030978485f3055799e2300f9a12'
+         '72f311cd11d44c0334bdfbf7feb4af69')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/da7c7c8218fc55af7706e649449684bc3d2782fb.diff
+  patch -p1 -i ${srcdir}/d72ab46df8879024cda620beec9da71a674873dc.diff
+}
 
 build() {
   mkdir -p build
