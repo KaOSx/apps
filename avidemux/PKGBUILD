@@ -1,8 +1,8 @@
 
 pkgname=avidemux
-pkgver=2.6.18
+pkgver=2.6.19
 _commit=ed7aa6bdbffc43a2cd198130a353b088abd02aa0
-pkgrel=2
+pkgrel=1
 pkgdesc="Video editor designed for simple cutting, filtering and encoding tasks using a variety of codecs."
 arch=('x86_64')
 url="http://fixounet.free.fr/avidemux/"
@@ -12,14 +12,13 @@ depends=('qt5-script' 'flac' 'libva' 'libxv' 'desktop-file-utils' 'x264' 'pulsea
          'xvidcore')
 makedepends=('cmake' 'yasm' 'pkg-config' 'qt5-tools')
 options=('!makeflags')
-source=("http://downloads.sourceforge.net/avidemux/avidemux_${pkgver}.tar.gz"
+source=("https://downloads.sourceforge.net/avidemux/avidemux_${pkgver}.tar.gz"
 #source=("https://github.com/mean00/avidemux2/archive/${_commit}.zip"
         'bootStrap.diff')
-md5sums=('947176e91a2a7fcd6790da7c0f19d5e3'
+md5sums=('06beb020357f30877986fb87074f19b0'
          'fb9c8caa824dd013cedcabe90aab37f9')
 
 prepare() {
-    #cd ${pkgname}2-${_commit}
     cd ${pkgname}_${pkgver}
     # try to disable vdpau, build fails on vdpau, workaround, remove libvdpau from chroot
     #sed 's|SET(USE_VDPAU 1)|#SET(USE_VDPAU 1)|g' -i cmake/admCheckVDPAU.cmake
@@ -27,14 +26,12 @@ prepare() {
 }
 
 build() {
-    #cd ${pkgname}2-${_commit}
     cd ${pkgname}_${pkgver}
     bash bootStrap.bash --with-core \
         --with-plugins 
 }
 
 package() {
-    #cd ${pkgname}2-${_commit}
     cd ${pkgname}_${pkgver}
     cp -r install/usr/ ${pkgdir}/
 
