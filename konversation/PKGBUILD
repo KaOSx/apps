@@ -1,8 +1,8 @@
 
 
 pkgname=konversation
-pkgver=1.6.2
-_pkgver=1.6.2
+pkgver=1.6.90
+_pkgver=1.7-rc1
 pkgrel=1
 pkgdesc="A user friendly IRC client for KDE"
 arch=('x86_64')
@@ -11,11 +11,9 @@ license=('GPL2' 'FDL')
 depends=('kfilemetadata' 'kidletime' 'kcmutils' 'krunner' 'kemoticons' 
          'knotifyconfig' 'phonon-qt5' 'baloo-widgets' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kf5-konversation')
-replaces=('kf5-konversation')
 groups=('communication')
-source=("http://download.kde.org/stable/${pkgname}/${_pkgver}/src/${pkgname}-${_pkgver}.tar.xz")
-md5sums=('b65e30362158fb68e80fa42734ca2558')
+source=("http://download.kde.org/unstable/${pkgname}/${_pkgver}/src/${pkgname}-${_pkgver}.tar.xz")
+md5sums=('4e0015cce7ba421cbd83e481c9436db7')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
@@ -40,5 +38,5 @@ build() {
 package() {
   cd build
   
-  make DESTDIR="$pkgdir" install
+  make DESTDIR=${pkgdir} install
 }
