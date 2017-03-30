@@ -1,22 +1,23 @@
 
 pkgname=kdev-go
-pkgver=0.9.4
-pkgrel=2
+pkgver=1.90.90
+_commit=28b68c0f20fc5c2d977aa682a8a201b789ce0e9b
+pkgrel=1
 pkgdesc='Go language support for KDevelop'
 arch=('x86_64')
 url="http://www.kdevelop.org/"
 license=('GPL')
 depends=('kdevelop' 'kitemmodels' 'threadweaver' 'ktexteditor' 'ki18n')
-makedepends=('extra-cmake-modules' 'kdevelop-pg-qt' 'git')
+makedepends=('extra-cmake-modules')
 groups=('kde' 'kdevelop-plugins')
-source=("git://anongit.kde.org/kdev-go.git")
-md5sums=('SKIP')
+source=("https://github.com/KDE/kdev-go/archive/${_commit}.zip")
+md5sums=('ba322113be55daabb441a4ce7303aadc')
 
 build() {
   mkdir -p build
   cd build 
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \

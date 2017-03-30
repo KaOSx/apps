@@ -1,31 +1,30 @@
 
 pkgname=gendesk
 pkgver=0.6.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Utility to generate .desktop files and download icons"
 arch=('x86_64')
 url="http://roboticoverlords.org/gendesk/"
 license=('MIT')
 depends=('glibc')
 makedepends=('go' 'mercurial')
-source=("http://roboticoverlords.org/gendesk/$pkgname-$pkgver.tar.xz"
+source=("http://roboticoverlords.org/gendesk/${pkgname}-${pkgver}.tar.xz"
         "http://roboticoverlords.org/images/default.png")
 md5sums=('852ee801ec0ac311ac4c494bf79aa1c4'
          '76e9160caf563badd49c13f34cd137cf')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd ${pkgname}-${pkgver}
+  
   GOPATH=`pwd` go get -d -v
-
-  msg2 "Compiling..."
   GOPATH=`pwd` go build
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd ${pkgname}-${pkgver}
 
-  install -Dm755 "$pkgname-$pkgver" "$pkgdir/usr/bin/$pkgname"
-  install -Dm644 "$srcdir/default.png" "$pkgdir/usr/share/pixmaps/default.png"
-  install -Dm644 "$pkgname.1.gz" "$pkgdir/usr/share/man/man1/$pkgname.1.gz"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm755 ${pkgname}-${pkgver} ${pkgdir}/usr/bin/${pkgname}
+  install -Dm644 $srcdir/default.png ${pkgdir}/usr/share/pixmaps/default.png
+  install -Dm644 ${pkgname}.1.gz ${pkgdir}/usr/share/man/man1/${pkgname}.1.gz
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }

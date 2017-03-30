@@ -1,27 +1,27 @@
 
 pkgname=qtfm
 pkgver=5.9
-pkgrel=3
+pkgrel=4
 pkgdesc="A lightweight file manager"
 arch=('x86_64')
-url="http://qt-apps.org/content/show.php/QtFM?content=158787"
+url="https://www.linux-apps.com/content/show.php/QtFM?content=158787"
 license=('GPL')
 depends=('qt5-declarative' 'file' 'desktop-file-utils')
 categories=('system')
-source=("http://qt-apps.org/CONTENT/content-files/158787-qtfm.zip")
+source=("https://dl.opendesktop.org/api/files/download/id/1466643163/158787-qtfm.zip")
 md5sums=('1a94bd7fbe99e87f530dc9bc1d7a8c45')
 
 
 build() {
-  cd $pkgname
+  cd ${pkgname}
   	
   /usr/lib/qt5/bin/qmake
   make
 }
 
 package() {
-  cd $pkgname
+  cd ${pkgname}
 	
-  make INSTALL_ROOT=$pkgdir install
+  make INSTALL_ROOT=${pkgdir} install
 }
 

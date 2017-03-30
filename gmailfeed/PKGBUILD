@@ -1,33 +1,31 @@
 
 pkgname=gmailfeed
 pkgver=1.1
-pkgrel=1
+_commit=d47f34cf5b79ba0df18bbb26e6c9ff125361c875
+pkgrel=2
 pkgdesc="Plasmoid that provides a list of unread emails from your Gmail inbox and notifies when you receive new messages"
 arch=('x86_64')
 url="https://github.com/anthon38/gmailfeed"
 license=('GPL')
 depends=('plasma-framework' 'hicolor-icon-theme' 'knotifications' 'kaccounts-integration')
-makedepends=('extra-cmake-modules' 'intltool' 'git')
-source=('git://github.com/anthon38/gmailfeed.git#branch=kaccounts')
-md5sums=('SKIP')
+makedepends=('extra-cmake-modules' 'intltool')
+source=("https://github.com/anthon38/gmailfeed/archive/${_commit}.zip")
+md5sums=('80e9e329fc0b436e15b9487eeb741db8')
 
 build() {
-  mkdir build 
+  mkdir -p build 
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib \
-    -DLIBEXEC_INSTALL_DIR=lib
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib
   make
 }
 
 package() {
   cd build
   
-  make install DESTDIR="${pkgdir}"
+  make install DESTDIR=${pkgdir}
 }
