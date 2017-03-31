@@ -1,54 +1,62 @@
- 
+
 pkgname=opencascade
-pkgver=6.9.1
-pkgrel=2
+pkgver=7.1.0
+_commit=811d6b7d4a41a86af449579443148192289b1fba
+pkgrel=1
 epoch=1
 pkgdesc="Open CASCADE Technology, 3D modeling & numerical simulation"
 arch=('x86_64')
 url="http://dev.opencascade.org/"
 license=('custom')
 depends=('tk' 'mesa' 'java-runtime' 'libxmu' 'ftgl' 'vtk')
-makedepends=('java-environment')
+makedepends=('java-environment' 'cmake')
 options=('!libtool')
-source=("http://files.opencascade.com/OCCT/OCC_${pkgver}_release/$pkgname-${pkgver}.tgz"
+source=("opencascade-${pkgver}.tar.gz::http://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=${_commit};sf=tgz"
         'env.sh'
         'opencascade.sh'
-        'opencascade.conf')
-md5sums=('7f2e645b5010d190c9bb35dc457f9a7c'
+        'opencascade.conf'
+        'cmake.patch')
+md5sums=('f1cddbe1b6d298c245830bb8c5058a81'
          'a96f28ee7f4273ae1771ee033a2a3af3'
          'd9368b8d348ced3ec4462012977552d2'
-         '2924ecf57c95d25888f51071fdc72ad0')
+         '2924ecf57c95d25888f51071fdc72ad0'
+         '0424cd6d6f8ce1a96b9883ef229b7048')
 
+prepare() {
+  cd occt-811d6b7
+  
+  patch -p1 -i ${srcdir}/cmake.patch
+  #sed -i -e 's|-6.1||' adm/cmake/TKIVtkDraw/CMakeLists.txt
+}
+         
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  mkdir -p build
+  cd build
   
-  if [ ! -d $JAVA_HOME/include ]; then
-    [ -e /etc/profile.d/openjdk6.sh ] && source /etc/profile.d/openjdk6.sh
-    [ -e /etc/profile.d/jdk.sh ] && source /etc/profile.d/jdk.sh
-  fi
+  #CXXFLAGS+=' -DvtkFloatingPointType=double'
 
-  sed -i '/CSF_VTK_LIB/s/-6\.1//g' configure.ac
-  sed -i -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/' configure.ac
-  CXXFLAGS+=' -DvtkFloatingPointType=double'
-  
-  ./build_configure
-  ./configure --disable-debug \
-    --enable-production \
-    --with-java-include=${JAVA_HOME}/include \
-    --with-vtk-library=/usr/lib/ \
-    --with-vtk-include=/usr/include/vtk/ \
-    --prefix="$pkgdir/opt/$pkgname"
+  cmake ../occt-811d6b7 \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/opt/${pkgname} \
+    -DINSTALL_DIR=/opt/${pkgname} \
+    -DINSTALL_FREETYPE=/opt/${pkgname} \
+    -DINSTALL_TCL=/opt/${pkgname} \
+    -DUSE_GL2PS=ON \
+    -DUSE_VTK=ON
   make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
-  make prefix="$pkgdir/opt/$pkgname" install
+  cd build
+  make DESTDIR=${pkgdir} install
   
-  cp -r src/UnitsAPI/ "${pkgdir}/opt/$pkgname/src"
-  install -D -m644 "${srcdir}/opencascade.conf" "${pkgdir}/etc/ld.so.conf.d/opencascade.conf"
-  install -D -m 755 "${srcdir}/opencascade.sh" "${pkgdir}/etc/profile.d/opencascade.sh"
-  install -m 755 "${srcdir}/env.sh" "${pkgdir}/opt/$pkgname"
-  install -dm755 "$pkgdir/usr/share/licenses/$pkgname/"
-  install -m644 LICENSE_LGPL_21.txt OCCT_LGPL_EXCEPTION.txt "$pkgdir/usr/share/licenses/$pkgname"
+  #cp -r src/UnitsAPI/ "${pkgdir}/opt/${pkgname}/src"
+  install -D -m644 ${srcdir}/opencascade.conf ${pkgdir}/etc/ld.so.conf.d/opencascade.conf
+  install -D -m 755 ${srcdir}/opencascade.sh ${pkgdir}/etc/profile.d/opencascade.sh
+  install -m 755 ${srcdir}/env.sh ${pkgdir}/opt/${pkgname}
+  
+  install -dm755 $pkgdir/usr/share/licenses/${pkgname}/
+  install -m644 ${srcdir}/${pkgname}-${pkgver}/LICENSE_LGPL_21.txt  ${pkgdir}/usr/share/licenses/${pkgname}
+  install -m644 ${srcdir}/${pkgname}-${pkgver}/OCCT_LGPL_EXCEPTION.txt ${pkgdir}/usr/share/licenses/${pkgname}
 }
+
