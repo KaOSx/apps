@@ -1,0 +1,10 @@
+[Unit]
+Description=Run live script
+Before=systemd-user-sessions.service
+
+[Service]
+Type=oneshot
+ExecStart=/etc/live
+
+[Install]
+WantedBy=multi-user.target
