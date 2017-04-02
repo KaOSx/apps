@@ -1,17 +1,26 @@
 
 pkgname=qmapshack
-pkgver=1.7.2
+pkgver=1.8.0
 pkgrel=1
 pkgdesc="Plan your next outdoor trip or to visualize and archive all the GPS recordings, next generation of the QLandkarte GT application"
 arch=('x86_64')
 url="https://bitbucket.org/maproom/qmapshack/wiki/Home"
 license=('GPL')
 depends=('gdal' 'gpsd' 'libdmtx' 'libexif' 'libmariadbclient' 'mesa' 'postgresql-libs'
-         'shared-mime-info' 'unixodbc' 'glu' 'qt5-webkit' 'proj' 'qt5-script' 'routino')
+         'shared-mime-info' 'unixodbc' 'glu' 'qt5-webkit' 'proj' 'qt5-script' 
+         'routino' 'quazip')
 makedepends=('cmake' 'extra-cmake-modules' 'qt5-tools')
 groups=('utils')
-source=("https://bitbucket.org/maproom/qmapshack/downloads/${pkgname}-${pkgver}.tar.gz")
-md5sums=('a60efbdde196e8da29b76e9069471e12')
+source=("https://bitbucket.org/maproom/qmapshack/downloads/${pkgname}-${pkgver}.tar.gz"
+        'qnetworkreply.diff')
+md5sums=('3475b3177dccc71b4374f14143b77e85'
+         'cebaa7d97f1dca2a5abb2b54ab37e67f')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/qnetworkreply.diff
+}
 
 build() {
   mkdir -p build
