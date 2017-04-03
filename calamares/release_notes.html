@@ -11,21 +11,24 @@
 
 <body>
     <h3>KaOS - 2017.04</h3>
-    <p>KaOS is proud to announce the availability of the April release of a new stable ISO.</p>
+    <p>A nice way of celebrating the fourth anniversary if this distribution is releasing KaOS 2015.04 in two flavors. This time a <b>Plasma Wayland</b> version is added alongside the regular X-based ISO.</p>
     
-    <p>The policy is, once a first pacman -Syu becomes a major update, it is time for a new ISO so new users are not faced with a difficult first update. With the exceptional large amounts of updates the last four to five weeks a new ISO is needed a bit sooner than usual.
+    <p>The Plasma Wayland version is a smaller ISO and does not ship with all the language packs and a more limited amount of applications than the regular Plasma version.  At this stage, a Wayland session can only be run on free graphics drivers and the live mode (plus install) will automatically switch to a regular Plasma session should the user select non-free drivers during boot-up of the Live session.  A Wayland session will not run in VirtualBox.</p>
+    
+    <p>Speaking of VirtualBox, this release is a first for KaOS to include all the needed modules to automatically
+    scale to your desired monitor resolution (or set to full screen).</p>
+    
+    <p>Fully working now is the option to install with <b>GPT on BIOS systems</b> (manual partitioning only). A text box is added to calamares to instruct how to setup for GPT once a BIOS setup is detected.</p>
     
     <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.32.0, Plasma 5.9.2, KDE Applications 16.12.3 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.8.0.</strong></p>
     
-    <p>Also included is a KaOS specific tool to write ISO files to USB.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. Newly added is the option to verify the written USB in comparison to the used ISO file.</p>
-    
-    <p>The installer has fixes for using passwords with non-Latin1 characters and now has a proper warning for missing features when doing an offline install.</p>
+    <p>A KaOS specific tool to write ISO files to USB is in use.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. It includes the option to verify the written USB in comparison to the used ISO file.</p>
     
     <p>Mesa includes experimental Nouveau patches so QtWebengine based applications and web-browsers can again be used on systems running the Nouveau driver.  This fixes a long standing bug going back to the middle of 2015.</p>
     
     <p>KaOS uses a First Run Wizard.  It will run on the newly installed system and enables with just a few clicks to adjust mouse behavior, menu launcher, desktop theme, used wallpaper, color scheme, widget style, window decoration and virtual desktops used.  With one click this Wizard will also link to KaOS Documentation and all contact info.</p>
     
-    <p>Most notable major updates to the base of the system are Qt 5.8.0, Readline 7.0, Bash 4.4 Perl 5.24.1, Systemd 233, Xorg-Server 1.19.3, Linux 4.10.7, Glibc 2.25, GCC 5.4.1, Binutils 2.27 Protobuf 3.2.0, Libwebp 0.6.0, Gstreamer 1.10.3 and a move to qtwebkit-tp replacing  no longer maintained qt5-webkit</p>
+    <p>Most notable major updates to the base of the system are Qt 5.8.0, Python 3.6.1, Systemd 233, Kmod 24, Mesa 17.0.3, Perl 5.24.1, Xorg-Server 1.19.3, Linux 4.10.8, DBus 1.10.16, GCC 5.4.1, Ruby 2.4.1, Poppler 0.53.0, PyQt 5.8.2 and a move to qtwebkit-tp replacing  no longer maintained qt5-webkit</p>
     
     <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
     
@@ -33,12 +36,10 @@
 
     <p>This ISO uses the <b>CRC and finobt enabled</b> XFS filesystem as default. CRCs enable enhanced error detection due to hardware issues, whilst the format changes also improves crash recovery algorithms and the ability  of  various  tools to validate and repair metadata corruptions when they are found.  The  free  inode  btree does not index used inodes, allowing faster, more consistent inode allocation performance as filesystems age.</p>
 
-    <p>It is possible for both the Live session and installed system to start a Plasma Wayland session right from the login manager.  An X11 session is of course still default, but the drop-down menu has a Wayland entry too.  With Plasma 5.9, the Wayland session is now possible on more systems.</p>
-
     <p><b>Calamares</b>, the used installer framework, has moved to the 3.1 series. Highlights of the changes and additions:
     <ul>
-        <li>Fix for an issue in the users module, which could break login if the chosen password had non-Latin1 characters</li>
-        <li>Proper exception handling in the networkcfg module</li>
+        <li>Option to use a GPT partiontable on BIOS system with needed documentation added</li>
+        <li>When a VirtualBox system is detected, proper Guest Modules will be installed</li>
         <li>Fixed operating system detection for automatic dual boot setup in GRUB</li>
         <li>Improved check for internet connection availability</li>
         <li>Double-click as a way to edit a partition in the manual partitioning view</li>
@@ -53,7 +54,7 @@
     
     <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a "final" release, every ISO is mere a snapshot of the current status of the repositories. An idea what is currently available:</p>
     
-    <p>The ISO ships with <b>Frameworks 5.32.0, Plasma 5.9.4, KDE Applications 16.12.3 &amp; not yet released ports of KDE Applications</b>, Linux 4.10.7, Systemd 233, Kmod 24, NetworkManager 1.6.2, Calligra 3.0.1, Krita 3.1.2, Cantata, Plasma-nm 5.9.4, Xorg-Server 1.19.3, Mesa 17.0.2, Glibc 2.25, GCC 5.4.1, non-free Nvidia 378.13, Pepperflash and Python3 3.6.1 to name a few.</p>
+    <p>The ISO ships with <b>Frameworks 5.33.0, Plasma 5.9.4, KDE Applications 16.12.3 &amp; not yet released ports of KDE Applications</b>, Linux 4.10.8, Systemd 233, Kmod 24, NetworkManager 1.6.2, Calligra 3.0.1, Krita 3.1.2, Cantata, Plasma-nm 5.9.4, Xorg-Server 1.19.3, Mesa 17.0.3, Glibc 2.25, GCC 5.4.1, non-free Nvidia 378.13, Pepperflash and Python3 3.6.1 to name a few.</p>
     
     <p>The package manager is <strong>Pacman 5.0.1</strong>, with the simple but powerful Octopi 0.9dev as GUI frontend. Default web browser is Qt based Qupzilla 2.1.2. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna", fully redone for 2016.</p>
     
