@@ -1,7 +1,7 @@
  
 pkgname=lightworks
-pkgver=14.0.0.11
-_pkgver=14.0.0.0
+pkgver=14.0.0.12
+_pkgver=14.0.0
 _beta=93046
 pkgrel=1
 pkgdesc="A professional video editing software"
@@ -10,17 +10,17 @@ url="http://www.lwks.com/"
 license=('custom')
 install="${pkgname}.install"
 depends=('gtk3' 'portaudio' 'libgl' 'glu' 'ffmpeg' 'libedit' 'libtiff' 'nvidia-cg-toolkit' 'libgsf')
-source=("http://downloads.lwks.com/Lightworks-Beta-${_beta}-${_pkgver}.deb"
+source=("http://downloads.lwks.com/v14/lwks-${_pkgver}-amd64.deb"
         'libportaudio.so.2.0.0'
         'libportaudiocpp.so.0.0.12')
-md5sums=('67339540b4faa805ffdf072a527e6648'
+md5sums=('17a60e8c2956f65dd578a14cf673b0d4'
          'acfd08eb31cadb75a3a0e86cce54220b'
          'e9e13d426aab9dcf15a7dc81c21e6396')
 
 noextract=("lwks-${pkgver}-amd64.deb")
  
 package() {
-  bsdtar -xf "Lightworks-Beta-${_beta}-${_pkgver}.deb" data.tar.xz  
+  bsdtar -xf "lwks-${_pkgver}-amd64.deb" data.tar.xz  
   bsdtar -xf data.tar.xz -C "${pkgdir}"
 	rm data.tar.xz
   
