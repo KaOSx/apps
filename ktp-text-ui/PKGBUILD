@@ -9,7 +9,7 @@ pkgdesc="Telepathy text chat handler"
 arch=('x86_64')
 url="http://www.kde.org"
 license=('GPL')
-depends=('ktp-common-internals' 'kdewebkit' 'kpeople') # 'qtwebengine')
+depends=('ktp-common-internals' 'kpeople' 'qtwebengine' 'qt5-location')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kde-telepathy')
 options=('debug')
@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'ceb8d4d058efa368a531757985a90785')
          
 prepare() {
-  cd $pkgname-${pkgver}
+  cd ${pkgname}-${pkgver}
   
   #patch -p1 -i $srcdir/0001-Port-to-QWebEngine.patch
 }

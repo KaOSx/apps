@@ -16,14 +16,14 @@ conflicts=('kdesdk-kate' 'kdesdk-kate-debug')
 replaces=('kdesdk-kate' 'kdesdk-kate-debug')
 provides=('kdesdk-kate')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/kate/commit/9adcebd3c2e476c8a32e9b455cc99f46b0e12a7e.diff")
+        'kdesu.patch')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '5d09a84c3ca81746af204cfb6730b2ea')
+         '74414fc9416afea59e4ebc537be650ae')
 
 prepare() {
   cd $pkgname-${pkgver}
   # keep kdesu option for kate/kwrite, comment out for now, wait for upstream decision
-  #patch -R -p1 -i ${srcdir}/9adcebd3c2e476c8a32e9b455cc99f46b0e12a7e.diff
+  patch -R -p1 -i ${srcdir}/kdesu.patch
 }
 
 build() {
