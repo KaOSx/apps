@@ -3,7 +3,7 @@ pkgname=smplayer
 pkgver=17.4.0
 _pkgver=17.3.0
 _rev=r6994
-pkgrel=1
+pkgrel=2
 pkgdesc="Media player with built-in codecs that can play virtually all video and audio formats"
 arch=('x86_64')
 url="http://smplayer.sourceforge.net/"
@@ -26,6 +26,9 @@ build() {
   rm -r src/default-theme
   mv -iv ${srcdir}/icons/ .
   mv -iv ${srcdir}/default-theme/ src/
+  # don't use default h20, set to classic to use KaOS icon set
+  sed -i -e 's|iconset = "H2O";|iconset = "";|' src/preferences.cpp
+  sed -i -e 's|style = "Fusion";|style = "QtCurve";|' src/preferences.cpp
   
   make PREFIX=/usr QMAKE=/usr/lib/qt5/bin/qmake LRELEASE=/usr/lib/qt5/bin/lrelease
   
