@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=umbrello
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='UML modeling tool for KDE'
 url='http://kde.org/applications/development/umbrello/'
 arch=('x86_64')
@@ -21,6 +21,8 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 prepare() {
   cd ${pkgname}-${pkgver}
   sed -i -e 's|ecm_optional_add_subdirectory(unittests)|#ecm_optional_add_subdirectory(unittests)|' CMakeLists.txt
+  # fix .desktop for 17.03.90
+  sed -i -e 's|Exec=umbrello|Exec=umbrello5|' umbrello/umbrello.desktop
 }
 
 build() {
