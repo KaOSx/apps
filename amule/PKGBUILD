@@ -1,19 +1,21 @@
 
 pkgname=amule
-pkgver=2.3.2
-pkgrel=2
+pkgver=2.3.2.1
+_commit=88364ced28850a14c0df1c2235692956db883b32
+pkgrel=1
 epoch=2
 pkgdesc="An eMule-like client for ed2k p2p network"
 arch=('x86_64')
 url="http://www.amule.org"
 license=('GPL')
-depends=('wxgtk' 'gd' 'geoip' 'libupnp' 'crypto++')
-#source=("https://github.com/amule-project/amule/archive/${_commit}.zip")
-source=("https://sourceforge.net/projects/amule/files/aMule/${pkgver}/aMule-${pkgver}.tar.xz")
-md5sums=('4e666c33f2c87874d389d6d45eb82b7a')
+depends=('wxgtk' 'gd' 'geoip' 'libupnp' 'crypto++' 'boost-libs')
+makedepends=('boost')
+source=("https://github.com/amule-project/amule/archive/${_commit}.zip")
+#source=("https://sourceforge.net/projects/amule/files/aMule/${pkgver}/aMule-${pkgver}.tar.xz")
+md5sums=('23a74c39df129446b266cff36d284692')
 
 build() {
-  cd aMule-${pkgver}
+  cd amule-${_commit}
 
   ./configure --prefix=/usr \
               --mandir=/usr/share/man \
@@ -30,13 +32,13 @@ build() {
               --enable-geoip \
               --enable-upnp \
               --with-wx-config=wx-config \
-              --without-boost
+              --with-boost
 
   make 
 }
 
 package() {
-  cd aMule-${pkgver} 
+  cd amule-${_commit}
   
   make DESTDIR=${pkgdir}/ install 
   # conflict with glibc
