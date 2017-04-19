@@ -6,7 +6,7 @@
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
 pkgver=5.1.20
-_pkgver=5.1.20
+_pkgver=5.1.20a
 pkgrel=1
 arch=('x86_64')
 url='http://virtualbox.org'
@@ -16,14 +16,14 @@ makedepends=('alsa-lib' 'bin86' 'cdrkit' 'curl' 'device-mapper' 'glu' 'iasl' 'op
              'libxml2' 'libxmu' 'libxrandr' 'libxslt' 'libxtst' 'linux-headers' 'mesa' 'pulseaudio'
              'python2' 'qt5-tools' 'qt5-x11extras' 'sdl' 'sdl_ttf' 'xf86driproto' 
              'xf86-input-mouse' 'xorg-server')
-source=("http://download.virtualbox.org/virtualbox/${_pkgver}/VirtualBox-${_pkgver}.tar.bz2"
+source=("http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgver}.tar.bz2"
         '60-vboxdrv.rules'
         '60-vboxguest.rules'
         'LocalConfig.kmk'
         'vboxservice.service'
         'driver-path.patch'
         'include-path.patch')
-md5sums=('35bf9bc493f3cbfecc4668200e1d8632'
+md5sums=('a46c9b06cfbd3fe629e4df89ded776b2'
          '6e2722bfd7013c1b0174382626ac1b8d'
          'ed1341881437455d9735875ddf455fbe'
          'debd220f22dec74a8ae03126e4d3e678'
@@ -32,7 +32,7 @@ md5sums=('35bf9bc493f3cbfecc4668200e1d8632'
          '9e49bbaa2192b141c27ee43cef8cbab7')
 
 prepare() {
-    cd VirtualBox-${_pkgver}
+    cd VirtualBox-${pkgver}
 
     patch -p1 -i ${srcdir}/driver-path.patch
     patch -p1 -i ${srcdir}/include-path.patch
@@ -51,7 +51,7 @@ prepare() {
 }
 
 build() {
-    cd VirtualBox-${_pkgver}
+    cd VirtualBox-${pkgver}
 
     ./configure \
         --disable-docs \
@@ -80,8 +80,8 @@ package_virtualbox-qt5() {
     backup=('etc/vbox/vbox.cfg')
     install=virtualbox.install
 
-    source VirtualBox-${_pkgver}/env.sh
-    cd VirtualBox-${_pkgver}/out/linux.amd64/release/bin
+    source VirtualBox-${pkgver}/env.sh
+    cd VirtualBox-${pkgver}/out/linux.amd64/release/bin
 
     # binaries
     install -dm755 ${pkgdir}/usr/bin
@@ -138,7 +138,7 @@ package_virtualbox-qt5() {
 
     cd ${srcdir}
 
-    install -Dm644 VirtualBox-${_pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
+    install -Dm644 VirtualBox-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
 
     # systemd
     install -Dm644 60-vboxdrv.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxdrv.rules
@@ -150,14 +150,14 @@ package_virtualbox-guest-utils() {
              'libxmu' 'libxt' 'xorg-server-utils' 'virtualbox-guest-modules')
     install=virtualbox-guest-utils.install
 
-    source VirtualBox-${_pkgver}/env.sh
+    source VirtualBox-${pkgver}/env.sh
     
-    pushd VirtualBox-${_pkgver}/out/linux.amd64/release/bin/additions
+    pushd VirtualBox-${pkgver}/out/linux.amd64/release/bin/additions
     install -d ${pkgdir}/usr/bin
     install -m755 VBoxClient VBoxControl VBoxService mount.vboxsf ${pkgdir}/usr/bin
-    install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
+    install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
         ${pkgdir}/usr/bin/VBoxClient-all
-    install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
+    install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
         ${pkgdir}/etc/xdg/autostart/vboxclient.desktop
     #install -D vboxvideo_drv_system.so ${pkgdir}/usr/lib/xorg/modules/drivers/vboxvideo.so
     install -d ${pkgdir}/usr/lib/xorg/modules/dri
@@ -169,7 +169,7 @@ package_virtualbox-guest-utils() {
     install -Dm644 60-vboxguest.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxguest.rules
     install -Dm644 vboxservice.service ${pkgdir}/usr/lib/systemd/system/vboxservice.service
 
-    install -Dm644 VirtualBox-${_pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
+    install -Dm644 VirtualBox-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
 }
 
 
