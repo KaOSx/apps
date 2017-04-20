@@ -1,7 +1,6 @@
 
 pkgname=wire-desktop
-_pkgname=wire
-pkgver=2.13.2730
+pkgver=2.13.2739
 pkgrel=1
 pkgdesc="Cross platform desktop app, wrapping the wire-webapp. Based on Electron"
 arch=('x86_64')
@@ -9,8 +8,8 @@ url="https://wire.com/en/"
 license=('GPL3')
 depends=('alsa-lib' 'gconf' 'gtk2' 'libxtst' 'nodejs' 'nss' 'python2')
 source=("https://github.com/wireapp/wire-desktop/archive/release/${pkgver}.tar.gz"
-        'wire.desktop')
-md5sums=('7a00bdfaa8537dddf3007281f06403b9'
+        'wire-desktop.desktop')
+md5sums=('84afb0bd880811ade9ce2c46863dc77c'
          '32a998ab2d5cec93ab975e5aff4ad223')
 
 build() {
@@ -23,13 +22,13 @@ build() {
 package() {
   cd ${pkgname}-release-${pkgver}
   
-  install -d ${pkgdir}/usr/lib/${_pkgname}
+  install -d ${pkgdir}/usr/lib/${pkgname}
   install -d ${pkgdir}/usr/bin
   
-  cp -a wrap/dist/linux-unpacked/* ${pkgdir}/usr/lib/${_pkgname}
-  ln -s /usr/lib/${_pkgname}/${pkgname} ${pkgdir}/usr/bin/${pkgname}
+  cp -a wrap/dist/linux-unpacked/* ${pkgdir}/usr/lib/${pkgname}
+  ln -s /usr/lib/${pkgname}/${pkgname} ${pkgdir}/usr/bin/${pkgname}
 
-  install -Dm644 ../wire.desktop ${pkgdir}/usr/share/applications/wire.desktop
-  install -Dm644 resources/icons/256x256.png ${pkgdir}/usr/share/pixmaps/wire.png
+  install -Dm644 ../${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
+  install -Dm644 resources/icons/256x256.png ${pkgdir}/usr/share/pixmaps/${pkgname}.png
   install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
