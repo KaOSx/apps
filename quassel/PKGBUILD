@@ -1,7 +1,7 @@
 
 pkgname=quassel
 pkgver=0.12.4
-pkgrel=5
+pkgrel=6
 pkgdesc="Qt irc client with a separated core"
 url="http://quassel-irc.org"
 arch=('x86_64')
@@ -67,5 +67,7 @@ package() {
   install -m 644 -p ${srcdir}/irc-channel* ${pkgdir}/usr/share/icons/hicolor/scalable/status/
   #install -D ${srcdir}/irc-channel-inactive.svgz ${pkgdir}/usr/share/apps/quassel/icons/oxygen/scalable/irc*
   install -m 644 -p ${srcdir}/quassel.png ${pkgdir}/usr/share/pixmaps/
+  # set default channel to KaOS
+  sed -i -e 's|DefaultChannels=#quassel|DefaultChannels=#kaosx|' ${pkgdir}/usr/share/quassel/networks.ini
 }
 
