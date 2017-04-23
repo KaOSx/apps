@@ -1,24 +1,27 @@
  
 pkgname=chromium-ffmpeg-codecs
-pkgver=56.0.2924.87
+pkgver=58.0.3029.81
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
 url="https://ffmpeg.org/"
 license=('LGPL2.1')
 depends=('gtk2' 'gtk3' 'libexif' 'pulseaudio' 'libxss')
-makedepends=('ninja' 'nss' 'pciutils' 'python2' 'xdg-utils')
+makedepends=('ninja' 'nss' 'pciutils' 'python2' 'xdg-utils' 'mesa')
 options=('!strip')
 source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver.tar.xz"
-        'gn.patch')
-md5sums=('b687feb24ca152a0b0a2ab5df5cd28d2'
-         '3354997dd0bfde3443499133a6e16a85')
+        'gn.patch'
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-gn-bootstrap-r2.patch")
+md5sums=('fe28227f5f4aa05709b9cbd47a5cf426'
+         '3354997dd0bfde3443499133a6e16a85'
+         '776649f56b8f7bcad7f23d496bba8042')
 
 build() {
   cd chromium-${pkgver}
   #touch chrome/test/data/webui/i18n_process_css_test.html
-  #sed -i "s|ld = os.environ.get('LD', cxx)|ld = cxx|g" tools/gn/bootstrap/bootstrap.py
+  #sed -i "s|base/callback_internal.cc|base/callback_helpers.cc|g" tools/gn/bootstrap/bootstrap.py
   #patch -p1 -i ${srcdir}/gn.patch
+  patch -p1 -i ${srcdir}/chromium-gn-bootstrap-r2.patch
 
   local _flags=("ffmpeg_branding=\"ChromeOS\""
                 'proprietary_codecs=true'
