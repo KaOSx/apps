@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kactivities
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Core components for the KDE's Activities"
 arch=('x86_64')
 url='https://github.com/KDE/kactivities'
@@ -17,7 +17,7 @@ source=("http://download.kde.org/stable/frameworks/5.25/${pkgname}-${pkgver}.tar
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${srcdir}/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
   
   #patch -p1 -i ${srcdir}/plugin_dir.diff
 }
@@ -40,7 +40,6 @@ build() {
 
 package() {
   cd build
-  make DESTDIR="${pkgdir}" install
-  # temp workaround until translations location is clarified, now files are also in plasma-desktop & kactivitymanagerd
-  #rm -r ${pkgdir}/usr/share/locale
+  
+  make DESTDIR=${pkgdir} install
 }
