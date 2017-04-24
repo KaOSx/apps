@@ -3,19 +3,18 @@ pkgname=icedtea-web
 pkgdesc="Provides a Free Software web browser plugin running applets written in the Java programming
          language and an implementation of Java Web Start, originally based on the NetX project."
 pkgver=1.6.2
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="http://icedtea.classpath.org/wiki/IcedTea-Web"
 license=('GPL2')
 depends=('openjdk' 'desktop-file-utils')
 makedepends=('zip' 'npapi-sdk' 'rhino' 'junit' 'cups' 'mercurial' 'firefox')
 groups=('network')
-install="${pkgname}.install"
 source=("hg+http://icedtea.classpath.org/hg/icedtea-web")
 #noextract="${pkgname}-$pkgver.tar.gz"
 md5sums=('SKIP')
 
-_javaver=7
+_javaver=8
 _jvmdir="/usr/lib/jvm/java-${_javaver}-openjdk"
 
 build() {
