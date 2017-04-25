@@ -1,0 +1,31 @@
+
+pkgname=plasma-browser-integration
+pkgver=0.0.3
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Plasma5 browser integration"
+url="https://cgit.kde.org/scratch/davidedmundson/plasma-browser-integration.git/tree/"
+license=('GPL')
+depends=('kio' 'ki18n' 'knotifications' 'krunner' 'kwindowsystem' 'kactivities')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=("git://anongit.kde.org/scratch/davidedmundson/plasma-browser-integration.git")
+md5sums=('SKIP')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DINSTALL_CHROME_EXTENSION=ON
+    
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
