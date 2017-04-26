@@ -38,21 +38,21 @@ build() {
    mkdir -p build
    cd build
 
-   LIRI_INSTALL_PREFIX=/usr /usr/lib/qt5/bin/qmake ../browser-${_commit}/liri-browser.pro
+   /usr/lib/qt5/bin/qmake LIRI_INSTALL_PREFIX=/usr ../browser-${_commit}/liri-browser.pro
    make
 }
 
 package() {
    cd build
-   #make INSTALL_ROOT=${pkgdir} install
+   make INSTALL_ROOT=${pkgdir} install
    mkdir -p ${pkgdir}/usr/bin
    install -m755 liri-browser ${pkgdir}/usr/bin
    
-   cd ../browser-${_commit}
-   mkdir -p ${pkgdir}/usr/share/applications
-   install -m755 res/io.liri.Browser.desktop ${pkgdir}/usr/share/applications/io.liri.Browser.desktop
+   #cd ../browser-${_commit}
+   #mkdir -p ${pkgdir}/usr/share/applications
+   #install -m755 res/io.liri.Browser.desktop ${pkgdir}/usr/share/applications/io.liri.Browser.desktop
 
-   install -Dm644 res/icon/512x512/apps/io.liri.Browser.svg ${pkgdir}/usr/share/icons/hicolor/512x512/apps/io.liri.Browser.svg
+   #install -Dm644 res/icon/512x512/apps/io.liri.Browser.svg ${pkgdir}/usr/share/icons/hicolor/512x512/apps/io.liri.Browser.svg
    #for i in 16x16 22x22 32x32 48x48 64x64 128x128 256x256; do
    #install -Dm644 ${srcdir}/logo-100.png ${pkgdir}/usr/share/icons/hicolor/64x64/apps/liri-browser.png
    #done

@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-nm
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
 url="https://github.com/KDE/plasma-nm"
@@ -25,6 +25,8 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
 build() {
   cd ${pkgname}-${__pkgver}
   #patch -p1 -i ${srcdir}/c5eb19bb44c8b10d848628557405b597b680bbe8.diff
+  sed -i 's|X-KDE-System-Settings-Parent-Category=network|X-KDE-System-Settings-Parent-Category=connectivity|' kcm/kcm_networkmanagement.desktop
+  
   mkdir build
   
   cd build
