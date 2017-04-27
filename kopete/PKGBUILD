@@ -4,8 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kopete
 #pkgver=${_kdever}
-pkgver=17.03.70
-_commit=074396fbccbbce2edb3308bba25352917b98b2b0
+pkgver=17.03.71
+_commit=285c9aadaa5f584bf52899fc7233557cae67f62c
 pkgrel=1
 pkgdesc='Instant Messenger'
 url='http://kde.org/applications/internet/kopete/'
@@ -13,7 +13,7 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 #groups=('kde' 'kdenetwork' 'kde-uninstall' 'network')
 depends=('kcoreaddons' 'ki18n' 'kcmutils' 'khtml' 'knotifyconfig' 'kparts' 'kwallet'
-         'kdelibs4support' 'ktexteditor' 'kconfig' 'kemoticons' 'kdbusaddons' 'kdnssd'
+         'kdelibs4support' 'ktexteditor' 'kcrash' 'kconfig' 'kemoticons' 'kdbusaddons' 'kdnssd'
          'kcontacts' 'kidentitymanagement' 'libkleo' 'gpgme'        
          'libotr' 'libidn' 'qimageblitz' 'libxss' 'v4l-utils' # 'mediastreamer' 'ortp' 'libgadu' 
          'jsoncpp' 'qca-qt5' 'sqlite' 'speex' 'phonon-qt5')
@@ -21,7 +21,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 #source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/kopete/archive/${_commit}.zip")
-md5sums=('fe55c4b4ee6499b03ac6b9f283c3307d')
+md5sums=('f34fcb9bdb3031e7b761dfab0cee53d2')
 
 prepare() {
   cd ${pkgname}-${_commit}
