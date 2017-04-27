@@ -4,15 +4,29 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkgapi
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
 url='https://github.com/KDE/libkgapi'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kio' 'kwindowsystem' 'kcalcore' 'kcontacts' 'qtwebengine')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'boost')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://github.com/KDE/libkgapi/commit/68b89bce22d0da234345ccffb869ae6863592624.diff"
+        "https://github.com/KDE/libkgapi/commit/5a20c7494f48da93914f50bbb54423ef540ef998.diff"
+        "https://github.com/KDE/libkgapi/commit/7b0934611ef72fb7e7c405813a1d2bb8b944dadc.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '0ac22000072fa47d8632419cb3168504'
+         'ec60cf4cef010fecb2413fe719d265b7'
+         '9d24cec32395e5877b7406ffc933badc')
+
+prepare () {
+  cd ${pkgname}-${pkgver}
+  # fix Google broke akonadi/IMAP functionality
+  patch -p1 -i $srcdir/68b89bce22d0da234345ccffb869ae6863592624.diff
+  patch -p1 -i $srcdir/5a20c7494f48da93914f50bbb54423ef540ef998.diff
+  patch -p1 -i $srcdir/7b0934611ef72fb7e7c405813a1d2bb8b944dadc.diff
+}     
 
 build() {
   mkdir -p build
