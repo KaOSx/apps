@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=2
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -36,12 +36,12 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
 prepare () {
   cd ${pkgname}-${__pkgver}
   # fix plasma hang on bogus autostart item
-  patch -p1 -i $srcdir/ea3f87c5df0251838da71c473fd7b790c932d8b0.diff
+  #patch -p1 -i $srcdir/ea3f87c5df0251838da71c473fd7b790c932d8b0.diff
   #sed -i 's|org.kde.breeze.desktop|org.kde.midna.desktop|' shell/packageplugins/lookandfeel/lookandfeel.cpp
   sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
   # adjust ksplash times
-  sed -i 's|TEST_STEP_INTERVAL 2000|TEST_STEP_INTERVAL 1000|' ksplash/ksplashqml/splashapp.cpp
-  sed -i 's|QTimer::singleShot(30000|QTimer::singleShot(12000|' ksplash/ksplashqml/splashwindow.cpp
+  #sed -i 's|TEST_STEP_INTERVAL 2000|TEST_STEP_INTERVAL 1000|' ksplash/ksplashqml/splashapp.cpp
+  #sed -i 's|QTimer::singleShot(30000|QTimer::singleShot(12000|' ksplash/ksplashqml/splashwindow.cpp
 }         
          
 build() {
@@ -66,6 +66,7 @@ package() {
   make DESTDIR=${pkgdir} install
   
   sed 's|qtpaths|qtpaths-qt5|' -i $pkgdir/usr/bin/startkde
+  sed 's|qdbus|qdbus-qt5|' -i $pkgdir/usr/bin/startkde
   sed 's|qtpaths|qtpaths-qt5|' -i $pkgdir/usr/bin/startplasmacompositor
   sed 's|qdbus|qdbus-qt5|' -i $pkgdir/usr/lib/startplasma
   
