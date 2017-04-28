@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -39,6 +39,9 @@ prepare () {
   patch -p1 -i $srcdir/ea3f87c5df0251838da71c473fd7b790c932d8b0.diff
   #sed -i 's|org.kde.breeze.desktop|org.kde.midna.desktop|' shell/packageplugins/lookandfeel/lookandfeel.cpp
   sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
+  # adjust ksplash times
+  sed -i 's|TEST_STEP_INTERVAL 2000|TEST_STEP_INTERVAL 1000|' ksplash/ksplashqml/splashapp.cpp
+  sed -i 's|QTimer::singleShot(30000|QTimer::singleShot(12000|' ksplash/ksplashqml/splashwindow.cpp
 }         
          
 build() {

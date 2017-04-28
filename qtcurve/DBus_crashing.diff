@@ -1,0 +1,345 @@
+diff --git qt5/style/qtcurve.cpp qt5/style/qtcurve.cpp
+index 9e4b3aaa97b240ca8d4151d075c2b1c92acb4303..862c79c82b8d4dae1e5602829a221abecc663fdd 100644
+--- qt5/style/qtcurve.cpp
++++ qt5/style/qtcurve.cpp
+@@ -348,7 +348,7 @@ Style::Style() :
+     m_windowManager(new WindowManager(this)),
+     m_blurHelper(new BlurHelper(this)),
+     m_shortcutHandler(new ShortcutHandler(this)),
+-    m_dbusConnected(nullptr)
++    m_dbusConnected(false)
+ {
+     const char *env = getenv(QTCURVE_PREVIEW_CONFIG);
+ #ifdef QTC_QT5_ENABLE_KDE
+@@ -664,30 +664,36 @@ void Style::connectDBus()
+ {
+     if (m_dbusConnected)
+         return;
+-    m_dbusConnected = registerCleanup([] (void *data) {
+-            reinterpret_cast<Style*>(data)->disconnectDBus();
+-        }, this);
+     auto bus = QDBusConnection::sessionBus();
+-    bus.connect(QString(), "/KGlobalSettings", "org.kde.KGlobalSettings",
+-                "notifyChange", this, SLOT(kdeGlobalSettingsChange(int, int)));
++    if (bus.isConnected()) {
++        m_dbusConnected = true;
++        if (QCoreApplication::instance()) {
++            bool ok = connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, this, &Style::disconnectDBus);
++//             qWarning() << Q_FUNC_INFO << this << "connected to QCoreApplication::aboutToQuit from"
++//                 << QCoreApplication::instance() << ":" << ok;
++        }
++        bus.connect(QString(), "/KGlobalSettings", "org.kde.KGlobalSettings",
++                    "notifyChange", this, SLOT(kdeGlobalSettingsChange(int, int)));
+ #ifndef QTC_QT5_ENABLE_KDE
+-    bus.connect("org.kde.kwin", "/KWin", "org.kde.KWin", "compositingToggled",
+-                this, SLOT(compositingToggled()));
++        bus.connect("org.kde.kwin", "/KWin", "org.kde.KWin", "compositingToggled",
++                    this, SLOT(compositingToggled()));
+ #endif
+ 
+-    QString arg0 = qApp? qApp->arguments()[0] : QString();
+-    if (!qApp || (arg0 != "kwin" && arg0 != "kwin_x11" && arg0 != "kwin_wayland")) {
+-        bus.connect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
+-                    "borderSizesChanged", this, SLOT(borderSizesChanged()));
+-        if (opts.menubarHiding & HIDE_KWIN)
++        QString arg0 = qApp? qApp->arguments()[0] : QString();
++        if (!qApp || (arg0 != "kwin" && arg0 != "kwin_x11" && arg0 != "kwin_wayland")) {
++            // don't connect to signals if we know we're sending them out ourselves
+             bus.connect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
+-                        "toggleMenuBar",
+-                        this, SLOT(toggleMenuBar(unsigned int)));
+-
+-        if (opts.statusbarHiding & HIDE_KWIN) {
+-            bus.connect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
+-                        "toggleStatusBar",
+-                        this, SLOT(toggleStatusBar(unsigned int)));
++                        "borderSizesChanged", this, SLOT(borderSizesChanged()));
++            if (opts.menubarHiding & HIDE_KWIN)
++                bus.connect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
++                            "toggleMenuBar",
++                            this, SLOT(toggleMenuBar(unsigned int)));
++
++            if (opts.statusbarHiding & HIDE_KWIN) {
++                bus.connect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
++                            "toggleStatusBar",
++                            this, SLOT(toggleStatusBar(unsigned int)));
++            }
+         }
+     }
+ }
+@@ -696,10 +702,9 @@ void Style::disconnectDBus()
+ {
+     if (!m_dbusConnected)
+         return;
+-    void *cb = m_dbusConnected;
+-    m_dbusConnected = nullptr;
+-    unregisterCleanup(cb);
++    m_dbusConnected = false;
+     auto bus = QDBusConnection::sessionBus();
++//     qWarning() << Q_FUNC_INFO << this << "Disconnecting from" << bus.name() << "/" << bus.baseService();
+     bus.disconnect(QString(), "/KGlobalSettings", "org.kde.KGlobalSettings",
+                    "notifyChange",
+                    this, SLOT(kdeGlobalSettingsChange(int, int)));
+@@ -708,19 +713,30 @@ void Style::disconnectDBus()
+                    this, SLOT(compositingToggled()));
+ #endif
+ 
+-    bus.disconnect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
+-                   "borderSizesChanged", this, SLOT(borderSizesChanged()));
+-    bus.disconnect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
+-                   "toggleMenuBar",
+-                   this, SLOT(toggleMenuBar(unsigned int)));
+-    bus.disconnect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
+-                   "toggleStatusBar",
+-                   this, SLOT(toggleStatusBar(unsigned int)));
++    QString arg0 = qApp? qApp->arguments()[0] : QString();
++    if (!qApp || (arg0 != "kwin" && arg0 != "kwin_x11" && arg0 != "kwin_wayland")) {
++        bus.disconnect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
++                    "borderSizesChanged", this, SLOT(borderSizesChanged()));
++        if (opts.menubarHiding & HIDE_KWIN)
++            bus.disconnect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
++                           "toggleMenuBar",
++                           this, SLOT(toggleMenuBar(unsigned int)));
++
++        if (opts.statusbarHiding & HIDE_KWIN) {
++            bus.disconnect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
++                           "toggleStatusBar",
++                           this, SLOT(toggleStatusBar(unsigned int)));
++        }
++    }
+ }
+ 
+ Style::~Style()
+ {
++//     qWarning() << Q_FUNC_INFO << this;
+     disconnectDBus();
++    if (m_plugin && m_plugin->m_styleInstances.contains(this)) {
++        m_plugin->m_styleInstances.removeAll(this);
++    }
+     freeColors();
+     if (m_dBus) {
+         delete m_dBus;
+diff --git qt5/style/qtcurve.h qt5/style/qtcurve.h
+index aedcd16a015d2f830879b4523fb19a78a1beda36..af520d9467162bb7a152b9f5c2ebc28aae446c8f 100644
+--- qt5/style/qtcurve.h
++++ qt5/style/qtcurve.h
+@@ -62,6 +62,7 @@ class WindowManager;
+ class BlurHelper;
+ class ShortcutHandler;
+ class ShadowHelper;
++class StylePlugin;
+ 
+ class Style: public ParentStyleClass {
+     Q_OBJECT
+@@ -184,7 +185,6 @@ public:
+ private:
+     void init(bool initial);
+     void connectDBus();
+-    void disconnectDBus();
+     void freeColor(QSet<QColor*> &freedColors, QColor **cols);
+     void freeColors();
+     void polishFormLayout(QFormLayout *layout);
+@@ -359,6 +359,7 @@ private:
+     int getFrameRound(const QWidget *widget) const;
+ 
+ private Q_SLOTS:
++    void disconnectDBus();
+     void kdeGlobalSettingsChange(int type, int);
+     void borderSizesChanged();
+     void toggleMenuBar(unsigned int xid);
+@@ -519,7 +520,6 @@ private:
+                                       const QStyleOption *option,
+                                       QPainter *painter,
+                                       const QWidget *widget) const;
+-    static void dbusCleanupCallback(void*);
+ 
+ private:
+     mutable Options opts;
+@@ -570,11 +570,14 @@ private:
+     WindowManager *m_windowManager;
+     BlurHelper *m_blurHelper;
+     ShortcutHandler *m_shortcutHandler;
+-    void *m_dbusConnected;
++    bool m_dbusConnected;
+ #ifdef QTC_QT5_ENABLE_KDE
+     KSharedConfigPtr m_configFile;
+     KSharedConfigPtr m_kdeGlobals;
+ #endif
++protected:
++    StylePlugin *m_plugin;
++    friend class StylePlugin;
+ };
+ }
+ 
+diff --git qt5/style/qtcurve_plugin.cpp qt5/style/qtcurve_plugin.cpp
+index 8af8933c0f16150e62e58cb814a0af3984e828c7..26466e979e5e585c9463ae761beaf5e51bc23728 100644
+--- qt5/style/qtcurve_plugin.cpp
++++ qt5/style/qtcurve_plugin.cpp
+@@ -27,7 +27,6 @@
+ #include <qtcurve-utils/qtprops.h>
+ #include <qtcurve-utils/x11shadow.h>
+ #include <qtcurve-utils/x11blur.h>
+-#include <qtcurve-utils/log.h>
+ 
+ #include <QApplication>
+ 
+@@ -42,50 +41,9 @@
+ #endif
+ #include <QDebug>
+ 
+-namespace QtCurve {
+-
+-// Using a `std::set` somehow result in a segfault in glibc (maybe realated to
+-// this function being called in the exit handler?) so use a home made solution
+-// instead...
+-struct CleanupCallback {
+-    void (*func)(void*);
+-    void *data;
+-    CleanupCallback *next;
+-    CleanupCallback **prev;
+-};
+-
+-static CleanupCallback *cleanup_callbacks = nullptr;
+-
+-void*
+-registerCleanup(void (*func)(void*), void *data)
+-{
+-    auto cb = new CleanupCallback{func, data, cleanup_callbacks,
+-                                  &cleanup_callbacks};
+-    if (cleanup_callbacks)
+-        cleanup_callbacks->prev = &cb->next;
+-    cleanup_callbacks = cb;
+-    return cb;
+-}
+-
+-void
+-unregisterCleanup(void *_cb)
+-{
+-    auto cb = (CleanupCallback*)_cb;
+-    if (cb->next)
+-        cb->next->prev = cb->prev;
+-    *cb->prev = cb->next;
+-    delete cb;
+-}
++#include <qtcurve-utils/log.h>
+ 
+-static void
+-runAllCleanups()
+-{
+-    while (cleanup_callbacks) {
+-        auto func = cleanup_callbacks->func;
+-        auto data = cleanup_callbacks->data;
+-        func(data);
+-    }
+-}
++namespace QtCurve {
+ 
+ __attribute__((hot)) static void
+ polishQuickControl(QObject *obj)
+@@ -155,20 +113,49 @@ qtcEventCallback(void **cbdata)
+     return false;
+ }
+ 
++static StylePlugin *firstPlInstance = nullptr;
++static QList<Style*> *styleInstances = nullptr;
++
+ QStyle*
+ StylePlugin::create(const QString &key)
+ {
++    if (!firstPlInstance) {
++        firstPlInstance = this;
++        styleInstances = &m_styleInstances;
++    }
++
+     init();
+-    return key.toLower() == "qtcurve" ? new Style : nullptr;
++    Style *qtc;
++    if (key.toLower() == "qtcurve") {
++        qtc = new Style;
++        qtc->m_plugin = this;
++        m_styleInstances << qtc;
++    } else {
++        qtc = nullptr;
++    }
++    return qtc;
+ }
+ 
+ StylePlugin::~StylePlugin()
+ {
+-    runAllCleanups();
++//     qWarning() << Q_FUNC_INFO << this;
++    if (!m_styleInstances.isEmpty()) {
++        // qWarning() << Q_FUNC_INFO << "Deleting" << m_styleInstances.count() << "remaining Style instances";
++        QList<Style*>::Iterator it = m_styleInstances.begin();
++        while (it != m_styleInstances.end()) {
++            Style *that = *it;
++            it = m_styleInstances.erase(it);
++            delete that;
++        }
++    }
+     if (m_eventNotifyCallbackInstalled) {
+         QInternal::unregisterCallback(QInternal::EventNotifyCallback,
+                                     qtcEventCallback);
+     }
++    if (firstPlInstance == this) {
++        firstPlInstance = nullptr;
++        styleInstances = nullptr;
++    }
+ }
+ 
+ void
+@@ -189,4 +176,22 @@ StylePlugin::init()
+         });
+ }
+ 
++int atLibOpen() __attribute__((constructor));
++int atLibOpen()
++{
++    qtcDebug("Opening QtCurve\n");
++    return 0;
++}
++
++int atLibClose() __attribute__((destructor));
++int atLibClose()
++{
++    qtcInfo("Closing QtCurve\n");
++    if (firstPlInstance) {
++        qtcInfo("Plugin instance %p still open with %d open Style instance(s)\n",
++            firstPlInstance, styleInstances->count());
++    }
++    return 0;
++}
++
+ }
+diff --git qt5/style/qtcurve_plugin.h qt5/style/qtcurve_plugin.h
+index 1a0cf1d89e73d15ad41cd9d0553d62721b382261..4652acaface6540da26a67cf562cd4d01e5f8214 100644
+--- qt5/style/qtcurve_plugin.h
++++ qt5/style/qtcurve_plugin.h
+@@ -23,9 +23,12 @@
+ #define __QTCURVE_PLUTIN_H__
+ 
+ #include <QStylePlugin>
++#include <QList>
+ #include <mutex>
+ 
+ namespace QtCurve {
++class Style;
++
+ class StylePlugin: public QStylePlugin {
+     Q_OBJECT
+     Q_PLUGIN_METADATA(IID QStyleFactoryInterface_iid FILE "qtcurvestyle.json")
+@@ -36,11 +39,10 @@ private:
+     void init();
+     bool m_eventNotifyCallbackInstalled = false;
+     std::once_flag m_ref_flag;
++protected:
++    QList<Style*> m_styleInstances;
++    friend class Style;
+ };
+-
+-void *registerCleanup(void (*func)(void*), void *data);
+-void unregisterCleanup(void *handle);
+-
+ }
+ 
+ #endif

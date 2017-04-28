@@ -1,7 +1,7 @@
 
 pkgname=qtcurve
 pkgver=1.8.18.17
-_commit=820a35e02cc6c31a4db9dccf40a83ba7a771dd03
+_commit=a249871e95d4d64a0f2a7c95020d54b1435a4e93
 pkgrel=1
 arch=('x86_64')
 license=('GPL')
@@ -12,14 +12,16 @@ depends=('karchive' 'kconfig' 'kconfigwidgets' 'frameworkintegration' 'ki18n' 'k
          'libx11' 'qt5-x11extras' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("https://github.com/KDE/qtcurve/archive/${_commit}.zip"
-        "https://raw.githubusercontent.com/RJVB/macstrop/master/kde/QtCurve/files/patch-qt5-dbus-fixes-by-debian.diff")
-md5sums=('0ae8b579b0eaa226cffa97ebe00b1c36'
-         '0dfe16fe9ce0340b2a7b56f37067fec4')
+        "https://raw.githubusercontent.com/RJVB/macstrop/master/kde/QtCurve/files/patch-qt5-dbus-fixes-by-debian.diff"
+        'DBus_crashing.diff')
+md5sums=('d2408319e89c446908cefe759625abdb'
+         '0dfe16fe9ce0340b2a7b56f37067fec4'
+         '5f5d3393e02c59933494edd0b5e28184')
 
 prepare() {
   cd ${pkgname}-${_commit}
   
-  patch -p0 -i ${srcdir}/patch-qt5-dbus-fixes-by-debian.diff
+  patch -p0 -i ${srcdir}/DBus_crashing.diff
 }
 
 build() {
