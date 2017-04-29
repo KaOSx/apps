@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-pa
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="PulseAudio based volume control Plasma widget."
 url="https://projects.kde.org/projects/kdereview/plasma-pa"
 license=('GPL' 'LGPL' 'FDL')
@@ -17,13 +17,13 @@ conflicts=('plasma-volume-control')
 replaces=('plasma-volume-control')
 #source=($_mirror/${pkgname}-${pkgver}.tar.xz)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
-        "https://github.com/KDE/plasma-pa/commit/99f623cf945abcb3369dd2bd4e87c6fd6013a451.diff")
+        'pa-streams-applet.diff')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
-         '403459fab22df7ce42c1f23eb7524f62')
+         '0b95d0c6577e976d391394bdfb74267f')
 
 prepare() {
-  cd $pkgname-${__pkgver}
-  #patch -p1 -i $srcdir/99f623cf945abcb3369dd2bd4e87c6fd6013a451.diff
+  cd ${pkgname}-${__pkgver}
+  patch -p1 -i ${srcdir}/pa-streams-applet.diff
   #sed -i -e 's|#include "ui_module.h"||' ${srcdir}/${pkgname}/src/kcm/module.cpp
 }
 
