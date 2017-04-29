@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kde-common
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Common Configuration Files, Scripts and Artwork"
 url="http://www.kde.org"
 license=('GPL')
@@ -22,6 +22,8 @@ source=("https://dl.opendesktop.org/api/files/download/id/1485341541/rootactions
 	'skype.desktop'
 	'md5sha1calc.sh'
 	'md5sha1calc.desktop'
+	'bak.desktop'
+	'bak-restore.desktop'
 	'checkiso.sh'
 	'checkiso.desktop'
 	'org.freedesktop.blkid.policy'
@@ -38,6 +40,8 @@ md5sums=('44769ab05560bb1ba5a69a30be8b1c92'
          '543432fa49677efd496ac2ab15ad46e7'
          'ac56df816efbbb853e21d70a3d62bb4d'
          '9015a113e6308800bb0704f1f8b4de75'
+         '50a4220c237ecdad87f83388114165a5'
+         'bbaa5c89c78b861a607a7975603f02e0'
          '42bdb0589fe39d62970267e1f905454e'
          '9bb1c9c96d03286ae27bc0c3c624af01'
          '453e083b8ef8164c1810275046dd7c81'
@@ -68,6 +72,8 @@ package() {
  
 	# install all other service menus
 	install -m755 ${srcdir}/CopyPath.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/CopyPath.desktop
+	install -m755 ${srcdir}/bak.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/bak.desktop
+	install -m755 ${srcdir}/bak-restore.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/bak-restore.desktop
 
 	#install -m755 ${srcdir}/102825-compressattach.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/compress-attach.desktop
         #sed "s~Icon=attach~Icon=mail-attachment~g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/compress-attach.desktop

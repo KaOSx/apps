@@ -11,7 +11,7 @@ index 9e4b3aaa97b240ca8d4151d075c2b1c92acb4303..862c79c82b8d4dae1e5602829a221abe
  {
      const char *env = getenv(QTCURVE_PREVIEW_CONFIG);
  #ifdef QTC_QT5_ENABLE_KDE
-@@ -664,30 +664,36 @@ void Style::connectDBus()
+@@ -664,30 +664,34 @@ void Style::connectDBus()
  {
      if (m_dbusConnected)
          return;
@@ -24,9 +24,7 @@ index 9e4b3aaa97b240ca8d4151d075c2b1c92acb4303..862c79c82b8d4dae1e5602829a221abe
 +    if (bus.isConnected()) {
 +        m_dbusConnected = true;
 +        if (QCoreApplication::instance()) {
-+            bool ok = connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, this, &Style::disconnectDBus);
-+//             qWarning() << Q_FUNC_INFO << this << "connected to QCoreApplication::aboutToQuit from"
-+//                 << QCoreApplication::instance() << ":" << ok;
++            connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, this, &Style::disconnectDBus);
 +        }
 +        bus.connect(QString(), "/KGlobalSettings", "org.kde.KGlobalSettings",
 +                    "notifyChange", this, SLOT(kdeGlobalSettingsChange(int, int)));
@@ -42,15 +40,15 @@ index 9e4b3aaa97b240ca8d4151d075c2b1c92acb4303..862c79c82b8d4dae1e5602829a221abe
 -        bus.connect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
 -                    "borderSizesChanged", this, SLOT(borderSizesChanged()));
 -        if (opts.menubarHiding & HIDE_KWIN)
-+        QString arg0 = qApp? qApp->arguments()[0] : QString();
-+        if (!qApp || (arg0 != "kwin" && arg0 != "kwin_x11" && arg0 != "kwin_wayland")) {
-+            // don't connect to signals if we know we're sending them out ourselves
-             bus.connect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
+-            bus.connect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
 -                        "toggleMenuBar",
 -                        this, SLOT(toggleMenuBar(unsigned int)));
 -
 -        if (opts.statusbarHiding & HIDE_KWIN) {
--            bus.connect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
++        QString arg0 = qApp? qApp->arguments()[0] : QString();
++        if (!qApp || (arg0 != "kwin" && arg0 != "kwin_x11" && arg0 != "kwin_wayland")) {
++            // don't connect to signals if we know we're sending them out ourselves
+             bus.connect("org.kde.kwin", "/QtCurve", "org.kde.QtCurve",
 -                        "toggleStatusBar",
 -                        this, SLOT(toggleStatusBar(unsigned int)));
 +                        "borderSizesChanged", this, SLOT(borderSizesChanged()));
@@ -67,7 +65,7 @@ index 9e4b3aaa97b240ca8d4151d075c2b1c92acb4303..862c79c82b8d4dae1e5602829a221abe
          }
      }
  }
-@@ -696,10 +702,9 @@ void Style::disconnectDBus()
+@@ -696,10 +700,11 @@ void Style::disconnectDBus()
  {
      if (!m_dbusConnected)
          return;
@@ -76,7 +74,9 @@ index 9e4b3aaa97b240ca8d4151d075c2b1c92acb4303..862c79c82b8d4dae1e5602829a221abe
 -    unregisterCleanup(cb);
 +    m_dbusConnected = false;
      auto bus = QDBusConnection::sessionBus();
-+//     qWarning() << Q_FUNC_INFO << this << "Disconnecting from" << bus.name() << "/" << bus.baseService();
++    if (getenv("QTCURVE_DEBUG")) {
++        qWarning() << Q_FUNC_INFO << this << "Disconnecting from" << bus.name() << "/" << bus.baseService();
++    }
      bus.disconnect(QString(), "/KGlobalSettings", "org.kde.KGlobalSettings",
                     "notifyChange",
                     this, SLOT(kdeGlobalSettingsChange(int, int)));
@@ -111,7 +111,7 @@ index 9e4b3aaa97b240ca8d4151d075c2b1c92acb4303..862c79c82b8d4dae1e5602829a221abe
  
  Style::~Style()
  {
-+//     qWarning() << Q_FUNC_INFO << this;
++    qtcInfo("Deleting style instance %p\n", this);
      disconnectDBus();
 +    if (m_plugin && m_plugin->m_styleInstances.contains(this)) {
 +        m_plugin->m_styleInstances.removeAll(this);
@@ -267,9 +267,9 @@ index 8af8933c0f16150e62e58cb814a0af3984e828c7..26466e979e5e585c9463ae761beaf5e5
  StylePlugin::~StylePlugin()
  {
 -    runAllCleanups();
-+//     qWarning() << Q_FUNC_INFO << this;
++    qtcInfo("Deleting QtCurve plugin (%p)\n", this);
 +    if (!m_styleInstances.isEmpty()) {
-+        // qWarning() << Q_FUNC_INFO << "Deleting" << m_styleInstances.count() << "remaining Style instances";
++        qtcWarn("there remain(s) %d Style instance(s)\n", m_styleInstances.count());
 +        QList<Style*>::Iterator it = m_styleInstances.begin();
 +        while (it != m_styleInstances.end()) {
 +            Style *that = *it;
