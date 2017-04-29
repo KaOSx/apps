@@ -63,7 +63,7 @@ package_widevine() {
     mkdir -p ${pkgdir}/usr/lib/chromium
     cd ${pkgdir}
     ln -s /opt/google/chrome-unstable/libwidevinecdm.so ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
-    ln -s opt/google/chrome-unstable/libwidevinecdmadapter.so ${pkgdir}/usr/lib/chromium/libwidevinecdmadapter.so
+    ln -s /opt/google/chrome-unstable/libwidevinecdmadapter.so ${pkgdir}/usr/lib/chromium/libwidevinecdmadapter.so
     
     install -Dm644 $srcdir/eula_text.html ${pkgdir}/usr/share/licenses/widevine/eula_text.html
 }
