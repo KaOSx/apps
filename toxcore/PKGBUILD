@@ -1,6 +1,6 @@
 
 pkgname=toxcore
-pkgver=0.1.7
+pkgver=0.1.8
 pkgrel=1
 pkgdesc='Easy to use, all-in-one communication platform that ensures full privacy and secure message delivery.'
 arch=('x86_64')
@@ -10,7 +10,7 @@ depends=('systemd' 'libconfig' 'libsndfile' 'libsodium' 'libvpx' 'opus' 'opencv'
 makedepends=('check' 'msgpack-c')
 options=('!staticlibs')
 source=("https://github.com/TokTok/c-toxcore/archive/v${pkgver}.tar.gz")
-md5sums=('31741c2cf61a8ae4e70959761ea686f4')
+md5sums=('867ea89492088d98cd0e5421871ff8d2')
 
 build() {
   cd c-${pkgname}-${pkgver}
@@ -26,7 +26,7 @@ build() {
 check() {
   cd c-${pkgname}-${pkgver}
   # tox_test & toxav_basic_test fail
-  #make check 
+  make check 
 }
 
 package() {

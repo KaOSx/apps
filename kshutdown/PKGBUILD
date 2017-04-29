@@ -1,7 +1,7 @@
 
 pkgname=kshutdown
-pkgver=4.0.80
-_pkgver=code-835-trunk
+pkgver=4.0.81
+_pkgver=source-4.1beta
 pkgrel=1
 pkgdesc="Graphical shutdown utility that allows you to turn off or suspend a computer at a specified time."
 url="http://kshutdown.sourceforge.net/"
@@ -11,14 +11,14 @@ depends=('kconfig' 'kconfigwidgets' 'kdbusaddons' 'kglobalaccel' 'ki18n' 'kidlet
          'knotifyconfig' 'kxmlgui')
 makedepends=('extra-cmake-modules')
 groups=('utilities') 
-source=("https://sourceforge.net/code-snapshots/svn/k/ks/kshutdown/code/kshutdown-${_pkgver}.zip")
-md5sums=('a27b6d8145ffe4fb810109f9138691a4')
+source=("https://sourceforge.net/projects/kshutdown/files/KShutdown/4.1%20Beta/kshutdown-${_pkgver}.zip")
+md5sums=('8511b44c058d2334298ae4f1356c60c9')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_pkgver}/${pkgname}2 \
+  cmake ../${pkgname}-4.1beta \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKS_KF5=TRUE
