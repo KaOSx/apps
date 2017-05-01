@@ -1,0 +1,44 @@
+
+pkgname=keepassxc
+pkgver=2.1.4
+pkgrel=1
+_commit=d4ed4f93255e51ed7a7986e6040f240ac6488670
+pkgdesc="Cross-platform community-driven port of the Windows application Keepass Password Safe"
+arch=('x86_64')
+url="http://www.keepassxc.org/"
+license=('GPL2')
+depends=('qt5-x11extras' 'libxtst' 'shared-mime-info')
+makedepends=('cmake' 'intltool' 'qt5-tools')
+groups=('accessories')
+replaces=('keepassx')
+provides=('keepassx')
+conflicts=('keepassx')
+#source=("https://www.keepassx.org/releases/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+source=("https://github.com/keepassxreboot/keepassxc/releases/download/${pkgver}/${pkgname}-${pkgver}-src.tar.xz")
+md5sums=('f2314e36735d4d2c490a1888bd0fc31e')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DWITH_GUI_TESTS=OFF \
+    -DWITH_XC_HTTP=ON \
+    -DWITH_XC_AUTOTYPE=ON
+  make 
+}
+
+check() {
+    cd build
+    # testguipixmaps & testgui fail with GUI_TESTS
+    make test
+}
+
+package() {
+    cd build
+    
+    make DESTDIR=${pkgdir} install 
+}
