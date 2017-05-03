@@ -1,0 +1,43 @@
+
+pkgname=babe
+pkgver=0.0.1
+_commit=824fe7bb41b9d720b48827eee1dfc7a36b24823a
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Babe will handle your whole music collection, letting you create custom playlists to organize your music."
+url="https://milohr.github.io/BabeIt/"
+license=('GPL3')
+depends=('knotifications' 'ki18n' 'kconfig' 'qt5-multimedia' 'taglib') # 'qjson')
+makedepends=('extra-cmake-modules')
+source=("https://github.com/KDE/babe/archive/${_commit}.zip")
+md5sums=('928bcd8eb216c90603c58d6034be744f')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+  
+  #sed -i -e 's|<qjson/parser.h>|<qjson-qt5/parser.h>|' artwork.cpp
+}
+
+build() {
+  cd ${pkgname}-${_commit}
+  #mkdir -p build
+  #cd build
+  
+  #cmake ../${pkgname}-${_commit} \
+  #  -DCMAKE_INSTALL_PREFIX=/usr \
+  #  -DCMAKE_BUILD_TYPE=Release \
+  #  -DKDE_INSTALL_LIBDIR=lib
+  /usr/lib/qt5/bin/qmake Babe.pro
+  make
+}
+
+package() {
+  #cd build
+  cd ${pkgname}-${_commit}
+  
+  #make DESTDIR=${pkgdir} install
+  
+  install -D -m755 Babe ${pkgdir}/usr/bin/babe
+  install -D -m644 org.kde.babe.desktop ${pkgdir}/usr/share/applications/org.kde.babe.desktop
+  install -D -m644 data/babe.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/Babe.svg
+}
