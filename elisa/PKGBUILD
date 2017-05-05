@@ -1,0 +1,32 @@
+
+pkgname=elisa
+pkgver=0.0.1
+_commit=2ddf5bf78505ab2c089cdbfb2a9989f091f58f81
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Music Player"
+url="https://github.com/KDE/elisa"
+license=('GPL')
+depends=('ki18n' 'kdeclarative' 'kcoreaddons' 'baloo' 'kfilemetadata' 'kxmlgui' 
+         'kconfigwidgets' 'kconfig' 'qt5-quickcontrols' 'qt5-websockets' 'kdsoap') # 'upnp-qt')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=("https://github.com/KDE/elisa/archive/${_commit}.zip")
+md5sums=('04b4dc7990c6fc40dbd85f2bfb338d4d')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib
+    
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
