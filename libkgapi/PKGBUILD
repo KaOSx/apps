@@ -14,9 +14,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
         "https://github.com/KDE/libkgapi/commit/68b89bce22d0da234345ccffb869ae6863592624.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '0ac22000072fa47d8632419cb3168504'
-         'ec60cf4cef010fecb2413fe719d265b7'
-         '9d24cec32395e5877b7406ffc933badc')
+         '0ac22000072fa47d8632419cb3168504')
 
 prepare () {
   cd ${pkgname}-${pkgver}
