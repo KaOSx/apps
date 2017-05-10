@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kauth
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KAuth provides a convenient, system-integrated way to offload actions that need to be performed as a privileged user.'
 arch=('x86_64')
 url='https://github.com/KDE/kauth'
@@ -12,15 +12,19 @@ license=('LGPL')
 depends=('kcoreaddons' 'polkit-qt5')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        'deadlock.patch')
+source=("http://download.kde.org/stable/frameworks/5.33/${pkgname}-${pkgver}.tar.xz"
+        'deadlock.patch'
+        "https://github.com/KDE/kauth/commit/df875f725293af53399f5146362eb158b4f9216a.diff")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '150cefa733d5f51d174b91c6183a638d')
+         '150cefa733d5f51d174b91c6183a638d'
+         '0aebfa8962c7320bd054f231f81e9a15')
 
 prepare() {
   cd $pkgname-${pkgver}
   
-  patch -p1 -i $srcdir/deadlock.patch
+  patch -p1 -i ${srcdir}/deadlock.patch
+  # CVE-2017-8422
+  patch -p1 -i ${srcdir}/df875f725293af53399f5146362eb158b4f9216a.diff
 }
 
 build() {
