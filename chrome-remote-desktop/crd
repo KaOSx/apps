@@ -1,0 +1,190 @@
+#! /bin/bash
+
+if [[ $(whoami) = "root" ]]
+then
+  echo "Please run this as a normal user!"
+  exit
+fi
+
+crd_status=$(/opt/google/chrome-remote-desktop/chrome-remote-desktop --get-status)
+
+case $1 in
+
+--status)
+  echo "CRD status: ${crd_status}"
+  exit
+  ;;
+
+--restart)
+  /opt/google/chrome-remote-desktop/chrome-remote-desktop --stop
+  rm -rf $HOME/.config/chrome-remote-desktop/pulseaudio*
+  crd_size=$(cat $HOME/.config/chrome-remote-desktop/Size)
+  /opt/google/chrome-remote-desktop/chrome-remote-desktop --size="$crd_size" --start
+  ;;
+  
+--reload)
+  /opt/google/chrome-remote-desktop/chrome-remote-desktop --reload
+  exit
+  ;;
+
+--stop)
+  /opt/google/chrome-remote-desktop/chrome-remote-desktop --stop
+  rm -rf $HOME/.config/chrome-remote-desktop/pulseaudio*
+  exit
+  ;;
+  
+--start)
+  if [ ! -f $HOME/.chrome-remote-desktop-session ] | [ ! -f $HOME/.config/chrome-remote-desktop/Size ]
+  then
+    echo "Seems like you haven't set this up yet. Try running crd --setup."
+    exit
+  fi
+  
+  if [ ! -f $HOME/.config/chrome-remote-desktop/host#*.json ]
+  then
+    echo "Seems like you haven't activated CRD in your browser. Please do"
+    echo "that before trying to run the server."
+    exit
+  fi
+
+  
+  rm -rf $HOME/.config/chrome-remote-desktop/pulseaudio*
+  crd_size=$(cat $HOME/.config/chrome-remote-desktop/Size)
+  /opt/google/chrome-remote-desktop/chrome-remote-desktop --size="$crd_size" --start
+  exit
+  ;;
+  
+--setup)
+  sudo gpasswd -a $USER chrome-remote-desktop
+  echo "Checking working directory and session file are present"
+  echo "That would be $HOME/.config/chrome-remote-desktop and"
+  echo "$HOME/.chrome-remote-desktop-session"
+  [ -d $HOME/.config/chrome-remote-desktop ] || mkdir $HOME/.config/chrome-remote-desktop
+  touch $HOME/.chrome-remote-desktop-session
+  touch $HOME/.config/chrome-remote-desktop/Size
+
+  if [[ -z $(cat $HOME/.chrome-remote-desktop-session) ]]
+  then
+    echo "# You will have to uncomment one of the following lines for CRD to work" > $HOME/.chrome-remote-desktop-session
+    echo "# Remove the # and select ctrl-X to finish." >> $HOME/.chrome-remote-desktop-session
+    echo "# " >> $HOME/.chrome-remote-desktop-session
+    grep -R '^Exec=' /usr/share/xsessions/ | sed 's|/usr/.*=|# exec |' >> $HOME/.chrome-remote-desktop-session
+    echo "Now entering the editor to make the appropriate changes to"
+    echo "your session file."
+    read -rsp $'Press any key to continue...\n' -n1 key
+    nano $HOME/.chrome-remote-desktop-session
+  fi
+
+  if [[ -z $(cat $HOME/.config/chrome-remote-desktop/Size) ]]
+  then
+    echo "1366x768" > $HOME/.config/chrome-remote-desktop/Size
+    echo "Default size is set to 1366x768 in"
+    echo "$HOME/.config/chrome-remote-desktop/Size."
+    echo "Change this if you want another screen size on your client."
+    echo "Remember that this will affect all clients you use."
+    echo "Now entering the editor to make the appropriate changes to"
+    echo "your Size file. Do not enter any comments to this file"
+    read -rsp $'Press any key to continue...\n' -n1 key
+    nano $HOME/.config/chrome-remote-desktop/Size
+  fi
+  
+  echo "This completes the setup."
+  echo ""
+  echo "Please remember that you will need to allow Chrome"
+  echo "to act as a server for this to work at all."
+  echo ""
+  echo "To do that, open CRD in your Chrome browser"
+  echo "and follow the instructions. Clicking the computer will open"
+  echo "it in the browser window in default resolution."
+  echo "For a more pleasant chromoting experience, just issue the command"
+  echo "crd --restart"
+  echo ""
+  echo "Happy chromoting! :)"
+
+  exit
+  ;;
+
+--help|-h)
+  echo "Note: You will have to go into Chrome to enable remote"
+  echo "connections to this computer before you can run CRD on this machine."
+  echo ""
+  echo "Usage: crd [option]"
+  echo ""
+  echo "Options:"
+  echo ""
+  echo "--status"
+  echo "Checks whether CRD is running and returns its status"
+  echo ""
+  echo "--start"
+  echo "Starts CRD after destroying old pulse files"
+  echo ""
+  echo "--stop"
+  echo "Stops CRD if running, deletes old pulse files"
+  echo ""
+  echo "--restart"
+  echo "Stops and restarts CRD, destroying non-functioning pulse files"
+  echo ""
+  echo "--reload"
+  echo "Just reloads CRD"
+  echo ""
+  echo "--help, -h"
+  echo "This help message"
+  echo ""
+  echo "--setup"
+  echo "Sets up CRD for your system by adding folders, sessions, users"
+  echo "and stuff. You should do this first, after a fresh install. This"
+  echo "will be done automatically if you just run crd without options."
+  echo ""
+  echo "No options given"
+  echo "If CRD running, stop it. Otherwise start it. Checks that CRD"
+  echo "has been set up, or it won't start."
+  echo ""
+  echo "No sound on client? Try returning the files /etc/pulse/daemon.conf"
+  echo "and /etc/pulse/client.conf to their default values, that is, the"
+  echo "values commented out with a ';' – deleting any uncommented settings"
+  echo "might do the trick, but use your common sense here."
+  echo ""
+  echo "Need another resolution and your Display function on the client "
+  echo "throws an error? You can change the client resolution in th host by"
+  echo "issuing the command:"
+  echo ""
+  echo "nano $HOME/.config/chrome-remote-desktop/Size"
+  echo ""
+  echo "and adjusting it to whatever resolution you need."
+  echo "This will affect all clients though."
+  echo ""
+  exit
+  ;;
+  
+*)
+  if [ ! -f $HOME/.chrome-remote-desktop-session ] | [ ! -f $HOME/.config/chrome-remote-desktop/Size ]
+  then
+    echo "Seems like you haven't set this up yet. Try running crd --setup."
+    exit
+  fi
+  
+  if [ ! -f $HOME/.config/chrome-remote-desktop/host#*.json ]
+  then
+    echo "Seems like you haven't activated CRD in your browser. Please do"
+    echo "that before trying to run the server."
+    exit
+  fi
+  
+  if [[ $crd_status = "STARTED" ]]
+  then
+    echo "CRD is already running; stopping."
+    /opt/google/chrome-remote-desktop/chrome-remote-desktop --stop
+    rm -rf $HOME/.config/chrome-remote-desktop/pulseaudio*
+    echo "Deleted old pulse audio files"
+    exit
+  else
+    echo "CRD is not running; starting."
+    echo "Deleting old pulse audio files"
+    rm -rf $HOME/.config/chrome-remote-desktop/pulseaudio*
+    crd_size=$(cat $HOME/.config/chrome-remote-desktop/Size)
+    /opt/google/chrome-remote-desktop/chrome-remote-desktop --size="$crd_size" --start
+    exit
+  fi
+  ;;
+  
+esac
