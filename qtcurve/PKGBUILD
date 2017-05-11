@@ -2,7 +2,7 @@
 pkgname=qtcurve
 pkgver=1.8.18.17
 _commit=ec221dd9bbeb6c0cd255652877b7fc61c179ef0e
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('GPL')
 pkgdesc='The QtCurve style engine for Qt5 and Plasma 5.'
@@ -12,10 +12,8 @@ depends=('karchive' 'kconfig' 'kconfigwidgets' 'frameworkintegration' 'ki18n' 'k
          'libx11' 'qt5-x11extras' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("https://github.com/KDE/qtcurve/archive/${_commit}.zip"
-        "https://raw.githubusercontent.com/RJVB/macstrop/master/kde/QtCurve/files/patch-qt5-dbus-fixes-by-debian.diff"
         'DBus_crashing.diff')
 md5sums=('222c547bf5ced1bd9089afc9e7b9906e'
-         '0dfe16fe9ce0340b2a7b56f37067fec4'
          'cf91da3678fcd6e31030b06f9e0560b4')
 
 prepare() {
