@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=gwenview
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=3
 pkgdesc="A fast and easy to use image viewer for KDE"
 arch=('x86_64')
 url="http://kde.org/applications/graphics/gwenview/"
@@ -16,8 +16,10 @@ opdepends=('kamera: to work directly with cameras')
 groups=('graphics')
 conflicts=('kdegraphics-gwenview')
 replaces=('kdegraphics-gwenview')
-source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/gwenview/commit/6ce5d2f8d82f83c5a3d726ee5807ebaf7a6e3c6c.diff")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '2e230d5a326332d0006d3ba6483cdefe')
 #md5sums=('39b025dfb4e4628229216d86315ce799')
 #source=("git://anongit.kde.org/gwenview.git")
 #md5sums=('SKIP')
@@ -25,8 +27,8 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 prepare() {
   cd $pkgname-${pkgver}
   #sed -i -e 's/Kdcraw/KF5KDcraw/' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
-  #patch -p1 -i $srcdir/libkipi1.patch
-  #patch -p1 -i $srcdir/libkipi.patch
+  # fix https://bugs.kde.org/show_bug.cgi?id=379615
+  patch -p1 -i ${srcdir}/6ce5d2f8d82f83c5a3d726ee5807ebaf7a6e3c6c.diff
 }
 
 build() {
