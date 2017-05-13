@@ -1,7 +1,8 @@
 
 pkgname=qtcreator
-pkgver=4.2.2
-_pkgver=4.2
+pkgver=4.30RC
+_pkgver=4.3
+__pkgver=4.3.0-rc1
 pkgrel=1
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
@@ -16,13 +17,13 @@ optdepends=('qt5-docs: for the integrated Qt documentation'
             'mercurial: for mercurial support'
             'bzr: for bazaar support')
 groups=('programming')
-source=("http://download.qt-project.org/official_releases/${pkgname}/${_pkgver}/${pkgver}/qt-creator-opensource-src-${pkgver}.tar.xz"
+source=("http://download.qt-project.org/development_releases/${pkgname}/${_pkgver}/${__pkgver}/qt-creator-opensource-src-${__pkgver}.tar.xz"
         'qtcreator.desktop')
-md5sums=('e63ed4d896b1b83dd9bb9c8e66c227d1'
+md5sums=('2e503081eaaa57078ea75b9c6f0c661b'
          '5162b73dd63f457bdb02bd9c8b1cc66b')
 
 prepare() {
-  cd qt-creator-opensource-src-${pkgver}
+  cd qt-creator-opensource-src-${__pkgver}
 
   sed -i 's|$$IDE_OUTPUT_PATH/libexec/qtcreator|$$IDE_OUTPUT_PATH/lib/qtcreator|' qtcreator.pri
   sed -i 's|$$QTC_PREFIX/libexec/qtcreator|$$QTC_PREFIX/lib/qtcreator|' qtcreator.pri
@@ -32,7 +33,7 @@ build() {
   mkdir -p build
   cd build
 
-  /usr/lib/qt5/bin/qmake ${srcdir}/qt-creator-opensource-src-${pkgver}/qtcreator.pro
+  /usr/lib/qt5/bin/qmake ${srcdir}/qt-creator-opensource-src-${__pkgver}/qtcreator.pro
   make 
   make docs -j1
 }
@@ -45,6 +46,6 @@ package() {
 
   install -Dm644 ${srcdir}/qtcreator.desktop \
     ${pkgdir}/usr/share/applications/qtcreator.desktop
-  install -Dm644 ${srcdir}/qt-creator-opensource-src-${pkgver}/LICENSE.GPL3-EXCEPT \
+  install -Dm644 ${srcdir}/qt-creator-opensource-src-${__pkgver}/LICENSE.GPL3-EXCEPT \
     ${pkgdir}/usr/share/licenses/qtcreator/LICENSE.GPL3-EXCEPT
 }
