@@ -2,7 +2,7 @@
 pkgname=gimp
 pkgver=2.9.4
 _pkgver=2.9
-pkgrel=4
+pkgrel=5
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
 url="http://www.gimp.org/"
@@ -16,13 +16,17 @@ optdepends=('gutenprint: for sophisticated printing only as gimp has built-in cu
             'curl: for URI support')
 options=('!libtool' '!makeflags')
 source=("http://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${pkgver}.tar.bz2"
-        'linux.gpl')
+        'linux.gpl'
+        "https://github.com/GNOME/gimp/commit/46bcd82800e37b0f5aead76184430ef2fe802748.diff")
 md5sums=('6b3d425a7949110eeb532badedf721f3'
-         'bb27bc214261d36484093e857f015f38')
+         'bb27bc214261d36484093e857f015f38'
+         'd70307cb284307d36a16bd0335a78259')
 
 build() {
   cd gimp-${pkgver}
   #sed -e "s|gegl-0.2 >= 0.2.0|gegl-0.3 >= 0.3.0|" -i ${srcdir}/gimp-${pkgver}/configure
+  # CVE-2007-3126
+  patch -p1 -i ${srcdir}/46bcd82800e37b0f5aead76184430ef2fe802748.diff
   
   ./configure --prefix=/usr \
     --sysconfdir=/etc \
