@@ -2,7 +2,7 @@
 pkgbase=transmission
 pkgname=('transmission-cli' 'transmission-qt')
 pkgver=2.92
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url="http://www.transmissionbt.com/"
 license=('GNU GPLv2')
@@ -12,11 +12,17 @@ source=("https://download.transmissionbt.com/files/${pkgbase}-${pkgver}.tar.xz"
 #source=("https://build.transmissionbt.com/job/trunk-linux/lastBuild/artifact/transmission-trunk-r14679.tar.xz"
         'transmission.systemd'
         'transmission.tmpfiles'
-        'dbushelper.diff')
+        'dbushelper.diff'
+        'transmission.svg'
+        'transmission-tray.svg'
+        'transmission-tray-dark.svg')
 md5sums=('3fce404a436e3cd7fde80fb6ed61c264'
          '5c289c8901221a94be74665368ab5c2c'
          '23f2320361ad54373c3a4551ef634fe8'
-         '796d52f26433300767ce16f8c92eebfb')
+         '796d52f26433300767ce16f8c92eebfb'
+         '019c6e9dbdcdb2704a266874d02975c0'
+         'dbbc3c6ce0707808895778bd81e36707'
+         'c4d8952b3280d99d909ccfbd48940a0a')
         
 prepare () {
   cd ${pkgbase}-${pkgver}
@@ -52,12 +58,12 @@ package_transmission-cli() {
 
   for dir in daemon cli utils
   do
-      make -C "${dir}" DESTDIR="${pkgdir}" install
+      make -C ${dir} DESTDIR=${pkgdir} install
   done
 
-  install -D -m644 "$srcdir/transmission.systemd" "$pkgdir/usr/lib/systemd/system/transmission.service"
-  install -D -m644 "$srcdir/transmission.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/transmission.conf"
-  install -D -m644 "$srcdir/${pkgbase}-${pkgver}/COPYING" "${pkgdir}/usr/share/licenses/transmission-cli/COPYING"
+  install -D -m644 ${srcdir}/transmission.systemd ${pkgdir}/usr/lib/systemd/system/transmission.service
+  install -D -m644 ${srcdir}/transmission.tmpfiles ${pkgdir}/usr/lib/tmpfiles.d/transmission.conf
+  install -D -m644 ${srcdir}/${pkgbase}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/transmission-cli/COPYING
 }
 
 package_transmission-qt() {
@@ -67,8 +73,13 @@ package_transmission-qt() {
   groups=('network')
   install=transmission-qt.install
 
-  cd build
-  make -C qt DESTDIR="${pkgdir}" install
+  cd build/qt
+  make DESTDIR=${pkgdir} install
+  
+  cd ../..
 
-  install -D -m644 "${srcdir}/${pkgbase}-${pkgver}/COPYING" "${pkgdir}/usr/share/licenses/transmission-qt/COPYING"
+  install -D -m644 ${pkgbase}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/transmission-qt/COPYING
+  install -D -m644 ../transmission.svg ${pkgdir}/usr/share/pixmaps/transmission.svg
+  install -D -m644 ../transmission-tray.svg ${pkgdir}/usr/share/pixmaps/transmission-tray.svg
+  install -D -m644 ../transmission-tray-dark.svg ${pkgdir}/usr/share/icons/breeze-dark/apps/48/transmission-tray.svg
 }

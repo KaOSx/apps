@@ -1,0 +1,11 @@
+--- a/src/mainwindow.cpp	2017-05-15 17:02:33.424455093 -0400
++++ b/src/mainwindow.cpp	2017-05-15 17:03:45.863466240 -0400
+@@ -1664,7 +1664,7 @@
+     tempFile->write("----------------------------------------------------------------------------------------------------------\n");
+     tempFile->write("cat /var/log/installation.log\n");
+     tempFile->write("----------------------------------------------------------------------------------------------------------\n\n");
+-    out = UnixCommand::getCommandOutput("cat /var/log/installation.log");
++    out = UnixCommand::getCommandOutput("tr -cd [:graph:][:cntrl:] < /var/log/installation.log");
+     out.replace(hostname, "<HOSTNAME>");
+     out.replace(homePath, "<HOME_PATH>");
+ 
