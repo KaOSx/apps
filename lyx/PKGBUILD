@@ -1,8 +1,8 @@
 
 pkgname=lyx
-pkgver=2.2.2
-_pkgver=2.2.2
-pkgrel=3
+pkgver=2.2.3
+_pkgver=2.2.3
+pkgrel=1
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
 url="http://www.lyx.org"
@@ -15,14 +15,14 @@ source=("ftp://ftp.lyx.org/pub/lyx/stable/2.2.x/$pkgname-$pkgver.tar.xz"
 #source=("ftp://ftp.lyx.org/pub/lyx/devel/lyx-2.2/lyx-${_pkgver}/lyx-${_pkgver}.tar.xz"
         'lyx.desktop'
         'qt5.8.diff')
-md5sums=('c37b2926d7df211c94b7260e163e2c29'
+md5sums=('032147bf8e05040787b0fca43fd70de3'
          '0ea910b9b881ebaa0f79ebaa618930fd'
          'e42d658c62f159b6c66abca7cd6176f3')
          
 prepare() {
   cd ${pkgname}-${_pkgver}
   # http://www.lyx.org/trac/changeset/6d375ddeac49ac8c6340398c9797354edca3f5d1/lyxgit
-  patch -p1 -i ${srcdir}/qt5.8.diff
+  #patch -p1 -i ${srcdir}/qt5.8.diff
   #sed -i 's|set(HUNSPELL_VERSION 1.3.3)|set(HUNSPELL_VERSION 1.6.0)|' 3rdparty/hunspell/CMakeLists.txt
 }
          
