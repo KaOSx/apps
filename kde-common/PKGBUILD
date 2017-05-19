@@ -64,8 +64,8 @@ package() {
     cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1
     patch -p2 < ${srcdir}/servicemenu-rootactions.patch      
 	install -Dm755 rootactions-servicemenu.pl ${pkgdir}/usr/bin/rootactions-servicemenu.pl
-        sed "s~Icon=terminal~Icon=utilities-terminal~g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/10-rootactionsfolders.desktop
-        sed "s~Icon=terminal~Icon=utilities-terminal~g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/11-rootactionsfiles.desktop
+        sed "s|Icon=terminal|Icon=utilities-terminal|g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/10-rootactionsfolders.desktop
+        sed "s|Icon=terminal|Icon=utilities-terminal|g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/11-rootactionsfiles.desktop
         
     cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1/krusader-KDE4/
     install -Dm644 krusader_rootactions.xml ${pkgdir}/usr/share/krusader/krusader_rootactions.xml
