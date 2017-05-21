@@ -1,0 +1,55 @@
+#!/bin/bash
+
+desktop=$(ps -e | grep kwin)
+timestamp=$( date +%F-%T )
+
+post_install() {
+  
+    if [[ -n ${desktop} ]]; then
+
+        kdialog --yesno "To be able to use Flatpak remote repo run:<br>
+        <b>flatpak remote-list</b><br><br>
+        To install an application, in this example Skype:<br>
+        flatpak install --from https://s3.amazonaws.com/alexlarsson/skype-repo/skype.flatpakref<br>
+        run with <b>flatpak run com.skype.Client</b><br>
+        Or Spotify:<br>
+        flatpak install --from https://s3.amazonaws.com/alexlarsson/spotify-repo/spotify.flatpakref<br>
+        run with <b>flatpak run com.spotify.Client</b><br><br>
+        For more applications go to <b>http://flatpak.org/apps.html</b><br><br>
+        Do you want to save this output?"
+
+        save=${?}
+
+            if [[ ${save} == 1 ]]; then
+
+                kdialog --msgbox "Output not saved"
+
+            else
+
+                echo "To be able to use Flatpak remote repo run:<br>
+                    <b>flatpak remote-list</b><br><br>
+                    To install an application, in this example Skype:<br>
+                    flatpak install --from https://s3.amazonaws.com/alexlarsson/skype-repo/skype.flatpakref<br>
+                    run with <b>flatpak run com.skype.Client</b><br>
+                    Or Spotify:<br>
+                    flatpak install --from https://s3.amazonaws.com/alexlarsson/spotify-repo/spotify.flatpakref<br>
+                    run with <b>flatpak run com.spotify.Client</b><br><br>
+                    For more applications go to <b>http://flatpak.org/apps.html</b><br><br>" > /var/log/flatpak_install${timestamp}.txt
+
+                kdialog --msgbox "Output is saved in /var/log/flatpak_install${timestamp}.txt"
+                
+            fi   
+
+    else
+
+        echo -e "To be able to use Flatpak remote repo run:"
+        echo -e "flatpak remote-list"
+        echo -e "To install and run an application:"
+        echo -e "flatpak install --from https://s3.amazonaws.com/alexlarsson/skype-repo/skype.flatpakref"
+        echo -e "flatpak run com.skype.Client"
+        echo -e "For more applications go to http://flatpak.org/apps.html \e[0m"
+
+    fi
+}
+
+
