@@ -1,22 +1,23 @@
 
 pkgname=lmms
-pkgver=1.1.90
+pkgver=1.1.95
+_pkgver=1.2.0-rc2
 _commit=3157dbf9931e2bb85e5aa9b2e20e27d9872be7e2
 pkgrel=1
 pkgdesc='The Linux MultiMedia Studio.'
 arch=('x86_64')
-url='http://lmms.sourceforge.net/'
+url='https://lmms.io/'
 license=('GPL')
 depends=('sdl' 'glib2' 'fluidsynth' 'libpng' 'libvorbis' 'libxft' 'libxinerama' 'qt5-base'
          'sdl_sound' 'libsamplerate' 'shared-mime-info' 'fltk' 'portaudio')
 makedepends=('cmake' 'ladspa' 'libxft' 'freetype2' 'fftw' 'qt5-tools')
 options=('!makeflags')
-#source=("https://github.com/LMMS/lmms/archive/v${pkgver}.tar.gz"
-source=("https://github.com/LMMS/lmms/archive/3157dbf9931e2bb85e5aa9b2e20e27d9872be7e2.zip")
-md5sums=('9dc559b629cdba1bccdcb6656bdc8f40')
+source=("https://github.com/LMMS/lmms/archive/v${_pkgver}.tar.gz")
+#source=("https://github.com/LMMS/lmms/archive/3157dbf9931e2bb85e5aa9b2e20e27d9872be7e2.zip")
+md5sums=('b52bb576b421e31102b6536f1b551635')
 
 build() {
-  cd lmms-${_commit}/
+  cd lmms-${_pkgver}/
 
   cmake . -DCMAKE_INSTALL_PREFIX=/usr \
           -DWANT_QT5=ON  
@@ -24,7 +25,7 @@ build() {
 }
 
 package() {
-  cd lmms-${_commit}/
+  cd lmms-${_pkgver}/
   
   make DESTDIR=${pkgdir} install
 }
