@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
@@ -19,22 +19,19 @@ replaces=('kde-workspace' 'kcm-touchpad')
 #source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         'layout_desktop_panel.diff'
-        'main_desktop_kicker.diff'
-        "https://github.com/KDE/plasma-desktop/commit/6a76ce0b4fbdf3c17c37967add7a1f22c35d5059.diff")
+        'main_desktop_kicker.diff')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
          '5a22b33c2f9ed93c8b8f580601e00a8e'
-         '22b66401945f92bd9f99e6d334bc306e'
-         'c5303005347854d35bd4f455c5f60b11')
+         '22b66401945f92bd9f99e6d334bc306e')
 
 prepare() {
   cd ${pkgname}-${__pkgver}
   # prep for plasma 5.5, move to noto, no longer use oxygen-fonts in KaOS, uncomment with 5.5
   sed -i -e 's|QFont f1("Oxygen Mono", 9); // fixed font|QFont f1("DejaVu Sans Mono", 9); // fixed font|' kcms/fonts/fonts.cpp
-  # adjust default settings for panel & kicker
+  # adjust default settings for panel, kicker & desktop view
   patch -p1 -i ${srcdir}/layout_desktop_panel.diff
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
-  
-  patch -p1 -i ${srcdir}/6a76ce0b4fbdf3c17c37967add7a1f22c35d5059.diff
+  sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
 }
 
 build() {
