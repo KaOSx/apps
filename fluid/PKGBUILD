@@ -2,13 +2,13 @@
 pkgname=fluid
 pkgver=0.10.0
 _commit=e606f03c49368adc0bb186001ea46ebf85983256
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url='https://github.com/lirios/fluid'
 pkgdesc="Modules for fluid and dynamic applications development with QtQuick."
 license=('LGPL')
-depends=('qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-svg')
-makedepends=('extra-cmake-modules' 'gdb')
+depends=('qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-svg' 'ttf-google-fonts')
+makedepends=('git' 'qtcreator')
 #source=("https://github.com/lirios/fluid/releases/download/v${pkgver}/fluid-${pkgver}.tar.xz") 
 #source=("https://github.com/lirios/fluid/archive/${_commit}.zip")
 source=("git://github.com/lirios/fluid.git")
@@ -21,15 +21,16 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
+  cd ${pkgname}
   
-  /usr/lib/qt5/bin/qmake LIRI_INSTALL_PREFIX=/usr CONFIG+=use_qt_paths ../fluid/fluid.pro
-  make
+  qbs setup-toolchains --type gcc /usr/bin/g++ gcc
+  qbs setup-qt /usr/lib/qt5/bin/qmake qt5
+  qbs config profiles.qt5.baseProfile gcc
+  qbs build --no-install -d build profile:qt5 qbs.installRoot:/ qbs.installPrefix:usr lirideployment.qmlDir:lib/qt5/qml
 }
 
 package() {
-  cd build
+  cd ${pkgname}
   
-  make INSTALL_ROOT=${pkgdir} install
+  qbs install -d build --no-build -v --install-root ${pkgdir} profile:qt5
 }

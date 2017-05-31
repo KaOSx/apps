@@ -1,26 +1,22 @@
 
 pkgname=liri-browser
-pkgver=0.3.123
-_commit=c7a946365886c639328079156db001f863d67f45
+pkgver=0.3.124
+_commit=678aba0472a607d5bcbd0b7d3f46533327a43e5f
 pkgrel=1
 pkgdesc="Cross-platform material design web browser"
 url="https://github.com/lirios/browser"
 arch=('x86_64')
 license=('GPLv3')
 depends=('qtwebengine' 'qt5-multimedia' 'fluid' 'qt5-svg' 'qt5-location' 'quazip')
-source=("https://github.com/lirios/browser/archive/${_commit}.zip"
-        "https://github.com/lirios/lirios.github.io/raw/master/images/logo-100.png"
-        'liri-browser.desktop')
-md5sums=('b0d1165f242e20fc767a0eb9348f672c'
-         '6ab30e7a852ee94011735507db62a957'
-         '532df3c09336cd38c6dcabe66a43de14')
+makedepends=('qtcreator' 'git')
+#source=("https://github.com/lirios/browser/archive/${_commit}.zip")
+source=("git://github.com/lirios/browser.git")
+md5sums=('SKIP')
 
 prepare() {
-  cd browser-${_commit}
-  # quazip fixes
-  #sed -i -e 's|include <quazip|include <quazip5|' src/core/extensions/extensionsmanager.h
-  #sed -i -e 's|include <quazip|include <quazip5|' src/core/extensions/extensionparser.h
-  #sed -i -e 's|L/usr/local/lib -lquazip|L/usr/local/lib -lquazip5|' liri-browser.pro
+  cd browser
+  git submodule update --init
+
   # settings
   sed -i -e 's|SearchEngine::DuckDuckGo|SearchEngine::Google|' src/core/settings/searchconfig.cpp
   sed -i -e 's|{"engine", "duckduckgo"}|{"engine", "google"}|' src/core/settings/settings.cpp
@@ -35,25 +31,16 @@ prepare() {
 }
 
 build() {
-   mkdir -p build
-   cd build
+    cd browser
 
-   /usr/lib/qt5/bin/qmake LIRI_INSTALL_PREFIX=/usr ../browser-${_commit}/liri-browser.pro
-   make
+    qbs setup-toolchains --type gcc /usr/bin/g++ gcc
+    qbs setup-qt /usr/lib/qt5/bin/qmake qt5
+    qbs config profiles.qt5.baseProfile gcc
+    qbs build --no-install -d build profile:qt5 qbs.installRoot:/ qbs.installPrefix:usr
 }
 
 package() {
-   cd build
-   make INSTALL_ROOT=${pkgdir} install
-   mkdir -p ${pkgdir}/usr/bin
-   install -m755 liri-browser ${pkgdir}/usr/bin
+   cd browser
    
-   #cd ../browser-${_commit}
-   #mkdir -p ${pkgdir}/usr/share/applications
-   #install -m755 res/io.liri.Browser.desktop ${pkgdir}/usr/share/applications/io.liri.Browser.desktop
-
-   #install -Dm644 res/icon/512x512/apps/io.liri.Browser.svg ${pkgdir}/usr/share/icons/hicolor/512x512/apps/io.liri.Browser.svg
-   #for i in 16x16 22x22 32x32 48x48 64x64 128x128 256x256; do
-   #install -Dm644 ${srcdir}/logo-100.png ${pkgdir}/usr/share/icons/hicolor/64x64/apps/liri-browser.png
-   #done
+   qbs install -d build --no-build -v --install-root ${pkgdir} profile:qt5
 }
