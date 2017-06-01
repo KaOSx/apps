@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdeclarative
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='KDeclarative'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kdeclarative'
@@ -13,8 +13,16 @@ depends=('kconfig' 'ki18n' 'kiconthemes' 'kio' 'kwidgetsaddons' 'kwindowsystem' 
          'kguiaddons' 'kpackage' 'libepoxy')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kdeclarative/commit/695f24fb522a5ae6fe2530cbd72d3966b234b025.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '8d5370fdbbd9cb61ef7c3fd790beb5a1')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # https://bugs.kde.org/show_bug.cgi?id=380270
+  patch -p1 -i ${srcdir}/695f24fb522a5ae6fe2530cbd72d3966b234b025.diff
+}
 
 build() {
   mkdir -p build
@@ -23,10 +31,10 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
   make
 }

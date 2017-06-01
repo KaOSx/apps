@@ -1,8 +1,8 @@
 
 pkgname=kpmcore
-pkgver=3.0.3
+pkgver=3.1.0
 _commit=cbe21e7ef974fe3c95ef418bbf098af716e5ff33
-pkgrel=2
+pkgrel=1
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('x86_64')
 url="https://github.com/KDE/kpmcore"
@@ -11,16 +11,16 @@ depends=('ki18n' 'kio' 'kiconthemes' 'kservice' 'libatasmart' 'parted')
 makedepends=('extra-cmake-modules' 'pkgconfig')
 groups=('system')
 options=('debug')
-source=("http://download.kde.org/stable/kpmcore/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/kpmcore/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/KDE/kpmcore/commit/b10577e1c7ba0c856c96c96a80187b977f88ef34.diff")
 #source=("https://github.com/KDE/kpmcore/archive/${_commit}.zip")
-md5sums=('c4325d354cde3af125de0c0fc42dbe31'
+md5sums=('c1e3a56179cabd92221f2948b6da5c10'
          '34ea3e797a3877086aa212ae2aee0814')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # Fix creation of encrypted volumes
-  patch -p1 -i ${srcdir}/b10577e1c7ba0c856c96c96a80187b977f88ef34.diff
+  #patch -p1 -i ${srcdir}/b10577e1c7ba0c856c96c96a80187b977f88ef34.diff
 }
 
 build() {
