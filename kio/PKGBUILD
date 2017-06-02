@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kio'
@@ -15,14 +15,15 @@ depends=('karchive' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'ki18n' 'kservice' 'so
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/5.20/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/kio/commit/f9d0cb47cf94e209f6171ac0e8d774e68156a6e4.diff")
+        'kauth4.diff')
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '77192bff358a7c26df0b4444cecee5e6')
+         '093017bbf68b63d2ddc658b84fe021b9')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # CVE fix
-  #patch -p1 -i ${srcdir}/f9d0cb47cf94e209f6171ac0e8d774e68156a6e4.diff
+  # GSOC project to include root operation, target dolphin
+  # https://docs.google.com/document/d/1LhuHwwo_hCziM2-3UsffpODwnjypYQjMnB7YHEQd4dQ
+  patch -p1 -i ${srcdir}/kauth4.diff
   #sed -i -e 's|-caption=|-qwindowtitle|' src/core/desktopexecparser.cpp
 }
          
