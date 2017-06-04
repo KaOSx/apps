@@ -8,13 +8,14 @@
  
  for (i = 0; i < panelIds.length; ++i) {
      var tmpPanel = panelById(panelIds[i])
-@@ -12,28 +12,31 @@
+@@ -12,28 +12,29 @@
      }
  }
  
-+} else if (freeEdges["right"] == true) {
+-if (freeEdges["bottom"] == true) {
++if (freeEdges["right"] == true) {
 +    panel.location = "right";
- if (freeEdges["bottom"] == true) {
++} else if (freeEdges["bottom"] == true) {
      panel.location = "bottom";
  } else if (freeEdges["top"] == true) {
      panel.location = "top";
@@ -37,9 +38,8 @@
 +kicker.currentConfigGroup = ["Shortcuts"]
 +kicker.writeConfig("global", "Alt+F1")
  
- //panel.addWidget("org.kde.plasma.showActivityManager")
+-//panel.addWidget("org.kde.plasma.showActivityManager")
 +panel.addWidget("org.kde.plasma.lock_logout")
-+panel.addWidget("org.kde.plasma.notes")
 +panel.addWidget("org.kde.plasma.calculator")
  panel.addWidget("org.kde.plasma.pager")
 -panel.addWidget("org.kde.plasma.taskmanager")

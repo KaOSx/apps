@@ -15,16 +15,13 @@ depends=('kactivities' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbu
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 options=('debug')
-source=("http://download.kde.org/stable/frameworks/5.19/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/plasma-framework/commit/547a34d346695295ce05499ae355203414412993.diff")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '0c1f647be5b7f78686f87499e0ff69ab')
+source=("http://download.kde.org/stable/frameworks/5.19/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://bugs.kde.org/show_bug.cgi?id=377441
   #patch -p1 -i ${srcdir}/547a34d346695295ce05499ae355203414412993.diff
-  #patch -p1 -i ${srcdir}/rb128641.patch
 }
 
 build() {
