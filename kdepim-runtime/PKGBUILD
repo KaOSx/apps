@@ -19,10 +19,8 @@ options=('debug')
 conflicts=('kf5-kdepim-runtime')
 replaces=('kf5-kdepim-runtime')
 groups=('kde' 'kdepim' 'kde-uninstall')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://github.com/KDE/kdepim-runtime/commit/c9ae16363e68d6958db0cd835cb0180b340594b5.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'a7d487fbf583d143d6a2b2f4200446e2')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
     cd ${pkgname}-${pkgver}

@@ -13,10 +13,8 @@ depends=('kparts' 'kcmutils' 'khtml' 'kdelibs4support' 'karchive' 'kcrash' 'kded
          'kwidgetsaddons' 'kiconthemes' 'kdesu' 'kio' 'ki18n' 'kfind' 'kdialog' 'keditbookmarks' 'kguiaddons'
          'tidyhtml' 'qtwebengine' 'qt5-location')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
-        "https://github.com/KDE/konqueror/commit/4c6575a9852e3dfcf85bd849fa953dcc083029d9.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'c92a5c511e3cca4b386831708355baaf')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}

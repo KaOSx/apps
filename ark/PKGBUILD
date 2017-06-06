@@ -16,10 +16,8 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdeutils' 'kde-uninstall' 'utils')
 conflicts=('kdeutils-ark')
 replaces=('kdeutils-ark')
-source=($_mirror/${pkgname}-$_kdever.tar.xz
-       "https://github.com/KDE/ark/commit/82fdfd24d46966a117fa625b68784735a40f9065.diff")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '53f6535f34cf38069975f1d47e733e02')
+source=($_mirror/${pkgname}-$_kdever.tar.xz)
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}

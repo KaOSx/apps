@@ -14,10 +14,8 @@ depends=('avogadrolibs' 'eigen3' 'ocaml' 'chemical-mime-data' 'openbabel'
          'knewstuff' 'kparts' 'kplotting' 'solid' 'kunitconversion' 'kwidgetsaddons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'facile')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
-        "https://github.com/KDE/kalzium/commit/04048799910fc423a5fa100a1c46b91dbe8e7e61.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'c6db1ba8c7ad9cc369fc64db8afbe3d5')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://github.com/KDE/konsole'
@@ -17,10 +17,8 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kde-baseapps-konsole')
 replaces=('kde-baseapps-konsole')
 provides=('kde-baseapps-konsole')
-source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/konsole/commit/fca305ebffd331701b59e68ab446db9618987b6f.diff")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'ea66d8c3881bf12a8bbcba77da977996')
+source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
