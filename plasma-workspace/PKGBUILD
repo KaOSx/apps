@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -24,14 +24,12 @@ source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/
         '10-kf5'
         'kde.pam'
         'kde-np.pam'
-        'kscreensaver.pam'
-        "https://github.com/KDE/plasma-workspace/commit/ea3f87c5df0251838da71c473fd7b790c932d8b0.diff")
+        'kscreensaver.pam')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
          'd102c44c3bddf29f6d440d1d582d4433'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
-         '367a3538f54db71f108b34cfa31088ac'
-         'efeb41e4b319c0bcd4c04985bf029c3e')
+         '367a3538f54db71f108b34cfa31088ac')
 
 prepare () {
   cd ${pkgname}-${__pkgver}
@@ -39,9 +37,6 @@ prepare () {
   #patch -p1 -i $srcdir/ea3f87c5df0251838da71c473fd7b790c932d8b0.diff
   #sed -i 's|org.kde.breeze.desktop|org.kde.midna.desktop|' shell/packageplugins/lookandfeel/lookandfeel.cpp
   sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
-  # adjust ksplash times
-  #sed -i 's|TEST_STEP_INTERVAL 2000|TEST_STEP_INTERVAL 1000|' ksplash/ksplashqml/splashapp.cpp
-  #sed -i 's|QTimer::singleShot(30000|QTimer::singleShot(12000|' ksplash/ksplashqml/splashwindow.cpp
 }         
          
 build() {

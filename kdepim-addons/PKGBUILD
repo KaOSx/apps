@@ -18,10 +18,8 @@ depends=('libkgapi' 'qtwebengine' 'boost-libs'
          'messagelib' 'calendarsupport' 'eventviews' 'akonadi' 'libgravatar' 'libksieve')
 makedepends=('extra-cmake-modules' 'kdoctools' 'clang' 'boost')
 groups=('kde' 'kdepim' 'kde-uninstall')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
-       "https://github.com/KDE/kdepim-addons/commit/ad9b246409bf9fbea70f57a69b4cfef1ca45c2b3.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '1b46c181b1e22e2d381e377c93f735af')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
