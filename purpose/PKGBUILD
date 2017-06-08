@@ -3,20 +3,20 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=purpose
-pkgver=1.1
-_pkgver=1.1
-pkgrel=3
+pkgver=1.1.90
+_pkgver=1.1.90
+pkgrel=1
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
 url='http://quickgit.kde.org/?p=purpose.git'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kconfig' 'ki18n' 'kio' 'kaccounts-integration') # these deps not found for qml dir 'accounts-qml-module' 'kdeconnect-kde')
+depends=('kcoreaddons' 'kconfig' 'ki18n' 'kio' 'kaccounts-integration') # these deps not found for qml dir 'accounts-qml-module' 'kdeconnect-kde' 'kdeclarative')
 makedepends=('extra-cmake-modules' 'kdoctools' 'intltool' 'git')
 #groups=('')
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/purpose")
-source=("http://download.kde.org/stable/purpose/purpose-${_pkgver}.tar.xz")
-md5sums=('9d97612738bb3d7b43ac6dcbcb864a4f')
+source=("http://download.kde.org/unstable/purpose/purpose-${_pkgver}.tar.xz")
+md5sums=('739757b0bce9ec98c8bca7a644be89ad')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
