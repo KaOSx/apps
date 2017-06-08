@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kholidays
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library that provides a C++ API that determines holiday and other special events for a 
          geographical region.."
 arch=('x86_64')
@@ -12,14 +12,15 @@ url='https://projects.kde.org/projects/kde/pim/kholidays'
 license=('LGPL')
 depends=('kitemviews' 'kdelibs4support' 'qt5-tools')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kholidays.git")
-#md5sums=('SKIP')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        'revert_tr.patch')
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '771d8857d040238c2d77b43999c00745')
 
 prepare() {
   cd $pkgname-${pkgver}
-  sed -i -e 's|if (isnan(delta))|if (std::isnan(delta))|' src/sunriseset.cpp
+  #sed -i -e 's|if (isnan(delta))|if (std::isnan(delta))|' src/sunriseset.cpp
+  patch -p1 -i ${srcdir}/revert_tr.patch
 }
 
 build() {
@@ -32,8 +33,8 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }
