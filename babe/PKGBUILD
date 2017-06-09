@@ -9,13 +9,17 @@ url="https://milohr.github.io/BabeIt/"
 license=('GPL3')
 depends=('knotifications' 'ki18n' 'kconfig' 'qt5-multimedia' 'taglib' 'youtube-dl')
 makedepends=('extra-cmake-modules')
-source=("https://github.com/KDE/babe/archive/${_commit}.zip")
-md5sums=('acf76ec5622a052bab1866d00f10dca5')
+source=("https://github.com/KDE/babe/archive/${_commit}.zip"
+        "https://github.com/KDE/babe/commit/77958ad9a49f0d28a532cda787f6874866c0fd4b.diff")
+md5sums=('acf76ec5622a052bab1866d00f10dca5'
+         '2fe60a444879b9d2658d94199809a565')
 
 prepare() {
   cd ${pkgname}-${_commit}
   
   #sed -i -e 's|<qjson/parser.h>|<qjson-qt5/parser.h>|' artwork.cpp
+  # restore menu icon
+  patch -R -p1 -i ${srcdir}/77958ad9a49f0d28a532cda787f6874866c0fd4b.diff
 }
 
 build() {
