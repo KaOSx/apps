@@ -2,22 +2,22 @@
 pkgname=freecad
 _pkgname=FreeCAD
 pkgver=0.16.1
-_commit=e184a3b01928552db4b1dc52e270a57481232059
+_commit=fb62c9136642487fc7248ad50df317dfaffbafb6
 pkgrel=1
 pkgdesc='A general purpose 3D CAD modeler'
 arch=('x86_64')
 url='http://www.freecadweb.org/'
 license=('GPL')
-depends=('boost-libs' 'curl' 'opencascade' 'pivy-hg' 'pyqt5-python2' 'xerces-c' 'libspnav'
+depends=('boost-libs' 'curl' 'opencascade' 'pyqt5-python2' 'xerces-c' 'libspnav'
          'shared-mime-info' 'hicolor-icon-theme' 'python2-matplotlib' 'shiboken' 
-         'python2-pyside-tools' 'qt5-webkit')
-makedepends=('boost' 'eigen3' 'gcc-fortran' 'swig' 'desktop-file-utils' 'cmake' 'coin')
+         'python2-pyside-tools' 'qtwebkit-tp' 'med' 'coin') #pivy
+makedepends=('boost' 'eigen3' 'swig' 'desktop-file-utils' 'cmake')
 options=('!libtool' '!makeflags')
 #source=("https://github.com/FreeCAD/FreeCAD/archive/${pkgver}.tar.gz"
-source=("https://github.com/maurerpe/FreeCAD/archive/${_commit}.zip"
+source=("https://github.com/FreeCAD/FreeCAD/archive/${_commit}.zip"
         'freecad.desktop'
         'freecad.xml')
-md5sums=('c1187532a303f4d9fc95ddc645b8329d'
+md5sums=('7817577e4916d7c584f38964cc8974c9'
          '0a4d0635dbd97d9f594ac8e927284316'
          'c2f4154c8e4678825411de8e7fa54c6b')
 
@@ -25,7 +25,7 @@ md5sums=('c1187532a303f4d9fc95ddc645b8329d'
 build() {
   cd ${_pkgname}-${_commit}/
   # boost 1.60.0 fix, part of https://github.com/FreeCAD/FreeCAD/commit/e0683f4db0fb56f8139f78ca2e500b21ec2a67f0
-  sed -i 's|boost::re_detail::string_out_iterator<std::string > out(newfragment);|std::back_insert_iterator<std::string> out(newfragment);|' src/Mod/Drawing/App/FeaturePage.cpp
+  #sed -i 's|boost::re_detail::string_out_iterator<std::string > out(newfragment);|std::back_insert_iterator<std::string> out(newfragment);|' src/Mod/Drawing/App/FeaturePage.cpp
 
   mkdir -p build
   cd build
@@ -33,8 +33,10 @@ build() {
   cmake -DCMAKE_INSTALL_PREFIX:PATH=/opt/${pkgname} .. \
         -DCMAKE_BUILD_TYPE=Release \
         -DOCC_INCLUDE_DIR:PATH=/opt/opencascade/inc/ \
-        -DOCC_LIBRARY_DIR:PATH=/opt/opencascade/lin64/gcc/lib \
-        -DFREECAD_USE_EXTERNAL_PIVY:BOOL=ON
+        -DOCC_LIBRARY_DIR:PATH=/opt/opencascade/Linux/lib \
+        -DFREECAD_USE_EXTERNAL_PIVY:BOOL=OFF \
+        -DBUILD_QT5=ON \
+        -DBUILD_SMESH=ON 
   make
 
   # Builds Qt plugin, seems not part of the source in 0.14

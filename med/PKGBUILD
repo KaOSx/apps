@@ -1,0 +1,42 @@
+ 
+pkgname=med
+pkgver=3.2.0
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Library to store and exchange meshed data or computation results"
+url="http://www.salome-platform.org/"
+license=('LGPL')
+depends=('hdf5' 'openmpi')
+makedepends=('cmake' 'coreutils' 'python2' 'swig')
+source=("http://files.salome-platform.org/Salome/other/${pkgname}-${pkgver}.tar.gz"
+        'build.patch')
+md5sums=('eb61df92f0624feb6328f517cd756a23'
+         'a94c58f8f1dd354f081b154fb15c50e4')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/build.patch
+}
+         
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DMEDFILE_BUILD_FORTRAN=ON \
+    -DMEDFILE_USE_MPI=OFF \
+    -DMEDFILE_BUILD_STATIC_LIBS=OFF \
+    -DMEDFILE_INSTALL_DOC=OFF \
+    -DMEDFILE_BUILD_PYTHON=ON \
+    -DMEDFILE_BUILD_TESTS=OFF 
+  make
+}
+ 
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
