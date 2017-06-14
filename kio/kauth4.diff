@@ -1,0 +1,355 @@
+diff --git a/src/ioslaves/file/CMakeLists.txt b/src/ioslaves/file/CMakeLists.txt
+index b9132ce..82cd20d 100644
+--- a/src/ioslaves/file/CMakeLists.txt
++++ b/src/ioslaves/file/CMakeLists.txt
+@@ -21,8 +21,13 @@ set_package_properties(ACL PROPERTIES DESCRIPTION "LibACL" URL "ftp://oss.sgi.co
+ configure_file(config-kioslave-file.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kioslave-file.h )
+ 
+ add_library(kio_file MODULE ${kio_file_PART_SRCS})
++
+ target_link_libraries(kio_file KF5::KIOCore KF5::I18n)
+ 
++if(UNIX)
++  target_link_libraries(kio_file KF5::Auth)
++endif()
++
+ if (HAVE_VOLMGT AND CMAKE_SYSTEM_NAME MATCHES SunOS)
+     target_link_libraries(kio_file -lvolmgt)
+ endif ()
+@@ -33,3 +38,7 @@ endif()
+ 
+ set_target_properties(kio_file PROPERTIES OUTPUT_NAME "file")
+ install(TARGETS kio_file  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kio)
++
++if (UNIX)
++  add_subdirectory(kauth)
++endif()
+diff --git a/src/ioslaves/file/file.h b/src/ioslaves/file/file.h
+index 109ea80..c9cfbaa 100644
+--- a/src/ioslaves/file/file.h
++++ b/src/ioslaves/file/file.h
+@@ -100,10 +100,20 @@ private:
+ 
+     void fileSystemFreeSpace(const QUrl &url);  // KF6 TODO: Turn into virtual method in SlaveBase
+ 
++    enum PriviledgeWarning {
++        WARN_PRIVILEDGE_DEL = 1,
++        WARN_PRIVILEDGE_RMDIR
++    };
++    bool execWithRoot(const QString &action, const QString &subAction, const QVariant &args, PriviledgeWarning warning);
++    void endPriviledgeOp();
++    QString warningMessage(PriviledgeWarning warnId) const;
++    bool showWarning(PriviledgeWarning warnId);
++
+ private:
+     mutable QHash<KUserId, QString> mUsercache;
+     mutable QHash<KGroupId, QString> mGroupcache;
+     QFile *mFile;
++    bool mPriviledgeOpStarted = false;
+ };
+ 
+ #endif
+diff --git a/src/ioslaves/file/file.cpp b/src/ioslaves/file/file.cpp
+index eaf6c88..8b2c620 100644
+--- a/src/ioslaves/file/file.cpp
++++ b/src/ioslaves/file/file.cpp
+@@ -68,6 +68,7 @@
+ #include <QMimeDatabase>
+ #include <QStandardPaths>
+ #include <QDataStream>
++#include <KAuth>
+ 
+ #if HAVE_VOLMGT
+ #include <volmgt.h>
+@@ -1312,8 +1313,15 @@ bool FileProtocol::deleteRecursive(const QString &path)
+         } else {
+             //qDebug() << "QFile::remove" << itemPath;
+             if (!QFile::remove(itemPath)) {
+-                error(KIO::ERR_CANNOT_DELETE, itemPath);
+-                return false;
++                if (errno == EACCES || errno == EPERM) {
++                    if (!execWithRoot(QStringLiteral("del"), QStringLiteral("delete_file"), itemPath, WARN_PRIVILEDGE_RMDIR)) {
++                        error(KIO::ERR_ACCESS_DENIED, itemPath);
++                        return false;
++                    }
++                } else {
++                    error(KIO::ERR_CANNOT_DELETE, itemPath);
++                    return false;
++                }
+             }
+         }
+     }
+@@ -1321,8 +1329,15 @@ bool FileProtocol::deleteRecursive(const QString &path)
+     Q_FOREACH (const QString &itemPath, dirsToDelete) {
+         //qDebug() << "QDir::rmdir" << itemPath;
+         if (!dir.rmdir(itemPath)) {
+-            error(KIO::ERR_CANNOT_DELETE, itemPath);
+-            return false;
++            if (errno == EACCES || errno == EPERM) {
++                if (!execWithRoot(QStringLiteral("del"), QStringLiteral("delete_dir"), itemPath, WARN_PRIVILEDGE_RMDIR)) {
++                    error(KIO::ERR_ACCESS_DENIED, itemPath);
++                    return false;
++                }
++            } else {
++                error(KIO::ERR_CANNOT_DELETE, itemPath);
++                return false;
++            }
+         }
+     }
+     return true;
+@@ -1358,5 +1373,72 @@ void FileProtocol::virtual_hook(int id, void *data)
+     }
+ }
+ 
++bool FileProtocol::execWithRoot(const QString &action, const QString &subAction, const QVariant &args, PriviledgeWarning warning)
++{
++#ifdef Q_OS_UNIX
++    QVariantMap argv;
++    argv.insert(QStringLiteral("arguments"), args);
++    argv.insert(QStringLiteral("subaction"), args);
++
++    KAuth::Action execAction(QStringLiteral("org.kde.kio.file.") + action);
++    execAction.setHelperId(QStringLiteral("org.kde.kio.file"));
++    execAction.setArguments(argv);
++
++    int kauthStatus = execAction.status();
++    if (kauthStatus == KAuth::Action::AuthRequiredStatus) {
++        mPriviledgeOpStarted = true;
++    }
++
++    bool proceed = true;
++    if (kauthStatus == KAuth::Action::AuthorizedStatus && !mPriviledgeOpStarted) {
++        mPriviledgeOpStarted = true;
++        proceed = showWarning(warning);
++    }
++
++    if (proceed) {
++        auto reply = execAction.execute();
++        if (!reply->exec()) {
++            endPriviledgeOp();
++            return false;
++        }
++        return true;
++    }
++    endPriviledgeOp();
++#endif
++    return false;
++}
++
++void FileProtocol::endPriviledgeOp()
++{
++    mPriviledgeOpStarted = false;
++}
++
++QString FileProtocol::warningMessage(PriviledgeWarning warnId) const
++{
++    QString message;
++    switch(warnId) {
++
++    case WARN_PRIVILEDGE_DEL: {
++        message = i18n("You are attempting to delete a file from a write protected location. "
++                                 "Doing so may cause irreversible damage to your system. Do you want to proceed?");
++        break;
++    }
++    case WARN_PRIVILEDGE_RMDIR: {
++        message = i18n("You are attempting to delete a directory from a write protected location. "
++                                 "Doing so may cause irreversible damage to your system. Do you want to proceed?");
++        break;
++    }
++
++    }
++
++    return message;
++}
++
++bool FileProtocol::showWarning(PriviledgeWarning warnId)
++{
++    int status = messageBox(WarningContinueCancel, warningMessage(warnId), QStringLiteral("Warning!"), QStringLiteral("Continue"), QStringLiteral("Cancel"));
++    return status != 2;
++}
++
+ // needed for JSON file embedding
+ #include "file.moc"
+diff --git a/src/ioslaves/file/file_unix.cpp b/src/ioslaves/file/file_unix.cpp
+index 82eb11a..7c7f678 100644
+--- a/src/ioslaves/file/file_unix.cpp
++++ b/src/ioslaves/file/file_unix.cpp
+@@ -32,6 +32,7 @@
+ #include <qplatformdefs.h>
+ 
+ #include <QDebug>
++#include <KAuth>
+ #include <kconfiggroup.h>
+ #include <klocalizedstring.h>
+ #include <kmountpoint.h>
+@@ -526,13 +527,17 @@ void FileProtocol::del(const QUrl &url, bool isfile)
+ 
+         if (unlink(_path.data()) == -1) {
+             if ((errno == EACCES) || (errno == EPERM)) {
+-                error(KIO::ERR_ACCESS_DENIED, path);
++                if (!execWithRoot(QStringLiteral("del"), QStringLiteral("delete_file"), _path, WARN_PRIVILEDGE_DEL)) {
++                    error(KIO::ERR_ACCESS_DENIED, path);
++                    return;
++               }
+             } else if (errno == EISDIR) {
+                 error(KIO::ERR_IS_DIRECTORY, path);
++                return;
+             } else {
+                 error(KIO::ERR_CANNOT_DELETE, path);
++                return;
+             }
+-            return;
+         }
+     } else {
+ 
+@@ -548,7 +553,10 @@ void FileProtocol::del(const QUrl &url, bool isfile)
+         }
+         if (QT_RMDIR(_path.data()) == -1) {
+             if ((errno == EACCES) || (errno == EPERM)) {
+-                error(KIO::ERR_ACCESS_DENIED, path);
++                if (!execWithRoot(QStringLiteral("del"), QStringLiteral("delete_dir"), path, WARN_PRIVILEDGE_RMDIR)) {
++                    error(KIO::ERR_ACCESS_DENIED, path);
++                    return;
++                }
+             } else {
+                 // qDebug() << "could not rmdir " << perror;
+                 error(KIO::ERR_CANNOT_RMDIR, path);
+@@ -557,6 +565,7 @@ void FileProtocol::del(const QUrl &url, bool isfile)
+         }
+     }
+ 
++    endPriviledgeOp();
+     finished();
+ }
+ 
+diff --git a/src/ioslaves/file/kauth/CMakeLists.txt b/src/ioslaves/file/kauth/CMakeLists.txt
+new file mode 100644
+index 0000000..82e8094
+--- /dev/null
++++ b/src/ioslaves/file/kauth/CMakeLists.txt
+@@ -0,0 +1,6 @@
++add_executable(file_helper helper.cpp)
++target_link_libraries(file_helper KF5::Auth KF5::I18n KF5::KIOCore)
++
++install(TARGETS file_helper DESTINATION ${KAUTH_HELPER_INSTALL_DIR})
++kauth_install_helper_files(file_helper org.kde.kio.file root)
++kauth_install_actions(org.kde.kio.file file.actions)
+diff --git a/src/ioslaves/file/kauth/file.actions b/src/ioslaves/file/kauth/file.actions
+new file mode 100644
+index 0000000..cb18cd2
+--- /dev/null
++++ b/src/ioslaves/file/kauth/file.actions
+@@ -0,0 +1,5 @@
++[org.kde.kio.file.del]
++Name=Perform action as privileged user.
++Description=Perform delete as privileged user.
++Policy=auth_admin
++Persistence=session
+diff --git a/src/ioslaves/file/kauth/helper.h b/src/ioslaves/file/kauth/helper.h
+new file mode 100644
+index 0000000..4f3c606
+--- /dev/null
++++ b/src/ioslaves/file/kauth/helper.h
+@@ -0,0 +1,37 @@
++/***
++    Copyright (C) 2017 by Chinmoy Ranjan Pradhan <chinmoyrp65@gmail.com>
++
++    This library is free software; you can redistribute it and/or
++    modify it under the terms of the GNU Lesser General Public
++    License as published by the Free Software Foundation; either
++    version 2.1 of the License, or (at your option) version 3, or any
++    later version accepted by the membership of KDE e.V. (or its
++    successor approved by the membership of KDE e.V.), which shall
++    act as a proxy defined in Section 6 of version 3 of the license.
++
++    This library is distributed in the hope that it will be useful,
++    but WITHOUT ANY WARRANTY; without even the implied warranty of
++    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++    Lesser General Public License for more details.
++
++    You should have received a copy of the GNU Lesser General Public
++    License along with this library.  If not, see <http://www.gnu.org/licenses/>.
++***/
++
++
++#ifndef HELPER_H
++#define HELPER_H
++
++#include <KAuth>
++
++using namespace KAuth;
++
++class Helper : public QObject
++{
++  Q_OBJECT
++
++public Q_SLOTS:
++    ActionReply del(const QVariantMap& args);
++};
++
++#endif
+diff --git a/src/ioslaves/file/kauth/helper.cpp b/src/ioslaves/file/kauth/helper.cpp
+new file mode 100644
+index 0000000..7300c50
+--- /dev/null
++++ b/src/ioslaves/file/kauth/helper.cpp
+@@ -0,0 +1,59 @@
++/***
++    Copyright (C) 2017 by Chinmoy Ranjan Pradhan <chinmoyrp65@gmail.com>
++
++    This library is free software; you can redistribute it and/or
++    modify it under the terms of the GNU Lesser General Public
++    License as published by the Free Software Foundation; either
++    version 2.1 of the License, or (at your option) version 3, or any
++    later version accepted by the membership of KDE e.V. (or its
++    successor approved by the membership of KDE e.V.), which shall
++    act as a proxy defined in Section 6 of version 3 of the license.
++
++    This library is distributed in the hope that it will be useful,
++    but WITHOUT ANY WARRANTY; without even the implied warranty of
++    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++    Lesser General Public License for more details.
++
++    You should have received a copy of the GNU Lesser General Public
++    License along with this library.  If not, see <http://www.gnu.org/licenses/>.
++***/
++
++#include "helper.h"
++
++#include <KLocalizedString>
++#include <kio/global.h>
++
++#include <QFile>
++#include <QDir>
++
++#include <cerrno>
++#include <unistd.h>
++
++
++ActionReply Helper::del(const QVariantMap &args)
++{
++    ActionReply reply = ActionReply::SuccessReply();
++    const QByteArray path = args["arguments"].toByteArray();
++    const QString subAction = args["subaction"].toString();
++
++    if (subAction == "delete_file") {
++        unlink(path.constData());
++    } else if(subAction == "delete_dir") {
++        QDir dir;
++        dir.rmdir(path.constData());
++    }
++
++    if (errno) {
++        if (errno == EACCES || errno == EPERM) {
++            QVariantMap errorData;
++            errorData.insert(QStringLiteral("errormessage"), i18n("Access Denied!"));
++            errorData.insert(QStringLiteral("errorcode"), KIO::ERR_ACCESS_DENIED);
++            reply.setData(errorData);
++        }
++    }
++
++    return reply;
++}
++
++
++KAUTH_HELPER_MAIN("org.kde.kio.file", Helper)
