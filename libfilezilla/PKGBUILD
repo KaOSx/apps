@@ -1,7 +1,7 @@
 
 pkgname=libfilezilla
 pkgver=0.9.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Small C++ library, offering a typesafe, multi-threaded event system and process handling for spawning child processes."
 arch=('x86_64')
 url="https://lib.filezilla-project.org/"
@@ -12,6 +12,7 @@ md5sums=('d52a0e7229efb3c9fafc8a2b649d665d')
 
 build() {
   cd ${pkgname}-${pkgver}
+  sed -e "s|<uint8_t> random_bytes(size_t size)|<uint8_t> FZ_PUBLIC_SYMBOL random_bytes(size_t size)|" -i lib/libfilezilla/util.hpp
 
   ./configure --prefix=/usr \
     --disable-static 
