@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kxmlgui
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KXMLGUI provides a framework for managing menu and toolbar actions in an abstract way'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kxmlgui'
@@ -12,8 +12,19 @@ license=('LGPL')
 depends=('kglobalaccel' 'ktextwidgets' 'kf5-attica')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kxmlgui/commit/1bc3a0b41c0c119cd049160a87b09ea95a4532a0.diff"
+        "https://github.com/KDE/kxmlgui/commit/78e572dadf64903bb7356b5fcfd763f6e898fa61.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'e0079770a362edbb9561da33d5d1b627'
+         '46f6f0f2f78572551883d482631803ce')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # patches to revert 2 commits, used for wayland, use https://codereview.qt-project.org/#/c/195704/ instead
+  patch -p1 -i ${srcdir}/78e572dadf64903bb7356b5fcfd763f6e898fa61.diff
+  patch -p1 -i ${srcdir}/1bc3a0b41c0c119cd049160a87b09ea95a4532a0.diff
+}
 
 build() {
   mkdir -p build

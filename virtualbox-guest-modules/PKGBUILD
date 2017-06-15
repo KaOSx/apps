@@ -1,16 +1,16 @@
 
-_extramodules=extramodules-4.10
+_extramodules=extramodules-4.11
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-guest-modules
 pkgver=5.1.22
 _pkgver=5.1.22
-pkgrel=1
+pkgrel=2
 pkgdesc='VirtualBox guest kernel modules, to use with guest-utils'
 arch=('x86_64')
 license=('GPL' 'custom')
 url='http://virtualbox.org'
-depends=('linux>=4.10' 'linux<4.11')
+depends=('linux>=4.11' 'linux<4.12')
 makedepends=('linux-headers')
 install=virtualbox-guest-modules.install
 source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-guest-module-src-${_pkgver}.tar.xz"
