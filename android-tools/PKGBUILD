@@ -1,45 +1,39 @@
 
 pkgname=android-tools
-pkgver=5.1.1_r38
+pkgver=7.1.2_r17
 pkgrel=1
 pkgdesc="Android platform tools (adb, fastboot)"
 arch=('x86_64')
 url="http://tools.android.com/"
 license=('Apache')
 depends=('openssl')
-makedepends=('git')
+makedepends=('git' 'clang' 'googletest')
 # tags at 
 source=("git+https://android.googlesource.com/platform/system/core#tag=android-${pkgver}"
         "git+https://android.googlesource.com/platform/system/extras#tag=android-${pkgver}"
         "git+https://android.googlesource.com/platform/external/libselinux#tag=android-${pkgver}"
         "git+https://android.googlesource.com/platform/external/f2fs-tools#tag=android-$pkgver"
-        'adbMakefile'
-        'fastbootMakefile')
+        'build.patch'
+        'build.sh') #keep in sync with ArchLinux build system for android-tools
 md5sums=('SKIP'
          'SKIP'
          'SKIP'
          'SKIP'
-         'bc9aba92631da8729d65acd2d1a3602b'
-         'bddc9b6c4ebdb3a63c8fab33e19a5c4e')
+         '5b9cdd01ad9b1e1ccafb29113b34b34a'
+         '2ed74aaefeea40e7e4d041384187c87f')
 
 prepare() {
-  sed -e 's/f2fs_sparse_file = NULL/f2fs_sparse_file = 0/g' -i extras/f2fs_utils/f2fs_utils.c 
+  patch -p1 -i ${srcdir}/build.patch
 }         
          
 build() {
-  cd "${srcdir}"/core/adb
-  mv ../../adbMakefile makefile
-  make
-
-  cd "${srcdir}"/core/fastboot
-  mv ../../fastbootMakefile makefile
-  make
+  PKGVER=$pkgver sh ./build.sh
 }
 
 package(){
-  cd "${srcdir}"/core
 
-  install -Dm 755 adb/adb "${pkgdir}"/usr/bin/adb
-  install -Dm 755 fastboot/fastboot "${pkgdir}"/usr/bin/fastboot
+  install -Dm 755 adb ${pkgdir}/usr/bin/adb
+  install -Dm 755 fastboot ${pkgdir}/usr/bin/fastboot
+  install -Dm 755 core/mkbootimg/mkbootimg ${pkgdir}/usr/bin/mkbootimg
 }
 
