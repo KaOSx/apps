@@ -19,7 +19,7 @@ prepare() {
   
   #sed -i -e 's|<qjson/parser.h>|<qjson-qt5/parser.h>|' artwork.cpp
   # restore menu icon
-  patch -R -p1 -i ${srcdir}/77958ad9a49f0d28a532cda787f6874866c0fd4b.diff
+  #patch -R -p1 -i ${srcdir}/77958ad9a49f0d28a532cda787f6874866c0fd4b.diff
 }
 
 build() {
@@ -43,5 +43,5 @@ package() {
   
   #install -D -m755 Babe ${pkgdir}/usr/bin/babe
   #install -D -m644 org.kde.babe.desktop ${pkgdir}/usr/share/applications/org.kde.babe.desktop
-  install -D -m644 ../${pkgname}-${_commit}/data/babe.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/Babe.svg
+  install -D -m644 ../${pkgname}-${_commit}/data/babe.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/babe.svg
 }
