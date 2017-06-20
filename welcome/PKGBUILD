@@ -1,25 +1,25 @@
 
 pkgname=welcome
-pkgver=4.0
+pkgver=5.0
 pkgrel=1
 pkgdesc="Live Welcome app for KaOS"
 arch=('x86_64')
 url="http://kaosx.us/"
 license=('GPL')
-depends=('qt5-base')
+depends=('qt5-declarative' 'kdialog')
 makedepends=('git')
-source=("git://github.com/KaOSx/welcome.git")
+source=("git://github.com/KaOSx/welcome_qml.git")
 md5sums=('SKIP')
 
 build() {
-    cd welcome/
+    cd welcome_qml/
    
     /usr/lib/qt5/bin/qmake welcome.pro
     make
 }
 
 package() {
-    cd welcome/
+    cd welcome_qml/
    
     make INSTALL_ROOT=${pkgdir}/ install
 }
