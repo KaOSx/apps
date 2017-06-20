@@ -65,5 +65,9 @@ package() {
 
    # Mime info
    install -D -m644 ${srcdir}/${pkgname}.xml ${pkgdir}/usr/share/mime/packages/${pkgname}.xml
+   
+   # set to PySide2
+   cd ${pkgdir}/opt/freecad/Mod
+   find . -type f -exec sed -i 's|from PySide import|from PySide2 import|' {} +
 }
 
