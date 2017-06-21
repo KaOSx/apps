@@ -1,17 +1,17 @@
  
 pkgname=ostree
 _pkgname=libostree
-pkgver=2017.6
+pkgver=2017.7
 pkgrel=1
 pkgdesc="Suite of command line tools that combines a git-like model for committing and downloading bootable filesystem trees"
 url="https://github.com/ostreedev/ostree"
 arch=('x86_64')
 license=('GPL')
-depends=('glib2' 'gpgme' 'fuse' 'libarchive' 'libsoup' 'mkinitcpio' 'util-linux' 'xz' 'zlib')
+depends=('glib2' 'gpgme' 'fuse' 'libarchive' 'libsoup' 'mkinitcpio' 'util-linux' 'xz' 'zlib' 'openssl')
 makedepends=('e2fsprogs' 'libxslt' 'python2')
 source=("https://github.com/ostreedev/ostree/releases/download/v${pkgver}/${_pkgname}-${pkgver}.tar.xz"
         'ostree-mkinitcpio.conf')
-md5sums=('e9ed2db2e16fac53bc959654581c0e0c'
+md5sums=('8e274eeb5afd09db48230a949fb63f36'
          '5b424fa5c03398f9ab3a60fd669a768a')
 
 prepare() {
@@ -30,7 +30,8 @@ build() {
     --sbindir=/usr/bin \
     --libexecdir=/usr/lib \
     --with-mkinitcpio \
-    --with-builtin-grub2-mkconfig 
+    --with-builtin-grub2-mkconfig \
+    --with-openssl
 
   make
 }
