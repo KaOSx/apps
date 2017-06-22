@@ -1,16 +1,16 @@
 
 pkgname=opera
-pkgver=45.0.2552.898
+pkgver=46.0.2597.26
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite."
 arch=('x86_64')
 url="http://www.opera.com/browser/"
 license=('custom:opera')
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext' 'glib2' 'gconf' 'shared-mime-info' 'hicolor-icon-theme'
-        'desktop-file-utils' 'gtk2' 'libnotify' 'chromium-ffmpeg-codecs')
+        'desktop-file-utils' 'gtk3' 'libnotify' 'chromium-ffmpeg-codecs')
 groups=('internet')
 source=("http://get.geo.opera.com.global.prod.fastly.net/pub/opera/desktop/${pkgver}/linux/opera-stable_${pkgver}_amd64.rpm")
-md5sums=('652dcfa9f497e881114810fb6b5a33c9')
+md5sums=('775ab44a3e99fac7200dab2b85ac479c')
 
 package() {
 	#bsdtar -xJf data.tar.xz -C ${pkgdir}/
