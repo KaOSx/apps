@@ -1,7 +1,7 @@
  
 pkgname=kirigami
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Set of QtQuick components at the moment targeted for mobile use (in the future desktop as well)'
 arch=('x86_64')
 url='https://github.com/KDE/kirigami'
@@ -21,7 +21,8 @@ build() {
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DBUILD_EXAMPLES=ON
     
   make
 }
