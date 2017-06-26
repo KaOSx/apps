@@ -2,33 +2,22 @@
 pkgname=gcompris
 pkgver=0.70
 _pkgver=0.70
-pkgrel=1
+pkgrel=2
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
 url="http://gcompris.net/"
 license=('GPL3')
-depends=('qt5-multimedia' 'qt5-tools' 'qt5-declarative' 'qt5-svg' 'qt5-graphicaleffects' 'qt5-sensors'
-         'qml-box2d')
-makedepends=('texinfo' 'intltool' 'git' 'extra-cmake-modules' 'kdoctools' 'python2' 'qt5-tools')
+depends=('qt5-multimedia' 'qt5-declarative' 'qt5-svg' 'qt5-graphicaleffects' 'qt5-sensors' 'qml-box2d')
+makedepends=('texinfo' 'intltool' 'extra-cmake-modules' 'kdoctools' 'python2' 'qt5-tools')
 groups=('kaos-kids')
-conflicts=('gcompris-qt')
-provides=('gcompris-qt')
-replaces=('gcompris-qt')
 source=("http://gcompris.net/download/qt/src/gcompris-qt-${pkgver}.tar.xz"
-        'gcompris.desktop'
-        'gcompris.png'
-        'https://github.com/KDE/gcompris/commit/e7f02d6282ec65a02347f2bd7b7103dceb3ccec0.diff'
         'https://github.com/KDE/gcompris/commit/5b46f5f96e77631ea871084bd54e68d834599442.diff')
 md5sums=('7ff70da4546f2db54bdc02cd76e4e4a1'
-         '95b4bcb06168e38332d66fec1dda3aa2'
-         '7c7cee3479f1a47376db800b2bc37017'
-         '555abfce23e3c82853285ff93a3c6fb1'
-         '1ea78f3db54fb148a93802f561dc5784')
+         '4bbbddb271c2fe7b577d02a4471ae0bd')
 
 prepare() {
   cd ${pkgname}-qt-${pkgver}
-  #python2 tools/l10n-fetch-po-files.py
-  #patch -R -p1 -i ${srcdir}/e7f02d6282ec65a02347f2bd7b7103dceb3ccec0.diff
+
   #patch -R -p1 -i ${srcdir}/5b46f5f96e77631ea871084bd54e68d834599442.diff
 }
          
@@ -49,14 +38,7 @@ build() {
 
 package() {
   cd build
+  
   make DESTDIR=${pkgdir} install
-  
-  #install -d "${pkgdir}/opt/$_pkgname"
-  #make package && ./"$_pkgname-$_pkgver"-Linux.sh --prefix="${pkgdir}"/opt/gcompris --skip-license
-  
-  #install -d "${pkgdir}/usr/bin"
-  install -Dm644 ${srcdir}/gcompris.desktop ${pkgdir}/usr/share/applications/gcompris.desktop             
-  install -Dm644 ${srcdir}/gcompris.png ${pkgdir}/usr/share/pixmaps/gcompris.png
-  #ln -s /opt/gcompris/bin/ "$pkgdir/usr/bin/gcompris-qt"
 }
 
