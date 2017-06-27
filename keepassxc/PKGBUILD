@@ -1,6 +1,6 @@
 
 pkgname=keepassxc
-pkgver=2.1.4
+pkgver=2.2.0
 pkgrel=1
 _commit=d4ed4f93255e51ed7a7986e6040f240ac6488670
 pkgdesc="Cross-platform community-driven port of the Windows application Keepass Password Safe"
@@ -15,7 +15,7 @@ provides=('keepassx')
 conflicts=('keepassx')
 #source=("https://www.keepassx.org/releases/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 source=("https://github.com/keepassxreboot/keepassxc/releases/download/${pkgver}/${pkgname}-${pkgver}-src.tar.xz")
-md5sums=('f2314e36735d4d2c490a1888bd0fc31e')
+md5sums=('d474f3e53ccd462a47c84c8eec4facb8')
 
 build() {
   mkdir -p build
@@ -33,7 +33,7 @@ build() {
 
 check() {
     cd build
-    # testguipixmaps & testgui fail with GUI_TESTS
+    # testcsvparser fails
     make test
 }
 
