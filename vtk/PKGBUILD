@@ -1,23 +1,23 @@
 
 pkgname=vtk
-pkgver=7.1.1
-_pkgver=7.1
-pkgrel=2
+pkgver=8.0.0
+_pkgver=8.0
+pkgrel=1
 pkgdesc='Open-source software system for 3D computer graphics, image processing, and visualization.'
 arch=('x86_64')
 url='https://gitlab.kitware.com/vtk/vtk'
 license=('BSD')
 depends=('java-environment' 'gnuplot' 'tk' 'python2-matplotlib' 'unixodbc' 'gdal' 'openmpi' 'mariadb'
-         'glew' 'gl2ps' 'ffmpeg' 'python2-six' 'qt5-tools' 'jsoncpp')
-makedepends=('boost' 'cmake')
+         'glew' 'gl2ps' 'ffmpeg' 'python2-six' 'qtwebkit-tp' 'qt5-x11extras' 'jsoncpp')
+makedepends=('boost' 'cmake' 'qt5-tools')
 options=('!emptydirs')
 source=("http://www.vtk.org/files/release/${_pkgver}/VTK-${pkgver}.tar.gz"
         "http://www.vtk.org/files/release/${_pkgver}/VTKData-${pkgver}.tar.gz"
         "http://www.vtk.org/files/release/${_pkgver}/VTKLargeData-${pkgver}.tar.gz"
         'gdal2.patch')
-md5sums=('daee43460f4e95547f0635240ffbc9cb'
-         '3a424d51e8407497ce5f783323ac9b46'
-         '17d9996cf6382037d1bb0a03c855a68b'
+md5sums=('8de89b8c7a729016ab7128da5e881cf4'
+         '90417b7ca2ec1185412300b76b810332'
+         '8a9d6e4d95ee8ccfd255910d40829e50'
          'e85edd330937a2395a233e0cb6be0b83')
 
 prepare() {
@@ -27,7 +27,7 @@ prepare() {
 }
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
 
   #export JAVA_HOME=/usr/lib/jvm/default
