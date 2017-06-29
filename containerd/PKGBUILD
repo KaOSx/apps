@@ -1,9 +1,9 @@
 
 # stay with _commit builds, keep in sync with what docker ships
 pkgname=containerd
-pkgver=0.2.4
-_commit=9048e5e50717ea4497b757314bad98ea3763c145
-pkgrel=8
+pkgver=0.2.8
+_commit=d24f39e203aa6be4944f06dd0fe38a618a36c764
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Daemon to control runC, built for performance and density."
 url="https://containerd.tools/"
@@ -11,24 +11,26 @@ license=('APACHE')
 depends=('runc')
 makedepends=('go')
 #source=("https://github.com/docker/containerd/archive/v${pkgver}.tar.gz")
-source=("https://github.com/docker/containerd/archive/${_commit}.zip")
-md5sums=('6427b24464a9fb232cc7c68edcffd818')
+source=("https://github.com/containerd/containerd/archive/${_commit}.zip")
+md5sums=('9c473837bfcd7c3f2908478c4e2dab37')
 
 prepare() {
     cd ${srcdir}
     
-    install -d src/github.com/docker
-    mv ${pkgname}-${_commit} src/github.com/docker/${pkgname}
+    install -d src/github.com/containerd
+    mv ${pkgname}-${_commit} src/github.com/containerd/${pkgname}
 }
 
 build() {
-    cd src/github.com/docker/${pkgname}
+    export GOPATH=~/gocode
+    cd src/github.com/containerd/${pkgname}
     
-    LDFLAGS="" GOPATH="$srcdir:$srcdir/${pkgname}/vendor" make
+    LDFLAGS="" GOPATH="$srcdir:$srcdir/${pkgname}/vendor" 
+    make
 }
 
 package() {
-    cd src/github.com/docker/${pkgname}/bin
+    cd src/github.com/containerd/${pkgname}/bin
     
     install -Dm755 containerd ${pkgdir}/usr/bin/containerd
     install -Dm755 containerd-shim ${pkgdir}/usr/bin/containerd-shim

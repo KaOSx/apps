@@ -3,19 +3,27 @@
 pkgname=runc
 pkgver=0.1.1
 _commit=9c2d8d184e5da67c95d601382adf14862e4f2228
-pkgrel=7
+pkgrel=8
 arch=('x86_64')
 pkgdesc="CLI tool for spawning and running containers according to the OCI specification."
 url="http://runc.io/"
 license=('APACHE')
-depends=('glibc')
+depends=('glibc' 'libseccomp')
 makedepends=('go')
 #source=("https://github.com/opencontainers/runc/archive/v${pkgver}.tar.gz")
 source=("https://github.com/opencontainers/runc/archive/${_commit}.zip")
 md5sums=('c26a791455abdb56ea62ebb683f7d8fa')
 
+prepare() {
+    cd ${srcdir}
+    
+    install -d src/github.com/opencontainers
+    mv ${pkgname}-${_commit} src/github.com/opencontainers/${pkgname}
+}
+
 build() {
-    cd runc-${_commit}
+    cd src/github.com/opencontainers/${pkgname}
+
     export GOPATH=~/gocode
     export PATH=$PATH:$GOPATH/bin
     
@@ -23,7 +31,7 @@ build() {
 }
 
 package() {
-    cd runc-${_commit}
+    cd src/github.com/opencontainers/${pkgname}
     
     install -Dm755 runc ${pkgdir}/usr/bin/runc
 }
