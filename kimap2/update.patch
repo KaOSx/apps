@@ -1,0 +1,71 @@
+diff --git a/src/fetchjob.cpp b/src/fetchjob.cpp
+index ac78eab..f546a7a 100644
+--- a/src/fetchjob.cpp
++++ b/src/fetchjob.cpp
+@@ -35,6 +35,7 @@ public:
+         : JobPrivate(session, name)
+         , q(job)
+         , uidBased(false)
++        , avoidParsing(false)
+     { }
+ 
+     ~FetchJobPrivate()
+@@ -52,6 +53,7 @@ public:
+     bool uidBased;
+     FetchJob::FetchScope scope;
+     QString selectedMailBox;
++    bool avoidParsing;
+ };
+ }
+ 
+@@ -75,6 +77,12 @@ FetchJob::~FetchJob()
+ {
+ }
+ 
++void FetchJob::setAvoidParsing(bool avoid)
++{
++    Q_D(FetchJob);
++    d->avoidParsing = avoid;
++}
++
+ void FetchJob::setSequenceSet(const ImapSet &set)
+ {
+     Q_D(FetchJob);
+@@ -285,7 +293,7 @@ void FetchJob::handleResponse(const Message &response)
+                 }
+             }
+ 
+-            if (result.message && shouldParseMessage) {
++            if (result.message && shouldParseMessage && !d->avoidParsing) {
+                 result.message->parse();
+             }
+             emit resultReceived(result);
+diff --git a/src/fetchjob.h b/src/fetchjob.h
+index f7ab9a1..b1a9f0e 100644
+--- a/src/fetchjob.h
++++ b/src/fetchjob.h
+@@ -243,6 +243,11 @@ public:
+      */
+     FetchScope scope() const;
+ 
++    /**
++     * Avoid calling parse() on returned KMime::Messages
++     */
++    void setAvoidParsing(bool);
++
+ Q_SIGNALS:
+     void resultReceived(const Result &);
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 88345f9..5405455 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -18,7 +18,7 @@ include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
+ include(ECMQtDeclareLoggingCategory)
+ include(ECMCoverageOption)
+ 
+-set(KIMAP2_LIB_VERSION "0.1.1")
++set(KIMAP2_LIB_VERSION "0.2.0")
+ ecm_setup_version(${KIMAP2_LIB_VERSION} VARIABLE_PREFIX KIMAP2
+                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kimap2_version.h"
+                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KIMAP2ConfigVersion.cmake"

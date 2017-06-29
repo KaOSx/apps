@@ -1,0 +1,44 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdav2
+pkgver=0.1.0
+_commit=830f07b99dc8badf5df40edb81cbac63a3ddb3c4
+pkgrel=1
+pkgdesc="DAV protocol implementation with KJobs, 2 version"
+arch=('x86_64')
+url='https://github.com/KDE/kdav2'
+license=('LGPL')
+depends=('kcoreaddons' 'qt5-xmlpatterns')
+makedepends=('extra-cmake-modules')
+#source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://github.com/KDE/kdav2/archive/${_commit}.zip")
+md5sums=('ba90ad8e05293b2b176531e2c33decea')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+
+  #sed -i -e 's|utcDateTime.toString(QString::fromAscii|QLocale::c().toString(utcDateTime, QString::fromAscii|' src/appendjob.cpp
+}
+
+build() {
+  mkdir -p build
+  
+  cd build 
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
