@@ -1,7 +1,7 @@
 
 pkgname=kaffeine
-pkgver=2.0.9
-_pkgver=2.0.9-1
+pkgver=2.0.10
+_pkgver=2.0.10
 pkgrel=1
 pkgdesc='KDE media player'
 license=('GPL')
@@ -13,7 +13,7 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
 source=("http://download.kde.org/stable/kaffeine/${pkgver}/src/${pkgname}-${_pkgver}.tar.xz"
         "https://github.com/KDE/kaffeine/commit/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff")
-md5sums=('8a5114cf18fcaf3bd2656dcadfd23995'
+md5sums=('89fd6614379789f594af30bc5c72dd63'
          '2cd0bb8f539ba0835d3db5b125de45d4')
 
 prepare() {
@@ -37,5 +37,5 @@ build() {
 package() {
   cd build
   
-  make DESTDIR=$pkgdir install
+  make DESTDIR=${pkgdir} install
 }
