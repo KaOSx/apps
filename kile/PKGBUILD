@@ -1,7 +1,7 @@
 
 pkgname=kile
-pkgver=2.9.72
-_commit=3bf485d21fa721723fce6bc600f86c73c818ce69
+pkgver=2.9.73
+_commit=6c824b8174b1609187a7981d820cd81b5a532cd5
 pkgrel=1
 pkgdesc="User friendly TeX/LaTeX frontend for KDE."
 arch=('x86_64')
@@ -10,11 +10,9 @@ url="http://kile.sourceforge.net/"
 depends=('kconfig' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kguiaddons' 'ki18n' 'kiconthemes' 'kinit' 'kio' 
          'kparts' 'ktexteditor' 'kwindowsystem' 'kxmlgui' 'texlive-core' 'docbook-xsl' 'okular')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kf5-kile')
-replaces=('kf5-kile')
 groups=('office')
 source=("https://github.com/KDE/kile/archive/${_commit}.zip")
-md5sums=('96a98eae1eef33cb63896d73e7466902')
+md5sums=('79cc01406893994bd529145e330d3882')
 
 build() {
   mkdir -p build
@@ -34,7 +32,6 @@ build() {
 
 package() {
   cd build
+  
   make DESTDIR=${pkgdir} install
-  # conflict with kmymony
-  rm ${pkgdir}/usr/share/icons/hicolor/16x16/actions/delete.png
 }
