@@ -10,7 +10,7 @@ depends=('grantlee' 'karchive' 'kcoreaddons' 'kconfig' 'ki18n' 'kitemviews' 'kwi
          'kwindowsystem' 'kcompletion' 'kjobwidgets' 'kconfigwidgets' 'kiconthemes' 'kio'
          'knewstuff' 'kparts' 'kwallet' 'kxmlgui' 'plasma-workspace' # 'aqbanking' 
          'boost-libs' 'libofx' 'qca-qt5' 'kactivities' 'sqlcipher' 'qtwebkit-tp')
-makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost' 'clang')
+makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost') # 'clang')
 groups=('office')
 source=("http://download.kde.org/unstable/skrooge/${pkgname}-${pkgver}.tar.xz"
         'sqlite3.patch')
@@ -27,8 +27,8 @@ build() {
   mkdir -p build
   cd build
   
-  export CC=/usr/bin/clang
-  export CXX=/usr/bin/clang++
+  #export CC=/usr/bin/clang
+  #export CXX=/usr/bin/clang++
 
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
