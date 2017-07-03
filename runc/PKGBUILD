@@ -12,26 +12,26 @@ depends=('glibc' 'libseccomp')
 makedepends=('go')
 #source=("https://github.com/opencontainers/runc/archive/v${pkgver}.tar.gz")
 source=("https://github.com/opencontainers/runc/archive/${_commit}.zip")
-md5sums=('c26a791455abdb56ea62ebb683f7d8fa')
+md5sums=('864a04c775543da8b76a956a8168c093')
 
 prepare() {
     cd ${srcdir}
-    
-    install -d src/github.com/opencontainers
-    mv ${pkgname}-${_commit} src/github.com/opencontainers/${pkgname}
+   
+    install -d go/src/github.com/opencontainers
+    mv ${pkgname}-${_commit} go/src/github.com/opencontainers/${pkgname}
 }
 
 build() {
-    cd src/github.com/opencontainers/${pkgname}
+    cd go/src/github.com/opencontainers/${pkgname}
 
-    export GOPATH=~/gocode
+    export GOPATH=${srcdir}/go/
     export PATH=$PATH:$GOPATH/bin
     
     make
 }
 
 package() {
-    cd src/github.com/opencontainers/${pkgname}
+    cd go/src/github.com/opencontainers/${pkgname}
     
     install -Dm755 runc ${pkgdir}/usr/bin/runc
 }
