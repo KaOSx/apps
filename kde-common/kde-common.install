@@ -3,22 +3,25 @@
 desktop=$(ps -e | grep kwin)
 timestamp=$( date +%F-%T )
 
-post_install() {
-	post_upgrade
-}
+# arg 1:  the new package version
+# arg 2:  the old package version
 
 post_upgrade() {
   
-    if [[ -n ${desktop} ]]; then
+    if [[ $(vercmp ${2} 17.04.2-2) -eq -1 ]]; then
+    
+        if [[ -n ${desktop} ]]; then
 
-        KDE_SESSION_VERSION=5 KDE_FULL_SESSION=true kdialog --title "Attention" --textbox /usr/share/kde-common/system.md 900 600
+            KDE_SESSION_VERSION=5 KDE_FULL_SESSION=true kdialog --title "Attention" --textbox /usr/share/kde-common/system.md 900 600
 
-    else
+        else
 
-        echo -e "Attention: KaOS system message."
-        echo -e "Systems installed by Calamares up to and including Calamares 3.1 have a weaker password salt than they should."
-        echo -e "Users are advised to reset their password on installed systems by using the password utility."
-        echo -e "See https://calamares.io/calamares-cve/ for further details and instructions.\e[0m"
+            echo -e "Attention: KaOS system message."
+            echo -e "Systems installed by Calamares up to and including Calamares 3.1 have a weaker password salt than they should."
+            echo -e "Users are advised to reset their password on installed systems by using the password utility."
+            echo -e "See https://calamares.io/calamares-cve/ for further details and instructions.\e[0m"
 
+        fi
+    
     fi
 }
