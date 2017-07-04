@@ -1,24 +1,24 @@
-#
-# install functions
-#
+#!/bin/bash
+
+desktop=$(ps -e | grep kwin)
+timestamp=$( date +%F-%T )
+
 post_install() {
-		echo " "
-		echo " > KDE Applications 17.04"
-		echo " "
-		echo "   Installation Prefix : /usr"
-		echo "   Configuration dir   : ~/.config"
-		echo " "
+	post_upgrade
 }
 
 post_upgrade() {
-  post_install $1
+  
+    if [[ -n ${desktop} ]]; then
+
+        KDE_SESSION_VERSION=5 KDE_FULL_SESSION=true kdialog --title "Attention" --textbox /usr/share/kde-common/system.md 900 600
+
+    else
+
+        echo -e "Attention: KaOS system message."
+        echo -e "Systems installed by Calamares up to and including Calamares 3.1 have a weaker password salt than they should."
+        echo -e "Users are advised to reset their password on installed systems by using the password utility."
+        echo -e "See https://calamares.io/calamares-cve/ for further details and instructions.\e[0m"
+
+    fi
 }
-
-post_remove() {
-		/bin/true
-}
-
-op=$1
-shift
-
-$op $*
