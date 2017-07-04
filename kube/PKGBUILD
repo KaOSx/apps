@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kube
-pkgver=0.2.81
-_commit=843f27fd1d97458a6576b1863dd02bcd729f0f14
+pkgver=0.3.1
+_commit=bf518cb5c13abcbe7ecd43f50603c77c0bec90d7
 pkgrel=1
 pkgdesc="Personal information and collaboration application using Sink for data access and synchronization"
 arch=('x86_64')
@@ -15,7 +15,7 @@ makedepends=('extra-cmake-modules' 'boost')
 #source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/kube/archive/${_commit}.zip")
-md5sums=('c47ded27fd939ae01bc20e63ae06c479')
+md5sums=('9f18c62058673c2c3d3ecedbd2879e04')
 
 prepare() {
   cd ${pkgname}-${_commit}
