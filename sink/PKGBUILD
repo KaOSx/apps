@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=sink
-pkgver=0.2.80
-_commit=682b90cc4138ce7d4c2a4eb4b28c8a17b08cd6de
+pkgver=0.3.0
+_commit=288946f1694c2abe1d2c5800c87339d1e8780e4b
 pkgrel=1
 pkgdesc="Data access layer handling synchronization, caching and indexing."
 arch=('x86_64')
@@ -15,7 +15,7 @@ makedepends=('extra-cmake-modules' 'flatbuffers')
 #source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/sink/archive/${_commit}.zip")
-md5sums=('298ed68311f7ad0bd8706f0fd89780af')
+md5sums=('fdbcf818937274916f36f7a909aaae84')
 
 prepare() {
   cd ${pkgname}-${_commit}

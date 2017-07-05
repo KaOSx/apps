@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kasync
-pkgver=0.1.2
+pkgver=0.2.0
 _commit=abc6d4d4fed6afd0cb361eb1fe387458de532134
 pkgrel=1
 pkgdesc="KAsync helps writing composable asynchronous code using a continuation based approach."
@@ -14,11 +14,12 @@ depends=('qt5-base')
 makedepends=('extra-cmake-modules')
 #source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/kasync/archive/${_commit}.zip")
-md5sums=('ad581dfcf8de5f9630b8c211e08c21c5')
+#source=("https://github.com/KDE/kasync/archive/${_commit}.zip")
+source=("https://download.kde.org/unstable/kasync/${pkgver}/src/kasync-${pkgver}.tar.xz")
+md5sums=('dc2636b6ae9c3e58ec99549643e85442')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
 
   #sed -i -e 's|utcDateTime.toString(QString::fromAscii|QLocale::c().toString(utcDateTime, QString::fromAscii|' src/appendjob.cpp
 }
@@ -27,7 +28,7 @@ build() {
   mkdir -p build
   
   cd build 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
