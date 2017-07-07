@@ -1,0 +1,36 @@
+--- a/libclamunrar/unrarvm.c
++++ b/libclamunrar/unrarvm.c
+@@ -26,6 +26,13 @@
+ #include "libclamunrar/unrarvm.h"
+ #include "libclamunrar/unrarcmd.h"
+ 
++/*
++ * Limit maximum number of channels in RAR3 delta filter to some
++ * reasonable value to prevent too slow processing of corrupt archives
++ * with invalid channels number.
++ */
++#define MAX3_UNPACK_CHANNELS 1024
++
+ #ifdef RAR_HIGH_DEBUG
+ #define rar_dbgmsg printf
+ #else
+@@ -340,8 +347,8 @@ static void filter_itanium_setbits(unsig
+ static void execute_standard_filter(rarvm_data_t *rarvm_data, rarvm_standard_filters_t filter_type)
+ {
+ 	unsigned char *data, cmp_byte2, cur_byte, *src_data, *dest_data;
+-	int i, j, data_size, channels, src_pos, dest_pos, border, width, PosR;
+-	int op_type, cur_channel, byte_count, start_pos, pa, pb, pc;
++	int i, j, op_type, cur_channel, byte_count, start_pos, pa, pb, pc;
++	unsigned int data_size, channels, src_pos, dest_pos, border, width, PosR;
+ 	unsigned int file_offset, cur_pos, predicted;
+ 	int32_t offset, addr;
+ 	const int file_size=0x1000000;
+@@ -426,7 +433,7 @@ static void execute_standard_filter(rarv
+ 		border = data_size*2;
+ 		
+ 		SET_VALUE(FALSE, &rarvm_data->mem[VM_GLOBALMEMADDR+0x20], data_size);
+-		if ((unsigned int)data_size >= VM_GLOBALMEMADDR/2) {
++		if ((unsigned int)data_size >= VM_GLOBALMEMADDR/2 || channels > MAX3_UNPACK_CHANNELS) {
+ 			break;
+ 		}
+ 		for (cur_channel=0 ; cur_channel < channels ; cur_channel++) { 
