@@ -11,17 +11,17 @@
 
 <body>
     <h3>KaOS - 2017.07</h3>
-    <p>KaOS is pleased to announce the 2017.07 release.</p>
-    
-    <p>Just days after Qt 5.9.1 and Plasma 5.10.3 where announced can you already see both on this new release.  Highlights of Plasma 5.10.3 include Task Manager gaining options for middle mouse click such as grouping and ungrouping applications, media controls on lock screen, revamped password dialogs for network authentication, performance optimizations in Pager and Task Manager, the security of the lock screen architecture was reworked and simplified and file copying notifications have a context menu on previews</p>
-    
-    <p>For those who do not want to build packages they miss from the repositories the option to use Flatpaks has been added to KaOS.  Discover is added as the GUI for Flatpak.</p>
-    
-    <p>Plasma developers are working on two new Music Players, now included in the KaOS repositories are both.  Babe has become the default player on this ISO, Elisa is available has another option.  Other recent additions include a GUI for git QGit and QDirStat, a graphical application to show where your disk space has gone.</p>
-    
-    <p>A new option is the addition to verify the authenticity of downloaded KaOS ISO files through GPG signature verification, see the Download page for further details and instructions.</p>
+    <p>It is with great pleasure to present to you the July release of a new stable ISO.</p>
     
     <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.36.0, Plasma 5.10.3, KDE Applications 17.04.2 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.9.1.</strong></p>
+    
+    <p>Systems installed by Calamares up to and including Calamares 3.1 have a weaker password salt than they should.  This weakness does not weaken the password security for logins on a single system. It does weaken the password if an attacker can obtain the password hash through some other means.  With Calamares 3.1.1 this issue is corrected thus it is vital to get this new ISO out.</p>
+    
+    <p>Two KaOS specific tools have been updated.  The Welcome application recieved a complete rewrite in QML, the used first run wizard was adjusted for Qt/PyQt 5.9 and received a more modern GUI.</p>
+    
+    <p>A few more QML based applications have been added to the KaOS repositories.  Koko, new Image Gallery application and Kube, a modern Communication and Collaboration Client.  Kube might some day replace KMail in KaOS.
+    
+    <p>A new option is the addition to verify the authenticity of downloaded KaOS ISO files through GPG signature verification, see the Download page for further details and instructions.</p>
     
     <p>A KaOS specific tool to write ISO files to USB is in use.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. It includes the option to verify the written USB in comparison to the used ISO file.</p>
     
@@ -29,7 +29,7 @@
     
     <p>KaOS uses a First Run Wizard.  It will run on the newly installed system and enables with just a few clicks to adjust mouse behavior, menu launcher, desktop theme, used wallpaper, color scheme, widget style, window decoration and virtual desktops used.  With one click this Wizard will also link to KaOS Documentation and all contact info.</p>
     
-    <p>Most notable major updates to the base of the system are GCC 6.4.0, Binutils 2.28, Linux 4.11.9, LLVM/Clang 4.0.1, Qt 5.9.1, Kmod 24, Mesa 17.1.4, x265 2.4, FFMpeg 3.3.2, DBus 1.10.20, Porotobuf 3.3.2 and PyQt 5.9</p>
+    <p>Most notable major updates to the base of the system are GCC 6.4.0, Binutils 2.28, Linux 4.11.9, LLVM/Clang 4.0.1, Qt 5.9.1, Kmod 24, Mesa 17.1.4, Glib2 2.52.3, DBus 1.10.20, Porotobuf 3.3.2 and PyQt 5.9</p>
     
     <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
     
@@ -39,10 +39,10 @@
 
     <p><b>Calamares</b>, the used installer framework, is at the 3.1 series. Highlights of the changes and additions:
     <ul>
-        <li>Fixed Hibernate on LUKS enabled swap partitions</li>
-        <li>Option to use a GPT partiontable on BIOS system with needed documentation added</li>
-        <li>When a VirtualBox system is detected, proper Guest Modules will be installed</li>
-        <li>Fixed an issue in the partition module to always set the correct flags for an EFI system partition</li>
+        <li>Improved salting for user passwords.</li>
+        <li>Crash on startup when no installation-devices are found has been fixed.</li>
+        <li>System language, locale settings and keyboard are now guessed based on installer language and location.</li>
+        <li>Hostnames may be up to 63 characters in length, conforming to RFC1123 and various LDAP schemas.</li>
     </ul></p>
     
     <p><strong>Octopi</strong> is becoming a very crucial part of full system maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like making sure a mirror is synced before starting any update, looking at the pacman logs, an option to get a paste from a complete snapshot of all info of a system with the SysInfo tool are included. Also included are very simple ways to open files, like copy to clipboard the file path shown in Octopi. To make sure the system doesn't start using too much disk space for the pacman cache, but still giving the user the option to retain some recent packages, the cache-cleaner tool is a great addition. The built-in tool to access <b>KCP</b> has now a much clearer place with the addition of its own "foreign" icon in the menu-bar. New added is the option to select custom icons for the systemtray.</p>
@@ -53,7 +53,7 @@
     
     <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a "final" release, every ISO is mere a snapshot of the current status of the repositories. An idea what is currently available:</p>
     
-    <p>The ISO ships with <b>Frameworks 5.36.0, Plasma 5.10.3, KDE Applications 17.04.2 &amp; not yet released ports of KDE Applications</b>, Linux 4.11.9, Systemd 233, Kmod 24, NetworkManager 1.8.0, Calligra 3.0.1, Krita 3.1.4, Babe, Xorg-Server 1.19.3, Mesa 17.1.4, Glibc 2.25, GCC 6.4.0, non-free Nvidia 381.22, Pepperflash and Python3 3.6.1 to name a few.</p>
+    <p>The ISO ships with <b>Frameworks 5.36.0, Plasma 5.10.3, KDE Applications 17.04.2 &amp; not yet released ports of KDE Applications</b>, Linux 4.11.9, Systemd 233, Kmod 24, NetworkManager 1.8.2, Calligra 3.0.1, Krita 3.1.4, Babe, Xorg-Server 1.19.3, Mesa 17.1.4, Glibc 2.25, GCC 6.4.0, non-free Nvidia 381.22, Pepperflash and Python3 3.6.1 to name a few.</p>
     
     <p>The package manager is <strong>Pacman 5.0.2</strong>, with the simple but powerful Octopi 0.9dev as GUI frontend. Default web browser is Qt based Qupzilla 2.1.2. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna", fully redone for 2017.</p>
     
