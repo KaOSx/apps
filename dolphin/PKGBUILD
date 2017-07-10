@@ -14,14 +14,18 @@ depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kdbusaddons' 'kbo
          'kfilemetadata') 
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        "https://github.com/KDE/dolphin/commit/0bdd8e0b0516555c6233fdc7901e9b417cf89791.diff")
+        "https://github.com/KDE/dolphin/commit/0bdd8e0b0516555c6233fdc7901e9b417cf89791.diff"
+        'dolphinui.diff')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '213f3dbcdd374f1f74a87a08d28de0fd')
+         '213f3dbcdd374f1f74a87a08d28de0fd'
+         '61e080b784830d5e80f19bb0d391ed2e')
 
 prepare() {
   cd $pkgname-${pkgver}
   # keep kdesu option for dolphin, comment out for now, wait for upstream decision
   patch -R -p1 -i ${srcdir}/0bdd8e0b0516555c6233fdc7901e9b417cf89791.diff
+  # set KaOS defaults
+  patch -p1 -i ${srcdir}/dolphinui.diff
 }
 
 build() {

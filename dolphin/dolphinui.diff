@@ -1,0 +1,94 @@
+--- a/src/dolphinui.rc	2017-06-05 14:52:31.000000000 -0400
++++ b/src/dolphinui.rc	2017-07-10 14:48:46.305661951 -0400
+@@ -87,9 +87,12 @@
+         </disable>
+     </State>
+     <ToolBar noMerge="1" name="mainToolBar" >
++        <Action name="new_tab" />
+         <text context="@title:menu">Main Toolbar</text>
+         <Action name="go_back" />
++        <Action name="go_up" />
+         <Action name="go_forward" />
++        <Action name="reload" />
+         <Separator name="separator_1" />
+         <Action name="icons" />
+         <Action name="compact" />
+@@ -99,6 +102,8 @@
+         <Action name="show_preview" />
+         <Action name="split_view" />
+         <Action name="split_stash" />
++        <Action name="compare_files" />
++        <Action name="show_hidden_files" />
+     </ToolBar>
+     <ActionProperties scheme="Default">
+         <Action priority="0" name="go_back"/>
+--- a/src/settings/dolphin_directoryviewpropertysettings.kcfg	2017-06-05 14:52:31.000000000 -0400
++++ b/src/settings/dolphin_directoryviewpropertysettings.kcfg	2017-07-10 14:56:36.858399173 -0400
+@@ -10,7 +10,7 @@
+         <entry name="HiddenFilesShown" type="Bool" >
+             <label context="@label">Hidden files shown</label>
+             <whatsthis context="@info:whatsthis">When this option is enabled hidden files, such as those starting with a '.', will be shown in the file view.</whatsthis>
+-            <default>false</default>
++            <default>true</default>
+         </entry>
+     </group>
+ 
+@@ -30,7 +30,7 @@
+         <entry name="PreviewsShown" type="Bool" >
+             <label context="@label">Previews shown</label>
+             <whatsthis context="@info:whatsthis">When this option is enabled, a preview of the file content is shown as an icon.</whatsthis>
+-            <default>false</default>
++            <default>true</default>
+         </entry>
+ 
+         <entry name="GroupedSorting" type="Bool" >
+@@ -59,7 +59,7 @@
+ 
+         <entry name="VisibleRoles" type="StringList">
+             <label context="@label">Visible roles</label>
+-            <default></default>
++            <default>Icons_text,Icons_size,Icons_modificationtime</default>
+         </entry>
+ 
+         <entry name="HeaderColumnWidths" type="IntList">
+--- a/src/settings/dolphin_generalsettings.kcfg	2017-06-05 14:52:31.000000000 -0400
++++ b/src/settings/dolphin_generalsettings.kcfg	2017-07-10 14:59:04.735037155 -0400
+@@ -44,11 +44,11 @@
+         </entry>
+         <entry name="FilterBar" type="Bool">
+             <label>Should the filter bar be shown</label>
+-            <default>false</default>
++            <default>true</default>
+         </entry>
+         <entry name="GlobalViewProps" type="Bool">
+             <label>Should the view properties be used for all folders</label>
+-            <default>false</default>
++            <default>true</default>
+         </entry>
+         <entry name="BrowseThroughArchives" type="Bool">
+             <label>Browse through archives</label>
+@@ -72,11 +72,11 @@
+         </entry>
+         <entry name="ShowToolTips" type="Bool">
+             <label>Show tooltips</label>
+-            <default>false</default>
++            <default>true</default>
+         </entry>
+         <entry name="ShowCopyMoveMenu" type="Bool">
+             <label>Show 'Copy To' and 'Move To' commands in context menu</label>
+-            <default>false</default>
++            <default>true</default>
+         </entry>
+         <entry name="ViewPropsTimestamp" type="DateTime" >
+             <label>Timestamp since when the view properties are valid</label>
+--- a/src/panels/places/dolphin_placespanelsettings.kcfg	2017-07-10 15:06:06.516460563 -0400
++++ b/src/panels/places/dolphin_placespanelsettings.kcfg	2017-07-10 15:06:22.846792632 -0400
+@@ -8,7 +8,7 @@
+     <group name="PlacesPanel">
+         <entry name="IconSize" type="Int">
+             <label>Size of icons in the Places Panel (-1 means "use the style's small size")</label>
+-            <default>-1</default>
++            <default>1</default>
+         </entry>
+     </group>
+ </kcfg>
