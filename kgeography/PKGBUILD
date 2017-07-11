@@ -20,8 +20,10 @@ source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
- mkdir -p build
+  mkdir -p build
   cd build
+  # fix build for 17.04.3
+  #mkdir -p po/locale/LC_SCRIPTS/kgeography
 
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
