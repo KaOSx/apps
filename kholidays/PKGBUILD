@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kholidays
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Library that provides a C++ API that determines holiday and other special events for a 
          geographical region.."
 arch=('x86_64')
@@ -20,7 +20,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd $pkgname-${pkgver}
   #sed -i -e 's|if (isnan(delta))|if (std::isnan(delta))|' src/sunriseset.cpp
-  patch -p1 -i ${srcdir}/revert_tr.patch
+  #patch -p1 -i ${srcdir}/revert_tr.patch
 }
 
 build() {

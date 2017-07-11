@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=akonadi
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=1
 arch=('x86_64')
 url='https://community.kde.org/KDE_PIM/Akonadi'
 pkgdesc="PIM layer, which provides an asynchronous API to access all kind of PIM data"
@@ -25,7 +25,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://bugs.kde.org/show_bug.cgi?id=380182
-  patch -p1 -i ${srcdir}/2dc7fbf569ba3f7eeef98fb818d7af0820caf7a3.diff
+  #patch -p1 -i ${srcdir}/2dc7fbf569ba3f7eeef98fb818d7af0820caf7a3.diff
 }
 
 build() {
