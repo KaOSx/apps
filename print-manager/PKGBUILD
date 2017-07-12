@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=print-manager
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="A KDE tool for managing print jobs and printers"
 url="https://projects.kde.org/projects/kde/kdeutils/print-manager"
 arch=('x86_64')
@@ -19,7 +19,7 @@ replaces=('kdeadmin-print-manager')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz"
         's-c-p.diff')
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'e7da0b573925cc79b097926748a04973')
+         '8129d9d454bec842a0d983de651ce52a')
 
 prepare() {
   cd ${pkgname}-${pkgver}

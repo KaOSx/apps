@@ -10,7 +10,7 @@ post_install() {
 
     if [[ -n ${desktop} ]]; then
 
-        kdialog --yesno "Set up CRD by issuing the command:<br>
+        KDE_SESSION_VERSION=5 KDE_FULL_SESSION=true kdialog --yesno "Set up CRD by issuing the command:<br>
         <b>crd --setup</b> as a normal user. After that, enable access to CRD in your chrome browser.<br>
         To use in servers start or enable the chrome-remote-desktop.service.<br><br>
         You can also start the chrome remote desktop server by issuing the command:<br>
@@ -22,7 +22,7 @@ post_install() {
 
             if [[ ${save} == 1 ]]; then
 
-                kdialog --msgbox "Output not saved"
+                KDE_SESSION_VERSION=5 KDE_FULL_SESSION=true kdialog --passivepopup "Output not saved" 10
 
             else
 
@@ -33,7 +33,7 @@ post_install() {
                       <b>crd</b>. This will prompt you to set up your CRD if it hasn't been set up already.<br><br>
                       Go to https://support.google.com/chrome/answer/1649523 for more information." > /var/log/chrome-remote-desktop_install${timestamp}.txt
 
-                kdialog --msgbox "Output is saved in /var/log/chrome-remote-desktop_install${timestamp}.txt"
+                KDE_SESSION_VERSION=5 KDE_FULL_SESSION=true kdialog --passivepopup "Output is saved in /var/log/chrome-remote-desktop_install${timestamp}.txt" 10
                 
             fi   
 

@@ -1,14 +1,14 @@
 
 pkgname=system-config-printer
 pkgver=1.5.9
-pkgrel=3
+pkgrel=5
 pkgdesc="A CUPS printer configuration tool and status applet"
 url="https://github.com/zdohnal/system-config-printer"
 arch=('x86_64')
 license=('GPL')
 depends=('pycups' 'dbus-python3' 'pysmbc' 'libusbx' 'python3-pycurl' 'systemd'
-         'python3-gobject3' 'dbus-glib' 'gtk3' 'python3-requests' 'libsecret')
-makedepends=('intltool' 'python3' 'xmlto' 'docbook-xsl' 'desktop-file-utils' 'libcups' 'libxml2')
+         'python3-gobject3' 'dbus-glib' 'python3-requests' 'libnotify') # 'libsecret')
+makedepends=('intltool' 'xmlto' 'docbook-xsl' 'desktop-file-utils' 'libxml2')
 optdepends=('print-manager: for the administration tool in KDE System Settings')
 provides=('system-config-printer-common')
 source=("https://github.com/zdohnal/system-config-printer/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
@@ -17,8 +17,8 @@ md5sums=('8b449c4b00fb170d79a6b781eab75bb3')
 build() {
   cd ${pkgname}-${pkgver}
   sed -i "s|cups.socket|org.cups.cupsd.socket|g" udev/configure-printer@.service.in
-  #sed -i "s|gi.require_version('GnomeKeyring', '1.0')|#gi.require_version('GnomeKeyring', '1.0')|g" jobviewer.py
-  #sed -i "s|from gi.repository import GnomeKeyring|#from gi.repository import GnomeKeyring|g" jobviewer.py
+  sed -i "s|gi.require_version('GnomeKeyring', '1.0')|#gi.require_version('GnomeKeyring', '1.0')|g" jobviewer.py
+  sed -i "s|from gi.repository import GnomeKeyring|#from gi.repository import GnomeKeyring|g" jobviewer.py
 
   ./bootstrap
   ./configure --prefix=/usr \
@@ -34,5 +34,10 @@ package() {
   
   make DESTDIR=${pkgdir} install
   
-  #rm ${pkgdir}/usr/share/applications/system-config-printer.desktop
+  rm -r ${pkgdir}/usr/share/applications
+  rm -r ${pkgdir}/etc/xdg
+  rm -r ${pkgdir}/usr/bin/system-config*
+  
+  sed -i "s|Exec=/usr/local/bin/scp-dbus-service|Exec=/usr/bin/scp-dbus-service|g" \
+    ${pkgdir}/usr/share/dbus-1/services/org.fedoraproject.Config.Printing.service
 }
