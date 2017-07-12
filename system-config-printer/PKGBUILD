@@ -7,7 +7,7 @@ url="https://github.com/zdohnal/system-config-printer"
 arch=('x86_64')
 license=('GPL')
 depends=('pycups' 'dbus-python3' 'pysmbc' 'libusbx' 'python3-pycurl' 'systemd'
-         'python3-gobject3' 'dbus-glib' 'gtk3' 'python3-requests')
+         'python3-gobject3' 'dbus-glib' 'gtk3' 'python3-requests' 'libsecret')
 makedepends=('intltool' 'python3' 'xmlto' 'docbook-xsl' 'desktop-file-utils' 'libcups' 'libxml2')
 optdepends=('print-manager: for the administration tool in KDE System Settings')
 provides=('system-config-printer-common')
@@ -17,8 +17,8 @@ md5sums=('8b449c4b00fb170d79a6b781eab75bb3')
 build() {
   cd ${pkgname}-${pkgver}
   sed -i "s|cups.socket|org.cups.cupsd.socket|g" udev/configure-printer@.service.in
-  sed -i "s|gi.require_version('GnomeKeyring', '1.0')|#gi.require_version('GnomeKeyring', '1.0')|g" jobviewer.py
-  sed -i "s|from gi.repository import GnomeKeyring|#from gi.repository import GnomeKeyring|g" jobviewer.py
+  #sed -i "s|gi.require_version('GnomeKeyring', '1.0')|#gi.require_version('GnomeKeyring', '1.0')|g" jobviewer.py
+  #sed -i "s|from gi.repository import GnomeKeyring|#from gi.repository import GnomeKeyring|g" jobviewer.py
 
   ./bootstrap
   ./configure --prefix=/usr \
