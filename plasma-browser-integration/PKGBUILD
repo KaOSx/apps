@@ -1,7 +1,7 @@
 
 pkgname=plasma-browser-integration
-pkgver=0.0.4
-_commit=67b9bdbeb6fca392b4ee90192205b4da53a8a6af
+pkgver=0.0.5
+_commit=3109febc160c43fde6ca8bdbdc9b8976aa4afee3
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Plasma5 browser integration"
@@ -10,7 +10,7 @@ license=('GPL')
 depends=('kio' 'ki18n' 'knotifications' 'krunner' 'kwindowsystem' 'kactivities')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("https://github.com/KDE/plasma-browser-integration/archive/${_commit}.zip")
-md5sums=('e6d00a4177a8e545578c38b5a2b9fbb8')
+md5sums=('7d758eeadc3fbcd216f1f7b37897b239')
 
 build() {
   mkdir -p build
@@ -20,7 +20,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DINSTALL_CHROME_EXTENSION=ON
+    -DINSTALL_CHROME_EXTENSION=ON \
+    -DINSTALL_CHROME_MANIFEST=ON
     
   make
 }

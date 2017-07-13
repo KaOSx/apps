@@ -1,7 +1,7 @@
  
 pkgname=kirigami
 pkgver=2.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Set of QtQuick components at the moment targeted for mobile use (in the future desktop as well)'
 arch=('x86_64')
 url='https://github.com/KDE/kirigami'
@@ -9,14 +9,17 @@ license=('LGPL')
 depends=('plasma-framework' 'purpose' 'qt5-svg' 'qt5-quickcontrols2')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 source=("https://download.kde.org/stable/kirigami/${pkgname}2-${pkgver}.tar.xz"
-        'gallery.diff')
+        'gallery.diff'
+        "https://github.com/KDE/kirigami/commit/270dc9aa02f025a4f494194a22f18e019696de35.diff")
 md5sums=('0de054842076b67f6745c92764c284cd'
-         '58fe59ea88bc05fb5f73686a1da00367')
+         '58fe59ea88bc05fb5f73686a1da00367'
+         '401007530c20a572b69b72bf40607006')
 
 prepare() {
   cd ${pkgname}2-${pkgver}
 
   patch -p1 -i ${srcdir}/gallery.diff
+  patch -p1 -i ${srcdir}/270dc9aa02f025a4f494194a22f18e019696de35.diff
 }
 
 build() {
