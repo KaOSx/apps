@@ -1,0 +1,30 @@
+ 
+pkgname=kooka
+pkgver=0.90
+pkgrel=1
+_commit=714fc25adeaef6a9e67eb4a8bb80b98ff1065cfe
+pkgdesc="Scanning application and libkscan library which were formerly included in kdegraphics."
+arch=("x86_64")
+url="https://github.com/KDE/kooka"
+license=('GPL')
+depends=('ki18n' 'kconfig' 'ktextwidgets' 'kio' 'kwidgetsaddons' 'kiconthemes' 'libpaper' 'sane')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=("https://github.com/KDE/kooka/archive/${_commit}.zip")
+md5sums=('a98e2497ef79d73116c02035e448ab92')
+ 
+build() {
+  mkdir -p build
+  cd build
+ 
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib
+  make
+}
+ 
+package() {
+  cd build
+ 
+  make DESTDIR=${pkgdir} install
+}
