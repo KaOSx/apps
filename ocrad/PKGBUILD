@@ -1,0 +1,24 @@
+
+pkgname=ocrad
+pkgver=0.26
+pkgrel=1
+pkgdesc="Optical Character Recognition program based on a feature extraction method, reading images in bitmap,greyscale or color formats"
+arch=('x86_64')
+url="https://www.gnu.org/software/ocrad/ocrad.html"
+license=('GPL3')
+depends=('gcc-libs' 'texinfo')
+source=("https://ftp.gnu.org/gnu/ocrad/${pkgname}-${pkgver}.tar.lz")
+md5sums=('8b2e69ef26e153088d60f418c1ecfa9a')
+
+build() {
+  cd ${pkgname}-${pkgver}
+
+  ./configure --prefix=/usr 
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+
+  make DESTDIR=${pkgdir} install
+} 
