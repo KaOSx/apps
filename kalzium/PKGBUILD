@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kalzium
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Periodic Table of Elements"
 url="http://kde.org/applications/education/kalzium/"
 arch=('x86_64')
@@ -14,13 +14,15 @@ depends=('avogadrolibs' 'eigen3' 'ocaml' 'chemical-mime-data' 'openbabel'
          'knewstuff' 'kparts' 'kplotting' 'solid' 'kunitconversion' 'kwidgetsaddons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'facile')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
+        "https://phabricator.kde.org/file/data/dx63pvciklt2iyj75mid/PHID-FILE-25w6hgn7pcfm6eev36xq/D6752.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'ad3c79b2a8e292c00241a51deec6338b')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-
-  #patch -p1 -i ${srcdir}/04048799910fc423a5fa100a1c46b91dbe8e7e61.diff
+  # https://phabricator.kde.org/D6752
+  patch -p0 -i ${srcdir}/D6752.diff
 }
 
 build() {  
