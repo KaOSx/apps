@@ -1,0 +1,45 @@
+
+pkgname=nomad-firewall
+arch=('x86_64')
+pkgver=0.5
+_commit=3838dc251caeb05fc3141370eab4cb30a537b72d
+pkgrel=1
+pkgdesc="Firewall tool for Linux uses the Qt toolkit."
+url="https://nxos.org/#nomad-firewall"
+license=('GPL')
+depends=('kcoreaddons' 'kcmutils' 'ki18n' 'plasma-framework' 'kdelibs4support' 'kdeclarative'
+         'kauth' 'kconfig' 'kio' 'knewstuff' 'kconfigwidgets' 'python3' 'ufw')
+makedepends=('extra-cmake-modules' 'kdoctools')
+groups=('utils')
+source=("https://github.com/nomad-desktop/nomad-firewall/archive/${_commit}.zip"
+        'build_fixes.diff')
+md5sums=('fa7aaf90ffb307a9e3fb68fb94c12b3c'
+         'a33ea08e6da592a9b7e11b7c87d42cb0')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+  
+  patch -p1 -i ${srcdir}/build_fixes.diff
+  #sed -i 's|add_subdirectory(netstat)|#add_subdirectory(netstat)|' plugins/CMakeLists.txt
+}
+
+build() {  
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}

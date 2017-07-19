@@ -1,0 +1,104 @@
+--- a/plugins/ufw/CMakeLists.txt	2017-07-12 17:30:28.000000000 -0400
++++ b/plugins/ufw/CMakeLists.txt	2017-07-19 16:34:14.841030594 -0400
+@@ -13,6 +13,7 @@
+     Declarative
+     Auth
+     Config
++    KDELibs4Support
+ )
+ 
+ 
+@@ -39,7 +40,8 @@
+                       KF5::CoreAddons
+                       KF5::ConfigCore
+                       KF5::Auth
+-                      KF5::I18n)
++                      KF5::I18n
++                      KF5::KDELibs4Support)
+ 
+ set(INSTALL_PATH ${QML_INSTALL_DIR}/org/nomad/ufw)
+ 
+--- a/plugins/netstat/helper/netstathelper.cpp	2017-07-12 17:30:28.000000000 -0400
++++ b/plugins/netstat/helper/netstathelper.cpp	2017-07-19 17:00:10.911071930 -0400
+@@ -11,7 +11,7 @@
+ 
+ }
+ 
+-KAuth::ActionReply NetstatHelper::query(const QVariantMap &args)
++KAuth::ActionReply NetstatHelper::query(const QVariantMap)
+ {
+     KAuth::ActionReply reply;
+    
+--- a/plugins/netstat/helper/netstathelper.h	2017-07-12 17:30:28.000000000 -0400
++++ b/plugins/netstat/helper/netstathelper.h	2017-07-19 17:04:34.872769162 -0400
+@@ -12,7 +12,7 @@
+     NetstatHelper();
+ 
+ public Q_SLOTS:
+-    ActionReply query(const QVariantMap &args);
++    ActionReply query(const QVariantMap);
+ 
+ private:
+     QVariantList parseOutput(const QByteArray &netstatOutput);
+
+--- a/plugins/ufw/ufwclient.h
++++ b/plugins/ufw/ufwclient.h
+@@ -75,10 +75,10 @@ protected:
+ private:
+     QString m_status;
+     QStringList         m_rawLogs;
+-    LogListModel*       m_logs;
+     bool                m_isBusy;
+     UFW::Profile        m_currentProfile;
+     RuleListModel*      m_rulesModel;
++    LogListModel*       m_logs;
+     QTimer              m_logsRefreshTimer;
+     //    UFW::Blocker       *blocker;
+     bool m_logsAutoRefresh;
+--- a/kcm/package/contents/ui/main.qml	2017-07-19 17:36:43.364723544 -0400
++++ b/kcm/package/contents/ui/main.qml	2017-07-19 17:36:56.619422355 -0400
+@@ -34,16 +34,6 @@
+         id: tabs
+         anchors.fill: parent
+         Tab {
+-            title: i18n("Connections")
+-
+-            ConnectionsView {
+-                Component.onCompleted: {
+-                    filterConnection.connect(mainWindow.createRuleFromConnection)
+-                }
+-            }
+-        }
+-
+-        Tab {
+             title: i18n("Rules")
+ 
+             Item {
+@@ -77,6 +67,16 @@
+ 
+             }
+         }
++        
++        Tab {
++            title: i18n("Connections")
++
++            ConnectionsView {
++                Component.onCompleted: {
++                    filterConnection.connect(mainWindow.createRuleFromConnection)
++                }
++            }
++        }
+ 
+         Tab {
+             title: i18n("Logs")
+--- a/kcm/org_nxos_firewall.desktop	2017-07-18 19:40:55.000000000 -0400
++++ b/kcm/org_nxos_firewall.desktop	2017-07-19 17:57:46.708206920 -0400
+@@ -6,7 +6,7 @@
+ X-KDE-ServiceTypes=KCModule
+ X-KDE-Library=org.nxos.firewall
+ X-KDE-ParentApp=kcontrol
+-X-KDE-System-Settings-Parent-Category=networksettings
++X-KDE-System-Settings-Parent-Category=network
+ X-KDE-Weight=80
+ X-DocPath=kcontrol5/org.nxos.firewall/index.html
+ 
