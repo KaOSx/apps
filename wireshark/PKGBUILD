@@ -1,6 +1,6 @@
 
 pkgname=wireshark
-pkgver=2.2.8
+pkgver=2.4.0
 pkgrel=1
 pkgdesc='Network packet analyzer that will try to capture network packets and tries to display that packet data as detailed as possible'
 arch=('x86_64')
@@ -9,15 +9,19 @@ license=('GPL2')
 depends=('krb5' 'libgcrypt' 'libcap' 'libpcap' 'bash' 'geoip' 'gnutls' 'glib2' 'lua' 'qt5-multimedia'
          'qt5-svg' 'asciidoc' 'portaudio' 'c-ares' 'libssh')
 makedepends=('cmake' 'python2' 'qt5-tools')
-source=("https://www.wireshark.org/download/src/${pkgname}-${pkgver}.tar.bz2"
-        'version.h.in')
-md5sums=('bb81d0ecf3a8ed46bedfaeae6fd318a8'
-         '45fa502b3b361dd8d3985101c44cee26')
+source=("https://www.wireshark.org/download/src/${pkgname}-${pkgver}.tar.xz"
+        'udpdump.diff'
+        'udpdump.pod')
+md5sums=('655106f8cf3bb8f521336d3a8ab5b10b'
+         'ffbcc92f2783d585995a532f5b9fa06f'
+         '17a39ed1d9d69ae657af52422429fef1')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #cp ${srcdir}/version.h.in ${srcdir}/${pkgname}-${pkgver}/version.h.in
+  # https://bugs.wireshark.org/bugzilla/show_bug.cgi?id=13903
+  cp ${srcdir}/udpdump.pod ${srcdir}/${pkgname}-${pkgver}/doc/udpdump.pod
+  patch -p1 -i ${srcdir}/udpdump.diff
 }
 
 build() {

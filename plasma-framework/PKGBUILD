@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-framework'
@@ -15,13 +15,15 @@ depends=('kactivities' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbu
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 options=('debug')
-source=("http://download.kde.org/stable/frameworks/5.19/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/5.19/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/plasma-framework/commit/a0e5bb3ea70ddc2bd52a8c69b84980249cc4aba7.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '7a42afd92a48e8b2ec8c1fb2a6f574b9')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # https://bugs.kde.org/show_bug.cgi?id=377441
-  #patch -p1 -i ${srcdir}/547a34d346695295ce05499ae355203414412993.diff
+  # https://bugs.kde.org/show_bug.cgi?id=381130
+  patch -p1 -i ${srcdir}/a0e5bb3ea70ddc2bd52a8c69b84980249cc4aba7.diff
 }
 
 build() {

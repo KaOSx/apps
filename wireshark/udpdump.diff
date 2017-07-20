@@ -1,0 +1,49 @@
+X-Git-Url: https://code.wireshark.org/review/gitweb?p=wireshark.git;a=blobdiff_plain;f=doc%2FMakefile.am;h=c71b3479e6338c407e9098f36bcad1cece9640d8;hp=e2db9b00d00fd024ec98f4782ca4386d3474fa44;hb=77ce9c3a2926f2e9bd279cc8ea0dc19c39ad760e;hpb=07f27d8238021b6e485699369383a58f95984a4e
+
+diff --git a/doc/Makefile.am b/doc/Makefile.am
+index e2db9b0..c71b347 100644
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -73,7 +73,8 @@ man1_MANS = \
+ 	@randpkt_man@		\
+ 	@androiddump_man@	\
+ 	@sshdump_man@		\
+-	@randpktdump_man@
++	@randpktdump_man@	\
++	@udpdump_man@
+ 
+ man4_MANS = \
+ 	@extcap_man@		\
+@@ -89,7 +90,7 @@ pkgdata_DATA = AUTHORS-SHORT $(top_srcdir)/docbook/ws.css wireshark.html \
+ 	tshark.html wireshark-filter.html capinfos.html ciscodump.html editcap.html \
+ 	mergecap.html reordercap.html text2pcap.html dumpcap.html androiddump.html \
+ 	sshdump.html randpktdump.html rawshark.html dftest.html randpkt.html \
+-	extcap.html
++	extcap.html udpdump.html
+ 
+ #
+ # Build the short version of the authors file for the about dialog
+@@ -272,6 +273,13 @@ randpkt.html: randpkt.pod ../config.h $(top_srcdir)/docbook/ws.css
+ 	--noindex							\
+ 	$(srcdir)/randpkt.pod > randpkt.html
+ 
++udpdump.html: udpdump.pod ../config.h $(top_srcdir)/docbook/ws.css
++	$(AM_V_POD2HTML)$(POD2HTML)                     \
++	--title="udpdump - The Wireshark Network Analyzer $(VERSION)"	\
++	--css=$(POD_CSS_URL)						\
++	--noindex							\
++	$(srcdir)/udpdump.pod > udpdump.html
++
+ CLEANFILES =		\
+ 	wireshark.pod	\
+ 	*.1		\
+@@ -334,7 +342,8 @@ EXTRA_DIST =				\
+ 	sshdump.pod			\
+ 	text2pcap.pod			\
+ 	tshark.pod			\
+-	wireshark-filter.pod    	\
++	udpdump.pod			\
++	wireshark-filter.pod		\
+ 	wireshark.pod.template		\
+ 	CMakeLists.txt
+  
