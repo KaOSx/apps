@@ -1,0 +1,33 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=libqaccessibilityclient
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Library used for when writing accessibility clients such as screen readers."
+arch=('x86_64')
+url='https://github.com/KDE/libkdeaccessibilityclient'
+license=('LGPL')
+depends=('qt5-base')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/unstable/libqaccessibilityclient/${pkgname}-${pkgver}.tar.xz")
+md5sums=('aca31a0cceb1b0255fb457f36951af07')
+         
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQT5_BUILD=True
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
+

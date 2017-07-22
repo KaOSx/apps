@@ -4,28 +4,22 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kmag
 arch=('x86_64')
-#pkgver=${_kdever}
-pkgver=17.03.70
-_commit=b270d7503b94629891dddd84422a64b6cefa2b63
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Screen magnifier"
 url="https://github.com/KDE/kmag"
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kio' 'kxmlgui')
+depends=('ki18n' 'kio' 'kxmlgui' 'libqaccessibilityclient')
 makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools')
 groups=('kdeaccessibility' 'kde' 'kde-uninstall' 'kde-doc')
-conflicts=('kdeaccessibility-kmag')
-replaces=('kdeaccessibility-kmag')
-#source=($_mirror/${pkgname}-$_kdever.tar.xz)
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/kmag/archive/${_commit}.zip")
-md5sums=('c1c4e4e59dcb399819ce1c80c97a2bd7')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
