@@ -1,10 +1,10 @@
 
 pkgname=freerdp
 _pkgname=FreeRDP
-pkgver=2.0.0beta
+pkgver=2.0.0rc
 #_pkgver=1.2.0-beta1-android9
-_commit=5b2455f3147aca395a441fc65b602938600f0788
-pkgrel=2
+_commit=f8c9f438436a4492e37011396148d804f7e3651f
+pkgrel=1
 pkgdesc="Free RDP client"
 arch=('x86_64')
 url="http://www.freerdp.com/"
@@ -14,7 +14,7 @@ depends=('openssl' 'libxcursor' 'libcups' 'alsa-lib' 'libxext' 'libxdamage'
         'libxfixes' 'gst-plugins-base' 'libxkbcommon' 'libxrandr') 
 makedepends=('krb5' 'cmake' 'damageproto' 'xmlto' 'docbook-xsl')
 source=("https://github.com/FreeRDP/FreeRDP/archive/${_commit}.zip")
-md5sums=('02b6b125b31950a536ab61e1775fbe1c')
+md5sums=('0e8500f88da44ce2211eebb38e2d4cb5')
 
 build() {
   mkdir build
@@ -24,9 +24,9 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DWITH_GSTREAMER_1_0=ON \
+    -DWITH_WAYLAND=ON \
     -DWITH_PULSE=ON \
-    -DWITH_CUPS=ON
+    -DWITH_CUPS=ON 
   make
 }
 
