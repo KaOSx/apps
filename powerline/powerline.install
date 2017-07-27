@@ -1,0 +1,13 @@
+# Some colored makepkg-like functions
+#!/bin/bash
+# tputcolors
+
+post_install() {
+    echo -e '\e[1;37m ==> To set your bash prompt add the following to your ~/.bashrc:\e[0m'
+    echo -e '\e[1;36m powerline-daemon -q'
+    echo -e '\e[1;36m POWERLINE_BASH_CONTINUATION=1' 
+    echo -e '\e[1;36m POWERLINE_BASH_SELECT=1'
+    echo -e '\e[1;36m . /usr/share/bash/powerline.sh\e[0m'
+    echo -e '\e[1;37m ==> For further instructions see:'
+    echo -e '\e[1;37m ==> https://powerline.readthedocs.io/en/master/usage.html \e[0m'
+}
