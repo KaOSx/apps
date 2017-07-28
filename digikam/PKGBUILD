@@ -16,14 +16,16 @@ makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons'
          'libkdcraw' 'libkipi' 'libkgeomap' 'libkvkontakte' 'libmediawiki' 'libtiff'
          'kcalcore' 'kwallet' 'phonon-qt5' 
          'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang' 'ruby')
-source=("http://download.kde.org/stable/digikam/${pkgbase}-${_pkgver}.tar.xz")
+source=("http://download.kde.org/stable/digikam/${pkgbase}-${_pkgver}.tar.xz"
+        "https://github.com/KDE/digikam/commit/7e00441c257e7e9e5dc5ab983fc06046fb72b0c5.diff")
 md5sums=('7d8c1b1b31acac601bf4c61953000e0a')
 
 prepare() {
   cd ${pkgbase}-${_pkgver}
   sed -i -e 's|add_subdirectory( sv )|#add_subdirectory( sv )|' doc-translated/CMakeLists.txt
   #sed -i -e 's|${KF5_MIN_VERSION}||' ${srcdir}/${pkgbase}-${_pkgver}/extra/kipi-plugins/CMakeLists.txt
-  #patch -p1 -i $srcdir/CMakeLists.diff
+  # needed to build 5.6.0 with cmake 3.9.0 https://bugs.kde.org/show_bug.cgi?id=382703
+  patch -p1 -i $srcdir/7e00441c257e7e9e5dc5ab983fc06046fb72b0c5.diff
 }
 
 build() {
