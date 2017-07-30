@@ -1,7 +1,7 @@
 # install go before building
 pkgname=micro
 pkgver=1.3.0
-pkgrel=1
+pkgrel=2
 _commit=c409f1cc07f5c0e4b6e9766ab9bb10f1ebd92015
 pkgdesc='Terminal-based text editor that aims to be easy to use and intuitive, with full capabilities of modern terminals.'
 url='https://github.com/zyedidia/micro'
@@ -9,40 +9,30 @@ arch=('x86_64')
 license=('MIT')
 depends=('xclip')
 makedepends=('go')
-#source=("https://github.com/zyedidia/micro/archive/v${pkgver}.tar.gz")
-source=("https://github.com/zyedidia/micro/releases/download/v${pkgver}/micro-${pkgver}-linux64.tar.gz")
-md5sums=('54efc98cb44bbc6978e12e0d17fb4f1a')
+source=("https://github.com/zyedidia/micro/releases/download/v${pkgver}/micro-${pkgver}-src.tar.gz")
+#source=("https://github.com/zyedidia/micro/releases/download/v${pkgver}/micro-${pkgver}-linux64.tar.gz")
+md5sums=('2e29c20369000af006de6ff300e85eaa')
 
-#build() {
-  #cd ${pkgname}
+build() {
+  cd ${pkgname}
   #sed -i 's|$(shell go run tools/build-version.go)|$(shell git describe --tags --abbrev=0)|' Makefile
   
-  #trial 1
-  #mkdir -p src
-  #cp -r cmd/micro/vendor/github.com src
+  mkdir -p src/github.com/zyedidia/micro/cmd/micro/
+  cp -r cmd/micro/vendor/github.com src
+  cp -r cmd/micro/vendor/golang.org src
+  cp -r cmd/micro/vendor/gopkg.in src
+  cp -r cmd/micro/vendor/layeh.com src
+  cp -r cmd/micro/highlight src/github.com/zyedidia/micro/cmd/micro/
   
-  # trial 2, upstream snap.yaml
-  #mkdir -p ../go/src/github.com/zyedidia/micro
-  #cp -R . ../go/src/github.com/zyedidia/micro
+  export GOPATH=`pwd`
+  export GOBIN="$GOPATH/bin"
   
-  #export GOPATH=`pwd`
-  #export GOBIN="$GOPATH/bin"
-  #cd ../go/src/github.com/zyedidia/micro
-
-  # old way, run makefile commands, runtime:
-  #go get -u github.com/jteeuwen/go-bindata/...
-  #$GOPATH/bin/go-bindata -nometadata -o runtime.go runtime/...
-  #mv runtime.go cmd/micro
-  # tcell:
-  #go get -d ./cmd/micro
-  #git -C $GOPATH/src/github.com/zyedidia/tcell pull
-  
-  #make runtime
-  #make build
-#}
+  make runtime
+  make build
+}
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   
   #make DESTDIR=${pkgdir} install
   install -Dm755 micro ${pkgdir}/usr/bin/micro
