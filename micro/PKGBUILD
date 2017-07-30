@@ -1,6 +1,6 @@
 # install go before building
 pkgname=micro
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 _commit=c409f1cc07f5c0e4b6e9766ab9bb10f1ebd92015
 pkgdesc='Terminal-based text editor that aims to be easy to use and intuitive, with full capabilities of modern terminals.'
@@ -9,28 +9,42 @@ arch=('x86_64')
 license=('MIT')
 depends=('xclip')
 makedepends=('go')
-source=("https://github.com/zyedidia/micro/archive/v${pkgver}.tar.gz")
-md5sums=('e02e69dab27bb30800ff5c1ddb5c7021')
+#source=("https://github.com/zyedidia/micro/archive/v${pkgver}.tar.gz")
+source=("https://github.com/zyedidia/micro/releases/download/v${pkgver}/micro-${pkgver}-linux64.tar.gz")
+md5sums=('54efc98cb44bbc6978e12e0d17fb4f1a')
 
-build() {
-  cd ${pkgname}-${pkgver}
-  sed -i 's|$(shell go run tools/build-version.go)|$(shell git describe --tags --abbrev=0)|' Makefile
-  export GOPATH=`pwd`
-
-  # run makefile commands, runtime:
-  go get -u github.com/jteeuwen/go-bindata/...
-  $GOPATH/bin/go-bindata -nometadata -o runtime.go runtime/...
-  # tcell:
-  go get -d ./cmd/micro
-  git -C $GOPATH/src/github.com/zyedidia/tcell pull
+#build() {
+  #cd ${pkgname}
+  #sed -i 's|$(shell go run tools/build-version.go)|$(shell git describe --tags --abbrev=0)|' Makefile
   
-  make build
-}
+  #trial 1
+  #mkdir -p src
+  #cp -r cmd/micro/vendor/github.com src
+  
+  # trial 2, upstream snap.yaml
+  #mkdir -p ../go/src/github.com/zyedidia/micro
+  #cp -R . ../go/src/github.com/zyedidia/micro
+  
+  #export GOPATH=`pwd`
+  #export GOBIN="$GOPATH/bin"
+  #cd ../go/src/github.com/zyedidia/micro
+
+  # old way, run makefile commands, runtime:
+  #go get -u github.com/jteeuwen/go-bindata/...
+  #$GOPATH/bin/go-bindata -nometadata -o runtime.go runtime/...
+  #mv runtime.go cmd/micro
+  # tcell:
+  #go get -d ./cmd/micro
+  #git -C $GOPATH/src/github.com/zyedidia/tcell pull
+  
+  #make runtime
+  #make build
+#}
 
 package() {
   cd ${pkgname}-${pkgver}
   
   #make DESTDIR=${pkgdir} install
-  install -Dm755 micro $pkgdir/usr/bin/micro
+  install -Dm755 micro ${pkgdir}/usr/bin/micro
   install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
