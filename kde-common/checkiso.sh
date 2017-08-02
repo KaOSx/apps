@@ -2,7 +2,7 @@
 
 # === This file is part of IsoWriter - <http://github.com/kaosx/isowriter> ===
 # 
-#    Copyright 2016, Anke Boersma demm@kaosx.us>
+#    Copyright 2016-2017, Anke Boersma demm@kaosx.us>
 # 
 #    IsoWriter is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -29,18 +29,18 @@ if [ ! ${UsbDevice} ]; then
     
 else
 
-    md5=$(md5sum ${CheckedFile} | head -c 32)
+    sha256=$(sha256sum ${CheckedFile} | head -c 64)
     bites=$(wc -c ${CheckedFile} | awk '{print $1;}')
-    usb=$(pkexec /usr/bin/head -c ${bites} ${UsbDevice} | md5sum | head -c 32)
+    usb=$(pkexec /usr/bin/head -c ${bites} ${UsbDevice} | sha256sum | head -c 64)
     
-    if [ ${md5} == ${usb} ]; then
+    if [ ${sha256} == ${usb} ]; then
     
         kdialog --msgbox "The downloaded ISO file and USB write match.<br><br>
-        md5sum for both is:<br><b>${md5}</b><br><br>Make sure to verify against the md5sum of the source where you downloaded the ISO from."
+        sha256sum for both is:<br><b>${sha256}</b><br><br>Make sure to verify against the sha256sum of the source where you downloaded the ISO from."
         
     fi
 
-    if [ ${md5} != ${usb} ]; then
+    if [ ${sha256} != ${usb} ]; then
     
         kdialog --error "ISO files do not match, do not use this USB for install media. <br><br> Or make sure only one USB flash device is connected and run Verify again."
         

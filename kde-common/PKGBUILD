@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kde-common
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Common Configuration Files, Scripts and Artwork"
 url="http://www.kde.org"
 license=('GPL')
@@ -40,11 +40,11 @@ md5sums=('44769ab05560bb1ba5a69a30be8b1c92'
          '2c479e69c92e7f6a1dd9cfb03ed8ee4f'
          '18e8d01124b19f7df2937c06e177bf7f'
          '543432fa49677efd496ac2ab15ad46e7'
-         'ac56df816efbbb853e21d70a3d62bb4d'
-         '9015a113e6308800bb0704f1f8b4de75'
+         'f6c0ba2063d10a0aa461d48800c45e7f'
+         'a3ecc36a5ad0fa903387b8152b776edb'
          '3c76971c70e339907f7b1439de4d2413'
          '68915128538c8a5db6f1f55d328d824e'
-         '42bdb0589fe39d62970267e1f905454e'
+         'add78d45c35a8f6a56db156ca29b23c2'
          '9bb1c9c96d03286ae27bc0c3c624af01'
          '453e083b8ef8164c1810275046dd7c81'
          'e97a9f4b8f70462b88ad166909e4122d'
@@ -62,13 +62,13 @@ package() {
 	# install root actions service menu
 	cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1/dolphin-KDE4/
 	mkdir -p ${pkgdir}/usr/share/kservices5/ServiceMenus/
-	install -m755 *.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/
+	install -m755 10-rootactionsfolders.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/
 	
     cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1
     patch -p2 < ${srcdir}/servicemenu-rootactions.patch      
 	install -Dm755 rootactions-servicemenu.pl ${pkgdir}/usr/bin/rootactions-servicemenu.pl
         sed "s|Icon=terminal|Icon=utilities-terminal|g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/10-rootactionsfolders.desktop
-        sed "s|Icon=terminal|Icon=utilities-terminal|g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/11-rootactionsfiles.desktop
+        #sed "s|Icon=terminal|Icon=utilities-terminal|g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/11-rootactionsfiles.desktop
         
     cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1/krusader-KDE4/
     install -Dm644 krusader_rootactions.xml ${pkgdir}/usr/share/krusader/krusader_rootactions.xml
