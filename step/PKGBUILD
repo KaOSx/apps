@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=step
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Interactive Physical Simulator"
 url="http://kde.org/applications/education/step/"
 arch=('x86_64')
@@ -16,8 +16,8 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 conflicts=('kdeedu-step')
 replaces=('kdeedu-step')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build

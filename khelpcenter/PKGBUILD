@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khelpcenter
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Application to show KDE Applications documentation'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khelpcenter'
@@ -12,8 +12,16 @@ license=('LGPL')
 depends=('karchive' 'kbookmarks' 'kconfig' 'kcoreaddons' 'ki18n' 'kinit' 'khtml' 'kservice'
          'kwindowsystem' 'grantlee' 'xapian-core')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/khelpcenter/commit/bc0bc0f139cf28ccb1020d37cc270be451b0362b.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'ab6dbb467a144fb1fdb37e49e093ca4a')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # kdoctools header file not found, revert for now
+  #patch -p1 -R -i ${srcdir}/bc0bc0f139cf28ccb1020d37cc270be451b0362b.diff
+}
 
 build() {
   mkdir -p build

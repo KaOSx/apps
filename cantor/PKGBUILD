@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=cantor
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE Frontend to Mathematical Software"
 url="http://kde.org/applications/education/cantor/"
 arch=('x86_64')
@@ -16,9 +16,9 @@ opdepends=('scilab' 'maxima')
 conflicts=('kdeedu-cantor')
 replaces=('kdeedu-cantor')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'pythonhighlighter.diff')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '8da6949371a3181e42d510e9b59a2876')
 
 prepare() {

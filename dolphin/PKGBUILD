@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=dolphin
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE File Manager"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/dolphin'
@@ -13,10 +13,10 @@ depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kdbusaddons' 'kbo
          'kiconthemes' 'kcompletion' 'ktextwidgets' 'kwindowsystem' 'knotifications' 'baloo-widgets' 'kactivities' 
          'kfilemetadata') 
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         "https://github.com/KDE/dolphin/commit/0bdd8e0b0516555c6233fdc7901e9b417cf89791.diff"
         'dolphinui.diff')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '213f3dbcdd374f1f74a87a08d28de0fd'
          'e06abd368c90cd204c6e285a9878281f')
 
