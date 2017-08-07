@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ki18n
 pkgver=${_kf5ver}
-pkgrel=3
+pkgrel=1
 pkgdesc='Ki18n'
 arch=('x86_64')
 url='https://github.com/KDE/ki18n'
@@ -13,16 +13,14 @@ depends=('kjs' 'qt5-script' 'qt5-declarative')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/5.20/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/ki18n/commit/77eab970fde3ecbc259d6deff61fce4f360b05a7.diff"
         "https://github.com/KDE/ki18n/commit/97ce7535124aff6a576bc748260ce6fa4ab781d8.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'cea48da5b8f78a7b66b89e0adba50832'
          '475a0939bc9d3c650a27c3812a03e288')
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/77eab970fde3ecbc259d6deff61fce4f360b05a7.diff
-  patch -p1 -i ${srcdir}/97ce7535124aff6a576bc748260ce6fa4ab781d8.diff
+
+  #patch -p1 -i ${srcdir}/97ce7535124aff6a576bc748260ce6fa4ab781d8.diff
 }
 
 build() {
