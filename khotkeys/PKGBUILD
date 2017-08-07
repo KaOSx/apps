@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khotkeys
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KHotKeys'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khotkeys'
@@ -12,18 +12,21 @@ license=('LGPL')
 depends=('plasma-workspace')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
-source=("http://download.kde.org/unstable/plasma/${pkgver}/$pkgname-$pkgver.tar.xz"
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
-        'dbus_action.diff')
+        'dbus_action.diff'
+        'cmake3.9.patch')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'b72371a922acbf0b812d92cd509595a9')
+         'b72371a922acbf0b812d92cd509595a9'
+         '2b6ec95c413d2bcaa7238908cb9a27e8')
 #source=("git://anongit.kde.org/khotkeys.git")
 #md5sums=('SKIP')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  patch -p1 -i $srcdir/dbus_action.diff
+  patch -p1 -i ${srcdir}/dbus_action.diff
+  patch -p1 -i ${srcdir}/cmake3.9.patch
 }
 
 build() {
