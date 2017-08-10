@@ -2,7 +2,7 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='http://www.mozilla.org/projects/firefox'
-pkgver=55.0
+pkgver=55.0.1
 pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
@@ -11,7 +11,7 @@ groups=('network')
 depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk2' 'gtk3' 'networkmanager'
          'gst-plugins-good' 'gst-plugins-bad' 'gst-libav' 'mozilla-common' 'startup-notification'
          'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libvpx' 'icu' 'libevent' 'sqlite' 'hunspell'
-         'pulseaudio')
+         'pulseaudio') # 'libjpeg-turbo')
 makedepends=('unzip' 'zip' 'diffutils' 'python2' 'yasm' 'mesa' 'imake' 'xorg-server' 
              'inetutils' 'gconf' 'autoconf2.13' 'rust')
 optdepends=('freshplayerplugin: full flash support in firefox')
@@ -21,11 +21,11 @@ source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${pkgver}/sour
         'firefox.desktop'
         'firefox-install-dir.patch'
         'vendor.js')
-md5sums=('8c623c433e806e1880391278e9fa1ac8'
-         'fc0edbeaa27aac43c69e5af59135f6de'
-         '174a2a286e32d5c9a48f51a18ffa4e6c'
-         'dbf14588e85812ee769bd735823a0146'
-         '0d053487907de4376d67d8f499c5502b')
+sha256sums=('827c26ed1940ce22aeeec98120cbe1a415365929a9186a0bc3c4c17726a9a9d3'
+            '3c9b9160f1e3d63e0331562403a33c2b9065d64186c7dfa097647b1d7e5622ae'
+            '9f25db9a95d8fb29545e9864c69fae41b95a904e1580cf4b838e22fbdcbbdcc3'
+            'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
+            '4b50e9aec03432e21b44d18c4c97b2630bace606b033f7d556c9d3e3eb0f4fa4')
 
 prepare() {
   cd ${pkgname}-${pkgver}
