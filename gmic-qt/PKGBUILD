@@ -1,0 +1,39 @@
+
+pkgname=gmic-qt
+pkgver=2.0.0
+_gmic=75f229aaad4c276788ce2fde956bf2d6fd13ed14
+_commit=093bedf783bd6f6ec213e32045ea0beced455d0b
+pkgrel=1
+pkgdesc="Plug-in to bring the full-featured open-source framework for image processing -G'MIC- to Krita"
+url="http://gmic.eu/"
+license=('GPLv3')
+arch=('x86_64')
+depends=('qt5-base' 'libpng' 'zlib' 'fftw' 'curl')
+makedepends=('cmake' 'qt5-tools')
+source=("https://github.com/dtschump/gmic/archive/${_gmic}.zip"
+        "https://github.com/c-koi/gmic-qt/archive/${_commit}.zip")
+md5sums=('38c2a22c0412d966f213bc8a939f1512'
+         '661af48938059e0048cb7abc200565f6')
+
+build() {
+  cd gmic-${_gmic}/
+  make -C src CImg.h gmic_stdlib.h
+  
+  cd ../gmic-qt-${_commit}
+  cmake \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DGMIC_QT_HOST=krita \
+    -DGMIC_PATH="../gmic-${_gmic}/src" 
+  make
+}
+
+package() {
+  cd gmic-qt-${_commit}
+  
+  #make DESTDIR=${pkgdir} install
+  install -D -m755 gmic_krita_qt ${pkgdir}/usr/bin/gmic_krita_qt
+  #install -D -m755 *.qm ${pkgdir}/usr/share/gmic-qt/locale/
+  
+  install -Dm644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+} 
