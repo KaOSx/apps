@@ -1,7 +1,7 @@
 
 pkgname=skrooge
-pkgver=2.8.2
-pkgrel=2
+pkgver=2.9.0
+pkgrel=1
 pkgdesc="Allows you to manage your personal finances in KDE"
 arch=('x86_64')
 url="http://skrooge.org"
@@ -10,11 +10,11 @@ depends=('grantlee' 'karchive' 'kcoreaddons' 'kconfig' 'ki18n' 'kitemviews' 'kwi
          'kwindowsystem' 'kcompletion' 'kjobwidgets' 'kconfigwidgets' 'kiconthemes' 'kio'
          'knewstuff' 'kparts' 'kwallet' 'kxmlgui' 'plasma-workspace' # 'aqbanking' 
          'boost-libs' 'libofx' 'qca-qt5' 'kactivities' 'sqlcipher' 'qtwebkit-tp')
-makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost') # 'clang')
+makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost' 'clang')
 groups=('office')
-source=("http://download.kde.org/unstable/skrooge/${pkgname}-${pkgver}.tar.xz"
+source=("http://download.kde.org/stable/skrooge/${pkgname}-${pkgver}.tar.xz"
         'sqlite3.patch')
-md5sums=('eafc964010c20927a82d7b411a789e5d'
+md5sums=('fc7b86c27883409c22a153893b7eea8f'
          '5e98360d8ce1c90baef8ed7bd881d884')
 
 prepare() {
@@ -27,8 +27,8 @@ build() {
   mkdir -p build
   cd build
   
-  #export CC=/usr/bin/clang
-  #export CXX=/usr/bin/clang++
+  export CC=/usr/bin/clang
+  export CXX=/usr/bin/clang++
 
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \

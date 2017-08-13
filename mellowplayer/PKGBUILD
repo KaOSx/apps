@@ -1,27 +1,34 @@
 
 pkgname=mellowplayer
-pkgver=2.2.5
-_commit=50bdbf5
+pkgver=3.0.0
+_commit=2282a3b
 pkgrel=1
 pkgdesc="Open source and cross-platform desktop application that runs web-based music streaming 
          services in its own window and provides integration with your desktop, specifically crafted for KaOS"
 url='https://colinduquesnoy.github.io/MellowPlayer/'
 license=('GPL')
 arch=('x86_64')
-depends=('kglobalaccel' 'knotifications' 'qtwebengine' 'snorenotify' 'pepper-flash' 'widevine')
+depends=('kglobalaccel' 'knotifications' 'qtwebengine' 'snorenotify' 'pepper-flash' 'widevine'
+         'qt5-quickcontrols2' 'libnotify')
 makedepends=('qt5-tools')
 source=("https://github.com/ColinDuquesnoy/MellowPlayer/tarball/master/MellowPlayer-${pkgver}.tar.gz")
-md5sums=('8b713ed264684d8b9bc20d0340bfc76a')
+md5sums=('ab9dc613cf90c13d90d505197f9be46b')
 
 build() {
-  cd ColinDuquesnoy-MellowPlayer-${_commit}
-
-  /usr/lib/qt5/bin/qmake  CONFIG+=kde_support
+  mkdir -p build
+  cd build
+  
+  cmake ../ColinDuquesnoy-MellowPlayer-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTS=OFF \
+    -DDEFAULT_THEME="Midna"
   make 
 }
 
 package() {
-  cd ColinDuquesnoy-MellowPlayer-${_commit}
+  cd build
 
-  make INSTALL_ROOT=${pkgdir} install
+  make DESTDIR=${pkgdir} install
 }
