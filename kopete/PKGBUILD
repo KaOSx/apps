@@ -4,8 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kopete
 #pkgver=${_kdever}
-pkgver=17.03.71
-_commit=285c9aadaa5f584bf52899fc7233557cae67f62c
+pkgver=17.07.70
+_commit=42aea460fa2f266be60ac02a2f3dcd3d9f969785
 pkgrel=1
 pkgdesc='Instant Messenger'
 url='http://kde.org/applications/internet/kopete/'
@@ -21,7 +21,7 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 #source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/kopete/archive/${_commit}.zip")
-md5sums=('f34fcb9bdb3031e7b761dfab0cee53d2')
+md5sums=('40c9a773ff1835d59b4b57b81aa86fb3')
 
 prepare() {
   cd ${pkgname}-${_commit}
@@ -40,7 +40,7 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DCMAKE_SKIP_RPATH=ON \
-    -DDWITH_jabber=OFF \
+    -DWITH_jabber=OFF \
     -DWITH_skype=ON
   make
 }
