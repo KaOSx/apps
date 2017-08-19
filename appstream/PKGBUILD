@@ -1,7 +1,7 @@
  
 pkgname=appstream
 _pkgname=AppStream
-pkgver=0.11.0
+pkgver=0.11.3
 pkgrel=1
 pkgdesc="Provides a standard for creating app stores across distributions"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('libyaml' 'libxml2' 'glib2' 'qt5-base')
 makedepends=('cmake' 'gobject-introspection' 'itstool' 'python2' 'xmlto')
 source=("https://www.freedesktop.org/software/appstream/releases/${_pkgname}-${pkgver}.tar.xz"
         'appstream.hook')
-md5sums=('69cdfd1c6556f796d10416739792fa60'
+md5sums=('c2d9636b324a247dac0bb88fc1944726'
          'f244ccc7b89aacfe903facce393174ca')
 
 build() {
@@ -24,7 +24,7 @@ build() {
   -DCMAKE_INSTALL_LIBDIR=lib \
   -DQT=ON \
   -DSTEMMING=OFF
-  make
+  make -j1
 }
 
 package() {
