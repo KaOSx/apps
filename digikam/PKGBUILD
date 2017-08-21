@@ -3,7 +3,7 @@ pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
 pkgver=5.6.0
 _pkgver=5.6.0
-pkgrel=3
+pkgrel=4
 url="https://www.digikam.org/"
 arch=('x86_64')
 license=('GPL')
@@ -26,7 +26,8 @@ prepare() {
   sed -i -e 's|add_subdirectory( sv )|#add_subdirectory( sv )|' doc-translated/CMakeLists.txt
   #sed -i -e 's|${KF5_MIN_VERSION}||' ${srcdir}/${pkgbase}-${_pkgver}/extra/kipi-plugins/CMakeLists.txt
   # needed to build 5.6.0 with cmake 3.9.0 https://bugs.kde.org/show_bug.cgi?id=382703
-  #patch -p1 -i $srcdir/7e00441c257e7e9e5dc5ab983fc06046fb72b0c5.diff
+  cd core
+  patch -p1 -i ${srcdir}/7e00441c257e7e9e5dc5ab983fc06046fb72b0c5.diff
 }
 
 build() {
