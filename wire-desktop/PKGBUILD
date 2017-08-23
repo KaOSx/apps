@@ -1,7 +1,7 @@
 
 pkgname=wire-desktop
 pkgver=2.15.2751
-pkgrel=1
+pkgrel=2
 pkgdesc="Cross platform desktop app, wrapping the wire-webapp. Based on Electron"
 arch=('x86_64')
 url="https://wire.com/en/"
@@ -16,7 +16,9 @@ build() {
   cd ${pkgname}-release-${pkgver}
   
   npm install
-  node_modules/.bin/build --linux --x64 --dir
+  # see Gruntfile.coffee for needed grunt calls
+  $(npm bin)/grunt 'clean:linux' 'update-keys' 'release-prod' 'bundle'
+  $(npm bin)/grunt "electronbuilder:linux_other"
 }
 
 package() {
