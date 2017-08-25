@@ -1,6 +1,6 @@
 
 pkgname=go
-pkgver=1.8.3
+pkgver=1.9
 pkgrel=1
 pkgdesc='Google Go compiler and tools (release version)'
 arch=('x86_64')
@@ -12,7 +12,7 @@ options=('!strip' 'staticlibs')
 install="${pkgname}.install"
 # check for versions: http://golang.org/dl/
 source=("https://storage.googleapis.com/golang/${pkgname}${pkgver}.linux-amd64.tar.gz")
-md5sums=('f412132cdce75d41e3bcb0d68a33fc66')
+sha256sums=('d70eadefce8e160638a9a6db97f7192d8463069ab33138893ad3bf31b0650a79')
 
 build() {
   cd go/src
@@ -21,20 +21,12 @@ build() {
   export GOBIN="$GOROOT/bin"
   export GOPATH="${srcdir}/"
   export GOROOT_FINAL=/usr/lib/go
-  export GOROOT_BOOTSTRAP="$GOROOT_FINAL"
+  export GOROOT_BOOTSTRAP=/usr/lib/go
 
   export GOOS=linux
-  export GOARCH=arm
+  export GOARCH=amd64
 
-  bash make.bash
-
-  for os in linux; do 
-    for arch in amd64 386; do
-      export GOOS="$os"
-      export GOARCH="$arch"
-      bash make.bash --no-clean
-    done
-  done
+  bash make.bash --no-clean
 
   GOOS=linux
 
@@ -48,8 +40,6 @@ build() {
 
 check() {
   cd go
-
-  export GO386=387
 
   export GOOS=linux
   export GOARCH=amd64

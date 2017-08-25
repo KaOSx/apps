@@ -1,6 +1,6 @@
 
 pkgname=phpmyadmin
-pkgver=4.7.3
+pkgver=4.7.4
 pkgrel=1
 pkgdesc='PHP and hence web-based tool to administrate MySQL over the WWW'
 arch=('x86_64')
@@ -9,14 +9,14 @@ license=('GPL')
 depends=('mariadb-clients' 'php')
 backup=(etc/webapps/phpmyadmin/config.inc.php)
 source=("https://files.phpmyadmin.net/phpMyAdmin/${pkgver}/phpMyAdmin-${pkgver}-all-languages.zip")
-md5sums=('ca1c2f6c9175b59f7eaade5fe028e1a4')
+sha256sums=('1f85ebb403c19862c79ccdce180debb15aeb98e7b5e656d1173d77f30ca9bedd')
 
 package() {
   _instdir=${pkgdir}/usr/share/webapps/phpMyAdmin
   mkdir -p ${_instdir} ${pkgdir}/etc/webapps/phpmyadmin
   cd ${_instdir}
 
-  cp -ra "$srcdir"/phpMyAdmin-$pkgver-all-languages/* .
+  cp -ra ${srcdir}/phpMyAdmin-${pkgver}-all-languages/* .
 
   ln -s /etc/webapps/phpmyadmin/config.inc.php ${_instdir}/config.inc.php
   cp ${_instdir}/config.sample.inc.php ${pkgdir}/etc/webapps/phpmyadmin/config.inc.php
