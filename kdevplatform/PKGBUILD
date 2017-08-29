@@ -1,7 +1,7 @@
 
 pkgname=kdevplatform
-pkgver=5.1.1
-_pkgver=5.1.1
+pkgver=5.1.2
+_pkgver=5.1.2
 pkgrel=1
 pkgdesc="A C/C++ development platform for KDE"
 arch=('x86_64')
@@ -15,12 +15,13 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kf5-kdevplatform')
 replaces=('kf5-kdevplatform')
 source=("https://download.kde.org/stable/kdevelop/${_pkgver}/src/kdevplatform-${pkgver}.tar.xz")
-md5sums=('bc865ca1354939228e00ba113bcebee1')
+md5sums=('1d4c6ccf043a0f1844cd77fa6e41647b')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
   #patch -Rp1 -i $srcdir/ref.diff
+  sed -i -e 's|qdbus|qdbus-qt5|g' util/kdevplatform_shell_environment.sh
 }
 
 build() {

@@ -1,8 +1,8 @@
 
 pkgname=kdevelop
-pkgver=5.1.1
-_pkgver=5.1.1
-pkgrel=2
+pkgver=5.1.2
+_pkgver=5.1.2
+pkgrel=1
 pkgdesc="A C/C++ development environment for KDE"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
@@ -16,12 +16,13 @@ conflicts=('kf5-kdevelop')
 replaces=('kf5-kdevelop')
 groups=('programming')
 source=("https://download.kde.org/stable/kdevelop/${_pkgver}/src/kdevelop-${pkgver}.tar.xz")      
-md5sums=('868dab514949996e8fdc66cc7f94cea6')
+md5sums=('b38e55c5b8656d7fab597d8d2b873683')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
   #patch -p1 -i $srcdir/qt55.diff
+  sed -i -e 's|qdbus|qdbus-qt5|g' app/kdevelop!
 }
 
 build() {
