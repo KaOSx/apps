@@ -1,36 +1,37 @@
  
 pkgname=appstream
 _pkgname=AppStream
-pkgver=0.11.3
+pkgver=0.11.4
 pkgrel=1
 pkgdesc="Provides a standard for creating app stores across distributions"
 arch=('x86_64')
 url="https://github.com/ximion/appstream"
 license=('GPL')
 depends=('libyaml' 'libxml2' 'glib2' 'qt5-base')
-makedepends=('cmake' 'gobject-introspection' 'itstool' 'python2' 'xmlto')
+makedepends=('meson' 'ninja' 'gobject-introspection' 'itstool' 'python2' 'xmlto' 'gtk-doc')
 source=("https://www.freedesktop.org/software/appstream/releases/${_pkgname}-${pkgver}.tar.xz"
         'appstream.hook')
-md5sums=('c2d9636b324a247dac0bb88fc1944726'
+md5sums=('1a7971dc37af30f3bfbbf82c9d4b360d'
          'f244ccc7b89aacfe903facce393174ca')
 
 build() {
   mkdir -p build
   cd build
 
-  cmake ../${_pkgname}-${pkgver} \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=/usr \
-  -DCMAKE_INSTALL_LIBDIR=lib \
-  -DQT=ON \
-  -DSTEMMING=OFF
-  make -j1
+   meson ../${_pkgname}-${pkgver} \
+    --prefix=/usr \
+    --buildtype=release \
+    --libexecdir=/usr/lib \
+    -Dqt=true \
+    -Dstemming=false \
+    -Ddocumentation=false
+  ninja
 }
 
 package() {
   cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} ninja install
 
   install -Dm644 ../appstream.hook ${pkgdir}/usr/share/libalpm/hooks/appstream.hook
 }
