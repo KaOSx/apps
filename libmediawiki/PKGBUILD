@@ -4,9 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libmediawiki
 #pkgver=${_kdever}
-pkgver=0.1.0
-pkgrel=5
-_commit=3df0a45d1d60a8045b46e4b3158ca60470268f45
+pkgver=5.37.0
+pkgrel=1
 pkgdesc="KDE C++ interface for MediaWiki based web service as wikipedia.org"
 url="https://github.com/KDE/libmediawiki"
 arch=('x86_64')
@@ -16,11 +15,11 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-graphics' 'kde-uninstall')
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/libmediawiki/archive/${_commit}.zip")
-md5sums=('8ccf5ea1c50f67707a297c15eaa5239b')
+source=("https://download.kde.org/stable/libmediawiki/${pkgname}-${pkgver}.tar.xz")
+md5sums=('cb75f9b26a096fa85bf4ba1a1116119f')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   #patch -p1 -i $srcdir/qt5.5.diff
   #sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/tasks/preprocesstask.h
 }
@@ -29,7 +28,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

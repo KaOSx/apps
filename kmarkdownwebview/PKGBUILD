@@ -1,18 +1,19 @@
 
 pkgname=kmarkdownwebview
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
+_commit=43e328f4cb5b464087cbb075af1a4878120ece94
 pkgdesc="Markdown viewer KParts plugin, allowing KParts-using applications to display files in markdown format in rendered view"
 arch=('x86_64')
-url="https://cgit.kde.org/scratch/kossebau/kmarkdownwebview.git/tree/README.md"
+url="https://github.com/KDE/kmarkdownwebview"
 license=('LGPL2.1+')
 depends=('ki18n' 'kparts' 'qtwebengine' 'qt5-location')
 makedepends=('extra-cmake-modules')
-source=("git://anongit.kde.org/scratch/kossebau/kmarkdownwebview.git")
-md5sums=('SKIP')
+source=("https://github.com/KDE/kmarkdownwebview/archive/${_commit}.zip")
+md5sums=('99b2058acd104158960fd21bc5241382')
 
 prepare() {
-  cd ${pkgname}
+  cd ${pkgname}-${_commit}
   #sed -i -e 's|Qt5WebEngineWidgets CONFIG QUIET|Qt5WebEngineWidgets CONFIG REQUIRED|' src/previewplugins/CMakeLists.txt
 }
 
@@ -20,7 +21,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \

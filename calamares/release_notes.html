@@ -11,13 +11,15 @@
 
 <body>
     <h3>KaOS - 2017.09</h3>
-    <p>It is with great pleasure to present to you the September release of a new stable ISO.</p>
+    <p>KaOS is proud to announce the availability of the September release of a new stable ISO.</p>
+    
+    <p>The biggest change to announce is that the kernel has moved to the hardened patch set, which provides an improved implementation of Address Space Layout Randomization for userspace processes. Linux-hardened started after grsecurity was no longer available as an open source option and is a supplement to upstream kernel hardening work by the Kernel Self Protection Project. See the Linux ASLR comparison for more information.</p>
     
     <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.37.0, Plasma 5.10.5, KDE Applications 17.08.0 &amp; <strong>not yet released ports of KDE Applications.</strong> All built on <strong> Qt 5.9.1.</strong></p>
     
     <p>Systems installed by Calamares up to and including Calamares 3.1 have a weaker password salt than they should.  This weakness does not weaken the password security for logins on a single system. It does weaken the password if an attacker can obtain the password hash through some other means.  With Calamares 3.1.2 this issue is corrected thus it is vital to get this new ISO out.</p>
     
-    <p>Two KaOS specific tools have been updated.  The Welcome application recieved a complete rewrite in QML, the used first run wizard was adjusted for Qt/PyQt 5.9 and received a more modern GUI.</p>
+    <p>As requested by KaOS users, the next ISO will also have a custom look for the bash prompt. This can be added to current installs too by installing powerline.  The Midna Splashscreen was rewritten. It now uses a few QML effects instead of just one.</p>
     
     <p>A few more QML based applications have been added to the KaOS repositories.  Koko, new Image Gallery application and Kube, a modern Communication and Collaboration Client.  Kube might some day replace KMail in KaOS.
     
@@ -29,7 +31,7 @@
     
     <p>KaOS uses a First Run Wizard.  It will run on the newly installed system and enables with just a few clicks to adjust mouse behavior, menu launcher, desktop theme, used wallpaper, color scheme, widget style, window decoration and virtual desktops used.  With one click this Wizard will also link to KaOS Documentation and all contact info.</p>
     
-    <p>Most notable major updates to the base of the system are GCC 6.4.0, Binutils 2.28, Linux 4.12.9, LLVM/Clang 4.0.1, Qt 5.9.1, Kmod 24, Mesa 17.1.7, Glib2 2.52.3, DBus 1.10.22, Porotobuf 3.4.0 and PyQt 5.9</p>
+    <p>Most notable major updates to the base of the system are GCC 6.4.0, Binutils 2.28, Linux 4.12.10, LLVM/Clang 4.0.1, Qt 5.9.1, Kmod 24, Mesa 17.1.8, Glib2 2.52.3, DBus 1.10.22, Porotobuf 3.4.0 and PyQt 5.9</p>
     
     <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
     
@@ -39,10 +41,11 @@
 
     <p><b>Calamares</b>, the used installer framework, is at the 3.1 series. Highlights of the changes and additions:
     <ul>
-        <li>Improved salting for user passwords.</li>
-        <li>Crash on startup when no installation-devices are found has been fixed.</li>
-        <li>System language, locale settings and keyboard are now guessed based on installer language and location.</li>
-        <li>Hostnames may be up to 63 characters in length, conforming to RFC1123 and various LDAP schemas.</li>
+        <li>Summary page now shows language and number-formats information.</li>
+        <li>The Quit and Done buttons now have a tooltip explaining what they will do.</li>
+        <li>At the end of the install process, a notification appears in the system notification area.</li>
+        <li>Fat32 filesystems are now handled correctly even when misspelled.</li>
+        <li>Filesystem sizes are now shown with an MB suffix.</li>
     </ul></p>
     
     <p><strong>Octopi</strong> is becoming a very crucial part of full system maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like making sure a mirror is synced before starting any update, looking at the pacman logs, an option to get a paste from a complete snapshot of all info of a system with the SysInfo tool are included. Also included are very simple ways to open files, like copy to clipboard the file path shown in Octopi. To make sure the system doesn't start using too much disk space for the pacman cache, but still giving the user the option to retain some recent packages, the cache-cleaner tool is a great addition. The built-in tool to access <b>KCP</b> has now a much clearer place with the addition of its own "foreign" icon in the menu-bar. New added is the option to select custom icons for the systemtray.</p>
