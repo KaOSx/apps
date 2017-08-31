@@ -1,0 +1,28 @@
+ 
+pkgname=ddcutil
+pkgver=0.8.4
+pkgrel=1
+pkgdesc='Program for querying and changing monitor settings, such as brightness and color levels.'
+arch=('x86_64')
+url='http://ddcutil.com/'
+license=('GPL')
+depends=('libdrm' 'libxrandr' 'libgudev')
+source=("https://github.com/rockowitz/ddcutil/archive/v${pkgver}.tar.gz")
+md5sums=('831507d72461a62e1aace092daa466f9')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  
+  ./autogen.sh
+  ./configure --prefix=/usr \
+    --enable-drm
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  
+  make DESTDIR=${pkgdir} install
+  
+  install -Dm644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+}
