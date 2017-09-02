@@ -1,8 +1,8 @@
 
 pkgname=nomad-firewall
 arch=('x86_64')
-pkgver=0.5
-_commit=3838dc251caeb05fc3141370eab4cb30a537b72d
+pkgver=0.6
+_commit=e46458f7d0dc271db5dbe924bb68eb2608742709
 pkgrel=1
 pkgdesc="Firewall tool for Linux uses the Qt toolkit."
 url="https://nxos.org/#nomad-firewall"
@@ -13,13 +13,13 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('utils')
 source=("https://github.com/nomad-desktop/nomad-firewall/archive/${_commit}.zip"
         'build_fixes.diff')
-md5sums=('fa7aaf90ffb307a9e3fb68fb94c12b3c'
+md5sums=('806e7b3d54c1eef428505209b97cad5a'
          'a33ea08e6da592a9b7e11b7c87d42cb0')
 
 prepare() {
   cd ${pkgname}-${_commit}
   
-  patch -p1 -i ${srcdir}/build_fixes.diff
+  #patch -p1 -i ${srcdir}/build_fixes.diff
   #sed -i 's|add_subdirectory(netstat)|#add_subdirectory(netstat)|' plugins/CMakeLists.txt
 }
 
