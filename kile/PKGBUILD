@@ -1,6 +1,6 @@
 
 pkgname=kile
-pkgver=2.9.73
+pkgver=2.9.91
 _commit=6c824b8174b1609187a7981d820cd81b5a532cd5
 pkgrel=1
 pkgdesc="User friendly TeX/LaTeX frontend for KDE."
@@ -11,14 +11,15 @@ depends=('kconfig' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kguiaddons' 'ki18n' 'ki
          'kparts' 'ktexteditor' 'kwindowsystem' 'kxmlgui' 'texlive-core' 'docbook-xsl' 'okular')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('office')
-source=("https://github.com/KDE/kile/archive/${_commit}.zip")
-md5sums=('79cc01406893994bd529145e330d3882')
+#source=("https://github.com/KDE/kile/archive/${_commit}.zip")
+source=("https://sourceforge.net/projects/kile/files/unstable/kile-3.0b1/${pkgname}-${pkgver}.tar.bz2")
+sha256sums=('08cb54cddc54c851d98b339f386d9aa20b3d71ff98ef078242fd52f684712d93')
 
 build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

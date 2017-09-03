@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kompare
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='A KDE visual diff viewer'
 url='http://kde.org/applications/development/kompare/'
 arch=('x86_64')
@@ -13,20 +13,6 @@ depends=('kcoreaddons' 'kcodecs' 'kiconthemes' 'kjobwidgets' 'kconfig' 'kparts' 
          'kwidgetsaddons' 'libkomparediff2')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
-conflicts=('kdesdk-cervisia'
-         'kdesdk-kcachegrind' 
-         'kdesdk-kioslaves'
-         'kdesdk-kompare'
-         'kdesdk-poxml'
-         'kdesdk-dev-scripts'
-         'kdesdk-strigi-analyzers')
-replaces=('kdesdk-cervisia'
-         'kdesdk-kcachegrind' 
-         'kdesdk-kioslaves'
-         'kdesdk-kompare'
-         'kdesdk-poxml'
-         'kdesdk-dev-scripts'
-         'kdesdk-strigi-analyzers')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
