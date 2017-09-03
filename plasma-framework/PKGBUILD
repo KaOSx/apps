@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-framework'
@@ -25,8 +25,8 @@ md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://bugs.kde.org/show_bug.cgi?id=382340
-  patch -p1 -i ${srcdir}/0c27df529d80e0449cfdc6352ad46c904f38c634.diff
-  patch -p1 -i ${srcdir}/47a9cd23b3dec00a7f0eda84498b98c64015992c.diff
+  #patch -p1 -i ${srcdir}/0c27df529d80e0449cfdc6352ad46c904f38c634.diff
+  #patch -p1 -i ${srcdir}/47a9cd23b3dec00a7f0eda84498b98c64015992c.diff
 }
 
 build() {

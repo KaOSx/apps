@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
  
 pkgname=kirigami
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Set of QtQuick components at the moment targeted for mobile use (in the future desktop as well)'
 arch=('x86_64')
 url='https://github.com/KDE/kirigami'
@@ -13,7 +13,7 @@ depends=('plasma-framework' 'purpose' 'qt5-svg' 'qt5-quickcontrols2')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 source=("http://download.kde.org/stable/frameworks/5.37/${pkgname}2-${pkgver}.tar.xz"
         'gallery.diff')
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}2-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '58fe59ea88bc05fb5f73686a1da00367')
 
 prepare() {
