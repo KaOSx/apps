@@ -1,18 +1,18 @@
 
 pkgname=rkward
-pkgver=0.6.9.3
-_commit=d675e69bcc1aff8cc9615a4c23d9d11420010867
+pkgver=0.6.9.4
+_commit=57302e24b92b1f72a37d99e3bd757011f4ec4d15
 pkgrel=1
 pkgdesc="Provides an easily extensible, easy to use IDE/GUI for R."
 arch=('x86_64')
 url="http://rkward.sourceforge.net/"
 license=('GPL')
 depends=('kcoreaddons' 'ki18n' 'kxmlgui' 'ktexteditor' 'kwidgetsaddons' 'kdewebkit' 'kparts' 'knotifications'
-         'kwindowsystem' 'qt5-webkit' 'qt5-script' 'r')
+         'kwindowsystem' 'kcrash' 'qtwebkit-tp' 'qt5-script' 'r')
 makedepends=('extra-cmake-modules' 'kdoctools' 'icu')
 groups=('science')
 source=("https://github.com/KDE/rkward/archive/${_commit}.zip")
-md5sums=('c1b563eef811367c2800a3776b60ef41')
+md5sums=('b61b92336eda5ddb556c4cec2ed1357b')
 
 prepare() {
   cd ${pkgname}-${_commit}
