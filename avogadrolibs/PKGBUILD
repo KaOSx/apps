@@ -1,12 +1,12 @@
 
 pkgname=avogadrolibs
 pkgver=1.90.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Libraries providing 3D rendering, visualization, analysis and data processing useful in computational chemistry and related areas."
 arch=('x86_64')
 url="http://www.openchemistry.org/projects/avogadro2/"
 license=('GPL2')
-depends=('qt5-base' 'glew' 'hdf5' 'jsoncpp' 'spglib')
+depends=('qt5-base' 'glew' 'hdf5' 'spglib') #'jsoncpp' 
 makedepends=('cmake' 'boost' 'eigen3')
 groups=('education')
 conflicts=('avogadro')
@@ -42,7 +42,7 @@ package() {
   make DESTDIR=${pkgdir} install
   
   # use system jsoncpp
-  rm ${pkgdir}/usr/lib/libjsoncpp.a
+  #rm ${pkgdir}/usr/lib/libjsoncpp.a
   
   install -Dm644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
