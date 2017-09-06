@@ -1,17 +1,21 @@
 
 pkgname=zinnia
 pkgver=0.06
-pkgrel=2
+pkgrel=3
 pkgdesc="Simple and portable open source handwriting recognition system based on Support Vector Machines"
 arch=('x86_64')
 url="http://zinnia.sourceforge.net/"
 license=('BSD')
 makedepends=('libtool')
-source=("http://sourceforge.net/projects/zinnia/files/zinnia/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('5ed6213e2b879465783087a0cf6d5fa0')
+source=("https://sourceforge.net/projects/zinnia/files/zinnia/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "https://github.com/taku910/zinnia/commit/b49a0187e74ff619f28fb20e2b5ecfec1d437d6f.diff")
+md5sums=('5ed6213e2b879465783087a0cf6d5fa0'
+         '5c551d91dca14937838301ef44a98985')
 
 build() {
   cd ${pkgname}-${pkgver}
+  # fix for gcc6
+  patch -p1 -i ${srcdir}/b49a0187e74ff619f28fb20e2b5ecfec1d437d6f.diff
 
   ./configure --prefix=/usr
   make
