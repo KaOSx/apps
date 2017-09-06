@@ -1,9 +1,9 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
-pkgver=5.6.0
-_pkgver=5.6.0
-pkgrel=4
+pkgver=5.7.0
+_pkgver=5.7.0
+pkgrel=1
 url="https://www.digikam.org/"
 arch=('x86_64')
 license=('GPL')
@@ -18,7 +18,7 @@ makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons'
          'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang' 'ruby')
 source=("http://download.kde.org/stable/digikam/${pkgbase}-${_pkgver}.tar.xz"
         "https://github.com/KDE/digikam/commit/7e00441c257e7e9e5dc5ab983fc06046fb72b0c5.diff")
-md5sums=('7d8c1b1b31acac601bf4c61953000e0a'
+md5sums=('475e85b052c72763ee1103493956bd68'
          'ecfb11836ad15ecee7cfda146d722cb5')
 
 prepare() {
@@ -26,8 +26,8 @@ prepare() {
   sed -i -e 's|add_subdirectory( sv )|#add_subdirectory( sv )|' doc-translated/CMakeLists.txt
   #sed -i -e 's|${KF5_MIN_VERSION}||' ${srcdir}/${pkgbase}-${_pkgver}/extra/kipi-plugins/CMakeLists.txt
   # needed to build 5.6.0 with cmake 3.9.0 https://bugs.kde.org/show_bug.cgi?id=382703
-  cd core
-  patch -p1 -i ${srcdir}/7e00441c257e7e9e5dc5ab983fc06046fb72b0c5.diff
+  #cd core
+  #patch -p1 -i ${srcdir}/7e00441c257e7e9e5dc5ab983fc06046fb72b0c5.diff
 }
 
 build() {
@@ -84,5 +84,7 @@ package_kipi-plugins () {
   
   cd ${srcdir}/build/po
   make DESTDIR=${pkgdir}/ install
+  # part of libkvkontakte
+  rm ${pkgdir}/usr/share/locale/*/LC_MESSAGES/libkvkontakte.mo
 }
 
