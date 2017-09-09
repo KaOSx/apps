@@ -2,12 +2,12 @@
 pkgname=lyx
 pkgver=2.2.3
 _pkgver=2.2.3
-pkgrel=2
+pkgrel=3
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
 url="http://www.lyx.org"
-depends=('qt5-base' 'qt5-svg' 'qt5-x11extras' 'texlive-core' 'python2' 'perl' 'imagemagick' 'enchant' 
-         'boost-libs' 'icu' 'libmythes' 'libxtst' 'aspell')
+depends=('qt5-base' 'qt5-svg' 'qt5-x11extras' 'texlive-core' 'python2' 'perl' 'imagemagick' 
+         'boost-libs' 'icu' 'libmythes' 'libxtst' 'aspell' 'hunspell') # 'enchant' 
 makedepends=('boost' 'bc' 'cmake' 'qt5-tools')
 groups=('office')
 license=('GPL')
@@ -23,7 +23,7 @@ prepare() {
   cd ${pkgname}-${_pkgver}
   # http://www.lyx.org/trac/changeset/6d375ddeac49ac8c6340398c9797354edca3f5d1/lyxgit
   #patch -p1 -i ${srcdir}/qt5.8.diff
-  #sed -i 's|set(HUNSPELL_VERSION 1.3.3)|set(HUNSPELL_VERSION 1.6.0)|' 3rdparty/hunspell/CMakeLists.txt
+  sed -i 's|hunspell-1.2|hunspell-1.6|' development/cmake/modules/FindHunspell.cmake
 }
          
 build() {
@@ -37,8 +37,8 @@ build() {
     -DLYX_MAN_DIR=/usr/share/man/man1 \
     -DLYX_USE_QT=QT5 \
     -DLYX_ASPELL=ON \
-    -DLYX_ENCHANT=ON \
-    -DLYX_HUNSPELL=OFF \
+    -DLYX_ENCHANT=OFF \
+    -DLYX_HUNSPELL=ON \
     -DLYX_EXTERNAL_BOOST=ON \
     -DLYX_INSTALL=ON
     
