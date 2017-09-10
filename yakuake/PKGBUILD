@@ -1,7 +1,7 @@
 
 pkgname=yakuake
 pkgver=3.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A KDE konsole application with the look and feel of that in the Quake engine, kf5 version"
 arch=('x86_64')
 url="http://yakuake.kde.org"
@@ -11,13 +11,16 @@ depends=('karchive' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kglobalaccel' 'ki18n'
          'kwindowsystem' 'kwayland')
 makedepends=('extra-cmake-modules')
 groups=('system')
-source=("http://download.kde.org/stable/yakuake/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('f8f43f2f3d99925d8853879ff1eb5826')
+source=("http://download.kde.org/stable/yakuake/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/yakuake/commit/7534df21025b10fd236dd5a8f92d0dff7889e0ef.diff")
+md5sums=('f8f43f2f3d99925d8853879ff1eb5826'
+         '775f8d5149c215ad91dc56b5961740b5')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|<default>default<default>|<default>breezeV1.0</default>|' ${srcdir}/${pkgname}/app/config/yakuake.kcfg
-  #patch -p1 -i $srcdir/default_skin.diff
+  # wayland erratic placement fix
+  patch -p1 -i $srcdir/7534df21025b10fd236dd5a8f92d0dff7889e0ef.diff
   
 }
 
