@@ -2,22 +2,28 @@
 pkgname=libtorrent-rasterbar
 pkgver=1.1.4
 _pkgver=1_1_4
-pkgrel=1
+pkgrel=2
 pkgdesc="A C++ library that aims to be a good alternative to all the other bittorrent implementations around"
 url="http://www.rasterbar.com/products/libtorrent/"
 arch=('x86_64')
 license=('custom')
-depends=('boost-libs' 'python2' 'geoip')
+depends=('boost-libs' 'python3' 'geoip')
 makedepends=('boost')
-source=("https://github.com/arvidn/libtorrent/releases/download/libtorrent-${_pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('b0511cebee7b57dde57bfc4ac5f8eefa')
+source=("https://github.com/arvidn/libtorrent/releases/download/libtorrent-${_pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "https://github.com/arvidn/libtorrent/commit/7eb3cf6bc6dbada3fa7bb7ff4d5981182813a0e2.diff")
+md5sums=('b0511cebee7b57dde57bfc4ac5f8eefa'
+         'e09f85a20596b037e10db4f391ea5682')
 
 build() {
   cd ${pkgname}-${pkgver}
+  patch -p1 -i ${srcdir}/7eb3cf6bc6dbada3fa7bb7ff4d5981182813a0e2.diff
   
-  CXXFLAGS="-std=c++11"
-  
-  ./configure --prefix=/usr --enable-python-binding
+  CXXFLAGS="-std=c++11" \
+  PYTHON=/usr/bin/python3 \
+  PYTHON_VERSION=3.6 \
+  ./configure --prefix=/usr \
+    --enable-python-binding \
+    --with-boost-python="boost_python3"
   make
 }
 
