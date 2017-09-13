@@ -10,17 +10,11 @@ pkgdesc="Plasma applet and services for creating encrypted vaults"
 url="https://github.com/KDE/plasma-vault"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kactivities' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'ki18n' 'kio' 'plasma-framework' 
-         'kwidgetsaddons' 'libksysguard')
+         'kwidgetsaddons' 'libksysguard' 'encfs')
 makedepends=('extra-cmake-modules' 'kdoctools')
 #source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
-
-prepare() {
-  cd ${pkgname}-${__pkgver}
-  
-  #sed -i -e 's|<AppStream/appstream.h>|<appstream.h>|' libdiscover/backends/FlatpakBackend/FlatpakBackend.cpp
-}
 
 build() {
   mkdir -p build
