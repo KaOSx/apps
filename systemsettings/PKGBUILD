@@ -4,12 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=systemsettings
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE system settings'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/systemsettings'
 license=('LGPL')
-depends=('kcmutils' 'kdelibs4support' 'kemoticons' 'khtml' 'kinit' 'kitemmodels' 'plasma-framework')
+depends=('kitemviews' 'kcmutils' 'ki18n' 'kio' 'kservice' 'kiconthemes' 'kwidgetsaddons'
+         'kwindowsystem' 'kxmlgui' 'kdbusaddons' 'kconfig' 'kpackage' 'kdeclarative' 'kactivities'
+         'kactivities-stats' 'khtml' 'kirigami')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
 source=("http://download.kde.org/unstable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")

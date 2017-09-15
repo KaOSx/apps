@@ -9,7 +9,7 @@ pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kde-cli-tools'
 license=('LGPL')
-depends=('kdesu' 'kdelibs4support' 'kcmutils' 'kemoticons' 'kinit' 'kitemmodels') # 'kf5trans')
+depends=('kconfig' 'kiconthemes' 'kinit' 'ki18n' 'kcmutils' 'kio' 'kservice' 'kwindowsystem' 'kactivities' 'kdesu')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
 conflicts=('kde-runtime' 'kde-runtime-debug')
@@ -25,9 +25,9 @@ build() {
   cmake ../${pkgname}-${__pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DLIBEXEC_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   make
