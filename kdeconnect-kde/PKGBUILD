@@ -1,7 +1,7 @@
 
 pkgname=kdeconnect-kde
-pkgver=1.0.3
-_pkgver=1.0.3
+pkgver=1.2
+_pkgver=1.2
 pkgrel=1
 epoch=1
 pkgdesc='KDE Connect adds communication between KDE and your smartphone'
@@ -15,7 +15,7 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kf5-kdeconnect-kde')
 replaces=('kf5-kdeconnect-kde')
 source=("http://download.kde.org/stable/kdeconnect/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('085915477e922cf723d4f7454a0d3773')
+md5sums=('3302ca9a1ca407dd8d516f7c66da9793')
 
 prepare() {
   cd $pkgname-${pkgver}
@@ -31,8 +31,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
-    -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
