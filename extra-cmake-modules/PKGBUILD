@@ -11,7 +11,7 @@ arch=('x86_64')
 url='https://github.com/KDE/extra-cmake-modules'
 license=('LGPL')
 depends=('cmake' 'python3')
-makedepends=('qt5-tools') # python2-sphinx' 'sphinx_rtd_theme' 'alabaster' sphinx needs many more deps, disable)
+makedepends=('qt5-tools') # 'python3-sphinx' 'python3-requests')  'sphinx_rtd_theme' 'alabaster' sphinx needs many deps, disable)
 source=("https://download.kde.org/stable/frameworks/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
@@ -21,7 +21,11 @@ build() {
   
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release 
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_QTHELP_DOCS=OFF \
+    -DBUILD_MAN_DOCS=OFF \
+    -DBUILD_HTML_DOCS=OFF \
+    -DBUILD_TESTING=OFF
   make
 }
 

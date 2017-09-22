@@ -4,13 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kconfig
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KConfig'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kconfig'
 license=('LGPL')
 depends=('qt5-base')
-makedepends=('extra-cmake-modules' 'qt5-tools')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'doxygen')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
@@ -26,12 +26,13 @@ build() {
     -DKDE_INSTALL_LIBEXECDIR=lib \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DBUILD_QCH=ON
   make
 }
 
 package() {
   cd build
   
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }

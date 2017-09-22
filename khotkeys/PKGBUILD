@@ -9,24 +9,20 @@ pkgdesc='KHotKeys'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khotkeys'
 license=('LGPL')
-depends=('plasma-workspace')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kglobalaccel' 'ki18n' 'kio' 'kxmlgui' 'kdelibs4support' 'kdbusaddons' 'kcmutils'
+         'plasma-framework' 'plasma-workspace')
+makedepends=('extra-cmake-modules' 'kdoctools' 'ninja')
 groups=('plasma5')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
-        'dbus_action.diff'
-        'cmake3.9.patch')
+        'dbus_action.diff')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'b72371a922acbf0b812d92cd509595a9'
-         '2b6ec95c413d2bcaa7238908cb9a27e8')
-#source=("git://anongit.kde.org/khotkeys.git")
-#md5sums=('SKIP')
+         'b72371a922acbf0b812d92cd509595a9')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
   patch -p1 -i ${srcdir}/dbus_action.diff
-  #patch -p1 -i ${srcdir}/cmake3.9.patch
 }
 
 build() {
@@ -39,13 +35,14 @@ build() {
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF
-  make
+    -DBUILD_TESTING=OFF \
+    -GNinja
+  ninja 
 }
 
 package() {
   cd build
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} ninja install
   
   rm -r ${pkgdir}/usr/share/locale
 }
