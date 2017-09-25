@@ -1,51 +1,36 @@
 
 pkgname=brackets
-pkgver=1.10
+pkgver=1.11
 pkgrel=1
 pkgdesc="Open source code editor for web designers and front-end developers."
 arch=("x86_64")
 url="http://brackets.io"
 license=("MIT")
 depends=('gconf' 'nss' 'systemd' 'desktop-file-utils' 'hicolor-icon-theme' 'gtk2')
-makedepends=('prelink')
 optdepends=("google-chrome: to enable Live Preview"
             "gnuplot: to enable node benchmarking"
             "ruby: to enable LiveDevelopment Inspector")
 install=${pkgname}.install
 source=("https://github.com/adobe/brackets/releases/download/release-${pkgver}/Brackets.Release.${pkgver}.64-bit.deb"
         'libgcrypt.so.11.8.2')
-md5sums=('bc99bbfd99bb847b069ad89736954ac3'
+md5sums=('c102feb1e4ab03b36262d4c0e2c7e95d'
          'a17acc9851185dd5f219458140e6ccda')
 
 prepare() {
   cd $srcdir/
 
   tar -xf data.tar.xz
-  execstack -c opt/${pkgname}/Brackets
 }
 
 package() {
   install -d ${pkgdir}/opt
   cp -r opt/${pkgname} ${pkgdir}/opt/${pkgname}
+  cp -r usr/ ${pkgdir}/usr
 
   chmod -R a+rw ${pkgdir}/opt/${pkgname}/samples
 
-  install -d ${pkgdir}/usr/bin
-  ln -s /opt/brackets/brackets ${pkgdir}/usr/bin/${pkgname}
-
-  local _icon_dir="usr/share/icons/hicolor"
-  install -d ${pkgdir}/$_icon_dir/scalable/apps
-  install -Dm644 $_icon_dir/scalable/apps/${pkgname}.svg ${pkgdir}/$_icon_dir/scalable/apps/${pkgname}.svg
-  for _icon in "opt/brackets/appshell"*.png; do
-    local _icon_size=${_icon##*/appshell}
-    install -d ${pkgdir}/$_icon_dir/${_icon_size%.png}x${_icon_size%.png}/apps
-    install -Dm644 $_icon ${pkgdir}/$_icon_dir/${_icon_size%.png}x${_icon_size%.png}/apps/${pkgname}.png
-  done
-
   install -d ${pkgdir}/usr/share/applications
-  sed 's/Development/Development;/' opt/${pkgname}/${pkgname}.desktop > ${pkgdir}/usr/share/applications/${pkgname}.desktop
+  install -m755 opt/${pkgname}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
 
   install -Dm755 usr/share/doc/${pkgname}/copyright ${pkgdir}/usr/share/licenses/${pkgname}/copyright
-  #libgcrypt 1.6.0 fix 
-  install -m755 ${srcdir}/libgcrypt.so.11.8.2 ${pkgdir}/opt/brackets/libgcrypt.so.11
 }
