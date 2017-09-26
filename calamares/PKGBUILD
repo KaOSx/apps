@@ -1,7 +1,7 @@
 
 pkgname=calamares
-pkgver=3.1.4
-pkgrel=2
+pkgver=3.1.5
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
@@ -10,9 +10,9 @@ depends=('qt5-svg' 'qtwebkit-tp' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'yaml-c
          'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts' 'pythonqt')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools' 'boost') # 'clang')
 options=('debug' '!staticlibs')
-#source=("git://github.com/KaOSx/calamares#commit=8d1145719acb6e3cc11d22f4ab4c61a1dfb9cd81"
-source=("git://github.com/KaOSx/calamares"
-#source=("git://github.com/demmm/calamares"
+#source=("git://github.com/KaOSx/calamares#commit=f36b58f2df47b00487e9e505cdd7f207f4da2fda"
+#source=("git://github.com/KaOSx/calamares"
+source=("git://github.com/calamares/calamares"
         'calamares.desktop'
         'installer.svg'
         'kdm_sddm.conf'
@@ -29,14 +29,14 @@ md5sums=('SKIP'
          'bb33b54d289cfe39ebfd78f172382880'
          'eb411655fd3fa309d1b70b90585c6242')
 
-prepare () {
-  cd ${pkgname}
+#prepare () {
+#  cd ${pkgname}
   
-  git submodule init
-  git submodule update
+  #git submodule init
+  #git submodule update
   
   #sed -e "s|add_calamares_python_translations|#add_calamares_python_translations|" -i src/modules/CMakeLists.txt
-}
+#}
 
 build() {
   #export CC=/usr/bin/clang
@@ -49,7 +49,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DWITH_CRASHREPORTER=ON \
     -DWITH_PYTHONQT=ON \
     -DWEBVIEW_FORCE_WEBKIT=ON
   make
