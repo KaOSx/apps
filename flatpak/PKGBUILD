@@ -1,6 +1,6 @@
  
 pkgname=flatpak
-pkgver=0.9.12
+pkgver=0.9.98.2
 pkgrel=1
 pkgdesc="System for building, distributing and running sandboxed desktop applications on Linux."
 url="http://flatpak.org"
@@ -11,7 +11,7 @@ depends=('bubblewrap' 'elfutils' 'fuse' 'glib2' 'json-glib' 'libarchive' 'ostree
 makedepends=('intltool' 'xmlto' 'dwarf')
 install=flatpak.install
 source=("https://github.com/flatpak/flatpak/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('ea82b7f553680e34a6b5e5524e5ece6b58fde9fd2113be2efb06a5b115f76d52')
+sha256sums=('aa6bb50926af5ec1a3aa22d553b2a0eaa1a36bccfb095a9d747fef5d84cd0756')
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -26,7 +26,6 @@ build() {
     --disable-gtk-doc \
     --with-system-bubblewrap \
     --with-priv-mode=setuid \
-    --with-dwarf-header=/usr/include/libdwarf \
     --with-dbus-config-dir=/usr/share/dbus-1/system.d \
     --with-system-install-dir=/var/lib/flatpak
 
