@@ -28,6 +28,7 @@ package() {
   cp -r usr/ ${pkgdir}/usr
 
   chmod -R a+rw ${pkgdir}/opt/${pkgname}/samples
+  chmod 4755 ${pkgdir}/opt/${pkgname}/chrome-sandbox
 
   install -d ${pkgdir}/usr/share/applications
   install -m755 opt/${pkgname}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
