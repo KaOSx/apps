@@ -1,18 +1,18 @@
 
 pkgname=ktexteditorpreviewplugin
-pkgver=0.0.5
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="Document Preview Plugin for Kate & KDevelop or other KTextEditor using programs."
 arch=('x86_64')
-url="https://cgit.kde.org/scratch/kossebau/ktexteditorpreviewplugin.git/tree/README.md"
+url="https://cgit.kde.org/ktexteditorpreviewplugin.git/about/"
 license=('LGPLv2')
 depends=('ki18n' 'ktexteditor' 'kparts')
 makedepends=('extra-cmake-modules')
-source=("git://anongit.kde.org/scratch/kossebau/ktexteditorpreviewplugin.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/ktexteditorpreviewplugin/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=('c852f400347ef4ce1fc32046be7df7a7')
 
 prepare() {
-  cd ${pkgname}
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's|Qt5WebEngineWidgets CONFIG QUIET|Qt5WebEngineWidgets CONFIG REQUIRED|' src/previewplugins/CMakeLists.txt
 }
 
@@ -20,7 +20,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
