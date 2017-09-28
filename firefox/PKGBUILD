@@ -2,7 +2,7 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='http://www.mozilla.org/projects/firefox'
-pkgver=55.0.3
+pkgver=56.0
 pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
@@ -10,10 +10,10 @@ groups=('network')
 #install=firefox.install
 depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk2' 'gtk3' 'networkmanager'
          'gst-plugins-good' 'gst-plugins-bad' 'gst-libav' 'mozilla-common' 'startup-notification'
-         'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libvpx' 'icu' 'libevent' 'sqlite' 'hunspell'
-         'pulseaudio') # 'libjpeg-turbo')
+         'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libvpx' 'libevent' 'sqlite' 'hunspell'
+         'pulseaudio') # 'libjpeg-turbo' 'icu')
 makedepends=('unzip' 'zip' 'diffutils' 'python2' 'yasm' 'mesa' 'imake' 'xorg-server' 
-             'inetutils' 'gconf' 'autoconf2.13' 'rust')
+             'inetutils' 'gconf' 'autoconf2.13' 'rust' 'clang')
 optdepends=('freshplayerplugin: full flash support in firefox')
 options=('!emptydirs' '!makeflags')
 source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${pkgver}/source/firefox-${pkgver}.source.tar.xz"
@@ -21,8 +21,8 @@ source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${pkgver}/sour
         'firefox.desktop'
         'firefox-install-dir.patch'
         'vendor.js')
-sha256sums=('891836df85f8798c49f7b25661820f64d1311d59703c716eda471819b93ccda2'
-            '3c9b9160f1e3d63e0331562403a33c2b9065d64186c7dfa097647b1d7e5622ae'
+sha256sums=('0d8b7e91429f622c25509b7e73530807506ef3ff9f749d962251a35ed2bfed7e'
+            'ad730f93d08938595ac44da49fe8446a85b52cb10d264bda33a808a3ce2496ae'
             '9f25db9a95d8fb29545e9864c69fae41b95a904e1580cf4b838e22fbdcbbdcc3'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
             '4b50e9aec03432e21b44d18c4c97b2630bace606b033f7d556c9d3e3eb0f4fa4')
