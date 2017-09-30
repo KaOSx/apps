@@ -1,6 +1,6 @@
 # install go before building
 pkgname=micro
-pkgver=1.3.2
+pkgver=1.3.3
 pkgrel=1
 _commit=c409f1cc07f5c0e4b6e9766ab9bb10f1ebd92015
 pkgdesc='Terminal-based text editor that aims to be easy to use and intuitive, with full capabilities of modern terminals.'
@@ -9,30 +9,32 @@ arch=('x86_64')
 license=('MIT')
 depends=('xclip')
 makedepends=('go')
-source=("https://github.com/zyedidia/micro/releases/download/v${pkgver}/micro-${pkgver}-src.tar.gz")
-#source=("https://github.com/zyedidia/micro/releases/download/v${pkgver}/micro-${pkgver}-linux64.tar.gz")
-md5sums=('5c0313030aa939238056f613ce65e2c6')
+#source=("https://github.com/zyedidia/micro/releases/download/v${pkgver}/micro-${pkgver}-src.tar.gz")
+source=("https://github.com/zyedidia/micro/releases/download/v${pkgver}/micro-${pkgver}-linux64.tar.gz")
+md5sums=('bdd3c4c3b329ff5473f6425df882af09')
 
-build() {
-  cd ${pkgname}
+#build() {
+#  cd ${pkgname}
   #sed -i 's|$(shell go run tools/build-version.go)|$(shell git describe --tags --abbrev=0)|' Makefile
   
-  mkdir -p src/github.com/zyedidia/micro/cmd/micro/
-  cp -r cmd/micro/vendor/github.com src
-  cp -r cmd/micro/vendor/golang.org src
-  cp -r cmd/micro/vendor/gopkg.in src
-  cp -r cmd/micro/vendor/layeh.com src
-  cp -r cmd/micro/highlight src/github.com/zyedidia/micro/cmd/micro/
+#  mkdir -p src/github.com/zyedidia/micro/cmd/micro/
+#  mkdir -p src/github.com/zyedidia/micro/tools/semver/
+#  cp -r cmd/micro/vendor/github.com src
+#  cp -r cmd/micro/vendor/golang.org src
+#  cp -r cmd/micro/vendor/gopkg.in src
+#  cp -r cmd/micro/vendor/layeh.com src
+#  cp -r cmd/micro/highlight src/github.com/zyedidia/micro/cmd/micro/
+#  cp -r tools/semver src/github.com/zyedidia/micro/tools/
   
-  export GOPATH=`pwd`
-  export GOBIN="$GOPATH/bin"
+#  export GOPATH=`pwd`
+#  export GOBIN="$GOPATH/bin"
   
-  make runtime
-  make build
-}
+#  make runtime
+#  make build
+#}
 
 package() {
-  cd ${pkgname}
+  cd ${pkgname}-${pkgver}
   
   #make DESTDIR=${pkgdir} install
   install -Dm755 micro ${pkgdir}/usr/bin/micro
