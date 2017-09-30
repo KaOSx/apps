@@ -1,20 +1,20 @@
 
 pkgname=kpmcore
-pkgver=3.1.2
+pkgver=3.2.0
 _commit=cbe21e7ef974fe3c95ef418bbf098af716e5ff33
 pkgrel=1
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('x86_64')
 url="https://github.com/KDE/kpmcore"
 license=('GPL2')
-depends=('ki18n' 'kio' 'kiconthemes' 'kservice' 'libatasmart' 'parted')
+depends=('ki18n' 'kservice' 'kwidgetsaddons' 'libatasmart' 'parted')
 makedepends=('extra-cmake-modules' 'pkgconfig')
 groups=('system')
 options=('debug')
 source=("https://download.kde.org/stable/kpmcore/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/KDE/kpmcore/commit/b10577e1c7ba0c856c96c96a80187b977f88ef34.diff")
 #source=("https://github.com/KDE/kpmcore/archive/${_commit}.zip")
-md5sums=('2891e38900099e57278d7007f2bea46c'
+md5sums=('80a569ed531dfb2528fb2a55d97ad00c'
          '34ea3e797a3877086aa212ae2aee0814')
 
 prepare() {
