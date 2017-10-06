@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-mediacenter
-pkgver=${_plasmaver}
+pkgver=5.7.5
 pkgrel=1
 pkgdesc="A Media Center for the KDE Software Compilation based on plasma technology"
 arch=('x86_64')
@@ -13,12 +13,12 @@ depends=('kguiaddons' 'kio' 'kconfigwidgets' 'kwindowsystem' 'plasma-desktop' 't
          'ffmpegthumbs' 'qt5-multimedia')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
-#source=("http://download.kde.org/stable/plasma/$_plasmaver/${pkgname}-$_plasmaver.tar.xz")
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/plasma-mediacenter/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=('dae700075e6b891addf932a049fadbdc')
 
 prepare() {
-  cd ${srcdir}/${pkgname}-${__pkgver}
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}/CMakeLists.txt 
   #sed -i -e 's|add_subdirectory(test)|#add_subdirectory(test)|' ${srcdir}/${pkgname}/libs/CMakeLists.txt
 }
@@ -27,7 +27,7 @@ build () {
   mkdir -p build
 
   cd build
-  cmake ../${pkgname}-${__pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
