@@ -1,22 +1,23 @@
 
 pkgname=kmymoney
-pkgver=4.100.9
-_commit=5448a2831198e45b9501801baeb19f341440f5c6
-pkgrel=2
+pkgver=4.100.10
+_commit=022d8fbfdd57ffa85eea0aed53a61562e5674c40
+pkgrel=1
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
 url="http://www.kmymoney.org/"
 license=('GPL')
-depends=('kcoreaddons' 'kconfig' 'ki18n' 'khtml' 'kdelibs4support' 'kcompletion' 'kcmutils' 'kitemviews' 'kservice' 'kwallet' 
-         'kholidays' 'gpgme' 'kcontacts' 'akonadi-contacts' 'akonadi' 'kidentitymanagement' 'kross'
+depends=('karchive' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'ki18n' 'kcompletion' 'kcmutils' 'kitemmodels' 'kitemviews'
+         'kservice' 'kwallet' 'kiconthemes' 'kxmlgui' 'ktextwidgets' 'knotifications' 'kio' 'kholidays' 
+         'gpgme' 'kcontacts' 'akonadi-contacts' 'akonadi' 'kidentitymanagement' 'kross'
          'shared-mime-info' 'boost-libs' 'pulseaudio' 'libofx' 'libical' 'alkimia' 'kdiagram'
-         'kactivities' 'aqbanking') # 'sqlcipher' looks for Qt4 versions)
+         'kactivities' 'aqbanking' 'kdewebkit') # 'sqlcipher' looks for Qt4 versions)
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost')  
 conflicts=('kf5-kmymoney')
 replaces=('kf5-kmymoney')
 groups=('office')
 source=("https://github.com/KDE/kmymoney/archive/${_commit}.zip")
-md5sums=('b75ee14c5837204a81e7538893084be1')
+md5sums=('0c923c590a40924d825999b9a54eb637')
 
 build() {
   cd ${srcdir}
