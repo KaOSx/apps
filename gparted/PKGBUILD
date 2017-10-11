@@ -1,12 +1,12 @@
 
 pkgname=gparted
-pkgver=0.29.0
+pkgver=0.30.0
 pkgrel=1
 pkgdesc="A Partition Magic clone, frontend to GNU Parted."
 arch=('x86_64')
 url="http://gparted.sourceforge.net"
 license=('GPL')
-depends=('parted' 'gtkmm' 'hicolor-icon-theme')
+depends=('parted' 'gtkmm' 'polkit')
 makedepends=('intltool' 'pkg-config' 'gnome-doc-utils')
 optdepends=('dosfstools: for FAT16 and FAT32 partitions'
             'jfsutils: for jfs partitions'
@@ -15,7 +15,7 @@ optdepends=('dosfstools: for FAT16 and FAT32 partitions'
             'xfsprogs: for xfs partitions')
 source=("https://downloads.sourceforge.net/project/gparted/gparted/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz"
         'gparted.desktop')
-sha1sums=('b00c4f9c8716c8283192c22412260d460dd620f7'
+sha1sums=('3df289dcf688b8d543aecfdd6b021f5fcd8fb2ce'
           '04e05c2c0bc62f31d5781333ba98aaf0d71c0dd8')
 
 build() {
@@ -29,6 +29,6 @@ package() {
   cd ${pkgname}-${pkgver}
   make DESTDIR=${pkgdir} install
   
-  rm ${pkgdir}/usr/share/applications/gparted.desktop
-  install -m 644 -p ${srcdir}/gparted.desktop ${pkgdir}/usr/share/applications/
+  #rm ${pkgdir}/usr/share/applications/gparted.desktop
+  #install -m 644 -p ${srcdir}/gparted.desktop ${pkgdir}/usr/share/applications/
 }
