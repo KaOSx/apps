@@ -13,7 +13,7 @@ makedepends=('gcc-libs' 'gtk3' 'nss' 'gconf' 'libjpeg-turbo' 'freetype2' 'cairo'
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html"
          'google-chrome-unstable.desktop')
-md5sums=('852d0875857ec1b15fb259ac1d6c932b'
+md5sums=('63008cdeb2db8d95ce9bdde8474ad98c'
          'd50d8f0a6940791eabc41c4f64e6a3cf'
          'dc490bcda18c1379056700057800cc8f')
 
@@ -28,7 +28,7 @@ package_google-chrome() {
     bsdtar -xf data.tar.xz -C ${pkgdir}/ 
 
     # Adding man page
-    gzip ${pkgdir}/usr/share/man/man1/google-chrome-unstable.1
+    gzip ${pkgdir}/usr/share/man/man1/google-chrome-unstable.1.gz
     
     # icons to /usr/share/icons/hicolor/ too
     for i in 16 22 24 32 48 64 128 256; do
