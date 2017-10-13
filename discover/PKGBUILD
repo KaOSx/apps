@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=discover
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="An Application Installer for the 22nd Century"
 url="https://userbase.kde.org/Discover"
 license=('GPL' 'LGPL' 'FDL')
@@ -14,13 +14,16 @@ depends=('kcoreaddons' 'kconfig' 'kcrash' 'kdbusaddons' 'ki18n' 'karchive' 'kcom
          'knotifications' 'kirigami' 'appstream' 'flatpak')
 makedepends=('extra-cmake-modules' 'kdoctools')
 #source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
+        "https://github.com/KDE/discover/commit/36fc062a77257e5d744fe4029149fc05a71db4b2.diff")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
+         '59500115af6e45ce751e881d38e50376')
 
 prepare() {
   cd ${pkgname}-${__pkgver}
   
   #sed -i -e 's|<AppStream/appstream.h>|<appstream.h>|' libdiscover/backends/FlatpakBackend/FlatpakBackend.cpp
+  patch -p1 -i ${srcdir}/36fc062a77257e5d744fe4029149fc05a71db4b2.diff
 }
 
 build() {
