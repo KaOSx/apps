@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktexteditor
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KTextEditor provides a powerful text editor component that you can embed in your application'
 arch=('x86_64')
 url='https://github.com/KDE/ktexteditor'
@@ -12,8 +12,15 @@ license=('LGPL')
 depends=('karchive' 'kconfig' 'kguiaddons' 'ki18n' 'kio' 'kparts' 'sonnet' 'kiconthemes' 'syntax-highlighting')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/5.12/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/5.39/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/ktexteditor/commit/aeebeadb5f5955995c17de56cf83ba7166a132dd.diff")
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'bb6ed4335fc256fb1db346f18a2876fe')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  patch -p1 -i ${srcdir}/aeebeadb5f5955995c17de56cf83ba7166a132dd.diff
+}
 
 build() {
   mkdir -p build
