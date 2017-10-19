@@ -1,9 +1,9 @@
 pkgname=docker
-pkgver=17.09.0
-_pkgver=17.09.0-ce
+pkgver=17.10.0
+_pkgver=17.10.0-ce
 # add commit associated with the release tag
 # build runc & containerd from https://github.com/docker/docker/blob/master/hack/dockerfile/binaries-commits
-DOCKER_GITCOMMIT=afdb6d4
+DOCKER_GITCOMMIT=f4ffd25
 pkgrel=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64')
@@ -17,7 +17,7 @@ install=$pkgname.install
 source=("https://github.com/docker/docker-ce/archive/v${_pkgver}.tar.gz"
         'docker.sysusers'
         "https://github.com/docker/docker/commit/6f89a8ee1ba6b598dc1f76e829d6db6f830cdb8e.patch")
-md5sums=('e0df90392b2daa545562342dabf181cf'
+md5sums=('ce230ebe0c8e9e69d988054e666838fd'
          '4324edeb9adc210a2c22f44eb4cb8a74'
          '779efde9abb58cd838fc95a12daec7da')
 
@@ -51,7 +51,7 @@ package() {
   install -Dm644 cli/contrib/completion/fish/docker.fish ${pkgdir}/usr/share/fish/completions/docker.fish
   
   cd engine
-  install -Dm755 bundles/${_pkgver}/dynbinary-daemon/dockerd-${_pkgver} ${pkgdir}/usr/bin/dockerd
+  install -Dm755 bundles/dynbinary-daemon/dockerd-${_pkgver} ${pkgdir}/usr/bin/dockerd
 
   install -Dm644 contrib/init/systemd/docker.service ${pkgdir}/usr/lib/systemd/system/docker.service
   install -Dm644 contrib/init/systemd/docker.socket ${pkgdir}/usr/lib/systemd/system/docker.socket
