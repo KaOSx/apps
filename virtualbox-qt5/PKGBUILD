@@ -5,8 +5,8 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=5.1.28
-_pkgver=5.1.28
+pkgver=5.2.0
+_pkgver=5.2.0
 pkgrel=1
 arch=('x86_64')
 url='http://virtualbox.org'
@@ -23,7 +23,7 @@ source=("http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgve
         'vboxservice.service'
         'driver-path.patch'
         'include-path.patch')
-sha256sums=('ce7d4bf6535f70e3214abeb4866f7a8634aa3c7b6dedf8825e6ad80bd821398d'
+sha256sums=('26fc73aee2df18142e4129beed1175fbd7eed69a9b6b150bcff7d9b92f4ade54'
             '9c5238183019f9ebc7d92a8582cad232f471eab9d3278786225abc1a1c7bf66e'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             'f2531ade07cf432a5a87f3f767acf5791da4d2dc2d6fcdc2c19b3bf00339371e'
@@ -35,7 +35,7 @@ prepare() {
     cd VirtualBox-${pkgver}
 
     patch -p1 -i ${srcdir}/driver-path.patch
-    patch -p1 -i ${srcdir}/include-path.patch
+    #patch -p1 -i ${srcdir}/include-path.patch
     
     #sed -i -e 's|/usr/X11R6/bin/xterm|/usr/X11R6/bin/xterm|' src/VBox/Runtime/VBox/RTAssertShouldPanic-vbox.cpp
     sed -i -e 's|X11R6/||' configure
