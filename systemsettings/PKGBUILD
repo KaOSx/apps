@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=systemsettings
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE system settings'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/systemsettings'
@@ -14,9 +14,17 @@ depends=('kitemviews' 'kcmutils' 'ki18n' 'kio' 'kservice' 'kiconthemes' 'kwidget
          'kactivities-stats' 'khtml' 'kirigami')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('plasma5')
-source=("http://download.kde.org/unstable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/systemsettings/commit/1490607667954f9d5bf2b9ec6d466b89b9b582c4.diff")
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'af5da0e8996cad003319bdb8aeb2ab63')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  #Fix the "KDEInit count not launch /usr/bin/systemsettings5" message
+  patch -p1 -i ${srcdir}/1490607667954f9d5bf2b9ec6d466b89b9b582c4.diff
+}
 
 build() {
   mkdir -p build
