@@ -3,36 +3,44 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=juk
-pkgver=${_kdever}
+#pkgver=${_kdever}
+pkgver=17.11.70
+_commit=1344176d0c246b558999763d0999a8347e09e0b3
 pkgrel=1
 pkgdesc='A jukebox, tagger and music collection manager'
 url='http://kde.org/applications/multimedia/juk/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kdelibs' 'taglib')
-makedepends=('cmake' 'automoc4')
+depends=('kcoreaddons' 'kcompletion' 'kconfig' 'kcrash' 'kglobalaccel' 'ki18n' 'kiconthemes'
+         'kio' 'kjobwidgets' 'knotifications' 'ktextwidgets' 'kxmlgui' 'kwallet' 'kwidgetsaddons'
+         'kwindowsystem' 'qt5-svg' 'taglib')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdemultimedia' 'kde-uninstall')
-provides=('kdemultimedia-juk')
-conflicts=('kdemultimedia-juk')
-replaces=('kdemultimedia-juk')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://github.com/KDE/juk/archive/${_commit}.zip")
+md5sums=('7656b020a0d6219548718fb4cacc82d1')
 
 
 build() {
-	cd ${srcdir}/${pkgname}-${pkgver}
-	
-	cmake . -DCMAKE_BUILD_TYPE=${_build_type} \
-                -DCMAKE_INSTALL_PREFIX=${_installprefix} \
-                -DCMAKE_SKIP_RPATH=ON \
-		-DWITH_TunePimp=OFF \
-                -DCMAKE_{SHARED,MODULE,EXE}_LINKER_FLAGS='-Wl,--no-undefined -Wl,--as-needed'
-	make
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DHAVE_TUNEPIMP=0 \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF 
+  make 
 }
 
 package() {
-	cd ${srcdir}/${pkgname}-${pkgver}
-	
-	make DESTDIR=${pkgdir} install
+  cd build
+  
+  make DESTDIR=${pkgdir} install
 }
 
