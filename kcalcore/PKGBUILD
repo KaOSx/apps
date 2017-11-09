@@ -5,20 +5,20 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kcalcore
 pkgver=${_kdever}
 _commit=978415cd1acb83cbfd70feacf5ac5b87148166b9
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE calender core libraries"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/kcalore'
 license=('LGPL')
 depends=('libical' 'kdelibs4support')
 makedepends=('extra-cmake-modules' 'kdoctools')
-#source=("http://download.kde.org/stable/applications/17.08.2/src/${pkgname}-${_kdever}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/kcalcore/archive/${_commit}.zip")
-md5sums=('21ca15d6d8f427b808154e5057e618e0')
+source=("http://download.kde.org/stable/applications/17.08.3/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("https://github.com/KDE/kcalcore/archive/${_commit}.zip")
+#md5sums=('21ca15d6d8f427b808154e5057e618e0')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   #patch -p1 -i $srcdir/qt55.diff
 }
 
@@ -26,7 +26,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
