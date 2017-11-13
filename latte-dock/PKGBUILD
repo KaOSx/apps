@@ -1,7 +1,6 @@
 
 pkgname=latte-dock
-_pkgname=Latte-Dock
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc="Dock based on plasma frameworks that provides an elegant and intuitive experience for your tasks and plasmoids"
 arch=('x86_64')
@@ -14,11 +13,11 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma-addons')
 conflicts=('now-dock' 'nowdock-panel')
 replaces=('now-dock' 'nowdock-panel')
-source=("https://github.com/psifidotos/Latte-Dock/archive/v${pkgver}.tar.gz")
-md5sums=('a691573080b0dde394b9f63b1b267a30')
+source=("https://download.kde.org/stable/latte-dock/${pkgname}-${pkgver}.tar.xz")
+md5sums=('156f67515b63cbe22901b4dabcec1ac7')
 
 build() {
-  cd ${_pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
   mkdir -p build
   cd build 
   
@@ -28,13 +27,13 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins 
-  make -j1
+  make
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}/build
+  cd ${pkgname}-${pkgver}/build
   make DESTDIR=${pkgdir} install
   
-  install -D -m644 ../LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  install -D -m644 ../COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
 }
 
