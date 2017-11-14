@@ -1,22 +1,23 @@
 
 pkgname=kdevelop
-pkgver=5.1.2
-_pkgver=5.1.2
+pkgver=5.2.0
+_pkgver=5.2.0
 pkgrel=1
 pkgdesc="A C/C++ development environment for KDE"
 arch=('x86_64')
 url="http://www.kdevelop.org/"
 license=('GPL')
-depends=('kdevplatform' 'kconfig' 'kdeclarative' 'kiconthemes' 'ki18n' 'kitemmodels' 'kitemviews'
+depends=('kconfig' 'kdeclarative' 'kiconthemes' 'ki18n' 'kitemmodels' 'kitemviews'
          'kjobwidgets' 'kcmutils' 'kio' 'knewstuff' 'knotifyconfig' 'kparts' 'kservice' 'ktexteditor' 
-         'threadweaver' 'kxmlgui' 'kwindowsystem' 'krunner' 'libksysguard' 'plasma-framework' 'okteta' 
-         'kdevelop-pg-qt' 'clang' 'llvm' 'heaptrack')
-makedepends=('extra-cmake-modules' 'kdoctools' 'perl' 'docbook-xsl')
-conflicts=('kf5-kdevelop')
-replaces=('kf5-kdevelop')
+         'threadweaver' 'kxmlgui' 'kwindowsystem' 'kcrash' 'kguiaddons' 'karchive' 'knotifications'
+         'krunner' 'libksysguard' 'libkomparediff2' 'plasma-framework' 'okteta' 'grantlee' 'konsole'
+         'kdevelop-pg-qt' 'clang' 'llvm' 'heaptrack' 'subversion' 'qt5-webkit' 'qtwebengine' 'purpose')
+makedepends=('extra-cmake-modules' 'kdoctools' 'perl' 'docbook-xsl' 'boost')
+conflicts=('kdevplatform')
+replaces=('kdevplatform')
 groups=('programming')
 source=("https://download.kde.org/stable/kdevelop/${_pkgver}/src/kdevelop-${pkgver}.tar.xz")      
-md5sums=('b38e55c5b8656d7fab597d8d2b873683')
+md5sums=('b4d0ad9feedca24ff384c011c38f60a6')
 
 prepare() {
   cd ${pkgname}-${pkgver}
