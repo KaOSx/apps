@@ -1,29 +1,29 @@
  
 pkgname=chromium-ffmpeg-codecs
-pkgver=60.0.3112.90
+pkgver=62.0.3202.89
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
 url="https://ffmpeg.org/"
 license=('LGPL2.1')
-depends=('gtk2' 'gtk3' 'libexif' 'pulseaudio' 'libxss')
+depends=('gtk3' 'libexif' 'pulseaudio' 'libxss' 'gdk-pixbuf2')
 makedepends=('ninja' 'nss' 'pciutils' 'python2' 'xdg-utils' 'mesa')
 options=('!strip')
 source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${pkgver}.tar.xz"
         'gn.patch'
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-FORTIFY_SOURCE-r1.patch"
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-gn-bootstrap-r8.patch")
-md5sums=('75f9199e5e0b31e9fbfbaf1f3071b411'
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-FORTIFY_SOURCE-r2.patch"
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-gn-bootstrap-r17.patch")
+md5sums=('7c00d61cd737a2d81f2b8ca9efb44d6a'
          '3354997dd0bfde3443499133a6e16a85'
-         'd3575fcfc38d31e84d3f1f5ba95c517b'
-         '3d379c46c547a21d6f20fc1c1761bff1')
+         'f66dc007f17fffe350ffb037175fcc39'
+         '1e9f37377b470e26dc0fa609c1cdad9e')
 
 build() {
   cd chromium-${pkgver}
   #touch chrome/test/data/webui/i18n_process_css_test.html
   #sed -i "s|base/callback_internal.cc|base/callback_helpers.cc|g" tools/gn/bootstrap/bootstrap.py
-  patch -p1 -i ${srcdir}/chromium-FORTIFY_SOURCE-r1.patch
-  patch -p1 -i ${srcdir}/chromium-gn-bootstrap-r8.patch
+  patch -p1 -i ${srcdir}/chromium-FORTIFY_SOURCE-r2.patch
+  patch -p1 -i ${srcdir}/chromium-gn-bootstrap-r17.patch
 
   local _flags=("ffmpeg_branding=\"ChromeOS\""
                 'proprietary_codecs=true'
