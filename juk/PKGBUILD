@@ -3,9 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=juk
-#pkgver=${_kdever}
-pkgver=17.11.70
-_commit=1344176d0c246b558999763d0999a8347e09e0b3
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc='A jukebox, tagger and music collection manager'
 url='http://kde.org/applications/multimedia/juk/'
@@ -16,17 +14,14 @@ depends=('kcoreaddons' 'kcompletion' 'kconfig' 'kcrash' 'kglobalaccel' 'ki18n' '
          'kwindowsystem' 'qt5-svg' 'taglib')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kdemultimedia' 'kde-uninstall')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/juk/archive/${_commit}.zip")
-md5sums=('7656b020a0d6219548718fb4cacc82d1')
-
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DHAVE_TUNEPIMP=0 \

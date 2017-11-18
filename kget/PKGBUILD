@@ -3,9 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kget
-#pkgver=${_kdever}
-pkgver=17.11.70
-_commit=570f2129ebcec38efcbd2c6c20adca248d343df0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Download Manager'
 url='http://kde.org/applications/internet/kget/'
@@ -17,13 +15,11 @@ depends=('kcompletion' 'kwidgetsaddons' 'kcoreaddons' 'kwallet' 'kconfig' 'kdbus
          'knotifyconfig' 'kparts' 'kservice' 'solid' 'ktextwidgets' 'kwindowsystem' 'kxmlgui'
          'libmms' 'gpgme' 'qca-qt5' 'libktorrent')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/kget/archive/${_commit}.zip")
-md5sums=('3aa196cc743dbd0c718a2ee6fdf2eb38')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's|find_package(Qca 2.1.0)|find_package(Qca 2.1.0 NAMES Qca-qt5 Qca)|' ${srcdir}/${pkgname}/CMakeLists.txt
   #sed -i -e 's|find_package(KF5QGpgme)||' ${srcdir}/${pkgname}/CMakeLists.txt
   #sed -i -e 's|if(KF5Gpgme_FOUND)|if(KF5Gpgmepp_FOUND)|' ${srcdir}/${pkgname}/CMakeLists.txt
@@ -34,7 +30,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
