@@ -1,0 +1,43 @@
+
+pkgname=liquidshell
+pkgver=0.0.1
+_commit=9e0ee60c88feabc375eeeedacc4cda4c5d4cae50
+pkgrel=1
+pkgdesc="Alternative desktop replacement for Plasma, using QtWidgets instead of QtQuick."
+arch=('x86_64')
+url='https://github.com/KDE/liquidshell'
+license=('LGPL')
+depends=('kwindowsystem' 'kwidgetsaddons' 'kconfigwidgets' 'kconfig' 'kio' 'kiconthemes'
+         'kitemviews' 'karchive' 'knotifications' 'ki18n' 'networkmanager-qt' 'kservice' 
+         'solid' 'bluez-qt' 'kcmutils' 'kcrash' 'kdbusaddons' 'knewstuff')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=("https://github.com/KDE/liquidshell/archive/${_commit}.zip")
+md5sums=('75c7164c14424c1836650a6b7aeea4b5')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+  
+  sed -i -e 's|setThemeIcon("start-here-kde")|setThemeIcon("/usr/share/icons/midna/apps/scalable/kaos.svg")|' StartMenu.cxx
+  sed -i -e 's|http://www.kde.org|https://kaosx.us/|' QuickLaunch.cxx
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
