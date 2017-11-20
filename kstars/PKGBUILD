@@ -3,7 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kstars
-pkgver=${_kdever}
+pkgver=2.8.8
+epoch=1
 pkgrel=1
 pkgdesc="Desktop Planetarium"
 url="http://kde.org/applications/education/kstars/"
@@ -17,13 +18,11 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'eigen3')
 conflicts=('kdeedu-kstars')
 replaces=('kdeedu-kstars')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        'isnan.diff')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '132dfb3da1d339b9990d55aae0fa148e')
+source=("https://download.kde.org/stable/kstars/${pkgname}-${pkgver}.tar.xz")
+md5sums=('223fb5ede97c7e189b975a36c99e6d4d')
 
 prepare() {
-  cd ${srcdir}/${pkgname}-${pkgver} 
+  cd ${pkgname}-${pkgver} 
   #sed -i -e 's|add_subdirectory(doc)|#add_subdirectory(doc)|' ${srcdir}/${pkgname}/CMakeLists.txt
   #patch -p1 -i $srcdir/isnan.diff 
 }
