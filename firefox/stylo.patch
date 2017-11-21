@@ -1,0 +1,113 @@
+diff -Naur firefox-57.0/dom/base/nsJSEnvironment.h firefox-57.0-p/dom/base/nsJSEnvironment.h
+--- firefox-57.0/dom/base/nsJSEnvironment.h	2017-11-02 17:16:34.000000000 +0100
++++ firefox-57.0-p/dom/base/nsJSEnvironment.h	2017-11-13 19:30:01.058925892 +0100
+@@ -10,7 +10,7 @@
+ #include "nsIScriptGlobalObject.h"
+ #include "nsCOMPtr.h"
+ #include "nsIObserver.h"
+-#include "prtime.h"
++#include "nspr/prtime.h"
+ #include "nsCycleCollectionParticipant.h"
+ #include "nsIXPConnect.h"
+ #include "nsIArray.h"
+diff -Naur firefox-57.0/dom/base/nsNodeInfoManager.h firefox-57.0-p/dom/base/nsNodeInfoManager.h
+--- firefox-57.0/dom/base/nsNodeInfoManager.h	2017-11-02 17:16:34.000000000 +0100
++++ firefox-57.0-p/dom/base/nsNodeInfoManager.h	2017-11-13 19:30:59.212515853 +0100
+@@ -15,7 +15,7 @@
+ #include "nsCOMPtr.h"                     // for member
+ #include "nsCycleCollectionParticipant.h" // for NS_DECL_CYCLE_*
+ #include "nsStringFwd.h"
+-#include "plhash.h"                       // for typedef PLHashNumber
++#include "nspr/plhash.h"                       // for typedef PLHashNumber
+ 
+ class nsBindingManager;
+ class nsIAtom;
+diff -Naur firefox-57.0/layout/base/nsPresContext.h firefox-57.0-p/layout/base/nsPresContext.h
+--- firefox-57.0/layout/base/nsPresContext.h	2017-11-02 17:16:34.000000000 +0100
++++ firefox-57.0-p/layout/base/nsPresContext.h	2017-11-13 19:30:01.055925810 +0100
+@@ -36,13 +36,13 @@
+ #include "mozilla/MemoryReporting.h"
+ #include "mozilla/TimeStamp.h"
+ #include "mozilla/AppUnits.h"
+-#include "prclist.h"
++#include "nspr/prclist.h"
+ #include "nsThreadUtils.h"
+ #include "ScrollbarStyles.h"
+ #include "nsIMessageManager.h"
+ #include "mozilla/RestyleLogging.h"
+ #include "Units.h"
+-#include "prenv.h"
++#include "nspr/prenv.h"
+ #include "mozilla/StaticPresData.h"
+ #include "mozilla/StyleBackendType.h"
+ 
+diff -Naur firefox-57.0/xpcom/base/nsISupportsImpl.h firefox-57.0-p/xpcom/base/nsISupportsImpl.h
+--- firefox-57.0/xpcom/base/nsISupportsImpl.h	2017-11-02 17:16:35.000000000 +0100
++++ firefox-57.0-p/xpcom/base/nsISupportsImpl.h	2017-11-13 19:30:01.053925756 +0100
+@@ -14,7 +14,7 @@
+ #include "nsISupportsUtils.h"
+ 
+ #if !defined(XPCOM_GLUE_AVOID_NSPR)
+-#include "prthread.h" /* needed for cargo-culting headers */
++#include "nspr/prthread.h" /* needed for cargo-culting headers */
+ #endif
+ 
+ #include "nsDebug.h"
+@@ -50,7 +50,7 @@
+ 
+ #ifdef MOZ_THREAD_SAFETY_OWNERSHIP_CHECKS_SUPPORTED
+ 
+-#include "prthread.h" /* needed for thread-safety checks */
++#include "nspr/prthread.h" /* needed for thread-safety checks */
+ 
+ class nsAutoOwningThread
+ {
+diff -Naur firefox-57.0/xpcom/ds/nsCRT.h firefox-57.0-p/xpcom/ds/nsCRT.h
+--- firefox-57.0/xpcom/ds/nsCRT.h	2017-06-15 22:52:36.000000000 +0200
++++ firefox-57.0-p/xpcom/ds/nsCRT.h	2017-11-13 19:30:01.055925810 +0100
+@@ -8,7 +8,7 @@
+ 
+ #include <stdlib.h>
+ #include <ctype.h>
+-#include "plstr.h"
++#include "nspr/plstr.h"
+ #include "nscore.h"
+ #include "nsCRTGlue.h"
+ 
+diff -Naur firefox-57.0/xpcom/string/nsString.h firefox-57.0-p/xpcom/string/nsString.h
+--- firefox-57.0/xpcom/string/nsString.h	2017-11-02 17:16:35.000000000 +0100
++++ firefox-57.0-p/xpcom/string/nsString.h	2017-11-13 19:30:01.052925729 +0100
+@@ -160,6 +160,6 @@
+ #include "nsMemory.h"
+ #include <string.h>
+ #include <stdio.h>
+-#include "plhash.h"
++#include "nspr/plhash.h"
+ 
+ #endif // !defined(nsString_h___)
+diff -Naur firefox-57.0/xpcom/threads/BlockingResourceBase.h firefox-57.0-p/xpcom/threads/BlockingResourceBase.h
+--- firefox-57.0/xpcom/threads/BlockingResourceBase.h	2017-09-14 22:16:02.000000000 +0200
++++ firefox-57.0-p/xpcom/threads/BlockingResourceBase.h	2017-11-13 19:30:01.058925892 +0100
+@@ -20,7 +20,7 @@
+ // NB: Comment this out to enable callstack tracking.
+ #define MOZ_CALLSTACK_DISABLED
+ 
+-#include "prinit.h"
++#include "nspr/prinit.h"
+ 
+ #include "nsStringGlue.h"
+ 
+diff -Naur firefox-57.0/xpcom/threads/nsThreadUtils.h firefox-57.0-p/xpcom/threads/nsThreadUtils.h
+--- firefox-57.0/xpcom/threads/nsThreadUtils.h	2017-11-02 17:16:35.000000000 +0100
++++ firefox-57.0-p/xpcom/threads/nsThreadUtils.h	2017-11-13 19:30:01.057925865 +0100
+@@ -7,8 +7,8 @@
+ #ifndef nsThreadUtils_h__
+ #define nsThreadUtils_h__
+ 
+-#include "prthread.h"
+-#include "prinrval.h"
++#include "nspr/prthread.h"
++#include "nspr/prinrval.h"
+ #include "MainThreadUtils.h"
+ #include "nsICancelableRunnable.h"
+ #include "nsIIdlePeriod.h" 
