@@ -3,9 +3,9 @@ _extramodules=extramodules-4.13
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-modules
-pkgver=5.1.28
-_pkgver=5.1.28
-pkgrel=3
+pkgver=5.2.0
+_pkgver=5.2.0
+pkgrel=1
 pkgdesc="Kernel modules for VirtualBox"
 url="http://www.virtualbox.org"
 arch=('x86_64')
@@ -16,14 +16,14 @@ source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules
         'virtualbox-modules-depmod.patch'
         'vbox-modules.conf')
 install=${pkgname}.install
-md5sums=('827b2b31e25841bb78b978a1fe9174a8'
+md5sums=('af325c4c4f1d45861e4a2239b418c411'
          'c9f84fb084a79275d269c542ff53ba4d'
          'f122361a8d2075e4dc819757b6ba34cc')
 
 prepare() {
     cd vbox-kernel-module-src-${_pkgver}
     
-    patch -p0 -i ${srcdir}/virtualbox-modules-depmod.patch
+    #patch -p0 -i ${srcdir}/virtualbox-modules-depmod.patch
 }
 
 build() {
