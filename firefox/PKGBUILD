@@ -3,7 +3,7 @@ pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='http://www.mozilla.org/projects/firefox'
 pkgver=57.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
 groups=('network')
@@ -20,18 +20,22 @@ source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${pkgver}/sour
         'mozconfig'
         'firefox.desktop'
         'firefox-install-dir.patch'
-        'vendor.js')
+        'vendor.js'
+        'stylo.patch')
 sha256sums=('603af00155be87f2c9c58047dd0072971f1cdab1f632695aae6ad072efefbb8f'
-            'add74df2a5f3d98c22691ac2ab3ac08ec53dbfb703c9491b279a6d1c6a151485'
+            'a8a368b0dcdafb514f17541b9bd9868e3dc5f37b8be678eb729c6851eed8b10b'
             '9f25db9a95d8fb29545e9864c69fae41b95a904e1580cf4b838e22fbdcbbdcc3'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
-            '4b50e9aec03432e21b44d18c4c97b2630bace606b033f7d556c9d3e3eb0f4fa4')
+            '4b50e9aec03432e21b44d18c4c97b2630bace606b033f7d556c9d3e3eb0f4fa4'
+            'e69961c43ff3b5b5eee1cc24fb7b750653da0eb51d8a08f208dab8413d64b957')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
   cp ../mozconfig .mozconfig
   patch -p1 -i ${srcdir}/firefox-install-dir.patch
+  
+  patch -p1 -i ${srcdir}/stylo.patch
 
   mkdir ${srcdir}/path
   
