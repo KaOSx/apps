@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kmediaplayer
-pkgver=${_kdever}
-pkgrel=1
+pkgver=${_kf5ver}
+pkgrel=2
 pkgdesc='KMediaPlayer'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kmediaplayer'
@@ -13,7 +13,7 @@ depends=('kparts')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/portingAids/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
@@ -22,7 +22,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF
   make
 }

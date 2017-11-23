@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kio'
@@ -15,16 +15,19 @@ depends=('karchive' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'ki18n' 'kservice' 'so
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/5.20/${pkgname}-${pkgver}.tar.xz"
-        'kauth4.diff')
+        'kauth4.diff'
+        "https://github.com/KDE/kio/commit/2353119aae8f03565bc7779ed1d597d266f5afda.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '093017bbf68b63d2ddc658b84fe021b9')
+         '093017bbf68b63d2ddc658b84fe021b9'
+         '0a57bf05e191e1b962028b8a743f9dfb')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # GSOC project to include root operation, target dolphin
   # https://docs.google.com/document/d/1LhuHwwo_hCziM2-3UsffpODwnjypYQjMnB7YHEQd4dQ
   patch -p1 -i ${srcdir}/kauth4.diff
-  #sed -i -e 's|-caption=|-qwindowtitle|' src/core/desktopexecparser.cpp
+  #fix creating dir in dolphin with Qt 5.9.3
+  patch -p1 -i ${srcdir}/2353119aae8f03565bc7779ed1d597d266f5afda.diff
 }
          
 build() {

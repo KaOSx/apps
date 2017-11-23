@@ -4,8 +4,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kf5-attica
 _pkgname=attica
-pkgver=${_kdever}
-pkgrel=1
+pkgver=${_kf5ver}
+pkgrel=2
 arch=('x86_64')
 url='https://projects.kde.org/projects/kdesupport/attica'
 pkgdesc='A Qt5 library that implements the Open Collaboration Services API'
@@ -14,7 +14,7 @@ depends=('qt5-base')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
@@ -24,8 +24,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DLIB_INSTALL_DIR=lib
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib
   make
 }
 
