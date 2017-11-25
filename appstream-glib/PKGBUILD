@@ -1,0 +1,33 @@
+ 
+pkgname=appstream-glib
+pkgver=0.7.4
+pkgrel=1
+pkgdesc="Library that provides objects and helper methods to help reading and writing AppStream metadata."
+arch=('x86_64')
+url="https://github.com/hughsie/appstream-glib"
+license=('LGPL')
+depends=('gcab' 'gtk3' 'libyaml' 'libsoup' 'pacman' 'gperf' 'json-glib' 'gdk-pixbuf2')
+makedepends=('meson' 'ninja' 'gobject-introspection')
+source=("https://people.freedesktop.org/~hughsient/appstream-glib/releases/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('a09d0c0e892f7c142ddaf4dc40c3391f5211beff77307734576fe46911a6c825')
+
+build() {
+  mkdir -p build
+  cd build
+
+   meson ../${pkgname}-${pkgver} \
+    --prefix=/usr \
+    --buildtype=release \
+    --libexecdir=/usr/lib \
+    -Denable-alpm=true \
+    -Denable-stemmer=false \
+    -Denable-docs=false \
+    -Denable-rpm=false 
+  ninja
+}
+
+package() {
+  cd build
+
+  DESTDIR=${pkgdir} ninja install
+}

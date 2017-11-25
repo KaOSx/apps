@@ -1,8 +1,8 @@
 
 # stay with _commit builds, keep in sync with what docker ships
 pkgname=containerd
-pkgver=0.2.10
-_commit=06b9cb35161009dcb7123345749fef02f7cea8e0
+pkgver=0.9.8
+_commit=1.0.0-beta.3
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Daemon to control runC, built for performance and density."
@@ -11,8 +11,8 @@ license=('APACHE')
 depends=('runc')
 makedepends=('go')
 #source=("https://github.com/docker/containerd/archive/v${pkgver}.tar.gz")
-source=("https://github.com/containerd/containerd/archive/${_commit}.zip")
-md5sums=('236322347da8de4df39615d01cb3a999')
+source=("https://github.com/containerd/containerd/archive/v${_commit}.zip")
+md5sums=('18ff42f3438250d98a7fb70a04e05c85')
 
 prepare() {
     cd ${srcdir}

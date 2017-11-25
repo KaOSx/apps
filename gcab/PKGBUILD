@@ -1,0 +1,26 @@
+ 
+pkgname=gcab
+pkgver=0.7
+pkgrel=1
+pkgdesc="GObject library to create cabinet files"
+arch=('x86_64')
+license=('LGPL')
+url="https://github.com/GNOME/gcab"
+depends=('glib2')
+makedepends=('gobject-introspection' 'zlib' 'intltool')
+source=("http://ftp.gnome.org/pub/GNOME/sources/gcab/0.7/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('a16e5ef88f1c547c6c8c05962f684ec127e078d302549f3dfd2291e167d4adef')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  
+  ./configure --prefix=/usr \
+    --disable-gtk-doc
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  
+  make DESTDIR=${pkgdir} install
+}

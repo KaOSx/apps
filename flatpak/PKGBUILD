@@ -1,17 +1,17 @@
  
 pkgname=flatpak
-pkgver=0.10.0
+pkgver=0.10.1
 pkgrel=1
 pkgdesc="System for building, distributing and running sandboxed desktop applications on Linux."
 url="http://flatpak.org"
 arch=('x86_64')
 license=('GPL')
 depends=('bubblewrap' 'elfutils' 'fuse' 'glib2' 'json-glib' 'libarchive' 'ostree'
-         'polkit' 'xorg-xauth' 'python3' 'patch' 'systemd')
+         'polkit' 'xorg-xauth' 'python3' 'patch' 'systemd' 'appstream-glib')
 makedepends=('intltool' 'xmlto' 'dwarf')
 install=flatpak.install
 source=("https://github.com/flatpak/flatpak/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('57920502e154088e8a1776137e98786d53736daa92bb49c0920a0df1b7032da9')
+sha256sums=('c43f6d1503be2b6a2d43ff8b16e3d2f34b6d7c696f4449446a8870cc31a4437c')
 
 build() {
   cd ${pkgname}-${pkgver}
