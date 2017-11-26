@@ -1,9 +1,9 @@
 
 pkgname=qmmp
-pkgver=1.1.12
-_pkgver=1.1.12
+pkgver=1.2.0
+_pkgver=1.2.0
 _commit=dev-code-5352-branches-qmmp-1.0
-pkgrel=2
+pkgrel=1
 pkgdesc="Qt based audio-player"
 arch=('x86_64')
 url="http://qmmp.ylsoftware.com/"
@@ -21,12 +21,15 @@ optdepends=('flac: native FLAC support'
 groups=('multimedia')
 source=("https://sourceforge.net/projects/qmmp-dev/files/qmmp/qmmp-${_pkgver}.tar.bz2")
 #source=("http://sourceforge.net/code-snapshots/svn/q/qm/qmmp-dev/code/qmmp-${_commit}.zip")
-sha1sums=('4bd631b0331a40b78451296ead02d996ccc17dca')
+sha1sums=('fca04a0d70c3ddffd24177ccbf484f34f38ab2b9')
 
 build() {
   cd ${pkgname}-${_pkgver}
-
-  cmake . -DCMAKE_INSTALL_PREFIX=/usr 
+  
+  cmake ./ \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUSE_HAL=0 \
+    -DUSE_CDA=0
   make
 }
 
