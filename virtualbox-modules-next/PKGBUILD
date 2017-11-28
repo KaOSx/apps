@@ -4,9 +4,9 @@ _kernver="$(cat /lib/modules/$_extramodules/version)"
 #_kernver=4.8.3-1-next  # hardcode in case system not running linux-next
 
 pkgname=virtualbox-modules-next
-pkgver=5.2.0
-_pkgver=5.2.0
-pkgrel=2
+pkgver=5.2.2
+_pkgver=5.2.2
+pkgrel=1
 pkgdesc="Kernel modules for VirtualBox"
 url="http://www.virtualbox.org"
 arch=('x86_64')
@@ -16,21 +16,16 @@ makedepends=('linux-next-headers')
 provides=('virtualbox-modules')
 source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-kernel-module-src-${_pkgver}.tar.xz"
         'virtualbox-modules-depmod.patch'
-        'vbox-modules-next.conf'
-        'linux4.14.patch')
+        'vbox-modules-next.conf')
 install=${pkgname}.install
-md5sums=('af325c4c4f1d45861e4a2239b418c411'
+md5sums=('f9e99eae3463c8e3ce2b367abbf45d93'
          'c9f84fb084a79275d269c542ff53ba4d'
-         'f122361a8d2075e4dc819757b6ba34cc'
-         'c9d5befee0977fbcfb158520bb54610c')
+         'f122361a8d2075e4dc819757b6ba34cc')
 
 prepare() {
     cd vbox-kernel-module-src-${_pkgver}
     
     #patch -p0 -i ${srcdir}/virtualbox-modules-depmod.patch
-    # patch from Frugalware 
-    patch -p1 -i ${srcdir}/linux4.14.patch
-    
 }
 
 build() {
