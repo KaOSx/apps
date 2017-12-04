@@ -1,7 +1,7 @@
 
 pkgname=kaffeine
-pkgver=2.0.13
-_pkgver=2.0.13
+pkgver=2.0.14
+_pkgver=2.0.14
 pkgrel=1
 pkgdesc='KDE media player'
 license=('GPL')
@@ -13,13 +13,14 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('multimedia')
 source=("https://download.kde.org/stable/kaffeine/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/KDE/kaffeine/commit/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff")
-md5sums=('6b73f8b6b44ff5e57c02f0681dd1064f'
+md5sums=('d3316d52d0e57ef844ee36b82f97630b'
          '2cd0bb8f539ba0835d3db5b125de45d4')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #patch -p1 -i ${srcdir}/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff
   #sed -i 's|${X11_Xscreensaver_INCLUDE_PATH}||' CMakeLists.txt
+  rm -r po/pt_BR/docs 
 }
 
 build() {
