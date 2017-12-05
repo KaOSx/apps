@@ -1,8 +1,8 @@
 
 pkgname=freerdp
 _pkgname=FreeRDP
-pkgver=2.0.0rc
-#_pkgver=1.2.0-beta1-android9
+pkgver=2.0.0rc1
+_pkgver=2.0.0-rc1
 _commit=f8c9f438436a4492e37011396148d804f7e3651f
 pkgrel=1
 pkgdesc="Free RDP client"
@@ -13,14 +13,15 @@ depends=('openssl' 'libxcursor' 'libcups' 'alsa-lib' 'libxext' 'libxdamage'
         'ffmpeg' 'libxkbfile' 'libxinerama' 'libxv' 'pulseaudio' 'libxrender' 
         'libxfixes' 'gst-plugins-base' 'libxkbcommon' 'libxrandr') 
 makedepends=('krb5' 'cmake' 'damageproto' 'xmlto' 'docbook-xsl')
-source=("https://github.com/FreeRDP/FreeRDP/archive/${_commit}.zip")
-md5sums=('0e8500f88da44ce2211eebb38e2d4cb5')
+#source=("https://github.com/FreeRDP/FreeRDP/archive/${_commit}.zip")
+source=("http://pub.freerdp.com/releases/${pkgname}-${_pkgver}.tar.gz")
+sha1sums=('6f5d76aa8ca3efb1ede0ecd5a1bd4421034c8663')
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
   
-  cmake ../${_pkgname}-${_commit} \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
