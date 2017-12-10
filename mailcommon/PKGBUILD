@@ -12,15 +12,13 @@ license=('LGPL')
 depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'kcodecs' 'kiconthemes' 'karchive' 'kitemviews'
          'kwindowsystem' 'kxmlgui' 'messagelib' 'libkdepim' 'pimcommon' 'mailimporter' 'kmailtransport'
          'kldap' 'phonon-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+makedepends=('extra-cmake-modules' 'kdesignerplugin' 'qt5-tools' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/mailcommon.git")
-#md5sums=('SKIP')
 
 prepare() {
   cd $pkgname-${pkgver}
-  #sed -i -e 's|set(AKONADIMIME_LIB_VERSION "4.81.0")|set(AKONADIMIME_LIB_VERSION "4.80.0")|' ${srcdir}/${pkgname}/CMakeLists.txt
+  #sed -i -e 's|set(AKONADIMIME_LIB_VERSION "4.81.0")|set(AKONADIMIME_LIB_VERSION "4.80.0")|' CMakeLists.txt
 }
 
 build() {

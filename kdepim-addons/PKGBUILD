@@ -14,7 +14,7 @@ depends=('libkgapi' 'qtwebengine' 'boost-libs'
          'ki18n' 'khtml' 'kconfig' 'kdbusaddons' 'kxmlgui' 'kdeclarative' 
          #kdepimlibs
          'mailcommon' 'kdepim-apps-libs' 'libkleo' 'grantleetheme'
-         'pimcommon' 'libkdepim' 'incidenceeditor' 'ktnef'
+         'pimcommon' 'libkdepim' 'incidenceeditor' 'ktnef' 'akonadi-import-wizard'
          'messagelib' 'calendarsupport' 'eventviews' 'akonadi' 'libgravatar' 'libksieve')
 makedepends=('extra-cmake-modules' 'kdoctools' 'clang' 'boost')
 groups=('kde' 'kdepim' 'kde-uninstall')
@@ -23,7 +23,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
-  #sed -i 's|add_subdirectory(korganizer)|#add_subdirectory(korganizer)|' ${srcdir}/$pkgname/CMakeLists.txt
+  sed -i -e 's|setRecursiveFiltering(true)|setRecursiveFilteringEnabled(true);|' sieveeditor/imapfoldercompletion/selectimapfolderwidget.cpp
   # fix license issue
   #patch -p1 -i ${srcdir}/ad9b246409bf9fbea70f57a69b4cfef1ca45c2b3.diff
 }
