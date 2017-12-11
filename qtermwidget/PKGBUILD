@@ -1,0 +1,29 @@
+
+pkgname=qtermwidget
+pkgver=0.8.0
+pkgrel=1
+pkgdesc="Terminal emulator widget for Qt 5."
+arch=("x86_64")
+url="https://github.com/lxde/qtermwidget"
+license=('LGPL2.1')
+depends=('qt5-base')
+makedepends=('cmake' 'lxqt-build-tools' 'qt5-tools')
+source=("https://github.com/lxde/qtermwidget/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=('2593078abdfa3db0e536794807c52d67')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr/ \
+    -DCMAKE_BUILD_TYPE=release \
+    -DCMAKE_INSTALL_LIBDIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=$pkgdir install
+}

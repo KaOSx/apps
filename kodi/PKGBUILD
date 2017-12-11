@@ -8,7 +8,7 @@ arch=('x86_64')
 url="https://kodi.tv/"
 license=('GPL' 'custom')
 depends=( 'bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi' 'python2' 'python-pysqlite'
-          'glew' 'libcdio' 'libgl' 'libmad' 'libmms' 'libass' 'yajl' 'x264'
+          'glew' 'libgl' 'libmad' 'libmms' 'libass' 'yajl' 'x264' 'libcdio'
           'libmpeg2' 'libmariadbclient' 'libsamplerate' 'libpng' 'bluez'
           'libxrandr' 'libxtst' 'lzo2' 'sdl2' 'pulseaudio' 'libdvdcss'
           'samba' 'wavpack' 'mesa-demos' 'xorg-utils' 'libmicrohttpd' 'libjpeg-turbo' 'mesa' 'swig'
@@ -28,14 +28,15 @@ source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
 md5sums=('a64c2fc56ddc41b9b0dded55eaabf170')
 
 build() {
-    mkdir -p build
+    #mkdir -p build
     cd build
     
     cmake ../xbmc-${_pkgver}/project/cmake \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=/usr/lib \
-        -DENABLE_EVENTCLIENTS=OFF 
+        -DENABLE_EVENTCLIENTS=OFF \
+        -DENABLE_OPTICAL=OFF
     make VERBOSE=1
   
     # use when switched to cmake build
