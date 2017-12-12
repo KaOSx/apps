@@ -1,7 +1,7 @@
 
 pkgname=pepper-flash
 _licensefile='PlatformClients_PC_WWEULA-en_US-20150407_1357.pdf'
-pkgver=27.0.0.187
+pkgver=28.0.0.126
 pkgrel=1
 pkgdesc='Adobe Flash Player - Chromium based browsers version'
 url='https://get.adobe.com/flashplayer/?no_redirect'
@@ -14,14 +14,12 @@ conflicts=('flashplugin')
 install=$pkgname.install
 license=('custom')
 options=(!strip)
-source=("https://fpdownload.adobe.com/pub/flashplayer/pdc/${pkgver}/flash_player_ppapi_linux.x86_64.tar.gz"
-        "https://wwwimages2.adobe.com/www.adobe.com/content/dam/Adobe/en/legal/licenses-terms/pdf/${_licensefile}")
-md5sums=('39a975eb6412c5200276c8b2ff7befeb'
-         '519cae27f11d267b31084c1eee5fb6b0')
+source=("https://fpdownload.adobe.com/pub/flashplayer/pdc/${pkgver}/flash_player_ppapi_linux.x86_64.tar.gz")
+md5sums=('4f2300e484ea87a3fc44bc7ffdcc78e1')
 
 package () {
     install -Dm644 manifest.json ${pkgdir}/usr/lib/PepperFlash/manifest.json
     install -Dm755 libpepflashplayer.so ${pkgdir}/usr/lib/PepperFlash/libpepflashplayer.so
     
-    install -Dm644 ${_licensefile} ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.pdf
+    install -Dm644 license.pdf ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.pdf
 }
