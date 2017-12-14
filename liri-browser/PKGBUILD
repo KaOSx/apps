@@ -1,17 +1,19 @@
 
 pkgname=liri-browser
 pkgver=0.3.128
-_commit=ea5aa42b85c7a9f58121f01a04a0bc7bcf1dfe42
+_commit=456007addb53a5efb7f2e926b681b760fea2af03
 pkgrel=1
 pkgdesc="Cross-platform material design web browser"
 url="https://github.com/lirios/browser"
 arch=('x86_64')
 license=('GPLv3')
 depends=('qtwebengine' 'qt5-multimedia' 'fluid' 'qt5-svg' 'qt5-location' 'quazip')
-makedepends=('qtcreator' 'git')
+makedepends=('liri-qbs-shared' 'git')
 #source=("https://github.com/lirios/browser/archive/${_commit}.zip")
-source=("git://github.com/lirios/browser.git")
-md5sums=('SKIP')
+source=("git://github.com/lirios/browser.git"
+        'browserqbs.diff')
+md5sums=('SKIP'
+         '0312780cfbcc5fccb632d87770fb0a99')
 
 prepare() {
   cd browser
@@ -28,6 +30,8 @@ prepare() {
   #sed -i -e 's|accentColor: "#FF5722"|accentColor: "#31A3DD"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
   #sed -i -e 's|darkThemeColor : "#f3f3f3"|darkThemeColor : "#CCCCCC"|' ${srcdir}/${pkgname}/src/qml/BrowserWindow.qml
   #sed -i -e 's|lightThemeColor: "#FAFAFA"|lightThemeColor: "#E8EFF7"|' ${srcdir}/${pkgname}/src/qml/BaseApplication.qml
+  
+  #patch -p1 -i ${srcdir}/browserqbs.diff
 }
 
 build() {

@@ -1,0 +1,36 @@
+
+pkgname=liri-qbs-shared
+pkgver=1.0.0
+_commit=456007addb53a5efb7f2e926b681b760fea2af03
+pkgrel=1
+pkgdesc="Shared Qbs imports and modules"
+url="https://github.com/lirios/qbs-shared"
+arch=('x86_64')
+license=('GPLv3')
+depends=('qtcreator')
+makedepends=('git')
+#source=("https://github.com/lirios/browser/archive/${_commit}.zip")
+source=("git://github.com/lirios/qbs-shared.git")
+md5sums=('SKIP')
+
+prepare() {
+  cd qbs-shared
+  git submodule update --init
+}
+
+build() {
+    cd qbs-shared
+
+    qbs setup-toolchains --type gcc /usr/bin/g++ gcc
+    qbs setup-qt /usr/lib/qt5/bin/qmake qt5
+    qbs config profiles.qt5.baseProfile gcc
+    qbs build --no-install -d build profile:qt5 qbs.installRoot:/ qbs.installPrefix:usr
+}
+
+package() {
+   cd qbs-shared
+   
+   qbs install -d build --no-build -v --install-root ${pkgdir} profile:qt5
+   
+   install -D -m644 LICENSE.BSD ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.BSD
+}
