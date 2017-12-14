@@ -2,7 +2,7 @@
 pkgbase=calligra
 pkgname=('calligra' 'calligra-l10n')
 pkgver=3.0.1
-pkgrel=10
+pkgrel=11
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
 url='https://www.calligra-suite.org'
@@ -15,19 +15,21 @@ makedepends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiadd
          'sqlite3' 'libkdcraw' 'exiv2' 'qca-qt5' 'qt5-declarative' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
          'kcontacts' 'akonadi-contacts' 'kholidays' 'okular' 'openexr' 'vc' 'kreport' 'qt5-webkit'
          'extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang
-source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
+        "https://github.com/KDE/calligra/commit/709cdead2fa0232ffade0ea12ea04e476953783d.diff")
 #source=("https://share.kde.org/index.php/s/yanrJWiQFB3rrvc/download?path=%2F&files=${pkgbase}-${pkgver}.tar.xz")
-md5sums=('a4f7045993bd42ad3e16d72214807ad1')
+md5sums=('a4f7045993bd42ad3e16d72214807ad1'
+         '1d6a3a6a280af522bab39248a6931595')
 
 prepare() {
   cd ${pkgbase}-${pkgver}
-  #patch -p1 -i $srcdir/warnings.diff
+  patch -p1 -i ${srcdir}/709cdead2fa0232ffade0ea12ea04e476953783d.diff
   #sed -i 's|KReport 3.0.0 EXACT QUIET|KReport 3.0 QUIET|' CMakeLists.txt
   #sed -i 's|KPropertyWidgets 3.0.0 EXACT QUIET|KPropertyWidgets 3.0 QUIET|' CMakeLists.txt
 }
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
   
   #export CC=/usr/bin/clang
