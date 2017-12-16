@@ -16,14 +16,14 @@ makedepends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiadd
          'kcontacts' 'akonadi-contacts' 'kholidays' 'okular' 'openexr' 'vc' 'kreport' 'qt5-webkit'
          'extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang
 source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
-        "https://github.com/KDE/calligra/commit/709cdead2fa0232ffade0ea12ea04e476953783d.diff")
+        "https://github.com/KDE/calligra/commit/9a02a545e8606aa91aff2038da137226a9432e1a.diff")
 #source=("https://share.kde.org/index.php/s/yanrJWiQFB3rrvc/download?path=%2F&files=${pkgbase}-${pkgver}.tar.xz")
 md5sums=('a4f7045993bd42ad3e16d72214807ad1'
-         '1d6a3a6a280af522bab39248a6931595')
+         'ba6c847e7929916521db02660d8d9ea4')
 
 prepare() {
   cd ${pkgbase}-${pkgver}
-  patch -p1 -i ${srcdir}/709cdead2fa0232ffade0ea12ea04e476953783d.diff
+  patch -p1 -i ${srcdir}/9a02a545e8606aa91aff2038da137226a9432e1a.diff
   #sed -i 's|KReport 3.0.0 EXACT QUIET|KReport 3.0 QUIET|' CMakeLists.txt
   #sed -i 's|KPropertyWidgets 3.0.0 EXACT QUIET|KPropertyWidgets 3.0 QUIET|' CMakeLists.txt
 }
