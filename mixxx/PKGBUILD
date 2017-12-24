@@ -1,8 +1,8 @@
 pkgname=mixxx
-pkgver=2.0.0
+pkgver=2.1.70
 _pkgver=release-2.0.0
-_commit=24028f2e8a28210fe45d8b67f2bb44d580587261
-pkgrel=11
+_commit=5a1a78b56f0f1a20d52f4678e1e1760ddbf5994b
+pkgrel=1
 pkgdesc="Free, open source software for digital DJ'ing."
 arch=('x86_64')
 url='http://www.mixxx.org'
@@ -14,7 +14,7 @@ makedepends=('scons' 'glu' 'qt5-tools')
 #source=("https://github.com/mixxxdj/mixxx/archive/${_pkgver}.tar.gz"
 source=("https://github.com/mixxxdj/mixxx/archive/${_commit}.zip"
         'chromaprint4.2.diff')
-md5sums=('ad7eecabe769ce2d34e159cb70d77aa7'
+md5sums=('fc20e2a2f68110044157ecd059af029a'
          '98de45bddeb9b2c3544808b4acbfdfc0')
 
 build() {
@@ -23,7 +23,7 @@ build() {
   # https://github.com/mixxxdj/mixxx/commit/5b252f36ce091d3a0d56afd10ad4085747c6708f
   #patch -p1 -i ${srcdir}/chromaprint4.2.diff
   
-  CXXFLAGS="-std=c++11"
+  #CXXFLAGS="-std=c++11"
 
   scons build=release qtdir=/usr/lib/qt5 prefix=/usr faad=1 qt5=1 wv=1 modplug=1 opus=1
 }
@@ -31,7 +31,7 @@ build() {
 package() {
   cd ${pkgname}-${_commit}
   
-  CXXFLAGS="-std=c++11"
+  #CXXFLAGS="-std=c++11"
 
   scons qtdir=/usr/lib/qt5 prefix=/usr qt5=1 install_root=${pkgdir}/usr install
 }
