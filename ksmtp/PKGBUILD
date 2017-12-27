@@ -1,0 +1,44 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=ksmtp
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="Job-based library to send email through an SMTP server."
+arch=('x86_64')
+url='https://github.com/KDE/ksmtp'
+license=('LGPL')
+depends=('kcoreaddons' 'ki18n' 'kio' 'kmime')
+makedepends=('extra-cmake-modules')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://github.com/KDE/ksmtp/commit/ec2afd27c790fbde63a9c2bdd1f97a59fe04b18e.diff"
+        "https://github.com/KDE/ksmtp/commit/5199ed07428a03f1aa340da3ae99fcfa62ba2751.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'e9e9ec2c2f5e08b9b0a0d26d9b58c30c'
+         '520a55cc38bec4f4a972bc2196489b07')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/ec2afd27c790fbde63a9c2bdd1f97a59fe04b18e.diff
+  patch -p1 -i ${srcdir}/5199ed07428a03f1aa340da3ae99fcfa62ba2751.diff
+}
+
+build() {
+  mkdir -p build
+  cd build 
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
