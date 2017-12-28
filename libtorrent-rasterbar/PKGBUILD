@@ -2,7 +2,7 @@
 pkgname=libtorrent-rasterbar
 pkgver=1.1.5
 _pkgver=1_1_5
-pkgrel=1
+pkgrel=2
 pkgdesc="A C++ library that aims to be a good alternative to all the other bittorrent implementations around"
 url="http://www.rasterbar.com/products/libtorrent/"
 arch=('x86_64')
@@ -10,13 +10,14 @@ license=('custom')
 depends=('boost-libs' 'python3' 'geoip')
 makedepends=('boost')
 source=("https://github.com/arvidn/libtorrent/releases/download/libtorrent-${_pkgver}/${pkgname}-${pkgver}.tar.gz"
-        "https://github.com/arvidn/libtorrent/commit/7eb3cf6bc6dbada3fa7bb7ff4d5981182813a0e2.diff")
+        'boost1.66.patch')
 md5sums=('f0e26796a79c51ae8e49ab652ce00166'
-         'e09f85a20596b037e10db4f391ea5682')
+         '122005c9eb11c09fac1938216aafad74')
 
 build() {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/7eb3cf6bc6dbada3fa7bb7ff4d5981182813a0e2.diff
+  # boost 1.66 https://github.com/arvidn/libtorrent/commit/d1a63cd781e79e1e3792a258c0bc7f9455f2272f
+  patch -p1 -i ${srcdir}/boost1.66.patch
   
   CXXFLAGS="-std=c++11" \
   PYTHON=/usr/bin/python3 \
