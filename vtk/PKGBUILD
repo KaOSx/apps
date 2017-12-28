@@ -1,23 +1,23 @@
 
 pkgname=vtk
-pkgver=8.0.0
-_pkgver=8.0
+pkgver=8.1.0
+_pkgver=8.1
 pkgrel=1
 pkgdesc='Open-source software system for 3D computer graphics, image processing, and visualization.'
 arch=('x86_64')
 url='https://gitlab.kitware.com/vtk/vtk'
 license=('BSD')
 depends=('java-environment' 'gnuplot' 'tk' 'python2-matplotlib' 'unixodbc' 'gdal' 'openmpi' 'mariadb'
-         'glew' 'gl2ps' 'ffmpeg' 'python2-six' 'qtwebkit-tp' 'qt5-x11extras' 'jsoncpp')
+         'glew' 'ffmpeg' 'python2-six' 'qtwebkit-tp' 'qt5-x11extras' 'jsoncpp')
 makedepends=('boost' 'cmake' 'qt5-tools')
 options=('!emptydirs')
-source=("http://www.vtk.org/files/release/${_pkgver}/VTK-${pkgver}.tar.gz"
-        "http://www.vtk.org/files/release/${_pkgver}/VTKData-${pkgver}.tar.gz"
-        "http://www.vtk.org/files/release/${_pkgver}/VTKLargeData-${pkgver}.tar.gz"
+source=("https://www.vtk.org/files/release/${_pkgver}/VTK-${pkgver}.tar.gz"
+        "https://www.vtk.org/files/release/${_pkgver}/VTKData-${pkgver}.tar.gz"
+        "https://www.vtk.org/files/release/${_pkgver}/VTKLargeData-${pkgver}.tar.gz"
         'gdal2.patch')
-md5sums=('8de89b8c7a729016ab7128da5e881cf4'
-         '90417b7ca2ec1185412300b76b810332'
-         '8a9d6e4d95ee8ccfd255910d40829e50'
+md5sums=('4fa5eadbc8723ba0b8d203f05376d932'
+         'ad9cdcba8d5bbfce8661a29e5b8f0c7b'
+         '1dd2c19ffbdaba0d960215ba309482ba'
          'e85edd330937a2395a233e0cb6be0b83')
 
 prepare() {
@@ -27,14 +27,14 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
+  #mkdir -p build
   cd build
 
   #export JAVA_HOME=/usr/lib/jvm/default
 
   # use system libs
   local cmake_system_flags=""
-  for lib in EXPAT FREETYPE JPEG PNG TIFF ZLIB OGGTHEORA SIX JSONCPP GLEW GL2PS; do
+  for lib in EXPAT FREETYPE JPEG PNG TIFF ZLIB OGGTHEORA SIX JSONCPP GLEW; do
     cmake_system_flags+="-DVTK_USE_SYSTEM_${lib}:BOOL=ON "
   done
 
@@ -57,7 +57,8 @@ build() {
     -DCMAKE_CXX_FLAGS="-D__STDC_CONSTANT_MACROS" \
     -DVTK_CUSTOM_LIBRARY_SUFFIX="" \
     -DVTK_INSTALL_INCLUDE_DIR:PATH=include/vtk \
-    -DVTK_RENDERING_BACKEND="OpenGL" \
+    -DVTK_RENDERING_BACKEND="OpenGL2" \
+    -DVTK_USE_SYSTEM_GL2PS=OFF \
     ${cmake_system_flags} \
     -DCMAKE_BUILD_TYPE=Release 
 
