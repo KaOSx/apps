@@ -3,19 +3,19 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kube
-pkgver=0.4.0
-_commit=9788bb93ba05210c0e757b0a3099855015de0188
+pkgver=0.5.0
+_commit=ffe8bd96d3fde3f7ad3a3c7636af1e7911df4398
 pkgrel=1
 pkgdesc="Personal information and collaboration application using Sink for data access and synchronization"
 arch=('x86_64')
 url='https://kube.kde.org/'
 license=('LGPL')
-depends=('sink' 'kasync' 'kcodecs' 'ki18n' 'kpackage' 'kmime' 'qtwebengine' 'qt5-quickcontrols' 'qt5-location')
+depends=('sink' 'kasync' 'kcodecs' 'ki18n' 'kmime' 'qtwebengine' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-location')
 makedepends=('extra-cmake-modules' 'boost')
 #source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/kube/archive/${_commit}.zip")
-md5sums=('956b828a27257ac3854dac21df0a86b5')
+md5sums=('7024d286342203845bedbf5d345b9a18')
 
 prepare() {
   cd ${pkgname}-${_commit}
