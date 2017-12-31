@@ -10,13 +10,17 @@ license=('custom')
 depends=('boost-libs' 'python3' 'geoip')
 makedepends=('boost')
 source=("https://github.com/arvidn/libtorrent/releases/download/libtorrent-${_pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "https://github.com/arvidn/libtorrent/commit/f42b63c7ea82173837920d8712d2891cc3ecb6c2.diff"
         'boost1.66.patch')
 md5sums=('f0e26796a79c51ae8e49ab652ce00166'
-         '122005c9eb11c09fac1938216aafad74')
+         'accd0794a253a1d4280e093069c4fa19'
+         'bd060c740ce6e664f499817de5ada26e')
 
 build() {
   cd ${pkgname}-${pkgver}
-  # boost 1.66 https://github.com/arvidn/libtorrent/commit/d1a63cd781e79e1e3792a258c0bc7f9455f2272f
+  # 2 boost 1.66 needed patches
+  patch -p1 -i ${srcdir}/f42b63c7ea82173837920d8712d2891cc3ecb6c2.diff
+  # https://github.com/arvidn/libtorrent/commit/d1a63cd781e79e1e3792a258c0bc7f9455f2272f
   patch -p1 -i ${srcdir}/boost1.66.patch
   
   CXXFLAGS="-std=c++11" \
