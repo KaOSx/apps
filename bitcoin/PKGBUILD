@@ -9,13 +9,21 @@ license=('MIT')
 depends=('boost-libs' 'qt5-base' 'miniupnpc' 'qrencode' 'protobuf' 'libevent' 'zeromq')
 makedepends=('boost' 'qt5-tools')
 #source=("git://github.com/bitcoin/bitcoin.git")
-source=("https://github.com/bitcoin/bitcoin/archive/v${pkgver}.tar.gz")
-md5sums=('bf9b2b507005991b87db71f47c6eefd3')
+source=("https://github.com/bitcoin/bitcoin/archive/v${pkgver}.tar.gz"
+        "https://github.com/bitcoin/bitcoin/pull/12032/commits/ad8393634a7b86a1da40f4d2533b16b69c0dd26c.diff")
+md5sums=('bf9b2b507005991b87db71f47c6eefd3'
+         '61ebed07447391918489e8878c20859f')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # boost 1.66 patch
+  patch -p1 -i ${srcdir}/ad8393634a7b86a1da40f4d2533b16b69c0dd26c.diff
+}
 
 build() {
   cd ${pkgname}-${pkgver}
   #CXXFLAGS="$CXXFLAGS -DBOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT=1"
-  CXXFLAGS="-std=c++11"
+  #CXXFLAGS="-std=c++11"
 
   ./autogen.sh
   ./configure --prefix=/usr \
