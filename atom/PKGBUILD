@@ -1,6 +1,6 @@
 
 pkgname=atom
-pkgver=1.23.1
+pkgver=1.23.2
 pkgrel=1
 pkgdesc="Hackable text editor from the 21st Century"
 arch=('x86_64')
@@ -12,7 +12,7 @@ conflicts=('atom-editor')
 replaces=('atom-editor')
 source=("https://github.com/atom/atom/releases/download/v${pkgver}/atom-amd64.tar.gz"
         'atom.desktop')
-md5sums=('b708896d9e3442ec6225762eb84c93a1'
+md5sums=('a81f0be096b3fca410aef6258d1d21dc'
          '64c714a8832e5be9e43e532f37ea30ce')
 
 package() {
@@ -26,5 +26,5 @@ package() {
 
   install -Dm644 ${srcdir}/atom.desktop ${pkgdir}/usr/share/applications/atom.desktop
   install -Dm644 atom.png ${pkgdir}/usr/share/pixmaps/atom.png
-  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
