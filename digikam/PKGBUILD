@@ -1,9 +1,9 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
-pkgver=5.7.0
-_pkgver=5.7.0
-pkgrel=2
+pkgver=5.8.0
+_pkgver=5.8.0
+pkgrel=1
 url="https://www.digikam.org/"
 arch=('x86_64')
 license=('GPL')
@@ -18,16 +18,15 @@ makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons'
          'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang' 'ruby')
 source=("http://download.kde.org/stable/digikam/${pkgbase}-${_pkgver}.tar.xz"
         "https://github.com/KDE/digikam/commit/855ba5b7d4bc6337234720a72ea824ddd3b32e5b.diff")
-md5sums=('475e85b052c72763ee1103493956bd68'
+md5sums=('39ae21083ab47acbb8ca89f73716fecb'
          '9441364a642e3645f91b83aa86cbc726')
 
 prepare() {
   cd ${pkgbase}-${_pkgver}
   sed -i -e 's|add_subdirectory( sv )|#add_subdirectory( sv )|' doc-translated/CMakeLists.txt
-  #sed -i -e 's|${KF5_MIN_VERSION}||' ${srcdir}/${pkgbase}-${_pkgver}/extra/kipi-plugins/CMakeLists.txt
   # Qt 5.9.3 fix
-  cd core
-  patch -p1 -i ${srcdir}/855ba5b7d4bc6337234720a72ea824ddd3b32e5b.diff
+  #cd core
+  #patch -p1 -i ${srcdir}/855ba5b7d4bc6337234720a72ea824ddd3b32e5b.diff
 }
 
 build() {
@@ -84,7 +83,5 @@ package_kipi-plugins () {
   
   cd ${srcdir}/build/po
   make DESTDIR=${pkgdir}/ install
-  # part of libkvkontakte
-  rm ${pkgdir}/usr/share/locale/*/LC_MESSAGES/libkvkontakte.mo
 }
 
