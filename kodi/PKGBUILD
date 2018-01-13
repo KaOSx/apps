@@ -2,7 +2,7 @@
 pkgname=kodi
 pkgver=17.6
 _pkgver=17.6-Krypton
-pkgrel=2
+pkgrel=3
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
 url="https://kodi.tv/"
@@ -28,7 +28,7 @@ source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
 md5sums=('a64c2fc56ddc41b9b0dded55eaabf170')
 
 build() {
-    #mkdir -p build
+    mkdir -p build
     cd build
     
     cmake ../xbmc-${_pkgver}/project/cmake \
