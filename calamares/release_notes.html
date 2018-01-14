@@ -13,7 +13,7 @@
     <h3>KaOS - 2018.01</h3>
     <p>KaOS is pleased to announce the 2018.01 release.</p>
     
-    <!--<p>Just days after Plasma 5.11.5, KDE Applications 17.12.1 and Frameworks 5.43.0 where announced can you already see these on this new release.  Highlights of Plasma 5.11.5 include making sure passwords are stored for all users when kwallet is disabled, sync xwayland DPI font to wayland dpi, notifications optionally stores missed and expired notifications in a history, the new Plasma Vault offers strong encryption features presented in a user-friendly way, Window title logic has been unified between X and Wayland windows, default X font DPI to 96 on wayland. </strong>All built on <strong> Qt 5.10.0.</strong></p> -->
+    <p>The policy is, once a first pacman -Syu becomes a major update, it is time for a new ISO so new users are not faced with a difficult first update. With the exceptional large amounts of updates the last six weeks most systems will see 70-80% of their install replaced by new packages so a new ISO is more than due.</p>
     
     <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.43.0, Plasma 5.11.5 and KDE Applications 17.12.1.</strong>All built on <strong> Qt 5.10.0.</strong></p>
     
@@ -27,7 +27,7 @@
     
     <p>KaOS uses a First Run Wizard.  It will run on the newly installed system and enables with just a few clicks to adjust mouse behavior, menu launcher, desktop theme, used wallpaper, color scheme, widget style, window decoration and virtual desktops used.  With one click this Wizard will also link to KaOS Documentation and all contact info.</p>
     
-    <p>Most notable major updates to the base of the system are Systemd 236, Linux 4.14.13, LLVM/Clang 5.0.1, Qt 5.10.0, Mesa 17.3.2, Boost 1.66.0, ICU 60.2, Protobuf 3.5.1, Glib2 2.54.3, Wayland 1.14.0 and Ruby 2.5.0</p>
+    <p>Most notable major updates to the base of the system are Systemd 236, Linux 4.14.13, LLVM/Clang 5.0.1, Qt 5.10.0, Mesa 17.3.2, Boost 1.66.0, ICU 60.2, Protobuf 3.5.1, Glib2 2.54.3, Libcdio 2.0.0, Opencv 3.4.0 and Ruby 2.5.0</p>
     
     <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
     
@@ -37,11 +37,11 @@
 
     <p><b>Calamares</b>, the used installer framework, is at the 3.2 series. Highlights of the changes and additions:
     <ul>
-        <li>The crashreporter module has been dropped.</li>
-        <li>Encrypted swap is now correctly configured.</li>
-        <li>Fixed were the installation-is-done notification could hang Calamares when the installation failed.</li>
-        <li>Translations in the partitioning module have been improved.</li>
-        <li>Licensing information about Calamares and included third-party code is now up-to date and SPDX-encoded.</li>
+        <li>KPMCore 3.3 is now required. This adds support for LVM partitioning, thanks to the work of Andrius Štikonas.</li>
+        <li>Better error reporting from Python modules.</li>
+        <li>Python job-modules could not use pretty_name() for reporting the module status when the job was started.</li>
+        <li>Some poorly-configured systems cannot reliably set the hardware clock (RTC). Previously this was an error which would abort the entire installation. Calamares now ignores the error.</li>
+        <li>Use more support code from KPMCore, instead of doing it ourselves.</li>
     </ul></p>
     
     <p><strong>Octopi</strong> is becoming a very crucial part of full system maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like making sure a mirror is synced before starting any update, looking at the pacman logs, an option to get a paste from a complete snapshot of all info of a system with the SysInfo tool are included. Also included are very simple ways to open files, like copy to clipboard the file path shown in Octopi. To make sure the system doesn't start using too much disk space for the pacman cache, but still giving the user the option to retain some recent packages, the cache-cleaner tool is a great addition. The built-in tool to access <b>KCP</b> has now a much clearer place with the addition of its own "foreign" icon in the menu-bar. New added is the option to select custom icons for the systemtray.</p>
@@ -62,7 +62,7 @@
     
     <p><b>Known issues:</b></p>
     <ul>
-        <li>Installing on RAID or LVM is currently not possible</li>
+        <li>Installing on RAID is currently not possible</li>
     </ul>
     
     <p>To create <b>reliable</b> installation media, please follow the instructions from the <b>http://kaosx.us/download/</b> page. KaOS's ISO's <b>do not support Unetbootin or Rufus</b>, and DVDs need a burn speed <b>no higher than 4x</b>.</p>
