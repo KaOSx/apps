@@ -1,0 +1,29 @@
+
+pkgname=cmark
+pkgver=0.28.3
+pkgrel=1
+pkgdesc="CommonMark parsing and rendering library and program in C"
+arch=('x86_64')
+url="https://github.com/commonmark/cmark"
+license=('GPL')
+depends=('python3')
+makedepends=('cmake')
+source=("https://github.com/commonmark/cmark/archive/${pkgver}.tar.gz")
+md5sums=('324440a52a131ac24f2710b073865b7c')
+
+build() {
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
