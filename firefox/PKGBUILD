@@ -2,7 +2,7 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='http://www.mozilla.org/projects/firefox'
-pkgver=57.0.4
+pkgver=58.0
 pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
@@ -22,7 +22,7 @@ source=("https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${pkgver}/sour
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('97cced69abfd5c57d968f0095631f86beff4f7b61883edd5a4f207e7f9c43b33'
+sha256sums=('0e0a39caabf94d7467d8bb4008fa9e7340a7be57b8c78ccf0cf98791a3bfaaff'
             'a8a368b0dcdafb514f17541b9bd9868e3dc5f37b8be678eb729c6851eed8b10b'
             '9f25db9a95d8fb29545e9864c69fae41b95a904e1580cf4b838e22fbdcbbdcc3'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
@@ -48,12 +48,16 @@ build() {
   export PATH=${srcdir}/path:$PATH
   unset CPPFLAGS
 
-  make -f client.mk build # MOZ_PGO=0
+  #make -f client.mk build # MOZ_PGO=0
+  # https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/mach
+  ./mach build
+  ./mach build-symbols
 }
 
 package() {
   cd ${pkgname}-${pkgver}
-  make -f client.mk DESTDIR=${pkgdir} INSTALL_SDK= install
+  #make -f client.mk DESTDIR=${pkgdir} INSTALL_SDK= install
+  DESTDIR=${pkgdir} ./mach install
 
   install -Dm644 ../vendor.js ${pkgdir}/usr/lib/firefox/browser/defaults/preferences/vendor.js
 
