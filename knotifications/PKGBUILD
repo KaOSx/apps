@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=knotifications
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KNotifications'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/knotifications'
@@ -13,14 +13,14 @@ depends=('kiconthemes' 'kservice' 'kwindowsystem' 'libdbusmenu-qt5' 'libxslt' 'p
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/5.37/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/knotifications/commit/1c97e1d9741fd15962474f47932dd09728dae76b.diff")
+        "https://github.com/KDE/knotifications/commit/2690452736956f73c2348357e5e45b9f643e7f95.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'bb0b33849b5b5a2c1800fa1af88003d5')
+         '3a9f3c547ef9af0e10affea0e32a5a13')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # https://bugs.kde.org/show_bug.cgi?id=382444
-  #patch -p1 -i ${srcdir}/1c97e1d9741fd15962474f47932dd09728dae76b.diff
+  # https://bugs.kde.org/show_bug.cgi?id=389284
+  patch -p1 -i ${srcdir}/2690452736956f73c2348357e5e45b9f643e7f95.diff
 }
 
 build() {
