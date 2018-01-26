@@ -1,18 +1,17 @@
 
 pkgname=w3m
-pkgver=0.5.3.2
-_commit=1ac245bdcd803f69c7793ecccc090a80b1137d35
+pkgver=0.5.3.3
+_pkgver=0.5.3+git20180125
+_commit=0.5.3-git20180125
 pkgrel=1
 pkgdesc="Pager that can be used as a text-mode WWW browser."
 arch=('x86_64')
 url="http://w3m.sourceforge.net/"
 license=('custom')
-depends=('openssl' 'gc' 'ncurses' 'zlib')
-makedepends=('imlib2')
-optdepends=('imlib2: for graphics support') 
+depends=('openssl' 'gc' 'ncurses' 'zlib' 'imlib2')
 groups=('network')
-source=("https://github.com/tats/w3m/archive/${_commit}.zip")
-md5sums=('b9240a9a0fac52e378b7319897c0fd97')
+source=("https://github.com/tats/w3m/archive/v${_pkgver}.zip")
+md5sums=('6ad52db89c425b0d06d2007efe62d519')
 
 build() {
 	cd ${pkgname}-${_commit}
