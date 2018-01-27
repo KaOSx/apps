@@ -1,8 +1,8 @@
 
 pkgbase=calligra
 pkgname=('calligra' 'calligra-l10n')
-pkgver=3.0.1
-pkgrel=11
+pkgver=3.1.0
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
 url='https://www.calligra-suite.org'
@@ -18,12 +18,12 @@ makedepends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiadd
 source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
         "https://github.com/KDE/calligra/commit/9a02a545e8606aa91aff2038da137226a9432e1a.diff")
 #source=("https://share.kde.org/index.php/s/yanrJWiQFB3rrvc/download?path=%2F&files=${pkgbase}-${pkgver}.tar.xz")
-md5sums=('a4f7045993bd42ad3e16d72214807ad1'
+md5sums=('9016615f62fc75bb44aa139a231c3be4'
          'ba6c847e7929916521db02660d8d9ea4')
 
 prepare() {
   cd ${pkgbase}-${pkgver}
-  patch -p1 -i ${srcdir}/9a02a545e8606aa91aff2038da137226a9432e1a.diff
+  #patch -p1 -i ${srcdir}/9a02a545e8606aa91aff2038da137226a9432e1a.diff
   #sed -i 's|KReport 3.0.0 EXACT QUIET|KReport 3.0 QUIET|' CMakeLists.txt
   #sed -i 's|KPropertyWidgets 3.0.0 EXACT QUIET|KPropertyWidgets 3.0 QUIET|' CMakeLists.txt
 }
@@ -62,7 +62,7 @@ package_calligra() {
   
   make DESTDIR=${pkgdir} install
   
-  rm ${pkgdir}/usr/share/applications/calligra_filter_odt2docx.desktop
+  #rm ${pkgdir}/usr/share/applications/calligra_filter_odt2docx.desktop
   #use in calligra-l10n
   mv ${pkgdir}/usr/share/locale ${srcdir}/
 }

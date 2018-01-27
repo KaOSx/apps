@@ -1,0 +1,49 @@
+
+pkgname=calligraplan
+pkgver=3.1.0
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Suite is a collection of office applications linked together by a common base."
+url='https://www.calligra-suite.org'
+license=('FDL1.2' 'GPL2' 'LGPL')
+depends=('kinit' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'kguiaddons' 
+         'ki18n' 'kiconthemes' 'kitemviews' 'kjobwidgets' 'kcmutils' 'kio' 'knotifications' 
+         'kparts' 'ktextwidgets' 'kwallet' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui'
+         'threadweaver' 'ktexteditor' 'kactivities' 'khtml' 'kholidays' 'kdiagram' 'kcalcore'
+         'kcontacts' 'akonadi-contacts' 'kreport')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang
+source=("https://download.kde.org/stable/calligra/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/calligra/commit/9a02a545e8606aa91aff2038da137226a9432e1a.diff")
+md5sums=('99c275d59e8cde612f86e3f8d6ba2b46'
+         'ba6c847e7929916521db02660d8d9ea4')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  #patch -p1 -i ${srcdir}/9a02a545e8606aa91aff2038da137226a9432e1a.diff
+  #sed -i 's|KReport 3.0.0 EXACT QUIET|KReport 3.0 QUIET|' CMakeLists.txt
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  #export CC=/usr/bin/clang
+  #export CXX=/usr/bin/clang++
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=FALSE \
+    -DPACKAGERS_BUILD=true 
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
+
