@@ -1,7 +1,7 @@
  
 pkgname=simplescreenrecorder
 pkgver=0.3.9
-pkgrel=1
+pkgrel=2
 _commit=65975c6
 pkgdesc="Screen recorder that is actually quite complex, but 'simple' in the sense that it's easy to use"
 arch=('x86_64')
@@ -21,7 +21,9 @@ build() {
   cmake ../ssr-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DWITH_QT5=TRUE
+    -DWITH_QT5=TRUE \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DLRELEASE=/usr/lib/qt5/bin/lrelease
     
   make
 }

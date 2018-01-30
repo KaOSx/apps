@@ -1,7 +1,7 @@
 
 pkgname=godot
-pkgver=2.1.4
-_pkgver=2.1.4-stable
+pkgver=3.0
+_pkgver=3.0-stable
 pkgrel=1
 pkgdesc="Full featured, open source, MIT licensed, game engine."
 arch=('x86_64')
@@ -12,12 +12,10 @@ depends=('alsa-lib' 'glu' 'libx11' 'libxcursor' 'libxinerama' 'libxrandr' 'freet
 makedepends=('scons' 'clang')
 source=("https://github.com/okamstudio/godot/archive/${_pkgver}.tar.gz"
         'godot.desktop'
-        'icon.png'
-        "https://github.com/Faless/godot/commit/43bc27e2755f34017148097773da8a6988718aaf.diff")
-md5sums=('c80811bb40c564f12e2751299901b246'
+        'icon.png')
+md5sums=('fefe9b5881c021a3a7646b5cb323c00d'
          'dca7c5c5682bdc8cc83386034e0d7d07'
-         'f756e85756a9cbc06a328414abf74585'
-         'f9afc9ee508abc7372c4016a3a966819')
+         'f756e85756a9cbc06a328414abf74585')
 
 build() {
     cd ${pkgname}-${_pkgver}
