@@ -4,14 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
 license=('LGPL')
 depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb' 'libcanberra' 'polkit-kde-agent-1'
          'systemsettings' 'ksysguard' 'powerdevil' 'kmenuedit' 'kpeople' 
-         'kdbusaddons' 'plasma-integration' 'xf86-input-synaptics' 'xorg-server' 'kactivities-stats')
+         'kdbusaddons' 'plasma-integration' 'xf86-input-synaptics' 'xorg-server'
+         'kactivities-stats' 'xf86-input-evdev' 'xf86-input-libinput')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('plasma5')
 conflicts=('kde-workspace' 'kcm-touchpad')
