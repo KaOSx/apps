@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kio'
@@ -25,9 +25,9 @@ prepare() {
   cd ${pkgname}-${pkgver}
   # GSOC project to include root operation, target dolphin
   # https://docs.google.com/document/d/1LhuHwwo_hCziM2-3UsffpODwnjypYQjMnB7YHEQd4dQ
-  patch -p1 -i ${srcdir}/kauth4.diff
+  #patch -p1 -i ${srcdir}/kauth4.diff
   #fix file dialog cut off with Qt 5.10
-  patch -p1 -i ${srcdir}/248941a0f4b4792b6935546da1c1e6bdda61846e.diff
+  #patch -p1 -i ${srcdir}/248941a0f4b4792b6935546da1c1e6bdda61846e.diff
 }
          
 build() {

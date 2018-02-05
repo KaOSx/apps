@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=knotifications
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KNotifications'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/knotifications'
@@ -20,7 +20,7 @@ md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://bugs.kde.org/show_bug.cgi?id=389284
-  patch -p1 -i ${srcdir}/2690452736956f73c2348357e5e45b9f643e7f95.diff
+  #patch -p1 -i ${srcdir}/2690452736956f73c2348357e5e45b9f643e7f95.diff
 }
 
 build() {

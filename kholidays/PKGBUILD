@@ -3,18 +3,19 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kholidays
-pkgver=${_kdever}
+pkgver=${_kf5ver}
 pkgrel=1
+epoch=1
 pkgdesc="Library that provides a C++ API that determines holiday and other special events for a 
          geographical region.."
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/kholidays'
 license=('LGPL')
-depends=('kitemviews' 'kdelibs4support' 'qt5-tools')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
+depends=('qt5-declarative')
+makedepends=('extra-cmake-modules' 'qt5-tools')
+source=($_mirror/${pkgname}-${_kf5ver}.tar.xz
         'revert_tr.patch')
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '771d8857d040238c2d77b43999c00745')
 
 prepare() {
