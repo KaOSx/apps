@@ -1,8 +1,7 @@
 
 pkgname=kmymoney
-pkgver=4.100.10
-_commit=022d8fbfdd57ffa85eea0aed53a61562e5674c40
-pkgrel=4
+pkgver=5.0.0
+pkgrel=1
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
 url="http://www.kmymoney.org/"
@@ -11,23 +10,17 @@ depends=('karchive' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'ki18n' 'kcompletio
          'kservice' 'kwallet' 'kiconthemes' 'kxmlgui' 'ktextwidgets' 'knotifications' 'kio' 'kholidays' 
          'gpgme' 'kcontacts' 'akonadi-contacts' 'akonadi' 'kidentitymanagement' 'kross'
          'shared-mime-info' 'boost-libs' 'pulseaudio' 'libofx' 'libical' 'alkimia' 'kdiagram'
-         'kactivities' 'aqbanking' 'kdewebkit') # 'sqlcipher' looks for Qt4 versions)
+         'kactivities' 'aqbanking' 'kdewebkit') # not finding sqlite 'sqlcipher')
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost')  
-conflicts=('kf5-kmymoney')
-replaces=('kf5-kmymoney')
 groups=('office')
-source=("https://github.com/KDE/kmymoney/archive/${_commit}.zip")
-md5sums=('0c923c590a40924d825999b9a54eb637')
+source=("https://download.kde.org/stable/kmymoney/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=('751b55a1be18a1e2df85829ad622e92a')
 
 build() {
-  cd ${srcdir}
-  #sed -e "s/#include <kstdguiitem.h>/#include <kstandardguiitem.h>/" -i ${srcdir}/$_pkgname/kmymoney/dialogs/*.cpp
-  #sed -e "s|find_package(KActivities)|find_package(KF5Activities)|" -i ${srcdir}/$pkgname/CMakeLists.txt
-  
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -36,7 +29,8 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
-    -DENABLE_SQLCIPHER=OFF
+    -DENABLE_SQLCIPHER=OFF \
+    -DENABLE_WEBENGINE=OFF # build fails when using qtwebengine looking for KWebView
   make
 }
 
