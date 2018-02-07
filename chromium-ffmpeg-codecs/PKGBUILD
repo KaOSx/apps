@@ -1,6 +1,6 @@
  
 pkgname=chromium-ffmpeg-codecs
-pkgver=63.0.3239.132
+pkgver=64.0.3282.119
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
@@ -12,18 +12,22 @@ options=('!strip')
 source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${pkgver}.tar.xz"
         'gn.patch'
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-FORTIFY_SOURCE-r2.patch"
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-gcc5-r4.patch")
-md5sums=('c339707e894fbc721b612bd061d1a36d'
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-memcpy-r0.patch"
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-angle-r0.patch")
+md5sums=('5b72bcaba2ad920c524cd92a7a6125fe'
          '3354997dd0bfde3443499133a6e16a85'
          'f66dc007f17fffe350ffb037175fcc39'
-         '0e190a16626c6a3d32cb19199f4c09b8')
+         'cb40c4153943f9eb5e38e90ba2f8b382'
+         '995a738eaf93d6a3e6a6dec2a1a85337')
 
 build() {
   cd chromium-${pkgver}
   #touch chrome/test/data/webui/i18n_process_css_test.html
   #sed -i "s|base/callback_internal.cc|base/callback_helpers.cc|g" tools/gn/bootstrap/bootstrap.py
+  # from https://github.com/gentoo/gentoo/tree/master/www-client/chromium/files
   patch -p1 -i ${srcdir}/chromium-FORTIFY_SOURCE-r2.patch
-  patch -p1 -i ${srcdir}/chromium-gcc5-r4.patch
+  patch -p1 -i ${srcdir}/chromium-memcpy-r0.patch
+  patch -p1 -i ${srcdir}/chromium-angle-r0.patch
 
   local _flags=("ffmpeg_branding=\"ChromeOS\""
                 'proprietary_codecs=true'
