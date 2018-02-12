@@ -1,33 +1,43 @@
 
 pkgname=dnscrypt-proxy
-pkgver=1.9.5
+pkgver=2.0.0
 pkgrel=1
-pkgdesc="Tool for securing communications between a client and a DNS resolver"
+pkgdesc="Flexible DNS proxy, with support for encrypted DNS protocols."
 arch=('x86_64')
-url="https://dnscrypt.org/"
+url="https://github.com/jedisct1/dnscrypt-proxy"
 license=('custom:ISC')
-depends=('libsodium')
-source=("https://download.dnscrypt.org/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('ccfe666a30dac2de3b024ee561368d84')
+makedepends=('go')
+source=("https://github.com/jedisct1/dnscrypt-proxy/archive/${pkgver}.tar.gz")
+md5sums=('73b67f2790ead295b9a71be9098c9cdf')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  #patch -p1 -i $srcdir/a66823e1ad8d8eb6d36a5d2e050b20765089754d.patch
+  mkdir -p dnscrypt-proxy-src
   
-  ./configure --prefix=/usr --with-systemd 
-  make -j2
+  export GOPATH=${srcdir}/dnscrypt-proxy-src
+  export GOOS=linux 
+  export GOARCH=amd64
+  
+  mkdir -p ${srcdir}/dnscrypt-proxy-src/src/github.com/jedisct1
+  cp -r ${pkgname}-${pkgver} ${srcdir}/dnscrypt-proxy-src/src/github.com/jedisct1/dnscrypt-proxy
+  
+  cd dnscrypt-proxy-src/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
+  go build 
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  make DESTDIR=${pkgdir} install
+  cd dnscrypt-proxy-src/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 
-  mkdir -p ${pkgdir}/{usr/share/{licenses,doc}/${pkgname},usr/lib/systemd/system}
-  install -m 644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}
-  install -m 644 AUTHORS NEWS README README.markdown ${pkgdir}/usr/share/doc/${pkgname}
+  install -Dm755 dnscrypt-proxy ${pkgdir}/usr/bin/dnscrypt-proxy
+  install -Dm644 example-dnscrypt-proxy.toml ${pkgdir}/etc/dnscrypt-proxy/example-dnscrypt-proxy.toml
+  install -Dm644 example-forwarding-rules.txt ${pkgdir}/usr/share/doc/dnscrypt-proxy/example-forwarding-rules.txt
+  install -Dm644 example-blacklist.txt ${pkgdir}/usr/share/doc/dnscrypt-proxy/example-blacklist.txt
+  install -Dm644 example-cloaking-rules.txt ${pkgdir}/usr/share/doc/dnscrypt-proxy/example-cloaking-rules.txt
   
-  install -m 644 dnscrypt-proxy.service ${pkgdir}/usr/lib/systemd/system
-  install -m 644 dnscrypt-proxy.socket ${pkgdir}/usr/lib/systemd/system
-  sed -i 's|/usr/local/sbin|/usr/sbin|' ${pkgdir}/usr/lib/systemd/system/dnscrypt-proxy.service
+  cd ../systemd
+  sed -i -e 's|ExecStart=/opt/dnscrypt-proxy/dnscrypt-proxy|ExecStart=/usr/bin/dnscrypt-proxy|' dnscrypt-proxy.service
+  install -Dm644 dnscrypt-proxy.service ${pkgdir}/usr/lib/systemd/system/dnscrypt-proxy.service
+  install -Dm644 dnscrypt-proxy.socket ${pkgdir}/usr/lib/systemd/system/dnscrypt-proxy.socket
+    
+  install -Dm644 ../LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
 
