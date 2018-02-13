@@ -13,10 +13,9 @@ depends=('karchive' 'kauth' 'kcmutils' 'kconfigwidgets' 'knewstuff' 'dconf')
 makedepends=('extra-cmake-modules' 'git' 'gtk2' 'gtk3')
 groups=('plasma5')
 #source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
-        'org.gnome.desktop.interface.gschema.xml')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
-         '3642daaeb8c5c44fc755460ba8eb112f')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+        #'org.gnome.desktop.interface.gschema.xml')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${__pkgver}
