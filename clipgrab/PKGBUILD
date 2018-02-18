@@ -1,27 +1,27 @@
 
 pkgname=clipgrab
-pkgver=3.6.5
-_commit=e845692c23f6f8ce17c7bd6c1d779a97528da997
+pkgver=3.6.7
+_commit=95ecec7dfc2308bb52abdec74bac1eec137f471e
 pkgrel=1
 pkgdesc='A friendly downloader for YouTube and other sites'
 arch=('x86_64')
-url='https://github.com/OpenHelios/clipgrab-qt5'
+url='https://github.com/kikadf/clipgrab-qt5'
 #url='http://clipgrab.org/'
 license=('GPL3')
 depends=('qtwebkit-tp' 'ffmpeg')
 groups=('multimedia')
-source=("https://github.com/OpenHelios/clipgrab-qt5/archive/${_commit}.zip"
+source=("https://github.com/kikadf/clipgrab-qt5/archive/${_commit}.zip"
         'clipgrab.desktop'
         'clipgrab.png'
         'video_vimeo.diff')
-md5sums=('a9afd2beb907d4c6d135506056d2d0f7'
+md5sums=('4d7705b8185ffa5597cc25cfeeb96fbf'
          '9dd39ffcccb179d76ac84503bf3ffc11'
          'e427c3a49fe3f7a86abeaa443fcdbec3'
          '03c5d12ebb32b5f5daa59012cb70627e')
 
 build() {
   cd ${pkgname}-qt5-${_commit}
-  patch -p1 -i ${srcdir}/video_vimeo.diff
+  #patch -p1 -i ${srcdir}/video_vimeo.diff
 
   /usr/lib/qt5/bin/qmake clipgrab.pro
   make
