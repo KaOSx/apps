@@ -1,26 +1,37 @@
 
 pkgname=lmms
 pkgver=1.1.95
-_pkgver=1.2.0-rc2
+_pkgver=1.2.0-rc5
 _commit=3157dbf9931e2bb85e5aa9b2e20e27d9872be7e2
 pkgrel=1
 pkgdesc='The Linux MultiMedia Studio.'
 arch=('x86_64')
 url='https://lmms.io/'
 license=('GPL')
-depends=('sdl' 'glib2' 'fluidsynth' 'libpng' 'libvorbis' 'libxft' 'libxinerama' 'qt5-base'
-         'sdl_sound' 'libsamplerate' 'shared-mime-info' 'fltk' 'portaudio')
+depends=('sdl' 'glib2' 'fluidsynth' 'libpng' 'libvorbis' 'libxft' 'libxinerama' 'qt5-x11extras'
+         'sdl_sound' 'libsamplerate' 'shared-mime-info' 'fltk' 'portaudio' 'lame')
 makedepends=('cmake' 'ladspa' 'libxft' 'freetype2' 'fftw' 'qt5-tools')
 options=('!makeflags')
 source=("https://github.com/LMMS/lmms/archive/v${_pkgver}.tar.gz")
 #source=("https://github.com/LMMS/lmms/archive/3157dbf9931e2bb85e5aa9b2e20e27d9872be7e2.zip")
-md5sums=('b52bb576b421e31102b6536f1b551635')
+md5sums=('5b14c17b23c4de8bb960a245f59f24a0')
+
+prepare() {
+  cd lmms-${_pkgver}/
+  
+  #git submodule update --init --recursive
+  sed -i 's|add_subdirectory(qt5-x11embed)|#add_subdirectory(qt5-x11embed)|' src/3rdparty/CMakeLists.txt
+  sed -i 's|ADD_SUBDIRECTORY(rpmalloc)|#ADD_SUBDIRECTORY(rpmalloc)|' src/3rdparty/CMakeLists.txt
+}
 
 build() {
   cd lmms-${_pkgver}/
 
   cmake . -DCMAKE_INSTALL_PREFIX=/usr \
-          -DWANT_QT5=ON  
+          -DCMAKE_INSTALL_LIBDIR=lib \
+          -DWANT_QT5=ON \
+          -DCMAKE_BUILD_TYPE=release \
+          -DWANT_WEAKJACK=OFF
   make
 }
 
