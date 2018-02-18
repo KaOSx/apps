@@ -1,7 +1,7 @@
 
 pkgname=go
 pkgver=1.10
-pkgrel=1
+pkgrel=2
 pkgdesc='Google Go compiler and tools (release version)'
 arch=('x86_64')
 url='http://golang.org/'
@@ -47,6 +47,7 @@ check() {
   export GOARCH=amd64
   export GOROOT="${srcdir}/${pkgname}"
   export GOBIN="$GOROOT/bin"
+  export GOCACHE=off
   export PATH="${srcdir}/${pkgname}-$pkgver/bin:$PATH"
 
   cd src && bash run.bash --no-rebuild || true
