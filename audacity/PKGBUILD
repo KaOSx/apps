@@ -1,34 +1,42 @@
 
 pkgname=audacity
-pkgver=2.2.1
+pkgver=2.2.2
 pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
-url="http://web.audacityteam.org/"
+url="https://web.audacityteam.org/"
 license=('GPL')
 depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk' 'lame' 'hicolor-icon-theme' 'ffmpeg'
          'shared-mime-info' 'desktop-file-utils' 'redland' 'jack' 'soundtouch' 'libsoxr'
-         'lilv' 'portaudio' 'flac' 'libsndfile' 'libsamplerate')
+         'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil')
 makedepends=('cmake' 'zip' 'python2' 'pkgconfig')
 options=('!makeflags')
-source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz")
-md5sums=('0b07c3bf0eb41072704f03b291f08796')
+source=("https://sourceforge.net/projects/kaosx/files/sources/audacity/${pkgname}-minsrc-${pkgver}.tar.xz")
+sha256sums=('97751a00e33026b61d05057c1525d6dddfd4e64737bd35f59dc2e21e3d6762e2')
 
 build() {
-  cd ${pkgname}-Audacity-${pkgver}
+  cd ${pkgname}-minsrc-${pkgver}-rc1
   #patch -p1 -i ${srcdir}/ffmpeg.patch
 
-  autoreconf -vi
+  # no system portaudio, see http://portaudio.music.columbia.narkive.com/rju8OHIE/pa-getstreamhostapitype
+  #autoreconf -vi
   ./configure --prefix=/usr \
     --enable-unicode \
     --with-ffmpeg=system \
     --with-libsamplerate=system \
-    --with-expat=system
+    --with-expat=system \
+    --with-libsndfile=system \
+    --with-libsoxr=system \
+    --with-portaudio=local \
+    --with-lv2=system \
+    --with-lilv=system \
+    --with-sord=system \
+    --with-suil=system
   make
 }
 
 package() {
-  cd ${pkgname}-Audacity-${pkgver}
+  cd ${pkgname}-minsrc-${pkgver}-rc1
   
   make DESTDIR=${pkgdir} install
 }
