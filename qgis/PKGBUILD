@@ -1,24 +1,25 @@
 
 pkgname=qgis
 _pkgname=QGIS
-pkgver=2.90.2
+pkgver=3.0.0
 _commit=7dbe4943d606b8acd879dd6ed9e38542e3ab0bab
 pkgrel=5
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
-url='http://qgis.org/'
+url='https://qgis.org/'
 license=('GPL')
 arch=('x86_64')
 depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python2' 'giflib' 'gsl' 'grass'
          'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt5' 
          'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
          'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5' 'qtwebkit-tp'
-         'python3-gdal' 'python3-numpy' 'python3-httplib2' 'python3-requests' 'qjson' 'pyyaml')
+         'python3-gdal' 'python3-numpy' 'python3-httplib2' 'python3-requests' 'qjson' 'pyyaml'
+         'libzip' 'qtkeychain')
 makedepends=('cmake'  'netcdf' 'sip3' 'qt5-tools') 
-source=("https://github.com/qgis/QGIS/archive/${_commit}.zip")
-md5sums=('7720395a8d9ea1bba4057ff3617d66e7') 
+source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('ff6e7ad62e98ef32af41db42640f345d') 
          
 prepare() {
-     cd ${_pkgname}-${_commit}
+     cd ${pkgname}-${pkgver}
      #patch -p1 -i "$srcdir/canvas-qt-flicker.patch" 
      sed -i -e 's|qt/Qca-qt5/QtCrypto|qt5/Qca-qt5/QtCrypto|' cmake/FindQCA.cmake
      sed -i -e 's|set(QWT_LIBRARY_NAMES qwt-qt5 qwt6-qt5)|set(QWT_LIBRARY_NAMES qwt qwt6)|' cmake/FindQwt.cmake
@@ -31,7 +32,7 @@ prepare() {
       mkdir -p build
       cd build
      
-      cmake ../${_pkgname}-${_commit} \
+      cmake ../${pkgname}-${pkgver} \
         -DENABLE_TESTS=OFF \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_SKIP_RPATH=ON \
@@ -39,13 +40,6 @@ prepare() {
         -DGRASS_PREFIX=/opt/grass \
         -DQGIS_MANUAL_SUBDIR=share/man \
         -DPYTHON_EXECUTABLE=/usr/bin/python3 \
-        -DWITH_INTERNAL_SIX=FALSE \
-        -DWITH_INTERNAL_DATEUTIL=FALSE \
-        -DWITH_INTERNAL_HTTPLIB2=FALSE \
-        -DWITH_INTERNAL_JINJA2=FALSE \
-        -DWITH_INTERNAL_MARKUPSAFE=FALSE \
-        -DWITH_INTERNAL_NOSE2=FALSE \
-        -DWITH_INTERNAL_PYTZ=FALSE \
         -DWITH_QWTPOLAR=FALSE \
         -DWITH_QTWEBKIT=TRUE
      
@@ -58,13 +52,14 @@ package() {
       make DESTDIR=${pkgdir} install
      
       # install some freedesktop.org compatibility
-      install -D -m644 $srcdir/${_pkgname}-${_commit}/debian/qgis.desktop ${pkgdir}/usr/share/applications/qgis.desktop
+      install -D -m644 ../${pkgname}-${pkgver}/debian/qgis.desktop ${pkgdir}/usr/share/applications/qgis.desktop
       #install -m644 $srcdir/${_pkgname}-${_commit}/debian/qbrowser.desktop ${pkgdir}/usr/share/applications
-      install -dm755 ${pkgdir}/usr/share/pixmaps ${pkgdir}/usr/share/mimelnk/application
-      for mime in $srcdir/${_pkgname}-${_commit}/debian/mime/application/*.desktop
-        do install -m644 ${mime} ${pkgdir}/usr/share/mimelnk/application
-      done
-      ln -s /usr/share/qgis/images/icons/qgis-icon.png ${pkgdir}/usr/share/pixmaps/qgis-icon.png
+      install -dm755 ${pkgdir}/usr/share/pixmaps 
+      #${pkgdir}/usr/share/mimelnk/application
+      #for mime in ../${pkgname}-${pkgver}/debian/mime/application/*.desktop
+      #  do install -m644 ${mime} ${pkgdir}/usr/share/mimelnk/application
+      #done
+      ln -s /usr/share/qgis/images/icons/qgis-icon-60x60.png ${pkgdir}/usr/share/pixmaps/qgis-icon.png
       ln -s /usr/share/qgis/images/icons/qgis-mime-icon.png ${pkgdir}/usr/share/pixmaps/qgis-mime-icon.png
      
       #python3 -m compileall -q ${pkgdir}
