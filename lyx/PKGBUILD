@@ -1,26 +1,26 @@
 
 pkgname=lyx
-pkgver=2.2.3
-_pkgver=2.2.3
-pkgrel=6
+pkgver=2.3.0
+_pkgver=2.3
+pkgrel=1
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
-url="http://www.lyx.org"
+url="https://www.lyx.org"
 depends=('qt5-base' 'qt5-svg' 'qt5-x11extras' 'texlive-core' 'python2' 'perl' 'imagemagick' 
          'boost-libs' 'icu' 'libmythes' 'libxtst' 'aspell' 'hunspell') # 'enchant' 
 makedepends=('boost' 'bc' 'cmake' 'qt5-tools')
 groups=('office')
 license=('GPL')
-source=("ftp://ftp.lyx.org/pub/lyx/stable/2.2.x/$pkgname-$pkgver.tar.xz" 
+source=("ftp://ftp.lyx.org/pub/lyx/stable/${_pkgver}.x/${pkgname}-${pkgver}.tar.xz" 
 #source=("ftp://ftp.lyx.org/pub/lyx/devel/lyx-2.2/lyx-${_pkgver}/lyx-${_pkgver}.tar.xz"
         'lyx.desktop'
         'qt5.8.diff')
-md5sums=('032147bf8e05040787b0fca43fd70de3'
+md5sums=('77fbdf197aad3643745bef635c43db7a'
          '0ea910b9b881ebaa0f79ebaa618930fd'
          'e42d658c62f159b6c66abca7cd6176f3')
          
 prepare() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
   # http://www.lyx.org/trac/changeset/6d375ddeac49ac8c6340398c9797354edca3f5d1/lyxgit
   #patch -p1 -i ${srcdir}/qt5.8.diff
   sed -i 's|hunspell-1.2|hunspell-1.6|' development/cmake/modules/FindHunspell.cmake
@@ -30,10 +30,10 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DLYX_RELEASE=ON \
     -DLYX_INSTALL_PREFIX=/usr \
-    -DLYX_DATA_SUBDIR=share/lyx2.2/ \
+    -DLYX_DATA_SUBDIR=share/lyx${_pkgver}/ \
     -DLYX_MAN_DIR=/usr/share/man/man1 \
     -DLYX_USE_QT=QT5 \
     -DLYX_ASPELL=ON \
@@ -50,8 +50,8 @@ package() {
   cd build
   make DESTDIR=${pkgdir} install
   
-  mv ${pkgdir}/usr/share/lyx2.2/locale ${pkgdir}/usr/share/locale
-  mv ${pkgdir}/usr/applications ${pkgdir}/usr/share/applications
-  mv ${pkgdir}/usr/icons ${pkgdir}/usr/share/icons
+  #mv ${pkgdir}/usr/share/lyx${_pkgver}/locale ${pkgdir}/usr/share/locale
+  #mv ${pkgdir}/usr/applications ${pkgdir}/usr/share/applications
+  #mv ${pkgdir}/usr/icons ${pkgdir}/usr/share/icons
 }
 

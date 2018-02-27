@@ -1,23 +1,23 @@
 
 pkgname=falkon
-pkgver=2.1.99
-_commit=72f9c4eb7bef5d31ce4b99c273ef6acf163f07a8
-pkgrel=3
+pkgver=3.0.0
+_pkgver=3.0
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Open source browser based on QtWebengine, written in Qt Framework"
 url="https://github.com/KDE/falkon/"
 license=('GPL3')
 depends=('qtwebengine' 'qt5-webchannel' 'qt5-x11extras' 'kwallet')
-makedepends=('extra-cmake-modules')
+makedepends=('extra-cmake-modules' 'qt5-tools')
 conflicts=('qupzilla')
-source=("https://github.com/KDE/falkon/archive/${_commit}.zip")
-md5sums=('62394882abc2ece57a4293dc58a81d05')
+source=("https://download.kde.org/stable/falkon/${_pkgver}/src/falkon-${pkgver}.tar.xz")
+md5sums=('0c8abc3dbfc29c2e90096e289d9d738b')
 
 build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib
@@ -29,5 +29,6 @@ package() {
   
   make DESTDIR=${pkgdir} install
   
-  install -Dm644 ../${pkgname}-${_commit}/linux/completion/_falkon ${pkgdir}/usr/share/zsh/site-functions/_falkon
+  install -Dm644 ../${pkgname}-${pkgver}/linux/completion/_falkon ${pkgdir}/usr/share/zsh/site-functions/_falkon
 }
+
