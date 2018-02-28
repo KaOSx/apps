@@ -2,7 +2,7 @@
 pkgname=falkon
 pkgver=3.0.0
 _pkgver=3.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Open source browser based on QtWebengine, written in Qt Framework"
 url="https://github.com/KDE/falkon/"
@@ -10,8 +10,26 @@ license=('GPL3')
 depends=('qtwebengine' 'qt5-webchannel' 'qt5-x11extras' 'kwallet')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 conflicts=('qupzilla')
-source=("https://download.kde.org/stable/falkon/${_pkgver}/src/falkon-${pkgver}.tar.xz")
-md5sums=('0c8abc3dbfc29c2e90096e289d9d738b')
+replaces=('qupzilla')
+source=("https://download.kde.org/stable/falkon/${_pkgver}/src/falkon-${pkgver}.tar.xz"
+        'speeddial.diff'
+        'preferences.diff'
+        'browserwindow.diff'
+        'bookmarks_json.diff')
+md5sums=('0c8abc3dbfc29c2e90096e289d9d738b'
+         'cdc32a26e631baad8de8a193208be169'
+         'ee1b72cc648e0fd5d6ea3ee229168539'
+         '8027a56c4714780d58a89a5eacc5daee'
+         '32da315c2f11ebecc0f15d24157008dc')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/speeddial.diff
+  patch -p0 -i ${srcdir}/preferences.diff
+  patch -p0 -i ${srcdir}/browserwindow.diff
+  patch -p0 -i ${srcdir}/bookmarks_json.diff
+}
 
 build() {
   mkdir -p build

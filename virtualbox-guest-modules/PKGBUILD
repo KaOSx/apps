@@ -16,13 +16,13 @@ install=virtualbox-guest-modules.install
 source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-guest-module-src-${_pkgver}.tar.xz"
         'vbox-guest-modules.conf'
         'linux4.15.patch')
-md5sums=('fff1c5e98eb034899b72aac89a2c8555'
+md5sums=('db1a283d711d7a33ddcd309eeacff7f5'
          'ac6011232f39821417e1ab6b17fd1bd1'
          '032e972a164e3886c579f508aabc87ca')
 
 build() {
     cd vbox-guest-module-src-${_pkgver}
-    patch -p1 -i ${srcdir}/linux4.15.patch
+    #patch -p1 -i ${srcdir}/linux4.15.patch
     
     mkdir -p lib/modules/${_kernver}/misc
     

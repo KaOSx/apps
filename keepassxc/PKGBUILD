@@ -1,13 +1,13 @@
 
 pkgname=keepassxc
-pkgver=2.2.4
+pkgver=2.3.0
 pkgrel=1
 _commit=d4ed4f93255e51ed7a7986e6040f240ac6488670
 pkgdesc="Cross-platform community-driven port of the Windows application Keepass Password Safe"
 arch=('x86_64')
 url="http://www.keepassxc.org/"
 license=('GPL2')
-depends=('qt5-x11extras' 'libxtst' 'shared-mime-info')
+depends=('qt5-x11extras' 'libxtst' 'shared-mime-info' 'libsodium')
 makedepends=('cmake' 'intltool' 'qt5-tools')
 groups=('accessories')
 replaces=('keepassx')
@@ -15,7 +15,7 @@ provides=('keepassx')
 conflicts=('keepassx')
 #source=("https://www.keepassx.org/releases/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 source=("https://github.com/keepassxreboot/keepassxc/releases/download/${pkgver}/${pkgname}-${pkgver}-src.tar.xz")
-sha256sums=('e52fa32cb39af3c64ddd651481b7963b1206830687fb7d4c9f20ad5d6ac0d3dd')
+sha256sums=('ec5858daeaa05386a614b799d5daf01c634205844647e2f9d25aaf655d2adbec')
 
 build() {
   mkdir -p build
@@ -26,8 +26,10 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DWITH_GUI_TESTS=OFF \
-    -DWITH_XC_HTTP=ON \
-    -DWITH_XC_AUTOTYPE=ON
+    -DWITH_XC_BROWSER=ON \
+    -DWITH_XC_NETWORKING=ON \
+    -DWITH_XC_AUTOTYPE=ON \
+    -DWITH_XC_SSHAGENT=ON
   make 
 }
 
