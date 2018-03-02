@@ -1,8 +1,8 @@
 
 pkgname=libreoffice
-_LOver=6.0.1.1
-pkgver=6.0.1.1
-_pkgver=6.0.1
+_LOver=6.0.2.1
+pkgver=6.0.2.1
+_pkgver=6.0.2
 pkgrel=1
 arch=('x86_64')
 license=('LGPL3')
@@ -186,6 +186,8 @@ build() {
 	#patch -p1 -i ${srcdir}/0011-kf5-filepicker-size-restore.patch
 	#patch -p1 -i ${srcdir}/0012-cleanup-kf5-filepicker.patch
 	#patch -p1 -i ${srcdir}/0013-buildsystem-drop-bogus-qt5-warn.patch
+	
+	#sed -i -e 's|-isystem|-I|g' configure.ac
 
 	./autogen.sh --with-build-version="${_LOver} KaOS-${pkgrel}" --with-vendor="KaOS" \
 		--with-external-tar="${srcdir}/ext_sources" \
@@ -263,7 +265,7 @@ build() {
 		--with-theme="breeze breeze_dark oxygen sifr"
 		#--enable-kde5 \
 		#--enable-qt5 \
-		#--enable-gtk3-kde5 \
+		#--enable-gtk3-kde5
 
 	touch src.downloaded
 	#./download
