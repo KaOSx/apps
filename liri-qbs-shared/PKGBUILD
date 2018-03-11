@@ -2,13 +2,13 @@
 pkgname=liri-qbs-shared
 pkgver=1.1.0
 _commit=b6c137b63433fc16d0862c7bd53e946c0d2147bb
-pkgrel=1
+pkgrel=2
 pkgdesc="Shared Qbs imports and modules"
 url="https://github.com/lirios/qbs-shared"
 arch=('x86_64')
 license=('GPLv3')
-depends=('qtcreator')
-makedepends=('git')
+depends=('qt5-base')
+makedepends=('git' 'qtcreator')
 #source=("https://github.com/lirios/browser/archive/${_commit}.zip")
 source=("git://github.com/lirios/qbs-shared.git")
 md5sums=('SKIP')
@@ -24,7 +24,7 @@ build() {
     qbs setup-toolchains --type gcc /usr/bin/g++ gcc
     qbs setup-qt /usr/lib/qt5/bin/qmake qt5
     qbs config profiles.qt5.baseProfile gcc
-    qbs build --no-install -d build profile:qt5 projects.QbsShared.prefix:/usr
+    qbs build --no-install -d build profile:qt5 projects.QbsShared.prefix:/usr modules.cpp.linkerFlags:-fuse-ld=gold
 }
 
 package() {

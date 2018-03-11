@@ -1,7 +1,7 @@
 
 pkgname=fluid
 pkgver=0.11.0
-_commit=40542bf45bede720b7dcce9cecfc03ed1517bc9f
+_commit=e9800ee73dd548911457444974047dd8866df8d3
 pkgrel=1
 arch=('x86_64')
 url='https://github.com/lirios/fluid'
@@ -31,7 +31,8 @@ build() {
     modules.lirideployment.prefix:/usr \
     modules.lirideployment.qmlDir:lib/qt5/qml \
     projects.Fluid.withDocumentation:false \
-    projects.Fluid.withDemo:false
+    projects.Fluid.withDemo:true \
+    modules.cpp.linkerFlags:-fuse-ld=gold
 }
 
 package() {

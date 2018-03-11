@@ -8,7 +8,7 @@ url="https://github.com/lirios/browser"
 arch=('x86_64')
 license=('GPLv3')
 depends=('qtwebengine' 'qt5-multimedia' 'fluid' 'qt5-svg' 'qt5-location' 'quazip')
-makedepends=('liri-qbs-shared' 'git')
+makedepends=('liri-qbs-shared' 'git' 'qtcreator')
 #source=("https://github.com/lirios/browser/archive/${_commit}.zip")
 source=("git://github.com/lirios/browser.git")
 md5sums=('SKIP')
@@ -40,7 +40,9 @@ build() {
     qbs setup-qt /usr/lib/qt5/bin/qmake qt5
     qbs config profiles.qt5.baseProfile gcc
     qbs build --no-install -d build profile:qt5 \
-        modules.lirideployment.prefix:/usr
+        modules.lirideployment.prefix:/usr \
+        modules.cpp.linkerFlags:-fuse-ld=gold \
+        modules.lirideployment.qbsModulesDir:/usr/share/qbs/modules/
 }
 
 package() {
