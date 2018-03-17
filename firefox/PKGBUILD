@@ -2,9 +2,9 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=59.0
-_commit=c61f5f5ead48c78a80c80db5c489bdc7cfaf8175
-pkgrel=2
+pkgver=59.0.1
+_commit=3db9e3d52b17563efca181ccbb50deb8660c59ae
+pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
 groups=('network')
@@ -17,13 +17,14 @@ makedepends=('unzip' 'zip' 'diffutils' 'python2' 'yasm' 'mesa' 'imake' 'xorg-ser
              'inetutils' 'gconf' 'autoconf2.13' 'rust' 'clang')
 optdepends=('freshplayerplugin: full flash support in firefox')
 options=('!emptydirs' '!makeflags')
+# https://ftp.mozilla.org/pub/firefox/releases/
 source=("https://hg.mozilla.org/releases/mozilla-release/archive/${_commit}.tar.bz2"
         'mozconfig'
         'firefox.desktop'
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('fb5ff29e2bc68fa5ebb8bd8c800b597fcb2dd5820899aef3372380c99a0acec6'
+sha256sums=('06201e824d2460f100312518524d20ec53186f6437a1932d7b78157c78416ed3'
             '036801e674c09a25af4e283ca51277311dc47d46422c9da01fd90c07240a11fc'
             '9f25db9a95d8fb29545e9864c69fae41b95a904e1580cf4b838e22fbdcbbdcc3'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
