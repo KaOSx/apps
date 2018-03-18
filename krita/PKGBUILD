@@ -11,16 +11,16 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'kiconthemes' 'kitemmodels' 'kitemviews' 'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem'
          'kio' 'kimageformats'
          'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'opencolorio' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
-         'libraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'gmic-qt')
+         'libraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'gmic-qt' 'pyqt5-python3')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools') # 'clang') 
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
-source=("ftp://upload.kde.org/incoming/${pkgname}-${pkgver}.tar.gz"
+source=("https://download.kde.org/stable/krita/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/KDE/krita/commit/2f59d0d1d91e3f79342c20d0df68aa9a51817e8d.diff"
         'launch_krita.sh')
-md5sums=('eb3224bbf09b7b88364c6308cd5a5d18'
-         '5fb8c7f3694ed02b329d0faff234c420'
-         '673003bb648af0d4f801043ee0a17c2a')
+sha256sums=('09c4765e602c7f76e988cef4fe278a43a17933c8fb57c108b4f7f73bf7315593'
+            '8b42fa7d830006b747ee4fe620d911430d11baf438a3a065939e687a74174cd2'
+            'df345142ede5ec8f2d3422850dd78059944220f163fa30b5cdefdc9bd54235ff')
 
 prepare() {
   cd ${pkgname}-${pkgver}
