@@ -1,7 +1,7 @@
 
 pkgname=inxi
-pkgver=2.9.00
-_commit=394994cacb6284d5d633bb342b3584c5e8b1ecb8
+pkgver=2.9.03
+_commit=fcf8cbbe27dd59d3ea8cfcdf43fc3f01cccfcb9e
 pkgrel=1
 pkgdesc="Script to get system information"
 arch=('x86_64')
@@ -9,13 +9,12 @@ url="https://smxi.org/docs/inxi.htm"
 license=('GPL')
 depends=('mesa-demos' 'coreutils' 'pciutils' 'procps-ng' 'dmidecode' 'perl')
 source=("https://github.com/smxi/inxi/archive/${_commit}.zip")
-md5sums=('c6e097fa45c78d952cd7e1d804a3b9b4')
+md5sums=('44dfe8713b01b8a795024a2e596b4602')
 
 package() {
   cd ${pkgname}-${_commit}
   
-  install -D -m755 pinxi ${pkgdir}/usr/bin/pinxi
-  ln -s pinxi ${pkgdir}/usr/bin/inxi
-  install -D -m755 pinxi.1 ${pkgdir}/usr/share/man/man1/pinxi.1
+  install -D -m755 inxi ${pkgdir}/usr/bin/inxi
+  install -D -m755 inxi.1 ${pkgdir}/usr/share/man/man1/inxi.1
 }
 
