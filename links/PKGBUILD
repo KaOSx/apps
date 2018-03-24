@@ -1,24 +1,27 @@
 
 pkgname=links
-pkgver=2.14
+pkgver=2.15
 pkgrel=1
 pkgdesc="A text WWW browser, similar to Lynx"
 arch=('x86_64')
 url="http://links.twibright.com/"
 license=('GPL')
 depends=('bzip2' 'xz' 'zlib' 'openssl' 'gpm')
-makedepends=('libtiff' 'libpng' 'libxt')
+makedepends=('libtiff' 'libpng' 'libxt' 'clang')
 optdepends=('libx11: for using xlinks'
             'libtiff: for using xlinks'
             'libpng: for using xlinks')
 source=("http://links.twibright.com/download/${pkgname}-${pkgver}.tar.bz2"
         'links.desktop')
-md5sums=('0d11b388de22ba280008a36a409a34c6'
+md5sums=('8f9e46a2bb093e7e1fd96f045b6b4c19'
          '7c47b15aaef51f1de129ff3a2afb7eac')
 
 build() {
   cd ${pkgname}-${pkgver}
   (cd intl; ./gen-intl; ./synclang)
+  
+  export CC=/usr/bin/clang
+  export CXX=/usr/bin/clang++
   
   ./configure --prefix=/usr \
         --mandir=/usr/share/man \

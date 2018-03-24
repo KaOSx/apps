@@ -1,8 +1,8 @@
 
 pkgbase=digikam
 pkgname=('digikam' 'kipi-plugins')
-pkgver=5.8.0
-_pkgver=5.8.0
+pkgver=5.9.0
+_pkgver=5.9.0
 pkgrel=2
 url="https://www.digikam.org/"
 arch=('x86_64')
@@ -18,12 +18,12 @@ makedepends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons'
          'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'imagemagick' 'clang' 'ruby')
 source=("http://download.kde.org/stable/digikam/${pkgbase}-${_pkgver}.tar.xz"
         "https://github.com/KDE/digikam/commit/855ba5b7d4bc6337234720a72ea824ddd3b32e5b.diff")
-md5sums=('39ae21083ab47acbb8ca89f73716fecb'
-         '9441364a642e3645f91b83aa86cbc726')
+sha256sums=('660d32eedcfd6fe1a75170a651fab068ae62f7f092ae710771a2f32a1c550d1b'
+            '0fd1bc8aa9b89bc16e20cc59b928630c42bc290784e0024546eb546f165a100a')
 
 prepare() {
   cd ${pkgbase}-${_pkgver}
-  sed -i -e 's|add_subdirectory( sv )|#add_subdirectory( sv )|' doc-translated/CMakeLists.txt
+  #sed -i -e 's|add_subdirectory( sv )|#add_subdirectory( sv )|' doc-translated/CMakeLists.txt
   # Qt 5.9.3 fix
   #cd core
   #patch -p1 -i ${srcdir}/855ba5b7d4bc6337234720a72ea824ddd3b32e5b.diff
