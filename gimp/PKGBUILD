@@ -1,7 +1,8 @@
 
 pkgname=gimp
-pkgver=2.9.8
-_pkgver=2.9
+pkgver=2.9.90
+_pkgver=2.10
+__pkgver=2.10.0-RC1
 pkgrel=1
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
@@ -9,20 +10,20 @@ url="https://www.gimp.org/"
 license=('GPL3' 'LGPL3')
 depends=('pygtk' 'lcms' 'libxpm' 'librsvg' 'libmng' 'libgudev' 'dbus-glib' 'jasper' 'libexif' 
          'gegl' 'desktop-file-utils' 'hicolor-icon-theme' 'gexiv2' 'libmypaint' 'alsa-lib'
-         'curl' 'glib-networking')
+         'curl' 'glib-networking' 'mypaint-brushes')
 makedepends=('intltool' 'poppler-glib' 'iso-codes' 'ghostscript')
 optdepends=('gutenprint: for sophisticated printing only as gimp has built-in cups print support'
             'poppler-glib: for pdf support')
 options=('!libtool' '!makeflags')
-source=("https://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${pkgver}.tar.bz2"
+source=("https://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${__pkgver}.tar.bz2"
         'linux.gpl'
         "https://github.com/GNOME/gimp/commit/46bcd82800e37b0f5aead76184430ef2fe802748.diff")
-md5sums=('bade4163fb5b7a2063e1db570f27242f'
+md5sums=('e8892481e70c4ee3c204b6aa484f4eba'
          'bb27bc214261d36484093e857f015f38'
          'e9604ac1060b22aa29af0ec84b7a26ad')
 
 build() {
-  cd gimp-${pkgver}
+  cd gimp-${__pkgver}
   #sed -e "s|gegl-0.2 >= 0.2.0|gegl-0.3 >= 0.3.0|" -i ${srcdir}/gimp-${pkgver}/configure
   # CVE-2007-3126
   #patch -p1 -i ${srcdir}/46bcd82800e37b0f5aead76184430ef2fe802748.diff
@@ -39,7 +40,7 @@ build() {
 }
 
 package() {
-  cd gimp-${pkgver}
+  cd gimp-${__pkgver}
   make DESTDIR=${pkgdir} install
   
   install -D -m644 ${srcdir}/linux.gpl ${pkgdir}/usr/share/gimp/2.0/palettes/Linux.gpl
