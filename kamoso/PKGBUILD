@@ -1,23 +1,29 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kamoso
-pkgver=3.2.4
+pkgver=${_kdever}
 _pkgver=3.2
 pkgrel=1
 pkgdesc="Kamoso is an application to take pictures and videos out of your webcam."
-url="https://projects.kde.org/projects/extragear/multimedia/kamoso"
+url="https://userbase.kde.org/Kamoso"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kconfigwidgets' 'kcompletion' 'kwidgetsaddons' 'kio' 'solid'
-         'systemd' 'gst-plugins-base' 'gst-plugins-good' 'qt5-gstreamer' 
+         'systemd' 'gst-plugins-bad' 'gst-plugins-good' 'qt5-gstreamer' 
          'kipi-plugins' 'phonon-qt5' 'qt5-graphicaleffects' 'qt5-quickcontrols' 'purpose')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('multimedia')
-source=("https://download.kde.org/stable/kamoso/${_pkgver}/src/kamoso-${pkgver}.tar.xz")
-sha256sums=('e1d92b2dabec109005c67ea1bfc0411a65107b0a3c491d5522913b6b906ece04')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
-  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
+  # fix for building with gstreamer 1.14 https://bugs.kde.org/show_bug.cgi?id=392245
+  sed -i -e 's|kamoso-qt5videosink|kamosoqt5videosink|' src/elements/CMakeLists.txt
+  sed -i -e 's|kamoso-qt5glvideosink|kamosoqt5glvideosink|' src/elements/CMakeLists.txt
+  sed -i -e 's|kamoso-qwidget5videosink|kamosoqwidget5videosink|' src/elements/CMakeLists.txt
 }
 
 build() {

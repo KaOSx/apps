@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kopete
-#pkgver=${_kdever}
-pkgver=17.07.71
+pkgver=${_kdever}
 _commit=f6706da8439cb8016920f043518927a325869689
 pkgrel=1
 pkgdesc='Instant Messenger'
@@ -15,16 +14,16 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'ki18n' 'kcmutils' 'khtml' 'knotifyconfig' 'kparts' 'kwallet'
          'kdelibs4support' 'ktexteditor' 'kcrash' 'kconfig' 'kemoticons' 'kdbusaddons' 'kdnssd'
          'kcontacts' 'kidentitymanagement' 'libkleo' 'gpgme'        
-         'libotr' 'libidn' 'qimageblitz' 'libxss' 'v4l-utils' # 'mediastreamer' 'ortp' 'libgadu' 
+         'libotr' 'libidn' 'qimageblitz' 'libxss' 'v4l-utils' 'libgadu' # 'mediastreamer' 'ortp' 
          'jsoncpp' 'qca-qt5' 'sqlite' 'speex' 'phonon-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/kopete/archive/${_commit}.zip")
-md5sums=('4b25343c3082c4b40919ab82c6290296')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("https://github.com/KDE/kopete/archive/${_commit}.zip")
+#md5sums=('4b25343c3082c4b40919ab82c6290296')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   sed -i -e 's|NAMES kleo/kleo_export.h|NAMES KF5/libkleo/kleo_export.h|' cmake/modules/FindKleopatra.cmake
   #patch -p1 -i "$srcdir/kde_bug309119.diff" 
 }
@@ -33,15 +32,17 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DCMAKE_SKIP_RPATH=ON \
+    -DBUILD_TESTING=OFF \
     -DWITH_jabber=OFF \
-    -DWITH_skype=ON
+    -DWITH_skype=ON \
+    -DWITH_oscar=OFF
   make
 }
 
