@@ -1,0 +1,15 @@
+--- a/third_party/ffmpeg/chromium/scripts/build_ffmpeg.py
++++ b/third_party/ffmpeg/chromium/scripts/build_ffmpeg.py
+@@ -640,9 +640,9 @@
+   if 'win' not in target_os:
+     configure_flags['Common'].extend([
+         '--enable-pic',
+-        '--cc=clang',
+-        '--cxx=clang++',
+-        '--ld=clang',
++        '--cc=/usr/bin/clang',
++        '--cxx=/usr/bin/clang++',
++        '--ld=/usr/bin/clang',
+     ])
+ 
+     # Clang Linux will use the first 'ld' it finds on the path, which will 
