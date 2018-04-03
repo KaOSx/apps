@@ -1,15 +1,17 @@
 
-pkgname=babe
+pkgname=vvave
 pkgver=1.2.1
 pkgrel=1
 arch=('x86_64')
-pkgdesc="Babe will handle your whole music collection, letting you create custom playlists to organize your music."
-url="https://babe.kde.org/"
+pkgdesc="VVave will handle your whole music collection, letting you create custom playlists to organize your music."
+url="74eca52c334618ad0d237bab3eb533cc"
 license=('GPL3')
+conflicts=('babe')
+replaces=('babe')
 depends=('knotifications' 'ki18n' 'kconfig' 'qt5-multimedia' 'qtwebengine' 'qt5-websockets' 'taglib' 'youtube-dl')
 makedepends=('extra-cmake-modules' 'clang')
-source=("https://download.kde.org/stable/babe/${pkgver}/src/babe-${pkgver}.tar.xz"
-        "https://github.com/KDE/babe/commit/77958ad9a49f0d28a532cda787f6874866c0fd4b.diff")
+source=("https://download.kde.org/stable/vvave/${pkgver}/src/babe-${pkgver}.tar.xz"
+        "https://github.com/KDE/vvave/commit/77958ad9a49f0d28a532cda787f6874866c0fd4b.diff")
 sha256sums=('eced1599b2b9af8f4ce7764120c454df4c299ddb436e1f392e57746c22bd7ba6'
             '2859b6489a12a412940a15c22b96b76b39f9faf18da57730dbf587f431bd4b9c')
 
@@ -43,5 +45,5 @@ package() {
   
   #install -D -m755 Babe ${pkgdir}/usr/bin/babe
   #install -D -m644 org.kde.babe.desktop ${pkgdir}/usr/share/applications/org.kde.babe.desktop
-  install -D -m644 ../${pkgname}-${pkgver}/data/babe.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/babe.svg
+  install -D -m644 ../${pkgname}-${pkgver}/data/vvave.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/vvave.svg
 }
