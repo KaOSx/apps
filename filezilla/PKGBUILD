@@ -1,7 +1,7 @@
 
 pkgname=filezilla
 _pkgname=FileZilla
-pkgver=3.31.0
+pkgver=3.32.0
 pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client."
 arch=('x86_64')
@@ -9,10 +9,10 @@ url="https://filezilla-project.org/"
 license=('GPL2')
 depends=('dbus' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'wxgtk' 'sqlite'
          'libfilezilla' 'pugixml' 'gnutls')
-source=("https://downloads.sourceforge.net/project/filezilla/${_pkgname}_Client/${pkgver}/${_pkgname}_${pkgver}_src.tar.bz2"
+source=("https://dl3.cdn.filezilla-project.org/client/${_pkgname}_${pkgver}_src.tar.bz2"
         'filezilla.desktop')
-md5sums=('0eee1369904e9b0b60500a1068ca5a85'
-         '18fe9dc5377f1a84f71f78eae4cca7f9')
+sha512sums=('321b262834cdc312222c9f8d44566b522985edd94fe47b7b2014abd266ba1e75faf5aafafbb90a0f82d39f550a0cdd6055ef8b30d78d0a80f2d8754d300cac36'
+            'a9d36573bc30a476e75f33f04f8aef990bdb03a151e7a4b72cdc69c351fc7313da8a84fc2e43383d3945b78a510d01b31a820c3615a185ead3343606285c893b')
 
 build() {
   cd ${pkgname}-${pkgver}

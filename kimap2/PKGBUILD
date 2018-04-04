@@ -3,7 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kimap2
-pkgver=0.2.0
+pkgver=0.2.1
+_commit=62df1b858b3fd7c6c4b3229ff5051c0e4996b1be
 pkgrel=1
 pkgdesc="Job-based API for interacting with IMAP servers, 2 version"
 arch=('x86_64')
@@ -13,13 +14,14 @@ depends=('kcoreaddons' 'kcodecs' 'kmime')
 makedepends=('extra-cmake-modules')
 #source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://download.kde.org/unstable/kimap2/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+#source=("https://download.kde.org/unstable/kimap2/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+source=("https://github.com/KDE/kimap2/archive/${_commit}.zip"
         'update.patch')
-md5sums=('ab84b3e97f4c8dff9d9f7a33f05e7c85'
+md5sums=('497a5b910403a213ca4099f0877d4360'
          'ea54266f094b3a00d9d6bafbc64f5ec6')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
 
   #patch -p1 -i ${srcdir}/update.patch
 }
@@ -28,7 +30,7 @@ build() {
   mkdir -p build
   
   cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \

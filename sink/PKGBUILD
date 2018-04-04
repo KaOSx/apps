@@ -3,19 +3,19 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=sink
-pkgver=0.5.0
-_commit=fb81bfa777f8198853cb64b5b2b965329a2d778e
+pkgver=0.6.0
+_commit=a425790f94bef67f2291bf62707f15cf0d37d3bc
 pkgrel=1
 pkgdesc="Data access layer handling synchronization, caching and indexing."
 arch=('x86_64')
 url='https://github.com/KDE/sink'
 license=('LGPL')
-depends=('kmime' 'kcontacts' 'kasync' 'lmdb' 'kdav2' 'kimap2' 'curl')
+depends=('kmime' 'kcontacts' 'kasync' 'lmdb' 'kdav2' 'kimap2' 'curl' 'xapian-core')
 makedepends=('extra-cmake-modules' 'flatbuffers')
 #source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/sink/archive/${_commit}.zip")
-md5sums=('65fd8f40af9d511a2c97117e53982fd2')
+md5sums=('909f2290047939e753e7be2a645b6949')
 
 prepare() {
   cd ${pkgname}-${_commit}
