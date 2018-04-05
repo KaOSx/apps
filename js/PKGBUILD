@@ -1,19 +1,28 @@
 
 pkgname=js
 pkgver=52.7.3
-_pkgver=52_7_3esr_RELEASE
-pkgrel=1
+_pkgver=52.7.3esr
+pkgrel=2
 pkgdesc="JavaScript interpreter and libraries"
 arch=('x86_64')
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/52"
 license=('GPL2')
 depends=('nspr' 'gcc-libs' 'libffi' 'readline')
 makedepends=('python2' 'zip' 'autoconf2.13')
-source=("https://hg.mozilla.org/mozilla-unified/archive/FIREFOX_${_pkgver}.tar.bz2")
-md5sums=('ad245fdd0bc4f3cdd0716913d4bf8c06')
+#source=("https://hg.mozilla.org/mozilla-unified/archive/FIREFOX_${_pkgver}.tar.bz2")
+source=("https://ftp.mozilla.org/pub/firefox/releases/${_pkgver}/source/firefox-${_pkgver}.source.tar.xz"
+        'copy_headers.patch')
+md5sums=('06eb5d65a6e0eb5b1c21c73430534c43'
+         'a258b7a06260bb568f2d958631740b47')
+
+prepare() {
+  cd firefox-${_pkgver}
+  
+  patch -p1 -i ${srcdir}/copy_headers.patch
+}
 
 build() {
-  cd mozilla-unified-FIREFOX_${_pkgver}/js/src
+  cd firefox-${_pkgver}/js/src
   # http://www.linuxfromscratch.org/blfs/view/svn/general/JS2.html needed for newer perl
   #sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
 
@@ -24,17 +33,28 @@ build() {
        --disable-debug \
        --disable-debug-symbols \
        --disable-optimize \
-       --disable-tests \
+       --disable-strip \
        --with-system-nspr \
        --with-system-zlib \
+       --with-intl-api \
        --without-system-icu \
-       --enable-readline
+       --enable-readline \
+       --enable-shared-js \
+       --enable-tests \
 
   make
 }
 
+check() {
+  cd firefox-${_pkgver}/js/src
+  
+  python2 tests/jstests.py -d -s -t 300 --no-progress ../../js/src/js/src/shell/js
+  python2 jit-test/jit_test.py -s -t 300 --no-progress ../../js/src/js/src/shell/js basic
+}
+  
+  
 package() {
-  cd mozilla-unified-FIREFOX_${_pkgver}/js/src
+  cd firefox-${_pkgver}/js/src
   make DESTDIR=${pkgdir} install
   
   rm ${pkgdir}/usr/lib/libjs_static.ajs
