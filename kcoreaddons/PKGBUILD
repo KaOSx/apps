@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcoreaddons
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Utilities for core application functionality and accessing the OS'
 arch=('x86_64')
 url='https://github.com/KDE/kcoreaddons'
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('qt5-base' 'shared-mime-info' 'gamin')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("https://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/KDE/kcoreaddons/commit/2a9b56e9340760822b1dfece73bc045c64033ef1.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '0a16a78e750273b89e4a959f6fbc490b')

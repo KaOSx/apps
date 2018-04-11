@@ -1,7 +1,7 @@
 
 pkgname=kdeconnect-kde
-pkgver=1.2.1
-_pkgver=1.2.1
+pkgver=1.3.0
+_pkgver=1.3.0
 pkgrel=1
 epoch=1
 pkgdesc='KDE Connect adds communication between KDE and your smartphone'
@@ -14,11 +14,11 @@ depends=('kcmutils' 'kconfigwidgets' 'kiconthemes' 'kdbusaddons' 'knotifications
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kf5-kdeconnect-kde')
 replaces=('kf5-kdeconnect-kde')
-source=("http://download.kde.org/stable/kdeconnect/${_pkgver}/src/${pkgname}-v${pkgver}.tar.xz")
-md5sums=('eab2432e912895e3436c127b25ce002e')
+source=("http://download.kde.org/stable/kdeconnect/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('954d4e9f7de06a7409d9e3e124c959481a1c2c20148576dc3d431a3d6129fb3f')
 
 prepare() {
-  cd $pkgname-v${pkgver}
+  cd $pkgname-${pkgver}
   #sed -i -e 's|import QtQuick.Layouts 1.2|import QtQuick.Layouts 1.1|' ${srcdir}/${pkgname}/app/qml/DeviceDelegate.qml
   #sed -i -e 's|import QtQuick.Layouts 1.2|import QtQuick.Layouts 1.1|' ${srcdir}/${pkgname}/app/qml/mpris.qml
 }
@@ -27,7 +27,7 @@ build() {
   mkdir -p build
   cd build 
   
-  cmake ../${pkgname}-v${pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
