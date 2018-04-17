@@ -1,0 +1,32 @@
+From 373705b35e7f6c7dc83de5e0a3ce11ecd15d0409 Mon Sep 17 00:00:00 2001
+From: Ray Strode <rstrode@redhat.com>
+Date: Tue, 3 Apr 2018 15:26:37 -0400
+Subject: jsauthority: pass "%s" format string to remaining report function
+
+commit 00adeee1b62 attempted to add a "%s" format string to the
+two JS_Report invocations that needed it, but somehow only got
+one them.
+
+This commit gets the other one.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=105865
+---
+ src/polkitbackend/polkitbackendjsauthority.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/polkitbackend/polkitbackendjsauthority.cpp b/src/polkitbackend/polkitbackendjsauthority.cpp
+index 9746c47..517f3c6 100644
+--- a/src/polkitbackend/polkitbackendjsauthority.cpp
++++ b/src/polkitbackend/polkitbackendjsauthority.cpp
+@@ -1292,7 +1292,7 @@ js_polkit_log (JSContext  *cx,
+   JS::CallArgs args = JS::CallArgsFromVp (argc, vp);
+ 
+   s = JS_EncodeString (cx, args[0].toString ());
+-  JS_ReportWarningUTF8 (cx, s);
++  JS_ReportWarningUTF8 (cx, "%s", s);
+   JS_free (cx, s);
+ 
+   ret = true;
+-- 
+cgit v1.1
+ 

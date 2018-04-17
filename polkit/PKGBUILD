@@ -12,12 +12,15 @@ provides=('consolekit')
 options=('!libtool')
 install=polkit.install
 source=("https://www.freedesktop.org/software/polkit/releases/${pkgname}-${pkgver}.tar.gz"
-        'polkit.pam')
+        'polkit.pam'
+        'jsauthority.patch')
 md5sums=('93ff41874e7df8c62ed9e41893817f04'
-         '6564f95878297b954f0572bc1610dd15')
+         '6564f95878297b954f0572bc1610dd15'
+         '8b148474eb8bff1e9e3eef10aa73b0cc')
 
 build() {
   cd ${pkgname}-${pkgver}
+  patch -p1 -i ${srcdir}/jsauthority.patch
   
   ./configure --prefix=/usr \
       --sysconfdir=/etc \
