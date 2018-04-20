@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=okteta
-pkgver=${_kdever}
-pkgrel=1
+pkgver=17.12.3
+pkgrel=2
 pkgdesc="KDE hex editor for viewing and editing the raw data of files"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdesdk/okteta"
@@ -15,27 +15,27 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdesdk-okteta')
 replaces=('kdesdk-okteta')
 provides=('kdesdk-okteta')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/applications/17.12.3/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=('780530d53715ef8d579d7262b7eb823c')
 
 build() {
-  cd $pkgname-${pkgver}
-  mkdir build
-  
+  mkdir -p build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DKDE_INSTALL_LIBDIR=lib \
-        -DKDE_INSTALL_SYSCONFDIR=/etc \
-        -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-        -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-        -DBUILD_TESTING=OFF ..
+  
+  cmake ../${pkgbase}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF
   make
 }
 
 package() {
-  cd $pkgname-${pkgver}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }
