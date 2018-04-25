@@ -3,9 +3,9 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kstars
-pkgver=2.9.4
+pkgver=2.9.5
 epoch=1
-pkgrel=3
+pkgrel=1
 pkgdesc="Desktop Planetarium"
 url="http://kde.org/applications/education/kstars/"
 arch=('x86_64')
@@ -19,7 +19,7 @@ conflicts=('kdeedu-kstars')
 replaces=('kdeedu-kstars')
 groups=('kde' 'kdeedu' 'kde-uninstall' 'education')
 source=("https://download.kde.org/stable/kstars/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('03cbbda651bc01930b724bad7d2a58d8aebd811212d6bccc88913c50c0a6f73a')
+sha256sums=('6c2ddf3cb04688fe4ff8cafb4c6a1e7e249ff8ae0c42650f0d491a706269a3b1')
 
 prepare() {
   cd ${pkgname}-${pkgver} 
@@ -28,7 +28,7 @@ prepare() {
 }
 
 build() {
- mkdir -p build
+  mkdir -p build
   cd build
 
   cmake ../${pkgname}-${pkgver} \
