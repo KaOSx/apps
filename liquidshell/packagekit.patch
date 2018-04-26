@@ -1,0 +1,65 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8911248..e2cdf61 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -23,8 +23,6 @@ find_package(KF5 REQUIRED COMPONENTS
+              NewStuff
+ )
+ 
+-find_package(packagekitqt5 REQUIRED)
+-
+ set(SOURCES
+     desktop.cxx
+     DesktopWidget.cxx
+@@ -57,8 +55,6 @@ set(SOURCES
+     Battery.cxx
+     Bluetooth.cxx
+     PopupMenu.cxx
+-    PkUpdates.cxx
+-    PkUpdateList.cxx
+     KdeConnect.cxx
+ 
+     DesktopApplet.cxx
+@@ -116,14 +112,11 @@ target_link_libraries(${TARGET}
+                       KF5::ItemViews
+                       KF5::Archive
+                       KF5::NewStuff
+-                      PK::packagekitqt5
+ )
+ 
+ install(TARGETS ${TARGET} ${INSTALL_TARGETS_DEFAULT_ARGS})
+ install(PROGRAMS org.kde.${TARGET}.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+ 
+-install(FILES liquidshell.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
+-
+ ecm_install_icons(ICONS
+                   48-apps-liquidshell.png
+                   DESTINATION ${ICON_INSTALL_DIR}
+diff --git a/SysTray.cxx b/SysTray.cxx
+index 0dbbebb..cc6ca4b 100644
+--- a/SysTray.cxx
++++ b/SysTray.cxx
+@@ -24,7 +24,6 @@
+ #include <DeviceNotifier.hxx>
+ #include <Battery.hxx>
+ #include <Bluetooth.hxx>
+-#include <PkUpdates.hxx>
+ 
+ #include <QApplication>
+ #include <QDBusConnection>
+@@ -117,7 +116,6 @@ void SysTray::fill()
+     rowsLayout[0]->addWidget(new DeviceNotifier(this), 0, Qt::AlignLeft);
+     rowsLayout[0]->addWidget(new Battery(this), 0, Qt::AlignLeft);
+     rowsLayout[0]->addWidget(new Bluetooth(this), 0, Qt::AlignLeft);
+-    rowsLayout[0]->addWidget(new PkUpdates(this), 0, Qt::AlignLeft);
+   }
+   else if ( MAX_ROWS >= 2 )
+   {
+@@ -126,7 +124,6 @@ void SysTray::fill()
+     rowsLayout[0]->addWidget(new Bluetooth(this), 0, Qt::AlignLeft);
+     rowsLayout[1]->addWidget(new Network(this), 0, Qt::AlignLeft);
+     rowsLayout[1]->addWidget(new Battery(this), 0, Qt::AlignLeft);
+-    rowsLayout[1]->addWidget(new PkUpdates(this), 0, Qt::AlignLeft);
+   }
+ 
+   // notifier items
