@@ -1,8 +1,8 @@
 
 pkgname=liquidshell
 pkgver=0.0.1
-_commit=9e0ee60c88feabc375eeeedacc4cda4c5d4cae50
-pkgrel=1
+_commit=48157f9f1d1b8959a21cad5fe0748c7d9cb8086c
+pkgrel=2
 pkgdesc="Alternative desktop replacement for Plasma, using QtWidgets instead of QtQuick."
 arch=('x86_64')
 url='https://github.com/KDE/liquidshell'
@@ -12,13 +12,15 @@ depends=('kwindowsystem' 'kwidgetsaddons' 'kconfigwidgets' 'kconfig' 'kio' 'kico
          'solid' 'bluez-qt' 'kcmutils' 'kcrash' 'kdbusaddons' 'knewstuff')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("https://github.com/KDE/liquidshell/archive/${_commit}.zip")
-md5sums=('75c7164c14424c1836650a6b7aeea4b5')
+md5sums=('cab4c4a8002131f35cedc2479db3b665')
 
 prepare() {
   cd ${pkgname}-${_commit}
   
   #sed -i -e 's|setThemeIcon("start-here-kde")|setThemeIcon("/usr/share/icons/midna/apps/scalable/kaos.svg")|' StartMenu.cxx
   sed -i -e 's|http://www.kde.org|https://kaosx.us/|' QuickLaunch.cxx
+
+  git apply ../../packagekit.patch
 }
 
 build() {
