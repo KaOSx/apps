@@ -14,9 +14,8 @@ options=('docs')
 install=kdeutils.install
 depends=('kde-runtime' 'kde-baseapps')
 conflicts=("kdeutils-common" "kdeutils-doc")
-groups=("kde" "kdeutils" "kde-uninstall")
+groups=('kde' 'kde-utils' 'kde-uninstall' 'utils')
 makedepends=('pkg-config' 'cmake' 'automoc4')
-groups=('utils')
 
 source=($_mirror/${_pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
