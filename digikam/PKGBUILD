@@ -60,7 +60,7 @@ package_digikam() {
            'solid' 'kiconthemes' 'kfilemetadata' 'kitemmodels' 'libksane' 'ki18n' 'lensfun' 
            'marble' 'qt5-x11extras' 'jasper' 'libgphoto2' 'liblqr' 'opencv'
            'kipi-plugins' 'lapack' 'libgpod' 'eigen3' 'mariadb' 'kdepimlibs')
-  groups=('graphics')
+  groups=('kde-graphics')
   
   cd ${srcdir}/build/core
   make DESTDIR=${pkgdir}/ install
@@ -75,7 +75,7 @@ package_kipi-plugins () {
            'threadweaver' 'karchive' 'ki18n' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkgeomap' 
            'libkvkontakte' 'libmediawiki' 'libtiff'
            'kcalcore' 'kwallet' 'phonon-qt5') # 'libkface') 
-  groups=('kde' 'kde-graphics' 'kde-uninstall')
+  groups=('kde-graphics' 'kde-uninstall')
   
   cd ${srcdir}/build/extra/kipi-plugins
   make DESTDIR=${pkgdir}/ install
