@@ -1,8 +1,8 @@
 
 pkgname=falkon
-pkgver=3.0.0
-_pkgver=3.0
-pkgrel=2
+pkgver=3.0.1
+_pkgver=3.0.1
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Open source browser based on QtWebengine, written in Qt Framework"
 url="https://www.falkon.org/"
@@ -12,24 +12,27 @@ makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('network-web')
 conflicts=('qupzilla')
 replaces=('qupzilla')
-source=("https://download.kde.org/stable/falkon/${_pkgver}/src/falkon-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/falkon/${_pkgver}/falkon-${pkgver}.tar.xz"
         'speeddial.diff'
         'preferences.diff'
         'browserwindow.diff'
-        'bookmarks_json.diff')
-md5sums=('0c8abc3dbfc29c2e90096e289d9d738b'
-         'cdc32a26e631baad8de8a193208be169'
-         'ee1b72cc648e0fd5d6ea3ee229168539'
-         '8027a56c4714780d58a89a5eacc5daee'
-         '32da315c2f11ebecc0f15d24157008dc')
+        'bookmarks_json.diff'
+        "https://github.com/KDE/falkon/commit/7308b64df6a13d5822f491f2cbc7f39ae6781488.diff")
+sha256sums=('7b6ed54986543dd5462602943fb824df12f15d2061996310c4c4b891433f1a83'
+            '18ab2ccb0359d95e838c245fb0415c118572d61a952bee70902361984c98b06c'
+            'caf3c9405c03775febd9c2f137004602a261fd0bb3f4ad4d81889959d4f0ae80'
+            '19a199eedef8bb1d6f99b9a4f95cee031b2fda5c5daf1ebcc715802c792932f6'
+            'd8b9ac6ba4303869087e4b1984c375c6c7393afa0d218ba88bbb5dfd1a144298'
+            'c2a9741d3fb04f421c04f6bd358d1932ed0332fff93bc0fb5adb32c9d39f09d0')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
+  patch -R -p1 -i ${srcdir}/7308b64df6a13d5822f491f2cbc7f39ae6781488.diff
   patch -p1 -i ${srcdir}/speeddial.diff
   patch -p0 -i ${srcdir}/preferences.diff
   patch -p0 -i ${srcdir}/browserwindow.diff
-  patch -p0 -i ${srcdir}/bookmarks_json.diff
+  #patch -p0 -i ${srcdir}/bookmarks_json.diff
 }
 
 build() {

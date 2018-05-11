@@ -2,8 +2,8 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=59.0.2
-_commit=239e434d6d2b8e1e2b697c3416d1e96d48fe98e5
+pkgver=60.0
+_commit=6b51784853e47e091d213d421a19cb623af718f0
 pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
@@ -18,13 +18,14 @@ makedepends=('unzip' 'zip' 'diffutils' 'python2' 'yasm' 'mesa' 'imake' 'xorg-ser
 optdepends=('freshplayerplugin: full flash support in firefox')
 options=('!emptydirs' '!makeflags')
 # https://ftp.mozilla.org/pub/firefox/releases/
-source=("https://hg.mozilla.org/releases/mozilla-release/archive/${_commit}.tar.bz2"
+#source=("https://hg.mozilla.org/releases/mozilla-release/archive/${_commit}.tar.bz2"
+source=("https://ftp.mozilla.org/pub/firefox/releases/60.0/source/${pkgname}-${pkgver}.source.tar.xz"
         'mozconfig'
         'firefox.desktop'
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('bd9fae16bf74eb6836e9a17c480bf2f46614490e5b93ca9124683681a4cd477c'
+sha256sums=('4bc4fd997e6239f53e16a70b04f197791e5c5d09367e2916bcfe4a427999f842'
             '036801e674c09a25af4e283ca51277311dc47d46422c9da01fd90c07240a11fc'
             '9f25db9a95d8fb29545e9864c69fae41b95a904e1580cf4b838e22fbdcbbdcc3'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
@@ -32,12 +33,12 @@ sha256sums=('bd9fae16bf74eb6836e9a17c480bf2f46614490e5b93ca9124683681a4cd477c'
             '46104bf0afde6d7fb74630425915364a11b05f016f16e14ff0e666f322c9e940')
 
 prepare() {
-  cd mozilla-release-${_commit}
+  cd ${pkgname}-${pkgver}
 
   cp ../mozconfig .mozconfig
   #patch -p1 -i ${srcdir}/firefox-install-dir.patch
   
-  patch -p1 -i ${srcdir}/stylo.patch
+  #patch -p1 -i ${srcdir}/stylo.patch
 
   mkdir ${srcdir}/path
   
@@ -45,7 +46,7 @@ prepare() {
 }
 
 build() {
-  cd mozilla-release-${_commit}
+  cd ${pkgname}-${pkgver}
 
   export PATH=${srcdir}/path:$PATH
   unset CPPFLAGS
@@ -57,7 +58,7 @@ build() {
 }
 
 package() {
-  cd mozilla-release-${_commit}
+  cd ${pkgname}-${pkgver}
   #make -f client.mk DESTDIR=${pkgdir} INSTALL_SDK= install
   DESTDIR=${pkgdir} ./mach install
 
