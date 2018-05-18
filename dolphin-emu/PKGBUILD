@@ -1,41 +1,38 @@
 
 # build version at https://dolphin-emu.org/download/
 pkgname=dolphin-emu
-pkgver=5.0.7457
+pkgver=5.0.7459
 pkgrel=1
-_commit=9d1157f69532d764835c9c9aa4ef3757e70954bb
+_commit=7a5e51cda778932fbb03fa8db411dd8f75772b50
 pkgdesc='GameCube, Wii and Triforce emulator'
 arch=('x86_64')
 url='http://dolphin-emu.org'
 license=('GPL2')
-depends=('bluez' 'ffmpeg' 'glew' 'libao' 'miniupnpc' 'openal' 'portaudio'
-         'libevdev' 'soundtouch' 'qt5-base' 'pulseaudio' 'glu')
-makedepends=('cmake' 'opencl-headers')
+depends=('bluez' 'ffmpeg' 'libao' 'miniupnpc' 'openal' 'portaudio'
+         'libevdev' 'soundtouch' 'qt5-base' 'pulseaudio')
+makedepends=('cmake')
 source=("https://github.com/dolphin-emu/dolphin/archive/${_commit}.zip")
 #source=("https://github.com/dolphin-emu/dolphin/archive/${pkgver}.tar.gz")
-md5sums=('29c4c5bb50bfa25b9e323fbdc7f0ba86')
+md5sums=('1e78fd6f7d34875c4fc33a6897c1e250')
          
 build() {
-  cd dolphin-${_commit}
-
   mkdir -p build 
   cd build
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
-           -DCMAKE_CXX_FLAGS='-fno-inline-functions -fpermissive' \
-           -DENABLE_LTO=ON \
-           -DENABLE_QT2=ON \
-           -DENABLE_WX=OFF \
-           -DUSE_EGL=ON
+  
+  cmake ../dolphin-${_commit}\
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_QT2=ON \
+    -DENABLE_WX=OFF \
+    -DUSE_EGL=ON
   make
 }
 
 package() {
-  cd dolphin-${_commit}/build
+  cd build
 
   make DESTDIR=${pkgdir} install
   
-  #install -m 755 Binaries/dolphin-emu-qt2 ${pkgdir}/usr/bin/
-  #sed -i -e 's|Exec=dolphin-emu|Exec=dolphin-emu-qt|' ${pkgdir}/usr/share/applications/dolphin-emu.desktop
+  install -D -m644 ../dolphin-${_commit}/Data/51-usb-device.rules -t ${pkgdir}/usr/lib/udev/rules.d/
 }
 
 

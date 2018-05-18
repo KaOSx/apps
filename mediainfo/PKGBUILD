@@ -1,7 +1,7 @@
 
 pkgname=mediainfo
 _pkgname=MediaInfo
-pkgver=18.03.1
+pkgver=18.05
 pkgrel=1
 pkgdesc="Convenient unified display of the most relevant technical and tag data for video and audio files."
 arch=('x86_64')
@@ -11,15 +11,15 @@ depends=('mediainfolib' 'qt5-base')
 makedepends=('libtool')
 source=("https://github.com/MediaArea/MediaInfo/archive/v${pkgver}.tar.gz"
         'mediainfo-qt5.patch')
-md5sums=('bcfecb1f2854c85cde41c7fc8d69d558'
+md5sums=('f8402691e21b5d2ec6017dca16e28432'
          '87c3909289a1e9c11711e6a75ea42ab8')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
   
   # patch from crazy, frugalware developer
-  patch -p1 -i ${srcdir}/mediainfo-qt5.patch
-  sed -i 's|Exec=mediainfo-gui %f|Exec=mediainfo-qt5-gui|' Project/GNU/GUI/mediainfo-gui.desktop
+  #patch -p1 -i ${srcdir}/mediainfo-qt5.patch
+  #sed -i 's|Exec=mediainfo-gui %f|Exec=mediainfo-qt5-gui|' Project/GNU/GUI/mediainfo-gui.desktop
 }
 
 build() {
