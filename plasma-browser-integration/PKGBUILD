@@ -1,7 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=plasma-browser-integration
-pkgver=5.12.81
-_commit=0467813750d18b66c1f5f3f2c795381e3cc7b26e
+pkgver=${_plasmaver}
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Plasma5 browser integration"
@@ -9,14 +11,14 @@ url="https://github.com/KDE/plasma-browser-integration"
 license=('GPL')
 depends=('kio' 'ki18n' 'knotifications' 'krunner' 'kwindowsystem' 'kactivities')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("https://github.com/KDE/plasma-browser-integration/archive/${_commit}.zip")
-md5sums=('2f957b78ee7a0e35bbfb619dd41a3aa8')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \

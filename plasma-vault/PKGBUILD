@@ -5,12 +5,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-vault
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc="Plasma applet and services for creating encrypted vaults"
 url="https://github.com/KDE/plasma-vault"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kactivities' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'ki18n' 'kio' 'plasma-framework' 
-         'kwidgetsaddons' 'libksysguard' 'encfs')
+         'kwidgetsaddons' 'libksysguard' 'encfs' 'networkmanager-qt')
 makedepends=('extra-cmake-modules' 'kdoctools')
 #source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
