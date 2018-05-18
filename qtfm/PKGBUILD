@@ -1,27 +1,29 @@
 
 pkgname=qtfm
-pkgver=5.9
-pkgrel=4
-pkgdesc="A lightweight file manager"
+pkgver=5.9.80
+_pkgver=6.0.0-beta1
+pkgrel=1
+pkgdesc="A lightweight file manager using Qt"
 arch=('x86_64')
-url="https://www.linux-apps.com/content/show.php/QtFM?content=158787"
+url="http://qtfm.dracolinux.org/"
 license=('GPL')
-depends=('qt5-declarative' 'file' 'desktop-file-utils')
+depends=('qt5-declarative' 'file' 'desktop-file-utils' 'udisks2')
 categories=('system')
-source=("https://dl.opendesktop.org/api/files/download/id/1466643163/158787-qtfm.zip")
-md5sums=('1a94bd7fbe99e87f530dc9bc1d7a8c45')
+source=("https://github.com/rodlie/qtfm/releases/download/${_pkgver}/qtfm-${_pkgver}.tar.xz")
+md5sums=('abf140cc5e49eea07df91e90a033f7a3')
 
 
 build() {
-  cd ${pkgname}
-  	
-  /usr/lib/qt5/bin/qmake
+  mkdir -p build
+  cd build
+
+  /usr/lib/qt5/bin/qmake  CONFIG+=release PREFIX=/usr ../${pkgname}-${_pkgver}
   make
 }
 
 package() {
-  cd ${pkgname}
-	
+  cd build
+  
   make INSTALL_ROOT=${pkgdir} install
 }
 
