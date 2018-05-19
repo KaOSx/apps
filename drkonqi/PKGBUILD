@@ -5,19 +5,19 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=drkonqi
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="DrKonqi: The KDE Crash Handler"
 url="https://github.com/KDE/drkonqi"
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kcoreaddons' 'kservice' 'kconfigwidgets' 'kjobwidgets' 'kio' 'kcrash' 'kcompletion' 
          'kxmlrpcclient' 'kwidgetsaddons' 'kwallet' 'knotifications' 'kidletime' 'qt5-x11extras')
 makedepends=('extra-cmake-modules' 'kdoctools')
-#source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${pkgname}-${__pkgver}
+  cd ${pkgname}-${pkgver}
   
   #sed -i -e 's|<AppStream/appstream.h>|<appstream.h>|' libdiscover/backends/FlatpakBackend/FlatpakBackend.cpp
 }
@@ -26,7 +26,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${__pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -15,18 +15,21 @@ depends=('frameworkintegration' 'knotifyconfig' 'krunner' 'kdesu' 'knewstuff' 'k
          'kemoticons' 'libxrandr' 'kded' 'kwin' 'libksysguard' 'ktexteditor'
          'khelpcenter' 'kio-extras' 'baloo' 'milou' 'libkscreen' 'breeze' 'gpsd' 'libqalculate' 'cln' 'qt5-tools'
          'qimageblitz' 'oxygen-icons5' 'prison' 'sddm-kcm' 'networkmanager-qt' 'kxmlrpcclient' 'kscreenlocker'
-         'kactivitymanagerd' 'iso-codes' 'kholidays' 'plasma-l10n' 'drkonqi')
+         'kactivitymanagerd' 'iso-codes' 'kholidays' 'drkonqi')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+conflicts=('plasma-l10n')
+replaces=('plasma-l10n')
+provides=('plasma-l10n')
 groups=('kdeplasma5')
 options=('debug')
-#source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         '10-kf5'
         'kde.pam'
         'kde-np.pam'
         'kscreensaver.pam'
         "https://github.com/KDE/plasma-workspace/commit/558a29efc4c9f055799d23ee6c75464e24489e5a.diff")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          'd102c44c3bddf29f6d440d1d582d4433'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
@@ -34,7 +37,7 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
          '622c65ede74d7fca35e8974eb3f20ecd')
 
 prepare () {
-  cd ${pkgname}-${__pkgver}
+  cd ${pkgname}-${pkgver}
   # weatherwidget url fix
   #patch -p1 -i ${srcdir}/558a29efc4c9f055799d23ee6c75464e24489e5a.diff
   #sed -i 's|org.kde.breeze.desktop|org.kde.midna.desktop|' shell/packageplugins/lookandfeel/lookandfeel.cpp
@@ -45,7 +48,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${__pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
