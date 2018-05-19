@@ -5,22 +5,22 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-vault
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Plasma applet and services for creating encrypted vaults"
 url="https://github.com/KDE/plasma-vault"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kactivities' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'ki18n' 'kio' 'plasma-framework' 
          'kwidgetsaddons' 'libksysguard' 'encfs' 'networkmanager-qt')
 makedepends=('extra-cmake-modules' 'kdoctools')
-#source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_plasmaver}.tar.xz)
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${__pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

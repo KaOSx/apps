@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kscreenlocker
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library and components for secure lock screen architecture."
 url="https://projects.kde.org/projects/kde/workspace/kscreenlocker"
 license=('GPL' 'LGPL' 'FDL')
@@ -13,14 +13,14 @@ depends=('plasma-framework' 'kcmutils' 'kdeclarative' 'kidletime' 'kdelibs4suppo
          'kglobalaccel' 'kwayland')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
-#source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         'locker.diff')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '3681afa59a52f9b17345bf9345c8cef6')
 
 prepare() {
-  cd $pkgname-${__pkgver}
+  cd $pkgname-${pkgver}
   #sed -i -e 's|#include "ui_module.h"||' ${srcdir}/${pkgname}/src/kcm/module.cpp
   #patch -p1 -i ${srcdir}/locker.diff
 }
@@ -29,7 +29,7 @@ build() {
   mkdir build
   
   cd build 
-  cmake ../${pkgname}-${__pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
