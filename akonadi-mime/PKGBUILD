@@ -14,6 +14,7 @@ depends=('kdbusaddons' 'kio' 'kconfig' 'ki18n' 'kxmlgui' 'kmime' 'kitemmodels' '
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+groups=('kde-pim')
 
 prepare() {
   cd $pkgname-${pkgver}
