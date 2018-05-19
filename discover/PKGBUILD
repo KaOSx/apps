@@ -11,16 +11,16 @@ url="https://userbase.kde.org/Discover"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kconfig' 'kcrash' 'kdbusaddons' 'ki18n' 'karchive' 'kcompletion' 
          'kdeclarative' 'kxmlgui' 'kitemmodels' 'kio' 'knewstuff' 'kf5-attica' 
-         'knotifications' 'kirigami' 'appstream' 'flatpak')
+         'knotifications' 'kirigami' 'plasma-framework' 'appstream' 'flatpak')
 makedepends=('extra-cmake-modules' 'kdoctools')
-#source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
+source=($_mirror/${pkgname}-$_plasmaver.tar.xz
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         "https://github.com/KDE/discover/commit/36fc062a77257e5d744fe4029149fc05a71db4b2.diff")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '59500115af6e45ce751e881d38e50376')
 
 prepare() {
-  cd ${pkgname}-${__pkgver}
+  cd ${pkgname}-${pkgver}
   
   #sed -i -e 's|<AppStream/appstream.h>|<appstream.h>|' libdiscover/backends/FlatpakBackend/FlatpakBackend.cpp
   #patch -p1 -i ${srcdir}/36fc062a77257e5d744fe4029149fc05a71db4b2.diff
@@ -30,7 +30,7 @@ build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${__pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

@@ -7,25 +7,25 @@ pkgver=${_plasmaver}
 pkgrel=2
 pkgdesc="Dedicated search application built on top of Baloo"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kdereview/milou'
+url='https://github.com/KDE/milou'
 license=('GPL')
 depends=('krunner' 'plasma-framework' 'ki18n' 'kdeclarative')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
-#source=("http://download.kde.org/stable/plasma/$pkgver/${pkgname}-$pkgver.tar.xz")
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${__pkgver} \
+  cmake ../${pkgname}-${pkgver} \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/usr \
-      -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+      -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
       -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-      -DLIB_INSTALL_DIR=lib
+      -DKDE_INSTALL_LIBDIR=lib
   make
 }
 

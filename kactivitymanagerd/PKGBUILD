@@ -14,28 +14,27 @@ depends=('kdbusaddons' 'ki18n' 'kconfig' 'kcoreaddons' 'kwindowsystem' 'kglobala
          'kxmlgui' 'kio' 'boost-libs')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdeplasma5')
-#source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  cd $pkgname-${__pkgver}
-  #patch -p1 -i ${srcdir}/modemmanager.diff
-  mkdir build
-  
+  mkdir -p build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DLIB_INSTALL_DIR=lib \
-        -DSYSCONF_INSTALL_DIR=/etc \
-        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-        -DBUILD_TESTING=OFF ..
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF
   make
 }
 
 package() {
-  cd $pkgname-${__pkgver}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }

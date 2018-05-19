@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
@@ -17,16 +17,16 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdeplasma5')
 conflicts=('kde-workspace' 'kcm-touchpad')
 replaces=('kde-workspace' 'kcm-touchpad')
-#source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
+source=("https://download.kde.org/unstable/plasma/5.12.90/${pkgname}-${pkgver}.tar.xz"
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         'layout_desktop_panel.diff'
         'main_desktop_kicker.diff')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '5a22b33c2f9ed93c8b8f580601e00a8e'
          '22b66401945f92bd9f99e6d334bc306e')
 
 prepare() {
-  cd ${pkgname}-${__pkgver}
+  cd ${pkgname}-${pkgver}
   # prep for plasma 5.5, move to noto, no longer use oxygen-fonts in KaOS, uncomment with 5.5
   sed -i -e 's|QFont f1("Oxygen Mono", 9); // fixed font|QFont f1("DejaVu Sans Mono", 9); // fixed font|' kcms/fonts/fonts.cpp
   # adjust default settings for panel, kicker & desktop view
@@ -39,7 +39,7 @@ build() {
   mkdir -p build
   
   cd build
-  cmake ../${pkgname}-${__pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

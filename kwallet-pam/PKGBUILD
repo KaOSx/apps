@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwallet-pam
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=1
 pkgdesc="Kwallet-pam is added to open your wallet on login"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kdereview/kwallet-pam"
@@ -14,7 +14,7 @@ makedepends=('extra-cmake-modules')
 #groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${_plasmaver}.tar.xz")
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.gz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build  

@@ -9,20 +9,19 @@ pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/kde-cli-tools'
 license=('LGPL')
-depends=('kconfig' 'kiconthemes' 'kinit' 'ki18n' 'kcmutils' 'kio' 'kservice' 'kwindowsystem' 'kactivities' 'kdesu')
+depends=('kconfig' 'kiconthemes' 'kinit' 'ki18n' 'kcmutils' 'kio' 'kservice' 'kwindowsystem'
+         'kactivities' 'kdesu' 'plasma-workspace')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
-conflicts=('kde-runtime' 'kde-runtime-debug')
-replaces=('kde-runtime' 'kde-runtime-debug')
-#source=("http://download.kde.org/stable/plasma/$pkgver/$pkgname-$pkgver.tar.xz")
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.gz ../kf5.md5 | cut -d" " -f1`)
+source=("httpS://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${__pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
