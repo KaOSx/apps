@@ -10,14 +10,14 @@
 </head>
 
 <body>
-    <h3>KaOS - 2018.04</h3>
+    <h3>KaOS - 2018.06</h3>
     <p>To celebrate the first lustrum of KaOS a new ISO is released.</p>
     
-    <p>It is five years ago this month that KaOS started, a nice way to commemorate is with releaseing 2018.04.  This ISO has a complete redesign of the Midna theme for 2018.  Some 2500 new icons in use, rewritten sddm login theme and a KaOS community selected new wallpaper (created by <strong>Jomada</strong>).</p>
+    <p>It is five years ago this month that KaOS started, a nice way to commemorate is with releaseing 2018.06.  This ISO has a complete redesign of the Midna theme for 2018.  Some 2500 new icons in use, rewritten sddm login theme and a KaOS community selected new wallpaper (created by <strong>Jomada</strong>).</p>
     
     <p>Also new is KaOS' creation <strong>Croeso</strong> (Welsh for welcome) for helping with configuring a new install.  It will run on the newly installed system and offers to adjust some 15 commonly used settings and replaces the formerly used, PyQt based first run wizard Kaptan.  It also includes a custom Wallpaper selector, distribution info and news.  It is written in QML and fits well with the Welcome application used in the Live system.  The latter now includes a fully rewritten (also in QML) Installation Guide.</p>
     
-    <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.45.0, Plasma 5.12.4 and KDE Applications 18.04.0.</strong>All built on <strong> Qt 5.10.1.</strong></p>
+    <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.46.0, Plasma 5.13.0 and KDE Applications 18.04.1.</strong>All built on <strong> Qt 5.11.0.</strong></p>
     
     <p>There is an option to verify the authenticity of downloaded KaOS ISO files through GPG signature verification, see the Download page for further details and instructions.</p>
     
@@ -25,7 +25,7 @@
     
     <p>Mesa includes experimental Nouveau patches so QtWebengine based applications and web-browsers can again be used on systems running the Nouveau driver.  This fixes a long standing bug going back to the middle of 2015.</p>
     
-    <p>Most notable major updates to the base of the system are Systemd 238, Linux 4.16.4, Wayland 1.15.0, Gstreamer 1.14.0, Cfitsio 3.44.0, Openmpi 3.0.1, Mesa 17.3.9, NetworkManager 1.10.6, Rust 1.25.0, Protobuf 3.5.2, Intel-ucode 20180312, Openjdk 8u161, Opencv 3.4.1 and Ruby 2.5.1</p>
+    <p>Most notable major updates to the base of the system are Systemd 238, Linux 4.16.12, Wayland 1.15.0, Gstreamer 1.14.1, Cfitsio 3.45.0, Openmpi 3.0.1, Mesa 18.1.0, NetworkManager 1.10.8, Rust 1.26.0, Protobuf 3.5.2, Intel-ucode 20180425, Openjdk 8u161, Opencv 3.4.1 and Ruby 2.5.1</p>
     
     <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
     
@@ -37,9 +37,9 @@
     <ul>
         <li>The branding module has also seen an overhaul and the slideshow framework has been extended with some new classes which can be used. </li>
         <li>The GeoIP service provided by FreeGeoIP.net is closing down and a different API is being offered, including a free (gratis) service tier. KaOS has moved to using ipapi.co</li>
-        <li>Translations have been expanded, with many strings not-previously localized now available for translation (this mostly applies to error messages which we hope you don’t encounter).</li>
+        <li>UI annoyances in the partitioning module were fixed; the mount-point selector is now more obvious when no mount-point has been chosen, and the mount-point and flags are preserved when (re)editing partitions</li>
         <li>The debugging framework has seen an overhaul, so that debugging information can be more easily understood. </li>
-        <li>Python jobs can now issue warnings through the API.</li>
+        <li>The user shell is no longer hard-coded to /bin/bash, but follows the default setting for useradd(8), e.g. those set in /etc/default/useradd.</li>
     </ul></p>
     
     <p><strong>Octopi</strong> is becoming a very crucial part of full system maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like making sure a mirror is synced before starting any update, looking at the pacman logs, an option to get a paste from a complete snapshot of all info of a system with the SysInfo tool are included. Also included are very simple ways to open files, like copy to clipboard the file path shown in Octopi. To make sure the system doesn't start using too much disk space for the pacman cache, but still giving the user the option to retain some recent packages, the cache-cleaner tool is a great addition. The built-in tool to access <b>KCP</b> has now a much clearer place with the addition of its own "foreign" icon in the menu-bar. New added is the option to select custom icons for the systemtray.</p>
@@ -54,8 +54,8 @@
     
     <p>The package manager is <strong>Pacman 5.0.2</strong>, with the simple but powerful Octopi 0.9dev as GUI frontend. New is the move to Falkon as the default web browser, it is Qt based and the successor of Qupzilla. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna".</p>
     
-    <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 4.16, Libreoffice 6.0.3, bumblebee packages, VLC, Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad and Knights.<br />
-    A limited number of the most well-known GTK applications are available, examples Firefox 59.0.2, Chrome 67, Ardour 5.12.0, Inkscape 0.92.2, GIMP 2.10RC2 and Google-talkplugin 5.41.3.0.1.<br />
+    <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 4.17, Libreoffice 6.0.4, bumblebee packages, VLC, Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad and Knights.<br />
+    A limited number of the most well-known GTK applications are available, examples Firefox 60.0.1, Chrome 68, Ardour 5.12.0, Inkscape 0.92.2, GIMP 2.10.2 and Google-talkplugin 5.41.3.0.1.<br />
     Complete language packs are available for KDE, Calligra, Firefox, Libreoffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
     
     <p><b>Known issues:</b></p>

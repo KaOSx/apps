@@ -16,15 +16,14 @@ source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname-${pkgver}
+  cd ${pkgname}-${pkgver}
   #patch -p1 -i $srcdir/qt5.5.diff
 }
 
 build() {
-  cd ${srcdir}
-  mkdir build
-  
+  mkdir -p build
   cd build 
+  
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
@@ -38,7 +37,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }
