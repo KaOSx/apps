@@ -6,7 +6,7 @@ pkgname=kdf
 arch=('x86_64')
 pkgver=${_kdever}
 #pkgver=16.07.71
-pkgrel=1
+pkgrel=2
 pkgdesc="Displays the available file devices along with information on their capacity, free space, type and mount point."
 url="https://www.kde.org/applications/system/kdiskfree/"
 license=('GPL' 'LGPL' 'FDL')
@@ -31,10 +31,10 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib
+    -DKDE_INSTALL_LIBDIR=lib
   make
 }
 
