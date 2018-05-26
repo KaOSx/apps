@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkleo
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="This lib provides crypto for mails."
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/libkleo'
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('gpgme' 'kpimtextedit' 'kconfig' 'ki18n' 'kwidgetsaddons' 'kcompletion' 'kwindowsystem'
          'kcoreaddons' 'kcodecs' 'kitemmodels')
 makedepends=('extra-cmake-modules' 'boost')
-groups=('kde' 'kde-pim' 'kde-uninstall')
+groups=('kde' 'kdepim' 'kde-uninstall')
 source=("http://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/libkleo.git")

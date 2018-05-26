@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=incidenceeditor
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Lib which provides incidence editor"
 arch=('x86_64')
 url='https://github.com/KDE/incidenceeditor'
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'kldap' 'kcodecs' 'calendarsupport' 'libkdepim'
          'kdiagram' 'kcalutils' 'kcalcore' 'kmailtransport' 'eventviews')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-groups=('kde' 'kde-pim' 'kde-uninstall')
+groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("git://anongit.kde.org/incidenceeditor.git")

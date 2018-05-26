@@ -4,16 +4,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=akonadi-notes
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Libraries and daemons to implement management of notes in Akonadi."
 arch=('x86_64')
 url='https://github.com/KDE/akonadi-notes'
 license=('LGPL')
 depends=('ki18n' 'kmime' 'akonadi' 'kdelibs4support')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-groups=('kde-pim')
 
 prepare() {
   cd $pkgname-${pkgver}

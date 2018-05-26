@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=akregator
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="RSS Feed Reader."
 arch=('x86_64')
 url='https://github.com/KDE/akregator'
@@ -16,7 +16,7 @@ depends=('kcrash' 'kcmutils' 'knotifyconfig' 'kparts' 'ktexteditor' 'kxmlgui' 'k
          'grantlee' 'qtwebengine' 'kdepim-addons'
          'akonadi-import-wizard' 'pim-data-exporter')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-groups=('kde-pim')
+groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=korganizer
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Organizational assistant, providing calendars and other similar functionality to help you organize your life."
 arch=('x86_64')
 url='https://github.com/KDE/korganizer'
@@ -17,7 +17,7 @@ depends=('knewstuff' 'kcmutils' 'kconfig' 'kservice' 'kdbusaddons' 'kcodecs' 'kc
          'phonon-qt5' 'qt5-x11extras' 'kdepim-addons'
          'akonadi-import-wizard' 'pim-data-exporter')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools')
-groups=('kde-pim')
+groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 

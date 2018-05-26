@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-addons
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Addons for kdepim apps (as kmail addons/ kmail theme/ kaddressbook addons etc.)"
 url="https://github.com/KDE/kdepim-addons"
@@ -17,7 +17,7 @@ depends=('libkgapi' 'qtwebengine' 'boost-libs'
          'pimcommon' 'libkdepim' 'incidenceeditor' 'ktnef' 'akonadi-import-wizard'
          'messagelib' 'calendarsupport' 'eventviews' 'akonadi' 'libgravatar' 'libksieve')
 makedepends=('extra-cmake-modules' 'kdoctools' 'clang' 'boost')
-groups=('kde' 'kde-pim' 'kde-uninstall')
+groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
