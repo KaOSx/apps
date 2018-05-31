@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kontact
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=4
 pkgdesc="Container application to unify several major PIM applications within one application."
 arch=('x86_64')
 url='https://github.com/KDE/kontacts'
@@ -15,8 +15,16 @@ depends=('kdbusaddons' 'kcmutils' 'kcrash' 'kwindowsystem' 'kiconthemes'
          'akonadi-import-wizard' 'pim-data-exporter')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://github.com/KDE/kontact/commit/b78bb7307dab374a5d97aad691c8faf9902db27a.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'da00d7e182abe46bf97c911f7f49ff8d')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # https://bugs.kde.org/show_bug.cgi?id=394767
+  patch -p1 -i ${srcdir}/b78bb7307dab374a5d97aad691c8faf9902db27a.diff
+}
 
 build() {
   mkdir -p build
