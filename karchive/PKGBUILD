@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=karchive
 pkgver=${_kf5ver}
-pkgrel=3
+pkgrel=1
 pkgdesc='Qt 5 addon providing access to numerous types of archives'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/karchive'
@@ -22,7 +22,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -KDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF
   make
 }
