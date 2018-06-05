@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kontact
 pkgver=${_kdever}
-pkgrel=4
+pkgrel=1
 pkgdesc="Container application to unify several major PIM applications within one application."
 arch=('x86_64')
 url='https://github.com/KDE/kontacts'
@@ -23,7 +23,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://bugs.kde.org/show_bug.cgi?id=394767
-  patch -p1 -i ${srcdir}/b78bb7307dab374a5d97aad691c8faf9902db27a.diff
+  #patch -p1 -i ${srcdir}/b78bb7307dab374a5d97aad691c8faf9902db27a.diff
 }
 
 build() {
