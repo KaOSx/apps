@@ -1,7 +1,7 @@
 
 pkgname=godot
-pkgver=3.0.2
-_pkgver=3.0.2-stable
+pkgver=3.0.3
+_pkgver=3.0.3-stable
 pkgrel=1
 pkgdesc="Full featured, open source, MIT licensed, game engine."
 arch=('x86_64')
@@ -10,12 +10,8 @@ license=('MIT')
 depends=('alsa-lib' 'glu' 'libx11' 'libxcursor' 'libxinerama' 'libxrandr' 'freetype2'
          'mesa' 'libwebp' 'pulseaudio' 'openssl')
 makedepends=('scons' 'clang')
-source=("https://github.com/okamstudio/godot/archive/${_pkgver}.tar.gz"
-        'godot.desktop'
-        'icon.png')
-md5sums=('dfc2d0d09f0e06c0b6fd4616e78930d8'
-         'dca7c5c5682bdc8cc83386034e0d7d07'
-         'f756e85756a9cbc06a328414abf74585')
+source=("https://github.com/okamstudio/godot/archive/${_pkgver}.tar.gz")
+md5sums=('d40de8bd3edfabc9be1b94b25670434c')
 
 build() {
     cd ${pkgname}-${_pkgver}
@@ -31,8 +27,8 @@ package() {
     
     install -Dm755 bin/godot.x11.tools.64.llvm ${pkgdir}/usr/bin/godot
 
-    install -Dm644 ../godot.desktop ${pkgdir}/usr/share/applications/godot.desktop
-    install -Dm644 ../icon.png ${pkgdir}/usr/share/pixmaps/godot.png  
+    install -Dm644 misc/dist/linux/godot.desktop ${pkgdir}/usr/share/applications/godot.desktop
+    install -Dm644 icon.svg ${pkgdir}/usr/share/pixmaps/godot.svg  
     install -Dm644 LICENSE.txt ${pkgdir}/usr/share/licenses/godot/LICENSE.txt
 }
 
