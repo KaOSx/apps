@@ -20,10 +20,14 @@ replaces=('kde-workspace' 'kcm-touchpad')
 source=("https://download.kde.org/unstable/plasma/5.12.90/${pkgname}-${pkgver}.tar.xz"
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         'layout_desktop_panel.diff'
-        'main_desktop_kicker.diff')
+        'main_desktop_kicker.diff'
+        "https://github.com/KDE/plasma-desktop/commit/3432c3342b1f8014cf59f39565aca53d280c7f86.diff"
+        "https://github.com/KDE/plasma-desktop/commit/f040cdb399b10df8a50c17ac13e4fd44693d3057.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '5a22b33c2f9ed93c8b8f580601e00a8e'
-         '22b66401945f92bd9f99e6d334bc306e')
+         '22b66401945f92bd9f99e6d334bc306e'
+         'f284ca3ae49471ab7d8a93bf65bdd630'
+         '7f8ae129f7b4155311d95525a8dfb08f')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -33,6 +37,9 @@ prepare() {
   patch -p1 -i ${srcdir}/layout_desktop_panel.diff
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
   sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
+  #kcm touchpad breakage in 5.13.1
+  patch -p1 -i ${srcdir}/3432c3342b1f8014cf59f39565aca53d280c7f86.diff
+  patch -p1 -i ${srcdir}/f040cdb399b10df8a50c17ac13e4fd44693d3057.diff
 }
 
 build() {
