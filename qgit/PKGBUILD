@@ -1,8 +1,8 @@
 
 pkgname=qgit
 arch=('x86_64')
-pkgver=2.7
-pkgrel=3
+pkgver=2.8
+pkgrel=1
 pkgdesc="Git repository viewer created using the Qt library, it uses git process (command-line calls) to extract data"
 url="http://libre.tibirna.org/projects/qgit/wiki/QGit"
 license=('GPL')
@@ -10,13 +10,13 @@ depends=('qt5-base' 'git')
 makedepends=('cmake')
 source=("https://github.com/tibirna/qgit/archive/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/tibirna/qgit/commit/7b8f1ff9ce16bc2d8457362df2017bc0ffe65458.diff")
-md5sums=('855cfd067ed1202adac701c18c1fc0dd'
+md5sums=('605c28c6706056ce9902c87d14973f79'
          '39dd245b03668999e2e8c259806248c4')
 
 prepare() {
   cd qgit-${pkgname}-${pkgver}
   
-  patch -p1 -i ${srcdir}/7b8f1ff9ce16bc2d8457362df2017bc0ffe65458.diff
+  #patch -p1 -i ${srcdir}/7b8f1ff9ce16bc2d8457362df2017bc0ffe65458.diff
 }
 
 build() {  
