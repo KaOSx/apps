@@ -1,13 +1,13 @@
 
 pkgname=octopi
-pkgver=0.8.131
-pkgrel=4
-_commit=c413caadd11883ffcebf13ce515fb17bc23ebd27
+pkgver=0.9.0
+pkgrel=2
+_commit=251822c88747c216c6ebb9a342a80097ee744117
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
 license=('GPL2')
-depends=('pacman' 'pkgfile' 'knotifications' 'alpm_octopi_utils' 'qtermwidget')
+depends=('pacman' 'pacman-contrib' 'pkgfile' 'knotifications' 'alpm_octopi_utils' 'qtermwidget')
 groups=('system')
 #install=octopi.install
 source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
@@ -15,7 +15,7 @@ source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
         "https://github.com/aarnt/octopi/commit/a9d9eb30d37e97369cfc64204fe0bde9e0e29918.diff"
         "https://github.com/aarnt/octopi/commit/c413caadd11883ffcebf13ce515fb17bc23ebd27.diff"
         'transactiondialog.diff')
-md5sums=('eb7860398d1f771ed281d55a556e67ea'
+md5sums=('d08993641aa9a7b2d8c4375d3413e14a'
          '3c3345539c8500d303f33f890fe733fe'
          '94aa6b71b4f42f5523be82dccc90f266'
          'acf41ab51671385d79832dca69938742'
@@ -34,8 +34,8 @@ prepare() {
    #sed -e "s|return p.readAllStandardOutput();|return p.toLatin1();|" -i src/unixcommand.cpp
    
    patch -R -p1 -i ${srcdir}/a9d9eb30d37e97369cfc64204fe0bde9e0e29918.diff
-   patch -R -p1 -i ${srcdir}/c413caadd11883ffcebf13ce515fb17bc23ebd27.diff
-   patch -p1 -i ${srcdir}/transactiondialog.diff
+   #patch -R -p1 -i ${srcdir}/c413caadd11883ffcebf13ce515fb17bc23ebd27.diff
+   #patch -p1 -i ${srcdir}/transactiondialog.diff
 }
          
 build() {

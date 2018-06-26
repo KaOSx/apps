@@ -11,3 +11,9 @@ if [[ "$DESKTOP_SESSION" == "plasma" ]]; then
     export KDE_FULL_SESSION=true
 fi
 
+d="nouveau"
+x=`hwinfo --gfxcard | grep Driver:`
+
+if [[ $x == *"$d"* ]]; then
+    export QT_XCB_FORCE_SOFTWARE_OPENGL=1
+fi

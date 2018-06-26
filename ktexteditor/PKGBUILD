@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktexteditor
 pkgver=${_kf5ver}
-pkgrel=3
+pkgrel=2
 pkgdesc='KTextEditor provides a powerful text editor component that you can embed in your application'
 arch=('x86_64')
 url='https://github.com/KDE/ktexteditor'
@@ -13,13 +13,14 @@ depends=('karchive' 'kconfig' 'kguiaddons' 'ki18n' 'kio' 'kparts' 'sonnet' 'kico
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/5.44/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/ktexteditor/commit/e75bde233b9fe6b1a7d24cc63fa9baf9e89de895.diff")
+        "https://github.com/KDE/ktexteditor/commit/c81af5aa1d4f6e0f8c44b2e85ca007ba2a1e4590.diff")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'd1d31d6471d663215b73afd78b2b2743')
+         'ff481747de26a8023af6c34cd66221e8')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/e75bde233b9fe6b1a7d24cc63fa9baf9e89de895.diff
+  # CVE-2018-10361: privilege escalation
+  patch -p1 -i ${srcdir}/c81af5aa1d4f6e0f8c44b2e85ca007ba2a1e4590.diff
 }
 
 build() {

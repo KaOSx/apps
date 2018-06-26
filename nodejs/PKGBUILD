@@ -1,24 +1,24 @@
 
 pkgname=nodejs
-pkgver=10.2.1
+pkgver=10.3.0
 pkgrel=1
 pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications."
 arch=('x86_64')
 url='http://nodejs.org/'
 license=('MIT')
-depends=('python2' 'openssl' 'zlib' 'libuv' 'c-ares') # 'icu' 
+depends=('python2' 'zlib' 'libuv' 'c-ares') # 'icu' 'openssl'
 makedepends=('procps-ng')
 checkdepends=('curl') 
 options=('!emptydirs')
 source=("https://github.com/nodejs/node/archive/v${pkgver}.tar.gz")
-md5sums=('6e24aeac6c2e46c556f20c98859cb3f6')
+md5sums=('9d8f7788d5de215cf1af68a57fb4be86')
 
 build() {
   cd node-${pkgver}
   
   ./configure --prefix=/usr \
     --with-intl=small-icu \
-    --shared-openssl \
+    --without-ssl \
     --shared-cares \
     --shared-zlib 
   make

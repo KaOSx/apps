@@ -1,7 +1,7 @@
 
 pkgname=spideroakone
 _pkgname=SpiderOakONE
-pkgver=7.1.0
+pkgver=7.2.0
 pkgrel=1
 pkgdesc="Secure and consolidated free online backup, storage, access, sharing & sync tool for Windows, Mac OS X, and Linux."
 url="https://spideroak.com/"
@@ -16,7 +16,7 @@ options=('!strip')
 install=spideroak.install
 source=("${_pkgname}-${pkgver}-amd64.deb"::"https://spideroak.com/release/spideroak/deb_x64"
         "terms.txt")
-sha256sums=('442ed2b5b33399754bec0e25eb9ba5dcac5c9de365384878e0a18206aba76669'
+sha256sums=('6d744ef6c973b88ee89f03bfef6e049d739c5a3791eb82fd1204655fef9f38e0'
             '61b624ce1beb3d8968088add9a5e063dd6a86254fb2e1f4a6cfdfa673acdeec1')
 
 package() {
@@ -24,10 +24,10 @@ package() {
     
     rm -r ${pkgdir}/etc/apt
     # use system libs
-    rm -r ${pkgdir}//opt/SpiderOakONE/lib/libstdc++.so.6
-    rm -r ${pkgdir}//opt/SpiderOakONE/lib/libgcc_s.so.1
-    rm -r ${pkgdir}//opt/SpiderOakONE/lib/libpng12.so.0
-    rm -r ${pkgdir}//opt/SpiderOakONE/lib/libz.so.1
+    rm -r ${pkgdir}/opt/SpiderOakONE/lib/libstdc++.so.6
+    rm -r ${pkgdir}/opt/SpiderOakONE/lib/libgcc_s.so.1
+    #rm -r ${pkgdir}/opt/SpiderOakONE/lib/libpng12.so.0
+    rm -r ${pkgdir}/opt/SpiderOakONE/lib/libz.so.1
     
     install -Dm644 terms.txt ${pkgdir}/usr/share/licenses/${pkgname}/terms.txt
 }
