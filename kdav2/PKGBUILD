@@ -3,9 +3,9 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdav2
-pkgver=0.1.0
-_commit=830f07b99dc8badf5df40edb81cbac63a3ddb3c4
-pkgrel=2
+pkgver=0.2.0
+_commit=4f96597a78e9b26b54e3bbb005de9bee93381193
+pkgrel=1
 pkgdesc="DAV protocol implementation with KJobs, 2 version"
 arch=('x86_64')
 url='https://github.com/KDE/kdav2'
@@ -15,7 +15,7 @@ makedepends=('extra-cmake-modules')
 #source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://github.com/KDE/kdav2/archive/${_commit}.zip")
-md5sums=('ba90ad8e05293b2b176531e2c33decea')
+md5sums=('384a27c353162826cc4c798d336513c6')
 
 prepare() {
   cd ${pkgname}-${_commit}
