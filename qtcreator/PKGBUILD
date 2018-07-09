@@ -3,7 +3,7 @@ pkgname=qtcreator
 pkgver=4.6.2
 _pkgver=4.6
 __pkgver=4.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="http://qt.digia.com/"
@@ -33,7 +33,7 @@ build() {
   mkdir -p build
   cd build
 
-  /usr/lib/qt5/bin/qmake ${srcdir}/qt-creator-opensource-src-${__pkgver}/qtcreator.pro
+  /usr/lib/qt5/bin/qmake LLVM_INSTALL_DIR=/usr QMAKE_CFLAGS_ISYSTEM=-I ${srcdir}/qt-creator-opensource-src-${__pkgver}/qtcreator.pro
   make 
   make docs -j1
 }
