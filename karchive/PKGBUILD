@@ -13,7 +13,7 @@ depends=('qt5-base' 'bzip2')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
@@ -22,7 +22,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -KDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF
   make
 }
