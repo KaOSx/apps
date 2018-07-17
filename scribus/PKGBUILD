@@ -1,8 +1,8 @@
 
 pkgname=scribus
 _pkgname=Scribus
-pkgver=1.5.3
-pkgrel=8
+pkgver=1.5.4
+pkgrel=1
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="http://www.scribus.net"
@@ -18,7 +18,7 @@ source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/
         "https://github.com/scribusproject/scribus/commit/d82b1c989bd0e79b5611521f671adbfb94996e5e.diff")
 # view at https://www.scribus.net/websvn/
 #source=("scribus::svn://scribus.net/trunk")
-md5sums=('942fdd3c1927b8c84ca8abae7cc90a78'
+md5sums=('fda4eb51304a41ff52081a1311b3bae5'
          '52e7b068649b1ba9e925ae9e208543bc'
          '9cb18f41adbc887a1154a4eadb3b1b50')
 
@@ -27,8 +27,8 @@ prepare() {
   
   sed -i 's|hunspell-1.3 hunspell-1.2|hunspell-1.3 hunspell-1.6|' cmake/modules/FindHUNSPELL.cmake
   # poppler 0.58 & up needed patches
-  patch -p1 -i ${srcdir}/61186c7ef083046b7e0c908952e8a773e2787d82.diff
-  patch -p1 -i ${srcdir}/d82b1c989bd0e79b5611521f671adbfb94996e5e.diff
+  #patch -p1 -i ${srcdir}/61186c7ef083046b7e0c908952e8a773e2787d82.diff
+  #patch -p1 -i ${srcdir}/d82b1c989bd0e79b5611521f671adbfb94996e5e.diff
   
 }
 
