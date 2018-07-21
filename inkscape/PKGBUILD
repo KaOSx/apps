@@ -1,7 +1,7 @@
 
 pkgname=inkscape
 pkgver=0.92.3
-pkgrel=2
+pkgrel=3
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
@@ -12,15 +12,18 @@ depends=('poppler' 'imagemagick' 'aspell' 'gc' 'gtkmm' 'libxslt' 'gsl'
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 source=("https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-${pkgver}.tar.bz2"
-        "https://gitlab.com/inkscape/inkscape/commit/93ccf03162cd2e46d962822d5507865f3451168c.patch")
+        "https://gitlab.com/inkscape/inkscape/commit/a600c6438fef2f4c06f9a4a7d933d99fb054a973.diff"
+        "https://gitlab.com/inkscape/inkscape/commit/fa1c469aa8c005e07bb8676d72af9f7c16fae3e0.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
 md5sums=('4ef7171cc1de9e1608d8c49b77fed99e'
-         '6be509746489de06005ef01fc96acb6b')
+         '41a33ea04b7901848b275e76fcf7e5c2'
+         'add8bdd7b82b7950ca9abc546768f545')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # poppler 0.58 & up needed patch
-  #patch -p1 -i ${srcdir}/93ccf03162cd2e46d962822d5507865f3451168c.patch
+  # poppler 0.64 & up needed patches
+  patch -p1 -i ${srcdir}/a600c6438fef2f4c06f9a4a7d933d99fb054a973.diff
+  patch -p1 -i ${srcdir}/fa1c469aa8c005e07bb8676d72af9f7c16fae3e0.diff
 }
 
 build() {
