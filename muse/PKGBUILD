@@ -1,8 +1,8 @@
 
 pkgname=muse
-pkgver=2.9.70
+pkgver=3.0.2
 pkgrel=1
-_commit=6e2b81a1ac20dab32cd76edbc8d20d3899a612ed
+_commit=c987c28e855856b4d7a7626e5bffdce087b55342
 pkgdesc="MIDI/Audio sequencer with recording and editing capabilities, aims to be a complete multitrack virtual studio for Linux."
 arch=('x86_64')
 url='http://muse-sequencer.org/'
@@ -11,13 +11,13 @@ depends=('qt5-svg' 'qt5-tools' 'dssi' 'fluidsynth' 'jack' 'ladspa' 'liblo' 'libs
 makedepends=('cmake')
 groups=('multimedia')
 source=("https://github.com/muse-sequencer/muse/archive/${_commit}.zip")
-md5sums=('59878731efba8655fac2f6e6648d9fb0')
+md5sums=('894af4200e845e5f689fe760f0152fed')
 
 build() {
   mkdir -p build
   cd build 
   
-  CXXFLAGS+="-std=c++11"
+  #CXXFLAGS+="-std=c++11"
   
   cmake ../${pkgname}-${_commit}/muse3 \
     -DCMAKE_INSTALL_PREFIX=/usr \
