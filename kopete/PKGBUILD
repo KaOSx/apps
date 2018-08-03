@@ -4,8 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kopete
 pkgver=${_kdever}
-_commit=f6706da8439cb8016920f043518927a325869689
-pkgrel=1
+pkgrel=2
 pkgdesc='Instant Messenger'
 url='http://kde.org/applications/internet/kopete/'
 arch=('x86_64')
@@ -40,7 +39,8 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_TESTING=OFF \
-    -DWITH_jabber=OFF \
+    -DWITH_jabber=ON \
+    -DWITH_libjingle=OFF \
     -DWITH_skype=ON \
     -DWITH_oscar=OFF
   make
