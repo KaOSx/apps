@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kamoso
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Kamoso is an application to take pictures and videos out of your webcam."
 url="https://userbase.kde.org/Kamoso"
 arch=('x86_64')
@@ -20,9 +20,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 prepare() {
   cd $pkgname-${pkgver}
   # fix for building with gstreamer 1.14 https://bugs.kde.org/show_bug.cgi?id=392245
-  sed -i -e 's|kamoso-qt5videosink|kamosoqt5videosink|' src/elements/CMakeLists.txt
-  sed -i -e 's|kamoso-qt5glvideosink|kamosoqt5glvideosink|' src/elements/CMakeLists.txt
-  sed -i -e 's|kamoso-qwidget5videosink|kamosoqwidget5videosink|' src/elements/CMakeLists.txt
+  #sed -i -e 's|kamoso-qt5videosink|kamosoqt5videosink|' src/elements/CMakeLists.txt
 }
 
 build() {
