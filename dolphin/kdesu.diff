@@ -1,0 +1,27 @@
+--- a/src/main.cpp	2018-08-08 11:18:07.577681862 +0200
++++ b/src/main.cpp	2018-08-08 11:18:07.404689578 +0200
+@@ -44,15 +44,15 @@
+ {
+ #ifndef Q_OS_WIN
+     // Prohibit using sudo or kdesu (but allow using the root user directly)
+-    if (getuid() == 0) {
+-        if (!qEnvironmentVariableIsEmpty("SUDO_USER")) {
+-            std::cout << "Executing Dolphin with sudo is not possible due to unfixable security vulnerabilities." << std::endl;
+-            return EXIT_FAILURE;
+-        } else if (!qEnvironmentVariableIsEmpty("KDESU_USER")) {
+-            std::cout << "Executing Dolphin with kdesu is not possible due to unfixable security vulnerabilities." << std::endl;
+-            return EXIT_FAILURE;
+-        }
+-    }
++    //if (getuid() == 0) {
++    //    if (!qEnvironmentVariableIsEmpty("SUDO_USER")) {
++    //        std::cout << "Executing Dolphin with sudo is not possible due to unfixable security vulnerabilities." << std::endl;
++    //        return EXIT_FAILURE;
++    //    } else if (!qEnvironmentVariableIsEmpty("KDESU_USER")) {
++    //        std::cout << "Executing Dolphin with kdesu is not possible due to unfixable security vulnerabilities." << std::endl;
++    //        return EXIT_FAILURE;
++    //    }
++    //}
+ #endif
+ 
+     QApplication app(argc, argv);

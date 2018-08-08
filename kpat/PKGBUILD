@@ -11,7 +11,7 @@ url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kconfig' 'kwidgetsaddons' 'kdbusaddons' 'kdeclarative' 'ki18n' 'kguiaddons'
          'kconfigwidgets' 'kitemviews' 'kiconthemes' 'kcompletion' 'ktextwidgets' 'kxmlgui' 'kio'
-         'kdelibs4support' 'knotifyconfig' 'knewstuff' 'libkdegames' 'phonon-qt5')
+         'kdelibs4support' 'knotifyconfig' 'knewstuff' 'libkdegames' 'phonon-qt5' 'freecell-solver')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('kde' 'kde-games' 'kde-uninstall')
 conflicts=('kdegames-kpat')
@@ -26,9 +26,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make
 }
