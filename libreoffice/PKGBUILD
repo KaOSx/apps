@@ -1,8 +1,8 @@
 
 pkgname=libreoffice
-_LOver=6.0.6.2
-pkgver=6.0.6.2
-_pkgver=6.0.6
+_LOver=6.1.0.3
+pkgver=6.1.0.3
+_pkgver=6.1.0
 pkgrel=1
 arch=('x86_64')
 license=('LGPL3')
@@ -15,8 +15,8 @@ depends=('curl' 'python3' 'libabw' 'libwpd' 'libwps' 'libxaw' 'neon'
          'poppler' 'sane' 'unixodbc' 'libwpg' 'imagemagick' 'hunspell'
          'mesa' 'gst-plugins-base' 'java-runtime' 'postgresql-libs' 'libvisio' 'bluez' 'liblangtag'
          'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' # 'gconf' 
-         'java-environment' 'beanshell'  'vigra' 'pstoedit' 'libmythes' 'boost-libs' 'libepoxy' 'gtk3' 'gtk2')
-         # 'kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kwindowsystem' 'kdelibs4support')
+         'java-environment' 'beanshell'  'vigra' 'pstoedit' 'libmythes' 'boost-libs' 'libepoxy' # 'gtk3' 'gtk2')
+         'kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kwindowsystem' 'kdelibs4support' 'python3-lxml' 'libnumbertext')
 makedepends=('perl-archive-zip' 'zip' 'unzip' 'apache-ant' 'gperf' 'cppunit' 'libldap'
              'junit' 'doxygen' 'apr' 'serf' 'mdds' 'boost') # 'glm'
 _mirror="https://caesar.acc.umu.se/mirror/documentfoundation.org/libreoffice/src/$_pkgver"
@@ -47,30 +47,30 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
 	${_additional_source_url}/libexttextcat-3.4.5.tar.xz 
 	${_additional_source_url}/libcmis-0.5.1.tar.gz 
-	${_additional_source_url}/liborcus-0.13.3.tar.gz
+	${_additional_source_url}/liborcus-0.13.4.tar.gz
 	#${_additional_source_url}/aa899eff126216dafe721149fbdb511b-liblangtag-0.5.8.tar.bz2
 	${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 	${_additional_source_url}/libcdr-0.1.4.tar.xz
-	${_additional_source_url}/libmspub-0.1.3.tar.xz
-	${_additional_source_url}/libmwaw-0.3.13.tar.xz
+	${_additional_source_url}/libmspub-0.1.4.tar.xz
+	${_additional_source_url}/libmwaw-0.3.14.tar.xz
 	${_additional_source_url}/libfreehand-0.1.2.tar.xz
 	${_additional_source_url}/Firebird-3.0.0.32483-0.tar.bz2
 	${_additional_source_url}/libe-book-0.1.3.tar.xz
 	${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	#${_additional_source_url}/976734806026a4ef8bdd17937c8898b9-icu4c-57_1-src.tgz
 	#${_additional_source_url}/boost_1_60_0.tar.bz2
-	${_additional_source_url}/language-subtag-registry-2017-12-14.tar.bz2
+	${_additional_source_url}/language-subtag-registry-2018-04-23.tar.bz2
 	${_additional_source_url}/libgltf/libgltf-0.1.0.tar.gz
 	${_additional_source_url}/CoinMP-1.7.6.tgz
 	${_additional_source_url}/bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
 	${_additional_source_url}/4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2
 	${_additional_source_url}/OpenCOLLADA-master-6509aa13af.tar.bz2
 	${_additional_source_url}/libpagemaker-0.0.4.tar.xz
-	${_additional_source_url}/libstaroffice-0.0.5.tar.xz 
+	${_additional_source_url}/libstaroffice-0.0.6.tar.xz 
 	${_additional_source_url}/libzmf-0.0.2.tar.xz
 	${_additional_source_url}/ltm-1.0.zip
-	${_additional_source_url}/pdfium-3235.tar.bz2
-	${_additional_source_url}/libepubgen-0.1.0.tar.bz2
+	${_additional_source_url}/pdfium-3426.tar.bz2
+	${_additional_source_url}/libepubgen-0.1.1.tar.xz
 	${_additional_source_url}/libqxp-0.0.1.tar.xz
 	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 	intro.png
@@ -114,30 +114,30 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
 	db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
 	ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
-	liborcus-0.13.3.tar.gz
+	liborcus-0.13.4.tar.gz
 	#aa899eff126216dafe721149fbdb511b-liblangtag-0.5.8.tar.bz2
 	0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 	17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	#976734806026a4ef8bdd17937c8898b9-icu4c-57_1-src.tgz
 	#boost_1_60_0.tar.bz2
 	libcdr-0.1.4.tar.xz
-	libmspub-0.1.3.tar.xz
-	libmwaw-0.3.13.tar.xz
+	libmspub-0.1.4.tar.xz
+	libmwaw-0.3.14.tar.xz
 	libfreehand-0.1.2.tar.xz
 	Firebird-3.0.0.32483-0.tar.bz2
 	libe-book-0.1.3.tar.xz
-	language-subtag-registry-2017-12-14.tar.bz2
+	language-subtag-registry-2018-04-23.tar.bz2
 	CoinMP-1.7.6.tgz
 	bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
 	4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2
 	OpenCOLLADA-master-6509aa13af.tar.bz2
 	libpagemaker-0.0.4.tar.xz
-	libstaroffice-0.0.5.tar.xz
+	libstaroffice-0.0.6.tar.xz
 	libzmf-0.0.2.tar.xz
 	ltm-1.0.zip
-	pdfium-3235.tar.bz2
+	pdfium-3426.tar.bz2
 	libgltf-0.1.0.tar.gz
-	libepubgen-0.1.0.tar.bz2
+	libepubgen-0.1.1.tar.xz
 	libqxp-0.0.1.tar.xz)
 
 source libreoffice.md5
@@ -188,7 +188,7 @@ build() {
 	#patch -p1 -i ${srcdir}/0011-kf5-filepicker-size-restore.patch
 	#patch -p1 -i ${srcdir}/0012-cleanup-kf5-filepicker.patch
 	#patch -p1 -i ${srcdir}/0013-buildsystem-drop-bogus-qt5-warn.patch
-	##patch -p1 -i ${srcdir}/kf5-qt5.patch
+	#patch -p1 -i ${srcdir}/kf5-qt5.patch
 	
 	#sed -i -e 's/KF5_CFLAGS=$(printf.*//g' configure.ac
 	#sed -i -e 's|-isystem|-I|g' configure.ac
@@ -206,7 +206,8 @@ build() {
 		--enable-dbus \
 		--disable-evolution2 \
 		--enable-gio\
-		--enable-gtk3 \
+		--disable-gtk \
+		--disable-gtk3 \
 		--disable-kde4 \
 		--disable-gstreamer-0-10 \
 		--disable-odk \
@@ -262,14 +263,15 @@ build() {
 		--without-system-coinmp \
 		--without-system-libepubgen \
 		--without-system-libqxp \
+		--with-system-libnumbertext \
 		--with-alloc=system \
 		--with-system-clucene \
 		--disable-dependency-tracking \
 		--disable-cve-tests \
-		--with-theme="breeze breeze_dark oxygen sifr"
-		#--enable-kde5 \
-		#--enable-qt5 \
-		#--disable-gtk3-kde5
+		--with-theme="breeze breeze_dark sifr" \
+		--enable-kde5 \
+		--enable-qt5 \
+		--disable-gtk3-kde5
 
 	touch src.downloaded
 	#./download
