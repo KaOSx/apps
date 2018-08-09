@@ -1,0 +1,43 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kpkpass
+pkgver=${_kdever}
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Library to deal with Apple Wallet pass files."
+url="https://github.com/KDE/kpkpass"
+license=('GPL' 'LGPL' 'FDL')
+depends=('karchive')
+makedepends=('extra-cmake-modules')
+groups=('kde' 'kdepim' 'kde-uninstall')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  #patch -p1 -i ${srcdir}/ad9b246409bf9fbea70f57a69b4cfef1ca45c2b3.diff
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
