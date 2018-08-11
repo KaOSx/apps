@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khotkeys
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=3
 pkgdesc='KHotKeys'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khotkeys'
@@ -42,7 +42,6 @@ build() {
 
 package() {
   cd build
-  DESTDIR=${pkgdir} ninja install
   
-  rm -r ${pkgdir}/usr/share/locale
+  DESTDIR=${pkgdir} ninja install
 }

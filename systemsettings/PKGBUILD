@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=systemsettings
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=3
 pkgdesc='KDE system settings'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/systemsettings'
@@ -42,7 +42,6 @@ build() {
 
 package() {
   cd build
-  make DESTDIR=${pkgdir} install
   
-  rm -r ${pkgdir}/usr/share/locale
+  make DESTDIR=${pkgdir} install
 }
