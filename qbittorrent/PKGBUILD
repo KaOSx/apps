@@ -2,13 +2,13 @@
 pkgname=qbittorrent
 pkgver=4.1.2
 _commit=46e2e5342bb5b6f7a479f9ec7746e58d28ff783e
-pkgrel=1
+pkgrel=2
 pkgdesc="Bittorrent client programmed in C++ / Qt that uses libtorrent (sometimes called libtorrent-rasterbar)"
 arch=('x86_64')
 url="https://www.qbittorrent.org/"
 license=('GPL')
 depends=('qt5-svg' 'libtorrent-rasterbar' 'xdg-utils' 'boost-libs' 'python3')
-makedepends=('boost' 'which' 'qt5-tools')
+makedepends=('boost' 'which' 'qt5-tools' 'cmake')
 groups=('network')
 source=("https://sourceforge.net/projects/qbittorrent/files/${pkgname}/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/qbittorrent/qBittorrent/commit/729c80f9104a3d01ec724351bd6910b4b8d14c6c.diff")
@@ -23,14 +23,17 @@ prepare() {
 }
 
 build() {
-    cd ${pkgname}-${pkgver}
-    
-    ./configure --prefix=/usr 
-    make
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr 
+  make
 }
 
 package(){
-    cd ${pkgname}-${pkgver}
+    cd build
     
-    make INSTALL_ROOT=${pkgdir} install
+    make DESTDIR=${pkgdir} install
 }
