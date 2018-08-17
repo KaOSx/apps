@@ -3,22 +3,21 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=sink
-pkgver=0.6.0
-_commit=a425790f94bef67f2291bf62707f15cf0d37d3bc
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="Data access layer handling synchronization, caching and indexing."
 arch=('x86_64')
 url='https://github.com/KDE/sink'
 license=('LGPL')
-depends=('kmime' 'kcontacts' 'kasync' 'lmdb' 'kdav2' 'kimap2' 'curl' 'xapian-core')
+depends=('kmime' 'kcontacts' 'kcalcore' 'kasync' 'lmdb' 'kdav2' 'kimap2' 'curl' 'xapian-core')
 makedepends=('extra-cmake-modules' 'flatbuffers')
 #source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://github.com/KDE/sink/archive/${_commit}.zip")
-md5sums=('909f2290047939e753e7be2a645b6949')
+source=("https://download.kde.org/unstable/sink/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('7ef9e89cd3be0274e4b1560cfe035b5f3f056e85af65c9c4e5570878fd0a7e13')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
 
   #sed -i -e 's|utcDateTime.toString(QString::fromAscii|QLocale::c().toString(utcDateTime, QString::fromAscii|' src/appendjob.cpp
 }
@@ -27,7 +26,7 @@ build() {
   mkdir -p build
   
   cd build 
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
