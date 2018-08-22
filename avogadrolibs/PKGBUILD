@@ -1,7 +1,7 @@
 
 pkgname=avogadrolibs
-pkgver=1.90.0
-pkgrel=9
+pkgver=1.91.0
+pkgrel=1
 pkgdesc="Libraries providing 3D rendering, visualization, analysis and data processing useful in computational chemistry and related areas."
 arch=('x86_64')
 url="http://www.openchemistry.org/projects/avogadro2/"
@@ -12,12 +12,12 @@ groups=('education')
 conflicts=('avogadro')
 replaces=('avogadro')
 source=("https://github.com/OpenChemistry/avogadrolibs/archive/${pkgver}.tar.gz")
-md5sums=('f2b7014f48da5b2a72d49c01dafaf225')
+md5sums=('79af9710f4927b8991f9b590bf11fbc1')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #patch -p1 -i ${srcdir}/boost.patch
-  sed -i 's|NAMES spglib|NAMES symspg|' cmake/FindSpglib.cmake
+  #sed -i 's|NAMES spglib|NAMES symspg|' cmake/FindSpglib.cmake
 }
 
 build() {
@@ -30,6 +30,7 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DUSE_BOOST_PYTHON=OFF \
     -DUSE_MOLEQUEUE=OFF \
+    -DUSE_LIBMSYM=OFF \
     -DUSE_OPENGL=ON \
     -DUSE_QT=ON \
     -DUSE_HDF5=ON \
@@ -44,5 +45,5 @@ package() {
   # use system jsoncpp
   #rm ${pkgdir}/usr/lib/libjsoncpp.a
   
-  install -Dm644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 ../${pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
