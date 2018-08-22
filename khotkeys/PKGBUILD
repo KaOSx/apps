@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khotkeys
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=4
 pkgdesc='KHotKeys'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/khotkeys'
@@ -23,6 +23,7 @@ prepare() {
   cd ${pkgname}-${pkgver}
   
   patch -p1 -i ${srcdir}/dbus_action.diff
+  sed -i 's|qdbusviewer|qdbusviewer-qt5|' kcm_hotkeys/actions/dbus_action_widget.cpp
 }
 
 build() {
