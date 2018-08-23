@@ -17,6 +17,7 @@ prepare() {
   cd ${pkgname}-${pkgver}_SRC
   
   patch -p1 -i ${srcdir}/hdf5-1.10-support.patch
+  sed -i 's|HDF_VERSION_MINOR_REF EQUAL 8|HDF_VERSION_MINOR_REF EQUAL 10|' config/cmake_files/medMacros.cmake
 }
          
 build() {
