@@ -2,12 +2,12 @@
 pkgname=falkon
 pkgver=3.0.1
 _pkgver=3.0.1
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 pkgdesc="Open source browser based on QtWebengine, written in Qt Framework"
 url="https://www.falkon.org/"
 license=('GPL3')
-depends=('qtwebengine' 'qt5-webchannel' 'qt5-x11extras' 'kwallet')
+depends=('qtwebengine' 'qt5-webchannel' 'qt5-x11extras' 'kwallet' 'kio' 'kcrash' 'kcoreaddons')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('network-web')
 conflicts=('qupzilla')
@@ -19,7 +19,7 @@ source=("https://download.kde.org/stable/falkon/${_pkgver}/falkon-${pkgver}.tar.
         'bookmarks_json.diff'
         "https://github.com/KDE/falkon/commit/7308b64df6a13d5822f491f2cbc7f39ae6781488.diff")
 sha256sums=('7b6ed54986543dd5462602943fb824df12f15d2061996310c4c4b891433f1a83'
-            '18ab2ccb0359d95e838c245fb0415c118572d61a952bee70902361984c98b06c'
+            '55600254a8a03579b74f0ddc2b3bb1e8a0151e9bc04599c39c84849ce71f238e'
             'caf3c9405c03775febd9c2f137004602a261fd0bb3f4ad4d81889959d4f0ae80'
             '19a199eedef8bb1d6f99b9a4f95cee031b2fda5c5daf1ebcc715802c792932f6'
             'd8b9ac6ba4303869087e4b1984c375c6c7393afa0d218ba88bbb5dfd1a144298'
@@ -42,7 +42,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DKDE_INSTALL_LIBDIR=lib
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DENABLE_KDE_FRAMEWORKS_INTEGRATION_PLUGIN=TRUE
   make
 }
 
