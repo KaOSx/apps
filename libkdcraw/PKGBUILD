@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkdcraw
 pkgver=${_kdever}
 #pkgver=5.0.90
-pkgrel=2
+pkgrel=1
 pkgdesc="A library for decoding RAW picture files"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdegraphics/libs'
@@ -26,7 +26,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|add_subdirectory(src)|add_subdirectory(src) add_subdirectory(data)|' ${srcdir}/${pkgname}/CMakeLists.txt
-  patch -p1 -i ${srcdir}/libraw0.19.patch
+  #patch -p1 -i ${srcdir}/libraw0.19.patch
 }
 
 build() {
