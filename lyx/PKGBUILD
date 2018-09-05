@@ -2,7 +2,7 @@
 pkgname=lyx
 pkgver=2.3.0
 _pkgver=2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
 url="https://www.lyx.org"
@@ -14,15 +14,15 @@ license=('GPL')
 source=("ftp://ftp.lyx.org/pub/lyx/stable/${_pkgver}.x/${pkgname}-${pkgver}.tar.xz" 
 #source=("ftp://ftp.lyx.org/pub/lyx/devel/lyx-2.2/lyx-${_pkgver}/lyx-${_pkgver}.tar.xz"
         'lyx.desktop'
-        'qt5.8.diff')
+        'qt5.11.diff')
 md5sums=('77fbdf197aad3643745bef635c43db7a'
          '0ea910b9b881ebaa0f79ebaa618930fd'
-         'e42d658c62f159b6c66abca7cd6176f3')
+         '6b356426b38480ed65a7efa6846ae2ec')
          
 prepare() {
   cd ${pkgname}-${pkgver}
   # http://www.lyx.org/trac/changeset/6d375ddeac49ac8c6340398c9797354edca3f5d1/lyxgit
-  #patch -p1 -i ${srcdir}/qt5.8.diff
+  patch -p1 -i ${srcdir}/qt5.11.diff
   sed -i 's|hunspell-1.2|hunspell-1.6|' development/cmake/modules/FindHunspell.cmake
 }
          
