@@ -3,7 +3,7 @@ pkgname=libreoffice
 _LOver=6.1.0.3
 pkgver=6.1.0.3
 _pkgver=6.1.0
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
@@ -18,7 +18,7 @@ depends=('curl' 'python3' 'libabw' 'libwpd' 'libwps' 'libxaw' 'neon'
          'java-environment' 'beanshell'  'vigra' 'pstoedit' 'libmythes' 'boost-libs' 'libepoxy' 'gtk3' 'gtk2'
          'kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kwindowsystem' 'plasma-framework' 'python3-lxml' 'libnumbertext')
 makedepends=('perl-archive-zip' 'zip' 'unzip' 'apache-ant' 'gperf' 'cppunit' 'libldap'
-             'junit' 'doxygen' 'apr' 'serf' 'mdds' 'boost') # 'glm'
+             'junit' 'doxygen' 'apr' 'serf' 'mdds') # 'boost') # 'glm'
 _mirror="https://caesar.acc.umu.se/mirror/documentfoundation.org/libreoffice/src/$_pkgver"
 #_mirror="http://dev-builds.libreoffice.org/pre-releases/src"
 #_additional_source_url="https://hg.services.openoffice.org/binaries"
@@ -58,7 +58,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/libe-book-0.1.3.tar.xz
 	${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	#${_additional_source_url}/976734806026a4ef8bdd17937c8898b9-icu4c-57_1-src.tgz
-	#${_additional_source_url}/boost_1_60_0.tar.bz2
+	${_additional_source_url}/boost_1_66_0.tar.bz2
 	${_additional_source_url}/language-subtag-registry-2018-04-23.tar.bz2
 	${_additional_source_url}/libgltf/libgltf-0.1.0.tar.gz
 	${_additional_source_url}/CoinMP-1.7.6.tgz
@@ -104,7 +104,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 	17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	#976734806026a4ef8bdd17937c8898b9-icu4c-57_1-src.tgz
-	#boost_1_60_0.tar.bz2
+	boost_1_66_0.tar.bz2
 	libcdr-0.1.4.tar.xz
 	libmspub-0.1.4.tar.xz
 	libmwaw-0.3.14.tar.xz
@@ -213,7 +213,7 @@ build() {
 		--with-system-redland \
 		--with-system-serf \
 		--with-ant-home="/usr/share/java/apache-ant"\
-		--with-system-boost \
+		--without-system-boost \
 		--with-system-icu \
 		--with-system-cairo \
 		--with-system-libs \
