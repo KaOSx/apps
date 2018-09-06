@@ -65,7 +65,7 @@ package() {
     "${pkgdir}/usr/share/licenses/go/LICENSE"
 
   mkdir -p \
-    "${pkgdir}/"{etc/profile.d,usr/{share/go,lib/go,lib/go/src,lib/go/site/src}}
+    "${pkgdir}/"{etc/profile.d,usr/{share/go,lib/go,lib/go/bin,lib/go/src,lib/go/site/src}}
 
   cp -r doc misc -t "${pkgdir}/usr/share/go"
   ln -s /usr/share/go/doc "${pkgdir}/usr/lib/go/doc"
@@ -81,7 +81,8 @@ package() {
   find "${pkgdir}" -type f -name sql.go -exec chmod -x {} \;
   find "${pkgdir}/usr/lib/go/src" -type f -executable -delete
 
-  ln -sf /usr/bin "${pkgdir}/usr/lib/go/bin"
+  ln -sf /usr/bin/go "${pkgdir}/usr/lib/go/bin/go"
+  ln -sf /usr/bin/gofmt "${pkgdir}/usr/lib/go/bin/gofmt"
 
   install -Dm755 src/make.bash "${pkgdir}/usr/lib/go/src/make.bash"
   install -Dm755 src/run.bash "${pkgdir}/usr/lib/go/src/run.bash"
@@ -90,6 +91,7 @@ package() {
   install -Dm644 favicon.ico "${pkgdir}/usr/lib/go/favicon.ico"
 
   rm -f "${pkgdir}/usr/share/go/doc/articles/wiki/get.bin"
+  rm -rf "${pkgdir}"/usr/lib/go/pkg/obj/go-build/*
 
   install -Dm644 VERSION "${pkgdir}/usr/lib/go/VERSION"
 
