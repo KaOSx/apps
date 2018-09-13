@@ -1,7 +1,7 @@
 
 pkgname=spideroakone
 _pkgname=SpiderOakONE
-pkgver=7.2.0
+pkgver=7.3.0
 pkgrel=1
 pkgdesc="Secure and consolidated free online backup, storage, access, sharing & sync tool for Windows, Mac OS X, and Linux."
 url="https://spideroak.com/"
@@ -16,11 +16,11 @@ options=('!strip')
 install=spideroak.install
 source=("${_pkgname}-${pkgver}-amd64.deb"::"https://spideroak.com/release/spideroak/deb_x64"
         "terms.txt")
-sha256sums=('6d744ef6c973b88ee89f03bfef6e049d739c5a3791eb82fd1204655fef9f38e0'
+sha256sums=('f857288b34e29ed1c81adc5b1b9ca9cfb97ef4f0bea708f19f891c6e2d91913f'
             '61b624ce1beb3d8968088add9a5e063dd6a86254fb2e1f4a6cfdfa673acdeec1')
 
 package() {
-    tar -zxvf ${srcdir}/data.tar.gz -C ${pkgdir}/
+    tar -Jxvf ${srcdir}/data.tar.xz -C ${pkgdir}/
     
     rm -r ${pkgdir}/etc/apt
     # use system libs
