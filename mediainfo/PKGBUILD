@@ -1,7 +1,7 @@
 
 pkgname=mediainfo
 _pkgname=MediaInfo
-pkgver=18.05
+pkgver=18.08.1
 pkgrel=1
 pkgdesc="Convenient unified display of the most relevant technical and tag data for video and audio files."
 arch=('x86_64')
@@ -9,17 +9,13 @@ url="https://github.com/MediaArea/MediaInfo"
 license=('GPL')
 depends=('mediainfolib' 'qt5-base')
 makedepends=('libtool')
-source=("https://github.com/MediaArea/MediaInfo/archive/v${pkgver}.tar.gz"
-        'mediainfo-qt5.patch')
-md5sums=('f8402691e21b5d2ec6017dca16e28432'
-         '87c3909289a1e9c11711e6a75ea42ab8')
+source=("https://github.com/MediaArea/MediaInfo/archive/v${pkgver}.tar.gz")
+md5sums=('d407cd7a3223475254ec412e5b6d67f4')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
   
-  # patch from crazy, frugalware developer
   #patch -p1 -i ${srcdir}/mediainfo-qt5.patch
-  #sed -i 's|Exec=mediainfo-gui %f|Exec=mediainfo-qt5-gui|' Project/GNU/GUI/mediainfo-gui.desktop
 }
 
 build() {
@@ -29,11 +25,9 @@ build() {
   ./configure --prefix=/usr
   make
   
-  cd ${srcdir}/${_pkgname}-${pkgver}/Project/QMake/GUI
+  cd ../../QMake/GUI
   
   /usr/lib/qt5/bin/qmake
-  # needed to fix build with gcc6
-  sed -i 's|-isystem||' Makefile
   make
 }
 
@@ -41,10 +35,9 @@ package() {
   cd ${_pkgname}-${pkgver}/Project/GNU/CLI
   make DESTDIR=${pkgdir} install
   
-  install -D -m755 ${srcdir}/${_pkgname}-${pkgver}/Project/QMake/GUI/mediainfo-qt5-gui \
-    ${pkgdir}/usr/bin/mediainfo-qt5-gui
-  install -D -m644 ${srcdir}/${_pkgname}-${pkgver}/Project/GNU/GUI/mediainfo-gui.desktop \
-    ${pkgdir}/usr/share/applications/mediainfo-gui.desktop
-  install -Dm 644 ${srcdir}/${_pkgname}-${pkgver}/Source/Resource/Image/MediaInfo.svg \
-    ${pkgdir}/usr/share/icons/hicolor/scalable/apps/mediainfo.svg
+  cd ../../QMake/GUI
+  make INSTALL_ROOT=${pkgdir} install
+  
+ install -D -m644 ../../GNU/GUI/mediainfo-gui.desktop ${pkgdir}/usr/share/applications/mediainfo-gui.desktop
+ install -Dm 644 ../../../Source/Resource/Image/MediaInfo.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/mediainfo.svg
 }
