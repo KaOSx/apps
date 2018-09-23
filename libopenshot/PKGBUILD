@@ -1,20 +1,20 @@
 
 pkgname=libopenshot
-pkgver=0.2.0
+pkgver=0.2.2
 pkgrel=1
 pkgdesc="Open-source project dedicated to delivering high quality video editing, animation, and playback solutions to the world."
 arch=('x86_64')
 url="http://www.openshot.org/"
 license=('LGPL3')
 depends=('libopenshot-audio' 'ffmpeg' 'imagemagick' 'libx11' 'libxcursor' 'libxinerama' 'python3'
-         'x264' 'qt5-multimedia' 'zeromq') # build fails with gcc 6.4 & ruby 'ruby' 
+         'x264' 'qt5-multimedia' 'zeromq') # build fails with gcc > 6.4 & ruby 'ruby' 
 makedepends=('cmake' 'swig' 'doxygen')
 # http://bazaar.launchpad.net/~openshot.code/libopenshot/trunk/files
-source=("https://launchpad.net/libopenshot/0.2/${pkgver}/+download/libopenshot-${pkgver}.tar.gz")
-md5sums=('4830b4d03caa22cbf8db6aebfaf9072c')
+source=("https://github.com/OpenShot/libopenshot/archive/v${pkgver}.tar.gz")
+md5sums=('4f4597b8e4546d3edf55377bfe846b69')
 
 prepare () {
-  #cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
   
   sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' CMakeLists.txt
 }   
@@ -23,7 +23,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../ \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMAGICKCORE_HDRI_ENABLE=1 \
