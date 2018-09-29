@@ -1,6 +1,6 @@
 
 pkgname=audacity
-pkgver=2.2.2
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
@@ -12,10 +12,10 @@ depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk' 'lame' 'hicolor-icon-theme' 'f
 makedepends=('cmake' 'zip' 'python2' 'pkgconfig')
 options=('!makeflags')
 source=("https://sourceforge.net/projects/kaosx/files/sources/audacity/${pkgname}-minsrc-${pkgver}.tar.xz")
-sha256sums=('97751a00e33026b61d05057c1525d6dddfd4e64737bd35f59dc2e21e3d6762e2')
+sha256sums=('bc9c9e3c826e7e9c481ef3adcdf6277836c099ca26c34bd7071d0522917fecd8')
 
 build() {
-  cd ${pkgname}-minsrc-${pkgver}-rc1
+  cd ${pkgname}-minsrc-${pkgver}
   #patch -p1 -i ${srcdir}/ffmpeg.patch
 
   # no system portaudio, see http://portaudio.music.columbia.narkive.com/rju8OHIE/pa-getstreamhostapitype
@@ -36,7 +36,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-minsrc-${pkgver}-rc1
+  cd ${pkgname}-minsrc-${pkgver}
   
   make DESTDIR=${pkgdir} install
 }
