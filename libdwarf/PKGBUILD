@@ -1,0 +1,41 @@
+ 
+pkgname=libdwarf
+pkgver=20180809
+pkgrel=1
+pkgdesc="DWARF Debugging Information Format is of interest to programmers working on compilers and debuggers"
+arch=('x86_64')
+license=('GPL' 'LGPL')
+url="https://www.prevanders.net/dwarf.html"
+depends=('elfutils' 'zlib')
+provides=('dwarf')
+replaces=('dwarf')
+conflicts=('dwarf')
+source=("https://www.prevanders.net/libdwarf-${pkgver}.tar.gz")
+md5sums=('ff90e044b3074797d0e9d5b4e485abb5')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  
+  ./configure --prefix=/usr \
+    --enable-shared \
+    --includedir=/usr/include/libdwarf
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  
+  make DESTDIR=${pkgdir} install
+
+  #install -dm755 ${pkgdir}/usr/lib
+  #install -m644 libdwarf.{a,so.1} ${pkgdir}/usr/lib/
+  #ln -s libdwarf.so.1 ${pkgdir}/usr/lib/libdwarf.so
+
+  #install -dm755 ${pkgdir}/usr/include/libdwarf
+  #install -m644 dwarf.h libdwarf.h ${pkgdir}/usr/include/libdwarf/
+
+  #cd ../../${pkgname}-${pkgver}/dwarfdump
+  #install -Dm755 dwarfdump ${pkgdir}/usr/bin/dwarfdump
+  #install -Dm644 dwarfdump.1 ${pkgdir}/usr/share/man/man1/dwarfdump.1
+  #install -Dm644 dwarfdump.conf ${pkgdir}/usr/lib/dwarfdump.conf
+}
