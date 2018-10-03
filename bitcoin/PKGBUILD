@@ -1,6 +1,6 @@
 
 pkgname=bitcoin
-pkgver=0.16.3
+pkgver=0.17.0
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Bitcoin is a peer-to-peer network based digital currency"
@@ -10,9 +10,9 @@ depends=('boost-libs' 'qt5-base' 'miniupnpc' 'qrencode' 'protobuf' 'libevent' 'z
 makedepends=('boost' 'qt5-tools')
 #source=("git://github.com/bitcoin/bitcoin.git")
 source=("https://github.com/bitcoin/bitcoin/archive/v${pkgver}.tar.gz"
-        "https://github.com/bitcoin/bitcoin/pull/12032/commits/ad8393634a7b86a1da40f4d2533b16b69c0dd26c.diff")
-md5sums=('bb069d20ed963f04f47a75a70f329534'
-         '61ebed07447391918489e8878c20859f')
+        "https://raw.githubusercontent.com/bitcoin-core/packaging/master/debian/bitcoin-qt.desktop")
+md5sums=('0143322497d7241ebf255e7f2c29041e'
+         'a1322d92df28647f88332030f414a0da')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -37,7 +37,7 @@ package() {
   cd ${pkgname}-${pkgver}
   make DESTDIR=${pkgdir} install
 
-  install -Dm644 contrib/debian/bitcoin-qt.desktop ${pkgdir}/usr/share/applications/bitcoin.desktop
+  install -Dm644 ../bitcoin-qt.desktop ${pkgdir}/usr/share/applications/bitcoin.desktop
   install -Dm644 share/pixmaps/bitcoin128.png ${pkgdir}/usr/share/pixmaps/bitcoin128.png
 
   install -Dm644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
