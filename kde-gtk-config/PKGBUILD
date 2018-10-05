@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-gtk-config
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=1
 pkgdesc="Configuration dialog to adapt GTK applications appearance to your taste under KDE"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/workspace/kde-gtk-config"
@@ -16,7 +16,7 @@ source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.ta
         'gsettings.patch')
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
         #'org.gnome.desktop.interface.gschema.xml')
-md5sums=(`grep ${pkgname}-${_plasmaver}a.tar.xz ../kf5.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '07688fc3553ba5d5103a6811faef5730')
 
 prepare() {

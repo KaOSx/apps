@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=oxygen
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE Oxygen style'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/oxygen'
@@ -32,8 +32,7 @@ build() {
 
 package() {
   cd build
-  make DESTDIR=${pkgdir} install
   
-  rm -r ${pkgdir}/usr/share/locale
+  make DESTDIR=${pkgdir} install
 }
 
