@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=modemmanager-qt
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Qt-only wrapper for ModemManager DBus API'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/modemmanager-qt'
@@ -26,8 +26,8 @@ build() {
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DINCLUDE_INSTALL_DIR=/usr/include/KF5
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_INCLUDEDIR=/usr/include/KF5
   make
 }
 
