@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=marble
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
@@ -14,7 +14,7 @@ depends=('gpsd' 'phonon-qt5' 'qt5-script' 'qt5-svg' 'qt5-tools' 'shapelib' 'prot
          'kwallet' 'knewstuff' 'kparts' 'kcoreaddons' 'ki18n' 'krunner' 'qtwebkit-tp') # 'quazip')
 makedepends=('extra-cmake-modules' 'kdoctools')
 options=('!emptydirs')
-source=("https://download.kde.org/unstable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 

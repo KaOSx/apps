@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=4
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -28,18 +28,18 @@ source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.t
         'kde.pam'
         'kde-np.pam'
         'kscreensaver.pam'
-        "https://github.com/KDE/plasma-workspace/commit/558a29efc4c9f055799d23ee6c75464e24489e5a.diff")
+        'gpsd.patch')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '280f3ca356b59607074da2343a4155b2'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
          '367a3538f54db71f108b34cfa31088ac'
-         '622c65ede74d7fca35e8974eb3f20ecd')
+         '6f063fe1861a582d9e049c91944782e3')
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  # weatherwidget url fix
-  #patch -p1 -i ${srcdir}/558a29efc4c9f055799d23ee6c75464e24489e5a.diff
+  # needed for gpsd 3.18:
+  patch -p1 -i ${srcdir}/gpsd.patch
   #sed -i 's|org.kde.breeze.desktop|org.kde.midna.desktop|' shell/packageplugins/lookandfeel/lookandfeel.cpp
   sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
 }         
