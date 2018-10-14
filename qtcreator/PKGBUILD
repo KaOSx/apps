@@ -3,7 +3,7 @@ pkgname=qtcreator
 pkgver=4.7.1
 _pkgver=4.7
 __pkgver=4.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="http://qt.digia.com/"
@@ -44,8 +44,8 @@ package() {
   make INSTALL_ROOT=${pkgdir}/usr install
   make INSTALL_ROOT=${pkgdir}/usr/ install_docs
 
-  install -Dm644 ${srcdir}/qtcreator.desktop \
-    ${pkgdir}/usr/share/applications/qtcreator.desktop
+  #install -Dm644 ${srcdir}/qtcreator.desktop \
+  #  ${pkgdir}/usr/share/applications/qtcreator.desktop
   install -Dm644 ${srcdir}/qt-creator-opensource-src-${__pkgver}/LICENSE.GPL3-EXCEPT \
     ${pkgdir}/usr/share/licenses/qtcreator/LICENSE.GPL3-EXCEPT
 }
