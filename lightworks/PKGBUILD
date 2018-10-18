@@ -1,7 +1,7 @@
  
 pkgname=lightworks
-pkgver=14.0.0.12
-_pkgver=14.0.0
+pkgver=14.5.0
+_pkgver=14.5.0
 _beta=93046
 pkgrel=1
 pkgdesc="A professional video editing software"
@@ -9,18 +9,14 @@ arch=('x86_64')
 url="http://www.lwks.com/"
 license=('custom')
 install="${pkgname}.install"
-depends=('gtk3' 'portaudio' 'libgl' 'glu' 'ffmpeg' 'libedit' 'libtiff' 'nvidia-cg-toolkit' 'libgsf')
-source=("http://downloads.lwks.com/v14/lwks-${_pkgver}-amd64.deb"
-        'libportaudio.so.2.0.0'
-        'libportaudiocpp.so.0.0.12')
-md5sums=('17a60e8c2956f65dd578a14cf673b0d4'
-         'acfd08eb31cadb75a3a0e86cce54220b'
-         'e9e13d426aab9dcf15a7dc81c21e6396')
+depends=('gtk3' 'libgl' 'glu' 'ffmpeg' 'libedit' 'libtiff' 'nvidia-cg-toolkit' 'libgsf')
+source=("http://downloads.lwks.com/v14-5/lightworks-${_pkgver}-amd64.deb")
+md5sums=('7d2fb641d6e820064a0c180433d80e5b')
 
 noextract=("lwks-${pkgver}-amd64.deb")
  
 package() {
-  bsdtar -xf "lwks-${_pkgver}-amd64.deb" data.tar.xz  
+  #bsdtar -xf "lwks-${_pkgver}-amd64.deb" data.tar.xz  
   bsdtar -xf data.tar.xz -C "${pkgdir}"
 	rm data.tar.xz
   
@@ -33,14 +29,4 @@ package() {
   mkdir -p ${pkgdir}/usr/share/licenses/lightworks/
   mv -f ${pkgdir}/usr/share/doc/lightworks/copyright ${pkgdir}/usr/share/licenses/lightworks/
   rm -rf ${pkgdir}/usr/share/doc
-  
-  # add portaudio 19.1 libs until upstream ready for newer
-  cp ${srcdir}/libportaudio.so.2.0.0 ${pkgdir}/usr/lib/lightworks/
-  cp ${srcdir}/libportaudiocpp.so.0.0.12 ${pkgdir}/usr/lib/lightworks/
-  
-  cd ${pkgdir}/usr/lib/lightworks/
-  ln -s libportaudio.so.2.0.0 libportaudio.so
-  ln -s libportaudio.so.2.0.0 libportaudio.so.2
-  ln -s libportaudiocpp.so.0.0.12 libportaudiocpp.so
-  ln -s libportaudiocpp.so.0.0.12 libportaudiocpp.so.0
 }

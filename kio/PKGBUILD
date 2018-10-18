@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kio'
@@ -14,20 +14,20 @@ depends=('karchive' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'ki18n' 'kservice' 'so
          'kwidgetsaddons' 'kwindowsystem' 'kwallet' 'knotifications' 'krb5' 'qt5-script')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/5.48/${pkgname}-${pkgver}.tar.xz"
+source=("http://download.kde.org/stable/frameworks/5.51/${pkgname}-${pkgver}.tar.xz"
         'kauth4.diff'
-        "https://github.com/KDE/kio/commit/021daba60fafdf304b1079a705de900c431bb579.diff")
+        "https://github.com/KDE/kio/commit/cf3b0d102855a4a90db3fb65a99e0009fcdd3755.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '093017bbf68b63d2ddc658b84fe021b9'
-         'cfbf4655ea8dc5eb10a826c323fc3856')
+         '95a110f2707f3263c810333931c214ac')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # GSOC project to include root operation, target dolphin
   # https://docs.google.com/document/d/1LhuHwwo_hCziM2-3UsffpODwnjypYQjMnB7YHEQd4dQ
   #patch -p1 -i ${srcdir}/kauth4.diff
-  #memory leaks in slave jobs
-  #patch -p1 -i ${srcdir}/021daba60fafdf304b1079a705de900c431bb579.diff
+  # crash in help documents
+  patch -p1 -i ${srcdir}/cf3b0d102855a4a90db3fb65a99e0009fcdd3755.diff
 }
          
 build() {
