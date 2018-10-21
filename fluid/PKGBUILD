@@ -1,8 +1,8 @@
 
 pkgname=fluid
 pkgver=0.11.0
-_commit=e9800ee73dd548911457444974047dd8866df8d3
-pkgrel=1
+_commit=a2b666fd506862f49f143aa0b4c57db628dcef74
+pkgrel=2
 arch=('x86_64')
 url='https://github.com/lirios/fluid'
 pkgdesc="Modules for fluid and dynamic applications development with QtQuick."
@@ -29,7 +29,7 @@ build() {
   qbs build --no-install -d build profile:qt5 \
     modules.qbs.installRoot:/ \
     modules.lirideployment.prefix:/usr \
-    modules.lirideployment.qmlDir:lib/qt5/qml \
+    modules.lirideployment.qmlDir:/usr/lib/qt5/qml \
     projects.Fluid.withDocumentation:false \
     projects.Fluid.withDemo:true \
     modules.cpp.linkerFlags:-fuse-ld=gold
