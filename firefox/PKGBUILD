@@ -2,7 +2,7 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=62.0.3
+pkgver=63.0
 _commit=6b51784853e47e091d213d421a19cb623af718f0
 pkgrel=1
 arch=('x86_64')
@@ -11,9 +11,10 @@ groups=('network-web')
 #install=firefox.install
 depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk2' 'gtk3' 'networkmanager'
          'gst-plugins-good' 'gst-plugins-bad' 'gst-libav' 'mozilla-common' 'startup-notification'
-         'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libvpx' 'libevent' 'sqlite' 'pulseaudio' 'libjpeg-turbo') # 'icu')
+         'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libvpx' 'libevent' 'sqlite' 'pulseaudio' 'libjpeg-turbo'
+         'cbindgen') # 'icu')
 makedepends=('unzip' 'zip' 'diffutils' 'python3' 'yasm' 'mesa' 'imake' 'xorg-server' 
-             'inetutils' 'gconf' 'autoconf2.13' 'rust' 'clang')
+             'inetutils' 'gconf' 'autoconf2.13' 'rust' 'clang' 'nodejs')
 optdepends=('freshplayerplugin: full flash support in firefox')
 options=('!emptydirs' '!makeflags')
 #source=("https://hg.mozilla.org/releases/mozilla-release/archive/${_commit}.tar.bz2"
@@ -23,7 +24,7 @@ source=("https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/source/${pkgname
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('c1d506eb7b1225e52398b2e4587085e77ff5f1fbf07728ba0fee60bbeae94636'
+sha256sums=('3f95b028571ab9ffb3bf637761534a685aed224de3b87eb8ad7e1d0831995c07'
             '9eb4bf8001acac27f7cb7633119072b49fb330bf2993e74ad29839d26304c17e'
             '9f25db9a95d8fb29545e9864c69fae41b95a904e1580cf4b838e22fbdcbbdcc3'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
@@ -33,12 +34,12 @@ sha256sums=('c1d506eb7b1225e52398b2e4587085e77ff5f1fbf07728ba0fee60bbeae94636'
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  cp ../mozconfig .mozconfig
+  #cp ../mozconfig .mozconfig
   #patch -p1 -i ${srcdir}/firefox-install-dir.patch
   
   #patch -p1 -i ${srcdir}/stylo.patch
 
-  mkdir ${srcdir}/path
+  #mkdir ${srcdir}/path
   
   #sed -i '/ac_cpp=/s/$CPPFLAGS/& -O2/' configure
 }
