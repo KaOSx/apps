@@ -1,16 +1,16 @@
 
 pkgname=nomacs
-pkgver=3.10.2
-pkgrel=2
+pkgver=3.12
+pkgrel=1
 pkgdesc="Qt based image viewer for all common image formats including RAW and psd images."
 arch=('x86_64')
 url="http://www.nomacs.org/"
 license=('GPL3')
-depends=('qt5-svg' 'exiv2' 'libraw' 'opencv' 'qt5-imageformats')
+depends=('qt5-svg' 'exiv2' 'libraw' 'opencv' 'qt5-imageformats' 'quazip')
 makedepends=('cmake' 'qt5-tools')
 source=("https://github.com/nomacs/nomacs/archive/${pkgver}.tar.gz"
         'qdrag.diff')
-md5sums=('c488bcc7531118e7f5895b4f7fbd634e'
+md5sums=('7b2160cbcf907ee080d696c61b3dc4e8'
          'bdd31541310ed5b6bee1c8f101ef3505')
 
 prepare() {
@@ -29,8 +29,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake \
-    -DENABLE_TRANSLATIONS=ON
-    #-DUSE_SYSTEM_QUAZIP=ON 
+    -DENABLE_TRANSLATIONS=ON \
+    -DUSE_SYSTEM_QUAZIP=ON 
   make
 }
 
