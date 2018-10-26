@@ -1,7 +1,7 @@
 
 pkgname=qgis
 _pkgname=QGIS
-pkgver=3.2.2
+pkgver=3.4.0
 _commit=7dbe4943d606b8acd879dd6ed9e38542e3ab0bab
 pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
@@ -16,7 +16,7 @@ depends=('libmariadbclient' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python2'
          'libzip' 'qtkeychain')
 makedepends=('cmake'  'netcdf' 'sip3' 'qt5-tools') 
 source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('cfa48bcbe09e7621332fb115880d6ac1') 
+md5sums=('5098e07d8426fad256790826ed31b192') 
          
 prepare() {
      cd ${pkgname}-${pkgver}
@@ -50,17 +50,6 @@ package() {
       cd build
      
       make DESTDIR=${pkgdir} install
-     
-      # install some freedesktop.org compatibility
-      install -D -m644 ../${pkgname}-${pkgver}/debian/qgis.desktop ${pkgdir}/usr/share/applications/qgis.desktop
-      #install -m644 $srcdir/${_pkgname}-${_commit}/debian/qbrowser.desktop ${pkgdir}/usr/share/applications
-      install -dm755 ${pkgdir}/usr/share/pixmaps 
-      #${pkgdir}/usr/share/mimelnk/application
-      #for mime in ../${pkgname}-${pkgver}/debian/mime/application/*.desktop
-      #  do install -m644 ${mime} ${pkgdir}/usr/share/mimelnk/application
-      #done
-      ln -s /usr/share/qgis/images/icons/qgis-icon-60x60.png ${pkgdir}/usr/share/pixmaps/qgis-icon.png
-      ln -s /usr/share/qgis/images/icons/qgis-mime-icon.png ${pkgdir}/usr/share/pixmaps/qgis-mime-icon.png
      
       #python3 -m compileall -q ${pkgdir}
 }
