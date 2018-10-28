@@ -1,6 +1,7 @@
 
 pkgname=quassel
-pkgver=0.12.5
+pkgver=0.12.95
+_pkgver=0.13-rc2
 pkgrel=1
 pkgdesc="Qt irc client with a separated core"
 url="https://quassel-irc.org"
@@ -8,12 +9,12 @@ arch=('x86_64')
 license=('GPL')
 depends=('qt5-script' 'hicolor-icon-theme' 'inxi' 'libdbusmenu-qt5' 'phonon-qt5'
          'kconfigwidgets' 'kcoreaddons' 'knotifications' 'knotifyconfig' 'ktextwidgets' 'kwidgetsaddons'
-         'kxmlgui' 'sonnet' 'qca-qt5' 'qtwebkit-tp')
+         'kxmlgui' 'sonnet' 'qca-qt5' 'qtwebengine' 'breeze-icons' 'qt5-multimedia')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 conflicts=('kf5-quassel')
 replaces=('kf5-quassel')
 groups=('communication')
-source=("https://quassel-irc.org/pub/quassel-${pkgver}.tar.bz2"
+source=("https://quassel-irc.org/pub/quassel-${_pkgver}.tar.bz2"
 #source=("git://github.com/quassel/quassel.git"
         'quassel.service'
         'quassel.conf'
@@ -22,7 +23,7 @@ source=("https://quassel-irc.org/pub/quassel-${pkgver}.tar.bz2"
         'quassel.png')
 install=quassel.install
 backup=(etc/conf.d/quassel.conf)
-md5sums=('7388395a9578cac9ff93acffbb239878'
+md5sums=('f7ce233168e46008c5bfb29423d47cad'
          '7f56b8d2d54a1395ed8bada023ec710c'
          '479229556ba0dd94e3ce28e31e5deea9'
          'd22180823cda2ac7bedb238463714c15'
@@ -30,7 +31,7 @@ md5sums=('7388395a9578cac9ff93acffbb239878'
          '55a01e2e1a15bf4328638f8f27b7383f')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
   # spellchecking through sonnet
   #patch -p1 -i ${srcdir}/56e1d275c2f8a59eaf9d19ba76aca5f1d3163683.diff
 }
@@ -39,14 +40,14 @@ build() {
   mkdir build
   cd build
 
-  cmake \
+  cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr/ \
     -DUSE_QT5=ON \
     -DWITH_WEBKIT=ON \
     -DWITH_KDE=ON \
     -DCMAKE_BUILD_TYPE="Release" \
     -DHAVE_SSL=ON \
-    ../${pkgname}-${pkgver} \
+    -DWITH_BUNDLED_ICONS=OFF \
     -Wno-dev
 
   make
@@ -57,14 +58,14 @@ package() {
 
   make DESTDIR=${pkgdir} install
 
-  install -D ${srcdir}/$pkgname.service ${pkgdir}/usr/lib/systemd/system/$pkgname.service
-  install -D -m644 ${srcdir}/$pkgname.conf ${pkgdir}/etc/conf.d/$pkgname
+  install -D ${srcdir}/${pkgname}.service ${pkgdir}/usr/lib/systemd/system/${pkgname}.service
+  install -D -m644 ${srcdir}/${pkgname}.conf ${pkgdir}/etc/conf.d/${pkgname}
   
   #rm ${pkgdir}/usr/share/icons/hicolor/scalable/status/irc*
-  rm ${pkgdir}/usr/share/pixmaps/quassel.png
-  install -m 644 -p ${srcdir}/irc-channel* ${pkgdir}/usr/share/icons/hicolor/scalable/status/
+  #rm ${pkgdir}/usr/share/pixmaps/quassel.png
+  #install -m 644 -p ${srcdir}/irc-channel* ${pkgdir}/usr/share/icons/hicolor/scalable/status/
   #install -D ${srcdir}/irc-channel-inactive.svgz ${pkgdir}/usr/share/apps/quassel/icons/oxygen/scalable/irc*
-  install -m 644 -p ${srcdir}/quassel.png ${pkgdir}/usr/share/pixmaps/
+  #install -m 644 -p ${srcdir}/quassel.png ${pkgdir}/usr/share/pixmaps/
   # set default channel to KaOS
   sed -i -e 's|DefaultChannels=#quassel|DefaultChannels=#kaosx|' ${pkgdir}/usr/share/quassel/networks.ini
 }
