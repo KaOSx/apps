@@ -1,25 +1,26 @@
 
 pkgname=qdirstat
 arch=('x86_64')
-pkgver=1.4
+pkgver=1.4.97
+_pkgver=1.4.97-Beta
 pkgrel=1
 pkgdesc="Qt-based directory statistics: KDirStat without any KDE -- from the author of the original KDirStat."
 url="https://github.com/shundhammer/qdirstat"
 license=('GPL')
 depends=('qt5-base')
 makedepends=('qt5-tools')
-source=("https://github.com/shundhammer/qdirstat/archive/${pkgver}.tar.gz")
-md5sums=('fcd3bcbdb5a78a1ea64bf3f8c12f392e')
+source=("https://github.com/shundhammer/qdirstat/archive/${_pkgver}.tar.gz")
+md5sums=('115b7dd7a091897bd0070317ab4b0771')
 
 build() {  
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
 
   /usr/lib/qt5/bin/qmake
   make
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
 
   make INSTALL_ROOT=${pkgdir} install
 }
