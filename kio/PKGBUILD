@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kio'
@@ -26,8 +26,6 @@ prepare() {
   # GSOC project to include root operation, target dolphin
   # https://docs.google.com/document/d/1LhuHwwo_hCziM2-3UsffpODwnjypYQjMnB7YHEQd4dQ
   #patch -p1 -i ${srcdir}/kauth4.diff
-  # crash in help documents
-  patch -p1 -i ${srcdir}/cf3b0d102855a4a90db3fb65a99e0009fcdd3755.diff
 }
          
 build() {
