@@ -1,25 +1,31 @@
 
 pkgname=telepathy-accounts-signon
-pkgver=1.0
-pkgrel=4
+pkgver=2.0
+pkgrel=1
 pkgdesc='Mission control plugin for Telepathy, integrating with libaccounts and libsignon to provide IM accounts and authentication.'
 arch=('x86_64')
 url="https://gitlab.com/accounts-sso/telepathy-accounts-signon"
 license=('LGPL')
-depends=('qt5-base' 'telepathy-mission-control' 'libaccounts-glib' 'libsignon-glib')
+depends=('telepathy-mission-control' 'libaccounts-glib' 'libsignon-glib')
+makedepends=('meson' 'ninja')
 # https://gitlab.com/accounts-sso/telepathy-accounts-signon/tags
 source=("https://gitlab.com/accounts-sso/telepathy-accounts-signon/repository/archive.tar.gz?ref=${pkgver}")
-md5sums=('e24f554c764079d938cab71439a2e555')
+md5sums=('a4544fd6e9c5ea4ece4832c617e45119')
 
 build() {
-  cd ${pkgname}-${pkgver}-*
-
-  /usr/lib/qt5/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
-  make
+  mkdir -p build
+  cd build
+  
+  meson ../${pkgname}-${pkgver}-* \
+    --prefix=/usr \
+    --buildtype=release \
+    --libdir=/usr/lib 
+  ninja
 }
 
 package() {
-  cd ${pkgname}-${pkgver}-*
-  
-  make INSTALL_ROOT=${pkgdir} install
+  cd build
+
+  DESTDIR=${pkgdir} ninja install
 }
+
