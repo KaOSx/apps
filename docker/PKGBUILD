@@ -1,10 +1,11 @@
 pkgname=docker
-pkgver=18.06.1
-_pkgver=18.06.1-ce
+pkgver=18.09.0
+_pkgver=18.09.0
 # add commit associated with the release tag
 # build runc & containerd from https://github.com/moby/moby/blob/master/hack/dockerfile/install/containerd.installer &
 # https://github.com/moby/moby/blob/master/hack/dockerfile/install/runc.installer & https://github.com/moby/moby/blob/master/hack/dockerfile/install/proxy.installer for docker-proxy
-DOCKER_GITCOMMIT=e68fc7a
+# all at https://github.com/docker/docker-ce/tree/master/components/engine/hack/dockerfile/install --branch
+DOCKER_GITCOMMIT=4d60db4
 pkgrel=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64')
@@ -17,7 +18,7 @@ install=$pkgname.install
 source=("https://github.com/docker/docker-ce/archive/v${_pkgver}.tar.gz"
         'docker.sysusers'
         "https://github.com/docker/docker/commit/6f89a8ee1ba6b598dc1f76e829d6db6f830cdb8e.patch")
-md5sums=('00dd2de0d2ab6e743b7b4f8e27e2da86'
+md5sums=('cf7f7fd8dde4bea3798cea36e8f806a1'
          '4324edeb9adc210a2c22f44eb4cb8a74'
          'c7a8981a18cf7d67276cb0ab058173c0')
 
