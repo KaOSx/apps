@@ -2,7 +2,7 @@
 pkgname=lyx
 pkgver=2.3.1
 _pkgver=2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
 url="https://www.lyx.org"
@@ -23,7 +23,7 @@ prepare() {
   cd ${pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/qt5.11.diff
-  sed -i 's|hunspell-1.2|hunspell-1.6|' development/cmake/modules/FindHunspell.cmake
+  sed -i 's|hunspell-1.2|hunspell-1.7|' development/cmake/modules/FindHunspell.cmake
 }
          
 build() {

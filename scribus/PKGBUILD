@@ -2,7 +2,7 @@
 pkgname=scribus
 _pkgname=Scribus
 pkgver=1.5.4
-pkgrel=4
+pkgrel=5
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="http://www.scribus.net"
@@ -25,7 +25,7 @@ md5sums=('fda4eb51304a41ff52081a1311b3bae5'
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  sed -i 's|hunspell-1.3 hunspell-1.2|hunspell-1.3 hunspell-1.6|' cmake/modules/FindHUNSPELL.cmake
+  sed -i 's|hunspell-1.3 hunspell-1.2|hunspell-1.3 hunspell-1.7|' cmake/modules/FindHUNSPELL.cmake
   # poppler 0.64 & up needed patches
   patch -p1 -i ${srcdir}/d867ec3c386baaed1b8e076dd70b278863411480.diff
   patch -p1 -i ${srcdir}/7d4ceeb5cac32287769e3c0238699e0b3e56c24d.diff
