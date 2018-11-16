@@ -1,25 +1,26 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=knights
-pkgver=2.5.87
+pkgver=18.11.80
 pkgrel=1
-_commit=6e58843955d197ae45a05f21edbebb3761c35e42
 pkgdesc="Chess board for KDE with XBoard protocol support"
 arch=('x86_64')
-url="https://www.linux-apps.com/content/show.php/Knights?content=122046"
+url="https://github.com/KDE/knights"
 license=('GPL')
-depends=('kcoreaddons' 'kconfig' 'kwidgetsaddons' 'kdbusaddons' 'ki18n' 'kconfigwidgets'
-         'ktextwidgets' 'kxmlgui' 'kio' 'plasma-framework' 'kplotting' 'knotifyconfig'
-         'kwallet' 'kcompletion' 'libkdegames' 'gnuchess' 'qt5-speech')
+depends=('kdbusaddons' 'kconfigwidgets' 'kcrash' 'ktextwidgets' 'kxmlgui' 'kio' 'kplotting'
+         'kwallet' 'plasma-framework' 'libkdegames' 'gnuchess' 'qt5-speech')
 makedepends=('extra-cmake-modules' 'kdoctools' 'clang')
-source=("https://github.com/KDE/knights/archive/${_commit}.zip"
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'historywidget.diff')
-md5sums=('2f4a56a6f2dc8bbc242e4d8fd38c324a'
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '4ad894eb4ab4f0a362b2a0fd77d89c31')
 
 prepare() {
-  cd $pkgname-${_commit}
+  cd ${pkgname}-${pkgver}
   
-  patch -p1 -i $srcdir/historywidget.diff
+  #patch -p1 -i $srcdir/historywidget.diff
 }
 
 build() {
@@ -29,7 +30,7 @@ build() {
   export CC=/usr/bin/clang
   export CXX=/usr/bin/clang++
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
