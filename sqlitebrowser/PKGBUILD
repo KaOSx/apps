@@ -1,6 +1,7 @@
 
 pkgname=sqlitebrowser
-pkgver=3.10.1
+pkgver=3.10.80
+_pkgver=3.11.0-alpha1
 pkgrel=1
 pkgdesc="High quality, visual, open source tool to create, design, and edit database files compatible with SQLite"
 arch=('x86_64')
@@ -8,29 +9,34 @@ url="http://sqlitebrowser.org/"
 license=('GPL')
 depends=('qt5-base' 'sqlite' 'sqlcipher') # 'python3-qscintilla-qt5')
 makedepends=('cmake' 'qt5-tools') # 'antlr2')
-source=("https://github.com/sqlitebrowser/sqlitebrowser/archive/v${pkgver}.tar.gz")
-md5sums=('66cbe41f9da5be80067942ed3816576c')
+source=("https://github.com/sqlitebrowser/sqlitebrowser/archive/v${_pkgver}.tar.gz")
+md5sums=('3c2cba8361390793dfef0b0effe12476')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
   
   sed -e "s|DB Browser for SQLite|sqlitebrowser|" -i CMakeLists.txt
 }
 
 build() {
-  mkdir -p build
-  cd build
+  cd ${pkgname}-${_pkgver}
   
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release 
+   /usr/lib/qt5/bin/qmake
+  #mkdir -p build
+  #cd build
+  
+  #cmake ../${pkgname}-${_pkgver} \
+  #  -DCMAKE_INSTALL_PREFIX=/usr \
+  #  -DCMAKE_BUILD_TYPE=Release 
     #-DQSCINTILLA_INCLUDE_DIR=/usr/share/qt5 \
     #-DQSCINTILLA_LIBRARY=/usr/lib
   make
 }
 
 package() {
-  cd build
+  cd ${pkgname}-${_pkgver}
+  #cd build
   
-  make DESTDIR=${pkgdir} install
+  make INSTALL_ROOT=${pkgdir} install
+  #make DESTDIR=${pkgdir} install
 }
