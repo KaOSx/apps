@@ -1,0 +1,29 @@
+
+pkgname=crustabrowser
+pkgver=1.9.80
+_commit=3dcccb6cc3ee59cfd8f245a904a80802a36402bd
+pkgrel=1
+pkgdesc='Feature rich web-browser, based on Qt5, including split tabs, text to speech, side panel and Web PDF viewer'
+arch=('x86_64')
+url='https://crusta.io/browser/'
+license=('GPLv3')
+depends=('qtwebengine') # 'qt5-speech')
+groups=('network-web')
+source=("https://github.com/Crusta/CrustaBrowser/archive/${_commit}.zip")
+md5sums=('88ee82f493b5a6c7edbc8e3e0996550f')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../CrustaBrowser-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr  
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
