@@ -1,7 +1,7 @@
 
 pkgname=qpdfview
-pkgver=0.4.16.80
-_pkgver=0.4.17beta1
+pkgver=0.4.17.80
+_pkgver=0.4.18beta1
 pkgrel=1
 pkgdesc='Tabbed document viewer using Poppler, libspectre, DjVuLibre, CUPS and Qt'
 arch=('x86_64')
@@ -13,13 +13,13 @@ makedepends=('qt5-tools')
 #conflicts=('okular')
 #replaces=('okular')
 source=("https://launchpad.net/qpdfview/trunk/${_pkgver}/+download/${pkgname}-${_pkgver}.tar.gz")
-md5sums=('c203518a8988203dd94c648490089a8e')
+md5sums=('d005a54a0366934a8ee1026bc4d1a17f')
 
 build() {
   cd ${pkgname}-${_pkgver}
 
   /usr/lib/qt5/bin/lrelease qpdfview.pro
-  /usr/lib/qt5/bin/qmake qpdfview.pro
+  /usr/lib/qt5/bin/qmake "CONFIG+=without_synctex" qpdfview.pro
   make
 }
 
