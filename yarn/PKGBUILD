@@ -1,0 +1,23 @@
+pkgname=yarn
+pkgver=1.12.3
+pkgrel=1
+pkgdesc='Fast, reliable, and secure dependency management'
+arch=('x86_64')
+url='https://yarnpkg.com/'
+license=('BSD 2-clause')
+depends=('nodejs')
+source=("https://github.com/yarnpkg/yarn/releases/download/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
+md5sums=('925d0dd6eebf08f761a2efd4da981d17')
+
+package() {
+  cd ${pkgname}-v${pkgver}
+  
+  install -dm755 ${pkgdir}/usr/lib/node_modules/yarn
+  cp -R * ${pkgdir}/usr/lib/node_modules/yarn
+
+  install -dm755 ${pkgdir}/usr/bin
+  ln -s /usr/lib/node_modules/yarn/bin/yarn.js ${pkgdir}/usr/bin/yarn
+  ln -s /usr/lib/node_modules/yarn/bin/yarn.js ${pkgdir}/usr/bin/yarnpkg
+
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+} 
