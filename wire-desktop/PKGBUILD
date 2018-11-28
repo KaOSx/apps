@@ -1,24 +1,24 @@
 
 pkgname=wire-desktop
-pkgver=3.3.2872
+pkgver=3.4.2879
 pkgrel=1
 pkgdesc="Cross platform desktop app, wrapping the wire-webapp. Based on Electron"
 arch=('x86_64')
 url="https://wire.com/en/"
 license=('GPL3')
-depends=('alsa-lib' 'gconf' 'gtk2' 'libxtst' 'nodejs' 'nss' 'python2')
+depends=('alsa-lib' 'gconf' 'gtk2' 'libxtst' 'nss')
+makedepends=('nodejs' 'yarn')
 source=("https://github.com/wireapp/wire-desktop/archive/release/${pkgver}.tar.gz"
         'wire-desktop.desktop')
-md5sums=('3caac8a631eb0b3adae41d513e2b9b88'
+md5sums=('4a1f1e185fc6d4b19b2c1a43ba78365c'
          '32a998ab2d5cec93ab975e5aff4ad223')
 
 build() {
   cd ${pkgname}-release-${pkgver}
   
-  npm install
-  # see Gruntfile.coffee for needed grunt calls
-  $(npm bin)/grunt 'clean:linux' 'update-keys' 'release-prod' 'bundle'
-  $(npm bin)/grunt "electronbuilder:linux_other"
+  yarn
+  yarn build:ts
+  npx grunt 'linux-other'
 }
 
 package() {
