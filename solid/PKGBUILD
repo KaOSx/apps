@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=solid
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Solid'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/solid'
@@ -22,7 +22,7 @@ md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare () {
   cd ${pkgname}-${pkgver}
   # patch from frugalware, make sure cpu's show correct
-  patch -p1 -i ${srcdir}/sort_cores.patch
+  #patch -p1 -i ${srcdir}/sort_cores.patch
   # https://bugs.kde.org/show_bug.cgi?id=370975
   #patch -p1 -i ${srcdir}/d735708ff11c40ee6b9bee64544250d55067403f.diff
 }
