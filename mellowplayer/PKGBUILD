@@ -11,30 +11,33 @@ license=('GPL')
 arch=('x86_64')
 depends=('kglobalaccel' 'knotifications' 'qtwebengine' 'snorenotify' 'pepper-flash' 'widevine'
          'qt5-quickcontrols2' 'qt5-quickcontrols' 'libnotify')
-makedepends=('qt5-tools' 'qtcreator')
+makedepends=('qt5-tools' 'cmake')
 #source=("https://github.com/ColinDuquesnoy/MellowPlayer/tarball/qbs/MellowPlayer-${pkgver}.tar.gz")
-source=("https://github.com/ColinDuquesnoy/MellowPlayer/archive/${pkgver}.tar.gz")
+source=("https://gitlab.com/ColinDuquesnoy/MellowPlayer/archive/${pkgver}.tar.gz")
 md5sums=('60aac9e1f5f32d699920e44e2f3af790')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
 
   sed -i 's|Exec=MellowPlayer|Exec=MellowPlayer --ppapi-widevine-path=/usr/lib/chromium/libwidevinecdmadapter.so|' src/main/share/applications/mellowplayer.desktop
-  
-  qbs-setup-toolchains --detect
-  qbs-setup-qt /usr/lib/qt5/bin/qmake qt5
-  qbs-config defaultProfile qt5
 }
 
 
 build() {
-  cd ${_pkgname}-${pkgver}
+  mkdir -p build
+  cd build
   
-  qbs build --no-install -d build profile:qt5 config:release qbs.installRoot:/usr projects.MellowPlayer.defaultTheme:Midna modules.cpp.linkerFlags:-fuse-ld=gold
+  cmake ../${_pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTS=OFF \
+    -Wno-dev \
+    -DDEFAULT_THEME="Midna"
+  make 
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}
+  cd build
 
-  qbs install -d build --no-build -v --install-root ${pkgdir}/usr profile:qt5 config:release
+  make DESTDIR=${pkgdir} install
 }
