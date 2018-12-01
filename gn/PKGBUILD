@@ -1,0 +1,26 @@
+ 
+pkgname=gn
+pkgver=2018.12.01
+pkgrel=1
+pkgdesc="GN is a meta-build system that generates build files for Ninja"
+arch=('x86_64')
+url="https://gn.googlesource.com/gn/+/master/README.md"
+license=('BSD')
+depends=('gcc-libs')
+makedepends=('clang' 'ninja' 'python2')
+source=("git+https://gn.googlesource.com/gn")
+md5sums=('SKIP')
+
+build() {
+  cd ${pkgname}
+  
+  python2 ./build/gen.py
+  ninja -C out gn
+}
+
+package() {
+  cd ${pkgname}
+  
+  install -D out/gn ${pkgdir}/usr/bin/gn
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
