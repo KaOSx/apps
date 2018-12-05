@@ -9,7 +9,7 @@ license=('custom:chrome')
 options=('!strip' '!emptydirs')
 makedepends=('gcc-libs' 'gtk3' 'nss' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
             'libpng' 'alsa-lib' 'libxss' 'xdg-utils')
-# version:  curl -s https://dl.google.com/linux/chrome/rpm/stable/x86_64/repodata/other.xml.gz | gzip -df | awk -F\" '/pkgid/{ sub(".*-","",$4); print $4": "$10 }'
+# version:  curl -sL "https://dl.google.com/linux/chrome/rpm/stable/x86_64/repodata/other.xml.gz" | gzip -df | tr ' ' '\n' | grep -e name= -e ver= | cut -d '"' -f2 | sed 'N;s/\n/ /'
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html"
          'google-chrome-unstable.desktop')
