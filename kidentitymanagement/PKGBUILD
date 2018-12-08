@@ -14,8 +14,6 @@ depends=('kcoreaddons' 'kcompletion' 'ktextwidgets' 'kxmlgui' 'kio' 'kconfig'
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kidentitymanagement.git")
-#md5sums=('SKIP')
 
 prepare() {
   cd $pkgname-${pkgver}
