@@ -4,26 +4,19 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kmahjongg
 pkgver=${_kdever}
-#pkgver=15.11.72
 pkgrel=1
 pkgdesc="Tile matching game for one or two players"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdegames/kmahjongg'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kxmlgui' 'kconfig' 'kio' 'kdnssd' 'knewstuff' 'kdeclarative'
-         'kdelibs4support' 'libkdegames' 'libkmahjongg')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
+depends=('kconfig' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kdeclarative' 'knewstuff' 'kxmlgui'
+         'libkdegames' 'libkmahjongg')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-games' 'kde-uninstall')
-conflicts=('kdegames-kmahjongg')
-replaces=('kdegames-kmahjongg')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep " ${pkgname}-${_kdever}.tar.xz" ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kmahjongg.git")
-#md5sums=('SKIP')
 
 build() {
-  cd ${srcdir}
-  
   mkdir -p build
   cd build
 

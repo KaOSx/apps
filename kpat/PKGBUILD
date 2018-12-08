@@ -9,13 +9,10 @@ pkgdesc="Collection of various patience games known all over the world"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kconfig' 'kwidgetsaddons' 'kdbusaddons' 'kdeclarative' 'ki18n' 'kguiaddons'
-         'kconfigwidgets' 'kitemviews' 'kiconthemes' 'kcompletion' 'ktextwidgets' 'kxmlgui' 'kio'
-         'kdelibs4support' 'knotifyconfig' 'knewstuff' 'libkdegames' 'phonon-qt5' 'freecell-solver')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kguiaddons' 
+         'ki18n' 'kio' 'knewstuff' 'kwidgetsaddons' 'kxmlgui' 'libkdegames' 'phonon-qt5' 'freecell-solver')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-games' 'kde-uninstall')
-conflicts=('kdegames-kpat')
-replaces=('kdegames-kpat')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         "https://github.com/KDE/kpat/commit/fac28f110c0a9c976677bee2d9d2126f93a711fd.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
