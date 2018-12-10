@@ -1,7 +1,7 @@
 
 pkgname=podofo
 pkgver=0.9.6
-pkgrel=1
+pkgrel=2
 pkgdesc="PoDoFo is a library to work with the PDF file format."
 arch=('x86_64')
 url="http://podofo.sourceforge.net"
@@ -13,6 +13,8 @@ md5sums=('46336fc4c4ce4be814bb5fbb4d918334')
 
 build() {
   cd ${pkgname}-${pkgver}
+  
+  mkdir -p "test/TokenizerTest/objects"
 
   mkdir -p build
   cd build
