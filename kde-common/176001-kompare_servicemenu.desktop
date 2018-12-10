@@ -1,0 +1,27 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/octet-stream;
+Actions=kompareEachOther;saveForKompare;KompareTo;
+X-KDE-Priority=TopLevel
+X-KDE-StartupNotify=false
+X-KDE-Submenu=Compare
+X-KDE-Submenu[it]=Confronta
+
+[Desktop Action kompareEachOther]
+Icon=document-preview
+Name=Compare each other (Kompare)
+Name[it]=Confronta l'uno con l'altro (Kompare)
+Exec=kompare -c %U; rm /tmp/kompare_file.tmp;
+
+[Desktop Action saveForKompare]
+Icon=bookmark-new
+Name=Select for compare (Kompare)
+Name[it]=Salva per il confronto (Kompare)
+Exec=echo "%u" > /tmp/kompare_file.tmp
+
+[Desktop Action KompareTo]
+Icon=dialog-ok-apply
+Name=Compare (Kompare)
+Name[it]=Confronta (Kompare)
+Exec=kompare -c `cat /tmp/kompare_file.tmp` "%u"; rm /tmp/kompare_file.tmp;
