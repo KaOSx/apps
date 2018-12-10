@@ -21,6 +21,7 @@ source=("https://dl.opendesktop.org/api/files/download/id/1485341541/rootactions
 	'agent-startup.sh'
 	'agent-shutdown.sh'
 	'skype.desktop'
+	'skype.svg'
 	'md5sha1calc.sh'
 	'md5sha1calc.desktop'
 	'bak.desktop'
@@ -86,6 +87,8 @@ package() {
 	#install -m755 -d ${pkgdir}/usr/share/desktop-directories
 	install -m755 -d ${pkgdir}/usr/share/applications
 	install -m755 ${srcdir}/skype.desktop ${pkgdir}/usr/share/applications/skype.desktop
+	install -D -m755 ${srcdir}/skype.svg ${pkgdir}/usr/share/icons/hicolor/48x48/skype.svg
+	
 	
 	# install md5sha1calc
 	install -D -m755 md5sha1calc.sh ${pkgdir}/usr/bin/md5sha1calc
