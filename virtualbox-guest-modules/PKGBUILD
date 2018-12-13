@@ -5,7 +5,7 @@ _kernver="$(cat /lib/modules/$_extramodules/version)"
 pkgname=virtualbox-guest-modules
 pkgver=5.2.22
 _pkgver=5.2.22
-pkgrel=2
+pkgrel=3
 pkgdesc='VirtualBox guest kernel modules, to use with guest-utils'
 arch=('x86_64')
 license=('GPL' 'custom')
@@ -27,7 +27,7 @@ build() {
     mkdir -p lib/modules/${_kernver}/misc
     
     make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
-        MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc
+        MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc all
 }
 
 
