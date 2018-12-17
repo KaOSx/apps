@@ -3,9 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=wacomtablet
-pkgver=3.1.0
-#_pkgver=3.0.0~beta1
-_commit=753615b14ae3c0e670360185c83cc9e525ffdee5
+pkgver=3.1.1
 pkgrel=1
 pkgdesc="Implements a GUI for the Wacom Linux Drivers and extends it with profile support to handle 
          different button / pen layouts per profile."
@@ -17,13 +15,11 @@ depends=('kcoreaddons' 'ki18n' 'kglobalaccel' 'kconfig' 'kxmlgui' 'kwidgetsaddon
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-graphics' 'kde-uninstall')
 source=("https://download.kde.org/stable/wacomtablet/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("https://github.com/KDE/wacomtablet/archive/${_commit}.zip")
-sha256sums=('ac953f69aa5899b837ae46a8248b5ac18bfe79871c239485b6753e99e2776454')
+sha256sums=('b328a56700f707694d879a69c7626dcfbe04c18be10bdde77c6a71770729678b')
 
 prepare() {
    cd ${pkgname}-${pkgver}
    #patch -p1 -i ${srcdir}/CMakeLists.diff
-   #sed -i -e 's|MacroOptionalAddSubdirectory|ECMOptionalAddSubdirectory|' CMakeLists.txt
    #sed -i -e 's|macro_optional_add_subdirectory|ecm_optional_add_subdirectory|' CMakeLists.txt
 }
 
