@@ -1,7 +1,7 @@
 
 pkgname=basket
-pkgver=2.49.80
-_commit=8de0345d99f3eb08d9406bd07e88b31afe46f315
+pkgver=2.49.81
+_commit=60e38c6028e42efdaf042212097a34044c724a57
 pkgrel=1
 pkgdesc="BasKet Note Pads - A system for organizing information in KDE."
 url="https://github.com/basket-notepads/basket"
@@ -13,11 +13,11 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcra
          'kwindowsystem' 'kxmlgui' 'gpgme')
 makedepends=('extra-cmake-modules' 'kdoctools') 
 source=("https://github.com/basket-notepads/basket/archive/${_commit}.zip")
-md5sums=('a273cfd653a31d6ead14fb2ec76e8109')
+md5sums=('4fb2848aae44fcf365d252b8da8dbb5d')
 
 prepare() {
   cd basket-${_commit}
-  sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' doc/en/index.docbook
+  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' doc/en/index.docbook
 }
 
 build() {
