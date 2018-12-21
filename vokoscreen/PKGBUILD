@@ -13,10 +13,10 @@ makedepends=('cmake' 'qt5-tools')
 options=('!strip')
 #source=("https://github.com/vkohaupt/vokoscreen/archive/$_pkgver.tar.gz")
 source=("https://github.com/vkohaupt/vokoscreenNG/archive/${_commit}.zip")
-md5sums=('00da73222c8619be1622c938f14d8e6c')
+md5sums=('7609e352e1399cf5ba732f877ae57741')
 
 build() {
-    cd ${pkgname}NG-${_commit}
+    cd ${pkgname}NG-${_commit}/src
     
     /usr/lib/qt5/bin/qmake ${pkgname}.pro \
       "CONFIG+=LINUX_INTEGRATED" \
@@ -27,7 +27,7 @@ build() {
 }
 
 package() {
-    cd ${pkgname}NG-${_commit}
+    cd ${pkgname}NG-${_commit}/src
     
     #make INSTALL_ROOT=${pkgdir} install
     install -Dm755 vokoscreen ${pkgdir}/usr/bin/vokoscreen
