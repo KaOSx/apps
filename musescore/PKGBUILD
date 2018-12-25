@@ -1,16 +1,17 @@
 
 pkgname=musescore
-pkgver=2.3.2
+pkgver=3.0
 pkgrel=1
 pkgdesc="Music notation and composition software written in Qt"
 arch=('x86_64')
 url="https://www.musescore.org/en/"
 license=('GPL')
-depends=('qtwebkit-tp' 'qt5-svg' 'qt5-tools' 'openssl' 'pulseaudio' 'lame' 'portaudio' 'jack' 'portmidi')
+depends=('qtwebengine' 'qtwebkit-tp' 'qt5-svg' 'qt5-tools' 'qt5-xmlpatterns' 
+         'openssl' 'pulseaudio' 'lame' 'portaudio' 'jack' 'portmidi')
 makedepends=('cmake' 'doxygen' 'texlive-core')
 groups=('multimedia')
 source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz")
-md5sums=('db0370d384858653b3ea0670efb8b069')
+md5sums=('43dfb80574ad6984fe1802c8cf2e2a87')
 
 prepare() {
   cd MuseScore-${pkgver}
