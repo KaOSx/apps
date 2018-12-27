@@ -1,6 +1,6 @@
 
 pkgname=nodejs
-pkgver=11.5.0
+pkgver=11.6.0
 pkgrel=1
 pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications."
 arch=('x86_64')
@@ -11,7 +11,7 @@ makedepends=('procps-ng')
 checkdepends=('curl') 
 options=('!emptydirs')
 source=("https://github.com/nodejs/node/archive/v${pkgver}.tar.gz")
-md5sums=('060e7e4ce0700b82e86ebfacc30844a8')
+md5sums=('940b0f0bd9e26218db4f626c42bae2b5')
 
 build() {
   cd node-${pkgver}
@@ -29,7 +29,7 @@ build() {
 check() {
   cd node-${pkgver}
 
-  make -j1 test
+  make test
 }
 
 package() {
