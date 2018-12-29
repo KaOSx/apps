@@ -2,13 +2,13 @@
 pkgname=icedtea-web
 pkgdesc="Provides a Free Software web browser plugin running applets written in the Java programming
          language and an implementation of Java Web Start, originally based on the NetX project."
-pkgver=1.7
+pkgver=1.7.1
 pkgrel=1
 arch=('x86_64')
 url="http://icedtea.classpath.org/wiki/IcedTea-Web"
 license=('GPL2')
 depends=('openjdk' 'desktop-file-utils')
-makedepends=('zip' 'npapi-sdk' 'rhino' 'junit' 'cups' 'mercurial' 'firefox')
+makedepends=('zip' 'npapi-sdk' 'rhino' 'junit' 'cups' 'mercurial' 'firefox' 'rust')
 groups=('network-web')
 source=("hg+http://icedtea.classpath.org/hg/icedtea-web")
 #noextract="${pkgname}-$pkgver.tar.gz"
@@ -21,7 +21,7 @@ build() {
   #cd ${srcdir}
   #LANG=en_US.UTF-8 bsdtar -x -f ${srcdir}/${pkgname}-${pkgver}.tar.gz
   
-  cd ${srcdir}/${pkgname}*
+  cd ${pkgname}*
 
   ./autogen.sh
   ./configure --prefix="${_jvmdir}" \
@@ -32,13 +32,13 @@ build() {
 }
 
 check() {
-  cd ${srcdir}/${pkgname}*
+  cd ${pkgname}*
 
   #make -k check 
 }
 
 package() {
-  cd ${srcdir}/${pkgname}*
+  cd ${pkgname}*
 
   # possible make target (see bottom of Makefile.am: install-exec-local install-data-local
   make install-exec-local install-data-local DESTDIR="${pkgdir}"
