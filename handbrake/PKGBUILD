@@ -1,6 +1,6 @@
 
 pkgname=handbrake
-pkgver=1.1.2
+pkgver=1.2.0
 _commit=c069f98
 pkgrel=1
 arch=('x86_64')
@@ -9,11 +9,11 @@ url="https://handbrake.fr/"
 license=('GPL')
 depends=('bzip2' 'gcc-libs' 'gst-plugins-base' 'libnotify' 'dbus-glib' 'fribidi' 'libass' 'gtk3'
          'fontconfig' 'freetype2' 'libxml2' 'libogg' 'libvorbis' 'libtheora' 'libsamplerate'
-         'libgudev' 'x264' 'desktop-file-utils' 'hicolor-icon-theme' 'lame' 'jansson')
-makedepends=('intltool' 'python2' 'yasm' 'wget')
+         'libgudev' 'x264' 'desktop-file-utils' 'hicolor-icon-theme' 'lame' 'jansson' 'speex')
+makedepends=('intltool' 'python2' 'nasm' 'wget')
 source=("https://download.handbrake.fr/releases/${pkgver}/HandBrake-${pkgver}-source.tar.bz2")
 #source=("https://github.com/HandBrake/HandBrake/tarball/master/handbrake-${pkgver}.tar.gz")
-sha256sums=('ba9a4a90a7657720f04e4ba0a2880ed055be3bd855e99c0c13af944c3904de2e')
+sha256sums=('113b398a50147d48c8777e6ff2c4de6825af5f1079b3822e41bf0eacec9c940d')
 
 build() {
   cd HandBrake-${pkgver}
