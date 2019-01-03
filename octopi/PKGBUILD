@@ -1,8 +1,8 @@
 
 pkgname=octopi
-pkgver=0.9.0
-pkgrel=3
-_commit=251822c88747c216c6ebb9a342a80097ee744117
+pkgver=0.9.0.81
+pkgrel=1
+_commit=fa8083599a03d9977136ea361930f891992d0b37
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
@@ -12,14 +12,10 @@ groups=('system')
 #install=octopi.install
 source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
         "images3.tar.xz"
-        "https://github.com/aarnt/octopi/commit/a9d9eb30d37e97369cfc64204fe0bde9e0e29918.diff"
-        "https://github.com/aarnt/octopi/commit/c413caadd11883ffcebf13ce515fb17bc23ebd27.diff"
-        'transactiondialog.diff')
-md5sums=('d08993641aa9a7b2d8c4375d3413e14a'
+        "https://github.com/aarnt/octopi/commit/a9d9eb30d37e97369cfc64204fe0bde9e0e29918.diff")
+md5sums=('556fa2e98777e13a2a7a0e15df8f1ccd'
          '3c3345539c8500d303f33f890fe733fe'
-         '94aa6b71b4f42f5523be82dccc90f266'
-         'acf41ab51671385d79832dca69938742'
-         '5a05c26c1ab695348a446f119503afe7')
+         '94aa6b71b4f42f5523be82dccc90f266')
 
 prepare() {
    cd ${pkgname}-${_commit}/
@@ -31,11 +27,8 @@ prepare() {
    sed -e "s|#KSTATUS|KSTATUS|" -i notifier/octopi-notifier/octopi-notifier.pro
    
    sed -e "s|pacman -U --force|pacman -U|" -i src/pacmanexec.cpp
-   #sed -e "s|return p.readAllStandardOutput();|return p.toLatin1();|" -i src/unixcommand.cpp
    
-   patch -R -p1 -i ${srcdir}/a9d9eb30d37e97369cfc64204fe0bde9e0e29918.diff
-   #patch -R -p1 -i ${srcdir}/c413caadd11883ffcebf13ce515fb17bc23ebd27.diff
-   #patch -p1 -i ${srcdir}/transactiondialog.diff
+   #patch -R -p1 -i ${srcdir}/a9d9eb30d37e97369cfc64204fe0bde9e0e29918.diff
 }
          
 build() {
