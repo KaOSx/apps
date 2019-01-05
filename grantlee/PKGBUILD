@@ -1,7 +1,7 @@
 
 pkgname=grantlee
 pkgver=5.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A string template engine based on the Django template system and written in Qt"
 arch=('x86_64')
 url="https://github.com/steveire/grantlee"
@@ -12,7 +12,7 @@ source=("http://downloads.grantlee.org/${pkgname}-${pkgver}.tar.gz")
 md5sums=('57989ae9f7c113e682ef1713a6f1e92a')
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
   
   cmake ../${pkgname}-${pkgver} \
@@ -25,5 +25,5 @@ build() {
 package() {
   cd build
   
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
