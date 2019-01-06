@@ -1,6 +1,6 @@
 
 pkgname=powertop
-pkgver=2.9
+pkgver=2.10
 pkgrel=1
 pkgdesc="Tool that finds the software that makes your laptop use more power than necessary"
 arch=('x86_64')
@@ -8,11 +8,11 @@ url="https://01.org/powertop/"
 license=('GPL2')
 depends=('gcc-libs' 'libnl' 'ncurses' 'pciutils')
 groups=('utils')
-source=("https://github.com/fenrus75/powertop/archive/v$pkgver.tar.gz")
-md5sums=('517a3d6fc3d069b9f1d080a93cf51018')
+source=("https://github.com/fenrus75/powertop/archive/v${pkgver}.tar.gz")
+md5sums=('b338b893a2f7326ee5b73ee6e6a10013')
 
 build() {
-  cd ${srcdir}/powertop-$pkgver
+  cd powertop-${pkgver}
 
   ./autogen.sh
   ./configure --prefix=/usr 
@@ -20,7 +20,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/powertop-$pkgver
+  cd powertop-${pkgver}
 
   make DESTDIR=${pkgdir} install
 }
