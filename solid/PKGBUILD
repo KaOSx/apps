@@ -13,16 +13,12 @@ depends=('media-player-info' 'qt5-declarative' 'upower' 'udisks2')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        "https://raw.githubusercontent.com/frugalware/frugalware-current/master/source/kf5/solid/sort_cores.patch"
         "https://github.com/KDE/solid/commit/d735708ff11c40ee6b9bee64544250d55067403f.diff")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'e086776ae503f25f40b558ff0dd8579a'
          'a35c10865323a6af99de3def36abdd17')
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  # patch from frugalware, make sure cpu's show correct
-  #patch -p1 -i ${srcdir}/sort_cores.patch
   # https://bugs.kde.org/show_bug.cgi?id=370975
   #patch -p1 -i ${srcdir}/d735708ff11c40ee6b9bee64544250d55067403f.diff
 }
