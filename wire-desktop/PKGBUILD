@@ -1,20 +1,20 @@
 
 pkgname=wire-desktop
-pkgver=3.4.2879
+pkgver=3.5.2881
 pkgrel=1
 pkgdesc="Cross platform desktop app, wrapping the wire-webapp. Based on Electron"
 arch=('x86_64')
 url="https://wire.com/en/"
 license=('GPL3')
-depends=('alsa-lib' 'gconf' 'gtk2' 'libxtst' 'nss')
+depends=('alsa-lib' 'gconf' 'gtk3' 'libxtst' 'nss')
 makedepends=('nodejs' 'yarn')
-source=("https://github.com/wireapp/wire-desktop/archive/release/${pkgver}.tar.gz"
+source=("https://github.com/wireapp/wire-desktop/archive/linux/${pkgver}.tar.gz"
         'wire-desktop.desktop')
-md5sums=('4a1f1e185fc6d4b19b2c1a43ba78365c'
+md5sums=('e58c0edb5e6a30d05b149b675ca9ec84'
          '32a998ab2d5cec93ab975e5aff4ad223')
 
 build() {
-  cd ${pkgname}-release-${pkgver}
+  cd ${pkgname}-linux-${pkgver}
   
   yarn
   yarn build:ts
@@ -22,7 +22,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-release-${pkgver}
+  cd ${pkgname}-linux-${pkgver}
   
   install -d ${pkgdir}/usr/lib/${pkgname}
   install -d ${pkgdir}/usr/bin
