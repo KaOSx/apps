@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -27,17 +27,19 @@ source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.t
         '10-kf5'
         'kde.pam'
         'kde-np.pam'
-        'kscreensaver.pam')
+        'kscreensaver.pam'
+        "https://github.com/KDE/plasma-workspace/commit/0885170daf56fbb2d5558ae271bb44043a76d018.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '280f3ca356b59607074da2343a4155b2'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
-         '367a3538f54db71f108b34cfa31088ac')
+         '367a3538f54db71f108b34cfa31088ac'
+         '3b4edbc80be504898f2ace14c22fdafd')
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  # needed for gpsd 3.18:
-  #patch -p1 -i ${srcdir}/gpsd.patch
+  
+  patch -p1 -i ${srcdir}/0885170daf56fbb2d5558ae271bb44043a76d018.diff
   #sed -i 's|org.kde.breeze.desktop|org.kde.midna.desktop|' shell/packageplugins/lookandfeel/lookandfeel.cpp
   sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
 }         
