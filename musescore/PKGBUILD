@@ -10,8 +10,10 @@ depends=('qtwebengine' 'qt5-svg' 'qt5-tools' 'qt5-xmlpatterns'
          'openssl' 'pulseaudio' 'lame' 'portaudio' 'jack' 'portmidi')
 makedepends=('cmake' 'doxygen' 'texlive-core' 'qt5-script')
 groups=('multimedia')
-source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz")
-md5sums=('43dfb80574ad6984fe1802c8cf2e2a87')
+source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz"
+        'cmake_install.diff')
+md5sums=('43dfb80574ad6984fe1802c8cf2e2a87'
+         'f0c6af315445eca928ecc44ce40a4a0d')
 
 prepare() {
   cd MuseScore-${pkgver}
@@ -19,26 +21,28 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
+  #mkdir -p build
   cd build
   
   cmake ../MuseScore-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr 
-  #make lrelease
-  #make manpages
+  make lrelease
+  make manpages
   make
 }
 
 package() {
   cd build
+  patch -p1 -i ${srcdir}/cmake_install.diff
+  
   make DESTDIR=${pkgdir} install
   
   # package mscore fonts so they can be used by other apps
   cd ../MuseScore-${pkgver}
   install -m755 -d ${pkgdir}/usr/share/fonts/mscore
   install -m644 fonts/mscoreTab.*tf ${pkgdir}/usr/share/fonts/mscore/
-  install -m644 fonts/MuseJazz.ttf ${pkgdir}/usr/share/fonts/mscore/
-  install -m644 fonts/mscore/mscore.otf ${pkgdir}/usr/share/fonts/mscore/
+  install -m644 fonts/musejazz/MuseJazz.otf ${pkgdir}/usr/share/fonts/mscore/
+  #install -m644 fonts/mscore/mscore.otf ${pkgdir}/usr/share/fonts/mscore/
   install -m644 fonts/mscore/*.ttf ${pkgdir}/usr/share/fonts/mscore/
 }

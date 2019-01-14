@@ -1,0 +1,21 @@
+--- a/mscore/cmake_install.cmake	2019-01-14 18:22:41.831865328 +0100
++++ b/mscore/cmake_install.cmake	2019-01-14 18:22:54.939566864 +0100
+@@ -38,15 +38,15 @@
+ endif()
+ 
+ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE FILE FILES "/QtWebEngineProcess")
++  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE FILE FILES "/usr/lib/qt5/libexec/QtWebEngineProcess")
+ endif()
+ 
+ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/qt5" TYPE DIRECTORY FILES "/resources")
++  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/qt5" TYPE DIRECTORY FILES "/usr/share/qt5/resources")
+ endif()
+ 
+ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/qt5/translations" TYPE DIRECTORY FILES "/qtwebengine_locales")
++  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/qt5/translations" TYPE DIRECTORY FILES "/usr/share/qt5/translations/qtwebengine_locales")
+ endif()
+ 
+ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
