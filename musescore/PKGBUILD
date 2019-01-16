@@ -1,6 +1,6 @@
 
 pkgname=musescore
-pkgver=3.0
+pkgver=3.0.1
 pkgrel=1
 pkgdesc="Music notation and composition software written in Qt"
 arch=('x86_64')
@@ -10,9 +10,10 @@ depends=('qtwebengine' 'qt5-svg' 'qt5-tools' 'qt5-xmlpatterns'
          'openssl' 'pulseaudio' 'lame' 'portaudio' 'jack' 'portmidi')
 makedepends=('cmake' 'doxygen' 'texlive-core' 'qt5-script')
 groups=('multimedia')
-source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz"
+#source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz"
+source=("https://download.musescore.com/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.zip"
         'cmake_install.diff')
-md5sums=('43dfb80574ad6984fe1802c8cf2e2a87'
+md5sums=('ccce1d1a1feb5f03396646b24d1b3323'
          'f0c6af315445eca928ecc44ce40a4a0d')
 
 prepare() {
@@ -34,7 +35,7 @@ build() {
 
 package() {
   cd build
-  patch -p1 -i ${srcdir}/cmake_install.diff
+  #patch -p1 -i ${srcdir}/cmake_install.diff
   
   make DESTDIR=${pkgdir} install
   
