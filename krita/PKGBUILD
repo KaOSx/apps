@@ -1,6 +1,6 @@
 
 pkgname=krita
-pkgver=4.1.7
+pkgver=4.1.7.101
 _pkgver=4.1.7
 pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
@@ -10,16 +10,16 @@ license=('FDL1.2' 'GPL2' 'LGPL')
 depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 
          'kiconthemes' 'kitemmodels' 'kitemviews' 'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem'
          'kimageformats'
-         'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'opencolorio' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
-         'libraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'gmic-qt' 'pyqt5-python3')
+         'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
+         'libraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'gmic-qt' 'pyqt5-python3') # 'opencolorio' 
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools') # 'clang') 
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
-source=("https://download.kde.org/stable/krita/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+source=("https://download.kde.org/stable/krita/${_pkgver}/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/KDE/krita/commit/2f59d0d1d91e3f79342c20d0df68aa9a51817e8d.diff"
         'launch_krita.sh'
         'libraw0.19.patch')
-sha256sums=('c16ec0dd23cdf20e9dd4d34ebabcf5bdb06a825bd6fe2c7196d6777279bdabd0'
+sha256sums=('5bc95baa3980b7d75eb6bf103f72344014eac7733fd8a0780a7ec87dc2826f5f'
             '8b42fa7d830006b747ee4fe620d911430d11baf438a3a065939e687a74174cd2'
             'df345142ede5ec8f2d3422850dd78059944220f163fa30b5cdefdc9bd54235ff'
             '975b33492764f80f3b462a2bc589996f97ab1d7e667139023345e7eec40762ab')

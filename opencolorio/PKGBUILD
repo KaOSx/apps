@@ -1,32 +1,39 @@
 
 pkgname=opencolorio
-pkgver=1.0.9
-pkgrel=4
+pkgver=1.1.0
+pkgrel=1
+_commit=c302a2163dada54ba0ff31f18f34e1ee6e4d4976
 pkgdesc="A color management framework for visual effects and animation"
 arch=('x86_64')
 url="http://opencolorio.org"
 license=('BSD')
-depends=('python3')
-makedepends=('cmake')
-source=("https://github.com/imageworks/OpenColorIO/tarball/v${pkgver}")
-md5sums=('ad3c4ea59c010a18d79276ab9d83af95')
+depends=('python3' 'lcms2' 'tinyxml') #fails to find system 'yaml-cpp')
+makedepends=('cmake' 'boost')
 groups=('color')
+#source=("https://github.com/imageworks/OpenColorIO/tarball/v${pkgver}")
+source=("https://github.com/imageworks/OpenColorIO/archive/${_commit}.zip")
+md5sums=('5f672bba76ec5fa46caead1fb7614e4f')
 
-build() 
-{
-  mv imageworks-OpenColorIO-* ${pkgname}-${pkgver}
-  cd ${pkgname}-${pkgver}
+build() {
+  mkdir -p build
+  cd build
    
-  cmake -DCMAKE_INSTALL_PREFIX=/usr .
-  make 
+  cmake ../OpenColorIO-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DUSE_EXTERNAL_YAML=OFF \
+    -DUSE_EXTERNAL_TINYXML=ON \
+    -DUSE_EXTERNAL_LCMS=ON \
+    -DOCIO_BUILD_TESTS=OFF \
+    -DOCIO_BUILD_GPU_TESTS=OFF
+  make
 }
 
-package() 
-{
-  cd ${pkgname}-${pkgver}
+package() {
+  cd build
 
   make DESTDIR=${pkgdir} install 
 
-  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 ../OpenColorIO-${_commit}/LICENSE.md ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md
 }
 
