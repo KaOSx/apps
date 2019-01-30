@@ -1,8 +1,8 @@
 
 pkgname=kodi
-pkgver=17.6
-_pkgver=17.6-Krypton
-pkgrel=5
+pkgver=18.0
+_pkgver=18.0-Leia
+pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
 url="https://kodi.tv/"
@@ -14,9 +14,10 @@ depends=( 'bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi' 'python2' 
           'samba' 'wavpack' 'mesa-demos' 'xorg-utils' 'libmicrohttpd' 'libjpeg-turbo' 'mesa' 'swig'
           'libssh' 'libva' 'libmodplug' 'lsb-release' 'sqlite3' 'libbluray' 'java-runtime'
           'tinyxml' 'taglib' 'libcap' 'glu' 'libusb' 'hicolor-icon-theme' 'libtiff' 'avahi'
-          'gnutls' 'nettle' 'libnfs' 'dcadec' 'crossguid' 'python2-pillow' 'python2-simplejson' 'lcms2')
+          'gnutls' 'nettle' 'libnfs' 'dcadec' 'crossguid' 'python2-pillow' 'python2-simplejson' 'lcms2'
+          'flatbuffers' 'giflib')
 makedepends=('boost' 'cmake' 'gperf' 'nasm' 'libvdpau' 'zip' 'unzip' 'cmake'
-             'doxygen' 'upower')
+             'doxygen' 'upower' 'ghostscript')
 optdepends=('unrar: access compressed files without unpacking them'
             'upower: used to trigger suspend functionality'
             'libvdpau: for nvidia hardware acceleration'
@@ -25,18 +26,23 @@ groups=('multimedia')
 options=('makeflags')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
 source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
-md5sums=('a64c2fc56ddc41b9b0dded55eaabf170')
+md5sums=('010eefd71ffe789dcee0daf0c692123d')
 
 build() {
-    mkdir -p build
+    #mkdir -p build
     cd build
     
-    cmake ../xbmc-${_pkgver}/project/cmake \
+    cmake ../xbmc-${_pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=/usr/lib \
         -DENABLE_EVENTCLIENTS=OFF \
-        -DENABLE_OPTICAL=OFF
+        -DENABLE_OPTICAL=OFF \
+        -DENABLE_INTERNAL_FMT=ON \
+        -DENABLE_INTERNAL_CROSSGUID=ON \
+        -DENABLE_INTERNAL_FLATBUFFERS=OFF \
+        -DENABLE_INTERNAL_FSTRCMP=ON \
+        -DENABLE_INTERNAL_RapidJSON=ON
     make VERBOSE=1
   
     # use when switched to cmake build
