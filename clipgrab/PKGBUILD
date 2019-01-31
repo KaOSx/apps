@@ -2,7 +2,7 @@
 pkgname=clipgrab
 pkgver=3.8.0
 _commit=c7507264e4b4dd835d41b6a493de4ae42d90856e
-pkgrel=1
+pkgrel=2
 pkgdesc='A friendly downloader for YouTube and other sites'
 arch=('x86_64')
 url='http://clipgrab.org/'
@@ -12,15 +12,15 @@ groups=('multimedia')
 source=("https://download.clipgrab.org/${pkgname}-${pkgver}.tar.gz"
         'clipgrab.desktop'
         'clipgrab.png'
-        'video_vimeo.diff')
+        "https://gitlab.com/kikadf/clipgrab-qt5/raw/master/clipgrab-3.8.0-kde.patch")
 md5sums=('6573acb32b30a5d160f296a1c06237cf'
          '9dd39ffcccb179d76ac84503bf3ffc11'
          'e427c3a49fe3f7a86abeaa443fcdbec3'
-         '03c5d12ebb32b5f5daa59012cb70627e')
+         '0b16610b1fffcca65fa90a76af938c35')
 
 build() {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/video_vimeo.diff
+  patch -p1 -i ${srcdir}/clipgrab-3.8.0-kde.patch
 
   /usr/lib/qt5/bin/qmake clipgrab.pro
   make
