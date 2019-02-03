@@ -1,64 +1,38 @@
-
 pkgname=js
-pkgver=52.9.0
-_pkgver=52.9.0esr
-pkgrel=1
+pkgver=17.0.0
+pkgrel=6
 pkgdesc="JavaScript interpreter and libraries"
 arch=('x86_64')
-url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/52"
+url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/17"
 license=('GPL2')
 depends=('nspr' 'gcc-libs' 'libffi' 'readline')
-makedepends=('python2' 'zip' 'autoconf2.13')
-#source=("https://hg.mozilla.org/mozilla-unified/archive/FIREFOX_${_pkgver}.tar.bz2")
-source=("https://ftp.mozilla.org/pub/firefox/releases/${_pkgver}/source/firefox-${_pkgver}.source.tar.xz"
-        'copy_headers.patch')
-md5sums=('06eb5d65a6e0eb5b1c21c73430534c43'
-         'a258b7a06260bb568f2d958631740b47')
-
-prepare() {
-  cd firefox-${_pkgver}
-  
-  patch -p1 -i ${srcdir}/copy_headers.patch
-}
+makedepends=('python2' 'zip')
+source=("https://ftp.mozilla.org/pub/mozilla.org/js/mozjs${pkgver}.tar.gz"
+        'gcc7.diff')
+md5sums=('20b6f8f1140ef6e47daa3b16965c9202'
+         '34af07ab37a66019d67427a02372451b')
 
 build() {
-  cd firefox-${_pkgver}/js/src
+  cd mozjs${pkgver}/js/src
   # http://www.linuxfromscratch.org/blfs/view/svn/general/JS2.html needed for newer perl
-  #sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
+  sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
+  
+  patch -p1 -i ${srcdir}/gcc7.diff
 
   unset CPPFLAGS
 
-  autoconf-2.13
   ./configure --prefix=/usr \
-       --disable-debug \
-       --disable-debug-symbols \
-       --disable-optimize \
-       --disable-strip \
        --with-system-nspr \
-       --with-system-zlib \
-       --with-intl-api \
-       --without-system-icu \
-       --enable-readline \
-       --enable-shared-js \
-       --enable-tests \
+       --enable-threadsafe \
+       --with-system-libffi \
+       --enable-readline
 
   make
 }
 
-check() {
-  cd firefox-${_pkgver}/js/src
-  
-  python2 tests/jstests.py -d -s -t 300 --no-progress ../../js/src/js/src/shell/js
-  python2 jit-test/jit_test.py -s -t 300 --no-progress ../../js/src/js/src/shell/js basic
-}
-  
-  
 package() {
-  cd firefox-${_pkgver}/js/src
+  cd mozjs${pkgver}/js/src
   make DESTDIR=${pkgdir} install
-  
-  rm ${pkgdir}/usr/lib/libjs_static.ajs
 
   find ${pkgdir}/usr/{lib/pkgconfig,include} -type f -exec chmod -x {} +
 }
-
