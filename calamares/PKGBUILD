@@ -19,7 +19,8 @@ source=("git://github.com/KaOSx/calamares"
         'unpackfs.conf'
         'launch-calamares.sh'
         'license.pdf'
-        'release_notes.html')
+        'release_notes.html'
+        "https://github.com/calamares/calamares/commit/5f0993ca8cfbad1a9e0d10454cc4c2509c402921.diff")
 md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
          'd5c65f43e057054e9728810530c4a030'
@@ -27,16 +28,18 @@ md5sums=('SKIP'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '9c64f09da47f27a666d458c9369d53f9'
          'bb33b54d289cfe39ebfd78f172382880'
-         '3163c25d2b83d25c0aede96d9606ac3e')
+         '2a9bdde9a2c04f43397403f467afbbe7'
+         'ba71bb49236da829f8cec0702c09e7c3')
 
-#prepare () {
-#  cd ${pkgname}
+prepare () {
+  cd ${pkgname}
   
   #git submodule init
   #git submodule update
   
   #sed -e "s|add_calamares_python_translations|#add_calamares_python_translations|" -i src/modules/CMakeLists.txt
-#}
+  #patch -R -p1 -i ${srcdir}/5f0993ca8cfbad1a9e0d10454cc4c2509c402921.diff
+}
 
 build() {
   #export CC=/usr/bin/clang
