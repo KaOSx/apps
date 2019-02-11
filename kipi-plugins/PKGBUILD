@@ -4,31 +4,26 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kipi-plugins
 #pkgver=${_kdever}
-pkgver=4.80.14
-pkgrel=1
+pkgver=5.9.0
+pkgrel=3
 pkgdesc="Collection of plugins extending the KDE graphics and image applications as digiKam, Gwenview, and KPhotoalbum."
 url="https://projects.kde.org/projects/extragear/graphics/kipi-plugins"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kparts' 'kconfig' 'kiconthemes' 'kwindowsystem' 'kxmlgui' 'kio' 'kservice'
-         'threadweaver' 'karchive' 'ki18n' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkgeomap' 
-         'libkvkontakte' 'libmediawiki' 'libtiff'
-         'kcalcore' 'kwallet' 'phonon-qt5') # 'libkface') 
-makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
+           'threadweaver' 'karchive' 'ki18n' 'libkexiv2' 'libkdcraw' 'libkipi' 'libkgeomap' 
+           'libkvkontakte' 'libmediawiki' 'libtiff' 'qt5-xmlpatterns'
+           'kcalcore' 'kwallet' 'phonon-qt5') 
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 optdepends=('enblend-enfuse: to work with the panorama tool')
-conflicts=('kf5-kipi-plugins')
-replaces=('kf5-kipi-plugins')
 groups=('kde' 'kde-graphics' 'kde-uninstall')
-install=${pkgname}.install
 #source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
 #md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git://anongit.kde.org/kipi-plugins.git"
-        'qt5.5.diff')
-md5sums=('SKIP'
-         '52f868edadb83a19a81da93fdd8d3ec1')
+source=("https://github.com/KDE/kipi-plugins/archive/v${pkgver}.tar.gz")
+md5sums=('b617e1bf75c5f57ca2e2a8452b2dbd35')
 
 prepare() {
-  cd $pkgname
+  cd ${pkgname}-${pkgver}
   #patch -p1 -i $srcdir/qt5.5.diff
   #sed -i -e 's|#include <MediaWiki/Login>|#include <MediaWiki/login.h>|' ${srcdir}/${pkgname}/mediawiki/plugin_wikimedia.h
 }
@@ -37,7 +32,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
