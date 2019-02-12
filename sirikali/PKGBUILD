@@ -1,6 +1,6 @@
 
 pkgname=sirikali
-pkgver=1.3.5
+pkgver=1.3.7
 pkgrel=1
 pkgdesc="GUI application that manages ecryptfs, cryfs, encfs, gocryptfs and securefs based encrypted folders."
 url="https://mhogomchungu.github.io/sirikali/"
@@ -10,8 +10,16 @@ depends=('encfs' 'libgcrypt' 'libpwquality'  'libxkbcommon' 'qt5-base' 'kwalletm
 makedepends=('cmake')
 conflicts=('cryfs-gui')
 replaces=('cryfs-gui')
-source=("https://github.com/mhogomchungu/sirikali/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz") 
-sha256sums=('ae18d8024114f139d65c891880e9866f29e17f4b4d48afc255f540f2764bf8c3')
+source=("https://github.com/mhogomchungu/sirikali/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        'cmake.diff') 
+sha256sums=('ae450eb9d0747f50fd4eb17a3315ac556a8498f123d4a079e44fde37ffa61e64'
+            'faae1d0b60662de12fe9f343da24130393cbb595a419ac62949e06adc092c746')
+
+prepare() {
+  cd SiriKali-${pkgver}
+  
+  patch -p1 -i ${srcdir}/cmake.diff
+}
 
 build() {
   mkdir -p build
@@ -24,7 +32,7 @@ build() {
     -DQT5=true \
     -DNOSECRETSUPPORT=false \
     -DNOKDESUPPORT=false \
-    -DINTERNAL_LXQT_WALLET=false
+    -DINTERNAL_LXQT_WALLET=true
   make
 }
 
