@@ -3,7 +3,7 @@ pkgname=libreoffice
 _LOver=6.2.0.3
 pkgver=6.2.0.3
 _pkgver=6.2.0
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
@@ -14,11 +14,11 @@ depends=('curl' 'python3' 'libabw' 'libwpd' 'libwps' 'libxaw' 'neon'
          'shared-mime-info' 'translate-toolkit' 'xdg-utils' 'ttf-liberation' 'libcups' 
          'poppler' 'sane' 'unixodbc' 'libwpg' 'imagemagick' 'hunspell'
          'mesa' 'gst-plugins-base' 'postgresql-libs' 'libvisio' 'bluez' 'liblangtag'
-         'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' # 'gconf' 
-         'beanshell'  'vigra' 'pstoedit' 'libmythes' 'boost-libs' 'libepoxy' # 'gtk3' 'gtk2'
+         'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' 
+         'vigra' 'pstoedit' 'libmythes' 'boost-libs' 'libepoxy'
          'kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kwindowsystem' 'plasma-framework' 'python3-lxml' 'libnumbertext')
-makedepends=('perl-archive-zip' 'zip' 'unzip' 'apache-ant' 'gperf' 'cppunit' 'libldap'
-             'junit' 'doxygen' 'apr' 'serf' 'mdds' 'boost') # 'glm'
+makedepends=('perl-archive-zip' 'zip' 'unzip' 'gperf' 'cppunit' 'libldap'
+             'doxygen' 'apr' 'serf' 'mdds' 'boost')
 _mirror="https://caesar.acc.umu.se/mirror/documentfoundation.org/libreoffice/src/$_pkgver"
 #_mirror="http://dev-builds.libreoffice.org/pre-releases/src"
 #_additional_source_url="https://hg.services.openoffice.org/binaries"
@@ -176,7 +176,7 @@ build() {
 		--disable-gstreamer-0-10 \
 		--disable-odk \
 		--enable-python=system \
-		--enable-scripting-beanshell \
+		--disable-scripting-beanshell \
 		--disable-scripting-javascript \
 		--without-fonts \
 		--with-system-apr \
@@ -207,7 +207,6 @@ build() {
         --with-system-hunspell \
 		--with-external-hyph-dir=/usr/share/hyphen \
 		--with-external-thes-dir=/usr/share/mythes \
-		--with-system-beanshell \
         --with-system-cppunit \
         --with-system-graphite \
 		--without-system-glm \
@@ -215,7 +214,6 @@ build() {
 		--with-system-libwps \
 		--with-system-redland \
 		--with-system-serf \
-		--with-ant-home="/usr/share/java/apache-ant"\
 		--with-system-boost \
 		--with-system-icu \
 		--with-system-cairo \
