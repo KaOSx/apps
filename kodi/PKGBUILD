@@ -1,7 +1,7 @@
 
 pkgname=kodi
 pkgver=18.0
-_pkgver=18.0-Leia
+_pkgver=18.1rc1-Leia
 pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=( 'bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi' 'python2' 
           'libssh' 'libva' 'libmodplug' 'lsb-release' 'sqlite3' 'libbluray' 'java-runtime'
           'tinyxml' 'taglib' 'libcap' 'glu' 'libusb' 'hicolor-icon-theme' 'libtiff' 'avahi'
           'gnutls' 'nettle' 'libnfs' 'dcadec' 'crossguid' 'python2-pillow' 'python2-simplejson' 'lcms2'
-          'flatbuffers' 'giflib')
+          'flatbuffers' 'giflib' 'ffmpeg' 'fstrcmp')
 makedepends=('boost' 'cmake' 'gperf' 'nasm' 'libvdpau' 'zip' 'unzip' 'cmake'
              'doxygen' 'upower' 'ghostscript')
 optdepends=('unrar: access compressed files without unpacking them'
@@ -26,10 +26,10 @@ groups=('multimedia')
 options=('makeflags')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
 source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
-md5sums=('010eefd71ffe789dcee0daf0c692123d')
+md5sums=('7fc032f573d417b20a21503d5dea15b5')
 
 build() {
-    #mkdir -p build
+    mkdir -p build
     cd build
     
     cmake ../xbmc-${_pkgver} \
@@ -41,8 +41,10 @@ build() {
         -DENABLE_INTERNAL_FMT=ON \
         -DENABLE_INTERNAL_CROSSGUID=ON \
         -DENABLE_INTERNAL_FLATBUFFERS=OFF \
-        -DENABLE_INTERNAL_FSTRCMP=ON \
-        -DENABLE_INTERNAL_RapidJSON=ON
+        -DENABLE_INTERNAL_FSTRCMP=OFF \
+        -DENABLE_INTERNAL_RapidJSON=ON \
+        -DENABLE_INTERNAL_FFMPEG=OFF \
+        -DENABLE_DVDCSS=OFF
     make VERBOSE=1
   
     # use when switched to cmake build
@@ -57,11 +59,7 @@ package() {
     # various fixes
     sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KaOS-release/g" ${pkgdir}/usr/bin/kodi
 
-    # Licenses
-    install -d -m 0755 ${pkgdir}/usr/share/licenses/${pkgname}
-    for licensef in LICENSE.GPL copying.txt; do
-        mv ${pkgdir}/usr/share/doc/kodi/${licensef} ${pkgdir}/usr/share/licenses/${pkgname}
-    done
+    install -Dm644 ../xbmc-${_pkgver}/LICENSE.md ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md
     
     # move from xbmc to kodi leaves conflicting symlinks in place of real files, pacman not handling it
     #rm -r ${pkgdir}/usr/share/xbmc
