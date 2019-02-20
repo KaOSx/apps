@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libksysguard
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Libksysguard'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/libksysguard'
 license=('LGPL')
 depends=('libxres' 'kcoreaddons' 'kconfig' 'ki18n' 'kwindowsystem' 'kcompletion' 'kauth'
-         'kwidgetsaddons' 'kiconthemes' 'kconfigwidgets' 'kservice' 'plasma-framework'
-         'qtwebkit-tp')
+         'kwidgetsaddons' 'kiconthemes' 'kconfigwidgets' 'kservice' 'kglobalaccel' 
+         'plasma-framework' 'kio' 'qtwebengine')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
