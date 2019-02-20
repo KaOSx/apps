@@ -1,7 +1,7 @@
 
 pkgname=skrooge
 pkgver=2.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Allows you to manage your personal finances in KDE"
 arch=('x86_64')
 url="https://skrooge.org"
@@ -9,7 +9,7 @@ license=('GPL')
 depends=('grantlee' 'karchive' 'kcoreaddons' 'kconfig' 'ki18n' 'kitemviews' 'kwidgetsaddons' 
          'kwindowsystem' 'kcompletion' 'kjobwidgets' 'kconfigwidgets' 'kiconthemes' 'kio'
          'knewstuff' 'kparts' 'kwallet' 'kxmlgui' 'plasma-workspace' # 'aqbanking' 
-         'boost-libs' 'libofx' 'qca-qt5' 'kactivities' 'sqlcipher' 'qtwebkit-tp')
+         'boost-libs' 'libofx' 'qca-qt5' 'kactivities' 'sqlcipher' 'qtwebengine')
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost' 'clang')
 groups=('office')
 source=("https://download.kde.org/stable/skrooge/${pkgname}-${pkgver}.tar.xz"
@@ -39,7 +39,8 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DSKG_BUILD_TEST=OFF \
-    -DSKG_DESIGNER=OFF
+    -DSKG_DESIGNER=OFF \
+    -DSKG_WEBENGINE=ON
   make
 }
 
