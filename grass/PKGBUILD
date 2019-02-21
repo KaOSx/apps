@@ -2,7 +2,7 @@
 # build twice, when building on the server, j8 fails to honor without wx first time
 
 pkgname=grass
-pkgver=7.4.1
+pkgver=7.6.0
 pkgrel=1
 pkgdesc='Geographic Information System (GIS) used for geospatial data management and analysis, image processing, graphics/maps production, spatial modeling, and visualization.'
 arch=('x86_64')
@@ -17,16 +17,16 @@ optdepends=('fftw: required for i.fft and i.ifft modules'
             'lapack: required for GMATH library')
 options=('!libtool' '!makeflags')
 groups=('gis')
-source=("https://grass.osgeo.org/grass74/source/${pkgname}-${pkgver}.tar.gz"
+source=("https://grass.osgeo.org/grass76/source/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}.sh"
         "${pkgname}.conf")
-md5sums=('bf7add62cbeb05a3ed5ad832344ba524'
+md5sums=('40f0b49529598cefd3e7b4f807d6133b'
          '23da2e9399b3c5504851dec37821abe1'
          '6103480c2a1adc19a50b9e925e5e6d4c')
 
 build() {
   cd ${pkgname}-${pkgver}
-  sed -i '/^\s*INSTDIR/ s/".*"//' configure
+  #sed -i '/^\s*INSTDIR/ s/".*"//' configure
   export CFLAGS="$CPPFLAGS $CFLAGS"
   export CXXFLAGS="$CPPFLAGS $CXXFLAGS"
   unset CPPFLAGS
