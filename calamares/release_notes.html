@@ -11,15 +11,13 @@
 
 <body>
     <h3>KaOS - 2019.02</h3>
-    <p>KaOS is proud to announce the February release of a new stable ISO.</p>
+    <p>It is with great pleasure to present to you a first KaOS ISO for 2019.</p>
     
-    <p>Two years after initially starting the move to Openssl 1.1 has this update now been possible.  All downstream libraries and applications have caught up, so the move was now smooth, without the need to have a mix of Openssl versions in the repositories.  This move required a very large rebuild, combine that with a move to Perl 5.28.1, FFMPEG 4.1, LLVM/Clang 7.0.1 and Qt 5.12.1, it is clear a new ISO is needed.</p>
+    <p>The policy is, once a first pacman -Syu becomes a major update, it is time for a new ISO so new users are not faced with a difficult first update. Major updates included a move to Python 3.7 (3.7.2), Readline 8.0.0, Glib2 2.58.3, Qt 5.12.1, PHP 7.2 besides the usual full Frameworks, Plasma & KDE Applications replacements, so most systems will see 70-80% of their install replaced by new packages so a new ISO is more than due.</p>
     
-    <p>The artwork saw an update to the Midna SDDM theme, gone are the QML sliding effects, instead a cleaner and simpler layout wit the addition of several warnings when numlock or capslock are activated.</p>
+    <p>Plasma 5.15.1 is included in this ISO.  Highlights of this version include changes to the configuration interfaces, including more options for complex network configurations, integration with third-party technologies like GTK, Wayland now supports virtual desktops,  and Firefox 64 can now optionally use native KDE open/save dialogs. This is a bleeding-edge functionality that is included in KaOS, it can be enabled by installing the xdg-desktop-portal and xdg-desktop-portal-kde packages and setting GTK_USE_PORTAL=1 in Firefox's .desktop file.</p>
     
-    <p>The Online Package Viewer has undergone a complete rewrite, the backend is now a very modern go based API, with json files getting the needed output, thus all loads much faster.  This include the mirror status page.</p>
-    
-    <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.55.0, Plasma 5.15.0 and KDE Applications 18.12.2. </strong>All built on <strong> Qt 5.12.1.</strong></p>
+    <p>With LibreOffice 6.2.0, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application on this ISO.
     
     <p>KaOS' creation <strong>Croeso</strong> (Welsh for welcome) for helping with configuring a new install is included.  It will run on the newly installed system and offers to adjust some 15 commonly used settings and replaces the formerly used, PyQt based first run wizard Kaptan.  It also includes a custom Wallpaper selector, distribution info and news.  It is written in QML and fits well with the Welcome application used in the Live system.  The latter now includes a fully rewritten (also in QML) Installation Guide.</p>
     
@@ -31,16 +29,16 @@
     
     <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
     
-    <p>The artwork includes custom icon themes for light and dark themes. Midna and Midna Dark both create a complete unified look from boot-up all the way through logout. There was a complete redesign of the Midna theme for 2018.  Some 2500 new icons in use, rewritten sddm login theme and a KaOS community selected new wallpaper (created by <strong>Jomada</strong>).</p>
+    <p>The artwork includes custom icon themes for light and dark themes. Midna and Midna Dark both create a complete unified look from boot-up all the way through logout.</p>
 
     <p>This ISO uses the <b>CRC and finobt enabled</b> XFS filesystem as default. CRCs enable enhanced error detection due to hardware issues, whilst the format changes also improves crash recovery algorithms and the ability  of  various  tools to validate and repair metadata corruptions when they are found.  The  free  inode  btree does not index used inodes, allowing faster, more consistent inode allocation performance as filesystems age.</p>
 
     <p><b>Calamares</b>, the used installer framework, is at the 3.2.5 series. Highlights of the changes and additions:
     <ul>
-        <li>For UEFI systems using the BTRFS filesystem calamares now correctly adds the needed extra kernel line to the system-bootloader.</li>
-        <li>The keyboard module now handles the (bogus) Austrian keymap for the system console properly.</li>
-        <li>Various off-by-one-sector errors in the automatic partitioning mode have been corrected. In addition, swap space is calculated a little more conservatively.</li>
-        <li>The search paths for QML files, branding descriptors and module descriptors have been revamped and now self-document in the log. </li>
+        <li>The calculation of required space – including swap – has been simplified, and Calamares no longer reserves 2GiB of space in calculations for internal use (this means that it no longer mysteriously drops swap when the disk size is close to the required installation size).</li>
+        <li>The currently-selected disk device is remembered between manual partitioning and the partitioning-overview pages. </li>
+        <li>The mount module now handles missing extraMounts and extraMountsEfi keys gracefully (this is probably a misconfiguration, though, and gives a warning).</li>
+        <li>Automated partitioning gained the option to choose a minimal swap, or swap space large enough to support hibernate.</li>
     </ul></p>
     
     <p><strong>Octopi</strong> is becoming a very crucial part of full system maintenance for KaOS. It is not just a GUI frontend to pacman. Tools like making sure a mirror is synced before starting any update, looking at the pacman logs, an option to get a paste from a complete snapshot of all info of a system with the SysInfo tool are included. Also included are very simple ways to open files, like copy to clipboard the file path shown in Octopi. To make sure the system doesn't start using too much disk space for the pacman cache, but still giving the user the option to retain some recent packages, the cache-cleaner tool is a great addition. The built-in tool to access <b>KCP</b> has now a much clearer place with the addition of its own "foreign" icon in the menu-bar. New added is the option to select custom icons for the systemtray.</p>
@@ -51,11 +49,11 @@
     
     <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a "final" release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
     
-    <p>The ISO ships with <b>Frameworks 5.55.0, Plasma 5.15.0, KDE Applications 18.12.2</b>, Linux 4.20.10, Systemd 241, Kmod 26, NetworkManager 1.14.4, Calligra 3.1.0, Krita 4.1.7.101, Elisa, Xorg-Server 1.20.1, Mesa 18.3.4, Glibc 2.27, GCC 7.4.0, non-free Nvidia 415.25, Pepperflash and Python3 3.7.2 to name a few.</p>
+    <p>The ISO ships with <b>Frameworks 5.55.0, Plasma 5.15.1, KDE Applications 18.12.2</b>, Linux 4.20.12, Systemd 239, Kmod 26, NetworkManager 1.14.4, LibreOffice 6.2.0, Krita 4.1.7.101, Elisa, Xorg-Server 1.20.1, Mesa 18.3.4, Glibc 2.27, GCC 7.4.0, non-free Nvidia 418.43, Pepperflash and Python3 3.7.2 to name a few.</p>
     
     <p>The package manager is <strong>Pacman 5.1.2</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default web browser, it is Qt based and the successor of Qupzilla. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna".</p>
     
-    <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 4.20, LibreOffice 6.2.0, bumblebee packages, VLC, Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad and Knights.<br />
+    <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.0, LibreOffice 6.2.0, bumblebee packages, VLC, Vokoscreen, Blender, XBMC, Calibre, Sigil, Librecad, a few games like 0ad and Knights.<br />
     A limited number of the most well-known GTK applications are available, examples Firefox 65.0, Chrome 74, Ardour 5.12.0, Inkscape 0.92.4, GIMP 2.10.8 and Google-talkplugin 5.41.3.0.1.<br />
     Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
     
