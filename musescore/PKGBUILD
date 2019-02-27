@@ -1,6 +1,6 @@
 
 pkgname=musescore
-pkgver=3.0.2
+pkgver=3.0.3
 pkgrel=1
 pkgdesc="Music notation and composition software written in Qt"
 arch=('x86_64')
@@ -13,7 +13,7 @@ groups=('multimedia')
 source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz"
 #source=("https://download.musescore.com/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.zip"
         'cmake_install.diff')
-md5sums=('e104c278d7881366ec392f593e3a1569'
+md5sums=('8f9c46bcefb3f8f3fedcdd7272056d45'
          'f0c6af315445eca928ecc44ce40a4a0d')
 
 prepare() {
@@ -27,7 +27,8 @@ build() {
   
   cmake ../MuseScore-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr 
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_CRASH_REPORTER=OFF
   make lrelease
   make manpages
   make
