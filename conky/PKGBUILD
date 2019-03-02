@@ -1,6 +1,6 @@
 
 pkgname=conky
-pkgver=1.11.2
+pkgver=1.11.3
 pkgrel=1
 pkgdesc="An advanced, highly configurable system monitor for X based on torsmo"
 arch=('x86_64')
@@ -13,8 +13,15 @@ groups=('utils')
 backup=('etc/conky/conky.conf' 'etc/conky/conky_no_x11.conf')
 source=("https://github.com/brndnmtthws/conky/archive/v${pkgver}.tar.gz"
         'conky.conf')
-md5sums=('0a91dc58658a8e5aa7c2c24d08256023'
+md5sums=('935541d13da2032afc2c4c2457b266a4'
          '3e8bc1cf7cf7587ccc5b333ef33284e0')
+    
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  sed -i -e 's|REQUIRED lua>=5.3 lua5.3 lua-5.3 lua53 lua5.2 lua-5.2 lua52|REQUIRED lua|g' 3rdparty/toluapp/CMakeLists.txt
+  sed -i -e 's|lua>=5.3|lua|g' cmake/ConkyPlatformChecks.cmake
+}
          
 build() {
   mkdir -p build
