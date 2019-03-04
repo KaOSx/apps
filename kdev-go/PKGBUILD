@@ -7,11 +7,19 @@ pkgdesc='Go language support for KDevelop'
 arch=('x86_64')
 url="http://www.kdevelop.org/"
 license=('GPL')
-depends=('kdevelop' 'kitemmodels' 'threadweaver' 'ktexteditor' 'ki18n')
+depends=('kdevelop' 'threadweaver' 'ktexteditor' 'ki18n')
 makedepends=('extra-cmake-modules')
 groups=('kde' 'kdevelop-plugins')
 source=("https://github.com/KDE/kdev-go/archive/${_commit}.zip")
 md5sums=('5dce18c856b87ee9cbd1bc12f244d600')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+
+  sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' codecompletion/CMakeLists.txt
+  sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' duchain/CMakeLists.txt
+  sed -i 's|add_subdirectory(test)|#add_subdirectory(test)|' parser/CMakeLists.txt
+}
 
 build() {
   mkdir -p build
