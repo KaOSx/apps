@@ -1,38 +1,65 @@
+
 pkgname=js
-pkgver=17.0.0
-pkgrel=6
+pkgver=52.2.1
+_pkgver=52.2.1
+pkgrel=1
 pkgdesc="JavaScript interpreter and libraries"
 arch=('x86_64')
-url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/17"
+url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/52"
 license=('GPL2')
 depends=('nspr' 'gcc-libs' 'libffi' 'readline')
-makedepends=('python2' 'zip')
-source=("https://ftp.mozilla.org/pub/mozilla.org/js/mozjs${pkgver}.tar.gz"
-        'gcc7.diff')
-md5sums=('20b6f8f1140ef6e47daa3b16965c9202'
-         '34af07ab37a66019d67427a02372451b')
+makedepends=('python2' 'zip' 'autoconf2.13' 'icu')
+source=("https://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-52.2.1gnome1.tar.gz"
+#source=("https://hg.mozilla.org/mozilla-unified/archive/FIREFOX_${_pkgver}.tar.bz2")
+#source=("https://ftp.mozilla.org/pub/firefox/releases/${_pkgver}/source/firefox-${_pkgver}.source.tar.xz"
+        'copy_headers.patch')
+md5sums=('72bd9a715ed1ab70b2aebe92969f6b63'
+         'a258b7a06260bb568f2d958631740b47')
+
+#prepare() {
+#  cd firefox-${_pkgver}
+  
+#  patch -p1 -i ${srcdir}/copy_headers.patch
+#}
 
 build() {
-  cd mozjs${pkgver}/js/src
+  cd mozjs-${_pkgver}gnome1/js/src
   # http://www.linuxfromscratch.org/blfs/view/svn/general/JS2.html needed for newer perl
-  sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
-  
-  patch -p1 -i ${srcdir}/gcc7.diff
+  #sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
 
   unset CPPFLAGS
 
+  autoconf-2.13
   ./configure --prefix=/usr \
+       --disable-debug \
+       --disable-debug-symbols \
+       --disable-optimize \
+       --disable-strip \
        --with-system-nspr \
-       --enable-threadsafe \
-       --with-system-libffi \
-       --enable-readline
+       --with-system-zlib \
+       --with-intl-api \
+       --with-system-icu \
+       --enable-readline \
+       --enable-shared-js \
+       --enable-tests \
 
   make
 }
 
+check() {
+  cd mozjs-${_pkgver}gnome1/js/src
+  
+  #python2 tests/jstests.py -d -s -t 300 --no-progress ../../js/src/js/src/shell/js
+  #python2 jit-test/jit_test.py -s -t 300 --no-progress ../../js/src/js/src/shell/js basic
+}
+  
+  
 package() {
-  cd mozjs${pkgver}/js/src
+  cd mozjs-${_pkgver}gnome1/js/src
   make DESTDIR=${pkgdir} install
+  
+  rm ${pkgdir}/usr/lib/libjs_static.ajs
 
   find ${pkgdir}/usr/{lib/pkgconfig,include} -type f -exec chmod -x {} +
 }
+

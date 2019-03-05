@@ -1,0 +1,38 @@
+pkgname=js
+pkgver=17.0.0
+pkgrel=6
+pkgdesc="JavaScript interpreter and libraries"
+arch=('x86_64')
+url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/17"
+license=('GPL2')
+depends=('nspr' 'gcc-libs' 'libffi' 'readline')
+makedepends=('python2' 'zip')
+source=("https://ftp.mozilla.org/pub/mozilla.org/js/mozjs${pkgver}.tar.gz"
+        'gcc7.diff')
+md5sums=('20b6f8f1140ef6e47daa3b16965c9202'
+         '34af07ab37a66019d67427a02372451b')
+
+build() {
+  cd mozjs${pkgver}/js/src
+  # http://www.linuxfromscratch.org/blfs/view/svn/general/JS2.html needed for newer perl
+  sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
+  
+  patch -p1 -i ${srcdir}/gcc7.diff
+
+  unset CPPFLAGS
+
+  ./configure --prefix=/usr \
+       --with-system-nspr \
+       --enable-threadsafe \
+       --with-system-libffi \
+       --enable-readline
+
+  make
+}
+
+package() {
+  cd mozjs${pkgver}/js/src
+  make DESTDIR=${pkgdir} install
+
+  find ${pkgdir}/usr/{lib/pkgconfig,include} -type f -exec chmod -x {} +
+}
