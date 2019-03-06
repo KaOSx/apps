@@ -4,13 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=cantor
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Frontend to Mathematical Software"
 url="http://kde.org/applications/education/cantor/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'knewstuff' 'ktexteditor' 'kcoreaddons' 'karchive' 'kparts' 'kpty' 'kalgebra'
-         'kdelibs4support' 'libspectre' 'octave' 'python2' 'python3' 'libqalculate' 'cln')
+depends=('kconfig' 'kcrash' 'kcompletion' 'knewstuff' 'kiconthemes' 'ktexteditor' 'kcoreaddons'
+         'karchive' 'kparts' 'syntax-highlighting' 'ktextwidgets' 'kio' 'kxmlgui' 'ki18n' 'kpty'
+         'kalgebra' 'libspectre' 'octave' 'python2' 'python3' 'libqalculate' 'cln' 'discount' 'r')
 makedepends=('extra-cmake-modules' 'kdoctools' 'icu')
 opdepends=('scilab' 'maxima') 
 conflicts=('kdeedu-cantor')
