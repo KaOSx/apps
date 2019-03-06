@@ -4,24 +4,26 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=powerdevil
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Manages the power consumption settings of a Plasma Shell.'
 arch=('x86_64')
 url='https://github.com/KDE/powerdevil'
 license=('LGPL')
-depends=('plasma-workspace' 'libxrandr' 'bluez-qt' 'ddcutil')
+depends=('kactivities' 'kauth' 'kidletime' 'kconfig' 'kdbusaddons' 'solid' 'ki18n' 'kglobalaccel'
+         'kio' 'knotifyconfig' 'kwayland' 'kcrash' 'knotifications' 'kscreen' 'plasma-workspace'
+         'libxrandr' 'bluez-qt' 'ddcutil')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
-        'brightness.diff')
+         "https://github.com/KDE/powerdevil/commit/980156cda79e573d99a5bdc07fe379aac07cc42e.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'aafb843abac9bea5267e5263bb857381')
+         'cca21d1dcaa3d1aa0d0f469366b68e66')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
-  #patch -p1 -i ${srcdir}/brightness.diff
+  # https://bugs.kde.org/show_bug.cgi?id=403776
+  patch -p1 -i ${srcdir}/980156cda79e573d99a5bdc07fe379aac07cc42e.diff
 }
          
 build() {
