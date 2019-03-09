@@ -2,7 +2,7 @@
 pkgname=kexi
 pkgver=3.1.0
 _pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Visual database applications creator"
 arch=('x86_64')
 url='http://kexi-project.org/'
@@ -13,13 +13,15 @@ depends=('karchive' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreadd
          'kproperty' 'kreport' 'kdb'
          'libmariadbclient' 'sqlite3' 'qtwebkit-tp' 'freetds' 'postgresql') # will switch to qtwebengine
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools') # 'clang') 
-source=("https://download.kde.org/stable/kexi/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('22d6c4739109441f5274da584f67f1c8')
+source=("https://download.kde.org/stable/kexi/src/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kexi/commit/1578fcb4a0407cf368edb6ee4605c4ef9e77b6ed.diff")
+md5sums=('22d6c4739109441f5274da584f67f1c8'
+         '5ac21bb2f0ad5e1add60704e6fce8fe4')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
   
-  #patch -p1 -i $srcdir/desktop_files.patch
+  patch -p1 -i $srcdir/1578fcb4a0407cf368edb6ee4605c4ef9e77b6ed.diff
   sed -i -e 's|KexiMarble ${MARBLE_MIN_VERSION}|Marble ${MARBLE_MIN_VERSION}|' CMakeLists.txt
 }
 
