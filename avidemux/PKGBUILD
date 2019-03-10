@@ -1,8 +1,8 @@
 
 pkgname=avidemux
-pkgver=2.7.1
+pkgver=2.7.2
 _commit=ed7aa6bdbffc43a2cd198130a353b088abd02aa0
-pkgrel=4
+pkgrel=1
 pkgdesc="Video editor designed for simple cutting, filtering and encoding tasks using a variety of codecs."
 arch=('x86_64')
 url="http://fixounet.free.fr/avidemux/"
@@ -15,7 +15,7 @@ options=('!makeflags')
 source=("https://downloads.sourceforge.net/avidemux/avidemux_${pkgver}.tar.gz"
 #source=("https://github.com/mean00/avidemux2/archive/${_commit}.zip"
         'bootStrap.diff')
-md5sums=('e3510c858c9371283551b1b4b67d288b'
+md5sums=('e22fc5dd7b775e0d2d007d6124095caa'
          'fb9c8caa824dd013cedcabe90aab37f9')
 
 prepare() {
@@ -36,6 +36,4 @@ package() {
     cp -r install/usr/ ${pkgdir}/
 
     install -Dm644 ${pkgname}_icon.png ${pkgdir}/usr/share/pixmaps/${pkgname}.png
-    install -Dm644 ${pkgname}2.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
-    sed 's|Exec=avidemux2_gtk|Exec=avidemux3_qt5|' -i ${pkgdir}/usr/share/applications/${pkgname}.desktop
 }
