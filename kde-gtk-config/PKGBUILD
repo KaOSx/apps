@@ -10,14 +10,14 @@ arch=('x86_64')
 url="https://projects.kde.org/projects/kde/workspace/kde-gtk-config"
 license=('LGPL')
 groups=('kdeplasma5')
-depends=('karchive' 'kauth' 'kcmutils' 'kconfigwidgets' 'knewstuff' 'kde-cli-tools')
+depends=('karchive' 'kauth' 'kcmutils' 'kconfigwidgets' 'knewstuff' 'kde-cli-tools' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'gtk2' 'gtk3')
 source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         'gsettings.patch')
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
         #'org.gnome.desktop.interface.gschema.xml')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '07688fc3553ba5d5103a6811faef5730')
+         '36b883eaf755d2e613ee3718719750f4')
 
 prepare() {
   cd ${pkgname}-${pkgver}

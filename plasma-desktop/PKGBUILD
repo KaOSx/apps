@@ -33,6 +33,8 @@ prepare() {
   patch -p1 -i ${srcdir}/layout_desktop_panel.diff
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
   sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
+  
+  rm -rf po/id
 }
 
 build() {
