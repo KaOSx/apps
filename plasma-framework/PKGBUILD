@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-framework'
@@ -16,14 +16,14 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 options=('debug')
 source=("http://download.kde.org/stable/frameworks/5.19/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/plasma-framework/commit/d15f0fa8322dc2632f15024457bea41e7dd058d7.diff")
+        "https://github.com/KDE/plasma-framework/commit/ebae2d63033647950cf0f9d97410723a8c7db1f3.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '584f9f38e02c747a02d65efbabf32bcd')
+         '2c3be731aec7261770ce70919d30b3ea')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # https://bugs.kde.org/show_bug.cgi?id=394423
-  #patch -p1 -i ${srcdir}/d15f0fa8322dc2632f15024457bea41e7dd058d7.diff
+  # https://forum.kaosx.us/d/2322-plasma-shell-crashes-after-update
+  patch -p1 -i ${srcdir}/ebae2d63033647950cf0f9d97410723a8c7db1f3.diff
 }
 
 build() {
