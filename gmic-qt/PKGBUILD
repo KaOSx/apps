@@ -1,8 +1,8 @@
 
 pkgname=gmic-qt
-pkgver=2.4.4
-_gmic=37758f4b7f4a34ae87fe477d56932cbdf0602b42
-_commit=69f6d65025db73c63dc886a184e1c5015d86c2a2
+pkgver=2.5.2
+_gmic=31365230fbe2563c7e2347778748127a21651f0b
+_commit=1fda1730517ef4003177f03dcbc480752292fe5c
 pkgrel=1
 pkgdesc="Plug-in to bring the full-featured open-source framework for image processing -G'MIC- to Krita"
 url="http://gmic.eu/"
@@ -12,8 +12,8 @@ depends=('qt5-base' 'libpng' 'zlib' 'fftw' 'curl')
 makedepends=('cmake' 'qt5-tools')
 source=("https://github.com/dtschump/gmic/archive/${_gmic}.zip"
         "https://github.com/c-koi/gmic-qt/archive/${_commit}.zip")
-md5sums=('eb4235ac5ba2854415db6ad222093171'
-         '7af3f33db3a590a7917230c550dc53c7')
+md5sums=('57a76d51e5c3d97726023f763798cef1'
+         'e871410e280529c1b0d74ff5f56b3689')
 build() {
   cd gmic-${_gmic}/
   make -C src CImg.h gmic_stdlib.h
