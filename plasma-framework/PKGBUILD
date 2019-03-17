@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-framework'
@@ -16,13 +16,18 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 options=('debug')
 source=("http://download.kde.org/stable/frameworks/5.56/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/plasma-framework/commit/ebae2d63033647950cf0f9d97410723a8c7db1f3.diff")
+        "https://github.com/KDE/plasma-framework/commit/ebae2d63033647950cf0f9d97410723a8c7db1f3.diff"
+        'background_svgz.tar.xz')
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '2c3be731aec7261770ce70919d30b3ea')
+         '2c3be731aec7261770ce70919d30b3ea'
+         '6e0013d8460d2d402031c71110ddcd80')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://forum.kaosx.us/d/2322-plasma-shell-crashes-after-update
+  cp -v ${srcdir}/plasma-framework/src/desktoptheme/breeze/dialogs/background.svgz src/desktoptheme/breeze/dialogs/background.svgz
+  cp -v ${srcdir}/plasma-framework/src/desktoptheme/breeze/translucent/dialogs/background.svgz src/desktoptheme/breeze/translucent/dialogs/background.svgz
+  cp -v ${srcdir}/plasma-framework/src/desktoptheme/breeze/widgets/tooltip.svgz src/desktoptheme/breeze/widgets/tooltip.svgz
   #patch -p1 -i ${srcdir}/ebae2d63033647950cf0f9d97410723a8c7db1f3.diff
 }
 
