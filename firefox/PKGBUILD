@@ -2,7 +2,7 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=65.0.2
+pkgver=66.0
 _commit=6b51784853e47e091d213d421a19cb623af718f0
 pkgrel=1
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk
          'gst-plugins-good' 'gst-plugins-bad' 'gst-libav' 'mozilla-common' 'startup-notification'
          'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libevent' 'pulseaudio' 'libjpeg-turbo') # 'icu')
 makedepends=('unzip' 'zip' 'diffutils' 'python3' 'yasm' 'mesa' 'imake' 'xorg-server' 
-             'inetutils' 'autoconf2.13' 'rust' 'clang' 'nodejs' 'cbindgen') # issue with system 'sqlite' > 3.25 'libvpx' 
+             'inetutils' 'autoconf2.13' 'rust' 'clang' 'nodejs' 'cbindgen' 'nasm') # issue with system 'sqlite' > 3.25 'libvpx' 
 optdepends=('freshplayerplugin: full flash support in firefox')
 options=('!emptydirs' '!makeflags')
 #source=("https://hg.mozilla.org/releases/mozilla-release/archive/${_commit}.tar.bz2"
@@ -23,7 +23,7 @@ source=("https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/source/${pkgname
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('7d856a681fd8959f492679d0db3c3b787102665670f57cd9739ba9065702059f'
+sha256sums=('c37b253294826b6d14864dc38342edd5b174e76a272a7e5dbaca007eb2cac7b0'
             'ad73304be1d39cfd92d17cf535b8fb248c89a4cf315cdfca3404eee4986245fb'
             '9f25db9a95d8fb29545e9864c69fae41b95a904e1580cf4b838e22fbdcbbdcc3'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
@@ -38,7 +38,7 @@ prepare() {
   
   #patch -p1 -i ${srcdir}/stylo.patch
 
-  mkdir ${srcdir}/path
+  mkdir -p ${srcdir}/path
   
   #sed -i '/ac_cpp=/s/$CPPFLAGS/& -O2/' configure
 }
