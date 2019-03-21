@@ -1,7 +1,7 @@
 
 pkgname=wireshark
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Network packet analyzer that will try to capture network packets and tries to display that packet data as detailed as possible'
 arch=('x86_64')
 url='https://www.wireshark.org/'
@@ -31,6 +31,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DENABLE_QT5=ON \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins 
   make

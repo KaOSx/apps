@@ -1,7 +1,7 @@
 
 pkgname=alpm_octopi_utils
 pkgver=1.0.0
-pkgrel=2
+pkgrel=3
 _commit=6d93c06d0feec0df7e5958c33df281eda91a6700
 pkgdesc="Alpm utils for Octopi"
 url="https://octopiproject.wordpress.com/"
@@ -14,6 +14,9 @@ md5sums=('e08da8f28da2bdaae0f267653aaec009')
          
 build() {
    cd ${pkgname}-${_commit}
+   sed -i -e 's|Alpm.List<Package>|Alpm.List<unowned Package>|g' vapi/libalpm.vapi
+   sed -i -e 's|Alpm.List<DB>|Alpm.List<unowned DB>|g' vapi/libalpm.vapi
+   sed -i -e 's|Alpm.List<string>|Alpm.List<unowned string>|g' vapi/libalpm.vapi
    
    make
 }
