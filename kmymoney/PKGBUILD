@@ -1,7 +1,7 @@
 
 pkgname=kmymoney
 pkgver=5.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
 url="http://www.kmymoney.org/"
@@ -10,7 +10,7 @@ depends=('karchive' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'ki18n' 'kcompletio
          'kservice' 'kwallet' 'kiconthemes' 'kxmlgui' 'ktextwidgets' 'knotifications' 'kio' 'kholidays' 
          'gpgme' 'kcontacts' 'akonadi-contacts' 'akonadi' 'kidentitymanagement' 'kross'
          'shared-mime-info' 'boost-libs' 'pulseaudio' 'libofx' 'libical' 'alkimia' 'kdiagram'
-         'kactivities' 'aqbanking' 'kdewebkit') # not finding sqlite 'sqlcipher')
+         'kactivities' 'aqbanking' 'kdewebkit' 'sqlcipher')
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost')  
 groups=('office')
 source=("https://download.kde.org/stable/kmymoney/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
@@ -29,7 +29,7 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
-    -DENABLE_SQLCIPHER=OFF \
+    -DENABLE_SQLCIPHER=ON \
     -DENABLE_WEBENGINE=OFF # build fails when using qtwebengine looking for KWebView
   make
 }
