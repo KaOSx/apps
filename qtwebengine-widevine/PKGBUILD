@@ -1,25 +1,26 @@
 
 pkgname=qtwebengine-widevine
-pkgver=66.0.3359.26
+pkgver=73.0.3683.86
 pkgrel=1
 pkgdesc="Google Chrome's plugin for viewing premium video content, legacy version for QtWebengine"
 arch=('x86_64')
-url="https://www.widevine.com/wv_drm.html"
+url="https://www.widevine.com"
 license=('custom:chrome')
 depends=('qtwebengine')
 conflicts=('widevine')
 provides=('widevine')
-source=("https://sourceforge.net/projects/kaosx/files/sources/widevine/widevine-${pkgver}-1-x86_64.pkg.tar.xz"
+#source=("https://sourceforge.net/projects/kaosx/files/sources/widevine/widevine-${pkgver}-1-x86_64.pkg.tar.xz"
+source=("https://dl.google.com/linux/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${pkgver}-1_amd64.deb"
         "https://www.google.com/chrome/intl/en/eula_text.html")
-md5sums=('68f5dd8c107e217ec3aebcadc4284f28'
-         '65c1f3c6893b31db816d594ba5591956')
+md5sums=('1dcb0eeb0a182d228ff202ec65b994af'
+         '56ee05f0087071cea8d078f433209681')
 
 
 package() {
-    #bsdtar -xf data.tar.xz
+    bsdtar -xf data.tar.xz
     
-    install -Dm755 opt/google/chrome-unstable/libwidevinecdmadapter.so ${pkgdir}/usr/lib/chromium/libwidevinecdmadapter.so
-    install -Dm644 opt/google/chrome-unstable/libwidevinecdm.so ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
+    #install -Dm755 opt/google/chrome/libwidevinecdmadapter.so ${pkgdir}/usr/lib/chromium/libwidevinecdmadapter.so
+    install -Dm644 opt/google/chrome/libwidevinecdm.so ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
     
     install -Dm644 ${srcdir}/eula_text.html ${pkgdir}/usr/share/licenses/${pkgname}/eula_text.html
 }
