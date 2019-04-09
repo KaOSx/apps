@@ -1,6 +1,6 @@
 
 pkgname=gmic-qt
-pkgver=2.5.5
+pkgver=2.5.6
 _gmic=74a9457dd807682ac6e767f712402c6c1e2c688a
 _commit=8548172228870168e5fe1ecefea5599a9a824d6e
 pkgrel=1
@@ -13,18 +13,20 @@ makedepends=('cmake' 'qt5-tools')
 #source=("https://github.com/dtschump/gmic/archive/${_gmic}.zip"
 #        "https://github.com/c-koi/gmic-qt/archive/${_commit}.zip")
 source=("https://gmic.eu/files/source/gmic_${pkgver}.tar.gz")
-md5sums=('b916bfc7dbc03680cbe3a56ae9b1f835')
+md5sums=('8deabebc29081657986ae6531e3fc1d7')
 
 build() {
   cd gmic-${pkgver}/
   make -C src CImg.h gmic_stdlib.h
   
   cd gmic-qt
-  cmake \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DGMIC_QT_HOST=krita \
-    -DGMIC_PATH="../src" 
+  /usr/lib/qt5/bin/qmake GMIC_PATH=../src GMIC_DYNAMIC_LINKING=off HOST=krita
+  #cmake \
+  #  -DCMAKE_BUILD_TYPE=Release \
+  #  -DCMAKE_INSTALL_PREFIX=/usr \
+  #  -DGMIC_QT_HOST=krita \
+  #  -GMIC_DYNAMIC_LINKING=on \
+  #  -DGMIC_PATH="../src" 
   make
 }
 
