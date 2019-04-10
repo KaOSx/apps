@@ -1,7 +1,7 @@
 
 pkgname=qmapshack
-pkgver=1.12.3
-pkgrel=2
+pkgver=1.13.0
+pkgrel=1
 pkgdesc="Plan your next outdoor trip or to visualize and archive all the GPS recordings, next generation of the QLandkarte GT application"
 arch=('x86_64')
 url="https://bitbucket.org/maproom/qmapshack/wiki/Home"
@@ -13,13 +13,15 @@ makedepends=('cmake' 'extra-cmake-modules' 'qt5-tools')
 groups=('utils')
 source=("https://bitbucket.org/maproom/qmapshack/downloads/${pkgname}-${pkgver}.tar.gz"
         'qnetworkreply.diff')
-md5sums=('ca62a15bb12525dbf256f71e4119bd34'
+md5sums=('68eacea307dd95562ca160a7c721da72'
          '44ee3225ac367080af003bde480a98d5')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
   #patch -p1 -i ${srcdir}/qnetworkreply.diff
+  sed -i 's|PROJ4|PROJ|' CMakeLists.txt
+  sed -i 's|PROJ4|PROJ|' src/qmapshack/CMakeLists.txt
 }
 
 build() {
