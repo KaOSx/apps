@@ -1,6 +1,6 @@
 
 pkgname=go
-pkgver=1.12.3
+pkgver=1.12.4
 pkgrel=1
 pkgdesc='Google Go compiler and tools (release version)'
 arch=('x86_64')
@@ -12,12 +12,12 @@ options=('!strip' 'staticlibs')
 install="${pkgname}.install"
 # check for versions: http://golang.org/dl/
 source=("https://storage.googleapis.com/golang/${pkgname}${pkgver}.linux-amd64.tar.gz")
-sha256sums=('3924819eed16e55114f02d25d03e77c916ec40b7fd15c8acb5838b63135b03df')
+sha256sums=('d7d1f1f88ddfe55840712dc1747f37a790cbcaa448f6c9cf51bbe10aa65442f5')
 
 build() {
   cd go/src
   
-  LC_ALL="en_US.UTF-8"
+  export LC_ALL="en_US.UTF-8"
   
   export GOROOT="${srcdir}/${pkgname}"
   export GOBIN="$GOROOT/bin"

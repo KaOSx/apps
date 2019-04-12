@@ -12,10 +12,8 @@ license=('LGPL')
 depends=('karchive' 'kbookmarks' 'kconfig' 'kcoreaddons' 'ki18n' 'kinit' 'khtml' 'kservice'
          'kwindowsystem' 'grantlee' 'xapian-core')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/khelpcenter/commit/bc0bc0f139cf28ccb1020d37cc270be451b0362b.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'ab6dbb467a144fb1fdb37e49e093ca4a')
+source=("http://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
