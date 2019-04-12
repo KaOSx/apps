@@ -17,6 +17,8 @@ sha256sums=('3924819eed16e55114f02d25d03e77c916ec40b7fd15c8acb5838b63135b03df')
 build() {
   cd go/src
   
+  LC_ALL="en_US.UTF-8"
+  
   export GOROOT="${srcdir}/${pkgname}"
   export GOBIN="$GOROOT/bin"
   export GOPATH="${srcdir}/"

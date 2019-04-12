@@ -12,16 +12,18 @@ depends=('gdal' 'gpsd' 'libdmtx' 'libexif' 'mariadb' 'mesa' 'postgresql-libs'
 makedepends=('cmake' 'extra-cmake-modules' 'qt5-tools')
 groups=('utils')
 source=("https://bitbucket.org/maproom/qmapshack/downloads/${pkgname}-${pkgver}.tar.gz"
-        'qnetworkreply.diff')
+        'proj.patch'
+        'quazip.patch')
 md5sums=('68eacea307dd95562ca160a7c721da72'
-         '44ee3225ac367080af003bde480a98d5')
+         '1a2192dfa8b63fce503a59d6917918a5'
+         'cbdc25ae8121f347ddfedc10501d589e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  #patch -p1 -i ${srcdir}/qnetworkreply.diff
-  sed -i 's|PROJ4|PROJ|' CMakeLists.txt
-  sed -i 's|PROJ4|PROJ|' src/qmapshack/CMakeLists.txt
+  patch -p1 -i ${srcdir}/proj.patch
+  patch -p1 -i ${srcdir}/quazip.patch
+  #sed -i 's|PROJ4|PROJ|' CMakeLists.txt
 }
 
 build() {
