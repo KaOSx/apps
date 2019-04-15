@@ -10,7 +10,7 @@ license=('MIT')
 depends=('alsa-lib' 'glu' 'libx11' 'libxcursor' 'libxinerama' 'libxrandr' 'freetype2'
          'mesa' 'libwebp' 'pulseaudio' 'openssl')
 makedepends=('scons' 'clang')
-source=("https://github.com/okamstudio/godot/archive/${_pkgver}.tar.gz")
+source=("https://github.com/godotengine/godot/archive/${_pkgver}.tar.gz")
 md5sums=('b59ffd636e46ba67e2a8caf06bf3216a')
 
 build() {
@@ -19,7 +19,8 @@ build() {
     #patch -p1 -i ${srcdir}/43bc27e2755f34017148097773da8a6988718aaf.diff
 
     scons platform=x11 \
-          use_llvm=yes
+          use_llvm=yes \
+          target=release_debug
 }
 
 package() {
