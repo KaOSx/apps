@@ -1,7 +1,7 @@
 
 pkgname=skrooge
-pkgver=2.18.0
-pkgrel=5
+pkgver=2.19.0
+pkgrel=1
 pkgdesc="Allows you to manage your personal finances in KDE"
 arch=('x86_64')
 url="https://skrooge.org"
@@ -14,13 +14,13 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost' 'clang')
 groups=('office')
 source=("https://download.kde.org/stable/skrooge/${pkgname}-${pkgver}.tar.xz"
         'sqlite3.patch')
-sha256sums=('4671dfe736d92c2de51a872b49bfbdc251e7e869b5672b6546b85aca4409f303'
+sha256sums=('e678624bc7baaf15b21019d1f37f44bbcc04f464992796e24e8938b3f4c48aa0'
             '46c6501d5f573bc5d330b97df73007f42dc162c5c7fff10a753b5842ee0238c0')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -e "s/FIND_PACKAGE(KActivities)/FIND_PACKAGE(KF5Activities)/" -i ${srcdir}/$pkgname/skgbasegui/CMakeLists.txt
-  patch -p1 -i ${srcdir}/sqlite3.patch
+  #patch -p1 -i ${srcdir}/sqlite3.patch
 }
          
 build() {
