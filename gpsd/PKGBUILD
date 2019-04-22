@@ -1,7 +1,7 @@
 
 pkgname=gpsd
 pkgver=3.18.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GPS daemon and library to support USB/serial GPS devices"
 arch=('x86_64')
 url="http://catb.org/gpsd/"
@@ -23,7 +23,8 @@ build() {
   scons prefix=/usr \
     systemd=yes \
     libQgpsmm=no \
-    gpsd_group=uucp 
+    gpsd_group=uucp \
+    python_libdir=/usr/lib/python2.7/site-packages
   scons build
 }
 
