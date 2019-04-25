@@ -3,22 +3,22 @@ pkgname=lightworks
 pkgver=14.5.0
 _pkgver=14.5.0
 _beta=93046
-pkgrel=2
+pkgrel=3
 pkgdesc="A professional video editing software"
 arch=('x86_64')
 url="http://www.lwks.com/"
 license=('custom')
 install="${pkgname}.install"
 depends=('gtk3' 'libgl' 'glu' 'ffmpeg' 'libedit' 'libtiff' 'nvidia-cg-toolkit' 'libgsf')
-source=("http://downloads.lwks.com/v14-5/lightworks-${_pkgver}-amd64.deb")
-md5sums=('7d2fb641d6e820064a0c180433d80e5b')
+source=("http://downloads.lwks.com/v14-5-new/lightworks-${_pkgver}-amd64.deb")
+md5sums=('0f886a59622be4b769621ba1f08087a1')
 
 noextract=("lwks-${pkgver}-amd64.deb")
  
 package() {
   #bsdtar -xf "lwks-${_pkgver}-amd64.deb" data.tar.xz  
-  bsdtar -xf data.tar.xz -C "${pkgdir}"
-	rm data.tar.xz
+  bsdtar -zxf data.tar.xz -C "${pkgdir}"
+	#rm data.tar.xz
   
   mv -f ${pkgdir}/lib/udev ${pkgdir}/usr/lib
   rmdir ${pkgdir}/lib
