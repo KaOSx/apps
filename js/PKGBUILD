@@ -1,19 +1,19 @@
 
 pkgname=js
-pkgver=52.2.1
-_pkgver=52.2.1
-pkgrel=2
+pkgver=60.1.0
+_pkgver=60.1.0
+pkgrel=1
 pkgdesc="JavaScript interpreter and libraries"
 arch=('x86_64')
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/52"
 license=('GPL2')
 depends=('nspr' 'gcc-libs' 'libffi' 'readline' 'icu')
 makedepends=('python2' 'zip' 'autoconf2.13')
-source=("https://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-52.2.1gnome1.tar.gz"
+source=("https://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-${_pkgver}.tar.bz2"
 #source=("https://hg.mozilla.org/mozilla-unified/archive/FIREFOX_${_pkgver}.tar.bz2")
 #source=("https://ftp.mozilla.org/pub/firefox/releases/${_pkgver}/source/firefox-${_pkgver}.source.tar.xz"
         'copy_headers.patch')
-md5sums=('72bd9a715ed1ab70b2aebe92969f6b63'
+md5sums=('202f71313e53d9b92e7c578107541539'
          'a258b7a06260bb568f2d958631740b47')
 
 #prepare() {
@@ -23,14 +23,16 @@ md5sums=('72bd9a715ed1ab70b2aebe92969f6b63'
 #}
 
 build() {
-  cd mozjs-${_pkgver}gnome1/js/src
+  mkdir -p build
+  cd build
+  #cd mozjs-${_pkgver}/js/src
   # http://www.linuxfromscratch.org/blfs/view/svn/general/JS2.html needed for newer perl
   #sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
 
   unset CPPFLAGS
 
-  autoconf-2.13
-  ./configure --prefix=/usr \
+  #autoconf-2.13
+  ../mozjs-${_pkgver}/js/src/configure --prefix=/usr \
        --disable-debug \
        --disable-debug-symbols \
        --disable-optimize \
@@ -41,13 +43,15 @@ build() {
        --with-system-icu \
        --enable-readline \
        --enable-shared-js \
+       --disable-jemalloc  \
        --enable-tests \
 
   make
 }
 
 check() {
-  cd mozjs-${_pkgver}gnome1/js/src
+  cd build
+  #cd mozjs-${_pkgver}gnome1/js/src
   
   #python2 tests/jstests.py -d -s -t 300 --no-progress ../../js/src/js/src/shell/js
   #python2 jit-test/jit_test.py -s -t 300 --no-progress ../../js/src/js/src/shell/js basic
@@ -55,7 +59,8 @@ check() {
   
   
 package() {
-  cd mozjs-${_pkgver}gnome1/js/src
+  cd build
+  #cd mozjs-${_pkgver}gnome1/js/src
   make DESTDIR=${pkgdir} install
   
   rm ${pkgdir}/usr/lib/libjs_static.ajs
