@@ -2,7 +2,7 @@
 pkgname=amule
 pkgver=2.3.2.1
 _commit=88364ced28850a14c0df1c2235692956db883b32
-pkgrel=10
+pkgrel=11
 epoch=2
 pkgdesc="An eMule-like client for ed2k p2p network"
 arch=('x86_64')
@@ -16,6 +16,7 @@ md5sums=('23a74c39df129446b266cff36d284692')
 
 build() {
   cd amule-${_commit}
+  sed -i 's|pubkey.DEREncode(asink);|pubkey.AccessMaterial().Save(asink);|' src/ClientCreditsList.cpp
 
   ./autogen.sh
   ./configure --prefix=/usr \
