@@ -21,9 +21,12 @@ md5sums=('ac30f6d5747fd9c620c00dad500f414f'
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # poppler 0.64 & up needed patches
+  
   #patch -p1 -i ${srcdir}/a600c6438fef2f4c06f9a4a7d933d99fb054a973.diff
-  #patch -p1 -i ${srcdir}/fa1c469aa8c005e07bb8676d72af9f7c16fae3e0.diff
+  # poppler 0.7.x needed sed lines
+  sed -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' -i src/extension/internal/pdfinput/pdf-parser.*
+  sed -e 's|getCString|c_str|g' -i src/extension/internal/pdfinput/*
+  sed -e 's|new Lexer(xref, obj)|obj|g' -i src/extension/internal/pdfinput/pdf-parser.cpp
 }
 
 build() {
