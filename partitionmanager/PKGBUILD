@@ -1,6 +1,6 @@
 
 pkgname=partitionmanager
-pkgver=3.3.1
+pkgver=4.0.0
 _commit=771c0ceaa2bfd5634f65e6e390733cec557e90de
 pkgrel=1
 epoch=1
@@ -8,22 +8,15 @@ pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
 arch=('x86_64')
 url="https://www.kde.org/applications/system/kdepartitionmanager"
 license=('GPL2')
-depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'ki18n' 'kiconthemes' 'kjobwidgets' 'kio'
-         'kservice' 'kxmlgui' 'kwidgetsaddons' 'parted' 'libatasmart' 'udisks2' 'kpmcore')
+depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kiconthemes'
+         'kjobwidgets' 'kio' 'kxmlgui' 'kwidgetsaddons' 'parted' 'libatasmart' 'udisks2' 'kpmcore'
+         'ntfs-3g' 'dosfstools')
 makedepends=('extra-cmake-modules' 'pkgconfig' 'kdoctools')
-optdepends=('e2fsprogs: ext2/3/4 support'
-            'xfsprogs: XFS support'
-            'jfsutils: JFS support'
-            'reiserfsprogs: Reiser support'
-            'ntfsprogs: NTFS support'
-            'dosfstools: FAT32 support')
-conflicts=('kf5-partitionmanager')
-replaces=('kf5-partitionmanager')
 groups=('system')
 options=('debug')	
 source=("https://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${pkgver}.tar.xz")
 #source=("https://github.com/KDE/partitionmanager/archive/${_commit}.zip")
-md5sums=('3fb4020bd5d132e9adde59314230a943')
+md5sums=('4f925dbaa6d5a29a2f7326b5756d136b')
 
 prepare() {
   cd ${pkgname}-${pkgver}
