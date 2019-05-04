@@ -1,8 +1,9 @@
 
 pkgbase=calligra
-pkgname=('calligra' 'calligra-l10n')
-pkgver=3.1.0
-pkgrel=10
+pkgname=('calligra') # 'calligra-l10n')
+pkgver=3.1.80
+_commit=63fd8de5175742198a700e024f111b98b055c5ba
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
 url='https://www.calligra-suite.org'
@@ -15,21 +16,22 @@ makedepends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiadd
          'sqlite3' 'libkdcraw' 'exiv2' 'qca-qt5' 'qt5-declarative' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
          'kcontacts' 'akonadi-contacts' 'kholidays' 'okular' 'openexr' 'vc' 'kreport' 'qt5-webkit'
          'extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang
-source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
+#source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
+source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
         'qt5.11.diff'
         "https://github.com/KDE/calligra/commit/ee83e0f2c251072e47a2799619cdc79efe67e651.diff"
         "https://github.com/KDE/calligra/commit/e5fc394f4a54f739246445b973f93594ad0dc00b.diff")
 #source=("https://share.kde.org/index.php/s/yanrJWiQFB3rrvc/download?path=%2F&files=${pkgbase}-${pkgver}.tar.xz")
-md5sums=('9016615f62fc75bb44aa139a231c3be4'
+md5sums=('fd29a74ea530e1171edd72bbf4a15711'
          '55bb5393ce7d24ae3f33285b571934ae'
          '6383d2ee97037661374a6305a5c4a7fe'
          'f6af014cf4ad3c6c2ee1ec98426688bf')
 
 prepare() {
-  cd ${pkgbase}-${pkgver}
-  patch -p1 -i ${srcdir}/qt5.11.diff
-  patch -p1 -i ${srcdir}/ee83e0f2c251072e47a2799619cdc79efe67e651.diff
-  patch -p1 -i ${srcdir}/e5fc394f4a54f739246445b973f93594ad0dc00b.diff
+  cd ${pkgbase}-${_commit}
+  #patch -p1 -i ${srcdir}/qt5.11.diff
+  #patch -p1 -i ${srcdir}/ee83e0f2c251072e47a2799619cdc79efe67e651.diff
+  #patch -p1 -i ${srcdir}/e5fc394f4a54f739246445b973f93594ad0dc00b.diff
   #sed -i 's|KReport 3.0.0 EXACT QUIET|KReport 3.0 QUIET|' CMakeLists.txt
   #sed -i 's|KPropertyWidgets 3.0.0 EXACT QUIET|KPropertyWidgets 3.0 QUIET|' CMakeLists.txt
 }
@@ -41,13 +43,12 @@ build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
   
-  cmake ../${pkgbase}-${pkgver} \
+  cmake ../${pkgbase}-${_commit} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DPRODUCTSET=DESKTOP \
     -DBUILD_TESTING=FALSE \
     -DPACKAGERS_BUILD=true \
     -DBUILD_UNMAINTAINED=TRUE
@@ -70,7 +71,7 @@ package_calligra() {
   
   #rm ${pkgdir}/usr/share/applications/calligra_filter_odt2docx.desktop
   #use in calligra-l10n
-  mv ${pkgdir}/usr/share/locale ${srcdir}/
+  #mv ${pkgdir}/usr/share/locale ${srcdir}/
 }
 
 package_calligra-l10n() {

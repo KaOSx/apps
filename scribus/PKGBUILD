@@ -1,11 +1,12 @@
 
 pkgname=scribus
 _pkgname=Scribus
-pkgver=1.5.4
-pkgrel=7
+_commit=9449265592a5195153d72c2a511d2010b0cf5b0b
+pkgver=1.5.4.80
+pkgrel=1
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
-url="http://www.scribus.net"
+url="https://www.scribus.net"
 license=('GPL')
 depends=('libcups' 'lcms2' 'qt5-declarative' 'ghostscript' 'libart-lgpl' 'python2' 'libxml2' 'hyphen'
          'cairo' 'desktop-file-utils' 'shared-mime-info' 'ruby' 'aspell' 'podofo' 'librevenge' 'poppler'
@@ -13,22 +14,23 @@ depends=('libcups' 'lcms2' 'qt5-declarative' 'ghostscript' 'libart-lgpl' 'python
 makedepends=('cmake' 'boost' 'qt5-tools')
 groups=('office')
 options=('!libtool' '!makeflags')
-source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+#source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
         "https://github.com/scribusproject/scribus/commit/d867ec3c386baaed1b8e076dd70b278863411480.diff"
         "https://github.com/scribusproject/scribus/commit/7d4ceeb5cac32287769e3c0238699e0b3e56c24d.diff")
 # view at https://www.scribus.net/websvn/
 #source=("scribus::svn://scribus.net/trunk")
-md5sums=('fda4eb51304a41ff52081a1311b3bae5'
+md5sums=('283dd7832cabc31c9769ebc584056a48'
          '78583186639239ad13a8b20077898997'
          '2bf1895f6aaf9886c941534498e39985')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
   
-  sed -i 's|hunspell-1.3 hunspell-1.2|hunspell-1.3 hunspell-1.7|' cmake/modules/FindHUNSPELL.cmake
+  #sed -i 's|hunspell-1.3 hunspell-1.2|hunspell-1.3 hunspell-1.7|' cmake/modules/FindHUNSPELL.cmake
   # poppler 0.64 & up needed patches
-  patch -p1 -i ${srcdir}/d867ec3c386baaed1b8e076dd70b278863411480.diff
-  patch -p1 -i ${srcdir}/7d4ceeb5cac32287769e3c0238699e0b3e56c24d.diff
+  #patch -p1 -i ${srcdir}/d867ec3c386baaed1b8e076dd70b278863411480.diff
+  #patch -p1 -i ${srcdir}/7d4ceeb5cac32287769e3c0238699e0b3e56c24d.diff
   
 }
 
@@ -36,9 +38,9 @@ build() {
 	mkdir -p build
 	cd build
 	
-	CXXFLAGS="-std=c++11"
+	#CXXFLAGS="-std=c++11"
 	
-	cmake ../${pkgname}-${pkgver} \
+	cmake ../${pkgname}-${_commit} \
 	   -DCMAKE_INSTALL_PREFIX=/usr \
 	   -DCMAKE_BUILD_TYPE=Release \
 	   -DCMAKE_SKIP_RPATH=ON \
@@ -51,6 +53,6 @@ package() {
 	cd build
 	make DESTDIR=${pkgdir} install
 
-	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/scribus.desktop \
+	install -Dm644 ${srcdir}/${pkgname}-${_commit}/scribus.desktop \
 	   ${pkgdir}/usr/share/applications/scribus.desktop
 }

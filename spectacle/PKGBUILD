@@ -4,8 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=spectacle
 pkgver=${_kdever}
-_commit=1836e435a0c0ac822088ef35875f9caaae9ccd03
-pkgrel=1
+pkgrel=2
 pkgdesc="The new KDE Screenshot Utility"
 url="https://github.com/KDE/spectacle"
 arch=('x86_64')
@@ -13,13 +12,15 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kwidgetsaddons' 'kdbusaddons' 'knotifications' 'kconfig' 'ki18n' 'kio' 'kxmlgui'
          'kwindowsystem' 'kdeclarative' 'libkipi' 'libkscreen' 'xcb-util-cursor' 'knewstuff' 'purpose') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
-conflicts=('ksnapshot' 'kscreengenie')
-replaces=('ksnapshot' 'kscreengenie')
 groups=('kde' 'kde-graphics' 'kde-uninstall')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("https://github.com/KDE/spectacle/archive/${_commit}.zip")
-#md5sums=('ea83d503005de394dec07d6fc1039712')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+ 
+  sed -e 's|Exec=qdbus|Exec=qdbus-qt5|g' -i desktop/org.kde.spectacle.desktop
+}
 
 build() {
   mkdir -p build
