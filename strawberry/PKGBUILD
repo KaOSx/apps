@@ -1,0 +1,33 @@
+
+pkgname=strawberry
+pkgver=0.5.5
+pkgrel=1
+pkgdesc="Music player and music collection organizer, fork of Clementine"
+url="https://www.strawbs.org/"
+license=('GPL')
+arch=('x86_64')
+depends=('alsa-lib' 'chromaprint' 'gnutls' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly'
+         'libcdio' 'libgpod' 'libimobiledevice' 'libmtp' 'libplist' 'phonon-qt5' 'pulseaudio' 'protobuf' 
+         'qt5-x11extras' 'sqlite' 'taglib')         
+makedepends=('cmake' 'boost' 'qt5-tools')
+groups=('multimedia')
+source=("https://github.com/jonaski/strawberry/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=('871dbc6d66ee66f2d228d605883ec78b')
+
+build() {
+  mkdir -p build 
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DUSE_SYSTEM_TAGLIB=ON 
+  make
+}
+
+package() {
+  cd build
+  
+  make install DESTDIR=${pkgdir}
+}
+
