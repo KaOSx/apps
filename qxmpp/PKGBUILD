@@ -1,0 +1,34 @@
+
+pkgname=qxmpp
+pkgver=1.0.0
+pkgrel=1
+arch=('x86_64')
+url='https://github.com/qxmpp-project/qxmpp'
+pkgdesc="Cross-platform C++ XMPP client and server library"
+license=('LGPL2.1')
+depends=('qt5-base' 'opus' 'speex' 'libtheora' 'libvpx')
+makedepends=('cmake')
+source=("https://github.com/qxmpp-project/qxmpp/archive/v${pkgver}.tar.gz") 
+md5sums=('539c4c4ad3a6efa123d94dbc22e4b520')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DWITH_OPUS=ON \
+    -DWITH_SPEEX=ON \
+    -DWITH_THEORA=ON \
+    -DWITH_VPX=ON \
+    -DBUILD_EXAMPLES=OFF
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
