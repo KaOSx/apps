@@ -16,8 +16,8 @@ md5sums=('7b2160cbcf907ee080d696c61b3dc4e8'
 prepare() {
   cd ${pkgname}-${pkgver}
   #patch -p1 -i $srcdir/qdrag.diff
-  sed -i 's|include("cmake/CodeCoverage.cmake")|#include("cmake/CodeCoverage.cmake")|g' ImageLounge/CMakeLists.txt
-  sed -i 's|setup_target_for_coverage(${PROJECT_NAME}|#setup_target_for_coverage(${PROJECT_NAME}|g' ImageLounge/CMakeLists.txt
+  #sed -i 's|include("cmake/CodeCoverage.cmake")|#include("cmake/CodeCoverage.cmake")|g' ImageLounge/CMakeLists.txt
+  #sed -i 's|setup_target_for_coverage(${PROJECT_NAME}|#setup_target_for_coverage(${PROJECT_NAME}|g' ImageLounge/CMakeLists.txt
 
 }
 
@@ -30,7 +30,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake \
     -DENABLE_TRANSLATIONS=ON \
-    -DUSE_SYSTEM_QUAZIP=ON 
+    -DUSE_SYSTEM_QUAZIP=ON \
+    -DENABLE_CODE_COV=OFF
   make
 }
 

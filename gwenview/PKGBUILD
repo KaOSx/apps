@@ -15,17 +15,16 @@ depends=('kio' 'kitemmodels' 'ki18n' 'kparts' 'kwindowsystem' 'kiconthemes' 'kno
 makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
 opdepends=('kamera: to work directly with cameras')
 groups=('kde-graphics')
-source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#md5sums=('39b025dfb4e4628229216d86315ce799')
-#source=("git://anongit.kde.org/gwenview.git")
-#md5sums=('SKIP')
+source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
+        'exiv2.patch')
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '80f8e51c55f657228ea98a576e55377a')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's/Kdcraw/KF5KDcraw/' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
-  # fix https://bugs.kde.org/show_bug.cgi?id=379615
-  #patch -p1 -i ${srcdir}/6ce5d2f8d82f83c5a3d726ee5807ebaf7a6e3c6c.diff
+
+  patch -p1 -i ${srcdir}/exiv2.patch
 }
 
 build() {
