@@ -10,11 +10,14 @@ license=("GPL2")
 depends=('wxgtk' 'gpsd' 'portaudio' 'tinyxml' 'hicolor-icon-theme')
 makedepends=('cmake')
 groups=('education' 'science')
-source=("https://github.com/OpenCPN/OpenCPN/archive/v${pkgver}.tar.gz")
-md5sums=('a6e79c2c6f64037be1894b48b9a1014a')
+source=("https://github.com/OpenCPN/OpenCPN/archive/v${pkgver}.tar.gz"
+        'cmake.patch')
+md5sums=('a6e79c2c6f64037be1894b48b9a1014a'
+         '44141670b980726a35b10d1c57962985')
  
 build() {
   cd OpenCPN-${pkgver}
+  patch -p1 -i ${srcdir}/cmake.patch
   
   cmake -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
