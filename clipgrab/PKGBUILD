@@ -12,15 +12,15 @@ groups=('multimedia')
 source=("https://download.clipgrab.org/${pkgname}-${pkgver}.tar.gz"
         'clipgrab.desktop'
         'clipgrab.png'
-        "https://gitlab.com/kikadf/clipgrab-qt5/raw/master/clipgrab-3.8.0-kde.patch")
+        "https://gitlab.com/kikadf/clipgrab-qt5/raw/master/clipgrab-3.8.2-kde.patch")
 md5sums=('5f63b8cc431867921114fe2e32c05325'
          '9dd39ffcccb179d76ac84503bf3ffc11'
          'e427c3a49fe3f7a86abeaa443fcdbec3'
-         '0b16610b1fffcca65fa90a76af938c35')
+         '291e02cf056b8f88f29c0185f34d15ff')
 
 build() {
   cd ${pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/clipgrab-3.8.0-kde.patch
+  patch -p1 -i ${srcdir}/clipgrab-3.8.2-kde.patch
 
   /usr/lib/qt5/bin/qmake clipgrab.pro
   make
