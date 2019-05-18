@@ -9,13 +9,13 @@ license=('GPL3')
 depends=('qt5-svg' 'exiv2' 'libraw' 'opencv' 'qt5-imageformats' 'quazip')
 makedepends=('cmake' 'qt5-tools')
 source=("https://github.com/nomacs/nomacs/archive/${pkgver}.tar.gz"
-        'qdrag.diff')
+        'gcc8.diff')
 md5sums=('7b2160cbcf907ee080d696c61b3dc4e8'
-         'bdd31541310ed5b6bee1c8f101ef3505')
+         '59057015d80f14478389e6703dd19ebb')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i $srcdir/qdrag.diff
+  patch -p1 -i ${srcdir}/gcc8.diff
   #sed -i 's|include("cmake/CodeCoverage.cmake")|#include("cmake/CodeCoverage.cmake")|g' ImageLounge/CMakeLists.txt
   #sed -i 's|setup_target_for_coverage(${PROJECT_NAME}|#setup_target_for_coverage(${PROJECT_NAME}|g' ImageLounge/CMakeLists.txt
 
