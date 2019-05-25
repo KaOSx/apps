@@ -11,7 +11,7 @@ depends=('alsa-lib' 'ffmpeg' 'freetype2' 'gtk2' 'jack' 'libevent' 'libgl' 'v4l-u
 makedepends=('cmake' 'ragel')
 source=("https://github.com/i-rinat/freshplayerplugin/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/i-rinat/freshplayerplugin/commit/934aa9c24d34f8203744b56e4ac6e8599446ca02.diff")
-md5sums=('a6ccf674b64e250b334ffcb748dd2317'
+md5sums=('c34383e281135b7d40e29444af189d34'
          'f5364ead775363f3305365bc956cf2d1')
 
 prepare() {
@@ -27,7 +27,6 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DWITH_GTK=2 \
     -DWITH_PULSEAUDIO=1
   make
 }
