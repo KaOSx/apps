@@ -1,9 +1,9 @@
 
 pkgname=qtcreator
-pkgver=4.9.0
+pkgver=4.9.1
 _pkgver=4.9
-__pkgver=4.9.0
-pkgrel=2
+__pkgver=4.9.1
+pkgrel=1
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="http://qt.digia.com/"
@@ -19,7 +19,7 @@ optdepends=('qt5-doc: for the integrated Qt documentation'
 groups=('programming')
 source=("http://download.qt-project.org/official_releases/${pkgname}/${_pkgver}/${__pkgver}/qt-creator-opensource-src-${__pkgver}.tar.xz"
         'qtcreator.desktop')
-md5sums=('03364c82ec5f721e4dc17cf162706e50'
+md5sums=('58302cdc3ddacf2b76d21d91628cfead'
          '5162b73dd63f457bdb02bd9c8b1cc66b')
 
 prepare() {
@@ -27,10 +27,12 @@ prepare() {
 
   sed -i 's|$$IDE_OUTPUT_PATH/libexec/qtcreator|$$IDE_OUTPUT_PATH/lib/qtcreator|' qtcreator.pri
   sed -i 's|$$QTC_PREFIX/libexec/qtcreator|$$QTC_PREFIX/lib/qtcreator|' qtcreator.pri
+  sed -i 's|$$IDE_BUILD_TREE/libexec/qtcreator|$$IDE_BUILD_TREE/lib/qtcreator|' src/tools/tools.pro
+  sed -i 's|$$QTC_PREFIX/libexec/qtcreator|$$QTC_PREFIX/lib/qtcreator|' src/tools/tools.pro
 }         
 
 build() {
-  mkdir -p build
+  #mkdir -p build
   cd build
 
   /usr/lib/qt5/bin/qmake LLVM_INSTALL_DIR=/usr QMAKE_CFLAGS_ISYSTEM=-I ${srcdir}/qt-creator-opensource-src-${__pkgver}/qtcreator.pro
