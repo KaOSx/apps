@@ -1,27 +1,23 @@
 
 pkgname=gparted
-pkgver=0.33.0
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="A Partition Magic clone, frontend to GNU Parted."
 arch=('x86_64')
 url="https://gparted.sourceforge.io/"
 license=('GPL')
-depends=('parted' 'gtkmm' 'polkit')
-makedepends=('intltool' 'pkg-config' 'gnome-doc-utils')
-optdepends=('dosfstools: for FAT16 and FAT32 partitions'
-            'jfsutils: for jfs partitions'
-            'ntfs-3g: for ntfs partitions'
-            'reiserfsprogs: for reiser partitions'
-            'xfsprogs: for xfs partitions')
+depends=('parted' 'gtkmm3' 'polkit' 'dosfstools' 'jfsutils' 'ntfs-3g' 'reiserfsprogs' 'xfsprogs')
+makedepends=('intltool' 'pkg-config' 'itstool')
 source=("https://downloads.sourceforge.net/project/gparted/gparted/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz"
         'gparted.desktop')
-sha1sums=('5e35461ef102775f2fff4f977dcf2fc446ea2ded'
+sha1sums=('0ff5d704b70fd8dab57520b6e7b3e6430dce3971'
           '04e05c2c0bc62f31d5781333ba98aaf0d71c0dd8')
 
 build() {
   cd ${pkgname}-${pkgver}
 
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr \
+    --disable-doc
   make
 }
 

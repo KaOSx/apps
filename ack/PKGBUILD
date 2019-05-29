@@ -1,7 +1,7 @@
 
 # do not build on server, perl issues
 pkgname=ack
-pkgver=2.24
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="A Perl-based grep replacement, aimed at programmers with large trees of heterogeneous source code"
 arch=('x86_64')
@@ -10,18 +10,18 @@ license=('GPL' 'PerlArtistic')
 depends=('perl-file-next')
 options=('!emptydirs')
 groups=('programming')
-source=("https://search.cpan.org/CPAN/authors/id/P/PE/PETDANCE/${pkgname}-${pkgver}.tar.gz")
-md5sums=('92246556c479018b32828cbc5e0ce5cb')
+source=("https://search.cpan.org/CPAN/authors/id/P/PE/PETDANCE/${pkgname}-v${pkgver}.tar.gz")
+md5sums=('c15c4b4754255eea66ac2da9c6a9522b')
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-v${pkgver}
   PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
   
   make
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-v${pkgver}
   
   make DESTDIR=${pkgdir} install
 }
