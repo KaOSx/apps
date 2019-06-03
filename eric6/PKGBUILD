@@ -1,6 +1,6 @@
 
 pkgname=eric6
-pkgver=19.5
+pkgver=19.6
 pkgrel=1
 pkgdesc="Full-featured Python 3.x and Ruby IDE written in python, based on the cross 
         platform Qt gui toolkit, integrating the highly flexible Scintilla editor control"
@@ -13,11 +13,15 @@ provides=('eric6-i18n')
 replaces=('eric6-i18n')
 conflicts=('eric6-i18n')
 source=("https://downloads.sourceforge.net/eric-ide/${pkgname}-${pkgver}.tar.gz")
-sha1sums=('ce3685b424f811346f9e4e53f317e57212b94be4')
+sha1sums=('75a64c79f3d2e27f37a268aca950ea355b8c7a3b')
 
 package() {
     cd ${pkgname}-${pkgver}
 
+    install -d ${pkgdir}/usr/bin
+    install -d ${pkgdir}/usr/lib/python3.7/site-packages
+    install -d ${pkgdir}/usr/share/pixmaps
+    
     python3 install.py -c -b /usr/bin -i ${pkgdir}
     python3 install-i18n.py
 }
