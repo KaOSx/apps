@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=gwenview
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=1
 pkgdesc="A fast and easy to use image viewer for KDE"
 arch=('x86_64')
 url="http://kde.org/applications/graphics/gwenview/"
@@ -24,7 +24,7 @@ prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's/Kdcraw/KF5KDcraw/' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
 
-  patch -p1 -i ${srcdir}/exiv2.patch
+  #patch -p1 -i ${srcdir}/exiv2.patch
 }
 
 build() {
