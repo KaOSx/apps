@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kmail
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Email client, supporting POP3 and IMAP mailboxes."
 arch=('x86_64')
 url='https://github.com/KDE/kmail'
@@ -20,8 +20,16 @@ depends=('kcrash' 'kbookmarks' 'kcodecs' 'kconfig' 'kconfigwidgets' 'kdbusaddons
          'pim-sieve-editor' 'kdepim-runtime')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim' 'network-email')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://github.com/KDE/kmail/commit/97e165dcf5a851ee10526631d24f9af7736da2e6.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '42efd1b5597ff4cb1cd8c7b762b5c43d')
+
+prepare () {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/97e165dcf5a851ee10526631d24f9af7736da2e6.diff
+}
 
 build() {
   mkdir -p build
