@@ -12,8 +12,16 @@ makedepends=('eric6')
 provides=('eric6-i18n')
 replaces=('eric6-i18n')
 conflicts=('eric6-i18n')
-source=("https://downloads.sourceforge.net/eric-ide/${pkgname}-${pkgver}.tar.gz")
-sha1sums=('75a64c79f3d2e27f37a268aca950ea355b8c7a3b')
+source=("https://downloads.sourceforge.net/eric-ide/${pkgname}-${pkgver}.tar.gz"
+        'install.diff')
+sha1sums=('75a64c79f3d2e27f37a268aca950ea355b8c7a3b'
+          '110d5e16b3e53e97a8a13bcc5515dbb392368c2f')
+
+prepare() {
+    cd ${pkgname}-${pkgver}
+    
+    patch -p1 -i ${srcdir}/install.diff
+}
 
 package() {
     cd ${pkgname}-${pkgver}
