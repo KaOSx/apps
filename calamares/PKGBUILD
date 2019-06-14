@@ -1,13 +1,13 @@
 
 pkgname=calamares
-pkgver=3.2.4.94
-pkgrel=5
+pkgver=3.2.9
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
 license=('LGPL')
 depends=('qt5-svg' 'qt5-xmlpatterns' 'qtwebkit-tp' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'kpackage' 'plasma-framework'
-         'yaml-cpp' 'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts') # 'pythonqt') # 'libpwquality')
+         'yaml-cpp' 'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts') # 'pythonqt' 'libpwquality')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools' 'boost') # 'clang')
 options=('debug' '!staticlibs')
 #source=("git://github.com/KaOSx/calamares#commit=f36b58f2df47b00487e9e505cdd7f207f4da2fda"
@@ -18,7 +18,7 @@ source=("git://github.com/KaOSx/calamares"
         'kdm_sddm.conf'
         'unpackfs.conf'
         'launch-calamares.sh'
-        'license.pdf'
+        'LICENSE.txt'
         'release_notes.html')
 md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
@@ -26,8 +26,8 @@ md5sums=('SKIP'
          '184d5b6886fc7a6156d4b790657f77f4'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '9c64f09da47f27a666d458c9369d53f9'
-         'bb33b54d289cfe39ebfd78f172382880'
-         '53174731b0afed337b5527a7dc267c2d')
+         '4b126b6494c776016accd8ffbd0be51d'
+         '70a3b8e1c2fffc347e7a1e323036b5e3')
 
 prepare () {
   cd ${pkgname}
@@ -42,7 +42,7 @@ prepare () {
 build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
-  
+
   mkdir -p build
   cd build
   
@@ -64,6 +64,6 @@ package() {
   rm -rf $pkgdir/usr/share/applications/$pkgname.desktop
   install -Dm644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
   install -Dm644 ${srcdir}/installer.svg ${pkgdir}/usr/share/pixmaps/installer.svg
-  install -Dm644 $srcdir/license.pdf $pkgdir/usr/share/calamares/license.pdf
+  install -Dm644 $srcdir/LICENSE.txt $pkgdir/usr/share/calamares/LICENSE.txt
   install -Dm644 $srcdir/release_notes.html $pkgdir/usr/share/calamares/release_notes.html
 }
