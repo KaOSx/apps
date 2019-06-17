@@ -1,17 +1,17 @@
  
 pkgname=appstream
 _pkgname=AppStream
-pkgver=0.12.6
+pkgver=0.12.7
 pkgrel=1
 pkgdesc="Provides a standard for creating app stores across distributions"
 arch=('x86_64')
 url="https://github.com/ximion/appstream"
 license=('GPL')
-depends=('libyaml' 'libxml2' 'glib2' 'qt5-base')
-makedepends=('meson' 'ninja' 'gobject-introspection' 'itstool' 'python2' 'xmlto' 'gtk-doc' 'gperf' 'qt5-tools')
+depends=('libyaml' 'libxml2' 'glib2' 'qt5-base' 'lmdb')
+makedepends=('meson' 'ninja' 'gobject-introspection' 'itstool' 'xmlto' 'gtk-doc' 'gperf' 'qt5-tools')
 source=("https://www.freedesktop.org/software/appstream/releases/${_pkgname}-${pkgver}.tar.xz"
         'appstream.hook')
-md5sums=('ffd1555953828656971424ca5329f352'
+md5sums=('d83f934b7c75bee0d191779f6cf844d4'
          'f244ccc7b89aacfe903facce393174ca')
 
 build() {
