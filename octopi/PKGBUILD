@@ -1,8 +1,8 @@
 
 pkgname=octopi
-pkgver=0.9.0.88
+pkgver=0.9.0.89
 pkgrel=1
-_commit=f94ee1a04b0ca623fb0cae921b5f880692f78608
+_commit=fdcb59ae4a45894b918b626356a7d5a363f2f71c
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
@@ -12,9 +12,11 @@ groups=('system')
 #install=octopi.install
 source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
         "images3.tar.xz"
+        'folder_tree.png'
         "https://github.com/aarnt/octopi/commit/a9d9eb30d37e97369cfc64204fe0bde9e0e29918.diff")
-md5sums=('4c42a496d3554ac9f1865007f2a59bb9'
+md5sums=('ecc6528eac4be7321459b4a34ff9253f'
          '3c3345539c8500d303f33f890fe733fe'
+         'eff9d31629ad8de08c9198524f798bd3'
          '94aa6b71b4f42f5523be82dccc90f266')
 
 prepare() {
@@ -22,10 +24,11 @@ prepare() {
    rm -r resources/images
    mv -iv ${srcdir}/images/ resources/
    cp resources/images/octopi_green.png resources/images/octopi.png
+   cp ${srcdir}/folder_tree.png resources/images/folder_tree.png
 
    # enable the kstatus switch
-   sed -e "s|#KSTATUS|KSTATUS|" -i notifier/octopi-notifier/octopi-notifier.pro
-   sed -e "s|gui network #dbus|gui network dbus|" -i notifier/octopi-notifier/octopi-notifier.pro
+   sed -e "s|#KSTATUS|KSTATUS|" -i notifier/octopi-notifier.pro
+   sed -e "s|gui network #dbus|gui network dbus|" -i notifier/octopi-notifier.pro
    
    sed -e "s|pacman -U --force|pacman -U|" -i src/pacmanexec.cpp
    
@@ -38,15 +41,15 @@ build() {
    /usr/lib/qt5/bin/qmake octopi.pro
    make
    
-   cd notifier/pacmanhelper
-   /usr/lib/qt5/bin/qmake pacmanhelper.pro
-   make
-   cd ../..
+   #cd notifier/pacmanhelper
+   #/usr/lib/qt5/bin/qmake pacmanhelper.pro
+   #make
+   #cd ../..
    
-   cd notifier/octopi-notifier
+   cd notifier
    /usr/lib/qt5/bin/qmake octopi-notifier.pro
    make
-   cd ../..
+   cd ..
    
    cd cachecleaner
    /usr/lib/qt5/bin/qmake octopi-cachecleaner.pro
@@ -57,13 +60,13 @@ package() {
    cd ${pkgname}-${_commit}
    make INSTALL_ROOT=${pkgdir} install
    
-   cd notifier/pacmanhelper
-   make INSTALL_ROOT=${pkgdir} install
-   cd ../..
+   #cd notifier/pacmanhelper
+   #make INSTALL_ROOT=${pkgdir} install
+   #cd ../..
    
-   cd notifier/octopi-notifier
+   cd notifier
    make INSTALL_ROOT=${pkgdir} install
-   cd ../..
+   cd ..
    
    cd cachecleaner
    make INSTALL_ROOT=${pkgdir} install
