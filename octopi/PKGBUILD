@@ -1,20 +1,21 @@
 
 pkgname=octopi
-pkgver=0.9.0.89
+pkgver=0.9.0.90
 pkgrel=1
-_commit=fdcb59ae4a45894b918b626356a7d5a363f2f71c
+_commit=43ed522fa827bc4c44efd57039de44c2f700c38f
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
 arch=('x86_64')
 license=('GPL2')
-depends=('pacman' 'pacman-contrib' 'pkgfile' 'knotifications' 'alpm_octopi_utils' 'qtermwidget')
+depends=('pacman' 'pacman-contrib' 'pkgfile' 'knotifications' 'alpm_octopi_utils' 'qtermwidget' 'sudo')
+makedepends=('qt5-tools')
 groups=('system')
 #install=octopi.install
 source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
         "images3.tar.xz"
         'folder_tree.png'
         "https://github.com/aarnt/octopi/commit/a9d9eb30d37e97369cfc64204fe0bde9e0e29918.diff")
-md5sums=('ecc6528eac4be7321459b4a34ff9253f'
+md5sums=('8c4b3b2ab61ff75730f2173f6d59e33f'
          '3c3345539c8500d303f33f890fe733fe'
          'eff9d31629ad8de08c9198524f798bd3'
          '94aa6b71b4f42f5523be82dccc90f266')
@@ -28,7 +29,7 @@ prepare() {
 
    # enable the kstatus switch
    sed -e "s|#KSTATUS|KSTATUS|" -i notifier/octopi-notifier.pro
-   sed -e "s|gui network #dbus|gui network dbus|" -i notifier/octopi-notifier.pro
+   sed -e "s|gui network|gui network dbus|" -i notifier/octopi-notifier.pro
    
    sed -e "s|pacman -U --force|pacman -U|" -i src/pacmanexec.cpp
    
@@ -41,10 +42,15 @@ build() {
    /usr/lib/qt5/bin/qmake octopi.pro
    make
    
-   #cd notifier/pacmanhelper
-   #/usr/lib/qt5/bin/qmake pacmanhelper.pro
-   #make
-   #cd ../..
+   cd sudo
+   /usr/lib/qt5/bin/qmake octopi-sudo.pro
+   make
+   cd ..
+   
+   cd helper
+   /usr/lib/qt5/bin/qmake octopi-helper.pro
+   make
+   cd ..
    
    cd notifier
    /usr/lib/qt5/bin/qmake octopi-notifier.pro
@@ -60,9 +66,13 @@ package() {
    cd ${pkgname}-${_commit}
    make INSTALL_ROOT=${pkgdir} install
    
-   #cd notifier/pacmanhelper
-   #make INSTALL_ROOT=${pkgdir} install
-   #cd ../..
+   cd sudo
+   make INSTALL_ROOT=${pkgdir} install
+   cd ..
+   
+   cd helper
+   make INSTALL_ROOT=${pkgdir} install
+   cd ..
    
    cd notifier
    make INSTALL_ROOT=${pkgdir} install
