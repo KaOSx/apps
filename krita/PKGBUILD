@@ -2,7 +2,7 @@
 pkgname=krita
 pkgver=4.2.2
 _pkgver=4.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -16,19 +16,17 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools') # 'clang')
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
 source=("https://download.kde.org/stable/krita/${_pkgver}/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/krita/commit/2f59d0d1d91e3f79342c20d0df68aa9a51817e8d.diff"
-        'launch_krita.sh'
-        'libraw0.19.patch')
+        "https://github.com/KDE/krita/commit/8d6a2a5d123c90bfb2a4cabdff78a8fc54584e20.diff"
+        'launch_krita.sh')
 sha256sums=('fdca0624e6e4deec20598ea141344086de75a9208687fcc9cd4b14597caa811a'
-            '8b42fa7d830006b747ee4fe620d911430d11baf438a3a065939e687a74174cd2'
-            'df345142ede5ec8f2d3422850dd78059944220f163fa30b5cdefdc9bd54235ff'
-            '975b33492764f80f3b462a2bc589996f97ab1d7e667139023345e7eec40762ab')
+            '00474593da51218869743db8d6151724d2ae7c0b19d678d66c69080bea0418b3'
+            'df345142ede5ec8f2d3422850dd78059944220f163fa30b5cdefdc9bd54235ff')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   sed -i 's|X-KDE-Import": "image/x-krita-raw|X-KDE-Import": "image/x-nikon-nef,image/x-canon-cr2,image/x-sony-sr2,image/x-canon-crw,image/x-pentax-pef,image/x-sigma-x3f,image/x-kodak-kdc,image/x-minolta-mrw,image/x-sony-arw,image/x-kodak-k25,image/x-kodak-dcr,image/x-olympus-orf,image/x-panasonic-raw,image/x-panasonic-raw2,image/x-fuji-raf,image/x-sony-srf,image/x-adobe-dng|' plugins/impex/raw/krita_raw_import.json
   
-  #patch -p1 -i ${srcdir}/libraw0.19.patch
+  patch -p1 -i ${srcdir}/8d6a2a5d123c90bfb2a4cabdff78a8fc54584e20.diff
 }
 
 build() {
