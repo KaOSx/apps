@@ -1,7 +1,8 @@
 
 pkgname=filezilla
 _pkgname=FileZilla
-pkgver=3.42.1
+pkgver=3.42.90
+_pkgver=3.43.0-rc2
 pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client."
 arch=('x86_64')
@@ -9,13 +10,13 @@ url="https://filezilla-project.org/"
 license=('GPL2')
 depends=('dbus' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'wxgtk' 'sqlite'
          'libfilezilla' 'pugixml' 'gnutls')
-source=("https://download.filezilla-project.org/client/${_pkgname}_${pkgver}_src.tar.bz2"
+source=("https://download.filezilla-project.org/client/${_pkgname}_${_pkgver}_src.tar.bz2"
         'filezilla.desktop')
-sha512sums=('0dc9b3a6347803f60a71c56bb759700fb2b1b019dc29794aa639ce892ccd1ae53041112987f9d5e8e75ec7e07702a5aac8e1c131796bbc5f210d75d286276deb'
+sha512sums=('0de4041e42e9d653b4041289bbb6a9764e0f368a3cec66ca248cd8e7801f77355255e346c206c054a42353e04d37a09953c9c2f7bd1adeeb00ebc0b6a1f3f2f0'
             'a9d36573bc30a476e75f33f04f8aef990bdb03a151e7a4b72cdc69c351fc7313da8a84fc2e43383d3945b78a510d01b31a820c3615a185ead3343606285c893b')
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
 
   ./configure --prefix=/usr \
     --disable-manualupdatecheck \
@@ -26,7 +27,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
   make DESTDIR=${pkgdir} install
   
   rm ${pkgdir}/usr/share/applications/filezilla.desktop
