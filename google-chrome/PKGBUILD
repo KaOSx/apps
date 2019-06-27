@@ -1,7 +1,7 @@
 
 pkgbase=google-chrome
 pkgname=('google-chrome' 'widevine')
-pkgver=77.0.3831.6
+pkgver=77.0.3833.0
 pkgrel=1
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
@@ -13,7 +13,7 @@ makedepends=('gcc-libs' 'gtk3' 'nss' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxsl
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html"
          'google-chrome-unstable.desktop')
-md5sums=('7beb14c5ba0008eaa45170c8eecafde0'
+md5sums=('87bfafec0407d4ad9d88c63732a050c5'
          '56ee05f0087071cea8d078f433209681'
          'dc490bcda18c1379056700057800cc8f')
 
@@ -31,7 +31,7 @@ package_google-chrome() {
     gzip ${pkgdir}/usr/share/man/man1/google-chrome-unstable.1.gz
     
     # icons to /usr/share/icons/hicolor/ too
-    for i in 16 22 24 32 48 64 128 256; do
+    for i in 16 24 32 48 64 128 256; do
     install -Dm644 ${pkgdir}/opt/google/chrome-unstable/product_logo_${i}_dev.png ${pkgdir}/usr/share/icons/hicolor/${i}x${i}/apps/google-chrome.png
     done
 
