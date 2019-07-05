@@ -1,0 +1,39 @@
+
+pkgname=ring-kde
+pkgver=3.1.0
+_commit=29171a2e4242dbc97921d2e735d07f92ae05e817
+pkgrel=1
+pkgdesc="KDE client for the Ring communication framework"
+arch=('x86_64')
+url='http://ring.cx/'
+license=('LGPL')
+depends=('kconfig' 'kguiaddons' 'kdbusaddons' 'ki18n' 'kwindowsystem' 'kxmlgui'
+         'kiconthemes' 'kcrash' 'kglobalaccel' 'kdeclarative' 'kirigami' 'knotifications'
+         'knotifyconfig' 'qt5-svg' 'qt5-speech' 'akonadi-contacts' 'jami-daemon' 'libringqt')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=("https://github.com/KDE/ring-kde/archive/${_commit}.zip")
+#source=("https://download.kde.org/stable/ring-kde/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('1dfdc54e0323ace22f7ea1bb891e7b82f9cf36470be8df5983b0b220fda3b47e')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+  #patch -p1 -i $srcdir/qt5.5.diff
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_INSTALL_LIBDIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+} 

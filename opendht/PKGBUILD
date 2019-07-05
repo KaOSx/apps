@@ -1,0 +1,33 @@
+
+pkgname=opendht
+pkgver=1.10.0
+_commit=468331093345e718b5d269a71b3c52a2eea4797e
+pkgrel=1
+pkgdesc="Lightweight C++11 Distributed Hash Table implementation originally based on dht"
+arch=('x86_64')
+url="https://github.com/savoirfairelinux/opendht"
+license=('GPL3')
+depends=('argon2' 'gnutls' 'readline' 'msgpack-c' 'nettle' 'python3-cython' 'jsoncpp')
+makedepends=('cmake')
+source=("https://github.com/savoirfairelinux/opendht/archive/${pkgver}.tar.gz")
+md5sums=('c0663596c403d42f63cb01eaf62f91c8')
+
+build() {
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DOPENDHT_PYTHON=ON \
+    -DOPENDHT_INDEX=On \
+    -DOPENDHT_PUSH_NOTIFICATIONS=ON
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}

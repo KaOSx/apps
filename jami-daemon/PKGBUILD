@@ -1,0 +1,46 @@
+
+pkgname=jami-daemon
+_pkgname=ring-daemon
+pkgver=4.0.0
+_commit=2353b70d5f83279b341d05f1fa12ea3e75c1f9a2
+pkgrel=1
+pkgdesc="Ring daemon, SIP/audio daemon"
+license=('GPL3')
+arch=('x86_64')
+url="https://git.jami.net/savoirfairelinux/ring-daemon"
+depends=('alsa-lib' 'boost-libs' 'dbus-c++' 'expat' 'ffmpeg' 'gsm' 'gnutls' 'jack' 'libsamplerate'
+         'libsndfile' 'libsrtp' 'libupnp' 'pulseaudio' 'opendht' 'openssl' 'opus' 'pcre'
+         'speex' 'speexdsp' 'systemd' 'yaml-cpp' 'yasm' 'jsoncpp') 
+makedepends=('boost')
+source=("https://github.com/savoirfairelinux/ring-daemon/archive/${_commit}.zip")
+md5sums=('fb9d3516d98ff2d2feec5cef4a1b62a5')
+
+build() {
+  #mkdir -p ${_pkgname}-${_commit}/contrib/native
+  cd ${_pkgname}-${_commit}/contrib/native
+  
+  ../bootstrap \
+   --disable-all \
+   --enable-asio \
+   --enable-natpmp \
+   --enable-pjproject \
+   --enable-restbed \
+   --enable-secp256k1
+  make
+
+  cd ../..
+  
+  ./autogen.sh
+  ./configure --prefix=/usr \
+    --sbindir=/usr/bin \
+    --libexecdir=/usr/bin \
+    --sysconfdir=/etc \
+    --with-restcpp \
+  make
+}
+
+package() {
+  cd ${_pkgname}-${_commit}
+  
+  make DESTDIR=${pkgdir} install
+} 

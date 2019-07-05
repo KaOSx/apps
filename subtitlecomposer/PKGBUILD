@@ -1,7 +1,8 @@
 
 pkgname=subtitlecomposer
-pkgver=0.6.6
-pkgrel=4
+_pkgname=SubtitleComposer
+pkgver=0.7.0
+pkgrel=1
 pkgdesc="Open source text-based subtitle editor that supports basic and more advanced operations "
 arch=('x86_64')
 url="https://github.com/maxrd2/subtitlecomposer"
@@ -13,11 +14,11 @@ makedepends=('extra-cmake-modules')
 source=("https://github.com/maxrd2/subtitlecomposer/archive/v${pkgver}.tar.gz"
         "https://github.com/maxrd2/subtitlecomposer/commit/a62048cd9c458de856b3bcfd3a96164ca5017350.diff")
 #source=("https://github.com/maxrd2/subtitlecomposer/archive/${_commit}.zip")
-md5sums=('a9c8fbc924b88ac7cb10d4ca6681d546'
+md5sums=('7259470373adc297d38625fee08aafb2'
          '342c57ec1026b6943a4c26e60bcdc625')
 
 prepare() {
-  cd $pkgname-${pkgver}
+  cd ${_pkgname}-${pkgver}
   #patch -p1 -Ri ${srcdir}/a62048cd9c458de856b3bcfd3a96164ca5017350.diff
   #sed -i -e 's|KF5::SonnetUi|KF5::SonnetUi KF5::KHtml|' src/common/CMakeLists.txt
   #sed -i -e 's|I18n KIO XmlGui|I18n KIO KHtml XmlGui|' CMakeLists.txt
@@ -27,7 +28,7 @@ build() {
     mkdir -p build
     cd build
 
-    cmake ../${pkgname}-${pkgver} \
+    cmake ../${_pkgname}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
         -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \

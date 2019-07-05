@@ -1,0 +1,31 @@
+
+pkgname=libringqt
+pkgver=3.1.0
+pkgrel=1
+pkgdesc="A library for GNU Ring, a secure communication platform"
+arch=('x86_64')
+url="https://github.com/Elv13/libringqt"
+license=('LGPL')
+depends=('jami-daemon' 'qt5-declarative')
+makedepends=('cmake' 'qt5-tools')
+source=("https://github.com/Elv13/libringqt/archive/ring-kde-${pkgver}.tar.gz")
+md5sums=('0c7654c873536129e19eadba146d94ab')
+
+build() {
+  mkdir -p build
+  cd build
+
+  cmake ../${pkgname}-ring-kde-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_BUILD_TYPE=Release
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+  
+  install -D -m644 libringqtquick/LibRingQtQuickConfig.cmake ${pkgdir}/usr/lib/cmake/LibRingQtQuick/
+} 
