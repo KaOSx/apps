@@ -1,13 +1,13 @@
  
 pkgname=chromium-ffmpeg-codecs
-pkgver=70.0.3538.102
+pkgver=75.0.3770.100
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
 url="https://ffmpeg.org/"
 license=('LGPL2.1')
 depends=('gtk3' 'libexif' 'pulseaudio' 'libxss' 'gdk-pixbuf2')
-makedepends=('ninja' 'nss' 'pciutils' 'python2' 'xdg-utils' 'mesa' 'gn')
+makedepends=('ninja' 'nss' 'pciutils' 'python2' 'xdg-utils' 'mesa' 'gn' 'clang')
 options=('!strip')
 groups=('network-web' 'multimedia')
 source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${pkgver}.tar.xz"
@@ -16,7 +16,7 @@ source=("https://commondatastorage.googleapis.com/chromium-browser-official/chro
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-FORTIFY_SOURCE-r2.patch"
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-memcpy-r0.patch"
         #"https://raw.githubusercontent.com/gentoo/gentoo/master/www-client/chromium/files/chromium-clang-r2.patch")
-md5sums=('15ca8a928ea8a63494d0b12ac16ef2d4'
+md5sums=('89e08b5a7f6f7ad006ce8eeec858a4d8'
          '3354997dd0bfde3443499133a6e16a85'
          '767e3e82f89de949909eb990204185cd')
 
@@ -29,10 +29,10 @@ build() {
   #patch -p1 -i ${srcdir}/chromium-FORTIFY_SOURCE-r2.patch
   #patch -p1 -i ${srcdir}/chromium-clang-r2.patch
   
-  #export CC="/usr/bin/clang"
-  #export CXX="/usr/bin/clang++"
+  export CC="/usr/bin/clang"
+  export CXX="/usr/bin/clang++"
   
-  #python2 tools/clang/scripts/update.py --without-android
+  python2 tools/clang/scripts/update.py
 
   local _flags=("ffmpeg_branding=\"ChromeOS\""
                 'proprietary_codecs=true'
@@ -46,8 +46,8 @@ build() {
                 'use_gold=false'
                 'linux_use_bundled_binutils=false'
                 'use_allocator="none"'
-                'is_clang=false'
-                'clang_use_chrome_plugins=false'
+                'is_clang=true'
+                'clang_use_chrome_plugins=true'
                 'fatal_linker_warnings=false'
                 'treat_warnings_as_errors=false'
                 'enable_nacl=false' 
