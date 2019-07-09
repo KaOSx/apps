@@ -18,10 +18,8 @@ optdepends=("dvdauthor: for creating dvds")
 conflicts=('kf5-kdenlive')
 replaces=('kf5-kdenlive')
 groups=('multimedia')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        "https://cgit.kde.org/kdenlive.git/patch/?id=8a20fca86e9e2ce3d04b3e024b0752e19f9d8c8e") 
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'f8a7398628108c736df294a6ed446c6a')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz") 
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
