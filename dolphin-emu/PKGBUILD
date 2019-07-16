@@ -1,19 +1,19 @@
 
 # build version at https://dolphin-emu.org/download/
 pkgname=dolphin-emu
-pkgver=5.0.10413
+pkgver=5.0.10630
 pkgrel=1
-_commit=4f6cdfe68675eba932bd2806d6aa1bea97c864be
+_commit=9dd8f82e78648a34bf3246dea6758215b7224aff
 pkgdesc='GameCube, Wii and Triforce emulator'
 arch=('x86_64')
-url='http://dolphin-emu.org'
+url='https://dolphin-emu.org'
 license=('GPL2')
 depends=('bluez' 'ffmpeg' 'libao' 'miniupnpc' 'openal' 'portaudio'
-         'libevdev' 'soundtouch' 'qt5-base' 'pulseaudio')
+         'libevdev' 'soundtouch' 'qt5-base' 'pulseaudio' 'vulkan-loader')
 makedepends=('cmake')
 source=("https://github.com/dolphin-emu/dolphin/archive/${_commit}.zip")
 #source=("https://github.com/dolphin-emu/dolphin/archive/${pkgver}.tar.gz")
-md5sums=('39b1c3be1f350a249e73663dc79997dc')
+md5sums=('4afd7f06fafaa0aae00241728ce1f9c8')
          
 build() {
   mkdir -p build 
