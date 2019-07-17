@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-runtime
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
@@ -19,13 +19,15 @@ options=('debug')
 conflicts=('kf5-kdepim-runtime')
 replaces=('kf5-kdepim-runtime')
 groups=('kde' 'kdepim' 'kde-uninstall')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://github.com/KDE/kdepim-runtime/commit/d148d6214590c03b8edbd237be7b1354ce4fcfbd.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+        '131f0e9b2127fc511eae59312c10629c')
 
 prepare() {
     cd ${pkgname}-${pkgver}
 
-    #patch -p1 -i ${srcdir}/c9ae16363e68d6958db0cd835cb0180b340594b5.diff
+    patch -p1 -i ${srcdir}/d148d6214590c03b8edbd237be7b1354ce4fcfbd.diff
     sed -i -e 's|setRecursiveFiltering(true)|setRecursiveFilteringEnabled(true);|' agents/newmailnotifier/newmailnotifierselectcollectionwidget.cpp
 }
 
