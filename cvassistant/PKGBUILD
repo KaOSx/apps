@@ -2,21 +2,19 @@
 pkgname=cvassistant
 _pkgname=CVAssistant
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="CV Assistant helps you create specialized resumes in Word .docx format fast and easy."
 url='https://sourceforge.net/projects/cvassistant/?source=navbar'
 license=('GPL')
 arch=('x86_64')
 depends=('qt5-base' 'zlib' 'quazip')
 #makedepends=('qt5-tools')
-source=("https://sourceforge.net/projects/cvassistant/files/${pkgname}-${pkgver}-src.tar.bz2"
-        'pro.diff')
-md5sums=('1f14e91e090896feca3b037edf973e19'
-         '47ecfa602ab70a588fa9c2c10ac5a802')
+source=("https://sourceforge.net/projects/cvassistant/files/${pkgname}-${pkgver}-src.tar.bz2")
+md5sums=('1f14e91e090896feca3b037edf973e19')
 
 build() {
   cd ${pkgname}-${pkgver}-src
-  #patch -p1 -i $srcdir/pro.diff
+
   sed -i -e 's|LIBS += -lquazip-qt5|LIBS += -lquazip5|' CVAssistant.pro
   sed -i -e 's|<quazip/quazipfile.h>|<quazip5/quazipfile.h>|' models/resumedocument.h
   sed -i -e 's|//#define NO_DONATION_PROMPT|#define NO_DONATION_PROMPT|' controllers/mainwindow.cpp
