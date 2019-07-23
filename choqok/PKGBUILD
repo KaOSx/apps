@@ -2,7 +2,7 @@
 pkgname=choqok
 pkgver=1.6.0
 _pkgver=1.6
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Micro-Blogging client, Currently supports Pump.io, GNU social and Twitter.com"
 url="http://choqok.gnufolks.org/"
 license=('GPL')
@@ -15,16 +15,10 @@ groups=('communication')
 source=("http://download.kde.org/stable/choqok/${_pkgver}/src/choqok-${pkgver}.tar.xz")
 md5sums=('f61ff13a748a78bb01433c5419c7cc13')
 
-#prepare() {
-#  cd ${pkgname}-${_commit}
-  
-#  sed -i 's|#include <klocale.h>||' ${srcdir}/${pkgname}/plugins/imstatus/imstatussettings.h
-#}
-
 build() {
-  mkdir build
-  
+  mkdir -p build
   cd build
+  
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
