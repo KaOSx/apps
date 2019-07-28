@@ -1,6 +1,6 @@
 
 pkgname=latte-dock
-pkgver=0.8.9
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="Dock based on plasma frameworks that provides an elegant and intuitive experience for your tasks and plasmoids"
 arch=('x86_64')
@@ -8,13 +8,13 @@ url="https://store.kde.org/p/1169519/"
 license=('GPL')
 depends=('plasma-framework' 'kactivities' 'kcoreaddons' 'kdbusaddons' 'kdeclarative' 'kwayland'
          'kpackage' 'kxmlgui' 'kiconthemes' 'ki18n' 'karchive' 'knotifications' 'kglobalaccel'
-         'kwindowsystem' 'kcrash' 'knewstuff' 'qt5-x11extras')
+         'kwindowsystem' 'kcrash' 'knewstuff' 'libksysguard' 'qt5-x11extras')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma-addons')
 conflicts=('now-dock' 'nowdock-panel')
 replaces=('now-dock' 'nowdock-panel')
 source=("https://download.kde.org/stable/latte-dock/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('b2e7e6441fed707a1c33cb83821256e035966bb8efb25cd5c357669686ea77ce')
+sha256sums=('d7233401d535474b1834a55a5103e744958abbe0a0aa1a48aa29ee3788ccb424')
 
 build() {
   cd ${pkgname}-${pkgver}
