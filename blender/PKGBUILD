@@ -1,27 +1,27 @@
 
 pkgname=blender
 # adjust .desktop for version
-pkgver=2.79.2
-_pkgver=2.79b
+pkgver=2.80
+_pkgver=2.80
 pkgrel=1
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
 license=('GPL')
 url="http://www.blender.org"
 depends=('desktop-file-utils' 'shared-mime-info' 'hicolor-icon-theme' 'xdg-utils')
-source=("https://download.blender.org/release/Blender2.79/${pkgname}-${_pkgver}-linux-glibc219-x86_64.tar.bz2"
+source=("https://download.blender.org/release/Blender2.80/${pkgname}-${_pkgver}-linux-glibc217-x86_64.tar.bz2"
         'blender.desktop')
-sha256sums=('43824a4e0b0c6de6fa34ff224eec44c1cc9f26a95f6f3c8c2558d1c05704183c'
-            '9b5324ebb9ddc899ee1144bf4de4419ab4b05000b4a01702b0175cc0db5ba287')
+sha256sums=('7276216e95b28c74306cec21b6d61e202cbe14035a15a77dbc45fe9d98fca7aa'
+            '869d115d6e0afa1010a05541042d3cdc4d60f91af851b8001df3e7e44fc14fd3')
 
 package() {
-  cd ${pkgname}-${_pkgver}-linux-glibc219-x86_64
+  cd ${pkgname}-${_pkgver}-linux-glibc217-x86_64
   
   install -d ${pkgdir}/opt
-  mv -iv ${srcdir}/${pkgname}-${_pkgver}-linux-glibc219-x86_64 ${pkgdir}/opt
+  mv -iv ${srcdir}/${pkgname}-${_pkgver}-linux-glibc217-x86_64 ${pkgdir}/opt
   
   mkdir -p ${pkgdir}/usr/share/icons/hicolor/scalable/apps
-  install -m 644 -p ${pkgdir}/opt/${pkgname}-${_pkgver}-linux-glibc219-x86_64/icons/scalable/apps/blender.svg \
+  install -m 644 -p ${pkgdir}/opt/${pkgname}-${_pkgver}-linux-glibc217-x86_64/icons/scalable/apps/blender.svg \
       ${pkgdir}/usr/share/icons/hicolor/scalable/apps/blender.svg
 
   install -Dm644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
