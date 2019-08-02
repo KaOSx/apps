@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-runtime
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 pkgdesc="KDE Pim Runtime"
 url="http://www.kde.org"
@@ -27,7 +27,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
     cd ${pkgname}-${pkgver}
 
-    patch -p1 -i ${srcdir}/d148d6214590c03b8edbd237be7b1354ce4fcfbd.diff
+    #patch -p1 -i ${srcdir}/d148d6214590c03b8edbd237be7b1354ce4fcfbd.diff
     sed -i -e 's|setRecursiveFiltering(true)|setRecursiveFilteringEnabled(true);|' agents/newmailnotifier/newmailnotifierselectcollectionwidget.cpp
 }
 

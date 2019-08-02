@@ -3,9 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kipi-plugins
-#pkgver=${_kdever}
-pkgver=5.9.1
-pkgrel=2
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc="Collection of plugins extending the KDE graphics and image applications as digiKam, Gwenview, and KPhotoalbum."
 url="https://projects.kde.org/projects/extragear/graphics/kipi-plugins"
 arch=('x86_64')
@@ -17,10 +16,8 @@ depends=('kparts' 'kconfig' 'kiconthemes' 'kwindowsystem' 'kxmlgui' 'kio' 'kserv
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 optdepends=('enblend-enfuse: to work with the panorama tool')
 groups=('kde' 'kde-graphics' 'kde-uninstall')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://download.kde.org/stable/kipi-plugins/${pkgname}-${pkgver}.tar.xz")
-md5sums=('466c6090fc4b73f09bb8d15c4db95706')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
