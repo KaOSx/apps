@@ -25,5 +25,6 @@
 > …
 
 #### System info link created by Octopi > Tools > SysInfo
+(Upload to pastebin service such as [dpaste](https://dpaste.com))
 
 > …
