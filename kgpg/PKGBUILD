@@ -5,12 +5,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kgpg
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="GPG encryption and key management"
 url="https://github.com/KDE/kgpg"
 license=('GPL' 'LGPL' 'FDL')
-depends=('akonadi-contacts' 'karchive' 'ki18n' 'kiconthemes' 'kcodecs' 'kio'
-         'kdelibs4support' 'kxmlgui' 'kservice' 'kwidgetsaddons' 'gpgme')
+depends=('karchive' 'kcodecs' 'kcoreaddons' 'kcrash' 'kdbusaddons'
+         'ki18n' 'kiconthemes' 'kjobwidgets' 'kio' 'knotifications' 'kservice' 'kxmlgui' 
+         'kwidgetsaddons' 'kwindowsystem' 'sonnet' 'kitemmodels' 'kcompletion' 'kitemviews' 'solid'
+         'kauth' 'kconfigwidgets' 'akonadi-contacts' 'gpgme')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kde' 'kde-utils' 'kde-uninstall' 'utils')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
