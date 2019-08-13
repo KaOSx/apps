@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kanagram
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Letter Order Game"
 url="http://kde.org/applications/education/kanagram/"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kcrash' 'sonnet' 'kconfig' 'kconfigwidgets' 'kdeclarative' 'kio' 'knewstuff'
-         'kdelibs4support' 'libkeduvocdocument' 'phonon-qt5')
+depends=('ki18n' 'kcrash' 'sonnet' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdeclarative' 'kio' 'knewstuff'
+         'libkeduvocdocument' 'phonon-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kdeedu-kanagram')
 replaces=('kdeedu-kanagram')
@@ -26,8 +26,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make

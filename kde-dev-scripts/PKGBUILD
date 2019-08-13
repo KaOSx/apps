@@ -4,16 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-dev-scripts
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Scripts and setting files useful during development of KDE software'
 url='https://projects.kde.org/projects/kde/kdesdk/kde-dev-scripts'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kde-sdk' 'kde-uninstall')
-depends=('kdelibs4support' 'python2')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdesdk-dev-scripts')
-replaces=('kdesdk-dev-scripts')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 

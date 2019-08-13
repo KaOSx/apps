@@ -4,15 +4,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdenetwork-filesharing
 pkgver=${_kdever}
-#pkgver=15.07.71
-pkgrel=1
+pkgrel=2
 pkgdesc='Properties dialog plugin to share a directory with the local network'
 url='https://projects.kde.org/projects/kde/kdenetwork/kdenetwork-filesharing'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kio' 'kdbusaddons' 'kbookmarks' 'kconfig'
-         'kparts' 'solid' 'kiconthemes' 'kcompletion' 'ktexteditor' 'kwindowsystem' 'knotifications'
-         'kwidgetsaddons'  'kdelibs4support' 'samba')
+depends=('kcompletion' 'kcoreaddons' 'ki18n' 'kio' 'kwidgetsaddons' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde-network' 'kde-uninstall')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
@@ -21,7 +18,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #md5sums=('SKIP')
 
 prepare() {
-  cd $pkgname-${pkgver}
+  cd ${pkgname}-${pkgver}
   #patch -p1 -i ${srcdir}/cmake.diff
 }
 
