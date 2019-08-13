@@ -4,12 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kinfocenter
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KInfocenter'
 arch=('x86_64')
 url='https://github.com/KDE/kinfocenter'
 license=('LGPL')
-depends=('glu' 'kcmutils' 'kdelibs4support' 'kemoticons' 'libraw1394' 'pciutils' 'plasma-framework' 'kwayland')
+depends=('glu' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kiconthemes'
+         'kcmutils' 'kio' 'kservice' 'solid' 'kwidgetsaddons' 'kxmlgui' 'kdeclarative' 'kpackage' 'libraw1394'
+         'pciutils' 'kwayland')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
 conflicts=('kde-workspace' 'about-distro')
