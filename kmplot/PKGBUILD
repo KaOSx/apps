@@ -4,15 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kmplot
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Mathematical Function Plotter"
 url="http://kde.org/applications/education/kmplot/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kguiaddons' 'ki18n' 'kdelibs4support' 'kparts' 'kwidgetsaddons')
+depends=('kcrash' 'kguiaddons' 'ki18n' 'kparts' 'kwidgetsaddons' 'kdbusaddons')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdeedu-kmplot')
-replaces=('kdeedu-kmplot')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -32,8 +30,8 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make

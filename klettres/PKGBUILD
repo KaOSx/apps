@@ -4,16 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=klettres
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Learn The Alphabet"
 url="http://kde.org/applications/education/klettres/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcompletion' 'kemoticons' 'kitemmodels' 'ki18n' 'kdelibs4support' 'knewstuff' 'kwidgetsaddons'
-         'kconfigwidgets' 'kcoreaddons' 'phonon-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-conflicts=('kdeedu-klettres')
-replaces=('kdeedu-klettres')
+depends=('kcompletion' 'kcrash' 'ki18n' 'knewstuff' 'kwidgetsaddons' 'kconfigwidgets' 'kcoreaddons' 'phonon-qt5')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education' 'kaos-kids')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -25,8 +22,6 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
