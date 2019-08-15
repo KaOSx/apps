@@ -1,6 +1,6 @@
 pkgname=mixxx
-pkgver=2.2.1
-_pkgver=release-2.0.0
+pkgver=2.2.2
+_pkgver=release-2.2.2
 _commit=286a52a432e05fbd7ed2ad029fe2a11f44f1cf85
 pkgrel=1
 pkgdesc="Free, open source software for digital DJ'ing."
@@ -11,14 +11,14 @@ depends=('faad2' 'fftw' 'libid3tag' 'libmad' 'libmodplug' 'libogg' 'libshout' 'l
          'portaudio' 'portmidi' 'protobuf' 'qt5-xmlpatterns' 'qt5-svg' 'qt5-script' 'qt5-x11extras' 'rubberband'
          'taglib' 'wavpack' 'opusfile' 'chromaprint' 'upower' 'lilv' 'libmp4v2')
 makedepends=('scons' 'glu' 'qt5-tools' 'clang')
-#source=("https://github.com/mixxxdj/mixxx/archive/${_pkgver}.tar.gz"
-source=("https://github.com/mixxxdj/mixxx/archive/${_commit}.zip"
+source=("https://github.com/mixxxdj/mixxx/archive/${_pkgver}.tar.gz"
+#source=("https://github.com/mixxxdj/mixxx/archive/${_commit}.zip"
         'chromaprint4.2.diff')
-md5sums=('a24aab8f6f1064f5a9b34a7e1ea625bd'
+md5sums=('6cc0950555e408bfc77c57599deefe1a'
          '98de45bddeb9b2c3544808b4acbfdfc0')
 
 build() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${_pkgver}
   
   #patch -p1 -i ${srcdir}/chromaprint4.2.diff
   
@@ -29,7 +29,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${_pkgver}
   
   #CXXFLAGS="-std=c++11"
 
