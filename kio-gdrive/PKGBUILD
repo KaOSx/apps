@@ -1,21 +1,23 @@
 
 pkgname=kio-gdrive
 pkgver=1.2.6
-pkgrel=1
+_commit=85a0b569780dc423fc368f45b2ebbf6cd1d07a2e
+pkgrel=2
 pkgdesc="KIO Slave to access Google Drive"
 arch=('x86_64')
 url='https://github.com/KDE/kio-gdrive'
 license=('GPL2')
 depends=('ki18n' 'kio' 'libkgapi' 'qtkeychain' 'dolphin' 'kaccounts-integration')
 makedepends=('extra-cmake-modules' 'kdoctools' 'intltool')
-source=("https://download.kde.org/stable/kio-gdrive/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('7a9169e1d464641eb0ae4013ca1732b46bdfd50a13b3e87810c19ba794527f7b')
+#source=("https://download.kde.org/stable/kio-gdrive/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+source=("https://github.com/KDE/kio-gdrive/archive/${_commit}.zip")
+sha256sums=('c0563490c3f23cc2787b555c63ac9b853c05a51e254f866fb28da25ed268b50e')
 
 build() {
   mkdir -p build
   cd build 
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
