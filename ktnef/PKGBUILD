@@ -4,17 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktnef
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library that contains an API for the handling of TNEF data."
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/pim/ktnef'
+url='https://kontact.kde.org/'
 license=('LGPL')
-depends=('kdelibs4support' 'kcalcore' 'kcalutils' 'kcontacts')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+depends=('ki18n' 'kcalcore' 'kcalutils' 'kcontacts')
+makedepends=('extra-cmake-modules' 'kdoctools')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/ktnef.git")
-#md5sums=('SKIP')
 
 prepare() {
   cd $pkgname-${pkgver}
@@ -22,17 +20,13 @@ prepare() {
 }
 
 build() {
-  mkdir build
+  mkdir -p build
   
   cd build 
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make 
 }

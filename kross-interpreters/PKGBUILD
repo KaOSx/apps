@@ -4,20 +4,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kross-interpreters
 pkgver=${_kdever}
-pkgrel=1
-pkgdesc="KDE interpreters for Kross"
-url="http://kde.org/"
+pkgrel=2
+pkgdesc="Language interpreters to enable in-process scripting with Kross."
+url="https://kde.org/applications/development/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kdelibs4support' 'kross' 'python2')
+depends=('kross' 'python2' 'ruby')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-bindings' 'kde-uninstall')
-provides=('kdebindings-kross-interpreters')
-replaces=('kdebindings-kross-interpreters')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kross-interpreters.git")
-#md5sums=('SKIP')
 
 build() {
   mkdir -p build
@@ -26,10 +22,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins
   make
 }
 

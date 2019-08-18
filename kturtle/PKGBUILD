@@ -4,16 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kturtle
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Educational Programming Environment"
-url="http://kde.org/applications/education/kturtle/"
+url="https://kde.org/applications/education/org.kde.kturtle"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kio' 'knewstuff' 'ki18n' 'kdelibs4support')
+depends=('kcrash' 'kio' 'knewstuff' 'ktextwidgets' 'ki18n' 'kcoreaddons')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdeedu-kturtle')
-replaces=('kdeedu-kturtle')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -25,10 +23,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DBUILD_TESTING=OFF 
   make
 }

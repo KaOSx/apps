@@ -5,17 +5,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-sdk
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Applications useful for Plasma Development."
 url="https://github.com/KDE/plasma-sdk"
 license=('GPL' 'LGPL' 'FDL')
 depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons'
          'kdeclarative' 'ki18n' 'kiconthemes' 'kitemmodels' 'kio' 'knewstuff' 'kparts' 
          'plasma-framework' 'kservice' 'ktexteditor' 'kwidgetsaddons' 'kxmlgui' 'kwindowsystem'
-         'kirigami' 'kdelibs4support' 'qt5-webkit')
+         'kirigami')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=($_mirror/${pkgname}-${_plasmaver}.tar.xz)
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
@@ -25,11 +24,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
 }

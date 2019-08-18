@@ -17,8 +17,8 @@ build() {
   cd ${pkgname}-linux-${pkgver}
   
   yarn
-  yarn build:linux
-  #npx grunt 'linux-other'
+  sed -i '/Promise.all/d' node_modules/@wireapp/build-tools/dist/cli/build-linux-cli.js
+  LINUX_TARGET=dir yarn build:linux
 }
 
 package() {
