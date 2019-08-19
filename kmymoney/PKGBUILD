@@ -1,6 +1,6 @@
 
 pkgname=kmymoney
-pkgver=5.0.5
+pkgver=5.0.6
 pkgrel=1
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
@@ -10,11 +10,18 @@ depends=('karchive' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'ki18n' 'kcompletio
          'kservice' 'kwallet' 'kiconthemes' 'kxmlgui' 'ktextwidgets' 'knotifications' 'kio' 'kholidays' 
          'gpgme' 'kcontacts' 'akonadi-contacts' 'akonadi' 'kidentitymanagement' 'kross'
          'shared-mime-info' 'boost-libs' 'pulseaudio' 'libofx' 'libical' 'alkimia' 'kdiagram'
-         'kactivities' 'aqbanking' 'kdewebkit' 'sqlcipher')
+         'kactivities' 'aqbanking' 'qtwebengine' 'sqlcipher')
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost')  
 groups=('office')
 source=("https://download.kde.org/stable/kmymoney/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('e7245d14097ea21f971fae45627a20b15ed9cc3d3e7c7e797cc24e730cd1f0c1')
+sha256sums=('ba945fb26fff581f95e1132f50d222bd51a2458b959a9b7cb468ba617cfa9183')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  # lower aqbanking requirement until there actually is a 5.8.0 release
+  sed -i -e 's|find_package(AQBANKING 5.8.0)|find_package(AQBANKING 5.7.8)|' CMakeLists.txt
+}
 
 build() {
   mkdir -p build
@@ -30,7 +37,7 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
     -DENABLE_SQLCIPHER=ON \
-    -DENABLE_WEBENGINE=OFF # build fails when using qtwebengine looking for KWebView
+    -DENABLE_WEBENGINE=ON 
   make
 }
 
