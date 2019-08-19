@@ -1,14 +1,14 @@
 
 pkgname=kmymoney
 pkgver=5.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
 url="http://www.kmymoney.org/"
 license=('GPL')
 depends=('karchive' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'ki18n' 'kcompletion' 'kcmutils' 'kitemmodels' 'kitemviews'
          'kservice' 'kwallet' 'kiconthemes' 'kxmlgui' 'ktextwidgets' 'knotifications' 'kio' 'kholidays' 
-         'gpgme' 'kcontacts' 'akonadi-contacts' 'akonadi' 'kidentitymanagement' 'kross'
+         'gpgme' 'kcontacts' 'akonadi-contacts' 'akonadi' 'kidentitymanagement'
          'shared-mime-info' 'boost-libs' 'pulseaudio' 'libofx' 'libical' 'alkimia' 'kdiagram'
          'kactivities' 'aqbanking' 'qtwebengine' 'sqlcipher')
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost')  
@@ -20,7 +20,7 @@ prepare() {
   cd ${pkgname}-${pkgver}
 
   # lower aqbanking requirement until there actually is a 5.8.0 release
-  sed -i -e 's|find_package(AQBANKING 5.8.0)|find_package(AQBANKING 5.7.8)|' CMakeLists.txt
+  #sed -i -e 's|find_package(AQBANKING 5.8.0)|find_package(AQBANKING 5.7.8)|' CMakeLists.txt
 }
 
 build() {
