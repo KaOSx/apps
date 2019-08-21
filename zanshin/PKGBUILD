@@ -1,23 +1,31 @@
 
 pkgname=zanshin
 pkgver=0.5.0
-pkgrel=1
+_commit=074d2c34883a7136ce07138dd0de62a370936f9e
+pkgrel=2
 pkgdesc="A Getting Things Done application which aims at getting your mind like water."
 url="https://zanshin.kde.org/"
 arch=('x86_64')
 license=('GPL')
-depends=('akonadi-calendar' 'akonadi-notes' 'akonadi-search' 'kidentitymanagement' 'kontactinterface'
-         'kldap' 'krunner' 'kwallet' 'kmime' 'kcalcore' 'kparts' 'kcoreaddons')
+depends=('akonadi-calendar' 'kontactinterface' 'kmime' 'kcalcore' 
+         'krunner' 'kwindowsystem' 'ki18n' 'kwidgetsaddons' 'kparts' 'kcoreaddons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('office')
-source=("https://download.kde.org/stable/zanshin/${pkgname}-${pkgver}.tar.xz")
-md5sums=('1a01f7f34a51619b221ec51673d0c12b')
+#source=("https://download.kde.org/stable/zanshin/${pkgname}-${pkgver}.tar.xz")
+source=("https://github.com/KDE/zanshin/archive/${_commit}.zip")
+md5sums=('e534a8625e26a29580f6ec54c065e98d')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+  
+  sed -i -e 's|include <kcalcore_version.h>|include <kcalendarcore_version.h>|' src/akonadi/akonadiserializer.cpp 
+}
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
