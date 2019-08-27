@@ -2,17 +2,17 @@
 pkgname=kjots
 pkgver=5.0.2
 _commit=d36f81a92266d696a263564519428adc19b53fe4
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 pkgdesc="Note taking application for KDE using Akonadi"
-url="https://projects.kde.org/projects/playground/pim/kjots"
+url="https://github.com/KDE/kjots/"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcmutils' 'kio' 'kconfig' 'kconfigwidgets' 'kparts' 'kbookmarks' 'kxmlgui' 'ktextwidgets'
          'akonadi' 'kmime' 'akonadi-notes' 'kpimtextedit' 'kontactinterface'
          'grantlee')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 #source=("https://github.com/KDE/kjots/archive/${_commit}.zip"
-source=("http://download.kde.org/stable/kjots/${pkgver}/kjots-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/kjots/${pkgver}/kjots-${pkgver}.tar.xz"
         "https://github.com/KDE/kjots/commit/d536dbdf606d18baa437d03a9852fa6bb7289953.diff"
         "https://github.com/KDE/kjots/commit/01fc847ef4baefddbaade39cfb97f9e7d59b0cc8.diff")
 md5sums=('296136e9860142596235d6d3f2c523e8'
@@ -36,9 +36,6 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=FALSE 
   make 
