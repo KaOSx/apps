@@ -1,8 +1,7 @@
 
 pkgname=polkit-qt5
 _pkgname=polkit-qt-1
-pkgver=0.112.0.2
-_commit=10024cad2a372171fc337451094a6d36cba62651
+pkgver=0.113.0
 pkgrel=1
 pkgdesc='Qt5 wrapper around polkit-1 client libraries, to provide the polkit-1 kauth used by KDE'
 arch=('x86_64')
@@ -10,14 +9,14 @@ url='https://projects.kde.org/projects/kdesupport/polkit-qt-1'
 license=('LGPL')
 depends=('polkit' 'qt5-base')
 makedepends=('extra-cmake-modules')
-source=("https://github.com/KDE/polkit-qt-1/archive/${_commit}.zip")
-md5sums=('8ea45d4656defbf5afea3692090a85de')
+source=("https://download.kde.org/stable/polkit-qt-1/${_pkgname}-${pkgver}.tar.xz")
+sha256sums=('5b866a2954ef10ffb66156e2fe8ad0321b5528a8df2e4a91b02f5041ce5563a7')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${_pkgname}-${_commit} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib
@@ -27,5 +26,5 @@ build() {
 package() {
   cd build
   
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
