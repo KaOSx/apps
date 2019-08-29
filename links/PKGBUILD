@@ -1,21 +1,18 @@
 
 pkgname=links
-pkgver=2.19
+pkgver=2.20
 pkgrel=1
 pkgdesc="A text WWW browser, similar to Lynx"
 arch=('x86_64')
 url="http://links.twibright.com/"
 license=('GPL')
-depends=('bzip2' 'xz' 'zlib' 'openssl' 'gpm')
+depends=('bzip2' 'xz' 'zlib' 'openssl' 'gpm' 'libx11' 'libtiff' 'libpng')
 makedepends=('libtiff' 'libpng' 'libxt')
-optdepends=('libx11: for using xlinks'
-            'libtiff: for using xlinks'
-            'libpng: for using xlinks')
+groups=('network-web')
 source=("http://links.twibright.com/download/${pkgname}-${pkgver}.tar.bz2"
         'links.desktop')
-md5sums=('fa6df86919640e490187ee9d85a4f598'
+md5sums=('981b2446a5aca2896540e2c92a227548'
          '7c47b15aaef51f1de129ff3a2afb7eac')
-groups=('network-web')
 
 build() {
   cd ${pkgname}-${pkgver}
