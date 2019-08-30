@@ -2,7 +2,7 @@
 pkgname=kdeconnect-kde
 pkgver=1.3.5
 _pkgver=1.3.5
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='KDE Connect adds communication between KDE and your smartphone'
 url='https://github.com/KDE/kdeconnect-kde'
@@ -10,7 +10,7 @@ license=('GPL')
 arch=('x86_64')
 depends=('kcmutils' 'kconfigwidgets' 'kiconthemes' 'kdbusaddons' 'knotifications' 
          'kio' 'ki18n' 'kdeclarative' 'kwayland' 'qca-qt5' 'libfakekey'
-         'qt5-quickcontrols' 'qt5-connectivity' 'telepathy-qt5' 'kirigami' 'sshfs')
+         'qt5-quickcontrols' 'telepathy-qt5' 'kirigami' 'sshfs')
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kf5-kdeconnect-kde')
 replaces=('kf5-kdeconnect-kde')
@@ -36,8 +36,7 @@ build() {
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
-    -DEXPERIMENTALAPP_ENABLED=ON \
-    -DBLUETOOTH_ENABLED=ON
+    -DEXPERIMENTALAPP_ENABLED=ON 
   make 
 }
 
