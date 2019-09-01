@@ -1,8 +1,8 @@
 
 pkgname=ktorrent
-pkgver=5.1.1
-pkgrel=2
-ktorver=5.1.1
+pkgver=5.1.2
+pkgrel=1
+ktorver=5.1.2
 pkgdesc="A BitTorrent program for KDE"
 arch=('x86_64')
 url="https://github.com/KDE/ktorrent"
@@ -17,7 +17,7 @@ install=ktorrent.install
 groups=('network')
 options=('libtool')
 source=("https://download.kde.org/stable/ktorrent/${ktorver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('b54149cf1dd3ed59cb7be54c326469a64e152f39f2d7db01de9fdd6b2ce3562a')
+sha256sums=('641427a3d6ecb18b0b28c1cc2ec3ba54612abf684df5e10e6c953cd7af058d4f')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -26,7 +26,7 @@ prepare() {
 }
 
 build() {
-  mkdir build
+  mkdir -p build
   cd build
   
   cmake ../${pkgname}-${pkgver} \
