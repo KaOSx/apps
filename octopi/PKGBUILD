@@ -1,7 +1,7 @@
 
 pkgname=octopi
 pkgver=0.9.0.91
-pkgrel=1
+pkgrel=2
 _commit=31060ae2b2f7c496c95b2262b8219c39b65e45be
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://octopiproject.wordpress.com/"
@@ -30,6 +30,10 @@ prepare() {
    sed -e "s|gui network|gui network dbus|" -i notifier/octopi-notifier.pro
    
    sed -e "s|pacman -U --force|pacman -U|" -i src/pacmanexec.cpp
+   
+   # show correct text for SysInfo window
+   sed -e "s|mhwd -li -d|installation.log|" -i src/strconstants.cpp
+   sed -e "s|head --bytes=256K /var/log/pacman.log|/var/log/pacman.log|" -i src/strconstants.cpp
    
    #patch -R -p1 -i ${srcdir}/a9d9eb30d37e97369cfc64204fe0bde9e0e29918.diff
 }
