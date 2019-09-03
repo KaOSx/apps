@@ -1,6 +1,6 @@
 
 pkgname=go
-pkgver=1.12.9
+pkgver=1.13
 pkgrel=1
 pkgdesc='Google Go compiler and tools (release version)'
 arch=('x86_64')
@@ -12,7 +12,7 @@ options=('!strip' 'staticlibs')
 install="${pkgname}.install"
 # check for versions: http://golang.org/dl/
 source=("https://storage.googleapis.com/golang/${pkgname}${pkgver}.linux-amd64.tar.gz")
-sha256sums=('ac2a6efcc1f5ec8bdc0db0a988bb1d301d64b6d61b7e8d9e42f662fbb75a2b9b')
+sha256sums=('68a2297eb099d1a76097905a2ce334e3155004ec08cdea85f24527be3c48e856')
 
 build() {
   cd go/src
@@ -34,12 +34,12 @@ build() {
 
   GOOS=linux
 
-  $GOROOT/bin/go get -d golang.org/x/tools/cmd/godoc
-  $GOROOT/bin/go build -o ${srcdir}/godoc golang.org/x/tools/cmd/godoc
-  for tool in benchcmp bundle callgraph cover digraph eg fiximports goimports gorename html2article present ssadump stress stringer toolstash; do
-    $GOROOT/bin/go get -d golang.org/x/tools/cmd/${tool}
-    $GOROOT/bin/go build -o $GOROOT/pkg/tool/${GOOS}_amd64/${tool} golang.org/x/tools/cmd/${tool}
-  done
+  #$GOROOT/bin/go get -d golang.org/x/tools/cmd/godoc
+  #$GOROOT/bin/go build -o ${srcdir}/godoc golang.org/x/tools/cmd/godoc
+  #for tool in benchcmp bundle callgraph cover digraph eg fiximports goimports gorename html2article present ssadump stress stringer toolstash; do
+  #  $GOROOT/bin/go get -d golang.org/x/tools/cmd/${tool}
+  #  $GOROOT/bin/go build -o $GOROOT/pkg/tool/${GOOS}_amd64/${tool} golang.org/x/tools/cmd/${tool}
+  #done
 }
 
 check() {
@@ -61,7 +61,7 @@ package() {
   export GOROOT="${srcdir}/${pkgname}"
   export GOBIN="$GOROOT/bin"
 
-  install -Dm755 "${srcdir}/godoc" "${pkgdir}/usr/bin/godoc"
+  #install -Dm755 "${srcdir}/godoc" "${pkgdir}/usr/bin/godoc"
 
   install -Dm644 LICENSE \
     "${pkgdir}/usr/share/licenses/go/LICENSE"
