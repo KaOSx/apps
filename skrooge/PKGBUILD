@@ -1,7 +1,7 @@
 
 pkgname=skrooge
 pkgver=2.20.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Allows you to manage your personal finances in KDE"
 arch=('x86_64')
 url="https://skrooge.org"
@@ -13,14 +13,14 @@ depends=('grantlee' 'karchive' 'kcoreaddons' 'kconfig' 'ki18n' 'kitemviews' 'kwi
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost' 'clang')
 groups=('office')
 source=("https://download.kde.org/stable/skrooge/${pkgname}-${pkgver}.tar.xz"
-        'sqlite3.patch')
+        'qt5.13.patch')
 sha256sums=('3c58c54ad048b03608fde0b794de0cd3a83d0b5bd43c1d033c5dc8739f755365'
-            '46c6501d5f573bc5d330b97df73007f42dc162c5c7fff10a753b5842ee0238c0')
+            '77409c3b0b2458858e5600e37d6ce68575f1e52eeeaf9c0ce420b54be92490aa')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -e "s/FIND_PACKAGE(KActivities)/FIND_PACKAGE(KF5Activities)/" -i ${srcdir}/$pkgname/skgbasegui/CMakeLists.txt
-  #patch -p1 -i ${srcdir}/sqlite3.patch
+  patch -p1 -i ${srcdir}/qt5.13.patch
 }
          
 build() {
