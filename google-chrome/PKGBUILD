@@ -10,10 +10,11 @@ options=('!strip' '!emptydirs')
 makedepends=('gcc-libs' 'gtk3' 'nss' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxslt'
             'libpng' 'alsa-lib' 'libxss' 'xdg-utils')
 # version:  curl -sL "https://dl.google.com/linux/chrome/rpm/stable/x86_64/repodata/other.xml.gz" | gzip -df | tr ' ' '\n' | grep -e name= -e ver= | cut -d '"' -f2 | sed 'N;s/\n/ /'
+# sha256 https://dl.google.com/linux/chrome/deb/dists/stable/main/binary-amd64/Packages
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html"
          'google-chrome-unstable.desktop')
-md5sums=('60ff82fbd4cb64f1a89da6de3d9a9996'
+sha256sums=('60ff82fbd4cb64f1a89da6de3d9a9996'
          'aae1d6faa956b69eaaf081fb7dbc0131'
          'dc490bcda18c1379056700057800cc8f')
 
