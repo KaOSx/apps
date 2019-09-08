@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=systemsettings
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE system settings'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/systemsettings'
@@ -22,9 +22,10 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #Fix the "KDEInit count not launch /usr/bin/systemsettings5" message
+  
+  sed -i 's|kcm:user_manager.desktop|kcm:kwindecoration.desktop|' sidebar/SidebarMode.cpp
   #patch -p1 -i ${srcdir}/1490607667954f9d5bf2b9ec6d466b89b9b582c4.diff
-  rm -rf po/id/docs
+  #rm -rf po/id/docs
 }
 
 build() {
