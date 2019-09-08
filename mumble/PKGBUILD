@@ -1,6 +1,6 @@
 
 pkgname=mumble
-pkgver=1.2.92
+pkgver=1.3.0
 _pkgver=1.3.0
 pkgrel=1
 arch=('x86_64')
@@ -9,10 +9,10 @@ url="https://wiki.mumble.info/wiki/Main_Page"
 license=('BSD')
 depends=('speex' 'lsb-release' 'libxi' 'avahi' 'libsndfile' 'protobuf' 'pulseaudio' 'opus' 'qt5-svg') 
 makedepends=('boost' 'mesa' 'qt5-tools')
-source=("https://mumble.info/snapshot/${pkgname}-1.3.0-rc2.tar.gz"
-#source=("https://mumble.info/snapshot/${pkgname}-${_pkgver}.tar.gz"
+#source=("https://mumble.info/snapshot/${pkgname}-1.3.0-rc2.tar.gz"
+source=("https://github.com/mumble-voip/mumble/releases/download/1.3.0/${pkgname}-${_pkgver}.tar.gz"
         'setupview.diff')
-md5sums=('f6a3fa48d76dc834c45fe88acf0b0935'
+md5sums=('65fd57177879f5d1830c13a63d9f50ab'
          'ab49563b33a6d8fee7e9f32d856e9948')
 
 build() {
