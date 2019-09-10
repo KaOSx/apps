@@ -4,13 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kxmlgui
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KXMLGUI provides a framework for managing menu and toolbar actions in an abstract way'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kxmlgui'
 license=('LGPL')
 depends=('kglobalaccel' 'ktextwidgets' 'kf5-attica')
-makedepends=('extra-cmake-modules')
+makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/KDE/kxmlgui/commit/1bc3a0b41c0c119cd049160a87b09ea95a4532a0.diff")
