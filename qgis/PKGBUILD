@@ -3,15 +3,15 @@ pkgname=qgis
 _pkgname=QGIS
 pkgver=3.8.2
 _commit=7dbe4943d606b8acd879dd6ed9e38542e3ab0bab
-pkgrel=2
+pkgrel=3
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='https://qgis.org/'
 license=('GPL')
 arch=('x86_64')
-depends=('mariadb' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'python2' 'giflib' 'gsl' 'grass'
+depends=('mariadb' 'postgresql-libs' 'sqlite' 'jasper' 'curl' 'giflib' 'gsl' 'grass'
          'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt5' 
          'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
-         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5' 'qtwebkit-tp' 'qt5-xmlpatterns'
+         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5' 'qt5-xmlpatterns'
          'python3-numpy' 'python3-httplib2' 'python3-requests' 'pyyaml'
          'libzip' 'qtkeychain' 'exiv2')
 makedepends=('cmake'  'netcdf' 'sip3' 'qt5-tools') 
@@ -44,7 +44,7 @@ prepare() {
         -DQGIS_MANUAL_SUBDIR=share/man \
         -DPYTHON_EXECUTABLE=/usr/bin/python3 \
         -DWITH_QWTPOLAR=FALSE \
-        -DWITH_QTWEBKIT=TRUE
+        -DWITH_QTWEBKIT=FALSE
      
       make
 }

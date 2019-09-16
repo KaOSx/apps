@@ -28,7 +28,10 @@ build() {
   export GUILE_CONFIG=/usr/bin/guile-config1.8
   export LDFLAGS="$LDFLAGS -lpthread"
 
-  ./configure --prefix=/usr --disable-documentation
+  ./configure --prefix=/usr \
+    --disable-documentation \
+    --with-python-include=/usr/include/python2.7m/ \
+    --with-python-lib=/usr/lib/libpython2.so
   make all
 }
 
