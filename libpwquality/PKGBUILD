@@ -1,13 +1,13 @@
 
 pkgname=libpwquality
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for password quality checking and generating random passwords"
 arch=('x86_64')
 url="https://github.com/libpwquality/libpwquality"
 license=('GPL')
 options=('!libtool')
-depends=('cracklib' 'python2')
+depends=('cracklib' 'python3')
 source=("https://github.com/libpwquality/libpwquality/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.bz2")
 md5sums=('b8defcc7280a90e9400d6689c93a279c')
 
@@ -17,7 +17,8 @@ build() {
     ./configure --prefix=/usr \
         --sysconfdir=/etc \
         --localstatedir=/var \
-        --disable-static
+        --disable-static \
+        --with-python-binary=python3
     make
 }
 
