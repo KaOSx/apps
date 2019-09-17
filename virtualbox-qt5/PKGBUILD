@@ -7,14 +7,14 @@ pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
 pkgver=6.0.12
 _pkgver=6.0.12
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
 makedepends=('alsa-lib' 'bin86' 'cdrkit' 'curl' 'device-mapper' 'glu' 'iasl' 'openjdk'
              'libidl2' 'libvncserver' 'libvpx' 'libxcomposite' 'libxcursor' 'libxinerama'
              'libxml2' 'libxmu' 'libxrandr' 'libxslt' 'libxtst' 'linux-headers' 'mesa' 'pulseaudio'
-             'python2' 'qt5-tools' 'qt5-x11extras' 'sdl' 'sdl_ttf' 'xf86driproto' 
+             'python3' 'qt5-tools' 'qt5-x11extras' 'sdl' 'sdl_ttf' 'xf86driproto' 
              'xf86-input-mouse' 'xorg-server' 'nasm' 'yasm' 'opus')
 source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgver}.tar.bz2"
         '60-vboxdrv.rules'
@@ -26,7 +26,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
 sha256sums=('c8878d1ad867461e6adfb82c22f15bf5d284e214e75f7b2c6bcd81854edeabc3'
             '9c5238183019f9ebc7d92a8582cad232f471eab9d3278786225abc1a1c7bf66e'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
-            '5a98dc3467bc43fa88c7e84a771455863bf7d60fdbd5b55956299d96c6b36b35'
+            '84dff0d4ccb8d97d4b4e46dde4f8f6c891409e0a9a6428e0b91114a33dc6e68e'
             '94a808f46909a51b2d0cf2c6e0a6c9dea792034943e6413bf9649a036c921b21'
             'f67674931c30187f867233e3a4ae662f93c9110fbd0bfce50dd9f391f4533bc0'
             '188014070bce4f6fb9b2535bcd64d066119e182e848c521407ea891ab41a995b')
@@ -36,6 +36,7 @@ prepare() {
 
     patch -p1 -i ${srcdir}/driver-path.patch
     #patch -p1 -i ${srcdir}/include-path.patch
+    sed -i -e 's|python3.5 python3.5m|python3.7 python3.7m|' configure
     
     #sed -i -e 's|/usr/X11R6/bin/xterm|/usr/X11R6/bin/xterm|' src/VBox/Runtime/VBox/RTAssertShouldPanic-vbox.cpp
     sed -i -e 's|X11R6/||' configure
@@ -69,7 +70,7 @@ build() {
 
 package_virtualbox-qt5() {
     pkgdesc='Oracle VM VirtualBox is powerful x86 virtualization for enterprise as well as home use'
-    depends=('glibc' 'openssl' 'curl' 'gcc-libs' 'libpng' 'python2' 'sdl'
+    depends=('glibc' 'openssl' 'curl' 'gcc-libs' 'libpng' 'python3' 'sdl'
              'libvpx' 'libxml2' 'procps-ng' 'shared-mime-info' 'zlib'
              'libxcursor' 'libxinerama' 'libx11' 'libxext' 'libxmu' 'libxt' 'xf86-input-mouse'
              'qt5-x11extras' 'virtualbox-modules' 'opus')
