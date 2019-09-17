@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libqaccessibilityclient
 pkgver=0.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Library used for when writing accessibility clients such as screen readers."
 arch=('x86_64')
 url='https://github.com/KDE/libkdeaccessibilityclient'
@@ -20,7 +20,8 @@ build() {
   
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr 
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib 
   make
 }
 
