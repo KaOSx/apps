@@ -1,7 +1,7 @@
 
 pkgbase=google-chrome
 pkgname=('google-chrome' 'widevine')
-pkgver=78.0.3904.9
+pkgver=78.0.3904.17
 pkgrel=1
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
@@ -14,7 +14,7 @@ makedepends=('gcc-libs' 'gtk3' 'nss' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxsl
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
          "https://www.google.com/chrome/intl/en/eula_text.html"
          'google-chrome-unstable.desktop')
-sha256sums=('dcf104f2677090dfc3907f8cdb5c56e2569373a55da0db8be2bdf63fbd86f789'
+sha256sums=('e5acf61be76dbd9d1345bf9d2785afcb8fcd6937c15dbac988997aa00bb9315b'
             '6dd5ffc2c58074b19ab9ed3ae92d0ba12456a105ff52cd91ff13836edd607795'
             '6a5c0dd62112dcc3d9d750974d10d9e78b5964011cfe9e281c7e5acacb42b8cf')
 
@@ -43,7 +43,7 @@ package_google-chrome() {
     rm ${pkgdir}/opt/google/chrome-unstable/product_logo_*.png
     
     # use in widevine package
-    rm ${pkgdir}/opt/google/chrome-unstable/libwidevinecdm.so
+    rm -r ${pkgdir}/opt/google/chrome-unstable/WidevineCdm #_platform_specific/libwidevinecdm.so
     #rm ${pkgdir}/opt/google/chrome-unstable/libwidevinecdmadapter.so
     
     rm ${pkgdir}/usr/share/applications/google-chrome-unstable.desktop
@@ -58,7 +58,7 @@ package_widevine() {
     
     bsdtar -xf data.tar.xz
     
-    install -Dm644 opt/google/chrome-unstable/libwidevinecdm.so ${pkgdir}/opt/google/chrome-unstable/libwidevinecdm.so
+    install -Dm644 opt/google/chrome-unstable/WidevineCdm/ ${pkgdir}/opt/google/chrome-unstable/WidevineCdm/
     #install -Dm755 opt/google/chrome-unstable/libwidevinecdmadapter.so ${pkgdir}/opt/google/chrome-unstable/libwidevinecdmadapter.so
     
     mkdir -p ${pkgdir}/usr/lib/chromium
@@ -66,5 +66,5 @@ package_widevine() {
     ln -s /opt/google/chrome-unstable/libwidevinecdm.so ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
     #ln -s /opt/google/chrome-unstable/libwidevinecdmadapter.so ${pkgdir}/usr/lib/chromium/libwidevinecdmadapter.so
     
-    install -Dm644 $srcdir/eula_text.html ${pkgdir}/usr/share/licenses/widevine/eula_text.html
+    install -Dm644 ${pkgdir}/usr/share/licenses/widevine/eula_text.html
 }
