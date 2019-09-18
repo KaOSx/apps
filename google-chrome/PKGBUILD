@@ -37,14 +37,13 @@ package_google-chrome() {
     done
 
     # License
-    install -Dm644 $srcdir/eula_text.html ${pkgdir}/usr/share/licenses/google-chrome/eula_text.html
+    install -Dm644 ${srcdir}/eula_text.html ${pkgdir}/usr/share/licenses/google-chrome/eula_text.html
     
     rm -r ${pkgdir}/etc/cron.daily/ ${pkgdir}/opt/google/chrome-unstable/cron/
     rm ${pkgdir}/opt/google/chrome-unstable/product_logo_*.png
     
     # use in widevine package
-    rm -r ${pkgdir}/opt/google/chrome-unstable/WidevineCdm #_platform_specific/libwidevinecdm.so
-    #rm ${pkgdir}/opt/google/chrome-unstable/libwidevinecdmadapter.so
+    rm -r ${pkgdir}/opt/google/chrome-unstable/WidevineCdm 
     
     rm ${pkgdir}/usr/share/applications/google-chrome-unstable.desktop
     install -m755 $srcdir/google-chrome-unstable.desktop ${pkgdir}/usr/share/applications/google-chrome-unstable.desktop
@@ -58,13 +57,10 @@ package_widevine() {
     
     bsdtar -xf data.tar.xz
     
-    install -Dm644 opt/google/chrome-unstable/WidevineCdm/ ${pkgdir}/opt/google/chrome-unstable/WidevineCdm/
-    #install -Dm755 opt/google/chrome-unstable/libwidevinecdmadapter.so ${pkgdir}/opt/google/chrome-unstable/libwidevinecdmadapter.so
+    install -Dm644 opt/google/chrome-unstable/WidevineCdm/LICENSE ${pkgdir}/usr/share/licenses/widevine/LICENSE
+    install -Dm644 opt/google/chrome-unstable/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so ${pkgdir}/opt/google/chrome-unstable/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so
     
     mkdir -p ${pkgdir}/usr/lib/chromium
     cd ${pkgdir}
     ln -s /opt/google/chrome-unstable/libwidevinecdm.so ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
-    #ln -s /opt/google/chrome-unstable/libwidevinecdmadapter.so ${pkgdir}/usr/lib/chromium/libwidevinecdmadapter.so
-    
-    install -Dm644 ${pkgdir}/usr/share/licenses/widevine/eula_text.html
 }
