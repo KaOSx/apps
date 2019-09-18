@@ -1,6 +1,6 @@
 
 pkgname=opera
-pkgver=63.0.3368.88
+pkgver=63.0.3368.94
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite."
 arch=('x86_64')
@@ -10,7 +10,7 @@ depends=('gcc-libs' 'libxt' 'freetype2' 'libxext' 'glib2' 'shared-mime-info' 'hi
         'desktop-file-utils' 'gtk3' 'libnotify' 'chromium-ffmpeg-codecs' 'gsettings-desktop-schemas')
 groups=('network-web')
 source=("https://download1.operacdn.com/pub/opera/desktop/${pkgver}/linux/opera-stable_${pkgver}_amd64.rpm")
-sha256sums=('3b3f6f02fe2f5a777b971820e0fbfed5df62e07ffae687785673eb5fb6a89d6c')
+sha256sums=('f01b5d17a4d5c44706856da946aa9c20f5d64576bd9e047973efce3bea1bb21f')
 
 package() {
 	#bsdtar -xJf data.tar.xz -C ${pkgdir}/
@@ -29,4 +29,7 @@ package() {
 	
 	mkdir -p ${pkgdir}/usr/lib/opera/lib_extra
 	ln -s /usr/lib/chromium/libs/libffmpeg.so ${pkgdir}/usr/lib/opera/lib_extra/libffmpeg.so
+	
+	# fix for widevine chrome 78 & up
+	sed -i -e 's|/opt/google/chrome-unstable/libwidevinecdm.so|/opt/google/chrome-unstable/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so|' ${pkgdir}/usr/lib/opera/resources/widevine_config.json
 }
