@@ -15,7 +15,7 @@ depends=('frameworkintegration' 'knotifyconfig' 'krunner' 'kdesu' 'knewstuff' 'k
          'kemoticons' 'libxrandr' 'kded' 'kwin' 'libksysguard' 'ktexteditor'
          'khelpcenter' 'kio-extras' 'baloo' 'milou' 'libkscreen' 'breeze' 'gpsd' 'libqalculate' 'cln' 'qt5-tools'
          'qimageblitz' 'oxygen-icons5' 'prison' 'sddm-kcm' 'networkmanager-qt' 'kxmlrpcclient' 'kscreenlocker'
-         'kactivitymanagerd' 'iso-codes' 'kholidays' 'drkonqi')
+         'kactivitymanagerd' 'kpeople' 'kactivities-stats' 'iso-codes' 'kholidays' 'drkonqi')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('plasma-l10n')
 replaces=('plasma-l10n')
@@ -65,8 +65,8 @@ package() {
   cd build
   make DESTDIR=${pkgdir} install
   
-  sed 's|qdbus|qdbus-qt5|' -i $pkgdir/usr/bin/startplasmacompositor
-  sed 's|qdbus|qdbus-qt5|' -i $pkgdir/usr/lib/startplasma
+  #sed 's|qdbus|qdbus-qt5|' -i $pkgdir/usr/bin/startplasmacompositor
+  #sed 's|qdbus|qdbus-qt5|' -i $pkgdir/usr/lib/startplasma
   
   install -Dm755 ${srcdir}/10-kf5 ${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5
   
