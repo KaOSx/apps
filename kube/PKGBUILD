@@ -3,8 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kube
-pkgver=0.7.0
-pkgrel=3
+pkgver=0.8.0
+pkgrel=1
 pkgdesc="Personal information and collaboration application using Sink for data access, mail and synchronization"
 arch=('x86_64')
 url='https://kube.kde.org/'
@@ -12,10 +12,9 @@ license=('LGPL')
 groups=('network-email')
 depends=('sink' 'kasync' 'kcodecs' 'ki18n' 'kmime' 'qtwebengine' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-location')
 makedepends=('extra-cmake-modules' 'boost')
-#source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://download.kde.org/unstable/kube/${pkgver}/src/kube-${pkgver}.tar.xz")
-sha256sums=('6f3dc84548dcf3e432a592e44717132a282d107d32c82560a2c5495c678a874f')
+source=("https://github.com/KDE/kube/archive/v${pkgver}.tar.gz")
+#source=("https://download.kde.org/unstable/kube/${pkgver}/src/kube-${pkgver}.tar.xz")
+sha256sums=('e343e3c457a84b106d1fd24f0847f26a4fa1206b1e7b1db9349e177c8829727b')
 
 prepare() {
   cd ${pkgname}-${pkgver}
