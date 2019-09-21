@@ -1,6 +1,6 @@
 
 pkgname=rsibreak
-pkgver=0.12.10
+pkgver=0.12.11
 _pkgver=0.12
 pkgrel=1
 pkgdesc="RSIBreak helps in preventing Repetitive Strain Injury by reminding you to take a break."
@@ -11,7 +11,7 @@ depends=('kconfig' 'kconfigwidgets' 'kcrash' 'kdbusaddons' 'kiconthemes' 'ki18n'
          'knotifications' 'knotifyconfig' 'ktextwidgets' 'kxmlgui' 'kwindowsystem')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("https://download.kde.org/stable/rsibreak/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('93f790e107c9ec98c6a5f45f89b318a0b72c906c69828f2f91094b859510cc51')
+sha256sums=('1bf2e7d837a0807542b6f505a7fa71aa48e576ef4bb68ad0d4dddeba9e795d25')
 
 build() {
   mkdir -p build
@@ -21,7 +21,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make
 }
