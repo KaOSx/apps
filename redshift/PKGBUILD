@@ -1,24 +1,24 @@
 
 pkgname=redshift
 pkgver=1.12
-pkgrel=2
+pkgrel=3
 pkgdesc='Adjusts the color temperature of your screen according to your surroundings'
 arch=('x86_64')
 url='http://jonls.dk/redshift/'
 license=('GPL3')
 depends=('libxxf86vm' 'libxcb' 'libdrm')
-groups=('color')
 makedepends=('python3' 'intltool')
+groups=('color')
 source=("https://github.com/jonls/redshift/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=('5d04f2413dacdf3434cb86f373842462')
 
 build() {
   cd ${pkgname}-${pkgver}
 
-  PYTHON=/usr/bin/python3 ./configure \
-         --prefix=/usr \
-         --disable-gui \
-         --disable-ubuntu 
+  ./configure \
+    --prefix=/usr \
+    --disable-gui \
+    --disable-ubuntu 
   make
 }
 
