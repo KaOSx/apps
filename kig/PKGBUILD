@@ -4,15 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kig
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="Interactive Geometry"
 url="http://kde.org/applications/education/kig/"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kparts' 'ki18n' 'ktexteditor' 'kiconthemes' 'kconfigwidgets' 'karchive' 'kxmlgui'
-         'kcrash' 'kcoreaddons' 'boost-libs')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+         'kcrash' 'kcoreaddons') # 'boost-libs')
+makedepends=('extra-cmake-modules' 'kdoctools') # 'boost')
 conflicts=('kdeedu-kig')
 replaces=('kdeedu-kig')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
@@ -30,6 +30,7 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
+    #-DKIG_ENABLE_PYTHON_SCRIPTING=OFF
   make
 }
 

@@ -1,7 +1,7 @@
 
 pkgname=calamares
 pkgver=3.2.13
-pkgrel=4
+pkgrel=5
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
@@ -27,7 +27,7 @@ md5sums=('SKIP'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '9c64f09da47f27a666d458c9369d53f9'
          '4b126b6494c776016accd8ffbd0be51d'
-         '85fa7afab5b001958a9267722139c56f')
+         '07d0a22890cbadccc0547607920f6e76')
 
 prepare () {
   cd ${pkgname}
@@ -52,7 +52,7 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DWITH_PYTHONQT=OFF \
     -DWEBVIEW_FORCE_WEBKIT=ON \
-    -DINSTALL_CONFIG=ON
+    -DINSTALL_CONFIG=ON 
   make
 }
 
