@@ -1,22 +1,25 @@
  
 pkgname=appstream
 _pkgname=AppStream
-pkgver=0.12.8
+pkgver=0.12.9
 pkgrel=1
 pkgdesc="Provides a standard for creating app stores across distributions"
 arch=('x86_64')
 url="https://github.com/ximion/appstream"
 license=('GPL')
 depends=('libyaml' 'libxml2' 'glib2' 'qt5-base' 'lmdb')
-makedepends=('meson' 'ninja' 'gobject-introspection' 'itstool' 'xmlto' 'gtk-doc' 'gperf' 'qt5-tools')
+makedepends=('meson' 'ninja' 'gobject-introspection' 'itstool' 'xmlto' 'gtk-doc' 'gperf' 'qt5-tools' 'clang')
 source=("https://www.freedesktop.org/software/appstream/releases/${_pkgname}-${pkgver}.tar.xz"
         'appstream.hook')
-md5sums=('e972ea4b2046fc764f5f2613f33bcdec'
+md5sums=('da311c24274498dccc51b83ceb310238'
          'f244ccc7b89aacfe903facce393174ca')
 
 build() {
   mkdir -p build
   cd build
+  
+  export CC=/usr/bin/clang
+  export CXX=/usr/bin/clang++
 
    meson ../${_pkgname}-${pkgver} \
     --prefix=/usr \
@@ -24,7 +27,8 @@ build() {
     --libexecdir=/usr/lib \
     -Dqt=true \
     -Dstemming=false \
-    -Ddocs=false
+    -Ddocs=false \
+    -Dmaintainer=false
   ninja
 }
 
