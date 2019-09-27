@@ -2,7 +2,7 @@
 pkgname=appstream
 _pkgname=AppStream
 pkgver=0.12.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Provides a standard for creating app stores across distributions"
 arch=('x86_64')
 url="https://github.com/ximion/appstream"
@@ -24,7 +24,8 @@ build() {
    meson ../${_pkgname}-${pkgver} \
     --prefix=/usr \
     --buildtype=release \
-    --libexecdir=/usr/lib \
+    --libdir=lib \
+    --libexecdir=lib \
     -Dqt=true \
     -Dstemming=false \
     -Ddocs=false \
