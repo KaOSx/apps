@@ -1,32 +1,32 @@
 
 pkgname=handbrake
-pkgver=1.2.2
-_commit=c069f98
-pkgrel=3
+pkgver=1.2.80
+_commit=7ce5030
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Multithreaded video transcoder"
 url="https://handbrake.fr/"
 license=('GPL')
 depends=('bzip2' 'gcc-libs' 'gst-plugins-base' 'libnotify' 'dbus-glib' 'fribidi' 'libass' 'gtk3'
          'fontconfig' 'freetype2' 'libxml2' 'libogg' 'libvorbis' 'libtheora' 'libsamplerate'
-         'libgudev' 'x264' 'desktop-file-utils' 'hicolor-icon-theme' 'lame' 'jansson' 'speex')
-makedepends=('intltool' 'python2' 'nasm' 'wget')
-source=("https://download.handbrake.fr/releases/${pkgver}/HandBrake-${pkgver}-source.tar.bz2")
-#source=("https://github.com/HandBrake/HandBrake/tarball/master/handbrake-${pkgver}.tar.gz")
-sha256sums=('df6816f517d60ae8a6626aa731821af2d1966c155fa53b2b9a06c47f3c565e4c')
+         'libgudev' 'x264' 'desktop-file-utils' 'hicolor-icon-theme' 'lame' 'jansson' 'speex' 'libvpx')
+makedepends=('intltool' 'python3' 'nasm' 'wget' 'meson')
+#source=("https://download.handbrake.fr/releases/${pkgver}/HandBrake-${pkgver}-source.tar.bz2")
+source=("https://github.com/HandBrake/HandBrake/tarball/master/handbrake-${pkgver}.tar.gz")
+sha256sums=('6e5b425129b49ab9e0f274d3ee11a7b6f376dfca5fba02427fd16c91351be3f7')
 
 build() {
-  cd HandBrake-${pkgver}
-  #cd HandBrake-HandBrake-${_commit}/
+  #cd HandBrake-${pkgver}
+  cd HandBrake-HandBrake-${_commit}/
 
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr --disable-numa
   cd build
   make
 }
 
 package() {
-  cd HandBrake-${pkgver}/build
-  #cd HandBrake-HandBrake-${_commit}/build
+  #cd HandBrake-${pkgver}/build
+  cd HandBrake-HandBrake-${_commit}/build
 
   make DESTDIR=${pkgdir} install
 }
