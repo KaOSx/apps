@@ -2,8 +2,8 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kcalcore
-pkgver=${_kdever}
+pkgname=kcalendercore
+pkgver=${_kf5ver}
 pkgrel=1
 pkgdesc="KDE calender core libraries"
 arch=('x86_64')
@@ -11,8 +11,11 @@ url='https://projects.kde.org/projects/kde/pim/kcalore'
 license=('LGPL')
 depends=('libical' 'qt5-base')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("http://download.kde.org/stable/applications/17.08.3/src/${pkgname}-${_kdever}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+conflicts=('kcalcore')
+provides=('kcalcore')
+replaces=('kcalcore')
+source=("http://download.kde.org/stable/frameworks/5.63/${pkgname}-${_kf5ver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
