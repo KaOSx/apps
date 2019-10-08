@@ -1,25 +1,27 @@
 
 pkgname=choqok
-pkgver=1.6.0
+pkgver=1.6.80
 _pkgver=1.6
-pkgrel=2
+_commit=b62f46ae0a8778ca7c87511eb98cf53595998a1f
+pkgrel=1
 pkgdesc="KDE Micro-Blogging client, Currently supports Pump.io, GNU social and Twitter.com"
 url="http://choqok.gnufolks.org/"
 license=('GPL')
 arch=('x86_64')
 depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'kemoticons' 'kglobalaccel' 'kguiaddons' 'kcmutils' 'knotifications' 
-         'knotifyconfig' 'sonnet' 'ktextwidgets' 'kwallet' 'kwidgetsaddons' 'kxmlgui' 'kparts' 'kdewebkit' 
-         'kio' 'kjobwidgets' 'telepathy-qt5' 'kaccounts-providers' 'qoauth' 'qca-qt5')
+         'knotifyconfig' 'sonnet' 'ktextwidgets' 'kwallet' 'kwidgetsaddons' 'kxmlgui' 'kparts' 
+         'kio' 'kjobwidgets' 'telepathy-qt5' 'kaccounts-providers' 'qca-qt5' 'qt5-networkauth')
 makedepends=('extra-cmake-modules' 'git' 'kdoctools')
 groups=('communication')
-source=("http://download.kde.org/stable/choqok/${_pkgver}/src/choqok-${pkgver}.tar.xz")
-md5sums=('f61ff13a748a78bb01433c5419c7cc13')
+#source=("https://download.kde.org/stable/choqok/${_pkgver}/src/choqok-${pkgver}.tar.xz")
+source=("https://github.com/KDE/choqok/archive/${_commit}.zip")
+md5sums=('bb529ac21ae966e59ba3d605e4b531e3')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
