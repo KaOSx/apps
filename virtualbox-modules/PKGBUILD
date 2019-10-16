@@ -1,5 +1,5 @@
 
-_extramodules=extramodules-5.2
+_extramodules=extramodules-5.3
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-modules
@@ -10,7 +10,7 @@ pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
 arch=('x86_64')
 license=('GPL-2')
-depends=('linux>=5.2.10' 'linux<5.3')
+depends=('linux>=5.3.6' 'linux<5.4')
 makedepends=('linux-headers' 'elfutils')
 source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-kernel-module-src-${_pkgver}.tar.xz"
         'virtualbox-modules-depmod.patch'
