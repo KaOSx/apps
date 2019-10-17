@@ -52,6 +52,6 @@ package() {
   make DESTDIR=${pkgdir} install
   # don't override system defaults
   install -Dm755 ${srcdir}/launch_krita.sh ${pkgdir}/usr/bin/launch_krita.sh
-  sed 's|Exec=krita %U|Exec=launch_krita.sh|' -i ${pkgdir}/usr/share/applications/org.kde.krita.desktop
+  sed 's|Exec=krita %F|Exec=launch_krita.sh|' -i ${pkgdir}/usr/share/applications/org.kde.krita.desktop
 }
 

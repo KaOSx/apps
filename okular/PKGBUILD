@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -45,6 +45,7 @@ package() {
   cd build
 
   make DESTDIR=${pkgdir} install
-  # fix non-working menu item in lost & found
+  # fix non-working menu/mobile only items in lost & found
   echo "NoDisplay=true" >> ${pkgdir}/usr/share/applications/org.kde.mobile.okular.desktop
+  echo "NoDisplay=true" >> ${pkgdir}/usr/share/applications/org.kde.okular.kirigami.desktop
 }
