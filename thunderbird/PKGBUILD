@@ -1,6 +1,6 @@
 
 pkgname=thunderbird
-pkgver=68.1.2
+pkgver=68.2.0
 pkgrel=1
 pkgdesc="Standalone Mail/News reader"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('alsa-lib' 'cairo' 'dbus-glib' 'desktop-file-utils' 'fontconfig' 'freet
 source=("https://ftp.mozilla.org/pub/mozilla.org/thunderbird/releases/${pkgver}/linux-x86_64/en-US/thunderbird-${pkgver}.tar.bz2"
         'thunderbird.desktop'
         'vendor.js')
-sha256sums=('52a2ab5cbad60b09062085ca17b7785fcda179062f96fa019e1f3add1a22a6d4'
+sha256sums=('be52999133f5414f7f6f8841a915382ffbf432aafbb64aa04ce7623a825157e7'
             '8d0b499b3009934f66fd10975acee985fe64a8c0447918b309b8c5e6a5aa4372'
             'd283af3d8b65c3ad73fa831b6aa904ed6bc4487976d9906d4da6ad9953cfb522')
 groups=('network-email')
@@ -21,10 +21,10 @@ groups=('network-email')
 package() {
   install -d ${pkgdir}/{usr/bin,opt}
 
-  cp -r thunderbird/ ${pkgdir}/opt/$pkgname-$pkgver/
-  cp vendor.js ${pkgdir}/opt/$pkgname-$pkgver/defaults/pref/
+  cp -r thunderbird/ ${pkgdir}/opt/${pkgname}-${pkgver}/
+  cp vendor.js ${pkgdir}/opt/${pkgname}-${pkgver}/defaults/pref/
   
-  ln -s /opt/$pkgname-$pkgver/thunderbird ${pkgdir}/usr/bin/thunderbird
+  ln -s /opt/${pkgname}-${pkgver}/thunderbird ${pkgdir}/usr/bin/thunderbird
   
   for i in 16x16 22x22 24x24 32x32 48x48 64x64 128x128; do
       install -Dm644 thunderbird/chrome/icons/default/default${i/x*/}.png ${pkgdir}/usr/share/icons/hicolor/$i/apps/thunderbird.png
@@ -32,7 +32,7 @@ package() {
   
   install -Dm644 thunderbird.desktop ${pkgdir}/usr/share/applications/thunderbird.desktop
   
-  rm -rf ${pkgdir}/opt/$pkgname-$pkgver/dictionaries/
-  ln -sf /usr/share/hunspell/ ${pkgdir}/opt/$pkgname-$pkgver/dictionaries
-  ln -sf /usr/share/hyphen/ ${pkgdir}/opt/$pkgname-$pkgver/hyphenation
+  rm -rf ${pkgdir}/opt/${pkgname}-${pkgver}/dictionaries/
+  ln -sf /usr/share/hunspell/ ${pkgdir}/opt/${pkgname}-${pkgver}/dictionaries
+  ln -sf /usr/share/hyphen/ ${pkgdir}/opt/${pkgname}-${pkgver}/hyphenation
 }
