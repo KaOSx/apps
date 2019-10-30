@@ -12,12 +12,10 @@ license=('LGPL')
 groups=('kdeplasma5')
 depends=('karchive' 'kauth' 'kcmutils' 'kconfigwidgets' 'knewstuff' 'kde-cli-tools' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'gtk2' 'gtk3')
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        'gsettings.patch')
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
         #'org.gnome.desktop.interface.gschema.xml')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '414cfb58bd9f290528a036502eb17e16')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -25,7 +23,7 @@ prepare() {
   # not adding the Gnome desktop just for kde-gtk-config, hack to make it build, cp one gnome file on packaging
   #sed -i -e 's|org.gnome.desktop.interface.gschema.xml|.bashrc|' cmake/modules/FindGSettingSchemas.cmake
   #sed -i -e 's|PATH_SUFFIXES glib-2.0/schemas|~|' cmake/modules/FindGSettingSchemas.cmake
-  patch -p1 -i ${srcdir}/gsettings.patch
+  #patch -p1 -i ${srcdir}/gsettings.patch
 }
 
 build() {
