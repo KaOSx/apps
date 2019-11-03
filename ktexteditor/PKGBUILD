@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktexteditor
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KTextEditor provides a powerful text editor component that you can embed in your application'
 arch=('x86_64')
 url='https://github.com/KDE/ktexteditor'
@@ -20,7 +20,7 @@ md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://bugs.kde.org/show_bug.cgi?id=413474
-  patch -p1 -i ${srcdir}/f6e72a23052339253daa79095391625cf01c96f1.diff
+  #patch -p1 -i ${srcdir}/f6e72a23052339253daa79095391625cf01c96f1.diff
 }
 
 build() {

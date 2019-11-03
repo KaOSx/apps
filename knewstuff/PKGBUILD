@@ -12,10 +12,8 @@ license=('LGPL')
 depends=('kf5-attica' 'kconfigwidgets' 'kio')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/knewstuff/commit/e98a2e4b6f0042c10a31023ef37a3534832135b6.diff")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '0e3613beae4e63183afec70a0616b4af')
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
