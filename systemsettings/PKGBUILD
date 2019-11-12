@@ -14,11 +14,9 @@ depends=('kitemviews' 'kcmutils' 'ki18n' 'kio' 'kservice' 'kiconthemes' 'kwidget
          'kactivities-stats' 'kirigami' 'plasma-workspace')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/systemsettings/commit/1490607667954f9d5bf2b9ec6d466b89b9b582c4.diff")
+source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'af5da0e8996cad003319bdb8aeb2ab63')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
