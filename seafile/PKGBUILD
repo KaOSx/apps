@@ -1,21 +1,23 @@
 
 pkgname=seafile
-pkgver=7.0.2
+pkgver=7.0.3
 pkgrel=1
 pkgdesc="Open source cloud storage with advanced features on privacy protection and teamwork."
 arch=('x86_64')
 url="https://github.com/haiwen/seafile/"
 license=('GPLv3')
-depends=('libsearpc' 'fuse' 'python2' 'libevent')
+depends=('libsearpc' 'fuse' 'python3-future' 'libevent')
 makedepends=('intltool' 'vala')
 source=("https://github.com/haiwen/seafile/archive/v${pkgver}.tar.gz")
-md5sums=('531224c0857b77b707e15b672e8dfa8a')
+md5sums=('4e4891a723dc2666244c60b3831f6482')
 
 build() {
   cd ${pkgname}-${pkgver}
 
   ./autogen.sh
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr \
+    --disable-server \
+    --enable-client
   make
 }
 
