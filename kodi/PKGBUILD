@@ -1,8 +1,8 @@
 
 pkgname=kodi
-pkgver=18.4
-_pkgver=18.4-Leia
-pkgrel=2
+pkgver=18.5
+_pkgver=18.5-Leia
+pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
 url="https://kodi.tv/"
@@ -26,7 +26,7 @@ groups=('multimedia')
 options=('makeflags')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
 source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
-md5sums=('5e5e1e2527c2619785597b04e35fda6c')
+md5sums=('77a642026adce08513a4ef5e42cfeb1d')
 
 build() {
     mkdir -p build
@@ -45,7 +45,7 @@ build() {
         -DENABLE_INTERNAL_RapidJSON=ON \
         -DENABLE_INTERNAL_FFMPEG=OFF \
         -DENABLE_DVDCSS=OFF
-    make VERBOSE=1
+    make -j4 VERBOSE=1
   
     # use when switched to cmake build
     #make -C ../xbmc-${_pkgver}/tools/depends/target/binary-addons PREFIX=/usr
