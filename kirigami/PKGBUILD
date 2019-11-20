@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
  
 pkgname=kirigami
 pkgver=${_kf5ver}
-pkgrel=3
+pkgrel=1
 pkgdesc='Set of QtQuick components at the moment targeted for mobile use (in the future desktop as well)'
 arch=('x86_64')
 url='https://github.com/KDE/kirigami'
 license=('LGPL')
 depends=('qt5-svg' 'qt5-quickcontrols2' 'qt5-graphicaleffects')
 makedepends=('extra-cmake-modules' 'qt5-tools')
-source=("http://download.kde.org/stable/frameworks/5.56/${pkgname}2-${pkgver}.tar.xz"
+source=("http://download.kde.org/stable/frameworks/5.64/${pkgname}2-${pkgver}.tar.xz"
         "https://github.com/KDE/kirigami/commit/4a9820a6df15a55a7d36d343ce70a25ba7d56b79.diff")
 md5sums=(`grep ${pkgname}2-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '3f50e73602847534a5d475b8251f0269')
@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}2-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}2-${pkgver}
 
-  patch -p1 -i ${srcdir}/4a9820a6df15a55a7d36d343ce70a25ba7d56b79.diff
+  #patch -p1 -i ${srcdir}/4a9820a6df15a55a7d36d343ce70a25ba7d56b79.diff
 }
 
 build() {
