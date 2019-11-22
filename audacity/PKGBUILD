@@ -1,7 +1,7 @@
 
 pkgname=audacity
-pkgver=2.3.2
-pkgrel=2
+pkgver=2.3.3
+pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
 url="https://web.audacityteam.org/"
@@ -9,10 +9,10 @@ license=('GPL')
 depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk' 'lame' 'hicolor-icon-theme' 'ffmpeg'
          'shared-mime-info' 'desktop-file-utils' 'redland' 'jack' 'soundtouch' 'libsoxr'
          'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil')
-makedepends=('cmake' 'zip' 'python2' 'pkgconfig')
+makedepends=('cmake' 'zip' 'pkgconfig')
 options=('!makeflags')
-source=("https://sourceforge.net/projects/kaosx/files/sources/audacity/${pkgname}-minsrc-${pkgver}.tar.xz")
-sha256sums=('df1f88984a6486094157e061024244b39c4a5875394ec9e5ae404c783cd8fee2')
+source=("https://download.fosshub.com/Protected/expiretime=1574490615;badurl=aHR0cHM6Ly93d3cuZm9zc2h1Yi5jb20vQXVkYWNpdHkuaHRtbA==/a4ef4973ef11b4227628bd5ff722ac227081a987a06a1d9588e637951214fa34/5b7eee97e8058c20a7bbfcf4/5dd7e00e1d5d8e08348e2444/${pkgname}-minsrc-${pkgver}.tar.xz")
+sha256sums=('ca42f64d9e9b3d5ee007f5d00b438229f88c9016f30b3ad9f49076a14bce0b55')
 
 build() {
   cd ${pkgname}-minsrc-${pkgver}
