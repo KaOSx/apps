@@ -1,8 +1,8 @@
 
 pkgname=graphviz
-pkgver=2.42.2
-_pkgver=2.42.2
-pkgrel=2
+pkgver=2.42.3
+_pkgver=2.42.3
+pkgrel=1
 pkgdesc="Open source graph visualization software"
 arch=('x86_64')
 url="https://www.graphviz.org/"
@@ -10,15 +10,15 @@ license=('CPL')
 depends=('gd' 'librsvg' 'libxaw' 'ghostscript' 'pango' 'libtool' 'perl' 'python3' 'tcl')
 makedepends=('swig' 'guile')
 options=('!libtool')
-source=("https://gitlab.com/graphviz/graphviz/-/archive/stable_release_${_pkgver}/graphviz-stable_release_${_pkgver}.tar.gz"
-#source=("https://www2.graphviz.org/Packages/stable/portable_source/graphviz-${_pkgver}.tar.gz"
+#source=("https://gitlab.com/graphviz/graphviz/-/archive/stable_release_${_pkgver}/graphviz-stable_release_${_pkgver}.tar.gz"
+source=("https://www2.graphviz.org/Packages/stable/portable_source/graphviz-${_pkgver}.tar.gz"
        'LICENSE')
 install='graphviz.install'
-md5sums=('2d52982dc2187817386c2c5e4556a87f'
+md5sums=('9f61dc85517957793c6bb24f0611eac1'
          '3e75bb9ec12a51993bd30e51011b4229')
 
 build() {
-    cd graphviz-stable_release_${_pkgver}
+    cd graphviz-${_pkgver}
     #sed -i '/LIBPOSTFIX="64"/d' configure
     export LIBPOSTFIX=/
 
@@ -28,7 +28,7 @@ build() {
 }
 
 package() {
-    cd graphviz-stable_release_${_pkgver}
+    cd graphviz-${_pkgver}
     make DESTDIR=${pkgdir} install
 
     install -Dm644 ../LICENSE ${pkgdir}/usr/share/licenses/graphviz/LICENSE
