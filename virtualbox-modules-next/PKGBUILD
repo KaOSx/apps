@@ -1,33 +1,33 @@
 
-_extramodules=extramodules-5.3-next
+_extramodules=extramodules-5.4-next
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 #_kernver=4.8.3-1-next  # hardcode in case system not running linux-next
 
 pkgname=virtualbox-modules-next
 pkgver=6.0.14
 _pkgver=6.0.14
-pkgrel=7
+pkgrel=8
 pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
 arch=('x86_64')
 license=('GPL-2')
-depends=('linux-next>=5.3.0' 'linux-next<5.4')
+depends=('linux-next>=5.4.0' 'linux-next<5.5')
 makedepends=('linux-next-headers' 'elfutils')
 provides=('virtualbox-modules')
 source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-kernel-module-src-${_pkgver}.tar.xz"
         'virtualbox-modules-depmod.patch'
         'vbox-modules-next.conf'
-        'linux5.3.diff')
+        'linux5.4.diff')
 install=${pkgname}.install
 md5sums=('8fe9c038a84fe851c6553729b6b1dc3d'
          'c9f84fb084a79275d269c542ff53ba4d'
          'f122361a8d2075e4dc819757b6ba34cc'
-         '93caf15d1f4f3cb51ca7b3e91a67c6a9')
+         'd4ad6606fb83a63dc65c5e56fd269808')
 
 prepare() {
     cd vbox-kernel-module-src-${_pkgver}
     
-    #patch -p1 -i ${srcdir}/linux5.3.diff
+    patch -p1 -i ${srcdir}/linux5.4.diff
 }
 
 build() {
