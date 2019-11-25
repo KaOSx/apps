@@ -1,8 +1,8 @@
 
 pkgname=krita
-pkgver=4.2.7.1
-_pkgver=4.2.7
-pkgrel=2
+pkgver=4.2.8.1
+_pkgver=4.2.8
+pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -15,12 +15,12 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost') # 'clang') 
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
-source=("https://download.kde.org/stable/krita/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/krita/${_pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/KDE/krita/commit/ca07d42c.diff"
         'launch_krita.sh')
-sha256sums=('7e0b7cf7688edd93c9bee53547faa0dece85da22f3e3cb86562b9c991791a4eb'
-            'be83311e5c22207356cc2baa00b58226de5e8d856aaf1119218d79e5601e3d03'
-            'df345142ede5ec8f2d3422850dd78059944220f163fa30b5cdefdc9bd54235ff')
+md5sums=('9bffc2aff1f9089afd35f03b7bd51c88'
+         '141a15318cc937e7331bd68f7253d2db'
+         '673003bb648af0d4f801043ee0a17c2a')
 
 prepare() {
   cd ${pkgname}-${pkgver}
