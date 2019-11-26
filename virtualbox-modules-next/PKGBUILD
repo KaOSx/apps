@@ -6,7 +6,7 @@ _kernver="$(cat /lib/modules/$_extramodules/version)"
 pkgname=virtualbox-modules-next
 pkgver=6.0.14
 _pkgver=6.0.14
-pkgrel=8
+pkgrel=10
 pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
 arch=('x86_64')
@@ -36,6 +36,16 @@ build() {
     
     make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
         MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc
+        
+    # sign the modules
+    _file=/usr/src/linux-${_kernver}/scripts/sign-file
+    _pem=/usr/src/linux-${_kernver}/certs/signing_key.pem
+    _key=/usr/src/linux-${_kernver}/certs/signing_key.x509
+    
+    ${_file} sha256 ${_pem} ${_key} vboxdrv.ko
+    ${_file} sha256 ${_pem} ${_key} vboxnetadp.ko
+    ${_file} sha256 ${_pem} ${_key} vboxnetflt.ko
+    ${_file} sha256 ${_pem} ${_key} vboxpci.ko
 }
 
 package() {
