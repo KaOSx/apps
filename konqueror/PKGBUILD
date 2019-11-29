@@ -20,7 +20,7 @@ groups=('kde-system')
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  sed -i -e 's|#include <buffio.h>|#include <tidybuffio.h>|' plugins/validators/tidy_validator.cpp
+  #sed -i -e 's|#include <buffio.h>|#include <tidybuffio.h>|' plugins/validators/tidy_validator.cpp
   # fix browser crash with qtwebengine backend
   #patch -p1 -i ${srcdir}/4c6575a9852e3dfcf85bd849fa953dcc083029d9.diff
 }

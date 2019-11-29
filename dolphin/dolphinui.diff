@@ -1,10 +1,7 @@
---- a/src/dolphinui.rc	2017-06-05 14:52:31.000000000 -0400
-+++ b/src/dolphinui.rc	2017-07-10 14:48:46.305661951 -0400
-@@ -87,9 +87,12 @@
-         </disable>
-     </State>
+--- a/src/dolphinui.rc	2019-11-29 14:23:47.420884683 +0100
++++ b/src/dolphinui.rc	2019-11-29 14:28:58.213112147 +0100
+@@ -99,7 +99,9 @@
      <ToolBar noMerge="1" name="mainToolBar" >
-+        <Action name="new_tab" />
          <text context="@title:menu">Main Toolbar</text>
          <Action name="go_back" />
 +        <Action name="go_up" />
@@ -13,15 +10,15 @@
          <Separator name="separator_1" />
          <Action name="icons" />
          <Action name="compact" />
-@@ -99,6 +102,8 @@
-         <Action name="show_preview" />
+@@ -109,6 +111,8 @@
+         <Spacer name="spacer_0" />
          <Action name="split_view" />
          <Action name="split_stash" />
 +        <Action name="compare_files" />
 +        <Action name="show_hidden_files" />
+         <Action name="toggle_search" />
      </ToolBar>
      <ActionProperties scheme="Default">
-         <Action priority="0" name="go_back"/>
 --- a/src/settings/dolphin_directoryviewpropertysettings.kcfg	2017-06-05 14:52:31.000000000 -0400
 +++ b/src/settings/dolphin_directoryviewpropertysettings.kcfg	2017-07-10 14:56:36.858399173 -0400
 @@ -10,7 +10,7 @@

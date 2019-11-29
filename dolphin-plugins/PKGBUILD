@@ -30,10 +30,10 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib
+    -DKDE_INSTALL_LIBDIR=lib
   make
 }
 

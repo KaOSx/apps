@@ -11,7 +11,7 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'kiconthemes'
          'ki18n' 'kcmutils' 'kio' 'knotifications' 'plasma-framework'
-         'kwidgetsaddons' 'kwindowsystem' 'libcups' 'qt5-tools')
+         'kwidgetsaddons' 'kwindowsystem' 'libcups' 'qt5-tools' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-utils' 'kde-uninstall')
 conflicts=('kdeadmin-print-manager')
@@ -19,7 +19,7 @@ replaces=('kdeadmin-print-manager')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz"
         's-c-p.diff')
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '8129d9d454bec842a0d983de651ce52a')
+         '9715f36444a20df19a7f421782b3d340')
 
 prepare() {
   cd ${pkgname}-${pkgver}
