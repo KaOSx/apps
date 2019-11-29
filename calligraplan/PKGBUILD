@@ -1,6 +1,6 @@
 
 pkgname=calligraplan
-pkgver=3.2.0
+pkgver=3.2.1
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Project management application, intended for managing moderately large projects with multiple resources."
@@ -14,8 +14,8 @@ depends=('kinit' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddon
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang
 source=("https://download.kde.org/stable/calligra/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/KDE/calligra/commit/9a02a545e8606aa91aff2038da137226a9432e1a.diff")
-md5sums=('ac3be8f1d1ab5a74373519d661470876'
-         'ba6c847e7929916521db02660d8d9ea4')
+sha256sums=('03abab499676e269a5462628190df01ec9f24cb9452d0085adf5741cb0d335a8'
+            'a9d35b3f1a38e5597a65c2c4adc2b3a3344a5c927f1ccb4de25dca90179fe8ef')
 
 prepare() {
   cd ${pkgname}-${pkgver}
