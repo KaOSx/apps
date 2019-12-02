@@ -2,7 +2,7 @@
 pkgname=qpdfview
 pkgver=0.4.18
 _pkgver=0.4.18
-pkgrel=1
+pkgrel=2
 pkgdesc='Tabbed document viewer using Poppler, libspectre, DjVuLibre, CUPS and Qt'
 arch=('x86_64')
 url='https://launchpad.net/qpdfview'
@@ -19,7 +19,7 @@ build() {
   cd ${pkgname}-${_pkgver}
 
   /usr/lib/qt5/bin/lrelease qpdfview.pro
-  /usr/lib/qt5/bin/qmake "CONFIG+=without_synctex" qpdfview.pro
+  /usr/lib/qt5/bin/qmake "CONFIG+=without_synctex static_resources" qpdfview.pro
   make
 }
 
