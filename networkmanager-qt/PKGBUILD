@@ -4,18 +4,18 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=networkmanager-qt
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt wrapper for NetworkManager API.'
 arch=('x86_64')
-url='https://projects.kde.org/projects/frameworks/networkmanager-qt'
+url='https://community.kde.org/Frameworks'
 license=('LGPL')
-depends=('networkmanager' 'qt5-base')
+depends=('networkmanager' 'qt5-base' 'libffi')
 makedepends=('extra-cmake-modules')
 conflicts=('libnm-qt')
 provides=('libnm-qt')
 replaces=('libnm-qt')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 
