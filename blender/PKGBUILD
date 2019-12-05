@@ -1,18 +1,18 @@
 
 pkgname=blender
 # adjust .desktop for version
-pkgver=2.81
-_pkgver=2.81
+pkgver=2.81.1
+_pkgver=2.81a
 pkgrel=1
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
 license=('GPL')
 url="http://www.blender.org"
 depends=('desktop-file-utils' 'shared-mime-info' 'hicolor-icon-theme' 'xdg-utils')
-source=("https://download.blender.org/release/Blender${_pkgver}/${pkgname}-${_pkgver}-linux-glibc217-x86_64.tar.bz2"
+source=("https://download.blender.org/release/Blender2.81/${pkgname}-${_pkgver}-linux-glibc217-x86_64.tar.bz2"
         'blender.desktop')
-sha256sums=('e201e7c3dd46aae4a464ec764190199b0ca9ff2e51f9883cd869a4539f33c592'
-            'ff766d4f88e9e4a9fcfced95aae7878b3637b3ab5557bbc2f7a067cf5944fe4f')
+sha256sums=('08d718505d1eb1d261efba96b0787220a76d357ce5b94aca108fc9e0c339d6c6'
+            '60a90090717bc68def134d10d9c6ad8da38f09c0e2fd1ce6be995ed3abe6aad9')
 
 package() {
   cd ${pkgname}-${_pkgver}-linux-glibc217-x86_64
