@@ -13,8 +13,16 @@ depends=('qt5-base' 'wayland')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 #source=("git://anongit.kde.org/kwayland.git")
-source=("http://download.kde.org/stable/frameworks/5.23/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.64/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kwayland/commit/c4a49fbf2d5dd63659ed0c679ce180eda89a6d0d.diff")
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'cc6a9c37fb5b0dec991e0f3164e23966')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # Qt 5.14 needed
+  patch -p1 -i ${srcdir}/c4a49fbf2d5dd63659ed0c679ce180eda89a6d0d.diff
+}
 
 build() {
   mkdir -p build

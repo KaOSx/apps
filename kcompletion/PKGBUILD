@@ -7,13 +7,21 @@ pkgver=${_kf5ver}
 pkgrel=2
 pkgdesc='KCompletion'
 arch=('x86_64')
-url='https://projects.kde.org/projects/frameworks/kcompletion'
+url='https://community.kde.org/Frameworks'
 license=('LGPL')
 depends=('kwidgetsaddons' 'kconfig')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kcompletion/commit/56476607c32f25418d6d91cf11e804e689ee8533.diff")
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '608dfa835529d0acae8bfcaccc300cce')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # Qt 5.14 needed
+  patch -p1 -i ${srcdir}/56476607c32f25418d6d91cf11e804e689ee8533.diff
+}
 
 build() {
   mkdir -p build

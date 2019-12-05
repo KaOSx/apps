@@ -7,13 +7,21 @@ pkgver=${_kf5ver}
 pkgrel=2
 pkgdesc='KItemViews'
 arch=('x86_64')
-url='https://projects.kde.org/projects/frameworks/kitemviews'
+url='https://community.kde.org/Frameworks'
 license=('LGPL')
 depends=('qt5-base')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kitemviews/commit/69b9ac0575d905ded79ed013c6e2374d9ebeb841.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '5e9dc6d09b787790fe9d84913f0ccbed')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # Qt 5.14 needed
+  patch -p1 -i ${srcdir}/69b9ac0575d905ded79ed013c6e2374d9ebeb841.diff
+}
 
 build() {
   mkdir -p build

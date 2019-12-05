@@ -7,20 +7,20 @@ pkgver=${_kf5ver}
 pkgrel=2
 pkgdesc='KNotifications'
 arch=('x86_64')
-url='https://projects.kde.org/projects/frameworks/knotifications'
+url='https://community.kde.org/Frameworks'
 license=('LGPL')
 depends=('kiconthemes' 'kservice' 'kwindowsystem' 'libdbusmenu-qt5' 'libxslt' 'phonon-qt5' 'qt5-speech')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/5.37/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/knotifications/commit/2690452736956f73c2348357e5e45b9f643e7f95.diff")
+source=("https://download.kde.org/stable/frameworks/5.64/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/knotifications/commit/56a301a1a0f4653d1b79d6b509ae073b5169a92d.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '3a9f3c547ef9af0e10affea0e32a5a13')
+         'c87a84921e6a6a66acf465a7c906fc66')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # https://bugs.kde.org/show_bug.cgi?id=389284
-  #patch -p1 -i ${srcdir}/2690452736956f73c2348357e5e45b9f643e7f95.diff
+  # Qt 5.14 needed
+  patch -p1 -i ${srcdir}/56a301a1a0f4653d1b79d6b509ae073b5169a92d.diff
 }
 
 build() {
