@@ -1,0 +1,31 @@
+
+pkgname=kvantum
+_pkgname=Kvantum
+pkgver=0.13.0
+pkgrel=1
+pkgdesc="SVG-based Qt5 theme engine plus a config tool and extra themes"
+arch=('x86_64')
+url="https://github.com/tsujan/Kvantum"
+license=('GPL3')
+depends=('qt5-svg' 'qt5-x11extras' 'kwindowsystem' 'libxext')
+makedepends=('cmake' 'qt5-tools')
+source=("https://github.com/tsujan/Kvantum/archive/V${pkgver}.tar.gz")
+md5sums=('740ad1c883a1161bde1803d6f19b5903')
+
+build() {
+    mkdir -p build
+    cd build
+    
+    cmake ../${_pkgname}-${pkgver}/${_pkgname} \
+        -DCMAKE_INSTALL_PREFIX=/usr
+    make 
+}
+
+package() {
+    cd build
+
+    make DESTDIR=${pkgdir}/ install
+    
+    install -Dm644 ../${_pkgname}-${pkgver}/${_pkgname}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+    rm -r ${pkgdir}/usr/share/kde4
+} 
