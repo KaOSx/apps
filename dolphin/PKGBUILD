@@ -13,13 +13,15 @@ depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kdbusaddons' 'kbo
          'kiconthemes' 'kcompletion' 'ktextwidgets' 'kwindowsystem' 'knotifications' 'baloo-widgets' 'kactivities' 
          'kfilemetadata' 'kde-cli-tools') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'ruby')
+groups=('kde-system')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'kdesu.diff'
-        'dolphinui.diff')
+        'dolphinui.diff'
+        'qt5.14.diff')
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '759a01a07a1f4379d182b60dcb84fae9'
-         'a1215b2ee509f003c10468af9be90b3b')
-groups=('kde-system')
+         'a1215b2ee509f003c10468af9be90b3b'
+         'e165b282ccccd05eac5e10cde226ca91')
 
 prepare() {
   cd $pkgname-${pkgver}
@@ -27,6 +29,8 @@ prepare() {
   patch -p1 -i ${srcdir}/kdesu.diff
   # set KaOS defaults
   patch -p1 -i ${srcdir}/dolphinui.diff
+  # Qt 5.14 needed
+  patch -p1 -i ${srcdir}/qt5.14.diff
 }
 
 build() {
@@ -46,5 +50,5 @@ build() {
 package() {
   cd build
 
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR=${pkgdir} install
 }
