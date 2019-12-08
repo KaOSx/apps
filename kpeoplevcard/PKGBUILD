@@ -1,0 +1,29 @@
+
+pkgname=kpeoplevcard
+pkgver=0.1
+pkgrel=1
+pkgdesc="Makes it possible to expose vcards to KPeople."
+arch=('x86_64')
+url='https://github.com/KDE/kpeoplevcard'
+license=('LGPL2')
+depends=('kcoreaddons' 'ki18n' 'kpeople' 'kcontacts')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/stable/kpeoplevcard/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('8de5df5a3abeed2b13fc56f33d1846ae5b90adfc2127bc1b0ffa5e300b7663c3')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib
+  make
+}
+
+package() {
+  cd build
+
+  make DESTDIR=${pkgdir} install
+}
