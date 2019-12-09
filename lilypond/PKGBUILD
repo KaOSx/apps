@@ -2,12 +2,12 @@
 pkgname=lilypond
 pkgver=2.19.83
 _pkgver=2.19
-pkgrel=1
+pkgrel=2
 pkgdesc="A music engraving program, devoted to producing the highest-quality sheet music possible."
 arch=('x86_64')
 url="http://lilypond.org/"
 license=('GPL')
-depends=('fontconfig' 'freetype2' 'ghostscript' 'guile1.8' 'pango' 'python2' 'texlive-core'
+depends=('fontconfig' 'freetype2' 'ghostscript' 'guile' 'pango' 'python2' 'texlive-core'
          'tex-gyre-fonts')
 makedepends=('bison' 'flex' 'fontforge' 'gettext' 'gsfonts' 'perl' 'texinfo' 't1utils'
              'netpbm' 'zip' 'imagemagick' 'rsync')
@@ -21,17 +21,18 @@ md5sums=('48856163e3a980f2019cf421df6b22d6')
 build() {
   cd ${pkgname}-${pkgver}
   
-  sed -i 's|GUILE_CFLAGS=.*|GUILE_CFLAGS="`pkg-config --cflags guile-1.8`"|' configure
-  sed -i 's|GUILE_LDFLAGS=.*|GUILE_LDFLAGS="`pkg-config --libs guile-1.8`"|' configure
+  #sed -i 's|GUILE_CFLAGS=.*|GUILE_CFLAGS="`pkg-config --cflags guile-1.8`"|' configure
+  #sed -i 's|GUILE_LDFLAGS=.*|GUILE_LDFLAGS="`pkg-config --libs guile-1.8`"|' configure
   
-  export GUILE=/usr/bin/guile1.8
-  export GUILE_CONFIG=/usr/bin/guile-config1.8
-  export LDFLAGS="$LDFLAGS -lpthread"
+  #export GUILE=/usr/bin/guile1.8
+  #export GUILE_CONFIG=/usr/bin/guile-config1.8
+  #export LDFLAGS="$LDFLAGS -lpthread"
 
   ./configure --prefix=/usr \
     --disable-documentation \
-    --with-python-include=/usr/include/python2.7m/ \
-    --with-python-lib=/usr/lib/libpython2.so
+    --with-python-include=/usr/include/python2.7/ \
+    --with-python-lib=/usr/lib/libpython2.so \
+    --enable-guile2
   make all
 }
 
