@@ -5,8 +5,8 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=6.0.14
-_pkgver=6.0.14
+pkgver=6.1.0
+_pkgver=6.1.0
 pkgrel=1
 arch=('x86_64')
 url='https://virtualbox.org'
@@ -23,7 +23,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         'vboxservice.service'
         'driver-path.patch'
         'include-path.patch')
-sha256sums=('5e12b14f0c38bf195d9592d76a9e0a128df2d38cd77c26ce5b5488397715dd0c'
+sha256sums=('49005ed94454f893fc3955e1e2b9607e85c300235cb983b39d1df2cfcf29f039'
             '9c5238183019f9ebc7d92a8582cad232f471eab9d3278786225abc1a1c7bf66e'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             '84dff0d4ccb8d97d4b4e46dde4f8f6c891409e0a9a6428e0b91114a33dc6e68e'
@@ -34,9 +34,9 @@ sha256sums=('5e12b14f0c38bf195d9592d76a9e0a128df2d38cd77c26ce5b5488397715dd0c'
 prepare() {
     cd VirtualBox-${pkgver}
 
-    patch -p1 -i ${srcdir}/driver-path.patch
+    #patch -p1 -i ${srcdir}/driver-path.patch
     #patch -p1 -i ${srcdir}/include-path.patch
-    sed -i -e 's|python3.5 python3.5m|python3.7 python3.7m|' configure
+    #sed -i -e 's|python3.5 python3.5m|python3.7 python3.7m|' configure
     
     #sed -i -e 's|/usr/X11R6/bin/xterm|/usr/X11R6/bin/xterm|' src/VBox/Runtime/VBox/RTAssertShouldPanic-vbox.cpp
     sed -i -e 's|X11R6/||' configure
@@ -105,6 +105,8 @@ package_virtualbox-qt5() {
     install -m755 VirtualBox VBoxManage VBoxSVC VBoxExtPackHelperApp VBoxXPCOMIPCD VBoxTestOGL VBoxBalloonCtrl -t ${pkgdir}/usr/lib/virtualbox
 
     # components
+    # temporary remove non existing link
+    rm components/VBoxREM.so
     install -dm755 ${pkgdir}/usr/lib/virtualbox/components
     install -m755 components/* -t ${pkgdir}/usr/lib/virtualbox/components
 
