@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kfilemetadata
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kfilemetadata'
@@ -12,12 +12,15 @@ license=('LGPL')
 depends=('ebook-tools' 'karchive' 'kcoreaddons' 'exiv2' 'ki18n' 'poppler-qt5' 'taglib' 'ffmpeg')
 makedepends=('extra-cmake-modules')
 groups=('kdeplasma5')
-source=("http://download.kde.org/stable/frameworks/5.53/${pkgname}-$pkgver.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/stable/frameworks/5.56/${pkgname}-$pkgver.tar.xz"
+        'bug_414227.patch')
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'f8617a6da8f16b747522f8d37a414f4e')
 
 prepare() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's/ecm_setup_version(5.0.0/ecm_setup_version(1/' ${srcdir}/${_pkgname}-${pkgver}/CMakeLists.txt
+  cd ${pkgname}-${pkgver}
+  # Dolphin crashes with 19.12.0 https://bugs.kde.org/show_bug.cgi?id=414227
+  patch -p1 -i ${srcdir}/bug_414227.patch
 }
 
 build() {

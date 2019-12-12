@@ -1,0 +1,27 @@
+diff --git a/src/xattr_p.h b/src/xattr_p.h
+--- a/src/xattr_p.h
++++ b/src/xattr_p.h
+@@ -221,19 +221,15 @@
+     const ssize_t size = extattr_list_file(encodedPath, EXTATTR_NAMESPACE_USER, nullptr, 0);
+     #endif
+ 
+-    if (size == 0) {
+-        return UserMetaData::Attribute::None;
++    if (size == -1 && errno == E2BIG) {
++        return UserMetaData::Attribute::All;
+     }
+ 
+-    if (size == -1 && errno == ENOTSUP) {
++    if (size <= 0) {
+         return UserMetaData::Attribute::None;
+     }
+ 
+-    if (size == -1 && errno == E2BIG) {
+-        return UserMetaData::Attribute::All;
+-    }
+-
+-    if (size > 0 && attributes == UserMetaData::Attribute::Any) {
++    if (attributes == UserMetaData::Attribute::Any) {
+         return UserMetaData::Attribute::All;
+     }
+ 
