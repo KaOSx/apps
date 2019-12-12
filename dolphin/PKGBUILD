@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=dolphin
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE File Manager"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/dolphin'
@@ -16,12 +16,10 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'ruby')
 groups=('kde-system')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'kdesu.diff'
-        'dolphinui.diff'
-        'qt5.14.diff')
+        'dolphinui.diff')
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '759a01a07a1f4379d182b60dcb84fae9'
-         'a1215b2ee509f003c10468af9be90b3b'
-         'e165b282ccccd05eac5e10cde226ca91')
+         'a1215b2ee509f003c10468af9be90b3b')
 
 prepare() {
   cd $pkgname-${pkgver}
@@ -29,8 +27,6 @@ prepare() {
   patch -p1 -i ${srcdir}/kdesu.diff
   # set KaOS defaults
   patch -p1 -i ${srcdir}/dolphinui.diff
-  # Qt 5.14 needed
-  patch -p1 -i ${srcdir}/qt5.14.diff
 }
 
 build() {
