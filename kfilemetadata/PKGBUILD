@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kfilemetadata
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kfilemetadata'
@@ -20,7 +20,7 @@ md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # Dolphin crashes with 19.12.0 https://bugs.kde.org/show_bug.cgi?id=414227
-  patch -p1 -i ${srcdir}/bug_414227.patch
+  #patch -p1 -i ${srcdir}/bug_414227.patch
 }
 
 build() {

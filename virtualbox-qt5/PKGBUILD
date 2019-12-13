@@ -36,11 +36,8 @@ prepare() {
 
     #patch -p1 -i ${srcdir}/driver-path.patch
     #patch -p1 -i ${srcdir}/include-path.patch
-    #sed -i -e 's|python3.5 python3.5m|python3.7 python3.7m|' configure
     
-    #sed -i -e 's|/usr/X11R6/bin/xterm|/usr/X11R6/bin/xterm|' src/VBox/Runtime/VBox/RTAssertShouldPanic-vbox.cpp
     sed -i -e 's|X11R6/||' configure
-    #sed -i -e 's|CXX_FLAGS=""|CXX_FLAGS="-std=c++11"|' configure
     sed -i -e 's|X11R6/||' Config.kmk
     sed -i -e 's|.*&& check_makeself||' configure
     sed -i -e 's|smc-napa|smcnapa|' src/VBox/Devices/PC/vbox.dsl
@@ -166,8 +163,8 @@ package_virtualbox-guest-utils() {
         ${pkgdir}/etc/xdg/autostart/vboxclient.desktop
     #install -D vboxvideo_drv_system.so ${pkgdir}/usr/lib/xorg/modules/drivers/vboxvideo.so
     install -d ${pkgdir}/usr/lib/xorg/modules/dri
-    install -m755 VBoxOGL*.so ${pkgdir}/usr/lib
-    ln -s /usr/lib/VBoxOGL.so ${pkgdir}/usr/lib/xorg/modules/dri/vboxvideo_dri.so
+    #install -m755 VBoxOGL*.so ${pkgdir}/usr/lib
+    #ln -s /usr/lib/VBoxOGL.so ${pkgdir}/usr/lib/xorg/modules/dri/vboxvideo_dri.so
     install -m755 -D pam_vbox.so ${pkgdir}/usr/lib/security/pam_vbox.so
     popd
  
