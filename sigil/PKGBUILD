@@ -1,9 +1,9 @@
 
 pkgname=sigil
 _pkgname=Sigil
-pkgver=0.9.18
-_pagever=0.9.6
-pkgrel=2
+pkgver=1.0.0
+_pagever=1.0.0
+pkgrel=1
 pkgdesc="A multi-platform WYSIWYG ebook editor. It is designed to edit books in ePub format. "
 arch=('x86_64')
 url="https://github.com/Sigil-Ebook/Sigil"
@@ -13,11 +13,11 @@ depends=('qtwebengine' 'qt5-svg' 'qt5-webchannel' 'qt5-xmlpatterns' 'boost-libs'
 makedepends=('cmake' 'boost' 'qt5-tools' 'clang')
 #options=('debug')
 groups=('office')
-source=("https://github.com/Sigil-Ebook/Sigil/archive/${pkgver}.tar.gz"
-        "https://github.com/Sigil-Ebook/PageEdit/archive/${_pagever}.tar.gz")
+source=("Sigil-${pkgver}.tar.gz::https://github.com/Sigil-Ebook/Sigil/archive/${pkgver}.tar.gz"
+        "PageEdit-${_pagever}.tar.gz::https://github.com/Sigil-Ebook/PageEdit/archive/${_pagever}.tar.gz")
 #source=("https://github.com/Sigil-Ebook/Sigil/archive/${_commit}.zip")
-sha256sums=('d4ac2d178fd154d9892fcb552304b20fc12d9eb4b2be5a222c6421c18720cca6'
-            'f9cbfabc486acecdeb4ffe0c7ad5e73eebbb38341e1951c5240262bfbf8bfb05')
+sha256sums=('431c25791c1bdfa0397a1473aa014727d40b2def7e6be236b23ef98a495b1b10'
+            '75a5ca61b7c44ba4d655c7573a984066d8e2814831549ec38ebe2fbbd3569d50')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
