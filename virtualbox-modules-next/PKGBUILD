@@ -39,8 +39,8 @@ build() {
         
     # sign the modules
     _file=/usr/src/linux-${_kernver}/scripts/sign-file
-    _pem=~/signing_key.pem
-    _key=~/signing_key.x509
+    _pem=/$HOME/signing_key.pem
+    _key=/$HOME/signing_key.x509
     
     ${_file} sha256 ${_pem} ${_key} vboxdrv.ko
     ${_file} sha256 ${_pem} ${_key} vboxnetadp.ko
