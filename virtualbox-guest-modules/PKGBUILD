@@ -1,18 +1,19 @@
 
-_extramodules=extramodules-5.3
+_extramodules=extramodules-5.4
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-guest-modules
 pkgver=6.1.0
 _pkgver=6.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='VirtualBox guest kernel modules, to use with guest-utils'
 arch=('x86_64')
 license=('GPL' 'custom')
 url='https://virtualbox.org'
-depends=('linux>=5.3.6' 'linux<5.4' 'elfutils')
+depends=('linux>=5.4.6' 'linux<5.5' 'elfutils')
 makedepends=('linux-headers')
 install=virtualbox-guest-modules.install
+options=('!strip')
 source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-guest-module-src-${_pkgver}.tar.xz"
         'vbox-guest-modules.conf'
         'linux4.18.patch')
@@ -28,6 +29,15 @@ build() {
     
     make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
         MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc all
+        
+    # sign the modules
+    _file=/usr/src/linux-${_kernver}/scripts/sign-file
+    _pem=/$HOME/signing_key.pem
+    _key=/$HOME/signing_key.x509
+    
+    ${_file} sha256 ${_pem} ${_key} vboxguest/vboxguest.ko
+    ${_file} sha256 ${_pem} ${_key} vboxsf/vboxsf.ko
+    ${_file} sha256 ${_pem} ${_key} vboxvideo/vboxvideo.ko
 }
 
 

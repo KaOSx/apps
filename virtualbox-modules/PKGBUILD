@@ -1,21 +1,22 @@
 
-_extramodules=extramodules-5.3
+_extramodules=extramodules-5.4
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-modules
 pkgver=6.1.0
 _pkgver=6.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
 arch=('x86_64')
 license=('GPL-2')
-depends=('linux>=5.3.6' 'linux<5.4')
+depends=('linux>=5.4.6' 'linux<5.5')
 makedepends=('linux-headers' 'elfutils')
+install=${pkgname}.install
+options=('!strip')
 source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-kernel-module-src-${_pkgver}.tar.xz"
         'virtualbox-modules-depmod.patch'
         'vbox-modules.conf')
-install=${pkgname}.install
 md5sums=('d1e36422fd1f24152b7eb46383c965d8'
          'c9f84fb084a79275d269c542ff53ba4d'
          '232f7c1b893245a8e87a38768e9d1c1d')
@@ -32,6 +33,15 @@ build() {
     
     make KERN_DIR=/lib/modules/${_kernver}/build MODULE_DIR_TST=${pkgdir}/lib/modules/${_kernver} \
         MODULE_DIR=${pkgdir}/lib/modules/${_kernver}/misc
+        
+    # sign the modules
+    _file=/usr/src/linux-${_kernver}/scripts/sign-file
+    _pem=/$HOME/signing_key.pem
+    _key=/$HOME/signing_key.x509
+    
+    ${_file} sha256 ${_pem} ${_key} vboxdrv/vboxdrv.ko
+    ${_file} sha256 ${_pem} ${_key} vboxnetadp/vboxnetadp.ko
+    ${_file} sha256 ${_pem} ${_key} vboxnetflt/vboxnetflt.ko
 }
 
 package() {
