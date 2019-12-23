@@ -13,21 +13,16 @@
     <h3>KaOS - 2019.12</h3>
     <p>It is with great pleasure to present to you the December release of a new stable ISO.</p>
     
-    <p>For the many changes in this release, two stand out.  First one is the addition of signed kernel modules for Linux 5.4. All internal modules are now signed automatically during the kernel build, out of tree modules like virtualbox-modules and nVidia packages have the signing added too. Building of those modules was adjusted to use the kernel specific signing files during each and every rebuild. You can harden your system by adding <code>module.sig_enforce=1</code> to your kernel boot line. To check if your systems contains any unsigned:
+    <p>For the many changes in this release, two stand out.  First one is the addition of signed kernel modules for Linux 5.4. All internal modules are now signed automatically during the kernel build, out of tree modules like virtualbox-modules and nVidia packages have the signing added too. Building of those modules was adjusted to use the kernel specific signing files during each and every rebuild. You can harden your system by adding <code>module.sig_enforce=1</code> to your kernel boot line. To check if your systems contains any unsigned:</b></b>
     
     <code>for mod in $(lsmod | tail -n +2 | cut -d' ' -f1); do modinfo ${mod} | grep -q "signature" || echo "no signature for module: ${mod}" ; done</code>
     
-    Second: To better accommodate hybrid systems and non-free Nvidia, there is now a switch from libgl to vendor neutral libglvnd. This will make the nvidia bumblebee packages obsolete. Xorg-server was updated to 1.20.6, this now includes the needed patches to use Prime instead of Bumblebee. The needed scripts for this are packaged as the <code>prime</code> package. The hardware-detection scripts and Calamares installer have their code adjusted to use the new Prime option.
+    <p>Second: To better accommodate hybrid systems and non-free Nvidia, there is now a switch from libgl to vendor neutral libglvnd. This will make the nvidia bumblebee packages obsolete. Xorg-server was updated to 1.20.6, this now includes the needed patches to use Prime instead of Bumblebee. The needed scripts for this are packaged as the <code>prime</code> package. The hardware-detection scripts and Calamares installer have their code adjusted to use the new Prime option.</p>
     
     <p>Work has also continued last month to further remove python2. This time it was removed as makedepend from as many as possible.</b>
-    Next change is a new GCC 9.2.0/Glibc 2.30 based Toolchain.  Normally KaOS stays about one year behind major new GCC versions, but the changes between 8 and 9 are not as big as usual and all in the repositories have caught up to GCC 9, thus it is now available six months after the initial release.</b>
-    A big part of the core repository was rebuild in this new Toolchain, plus the whole Glib2 and Boost stack was updated.  This meant moving to Glib2 2.62.2, Boost 1.71.0, Gobject-Introspection 1.6.20 among the many moved to their latest version.  Systemd is now also available in the most recent release, 243.</b>
-    Libarchive gained ZSTD support, a needed feature for upcoming Pacman changes.</p>
     
     <p>You will find Plasma 5.17 on this ISO already. Highlights of Plasma 5.17 include start-up scripts have been converted from Bash (a slow, interpreted language) to C++ (a fast, compiled language) and now run asynchronously. Night Color, the color-grading system that relaxes your eyes when the sun sets, has landed for X11. For Wayland, Plasma now comes with fractional scaling, which means that you can adjust the size of all your desktop elements, windows, fonts and panels perfectly to your HiDPI monitor. The Settings interface itself has been overhauled in general, and the user interfaces for the Displays, Energy, Activities, Boot Splash, Desktop Effects, Screen Locking, Screen Edges, Touch Screen, and Window Behavior configuration dialogs have all been improved and updated.</b>
     Frameworks is at 5.65.0, Plasma at 5.17.4 and KDE Applications at 19.12.0. All built on Qt 5.14.0.
-    
-    <p>Non-free Nvidia gained a complete new feature, no longer needing Bumblebee for hybrid systems, instead it now can also use <strong>PRIME</strong>, just like (free) Nouveau & AmdGPU hybrid systems.  For this Nvidia-utils 435 has GLVND support fully enabled but Xorg-Server will need to include 3 needed commits to include Nvidia PRIME, scheduled to be included in Xorg-Server 1.20.6.</p>
     
     <p>For the installer Calamares, two major CVE's were addressed among the many changes for 3.2.14. <b>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-13178</b> and <b>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-13179</b></p>
     
@@ -39,7 +34,7 @@
     
     <p>A KaOS specific tool to write ISO files to USB is in use.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. It includes the option to verify the written USB in comparison to the used ISO file.</p>
     
-    <p>Most notable major updates to the base of the system are GCC 9.2.0, Glibc 2.30, Systemd 243, Bison 3.4.2, Python3 3.7.5, Linux 5.4.5, Protobuf 3.11.1, Mesa 19.2.8, NetworkManager 1.22.0, Poppler 0.81.0, Nano 4.5, GStreamer 1.16.2 and Qt 5.14.0</p>
+    <p>Most notable major updates to the base of the system are LLVM/Clang 9.0.1, Glib2 2.62.4, Systemd 243, Bison 3.4.2, Python3 3.7.6, Linux 5.4.6, Protobuf 3.11.1, Mesa 19.2.8, NetworkManager 1.22.0, Poppler 0.81.0, Nano 4.5, GStreamer 1.16.2 and Qt 5.14.0</p>
     
     <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
     
@@ -63,12 +58,12 @@
     
     <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a "final" release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
     
-    <p>The ISO ships with <b>Frameworks 5.65.0, Plasma 5.17.4, KDE Applications 19.12.0</b>, Linux 5.4.5, Systemd 243, Kmod 26, NetworkManager 1.22.0, LibreOffice 6.3.4, Krita 4.2.8, Elisa, Xorg-Server 1.20.6, Mesa 19.2.8, Glibc 2.30, GCC 9.2.0, non-free Nvidia 440.44, Pepperflash and Python3 3.7.5 to name a few.</p>
+    <p>The ISO ships with <b>Frameworks 5.65.0, Plasma 5.17.4, KDE Applications 19.12.0</b>, Linux 5.4.6, Systemd 243, Kmod 26, NetworkManager 1.22.0, LibreOffice 6.3.4, Krita 4.2.8, Elisa, Xorg-Server 1.20.6, Mesa 19.2.8, Glibc 2.30, GCC 9.2.0, non-free Nvidia 440.44, Pepperflash and Python3 3.7.6 to name a few.</p>
     
     <p>The package manager is <strong>Pacman 5.1.2</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default web browser, it is Qt based and the successor of Qupzilla. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version "Midna".</p>
     
     <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.4, LibreOffice 6.3.4,VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-    A limited number of the most well-known GTK applications are available, examples Firefox 71.0, Chrome 80, Ardour 5.12.0, Inkscape 0.92.4, GIMP 2.10.14 and Google-talkplugin 5.41.3.0.1.<br />
+    A limited number of the most well-known GTK applications are available, examples Firefox 71.0, Chrome 81, Ardour 5.12.0, Inkscape 0.92.4, GIMP 2.10.14 and Google-talkplugin 5.41.3.0.1.<br />
     Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
     
     <p><b>Known issues:</b></p>
