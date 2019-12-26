@@ -1,0 +1,30 @@
+
+pkgname=kio-fuse
+pkgver=4.90.0
+pkgrel=1
+pkgdesc="FUSE Interface for KIO"
+arch=('x86_64')
+url='https://github.com/KDE/kio-fuse'
+license=('GPLv3.0')
+depends=('kcoreaddons' 'kdbusaddons' 'kio' 'fuse3')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/unstable/kio-fuse/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('c7ec3a56b10bfc0d2d5631623b8434e8bc4b24990525eafef41cea588144d71e')
+
+build() {
+  mkdir -p build
+  cd build 
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DBUILD_TESTING=OFF 
+  make 
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
