@@ -1,12 +1,12 @@
 
 pkgname=calamares
 pkgver=3.2.15
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
 license=('LGPL')
-depends=('qt5-svg' 'qt5-xmlpatterns' 'qtwebengine' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'kpackage' 'plasma-framework'
+depends=('qt5-svg' 'qt5-xmlpatterns' 'qtwebkit-tp' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'kpackage' 'plasma-framework'
          'yaml-cpp' 'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts') # 'pythonqt' 'libpwquality')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools' 'boost') # 'clang')
 options=('debug' '!staticlibs')
@@ -51,7 +51,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DWITH_PYTHONQT=OFF \
-    -DWEBVIEW_FORCE_WEBKIT=OFF \
+    -DWEBVIEW_FORCE_WEBKIT=ON \
     -DINSTALL_CONFIG=ON \
     -DBoost_NO_BOOST_CMAKE=ON
   make
