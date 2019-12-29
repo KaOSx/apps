@@ -13,9 +13,9 @@
     <h3>KaOS - 2019.12</h3>
     <p>A nice way of ending 2019 is to present to you the December release of a new stable ISO.</p>
     
-    <p>For the many changes in this release, two stand out.  First one is the addition of signed kernel modules for Linux 5.4. All internal modules are now signed automatically during the kernel build, out of tree modules like virtualbox-modules and NVIDIA packages have the signing added too. Building of those modules was adjusted to use the kernel specific signing files during each and every rebuild. You can harden your system by adding <code>module.sig_enforce=1</code> to your kernel boot line. To check if your systems contains any unsigned:</b></b>
+    <p>For the many changes in this release, two stand out.  First one is the addition of signed kernel modules for Linux 5.4. All internal modules are now signed automatically during the kernel build, out of tree modules like virtualbox-modules and NVIDIA packages have the signing added too. Building of those modules was adjusted to use the kernel specific signing files during each and every rebuild. You can harden your system by adding <code>module.sig_enforce=1</code> to your kernel boot line. To check if your systems contains any unsigned:</p>
     
-    <code>for mod in $(lsmod | tail -n +2 | cut -d' ' -f1); do modinfo ${mod} | grep -q "signature" || echo "no signature for module: ${mod}" ; done</code>
+    <p><code>for mod in $(lsmod | tail -n +2 | cut -d' ' -f1); do modinfo ${mod} | grep -q "signature" || echo "no signature for module: ${mod}" ; done</code></p>
     
     <p>Second: To better accommodate hybrid systems and non-free NVIDIA, there is now a switch from libgl to vendor neutral libglvnd. This will make the NVIDIA bumblebee packages obsolete. Xorg-server was updated to 1.20.6, this now includes the needed patches to use Prime instead of Bumblebee. The needed scripts for this are packaged as the <code>prime</code> package. The hardware-detection scripts and Calamares installer have their code adjusted to use the new Prime option. The availability of NVIDIA hybrid testing hardware was limited, so you might still encounter some issue with Prime.</p>
     
