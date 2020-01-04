@@ -2,7 +2,7 @@
 pkgname=avidemux
 pkgver=2.7.4
 _commit=ed7aa6bdbffc43a2cd198130a353b088abd02aa0
-pkgrel=3
+pkgrel=4
 pkgdesc="Video editor designed for simple cutting, filtering and encoding tasks using a variety of codecs."
 arch=('x86_64')
 url="http://fixounet.free.fr/avidemux/"
@@ -22,7 +22,7 @@ prepare() {
     cd ${pkgname}_${pkgver}
     # try to disable vdpau, build fails on vdpau, workaround, remove libvdpau from chroot
     #sed 's|SET(USE_VDPAU 1)|#SET(USE_VDPAU 1)|g' -i cmake/admCheckVDPAU.cmake
-    patch -p1 -i $srcdir/bootStrap.diff
+    patch -p1 -i ${srcdir}/bootStrap.diff
 }
 
 build() {
