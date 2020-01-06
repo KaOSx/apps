@@ -4,7 +4,7 @@ pkgver=2.99.1
 _pkgver=2.10
 __pkgver=2.10.14
 _commit=a1939247fb43419a1d5716c75562fe58625a65a7
-pkgrel=2
+pkgrel=1
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
 url="https://www.gimp.org/"
@@ -12,8 +12,8 @@ license=('GPL3' 'LGPL3')
 depends=('poppler' 'lcms2' 'libxpm' 'librsvg' 'libmng' 'libgudev' 'dbus-glib' 'libexif' 
          'gegl' 'desktop-file-utils' 'hicolor-icon-theme' 'gexiv2' 'libmypaint' 'alsa-lib'
          'curl' 'glib-networking' 'mypaint-brushes' 'ghostscript' 'aalib' 'libunwind' 'python3'
-         'appstream-glib' 'gtk3' 'gtk-update-icon-cache')
-makedepends=('intltool' 'iso-codes' 'python3-gobject3')
+         'appstream-glib' 'gtk3')
+makedepends=('intltool' 'iso-codes' 'meson' 'ninja' 'python3-gobject3')
 options=('!libtool' '!makeflags')
 #source=("https://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${__pkgver}.tar.bz2"
 source=("https://github.com/GNOME/gimp/archive/${_commit}.zip"
@@ -22,25 +22,22 @@ sha256sums=('a44030d629b18612f568ec70d7f767f46ca1960a2c21b9cd34bdb484cc1e2670'
             '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3')
 
 build() {
-  cd ${pkgname}-${_commit}
+  mkdir -p build
+  cd build
   
-  ./autogen.sh --prefix=/usr \
-    --sysconfdir=/etc \
-    --enable-mp \
-    --enable-gimp-console \
-    --disable-gtk-doc \
-    --without-wmf \
-    --without-xvfb-run \
-    --without-lua \
-    --without-javascript \
-    --with-bug-report-url=https://kaosx.us/bugs/ \
-    --without-appdata-test
-  make
+  meson ../${pkgname}-${_commit} \
+    --prefix=/usr \
+    --buildtype=release \
+    -Dgtk-doc=false \
+    -Djavascript=never \
+    -Dlua=never \
+    -Dbug-report-url=https://kaosx.us/bugs/
+  ninja
 }
 
 package() {
-  cd ${pkgname}-${_commit}
-  make DESTDIR=${pkgdir} install
+  cd build
+  DESTDIR=${pkgdir} ninja install
   
   install -D -m644 ${srcdir}/linux.gpl ${pkgdir}/usr/share/gimp/2.0/palettes/Linux.gpl
 
