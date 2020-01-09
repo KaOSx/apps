@@ -1,6 +1,6 @@
  
 pkgname=chromium-ffmpeg-codecs
-pkgver=78.0.3895.5
+pkgver=79.0.3945.79
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
@@ -16,7 +16,7 @@ source=("https://commondatastorage.googleapis.com/chromium-browser-official/chro
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-FORTIFY_SOURCE-r2.patch"
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-memcpy-r0.patch"
         #"https://raw.githubusercontent.com/gentoo/gentoo/master/www-client/chromium/files/chromium-clang-r2.patch")
-md5sums=('62fbdc761058ac12ae2d4357aa185859'
+md5sums=('7824578ab4814eed59fce2b0ed7d4e49'
          '3354997dd0bfde3443499133a6e16a85'
          '767e3e82f89de949909eb990204185cd')
 
@@ -36,8 +36,12 @@ build() {
 
   local _flags=("ffmpeg_branding=\"ChromeOS\""
                 'proprietary_codecs=true'
-                'enable_hevc_demuxing=true'
-                'enable_ac3_eac3_audio_demuxing=true'
+                'enable_platform_hevc=true'
+                'enable_platform_ac3_eac3_audio=true'
+                'enable_platform_mpeg_h_audio=true'
+                'enable_platform_dolby_vision=true'
+                'enable_mse_mpeg2ts_stream_parser=true'
+                'enable_wayland_server=false'
                 'use_gio=false'
                 'use_gnome_keyring=false'
                 'use_kerberos=false'
@@ -55,9 +59,7 @@ build() {
                 'is_component_build=true'
                 'is_debug=false'
                 'symbol_level=0'
-                'use_custom_libcxx=false' 
-                'use_lld=false'
-                'use_jumbo_build=false')
+                'use_custom_libcxx=true')
   
   #python2 tools/gn/bootstrap/bootstrap.py -v -s
   gn gen out/Release -v --args="${_flags[*]}" --script-executable=/usr/bin/python2

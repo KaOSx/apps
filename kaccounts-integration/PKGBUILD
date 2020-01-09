@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kaccounts-integration
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="System to administer web accounts for the sites and services across the KDE desktop, 
         including: Google, Facebook, Owncloud, IMAP, Jabber and others"
 arch=('x86_64')
-url="https://projects.kde.org/projects/kdereview/kaccounts-integration"
+url="https://kde.org/applications/internet/"
 license=('GPL')
 depends=('kcmutils' 'kio' 'ki18n' 'kwidgetsaddons' 'kcoreaddons' 
-         'kiconthemes' 'kconfig' 'kwallet' 'kdbusaddons' 'accountsqt' 'signonqt' 'akonadi')
+         'kiconthemes' 'kconfig' 'kwallet' 'kdbusaddons' 'accounts-qml-module' 'signonqt' 'akonadi')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
        #'createaccount.diff')
@@ -32,10 +32,10 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   make
