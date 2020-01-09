@@ -4,12 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=purpose
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
 url='https://quickgit.kde.org/?p=purpose.git'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kconfig' 'ki18n' 'kio' 'kaccounts-integration' 'kirigami') # these deps not found for qml dir 'accounts-qml-module' 'kdeconnect-kde' 'kdeclarative')
+depends=('kcoreaddons' 'kconfig' 'ki18n' 'kio' 'kaccounts-integration' 'kirigami'
+         'accounts-qml-module' 'kdeconnect-kde' 'kdeclarative')
 makedepends=('extra-cmake-modules' 'kdoctools' 'intltool')
 source=("http://download.kde.org/stable/frameworks/5.43/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
