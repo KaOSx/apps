@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kaccounts-providers
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="KDE Accounts Providers"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kdereview/kaccounts-providers"
@@ -12,14 +12,17 @@ license=('GPL')
 depends=('libaccounts-glib' 'kaccounts-integration')
 makedepends=('extra-cmake-modules' 'git' 'intltool')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/kaccounts-providers/commit/2cd0e36d27225a4c9e1eb7c576d52de7032aa94e.diff")
+        "https://github.com/KDE/kaccounts-providers/commit/2cd0e36d27225a4c9e1eb7c576d52de7032aa94e.diff"
+        "https://github.com/KDE/kaccounts-providers/commit/5952bf25358b8b2545cfdeb898461f82a7b17971.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '8cba5b5f35be26215cbb77bb28ea4fff')
+         '8cba5b5f35be26215cbb77bb28ea4fff'
+         '0d81404e82a241ccaf97c42de28dc673')
 
 prepare () {
   cd ${pkgname}-${pkgver}
 
   patch -p1 -i ${srcdir}/2cd0e36d27225a4c9e1eb7c576d52de7032aa94e.diff
+  patch -p1 -i ${srcdir}/5952bf25358b8b2545cfdeb898461f82a7b17971.diff
 }   
 
 build() {
