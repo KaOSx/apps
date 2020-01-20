@@ -1,12 +1,12 @@
 
 pkgname=calamares
 pkgver=3.2.18
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
 license=('LGPL')
-depends=('qt5-svg' 'qt5-xmlpatterns' 'qtwebkit-tp' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'kpackage' 'plasma-framework'
+depends=('qt5-svg' 'qt5-xmlpatterns' 'kconfig' 'ki18n' 'kcoreaddons' 'solid' 'kpackage' 'plasma-framework'
          'yaml-cpp' 'parted' 'libatasmart' 'udisks2' 'polkit-qt5' 'kpmcore' 'kparts') # 'pythonqt' 'libpwquality')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools' 'boost') # 'clang')
 options=('debug' '!staticlibs')
@@ -19,7 +19,7 @@ source=("git://github.com/KaOSx/calamares"
         'unpackfs.conf'
         'launch-calamares.sh'
         'LICENSE.txt'
-        'release_notes.html')
+        'release_notes.qml')
 md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
          'd5c65f43e057054e9728810530c4a030'
@@ -27,10 +27,13 @@ md5sums=('SKIP'
          '8b69a3a86923e2ee67a5a0725acb93e6'
          '89a65583c4e31b748d499dff106163be'
          '4b126b6494c776016accd8ffbd0be51d'
-         'cb91f0a0aa1923bee317dd56c5c31eb5')
+         'bc3386b5eea33f70a7c40162375a2979')
 
 prepare () {
   cd ${pkgname}
+  
+  rm src/modules/dummyqml/dummyqml.qml
+  cp ${srcdir}/release_notes.qml src/modules/dummyqml/dummyqml.qml
   
   #git submodule init
   #git submodule update
@@ -51,7 +54,6 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DWITH_PYTHONQT=OFF \
-    -DWEBVIEW_FORCE_WEBKIT=ON \
     -DINSTALL_CONFIG=ON \
     -DBoost_NO_BOOST_CMAKE=ON
   make
@@ -66,5 +68,5 @@ package() {
   install -Dm644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
   install -Dm644 ${srcdir}/installer.svg ${pkgdir}/usr/share/pixmaps/installer.svg
   install -Dm644 $srcdir/LICENSE.txt $pkgdir/usr/share/calamares/LICENSE.txt
-  install -Dm644 $srcdir/release_notes.html $pkgdir/usr/share/calamares/release_notes.html
+  #install -Dm644 $srcdir/release_notes.html $pkgdir/usr/share/calamares/release_notes.html
 }
