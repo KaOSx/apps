@@ -21,6 +21,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         '60-vboxguest.rules'
         'LocalConfig.kmk'
         'vboxservice.service'
+        'vmsvga.service'
         'driver-path.patch'
         'include-path.patch')
 sha256sums=('4326576e8428ea3626194fc82646347576e94c61f11d412a669fc8a10c2a1e67'
@@ -100,7 +101,7 @@ package_virtualbox-qt5() {
     install -m4755 VBoxSDL VirtualBoxVM VBoxHeadless VBoxNetDHCP VBoxNetAdpCtl VBoxNetNAT -t ${pkgdir}/usr/lib/virtualbox
     ## other binaries
     install -m755 VirtualBox VBoxManage VBoxSVC VBoxExtPackHelperApp VBoxXPCOMIPCD VBoxTestOGL VBoxBalloonCtrl -t ${pkgdir}/usr/lib/virtualbox
-
+boxservice
     # components
     # temporary remove non existing link
     rm components/VBoxREM.so
@@ -170,6 +171,7 @@ package_virtualbox-guest-utils() {
  
     install -Dm644 60-vboxguest.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxguest.rules
     install -Dm644 vboxservice.service ${pkgdir}/usr/lib/systemd/system/vboxservice.service
+    install -Dm644 vmsvga.service ${pkgdir}/usr/lib/systemd/system/vmsvga.service
 
     install -Dm644 VirtualBox-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
 }

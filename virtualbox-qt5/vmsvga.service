@@ -1,0 +1,9 @@
+[Unit]
+Description=VMSVGA Guest Service
+
+[Service]
+User=root
+ExecStartPre=-/usr/bin/VBoxClient --vmsvga
+
+[Install]
+WantedBy=multi-user.target
