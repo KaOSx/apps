@@ -1,26 +1,23 @@
 
 pkgname=rkward
-pkgver=0.7.0
-_pkgver=0.7.0b
-pkgrel=2
+pkgver=0.7.1
+_pkgver=0.7.1
+pkgrel=1
 pkgdesc="Provides an easily extensible, easy to use IDE/GUI for R."
 arch=('x86_64')
-url="http://rkward.sourceforge.net/"
+url="https://rkward.kde.org/"
 license=('GPL')
 depends=('kcoreaddons' 'ki18n' 'kxmlgui' 'ktexteditor' 'kwidgetsaddons' 'kdewebkit' 'kparts' 'knotifications'
          'kwindowsystem' 'kcrash' 'qtwebkit-tp' 'qt5-script' 'r')
 makedepends=('extra-cmake-modules' 'kdoctools' 'icu')
 groups=('science')
 source=("https://download.kde.org/stable/rkward/${pkgver}/src/rkward-${_pkgver}.tar.gz")
-sha256sums=('556e7bc8d3b8383e60c20c630f899075a6d39a04d29e56f4278191bb6ff853f4')
+sha256sums=('02a96450ef4275d38b9ff6fd13d98bcf353c5388399a813a111b640d7c61c834')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
   
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd|V4.5-Based Variant V1.1//EN" "dtd/kdex45.dtd|' doc/rkwardplugins/index.docbook
-  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd|V4.5-Based Variant V1.1//EN" "dtd/kdex45.dtd|' doc/rkward/index.docbook
-  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd|V4.5-Based Variant V1.1//EN" "dtd/kdex45.dtd|' doc/rkward/man-rkward.1.docbook
-  #sed -i -e 's|-caption|-qwindowtitle|g' rkward/rkward.desktop
   
   #scripts/import_translations.py es fr de nl
 }
