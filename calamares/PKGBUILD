@@ -32,9 +32,6 @@ md5sums=('SKIP'
 prepare () {
   cd ${pkgname}
   
-  rm src/modules/dummyqml/dummyqml.qml
-  cp ${srcdir}/release_notes.qml src/modules/dummyqml/dummyqml.qml
-  
   #git submodule init
   #git submodule update
   
@@ -64,9 +61,9 @@ package() {
   make DESTDIR=${pkgdir} install
   
   install -Dm755 ${srcdir}/launch-calamares.sh ${pkgdir}/usr/bin/launch-calamares.sh
-  rm -rf $pkgdir/usr/share/applications/$pkgname.desktop
-  install -Dm644 $srcdir/$pkgname.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+  rm -rf ${pkgdir}/usr/share/applications/${pkgname}.desktop
+  install -Dm644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
   install -Dm644 ${srcdir}/installer.svg ${pkgdir}/usr/share/pixmaps/installer.svg
-  install -Dm644 $srcdir/LICENSE.txt $pkgdir/usr/share/calamares/LICENSE.txt
-  #install -Dm644 $srcdir/release_notes.html $pkgdir/usr/share/calamares/release_notes.html
+  install -Dm644 ${srcdir}/LICENSE.txt ${pkgdir}/usr/share/calamares/LICENSE.txt
+  install -Dm644 ${srcdir}/release_notes.qml ${pkgdir}/usr/share/calamares/release_notes.qml
 }
