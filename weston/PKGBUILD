@@ -1,6 +1,6 @@
 
 pkgname=weston
-pkgver=7.0.0
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('libxkbcommon' 'mesa' 'pango' 'poppler-glib' 'mtdev' 'libxcursor' 'glu'
          'freerdp' 'pipewire')
 makedepends=('meson' 'ninja')
 source=("http://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('a00a6d207b6a45f95f4401c604772a307c3767e5e2beecf3d879110c43909a64')
+sha256sums=('7518b49b2eaa1c3091f24671bdcc124fd49fc8f1af51161927afa4329c027848')
 
 build() {
   mkdir -p build
@@ -24,7 +24,6 @@ build() {
     --buildtype=release \
     --libexec=lib/weston \
     -Ddemo-clients=true \
-    -Dsimple-dmabuf-drm=auto \
     -Dsimple-clients=all \
     -Dbackend-rdp=true
     
