@@ -2,7 +2,7 @@
 pkgname=digikam
 pkgver=6.4.0
 _pkgver=6.4.0
-pkgrel=3
+pkgrel=4
 url="https://www.digikam.org/"
 arch=('x86_64')
 license=('GPL')
@@ -17,16 +17,15 @@ depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kw
 makedepends=('eigen3' 'mariadb'  'pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'ruby') # 'clang')
 groups=('kde-graphics')
 source=("https://download.kde.org/stable/digikam/${_pkgver}/${pkgname}-${_pkgver}.tar.xz"
-        "https://github.com/KDE/digikam/commit/855ba5b7d4bc6337234720a72ea824ddd3b32e5b.diff")
+        'facerect.diff')
 sha256sums=('775012ff515bdd25a0b894c95bf5d33e7122b523da9c0f3af260ec3eff498d6f'
-            '0fd1bc8aa9b89bc16e20cc59b928630c42bc290784e0024546eb546f165a100a')
+            'fcd9a18dee3b4d009ec7256207d1b6645d2e2aa918b5cf9f9dc9b44db41f6a7b')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
   sed -i -e 's|QString module = QLatin1String(inf->module);|QString module = QLatin1String(inf->magick_module);|' core/tests/dimg/magickloader.cpp
-  # Qt 5.9.3 fix
-  #cd core
-  #patch -p1 -i ${srcdir}/855ba5b7d4bc6337234720a72ea824ddd3b32e5b.diff
+  #needed changes for opencv > 3.4.9
+  patch -p1 -i ${srcdir}/facerect.diff
 }
 
 build() {
