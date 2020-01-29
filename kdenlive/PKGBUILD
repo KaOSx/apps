@@ -4,10 +4,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdenlive
 pkgver=${_kdever}
-pkgrel=1
-pkgdesc="A non-linear video editor for Linux"
+pkgrel=2
+pkgdesc="Free and Open Source video editing application, based on MLT Framework and KDE Frameworks 5."
 arch=('x86_64')
-url="http://www.kdenlive.org/"
+url="https://www.kdenlive.org/"
 license=('GPL')
 depends=('karchive' 'kbookmarks' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'kdbusaddons' 'kio'
          'kwidgetsaddons' 'knotifyconfig' 'knewstuff' 'kxmlgui' 'knotifications'
@@ -15,16 +15,16 @@ depends=('karchive' 'kbookmarks' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'kdbus
          'mlt' 'dvgrab' 'frei0r-plugins' 'qimageblitz') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'gettext' 'docbook-xsl')
 optdepends=("dvdauthor: for creating dvds")
-conflicts=('kf5-kdenlive')
-replaces=('kf5-kdenlive')
 groups=('multimedia')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz") 
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+        "https://github.com/KDE/kdenlive/commit/b20a7307368932b35ec0d7cdebb68a710cbbf8ba.diff") 
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'b9aaad5e3cdcff5f63fe4433f59be4e0')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-
-  #patch -p1 -i ${srcdir}/?id=8a20fca86e9e2ce3d04b3e024b0752e19f9d8c8e
+  # Qt 5.14 needed
+  patch -p1 -i ${srcdir}/b20a7307368932b35ec0d7cdebb68a710cbbf8ba.diff
 }
 
 build() {
