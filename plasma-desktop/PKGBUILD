@@ -17,14 +17,14 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdeplasma5')
 conflicts=('kde-workspace' 'kcm-touchpad')
 replaces=('kde-workspace' 'kcm-touchpad')
-source=("https://download.kde.org/unstable/plasma/5.15.90/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/unstable/plasma/5.17.90/${pkgname}-${pkgver}.tar.xz"
         'layout_desktop_panel.diff'
         'main_desktop_kicker.diff'
-        "https://github.com/KDE/plasma-desktop/commit/1db4d07bb78858da7676720d13ee7c4f3bd8e6e0.diff")
+        "https://github.com/KDE/plasma-desktop/commit/0a107dcbe9fc7555803ef1d60bb29ee0acf65c9e.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '5a22b33c2f9ed93c8b8f580601e00a8e'
          '22b66401945f92bd9f99e6d334bc306e'
-         'a1efb618c5692ddf39bad8555ed296e2')
+         '476a217ec53dd5b7735c4b43e0e66928')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -35,7 +35,7 @@ prepare() {
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
   sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
   
-  #patch -p1 -i ${srcdir}/1db4d07bb78858da7676720d13ee7c4f3bd8e6e0.diff
+  patch -p1 -i ${srcdir}/0a107dcbe9fc7555803ef1d60bb29ee0acf65c9e.diff
   #rm -rf po/id/docs
 }
 
