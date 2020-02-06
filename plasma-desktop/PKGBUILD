@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=1
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
@@ -35,7 +35,7 @@ prepare() {
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
   sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
   
-  patch -p1 -i ${srcdir}/0a107dcbe9fc7555803ef1d60bb29ee0acf65c9e.diff
+  #patch -p1 -i ${srcdir}/0a107dcbe9fc7555803ef1d60bb29ee0acf65c9e.diff
   #rm -rf po/id/docs
 }
 
