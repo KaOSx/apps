@@ -1,23 +1,23 @@
 
 pkgname=libopenshot-audio
-pkgver=0.1.8
+pkgver=0.1.9
 _commit=12a152983e108bbdfc0c2e286c6fff98cd6eb9f4
-pkgrel=2
+pkgrel=1
 pkgdesc="Program that allows the high-quality editing and playback of audio, and is based on the amazing JUCE library."
 arch=('x86_64')
 url="https://www.openshot.org/"
 license=('LGPL3')
 depends=('alsa-lib' 'freetype2' 'libx11' 'libxcursor' 'libxinerama' 'libxrandr')
 makedepends=('cmake')
-#source=("https://github.com/OpenShot/libopenshot-audio/archive/v${pkgver}.tar.gz")
-source=("https://github.com/OpenShot/libopenshot-audio/archive/${_commit}.zip")
-md5sums=('5fefd2c9ff6c9c9997f059e3a083e3e0')
+source=("https://github.com/OpenShot/libopenshot-audio/archive/v${pkgver}.tar.gz")
+#source=("https://github.com/OpenShot/libopenshot-audio/archive/${_commit}.zip")
+md5sums=('fc5c7b857c20f3fe48e3c05dcc96d5b9')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr 
   make

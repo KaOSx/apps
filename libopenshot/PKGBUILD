@@ -1,25 +1,25 @@
 
 pkgname=libopenshot
-pkgver=0.2.3
-pkgrel=3
+pkgver=0.2.4
+pkgrel=1
 pkgdesc="Open-source project dedicated to delivering high quality video editing, animation, and playback solutions to the world."
 arch=('x86_64')
 url="https://www.openshot.org/"
 license=('LGPL3')
 depends=('libopenshot-audio' 'ffmpeg' 'imagemagick' 'libx11' 'libxcursor' 'libxinerama' 'python3'
-         'x264' 'qt5-multimedia' 'zeromq') # build fails with gcc > 6.4 & ruby 'ruby' 
-makedepends=('cmake' 'swig' 'doxygen')
+         'x264' 'qt5-multimedia' 'zeromq' 'jsoncpp') # build fails with gcc > 6.4 & ruby 'ruby' 
+makedepends=('cmake' 'swig') # 'doxygen')
 # http://bazaar.launchpad.net/~openshot.code/libopenshot/trunk/files
 source=("https://github.com/OpenShot/libopenshot/archive/v${pkgver}.tar.gz"
         "https://github.com/OpenShot/libopenshot/commit/4c5851df2873458e9a84cbba7471d546b521083e.diff")
-md5sums=('7ba70ff88ef52f658ce550aad1f5eaa1'
+md5sums=('91af3b0da2fbcffbef8fa78eeebec978'
          '8cde2a610a23a04bb6950a6a569c3720')
 
 prepare () {
   cd ${pkgname}-${pkgver}
   
-  sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' CMakeLists.txt
-  patch -p1 -i ${srcdir}/4c5851df2873458e9a84cbba7471d546b521083e.diff
+  #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' CMakeLists.txt
+  #patch -p1 -i ${srcdir}/4c5851df2873458e9a84cbba7471d546b521083e.diff
 }   
 
 build() {
@@ -30,7 +30,9 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMAGICKCORE_HDRI_ENABLE=1 \
-    -DENABLE_RUBY=OFF
+    -DENABLE_RUBY=OFF \
+    -DDISABLE_TESTS=ON \
+    -DDOXYGEN_FOUND=NO
   make
 }
 
@@ -38,6 +40,6 @@ package() {
   cd build
   make DESTDIR=${pkgdir} install
   # install the example and simple player
-  install -d ${pkgdir}/usr/bin
-  install -m755 src/openshot-* ${pkgdir}/usr/bin
+  #install -d ${pkgdir}/usr/bin
+  #install -m755 src/openshot-* ${pkgdir}/usr/bin
 }
