@@ -21,11 +21,9 @@ prepare() {
 }
 
 build() {
-  cd ${srcdir}
-
-  mkdir build
+  mkdir -p build  
+  cd build
   
-  cd build 
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
@@ -39,7 +37,7 @@ build() {
 }
 
 package() {
-  cd ${srcdir}/build
+  cd build
   
   make DESTDIR=${pkgdir} install
 }
