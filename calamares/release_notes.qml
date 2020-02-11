@@ -61,20 +61,18 @@ Item {
             
             <p>For the installer Calamares, a second new feature was added.  The Release Notes are now shown in a QML module, so there no longer is a need to work around sandboxing issues with QtWebengine or having to use the depreciated QtWebkit.</p>
             
-            <p>You will find KDE Applications 19.12 on this ISO. Highlights of 19.12 include Kdenlive now comes with a spectacular new sound mixer. Dolphin redesigned advanced search options and now you can go backwards and forwards in the history of places you have already visited. KDE-Connect implemented a new Kirigami interface which provides new features for desktop-to-desktop users, such as media control, remote input, device ringing, file transfer and running commands. For Elisa, indexing music files has improved and now supports web radios and ships with a few examples for you to try.</b>
-            Frameworks is at 5.65.0, Plasma at 5.17.4 and KDE Applications at 19.12.0. All built on Qt 5.14.0.
-            
-            
+            <p>You will find <b>Plasma 5.18</b> on this ISO already. Highlights of Plasma 5.18 include the new Global Edit mode that you can activate by right-clicking on an empty area of your desktop and choosing 'Customize layout' from the popup menu, there's a new system tray widget that lets you toggle the Night Color feature, many changes in the notifications system, and a new User Feedback option in System Settings where the Feedback settings slider lets you decide how much you want to share with KDE developers.</p>
+            Frameworks is at 5.67.0, Plasma at 5.18.0 and KDE Applications at 19.12.2. All built on <b>Qt 5.14.1</b>.
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.
             
-            <p>KaOS' creation <strong>Croeso</strong> (Welsh for welcome) for helping with configuring a new install is included.  It will run on the newly installed system and offers to adjust some 15 commonly used settings and replaces the formerly used, PyQt based first run wizard Kaptan.  It also includes a custom Wallpaper selector, distribution info and news.  It is written in QML and fits well with the Welcome application used in the Live system.  The latter now includes a fully rewritten (also in QML) Installation Guide.</p>
+            <p>KaOS' creation <strong>Croeso</strong> (Welsh for welcome) for helping with configuring a new install is included.  It will run on the newly installed system and offers to adjust some 15 commonly used settings, includes a custom Wallpaper selector, distribution info and the option to select packages to install from six different groups.  It is written in QML and fits well with the Welcome application used in the Live system.  The latter includes an Installation Guide.</p>
             
             <p>There is an option to verify the authenticity of downloaded KaOS ISO files through GPG signature verification, see the Download page for further details and instructions.</p>
             
             <p>A KaOS specific tool to write ISO files to USB is in use.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. It includes the option to verify the written USB in comparison to the used ISO file.</p>
             
-            <p>Most notable major updates to the base of the system are LLVM/Clang 9.0.1, Systemd 244, Bison 3.4.2, Python3 3.7.6, Linux 5.5.7, Protobuf 3.11.1, Mesa 19.3.3, NetworkManager 1.22.2, Nano 4.7, GStreamer 1.16.2 and Qt 5.14.1</p>
+            <p>Most notable major updates to the base of the system are Systemd 244, Make 4.3, Sudo 1.8.31, Linux 5.5.7, GMP 6.2.0, Mesa 19.3.3, NetworkManager 1.22.6, Nano 4.8, NSS 3.50 and Qt 5.14.1</p>
             
             <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
             
@@ -92,7 +90,7 @@ Item {
             
             <p>The ISO ships with <b>Frameworks 5.67.0, Plasma 5.18.0, KDE Applications 19.12.2</b>, Linux 5.5.7, Systemd 244, Kmod 26, NetworkManager 1.22.6, LibreOffice 6.4.0, Krita 4.2.8, Elisa, Xorg-Server 1.20.7, Mesa 19.3.3, Glibc 2.30, GCC 9.2.0, non-free Nvidia 440.59, Pepperflash and Python3 3.7.6 to name a few.</p>
             
-            <p>The package manager is <strong>Pacman 5.2.1</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default web browser, it is Qt based and the successor of Qupzilla. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
+            <p>The package manager is <strong>Pacman 5.2.1</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.5, LibreOffice 6.4.0,VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
             A limited number of the most well-known GTK applications are available, examples Firefox 73.0, Chrome 81, Ardour 5.12.0, Inkscape 0.92.4, GIMP 2.10.14 and Google-talkplugin 5.41.3.0.1.<br />
