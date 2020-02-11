@@ -32,6 +32,7 @@ Item {
         contentHeight: 3500
         
         ScrollBar.vertical: ScrollBar {
+            id: fscrollbar 
             width: 10
             policy: ScrollBar.AlwaysOn
         }
@@ -40,28 +41,30 @@ Item {
             id: intro
             x: 1
             y: 0
-            width: (parent.width -5)
+            width: parent.width - fscrollbar.width
             font.pointSize: 14
             textFormat: Text.RichText
             antialiasing: true
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2020.01</h3>
-            <p>A nice way of starting 2020 is to present to you the January release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2020.02</h3>
+            <p>KaOS is very proud to announce the availability of the February release of a new stable ISO.</p>
             
-            <p>For the many changes in this release, two stand out.  First one is the addition of signed kernel modules for Linux 5.4. All internal modules are now signed automatically during the kernel build, out of tree modules like virtualbox-modules and NVIDIA packages have the signing added too. Building of those modules was adjusted to use the kernel specific signing files during each and every rebuild. You can harden your system by adding <code>module.sig_enforce=1</code> to your kernel boot line. To check if your systems contains any unsigned:</p>
+            <p>Not since 2014 has there been a KaOS ISO with this many new features.  It starts with the installer, there it is  now possible to select whether or not to install an OfficeSuite (current choice is limited to LibreOffice, future might see the additon of Calligra as option).  You can also opt to do a minimal install, this means opting for a fully functional Plasma Desktop with a filemanager, texteditor and simple web-browser, but no further applications. So there won't be a music player, image viewer, office suite and so on. You as a user can decide once the system is installed what to add when the minimal install was chosen.</p>
             
-            <p><code>for mod in $(lsmod | tail -n +2 | cut -d' ' -f1); do modinfo ${mod} | grep -q 'signature' || echo 'no signature for module: ${mod}' ; done</code></p>
+            <p>That brings the next new feature. To help with selecting what to add to your new install, the first run wizard Croeso has the option added to install packages from six commonly used groups. For example, one group will give a choice of four different web-browsers to add, so it is now very simple to add Chrome or Firefox. Since KaOS never has installed an email client by default, there naturally is a group for too.</p>
             
-            <p>Second: To better accommodate hybrid systems and non-free NVIDIA, there is now a switch from libgl to vendor neutral libglvnd. This will make the NVIDIA bumblebee packages obsolete. Xorg-server was updated to 1.20.6, this now includes the needed patches to use Prime instead of Bumblebee. The needed scripts for this are packaged as the <code>prime</code> package. The hardware-detection scripts and Calamares installer have their code adjusted to use the new Prime option. The availability of NVIDIA hybrid testing hardware was limited, so you might still encounter some issue with Prime.</p>
+            <p>A smaller change is done for the Welcome application as seen in Live mode. The installed package list is now part of the main window with it's own tab in the slideview.  No longer is there a need to open a new window.</p>
             
-            <p>Work has also continued last month to further remove python2. This time it was removed as makedepend from as many as possible.</b>
+            <p>The Midna them used for KaOS has been redone for 2020, biggest change there is the move from QtCurve to Kvantum for the application style.  Implemented is a custom Midna Kvantum theme, following the same style as used in Croeso and the Welcome application. Ksplash is simplified with less moving images, SDDM theme has better contrast.  Complete new is theming for the systemd-bootloader, gone is the standard black background with white text, instead you will see a well intgrated option with the rest of the Midna theme.  The grub bootloader was updated to follow a similar look as the systemd-bootloader.</p>
+            
+            <p>For the installer Calamares, a second new feature was added.  The Release Notes are now shown in a QML module, so there no longer is a need to work around sandboxing issues with QtWebengine or having to use the depreciated QtWebkit.</p>
             
             <p>You will find KDE Applications 19.12 on this ISO. Highlights of 19.12 include Kdenlive now comes with a spectacular new sound mixer. Dolphin redesigned advanced search options and now you can go backwards and forwards in the history of places you have already visited. KDE-Connect implemented a new Kirigami interface which provides new features for desktop-to-desktop users, such as media control, remote input, device ringing, file transfer and running commands. For Elisa, indexing music files has improved and now supports web radios and ships with a few examples for you to try.</b>
             Frameworks is at 5.65.0, Plasma at 5.17.4 and KDE Applications at 19.12.0. All built on Qt 5.14.0.
             
-            <p>For the installer Calamares, support for non-free NVIDIA with Prime has been added.</p>
+            
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.
             
@@ -71,7 +74,7 @@ Item {
             
             <p>A KaOS specific tool to write ISO files to USB is in use.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. It includes the option to verify the written USB in comparison to the used ISO file.</p>
             
-            <p>Most notable major updates to the base of the system are LLVM/Clang 9.0.1, Glib2 2.62.4, Bison 3.4.2, Python3 3.7.6, Linux 5.4.7, Protobuf 3.11.1, Mesa 19.2.8, NetworkManager 1.22.2, Nano 4.7, GStreamer 1.16.2 and Qt 5.14.0</p>
+            <p>Most notable major updates to the base of the system are LLVM/Clang 9.0.1, Systemd 244, Bison 3.4.2, Python3 3.7.6, Linux 5.5.7, Protobuf 3.11.1, Mesa 19.3.3, NetworkManager 1.22.2, Nano 4.7, GStreamer 1.16.2 and Qt 5.14.1</p>
             
             <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
             
@@ -87,12 +90,12 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.65.0, Plasma 5.17.4, KDE Applications 19.12.0</b>, Linux 5.4.7, Systemd 243, Kmod 26, NetworkManager 1.22.2, LibreOffice 6.3.4, Krita 4.2.8, Elisa, Xorg-Server 1.20.6, Mesa 19.2.8, Glibc 2.30, GCC 9.2.0, non-free Nvidia 440.44, Pepperflash and Python3 3.7.6 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.67.0, Plasma 5.18.0, KDE Applications 19.12.2</b>, Linux 5.5.7, Systemd 244, Kmod 26, NetworkManager 1.22.6, LibreOffice 6.4.0, Krita 4.2.8, Elisa, Xorg-Server 1.20.7, Mesa 19.3.3, Glibc 2.30, GCC 9.2.0, non-free Nvidia 440.59, Pepperflash and Python3 3.7.6 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.1</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default web browser, it is Qt based and the successor of Qupzilla. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
-            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.4, LibreOffice 6.3.4,VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 71.0, Chrome 81, Ardour 5.12.0, Inkscape 0.92.4, GIMP 2.10.14 and Google-talkplugin 5.41.3.0.1.<br />
+            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.5, LibreOffice 6.4.0,VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 73.0, Chrome 81, Ardour 5.12.0, Inkscape 0.92.4, GIMP 2.10.14 and Google-talkplugin 5.41.3.0.1.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>

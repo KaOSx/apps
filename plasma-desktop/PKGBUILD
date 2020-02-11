@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
@@ -20,11 +20,11 @@ replaces=('kde-workspace' 'kcm-touchpad')
 source=("https://download.kde.org/unstable/plasma/5.17.90/${pkgname}-${pkgver}.tar.xz"
         'layout_desktop_panel.diff'
         'main_desktop_kicker.diff'
-        "https://github.com/KDE/plasma-desktop/commit/0a107dcbe9fc7555803ef1d60bb29ee0acf65c9e.diff")
+        "https://github.com/KDE/plasma-desktop/commit/2bc3c5e92d4789146548e8de4d520cd191994e1c.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '5a22b33c2f9ed93c8b8f580601e00a8e'
          '22b66401945f92bd9f99e6d334bc306e'
-         '476a217ec53dd5b7735c4b43e0e66928')
+         '02b0eacf9d73524cab8881fa21e90e4f')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -35,7 +35,7 @@ prepare() {
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
   sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
   
-  #patch -p1 -i ${srcdir}/0a107dcbe9fc7555803ef1d60bb29ee0acf65c9e.diff
+  patch -p1 -i ${srcdir}/2bc3c5e92d4789146548e8de4d520cd191994e1c.diff
   #rm -rf po/id/docs
 }
 
