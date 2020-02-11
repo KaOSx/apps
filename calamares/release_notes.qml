@@ -23,7 +23,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls.Material 2.1
 
 Item {
-    width: parent.width
+    width: 740
     height: 420
 
     Flickable {
@@ -51,20 +51,20 @@ Item {
             text: qsTr("<h3>KaOS - 2020.02</h3>
             <p>KaOS is very proud to announce the availability of the February release of a new stable ISO.</p>
             
-            <p>Not since 2014 has there been a KaOS ISO with this many new features.  It starts with the installer, there it is  now possible to select whether or not to install an OfficeSuite (current choice is limited to LibreOffice, future might see the additon of Calligra as option).  You can also opt to do a minimal install, this means opting for a fully functional Plasma Desktop with a filemanager, texteditor and simple web-browser, but no further applications. So there won't be a music player, image viewer, office suite and so on. You as a user can decide once the system is installed what to add when the minimal install was chosen.</p>
+            <p>Not since 2014 has there been a KaOS ISO with this many new features.  It starts with the installer, there it is  now possible <b>to select whether or not to install</b> an OfficeSuite (current choice is limited to LibreOffice, future might see the additon of Calligra as option).  You can also opt to do a minimal install, this means opting for a fully functional Plasma Desktop with a filemanager, texteditor and simple web-browser, but no further applications. So there won't be a music player, image viewer, office suite and so on. You as a user can decide once the system is installed what to add when the minimal install was chosen.</p>
             
-            <p>That brings the next new feature. To help with selecting what to add to your new install, the first run wizard Croeso has the option added to install packages from six commonly used groups. For example, one group will give a choice of four different web-browsers to add, so it is now very simple to add Chrome or Firefox. Since KaOS never has installed an email client by default, there naturally is a group for too.</p>
+            <p>That brings us to the next new feature. To help with selecting what to add to your new install, the first run wizard Croeso has the option added <b>to install packages</b> from six commonly used groups. For example, one group will give a choice of four different web-browsers to add, so it is now very simple to add Chrome or Firefox. Since KaOS has never installed an email client by default, there naturally is a group for too.</p>
             
-            <p>A smaller change is done for the Welcome application as seen in Live mode. The installed package list is now part of the main window with it's own tab in the slideview.  No longer is there a need to open a new window.</p>
+            <p>A smaller change is done for the Welcome application as seen in Live mode. The installed package list is now part of the main window with it's own tab in the slideview.  No longer is there a need to open a new window for this list.</p>
             
-            <p>The Midna them used for KaOS has been redone for 2020, biggest change there is the move from QtCurve to Kvantum for the application style.  Implemented is a custom Midna Kvantum theme, following the same style as used in Croeso and the Welcome application. Ksplash is simplified with less moving images, SDDM theme has better contrast.  Complete new is theming for the systemd-bootloader, gone is the standard black background with white text, instead you will see a well intgrated option with the rest of the Midna theme.  The grub bootloader was updated to follow a similar look as the systemd-bootloader.</p>
+            <p>The Midna them used for KaOS has been redone for 2020, biggest change there is the move from QtCurve to <b>Kvantum</b> for the application style.  Implemented is a custom Midna Kvantum theme, following the same style as used in Croeso and the Welcome application. Ksplash is simplified with less moving images, SDDM theme has better contrast.  Complete new is <b>theming for the systemd-bootloader</b>, gone is the standard black background with white text, instead you will see a well intgrated option with the rest of the Midna theme.  The grub bootloader was updated to follow a similar look as the systemd-bootloader.</p>
             
             <p>For the installer Calamares, a second new feature was added.  The Release Notes are now shown in a QML module, so there no longer is a need to work around sandboxing issues with QtWebengine or having to use the depreciated QtWebkit.</p>
             
-            <p>You will find <b>Plasma 5.18</b> on this ISO already. Highlights of Plasma 5.18 include the new Global Edit mode that you can activate by right-clicking on an empty area of your desktop and choosing 'Customize layout' from the popup menu, there's a new system tray widget that lets you toggle the Night Color feature, many changes in the notifications system, and a new User Feedback option in System Settings where the Feedback settings slider lets you decide how much you want to share with KDE developers.</p>
+            <p>You will find <b>Plasma 5.18</b> on this ISO already. Highlights of Plasma 5.18 include the new Global Edit mode that you can activate by right-clicking on an empty area of your desktop and choosing 'Customize layout' from the popup menu, there's a new system tray widget that lets you toggle the Night Color feature, many changes in the notifications system, and a new User Feedback option in System Settings where the Feedback settings slider lets you decide how much you want to share with KDE developers.<br />
             Frameworks is at 5.67.0, Plasma at 5.18.0 and KDE Applications at 19.12.2. All built on <b>Qt 5.14.1</b>.
             
-            <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.
+            <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
             <p>KaOS' creation <strong>Croeso</strong> (Welsh for welcome) for helping with configuring a new install is included.  It will run on the newly installed system and offers to adjust some 15 commonly used settings, includes a custom Wallpaper selector, distribution info and the option to select packages to install from six different groups.  It is written in QML and fits well with the Welcome application used in the Live system.  The latter includes an Installation Guide.</p>
             
