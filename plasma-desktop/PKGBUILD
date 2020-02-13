@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=3
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
@@ -36,7 +36,7 @@ prepare() {
   sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
   
   patch -p1 -i ${srcdir}/2bc3c5e92d4789146548e8de4d520cd191994e1c.diff
-  #rm -rf po/id/docs
+  sed -i 's|emit m_settings->activeFontChanged();|setNeedsSave(false);|' kcms/fonts/fonts.cpp
 }
 
 build() {
