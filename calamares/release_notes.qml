@@ -51,9 +51,9 @@ Item {
             text: qsTr("<h3>KaOS - 2020.02</h3>
             <p>KaOS is very proud to announce the availability of the February release of a new stable ISO.</p>
             
-            <p>Not since 2014 has there been a KaOS ISO with this many new features.  It starts with the installer, there it is  now possible <b>to select whether or not to install</b> an OfficeSuite (current choice is limited to LibreOffice, future might see the additon of Calligra as option).  You can also opt to do a minimal install, this means opting for a fully functional Plasma Desktop with a filemanager, texteditor and simple web-browser, but no further applications. So there won't be a music player, image viewer, office suite and so on. You as a user can decide once the system is installed what to add when the minimal install was chosen.</p>
+            <p>Not since 2014 has there been a KaOS ISO with this many new features.  It starts with the installer, there it is  now possible <b>to select whether or not to install</b> an OfficeSuite (current choice is limited to LibreOffice, future might see the additon of Calligra as option).  You can also opt to do a minimal install. This means opting for a fully functional Plasma Desktop with a filemanager, texteditor and simple web-browser, but no further applications. So there won't be a music player, image viewer, office suite and so on. You as a user can decide once the system is installed what to add when the minimal install was chosen.</p>
             
-            <p>That brings us to the next new feature. To help with selecting what to add to your new install, the first run wizard Croeso has the option added <b>to install packages</b> from six commonly used groups. For example, one group will give a choice of four different web-browsers to add, so it is now very simple to add Chrome or Firefox. Since KaOS has never installed an email client by default, there naturally is a group for too.</p>
+            <p>That brings us to the next new feature. To help with selecting what to add to your new install, the first run wizard Croeso has the option added <b>to install packages</b> from six commonly used groups. For example, one group will give a choice of four different web-browsers to add, so it is now very simple to add Chrome or Firefox. Since KaOS has never installed an email client by default, there naturally is now a group for that too.</p>
             
             <p>A smaller change is done for the Welcome application as seen in Live mode. The installed package list is now part of the main window with it's own tab in the slideview.  No longer is there a need to open a new window for this list.</p>
             
@@ -92,7 +92,7 @@ Item {
             
             <p>The package manager is <strong>Pacman 5.2.1</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
-            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.5, LibreOffice 6.4.0,VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
+            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.5, Calligra 3.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
             A limited number of the most well-known GTK applications are available, examples Firefox 73.0, Chrome 81, Ardour 5.12.0, Inkscape 0.92.4, GIMP 2.10.14 and Google-talkplugin 5.41.3.0.1.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
