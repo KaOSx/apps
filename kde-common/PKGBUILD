@@ -58,7 +58,7 @@ package() {
 	install -D -m 755 -o root -g root $srcdir/agent-shutdown.sh $pkgdir/etc/xdg/plasma-workspace/shutdown/agent-shutdown.sh
 	
 	# install sysinfo script
-	install -D -m755 -o root -g root ${srcdir}/sysinfo.sh ${pkgdir}/usr/bin/sysinfo
+	#install -D -m755 -o root -g root ${srcdir}/sysinfo.sh ${pkgdir}/usr/bin/sysinfo
 
 	# install root actions service menu
 	cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1/dolphin-KDE4/
@@ -85,9 +85,9 @@ package() {
 	# install menu entries
 	cd ${srcdir}
 	#install -m755 -d ${pkgdir}/usr/share/desktop-directories
-	install -m755 -d ${pkgdir}/usr/share/applications
-	install -m755 ${srcdir}/skype.desktop ${pkgdir}/usr/share/applications/skype.desktop
-	install -D -m755 ${srcdir}/skype.svg ${pkgdir}/usr/share/icons/hicolor/48x48/skype.svg
+	#install -m755 -d ${pkgdir}/usr/share/applications
+	#install -m755 ${srcdir}/skype.desktop ${pkgdir}/usr/share/applications/skype.desktop
+	#install -D -m755 ${srcdir}/skype.svg ${pkgdir}/usr/share/icons/hicolor/48x48/skype.svg
 	
 	
 	# install md5sha1calc
