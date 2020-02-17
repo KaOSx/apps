@@ -53,7 +53,8 @@ Item {
             
             <p>Not since 2014 has there been a KaOS ISO with this many new features.  It starts with the installer, there it is  now possible <b>to select whether or not to install</b> an OfficeSuite (current choice is limited to LibreOffice, future might see the additon of Calligra as option).  You can also opt to do a minimal install. This means opting for a fully functional Plasma Desktop with a filemanager, texteditor and simple web-browser, but no further applications. So there won't be a music player, image viewer, office suite and so on. You as a user can decide once the system is installed what to add when the minimal install was chosen.</p>
             
-            <p>That brings us to the next new feature. To help with selecting what to add to your new install, the first run wizard Croeso has the option added <b>to install packages</b> from six commonly used groups. For example, one group will give a choice of four different web-browsers to add, so it is now very simple to add Chrome or Firefox. Since KaOS has never installed an email client by default, there naturally is now a group for that too.</p>
+            <p>That brings us to the next new feature. To help with selecting what to add to your new install, the first run wizard Croeso has the option added <b>to install packages</b> from six commonly used groups. For example, one group will give a choice of four different web-browsers to add, so it is now very simple to add Chrome or Firefox. Since KaOS has never installed an email client by default, there naturally is now a group for that too.<br />
+            The above new feature makes it no longer needed to ship as many applications by default on the ISO, thus it is reduced in size.</p>
             
             <p>A smaller change is done for the Welcome application as seen in Live mode. The installed package list is now part of the main window with it's own tab in the slideview.  No longer is there a need to open a new window for this list.</p>
             
@@ -63,6 +64,8 @@ Item {
             
             <p>You will find <b>Plasma 5.18</b> on this ISO already. Highlights of Plasma 5.18 include the new Global Edit mode that you can activate by right-clicking on an empty area of your desktop and choosing 'Customize layout' from the popup menu, there's a new system tray widget that lets you toggle the Night Color feature, many changes in the notifications system, and a new User Feedback option in System Settings where the Feedback settings slider lets you decide how much you want to share with KDE developers.<br />
             Frameworks is at 5.67.0, Plasma at 5.18.0 and KDE Applications at 19.12.2. All built on <b>Qt 5.14.1</b>.
+            
+            <p>Last new feature you will see on this ISO is the change of package compression standard from tar.xz to tar.zst. ZSTD brings a significant improvement of decompression speed over XZ, while bringing only a marginal larger package size.</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
