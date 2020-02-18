@@ -1,22 +1,22 @@
  
 pkgname=mypaint-brushes
-pkgver=1.3.0
-pkgrel=2
+pkgver=1.3.1
+pkgrel=1
 pkgdesc='Brushes used by MyPaint and other software using libmypaint.'
 arch=('x86_64')
 url='https://github.com/mypaint/mypaint-brushes'
 license=('CC0')
 depends=('libmypaint')
-source=("https://github.com/mypaint/mypaint-brushes/archive/v${pkgver}.tar.gz"
+source=("https://github.com/mypaint/mypaint-brushes/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/mypaint/mypaint-brushes/commit/1e9109dde3bffd416ed351c3f30ecd6ffd0ca2cd.diff")
-md5sums=('679190d88f67a94db57ac99017f966f5'
-         '74ce92a2385fe1b259ac7bef5c19affc')
+sha256sums=('fef66ffc241b7c5cd29e9c518e933c739618cb51c4ed4d745bf648a1afc3fe70'
+            '03898ced12616d4c4e42fe3aed4eab6386f226c8ff4a99a887c367ca1680eaed')
 
 build() {
   cd ${pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/1e9109dde3bffd416ed351c3f30ecd6ffd0ca2cd.diff
+  #patch -p1 -i ${srcdir}/1e9109dde3bffd416ed351c3f30ecd6ffd0ca2cd.diff
 
-  ./autogen.sh
+  #./autogen.sh
   ./configure --prefix=/usr
   make
 }
