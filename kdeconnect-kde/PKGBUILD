@@ -14,13 +14,16 @@ depends=('kcmutils' 'kconfigwidgets' 'kiconthemes' 'kdbusaddons' 'knotifications
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kf5-kdeconnect-kde')
 replaces=('kf5-kdeconnect-kde')
-source=("https://download.kde.org/stable/kdeconnect/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('caee7945a9d9bb881a943dc8d2fd0d702c04da5bdb2df14d4f875e7cf5d5261a')
+source=("https://download.kde.org/stable/kdeconnect/${_pkgver}/${pkgname}-${pkgver}.tar.xz"
+        'openssh8.2.patch')
+sha256sums=('caee7945a9d9bb881a943dc8d2fd0d702c04da5bdb2df14d4f875e7cf5d5261a'
+            '88ba9816469bae2e48f58f7fe0889679d96d770e1775bf928d6d0816c97bc515')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|import QtQuick.Layouts 1.2|import QtQuick.Layouts 1.1|' ${srcdir}/${pkgname}/app/qml/DeviceDelegate.qml
-  #sed -i -e 's|import QtQuick.Layouts 1.2|import QtQuick.Layouts 1.1|' ${srcdir}/${pkgname}/app/qml/mpris.qml
+  # file browsing crashes with openssh 8.2, fix from ArchLinux
+  patch -p1 -i ${srcdir}/openssh8.2.patch
 }
 
 build() {

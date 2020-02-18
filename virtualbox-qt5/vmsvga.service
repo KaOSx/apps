@@ -1,9 +1,10 @@
 [Unit]
 Description=VMSVGA Guest Service
+BindsTo=sddm.service
 
 [Service]
-User=root
 ExecStartPre=-/usr/bin/VBoxClient --vmsvga
+ExecStart=/usr/bin/whoami
 
 [Install]
 WantedBy=multi-user.target
