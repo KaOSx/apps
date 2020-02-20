@@ -1,0 +1,108 @@
+--- a/Makefile	2020-02-18 18:20:16.000000000 +0100
++++ b/Makefile	2020-02-20 12:58:22.865959059 +0100
+@@ -35,9 +35,6 @@
+ ifneq ($(wildcard $(CURDIR)/vboxnetadp/Makefile),)
+  obj-m += vboxnetadp/
+ endif
+-ifneq ($(wildcard $(CURDIR)/vboxpci/Makefile),)
+- obj-m += vboxpci/
+-endif
+ 
+ else # ! KERNELRELEASE
+ 
+@@ -45,10 +42,11 @@
+ 
+ KBUILD_VERBOSE ?=
+ KERN_VER ?= $(shell uname -r)
+-.PHONY: all install clean check unload load vboxdrv vboxnetflt vboxnetadp \
+-    vboxpci
++PWD ?= $(shell pwd)
+ 
+-all: vboxdrv vboxnetflt vboxnetadp vboxpci
++.PHONY: all install clean check unload load vboxdrv vboxnetflt vboxnetadp
++
++all: vboxdrv vboxnetflt vboxnetadp
+ 
+ # We want to build on Linux 2.6.18 and later kernels.
+ ifneq ($(filter-out 1.% 2.0.% 2.1.% 2.2.% 2.3.% 2.4.% 2.5.%,$(KERN_VER)),)
+@@ -64,6 +62,7 @@
+ 	    if [ -f vboxdrv/Module.symvers ]; then \
+ 	        cp vboxdrv/Module.symvers vboxnetflt; \
+ 	    fi; \
++	    export KBUILD_EXTRA_SYMBOLS=${PWD}/vboxnetflt/Module.symvers; \
+ 	    echo "=== Building 'vboxnetflt' module ==="; \
+ 	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) KBUILD_EXTRA_SYMBOLS=$(abspath vboxnetflt/Module.symvers) -C vboxnetflt || exit 1; \
+ 	    cp vboxnetflt/vboxnetflt.ko .; \
+@@ -75,41 +74,29 @@
+ 	    if [ -f vboxdrv/Module.symvers ]; then \
+ 	        cp vboxdrv/Module.symvers vboxnetadp; \
+ 	    fi; \
++	    export KBUILD_EXTRA_SYMBOLS=${PWD}/vboxnetadp/Module.symvers; \
+ 	    echo "=== Building 'vboxnetadp' module ==="; \
+ 	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) KBUILD_EXTRA_SYMBOLS=$(abspath vboxnetadp/Module.symvers) -C vboxnetadp || exit 1; \
+ 	    cp vboxnetadp/vboxnetadp.ko .; \
+ 	    echo; \
+ 	fi
+ 
+-vboxpci: vboxdrv
+-	@if [ -d vboxpci ]; then \
+-	    if [ -f vboxdrv/Module.symvers ]; then \
+-	        cp vboxdrv/Module.symvers vboxpci; \
+-	    fi; \
+-	    echo "=== Building 'vboxpci' module ==="; \
+-	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) KBUILD_EXTRA_SYMBOLS=$(abspath vboxpci/Module.symvers) -C vboxpci || exit 1; \
+-	    cp vboxpci/vboxpci.ko .; \
+-	    echo; \
+-	fi
+-
+ install:
+ 	@$(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxdrv install
+ 	@if [ -d vboxnetflt ]; then \
++	    export KBUILD_EXTRA_SYMBOLS=${PWD}/vboxnetflt/Module.symvers; \
+ 	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxnetflt install; \
+ 	fi
+ 	@if [ -d vboxnetadp ]; then \
++	    export KBUILD_EXTRA_SYMBOLS=${PWD}/vboxnetadp/Module.symvers; \
+ 	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxnetadp install; \
+ 	fi
+-	@if [ -d vboxpci ]; then \
+-	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxpci install; \
+-	fi
+ 
+ else
+ 
+ vboxdrv:
+ vboxnetflt:
+ vboxnetadp:
+-vboxpci:
+ install:
+ 
+ endif
+@@ -122,16 +109,13 @@
+ 	@if [ -d vboxnetadp ]; then \
+ 	    $(MAKE) -C vboxnetadp clean; \
+ 	fi
+-	@if [ -d vboxpci ]; then \
+-	    $(MAKE) -C vboxpci clean; \
+-	fi
+-	rm -f vboxdrv.ko vboxnetflt.ko vboxnetadp.ko vboxpci.ko
++	rm -f vboxdrv.ko vboxnetflt.ko vboxnetadp.ko
+ 
+ check:
+ 	@$(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxdrv check
+ 
+ unload:
+-	@for module in vboxpci vboxnetadp vboxnetflt vboxdrv; do \
++	@for module in vboxnetadp vboxnetflt vboxdrv; do \
+ 		if grep "^$$module " /proc/modules >/dev/null; then \
+ 			echo "Removing previously installed $$module module"; \
+ 			/sbin/rmmod $$module; \
+@@ -139,7 +123,7 @@
+ 	done
+ 
+ load: unload
+-	@for module in vboxdrv vboxnetflt vboxnetadp vboxpci; do \
++	@for module in vboxdrv vboxnetflt vboxnetadp; do \
+ 		if test -f $$module.ko; then \
+ 			echo "Installing $$module module"; \
+ 			/sbin/insmod $$module.ko; \
