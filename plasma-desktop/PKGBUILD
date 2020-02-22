@@ -4,20 +4,20 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
 license=('LGPL')
 depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb' 'libcanberra' 'polkit-kde-agent-1'
          'systemsettings' 'ksysguard' 'powerdevil' 'kmenuedit' 'kpeople' 
-         'kdbusaddons' 'plasma-integration' 'xf86-input-synaptics' 'xorg-server'
+         'kdbusaddons' 'plasma-integration' 'xorg-server'
          'kactivities-stats' 'xf86-input-evdev' 'xf86-input-libinput')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+makedepends=('extra-cmake-modules' 'kdoctools' 'xf86-input-synaptics' 'boost')
 groups=('kdeplasma5')
 conflicts=('kde-workspace' 'kcm-touchpad')
 replaces=('kde-workspace' 'kcm-touchpad')
-source=("https://download.kde.org/unstable/plasma/5.17.90/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/plasma/5.18.1/${pkgname}-${pkgver}.tar.xz"
         'layout_desktop_panel.diff'
         'main_desktop_kicker.diff'
         "https://github.com/KDE/plasma-desktop/commit/2bc3c5e92d4789146548e8de4d520cd191994e1c.diff")
