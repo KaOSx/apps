@@ -1,6 +1,6 @@
 
 pkgname=qtwebengine-widevine
-pkgver=76.0.3809.100
+pkgver=80.0.3987.116
 pkgrel=1
 pkgdesc="Google Chrome's plugin for viewing premium video content, legacy version for QtWebengine"
 arch=('x86_64')
@@ -12,15 +12,15 @@ provides=('widevine')
 #source=("https://sourceforge.net/projects/kaosx/files/sources/widevine/widevine-${pkgver}-1-x86_64.pkg.tar.xz"
 source=("https://dl.google.com/linux/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${pkgver}-1_amd64.deb"
         "https://www.google.com/chrome/intl/en/eula_text.html")
-md5sums=('fa1dd612eed2003f2293c321c80291a5'
-         '56ee05f0087071cea8d078f433209681')
+md5sums=('0aad025942b0f9badf13435ee91150cd'
+         'cb39fc5d108ddb6b2d85d4338e0704c0')
 
 
 package() {
     bsdtar -xf data.tar.xz
     
     #install -Dm755 opt/google/chrome/libwidevinecdmadapter.so ${pkgdir}/usr/lib/chromium/libwidevinecdmadapter.so
-    install -Dm644 opt/google/chrome/libwidevinecdm.so ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
+    install -Dm644 opt/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
     
     install -Dm644 ${srcdir}/eula_text.html ${pkgdir}/usr/share/licenses/${pkgname}/eula_text.html
 }
