@@ -1,0 +1,36 @@
+
+pkgname=systemd-plasmoid
+pkgver=0.1
+_commit=f48b548a73e8a1cb18f1606a0c54e10dad2d3390
+pkgrel=1
+pkgdesc="Plasma widget to control systemd services"
+arch=('x86_64')
+url="https://github.com/jansenm/systemd-plasmoid"
+license=('LGPLv2')
+depends=('ki18n' 'knotifications' 'plasma-framework')
+makedepends=('extra-cmake-modules')
+source=("https://github.com/jansenm/systemd-plasmoid/archive/${_commit}.zip")
+md5sums=('b7bc574174310197176431496908555b')
+
+prepare() {
+  cd ${pkgname}-${_commit}
+
+  #patch -p1 -i ${srcdir}/qmlplugin.diff
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
