@@ -75,7 +75,7 @@ Item {
             
             <p>A KaOS specific tool to write ISO files to USB is in use.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. It includes the option to verify the written USB in comparison to the used ISO file.</p>
             
-            <p>Most notable major updates to the base of the system are Systemd 244, Make 4.3, Sudo 1.8.31, Linux 5.5.7, GMP 6.2.0, Mesa 19.3.4, NetworkManager 1.22.8, Nano 4.8, NSS 3.50 and Qt 5.14.1</p>
+            <p>Most notable major updates to the base of the system are Systemd 244, Make 4.3, Sudo 1.8.31, Linux 5.5.6, GMP 6.2.0, Mesa 19.3.4, NetworkManager 1.22.8, Nano 4.8, NSS 3.50 and Qt 5.14.1</p>
             
             <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
             
@@ -91,12 +91,12 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.67.0, Plasma 5.18.1, KDE Applications 19.12.2</b>, Linux 5.5.7, Systemd 244, Kmod 26, NetworkManager 1.22.8, LibreOffice 6.4.0, Krita 4.2.8, Elisa, Xorg-Server 1.20.7, Mesa 19.3.4, Glibc 2.30, GCC 9.2.0, non-free Nvidia 440.59, Pepperflash and Python3 3.7.6 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.67.0, Plasma 5.18.1, KDE Applications 19.12.2</b>, Linux 5.5.6, Systemd 244, Kmod 27, NetworkManager 1.22.8, LibreOffice 6.4.0, Krita 4.2.8, Elisa, Xorg-Server 1.20.7, Mesa 19.3.4, Glibc 2.30, GCC 9.2.0, non-free Nvidia 440.59, Pepperflash and Python3 3.7.6 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.1</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.5, Calligra 3.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 73.0.1, Chrome 81, Ardour 5.12.0, Inkscape 0.92.4, GIMP 2.10.16 and Google-talkplugin 5.41.3.0.1.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 73.0.1, Chrome 82, Ardour 5.12.0, Inkscape 0.92.4, GIMP 2.10.18 and Google-talkplugin 5.41.3.0.1.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
