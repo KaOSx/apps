@@ -4,14 +4,15 @@ _pkgname=FreeRDP
 pkgver=2.0.0rc4
 _pkgver=2.0.0-rc4
 _commit=f8c9f438436a4492e37011396148d804f7e3651f
-pkgrel=2
+pkgrel=3
 pkgdesc="Free RDP client"
 arch=('x86_64')
 url="https://www.freerdp.com/"
-license=('GPL')
+license=('Apache')
 depends=('openssl' 'libxcursor' 'libcups' 'alsa-lib' 'libxext' 'libxdamage'
         'ffmpeg' 'libxkbfile' 'libxinerama' 'libxv' 'pulseaudio' 'libxrender' 
-        'libxfixes' 'gst-plugins-base' 'libxkbcommon' 'libxrandr') 
+        'libxfixes' 'gst-plugins-base' 'libxkbcommon' 'libxrandr' 'libjpeg-turbo'
+        'pcsclite') # 'x264') 
 makedepends=('krb5' 'cmake' 'damageproto' 'xmlto' 'docbook-xsl')
 #source=("https://github.com/FreeRDP/FreeRDP/archive/${_commit}.zip")
 source=("https://pub.freerdp.com/releases/${pkgname}-${_pkgver}.tar.gz")
@@ -27,7 +28,10 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DWITH_WAYLAND=ON \
     -DWITH_PULSE=ON \
-    -DWITH_CUPS=ON
+    -DWITH_CUPS=ON \
+    -DWITH_PCSC=ON \
+    -DWITH_JPEG=ON 
+    #-DWITH_X264=ON
   make
 }
 
