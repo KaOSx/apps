@@ -3,7 +3,7 @@ pkgname=libreoffice
 _LOver=6.4.1.2
 pkgver=6.4.1.2
 _pkgver=6.4.1
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
@@ -73,7 +73,8 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/libqxp-0.0.2.tar.xz
 	${_additional_source_url}/QR-Code-generator-1.4.0.tar.gz
 	https://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
-	https://dev-www.libreoffice.org/extern/884ed41809687c3e168fc7c19b16585149ff058eca79acbf3ee784f6630704cc-opens___.ttf)
+	https://dev-www.libreoffice.org/extern/884ed41809687c3e168fc7c19b16585149ff058eca79acbf3ee784f6630704cc-opens___.ttf
+	poppler.diff)
 	
 	noextract=(18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
         185d60944ea767075d27247c3162b3bc-unowinreg.dll
@@ -137,6 +138,8 @@ build() {
 	#[ -z "${ANT_HOME}" ] && . /etc/profile.d/apache-ant.sh
 
 	cd ${srcdir}/libreoffice-$_LOver
+	# poppler 0.86 needed
+	patch -p1 -i ${srcdir}/poppler.diff
 
 	# move external sources into place
 	mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
