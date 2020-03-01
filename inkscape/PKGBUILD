@@ -1,7 +1,7 @@
 
 pkgname=inkscape
 pkgver=0.92.4
-pkgrel=7
+pkgrel=8
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
@@ -23,10 +23,15 @@ prepare() {
   cd ${pkgname}-${pkgver}
   
   #patch -p1 -i ${srcdir}/a600c6438fef2f4c06f9a4a7d933d99fb054a973.diff
-  # poppler 0.7.x needed sed lines
+  # poppler 0.7.x and 0.8.x needed sed lines
   sed -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' -i src/extension/internal/pdfinput/pdf-parser.*
   sed -e 's|getCString|c_str|g' -i src/extension/internal/pdfinput/*
   sed -e 's|new Lexer(xref, obj)|obj|g' -i src/extension/internal/pdfinput/pdf-parser.cpp
+  sed -e 's|Unicode \*u|Unicode const *u|g' -i src/extension/internal/pdfinput/*
+  sed -e 's|(GfxPath|(const GfxPath|g' -e 's|GfxSubpath|const GfxSubpath|g' \
+          -e 's|new GlobalParams()|std::unique_ptr<GlobalParams>(new GlobalParams())|g' \
+          -e 's|new GlobalParams(poppler_datadir)|std::unique_ptr<GlobalParams>(new GlobalParams(poppler_datadir))|g' \
+          -i src/extension/internal/pdfinput/*.cpp
 }
 
 build() {
