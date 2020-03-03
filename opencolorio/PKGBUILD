@@ -1,8 +1,8 @@
 
 pkgname=opencolorio
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
-_commit=c302a2163dada54ba0ff31f18f34e1ee6e4d4976
+_commit=0ff98b8958e7b222c2acb5f92f90dd04b3d8f269
 pkgdesc="A color management framework for visual effects and animation"
 arch=('x86_64')
 url="http://opencolorio.org"
@@ -12,7 +12,7 @@ makedepends=('cmake' 'boost')
 groups=('color')
 #source=("https://github.com/imageworks/OpenColorIO/tarball/v${pkgver}")
 source=("https://github.com/imageworks/OpenColorIO/archive/${_commit}.zip")
-md5sums=('5f672bba76ec5fa46caead1fb7614e4f')
+md5sums=('d854c3daff889a31521ee24336936a68')
 
 build() {
   mkdir -p build
@@ -34,6 +34,6 @@ package() {
 
   make DESTDIR=${pkgdir} install 
 
-  install -Dm644 ../OpenColorIO-${_commit}/LICENSE.md ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md
+  install -Dm644 ../OpenColorIO-${_commit}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
 
