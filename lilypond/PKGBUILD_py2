@@ -1,13 +1,13 @@
 
 pkgname=lilypond
 pkgver=2.20.1
-_pkgver=master-ed1c70f
+_pkgver=2.20
 pkgrel=1
 pkgdesc="A music engraving program, devoted to producing the highest-quality sheet music possible."
 arch=('x86_64')
 url="http://lilypond.org/"
 license=('GPL')
-depends=('fontconfig' 'freetype2' 'ghostscript' 'guile1.8' 'pango' 'python3' 'texlive-core'
+depends=('fontconfig' 'freetype2' 'ghostscript' 'guile' 'pango' 'python2' 'texlive-core'
          'tex-gyre-fonts')
 makedepends=('bison' 'flex' 'fontforge' 'gettext' 'gsfonts' 'perl' 'texinfo' 't1utils'
              'netpbm' 'zip' 'imagemagick' 'rsync')
@@ -15,28 +15,29 @@ optdepends=('netpbm: building HTML documentation'
             'imagemagick: building HTML documentation'
             'rsync: installing HTML documentation')
 groups=('multimedia')
-#source=("http://lilypond.org/downloads/source/v${_pkgver}/${pkgname}-${_pkgver}.tar.gz")
-source=("http://git.savannah.gnu.org/gitweb/?p=lilypond.git;a=snapshot;h=refs/heads/master;sf=tgz")
-md5sums=('081c3faf49ed444353393f9eef3b56f5')
+source=("http://lilypond.org/downloads/source/v${_pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('65da6124713144cc63fe8ec2847ada8e')
 
 build() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
   
   #sed -i 's|GUILE_CFLAGS=.*|GUILE_CFLAGS="`pkg-config --cflags guile-1.8`"|' configure
   #sed -i 's|GUILE_LDFLAGS=.*|GUILE_LDFLAGS="`pkg-config --libs guile-1.8`"|' configure
   
-  export GUILE=/usr/bin/guile1.8
-  export GUILE_CONFIG=/usr/bin/guile-config1.8
-  export LDFLAGS="$LDFLAGS -lpthread"
+  #export GUILE=/usr/bin/guile1.8
+  #export GUILE_CONFIG=/usr/bin/guile-config1.8
+  #export LDFLAGS="$LDFLAGS -lpthread"
 
-  ./autogen.sh \
-    --prefix=/usr \
-    --disable-documentation
+  ./configure --prefix=/usr \
+    --disable-documentation \
+    --with-python-include=/usr/include/python2.7/ \
+    --with-python-lib=/usr/lib/libpython2.so \
+    --enable-guile2
   make all
 }
 
 package() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
   
   make DESTDIR=${pkgdir}/ install
 }
