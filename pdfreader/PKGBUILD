@@ -1,0 +1,30 @@
+
+pkgname=pdfreader
+_pkgname=PDFReader
+pkgver=0.1
+_commit=eefc13513083b5daddc323f39bf0976a3fc5bc7a
+pkgrel=1
+pkgdesc="PDF reader extension for the Falkon browser using pdf.js"
+arch=('x86_64')
+url="https://github.com/Tarptaeya/PDFReader"
+license=('GPL3')
+depends=('falkon')
+makedepends=('extra-cmake-modules')
+source=("https://github.com/Tarptaeya/PDFReader/archive/${_commit}.zip")
+md5sums=('867eac837cbd0e035bb71e561236b9c7')
+
+build() {
+    mkdir -p build
+    cd build
+
+    cmake ../${_pkgname}-${_commit} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr
+    make
+}
+
+package() {
+    cd build
+
+    make DESTDIR=${pkgdir} install
+}
