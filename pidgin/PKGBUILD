@@ -2,16 +2,16 @@
 # perl issue on server, build locally only
 pkgname=pidgin
 pkgver=2.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Multi-protocol instant messaging client"
 arch=('x86_64')
-url="http://pidgin.im/"
+url="https://pidgin.im/"
 license=('GPL')
-depends=("libpurple=$pkgver" 'startup-notification' 'gtk2' 'libxss' 'hicolor-icon-theme'
-         'libsm' 'libidn' 'avahi' 'networkmanager' 'gst-plugins-good' 'farstream')
-makedepends=('nss' 'libsasl' 'python2' 'tk' 'ca-certificates' 'intltool' )
+depends=("libpurple=${pkgver}" 'startup-notification' 'gtk2' 'libxss' 'hicolor-icon-theme'
+         'libsm' 'libidn' 'avahi' 'gst-plugins-good' 'farstream')
+makedepends=('nss' 'libsasl' 'python3' 'tk' 'ca-certificates' 'intltool' )
 options=('!libtool')
-source=("http://downloads.sourceforge.net/pidgin/${pkgname}-${pkgver}.tar.bz2")
+source=("https://downloads.sourceforge.net/pidgin/${pkgname}-${pkgver}.tar.bz2")
 md5sums=('423403494fe1951e47cc75231f743bb0')
 
 build() {
@@ -23,8 +23,8 @@ build() {
                 --disable-meanwhile \
                 --disable-gnutls \
                 --enable-cyrus-sasl \
-                --enable-nm \
-                --with-python=/usr/bin/python2 \
+                --disable-nm \
+                --with-python=/usr/bin/python3 \
                 --with-system-ssl-certs=/etc/ssl/certs \
                 --disable-gtkspell
     make

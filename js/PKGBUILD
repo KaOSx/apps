@@ -1,8 +1,8 @@
 
 pkgname=js
-pkgver=60.1.0
-_pkgver=60.1.0
-pkgrel=2
+pkgver=60.8.0
+_pkgver=60.8.0
+pkgrel=1
 pkgdesc="JavaScript interpreter and libraries"
 arch=('x86_64')
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/52"
@@ -13,7 +13,7 @@ source=("https://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozj
 #source=("https://hg.mozilla.org/mozilla-unified/archive/FIREFOX_${_pkgver}.tar.bz2")
 #source=("https://ftp.mozilla.org/pub/firefox/releases/${_pkgver}/source/firefox-${_pkgver}.source.tar.xz"
         'copy_headers.patch')
-md5sums=('202f71313e53d9b92e7c578107541539'
+md5sums=('5eda38cc08a3594a3f2c3cc185d4f15b'
          'a258b7a06260bb568f2d958631740b47')
 
 #prepare() {
@@ -47,16 +47,7 @@ build() {
        --enable-tests \
 
   make
-}
-
-check() {
-  cd build
-  #cd mozjs-${_pkgver}gnome1/js/src
-  
-  #python2 tests/jstests.py -d -s -t 300 --no-progress ../../js/src/js/src/shell/js
-  #python2 jit-test/jit_test.py -s -t 300 --no-progress ../../js/src/js/src/shell/js basic
-}
-  
+}  
   
 package() {
   cd build
