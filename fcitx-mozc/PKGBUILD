@@ -1,14 +1,14 @@
 
 pkgname=fcitx-mozc
 _bldtype=Release
-_zipcode_rel=201703
-_protobuf_rev=a428e42072765993ff674fda72863c9f1aa2d268
-_gyp_rev=920ee58c3d3109dea3cd37d88054014891a93db7
-_japanese_usage_dictionary_rev=e5b3425575734c323e1d947009dd74709437b684
-_mozc_rev=280e38fe3d9db4df52f0713acf2ca65898cd697a
-_fcitx_patchver=2.18.2612.102.1
+_zipcode_rel=201810
+_protobuf_rev=92a7e778e7394386f413cec28d67a07630f784b1
+_gyp_rev=4ec6c4e3a94bd04a6da2858163d40b2429b8aad1
+_japanese_usage_dictionary_rev=a4a66772e33746b91e99caceecced9a28507e925
+_mozc_rev=afb03ddfe72dde4cf2409863a3bfea160f7a66d8
+_fcitx_patchver=2.23.2815.102.1
 pkgdesc="Japanese Input Method Editor designed for multi-platform"
-pkgver=2.20.2673.102
+pkgver=2.23.2815.102
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/google/mozc"
@@ -22,21 +22,30 @@ source=("mozc::git+https://github.com/google/mozc.git#commit=${_mozc_rev}"
         "https://downloads.sourceforge.net/pnsft-aur/x-ken-all-${_zipcode_rel}.zip"
         "https://downloads.sourceforge.net/pnsft-aur/jigyosyo-${_zipcode_rel}.zip"
         "https://download.fcitx-im.org/fcitx-mozc/fcitx-mozc-${_fcitx_patchver}.patch"
-        "https://download.fcitx-im.org/fcitx-mozc/fcitx-mozc-icon.tar.gz")
+        "https://download.fcitx-im.org/fcitx-mozc/fcitx-mozc-icon.tar.gz"
+        "https://github.com/google/mozc/pull/444/commits/82d38f929882a9c62289b179c6fe41efed249987.diff")
 md5sums=('SKIP'
          'SKIP'
          'SKIP'
          'SKIP'
-         'fbe4b078719398ba8c3486cf0e799ee8'
-         'be87dd5cff89b6bbb56e574812b237f8'
-         'f364b7df92eb13a4e90aace81bfe4d11'
-         '80fe2ef127b70649df22d133822ac8a7')
+         'bba32a6cb14120c11f6eec6edcd0dd71'
+         'd188bd7a873e851ed8f1f1466f1091a5'
+         '8ec243464ddb9ecf48924708c0448284'
+         '80fe2ef127b70649df22d133822ac8a7'
+         'b94e9049789284c00de443ae9ef3baa1')
 
 prepare() {
   cd mozc/src
 
   rm unix/fcitx -rf
   patch -p2 -i ${srcdir}/fcitx-mozc-${_fcitx_patchver}.patch
+  rm unix/fcitx5 -rf
+  
+  find . -name  \*.py        -type f -exec sed -i -e "1s|python.*$|python2|"  {} +
+  find . -regex '.*\.gypi?$' -type f -exec sed -i -e "s|'python'|'python2'|g" {} +
+  
+  # GCC > 8 needed
+  patch -p1 -i ${srcdir}/82d38f929882a9c62289b179c6fe41efed249987.diff
 
   # disable Japanese zip code in dictionary, python import fails to find dictionary
   #python2 dictionary/gen_zip_code_seed.py --zip_code="${srcdir}/x-ken-all.csv" --jigyosyo="${srcdir}/JIGYOSYO.CSV" >> data/dictionary_oss/dictionary09.txt
