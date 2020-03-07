@@ -1,0 +1,39 @@
+ 
+pkgname=spectral
+pkgver=817
+pkgrel=1
+_commit=29e6933b4f5e74670df9d7ce10c1d7a6d7e45a69
+pkgdesc="Glossy cross-platform client for Matrix, the decentralized communication protocol for instant messaging."
+arch=('x86_64')
+url="https://spectral.im/"
+license=('GPL3')
+depends=('cmark' 'qt5-graphicaleffects' 'qt5-multimedia' 'qt5-quickcontrols2' 'qt5-svg'
+         'qtkeychain' 'libqtolm' 'libquotient')
+makedepends=('cmake' 'qt5-tools' 'git')
+#source=("https://gitlab.com/spectral-im/spectral/-/archive/${_commit}/${pkgname}-${_commit}.tar.bz2")
+source=("git+https://gitlab.com/b0/spectral.git")
+md5sums=('SKIP')
+
+prepare() {
+  cd ${pkgname}
+  
+  git submodule update --init --recursive
+  #sed -i -e 's|add_subdirectory|#add_subdirectory|' CMakeLists.txt
+}
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DUSE_INTREE_LIBQMC=0
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
