@@ -2,21 +2,24 @@
 pkgname=kdb
 pkgver=3.2.0
 _pkgver=3.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Database connectivity and creation framework for various database vendors"
 arch=('x86_64')
 url='https://github.com/KDE/kdb'
 license=('LGPL')
 depends=('kcoreaddons' 'sqlite')
-makedepends=('extra-cmake-modules' 'icu' 'python2' 'postgresql' 'qt5-tools')
+makedepends=('extra-cmake-modules' 'icu' 'python3' 'postgresql' 'qt5-tools')
 optdepends=('postgresql: PostgreSQL database driver')
-source=("https://download.kde.org/stable/kdb/src/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('8f8983bc8d143832dc14bc2003ba6af1af27688e477c0c791fd61445464f2069')
+source=("https://download.kde.org/stable/kdb/src/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kdb/commit/40cdaea4d7824cc1b0d26e6ad2dcb61fa2077911.diff")
+sha256sums=('8f8983bc8d143832dc14bc2003ba6af1af27688e477c0c791fd61445464f2069'
+            '02db96bc684aff15784cf181616c6840f5a9905224f4a1b014e9bd4347c0f57d')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|K_GLOBAL_STATIC|Q_GLOBAL_STATIC|' ${srcdir}/${pkgname}/src/wrtembed/KReportDpi.cpp
-  #patch -p1 -i $srcdir/0003-Port-from-K_GLOBAL_STATIC-to-Q_GLOBAL_STATIC.patch
+  # fix build with PostgreSQL 12+
+  patch -p1 -i ${srcdir}/40cdaea4d7824cc1b0d26e6ad2dcb61fa2077911.diff
 }
 
 build() {
