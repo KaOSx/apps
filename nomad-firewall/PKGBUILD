@@ -1,9 +1,9 @@
 
-pkgname=nomad-firewall
+pkgname=nx-firewall
 arch=('x86_64')
-pkgver=0.6
-_commit=fb8937eaa166444fd1c674c889f1a4ba26cf11d0
-pkgrel=2
+pkgver=0.1
+_commit=c2458b031b6f983466875d2576824e9fe8499517
+pkgrel=1
 pkgdesc="Firewall tool for Linux uses the Qt toolkit."
 url="https://nxos.org/#nomad-firewall"
 license=('GPL')
@@ -12,14 +12,14 @@ depends=('kcoreaddons' 'kcmutils' 'ki18n' 'plasma-framework' 'kdelibs4support' '
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('utils')
 source=("https://github.com/nomad-desktop/nomad-firewall/archive/${_commit}.zip"
-        'build_fixes.diff')
-md5sums=('6173d0214554c7e377049988058e42ca'
-         'a33ea08e6da592a9b7e11b7c87d42cb0')
+        'ufw_enable.diff')
+md5sums=('bee6e7bca8d473a9c0319e486bb3b545'
+         'e7e5705e7bbf4e0d13540b30b4fb57f7')
 
 prepare() {
   cd ${pkgname}-${_commit}
   
-  #patch -p1 -i ${srcdir}/build_fixes.diff
+  patch -p1 -i ${srcdir}/ufw_enable.diff
   #sed -i 's|add_subdirectory(netstat)|#add_subdirectory(netstat)|' plugins/CMakeLists.txt
 }
 
@@ -30,12 +30,14 @@ build() {
   cmake ../${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_C_FLAGS="-Wno-error=suggest-override" \
+    -DCMAKE_CXX_FLAGS="-Wno-error=suggest-override" \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  make -i
 }
 
 package() {
