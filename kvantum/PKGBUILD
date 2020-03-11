@@ -1,24 +1,24 @@
 
 pkgname=kvantum
 _pkgname=Kvantum
-pkgver=0.14.1
+pkgver=0.15.0
 _commit=0ef502f301cbc4d89dcecc36d425cff56679a402
-pkgrel=2
+pkgrel=1
 pkgdesc="SVG-based Qt5 theme engine plus a config tool and extra themes"
 arch=('x86_64')
 url="https://github.com/tsujan/Kvantum"
 license=('GPL3')
 depends=('qt5-svg' 'qt5-x11extras' 'kwindowsystem' 'libxext')
 makedepends=('cmake' 'qt5-tools')
-#source=("https://github.com/tsujan/Kvantum/archive/V${pkgver}.tar.gz")
-source=("https://github.com/tsujan/Kvantum/archive/${_commit}.zip")
-md5sums=('bce65d77491b74475adc21c08f6af9fb')
+source=("https://github.com/tsujan/Kvantum/archive/V${pkgver}.tar.gz")
+#source=("https://github.com/tsujan/Kvantum/archive/${_commit}.zip")
+md5sums=('3937d2180c0c4442b4c169b6438e7ec5')
 
 build() {
     mkdir -p build
     cd build
     
-    cmake ../${_pkgname}-${_commit}/${_pkgname} \
+    cmake ../${_pkgname}-${pkgver}/${_pkgname} \
         -DCMAKE_INSTALL_PREFIX=/usr
     make 
 }
@@ -28,6 +28,6 @@ package() {
 
     make DESTDIR=${pkgdir}/ install
     
-    install -Dm644 ../${_pkgname}-${_commit}/${_pkgname}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+    install -Dm644 ../${_pkgname}-${pkgver}/${_pkgname}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
     rm -r ${pkgdir}/usr/share/kde4
 } 

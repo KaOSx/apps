@@ -5,13 +5,16 @@ pkgver=0.1
 _commit=c2458b031b6f983466875d2576824e9fe8499517
 pkgrel=1
 pkgdesc="Firewall tool for Linux uses the Qt toolkit."
-url="https://nxos.org/#nomad-firewall"
+url="https://nxos.org/#nx-firewall"
 license=('GPL')
 depends=('kcoreaddons' 'kcmutils' 'ki18n' 'plasma-framework' 'kdelibs4support' 'kdeclarative'
          'kauth' 'kconfig' 'kio' 'knewstuff' 'kconfigwidgets' 'python3' 'ufw')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('utils')
-source=("https://github.com/nomad-desktop/nomad-firewall/archive/${_commit}.zip"
+conflicts=('nomad-firewall')
+replaces=('nomad-firewall')
+provides=('nomad-firewall')
+source=("https://github.com/nx-desktop/nx-firewall/archive/${_commit}.zip"
         'ufw_enable.diff')
 md5sums=('bee6e7bca8d473a9c0319e486bb3b545'
          'e7e5705e7bbf4e0d13540b30b4fb57f7')
@@ -28,16 +31,14 @@ build() {
   cd build
 
   cmake ../${pkgname}-${_commit} \
-    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_C_FLAGS="-Wno-error=suggest-override" \
-    -DCMAKE_CXX_FLAGS="-Wno-error=suggest-override" \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make -i
+    #-DCMAKE_BUILD_TYPE=Release \ enable once stable release
+  make
 }
 
 package() {
