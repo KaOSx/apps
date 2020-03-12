@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="KDE document viewer"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -17,12 +17,15 @@ makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'qca-qt5')
 conflicts=('kdegraphics-okular')
 replaces=('kdegraphics-okular')
 groups=('office')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
+        "https://invent.kde.org/kde/okular/-/commit/6a93a033b4f9248b3cd4d04689b8391df754e244.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'e916c0bc23f5ba5be0a5394838f2de3e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i $srcdir/warning.diff
+  # CVE-2020-9359
+  patch -p1 -i ${srcdir}/6a93a033b4f9248b3cd4d04689b8391df754e244.diff
   #sed -i -e 's|ecm_setup_version(0.99.|ecm_setup_version(1.0.|' CMakeLists.txt
 }
 
