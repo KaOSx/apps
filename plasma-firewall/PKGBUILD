@@ -1,29 +1,30 @@
 
-pkgname=nx-firewall
-arch=('x86_64')
+pkgname=plasma-firewall
 pkgver=0.1
-_commit=c2458b031b6f983466875d2576824e9fe8499517
+_commit=eda7b7f4e0ad6859ce0345ac41663fe0bb392204
 pkgrel=1
+arch=('x86_64')
 pkgdesc="Firewall KCM that provides users with a graphical user interface (GUI) for the ufw (Uncomplicated Firewall)"
-url="https://nxos.org/#nx-firewall"
+url="https://invent.kde.org/tcanabrava/plasma-firewall"
 license=('GPL')
 depends=('kcoreaddons' 'kcmutils' 'ki18n' 'plasma-framework' 'kdelibs4support' 'kdeclarative'
          'kauth' 'kconfig' 'kio' 'knewstuff' 'kconfigwidgets' 'python3' 'ufw')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('utils')
-conflicts=('nomad-firewall')
-replaces=('nomad-firewall')
-provides=('nomad-firewall')
-source=("https://github.com/nx-desktop/nx-firewall/archive/${_commit}.zip"
+conflicts=('nomad-firewall' 'nx-firewall')
+replaces=('nomad-firewall' 'nx-firewall')
+provides=('nomad-firewall' 'nx-firewall')
+source=("https://invent.kde.org/tcanabrava/plasmiptaa-firewall/-/archive/${_commit}/plasma-firewall-${_commit}.tar.bz2"
         'ufw_enable.diff')
-md5sums=('bee6e7bca8d473a9c0319e486bb3b545'
-         'e7e5705e7bbf4e0d13540b30b4fb57f7')
+md5sums=('7a71a36ac63049852fc905b29e188499'
+         '9735b8e07c2640d79fd57f9e45fa5784')
 
 prepare() {
   cd ${pkgname}-${_commit}
   
   patch -p1 -i ${srcdir}/ufw_enable.diff
-  #sed -i 's|add_subdirectory(netstat)|#add_subdirectory(netstat)|' plugins/CMakeLists.txt
+  sed -i 's|findExecutable("ss")|findExecutable("/usr/sbin/ss")|' kcm/backends/netstat/helper/netstathelper.cpp
+  sed -i 's|QStringLiteral("ss")|QStringLiteral("/usr/sbin/ss")|' kcm/backends/netstat/helper/netstathelper.cpp
 }
 
 build() {  
@@ -31,13 +32,13 @@ build() {
   cd build
 
   cmake ../${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-    #-DCMAKE_BUILD_TYPE=Release \ enable once stable release
+    -DBUILD_TESTING=OFF
   make
 }
 
