@@ -1,25 +1,23 @@
 
 pkgname=telepathy-logger-qt5
 _pkgname=telepathy-logger-qt
-pkgver=17.08.0
-_pkgver=17.08
-_commit=e521f16545b2a426320f5b54bb6d1426a254c2d8
-pkgrel=5
+pkgver=17.09.0
+_pkgver=17.09
+pkgrel=1
 pkgdesc="Qt Wrapper around TpLogger client library."
 arch=('x86_64')
 url="https://github.com/KDE/telepathy-logger-qt"
 license=('GPL')
 depends=('telepathy-qt5' 'qt5-gstreamer' 'telepathy-logger')
-makedepends=('extra-cmake-modules' 'python3' 'doxygen')
+makedepends=('extra-cmake-modules' 'python3') # not finding QHELPGENERATOR 'doxygen' 'qt5-tools')
 group=('kde-telepathy')
 conflicts=('telepathy-logger-qt')
 replaces=('telepathy-logger-qt')
-#source=("https://download.kde.org/stable/telepathy-logger-qt/${_pkgver}/src/${_pkgname}-${pkgver}.tar.xz")
-source=("https://github.com/KDE/telepathy-logger-qt/archive/${_commit}.zip")
-sha256sums=('bbf1e8adae64cbec11f07317590dea11a23e4bf8c24b739a78e0b9695ef7eee7')
+source=("https://download.kde.org/stable/telepathy-logger-qt/${_pkgver}/src/${_pkgname}-${pkgver}.tar.xz")
+sha256sums=('3190729d0df9001d683ba15605aaee65e46edcedad0e828e51312ea965ce135a')
 
 prepare() {
-  cd ${_pkgname}-${_commit}
+  cd ${_pkgname}-${pkgver}
   #sed -i -e 's|QtGLib|Qt5GLib|' ${srcdir}/${_pkgname}/CMakeLists.txt
 }
 
@@ -27,7 +25,7 @@ build() {
   mkdir -p build
   cd build
   
-  cmake ../${_pkgname}-${_commit} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
