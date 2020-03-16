@@ -1,42 +1,39 @@
 
 pkgname=fluid
-pkgver=0.11.0
-_commit=a2b666fd506862f49f143aa0b4c57db628dcef74
-pkgrel=2
+pkgver=1.2.0
+_commit=2b84b9342fd882d724f8954d63d01284e7d9d4ba
+pkgrel=1
 arch=('x86_64')
 url='https://github.com/lirios/fluid'
 pkgdesc="Modules for fluid and dynamic applications development with QtQuick."
-license=('LGPL')
+license=('MPL2')
 depends=('qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-svg' 'qt5-wayland' 'ttf-google-fonts')
-makedepends=('git' 'qtcreator' 'qt5-tools' 'liri-qbs-shared')
+makedepends=('qt5-tools' 'cmake-shared' 'clang')
 #source=("https://github.com/lirios/fluid/releases/download/v${pkgver}/fluid-${pkgver}.tar.xz") 
-#source=("https://github.com/lirios/fluid/archive/${_commit}.zip")
-source=("git://github.com/lirios/fluid.git")
-md5sums=('SKIP')
-
-prepare() {
-  cd ${pkgname}
-  
-  git submodule update --init
-}
+source=("https://github.com/lirios/fluid/archive/${_commit}.zip")
+#source=("git://github.com/lirios/fluid.git")
+md5sums=('055f6090de241b8a84050922c8f4676b')
 
 build() {
-  cd ${pkgname}
-  
-  qbs setup-toolchains --type gcc /usr/bin/g++ gcc
-  qbs setup-qt /usr/lib/qt5/bin/qmake qt5
-  qbs config profiles.qt5.baseProfile gcc
-  qbs build --no-install -d build profile:qt5 \
-    modules.qbs.installRoot:/ \
-    modules.lirideployment.prefix:/usr \
-    modules.lirideployment.qmlDir:/usr/lib/qt5/qml \
-    projects.Fluid.withDocumentation:false \
-    projects.Fluid.withDemo:true \
-    modules.cpp.linkerFlags:-fuse-ld=gold
+    mkdir - build
+    cd build
+    
+    cmake ../${pkgname}-${_commit} \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DFLUID_USE_SYSTEM_LCS:BOOL=ON \
+        -DINSTALL_SYSCONFDIR=/etc \
+        -DINSTALL_LIBDIR=/usr/lib \
+        -DINSTALL_LIBEXECDIR=/usr/lib \
+        -DINSTALL_QMLDIR=/usr/lib/qt5/qml \
+        -DINSTALL_PLUGINSDIR=/usr/lib/qt5/plugins
+  make
 }
 
 package() {
-  cd ${pkgname}
+  cd build
   
-  qbs install -d build --no-build -v --install-root ${pkgdir} profile:qt5
+  make DESTDIR=${pkgdir} install
+  
+  install -Dm644 ../${pkgname}-${_commit}/LICENSE.MPL2 ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.MPL2
 }

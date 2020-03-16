@@ -1,0 +1,34 @@
+
+pkgname=cmake-shared
+pkgver=1.1.0
+_commit=74685ef4809d309750c8c6693327394bf7814de3
+pkgrel=1
+pkgdesc="Additional macros and functions for CMake"
+url="https://github.com/lirios/qbs-shared"
+arch=('x86_64')
+license=('BSD')
+depends=('extra-cmake-modules')
+conflicts=('liri-qbs-shared')
+replaces=('liri-qbs-shared')
+provides=('liri-qbs-shared')
+source=("https://github.com/lirios/cmake-shared/archive/${_commit}.zip")
+sha256sums=('227f9ee21d6fcd6235e93865a663967eee65e8faa75c8c64a0e8efab1af34f2e')
+
+build() {
+    mkdir - build
+    cd build
+    
+    cmake ../${pkgname}-${_commit} \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release 
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+  
+  install -Dm644 ../${pkgname}-${_commit}/LICENSE.BSD ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.BSD
+}
+

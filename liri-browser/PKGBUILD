@@ -1,53 +1,39 @@
 
 pkgname=liri-browser
-pkgver=0.3.128
-_commit=b0192ef28f1474288da5c171076c05eb6f9b8c49
+pkgver=1.2.0
+_commit=b0dccff5204e71d53525c6f52d918b3530f16874
 pkgrel=1
 pkgdesc="Cross-platform material design web browser"
 url="https://github.com/lirios/browser"
 arch=('x86_64')
 license=('GPLv3')
-depends=('qtwebengine' 'qt5-multimedia' 'fluid' 'qt5-svg' 'qt5-location' 'quazip')
-makedepends=('liri-qbs-shared' 'git' 'qtcreator')
-#source=("https://github.com/lirios/browser/archive/${_commit}.zip")
-source=("git://github.com/lirios/browser.git")
+depends=('qtwebengine' 'qt5-multimedia' 'fluid' 'qt5-svg' 'qt5-location')
+makedepends=('cmake-shared' 'qt5-tools')
+source=("https://github.com/lirios/browser/archive/${_commit}.zip")
+#source=("git://github.com/lirios/browser.git")
 groups=('network-web')
-md5sums=('SKIP')
-
-prepare() {
-  cd browser
-  git submodule update --init
-
-  # settings
-  sed -i -e 's|SearchEngine::DuckDuckGo|SearchEngine::Google|' src/core/settings/searchconfig.cpp
-  sed -i -e 's|{"engine", "duckduckgo"}|{"engine", "google"}|' src/core/settings/settings.cpp
-  sed -i -e 's|QUrl("https://duckduckgo.com")|QUrl("https://www.google.com")|' src/core/settings/startconfig.cpp
-  #sed -i -e 's|property bool darkTheme: true|property bool darkTheme: false|' src/qml/BaseApplication.qml
-  #KaOS colors
-  #sed -i -e 's|primaryColor: "#F44336"|primaryColor: "#31A3DD"|' src/qml/BrowserWindow.qml
-  #sed -i -e 's|primaryDarkColor: "#D32F2F"|primaryDarkColor: "#2397D2"|' src/qml/BrowserWindow.qml
-  #sed -i -e 's|accentColor: "#FF5722"|accentColor: "#31A3DD"|' src/qml/BrowserWindow.qml
-  #sed -i -e 's|darkThemeColor : "#f3f3f3"|darkThemeColor : "#CCCCCC"|' src/qml/BrowserWindow.qml
-  #sed -i -e 's|lightThemeColor: "#FAFAFA"|lightThemeColor: "#E8EFF7"|' src/qml/BaseApplication.qml
-  
-  #sed -i -e 's|Depends { name: "lirideployment" }||' src/src.qbs
-  #sed -i -e 's|Depends { name: "lirideployment" }||' res/res.qbs
-}
+md5sums=('f1ff98efdcd919e6a094bdb6ef2cedc9')
 
 build() {
-    cd browser
-
-    qbs setup-toolchains --type gcc /usr/bin/g++ gcc
-    qbs setup-qt /usr/lib/qt5/bin/qmake qt5
-    qbs config profiles.qt5.baseProfile gcc
-    qbs build --no-install -d build profile:qt5 \
-        modules.lirideployment.prefix:/usr \
-        modules.cpp.linkerFlags:-fuse-ld=gold \
-        modules.lirideployment.qbsModulesDir:/usr/share/qbs/modules/
+    mkdir - build
+    cd build
+    
+    cmake ../browser-${_commit} \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DBUILD_TESTING:BOOL=OFF \
+        -DINSTALL_SYSCONFDIR=/etc \
+        -DINSTALL_LIBDIR=/usr/lib \
+        -DINSTALL_LIBEXECDIR=/usr/lib \
+        -DINSTALL_QMLDIR=/usr/lib/qt5/qml \
+        -DINSTALL_PLUGINSDIR=/usr/lib/qt5/plugins
+  make
 }
 
 package() {
-   cd browser
-   
-   qbs install -d build --no-build -v --install-root ${pkgdir} profile:qt5
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+  
+  install -Dm644 ../browser-${_commit}/LICENSE.GPLv3 ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.GPLv3
 }
