@@ -1,16 +1,22 @@
 
 pkgname=obs-studio
-pkgver=24.0.6
+pkgver=25.0.0
 pkgrel=1
 pkgdesc="Free and open source software for video recording and live streaming."
 arch=('x86_64')
 url="https://obsproject.com/"
 license=('GPL2')
 depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon' 'qt5-x11extras'
-         'libxcomposite' 'x264' 'pulseaudio' 'vlc' 'jack')
+         'libxcomposite' 'x264' 'pulseaudio' 'vlc' 'jack' 'mbedtls')
 makedepends=('cmake')
 source=("https://github.com/obsproject/obs-studio/archive/${pkgver}.tar.gz")
-md5sums=('804bccba4476f696d15b01ff88ae02f2')
+md5sums=('a87d62e65e2a21f336a4754747e47573')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  #sed -i "s|add_subdirectory(obs-outputs)|#add_subdirectory(obs-outputs)|g" plugins/CMakeLists.txt
+}
 
 build() {
   mkdir -p build
@@ -20,7 +26,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DUNIX_STRUCTURE=1 \
-    -DOBS_VERSION_OVERRIDE=${pkgver}
+    -DOBS_VERSION_OVERRIDE=${pkgver} \
+    -DWITH_RTMPS=ON
   make 
 }
 
