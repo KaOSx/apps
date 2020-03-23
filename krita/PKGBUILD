@@ -1,8 +1,8 @@
 
 pkgname=krita
-pkgver=4.2.8.2
-_pkgver=4.2.8
-pkgrel=2
+pkgver=4.2.9
+_pkgver=4.2.9
+pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -18,7 +18,7 @@ replaces=('krita-l10n')
 source=("https://download.kde.org/stable/krita/${_pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/KDE/krita/commit/ca07d42c.diff"
         'launch_krita.sh')
-md5sums=('4446dd4516af4905818f80f3dc3177fb'
+md5sums=('300d4ae27bce54117b242443b8731f07'
          '141a15318cc937e7331bd68f7253d2db'
          '673003bb648af0d4f801043ee0a17c2a')
 
@@ -26,7 +26,7 @@ prepare() {
   cd ${pkgname}-${pkgver}
   sed -i 's|X-KDE-Import": "image/x-krita-raw|X-KDE-Import": "image/x-nikon-nef,image/x-canon-cr2,image/x-sony-sr2,image/x-canon-crw,image/x-pentax-pef,image/x-sigma-x3f,image/x-kodak-kdc,image/x-minolta-mrw,image/x-sony-arw,image/x-kodak-k25,image/x-kodak-dcr,image/x-olympus-orf,image/x-panasonic-raw,image/x-panasonic-raw2,image/x-fuji-raf,image/x-sony-srf,image/x-adobe-dng|' plugins/impex/raw/krita_raw_import.json
   # fix crash on close
-  patch -p1 -i ${srcdir}/ca07d42c.diff
+  #patch -p1 -i ${srcdir}/ca07d42c.diff
 }
 
 build() {

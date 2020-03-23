@@ -2,7 +2,7 @@ pkgname=qtox
 _pkgname=qTox
 pkgver=1.16.3
 _commit=0a1a781249f1c044dc06c67fda8966f7c91b743c
-pkgrel=5
+pkgrel=6
 pkgdesc='Powerful Tox client that follows the Tox design guidelines while running on all major platforms.'
 arch=('x86_64')
 url='https://qtox.github.io/'
@@ -10,14 +10,16 @@ license=('GPL3')
 depends=('ffmpeg' 'filter_audio' 'libxkbcommon' 'libxss' 'openal' 'qrencode' 'qt5-svg'
          'sqlcipher' 'toxcore' 'libvpx')
 makedepends=('qt5-tools')
-source=("https://github.com/qTox/qTox/archive/v${pkgver}.tar.gz")
+source=("https://github.com/qTox/qTox/archive/v${pkgver}.tar.gz"
+        "https://github.com/qTox/qTox/commit/5b120c18ef4a20ea27dcedd89b043b0d22ca534e.diff")
 #source=("https://github.com/qTox/qTox/archive/${_commit}.zip")
-md5sums=('0b909095b253fb9595c0006742fae910')
+md5sums=('0b909095b253fb9595c0006742fae910'
+         '255e683ec180ad445eb93e9796648f5a')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
   
-  #patch -p1 -i ${srcdir}/1111949f450fb4fe63321386f7f452ee1663f07a.diff
+  patch -Rp1 -i ${srcdir}/5b120c18ef4a20ea27dcedd89b043b0d22ca534e.diff
 }
 
 build() {
