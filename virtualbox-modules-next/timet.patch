@@ -1,0 +1,132 @@
+--- a/vboxdrv/r0drv/linux/memobj-r0drv-linux.c
++++ b/vboxdrv/r0drv/linux/memobj-r0drv-linux.c
+@@ -1461,9 +1461,13 @@ DECLHIDDEN(int) rtR0MemObjNativeMapKerne
+              * MMIO / physical memory.
+              */
+             Assert(pMemLnxToMap->Core.enmType == RTR0MEMOBJTYPE_PHYS && !pMemLnxToMap->Core.u.Phys.fAllocated);
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 6, 0)
++	    pMemLnx->Core.pv = ioremap(pMemLnxToMap->Core.u.Phys.PhysBase + offSub, cbSub);
++#else
+             pMemLnx->Core.pv = pMemLnxToMap->Core.u.Phys.uCachePolicy == RTMEM_CACHE_POLICY_MMIO
+                              ? ioremap_nocache(pMemLnxToMap->Core.u.Phys.PhysBase + offSub, cbSub)
+                              : ioremap(pMemLnxToMap->Core.u.Phys.PhysBase + offSub, cbSub);
++#endif
+             if (pMemLnx->Core.pv)
+             {
+                 /** @todo fix protection. */
+Index: VirtualBox-6.1.2/include/iprt/time.h
+===================================================================
+--- a/vboxdrv/include/iprt/time.h
++++ b/vboxdrv/include/iprt/time.h
+@@ -32,6 +32,24 @@
+ #include <iprt/cdefs.h>
+ #include <iprt/types.h>
+ #include <iprt/assertcompile.h>
++#ifdef __KERNEL__
++/* This header is used for both kernel- and user-space code. Beginning
++ * with v5.6.0-rc3 as part of the Y2038 conversion, several of the
++ * time handling macros were hidden. Thus, user- and kernel-space
++ * names are different.
++ */
++#include <linux/time_types.h>
++#include <linux/version.h>
++#include <linux/time64.h>
++#include <linux/ktime.h>
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 6, 0)
++#define timespec __kernel_old_timespec
++#define ktime_get_ts ktime_get_ts64
++#undef time_t
++#define time_t ktime_t
++#define timeval __kernel_old_timeval
++#endif /* kernel version >= 5.6.0 */
++#endif /* __KERNEL__ */
+ 
+ RT_C_DECLS_BEGIN
+ 
+@@ -433,12 +451,6 @@ DECLINLINE(PRTTIMESPEC) RTTimeSpecSetTim
+ }
+ 
+ 
+-# ifdef _LINUX_TIME64_H
+-DECLINLINE(PRTTIMESPEC) RTTimeSpecSetTimespec64(PRTTIMESPEC pTime, const struct timespec64 *pTimeval)
+-{
+-    return RTTimeSpecAddNano(RTTimeSpecSetSeconds(pTime, pTimeval->tv_sec), pTimeval->tv_nsec);
+-}
+-# endif
+ #endif /* various ways of detecting struct timespec */
+ 
+ 
+Index: VirtualBox-6.1.2/src/VBox/Runtime/r0drv/linux/time-r0drv-linux.c
+===================================================================
+--- a/vboxdrv/r0drv/linux/time-r0drv-linux.c
++++ b/vboxdrv/r0drv/linux/time-r0drv-linux.c
+@@ -35,6 +35,10 @@
+ #include <iprt/asm.h>
+ 
+ 
++DECLINLINE(PRTTIMESPEC) RTTimeSpecSetTimespec64(PRTTIMESPEC pTime, const struct timespec64 *pTimeval)
++{
++    return RTTimeSpecAddNano(RTTimeSpecSetSeconds(pTime, pTimeval->tv_sec), pTimeval->tv_nsec);
++}
+ 
+ DECLINLINE(uint64_t) rtTimeGetSystemNanoTS(void)
+ {
+@@ -43,7 +47,11 @@ DECLINLINE(uint64_t) rtTimeGetSystemNano
+      * Use ktime_get_ts, this is also what clock_gettime(CLOCK_MONOTONIC,) is using.
+      */
+     uint64_t u64;
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 6, 0)
++    struct timespec64 Ts;
++#else
+     struct timespec Ts;
++#endif
+     ktime_get_ts(&Ts);
+     u64 = Ts.tv_sec * RT_NS_1SEC_64 + Ts.tv_nsec;
+     return u64;
+diff -Naur a/vboxnetflt/include/iprt/time.h b/vboxnetflt/include/iprt/time.h
+--- a/vboxnetflt/include/iprt/time.h	2020-02-27 08:29:15.588443630 +0300
++++ b/vboxnetflt/include/iprt/time.h	2020-02-27 09:11:28.528393987 +0300
+@@ -366,6 +366,7 @@
+  * @param   pTime       The time spec to interpret.
+  * @param   pTimeval    Where to store the time as POSIX timeval.
+  */
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 5, 99)
+ DECLINLINE(struct timeval *) RTTimeSpecGetTimeval(PCRTTIMESPEC pTime, struct timeval *pTimeval)
+ {
+     int64_t i64 = RTTimeSpecGetMicro(pTime);
+@@ -392,12 +393,14 @@
+ {
+     return RTTimeSpecAddMicro(RTTimeSpecSetSeconds(pTime, pTimeval->tv_sec), pTimeval->tv_usec);
+ }
++#endif
+ #endif /* various ways of detecting struct timeval */
+ 
+ 
+ /* PORTME: Add struct timespec guard macro here. */
+ #if defined(RTTIME_INCL_TIMESPEC) || defined(_STRUCT_TIMESPEC) || defined(_SYS__TIMESPEC_H_) || defined(TIMEVAL_TO_TIMESPEC) || defined(_TIMESPEC) \
+  || (defined(RT_OS_NETBSD) && defined(_SYS_TIME_H_))
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 5, 99)
+ /**
+  * Gets the time as POSIX timespec.
+  *
+@@ -431,16 +434,17 @@
+ {
+     return RTTimeSpecAddNano(RTTimeSpecSetSeconds(pTime, pTimespec->tv_sec), pTimespec->tv_nsec);
+ }
++#endif
+ 
+ 
++#endif /* various ways of detecting struct timespec */
++
+ # ifdef _LINUX_TIME64_H
+ DECLINLINE(PRTTIMESPEC) RTTimeSpecSetTimespec64(PRTTIMESPEC pTime, const struct timespec64 *pTimeval)
+ {
+     return RTTimeSpecAddNano(RTTimeSpecSetSeconds(pTime, pTimeval->tv_sec), pTimeval->tv_nsec);
+ }
+-# endif
+-#endif /* various ways of detecting struct timespec */
+-
++#endif
+ 
+ 
+ /** The offset of the unix epoch and the base for NT time (in 100ns units).
