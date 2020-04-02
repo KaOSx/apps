@@ -2,7 +2,7 @@
 pkgname=signon-ui
 pkgver=0.17.3
 _commit=4368bb77d9d1abc2978af514225ba4a42c29a646
-pkgrel=1
+pkgrel=2
 pkgdesc='UI component responsible for handling the user interactions which can happen during the login process of an online account'
 arch=('x86_64')
 url="https://gitlab.com/accounts-sso/signon-ui"
@@ -10,13 +10,17 @@ license=('GPL')
 depends=('accountsqt' 'qtwebengine' 'signonqt' 'libnotify')
 #source=("http://archive.ubuntu.com/ubuntu/pool/main/s/signon-ui/${pkgname}_${_pkgver}.orig.tar.gz")
 source=("https://gitlab.com/accounts-sso/signon-ui/-/archive/${_commit}/signon-ui-${_commit}.tar.bz2"
-        'pro.diff')
+        'pro.diff'
+        'user_agent.diff')
 md5sums=('2fa23435b45f0b9bd0f1fd1ea7c52db6'
-         '7226faf271a656a5a24f4410c6b7360b')
+         '7226faf271a656a5a24f4410c6b7360b'
+         'c726140cff3dab0524d6d47b0177ab3c')
 
 build() {
   cd ${pkgname}-${_commit}
   patch -p1 -i ${srcdir}/pro.diff
+  # https://gitlab.com/accounts-sso/signon-ui/-/issues/2
+  patch -p1 -i ${srcdir}/user_agent.diff
 
   /usr/lib/qt5/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
   make
