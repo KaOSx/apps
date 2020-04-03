@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 prepare() {
   cd ${pkgname}-${pkgver}
  
-  sed -e 's|Exec=qdbus|Exec=qdbus-qt5|g' -i desktop/org.kde.spectacle.desktop
+  #sed -e 's|Exec=qdbus|Exec=qdbus-qt5|g' -i desktop/org.kde.spectacle.desktop
 }
 
 build() {
