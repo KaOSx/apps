@@ -1,8 +1,10 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kdeconnect-kde
-pkgver=1.4
-_pkgver=1.4
-pkgrel=3
+pkgver=${_kdever}
+pkgrel=1
 epoch=1
 pkgdesc='KDE Connect adds communication between KDE and your smartphone'
 url='https://github.com/KDE/kdeconnect-kde'
@@ -14,10 +16,10 @@ depends=('kcmutils' 'kconfigwidgets' 'kiconthemes' 'kdbusaddons' 'knotifications
 makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kf5-kdeconnect-kde')
 replaces=('kf5-kdeconnect-kde')
-source=("https://download.kde.org/stable/kdeconnect/${_pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'openssh8.2.patch')
-sha256sums=('caee7945a9d9bb881a943dc8d2fd0d702c04da5bdb2df14d4f875e7cf5d5261a'
-            '88ba9816469bae2e48f58f7fe0889679d96d770e1775bf928d6d0816c97bc515')
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'ec00e96b184e6e0ab3641dab9dbac9e8')
 
 prepare() {
   cd ${pkgname}-${pkgver}
