@@ -1,18 +1,22 @@
 
 pkgname=dvdbackup
 pkgver=0.4.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Tool to rip video DVDs from the command line"
 arch=('x86_64')
 url="http://dvdbackup.sourceforge.net"
 license=('GPL')
 depends=('libdvdread')
 optdepends=('libdvdcss: to decrypt encrypted DVDs')
-source=("https://downloads.sourceforge.net/dvdbackup/${pkgname}-${pkgver}.tar.xz")
-md5sums=('28f273b2f27a3afea3a3c965ddbede86')
+source=("https://downloads.sourceforge.net/dvdbackup/${pkgname}-${pkgver}.tar.xz"
+        'dvdread6.1.patch')
+md5sums=('28f273b2f27a3afea3a3c965ddbede86'
+         '0964cd4ca1c3e7e34bd0995abe92c838')
 
 build() {
   cd ${pkgname}-${pkgver}
+  # https://bugs.launchpad.net/dvdbackup/+bug/1869226
+  patch -p0 -i ${srcdir}/dvdread6.1.patch
 
   ./configure --prefix=/usr
 
