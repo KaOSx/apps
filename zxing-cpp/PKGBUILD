@@ -1,0 +1,28 @@
+
+pkgname=zxing-cpp
+pkgver=1.0.8
+pkgrel=1
+arch=('x86_64')
+url='https://github.com/nu-book/zxing-cpp'
+pkgdesc="Zebra Crossing barcode scanning library for Java, Android, ported to C++"
+license=('Apache')
+depends=('gcc-libs')
+makedepends=('cmake')
+source=("https://github.com/nu-book/zxing-cpp/archive/v${pkgver}.tar.gz") 
+md5sums=('5bef287f51032a3c2e32271185015091')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
