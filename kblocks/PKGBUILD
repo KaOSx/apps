@@ -1,0 +1,35 @@
+ 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kblocks
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="Falling blocks game"
+arch=('x86_64')
+url='https://kde.org/applications/games/org.kde.kblocks'
+license=('GPL' 'LGPL' 'FDL')
+depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons'
+         'ki18n' 'kwidgetsaddons' 'kxmlgui' 'libkdegames')
+makedepends=('extra-cmake-modules' 'kdoctools')
+groups=('kde' 'kdeedu' 'kde-uninstall')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+build() {
+    mkdir -p build
+    cd build
+
+    cmake ../${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DKDE_INSTALL_LIBDIR=lib \
+        -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+        -DBUILD_TESTING=OFF 
+}
+
+package() {
+    cd build
+
+    make DESTDIR=${pkgdir} install
+}

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkdegames
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Shared libraries for KDE games"
 arch=('x86_64')
 url='http://www.kde.org'
@@ -14,65 +14,6 @@ depends=('kcoreaddons' 'kconfig' 'kwidgetsaddons' 'kcodecs' 'karchive' 'kdbusadd
          'ktextwidgets' 'kglobalaccel' 'kxmlgui' 'kcrash' 'kbookmarks' 'kio' 'knewstuff'
          'libsndfile' 'openal')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
-conflicts=('kdegames-libkdegames'
-	   'kdegames-bomber'
-	   'kdegames-kapman'
-	   'kdegames-katomic'
-	   'kdegames-kblackbox'
-	   'kdegames-kblocks'
-	   'kdegames-kbreakout'
-	   'kdegames-kdiamond'
-	   'kdegames-kigo'
-	   'kdegames-kgoldrunner'
-	   'kdegames-killbots'
-	   'kdegames-kjumpingcube'
-	   'kdegames-klickety'
-	   'kdegames-klines'
-	   'kdegames-knetwalk'
-	   'kdegames-kolf'
-	   'kdegames-kollision'
-	   'kdegames-konquest'
-	   'kdegames-kreversi'
-	   'kdegames-kshisen'
-	   'kdegames-ksirk'
-	   'kdegames-kspaceduel'
-	   'kdegames-ksquares'
-	   'kdegames-ksudoku'
-	   'kdegames-ksnakeduel'
-	   'kdegames-kubrick'
-	   'kdegames-lskat'
-	   'kdegames-palapeli'
-	   'kdegames-picmi')
-replaces=('kdegames-libkdegames'
-	   'kdegames-libkmahjongg'
-	   'kdegames-bomber'
-	   'kdegames-kapman'
-	   'kdegames-katomic'
-	   'kdegames-kblackbox'
-	   'kdegames-kblocks'
-	   'kdegames-kbreakout'
-	   'kdegames-kdiamond'
-	   'kdegames-kigo'
-	   'kdegames-kgoldrunner'
-	   'kdegames-killbots'
-	   'kdegames-kjumpingcube'
-	   'kdegames-klickety'
-	   'kdegames-klines'
-	   'kdegames-knetwalk'
-	   'kdegames-kolf'
-	   'kdegames-kollision'
-	   'kdegames-konquest'
-	   'kdegames-kreversi'
-	   'kdegames-kshisen'
-	   'kdegames-ksirk'
-	   'kdegames-kspaceduel'
-	   'kdegames-ksquares'
-	   'kdegames-ksudoku'
-	   'kdegames-ksnakeduel'
-	   'kdegames-kubrick'
-	   'kdegames-lskat'
-	   'kdegames-palapeli'
-	   'kdegames-picmi')
 groups=('kde' 'kde-games' 'kde-uninstall')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

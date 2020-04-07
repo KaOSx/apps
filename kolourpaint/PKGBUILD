@@ -4,18 +4,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kolourpaint
 pkgver=${_kdever}
-#pkgver=16.03.71
 _commit=6c8d56fc966311468c13bcc855c8fffbf5240394
 pkgrel=1
 pkgdesc="Painting program to quickly create raster images plus useful as a touch-up tool and simple image editing tasks."
 url="http://kde.org/applications/graphics/kolourpaint/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kparts' 'kdelibs4support' 'libkexiv2' 'libksane')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
+depends=('ki18n' 'kguiaddons' 'kwidgetsaddons' 'kio' 'kxmlgui' 'ktextwidgets'
+         'kjobwidgets' 'libkexiv2' 'libksane')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde-graphics')
-conflicts=('kdegraphics-kolourpaint')
-replaces=('kdegraphics-kolourpaint')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("https://github.com/KDE/kolourpaint/archive/${_commit}.zip")

@@ -9,10 +9,9 @@ pkgdesc="Japanese Reference/Study Tool"
 url="http://kde.org/applications/education/kiten/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'ki18n' 'kxmlgui' 'khtml')
+depends=('karchive' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash'
+         'ki18n' 'kio' 'knotifications' 'kxmlgui')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdeedu-kiten')
-replaces=('kdeedu-kiten')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

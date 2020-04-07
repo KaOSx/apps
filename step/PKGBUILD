@@ -10,11 +10,9 @@ url="http://kde.org/applications/education/step/"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcrash' 'khtml' 'kconfig' 'kiconthemes' 'knewstuff' 'kplotting'
-         'libqalculate' 'gsl' 'eigen3')
+depends=('kcrash' 'kconfig' 'ki18n' 'kiconthemes' 'kio' 'knewstuff' 'kplotting'
+         'ktextwidgets' 'libqalculate' 'gsl' 'eigen3')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
-conflicts=('kdeedu-step')
-replaces=('kdeedu-step')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
