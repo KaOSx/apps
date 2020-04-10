@@ -3,12 +3,12 @@ pkgname=ostree
 _pkgname=libostree
 pkgver=2020.3
 _pkgver=2020.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Suite of command line tools that combines a git-like model for committing and downloading bootable filesystem trees"
 url="https://github.com/ostreedev/ostree"
 arch=('x86_64')
 license=('GPL')
-depends=('glib2' 'gpgme' 'fuse' 'libarchive' 'libsoup' 'mkinitcpio' 'util-linux' 'xz' 'zlib' 'openssl')
+depends=('glib2' 'gpgme' 'fuse' 'libarchive' 'curl' 'mkinitcpio' 'util-linux' 'xz' 'zlib' 'openssl')
 makedepends=('e2fsprogs' 'libxslt' 'python3')
 source=("https://github.com/ostreedev/ostree/releases/download/v${_pkgver}/${_pkgname}-${pkgver}.tar.xz"
         'ostree-mkinitcpio.conf'
@@ -36,7 +36,9 @@ build() {
     --libexecdir=/usr/lib \
     --with-mkinitcpio \
     --with-builtin-grub2-mkconfig \
-    --with-openssl
+    --with-openssl \
+    --with-curl \
+    --without-soup
 
   make
 }
