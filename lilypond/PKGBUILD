@@ -1,7 +1,7 @@
 
 pkgname=lilypond
-pkgver=2.20.80
-_pkgver=cf71437
+pkgver=2.21.0
+_pkgver=2.21
 pkgrel=1
 pkgdesc="A music engraving program, devoted to producing the highest-quality sheet music possible."
 arch=('x86_64')
@@ -15,11 +15,11 @@ optdepends=('netpbm: building HTML documentation'
             'imagemagick: building HTML documentation'
             'rsync: installing HTML documentation')
 groups=('multimedia')
-source=("http://lilypond.org/downloads/source/v${_pkgver}/${pkgname}-${_pkgver}.tar.gz")
-md5sums=('898474370e7de5e5bd22ce5f93b740d9')
+source=("http://lilypond.org/downloads/source/v${_pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('8a7e7a4724c96f085aa930b26af1eaa7')
 
 build() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
   
   #sed -i 's|GUILE_CFLAGS=.*|GUILE_CFLAGS="`pkg-config --cflags guile-1.8`"|' configure
   #sed -i 's|GUILE_LDFLAGS=.*|GUILE_LDFLAGS="`pkg-config --libs guile-1.8`"|' configure
@@ -35,7 +35,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
   
   make DESTDIR=${pkgdir}/ install
 }
