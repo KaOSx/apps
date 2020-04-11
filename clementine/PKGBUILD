@@ -18,38 +18,33 @@ makedepends=('cmake' 'boost' 'mesa' 'qt5-tools')
 groups=('multimedia')
 source=("https://github.com/clementine-player/Clementine/releases/download/${_pkgver}/${pkgname}-${_pkgver}.tar.xz"
 #source=("https://github.com/clementine-player/Clementine/archive/${_commit}.zip"
-        'tab_color.diff'
         'tokenizer.diff')
 md5sums=('c58d09300081854485749cb8c8b18d61'
-         '0d35b551ae875ca31037efa3601147f9'
          'baa891a12a4ed23846507644e3ad049f')
 
-build() {
+prepare() {
   cd ${pkgname}-${_pkgver}
 
-  #sed -i 's|LASTFM5_LIBRARIES lastfm5|LASTFM5_LIBRARIES lastfm|g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/CMakeLists.txt
-  sed -i 's|lastfm5/ws.h|lastfm/ws.h|g' ${srcdir}/${pkgname}-${_pkgver}/CMakeLists.txt
-  sed -i 's|lastfm5/Track.h|lastfm/Track.h|g' ${srcdir}/${pkgname}-${_pkgver}/CMakeLists.txt
-  sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/${pkgname}-${_pkgver}/src/internet/lastfm/lastfmcompat.h
-  sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/${pkgname}-${_pkgver}/src/internet/lastfm/lastfmservice.cpp
-  sed -i 's|<lastfm5/|<lastfm/|g' ${srcdir}/${pkgname}-${_pkgver}/src/internet/lastfm/lastfmsettingspage.cpp
-  #sed -i 's|#include "internet/lastfm/fixlastfm.h"||g' ${srcdir}/clementine-player-${_pkgname}-${_commit}/src/core/songloader.cpp
-  sed -i 's|<lastfm5/Track.h>|<lastfm/Track.h>|g' ${srcdir}/${pkgname}-${_pkgver}/src/core/song.cpp
-  
   sed -i 's|Exec=clementine %U|Exec=clementine|g' ${srcdir}/${pkgname}-${_pkgver}/dist/clementine.desktop
-  
   #patch -p1 -i ${srcdir}/tokenizer.diff
-  
+}
+
+build() {  
   mkdir -p build 
-  
   cd build
-  cmake ../ -DCMAKE_INSTALL_PREFIX=/usr \
-            -DCMAKE_BUILD_TYPE=Release 
+  
+  cmake ../${pkgname}-${_pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DENABLE_BREAKPAD=OFF \
+    -DENABLE_SPOTIFY_BLOB=OFF \
+    -DUSE_SYSTEM_TAGLIB=ON \
+    -DENABLE_VISUALISATIONS=OFF
   make
 }
 
 package() {
-  cd ${pkgname}-${_pkgver}/build
+  cd build
   
   make install DESTDIR=${pkgdir}
 }
