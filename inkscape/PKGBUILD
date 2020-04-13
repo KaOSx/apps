@@ -1,7 +1,7 @@
 
 pkgname=inkscape
-pkgver=0.92.4
-pkgrel=10
+pkgver=0.92.5
+pkgrel=1
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
@@ -15,7 +15,7 @@ source=("https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-${
         "https://gitlab.com/inkscape/inkscape/commit/a600c6438fef2f4c06f9a4a7d933d99fb054a973.diff"
         "https://gitlab.com/inkscape/inkscape/commit/fa1c469aa8c005e07bb8676d72af9f7c16fae3e0.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
-md5sums=('ac30f6d5747fd9c620c00dad500f414f'
+md5sums=('592c0e94cf00ea9e0a8901883d8f06fd'
          '41a33ea04b7901848b275e76fcf7e5c2'
          'add8bdd7b82b7950ca9abc546768f545')
 
@@ -24,14 +24,7 @@ prepare() {
   
   #patch -p1 -i ${srcdir}/a600c6438fef2f4c06f9a4a7d933d99fb054a973.diff
   # poppler 0.7.x and 0.8.x needed sed lines
-  sed -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' -i src/extension/internal/pdfinput/pdf-parser.*
-  sed -e 's|getCString|c_str|g' -i src/extension/internal/pdfinput/*
-  sed -e 's|new Lexer(xref, obj)|obj|g' -i src/extension/internal/pdfinput/pdf-parser.cpp
-  sed -e 's|Unicode \*u|Unicode const *u|g' -i src/extension/internal/pdfinput/*
-  sed -e 's|(GfxPath|(const GfxPath|g' -e 's|GfxSubpath|const GfxSubpath|g' \
-          -e 's|new GlobalParams()|std::unique_ptr<GlobalParams>(new GlobalParams())|g' \
-          -e 's|new GlobalParams(poppler_datadir)|std::unique_ptr<GlobalParams>(new GlobalParams(poppler_datadir))|g' \
-          -i src/extension/internal/pdfinput/*.cpp
+  #sed -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' -i src/extension/internal/pdfinput/pdf-parser.*
 }
 
 build() {
