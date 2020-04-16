@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://github.com/KDE/konsole'
@@ -17,13 +17,15 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 conflicts=('kde-baseapps-konsole')
 replaces=('kde-baseapps-konsole')
 provides=('kde-baseapps-konsole')
-source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/konsole/commit/dcf8cf3f2255293da170648f633873aa7c4afcf1.diff")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '6e8d390713ef2f78e60daa0223e84350')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # fix transparency
-  #patch -p1 -i ${srcdir}/fca305ebffd331701b59e68ab446db9618987b6f.diff
+  # KBookmarks 5.69 changes
+  patch -p1 -i ${srcdir}/dcf8cf3f2255293da170648f633873aa7c4afcf1.diff
 }
          
 build() {

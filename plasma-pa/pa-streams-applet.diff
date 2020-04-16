@@ -1,19 +1,31 @@
 diff --git a/src/streamrestore.cpp b/src/streamrestore.cpp
-index f04b75a..4df5fa7 100644
 --- a/src/streamrestore.cpp
 +++ b/src/streamrestore.cpp
-@@ -115,9 +115,13 @@ bool StreamRestore::isMuted() const
- void StreamRestore::setMuted(bool muted)
+@@ -100,6 +100,13 @@
+ void StreamRestore::setVolume(qint64 volume)
  {
-     if (m_cache.valid) {
--        writeChanges(m_cache.volume, m_cache.channelMap, muted, m_cache.device);
-+        if (m_cache.muted != muted) {
-+            writeChanges(m_cache.volume, m_cache.channelMap, muted, m_cache.device);
-+        }
-     } else {
--        writeChanges(m_volume, m_channelMap, muted, m_device);
-+        if (m_muted != muted) {
-+            writeChanges(m_volume, m_channelMap, muted, m_device);
-+        }
+     pa_cvolume vol = m_cache.valid ? m_cache.volume : m_volume;
++
++    // If no channel exists force one. We need one to be able to control the volume
++    // See https://bugs.kde.org/show_bug.cgi?id=407397
++    if (vol.channels == 0) {
++        vol.channels = 1;
++    }
++
+     for (int i = 0; i < vol.channels; ++i) {
+         vol.values[i] = volume;
      }
- }
+@@ -190,6 +197,13 @@
+     info.device = deviceData.isEmpty() ? nullptr : deviceData.constData();
+     info.mute = muted;
+ 
++    // If no channel exists force one. We need one to be able to control the volume
++    // See https://bugs.kde.org/show_bug.cgi?id=407397
++    if (info.channel_map.channels == 0) {
++        info.channel_map.channels = 1;
++        info.channel_map.map[0] = PA_CHANNEL_POSITION_MONO;
++    }
++
+     m_cache.valid = true;
+     m_cache.volume = volume;
+     m_cache.muted = muted;
