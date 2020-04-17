@@ -51,7 +51,9 @@ Item {
             text: qsTr("<h3>KaOS - 2020.04</h3>
             <p>KaOS is very proud to announce the availability of the April release of a new stable ISO.</p>
             
-            <p>Not since 2014 has there been a KaOS ISO with this many new features.  It starts with the installer, there it is  now possible <b>to select whether or not to install</b> an OfficeSuite (current choice is limited to LibreOffice, future might see the additon of Calligra as option).  You can also opt to do a minimal install. This means opting for a fully functional Plasma Desktop with a filemanager, texteditor and simple web-browser, but no further applications. So there won't be a music player, image viewer, office suite and so on. You as a user can decide once the system is installed what to add when the minimal install was chosen.</p>
+            <p>This release is unlike the February version, not about many new features, but rather about updates and rebuilds. Most of the base of this distribution has been rebuild on a new GCC 9.3.0, Glibc 2.31 & Binutils 2.34 based Toolchain. Other rebuilds were needed for ICU 66.1, Boost 1.72.0, Krb5 1.18, Glib2 2.64.2 based stack, Guile 2.2.6, Mesa 20.0.4, NetworkManager 1.22.10, Perl 5.30.2 and Qt 5.14.2.</p>
+            
+            <p>The new features from the last, major, release were numerous, so repeated here one more time.  It starts with the installer, there it is now possible <b>to select whether or not to install</b> an OfficeSuite (current choice is limited to LibreOffice, future might see the additon of Calligra as option).  You can also opt to do a minimal install. This means opting for a fully functional Plasma Desktop with a filemanager, texteditor and simple web-browser, but no further applications. So there won't be a music player, image viewer, office suite and so on. You as a user can decide once the system is installed what to add when the minimal install was chosen.</p>
             
             <p>That brings us to the next new feature. To help with selecting what to add to your new install, the first run wizard Croeso has the option added <b>to install packages</b> from six commonly used groups. For example, one group will give a choice of four different web-browsers to add, so it is now very simple to add Chrome or Firefox. Since KaOS has never installed an email client by default, there naturally is now a group for that too.<br />
             The above new feature makes it no longer needed to ship as many applications by default on the ISO, thus it is reduced in size.</p>
@@ -62,10 +64,10 @@ Item {
             
             <p>For the installer Calamares, a second new feature was added.  The Release Notes are now shown in a QML module, so there no longer is a need to work around sandboxing issues with QtWebengine or having to use the depreciated QtWebkit.</p>
             
-            <p>You will find <b>Plasma 5.18</b> on this ISO already. Highlights of Plasma 5.18 include the new Global Edit mode that you can activate by right-clicking on an empty area of your desktop and choosing 'Customize layout' from the popup menu, there's a new system tray widget that lets you toggle the Night Color feature, many changes in the notifications system, and a new User Feedback option in System Settings where the Feedback settings slider lets you decide how much you want to share with KDE developers.<br />
-            Frameworks is at 5.68.0, Plasma at 5.18.3 and KDE Applications at 19.12.3. All built on <b>Qt 5.14.1</b>.
-            
             <p>Last new feature you will see on this ISO is the change of package compression standard from tar.xz to tar.zst. ZSTD brings a significant improvement of decompression speed over XZ, while bringing only a marginal larger package size.</p>
+            
+            <p>You will find <b>KDE Applications 20.04.0</b> on this ISO already. Highlights of Plasma 5.18 include the new Global Edit mode that you can activate by right-clicking on an empty area of your desktop and choosing 'Customize layout' from the popup menu, there's a new system tray widget that lets you toggle the Night Color feature, many changes in the notifications system, and a new User Feedback option in System Settings where the Feedback settings slider lets you decide how much you want to share with KDE developers.<br />
+            Frameworks is at 5.69.0, Plasma at 5.18.4 and KDE Applications at 20.04.0. All built on <b>Qt 5.14.2</b>.
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
@@ -74,8 +76,6 @@ Item {
             <p>There is an option to verify the authenticity of downloaded KaOS ISO files through GPG signature verification, see the Download page for further details and instructions.</p>
             
             <p>A KaOS specific tool to write ISO files to USB is in use.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. It includes the option to verify the written USB in comparison to the used ISO file.</p>
-            
-            <p>Most notable major updates to the base of the system are GCC 9.3.0, Glibc 2.31, Binutils 2.34, Linux 5.6.xx, ICU 66.1, Boost 1.72.0, Glib2 2.64.1, Mesa 20.0.2, NetworkManager 1.22.10, Perl 5.30.2, NSS 3.51 and Qt 5.14.1</p>
             
             <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
             
@@ -91,12 +91,12 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.68.0, Plasma 5.18.3, KDE Applications 19.12.3</b>, Linux 5.5.6, Systemd 244, Kmod 27, NetworkManager 1.22.10, LibreOffice 6.4.2, Krita 4.2.9, Elisa, Xorg-Server 1.20.8, Mesa 20.0.2, Glibc 2.31, GCC 9.3.0, non-free Nvidia 440.64, Pepperflash and Python3 3.7.7 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.69.0, Plasma 5.18.4, KDE Applications 20.04.0</b>, Linux 5.5.6, Systemd 244, Kmod 27, NetworkManager 1.22.10, LibreOffice 6.4.2, Krita 4.2.9, Elisa, Xorg-Server 1.20.8, Mesa 20.0.4, Glibc 2.31, GCC 9.3.0, non-free Nvidia 440.64, Pepperflash and Python3 3.7.7 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.1</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.6, Calligra 3.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 74.0.1, Chrome 83, Ardour 5.12.0, Inkscape 0.92.4, GIMP 2.10.18 and Google-talkplugin 5.41.3.0.1.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 74.0.1, Chrome 84, Ardour 5.12.0, Inkscape 0.92.5, GIMP 2.10.18 and Google-talkplugin 5.41.3.0.1.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
