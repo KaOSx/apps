@@ -15,9 +15,7 @@ depends=('gpsd' 'phonon-qt5' 'qt5-script' 'qt5-svg' 'qt5-tools' 'shapelib' 'kwal
 makedepends=('extra-cmake-modules' 'kdoctools')
 options=('!emptydirs')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '8610396de2c47f68de4af4120b243e30'
-         '047a39608729829ff4b48127cb3535ea')
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}

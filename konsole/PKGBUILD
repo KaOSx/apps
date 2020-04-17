@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://github.com/KDE/konsole'
@@ -25,7 +25,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # KBookmarks 5.69 changes
-  patch -p1 -i ${srcdir}/dcf8cf3f2255293da170648f633873aa7c4afcf1.diff
+  #patch -p1 -i ${srcdir}/dcf8cf3f2255293da170648f633873aa7c4afcf1.diff
 }
          
 build() {
