@@ -18,7 +18,7 @@ sha256sums=('6abaf661fe9414e92bdb33b58b98ef024ccf6132b7876abaf0751ec2109f36fb')
 prepare() {
   cd ${pkgname}-${_pkgver}
   # https://github.com/darktable-org/darktable/issues/4752
-  ./build.sh --disable-opencl
+  #./build.sh --disable-opencl
 }
 
 build() {
@@ -34,6 +34,7 @@ build() {
       -DBUILD_USERMANUAL=False \
       -DDONT_USE_INTERNAL_LUA=Off \
       -DUSE_COLORD=On \
+      -DTESTBUILD_OPENCL_PROGRAMS=Off
   make
 }
 
