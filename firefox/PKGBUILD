@@ -32,6 +32,8 @@ sha256sums=('bbb1054d8f2717c634480556d3753a8483986af7360e023bb6232df80b746b0f'
 
 prepare() {
   cd ${pkgname}-${pkgver}
+  # run prior to building:
+  export LC_ALL="en_US.UTF-8"
 
   cp ../mozconfig .mozconfig
   #patch -p1 -i ${srcdir}/firefox-install-dir.patch
