@@ -3,13 +3,13 @@ pkgname=qtcreator
 pkgver=4.12.0
 _pkgver=4.12
 __pkgver=4.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="https://www.qt.io/development-tools"
 license=('LGPL')
 depends=('qt5-tools' 'qt5-quickcontrols' 'qt5-quick3d' 'qt5-svg' 'qt5-script' 'qt5-serialport'
-         'qtwebengine' 'llvm' 'clang' 'yaml-cpp' 'clang-tools-extra') #'syntax-highlighting'
+         'qtwebengine' 'llvm' 'clang' 'yaml-cpp' 'clang-tools-extra' 'syntax-highlighting')
 makedepends=('cmake')
 optdepends=('qt5-doc: for the integrated Qt documentation'
             'gdb: for the debugger'
@@ -32,29 +32,29 @@ prepare() {
 }         
 
 build() {
-  #mkdir -p build
+  mkdir -p build
   cd build
   
-  cmake ../qt-creator-opensource-src-${__pkgver} \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DIDE_LIBEXEC_PATH=lib \
-    -DBUILD_WITH_PCH=OFF \
-    -DENABLE_SVG_SUPPORT=ON \
-    -DKSYNTAXHIGHLIGHTING_LIB_DIR=/usr/lib
-  make
+  #cmake ../qt-creator-opensource-src-${__pkgver} \
+  #  -DCMAKE_BUILD_TYPE=Release \
+  #  -DCMAKE_INSTALL_PREFIX=/usr \
+  #  -DIDE_LIBEXEC_PATH=lib \
+  #  -DBUILD_WITH_PCH=OFF \
+  #  -DENABLE_SVG_SUPPORT=ON \
+  #  -DKSYNTAXHIGHLIGHTING_LIB_DIR=/usr/lib
+  #make
   #make docs
 
-  #/usr/lib/qt5/bin/qmake LLVM_INSTALL_DIR=/usr QMAKE_CFLAGS_ISYSTEM=-I ${srcdir}/qt-creator-opensource-src-${__pkgver}/qtcreator.pro
-  #make 
-  #make docs -j1
+  /usr/lib/qt5/bin/qmake LLVM_INSTALL_DIR=/usr KSYNTAXHIGHLIGHTING_LIB_DIR=/usr/lib QMAKE_CFLAGS_ISYSTEM=-I ${srcdir}/qt-creator-opensource-src-${__pkgver}/qtcreator.pro
+  make 
+  make docs -j1
 }
 
 package() {
   cd build
 
-  make DESTDIR=${pkgdir} install
-  #make DESTDIR=${pkgdir} install_docs
+  make INSTALL_ROOT=${pkgdir}/usr install
+  make INSTALL_ROOT=${pkgdir}/usr install_docs
 
   #install -Dm644 ${srcdir}/qtcreator.desktop \
   #  ${pkgdir}/usr/share/applications/qtcreator.desktop
