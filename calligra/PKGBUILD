@@ -1,7 +1,7 @@
 
 pkgbase=calligra
-pkgname=('calligra') # 'calligra-l10n')
-pkgver=3.1.82
+pkgname=('calligra' 'calligra-l10n')
+pkgver=3.2.0
 _commit=886e80baee69aed3a5f21ad517e73e46656ed1ca
 pkgrel=1
 arch=('x86_64')
@@ -16,19 +16,19 @@ makedepends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiadd
          'sqlite3' 'libkdcraw' 'qca-qt5' 'qt5-declarative' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
          'kcontacts' 'akonadi-contacts' 'kholidays' 'okular' 'openexr' 'vc' 'kreport'
          'extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang
-#source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
-source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
+source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
+#source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
         'poppler0.82.diff'
         'poppler0.83.diff'
         "https://github.com/KDE/calligra/commit/ee83e0f2c251072e47a2799619cdc79efe67e651.diff")
 #source=("https://share.kde.org/index.php/s/yanrJWiQFB3rrvc/download?path=%2F&files=${pkgbase}-${pkgver}.tar.xz")
-md5sums=('92323f148264eba6af0a52eb87b23897'
+md5sums=('48e51794f3a49bdd740c74fd0d14461d'
          '4836152b9b9b6068be64e3e74bac19c1'
          'e7b1b53561f38501b57eff2752601849'
          '6383d2ee97037661374a6305a5c4a7fe')
 
 prepare() {
-  cd ${pkgbase}-${_commit}
+  cd ${pkgbase}-${pkgver}
   #patch -p1 -i ${srcdir}/poppler0.82.diff
   #patch -p1 -i ${srcdir}/poppler0.83.diff
   #patch -p1 -i ${srcdir}/ee83e0f2c251072e47a2799619cdc79efe67e651.diff
@@ -42,7 +42,7 @@ build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
   
-  cmake ../${pkgbase}-${_commit} \
+  cmake ../${pkgbase}-${pkgver} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -70,7 +70,7 @@ package_calligra() {
   
   #rm ${pkgdir}/usr/share/applications/calligra_filter_odt2docx.desktop
   #use in calligra-l10n
-  #mv ${pkgdir}/usr/share/locale ${srcdir}/
+  mv ${pkgdir}/usr/share/locale ${srcdir}/
 }
 
 package_calligra-l10n() {
