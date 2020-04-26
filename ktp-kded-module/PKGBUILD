@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktp-kded-module
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Workspace integration module - provides several plugins like auto-away, the infamous 'Now listening to...' and also an error handler"
 arch=('x86_64')
 url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-kded-module"
@@ -12,8 +12,16 @@ license=('GPL')
 depends=('ktp-common-internals' 'kidletime' 'kactivities')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde-telepathy')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+        'module.diff')
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'c1d2b38b81282cae9d0d2b15ef3aa35a')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/module.diff
+}
 
 build() {
   mkdir -p build
