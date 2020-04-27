@@ -20,7 +20,8 @@ source=("git://github.com/KaOSx/calamares"
         'unpackfs.conf'
         'launch-calamares.sh'
         'LICENSE.txt'
-        'release_notes.qml')
+        'release_notes.qml'
+        'release_notes_welcomeq.qml')
 md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
          'd5c65f43e057054e9728810530c4a030'
@@ -68,4 +69,5 @@ package() {
   install -Dm644 ${srcdir}/installer.svg ${pkgdir}/usr/share/pixmaps/installer.svg
   install -Dm644 ${srcdir}/LICENSE.txt ${pkgdir}/usr/share/calamares/LICENSE.txt
   install -Dm644 ${srcdir}/release_notes.qml ${pkgdir}/usr/share/calamares/release_notes.qml
+  install -Dm644 ${srcdir}/release_notes.qml ${pkgdir}/usr/share/calamares/release_notes_welcomeq.qml
 }
