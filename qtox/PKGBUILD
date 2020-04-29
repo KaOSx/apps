@@ -1,6 +1,6 @@
 pkgname=qtox
 _pkgname=qTox
-pkgver=1.17.0
+pkgver=1.17.2
 _commit=0a1a781249f1c044dc06c67fda8966f7c91b743c
 pkgrel=1
 pkgdesc='Powerful Tox client that follows the Tox design guidelines while running on all major platforms.'
@@ -8,12 +8,12 @@ arch=('x86_64')
 url='https://qtox.github.io/'
 license=('GPL3')
 depends=('ffmpeg' 'filter_audio' 'libxkbcommon' 'libxss' 'openal' 'qrencode' 'qt5-svg'
-         'sqlcipher' 'toxcore' 'libvpx')
+         'sqlcipher' 'toxcore' 'libvpx' 'sonnet')
 makedepends=('qt5-tools')
 source=("https://github.com/qTox/qTox/archive/v${pkgver}.tar.gz"
         "https://github.com/qTox/qTox/commit/5b120c18ef4a20ea27dcedd89b043b0d22ca534e.diff")
 #source=("https://github.com/qTox/qTox/archive/${_commit}.zip")
-md5sums=('1d65a140dfd42ae0aae89772f0dfb998'
+md5sums=('8d116981536796ab2aeef1cbfcd9ecae'
          '255e683ec180ad445eb93e9796648f5a')
 
 prepare() {
@@ -29,9 +29,7 @@ build() {
   
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DENABLE_STATUSNOTIFIER=False \
-    -DENABLE_GTK_SYSTRAY=False 
+    -DCMAKE_INSTALL_PREFIX=/usr 
   make
 }
 
