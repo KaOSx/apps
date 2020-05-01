@@ -48,10 +48,10 @@ Item {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2020.04</h3>
-            <p>KaOS is very proud to announce the availability of the April release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2020.05</h3>
+            <p>KaOS is very proud to announce the availability of the May release of a new stable ISO.</p>
             
-            <p>This release is unlike the February version, not about many new features, but rather about updates and rebuilds. Most of the base of this distribution has been rebuild on a new GCC 9.3.0, Glibc 2.31 & Binutils 2.34 based Toolchain. Other rebuilds were needed for ICU 66.1, Boost 1.72.0, Krb5 1.18, Glib2 2.64.2 based stack, Guile 2.2.6, Mesa 20.0.5, NetworkManager 1.22.10, Perl 5.30.2, Linux 5.6.7 and Qt 5.14.2.</p>
+            <p>This release is unlike the February version, not about many new features, but rather about updates and rebuilds. Most of the base of this distribution has been rebuild on a new GCC 9.3.0, Glibc 2.31 & Binutils 2.34 based Toolchain. Other rebuilds were needed for ICU 66.1, Boost 1.72.0, Krb5 1.18, Glib2 2.64.2 based stack, Guile 2.2.6, Mesa 20.0.6, NetworkManager 1.22.10, Perl 5.30.2, Linux 5.6.8 and Qt 5.14.2.</p>
             
             <p>The new features from the last, major, release were numerous, so repeated here one more time.  It starts with the installer, there it is now possible <b>to select whether or not to install</b> an OfficeSuite (current choice is limited to LibreOffice, future might see the additon of Calligra as option).  You can also opt to do a minimal install. This means opting for a fully functional Plasma Desktop with a filemanager, texteditor and simple web-browser, but no further applications. So there won't be a music player, image viewer, office suite and so on. You as a user can decide once the system is installed what to add when the minimal install was chosen.</p>
             
@@ -62,7 +62,8 @@ Item {
             
             <p>The Midna them used for KaOS has been redone for 2020, biggest change there is the move from QtCurve to <b>Kvantum</b> for the application style.  Implemented is a custom Midna Kvantum theme, following the same style as used in Croeso and the Welcome application. Ksplash is simplified with less moving images, SDDM theme has better contrast.  Complete new is <b>theming for the systemd-bootloader</b>, gone is the standard black background with white text, instead you will see a well intgrated option with the rest of the Midna theme.  The grub bootloader was updated to follow a similar look as the systemd-bootloader.</p>
             
-            <p>For the installer Calamares, a second new feature was added.  The Release Notes are now shown in a QML module, so there no longer is a need to work around sandboxing issues with QtWebengine or having to use the depreciated QtWebkit.</p>
+            <p>For the installer Calamares, a second new feature was added.  The Release Notes are now shown in a QML module, so there no longer is a need to work around sandboxing issues with QtWebengine or having to use the depreciated QtWebkit.</br>
+            A complete new locale module is being developed by KaOS for Calamares, it is available for preview on this ISO by editing <code>/usr/share/calamares/settings.conf</code> and replacing locale with localeq. Not ready to use by default yet, but will give a modern and much accurate option to pinpoint a users location for use in the needed section of the install.  Once finished it will be presented upstream to be included in Calamares.</p>
             
             <p>Last new feature you will see on this ISO is the change of package compression standard from tar.xz to tar.zst. ZSTD brings a significant improvement of decompression speed over XZ, while bringing only a marginal larger package size.</p>
             
@@ -77,8 +78,6 @@ Item {
             
             <p>A KaOS specific tool to write ISO files to USB is in use.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. It includes the option to verify the written USB in comparison to the used ISO file.</p>
             
-            <p>KaOS repositories no longer provide Qt 4.  It is a good three years ago that development for Qt 4 stopped, late 2015 all support including security fixes ended.  Any application that has not made the transition to Qt 5 in all this time can no longer be supported in KaOS.  Either they actually are no longer maintained or their development is ignoring the implications of building on a possible insecure toolkit.</p>
-            
             <p>The artwork includes custom icon themes for light and dark themes. Midna and Midna Dark both create a complete unified look from boot-up all the way through logout.</p>
 
             <p>This ISO uses the <b>CRC and finobt enabled</b> XFS filesystem as default. CRCs enable enhanced error detection due to hardware issues, whilst the format changes also improves crash recovery algorithms and the ability  of  various  tools to validate and repair metadata corruptions when they are found.  The  free  inode  btree does not index used inodes, allowing faster, more consistent inode allocation performance as filesystems age.</p>
@@ -91,7 +90,7 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.69.0, Plasma 5.18.4, KDE Applications 20.04.0</b>, Linux 5.6.7, Systemd 244, Kmod 27, NetworkManager 1.22.10, LibreOffice 6.4.3, Krita 4.2.9, Elisa, Xorg-Server 1.20.8, Mesa 20.0.5, Glibc 2.31, GCC 9.3.0, non-free Nvidia 440.82, Pepperflash and Python3 3.7.7 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.69.0, Plasma 5.18.4, KDE Applications 20.04.0</b>, Linux 5.6.8, Systemd 244, Kmod 27, NetworkManager 1.22.10, LibreOffice 6.4.3, Krita 4.2.9, Elisa, Xorg-Server 1.20.8, Mesa 20.0.6, Glibc 2.31, GCC 9.3.0, non-free Nvidia 440.82, Pepperflash and Python3 3.7.7 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.1</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
