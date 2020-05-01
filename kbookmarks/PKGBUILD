@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kbookmarks
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KBookmarks'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kbookmarks'
@@ -12,8 +12,16 @@ license=('LGPL')
 depends=('kxmlgui')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kbookmarks/commit/4b3fc2aedd86505a47b9b185e086ef253e73ede8.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'a810dc87860ad86bc19c73e63eff2bfb')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/4b3fc2aedd86505a47b9b185e086ef253e73ede8.diff
+}
 
 build() {
   mkdir -p build
