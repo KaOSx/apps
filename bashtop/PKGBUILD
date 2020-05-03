@@ -1,6 +1,6 @@
  
 pkgname=bashtop
-pkgver=0.8.21
+pkgver=0.8.23
 pkgrel=1
 pkgdesc='Resource monitor that shows usage and stats for processor, memory, disks, network and processes.'
 arch=('x86_64')
@@ -8,11 +8,11 @@ url="https://github.com/aristocratos/bashtop"
 license=('Apache 2.0')
 depends=('curl' 'lm_sensors')
 source=("https://github.com/aristocratos/bashtop/archive/v${pkgver}.tar.gz")
-md5sums=('42386bbd775b8a6eceb0dbd1a068b66f')
+md5sums=('74ba56567f7d1a729ab0b72f885ba87e')
 
 package() {
     cd ${pkgname}-${pkgver}
     
-    install -Dm755 bashtop -t ${pkgdir}/usr/bin
+    make DESTDIR=${pkgdir} install
     install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
