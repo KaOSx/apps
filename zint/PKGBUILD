@@ -1,0 +1,30 @@
+
+# stay with 2.6 until glabel is ready for newer
+pkgname=zint
+pkgver=2.6.7
+pkgrel=1
+pkgdesc="Suite of programs to allow easy encoding of data in any of the wide range of public domain barcode standards"
+arch=('x86_64')
+url="http://zint.org.uk/"
+license=('GPL3')
+depends=('libpng' 'qt5-base')
+makedepends=('cmake' 'qt5-tools')
+source=("https://downloads.sourceforge.net/zint/${pkgname}-${pkgver}.tar.gz")
+md5sums=('46c7c22dd1268c66be9293ddbe11506c')
+
+build() {
+    mkdir -p build
+    cd build
+
+    cmake ../${pkgname}-${pkgver} \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release
+    make
+}
+
+package() {
+    cd build
+
+    make DESTDIR=${pkgdir} install
+    install -Dm644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+}
