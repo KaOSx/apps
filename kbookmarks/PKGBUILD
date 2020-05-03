@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kbookmarks
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KBookmarks'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kbookmarks'
@@ -20,7 +20,7 @@ md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  patch -p1 -i ${srcdir}/4b3fc2aedd86505a47b9b185e086ef253e73ede8.diff
+  #patch -p1 -i ${srcdir}/4b3fc2aedd86505a47b9b185e086ef253e73ede8.diff
 }
 
 build() {
