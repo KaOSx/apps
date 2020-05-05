@@ -1,17 +1,17 @@
 
 pkgname=inkscape
-pkgver=0.92.5
-pkgrel=2
+pkgver=1.0
+pkgrel=1
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
 license=('GPL' 'LGPL')
-depends=('poppler' 'imagemagick' 'aspell' 'gc' 'gtkmm' 'libxslt' 'gsl'
-         'desktop-file-utils' 'popt' 'hicolor-icon-theme' 'python3-lxml' 'python3-numpy'
-         'libwpg' 'libvisio' 'libwpd' 'potrace' 'python3')
+depends=('poppler' 'imagemagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
+         'desktop-file-utils' 'hicolor-icon-theme' 'python3-lxml' 'python3-numpy'
+         'libwpg' 'libvisio' 'libwpd' 'potrace' 'python3' 'dbus-glib' 'double-conversion')
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
-source=("https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-${pkgver}.tar.bz2"
+source=("https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-${pkgver}.tar.xz"
         "https://gitlab.com/inkscape/inkscape/commit/a600c6438fef2f4c06f9a4a7d933d99fb054a973.diff"
         "https://gitlab.com/inkscape/inkscape/commit/fa1c469aa8c005e07bb8676d72af9f7c16fae3e0.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
@@ -33,7 +33,9 @@ build() {
   
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release 
+    -DCMAKE_BUILD_TYPE=Release \
+    -DWITH_DBUS=ON \
+    -DWITH_LIBCDR=OFF
   make 
 }
 
