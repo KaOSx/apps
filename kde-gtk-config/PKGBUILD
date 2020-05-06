@@ -7,13 +7,13 @@ pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Configuration dialog to adapt GTK applications appearance to your taste under KDE"
 arch=('x86_64')
-url="https://projects.kde.org/projects/kde/workspace/kde-gtk-config"
+url="https://github.com/KDE/kde-gtk-config"
 license=('LGPL')
 groups=('kdeplasma5')
 depends=('karchive' 'kauth' 'kcmutils' 'kconfigwidgets' 'knewstuff' 'kde-cli-tools' 'qt5-svg'
          'xsettingsd')
-makedepends=('extra-cmake-modules' 'gtk2' 'gtk3')
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+makedepends=('extra-cmake-modules' 'gtk2' 'gtk3' 'gsettings-desktop-schemas')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
         #'org.gnome.desktop.interface.gschema.xml')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
