@@ -1,6 +1,7 @@
 
 pkgname=inkscape
 pkgver=1.0
+_commit=2020-05-01_4035a4fb49
 pkgrel=1
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
@@ -8,7 +9,8 @@ arch=('x86_64')
 license=('GPL' 'LGPL')
 depends=('poppler' 'imagemagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
          'desktop-file-utils' 'hicolor-icon-theme' 'python3-lxml' 'python3-numpy'
-         'libwpg' 'libvisio' 'libwpd' 'potrace' 'python3' 'dbus-glib' 'double-conversion')
+         'libwpg' 'libvisio' 'libwpd' 'potrace' 'python3' 'dbus-glib' 'double-conversion'
+         'libsoup' 'gdl')
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 source=("https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-${pkgver}.tar.xz"
@@ -20,7 +22,7 @@ md5sums=('e5f1ee6b32ac0a94bdd5d99190e7bb9e'
          'add8bdd7b82b7950ca9abc546768f545')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}_${_commit}
   
   #patch -p1 -i ${srcdir}/a600c6438fef2f4c06f9a4a7d933d99fb054a973.diff
   # poppler 0.7.x and 0.8.x needed sed lines
@@ -31,11 +33,12 @@ build() {
   mkdir -p build
   cd build 
   
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${pkgver}_${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DWITH_DBUS=ON \
-    -DWITH_LIBCDR=OFF
+    -DWITH_LIBCDR=OFF \
+    -DWITH_GTKSPELL=OFF
   make 
 }
 
