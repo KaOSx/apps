@@ -1,6 +1,6 @@
  
 pkgname=potrace
-pkgver=1.15
+pkgver=1.16
 pkgrel=1
 pkgdesc='Tool for transforming a bitmap into a smooth, scalable image. The input is a bitmap (PBM, PGM, PPM, or BMP format)'
 url='http://potrace.sourceforge.net/'
@@ -8,7 +8,7 @@ arch=('x86_64')
 license=('GPL')
 depends=('zlib')
 source=("https://sourceforge.net/projects/potrace/files/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('60cecdaa9d14e0008f96b68dce77d246')
+md5sums=('5f0bd87ddd9a620b0c4e65652ef93d69')
 
 build() {
     cd ${pkgname}-${pkgver}
@@ -16,8 +16,7 @@ build() {
     ./configure \
         --prefix=/usr \
         --mandir=/usr/share/man \
-        --with-libpotrace \
-
+        --with-libpotrace
     make
 }
 

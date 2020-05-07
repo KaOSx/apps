@@ -1,11 +1,8 @@
 
-# include global config
-source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
-
 pkgname=libmediawiki
 #pkgver=${_kdever}
 pkgver=5.37.0
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE C++ interface for MediaWiki based web service as wikipedia.org"
 url="https://github.com/KDE/libmediawiki"
 arch=('x86_64')
@@ -13,10 +10,8 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-graphics' 'kde-uninstall')
-#source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://download.kde.org/stable/libmediawiki/${pkgname}-${pkgver}.tar.xz")
-md5sums=('cb75f9b26a096fa85bf4ba1a1116119f')
+sha256sums=('da167259c49d012359ad65175c365613f0c42699fb99ac7fb9d1f1c8c48292c1')
 
 prepare() {
   cd ${pkgname}-${pkgver}

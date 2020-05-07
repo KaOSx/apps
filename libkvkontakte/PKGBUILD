@@ -1,11 +1,7 @@
 
-# include global config
-source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
-
 pkgname=libkvkontakte
-#pkgver=${_kdever}
 pkgver=5.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE C++ library for asynchronous interaction with vkontakte.ru social network via its open API."
 arch=('x86_64')
 url='https://github.com/KDE/libkvkontakte'
@@ -13,13 +9,8 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kio' 'ki18n' 'kdewebkit' 'kcoreaddons' 'kwidgetsaddons')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 groups=('kde-graphics')
-source=("http://download.kde.org/stable/libkvkontakte/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=('38754b63297f0248f572412dc54edb87')
-
-#prepare() {
-  #cd ${pkgname}-${pkgver}
-  #sed -i -e 's|KF5::KDELibs4Support|KF5::KDELibs4Support KF5::KHtml|' ${srcdir}/${pkgname}/src/CMakeLists.txt
-#}
+source=("https://download.kde.org/stable/libkvkontakte/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('00f11a13e1c3c10c7abd53b300237a9b7ab5c9b3b80e0381e01993e82c768193')
 
 build() {
   mkdir -p build
