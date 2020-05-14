@@ -1,0 +1,34 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kwayland-server
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc="Wayland Server Components built on KDE Frameworks."
+arch=('x86_64')
+url="https://github.com/KDE/kwayland-server"
+license=('LGPLv2+')
+depends=('kwayland' 'plasma-wayland-protocols' 'qt5-wayland')
+makedepends=('extra-cmake-modules'  'kdoctools')
+groups=('kdeplasma5')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBDIR=lib
+  make
+}
+
+package() {
+  cd build
+  
+  make DESTDIR=${pkgdir} install
+}
