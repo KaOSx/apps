@@ -1,6 +1,6 @@
 
 pkgname=audacity
-pkgver=2.3.3
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
@@ -8,35 +8,24 @@ url="https://web.audacityteam.org/"
 license=('GPL')
 depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk' 'lame' 'hicolor-icon-theme' 'ffmpeg'
          'shared-mime-info' 'desktop-file-utils' 'redland' 'jack' 'soundtouch' 'libsoxr'
-         'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil')
+         'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil' 'portmidi')
 makedepends=('cmake' 'zip' 'pkgconfig')
 options=('!makeflags')
-source=("https://download.fosshub.com/Protected/expiretime=1574490615;badurl=aHR0cHM6Ly93d3cuZm9zc2h1Yi5jb20vQXVkYWNpdHkuaHRtbA==/a4ef4973ef11b4227628bd5ff722ac227081a987a06a1d9588e637951214fa34/5b7eee97e8058c20a7bbfcf4/5dd7e00e1d5d8e08348e2444/${pkgname}-minsrc-${pkgver}.tar.xz")
-sha256sums=('ca42f64d9e9b3d5ee007f5d00b438229f88c9016f30b3ad9f49076a14bce0b55')
+source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz")
+sha256sums=('5d1c096d7b04ff8d5dbca3dca5b9d9f8e62093b5ea6e57ae5f821ae3132dc88f')
 
 build() {
-  cd ${pkgname}-minsrc-${pkgver}
-  #patch -p1 -i ${srcdir}/ffmpeg.patch
-
-  # no system portaudio, see http://portaudio.music.columbia.narkive.com/rju8OHIE/pa-getstreamhostapitype
-  #autoreconf -vi
-  ./configure --prefix=/usr \
-    --enable-unicode \
-    --with-ffmpeg=system \
-    --with-libsamplerate=system \
-    --with-expat=system \
-    --with-libsndfile=system \
-    --with-libsoxr=system \
-    --with-portaudio=local \
-    --with-lv2=system \
-    --with-lilv=system \
-    --with-sord=system \
-    --with-suil=system
+  mkdir -p build
+  cd build
+  
+  cmake ../${pkgname}-Audacity-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
   make
 }
 
 package() {
-  cd ${pkgname}-minsrc-${pkgver}
+  cd build
   
   make DESTDIR=${pkgdir} install
 }
