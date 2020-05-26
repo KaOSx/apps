@@ -18,15 +18,15 @@ makedepends=('cmake' 'boost' 'mesa' 'qt5-tools')
 groups=('multimedia')
 source=("https://github.com/clementine-player/Clementine/releases/download/${_pkgver}/${pkgname}-${_pkgver}.tar.xz"
 #source=("https://github.com/clementine-player/Clementine/archive/${_commit}.zip"
-        'tokenizer.diff')
+        'qt5.15.diff')
 md5sums=('c58d09300081854485749cb8c8b18d61'
-         'baa891a12a4ed23846507644e3ad049f')
+         '6d3ca42c0edb6ca32831aa2be518abc1')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
 
   sed -i 's|Exec=clementine %U|Exec=clementine|g' ${srcdir}/${pkgname}-${_pkgver}/dist/clementine.desktop
-  #patch -p1 -i ${srcdir}/tokenizer.diff
+  patch -p1 -i ${srcdir}/qt5.15.diff
 }
 
 build() {  
