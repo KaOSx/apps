@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdeplasma-addons
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Plasma Addons"
 url="http://www.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
@@ -17,15 +17,18 @@ groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
         'notes.diff'
-        'metadata.desktop')
+        'metadata.desktop'
+        "https://invent.kde.org/plasma/kdeplasma-addons/commit/a50d30b14b204306e962c77a062a142f68bed1e5.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '4292d451d1e72fc0464355e2c3b0afa3'
-         '80d8ea43dfb1e34accc407cc72c0395b')
+         '80d8ea43dfb1e34accc407cc72c0395b'
+         '48c80cd6400d77c2ab570002d5d55bc5')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  #patch -p1 -i ${srcdir}/notes.diff
+  patch -p1 -i ${srcdir}/notes.diff
+  patch -p1 -i ${srcdir}/a50d30b14b204306e962c77a062a142f68bed1e5.diff
   
   #cp ${srcdir}/metadata.desktop applets/activitypager/
 }

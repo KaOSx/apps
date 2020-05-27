@@ -1,7 +1,7 @@
 
 pkgname=atom
 pkgver=1.47.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Hackable text editor from the 21st Century"
 arch=('x86_64')
 url="https://github.com/atom/atom"
@@ -26,4 +26,7 @@ package() {
   install -Dm644 ${srcdir}/atom.desktop ${pkgdir}/usr/share/applications/atom.desktop
   install -Dm644 atom.png ${pkgdir}/usr/share/pixmaps/atom.png
   install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  # fix sandboxing issue, introduced with 1.47.0
+  # https://github.com/atom/atom/issues/20756
+  chmod 4755 ${pkgdir}/usr/share/atom/chrome-sandbox
 }
