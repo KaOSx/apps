@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://github.com/KDE/konsole'
@@ -18,14 +18,14 @@ conflicts=('kde-baseapps-konsole')
 replaces=('kde-baseapps-konsole')
 provides=('kde-baseapps-konsole')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/konsole/commit/dcf8cf3f2255293da170648f633873aa7c4afcf1.diff")
+        "https://invent.kde.org/utilities/konsole/-/commit/e7e8e9d1a9b129d73a4c502af873fb01fb2795fb.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '6e8d390713ef2f78e60daa0223e84350')
+         '8c12fccd299ec325a719e4bfc46add48')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # KBookmarks 5.69 changes
-  #patch -p1 -i ${srcdir}/dcf8cf3f2255293da170648f633873aa7c4afcf1.diff
+  # Qt 5.15 needed
+  patch -p1 -i ${srcdir}/e7e8e9d1a9b129d73a4c502af873fb01fb2795fb.diff
 }
          
 build() {
