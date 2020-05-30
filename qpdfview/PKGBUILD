@@ -12,11 +12,14 @@ depends=('desktop-file-utils' 'djvulibre' 'hicolor-icon-theme' 'libcups' 'libspe
 makedepends=('qt5-tools')
 #conflicts=('okular')
 #replaces=('okular')
-source=("https://launchpad.net/qpdfview/trunk/${_pkgver}/+download/${pkgname}-${_pkgver}.tar.gz")
-md5sums=('4d63ee0095e939602f9bf4759ae57953')
+source=("https://launchpad.net/qpdfview/trunk/${_pkgver}/+download/${pkgname}-${_pkgver}.tar.gz"
+        'qt5.15.diff')
+md5sums=('4d63ee0095e939602f9bf4759ae57953'
+         '14b420059f5a7652b12c183526c60efc')
 
 build() {
   cd ${pkgname}-${_pkgver}
+  patch -p1 -i ${srcdir}/qt5.15.diff
 
   /usr/lib/qt5/bin/lrelease qpdfview.pro
   /usr/lib/qt5/bin/qmake "CONFIG+=without_synctex static_resources" qpdfview.pro
