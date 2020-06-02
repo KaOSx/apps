@@ -1,22 +1,22 @@
 
 pkgname=kup
-pkgver=0.7.3
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="Kup is created for helping people to keep up-to-date backups of their personal files."
 arch=('x86_64')
-url="https://github.com/spersson/Kup"
+url="https://invent.kde.org/system/kup"
 license=('GPL')
-depends=('solid' 'kio' 'kidletime' 'ki18n' 'knotifications' 'kcoreaddons' 'kiconthemes'
-         'kdbusaddons' 'kconfig' 'kinit' 'plasma-framework')
+depends=('solid' 'kio' 'kidletime' 'ki18n' 'knotifications' 'kcoreaddons' 
+         'kdbusaddons' 'kconfig' 'kinit' 'kjobwidgets' 'plasma-framework' 'kwidgetsaddons')
 makedepends=('extra-cmake-modules')
-source=("https://github.com/spersson/Kup/archive/${pkgname}-${pkgver}.tar.gz")
-md5sums=('39a3d33082b84bb38f32932b12677e86')
+source=("https://download.kde.org/stable/kup/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('79154cd12bcbef87b3b22851adcd505f5da7723483361c7a16ae4c3eea61f0bd')
 
 build() {
   mkdir -p build
   cd build
   
-  cmake ../Kup-${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
