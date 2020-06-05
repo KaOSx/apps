@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=messagelib
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="All libs for messages"
 arch=('x86_64')
 url='https://github.com/KDE/messagelib'
@@ -15,14 +15,14 @@ depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'akonadi-notes' 'kdepim-apps-l
          'libgravatar' 'grantleetheme' 'libkleo' 'pimcommon' 'grantlee' 'qtwebengine' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://github.com/KDE/messagelib/commit/34765909cdf8e55402a8567b48fb288839c61612.diff")
+        "https://invent.kde.org/pim/messagelib/-/commit/1f2548805df60707ffba2bba27d35d441232d140.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'da282939072c45d05e0c93ca9d10a1f5')
+         'e96a28b4dec084ad442b872bf7bb4ced')
 
 prepare() {
   cd $pkgname-${pkgver}
   #sed -i -e 's|set(KMIME_LIB_VERSION "4.81.0")|set(KMIME_LIB_VERSION "4.80.0")|' ${srcdir}/${pkgname}/CMakeLists.txt
-  #patch -p1 -i ${srcdir}/34765909cdf8e55402a8567b48fb288839c61612.diff
+  patch -p1 -i ${srcdir}/1f2548805df60707ffba2bba27d35d441232d140.diff
 }
 
 build() {
