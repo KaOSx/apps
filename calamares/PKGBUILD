@@ -1,7 +1,7 @@
 
 pkgname=calamares
 pkgver=3.2.25
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='http://calamares.io/'
@@ -30,7 +30,7 @@ md5sums=('SKIP'
          '89a65583c4e31b748d499dff106163be'
          '4b126b6494c776016accd8ffbd0be51d'
          'bf4a935ae9b0e68639bd9968aff9c3ae'
-         '51bbe3bd8e6db5a21eea838ae5f06a86')
+         'cd3fc24b8d8c74952d76fd0e74e604d8')
 
 prepare () {
   cd ${pkgname}
@@ -43,7 +43,7 @@ prepare () {
 }
 
 build() {
-  #export CC=/usr/bin/clang
+  #export CC=/usr/bin/clangwelcomeq
   #export CXX=/usr/bin/clang++
 
   mkdir -p build
@@ -69,6 +69,6 @@ package() {
   install -Dm644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
   install -Dm644 ${srcdir}/installer.svg ${pkgdir}/usr/share/pixmaps/installer.svg
   install -Dm644 ${srcdir}/LICENSE.txt ${pkgdir}/usr/share/calamares/LICENSE.txt
-  install -Dm644 ${srcdir}/release_notes.qml ${pkgdir}/usr/share/calamares/release_notes.qml
-  install -Dm644 ${srcdir}/release_notes.qml ${pkgdir}/usr/share/calamares/release_notes_welcomeq.qml
+  #install -Dm644 ${srcdir}/release_notes.qml ${pkgdir}/usr/share/calamares/release_notes.qml
+  install -Dm644 ${srcdir}/release_notes_welcomeq.qml ${pkgdir}/usr/share/calamares/release_notes_welcomeq.qml
 }
