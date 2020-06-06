@@ -5,8 +5,8 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=6.1.8
-_pkgver=6.1.8
+pkgver=6.1.10
+_pkgver=6.1.10
 pkgrel=1
 arch=('x86_64')
 url='https://virtualbox.org'
@@ -22,21 +22,21 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         'LocalConfig.kmk'
         'vboxservice.service'
         'vmsvga.service'
-        'driver-path.patch'
+        'vbox-6.1.8-qtpainterpath.patch'
         'include-path.patch')
-sha256sums=('426888f83036b6b1f79c272d317a4e8ecf43781f6a266fd7209c03dca504eefc'
+sha256sums=('37d8b30c0be82a50c858f3fc70cde967882239b6212bb32e138d3615b423c477'
             '9c5238183019f9ebc7d92a8582cad232f471eab9d3278786225abc1a1c7bf66e'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             '84dff0d4ccb8d97d4b4e46dde4f8f6c891409e0a9a6428e0b91114a33dc6e68e'
             '94a808f46909a51b2d0cf2c6e0a6c9dea792034943e6413bf9649a036c921b21'
             'babbc97990ed933ebea501490ff72aa44c4cebf503a4c1249a5b36d4e5f9d161'
-            'f67674931c30187f867233e3a4ae662f93c9110fbd0bfce50dd9f391f4533bc0'
+            'bf352a5794cac45e28a63350b1729a799c8863f065c031b19eacbfb94def163d'
             '188014070bce4f6fb9b2535bcd64d066119e182e848c521407ea891ab41a995b')
 
 prepare() {
     cd VirtualBox-${pkgver}
 
-    #patch -p1 -i ${srcdir}/driver-path.patch
+    patch -p1 -i ${srcdir}/vbox-6.1.8-qtpainterpath.patch
     #patch -p1 -i ${srcdir}/include-path.patch
     
     sed -i -e 's|X11R6/||' configure
