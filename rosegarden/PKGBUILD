@@ -1,7 +1,7 @@
 
 pkgname=rosegarden
-pkgver=19.12
-_pkgver=19.12
+pkgver=20.06
+_pkgver=20.06
 pkgrel=1
 pkgdesc="MIDI/audio sequencer and notation editor"
 arch=('x86_64')
@@ -14,8 +14,16 @@ optdepends=('cups: printing support'
             'flac'
             'wavpack')
 groups=('multimedia')
-source=("https://sourceforge.net/projects/rosegarden/files/${pkgname}/${_pkgver}/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('828cbbe222f9f93b9246bfa96b36a788')
+source=("https://sourceforge.net/projects/rosegarden/files/${pkgname}/${_pkgver}/${pkgname}-${pkgver}.tar.bz2"
+        'qt5.15.diff')
+md5sums=('16f0cbbb3104c9f58f644b18e4cbaf19'
+         '1568185878c8b25fbe88df3aa281e53a')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/qt5.15.diff
+}
 
 build() {
   mkdir -p build
