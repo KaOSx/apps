@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ki18n
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Ki18n'
 arch=('x86_64')
 url='https://github.com/KDE/ki18n'
@@ -42,8 +42,8 @@ package() {
   
   make DESTDIR="${pkgdir}" install
   # conflicts with kde-l10n since kf5 5.20.0
-  rm ${pkgdir}/usr/share/locale/nb/LC_SCRIPTS/ki18n5/ki18n5.js
-  rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/ki18n5.js
-  rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/skjermelement.pmap
-  rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/skjermelement.pmapc
+  #rm ${pkgdir}/usr/share/locale/nb/LC_SCRIPTS/ki18n5/ki18n5.js
+  #rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/ki18n5.js
+  #rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/skjermelement.pmap
+  #rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/skjermelement.pmapc
 }

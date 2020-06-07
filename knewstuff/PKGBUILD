@@ -4,12 +4,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=knewstuff
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KNewStuff'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/knewstuff'
 license=('LGPL')
-depends=('kf5-attica' 'kconfigwidgets' 'kio')
+depends=('kf5-attica' 'kconfigwidgets' 'kio' 'kirigami' 'kpackage')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
@@ -28,7 +28,7 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBDIR=/usr/lib \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
