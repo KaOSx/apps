@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://github.com/KDE/konsole'
@@ -25,7 +25,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # Qt 5.15 needed
-  patch -p1 -i ${srcdir}/e7e8e9d1a9b129d73a4c502af873fb01fb2795fb.diff
+  #patch -p1 -i ${srcdir}/e7e8e9d1a9b129d73a4c502af873fb01fb2795fb.diff
 }
          
 build() {
