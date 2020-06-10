@@ -4,19 +4,20 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libksysguard
 pkgver=${_plasmaver}
-pkgrel=1
-pkgdesc='Libksysguard'
+pkgrel=2
+pkgdesc='Library to retrieve information on the current status of computer hardware'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/libksysguard'
+url='https://invent.kde.org/plasma/libksysguard'
 license=('LGPL')
 depends=('libxres' 'kcoreaddons' 'kconfig' 'ki18n' 'kjobwidgets' 'kwindowsystem' 'kcompletion' 'kauth'
          'kwidgetsaddons' 'kiconthemes' 'kconfigwidgets' 'kservice' 'kglobalaccel' 
          'plasma-framework' 'kio' 'knewstuff' 'qtwebengine')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/plasma/libksysguard/-/commit/27da06df3abaf707d61686e3a301a84df7b099c8.diff")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'f1eed8ca6a051d4a25cd1fc0a3f03d35')
 
 prepare() {
   cd ${pkgname}-${pkgver}
