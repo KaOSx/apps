@@ -1,8 +1,8 @@
 
 # perl issue on server, build locally only
 pkgname=pidgin
-pkgver=2.13.0
-pkgrel=2
+pkgver=2.14.0
+pkgrel=1
 pkgdesc="Multi-protocol instant messaging client"
 arch=('x86_64')
 url="https://pidgin.im/"
@@ -12,10 +12,10 @@ depends=("libpurple=${pkgver}" 'startup-notification' 'gtk2' 'libxss' 'hicolor-i
 makedepends=('nss' 'libsasl' 'python3' 'tk' 'ca-certificates' 'intltool' )
 options=('!libtool')
 source=("https://downloads.sourceforge.net/pidgin/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('423403494fe1951e47cc75231f743bb0')
+sha256sums=('d06ec08b1174c1a9534664ac3e997ee9b6a67eded126dfca9041c2f7db56c82f')
 
 build() {
-  cd ${pkgname}-$pkgver
+  cd ${pkgname}-${pkgver}
 
     ./configure --prefix=/usr \
                 --sysconfdir=/etc \
@@ -33,17 +33,17 @@ build() {
 package(){
     cd ${pkgbase}-${pkgver}
     #for linking
-    make -C libpurple DESTDIR="${pkgdir}" install-libLTLIBRARIES
+    make -C libpurple DESTDIR=${pkgdir} install-libLTLIBRARIES
 
-    make -C pidgin DESTDIR="${pkgdir}" install
-    make -C doc DESTDIR="${pkgdir}" install
+    make -C pidgin DESTDIR=${pkgdir} install
+    make -C doc DESTDIR=${pkgdir} install
 
     #clean up libpurple
-    make -C libpurple DESTDIR="${pkgdir}" uninstall-libLTLIBRARIES
+    make -C libpurple DESTDIR=${pkgdir} uninstall-libLTLIBRARIES
 
-    install -D -m 0644 pidgin/data/pidgin.desktop "${pkgdir}"/usr/share/applications/pidgin.desktop
+    install -D -m 0644 pidgin/data/pidgin.desktop ${pkgdir}/usr/share/applications/pidgin.desktop
 
-    rm -f "${pkgdir}"/usr/share/man/man1/finch.1
+    rm -f ${pkgdir}/usr/share/man/man1/finch.1
 }
 
 

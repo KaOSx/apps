@@ -1,0 +1,32 @@
+
+pkgname=ardour
+_pkgname=Ardour
+# adjust .desktop version!
+pkgver=5.12.0
+pkgrel=2
+pkgdesc="A multichannel hard disk recorder and digital audio workstation"
+arch=('x86_64')
+url="http://ardour.org/"
+license=('GPL')
+depends=('qjackctl' 'desktop-file-utils')
+options=('!strip')
+source=("https://sourceforge.net/projects/kaosx/files/sources/ardour/${_pkgname}-${pkgver}-x86_64.run"
+        'ardour.desktop')
+md5sums=('fa340012ba0fdb67ead9633f4437e391'
+         '27b85c4048094607d2cff4eb36a578d5')
+
+build() {
+  mkdir -p build
+  sh ${_pkgname}-${pkgver}-x86_64.run --noexec --target build
+}
+
+package() {
+  cd build
+
+  install -d ${pkgdir}/opt
+  bsdtar --no-same-owner -jxvf \
+   ${_pkgname}_x86_64-gcc5-${pkgver}.tar \
+    -C ${pkgdir}/opt
+
+  install -Dm644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
+}

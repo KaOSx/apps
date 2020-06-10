@@ -1,32 +1,45 @@
 
 pkgname=ardour
 _pkgname=Ardour
-# adjust .desktop version!
-pkgver=5.12.0
-pkgrel=2
+pkgver=6.0.0
+pkgrel=1
 pkgdesc="A multichannel hard disk recorder and digital audio workstation"
 arch=('x86_64')
-url="http://ardour.org/"
+url="https://ardour.org/"
 license=('GPL')
-depends=('qjackctl' 'desktop-file-utils')
+depends=('atkmm' 'aubio' 'cairomm' 'gdk-pixbuf2' 'gtkmm' 'libx11' 'libxml2' 'pangomm' 'qjackctl' 'taglib' 'fftw' 'flac' 
+         'graphviz' 'harfbuzz' 'liblo' 'liblrdf' 'libogg' 'pulseaudio' 'libsamplerate' 'libsndfile' 'lilv' 'lv2'
+         'pango' 'readline' 'rubberband' 'serd' 'sord' 'sratom' 'suil')
+makedepends=('boost' 'cppunit' 'itstool' 'libusb')
 options=('!strip')
-source=("https://sourceforge.net/projects/kaosx/files/sources/ardour/${_pkgname}-${pkgver}-x86_64.run"
+source=("https://community.ardour.org/srctar"
         'ardour.desktop')
-md5sums=('fa340012ba0fdb67ead9633f4437e391'
+md5sums=('6ae77a42e0035eda634628cc0a841d94'
          '27b85c4048094607d2cff4eb36a578d5')
 
 build() {
-  mkdir -p build
-  sh ${_pkgname}-${pkgver}-x86_64.run --noexec --target build
+  cd ${_pkgname}-${pkgver}
+  
+  ./waf configure --prefix=/usr \
+    --configdir=/etc \
+    --with-backends="alsa,dummy,jack,pulseaudio" \
+    --libjack=weak \
+    --nls \
+    --optimize \
+    --cxx11 \
+    --freedesktop \
+    --ptformat \
+    --lxvst \
+    --no-phone-home
+  ./waf build -v
 }
 
 package() {
-  cd build
+  cd ${_pkgname}-${pkgver}
 
-  install -d ${pkgdir}/opt
-  bsdtar --no-same-owner -jxvf \
-   ${_pkgname}_x86_64-gcc5-${pkgver}.tar \
-    -C ${pkgdir}/opt
+  ./waf i18n --destdir=${pkgdir}
+  ./waf install --destdir=${pkgdir}
 
-  install -Dm644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
+  install -Dm644 build/gtk2_ardour/ardour6.desktop ${pkgdir}/usr/share/applications/${pkgname}6.desktop
+  install -vDm 644 gtk2_ardour/resources/Ardour-icon_48px.png ${pkgdir}/usr/share/icons/hicolor/48x48/apps/${pkgname}6.png
 }
