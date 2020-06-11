@@ -4,17 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kgeography
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Geography Trainer"
-url="http://kde.org/applications/education/kgeography/"
+url="https://kde.org/applications/education/kgeography/"
 arch=('x86_64')
-url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kxmlgui' 'kwidgetsaddons' 'kcoreaddons' 'kconfigwidgets' 'ki18n' 'kitemviews' 
          'kiconthemes' 'kservice')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdeedu-kgeography')
-replaces=('kdeedu-kgeography')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -28,10 +25,6 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   make
 }
