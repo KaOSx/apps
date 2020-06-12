@@ -8,14 +8,14 @@ url="https://01.org/powertop/"
 license=('GPL2')
 depends=('gcc-libs' 'libnl' 'ncurses' 'pciutils')
 groups=('utils')
-#source=("https://01.org/sites/default/files/downloads/powertop-${pkgver}.tar.gz")
-source=("https://github.com/fenrus75/powertop/archive/v${pkgver}.tar.gz")
-md5sums=('33ab8d591f68bec6b87f5f2bf7c13b63')
+source=("https://01.org/sites/default/files/downloads/powertop-${pkgver}.tar.gz")
+#source=("https://github.com/fenrus75/powertop/archive/v${pkgver}.tar.gz")
+md5sums=('ec3755797ca68acba7eb31b494d48b8e')
 
 build() {
   cd powertop-${pkgver}
 
-  ./autogen.sh
+  #./autogen.sh
   ./configure --prefix=/usr 
   make 
 }
