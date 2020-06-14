@@ -1,7 +1,7 @@
 
 pkgname=qmapshack
-pkgver=1.14.1
-pkgrel=2
+pkgver=1.15.0
+pkgrel=1
 pkgdesc="Plan your next outdoor trip or to visualize and archive all the GPS recordings, next generation of the QLandkarte GT application"
 arch=('x86_64')
 url="https://github.com/Maproom/qmapshack/wiki"
@@ -13,16 +13,19 @@ makedepends=('cmake' 'extra-cmake-modules' 'qt5-tools')
 groups=('utils')
 source=("https://github.com/Maproom/qmapshack/archive/V_${pkgver}.tar.gz"
         'proj.patch'
-        'quazip.patch')
-md5sums=('5f8cff76565f49ea7fb8ef63a13ffc0b'
+        'quazip.patch'
+        'qt5.15.diff')
+md5sums=('c9f9dc0d2c317b8bf3d36bdff2b3e762'
          '1a2192dfa8b63fce503a59d6917918a5'
-         'cbdc25ae8121f347ddfedc10501d589e')
+         'cbdc25ae8121f347ddfedc10501d589e'
+         '148595b47465d4a465faafa1c5e8a336')
 
 prepare() {
   cd ${pkgname}-V_${pkgver}
   
   patch -p1 -i ${srcdir}/proj.patch
   patch -p1 -i ${srcdir}/quazip.patch
+  patch -p1 -i ${srcdir}/qt5.15.diff
   #sed -i 's|PROJ4|PROJ|' CMakeLists.txt
 }
 
