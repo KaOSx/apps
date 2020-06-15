@@ -1,0 +1,27 @@
+ 
+pkgname=mauikit
+pkgver=1.1.1
+pkgrel=1
+pkgdesc='Modular front-end framework for developing fast and compelling user experiences'
+arch=('x86_64')
+url="https://mauikit.org/"
+license=('GPL3')
+depends=('ki18n' 'knotifications' 'kconfig' 'kservice' 'kio' 'kconfigwidgets' 'syntax-highlighting'
+         'kf5-attica' 'kdecoration' 'kcoreaddons' 'kdeclarative' 'plasma-framework'
+         'qt5-svg' 'qt5-quickcontrols2')
+makedepends=('extra-cmake-modules')
+source=("https://invent.kde.org/maui/mauikit/-/archive/v${pkgver}/mauikit-v${pkgver}.tar.bz2")
+md5sums=('965468fb881393db60b454e4da039dbe')
+
+build() {
+  cmake -B build -S ${pkgname}-v${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+  cmake --build build
+}
+ 
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

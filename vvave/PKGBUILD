@@ -1,49 +1,33 @@
 
 pkgname=vvave
-pkgver=1.2.1
+pkgver=1.1.1
 pkgrel=1
 arch=('x86_64')
 pkgdesc="VVave will handle your whole music collection, letting you create custom playlists to organize your music."
-url="74eca52c334618ad0d237bab3eb533cc"
+url="https://mauikit.org/"
 license=('GPL3')
 conflicts=('babe')
 replaces=('babe')
-depends=('knotifications' 'ki18n' 'kconfig' 'qt5-multimedia' 'qtwebengine' 'qt5-websockets' 'taglib' 'youtube-dl')
-makedepends=('extra-cmake-modules' 'clang')
-source=("https://download.kde.org/stable/vvave/${pkgver}/src/babe-${pkgver}.tar.xz"
-        "https://github.com/KDE/vvave/commit/77958ad9a49f0d28a532cda787f6874866c0fd4b.diff")
-sha256sums=('eced1599b2b9af8f4ce7764120c454df4c299ddb436e1f392e57746c22bd7ba6'
-            '2859b6489a12a412940a15c22b96b76b39f9faf18da57730dbf587f431bd4b9c')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  
-  #sed -i -e 's|<qjson/parser.h>|<qjson-qt5/parser.h>|' artwork.cpp
-  # restore menu icon
-  #patch -R -p1 -i ${srcdir}/77958ad9a49f0d28a532cda787f6874866c0fd4b.diff
-}
+depends=('mauikit' 'qt5-multimedia' 'qtwebengine' 'qt5-websockets' 'qt5-webview' 'taglib' 'youtube-dl')
+makedepends=('extra-cmake-modules') # 'clang')
+#source=("https://download.kde.org/stable/vvave/${pkgver}/src/babe-${pkgver}.tar.xz"
+source=("https://invent.kde.org/maui/vvave/-/archive/v${pkgver}/vvave-v${pkgver}.tar.bz2")
+sha256sums=('16e4005d07be2b07b1e6f7fcaa9d82dc4f8faf05e170e9588277db782a1c7707')
 
 build() {
-  mkdir -p build
-  cd build
+  #export CC=/usr/bin/clang
+  #export CXX=/usr/bin/clang++
   
-  export CC=/usr/bin/clang
-  export CXX=/usr/bin/clang++
-  
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+  cmake -B build -S ${pkgname}-v${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DKDE_INSTALL_LIBDIR=lib
-  #/usr/lib/qt5/bin/qmake Babe.pro
-  make
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+  cmake --build build
 }
 
 package() {
-  cd build
   
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
   
-  #install -D -m755 Babe ${pkgdir}/usr/bin/babe
-  #install -D -m644 org.kde.babe.desktop ${pkgdir}/usr/share/applications/org.kde.babe.desktop
-  install -D -m644 ../${pkgname}-${pkgver}/data/vvave.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/vvave.svg
+  #install -D -m644 ../${pkgname}-${pkgver}/data/vvave.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/vvave.svg
 }
