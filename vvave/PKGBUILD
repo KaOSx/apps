@@ -9,15 +9,11 @@ license=('GPL3')
 conflicts=('babe')
 replaces=('babe')
 depends=('mauikit' 'qt5-multimedia' 'qtwebengine' 'qt5-websockets' 'qt5-webview' 'taglib' 'youtube-dl')
-makedepends=('extra-cmake-modules') # 'clang')
-#source=("https://download.kde.org/stable/vvave/${pkgver}/src/babe-${pkgver}.tar.xz"
+makedepends=('extra-cmake-modules')
 source=("https://invent.kde.org/maui/vvave/-/archive/v${pkgver}/vvave-v${pkgver}.tar.bz2")
 sha256sums=('16e4005d07be2b07b1e6f7fcaa9d82dc4f8faf05e170e9588277db782a1c7707')
 
 build() {
-  #export CC=/usr/bin/clang
-  #export CXX=/usr/bin/clang++
-  
   cmake -B build -S ${pkgname}-v${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -28,6 +24,4 @@ build() {
 package() {
   
   DESTDIR=${pkgdir} cmake --install build
-  
-  #install -D -m644 ../${pkgname}-${pkgver}/data/vvave.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/vvave.svg
 }
