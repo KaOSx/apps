@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kasync
 pkgver=0.3.0
 _commit=abc6d4d4fed6afd0cb361eb1fe387458de532134
-pkgrel=1
+pkgrel=2
 pkgdesc="KAsync helps writing composable asynchronous code using a continuation based approach."
 arch=('x86_64')
 url='https://github.com/KDE/kasync'
@@ -16,7 +16,7 @@ makedepends=('extra-cmake-modules')
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #source=("https://github.com/KDE/kasync/archive/${_commit}.zip")
 source=("https://download.kde.org/unstable/kasync/${pkgver}/src/kasync-${pkgver}.tar.xz")
-md5sums=('8838a3b072987767195320a4675da500')
+sha256sums=('08916f0878f4cac650b89e5bf04c49f1bf1fcd690c58310e4849350ddc6a3b58')
 
 prepare() {
   cd ${pkgname}-${pkgver}
