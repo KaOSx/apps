@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ksysguard
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=1
 pkgdesc='KSysGuard is a program to monitor various elements of your system'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/ksysguard'
@@ -16,13 +16,13 @@ groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/plasma/ksysguard/-/commit/5391f4def701629ffbb2d0b20ef92af2fec7c313.diff")
 # grep md5 picks up libksysguard too
-md5sums=('1d94c002985a094a36a28c4fda19ade8'
+md5sums=('efe7e52ca09bd5100273209f490a1177'
          '74c6458fa3e2af55fa043c6eac5da1c4')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's/Kdcraw/KF5KDcraw/' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
-  patch -p1 -i $srcdir/5391f4def701629ffbb2d0b20ef92af2fec7c313.diff
+  #patch -p1 -i $srcdir/5391f4def701629ffbb2d0b20ef92af2fec7c313.diff
 }
 
 build() {

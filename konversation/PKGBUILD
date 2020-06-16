@@ -3,22 +3,37 @@
 pkgname=konversation
 pkgver=1.7.5
 _pkgver=1.7.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A user friendly IRC client for KDE"
 arch=('x86_64')
-url="http://konversation.kde.org"
+url="https://konversation.kde.org"
 license=('GPL2' 'FDL')
-depends=('kfilemetadata' 'kidletime' 'kcmutils' 'krunner' 'kemoticons' 
-         'knotifyconfig' 'phonon-qt5' 'baloo-widgets' 'qca-qt5')
+depends=('karchive' 'kbookmarks' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kemoticons' 'ki18n' 
+         'kidletime' 'knotifyconfig' 'kio' 'kparts' 'solid' 'kwallet' 'kwidgetsaddons' 'kglobalaccel'
+         'kdbusaddons' 'knotifications' 'kwindowsystem' 'kiconthemes' 'kitemviews'
+         'phonon-qt5' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('communication')
-source=("https://download.kde.org/stable/${pkgname}/${_pkgver}/src/${pkgname}-${_pkgver}.tar.xz")
-sha256sums=('60bf7533062b5fc63a37105461b4776437f4e24859e8ddaed1d48c4ba1470940')
+source=("https://download.kde.org/stable/${pkgname}/${_pkgver}/src/${pkgname}-${_pkgver}.tar.xz"
+        "https://invent.kde.org/network/konversation/-/commit/461c7dd504299871d6e9068116125b9bd26e8985.diff"
+        "https://invent.kde.org/network/konversation/-/commit/802eacbdc612b87a2be557d4249b97a30ad3327e.diff"
+        "https://invent.kde.org/network/konversation/-/commit/57df81cd8a11c4dbe170f9d81abd5b35b4887e0b.diff"
+        "https://invent.kde.org/network/konversation/-/commit/4d0036617becc26a76fd021138c98aceec4c7b53.diff")
+sha256sums=('60bf7533062b5fc63a37105461b4776437f4e24859e8ddaed1d48c4ba1470940'
+            '70da99f78949ea0112bb16503f5bb0f206739dcaea03c09dfbc60385fb57b49e'
+            '985f2c4c1518e730f6dfd211f656f4aaa4eb9a40c07c758c07e0c2d26ff63847'
+            'c1a6b8bc8c6b6737d8be837a1a2930447ec9fbcdfcea0affe19c1fd16da126fb'
+            '64a0a0976c1000cd7145e7586f6ff70a784245efa857a7de79f36fa5f02a3556')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
   # set default channel to KaOS
   sed -i -e 's|setName(QStringLiteral("#konversation")|setName(QStringLiteral("#kaosx")|' src/config/preferences.cpp
+  
+  patch -p1 -i ${srcdir}/461c7dd504299871d6e9068116125b9bd26e8985.diff
+  #patch -p1 -i ${srcdir}/802eacbdc612b87a2be557d4249b97a30ad3327e.diff
+  patch -p1 -i ${srcdir}/57df81cd8a11c4dbe170f9d81abd5b35b4887e0b.diff
+  patch -p1 -i ${srcdir}/4d0036617becc26a76fd021138c98aceec4c7b53.diff
 }
 
 build() {
