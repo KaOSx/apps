@@ -1,7 +1,7 @@
 
 pkgname=qgis
 _pkgname=QGIS
-pkgver=3.12.3
+pkgver=3.14.0
 _commit=7dbe4943d606b8acd879dd6ed9e38542e3ab0bab
 pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
@@ -13,21 +13,21 @@ depends=('mariadb' 'postgresql-libs' 'sqlite' 'curl' 'giflib' 'gsl' 'grass'
          'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
          'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5' 'qt5-xmlpatterns'
          'python3-numpy' 'python3-httplib2' 'python3-requests' 'pyyaml'
-         'libzip' 'qtkeychain' 'exiv2')
+         'libzip' 'qtkeychain' 'exiv2' 'protobuf')
 makedepends=('cmake'  'netcdf' 'sip3' 'qt5-tools') 
 source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
         'qt5.15.diff'
         "https://github.com/jef-n/QGIS/commit/2cbc2c469305b4986325513130562541654b99aa.diff")
-sha256sums=('c2b53815f9b994e1662995d1f25f90628156b996758f5471bffb74ab29a95220'
+sha256sums=('1b76c5278def0c447c3d354149a2afe2562ac26cf0bcbe69b9e0528356d407b8'
             'b0b34ab28bf56f5a60366847df59f755cbb26af597c378959aa79f8c068c1b03'
             '34997451dabee47c81a0e74bd75414c6d3862427c77fb6231038c8c9b8517af4') 
          
 prepare() {
      cd ${pkgname}-${pkgver}
      # needed patch for Qt 5.15
-     patch -p1 -i ${srcdir}/qt5.15.diff
+     #patch -p1 -i ${srcdir}/qt5.15.diff
      # sip & pyqt 5.15 changes
-     patch -p1 -i ${srcdir}/2cbc2c469305b4986325513130562541654b99aa.diff
+     #patch -p1 -i ${srcdir}/2cbc2c469305b4986325513130562541654b99aa.diff
      sed -i -e 's|qt/Qca-qt5/QtCrypto|qt5/Qca-qt5/QtCrypto|' cmake/FindQCA.cmake
      sed -i -e 's|set(QWT_LIBRARY_NAMES qwt-qt5 qwt6-qt5)|set(QWT_LIBRARY_NAMES qwt qwt6)|' cmake/FindQwt.cmake
      #sed -i -e 's|libqt5scintilla2|libqtscintilla2|' cmake/FindQScintilla.cmake
