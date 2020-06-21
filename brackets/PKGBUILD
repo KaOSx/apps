@@ -1,7 +1,7 @@
 
 pkgname=brackets
 pkgver=1.14.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Open source code editor for web designers and front-end developers."
 arch=("x86_64")
 url="http://brackets.io"
@@ -9,7 +9,8 @@ license=("MIT")
 depends=('nss' 'systemd' 'desktop-file-utils' 'hicolor-icon-theme' 'gtk2' 'php')
 optdepends=("google-chrome: to enable Live Preview"
             "gnuplot: to enable node benchmarking"
-            "ruby: to enable LiveDevelopment Inspector")
+            "ruby: to enable LiveDevelopment Inspector"
+            "kde-gtk-config: gtk integration settings for Plasma")
 install=${pkgname}.install
 source=("https://github.com/adobe/brackets/releases/download/release-${pkgver}/Brackets.Release.${pkgver}.64-bit.deb"
         'libgcrypt.so.11.8.2')
