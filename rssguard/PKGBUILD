@@ -8,8 +8,16 @@ url="https://github.com/martinrotter/rssguard"
 license=('GPL')
 depends=('qtwebengine')
 makedepends=('qt5-tools')
-source=("https://github.com/martinrotter/rssguard/archive/${pkgver}.tar.gz")
-md5sums=('83a37cfe817d88cb1fbb28f5c0ee9440')
+source=("https://github.com/martinrotter/rssguard/archive/${pkgver}.tar.gz"
+        "https://github.com/martinrotter/rssguard/commit/139e014d2af6a6e156098ba486dbbe2681018fab.diff")
+md5sums=('83a37cfe817d88cb1fbb28f5c0ee9440'
+         '8d6381cb63a44af1108f925f4b71ba8d')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/139e014d2af6a6e156098ba486dbbe2681018fab.diff
+}
 
 build() {
   mkdir -p build
