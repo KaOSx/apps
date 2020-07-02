@@ -1,7 +1,7 @@
 
 pkgname=transifex-client
 pkgver=0.13.10
-pkgrel=1
+pkgrel=2
 pkgdesc="Command line tool that enables you to easily manage your translations within a project without the need of an elaborate UI system."
 arch=('x86_64')
 url="https://github.com/transifex/transifex-client"
@@ -13,8 +13,8 @@ md5sums=('aca1356e9b2dab5d3faee6215dd68999')
 
 build() {
   cd ${pkgname}-${pkgver}
-  #sed -e "s|six.*|six|" -i requirements.txt
-  #sed -e "s|urllib3.*|urllib3|" -i requirements.txt
+  sed -e "s|gitpython|#gitpython|" -i requirements.txt
+  sed -e "s|import git|#import git|" -i txclib/utils.py
 
   python3 setup.py build
 }
