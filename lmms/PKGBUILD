@@ -1,9 +1,9 @@
 
 pkgname=lmms
-pkgver=1.2.1
-_pkgver=1.2.1
+pkgver=1.2.2
+_pkgver=1.2.2
 _commit=3157dbf9931e2bb85e5aa9b2e20e27d9872be7e2
-pkgrel=5
+pkgrel=1
 pkgdesc='The Linux MultiMedia Studio.'
 arch=('x86_64')
 url='https://lmms.io/'
@@ -15,19 +15,19 @@ options=('!makeflags')
 source=("https://github.com/LMMS/lmms/releases/download/v${_pkgver}/lmms_${_pkgver}.tar.xz"
         'qt5.15.diff')
 #source=("https://github.com/LMMS/lmms/archive/3157dbf9931e2bb85e5aa9b2e20e27d9872be7e2.zip")
-md5sums=('4fcb8daf2c844015c8c17e628e4713e6'
+md5sums=('ca4fdbe0d24556254d196eaca68f2254'
          'a0c9ee7944eeed544205641782b7192e')
 
 prepare() {
-  cd lmms-${_pkgver}/
+  cd lmms
   
   #git submodule update --init --recursive
   #sed -i 's|add_subdirectory(qt5-x11embed)|#add_ubdirectory(qt5-x11embed)|' src/3rdparty/CMakeLists.txt
-  patch -p1 -i ${srcdir}/qt5.15.diff
+  #patch -p1 -i ${srcdir}/qt5.15.diff
 }
 
 build() {
-  cd lmms-${_pkgver}/
+  cd lmms
 
   cmake . -DCMAKE_INSTALL_PREFIX=/usr \
           -DCMAKE_INSTALL_LIBDIR=lib \
@@ -38,7 +38,7 @@ build() {
 }
 
 package() {
-  cd lmms-${_pkgver}/
+  cd lmms
   
   make DESTDIR=${pkgdir} install
 }

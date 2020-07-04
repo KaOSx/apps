@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kconfigwidgets
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Widgets for configuration dialogs'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kconfigwidgets'
@@ -13,7 +13,7 @@ depends=('karchive' 'kauth' 'kcodecs' 'kconfig' 'kguiaddons' 'ki18n' 'kwidgetsad
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kf5')
 source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   #export XDG_DATA_DIRS="/opt/kf5/share:$XDG_DATA_DIRS"

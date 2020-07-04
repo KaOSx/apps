@@ -3,8 +3,9 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdav
-pkgver=${_kdever}
+pkgver=${_kf5ver}
 pkgrel=1
+epoch=1
 pkgdesc="DAV protocoll implemention with KJobs"
 arch=('x86_64')
 url='https://github.com/KDE/kdav'
@@ -12,8 +13,8 @@ license=('LGPL')
 depends=('kcoreaddons' 'kio' 'qt5-xmlpatterns')
 makedepends=('extra-cmake-modules')
 groups=('kdepim')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kf5ver}tar.xz)
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
