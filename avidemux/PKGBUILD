@@ -1,8 +1,8 @@
 
 pkgname=avidemux
-pkgver=2.7.4
+pkgver=2.7.6
 _commit=ed7aa6bdbffc43a2cd198130a353b088abd02aa0
-pkgrel=7
+pkgrel=1
 pkgdesc="Video editor designed for simple cutting, filtering and encoding tasks using a variety of codecs."
 arch=('x86_64')
 url="http://fixounet.free.fr/avidemux/"
@@ -16,7 +16,7 @@ source=("https://downloads.sourceforge.net/avidemux/avidemux_${pkgver}.tar.gz"
 #source=("https://github.com/mean00/avidemux2/archive/${_commit}.zip"
         'bootStrap.diff'
         "https://github.com/mean00/avidemux2/commit/1a8bb36c5a0392d1e4d1b23812a926dde2796d5c.diff")
-md5sums=('87b4dd1ef3a1f695b3d0f9971da8abde'
+md5sums=('c2470d31ee8ed6203c9d3ba6957c5ea1'
          'fb9c8caa824dd013cedcabe90aab37f9'
          'b0b1330e070344827ddd1be12fc7aa68')
 
@@ -25,8 +25,6 @@ prepare() {
     # try to disable vdpau, build fails on vdpau, workaround, remove libvdpau from chroot
     #sed 's|SET(USE_VDPAU 1)|#SET(USE_VDPAU 1)|g' -i cmake/admCheckVDPAU.cmake
     patch -p1 -i ${srcdir}/bootStrap.diff
-    # Qt 5.15
-    patch -p1 -i ${srcdir}/1a8bb36c5a0392d1e4d1b23812a926dde2796d5c.diff
 }
 
 build() {
