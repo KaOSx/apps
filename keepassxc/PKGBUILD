@@ -1,10 +1,10 @@
 
 pkgname=keepassxc
-pkgver=2.5.4
+pkgver=2.6.0
 pkgrel=1
 pkgdesc="Cross-platform community-driven port of the Windows application Keepass Password Safe"
 arch=('x86_64')
-url="http://www.keepassxc.org/"
+url="https://www.keepassxc.org/"
 license=('GPL2')
 depends=('qt5-x11extras' 'qt5-svg' 'libxtst' 'shared-mime-info' 'libsodium' 'argon2'
          'quazip' 'qrencode')
@@ -14,7 +14,7 @@ replaces=('keepassx')
 provides=('keepassx')
 conflicts=('keepassx')
 source=("https://github.com/keepassxreboot/keepassxc/releases/download/${pkgver}/${pkgname}-${pkgver}-src.tar.xz")
-sha256sums=('a55e0801c318b02b1ac4e16e9b7a87ccfa7b039ea60d2c62610bd1bbbdd6cd4a')
+sha256sums=('d0d23d97a73ac1cbf59bfca2f5d1506ae36dfcd4fbfb4225efe19931f035fd3a')
 
 build() {
   mkdir -p build
@@ -29,7 +29,8 @@ build() {
     -DWITH_XC_NETWORKING=ON \
     -DWITH_XC_AUTOTYPE=ON \
     -DWITH_XC_SSHAGENT=ON \
-    -DWITH_XC_KEESHARE=ON
+    -DWITH_XC_KEESHARE=ON \
+    -DWITH_XC_DOCS=OFF
   make 
 }
 
