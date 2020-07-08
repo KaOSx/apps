@@ -3,7 +3,8 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kube
-pkgver=0.8.0
+pkgver=0.8.80
+_commit=29fcdbcb6b169c238e6e84e8c65c74e0a7562ff7
 pkgrel=1
 pkgdesc="Personal information and collaboration application using Sink for data access, mail and synchronization"
 arch=('x86_64')
@@ -12,12 +13,12 @@ license=('LGPL')
 groups=('network-email')
 depends=('sink' 'kasync' 'kcodecs' 'ki18n' 'kmime' 'qtwebengine' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-location')
 makedepends=('extra-cmake-modules' 'boost')
-#source=("https://github.com/KDE/kube/archive/v${pkgver}.tar.gz")
-source=("https://download.kde.org/unstable/kube/${pkgver}/src/kube-${pkgver}.tar.xz")
-sha256sums=('2961acf94d528cbf1650cc420add12d5ec2c684d9232043c9d6d2d55b9d39782')
+source=("https://github.com/KDE/kube/archive/${_commit}.zip")
+#source=("https://download.kde.org/unstable/kube/${pkgver}/src/kube-${pkgver}.tar.xz")
+sha256sums=('d0776c41d0def4416a41293a43d81d29851fe0ceef34cda16f3b9f299310e414')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
 
   #sed -i -e 's|utcDateTime.toString(QString::fromAscii|QLocale::c().toString(utcDateTime, QString::fromAscii|' src/appendjob.cpp
 }
@@ -26,7 +27,7 @@ build() {
   mkdir -p build
   
   cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \

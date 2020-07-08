@@ -3,30 +3,35 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=sink
-pkgver=0.8.0
-_commit=477be1cc130c986aa4963fd7e27dbd485789dcbb
-pkgrel=2
+pkgver=0.8.80
+_commit=d377bb4037fd311b1d1976b9b2952c4d29a6a16d
+pkgrel=1
 pkgdesc="Data access layer handling synchronization, caching and indexing."
 arch=('x86_64')
 url='https://github.com/KDE/sink'
 license=('LGPL')
-depends=('kmime' 'kcontacts' 'kcalcore' 'kasync' 'lmdb' 'kdav2' 'kimap2' 'curl' 'xapian-core')
+depends=('kmime' 'kcontacts' 'kcalendarcore' 'kasync' 'lmdb' 'kdav2' 'kimap2' 'curl' 'xapian-core')
 makedepends=('extra-cmake-modules' 'flatbuffers')
-source=("https://download.kde.org/unstable/sink/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-#source=("https://github.com/KDE/sink/archive/v${pkgver}.tar.gz")
-sha256sums=('d75f825167433d577cf500bfb7a3f664288c7805640859de2f873611a9226ff4')
+#source=("https://download.kde.org/unstable/sink/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+source=("https://github.com/KDE/sink/archive/${_commit}.zip")
+sha256sums=('c60bd4032cd9df96da5e1a674f3435dba8d7abc9ac0e15445b9ad13d4e170d14')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
 
-  #sed -i -e 's|utcDateTime.toString(QString::fromAscii|QLocale::c().toString(utcDateTime, QString::fromAscii|' src/appendjob.cpp
+  sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' CMakeLists.txt
+  sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' examples/imapresource/CMakeLists.txt
+  sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' examples/maildirresource/CMakeLists.txt
+  sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' examples/mailtransportresource/CMakeLists.txt
+  sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' examples/caldavresource/CMakeLists.txt
+  sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' examples/carddavresource/CMakeLists.txt
 }
 
 build() {
   mkdir -p build
   
   cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
