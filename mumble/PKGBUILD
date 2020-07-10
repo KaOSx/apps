@@ -1,7 +1,7 @@
 
 pkgname=mumble
-pkgver=1.3.1
-_pkgver=1.3.1
+pkgver=1.3.2
+_pkgver=1.3.2
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Open source, low-latency, high quality voice chat software"
@@ -12,7 +12,7 @@ makedepends=('boost' 'mesa' 'qt5-tools')
 #source=("https://mumble.info/snapshot/${pkgname}-1.3.0-rc2.tar.gz"
 source=("https://github.com/mumble-voip/mumble/releases/download/${_pkgver}/${pkgname}-${_pkgver}.tar.gz"
         'setupview.diff')
-md5sums=('15b532b6839a50d1ac2b9112fca9f672'
+md5sums=('25488786f980032b15a3df323f6dd85e'
          'ab49563b33a6d8fee7e9f32d856e9948')
 
 build() {
@@ -32,10 +32,10 @@ package() {
   install -m755 -D ./release/mumble ${pkgdir}/usr/bin/mumble
   install -m755 -D ./scripts/mumble-overlay ${pkgdir}/usr/bin/mumble-overlay
 
-  install -m755 -D ./release/libmumble.so.1.3.1 ${pkgdir}/usr/lib/mumble/libmumble.so.1.3.1
-  ln -s libmumble.so.1.3.1 ${pkgdir}/usr/lib/mumble/libmumble.so
-  ln -s libmumble.so.1.3.1 ${pkgdir}/usr/lib/mumble/libmumble.so.1
-  ln -s libmumble.so.1.3.1 ${pkgdir}/usr/lib/mumble/libmumble.so.1.3
+  install -m755 -D ./release/libmumble.so.1.3.2 ${pkgdir}/usr/lib/mumble/libmumble.so.1.3.2
+  ln -s libmumble.so.1.3.2 ${pkgdir}/usr/lib/mumble/libmumble.so
+  ln -s libmumble.so.1.3.2 ${pkgdir}/usr/lib/mumble/libmumble.so.1
+  ln -s libmumble.so.1.3.2 ${pkgdir}/usr/lib/mumble/libmumble.so.1.3
   install -m755 -D ./release/plugins/liblink.so ${pkgdir}/usr/lib/mumble/liblink.so
   install -m755 -D ./release/libcelt* ${pkgdir}/usr/lib/mumble/
 
