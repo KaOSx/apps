@@ -1,6 +1,6 @@
 
 pkgname=scons
-pkgver=3.1.2
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="Extensible Python-based build utility"
 arch=('x86_64')
@@ -10,17 +10,17 @@ depends=('python3')
 makedepends=('python3-setuptools')
 groups=('programming')
 source=("https://downloads.sourceforge.net/sourceforge/scons/${pkgname}-${pkgver}.tar.gz")
-md5sums=('77b2f8ac2661b7a4fad51c17cb7f1b25')
+md5sums=('e902f6c56761946129406eacf6918f1d')
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd SCons-${pkgver}
 
-  python3 setup.py install --standard-lib \
-                           --prefix=/usr \
-                           --install-data=/usr/share \
-                           --optimize=1 \
-                           --root="${pkgdir}" \
+  python3 setup.py install \
+    --prefix=/usr \
+    --install-data=/usr/share \
+    --optimize=1 \
+    --root="${pkgdir}" \
 
-  install -D -m644 README.txt ${pkgdir}/usr/share/licenses/${pkgname}/README
+  install -D -m644 README.rst ${pkgdir}/usr/share/licenses/${pkgname}/README
 }
 
