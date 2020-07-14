@@ -1,7 +1,7 @@
 
 pkgname=strawberry
-pkgver=0.6.12
-pkgrel=2
+pkgver=0.6.13
+pkgrel=1
 pkgdesc="Music player and music collection organizer, fork of Clementine"
 url="https://www.strawbs.org/"
 license=('GPL')
@@ -12,13 +12,13 @@ depends=('alsa-lib' 'chromaprint' 'gnutls' 'gst-plugins-bad' 'gst-plugins-good' 
 makedepends=('cmake' 'boost' 'qt5-tools')
 groups=('multimedia')
 source=("https://github.com/jonaski/strawberry/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('c53207613508da507f0a9cb4b13e23532fe06b9aaf3200d44b5e4b84170aeb79')
+sha256sums=('0c0cee6c1f75541dcc89c3dcb2db29e79f07d7b4dabc911c89853ad0b50fba29')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  sed -e "s|libplist|libplist-2.0|" -i CMakeLists.txt
-  sed -e "s|libusbmuxd|libusbmuxd-2.0|" -i CMakeLists.txt
+  #sed -e "s|libplist|libplist-2.0|" -i CMakeLists.txt
+  #sed -e "s|libusbmuxd|libusbmuxd-2.0|" -i CMakeLists.txt
 }
 
 build() {
