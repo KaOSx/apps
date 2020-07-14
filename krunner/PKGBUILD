@@ -4,35 +4,38 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=krunner
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework for providing different actions given a string query'
 arch=('x86_64')
-url='https://projects.kde.org/projects/frameworks/krunner'
+url='https://invent.kde.org/frameworks/krunner'
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kservice' 'plasma-framework' 'solid' 'threadweaver')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/${pkgver}/portingAids/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/krunner/commit/8f7ce559b84ee0c21de0256e6591793e4b95f411.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '28ff536f0db5c0538bf217fca975bda4')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/8f7ce559b84ee0c21de0256e6591793e4b95f411.diff
+}
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR="${pkgdir}" install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
