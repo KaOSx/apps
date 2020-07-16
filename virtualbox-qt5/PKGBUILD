@@ -7,7 +7,7 @@ pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
 pkgver=6.1.12
 _pkgver=6.1.12
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
@@ -105,7 +105,7 @@ package_virtualbox-qt5() {
 
     # components
     # temporary remove non existing link
-    rm components/VBoxREM.so
+    #rm components/VBoxREM.so
     install -dm755 ${pkgdir}/usr/lib/virtualbox/components
     install -m755 components/* -t ${pkgdir}/usr/lib/virtualbox/components
 
@@ -158,14 +158,14 @@ package_virtualbox-guest-utils() {
     
     pushd VirtualBox-${pkgver}/out/linux.amd64/release/bin/additions
     install -d ${pkgdir}/usr/bin
-    install -m755 VBoxClient VBoxControl VBoxService mount.vboxsf ${pkgdir}/usr/bin
+    install -m755 VBoxClient VBoxControl VBoxDRMClient VBoxService mount.vboxsf ${pkgdir}/usr/bin
     # Adjust VBoxClient-all, segfaults with vmsvga-x11, needs vmsvga, don't run with .desktop, needs to run as root
     install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
         ${pkgdir}/usr/bin/VBoxClient-all
     sed -i -e 's|--vmsvga-x11|--vmsvga|' ${pkgdir}/usr/bin/VBoxClient-all
         
-    #install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
-        #${pkgdir}/etc/xdg/autostart/vboxclient.desktop
+    install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
+        ${pkgdir}/etc/xdg/autostart/vboxclient.desktop
     #install -D vboxvideo_drv_system.so ${pkgdir}/usr/lib/xorg/modules/drivers/vboxvideo.so
     install -d ${pkgdir}/usr/lib/xorg/modules/dri
     #install -m755 VBoxOGL*.so ${pkgdir}/usr/lib
