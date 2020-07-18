@@ -29,7 +29,7 @@ sha256sums=('05eff0321daa72f6d00fb121a6b4211f39964778823806fa0b7b751667dec362'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             'c7dc4e484c8641e8fbb8e7fb342c7a72534936d6e9212b477ab7e2736fb8be88'
             '94a808f46909a51b2d0cf2c6e0a6c9dea792034943e6413bf9649a036c921b21'
-            'babbc97990ed933ebea501490ff72aa44c4cebf503a4c1249a5b36d4e5f9d161'
+            '090c5a5d72b2dd9a1338b8e453ff042df27731f0d4cb4f0ca161568ecb58e454'
             'bf352a5794cac45e28a63350b1729a799c8863f065c031b19eacbfb94def163d'
             '188014070bce4f6fb9b2535bcd64d066119e182e848c521407ea891ab41a995b')
 
@@ -162,7 +162,7 @@ package_virtualbox-guest-utils() {
     # Adjust VBoxClient-all, segfaults with vmsvga-x11, needs vmsvga, don't run with .desktop, needs to run as root
     install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
         ${pkgdir}/usr/bin/VBoxClient-all
-    sed -i -e 's|/usr/bin/VBoxClient--vmsvga|#/usr/bin/VBoxClient--vmsvga|' ${pkgdir}/usr/bin/VBoxClient-all
+    sed -i -e 's|/usr/bin/VBoxClient --vmsvga|#/usr/bin/VBoxClient --vmsvga|' ${pkgdir}/usr/bin/VBoxClient-all
         
     install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
         ${pkgdir}/etc/xdg/autostart/vboxclient.desktop
