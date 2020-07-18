@@ -7,7 +7,7 @@ pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
 pkgver=6.1.12
 _pkgver=6.1.12
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
@@ -162,7 +162,7 @@ package_virtualbox-guest-utils() {
     # Adjust VBoxClient-all, segfaults with vmsvga-x11, needs vmsvga, don't run with .desktop, needs to run as root
     install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
         ${pkgdir}/usr/bin/VBoxClient-all
-    sed -i -e 's|--vmsvga-x11|--vmsvga|' ${pkgdir}/usr/bin/VBoxClient-all
+    sed -i -e 's|/usr/bin/VBoxClient--vmsvga|#/usr/bin/VBoxClient--vmsvga|' ${pkgdir}/usr/bin/VBoxClient-all
         
     install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
         ${pkgdir}/etc/xdg/autostart/vboxclient.desktop
