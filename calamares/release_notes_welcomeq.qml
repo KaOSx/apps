@@ -54,7 +54,7 @@ Rectangle {
             <p>KaOS is very proud to announce the availability of the July release of a new stable ISO.</p>
             
             <p>You will find <b>Plasma 5.19</b> on this ISO. Highlights of 5.19 include incorporation of a consistent design and header area for system tray applets as well as notifications, refreshed look of the media playback applet in the System Tray, System monitor widgets have all been rewritten from scratch and Sticky notes get several usability improvements and if you use Wayland, you will also appreciate the new option that lets you configure the mouse and touchpad scroll speed .<br />
-            Frameworks is at 5.72.0, Plasma at 5.19.3 and KDE Applications at 20.04.3. All built on <b>Qt 5.15.0</b>.
+            Frameworks is at 5.72.0, Plasma at 5.19.3, and KDE Applications at 20.04.3. All built on <b>Qt 5.15.0</b>.
             
             <p>For the installer Calamares, KaOS has started a move to using as many QML modules as possible. For the Welcome screen that now means any text or needed info can now be shown as a qml file within the Calamares window, no need for pop-ups or external applications. The keyboard module is also rewritten in QML, which now gives a much clearer overview of possible keyboard models, languages and variants.</p>
             
@@ -66,7 +66,7 @@ Rectangle {
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
-            <p>KaOS' creation <strong>Croeso</strong> (Welsh for welcome) for helping with configuring a new install is included.  It will run on the newly installed system and offers to adjust some 15 commonly used settings, includes a custom Wallpaper selector, distribution info and the option to select packages to install from six different groups.  It is written in QML and fits well with the Welcome application used in the Live system.  The latter includes an Installation Guide.</p>
+            <p>KaOS' creation <strong>Croeso</strong> (Welsh for welcome) for helping with configuring a new install is included.  It will run on the newly installed system and offers to adjust some 15 commonly used settings, includes a custom Wallpaper selector, distribution info, and the option to select packages to install from six different groups.  It is written in QML and fits well with the Welcome application used in the Live system.  The latter includes an Installation Guide.</p>
             
             <p>There is an option to verify the authenticity of downloaded KaOS ISO files through GPG signature verification, see the Download page for further details and instructions.</p>
             
