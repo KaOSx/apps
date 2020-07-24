@@ -1,6 +1,6 @@
 
 pkgname=plasma-wayland-protocols
-pkgver=1.0
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Project to install only the xml files of the non-standard wayland protocols we use in Plasma."
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=('LGPLv2+')
 depends=('wayland-protocols')
 makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/stable/plasma-wayland-protocols/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('08dcfa929033734f680560389a6e1df4')
+sha256sums=('d7bcf780b764f013613870ff2366486f052827857ca0bb79981c97b436601d31')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -18,18 +18,14 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  
-  cd build
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
   
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
