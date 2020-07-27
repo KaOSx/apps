@@ -2,7 +2,7 @@
 pkgname=krita
 pkgver=4.3.0
 _pkgver=4.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -27,8 +27,8 @@ md5sums=('ef341ed33b65743119fd308f0a5b58a3'
 prepare() {
   cd ${pkgname}-${pkgver}
   sed -i 's|X-KDE-Import": "image/x-krita-raw|X-KDE-Import": "image/x-nikon-nef,image/x-canon-cr2,image/x-sony-sr2,image/x-canon-crw,image/x-pentax-pef,image/x-sigma-x3f,image/x-kodak-kdc,image/x-minolta-mrw,image/x-sony-arw,image/x-kodak-k25,image/x-kodak-dcr,image/x-olympus-orf,image/x-panasonic-raw,image/x-panasonic-raw2,image/x-fuji-raf,image/x-sony-srf,image/x-adobe-dng|' plugins/impex/raw/krita_raw_import.json
-  # Qt 5.14.2 needed
-  #patch -p1 -i ${srcdir}/e3d8db77ffb8ec5fece841937feb86af361bb0cb.diff
+  # boost 0.73.0 needed, fix from Gentoo
+  sed -e "/CMAKE_CXX_STANDARD/s/11/14/" -i CMakeLists.txt
   # Qt 5.15 needed
   #patch -p1 -i ${srcdir}/d5bb12ac894ab8684d647bdf1559f745092dc741.diff
 }
