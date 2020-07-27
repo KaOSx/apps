@@ -1,20 +1,20 @@
 
 pkgname=graphviz
-pkgver=2.42.4
-_pkgver=2.42.4
+pkgver=2.44.0
+_pkgver=2.44.0
 pkgrel=1
 pkgdesc="Open source graph visualization software"
 arch=('x86_64')
 url="https://www.graphviz.org/"
 license=('CPL')
-depends=('gd' 'librsvg' 'libxaw' 'ghostscript' 'pango' 'libtool' 'perl' 'python3' 'tcl')
+depends=('gd' 'librsvg' 'libxaw' 'ghostscript' 'pango' 'libtool' 'perl' 'python3' 'tcl' 'qt5-base')
 makedepends=('swig' 'guile')
 options=('!libtool')
 #source=("https://gitlab.com/graphviz/graphviz/-/archive/stable_release_${_pkgver}/graphviz-stable_release_${_pkgver}.tar.gz"
 source=("https://www2.graphviz.org/Packages/stable/portable_source/graphviz-${_pkgver}.tar.gz"
        'LICENSE')
 install='graphviz.install'
-md5sums=('15f8d0ec561fa5ca437c403368b62b98'
+md5sums=('de096f4ba331a42e7045ab530386c5c6'
          '3e75bb9ec12a51993bd30e51011b4229')
 
 build() {
@@ -23,7 +23,11 @@ build() {
     export LIBPOSTFIX=/
 
     ./autogen.sh
-    ./configure --prefix=/usr 
+    ./configure --prefix=/usr \
+        --enable-python3=yes \
+        --disable-python \
+        --without-included-ltdl \
+		--disable-ltdl-install
     make
 }
 
