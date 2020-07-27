@@ -1,20 +1,20 @@
  
 pkgname=spglib
 pkgver=1.15.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for finding and handling crystal symmetries written in C."
 arch=("x86_64")
-url="http://atztogo.github.io/spglib/"
+url="https://spglib.github.io/spglib/"
 license=('custom')
 depends=('glibc')
 makedepends=('cmake')
-source=("https://github.com/atztogo/spglib/archive/v${pkgver}.tar.gz")
+source=("https://github.com/spglib/spglib/archive/v${pkgver}.tar.gz")
 md5sums=('c8736d99706c02fcd4ba81e51b3c21c8')
 
 prepare () {
   cd ${pkgname}-${pkgver}
   
-  sed -i 's|${CMAKE_INSTALL_PREFIX}/include|${CMAKE_INSTALL_PREFIX}/include/spglib|' CMakeLists.txt
+  sed -i 's|${CMAKE_INSTALL_INCLUDEDIR}|${CMAKE_INSTALL_INCLUDEDIR}/spglib|' CMakeLists.txt
   #sed -i 's|${PROJECT_SOURCE_DIR}/include|${pkgdir}/usr/include/spglib|' CMakeLists.txt
 }      
 
