@@ -1,7 +1,8 @@
 
 pkgname=appmenu-gtk-module
-pkgver=0.7.3
-_commit=570a2d1a65e77d42cb19e5972d0d1b84
+pkgver=0.7.3.2
+_pkgver=0.7.3
+_commit=df1872bbbccbc2071b6bbf1a41614879
 pkgrel=1
 pkgdesc="Small GTK Module that strips menus from all GTK programs, converts to MenuModel and send to AppMenu."
 arch=('x86_64')
@@ -9,16 +10,16 @@ url="https://gitlab.com/vala-panel-project/vala-panel-appmenu"
 license=('GPL')
 depends=('gtk2' 'gtk3')
 makedepends=('cmake')
-source=("https://gitlab.com/vala-panel-project/vala-panel-appmenu/uploads/${_commit}/${pkgname}-${pkgver}.tar.xz"
+source=("https://gitlab.com/vala-panel-project/vala-panel-appmenu/uploads/${_commit}/${pkgname}-${_pkgver}.tar.xz"
         '80-appmenu-gtk-module')
-md5sums=('fbfd5b7a015248f9ffe060b4dc16e768'
+md5sums=('57bfb2ca62e83821daf4694614eda507'
          'eef92e41f9e4c2ea16c0d706cc511540')
 
 build() {
     mkdir -p build
     cd build
 
-    cmake ../${pkgname}-${pkgver} \
+    cmake ../${pkgname}-${_pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_LIBDIR=lib \
