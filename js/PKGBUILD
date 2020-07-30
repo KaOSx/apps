@@ -1,38 +1,38 @@
 
 pkgname=js
-pkgver=60.8.0
-_pkgver=60.8.0
-pkgrel=3
+pkgver=68.11.0
+_pkgver=68.11.0esr
+pkgrel=1
 pkgdesc="JavaScript interpreter and libraries"
 arch=('x86_64')
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/52"
 license=('GPL2')
 depends=('nspr' 'gcc-libs' 'libffi' 'readline' 'icu')
 makedepends=('python2' 'zip' 'autoconf2.13')
-source=("https://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-${_pkgver}.tar.bz2"
+#source=("https://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-${_pkgver}.tar.bz2"
 #source=("https://hg.mozilla.org/mozilla-unified/archive/FIREFOX_${_pkgver}.tar.bz2")
-#source=("https://ftp.mozilla.org/pub/firefox/releases/${_pkgver}/source/firefox-${_pkgver}.source.tar.xz"
+source=("https://archive.mozilla.org/pub/firefox/releases/${_pkgver}/source/firefox-${_pkgver}.source.tar.xz"
         'copy_headers.patch')
-md5sums=('5eda38cc08a3594a3f2c3cc185d4f15b'
+md5sums=('a8f860f31725d914c02918ff2b2aecf8'
          'a258b7a06260bb568f2d958631740b47')
 
-#prepare() {
-#  cd firefox-${_pkgver}
+prepare() {
+  cd firefox-${pkgver}
   
+  # http://www.linuxfromscratch.org/blfs/view/svn//general/js68.html
+  sed '21,+4d' -i js/moz.configure
 #  patch -p1 -i ${srcdir}/copy_headers.patch
-#}
+}
 
 build() {
-  mkdir -p build
-  cd build
+  mkdir -p obj
+  cd obj
   #cd mozjs-${_pkgver}/js/src
-  # http://www.linuxfromscratch.org/blfs/view/svn/general/JS2.html needed for newer perl
-  #sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
 
-  unset CPPFLAGS
+  CC=gcc CXX=g++ LLVM_OBJDUMP=/bin/false
 
   #autoconf-2.13
-  ../mozjs-${_pkgver}/js/src/configure --prefix=/usr \
+  ../firefox-${pkgver}/js/src/configure --prefix=/usr \
        --disable-debug \
        --disable-debug-symbols \
        --disable-optimize \
@@ -45,12 +45,13 @@ build() {
        --enable-shared-js \
        --disable-jemalloc  \
        --enable-tests \
+       --enable-unaligned-private-values 
 
   make
 }  
   
 package() {
-  cd build
+  cd obj
   #cd mozjs-${_pkgver}gnome1/js/src
   make DESTDIR=${pkgdir} install
   
