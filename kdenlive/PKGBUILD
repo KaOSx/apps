@@ -16,10 +16,8 @@ depends=('karchive' 'kbookmarks' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'kdbus
 makedepends=('extra-cmake-modules' 'kdoctools' 'gettext' 'docbook-xsl')
 optdepends=("dvdauthor: for creating dvds")
 groups=('multimedia')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        "https://github.com/KDE/kdenlive/commit/b20a7307368932b35ec0d7cdebb68a710cbbf8ba.diff") 
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'b9aaad5e3cdcff5f63fe4433f59be4e0')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz") 
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}

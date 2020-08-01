@@ -24,7 +24,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # security issue, fixed in 20.08
-  patch -p1 -i ${srcdir}/0df592524fed305d6fbe74ddf8a196bc9ffdb92f.diff
+  #patch -p1 -i ${srcdir}/0df592524fed305d6fbe74ddf8a196bc9ffdb92f.diff
   
   #sed -i 's|application/x-rar|application/vnd.rar|' plugins/clirarplugin/CMakeLists.txt
 }
