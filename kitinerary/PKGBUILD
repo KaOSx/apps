@@ -12,13 +12,15 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kmime' 'kcalcore' 'kcontacts' 'kpkpass' 'poppler' 'zxing-cpp')
 makedepends=('extra-cmake-modules')
 groups=('kde' 'kdepim' 'kde-uninstall')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/pim/kitinerary/-/commit/8bf24e2372b142f1a2189ad951fa396c5a4e0e74.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '344067cb2180d87508bbe2c9f3fcb066')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
-  #patch -p1 -i ${srcdir}/ad9b246409bf9fbea70f57a69b4cfef1ca45c2b3.diff
+  # zxing 1.1.0 needed
+  patch -p1 -i ${srcdir}/8bf24e2372b142f1a2189ad951fa396c5a4e0e74.diff
 }
 
 build() {
