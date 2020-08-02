@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=krunner
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Framework for providing different actions given a string query'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/krunner'
@@ -20,7 +20,7 @@ md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  patch -p1 -i ${srcdir}/8f7ce559b84ee0c21de0256e6591793e4b95f411.diff
+  #patch -p1 -i ${srcdir}/8f7ce559b84ee0c21de0256e6591793e4b95f411.diff
 }
 
 build() {
