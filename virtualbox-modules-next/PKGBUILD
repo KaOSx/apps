@@ -19,19 +19,19 @@ source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules
         'virtualbox-modules-depmod.patch'
         'vbox-modules-next.conf'
         'linux5.5.diff'
-        'timet.patch')
+        'linux5.8.diff')
 install=${pkgname}.install
 md5sums=('11f498344f11503d331ed38f8b28efeb'
          'c9f84fb084a79275d269c542ff53ba4d'
          '232f7c1b893245a8e87a38768e9d1c1d'
          '9cfc876b28dcbb413eac84fab245da38'
-         '76c14238cdc87fa7d2d323eb0a0ddcbb')
+         'd3ac1e340e3009f332d73ca24606e1eb')
 
 prepare() {
     cd vbox-kernel-module-src-${_pkgver}
     
     patch -p1 -i ${srcdir}/linux5.5.diff
-    #patch -p1 -i ${srcdir}/timet.patch
+    patch -p0 -i ${srcdir}/linux5.8.diff
     #sed -i -e 's|rm -f vboxdrv.ko|#rm -f vboxdrv.ko|g' Makefile
 }
 
