@@ -1,0 +1,26 @@
+
+pkgname=markdownpart
+pkgver=0.1.0
+pkgrel=1
+_commit=dc218f072467a8b5cee0c5047870a7c2ffeec5d6
+pkgdesc="Markdown viewer KParts plugin, which allows KParts-using applications to display files in Markdown format in the target format"
+arch=('x86_64')
+url="https://github.com/KDE/kmarkdownwebview"
+license=('LGPL2.1+')
+depends=('ki18n' 'kparts')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/stable/markdownpart/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('29831a64548444559740bcff230c4093fbc79155be8ce6af2994f619eb7c7cc3')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=ON
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
