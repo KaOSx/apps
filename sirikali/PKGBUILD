@@ -1,6 +1,6 @@
 
 pkgname=sirikali
-pkgver=1.4.1
+pkgver=1.4.6
 pkgrel=1
 pkgdesc="GUI application that manages ecryptfs, cryfs, encfs, gocryptfs and securefs based encrypted folders."
 url="https://mhogomchungu.github.io/sirikali/"
@@ -12,13 +12,13 @@ conflicts=('cryfs-gui')
 replaces=('cryfs-gui')
 source=("https://github.com/mhogomchungu/sirikali/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         'cmake.diff') 
-sha256sums=('333e82efacadfd6a5f4e2fac4bc27c8e65c5f1c88447f4e5610716a495a8d515'
+sha256sums=('36dceb40ded5d8b1020cb198bb0435207dfbf81830aa2e163ccde856a699a4cf'
             '59547a91cf1419d5ef4b995b6442aa29cf858d637b7bdbdcde79073bc3b89d1b')
 
 prepare() {
   cd SiriKali-${pkgver}
   
-  patch -p1 -i ${srcdir}/cmake.diff
+  #patch -p1 -i ${srcdir}/cmake.diff
 }
 
 build() {
