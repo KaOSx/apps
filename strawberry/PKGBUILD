@@ -1,7 +1,7 @@
 
 pkgname=strawberry
-pkgver=0.6.13
-pkgrel=2
+pkgver=0.7.2
+pkgrel=1
 pkgdesc="Music player and music collection organizer, fork of Clementine"
 url="https://www.strawberrymusicplayer.org/"
 license=('GPL')
@@ -12,7 +12,7 @@ depends=('alsa-lib' 'chromaprint' 'gnutls' 'gst-plugins-bad' 'gst-plugins-good' 
 makedepends=('cmake' 'boost' 'qt5-tools')
 groups=('multimedia')
 source=("https://github.com/jonaski/strawberry/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('0c0cee6c1f75541dcc89c3dcb2db29e79f07d7b4dabc911c89853ad0b50fba29')
+sha256sums=('ecc67d931531a196d920f43d0cadbc178936db916a6371aa9806308c18a6dab0')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -28,7 +28,9 @@ build() {
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DUSE_SYSTEM_TAGLIB=ON 
+    -DUSE_SYSTEM_TAGLIB=ON \
+    -DWITH_QT6=OFF \
+    -DINSTALL_TRANSLATIONS=ON
   make
 }
 
