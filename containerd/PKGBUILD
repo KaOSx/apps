@@ -1,24 +1,26 @@
 
 # stay with _commit builds, keep in sync with what docker ships
 pkgname=containerd
-pkgver=1.2.13
+pkgver=1.4.0
 _commit=7ad184331fa3e55e52b890ea95e65ba581ae3429
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Daemon to control runC, built for performance and density."
 url="https://containerd.tools/"
 license=('APACHE')
 depends=('runc' 'btrfs-progs')
 makedepends=('go')
-#source=("https://github.com/docker/containerd/archive/v${pkgver}.tar.gz")
-source=("https://github.com/containerd/containerd/archive/${_commit}.zip")
-md5sums=('7a64d411deaf71749ca3d49dc98a9183')
+source=("https://github.com/containerd/containerd/archive/v${pkgver}.tar.gz")
+#source=("https://github.com/containerd/containerd/archive/${_commit}.zip")
+md5sums=('5384864c0cf4f1a008cadddc272faade')
 
 prepare() {
     cd ${srcdir}
     
     install -d src/github.com/containerd
-    mv ${pkgname}-${_commit} src/github.com/containerd/${pkgname}
+    mv ${pkgname}-${pkgver} src/github.com/containerd/${pkgname}
+    
+    sed -i 's|/usr/local/bin/containerd|/usr/bin/containerd|' src/github.com/containerd/containerd/containerd.service
 }
 
 build() {
@@ -30,9 +32,8 @@ build() {
 }
 
 package() {
-    cd src/github.com/containerd/${pkgname}/bin
+    cd src/github.com/containerd/${pkgname}
+    make install DESTDIR=${pkgdir}/usr
     
-    install -Dm755 containerd ${pkgdir}/usr/bin/containerd
-    install -Dm755 containerd-shim ${pkgdir}/usr/bin/containerd-shim
-    install -Dm755 ctr ${pkgdir}/usr/bin/ctr
+    install -Dm644 containerd.service ${pkgdir}/usr/lib/systemd/system/containerd.service
 }
