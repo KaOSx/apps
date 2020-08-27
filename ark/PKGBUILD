@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Graphical file compression/decompression utility with support for multiple formats, including tar, gzip, bzip2, rar and zip, as well as CD-ROM images"
 url="https://kde.org/applications/en/utilities/org.kde.ark"
 license=('GPL' 'LGPL' 'FDL')
@@ -17,14 +17,14 @@ groups=('kde' 'kde-utils' 'kde-uninstall' 'utils')
 conflicts=('kdeutils-ark')
 replaces=('kdeutils-ark')
 source=($_mirror/${pkgname}-$_kdever.tar.xz
-        "https://invent.kde.org/utilities/ark/-/commit/0df592524fed305d6fbe74ddf8a196bc9ffdb92f.diff")
+        "https://invent.kde.org/utilities/ark/-/commit/8bf8c5ef07b0ac5e914d752681e470dea403a5bd.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '1709a1760d0cad2d3a928f03b37706a0')
+         'cdfeb4706f6ac2c9583040d7d12c86e4')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # security issue, fixed in 20.08
-  #patch -p1 -i ${srcdir}/0df592524fed305d6fbe74ddf8a196bc9ffdb92f.diff
+  # security issue, fixed in 20.08.1
+  patch -p1 -i ${srcdir}/8bf8c5ef07b0ac5e914d752681e470dea403a5bd.diff
   
   #sed -i 's|application/x-rar|application/vnd.rar|' plugins/clirarplugin/CMakeLists.txt
 }
