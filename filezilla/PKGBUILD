@@ -1,8 +1,8 @@
 
 pkgname=filezilla
 _pkgname=FileZilla
-pkgver=3.49.1
-_pkgver=3.49.1
+pkgver=3.50.0
+_pkgver=3.50.0
 pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client."
 arch=('x86_64')
@@ -11,15 +11,13 @@ license=('GPL2')
 depends=('dbus' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'wxgtk' 'sqlite'
          'libfilezilla' 'pugixml' 'gnutls' 'nettle')
 source=("https://download.filezilla-project.org/client/${_pkgname}_${_pkgver}_src.tar.bz2"
-        'filezilla.desktop'
-        "https://src.fedoraproject.org/rpms/filezilla/raw/master/f/filezilla-3.47.2.1-interface_Mainfrm_h_include_list.patch")
-sha512sums=('e6e69858aff3be6f557cc338ac4cd4391699d171742a2e815dff15e029a76cb1cc0651c15a3b4fb95644371b4e84b913e34a70846454a7fd5de6f05a7f461add'
-            'a9d36573bc30a476e75f33f04f8aef990bdb03a151e7a4b72cdc69c351fc7313da8a84fc2e43383d3945b78a510d01b31a820c3615a185ead3343606285c893b'
-            'ba8a6b1ce50822254bb16dc04ef8e33ba9f9fa7ad8113f54a740e7f39a1243f129467bf45cb93e4f8cc69e1d44c3b8f55bcb7a27d9ab6dc06679b0506f9233da')
+        'filezilla.desktop')
+sha512sums=('5edcb18aa7e4a0a59678d589d20996d7f6311f717e55a70c9dacafe42e3df6cba79be778bef34ff399672941dfb78a4732b83f21016b721702c763f0408b3e40'
+            'a9d36573bc30a476e75f33f04f8aef990bdb03a151e7a4b72cdc69c351fc7313da8a84fc2e43383d3945b78a510d01b31a820c3615a185ead3343606285c893b')
 
 build() {
   cd ${pkgname}-${_pkgver}
-  patch -p1 -i ${srcdir}/filezilla-3.47.2.1-interface_Mainfrm_h_include_list.patch
+  #patch -p1 -i ${srcdir}/filezilla-3.47.2.1-interface_Mainfrm_h_include_list.patch
 
   ./configure --prefix=/usr \
     --disable-manualupdatecheck \
