@@ -2,24 +2,21 @@
 pkgname=trojita
 pkgver=0.7
 pkgrel=3
+_commit=b443ca2d025b402558a49f006c286d700f14d733
 pkgdesc="Trojita is a Qt IMAP e-mail client."
 arch=('x86_64')
 url="http://trojita.flaska.net"
 license=('GPL')
-depends=('qt5-webkit' 'qt5-tools' 'qtkeychain')
-#depends=('qtwebkit')
-#makedepends=('cmake' 'automoc4')
-makedepends=('extra-cmake-modules' 'git')
+depends=('qt5-webkit' 'qt5-tools' 'qtkeychain' 'akonadi-contacts' 'sonnet')
+makedepends=('extra-cmake-modules')
 groups=('network')
-source=("http://downloads.sourceforge.net/trojita/${pkgname}-${pkgver}.tar.xz")
-md5sums=('b2b5720be888ec6298a88798b113ad5f')
-#source=('git://anongit.kde.org/trojita.git')
-#md5sums=('SKIP')
-groups=('network-email')
+#source=("https://downloads.sourceforge.net/trojita/${pkgname}-${pkgver}.tar.xz")
+source=("https://invent.kde.org/pim/trojita/-/archive/${_commit}/trojita-${_commit}.tar.bz2")
+md5sums=('82d30441f4961805aa163da4a12dbaa8')
 
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
   sed -e "s|KF5Gpgmepp|QGpgme|" -i CMakeLists.txt
   sed -e "s|Cryptography KF5::Gpgmepp-pthread KF5::QGpgme|Cryptography QGpgme|" -i CMakeLists.txt
   
@@ -33,7 +30,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}/build
+  cd ${pkgname}-${_commit}/build
   
   make DESTDIR=${pkgdir} install
 }

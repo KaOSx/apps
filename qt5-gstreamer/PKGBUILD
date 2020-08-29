@@ -2,23 +2,25 @@
 pkgname=qt5-gstreamer
 _pkgname=qt-gstreamer
 pkgver=1.2.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Qt5 bindings for GStreamer"
 arch=('x86_64')
 url="https://gstreamer.freedesktop.org/modules/qt-gstreamer.html"
 license=('LGPL2.1')
 depends=('qt5-declarative' 'gst-plugins-good')
 makedepends=('cmake' 'boost' 'flex' 'bison' 'python3')
-optdepends=('libgles: required for OpenGLES rendering support in qtvideosink (embedded only)')
 source=("https://gstreamer.freedesktop.org/src/qt-gstreamer/${_pkgname}-${pkgver}.tar.xz"
-        'gstreamer1.6.patch')
+        'gstreamer1.6.patch'
+        "https://github.com/GStreamer/qt-gstreamer/commit/6e4fb2f3fcfb453c5522c66457ac5ed8c3b1b05c.diff")
 #source=("https://github.com/detrout/qt-gstreamer.git")
 md5sums=('fd794045a828c184acc1794b08a463fd'
-         '25446ce5c7948a8a0b0599d380fed03e')
+         '25446ce5c7948a8a0b0599d380fed03e'
+         'f30e9cd92b99de9ab5eac46a89ef61e0')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
   patch -p1 -i ${srcdir}/gstreamer1.6.patch
+  patch -p1 -i ${srcdir}/6e4fb2f3fcfb453c5522c66457ac5ed8c3b1b05c.diff
 }
 
 build() {
