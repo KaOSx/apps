@@ -1,22 +1,22 @@
 
 pkgname=qtnote
-pkgver=3.0.4
+pkgver=3.0.6
 _commit=cd7e69a
 pkgrel=1
 pkgdesc="System tray app that allows you to make notes in a quick way, Qt clone of Tomboy."
-url="http://ri0n.github.io/QtNote/"
+url="https://ri0n.github.io/QtNote/"
 arch=('x86_64')
 license=('GPL3')
 depends=('qt5-x11extras' 'hunspell')
 groups=('utils') 
 source=("https://github.com/Ri0n/QtNote/archive/${pkgver}.tar.gz"
         'notewidget.diff')
-md5sums=('ed1b04c61e1235caf0d86e3ce88fb770'
+md5sums=('0ea7386c210cde1a6542a51f19a2edd9'
          '0dcfb35ae0fdeecf67256ee1fa04cbfa')
 
 build() {
    cd QtNote-${pkgver}/
-   patch -p1 -i ${srcdir}/notewidget.diff
+   #patch -p1 -i ${srcdir}/notewidget.diff
 
    /usr/lib/qt5/bin/qmake 
    make
