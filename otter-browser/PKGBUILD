@@ -1,24 +1,26 @@
 pkgname=otter-browser
-pkgver=1.0.01
+pkgver=1.0.81
+_commit=141ceb64e60b4d9fff4a7a71793c6fd70300853d
 pkgrel=1
 pkgdesc='Browser aiming to recreate the best aspects of the classic Opera (12.x) UI using Qt5.'
 arch=('x86_64')
-url="http://www.otter-browser.org"
+url="https://www.otter-browser.org"
 license=('GPL3')
 depends=('qtwebkit-tp' 'qt5-multimedia' 'desktop-file-utils' 'hicolor-icon-theme' 'hunspell' 'qt5-svg' 'qt5-xmlpatterns') 
 makedepends=('cmake' 'qt5-tools')
 groups=('network-web')
-source=("https://sourceforge.net/projects/otter-browser/files/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('2867c80887f6adcc3fe3a58818e29e05')
+#source=("https://sourceforge.net/projects/otter-browser/files/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.bz2")
+source=("https://github.com/OtterBrowser/otter-browser/archive/${_commit}.zip")
+md5sums=('b63ebdc575b7afa02bb90a9e191451b7')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
   
-  sed -i -e 's|hunspell-1.5|hunspell-1.7|' cmake/FindHunspell.cmake
+  #sed -i -e 's|hunspell-1.5|hunspell-1.7|' cmake/FindHunspell.cmake
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
   /usr/lib/qt5/bin/lrelease resources/translations/*.ts
 
   mkdir -p build
@@ -32,9 +34,9 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}/build
+  cd ${pkgname}-${_commit}/build
   make DESTDIR=${pkgdir} install
   
-  install -D -m0644 ../../${pkgname}-${pkgver}/COPYING  ${pkgdir}/usr/share/licenses/otter-browser/COPYING
+  install -D -m0644 ../../${pkgname}-${_commit}/COPYING  ${pkgdir}/usr/share/licenses/otter-browser/COPYING
 }
 
