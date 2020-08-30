@@ -1,8 +1,9 @@
 
 pkgname=icedtea-web
+_pkgname=IcedTea-Web
 pkgdesc="Provides a Free Software web browser plugin running applets written in the Java programming
          language and an implementation of Java Web Start, originally based on the NetX project."
-pkgver=1.7.1
+pkgver=1.8.4
 pkgrel=1
 arch=('x86_64')
 url="http://icedtea.classpath.org/wiki/IcedTea-Web"
@@ -10,9 +11,10 @@ license=('GPL2')
 depends=('openjdk' 'desktop-file-utils')
 makedepends=('zip' 'npapi-sdk' 'rhino' 'junit' 'cups' 'mercurial' 'firefox' 'rust')
 groups=('network-web')
-source=("hg+http://icedtea.classpath.org/hg/icedtea-web")
+#source=("hg+http://icedtea.classpath.org/hg/icedtea-web")
+source=("https://github.com/AdoptOpenJDK/IcedTea-Web/archive/icedtea-web-${pkgver}.tar.gz")
 #noextract="${pkgname}-$pkgver.tar.gz"
-md5sums=('SKIP')
+md5sums=('79c0eb78dd8e18bdaab57fede5d67b8c')
 
 _javaver=8
 _jvmdir="/usr/lib/jvm/java-${_javaver}-openjdk"
@@ -21,24 +23,26 @@ build() {
   #cd ${srcdir}
   #LANG=en_US.UTF-8 bsdtar -x -f ${srcdir}/${pkgname}-${pkgver}.tar.gz
   
-  cd ${pkgname}*
+  cd ${_pkgname}-${pkgname}-${pkgver}
 
   ./autogen.sh
   ./configure --prefix="${_jvmdir}" \
               --with-jdk-home="${_jvmdir}" \
               --datarootdir=/usr/share \
-              --disable-docs 
-  make
+              --disable-docs \
+              --with-itw-libs=DISTRIBUTION \
+              --with-browser-tests=no
+  make -j1
 }
 
 check() {
-  cd ${pkgname}*
+  cd ${_pkgname}-${pkgname}-${pkgver}
 
   #make -k check 
 }
 
 package() {
-  cd ${pkgname}*
+  cd ${_pkgname}-${pkgname}-${pkgver}
 
   # possible make target (see bottom of Makefile.am: install-exec-local install-data-local
   make install-exec-local install-data-local DESTDIR="${pkgdir}"
