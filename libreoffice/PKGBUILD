@@ -1,8 +1,8 @@
 
 pkgname=libreoffice
-_LOver=7.0.0.3
-pkgver=7.0.0.3
-_pkgver=7.0.0
+_LOver=7.0.1.2
+pkgver=7.0.1.2
+_pkgver=7.0.1
 pkgrel=1
 arch=('x86_64')
 license=('LGPL3')
@@ -166,7 +166,7 @@ build() {
 	# Use python3
 	export PYTHON=python3
 
-	./autogen.sh --with-build-version="${_LOver} KaOS-${pkgrel}" --with-vendor="KaOS" \
+	./autogen.sh --with-extra-buildid="${_LOver} for KaOS Qt/kf5" --with-vendor="KaOS" \
 		--with-external-tar="${srcdir}/ext_sources" \
 		--disable-fetch-external \
 		--prefix=/usr --exec-prefix=/usr --sysconfdir=/etc \
