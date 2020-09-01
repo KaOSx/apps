@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Graphical file compression/decompression utility with support for multiple formats, including tar, gzip, bzip2, rar and zip, as well as CD-ROM images"
 url="https://kde.org/applications/en/utilities/org.kde.ark"
 license=('GPL' 'LGPL' 'FDL')
@@ -24,7 +24,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # security issue, fixed in 20.08.1
-  patch -p1 -i ${srcdir}/8bf8c5ef07b0ac5e914d752681e470dea403a5bd.diff
+  #patch -p1 -i ${srcdir}/8bf8c5ef07b0ac5e914d752681e470dea403a5bd.diff
   
   #sed -i 's|application/x-rar|application/vnd.rar|' plugins/clirarplugin/CMakeLists.txt
 }
