@@ -1,18 +1,21 @@
  
-pkgname=bashtop
-pkgver=0.9.25
+pkgname=bpytop
+pkgver=1.0.22
 pkgrel=1
 pkgdesc='Resource monitor that shows usage and stats for processor, memory, disks, network and processes.'
 arch=('x86_64')
 url="https://github.com/aristocratos/bashtop"
 license=('Apache 2.0')
-depends=('curl' 'lm_sensors' 'python3-psutil' 'procps-ng')
-source=("https://github.com/aristocratos/bashtop/archive/v${pkgver}.tar.gz")
-md5sums=('4c15e577de039dde1e4c2019ce946715')
+depends=('python3-psutil')
+conflicts=('bashtop')
+provides=('bashtop')
+replaces=('bashtop')
+source=("https://github.com/aristocratos/bpytop/archive/v${pkgver}.tar.gz")
+md5sums=('916484c1402638f01ef9e16f051a0c02')
 
 package() {
     cd ${pkgname}-${pkgver}
     
-    make DESTDIR=${pkgdir} install
+    make DESTDIR=${pkgdir} PREFIX=/usr install
     install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
