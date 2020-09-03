@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -29,18 +29,18 @@ source=("https://download.kde.org/unstable/plasma/${pkgver}/${pkgname}-${pkgver}
         'kde.pam'
         'kde-np.pam'
         'kscreensaver.pam'
-        "https://invent.kde.org/plasma/plasma-workspace/commit/1cfd9e882df3af50219b730493947e8ee02b5ed4.diff")
+        "https://invent.kde.org/plasma/plasma-workspace/commit/e3134289f522edb140797818fffd60d641b86cd8.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '280f3ca356b59607074da2343a4155b2'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
          '367a3538f54db71f108b34cfa31088ac'
-         '1e6975b31a5957bf644764bd7a6db41e')
+         'd94f8514888081a580966af595ad9981')
 
 prepare () {
   cd ${pkgname}-${pkgver}
   
-  #patch -p1 -i ${srcdir}/1cfd9e882df3af50219b730493947e8ee02b5ed4.diff
+  patch -p1 -i ${srcdir}/e3134289f522edb140797818fffd60d641b86cd8.diff
   #sed -i 's|org.kde.breeze.desktop|org.kde.midna.desktop|' shell/packageplugins/lookandfeel/lookandfeel.cpp
   sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
 }         
