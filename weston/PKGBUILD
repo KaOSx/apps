@@ -1,6 +1,6 @@
 
 pkgname=weston
-pkgver=8.0.0
+pkgver=9.0.0
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
@@ -9,10 +9,10 @@ license=('MIT')
 options=('!libtool')
 depends=('libxkbcommon' 'mesa' 'pango' 'poppler-glib' 'mtdev' 'libxcursor' 'glu' 'libunwind'
          'pixman' 'xkeyboard-config' 'colord' 'libwebp' 'libva' 'libinput' 'wayland-protocols'
-         'freerdp' 'pipewire')
+         'freerdp') # 'pipewire')
 makedepends=('meson' 'ninja')
 source=("http://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('7518b49b2eaa1c3091f24671bdcc124fd49fc8f1af51161927afa4329c027848')
+sha256sums=('5cf5d6ce192e0eb15c1fc861a436bf21b5bb3b91dbdabbdebe83e1f83aa098fe')
 
 build() {
   mkdir -p build
@@ -26,7 +26,7 @@ build() {
     -Ddemo-clients=true \
     -Dsimple-clients=all \
     -Dbackend-rdp=true \
-    -Dpipewire=true
+    -Dpipewire=false
     
    ninja
 }
