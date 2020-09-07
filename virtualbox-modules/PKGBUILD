@@ -3,8 +3,8 @@ _extramodules=extramodules-5.7
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-modules
-pkgver=6.1.12
-_pkgver=6.1.12
+pkgver=6.1.14
+_pkgver=6.1.14
 pkgrel=1
 pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
@@ -18,7 +18,7 @@ source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules
         'virtualbox-modules-depmod.patch'
         'vbox-modules.conf'
         'linux5.5.diff')
-md5sums=('11f498344f11503d331ed38f8b28efeb'
+md5sums=('8385a36b10d3d39736ef4876e9faf4bf'
          'c9f84fb084a79275d269c542ff53ba4d'
          '232f7c1b893245a8e87a38768e9d1c1d'
          '9cfc876b28dcbb413eac84fab245da38')
@@ -26,7 +26,7 @@ md5sums=('11f498344f11503d331ed38f8b28efeb'
 prepare() {
     cd vbox-kernel-module-src-${_pkgver}
     
-    patch -p1 -i ${srcdir}/linux5.5.diff
+    #patch -p1 -i ${srcdir}/linux5.5.diff
 }
 
 build() {

@@ -5,9 +5,9 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=6.1.12
-_pkgver=6.1.12
-pkgrel=4
+pkgver=6.1.14
+_pkgver=6.1.14
+pkgrel=1
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
@@ -22,21 +22,22 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         'LocalConfig.kmk'
         'vboxservice.service'
         'vmsvga.service'
-        'vbox-6.1.8-qtpainterpath.patch'
-        'include-path.patch')
-sha256sums=('05eff0321daa72f6d00fb121a6b4211f39964778823806fa0b7b751667dec362'
+        'include-path.patch'
+        'VirtioCore.cpp'
+        'VirtioCore.h')
+sha256sums=('91fa05bcfce36316ca93e3927c9550ea66286fff4c5bec900b753fca278ce1a0'
             '9c5238183019f9ebc7d92a8582cad232f471eab9d3278786225abc1a1c7bf66e'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
-            'c7dc4e484c8641e8fbb8e7fb342c7a72534936d6e9212b477ab7e2736fb8be88'
+            '22357f111ca85e68fec175a203967ef2966d4cdb781176383f3622ea09d1054f'
             '94a808f46909a51b2d0cf2c6e0a6c9dea792034943e6413bf9649a036c921b21'
             '090c5a5d72b2dd9a1338b8e453ff042df27731f0d4cb4f0ca161568ecb58e454'
-            'bf352a5794cac45e28a63350b1729a799c8863f065c031b19eacbfb94def163d'
-            '188014070bce4f6fb9b2535bcd64d066119e182e848c521407ea891ab41a995b')
+            '188014070bce4f6fb9b2535bcd64d066119e182e848c521407ea891ab41a995b'
+            '5b80711f5a47605b163913b52ad1310faf1c3d850a19474e455b204e7c11feb1'
+            '616ba2906a05079ec5e5272e3126c936e612ebc927b2efd91da8094a190a1ab2')
 
 prepare() {
     cd VirtualBox-${pkgver}
 
-    #patch -p1 -i ${srcdir}/vbox-6.1.8-qtpainterpath.patch
     #patch -p1 -i ${srcdir}/include-path.patch
     
     sed -i -e 's|X11R6/||' configure
@@ -48,6 +49,9 @@ prepare() {
     cp ${srcdir}/LocalConfig.kmk .
 
     echo "VBOX_GCC_OPT=$CXXFLAGS" >> LocalConfig.kmk
+    # missing files from 6.1.14 tar
+    cp ../VirtioCore.cpp src/VBox/Devices/VirtIO/
+    cp ../VirtioCore.h src/VBox/Devices/VirtIO/
 }
 
 build() {
