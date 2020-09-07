@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=3.2.28
+pkgver=3.2.31
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -28,10 +28,10 @@ md5sums=('SKIP'
          'd5c65f43e057054e9728810530c4a030'
          '184d5b6886fc7a6156d4b790657f77f4'
          '8b69a3a86923e2ee67a5a0725acb93e6'
-         '89a65583c4e31b748d499dff106163be'
+         '16f461c0718411513149bdcc89420921'
          '4b126b6494c776016accd8ffbd0be51d'
          'bf4a935ae9b0e68639bd9968aff9c3ae'
-         '219d2fbdc65eb03dca3be02b33d44675'
+         'ea9aad5beb7b39a3d8f1336569cda476'
          'dc880f17456d5cad7f07d83554c22b9b')
 
 prepare () {
@@ -59,7 +59,7 @@ build() {
     -DWITH_KF5DBus=ON \
     -DINSTALL_CONFIG=ON \
     -DBoost_NO_BOOST_CMAKE=ON \
-    -DSKIP_MODULES="bootloader oemid webview"
+    -DSKIP_MODULES="bootloader notesqml oemid preservefiles webview"
   make
 }
 
