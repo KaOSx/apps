@@ -1,36 +1,33 @@
 
 pkgname=appmenu-gtk-module
-pkgver=0.7.3.2
-_pkgver=0.7.3
-_commit=df1872bbbccbc2071b6bbf1a41614879
+pkgver=0.7.4
+_pkgver=0.7.4
+_commit=caa7769109a0d513a22e69b3ff1bf2fe
 pkgrel=1
 pkgdesc="Small GTK Module that strips menus from all GTK programs, converts to MenuModel and send to AppMenu."
 arch=('x86_64')
 url="https://gitlab.com/vala-panel-project/vala-panel-appmenu"
 license=('GPL')
 depends=('gtk2' 'gtk3')
-makedepends=('cmake')
+makedepends=('meson' 'ninja')
 source=("https://gitlab.com/vala-panel-project/vala-panel-appmenu/uploads/${_commit}/${pkgname}-${_pkgver}.tar.xz"
         '80-appmenu-gtk-module')
-md5sums=('57bfb2ca62e83821daf4694614eda507'
+md5sums=('1114021049f936e311eb0a2fdd3b1fa4'
          'eef92e41f9e4c2ea16c0d706cc511540')
 
 build() {
     mkdir -p build
     cd build
 
-    cmake ../${pkgname}-${_pkgver} \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_LIBDIR=lib \
-        -DCMAKE_INSTALL_LIBEXECDIR=lib 
-    make 
+    meson ../${pkgname} \
+        --prefix=/usr \
+        --buildtype=release 
+    ninja
 }
 
 package() {
     cd build
-    
-    make DESTDIR=${pkgdir} install
-    
+
+    DESTDIR=${pkgdir} ninja install
     install -Dm755 ../80-appmenu-gtk-module ${pkgdir}/etc/X11/xinit/xinitrc.d/80-appmenu-gtk-module
 }
