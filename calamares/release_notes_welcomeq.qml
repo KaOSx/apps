@@ -51,16 +51,17 @@ Rectangle {
             wrapMode: Text.WordWrap
 
             text: qsTr("<h3>KaOS - 2020.09</h3>
-            <p>KaOS is very proud to announce the availability of the September release of a new stable ISO.</p>
+            <p>It is with great pleasure to present to you the September release of a new stable ISO.</p>
             
-            <p>You will find <b>Plasma 5.19</b> on this ISO. Highlights of 5.19 include incorporation of a consistent design and header area for system tray applets as well as notifications, refreshed look of the media playback applet in the System Tray, System monitor widgets have all been rewritten from scratch and Sticky notes get several usability improvements and if you use Wayland, you will also appreciate the new option that lets you configure the mouse and touchpad scroll speed .<br />
-            Frameworks is at 5.74.0, Plasma at 5.19.5, and KDE Applications at 20.08.1. All built on <b>Qt 5.15.0</b>.
+            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.74.0, Plasma 5.19.5 and KDE Applications 20.08.1. All built on Qt 5.15.1.</b>.
             
-            <p>For the installer Calamares, KaOS has started a move to using as many QML modules as possible. For the Welcome screen that now means any text or needed info can now be shown as a qml file within the Calamares window, no need for pop-ups or external applications. The keyboard module is also rewritten in QML, which now gives a much clearer overview of possible keyboard models, languages and variants.</p>
+            <p>With almost 60 % percent of the packages updated since the last ISO and the last release being over two months old, a new ISO is more than due. News for KDE Applications 20.08 included Dolphin adding thumbnails for 3D Manufacturing Format (3MF) files, you can also see previews of files and folders on encrypted file systems such as Plasma Vaults now remembers and restores the location you were viewing, as well as the open tabs, and split views you had open when you last closed it.Yakuake now lets you configure all the keyboard shortcuts that come from Konsole and there is a new system tray item that shows you when Yakuake is running. Elisa now lets you display all genres, artists, or albums in the sidebar, below other items.</p>
+            
+            <p>For the installer Calamares, KaOS continues to move modules to QML. This release now features a Locale module with a true map. This module is developed by and for KaOS, but has been accepted upstream. Using a real world map brings far greater accuracy of the location selections.  Coordinates are shown on hover, and translated to locale on click. The new keyboard QML module introduced in the last ISO is improved with better visibility.</p>
             
             <p>A few new firmwares/modules have been added to the repositories, this include sof-firmware (needed for newer sound-cards, will move to linux-firmware soon according to upstream reports) and two new rtl wifi modules (rtl8723de & rtl8821ce). New applications added include Photoflare and the musicplayer VVave, the successor of Babe</p>
             
-            <p>Updates to the base of this distribution include Python3 3.8.5, Poppler 20.9.0, Systemd 246, Git 2.27.0, Libcap 2.43, Pam 1.4.0. Other rebuilds were needed for ICU 67.1, Boost 1.73.0, Krb5 1.18, Glib2 2.64.3 based stack, Guile 2.2.6, Mesa 20.1.7, NetworkManager 1.26.2, Perl 5.30.3, Linux 5.7.19 and Qt 5.15.0.</p>
+            <p>Updates to the base of this distribution include Python3 3.8.5, ICU 67.1, Boost 1.73.0, Systemd 246, Git 2.28.0, Libcap 2.43, DBus 1.12.20, Glib2 2.64.3, Poppler 20.9.0, Mesa 20.1.7, NetworkManager 1.26.2, Perl 5.30.3, Xorg-server 1.20.9, Linux 5.7.19 and Qt 5.15.1.</p>
             
             <p>The Midna them used for KaOS has been redone for 2020, biggest change there is the move from QtCurve to <b>Kvantum</b> for the application style.  Implemented is a custom Midna Kvantum theme, following the same style as used in Croeso and the Welcome application. Ksplash is simplified with less moving images, SDDM theme has better contrast.  Complete new is <b>theming for the systemd-bootloader</b>, gone is the standard black background with white text, instead you will see a well intgrated option with the rest of the Midna theme.  The grub bootloader was updated to follow a similar look as the systemd-bootloader.</p>
             
@@ -84,12 +85,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.74.0, Plasma 5.19.5, KDE Applications 20.08.1</b>, Linux 5.7.19, Systemd 246, Kmod 27, NetworkManager 1.26.2, LibreOffice 7.0.1, Krita 4.3.0, Elisa, Xorg-Server 1.20.9, Mesa 20.1.7, Glibc 2.31, GCC 9.3.0, non-free Nvidia 4500, Pepperflash and Python3 3.8.5 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.74.0, Plasma 5.19.5, KDE Applications 20.08.1</b>, Linux 5.7.19, Systemd 246, Kmod 27, NetworkManager 1.26.2, LibreOffice 7.0.1, Krita 4.3.0, Elisa, Xorg-Server 1.20.9, Mesa 20.1.7, Glibc 2.31, GCC 9.3.0, non-free Nvidia 450, Pepperflash and Python3 3.8.5 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.8, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 80.0.1, Chrome 86, Ardour 6.3.0, Inkscape 1.0.1, GIMP 2.10.20 and Google-talkplugin 5.41.3.0.1.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 80.0.1, Chrome 87, Ardour 6.3.0, Inkscape 1.0.1, GIMP 2.10.20 and Google-talkplugin 5.41.3.0.1.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
