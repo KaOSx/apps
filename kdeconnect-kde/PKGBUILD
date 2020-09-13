@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdeconnect-kde
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='KDE Connect adds communication between KDE and your smartphone'
 url='https://github.com/KDE/kdeconnect-kde'
@@ -14,8 +14,6 @@ depends=('kcmutils' 'kconfigwidgets' 'kiconthemes' 'kdbusaddons' 'knotifications
          'kio' 'ki18n' 'kdeclarative' 'kwayland' 'kpeoplevcard' 'qca-qt5' 'libfakekey'
          'qt5-quickcontrols' 'kirigami' 'sshfs' 'pulseaudio-qt')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kf5-kdeconnect-kde')
-replaces=('kf5-kdeconnect-kde')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'openssh8.2.patch')
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
