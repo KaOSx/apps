@@ -1,7 +1,7 @@
 
-# version in .deb > control.tar.gz > control
+# curl -qs https://dl.google.com/linux/chrome-remote-desktop/deb/dists/stable/main/binary-amd64/Packages | grep "^Version\|^SHA256" | awk '{print $2}'
 pkgname=chrome-remote-desktop
-pkgver=81.0.4044.60
+pkgver=85.0.4183.39
 pkgrel=1
 pkgdesc="Access other computers or allow another user to access your computer securely over the Internet using Chrome"
 url="https://chrome.google.com/webstore/detail/gbchcmhmhahfdphkhkmpfmihenigjmpp"
@@ -12,7 +12,7 @@ depends=('python3-psutil' 'gtk3' 'nss' 'xorg-utils' 'xorg-server' 'xorg-xkb-util
 source=("https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb"
         'chrome-remote-desktop.service'
         'crd')
-md5sums=('09472f512728dd0cb09c61d9af0fe39c'
+md5sums=('acef7ac7be949f92ae2f5a3ea18a1bd8'
          '6f6083ff37f036f590702c7b1319445b'
          'b6f440ffccc35237d2a043ec52027130')
 groups=('network' 'network-web')
