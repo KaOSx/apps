@@ -1,26 +1,26 @@
 
 pkgname=js
-pkgver=68.11.0
-_pkgver=68.11.0esr
+pkgver=78.2.0
+_pkgver=78.2.0esr
 pkgrel=1
 pkgdesc="JavaScript interpreter and libraries"
 arch=('x86_64')
-url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/52"
+url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Releases/"
 license=('GPL2')
 depends=('nspr' 'gcc-libs' 'libffi' 'readline' 'icu')
-makedepends=('python2' 'zip' 'autoconf2.13')
+makedepends=('python3-pip' 'zip' 'autoconf2.13' 'rust')
 #source=("https://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-${_pkgver}.tar.bz2"
 #source=("https://hg.mozilla.org/mozilla-unified/archive/FIREFOX_${_pkgver}.tar.bz2")
 source=("https://archive.mozilla.org/pub/firefox/releases/${_pkgver}/source/firefox-${_pkgver}.source.tar.xz"
         'copy_headers.patch')
-md5sums=('a8f860f31725d914c02918ff2b2aecf8'
+md5sums=('e071f6c9bea8344d4556323f02bf6125'
          'a258b7a06260bb568f2d958631740b47')
 
 prepare() {
   cd firefox-${pkgver}
   
   # http://www.linuxfromscratch.org/blfs/view/svn//general/js68.html
-  sed '21,+4d' -i js/moz.configure
+  #sed '21,+4d' -i js/moz.configure
 #  patch -p1 -i ${srcdir}/copy_headers.patch
 }
 
@@ -29,7 +29,7 @@ build() {
   cd obj
   #cd mozjs-${_pkgver}/js/src
 
-  CC=gcc CXX=g++ LLVM_OBJDUMP=/bin/false
+  CC=gcc CXX=g++ # LLVM_OBJDUMP=/bin/false
 
   #autoconf-2.13
   ../firefox-${pkgver}/js/src/configure --prefix=/usr \
@@ -44,8 +44,7 @@ build() {
        --enable-readline \
        --enable-shared-js \
        --disable-jemalloc  \
-       --enable-tests \
-       --enable-unaligned-private-values 
+       --enable-tests
 
   make
 }  

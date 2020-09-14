@@ -1,6 +1,6 @@
  
 pkgname=mbedtls
-pkgver=2.16.5
+pkgver=2.16.8
 pkgrel=1
 pkgdesc="Mbed TLS makes it easy for developers to include cryptographic and SSL/TLS capabilities in their (embedded) products"
 arch=('x86_64')
@@ -8,11 +8,11 @@ url="https://tls.mbed.org"
 license=('Apache')
 depends=('glibc' 'sh')
 makedepends=('cmake' 'python3')
-source=("https://tls.mbed.org/download/mbedtls-${pkgver}-apache.tgz")
-sha256sums=('65b4c6cec83e048fd1c675e9a29a394ea30ad0371d37b5742453f74084e7b04d')
+source=("https://github.com/ARMmbed/mbedtls/archive/mbedtls-${pkgver}.tar.gz")
+sha256sums=('047b4067f21a72947dd1dffd7c3f106ad8e52d85877b77df558296458f6030a3')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgname}-${pkgver}
 
   #sed -i 's|<time.h>|"platform.h"|' include/mbedtls/ssl.h
 }
@@ -20,7 +20,7 @@ build() {
   mkdir -p build 
   cd build
   
-  cmake ../${pkgname}-${pkgver}\
+  cmake ../${pkgname}-${pkgname}-${pkgver}\
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DUSE_SHARED_MBEDTLS_LIBRARY=On \
