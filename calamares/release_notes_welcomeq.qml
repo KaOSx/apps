@@ -59,9 +59,9 @@ Rectangle {
             
             <p>For the installer Calamares, KaOS continues to move modules to QML. This release now features a Locale module with a true map. This module is developed by and for KaOS, but has been accepted upstream. Using a real world map brings far greater accuracy of the location selections.  Coordinates are shown on hover, and translated to locale on click. The new keyboard QML module introduced in the last ISO is improved with better visibility.</p>
             
-            <p>A few new firmwares/modules have been added to the repositories, this include sof-firmware (needed for newer sound-cards, will move to linux-firmware soon according to upstream reports) and two new rtl wifi modules (rtl8723de & rtl8821ce). New applications added include Photoflare and the musicplayer VVave, the successor of Babe</p>
+            <p>New applications added include Kdiff3 and the Keysmith (for Two-factor authentication)</p>
             
-            <p>Updates to the base of this distribution include Python3 3.8.5, ICU 67.1, Boost 1.73.0, Systemd 246, Git 2.28.0, Libcap 2.43, DBus 1.12.20, Glib2 2.64.3, Poppler 20.9.0, Mesa 20.1.7, NetworkManager 1.26.2, Perl 5.30.3, Xorg-server 1.20.9, Linux 5.7.19 and Qt 5.15.1.</p>
+            <p>Updates to the base of this distribution include Python3 3.8.5, ICU 67.1, Boost 1.73.0, Systemd 246, Git 2.28.0, LLVM/Clang 10 (10.0.1), Opencv 4.4.0, Gstreamer 1.18.0, Poppler 20.9.0, Mesa 20.1.7, NetworkManager 1.26.2, Perl 5.30.3, Xorg-server 1.20.9, Linux 5.7.19 and Qt 5.15.1.</p>
             
             <p>The Midna them used for KaOS has been redone for 2020, biggest change there is the move from QtCurve to <b>Kvantum</b> for the application style.  Implemented is a custom Midna Kvantum theme, following the same style as used in Croeso and the Welcome application. Ksplash is simplified with less moving images, SDDM theme has better contrast.  Complete new is <b>theming for the systemd-bootloader</b>, gone is the standard black background with white text, instead you will see a well intgrated option with the rest of the Midna theme.  The grub bootloader was updated to follow a similar look as the systemd-bootloader.</p>
             
