@@ -1,0 +1,32 @@
+
+pkgname=accountsservice
+pkgver=0.6.55
+pkgrel=1
+pkgdesc="Set of D-Bus interfaces for querying and manipulating user account information."
+arch=('x86_64')
+url="https://gitlab.freedesktop.org/accountsservice/accountsservice"
+license=('GPL3')
+depends=('dbus' 'glib2' 'polkit')
+makedepends=('meson' 'ninja')
+source=("https://www.freedesktop.org/software/accountsservice/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('ff2b2419a7e06bd9cb335ffe391c7409b49a0f0130b890bd54692a3986699c9b')
+
+build() {
+  mkdir -p build
+  cd build
+  
+  meson ../${pkgname}-${pkgver} \
+    --prefix=/usr \
+    --buildtype=release \
+    --libexecdir=lib \
+    -Dadmin_group=wheel \
+    -Dintrospection=false
+  ninja
+}
+
+package() {
+  cd build
+  
+  DESTDIR=${pkgdir} ninja install
+}
+
