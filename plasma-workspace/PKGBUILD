@@ -16,7 +16,7 @@ depends=('frameworkintegration' 'knotifyconfig' 'krunner' 'kdesu' 'knewstuff'
          'khelpcenter' 'kio-extras' 'baloo' 'milou' 'libkscreen' 'breeze' 'gpsd' 'libqalculate' 'qt5-tools'
          'oxygen-icons5' 'prison' 'sddm-kcm' 'networkmanager-qt' 'kxmlrpcclient' 'kscreenlocker'
          'kactivitymanagerd' 'kpeople' 'kactivities-stats' 'iso-codes' 'kholidays' 'drkonqi' 'kuserfeedback'
-         'kquickcharts')
+         'kquickcharts' 'pipewire')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('plasma-l10n')
 replaces=('plasma-l10n')
@@ -40,7 +40,7 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare () {
   cd ${pkgname}-${pkgver}
   
-  patch -p1 -i ${srcdir}/e3134289f522edb140797818fffd60d641b86cd8.diff
+  #patch -p1 -i ${srcdir}/e3134289f522edb140797818fffd60d641b86cd8.diff
   #sed -i 's|org.kde.breeze.desktop|org.kde.midna.desktop|' shell/packageplugins/lookandfeel/lookandfeel.cpp
   sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
 }         
