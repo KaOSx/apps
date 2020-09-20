@@ -61,9 +61,9 @@ Rectangle {
             
             <p>New applications added include Kdiff3 and the Keysmith (for Two-factor authentication)</p>
             
-            <p>Updates to the base of this distribution include Python3 3.8.5, ICU 67.1, Boost 1.73.0, Systemd 246, Git 2.28.0, LLVM/Clang 10 (10.0.1), Opencv 4.4.0, Gstreamer 1.18.0, Poppler 20.9.0, Mesa 20.1.7, NetworkManager 1.26.2, Perl 5.30.3, Xorg-server 1.20.9, Linux 5.7.19 and Qt 5.15.1.</p>
+            <p>Updates to the base of this distribution include Python3 3.8.5, ICU 67.1, Boost 1.73.0, Systemd 246, Git 2.28.0, LLVM/Clang 10 (10.0.1), Opencv 4.4.0, Gstreamer 1.18.0, Poppler 20.9.0, Mesa 20.1.8, NetworkManager 1.26.2, Perl 5.30.3, Xorg-server 1.20.9, Linux 5.7.19 and Qt 5.15.1.</p>
             
-            <p>The Midna them used for KaOS has been redone for 2020, biggest change there is the move from QtCurve to <b>Kvantum</b> for the application style.  Implemented is a custom Midna Kvantum theme, following the same style as used in Croeso and the Welcome application. Ksplash is simplified with less moving images, SDDM theme has better contrast.  Complete new is <b>theming for the systemd-bootloader</b>, gone is the standard black background with white text, instead you will see a well intgrated option with the rest of the Midna theme.  The grub bootloader was updated to follow a similar look as the systemd-bootloader.</p>
+            <p>The Midna theme used for KaOS has been redone for 2020, biggest change there is the move from QtCurve to <b>Kvantum</b> for the application style.  Implemented is a custom Midna Kvantum theme, following the same style as used in Croeso and the Welcome application. Ksplash is simplified with less moving images, SDDM theme has better contrast.  Complete new is <b>theming for the systemd-bootloader</b>, gone is the standard black background with white text, instead you will see a well intgrated option with the rest of the Midna theme.  The grub bootloader was updated to follow a similar look as the systemd-bootloader.</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
@@ -85,7 +85,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.74.0, Plasma 5.19.5, KDE Applications 20.08.1</b>, Linux 5.7.19, Systemd 246, Kmod 27, NetworkManager 1.26.2, LibreOffice 7.0.1, Krita 4.3.0, Elisa, Xorg-Server 1.20.9, Mesa 20.1.7, Glibc 2.31, GCC 9.3.0, non-free Nvidia 450, Pepperflash and Python3 3.8.5 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.74.0, Plasma 5.19.5, KDE Applications 20.08.1</b>, Linux 5.7.19, Systemd 246, Kmod 27, NetworkManager 1.26.2, LibreOffice 7.0.1, Krita 4.3.0, Elisa, Xorg-Server 1.20.9, Mesa 20.1.8, Glibc 2.31, GCC 9.3.0, non-free Nvidia 450, Pepperflash and Python3 3.8.5 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
