@@ -1,0 +1,26 @@
+ 
+pkgname=editorconfig-core-c
+pkgver=0.12.4
+pkgrel=1
+pkgdesc='EditorConfig makes it easy to maintain the correct coding style when switching between different text editors and between different projects.'
+arch=('x86_64')
+url='https://editorconfig.org/'
+license=('BSD')
+depends=('pcre2')
+makedepends=('cmake' 'doxygen')
+groups=('programming')
+source=("https://github.com/editorconfig/editorconfig-core-c/archive/v${pkgver}.tar.gz")
+sha256sums=('c2671595f1793b498cdf50b9dc03d632cc724891de7909f2ea78588fbffba289')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+  install -Dm644 ${pkgname}-${pkgver}/LICENSE -t ${pkgdir}/usr/share/licenses/${pkgname}
+}
