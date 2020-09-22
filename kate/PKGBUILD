@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kate
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Advanced editor component which is used in numerous KDE applications requiring a text editing component'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/kate'
@@ -17,14 +17,14 @@ conflicts=('kdesdk-kate' 'kdesdk-kate-debug' 'ktexteditorpreviewplugin')
 replaces=('kdesdk-kate' 'kdesdk-kate-debug' 'ktexteditorpreviewplugin')
 provides=('kdesdk-kate' 'ktexteditorpreviewplugin')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/kate/commit/291b68994d7c6176dbc1983c956e2bb7135559e0.diff")
+        "https://invent.kde.org/utilities/kate/commit/d679aca69c946c21a5bfa7ca1eb4e146ea90d139.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '290a6619a018014954e459a442bc6962')
+         'dea8f5217586297ff61080c5a38868d7')
 
 prepare() {
   cd $pkgname-${pkgver}
-  # Quick Open issue with Qt 5.11
-  #patch -p1 -i ${srcdir}/291b68994d7c6176dbc1983c956e2bb7135559e0.diff
+  # 20.08 issue with menu disappearing 
+  patch -p1 -i ${srcdir}/d679aca69c946c21a5bfa7ca1eb4e146ea90d139.diff
 }
 
 build() {
