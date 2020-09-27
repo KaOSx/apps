@@ -2,29 +2,32 @@
 pkgname=fcitx-mozc
 _bldtype=Release
 _zipcode_rel=201810
-_protobuf_rev=92a7e778e7394386f413cec28d67a07630f784b1
-_gyp_rev=4ec6c4e3a94bd04a6da2858163d40b2429b8aad1
+_protobuf_rev=fde7cf7358ec7cd69e8db9be4f1fa6a5c431386a
+_gyp_rev=caa600
 _japanese_usage_dictionary_rev=a4a66772e33746b91e99caceecced9a28507e925
-_mozc_rev=afb03ddfe72dde4cf2409863a3bfea160f7a66d8
+_mozc_rev=667db549e000778e9b08749326086b6bec58cad0
+_abseil_rev=c51510d1d87ebce8615ae1752fd5aca912f6cf4c
 _fcitx_patchver=2.23.2815.102.1
 pkgdesc="Japanese Input Method Editor designed for multi-platform"
-pkgver=2.23.2815.102
+pkgver=2.23.2815.102.1
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/google/mozc"
 license=('custom')
 depends=('qt5-base' 'fcitx' 'zinnia')
-makedepends=('pkg-config' 'python2' 'curl' 'gtk2' 'mesa' 'ninja' 'git' 'clang')
+makedepends=('pkg-config' 'python3-six' 'curl' 'gtk2' 'mesa' 'ninja' 'git' 'clang')
 source=("mozc::git+https://github.com/google/mozc.git#commit=${_mozc_rev}"
         "japanese_usage_dictionary::git+https://github.com/hiroyuki-komatsu/japanese-usage-dictionary.git#commit=${_japanese_usage_dictionary_rev}"
         "gyp::git+https://chromium.googlesource.com/external/gyp#commit=${_gyp_rev}"
         "protobuf::git+https://github.com/google/protobuf.git#commit=${_protobuf_rev}"
+        "abseil-cpp::git+https://github.com/abseil/abseil-cpp.git#commit=${_abseil_rev}"
         "https://downloads.sourceforge.net/pnsft-aur/x-ken-all-${_zipcode_rel}.zip"
         "https://downloads.sourceforge.net/pnsft-aur/jigyosyo-${_zipcode_rel}.zip"
         "https://download.fcitx-im.org/fcitx-mozc/fcitx-mozc-${_fcitx_patchver}.patch"
         "https://download.fcitx-im.org/fcitx-mozc/fcitx-mozc-icon.tar.gz"
         "https://github.com/google/mozc/pull/444/commits/82d38f929882a9c62289b179c6fe41efed249987.diff")
 md5sums=('SKIP'
+         'SKIP'
          'SKIP'
          'SKIP'
          'SKIP'
@@ -41,17 +44,17 @@ prepare() {
   patch -p2 -i ${srcdir}/fcitx-mozc-${_fcitx_patchver}.patch
   rm unix/fcitx5 -rf
   
-  find . -name  \*.py        -type f -exec sed -i -e "1s|python.*$|python2|"  {} +
-  find . -regex '.*\.gypi?$' -type f -exec sed -i -e "s|'python'|'python2'|g" {} +
+  #find . -name  \*.py        -type f -exec sed -i -e "1s|python.*$|python2|"  {} +
+  #find . -regex '.*\.gypi?$' -type f -exec sed -i -e "s|'python'|'python2'|g" {} +
   
   # GCC > 8 needed
-  patch -p1 -i ${srcdir}/82d38f929882a9c62289b179c6fe41efed249987.diff
+  #patch -p1 -i ${srcdir}/82d38f929882a9c62289b179c6fe41efed249987.diff
 
   # disable Japanese zip code in dictionary, python import fails to find dictionary
-  #python2 dictionary/gen_zip_code_seed.py --zip_code="${srcdir}/x-ken-all.csv" --jigyosyo="${srcdir}/JIGYOSYO.CSV" >> data/dictionary_oss/dictionary09.txt
+  #python dictionary/gen_zip_code_seed.py --zip_code="${srcdir}/x-ken-all.csv" --jigyosyo="${srcdir}/JIGYOSYO.CSV" >> data/dictionary_oss/dictionary09.txt
 
   cd ${srcdir}
-  for dep in gyp protobuf japanese_usage_dictionary
+  for dep in gyp protobuf abseil-cpp japanese_usage_dictionary
   do
     cp -a $dep mozc/src/third_party/
   done
@@ -62,8 +65,8 @@ build() {
 
   _targets="server/server.gyp:mozc_server gui/gui.gyp:mozc_tool unix/fcitx/fcitx.gyp:fcitx-mozc"
 
-  QTDIR=/usr GYP_DEFINES="document_dir=/usr/share/licenses/$pkgname use_libzinnia=1" python2 build_mozc.py gyp
-  python2 build_mozc.py build -c $_bldtype $_targets
+  QTDIR=/usr GYP_DEFINES="document_dir=/usr/share/licenses/$pkgname use_libzinnia=1" python3 build_mozc.py gyp
+  python3 build_mozc.py build -c $_bldtype $_targets
 
   head -n 29 server/mozc_server.cc > LICENSE
 }
