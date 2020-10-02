@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kfilemetadata
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/kdelibs/kfilemetadata'
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('ebook-tools' 'karchive' 'kcoreaddons' 'exiv2' 'ki18n' 'poppler-qt5' 'taglib' 'ffmpeg')
 makedepends=('extra-cmake-modules')
 groups=('kdeplasma5')
-source=("https://download.kde.org/stable/frameworks/5.70/${pkgname}-$pkgver.tar.xz"
+source=("https://download.kde.org/stable/frameworks/5.74/${pkgname}-$pkgver.tar.xz"
         'bug_414227.patch')
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
          'f8617a6da8f16b747522f8d37a414f4e')
