@@ -1,8 +1,8 @@
  
 pkgname=krename
-pkgver=5.0.0
+pkgver=5.0.1
 _commit=db407cbfa2d3528dcf4b5b59ae9c5f9edbf13b7c
-pkgrel=3
+pkgrel=1
 pkgdesc="Powerful batch renamer for KDE."
 arch=("x86_64")
 url="https://userbase.kde.org/KRename"
@@ -10,15 +10,15 @@ license=('GPL')
 depends=('kcompletion' 'kconfig' 'kcoreaddons' 'kcrash' 'ki18n' 'kiconthemes' 'kitemviews' 'kjobwidgets'
          'kjs' 'kio' 'kservice' 'kwidgetsaddons' 'kxmlgui' 'taglib' 'exiv2' 'podofo')
 makedepends=('extra-cmake-modules' 'kdoctools')
-#source=("https://download.kde.org/stable/krename/${pkgver}/src/krename-${pkgver}.tar.xz")
-source=("https://github.com/KDE/krename/archive/${_commit}.zip")
-md5sums=('54ca7214344fa9fc73b7e138f750fd77')
+source=("https://download.kde.org/stable/krename/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+#source=("https://github.com/KDE/krename/archive/${_commit}.zip")
+sha256sums=('caac78afd3ba06613df47bbd1570bb900acf4185547354d6eb588e70656f6a7d')
  
 build() {
   mkdir -p build
   cd build
  
-  cmake ../${pkgname}-${_commit} \
+  cmake ../${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib
