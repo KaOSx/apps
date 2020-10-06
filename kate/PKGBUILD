@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kate
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Advanced editor component which is used in numerous KDE applications requiring a text editing component'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/kate'
@@ -24,7 +24,7 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd $pkgname-${pkgver}
   # 20.08 issue with menu disappearing 
-  patch -p1 -i ${srcdir}/d679aca69c946c21a5bfa7ca1eb4e146ea90d139.diff
+  #patch -p1 -i ${srcdir}/d679aca69c946c21a5bfa7ca1eb4e146ea90d139.diff
 }
 
 build() {
