@@ -1,6 +1,6 @@
 
 pkgname=musescore
-pkgver=3.5
+pkgver=3.5.1
 pkgrel=1
 pkgdesc="Music notation and composition software written in Qt"
 arch=('x86_64')
@@ -13,22 +13,23 @@ groups=('multimedia')
 source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz"
 #source=("https://download.musescore.com/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.zip"
         'cmake_install.diff')
-md5sums=('56e899692e544cc8ed75a2ea8cdcbf8a'
+md5sums=('b46ca3701fad0d57acd1cf67664ab284'
          '421e6b35338f5c853cb92f29838e01f3')
 
 prepare() {
   cd MuseScore-${pkgver}
-  #sed -i 's|add_subdirectory(manual)|#add_subdirectory(manual)|' CMakeLists.txt
+  #sed -i 's|QT_QMAKE_EXECUTABLE qmake|QT_QMAKE_EXECUTABLE qmake-qt5|' build/FindQt5.cmake
 }
 
 build() {
   mkdir -p build
   cd build
   
+  PATH=/usr/lib/qt5/bin:${PATH}
   cmake ../MuseScore-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_CRASH_REPORTER=OFF
+    -DBUILD_CRASH_REPORTER=OFF 
   make lrelease
   make manpages
   make
@@ -36,7 +37,7 @@ build() {
 
 package() {
   cd build
-  patch -p1 -i ${srcdir}/cmake_install.diff
+  #patch -p1 -i ${srcdir}/cmake_install.diff
   
   make DESTDIR=${pkgdir} install
   
