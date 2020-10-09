@@ -4,36 +4,25 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=blinken
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Memory Enhancement Game"
-url="http://kde.org/applications/education/blinken/"
+url="https://kde.org/applications/en/blinken"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kxmlgui' 'kguiaddons' 'kdbusaddons' 'phonon-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools')
-replaces=('kdeedu-blinken')
-conflicts=('kdeedu-blinken')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education' 'kaos-kids')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-$pkgver \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib \
-    -DLIBEXEC_INSTALL_DIR=lib
-  make
+    cmake -B build -S ${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr
+    cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+    DESTDIR=${pkgdir} cmake --install build
 }

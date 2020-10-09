@@ -4,48 +4,36 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=artikulate
 pkgver=${_kdever}
-#pkgver=15.07.70
-pkgrel=1
+pkgrel=2
 pkgdesc="Improve your pronunciation by listening to native speakers."
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/kdeedu/artikulate'
+url='https://kde.org/applications/en/artikulate'
 license=('LGPL')
 depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdeclarative' 'ki18n' 'kio' 'knewstuff'
          'kwidgetsaddons' 'kxmlgui' 'kirigami' 'qt5-gstreamer' 'qt5-multimedia' 'qt5-xmlpatterns')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-conflicts=('kdeedu-artikulate')
-replaces=('kdeedu-artikulate')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
-source=($_mirror/${pkgname}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/artikulate.git#branch=frameworks")
-#md5sums=('SKIP')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname-${pkgver}
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
 }
 
 build() {
-  cd ${srcdir}
-
-  mkdir build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd ${srcdir}/build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
