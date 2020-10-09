@@ -4,9 +4,9 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktouch
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Touch Typing Tutor"
-url="http://kde.org/applications/education/ktouch/"
+url="https://kde.org/applications/education/ktouch/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdeclarative' 'ki18n' 'kio' 'knewstuff' 'kwidgetsaddons'
@@ -17,27 +17,18 @@ source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${pkgname}-${pkgver}
-  sed -i -e 's|Exec=ktouch|Exec=ktouch -qwindowtitle %c %u|' org.kde.ktouch.desktop
+    cd ${pkgname}-${pkgver}
+    sed -i -e 's|Exec=ktouch|Exec=ktouch -qwindowtitle %c %u|' org.kde.ktouch.desktop
 }
 
 build() {
-  mkdir build
-  
-  cd build
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make
+    cmake -B build -S ${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr
+    cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+    DESTDIR=${pkgdir} cmake --install build
 }

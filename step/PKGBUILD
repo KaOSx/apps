@@ -4,11 +4,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=step
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Interactive Physical Simulator"
-url="http://kde.org/applications/education/step/"
+url="https://kde.org/applications/education/step/"
 arch=('x86_64')
-url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcrash' 'kconfig' 'ki18n' 'kiconthemes' 'kio' 'knewstuff' 'kplotting'
          'ktextwidgets' 'libqalculate' 'gsl' 'eigen3')
@@ -18,21 +17,14 @@ source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make
+    cmake -B build -S ${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DBUILD_TESTING=OFF
+    cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+    DESTDIR=${pkgdir} cmake --install build
 }

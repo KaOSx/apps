@@ -4,38 +4,31 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kig
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Interactive Geometry"
-url="http://kde.org/applications/education/kig/"
+url="https://kde.org/applications/education/kig/"
 arch=('x86_64')
 url='http://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kparts' 'ki18n' 'ktexteditor' 'kiconthemes' 'kconfigwidgets' 'karchive' 'kxmlgui'
          'kcrash' 'kcoreaddons') # 'boost-libs')
 makedepends=('extra-cmake-modules' 'kdoctools') # 'boost')
-conflicts=('kdeedu-kig')
-replaces=('kdeedu-kig')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
     #-DKIG_ENABLE_PYTHON_SCRIPTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
