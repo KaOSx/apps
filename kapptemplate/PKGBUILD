@@ -4,43 +4,34 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kapptemplate
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Template Generator'
-url='http://kde.org/applications/development/kapptemplate/'
+url='https://kde.org/applications/development/kapptemplate/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kconfigwidgets' 'kcompletion' 'karchive' 'kio' 'ki18n')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdesdk-kapptemplate')
-replaces=('kdesdk-kapptemplate')
 groups=('kde' 'kde-sdk' 'kde-uninstall' 'programming')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'template.diff')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '096a81c21b4b9774690dffac211e1fab')
 
 prepare() {
-  cd $pkgname-${pkgver}
-  
-  #patch -p1 -i ${srcdir}/template.diff
+    cd $pkgname-${pkgver}
+
+    #patch -p1 -i ${srcdir}/template.diff
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make
+    cmake -B build -S ${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DBUILD_TESTING=OFF
+    cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+    DESTDIR=${pkgdir} cmake --install build
 }

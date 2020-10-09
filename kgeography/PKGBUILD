@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kgeography
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Geography Trainer"
 url="https://kde.org/applications/education/kgeography/"
 arch=('x86_64')
@@ -13,25 +13,19 @@ depends=('kxmlgui' 'kwidgetsaddons' 'kcoreaddons' 'kconfigwidgets' 'ki18n' 'kite
          'kiconthemes' 'kservice')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  # fix build for 17.04.3
-  #mkdir -p po/locale/LC_SCRIPTS/kgeography
-
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_TESTING=OFF 
-  make
+    cmake -B build -S ${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DBUILD_TESTING=OFF
+    cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+    DESTDIR=${pkgdir} cmake --install build
 }
 
