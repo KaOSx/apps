@@ -1,0 +1,30 @@
+
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=plasma-disks
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc="Monitors S.M.A.R.T. capable devices for imminent failure."
+url="https://invent.kde.org/plasma/plasma-disks"
+arch=('x86_64')
+license=('LGPL')
+depends=('kcoreaddons' 'kdbusaddons' 'knotifications' 'ki18n' 'solid' 'kservice' 'kio' 'kauth'
+         'kdeclarative' 'smartmontools')
+makedepends=('extra-cmake-modules')
+groups=('kdeplasma5')
+source=("$_mirror/${pkgname}-${_plasmaver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+    cmake -B build -S ${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr
+    cmake --build build
+}
+
+package() {
+
+    DESTDIR=${pkgdir} cmake --install build
+}
