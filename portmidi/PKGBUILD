@@ -1,7 +1,7 @@
 
 pkgname=portmidi
-pkgver=217
-pkgrel=3
+pkgver=234
+pkgrel=1
 pkgdesc="Cross-platform, open-source I/O libraries for digital media including MIDI, video, and audio"
 arch=('x86_64')
 url="http://portmedia.sourceforge.net/"
@@ -10,21 +10,22 @@ depends=('alsa-lib')
 makedepends=('cmake' 'java-environment')
 optdepends=('java-runtime: for using pmdefaults')
 options=('!makeflags')
-source=("https://downloads.sourceforge.net/project/portmedia/portmidi/${pkgver}/${pkgname}-src-${pkgver}.zip"
+#source=("https://downloads.sourceforge.net/project/portmedia/portmidi/${pkgver}/${pkgname}-src-${pkgver}.zip"
+source=("https://sourceforge.net/projects/portmedia/files/portmedia-code-r${pkgver}.zip"
         'java.patch')
-md5sums=('03f46fd3947e2ef4c8c465baaf832241'
+md5sums=('bdda0bd7f20e8d1d82a87d2818ea33d4'
          '59cb428b29a33bab3bb5811cda479a9b')
 
 prepare() {
-  cd ${pkgname}
+  cd portmedia-code-r${pkgver}/${pkgname}/trunk
   sed -i "s|/usr/local|/usr|" */CMakeLists.txt pm_python/setup.py
   mkdir -p pm_java/Release
 
-  patch -p1 -i ${srcdir}/java.patch 
+  #patch -p1 -i ${srcdir}/java.patch 
 }
 
 build() {
-  cd ${pkgname}
+  cd portmedia-code-r${pkgver}/${pkgname}/trunk
   
   cmake . -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release \
@@ -34,7 +35,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}
+  cd portmedia-code-r${pkgver}/${pkgname}/trunk
   make DESTDIR=${pkgdir} install
 
   ln -s libportmidi.so ${pkgdir}/usr/lib/libporttime.so
