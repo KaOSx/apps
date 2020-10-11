@@ -1,18 +1,19 @@
 
 pkgname=rkward
-pkgver=0.7.1.1
-_pkgver=0.7.1b
+pkgver=0.7.2
+_pkgver=0.7.2
 pkgrel=1
 pkgdesc="Provides an easily extensible, easy to use IDE/GUI for R."
 arch=('x86_64')
 url="https://rkward.kde.org/"
 license=('GPL')
-depends=('kcoreaddons' 'ki18n' 'kxmlgui' 'ktexteditor' 'kwidgetsaddons' 'kdewebkit' 'kparts' 'knotifications'
-         'kwindowsystem' 'kcrash' 'qtwebkit-tp' 'qt5-script' 'r')
+depends=('kcoreaddons' 'ki18n' 'kxmlgui' 'ktexteditor' 'kwidgetsaddons' 'kparts' 'knotifications'
+         'kwindowsystem' 'kcrash' 'kate' 'qtwebengine' 'qt5-script' 'r')
 makedepends=('extra-cmake-modules' 'kdoctools' 'icu')
 groups=('science')
-source=("https://download.kde.org/stable/rkward/${_pkgver}/src/rkward-${_pkgver}.tar.gz")
-sha256sums=('0cca23b106f569549a005110eeecb2557805049e6659c3a2ebd5eb18e392ac76')
+#source=("https://download.kde.org/stable/rkward/${_pkgver}/src/rkward-${_pkgver}.tar.gz")
+source=("https://files.kde.org/rkward/testing/for_packaging/rkward-${_pkgver}.tar.gz")
+sha256sums=('452350a4057d9dc87bb7c7e2f5c38b5cb9715b42141186b0e8c4a28e3dd2adf6')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
@@ -33,8 +34,6 @@ build() {
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DR_LIBDIR="/usr/lib/R/library" \
-    -DNO_R_XML=1 \
     -DBUILD_TESTING=OFF 
   make
 }
