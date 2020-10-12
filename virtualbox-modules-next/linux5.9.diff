@@ -1,0 +1,114 @@
+Index: trunk/src/VBox/Runtime/r0drv/linux/memobj-r0drv-linux.c
+===================================================================
+--- a/vboxdrv/r0drv/linux/memobj-r0drv-linux.c	(revision 140593)
++++ b/vboxdrv/r0drv/linux/memobj-r0drv-linux.c	(working copy)
+@@ -1181,7 +1181,9 @@
+          */
+         else
+             rc = get_user_pages_remote(
++# if GET_USER_PAGES_API < KERNEL_VERSION(5, 9, 0)
+                                 pTask,                  /* Task for fault accounting. */
++# endif
+                                 pTask->mm,              /* Whose pages. */
+                                 R3Ptr,                  /* Where from. */
+                                 cPages,                 /* How many pages. */
+Index: trunk/src/VBox/Runtime/r0drv/linux/the-linux-kernel.h
+===================================================================
+--- a/vboxdrv/r0drv/linux/the-linux-kernel.h	(revision 140593)
++++ b/vboxdrv/r0drv/linux/the-linux-kernel.h	(working copy)
+@@ -137,7 +137,11 @@
+ #include <linux/interrupt.h>
+ #include <linux/completion.h>
+ #include <linux/compiler.h>
+-#ifndef HAVE_UNLOCKED_IOCTL /* linux/fs.h defines this */
++/* linux/fs.h defines HAVE_UNLOCKED_IOCTL from 2.6.11 till 5.9, but its meaning remains valid */
++#if RTLNX_VER_MIN(5,9,0)
++# define HAVE_UNLOCKED_IOCTL 1
++#endif
++#if !defined(HAVE_UNLOCKED_IOCTL) && RTLNX_VER_MAX(2,6,38)
+ # include <linux/smp_lock.h>
+ #endif
+ /* For the shared folders module */
+Index: trunk/src/VBox/Runtime/r0drv/linux/thread2-r0drv-linux.c
+===================================================================
+--- a/vboxdrv/r0drv/linux/thread2-r0drv-linux.c	(revision 140593)
++++ b/vboxdrv/r0drv/linux/thread2-r0drv-linux.c	(working copy)
+@@ -54,51 +54,44 @@
+ 
+ DECLHIDDEN(int) rtThreadNativeSetPriority(PRTTHREADINT pThread, RTTHREADTYPE enmType)
+ {
+-#if RTLNX_VER_MIN(2,6,11)
+-    /* See comment near MAX_RT_PRIO in linux/sched.h for details on
+-       sched_priority. */
+-    int                 iSchedClass = SCHED_NORMAL;
+-    struct sched_param  Param       = { .sched_priority = MAX_PRIO - 1 };
++    int                 iSchedClass = SCHED_FIFO;
++    int                 rc = VINF_SUCCESS;
++    struct sched_param  Param = { 0 };
++
++    RT_NOREF_PV(pThread);
++#if RTLNX_VER_MIN(5,9,0)
++    RT_NOREF_PV(iSchedClass);
++    RT_NOREF_PV(Param);
++#endif
+     switch (enmType)
+     {
+-        case RTTHREADTYPE_INFREQUENT_POLLER:
+-            Param.sched_priority = MAX_RT_PRIO + 5;
+-            break;
+-
+-        case RTTHREADTYPE_EMULATION:
+-            Param.sched_priority = MAX_RT_PRIO + 4;
+-            break;
+-
+-        case RTTHREADTYPE_DEFAULT:
+-            Param.sched_priority = MAX_RT_PRIO + 3;
+-            break;
+-
+-        case RTTHREADTYPE_MSG_PUMP:
+-            Param.sched_priority = MAX_RT_PRIO + 2;
+-            break;
+-
+         case RTTHREADTYPE_IO:
+-            iSchedClass = SCHED_FIFO;
++#if RTLNX_VER_MAX(5,9,0)
++            /* Set max. priority to preempt all other threads on this CPU. */
+             Param.sched_priority = MAX_RT_PRIO - 1;
++#else 
++            /* Effectively changes prio to 50 */
++            sched_set_fifo(current);
++#endif
+             break;
+-
+         case RTTHREADTYPE_TIMER:
+-            iSchedClass = SCHED_FIFO;
++#if RTLNX_VER_MAX(5,9,0)
+             Param.sched_priority = 1; /* not 0 just in case */
++#else
++            /* Just one above SCHED_NORMAL class */
++            sched_set_fifo_low(current);
++#endif
+             break;
+-
+         default:
+-            AssertMsgFailed(("enmType=%d\n", enmType));
+-            return VERR_INVALID_PARAMETER;
++            /* pretend success instead of VERR_NOT_SUPPORTED */
++            return rc;
++    }
++#if RTLNX_VER_MAX(5,9,0)
++    if ((sched_setscheduler(current, iSchedClass, &Param)) != 0) {
++        rc = VERR_GENERAL_FAILURE;
+     }
+-
+-    sched_setscheduler(current, iSchedClass, &Param);
+-#else
+-    RT_NOREF_PV(enmType);
+ #endif
+-    RT_NOREF_PV(pThread);
+-
+-    return VINF_SUCCESS;
++    return rc;
+ }
+ 
+ 
