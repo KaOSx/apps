@@ -2,7 +2,7 @@
 pkgname=krita
 pkgver=4.4.0
 _pkgver=4.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -12,7 +12,7 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'kimageformats'
          'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
          'libraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'gmic-qt' 'pyqt5-python3' 'quazip' 'qt5-tools' 
-         'opencolorio') # 'seexpr')
+         'opencolorio' 'seexpr')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost') # 'clang') 
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
@@ -35,7 +35,7 @@ prepare() {
 }
 
 build() {
-  #mkdir -p build
+  mkdir -p build
   cd build
   
   #export CC=/usr/bin/clang

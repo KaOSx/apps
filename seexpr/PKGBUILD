@@ -1,13 +1,13 @@
 
 pkgname=seexpr
 pkgver=3.4.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Fork of Walt Disney Animation Studios SeExpr, an embeddable expression evaluation engine'
 arch=('x86_64')
 url='https://invent.kde.org/graphics/seexpr'
 license=('LGPL')
-depends=('python3' 'boost-libs' 'llvm' 'pyqt5-python3')
-makedepends=('extra-cmake-modules' 'boost')
+depends=('python3' 'boost-libs' 'pyqt5-python3') #'llvm'
+makedepends=('extra-cmake-modules' 'boost' 'qt5-tools')
 source=("https://download.kde.org/stable/seexpr/${pkgname}-${pkgver}.tar.gz")
 sha256sums=('3f5b5330667d398285c9f7086cc3fd7e1363f3fa75f79b39766c34fe2e233656')
 
@@ -17,9 +17,10 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DBUILD_DEMOS=TRUE \
-    -DBUILD_DOC=FALSE \
-    -DBUILD_TESTS=FALSE \
-    -DPYQT_SIP_DIR=/usr/share/sip/PyQt5
+    -DBUILD_DOC=OFF \
+    -DBUILD_TESTS=OFF \
+    -DPYQT_SIP_DIR=/usr/share/sip/PyQt5 \
+    -DENABLE_LLVM_BACKEND=OFF
   cmake --build build
 }
 
