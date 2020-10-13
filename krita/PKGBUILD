@@ -1,8 +1,8 @@
 
 pkgname=krita
-pkgver=4.3.0
-_pkgver=4.3.0
-pkgrel=3
+pkgver=4.4.0
+_pkgver=4.4.0
+pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -11,7 +11,8 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'kiconthemes' 'kitemmodels' 'kitemviews' 'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem'
          'kimageformats'
          'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
-         'libraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'gmic-qt' 'pyqt5-python3' 'quazip' 'qt5-tools' 'opencolorio')
+         'libraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'gmic-qt' 'pyqt5-python3' 'quazip' 'qt5-tools' 
+         'opencolorio') # 'seexpr')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost') # 'clang') 
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
@@ -19,7 +20,7 @@ source=("https://download.kde.org/stable/krita/${_pkgver}/${pkgname}-${pkgver}.t
         "https://invent.kde.org/kde/krita/commit/e3d8db77ffb8ec5fece841937feb86af361bb0cb.diff"
         "https://invent.kde.org/graphics/krita/-/commit/d5bb12ac894ab8684d647bdf1559f745092dc741.diff"
         'launch_krita.sh')
-md5sums=('ef341ed33b65743119fd308f0a5b58a3'
+md5sums=('fb038d63c24bbd9394368adb4e887683'
          '79072a3c84673eb159cb09ff33ac62d5'
          'accfc0adc868e490c3a49a04fdd8a5b8'
          '673003bb648af0d4f801043ee0a17c2a')
@@ -34,7 +35,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
+  #mkdir -p build
   cd build
   
   #export CC=/usr/bin/clang
