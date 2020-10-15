@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/kio'
@@ -15,17 +15,14 @@ depends=('karchive' 'kconfig' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kser
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kf5')
 source=("https://download.kde.org/stable/frameworks/5.74/${pkgname}-${pkgver}.tar.xz"
-        'kauth4.diff'
-        "https://github.com/KDE/kio/commit/cf3b0d102855a4a90db3fb65a99e0009fcdd3755.diff")
+        "https://invent.kde.org/frameworks/kio/-/commit/4321b8ff8ac7a8ffdea1068d8bbc734a0a34c0d0.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '093017bbf68b63d2ddc658b84fe021b9'
-         '95a110f2707f3263c810333931c214ac')
+         '0b4acd4ed3acb920154dc6481884aaf5')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # GSOC project to include root operation, target dolphin
-  # https://docs.google.com/document/d/1LhuHwwo_hCziM2-3UsffpODwnjypYQjMnB7YHEQd4dQ
-  #patch -p1 -i ${srcdir}/kauth4.diff
+
+  patch -p1 -i ${srcdir}/4321b8ff8ac7a8ffdea1068d8bbc734a0a34c0d0.diff
 }
          
 build() {
