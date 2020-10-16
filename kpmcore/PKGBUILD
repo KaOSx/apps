@@ -1,20 +1,20 @@
 
 pkgname=kpmcore
-pkgver=4.1.0
+pkgver=4.2.0
 _commit=cbe21e7ef974fe3c95ef418bbf098af716e5ff33
 pkgrel=1
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('x86_64')
 url="https://github.com/KDE/kpmcore"
 license=('GPL2')
-depends=('ki18n' 'kcoreaddons' 'kwidgetsaddons' 'kauth' 'smartmontools' 'parted' 'qca-qt5')
-makedepends=('extra-cmake-modules' 'pkgconfig')
+depends=('ki18n' 'kcoreaddons' 'kwidgetsaddons' 'smartmontools' 'parted' 'qca-qt5' 'polkit-qt5')
+makedepends=('extra-cmake-modules' 'pkgconfig' 'kauth')
 groups=('system')
 options=('debug')
 source=("https://download.kde.org/stable/kpmcore/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/KDE/kpmcore/commit/b10577e1c7ba0c856c96c96a80187b977f88ef34.diff")
 #source=("https://github.com/KDE/kpmcore/archive/${_commit}.zip")
-sha256sums=('b545a357cc348c84e8875531fdfe40fc63d915f03581e5004c4bd547d579514b'
+sha256sums=('32f5b40aabc566dcdc265c9ae83229ce8acf6ca25a8ba7f1b7b9cab0aa499f9e'
             '3c44437937b11933e5b59281b0f236999b787f0e1dffff1c9af813e2c14ca394')
 
 prepare() {
