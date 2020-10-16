@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=systemsettings
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE system settings'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/systemsettings'
@@ -14,7 +14,7 @@ depends=('kitemviews' 'kcmutils' 'ki18n' 'kio' 'kservice' 'kiconthemes' 'kwidget
          'kactivities-stats' 'kirigami' 'plasma-workspace')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/stable/plasma/5.20.0/${pkgname}-${pkgver}.tar.xz")
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
