@@ -22,7 +22,8 @@ source=("git://github.com/KaOSx/calamares"
         'LICENSE.txt'
         'release_notes.qml'
         'release_notes_welcomeq.qml'
-        'chevron-left-solid.svg')
+        'chevron-left-solid.svg'
+        "https://github.com/calamares/calamares/commit/3313a5341d547f0fa059320325cd093b1300395d.diff")
 md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
          'd5c65f43e057054e9728810530c4a030'
@@ -32,7 +33,8 @@ md5sums=('SKIP'
          '4b126b6494c776016accd8ffbd0be51d'
          'bf4a935ae9b0e68639bd9968aff9c3ae'
          'c529d6ddeda384bea7d085a932908b26'
-         'dc880f17456d5cad7f07d83554c22b9b')
+         'dc880f17456d5cad7f07d83554c22b9b'
+         'a99fa538513e26bb43991fc22f054d4e')
 
 prepare () {
   cd ${pkgname}
@@ -41,7 +43,7 @@ prepare () {
   #git submodule update
   
   #sed -e "s|add_calamares_python_translations|#add_calamares_python_translations|" -i src/modules/CMakeLists.txt
-  #patch -R -p1 -i ${srcdir}/5f0993ca8cfbad1a9e0d10454cc4c2509c402921.diff
+  patch -p1 -i ${srcdir}/3313a5341d547f0fa059320325cd093b1300395d.diff
 }
 
 build() {
