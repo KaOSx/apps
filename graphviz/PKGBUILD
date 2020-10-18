@@ -8,7 +8,7 @@ arch=('x86_64')
 url="https://www.graphviz.org/"
 license=('CPL')
 depends=('gd' 'librsvg' 'libxaw' 'ghostscript' 'pango' 'libtool' 'perl' 'python3' 'tcl' 'qt5-base')
-makedepends=('swig' 'guile')
+makedepends=('swig' 'guile' 'groff')
 options=('!libtool')
 #source=("https://gitlab.com/graphviz/graphviz/-/archive/stable_release_${_pkgver}/graphviz-stable_release_${_pkgver}.tar.gz"
 source=("https://www2.graphviz.org/Packages/stable/portable_source/graphviz-${_pkgver}.tar.gz"
@@ -27,7 +27,7 @@ build() {
         --enable-python3=yes \
         --disable-python \
         --without-included-ltdl \
-		--disable-ltdl-install
+        --disable-ltdl-install
     make
 }
 
