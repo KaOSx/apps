@@ -2,7 +2,7 @@
 pkgname=libtorrent-rasterbar
 pkgver=1.2.10
 _pkgver=1_2_10
-pkgrel=1
+pkgrel=2
 pkgdesc="A C++ library that aims to be a good alternative to all the other bittorrent implementations around"
 url="https://libtorrent.org/"
 arch=('x86_64')
@@ -23,7 +23,7 @@ build() {
   # https://github.com/arvidn/libtorrent/commit/d1a63cd781e79e1e3792a258c0bc7f9455f2272f
   #patch -p1 -i ${srcdir}/boost1.66.patch
   
-  #CXXFLAGS="-std=c++11" \
+  CFLAGS="-O -std=c++14"  \
   PYTHON=/usr/bin/python3 \
   PYTHON_VERSION=3.8 \
   ./configure --prefix=/usr \
