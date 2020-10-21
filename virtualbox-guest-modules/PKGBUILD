@@ -1,5 +1,5 @@
 
-_extramodules=extramodules-5.7
+_extramodules=extramodules-5.8
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-guest-modules
@@ -10,14 +10,14 @@ pkgdesc='VirtualBox guest kernel modules, to use with guest-utils'
 arch=('x86_64')
 license=('GPL' 'custom')
 url='https://virtualbox.org'
-depends=('linux>=5.7.7' 'linux<5.8' 'elfutils')
+depends=('linux>=5.8.16' 'linux<5.9' 'elfutils')
 makedepends=('linux-headers')
 install=virtualbox-guest-modules.install
 options=('!strip')
 source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-guest-module-src-${_pkgver}.tar.xz"
         'vbox-guest-modules.conf'
         'linux4.18.patch')
-md5sums=('fca5b5d6867b92ffcaf5c19ef34ba7f7'
+md5sums=('9e3d0dc5dfb1ec5aa5d1d2e579efa7f3'
          'ac6011232f39821417e1ab6b17fd1bd1'
          'c91b26e00d22dca8bc5b00b73708e05d')
 
