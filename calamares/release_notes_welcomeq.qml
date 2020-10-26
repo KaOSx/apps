@@ -61,7 +61,7 @@ Rectangle {
             
             <p>New applications added include Kdiff3 and the Keysmith (for Two-factor authentication)</p>
             
-            <p>Updates to the base of this distribution include GCC 10.2.0, Glibc 2.32, Binutils 2.35.1, Systemd 246, Git 2.29.0,  Opencv 4.5.0, Gstreamer 1.18.0, Poppler 20.10.0, Mesa 20.2.1, NetworkManager 1.26.4, Perl 5.30.3, Xorg-server 1.20.9, Linux 5.8.16 and Qt 5.15.1.</p>
+            <p>Updates to the base of this distribution include GCC 10.2.0, Glibc 2.32, Binutils 2.35.1, Systemd 246, Git 2.29.1,  Opencv 4.5.0, Gstreamer 1.18.0, Poppler 20.10.0, Mesa 20.2.1, NetworkManager 1.26.4, Perl 5.30.3, Xorg-server 1.20.9, Linux 5.8.16 and Qt 5.15.1.</p>
             
             <p>The Midna theme used for KaOS has been redone for 2020, biggest change there is the move from QtCurve to <b>Kvantum</b> for the application style.  Implemented is a custom Midna Kvantum theme, following the same style as used in Croeso and the Welcome application. Ksplash is simplified with less moving images, SDDM theme has better contrast.  Complete new is <b>theming for the systemd-bootloader</b>, gone is the standard black background with white text, instead you will see a well intgrated option with the rest of the Midna theme.  The grub bootloader was updated to follow a similar look as the systemd-bootloader.</p>
             
