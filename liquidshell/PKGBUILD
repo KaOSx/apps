@@ -1,23 +1,22 @@
 
 pkgname=liquidshell
-pkgver=1.7.1
-_commit=834a61ade7404c7e5c67bb3c6e0481c15b256fce
+pkgver=1.7.2
 pkgrel=1
 pkgdesc="Alternative desktop replacement for Plasma, using QtWidgets instead of QtQuick."
 arch=('x86_64')
-url='https://github.com/KDE/liquidshell'
+url='https://invent.kde.org/system/liquidshell'
 license=('LGPL')
 depends=('kwindowsystem' 'kwidgetsaddons' 'kconfigwidgets' 'kconfig' 'kio' 'kiconthemes'
          'kitemviews' 'karchive' 'knotifications' 'ki18n' 'networkmanager-qt' 'kservice' 
          'solid' 'bluez-qt' 'kcmutils' 'kcrash' 'kdbusaddons' 'knewstuff')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("https://github.com/KDE/liquidshell/archive/${_commit}.zip"
+source=("https://download.kde.org/stable/liquidshell/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         'packagekit.patch')
-md5sums=('66b6e3bb3fd3339b315550b0e5f43216'
-         'd29d2f4defce9e27c1431977a7c90afb')
+sha256sums=('510eb6ca4afac27bc914ec0010628bee702756bc9f89044fd9950fb8d508e030'
+            '80f860fc10e35c98dda08a4a107f668feb72c041d5b49d71578f5d6bd9fd0d13')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   
   #sed -i -e 's|setThemeIcon("start-here-kde")|setThemeIcon("/usr/share/icons/midna/apps/scalable/kaos.svg")|' StartMenu.cxx
   sed -i -e 's|http://www.kde.org|https://kaosx.us/|' QuickLaunch.cxx
@@ -26,22 +25,13 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${_commit} \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
