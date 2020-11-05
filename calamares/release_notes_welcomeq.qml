@@ -53,15 +53,14 @@ Rectangle {
             text: qsTr("<h3>KaOS - 2020.11</h3>
             <p>It is with great pleasure to present to you the November release of a new stable ISO.</p>
             
-            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.75.0, Plasma 5.20.2 and KDE Applications 20.08.2. All built on Qt 5.15.1.</b>.
+            <p>Big change for this release is a new GCC 10.2.0, Glibc 2.32 & Binutils 2.35.1 Toolchain.  A big part of the distribution was rebuild on this new Toolchain, including an updated to 2.66 Glib2 stack.  Mesa moved to the 20.2 series and for the kernel it was possible again to update (moved to 5.8.18), due to the creation of some custom AUFS patches.  The upstream AUFS maintainer has not resumed development yet....</p>
             
-            <p>With almost 60 % percent of the packages updated since the last ISO and the last release being over two months old, a new ISO is more than due. News for KDE Applications 20.08 included Dolphin adding thumbnails for 3D Manufacturing Format (3MF) files, you can also see previews of files and folders on encrypted file systems such as Plasma Vaults now remembers and restores the location you were viewing, as well as the open tabs, and split views you had open when you last closed it.Yakuake now lets you configure all the keyboard shortcuts that come from Konsole and there is a new system tray item that shows you when Yakuake is running. Elisa now lets you display all genres, artists, or albums in the sidebar, below other items.</p>
+            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.75.0, Plasma 5.20.2 and KDE Applications 20.08.3. All built on Qt 5.15.1.</b>.
+            Changes for Plasma 5.20 include new grouping behavior for the Task Manager, the Notifications will notify now when your system is about to run out of space on your disk even if your home directory is on a different partition and the System Settings has added the Highlight Changed Settings feature. New added to Plasma for KaOS is plasma-disk, it will give you a new option in kinfocenter to see the status of all your hard-drives/sdd.</p>
             
-            <p>For the installer Calamares, KaOS continues to move modules to QML. This release now features a Locale module with a true map. This module is developed by and for KaOS, but has been accepted upstream. Using a real world map brings far greater accuracy of the location selections.  Coordinates are shown on hover, and translated to locale on click. The new keyboard QML module introduced in the last ISO is improved with better visibility.</p>
+            <p>For the installer Calamares, there is now an option to use a swap file instead of a swap partition (default is stil swap partition). Work is still continuing on moving most modules to QML, latest is usersq, it is almost ready for use, but not included yet in this release.</p>
             
-            <p>New applications added include Kdiff3 and the Keysmith (for Two-factor authentication)</p>
-            
-            <p>Updates to the base of this distribution include GCC 10.2.0, Glibc 2.32, Binutils 2.35.1, Systemd 246, Git 2.29.1,  Opencv 4.5.0, Gstreamer 1.18.1, Poppler 20.10.0, Mesa 20.2.1, NetworkManager 1.26.4, Perl 5.30.3, Xorg-server 1.20.9, Linux 5.8.16 and Qt 5.15.1.</p>
+            <p>New applications added include Walt Disney Animation Studios SeExpr, an embeddable expression, used by Krita 4.4 and Plasma-systemmonitor, a future, QML based replacement for Ksysguard.</p>
             
             <p>The Midna theme used for KaOS has been redone for 2020, biggest change there is the move from QtCurve to <b>Kvantum</b> for the application style.  Implemented is a custom Midna Kvantum theme, following the same style as used in Croeso and the Welcome application. Ksplash is simplified with less moving images, SDDM theme has better contrast.  Complete new is <b>theming for the systemd-bootloader</b>, gone is the standard black background with white text, instead you will see a well intgrated option with the rest of the Midna theme.  The grub bootloader was updated to follow a similar look as the systemd-bootloader.</p>
             
@@ -85,7 +84,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.75.0, Plasma 5.20.2, KDE Applications 20.08.2</b>, Linux 5.8.16, Systemd 246, Kmod 27, NetworkManager 1.26.4, LibreOffice 7.0.3, Krita 4.4.1, Elisa, Xorg-Server 1.20.9, Mesa 20.2.1, Glibc 2.32, GCC 10.2.0, non-free Nvidia 455, Pepperflash and Python3 3.8.5 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.75.0, Plasma 5.20.2, KDE Applications 20.08.3</b>, Linux 5.8.18, Systemd 246, Kmod 27, NetworkManager 1.26.4, LibreOffice 7.0.3, Krita 4.4.1, Elisa, Xorg-Server 1.20.9, Mesa 20.2.1, Glibc 2.32, GCC 10.2.0, non-free Nvidia 455, Pepperflash and Python3 3.8.5 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
