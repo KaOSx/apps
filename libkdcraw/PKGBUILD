@@ -4,24 +4,18 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkdcraw
 pkgver=${_kdever}
-#pkgver=5.0.90
-pkgrel=1
-pkgdesc="A library for decoding RAW picture files"
+pkgrel=2
+pkgdesc="C++ interface around LibRaw library used to decode RAW picture files."
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/kdegraphics/libs'
+url='https://invent.kde.org/graphics/libkdcraw'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kio' 'ki18n' 'kconfig' 'kwidgetsaddons' 'libjpeg-turbo' 'libraw')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 groups=('kde-graphics')
-conflicts=('kdegraphics-libkdcraw')
-provides=('kdegraphics-libkdcraw')
-replaces=('kdegraphics-libkdcraw')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'libraw0.19.patch')
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'ffcb9e2ff0df60f07d7ed5d5b47ef2a0')
-#source=("git://anongit.kde.org/libkdcraw.git")
-#md5sums=('SKIP')
 
 prepare() {
   cd ${pkgname}-${pkgver}

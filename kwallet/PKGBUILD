@@ -5,25 +5,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kwallet
 pkgver=${_kf5ver}
 pkgrel=1
-pkgdesc='KWallet Framework'
+pkgdesc='KWallet Framework - Safe desktop-wide storage for passwords'
 arch=('x86_64')
-url='https://projects.kde.org/projects/frameworks/kwallet-framework'
+url='https://invent.kde.org/frameworks/kwallet'
 license=('LGPL')
 depends=('kcoreaddons' 'kconfig' 'kwindowsystem' 'ki18n' 'kiconthemes' 'knotifications'
          'kconfigwidgets' 'kdbusaddons' 'kservice' 'kwidgetsaddons' 'gpgme')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-#source=("https://github.com/KDE/kwallet/archive/0d56c68d7a2204a987a5255096d004d5a696c0e5.zip")
-#md5sums=('dd185a466e38bf6528f066c9006348c9')
-
-#prepare() {
-  #cd ${pkgname}-${pkgver}
-  # 5.22.0 early tar https://bugs.kde.org/show_bug.cgi?id=362805
-  #patch -p1 -i ${srcdir}/87e774825b779ba846315a8b2ffe6479dd9f9814.diff
-  #patch -p1 -Ri ${srcdir}/b3a95ba0540e01a9bb10db53fc449cc49ce9a9e8.diff
-#}
 
 build() {
   mkdir -p build
