@@ -7,13 +7,10 @@ arch=('x86_64')
 pkgver=${_kf5ver}
 pkgrel=1
 pkgdesc="Qt wrapper for Bluez 5 DBus API"
-url="https://projects.kde.org/projects/frameworks/bluezqt"
+url="https://invent.kde.org/frameworks/bluez-qt"
 license=('GPL' 'LGPL' 'FDL')
 depends=('qt5-declarative' 'bluez')
 makedepends=('extra-cmake-modules')
-conflicts=('libbluedevil')
-provides=('libbluedevil')
-replaces=('libbluedevil')
 source=($_mirror/${pkgname}-$_kf5ver.tar.xz)
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
