@@ -1,21 +1,21 @@
 
 pkgname=octopi
-pkgver=0.10.0
+pkgver=0.10.80
 pkgrel=1
-_commit=f6961a89cab1078989a084b42694516ffc75c491
+_commit=ecc737d3361434082e6da512dab3a8cd3e63b75d
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://tintaescura.com/projects/octopi/"
 arch=('x86_64')
 license=('GPL2')
 depends=('pacman' 'pacman-contrib' 'pkgfile' 'knotifications' 'alpm_octopi_utils' 'qtermwidget' 'sudo')
-makedepends=('qt5-tools')
+makedepends=('qt5-tools' 'cmake')
 groups=('system')
 #install=octopi.install
 source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
         "images3.tar.xz"
         'folder_tree.png'
         'searchlineedit.diff')
-md5sums=('768664072a5a2403c5284a409fdddb95'
+md5sums=('b60423b97bfe72c607d513248c58a748'
          '09decb09a2fa58f2211ff3d5e0350ff0'
          'eff9d31629ad8de08c9198524f798bd3'
          '79be301d683ccd8572db0571f868298c')
@@ -36,55 +36,16 @@ prepare() {
    # show correct text for SysInfo window
    sed -e "s|mhwd -li -d|installation.log|" -i src/strconstants.cpp
    sed -e "s|head --bytes=256K /var/log/pacman.log|/var/log/pacman.log|" -i src/strconstants.cpp
-   # different color for search not found, Kvantum needed
-   #sed -e "s|QPalette::Text, Qt::white|QPalette::Text, Qt::darkRed|" -i src/searchlineedit.cpp
-   
-   
-   #patch -p1 -i ${srcdir}/searchlineedit.diff
 }
          
 build() {
-   cd ${pkgname}-${_commit}
-   
-   /usr/lib/qt5/bin/qmake octopi.pro
-   make
-   
-   cd sudo
-   /usr/lib/qt5/bin/qmake octopi-sudo.pro
-   make
-   cd ..
-   
-   cd helper
-   /usr/lib/qt5/bin/qmake octopi-helper.pro
-   make
-   cd ..
-   
-   cd notifier
-   /usr/lib/qt5/bin/qmake octopi-notifier.pro
-   make
-   cd ..
-   
-   cd cachecleaner
-   /usr/lib/qt5/bin/qmake octopi-cachecleaner.pro
-   make
+  cmake -B build -S ${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
 }
 
 package() {
-   cd ${pkgname}-${_commit}
-   make INSTALL_ROOT=${pkgdir} install
-   
-   cd sudo
-   make INSTALL_ROOT=${pkgdir} install
-   cd ..
-   
-   cd helper
-   make INSTALL_ROOT=${pkgdir} install
-   cd ..
-   
-   cd notifier
-   make INSTALL_ROOT=${pkgdir} install
-   cd ..
-   
-   cd cachecleaner
-   make INSTALL_ROOT=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
