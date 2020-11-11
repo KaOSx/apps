@@ -1,8 +1,8 @@
 
 pkgname=signon-oauth2
-pkgver=0.24
+pkgver=0.25
 _commit=b74b5397992caddeb32a6158c9295126c55a3025
-pkgrel=2
+pkgrel=1
 pkgdesc='OAuth 2 plugin for signon'
 arch=('x86_64')
 url="https://gitlab.com/accounts-sso"
@@ -10,10 +10,11 @@ license=('LGPL')
 depends=('signonqt' 'qt5-xmlpatterns')
 # https://groups.google.com/forum/#!forum/accounts-sso-announce
 source=("https://gitlab.com/accounts-sso/signon-plugin-oauth2/repository/archive.tar.bz2?ref=VERSION_${pkgver}")
-md5sums=('5fa973a8f0fa5564bc3705ac389dc1b9')
+md5sums=('e88f3ebe621095ca01ffe8405b63515c')
 
 build() {
   cd signon-plugin-oauth2-VERSION_${pkgver}-*
+  sed -i '/-Werror/d' common-project-config.pri
 
   /usr/lib/qt5/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
   make
@@ -24,5 +25,5 @@ package() {
   make INSTALL_ROOT=$pkgdir install
   
   # kaccounts-providers conflict
-  rm -r $pkgdir/etc/signon-ui/webkit-options.d/www.facebook.com.conf
+  #rm -r $pkgdir/etc/signon-ui/webkit-options.d/www.facebook.com.conf
 }
