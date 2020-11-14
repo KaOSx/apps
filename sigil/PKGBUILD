@@ -1,9 +1,9 @@
 
 pkgname=sigil
 _pkgname=Sigil
-pkgver=1.3.0
-_pagever=1.3.0
-pkgrel=2
+pkgver=1.4.0
+_pagever=1.4.0
+pkgrel=1
 pkgdesc="A multi-platform WYSIWYG ebook editor. It is designed to edit books in ePub format. "
 arch=('x86_64')
 url="https://github.com/Sigil-Ebook/Sigil"
@@ -16,8 +16,8 @@ groups=('office')
 source=("Sigil-${pkgver}.tar.gz::https://github.com/Sigil-Ebook/Sigil/archive/${pkgver}.tar.gz"
         "PageEdit-${_pagever}.tar.gz::https://github.com/Sigil-Ebook/PageEdit/archive/${_pagever}.tar.gz")
 #source=("https://github.com/Sigil-Ebook/Sigil/archive/${_commit}.zip")
-sha256sums=('ac302328f0d0e0144e67bd4cbd7834650eb219f81a623f393271bf6f0686cc56'
-            'c10879e2907061c40340f3e5f1193bef8e39ec1ba47e3b2cdc4d5dcaf6caa5bd')
+sha256sums=('5b309098b857619f3c2be227e1187ee0f462019dbb43a88c2e82aeb08ee9bbb6'
+            'f14c1e998961edc260f8019f71dcc1d4314294d5fee6b7b27e7075a94d367e18')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
@@ -38,6 +38,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DUSE_SYSTEM_LIBS=1 \
+    -DINSTALL_HICOLOR_ICONS=1 \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_SKIP_RPATH=ON ..
   make
