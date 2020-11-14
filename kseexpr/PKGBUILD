@@ -1,15 +1,19 @@
 
-pkgname=seexpr
-pkgver=3.4.4.0
-pkgrel=2
+pkgname=kseexpr
+pkgver=4.0.0.0
+_pkgver=4.0.0
+pkgrel=1
 pkgdesc='Fork of Walt Disney Animation Studios SeExpr, an embeddable expression evaluation engine'
 arch=('x86_64')
-url='https://invent.kde.org/graphics/seexpr'
+url='https://invent.kde.org/graphics/kseexpr'
 license=('LGPL')
 depends=('python3' 'boost-libs' 'pyqt5-python3') #'llvm'
 makedepends=('extra-cmake-modules' 'boost' 'qt5-tools')
-source=("https://download.kde.org/stable/seexpr/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('3f5b5330667d398285c9f7086cc3fd7e1363f3fa75f79b39766c34fe2e233656')
+provides=('seexpr')
+replaces=('seexpr')
+conflicts=('seexpr')
+source=("https://download.kde.org/stable/kseexpr/${_pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('3b2bfad1a60afb5efcea2c16e424203696e0440401e7169dec1db6df27ef2228')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
