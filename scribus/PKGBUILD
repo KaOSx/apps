@@ -2,7 +2,7 @@
 pkgname=scribus
 _pkgname=Scribus
 _commit=3742559924136c2471ab15081c5b600dd5feaeb0
-pkgver=1.5.5.81
+pkgver=1.5.6.1
 pkgrel=10
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
@@ -14,27 +14,27 @@ depends=('libcups' 'lcms2' 'qt5-declarative' 'ghostscript' 'libart-lgpl' 'python
 makedepends=('cmake' 'boost' 'qt5-tools')
 groups=('office')
 options=('!libtool' '!makeflags')
-#source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
+source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+#source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
         "https://github.com/scribusproject/scribus/commit/17d6a9833488163d7c33c3f2233916b18550e253.diff"
         'poppler86.diff')
-sha256sums=('a4734bb33e133058d76ebddf9a1dc3d7eea4ab7452f245df3462d67c90987de3'
+sha256sums=('d4257695539cfa40dead8abdaf04c51e34d4d74bcad5a2c934d08e6e9d43b7ab'
             '96669eb3b0b3da22f1c6a922d2efdd6569115a68dec738f03bcb6e7758cea884'
             '9c807f5869bdd96830bee7990f764ce1b81c04cfb543163bf336d7debab8ffd1')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   
   #sed -i 's|hunspell-1.3 hunspell-1.2|hunspell-1.3 hunspell-1.7|' cmake/modules/FindHUNSPELL.cmake
-  patch -p0 -i ${srcdir}/poppler86.diff
-  patch -p1 -i ${srcdir}/17d6a9833488163d7c33c3f2233916b18550e253.diff
+  #patch -p0 -i ${srcdir}/poppler86.diff
+  #patch -p1 -i ${srcdir}/17d6a9833488163d7c33c3f2233916b18550e253.diff
 }
 
 build() {
 	mkdir -p build
 	cd build
 	
-	cmake ../${pkgname}-${_commit} \
+	cmake ../${pkgname}-${pkgver} \
 	   -DCMAKE_INSTALL_PREFIX=/usr \
 	   -DCMAKE_BUILD_TYPE=Release \
 	   -DCMAKE_SKIP_RPATH=ON \
