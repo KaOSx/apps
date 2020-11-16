@@ -55,7 +55,7 @@ Rectangle {
             
             <p>Big change for this release is a new GCC 10.2.0, Glibc 2.32 & Binutils 2.35.1 Toolchain.  A big part of the distribution was rebuild on this new Toolchain, including an updated to 2.66 Glib2 stack.  Mesa moved to the 20.2 series and for the kernel it was possible again to update (moved to 5.8.18), due to the creation of some custom AUFS patches.  The upstream AUFS maintainer has not resumed development yet....</p>
             
-            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.75.0, Plasma 5.20.2 and KDE Applications 20.08.3. All built on Qt 5.15.1.</b>.
+            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.76.0, Plasma 5.20.3 and KDE Applications 20.08.3. All built on Qt 5.15.1.</b>.
             Changes for Plasma 5.20 include new grouping behavior for the Task Manager, the Notifications will notify now when your system is about to run out of space on your disk even if your home directory is on a different partition and the System Settings has added the Highlight Changed Settings feature. New added to Plasma for KaOS is plasma-disk, it will give you a new option in kinfocenter to see the status of all your hard-drives/sdd.</p>
             
             <p>For the installer Calamares, there is now an option to use a swap file instead of a swap partition (default is stil swap partition). Work is still continuing on moving most modules to QML, latest is usersq, it is almost ready for use, but not included yet in this release.</p>
@@ -89,7 +89,7 @@ Rectangle {
             <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.9, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 82.0.3, Chrome 88, Ardour 6.3.0, Inkscape 1.0.1, GIMP 2.10.22 and Thunderbird 78.4.2.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 82.0.3, Chrome 88, Ardour 6.3.0, Inkscape 1.0.1, GIMP 2.10.22 and Thunderbird 78.4.3.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
