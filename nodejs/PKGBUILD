@@ -6,7 +6,7 @@ pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast,
 arch=('x86_64')
 url='https://nodejs.org/'
 license=('MIT')
-depends=('python3' 'openssl' 'zlib' 'libuv' 'icu') #'c-ares'
+depends=('python3' 'openssl' 'zlib' 'libuv' 'icu' 'c-ares')
 makedepends=('procps-ng')
 checkdepends=('curl') 
 options=('!emptydirs')
@@ -19,6 +19,7 @@ build() {
   ./configure --prefix=/usr \
     --with-intl=system-icu \
     --shared-openssl \
+    --shared-cares \
     --shared-libuv \
     --experimental-http-parser \
     --shared-zlib 
