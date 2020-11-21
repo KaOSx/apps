@@ -1,0 +1,25 @@
+ 
+pkgname=stellarsolver
+pkgver=1.5
+pkgrel=1
+pkgdesc='Astrometric Plate Solver for Mac, Linux, and Windows, built on Astrometry.net and SEP (sextractor)'
+arch=('x86_64')
+url='https://github.com/rlancaste/stellarsolver'
+license=('GPLv3')
+depends=('cfitsio' 'gsl' 'qt5-base' 'wcslib')
+makedepends=('cmake')
+source=("https://github.com/rlancaste/stellarsolver/archive/${pkgver}.tar.gz")
+sha256sums=('62ce99c066a205c9f7c5cbace1678504750ceeb99cb12bacd4e4a329c4f512bc')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr 
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+  install -Dm644 ${pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
