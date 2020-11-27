@@ -7,10 +7,10 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Libraries and daemons to implement Contact Management in Akonadi."
 arch=('x86_64')
-url='https://github.com/KDE/akonadi-contacts'
+url='https://invent.kde.org/pim/akonadi-contacts'
 license=('LGPL')
-depends=('kio' 'kcompletion' 'kcodecs' 'grantlee' 'kcontacts' 'kcalcore' 
-         'kmime' 'akonadi-mime' 'akonadi' 'prison' 'qtwebengine' 'qt5-location')
+depends=('kio' 'ki18n' 'kcompletion' 'kconfig' 'kcodecs' 'grantleetheme' 'kcontacts' 'kcalcore' 
+         'kmime' 'akonadi-mime' 'libkleo' 'prison' 'qtwebengine' 'qt5-location')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('kdepimlibs' 'kdepimlibs-debug')
 replaces=('kdepimlibs' 'kdepimlibs-debug')
@@ -25,25 +25,15 @@ prepare() {
 }
 
 build() {
-  cd ${srcdir}
-
-  mkdir build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd ${srcdir}/build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

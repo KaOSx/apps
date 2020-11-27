@@ -9,36 +9,29 @@ pkgdesc="Application to manage alarms and other timer based alerts for the deskt
 arch=('x86_64')
 url='https://github.com/KDE/kalarm'
 license=('LGPL')
-depends=('kauth' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kdbusaddons' 'kglobalaccel' 'kguiaddons'
-         'ki18n' 'kiconthemes' 'kjobwidgets' 'kcmutils' 'kio' 'knotifications'
-         'kservice' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 'kholidays'
-         'akonadi' 'akonadi-contacts' 'akonadi-mime' 'kalarmcal' 'kcalcore' 'kcalutils'
+depends=('kauth' 'kcalendarcore' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcrash'
+         'kdbusaddons' 'kglobalaccel' 'kguiaddons' 'ki18n' 'kidletime' 'kjobwidgets' 'kcmutils'
+         'kio' 'knotifications' 'knotifyconfig' 'kservice' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 
+         'kholidays' 'akonadi' 'akonadi-contacts' 'akonadi-mime' 'kalarmcal' 'kcalcore' 'kcalutils'
          'kidentitymanagement' 'kdepim-apps-libs' 'libkdepim' 'mailcommon' 
          'kmailtransport' 'kmime' 'pimcommon' 'kpimtextedit' 
          'libxslt'
-         'akonadi-import-wizard' 'pim-data-exporter' 'kdelibs4support')
+         'akonadi-import-wizard' 'pim-data-exporter')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

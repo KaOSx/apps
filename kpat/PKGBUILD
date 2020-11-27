@@ -7,7 +7,7 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Collection of various patience games known all over the world"
 arch=('x86_64')
-url='http://www.kde.org'
+url='https://apps.kde.org/en/kpat'
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kguiaddons' 
          'ki18n' 'kio' 'knewstuff' 'kwidgetsaddons' 'kxmlgui' 'libkdegames' 'phonon-qt5' 'freecell-solver')
@@ -25,24 +25,18 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make
+    -DBUILD_TESTING=OFF \
+    -DWITH_BH_SOLVER=OFF
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
-  
-  #sed -i 's|Exec=kpat -caption %c %u|Exec=kpat -qwindowtitle %c|' ${pkgdir}/usr/share/applications/org.kde.kpat.desktop
-  #sed -i 's|X-DBUS-StartupType=Multi|#X-DBUS-StartupType=Multi|' ${pkgdir}/usr/share/applications/org.kde.kpat.desktop
+  DESTDIR=${pkgdir} cmake --install build
 }
 
