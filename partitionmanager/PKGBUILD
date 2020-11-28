@@ -1,12 +1,14 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=partitionmanager
-pkgver=4.2.0
-_commit=771c0ceaa2bfd5634f65e6e390733cec557e90de
+pkgver=${_kdever}
 pkgrel=1
 epoch=1
 pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
 arch=('x86_64')
-url="https://kde.org/applications/en/partitionmanager"
+url="https://apps.kde.org/en/partitionmanager"
 license=('GPL2')
 depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n'
          'kjobwidgets' 'kio' 'kxmlgui' 'kwidgetsaddons' 'parted' 'libatasmart' 'udisks2' 'kpmcore'
@@ -14,9 +16,8 @@ depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n'
 makedepends=('extra-cmake-modules' 'pkgconfig' 'kdoctools')
 groups=('system')
 options=('debug')	
-source=("https://download.kde.org/stable/partitionmanager/${pkgver}/src/partitionmanager-${pkgver}.tar.xz")
-#source=("https://github.com/KDE/partitionmanager/archive/${_commit}.zip")
-sha256sums=('e9096dd5ce3b11e93a4e45960734f2059609d637e1b70b02f57e6ae61e8884f8')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -26,10 +27,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DKDE_INSTALL_LIBDIR=lib \
@@ -38,13 +36,11 @@ build() {
         -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
         -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
         -DBUILD_TESTING=OFF 
-
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install 
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 
