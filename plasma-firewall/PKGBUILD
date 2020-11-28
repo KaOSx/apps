@@ -1,13 +1,13 @@
 
 pkgname=plasma-firewall
-pkgver=0.1
-_commit=ac9fd313d609e361dbae73d8b2918e847bb0c60c
-pkgrel=2
+pkgver=5.20.90
+_commit=cd3db5f54f72a87c8d5bb78083d4006b6cc73386
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Firewall KCM that provides users with a graphical user interface (GUI) for the ufw (Uncomplicated Firewall)"
 url="https://invent.kde.org/tcanabrava/plasma-firewall"
-license=('GPL')
-depends=('kcoreaddons' 'kcmutils' 'ki18n' 'plasma-framework' 'kdelibs4support' 'kdeclarative'
+license=('BSD-3-Clause')
+depends=('kcoreaddons' 'kcmutils' 'ki18n' 'plasma-framework' 'kdeclarative'
          'kauth' 'kconfig' 'kio' 'knewstuff' 'kconfigwidgets' 'python3' 'ufw')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('utils')
@@ -16,22 +16,19 @@ replaces=('nomad-firewall' 'nx-firewall')
 provides=('nomad-firewall' 'nx-firewall')
 source=("https://invent.kde.org/tcanabrava/plasma-firewall/-/archive/${_commit}/plasma-firewall-${_commit}.tar.bz2"
         'ufw_enable.diff')
-md5sums=('db5c635250dd06e89099e1d8661dfd04'
+md5sums=('fc03f4f73df68f532a069757f9362939'
          '9735b8e07c2640d79fd57f9e45fa5784')
 
 prepare() {
   cd ${pkgname}-${_commit}
   
   patch -p1 -i ${srcdir}/ufw_enable.diff
-  sed -i 's|findExecutable("ss")|findExecutable("/usr/sbin/ss")|' kcm/backends/netstat/helper/netstathelper.cpp
-  sed -i 's|QStringLiteral("ss")|QStringLiteral("/usr/sbin/ss")|' kcm/backends/netstat/helper/netstathelper.cpp
+  sed -i 's|findExecutable("ss")|findExecutable("/usr/sbin/ss")|' kcm/backends/netstat/netstathelper.cpp
+  sed -i 's|QStringLiteral("ss")|QStringLiteral("/usr/sbin/ss")|' kcm/backends/netstat/netstathelper.cpp
 }
 
 build() {  
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -39,11 +36,10 @@ build() {
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build 
 }

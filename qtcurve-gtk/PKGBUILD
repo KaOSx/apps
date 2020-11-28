@@ -1,9 +1,9 @@
 
 pkgname=qtcurve-gtk
 _pkgname=qtcurve
-pkgver=1.8.18.15
-_commit=c0018df44efe55d40a5dda9e937e7b5aa6839b08
-pkgrel=2
+pkgver=1.9.1
+_commit=0020a42c02a3c488fef23d33a27fea41f302ba98
+pkgrel=1
 arch=('x86_64')
 license=('GPL')
 pkgdesc='The QtCurve style engine for GTK.'
@@ -12,14 +12,11 @@ depends=('qtcurve')
 makedepends=('extra-cmake-modules' 'gtk2')
 source=("https://github.com/KDE/qtcurve/archive/${_commit}.zip"
         'kdeglobals')
-md5sums=('55af33127225aac2a1ee215b3df37859'
+md5sums=('36d0057ee3766062964d11797c505e13'
          '8ca968e7f09201b8d2376d131a8e55df')
 
 build() {
-	mkdir -p build
-	cd build
-	
-	cmake ../${_pkgname}-${_commit} \
+	cmake -B build -S ${_pkgname}-${_commit} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DENABLE_GTK2=true \
@@ -27,12 +24,11 @@ build() {
         -DQTC_QT4_ENABLE_KDE=false \
         -DENABLE_QT5=false \
         -DENABLE_QT4=false
-	make
+	cmake --build build
 }
 
 package() {
-	cd build
-	make DESTDIR=${pkgdir} install
+	DESTDIR=${pkgdir} cmake --install build 
 	
 	rm -r ${pkgdir}/usr/lib/libqtcurve-utils.so*
 	rm -r ${pkgdir}/usr/share/themes/QtCurve/gtk-2.0/kdeglobals
