@@ -1,11 +1,13 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=ktorrent
-pkgver=5.2.0
+pkgver=${_kdever}
 pkgrel=1
-ktorver=5.2.0
-pkgdesc="A BitTorrent program for KDE"
+pkgdesc="BitTorrent application by KDE which allows you to download files using the BitTorrent protocol."
 arch=('x86_64')
-url="https://github.com/KDE/ktorrent"
+url="https://apps.kde.org/en/ktorrent"
 license=('GPL2')
 depends=('ki18n' 'kiconthemes' 'kio' 'knotifications' 'knotifyconfig'
          'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'kcrash' 'kcmutils' 'kparts'
@@ -16,8 +18,9 @@ makedepends=('extra-cmake-modules' 'boost' 'kdoctools')
 install=ktorrent.install
 groups=('network')
 options=('libtool')
-source=("https://download.kde.org/stable/ktorrent/${ktorver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('d1031d745c1ace02d11b59c426610aee779d208e3d1ae81f8559c265173732ff')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+# Need to set manually, automated also picks up md5 of libktorrent
+md5sums=('3c2d7436727c1c333d718e3f2ef6d7cb')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -26,20 +29,15 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DWITH_SYSTEM_GEOIP=ON
-  make
+    -DBUILD_TESTING=OFF
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

@@ -1,33 +1,30 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=libktorrent
-pkgver=2.2.0
-pkgrel=2
-ktorver=5.2.0
-pkgdesc="A BitTorrent program for KDE"
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="BitTorrent protocol implementation"
 arch=('x86_64')
-url="https://kde.org/applications/en/ktorrent"
+url="https://invent.kde.org/network/libktorrent"
 license=('GPL2')
 depends=('karchive' 'kcrash' 'ki18n' 'kio' 'solid' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'boost' 'doxygen' 'kdoctools')
 options=('libtool')
-source=("https://download.kde.org/stable/ktorrent/${ktorver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('77c1ddfb0a56c40227e0624c078836a8c22bf5a2fb4a3c0cbd53ee6b174c126e')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

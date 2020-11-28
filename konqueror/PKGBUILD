@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konqueror
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE File Manager & Web Browser"
 arch=('x86_64')
 url='https://github.com/KDE/konqueror'
 license=('LGPL')
-depends=('kparts' 'kcmutils' 'kdelibs4support' 'karchive' 'kcrash' 'kded' 'kactivities'
-         'kwidgetsaddons' 'kiconthemes' 'kdesu' 'kio' 'ki18n' 'kfind' 'kdialog' 'keditbookmarks' 'kguiaddons'
-         'tidyhtml' 'qtwebengine' 'qt5-location')
+depends=('kparts' 'kcmutils' 'karchive' 'kcrash' 'kwindowsystem' 'kinit' 'kiconthemes' 'kdbusaddons'
+         'kwidgetsaddons' 'kdesu' 'kio' 'ki18n' 'kfind' 'kdialog' 'keditbookmarks' 'kguiaddons'
+         'kactivities' 'tidyhtml' 'qtwebengine' 'qt5-location')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
