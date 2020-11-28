@@ -4,23 +4,20 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=calendarsupport
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="This lib provides calendar support."
 arch=('x86_64')
 url='https://kontact.kde.org/'
 license=('LGPL')
 depends=('akonadi-mime' 'ki18n' 'kmime' 'kcodecs' 'kcalutils' 'kcalcore' 'kidentitymanagement'
-         'kholidays' 'akonadi-calendar' 'akonadi-notes' 'pimcommon' 'kdepim-apps-libs' 'ktextwidgets')
+         'kholidays' 'akonadi-calendar' 'akonadi-notes' 'pimcommon' 'ktextwidgets')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=("http://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -29,11 +26,10 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build 
 }

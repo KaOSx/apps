@@ -4,20 +4,20 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-addons
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Addons for kdepim apps (as kmail addons/ kmail theme/ kaddressbook addons etc.)"
-url="https://github.com/KDE/kdepim-addons"
+url="https://invent.kde.org/pim/kdepim-addons"
 license=('GPL' 'LGPL' 'FDL')
 depends=('libkgapi' 'qtwebengine' 'boost-libs'
          #frameworks
          'ki18n' 'kconfig' 'kdbusaddons' 'kxmlgui' 'kdeclarative' 
          #kdepimlibs
-         'mailcommon' 'kdepim-apps-libs' 'libkleo' 'grantleetheme'
+         'mailcommon' 'libkleo' 'grantleetheme'
          'pimcommon' 'libkdepim' 'incidenceeditor' 'ktnef' 'akonadi-import-wizard'
          'messagelib' 'calendarsupport' 'eventviews' 'akonadi' 'libgravatar' 'libksieve'
          'kpkpass' 'kitinerary' 'kontactinterface')
-makedepends=('extra-cmake-modules' 'kdoctools' 'clang' 'boost')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -30,13 +30,7 @@ prepare() {
 }
 
 build() {
-  mkdir build
-  
-  export CC=/usr/bin/clang
-  export CXX=/usr/bin/clang++
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -44,14 +38,12 @@ build() {
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE \
     -DKDEPIMADDONS_BUILD_EXAMPLES=TRUE
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build 
 }

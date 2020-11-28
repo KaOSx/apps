@@ -4,13 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kontact
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Container application to unify several major PIM applications within one application."
 arch=('x86_64')
 url='https://kontact.kde.org/'
 license=('LGPL')
 depends=('kdbusaddons' 'kcmutils' 'kcrash' 'kwindowsystem' 'kiconthemes' 
-         'kpimtextedit' 'akonadi' 'kontactinterface' 'mailcommon' 'libkdepim' 'grantleetheme' 'kdepim-apps-libs'
+         'kpimtextedit' 'akonadi' 'kontactinterface' 'mailcommon' 'libkdepim' 'grantleetheme'
          'qtwebengine'
          'akonadi-import-wizard' 'pim-data-exporter')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
@@ -27,10 +27,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -38,11 +35,10 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build 
 }

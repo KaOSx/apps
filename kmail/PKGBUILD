@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kmail
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Email client, supporting POP3 and IMAP mailboxes."
 arch=('x86_64')
 url='https://kontact.kde.org/components/kmail.html'
@@ -13,7 +13,7 @@ depends=('kcrash' 'kbookmarks' 'kcodecs' 'kconfig' 'kconfigwidgets' 'kdbusaddons
          'kjobwidgets' 'kio' 'kcmutils' 'knotifications' 'knotifyconfig' 'kparts' 'kservice' 'sonnet'
          'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 
          'akonadi' 'akonadi-contacts' 'akonadi-mime' 'kcontacts' 'kcalcore' 'kcalutils' 'kidentitymanagement'
-         'kldap' 'kmailtransport' 'kpimtextedit' 'kontactinterface' 'kmime' 'libgravatar' 'kdepim-apps-libs'
+         'kldap' 'kmailtransport' 'kpimtextedit' 'kontactinterface' 'kmime' 'libgravatar'
          'libkdepim' 'libkleo' 'libksieve' 'mailcommon' 'messagelib' 'pimcommon'
          'qtwebengine' 'gpgme' 'kdepim-addons'
          'akonadi-import-wizard' 'grantlee-editor' 'kmail-account-wizard' 'mbox-importer' 'pim-data-exporter'
@@ -32,22 +32,17 @@ prepare () {
 }
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build 
 }

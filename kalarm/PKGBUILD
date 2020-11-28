@@ -4,19 +4,17 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kalarm
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Application to manage alarms and other timer based alerts for the desktop."
 arch=('x86_64')
-url='https://github.com/KDE/kalarm'
+url='https://invent.kde.org/pim/kalarm'
 license=('LGPL')
 depends=('kauth' 'kcalendarcore' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcrash'
          'kdbusaddons' 'kglobalaccel' 'kguiaddons' 'ki18n' 'kidletime' 'kjobwidgets' 'kcmutils'
          'kio' 'knotifications' 'knotifyconfig' 'kservice' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 
          'kholidays' 'akonadi' 'akonadi-contacts' 'akonadi-mime' 'kalarmcal' 'kcalcore' 'kcalutils'
-         'kidentitymanagement' 'kdepim-apps-libs' 'libkdepim' 'mailcommon' 
-         'kmailtransport' 'kmime' 'pimcommon' 'kpimtextedit' 
-         'libxslt'
-         'akonadi-import-wizard' 'pim-data-exporter')
+         'kidentitymanagement' 'libkdepim' 'mailcommon' 'kmailtransport' 'kmime' 'pimcommon' 'kpimtextedit' 
+         'libxslt' 'akonadi-import-wizard' 'pim-data-exporter')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)

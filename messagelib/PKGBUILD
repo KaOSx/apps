@@ -4,12 +4,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=messagelib
 pkgver=${_kdever}
-pkgrel=1
-pkgdesc="All libs for messages"
+pkgrel=2
+pkgdesc="Library components for messages (e.g. displaying Akonadi collections)"
 arch=('x86_64')
-url='https://github.com/KDE/messagelib'
+url='https://invent.kde.org/pim/messagelib'
 license=('LGPL')
-depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'akonadi-notes' 'kdepim-apps-libs' 'libkdepim' 'karchive' 
+depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'akonadi-notes' 'libkdepim' 'karchive' 
          'kldap' 'kpimtextedit' 'kmailtransport' 'kidentitymanagement' 'kiconthemes'
          'kcompletion' 'kcodecs' 'kconfig' 'kxmlgui' 'akonadi-search' 'kcontacts' 'kmbox'  
          'libgravatar' 'grantleetheme' 'libkleo' 'pimcommon' 'grantlee' 'qtwebengine' 'qca-qt5')
@@ -26,23 +26,16 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build 
 }

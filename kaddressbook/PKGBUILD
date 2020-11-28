@@ -4,13 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kaddressbook
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Address Book application to manage your contacts."
 arch=('x86_64')
-url='https://github.com/KDE/kaddressbook'
+url='https://apps.kde.org/en/kaddressbook'
 license=('LGPL')
 depends=('kdbusaddons' 'kcmutils' 'kcrash' 'libkleo'
-         'kpimtextedit' 'akonadi' 'kontactinterface' 'mailcommon' 'libkdepim' 'kdepim-apps-libs'
+         'kpimtextedit' 'akonadi' 'kontactinterface' 'mailcommon' 'libkdepim'
          'pimcommon' 'grantleetheme'
          'akonadi-import-wizard' 'pim-data-exporter'
          'kdepim-addons' 'prison' 'kdepim-runtime' 'kuserfeedback')
@@ -25,22 +25,16 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build 
 }
