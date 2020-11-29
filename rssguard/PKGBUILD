@@ -23,7 +23,6 @@ build() {
   mkdir -p build
   cd build
 
-  /usr/lib/qt5/bin/lrelease ../${pkgname}-${pkgver}/build.pro
   /usr/lib/qt5/bin/qmake ../${pkgname}-${pkgver}/build.pro -r \
     CONFIG+=release PREFIX=/usr \
     INSTALL_ROOT=${pkgdir}/ \
