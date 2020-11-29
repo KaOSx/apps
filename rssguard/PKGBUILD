@@ -6,8 +6,8 @@ pkgdesc="Simple (yet powerful) feed reader, able to fetch the most known feed fo
 arch=('x86_64')
 url="https://github.com/martinrotter/rssguard"
 license=('GPL')
-depends=('qtwebengine')
-makedepends=('qt5-tools')
+depends=('qt6-5compat')
+makedepends=('qt6-tools')
 source=("https://github.com/martinrotter/rssguard/archive/${pkgver}.tar.gz"
         "https://github.com/martinrotter/rssguard/commit/139e014d2af6a6e156098ba486dbbe2681018fab.diff")
 md5sums=('8389bccaea7cb481fa49efd68d73b905'
@@ -23,10 +23,10 @@ build() {
   mkdir -p build
   cd build
 
-  /usr/lib/qt5/bin/qmake ../${pkgname}-${pkgver}/build.pro -r \
+  /usr/lib/qt6/bin/qmake ../${pkgname}-${pkgver}/build.pro -r \
     CONFIG+=release PREFIX=/usr \
     INSTALL_ROOT=${pkgdir}/ \
-    USE_WEBENGINE=true
+    USE_WEBENGINE=false
   make
 }
 
