@@ -1,42 +1,40 @@
 
 pkgname=strawberry
 pkgver=0.8.4
-pkgrel=2
+_commit=971fad4560b07cf1a95dc4df5d0568dd6cf4214d
+pkgrel=3
 pkgdesc="Music player and music collection organizer, fork of Clementine"
 url="https://www.strawberrymusicplayer.org/"
 license=('GPL')
 arch=('x86_64')
 depends=('alsa-lib' 'chromaprint' 'gnutls' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly'
          'libcdio' 'libimobiledevice' 'libmtp' 'libplist' 'pulseaudio' 'protobuf'
-         'qt5-x11extras' 'sqlite' 'taglib')
-makedepends=('cmake' 'boost' 'qt5-tools')
+         'qt6-x11extras' 'sqlite' 'taglib')
+makedepends=('cmake' 'boost' 'qt6-tools')
 groups=('multimedia')
-source=("https://github.com/jonaski/strawberry/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('f93acf3217ae6b63c6ee469bf8b8a86317f724c018cf7e86c43d663c8066760b')
+#source=("https://github.com/jonaski/strawberry/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://github.com/strawberrymusicplayer/strawberry/archive/${_commit}.zip")
+sha256sums=('7e08df9caf2ecac185e63781c944f2e8040dc9b2a7932dffcc28c53b8ec407a1')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
   
   #sed -e "s|libplist|libplist-2.0|" -i CMakeLists.txt
   #sed -e "s|libusbmuxd|libusbmuxd-2.0|" -i CMakeLists.txt
 }
 
 build() {
-  mkdir -p build 
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DUSE_SYSTEM_TAGLIB=ON \
-    -DWITH_QT6=OFF \
+    -DWITH_QT6=ON \
     -DINSTALL_TRANSLATIONS=ON
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make install DESTDIR=${pkgdir}
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 
