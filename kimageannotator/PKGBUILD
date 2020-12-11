@@ -1,0 +1,30 @@
+
+pkgname=kimageannotator
+_pkgname=kImageAnnotator
+pkgver=0.4.0
+pkgrel=1
+pkgdesc='Tool for annotating images.'
+arch=('x86_64')
+url='https://github.com/ksnip/kImageAnnotator'
+license=('LGPL-3.0')
+depends=('qt5-svg' 'kcolorpicker')
+makedepends=('cmake' 'qt5-tools')
+source=("https://github.com/ksnip/kImageAnnotator/archive/v$pkgver.tar.gz")
+md5sums=('abe2734a519ac7d921c6b67020982701')
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_EXAMPLE=ON \
+    -DBUILD_TESTS=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+  
+  install -Dm644 ${_pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
