@@ -3,20 +3,21 @@ pkgname=libreoffice
 _LOver=7.0.4.1
 pkgver=7.0.4.1
 _pkgver=7.0.4
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
 pkgdesc="Productivity suite that is compatible with other major office suites"
 depends=('curl' 'python3' 'libabw' 'libwpd' 'libwps' 'libxaw' 'neon' 
-         'pango' 'nss' 'libjpeg' 'libxrandr' 'libglvnd' 'dbus-glib' 'libxslt' 'redland' 'graphite' 'icu'
+         'pango' 'nss' 'libjpeg' 'libxrandr' 'libglvnd' 'dbus-glib' 'libxslt' 'redland' 'graphite'
          'hyphen' 'lpsolve' 'gcc-libs' 'sh' 'librsvg' 'lcms2' 'hicolor-icon-theme' 'desktop-file-utils' 
          'shared-mime-info' 'translate-toolkit' 'xdg-utils' 'ttf-liberation' 'libcups' 
          'poppler' 'sane' 'unixodbc' 'libwpg' 'imagemagick' 'hunspell'
          'mesa' 'gst-plugins-base' 'postgresql-libs' 'libvisio' 'bluez' 'liblangtag'
          'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' 
          'vigra' 'pstoedit' 'libmythes' 'boost-libs' 'libepoxy'
-         'kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kwindowsystem' 'plasma-framework' 'python3-lxml' 'libnumbertext')
+         'kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kwindowsystem' 'plasma-framework' 'python3-lxml'
+         'libnumbertext' 'libcdr') # 'icu'
 makedepends=('perl-archive-zip' 'zip' 'unzip' 'gperf' 'cppunit' 'libldap'
              'doxygen' 'apr' 'serf' 'mdds' 'boost' 'glm')
 _mirror="https://ftp.acc.umu.se/mirror/documentfoundation.org/libreoffice/src/$_pkgver"
@@ -49,7 +50,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/liborcus-0.15.4.tar.bz2
 	#${_additional_source_url}/aa899eff126216dafe721149fbdb511b-liblangtag-0.5.8.tar.bz2
 	${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
-	${_additional_source_url}/libcdr-0.1.6.tar.xz
+	#${_additional_source_url}/libcdr-0.1.6.tar.xz
 	${_additional_source_url}/libmspub-0.1.4.tar.xz
 	${_additional_source_url}/libmwaw-0.3.16.tar.xz
 	${_additional_source_url}/libfreehand-0.1.2.tar.xz
@@ -58,6 +59,8 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	#${_additional_source_url}/976734806026a4ef8bdd17937c8898b9-icu4c-57_1-src.tgz
 	#${_additional_source_url}/boost_1_69_0.tar.bz2
+	${_additional_source_url}/icu4c-67_1-src.tgz
+	${_additional_source_url}/icu4c-67_1-data.zip
 	${_additional_source_url}/language-subtag-registry-2020-04-01.tar.bz2
 	${_additional_source_url}/libgltf/libgltf-0.1.0.tar.gz
 	${_additional_source_url}/CoinMP-1.7.6.tgz
@@ -110,7 +113,9 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 	#976734806026a4ef8bdd17937c8898b9-icu4c-57_1-src.tgz
 	#boost_1_69_0.tar.bz2
-	libcdr-0.1.6.tar.xz
+	icu4c-67_1-src.tgz
+	icu4c-67_1-data.zip
+	#libcdr-0.1.6.tar.xz
 	libmspub-0.1.4.tar.xz
 	libmwaw-0.3.16.tar.xz
 	libfreehand-0.1.2.tar.xz
@@ -186,7 +191,7 @@ build() {
 		--disable-scripting-javascript \
 		--without-fonts \
 		--with-system-apr \
-		--without-system-libcdr \
+		--with-system-libcdr \
 		--without-system-jfreereport \
 		--without-system-apache-commons \
 		--with-system-libodfgen \
@@ -222,7 +227,7 @@ build() {
 		--with-system-redland \
 		--with-system-serf \
 		--with-system-boost \
-		--with-system-icu \
+		--without-system-icu \
 		--with-system-cairo \
 		--with-system-libs \
 		--with-system-mythes \
