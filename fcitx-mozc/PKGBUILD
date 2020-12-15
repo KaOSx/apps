@@ -1,29 +1,31 @@
 
+# version at https://github.com/fcitx/mozc/blob/fcitx/src/data/version/mozc_version_template.bzl
+
 pkgname=fcitx-mozc
 _bldtype=Release
-_zipcode_rel=201810
-_protobuf_rev=fde7cf7358ec7cd69e8db9be4f1fa6a5c431386a
-_gyp_rev=caa600
-_japanese_usage_dictionary_rev=a4a66772e33746b91e99caceecced9a28507e925
-_mozc_rev=667db549e000778e9b08749326086b6bec58cad0
-_abseil_rev=c51510d1d87ebce8615ae1752fd5aca912f6cf4c
-_fcitx_patchver=2.23.2815.102.1
+_zipcode_rel=202011
+_protobuf_rev=fde7cf7
+_gyp_rev=caa6002
+_japanese_usage_dictionary_rev=e5b3425
+_mozc_rev=1882e33b61673b66d63277f82b4c80ae4e506c10
+_abseil_rev=0f3bb46
+_fcitx_patchver=2.26.4220.100
 pkgdesc="Japanese Input Method Editor designed for multi-platform"
-pkgver=2.23.2815.102.01
+pkgver=2.26.4220.100
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/google/mozc"
 license=('custom')
 depends=('qt5-base' 'fcitx' 'zinnia')
 makedepends=('pkg-config' 'python3-six' 'curl' 'gtk2' 'mesa' 'ninja' 'git' 'clang' 'protobuf')
-source=("mozc::git+https://github.com/google/mozc.git#commit=${_mozc_rev}"
+source=("mozc::git+https://github.com/fcitx/mozc.git#commit=${_mozc_rev}"
         "japanese_usage_dictionary::git+https://github.com/hiroyuki-komatsu/japanese-usage-dictionary.git#commit=${_japanese_usage_dictionary_rev}"
         "gyp::git+https://chromium.googlesource.com/external/gyp#commit=${_gyp_rev}"
         "protobuf::git+https://github.com/google/protobuf.git#commit=${_protobuf_rev}"
         "abseil-cpp::git+https://github.com/abseil/abseil-cpp.git#commit=${_abseil_rev}"
-        "https://downloads.sourceforge.net/pnsft-aur/x-ken-all-${_zipcode_rel}.zip"
-        "https://downloads.sourceforge.net/pnsft-aur/jigyosyo-${_zipcode_rel}.zip"
-        "https://download.fcitx-im.org/fcitx-mozc/fcitx-mozc-${_fcitx_patchver}.patch"
+        "https://osdn.net/projects/ponsfoot-aur/storage/mozc/jigyosyo-${_zipcode_rel}.zip"
+        "https://osdn.net/projects/ponsfoot-aur/storage/mozc/x-ken-all-${_zipcode_rel}.zip"
+        #"https://download.fcitx-im.org/fcitx-mozc/fcitx-mozc-${_fcitx_patchver}.patch"
         "https://download.fcitx-im.org/fcitx-mozc/fcitx-mozc-icon.tar.gz"
         "https://github.com/google/mozc/pull/444/commits/82d38f929882a9c62289b179c6fe41efed249987.diff")
 md5sums=('SKIP'
@@ -31,18 +33,19 @@ md5sums=('SKIP'
          'SKIP'
          'SKIP'
          'SKIP'
-         'bba32a6cb14120c11f6eec6edcd0dd71'
-         'd188bd7a873e851ed8f1f1466f1091a5'
-         '8ec243464ddb9ecf48924708c0448284'
+         'c5f9c8f0149f5350cfd9dfcfa876aed4'
+         '669ae868ea978ca06909a2d4562eaf0a'
          '80fe2ef127b70649df22d133822ac8a7'
          'b94e9049789284c00de443ae9ef3baa1')
 
 prepare() {
   cd mozc/src
 
-  rm unix/fcitx -rf
-  patch -p2 -i ${srcdir}/fcitx-mozc-${_fcitx_patchver}.patch
+  #rm unix/fcitx -rf
+  #patch -p2 -i ${srcdir}/fcitx-mozc-${_fcitx_patchver}.patch
   rm unix/fcitx5 -rf
+  
+  sed "/stdlib=libc++/d;/-lc++/d" -i gyp/common.gypi
   
   #find . -name  \*.py        -type f -exec sed -i -e "1s|python.*$|python2|"  {} +
   #find . -regex '.*\.gypi?$' -type f -exec sed -i -e "s|'python'|'python2'|g" {} +
