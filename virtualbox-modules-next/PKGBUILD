@@ -1,34 +1,34 @@
 
-_extramodules=extramodules-5.9-next
+_extramodules=extramodules-5.10-next
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 #_kernver=4.8.3-1-next  # hardcode in case system not running linux-next
 
 pkgname=virtualbox-modules-next
 pkgver=6.1.16
 _pkgver=6.1.16
-pkgrel=11
+pkgrel=12
 pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
 arch=('x86_64')
 license=('GPL-2')
-depends=('linux-next>=5.9.0' 'linux-next<5.10')
+depends=('linux-next>=5.10.0' 'linux-next<5.11')
 makedepends=('linux-next-headers' 'elfutils')
 provides=('virtualbox-modules')
 options=('!strip')
 source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-kernel-module-src-${_pkgver}.tar.xz"
         'virtualbox-modules-depmod.patch'
         'vbox-modules-next.conf'
-        'linux5.9.diff')
+        'linux5.10.patch')
 install=${pkgname}.install
 md5sums=('0fe63973ae7d5c1b07f979207217f125'
          'c9f84fb084a79275d269c542ff53ba4d'
          '232f7c1b893245a8e87a38768e9d1c1d'
-         'ec1e5c93117a8e7f52d0e58cb110b6c3')
+         'e2804b82166c7c8c2bc3c8b6533c582f')
 
 prepare() {
     cd vbox-kernel-module-src-${_pkgver}
     
-    #patch -p1 -i ${srcdir}/linux5.9.diff
+    patch -p1 -i ${srcdir}/linux5.10.patch
     #sed -i -e 's|rm -f vboxdrv.ko|#rm -f vboxdrv.ko|g' Makefile
 }
 
