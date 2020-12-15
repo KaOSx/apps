@@ -12,8 +12,18 @@ depends=('binutils' 'boost-libs' 'curl' 'enet>=1.3' 'libogg' 'libpng' 'libvorbis
          'openal' 'sdl2' 'zlib' 'libgl' '0ad-data' 'glu' 'libxcursor' 'mesa'
          'libjpeg' 'libtiff' 'openexr' 'gloox' 'libsodium')
 makedepends=('boost' 'cmake' 'zip' 'python2')
-source=("https://releases.wildfiregames.com/${pkgname}-${_pkgver}-unix-build.tar.xz")
-sha1sums=('3c6bb8924d65d17200e6b9475101e7d04f5db13a')
+source=("https://releases.wildfiregames.com/${pkgname}-${_pkgver}-unix-build.tar.xz"
+        'icu1.68.patch'
+        'fcollada.patch')
+sha1sums=('3c6bb8924d65d17200e6b9475101e7d04f5db13a'
+          'f703537288d133fcd1a0f8a15b73d9ce05b62771'
+          'f35aca11e11588cfedf9b15e6735fc8aad9b87e9')
+
+prepare() {
+  cd ${pkgname}-${_pkgver}/
+  patch -p1 -i $srcdir/icu1.68.patch
+  patch -p1 -i $srcdir/fcollada.patch
+}
 
 build() {
   cd ${pkgname}-${_pkgver}/build/workspaces
