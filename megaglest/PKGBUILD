@@ -8,7 +8,7 @@ url="https://github.com/MegaGlest/megaglest-source"
 license=('GPL3')
 depends=('curl' 'megaglest-data' 'xerces-c' 'sdl2' 'libvorbis' 'openal' 'libgl' 'lua' 'icu' 'ftgl' 'glew'
          'miniupnpc' 'glu' 'libx11' 'vlc')
-makedepends=('ftjam' 'cmake' 'git')
+makedepends=('ftjam' 'cmake' 'git' 'clang')
 #source=("https://github.com/basxto/megaglest-source/tarball/qt4/megaglest-source-${pkgver}.tar.gz")
 source=("https://github.com/MegaGlest/megaglest-source/archive/${pkgver}.tar.gz"
         "https://github.com/MegaGlest/megaglest-source/commit/a85d12aed1983eb69d630b431b81ae656d83b3ac.patch")
@@ -19,6 +19,9 @@ build() {
   cd megaglest-source-${pkgver}
   # miniupnpc 2.0 needed patch
   #patch -p1 -i $srcdir/a85d12aed1983eb69d630b431b81ae656d83b3ac.patch
+  
+  export CC=/usr/bin/clang
+  export CXX=/usr/bin/clang++
 
   mkdir build 
   cd build
