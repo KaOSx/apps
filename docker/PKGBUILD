@@ -1,11 +1,11 @@
 pkgname=docker
-pkgver=19.03.14
-_pkgver=19.03.14
+pkgver=20.10.1
+_pkgver=20.10.1
 # add commit associated with the release tag
 # build runc & containerd from https://github.com/moby/moby/blob/master/hack/dockerfile/install/containerd.installer &
 # https://github.com/moby/moby/blob/master/hack/dockerfile/install/runc.installer & https://github.com/moby/moby/blob/master/hack/dockerfile/install/proxy.installer for docker-proxy
-# all at https://github.com/docker/docker-ce/tree/master/components/engine/hack/dockerfile/install --branch
-DOCKER_GITCOMMIT=5eb3275
+# all at https://github.com/moby/moby/tree/master/hack/dockerfile/install --branch
+DOCKER_GITCOMMIT=f001486
 pkgrel=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64')
@@ -15,32 +15,34 @@ depends=('bridge-utils' 'iproute2' 'device-mapper' 'sqlite' 'systemd' 'container
 makedepends=('git' 'go' 'go-md2man')
 options=('!strip')
 install=$pkgname.install
-source=("https://github.com/docker/docker-ce/archive/v${_pkgver}.tar.gz"
+source=("cli-${pkgver}.tar.gz::https://github.com/docker/cli/archive/v${pkgver}.tar.gz"
+        "moby-${_pkgver}.tar.gz::https://github.com/moby/moby/archive/v${_pkgver}.tar.gz"
         'docker.sysusers'
         "https://github.com/docker/docker/commit/6f89a8ee1ba6b598dc1f76e829d6db6f830cdb8e.patch")
-md5sums=('f932ff952a0411223a90baaf5b829883'
+md5sums=('004a91da8ff4680894b0637614998535'
+         '47c140982d8da8142c9e2fcb5ff70fe5'
          '4324edeb9adc210a2c22f44eb4cb8a74'
          'c7a8981a18cf7d67276cb0ab058173c0')
 
 prepare() {
   mkdir -p ${srcdir}/go/src/github.com/docker
-  ln -s ${srcdir}/docker-ce-${_pkgver}/components/cli ${srcdir}/go/src/github.com/docker/
+  ln -s ${srcdir}/cli-${pkgver} ${srcdir}/go/src/github.com/docker/
   
   export GOPATH=${srcdir}/go
 }
          
 build() {
-  cd docker-ce-${_pkgver}/components/engine
+  cd moby-${_pkgver}
   export AUTO_GOPATH=1
   export DOCKER_GITCOMMIT
   
   hack/make.sh dynbinary
-  ../cli/man/md2man-all.sh
   
-  cd ../cli
+  cd ../cli-${pkgver}
   export DOCKER_GITCOMMIT
   
   LDFLAGS="" make dynbinary # manpages
+  man/md2man-all.sh
 }
 
 package() {
