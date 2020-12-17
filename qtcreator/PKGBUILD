@@ -1,14 +1,15 @@
 
 pkgname=qtcreator
-pkgver=4.13.3
-_pkgver=4.13
-__pkgver=4.13.3
+_pkgname=qt-creator-opensource-src
+pkgver=4.14.0
+_pkgver=4.14
+__pkgver=4.14.0
 pkgrel=1
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="https://www.qt.io/development-tools"
 license=('LGPL')
-depends=('qt5-tools' 'qt5-quickcontrols' 'qt5-quick3d' 'qt5-svg' 'qt5-script' 'qt5-serialport'
+depends=('qt5-tools' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-quick3d' 'qt5-svg' 'qt5-script' 'qt5-serialport'
          'qtwebengine' 'llvm' 'clang' 'yaml-cpp' 'clang-tools-extra' 'syntax-highlighting')
 makedepends=('cmake')
 optdepends=('qt5-doc: for the integrated Qt documentation'
@@ -17,47 +18,41 @@ optdepends=('qt5-doc: for the integrated Qt documentation'
             'git: for git support'
             'mercurial: for mercurial support')
 groups=('programming')
-source=("https://download.qt.io/official_releases/${pkgname}/${_pkgver}/${__pkgver}/qt-creator-opensource-src-${__pkgver}.tar.xz"
+source=("https://download.qt.io/official_releases/${pkgname}/${_pkgver}/${__pkgver}/${_pkgname}-${__pkgver}.tar.xz"
         'qtcreator.desktop')
-md5sums=('edfd5f5be6cdc8a851ef90adfe12a0fd'
+md5sums=('b495ce8d0451017d1e8a2f5a1e69b8c8'
          '5162b73dd63f457bdb02bd9c8b1cc66b')
 
 prepare() {
-  cd qt-creator-opensource-src-${__pkgver}
+  cd ${_pkgname}-${__pkgver}
 
-  sed -i 's|$$IDE_OUTPUT_PATH/libexec/qtcreator|$$IDE_OUTPUT_PATH/lib/qtcreator|' qtcreator.pri
-  sed -i 's|$$QTC_PREFIX/libexec/qtcreator|$$QTC_PREFIX/lib/qtcreator|' qtcreator.pri
-  sed -i 's|$$IDE_BUILD_TREE/libexec/qtcreator|$$IDE_BUILD_TREE/lib/qtcreator|' src/tools/tools.pro
-  sed -i 's|$$QTC_PREFIX/libexec/qtcreator|$$QTC_PREFIX/lib/qtcreator|' src/tools/tools.pro
+  sed -e 's|libexec/qtcreator|lib/qtcreator|' -i cmake/QtCreatorAPIInternal.cmake
+  #sed -i 's|$$IDE_OUTPUT_PATH/libexec/qtcreator|$$IDE_OUTPUT_PATH/lib/qtcreator|' qtcreator.pri
+  #sed -i 's|$$QTC_PREFIX/libexec/qtcreator|$$QTC_PREFIX/lib/qtcreator|' qtcreator.pri
+  #sed -i 's|$$IDE_BUILD_TREE/libexec/qtcreator|$$IDE_BUILD_TREE/lib/qtcreator|' src/tools/tools.pro
+  #sed -i 's|$$QTC_PREFIX/libexec/qtcreator|$$QTC_PREFIX/lib/qtcreator|' src/tools/tools.pro
 }         
 
 build() {
-  mkdir -p build
-  cd build
-  
-  #cmake ../qt-creator-opensource-src-${__pkgver} \
-  #  -DCMAKE_BUILD_TYPE=Release \
-  #  -DCMAKE_INSTALL_PREFIX=/usr \
-  #  -DIDE_LIBEXEC_PATH=lib \
-  #  -DBUILD_WITH_PCH=OFF \
-  #  -DENABLE_SVG_SUPPORT=ON \
-  #  -DKSYNTAXHIGHLIGHTING_LIB_DIR=/usr/lib
-  #make
-  #make docs
+  cmake -B build -S ${_pkgname}-${__pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DIDE_LIBEXEC_PATH=lib \
+    -DBUILD_WITH_PCH=OFF \
+    -DENABLE_SVG_SUPPORT=ON \
+    -DWITH_DOCS=ON
+  cmake --build build
 
-  /usr/lib/qt5/bin/qmake LLVM_INSTALL_DIR=/usr KSYNTAXHIGHLIGHTING_LIB_DIR=/usr/lib QMAKE_CFLAGS_ISYSTEM=-I ${srcdir}/qt-creator-opensource-src-${__pkgver}/qtcreator.pro
-  make 
-  make docs -j1
+  #/usr/lib/qt5/bin/qmake LLVM_INSTALL_DIR=/usr KSYNTAXHIGHLIGHTING_LIB_DIR=/usr/lib QMAKE_CFLAGS_ISYSTEM=-I ${srcdir}/qt-#creator-opensource-src-${__pkgver}/qtcreator.pro
+  #make 
+  #make docs -j1
 }
 
 package() {
-  cd build
-
-  make INSTALL_ROOT=${pkgdir}/usr install
-  make INSTALL_ROOT=${pkgdir}/usr install_docs
+  DESTDIR=${pkgdir} cmake --install build
 
   #install -Dm644 ${srcdir}/qtcreator.desktop \
   #  ${pkgdir}/usr/share/applications/qtcreator.desktop
-  install -Dm644 ${srcdir}/qt-creator-opensource-src-${__pkgver}/LICENSE.GPL3-EXCEPT \
+  install -Dm644 ${_pkgname}-${__pkgver}/LICENSE.GPL3-EXCEPT \
     ${pkgdir}/usr/share/licenses/qtcreator/LICENSE.GPL3-EXCEPT
 }
