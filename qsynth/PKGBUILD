@@ -1,25 +1,26 @@
 
 pkgname=qsynth
-pkgver=0.6.3
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="Qt GUI for FluidSynth"
 arch=('x86_64')
 url="https://qsynth.sourceforge.io/"
 license=('GPL')
-depends=('fluidsynth' 'qt5-base' 'qt5-x11extras')
-makedepends=('qt5-tools')
+depends=('fluidsynth' 'qt6-base')
+makedepends=('qt6-tools')
 source=("https://downloads.sourceforge.net/qsynth/${pkgname}-${pkgver}.tar.gz")
-md5sums=('e0b0f403ca5cd65c26f31460960a5966')
+md5sums=('b4270c4a1abf721cf04a9b468518b60c')
 
 build() {
-  cd ${pkgname}-${pkgver}
-
-  ./configure --prefix=/usr 
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCONFIG_XUNIQUE=ON
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

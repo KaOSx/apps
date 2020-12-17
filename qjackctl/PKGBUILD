@@ -1,29 +1,28 @@
 
 pkgname=qjackctl
-pkgver=0.6.3
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="Qt front-end for the JACK low-latency audio server"
 url="https://qjackctl.sourceforge.io/"
 arch=('x86_64')
 license=('GPL')
-depends=('jack' 'qt5-base' 'qt5-x11extras' 'portaudio')
-makedepends=('qt5-tools')
+depends=('jack' 'qt6-base' 'portaudio')
+makedepends=('cmake' 'qt6-tools')
 options=('!makeflags')
 groups=('multimedia')
 source=("https://downloads.sourceforge.net/qjackctl/${pkgname}-${pkgver}.tar.gz")
-md5sums=('8372909d1dbc66d5257c805268b4e83e')
+md5sums=('e43b4c07ff2e1d86416d10838b8accfd')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  
-  #CXXFLAGS="-std=c++11"
-
- ./configure --prefix=/usr
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCONFIG_XUNIQUE=ON
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
 
-  make DESTDIR=${pkgdir}/ install
+  DESTDIR=${pkgdir} cmake --install build
 }
