@@ -4,13 +4,13 @@ pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
 pkgver=84.0
 # Check nss version in build repo
-_nssver>=3.60
+_nssver=3.60
 pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
 groups=('network-web')
 #install=firefox.install
-depends=('desktop-file-utils' 'libxt' 'mime-types' 'nss' 'shared-mime-info' 'gtk2' 'gtk3' 'networkmanager'
+depends=('desktop-file-utils' 'libxt' 'mime-types' "nss>=${_nssver}" 'shared-mime-info' 'gtk2' 'gtk3' 'networkmanager'
          'gst-plugins-good' 'gst-plugins-bad' 'gst-libav' 'startup-notification'
          'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libevent' 'pulseaudio' 'libjpeg-turbo') # 'icu')
 makedepends=('unzip' 'zip' 'diffutils' 'python3' 'python3-psutil' 'yasm' 'mesa' 'imake' 'xorg-server' 
