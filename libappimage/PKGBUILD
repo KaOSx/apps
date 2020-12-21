@@ -1,0 +1,41 @@
+ 
+pkgname=libappimage
+pkgver=1.0.3
+pkgrel=1
+pkgdesc='Library that is part of the AppImage project, implementing functionality for dealing with AppImage files.'
+arch=('x86_64')
+url='https://appimage.org/'
+license=('GPL')
+depends=('libarchive' 'boost-libs' 'librsvg')
+makedepends=('cmake' 'vim' 'desktop-file-utils' 'boost' 'fuse') #'clang' 
+groups=('programming')
+source=("https://github.com/AppImage/libappimage/archive/v${pkgver}.tar.gz"
+        "https://github.com/AppImage/libappimage/commit/5939f5976bd89af1a8c9964508c640410b18333c.diff")
+sha256sums=('36a2a3c5a158301d7ed6d6996a82ac953549c99232b5b88d116e99f42175bc6b'
+            '0c489ccdd7e86ef41d584fc2de092b626fef67f1ec6637e9b0885e51858c9a8c')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/5939f5976bd89af1a8c9964508c640410b18333c.diff
+  #export CC=/usr/bin/clang
+  #export CXX=/usr/bin/clang++
+}
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUSE_SYSTEM_XZ=ON \
+    -DUSE_SYSTEM_SQUASHFUSE=OFF \
+    -DUSE_SYSTEM_LIBARCHIVE=ON \
+    -DUSE_SYSTEM_BOOST=ON \
+    -DUSE_SYSTEM_XDGUTILS=OFF \
+    -DBUILD_TESTING=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
