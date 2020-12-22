@@ -1,0 +1,35 @@
+ 
+pkgname=stacer
+_pkgname=Stacer
+pkgver=1.1.0
+pkgrel=1
+pkgdesc='System optimizer and application monitor that helps users to manage the entire system'
+arch=('x86_64')
+url='https://oguzhaninan.github.io/Stacer-Web/'
+license=('GPL3')
+depends=('qt5-charts' 'qt5-svg')
+makedepends=('cmake' 'qt5-tools' 'clang')
+source=("https://github.com/oguzhaninan/Stacer/archive/v${pkgver}.tar.gz")
+sha256sums=('6b4922c02017ab4b65c7853db31e24a6969051b3eb06ebd9820df897d857bd31')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  #cp -f stacer/static/themes/light/style/values.ini stacer/static/themes/default/style/values.ini
+
+  export CC=/usr/bin/clang
+  export CXX=/usr/bin/clang++
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+  install -Dm644 ${_pkgname}-${pkgver}/LICENSE {$pkgdir}/usr/share/licenses/stacer/LICENSE
+}
