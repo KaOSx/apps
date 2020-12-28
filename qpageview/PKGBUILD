@@ -1,0 +1,20 @@
+
+pkgname=qpageview
+pkgver=0.5.1
+pkgrel=1
+pkgdesc="Provides a page based document viewer widget for Qt5/PyQt5."
+arch=('x86_64')
+url="https://qpageview.org/"
+license=("GPL")
+depends=('python3-poppler-qt' 'pyqt5-python3' 'pycups')
+makedepends=('python3')
+source=("https://github.com/frescobaldi/qpageview/archive/v${pkgver}.tar.gz")
+sha256sums=('b5d076afdf2f005eb1c73b6b77ce1484820b3582260b8cb0a1e9d5743d2c327b')
+
+package() {
+    cd ${pkgname}-${pkgver}
+    python3 setup.py install --root=${pkgdir}/ --optimize=1
+
+    #find ${pkgdir} -name '*.py' -exec sed -i -e 's/^#!\/usr\/bin\/env python$/#!\/usr\/bin\/env python3/' \
+    #                                         -e 's/^#!\/usr\/bin\/python$/#!\/usr\/bin\/python3/' {} \;
+}
