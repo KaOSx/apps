@@ -1,22 +1,22 @@
 
 pkgname=libtorrent-rasterbar
-pkgver=1.2.10
-pkgrel=5
+pkgver=1.2.11
+pkgrel=1
 pkgdesc="A C++ library that aims to be a good alternative to all the other bittorrent implementations around"
 url="https://libtorrent.org/"
 arch=('x86_64')
 license=('custom')
 depends=('boost-libs' 'python3' 'geoip')
 makedepends=('boost' 'cmake' 'python3-setuptools')
-source=("https://github.com/arvidn/libtorrent/releases/download/libtorrent-${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        "https://patch-diff.githubusercontent.com/raw/arvidn/libtorrent/pull/5026.diff")
-md5sums=('ebacb206c8a9f76ce5d8da182c4a829b'
-         '7b0aaa9b44a0392d0505a34d687576c9')
+source=("https://github.com/arvidn/libtorrent/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "https://github.com/arvidn/libtorrent/pull/5738/commits/e904fd3f6664422db98b07177054f92edce62b0c.diff")
+md5sums=('12a329a8a51b793fd21c3a03bb70459e'
+         '7dc2570cb0f1c5653dcb8f86b8830bf6')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # https://github.com/arvidn/libtorrent/pull/5026
-  #patch -p1 -i ${srcdir}/5026.diff
+  # https://github.com/arvidn/libtorrent/pull/5738, boost 1.75 needed
+  patch -p1 -i ${srcdir}/e904fd3f6664422db98b07177054f92edce62b0c.diff
 }
 
 build() {
