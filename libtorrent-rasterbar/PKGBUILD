@@ -1,6 +1,6 @@
 
 pkgname=libtorrent-rasterbar
-pkgver=1.2.12
+pkgver=1.2.11
 pkgrel=1
 pkgdesc="A C++ library that aims to be a good alternative to all the other bittorrent implementations around"
 url="https://libtorrent.org/"
@@ -16,14 +16,16 @@ md5sums=('12a329a8a51b793fd21c3a03bb70459e'
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://github.com/arvidn/libtorrent/pull/5738, boost 1.75 needed
-  patch -p1 -i ${srcdir}/e904fd3f6664422db98b07177054f92edce62b0c.diff
+  #patch -p1 -i ${srcdir}/e904fd3f6664422db98b07177054f92edce62b0c.diff
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -Dpython-bindings=ON
+    -Dpython-bindings=ON \
+    -DBoost_DEBUG=ON \
+    -DBoost_NO_BOOST_CMAKE=ON
   cmake --build build
 }
 
