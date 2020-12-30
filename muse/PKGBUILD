@@ -2,11 +2,11 @@
 pkgname=muse
 pkgver=3.1.1
 _pkgver=3_1_1
-pkgrel=1
+pkgrel=2
 _commit=db294aed5c1f449a2a58e3f82aff3602c95806fc
 pkgdesc="MIDI/Audio sequencer with recording and editing capabilities, aims to be a complete multitrack virtual studio for Linux."
 arch=('x86_64')
-url='http://muse-sequencer.org/'
+url='https://muse-sequencer.github.io/'
 license=('GPL2')
 depends=('qt5-svg' 'qt5-tools' 'dssi' 'fluidsynth' 'jack' 'ladspa' 'liblo' 'libsamplerate' 'libsndfile'
          'lv2' 'lilv' 'rubberband' 'liblrdf') 
@@ -30,7 +30,7 @@ build() {
     -DENABLE_RTAUDIO=OFF \
     -DENABLE_LV2_GTK2=OFF \
     -DENABLE_INSTPATCH=OFF
-  make 
+  make -j4
 }
 
 package() {
