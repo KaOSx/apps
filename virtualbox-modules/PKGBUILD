@@ -1,32 +1,32 @@
 
-_extramodules=extramodules-5.8
+_extramodules=extramodules-5.10
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-modules
 pkgver=6.1.16
 _pkgver=6.1.16
-pkgrel=2
+pkgrel=3
 pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
 arch=('x86_64')
 license=('GPL-2')
-depends=('linux>=5.8.16' 'linux<5.9')
+depends=('linux>=5.10.4' 'linux<5.11')
 makedepends=('linux-headers' 'elfutils')
 install=${pkgname}.install
 options=('!strip')
 source=("https://sourceforge.net/projects/kaosx/files/sources/virtualbox-modules/vbox-kernel-module-src-${_pkgver}.tar.xz"
         'virtualbox-modules-depmod.patch'
         'vbox-modules.conf'
-        'linux5.5.diff')
+        'linux5.10.patch')
 md5sums=('0fe63973ae7d5c1b07f979207217f125'
          'c9f84fb084a79275d269c542ff53ba4d'
          '232f7c1b893245a8e87a38768e9d1c1d'
-         '9cfc876b28dcbb413eac84fab245da38')
+         '6087d78f6e4752fa81fdf280aea712da')
 
 prepare() {
     cd vbox-kernel-module-src-${_pkgver}
     
-    #patch -p1 -i ${srcdir}/linux5.5.diff
+    patch -p0 -i ${srcdir}/linux5.10.patch
 }
 
 build() {
