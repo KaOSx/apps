@@ -84,7 +84,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.77.0, Plasma 5.20.4, KDE Applications 20.12.0</b>, Linux 5.8.18, Systemd 246, Kmod 27, NetworkManager 1.28.0, LibreOffice 7.0.4, Krita 4.4.1, Elisa, Xorg-Server 1.20.10, Mesa 20.3.1, Glibc 2.32, GCC 10.2.0, non-free Nvidia 455, Pepperflash and Python3 3.8.7 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.77.0, Plasma 5.20.4, KDE Applications 20.12.0</b>, Linux 5.10.4, Systemd 246, Kmod 27, NetworkManager 1.28.0, LibreOffice 7.0.4, Krita 4.4.1, Elisa, Xorg-Server 1.20.10, Mesa 20.3.2, Glibc 2.32, GCC 10.2.0, non-free Nvidia 460, Pepperflash and Python3 3.8.7 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
