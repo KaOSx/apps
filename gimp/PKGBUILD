@@ -3,14 +3,14 @@ pkgname=gimp
 pkgver=2.10.22
 _pkgver=2.10
 __pkgver=2.10.22
-pkgrel=1
+pkgrel=2
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
 url="https://www.gimp.org/"
 license=('GPL3' 'LGPL3')
 depends=('gtk2' 'lcms2' 'libxpm' 'librsvg' 'libmng' 'libgudev' 'dbus-glib' 'libexif' 
          'gegl' 'desktop-file-utils' 'hicolor-icon-theme' 'gexiv2' 'libmypaint' 'alsa-lib'
-         'curl' 'glib-networking' 'mypaint-brushes')
+         'curl' 'glib-networking' 'mypaint-brushes' 'graphviz')
 makedepends=('intltool' 'poppler' 'iso-codes' 'ghostscript')
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 optdepends=('gutenprint: for sophisticated printing only as gimp has built-in cups print support')
@@ -20,7 +20,7 @@ source=("https://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${__pkgver}.tar.bz2
         "https://github.com/GNOME/gimp/commit/46bcd82800e37b0f5aead76184430ef2fe802748.diff")
 sha256sums=('2db84b57f3778d80b3466d7c21a21d22e315c7b062de2883cbaaeda9a0f618bb'
             '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3'
-            '87085fa7c7c0a4b315a6f018a753e92835ae28980b945c2b4f74951cadbb714b')
+            'd811a79902368975af6373d2d0a25a2bb699231d6883bc0f7d24fd9e22f80198')
 
 build() {
   cd gimp-${__pkgver}
