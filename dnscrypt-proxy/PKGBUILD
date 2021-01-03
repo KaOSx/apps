@@ -1,6 +1,6 @@
 
 pkgname=dnscrypt-proxy
-pkgver=2.0.44
+pkgver=2.0.45
 pkgrel=1
 pkgdesc="Flexible DNS proxy, with support for encrypted DNS protocols."
 arch=('x86_64')
@@ -8,7 +8,7 @@ url="https://github.com/DNSCrypt/dnscrypt-proxy"
 license=('custom:ISC')
 makedepends=('go')
 source=("https://github.com/DNSCrypt/dnscrypt-proxy/archive/${pkgver}.tar.gz")
-md5sums=('d83383d9a76a383b090d485b994413b2')
+md5sums=('200c8a9bcf38c85648c9288f31b2ea68')
 
 build() {
   mkdir -p dnscrypt-proxy-src
@@ -30,7 +30,7 @@ package() {
   install -Dm755 dnscrypt-proxy ${pkgdir}/usr/bin/dnscrypt-proxy
   install -Dm644 example-dnscrypt-proxy.toml ${pkgdir}/etc/dnscrypt-proxy/example-dnscrypt-proxy.toml
   install -Dm644 example-forwarding-rules.txt ${pkgdir}/usr/share/doc/dnscrypt-proxy/example-forwarding-rules.txt
-  install -Dm644 example-blacklist.txt ${pkgdir}/usr/share/doc/dnscrypt-proxy/example-blacklist.txt
+  install -Dm644 example-blocked-ips.txt ${pkgdir}/usr/share/doc/dnscrypt-proxy/example-blocked-ips.txt
   install -Dm644 example-cloaking-rules.txt ${pkgdir}/usr/share/doc/dnscrypt-proxy/example-cloaking-rules.txt
   
   #cd ../systemd
