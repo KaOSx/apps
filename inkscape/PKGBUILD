@@ -2,7 +2,7 @@
 pkgname=inkscape
 pkgver=1.0.1
 _commit=2020-09-07_3bc2e813f5
-pkgrel=4
+pkgrel=5
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
@@ -14,23 +14,21 @@ depends=('poppler' 'imagemagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 source=("https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-${pkgver}.tar.xz"
-        "https://gitlab.com/inkscape/inkscape/commit/a600c6438fef2f4c06f9a4a7d933d99fb054a973.diff"
-        "https://gitlab.com/inkscape/inkscape/commit/fa1c469aa8c005e07bb8676d72af9f7c16fae3e0.diff")
+        "https://gitlab.com/inkscape/inkscape/-/commit/a094366511c87a46916e2f0d2b7a1dc2f540e411.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
 md5sums=('daefc5212b72e49eff41a7681fd5e993'
-         '41a33ea04b7901848b275e76fcf7e5c2'
-         'add8bdd7b82b7950ca9abc546768f545')
+         'b756d62bcecbb343e738eeabd3d878c8')
 
 prepare() {
   cd ${pkgname}-${pkgver}_${_commit}
   
-  #patch -p1 -i ${srcdir}/a600c6438fef2f4c06f9a4a7d933d99fb054a973.diff
+  patch -p1 -i ${srcdir}/a094366511c87a46916e2f0d2b7a1dc2f540e411.diff
   # poppler 0.7.x and 0.8.x needed sed lines
   #sed -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' -i src/extension/internal/pdfinput/pdf-parser.*
 }
 
 build() {
-  mkdir -p build
+  #mkdir -p build
   cd build 
   
   cmake ../${pkgname}-${pkgver}_${_commit} \
