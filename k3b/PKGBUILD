@@ -4,11 +4,11 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=k3b
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 epoch=1
 pkgdesc="Feature-rich and easy to handle CD burning application"
 arch=('x86_64')
-url="http://k3b.sourceforge.net/"
+url="https://userbase.kde.org/K3b"
 depends=('karchive' 'kconfig' 'ki18n' 'kcmutils' 'kcoreaddons' 'knotifyconfig' 'solid'
          'kfilemetadata' 'kiconthemes' 'kjobwidgets' 'kio' 'knotifications' 'knewstuff' 
          'kservice' 'kwidgetsaddons' 'kxmlgui' 'libkcddb5' 'libsamplerate' 
@@ -20,8 +20,6 @@ optdepends=('dvd+rw-tools: for dvd burning support'
             'cdparanoia:   for cd ripping support')
 license=('GPL')
 groups=('multimedia')
-conflicts=('kf5-k3b')
-replaces=('kf5-k3b')
 options=('!libtool')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -33,10 +31,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -44,12 +39,11 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build 
 }
 

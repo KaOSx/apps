@@ -4,19 +4,17 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
-url='https://github.com/KDE/kio-extras'
+url='https://invent.kde.org/network/kio-extras'
 license=('LGPL')
 depends=('exiv2' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'kdnssd' 'kiconthemes' 'ki18n'
          'kio' 'solid' 'kbookmarks' 'kguiaddons' 'kactivities-stats' 'syntax-highlighting'
          'libmtp' 'libssh' 'openexr' 'samba' 'qtwebengine' 'qt5-location' 'kdsoap' 'libappimage')
 makedepends=('extra-cmake-modules' 'kdoctools' 'khtml' 'gperf')
-source=("https://download.kde.org/stable/release-service/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/kio-extras/commit/d813cef3cecdec9af1532a40d677a203ff979145.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '19507701becc187807bcea3bd4ff93bf')
+source=("https://download.kde.org/stable/release-service/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -25,10 +23,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -36,11 +31,10 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build 
 }

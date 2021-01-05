@@ -4,10 +4,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-runtime
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 pkgdesc="KDE Pim Runtime"
-url="http://www.kde.org"
+url="https://invent.kde.org/pim/kdepim-runtime"
 license=('GPL' 'LGPL' 'FDL')
 depends=('akonadi-mime' 'akonadi-notes' 'akonadi-contacts' 'kconfig' 'kconfigwidgets' 'knotifyconfig' 'kio'
          'kitemmodels' 'kcodecs' 'kwindowsystem' 'ktextwidgets' 'knotifications' 'kholidays' 'kdbusaddons' 'kiconthemes'
@@ -17,26 +17,18 @@ depends=('akonadi-mime' 'akonadi-notes' 'akonadi-contacts' 'kconfig' 'kconfigwid
          'kdav' 'libkgapi' 'qca-qt5' 'qt5-networkauth' 'libkolabxml')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 options=('debug')
-conflicts=('kf5-kdepim-runtime')
-replaces=('kf5-kdepim-runtime')
 groups=('kde' 'kdepim' 'kde-uninstall')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://github.com/KDE/kdepim-runtime/commit/d148d6214590c03b8edbd237be7b1354ce4fcfbd.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-        '131f0e9b2127fc511eae59312c10629c')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
     cd ${pkgname}-${pkgver}
 
     #patch -p1 -i ${srcdir}/d148d6214590c03b8edbd237be7b1354ce4fcfbd.diff
-    sed -i -e 's|setRecursiveFiltering(true)|setRecursiveFilteringEnabled(true);|' agents/newmailnotifier/newmailnotifierselectcollectionwidget.cpp
 }
 
 build() {    
-    mkdir -p build
-    cd build
-
-    cmake ../${pkgname}-${pkgver} \
+    cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_SKIP_RPATH=ON \
@@ -46,11 +38,10 @@ build() {
         -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
         -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
         -DBUILD_TESTING=OFF
-    make
+    cmake --build build
 }
 
 package() {
-    cd build
 
-    make DESTDIR=${pkgdir} install
+    DESTDIR=${pkgdir} cmake --install build 
 }

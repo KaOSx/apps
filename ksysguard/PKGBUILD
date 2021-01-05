@@ -16,7 +16,7 @@ groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/plasma/ksysguard/-/commit/5391f4def701629ffbb2d0b20ef92af2fec7c313.diff")
 # grep md5 picks up libksysguard too
-md5sums=('fd1267064fa9b085934cbe3f1e5aade7'
+md5sums=('bc068a864d41df5c04982140dd7b9c55'
          '74c6458fa3e2af55fa043c6eac5da1c4')
 
 prepare() {
@@ -26,22 +26,18 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build 
 }
 

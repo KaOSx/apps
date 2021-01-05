@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kitinerary
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Library containing itinerary data model and itinerary extraction code."
 url="https://invent.kde.org/pim/kitinerary/"
@@ -28,10 +28,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -39,11 +36,10 @@ build() {
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build 
 }
