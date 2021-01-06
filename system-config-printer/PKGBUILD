@@ -1,6 +1,6 @@
 
 pkgname=system-config-printer
-pkgver=1.5.13
+pkgver=1.5.14
 _commit=340ec91a5702ccb75c6cde3a8ba634a01eab59d5
 pkgrel=1
 pkgdesc="A CUPS printer configuration tool and status applet"
@@ -14,12 +14,11 @@ optdepends=('print-manager: for the administration tool in KDE System Settings')
 provides=('system-config-printer-common')
 source=("https://github.com/OpenPrinting/system-config-printer/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #source=("https://github.com/OpenPrinting/system-config-printer/archive/${_commit}.zip")
-md5sums=('e92b213b474e9394bda2531812d651fe')
+md5sums=('eb59fc79921e4378cf35650ad91c7476')
 
 build() {
   cd ${pkgname}-${pkgver}
   sed -i "s|cups.socket|org.cups.cupsd.socket|g" udev/configure-printer@.service.in
-  #sed -i "s|gi.require_version('GnomeKeyring', '1.0')|#gi.require_version('GnomeKeyring', '1.0')|g" jobviewer.py
   #sed -i "s|from gi.repository import GnomeKeyring|#from gi.repository import GnomeKeyring|g" jobviewer.py
 
   ./bootstrap
