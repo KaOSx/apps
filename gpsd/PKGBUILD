@@ -1,6 +1,6 @@
 
 pkgname=gpsd
-pkgver=3.21
+pkgver=3.22
 pkgrel=1
 pkgdesc="GPS daemon and library to support USB/serial GPS devices"
 arch=('x86_64')
@@ -11,9 +11,9 @@ optdepends=('php: generate a PHP status page for your GPS')
 makedepends=('scons' 'docbook-xsl' 'asciidoc')
 backup=('etc/gpsd.conf')
 options=('!libtool')
-source=("http://download.savannah.gnu.org/releases/gpsd/${pkgname}-${pkgver}.tar.gz"
+source=("https://download-mirror.savannah.gnu.org/releases/gpsd/${pkgname}-${pkgver}.tar.gz"
         'gpsd.conf')
-md5sums=('826c485a5f3165d171cd6b95798bb93d'
+md5sums=('372c817a9238f5a9e1e0bc1bb03ae97f'
          '3e963df3f9f7ef3572ecc648ae829315')
 
 build() {
@@ -35,8 +35,8 @@ package() {
   export DESTDIR=${pkgdir}
   scons install
 
-  install -D -m644 gpsd.rules ${pkgdir}/usr/lib/udev/rules.d/25-gpsd-usb.rules
-  install -D -m644 ${srcdir}/gpsd.conf ${pkgdir}/etc/gpsd.conf
+  install -D -m644 ${pkgname}-${pkgver}/gpsd.rules ${pkgdir}/usr/lib/udev/rules.d/25-gpsd-usb.rules
+  install -D -m644 ../gpsd.conf ${pkgdir}/etc/gpsd.conf
 
   sed -i 's|/etc/default/gpsd|/etc/conf.d/gpsd|' gpsd.hotplug
   install -D -m755 gpsd.hotplug ${pkgdir}/usr/lib/udev/gpsd.hotplug
@@ -45,8 +45,8 @@ package() {
   #install -D -m644 packaging/X11/xgpsspeed.desktop "${pkgdir}/usr/share/applications/xgpsspeed.desktop"
   #install -D -m644 packaging/X11/gpsd-logo.png "${pkgdir}/usr/share/gpsd/gpsd-logo.png"
 
-  install -D -m644 systemd/gpsd.service ${pkgdir}/usr/lib/systemd/system/gpsd.service
-  install -D -m644 systemd/gpsd.socket ${pkgdir}/usr/lib/systemd/system/gpsd.socket
+  install -D -m644 ${pkgname}-${pkgver}/systemd/gpsd.service ${pkgdir}/usr/lib/systemd/system/gpsd.service
+  install -D -m644 ${pkgname}-${pkgver}/systemd/gpsd.socket ${pkgdir}/usr/lib/systemd/system/gpsd.socket
 
   install -D -m644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
