@@ -1,8 +1,8 @@
 
 pkgname=lilypond
-pkgver=2.21.82
-_pkgver=2.21
-pkgrel=2
+pkgver=2.22.0
+_pkgver=2.22
+pkgrel=1
 pkgdesc="A music engraving program, devoted to producing the highest-quality sheet music possible."
 arch=('x86_64')
 url="https://lilypond.org/"
@@ -16,17 +16,10 @@ optdepends=('netpbm: building HTML documentation'
             'rsync: installing HTML documentation')
 groups=('multimedia')
 source=("https://lilypond.org/downloads/source/v${_pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('19ea67334e7ecfabb077f056e4df4234')
+md5sums=('4b0d869873b0120bda2e8bd94e1a628a')
 
 build() {
   cd ${pkgname}-${pkgver}
-  
-  #sed -i 's|GUILE_CFLAGS=.*|GUILE_CFLAGS="`pkg-config --cflags guile-1.8`"|' configure
-  #sed -i 's|GUILE_LDFLAGS=.*|GUILE_LDFLAGS="`pkg-config --libs guile-1.8`"|' configure
-  
-  #export GUILE=/usr/bin/guile1.8
-  #export GUILE_CONFIG=/usr/bin/guile-config1.8
-  #export LDFLAGS="$LDFLAGS -lpthread"
 
   ./autogen.sh \
     --prefix=/usr \
