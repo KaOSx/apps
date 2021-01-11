@@ -17,17 +17,16 @@ options=('!libtool' '!makeflags')
 source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 #source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
         "https://github.com/scribusproject/scribus/commit/17d6a9833488163d7c33c3f2233916b18550e253.diff"
-        'poppler86.diff')
+        'podofo0.97.diff')
 sha256sums=('d4257695539cfa40dead8abdaf04c51e34d4d74bcad5a2c934d08e6e9d43b7ab'
             '96669eb3b0b3da22f1c6a922d2efdd6569115a68dec738f03bcb6e7758cea884'
-            '9c807f5869bdd96830bee7990f764ce1b81c04cfb543163bf336d7debab8ffd1')
+            '3b6491c072b34c11022d139d19bf2b9c8bab05963df03c8101665546a1630f82')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  #sed -i 's|hunspell-1.3 hunspell-1.2|hunspell-1.3 hunspell-1.7|' cmake/modules/FindHUNSPELL.cmake
-  #patch -p0 -i ${srcdir}/poppler86.diff
-  #patch -p1 -i ${srcdir}/17d6a9833488163d7c33c3f2233916b18550e253.diff
+  sed -i 's|pBase->SetOwner(cs->GetOwner());||' scribus/pdf_analyzer.cpp
+  #patch -p1 -i ${srcdir}/podofo0.97.diff
 }
 
 build() {
