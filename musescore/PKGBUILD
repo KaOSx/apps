@@ -12,13 +12,14 @@ makedepends=('cmake' 'doxygen' 'texlive-core' 'qt5-script')
 groups=('multimedia')
 source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz"
 #source=("https://download.musescore.com/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.zip"
-        'cmake_install.diff')
+        "https://github.com/musescore/MuseScore/commit/7a465c3727bc28ed12e9614b50684cb18e5525e7.diff")
 md5sums=('a7fa0a59db52a8aa71de1f2c8bdd02c4'
-         '421e6b35338f5c853cb92f29838e01f3')
+         '624ad150d4cff71168553522f0236df4')
 
 prepare() {
   cd MuseScore-${pkgver}
   #sed -i 's|QT_QMAKE_EXECUTABLE qmake|QT_QMAKE_EXECUTABLE qmake-qt5|' build/FindQt5.cmake
+  patch -p1 -R -i ${srcdir}/7a465c3727bc28ed12e9614b50684cb18e5525e7.diff
 }
 
 build() {
