@@ -1,8 +1,8 @@
 
 pkgname=krita
-pkgver=4.4.1
-_pkgver=4.4.1
-pkgrel=3
+pkgver=4.4.2
+_pkgver=4.4.2
+pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -19,27 +19,21 @@ replaces=('krita-l10n')
 source=("https://download.kde.org/stable/krita/${_pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/graphics/krita/-/commit/bdebaf91575fa837697b694219a18c46b5af3f83.diff"
         'launch_krita.sh')
-md5sums=('55d11e4951b39b47b083eb56112118f4'
-         '2b7ebe822988be40680dc2db4bae168e'
-         '673003bb648af0d4f801043ee0a17c2a')
+sha256sums=('1ee503afc86178e1abbae63e8334e26116a6779aa9ef202656a1c35b76932e88'
+            'f722eec5fb9850ffa2a795d1998da7f393c4025148b528d739cc1e1258562307'
+            'df345142ede5ec8f2d3422850dd78059944220f163fa30b5cdefdc9bd54235ff')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   sed -i 's|X-KDE-Import": "image/x-krita-raw|X-KDE-Import": "image/x-nikon-nef,image/x-canon-cr2,image/x-sony-sr2,image/x-canon-crw,image/x-pentax-pef,image/x-sigma-x3f,image/x-kodak-kdc,image/x-minolta-mrw,image/x-sony-arw,image/x-kodak-k25,image/x-kodak-dcr,image/x-olympus-orf,image/x-panasonic-raw,image/x-panasonic-raw2,image/x-fuji-raf,image/x-sony-srf,image/x-adobe-dng|' plugins/impex/raw/krita_raw_import.json
   # boost 0.73.0 needed, fix from Gentoo
-  sed -e "/CMAKE_CXX_STANDARD/s/11/14/" -i CMakeLists.txt
+  #sed -e "/CMAKE_CXX_STANDARD/s/11/14/" -i CMakeLists.txt
   # Qt 5.15 needed
-  patch -p1 -i ${srcdir}/bdebaf91575fa837697b694219a18c46b5af3f83.diff
+  #patch -p1 -i ${srcdir}/bdebaf91575fa837697b694219a18c46b5af3f83.diff
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  #export CC=/usr/bin/clang
-  #export CXX=/usr/bin/clang++
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -47,12 +41,12 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_KRITA_QT_DESIGNER_PLUGINS=ON \
     -DBUILD_TESTING=FALSE 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
   # don't override system defaults
   install -Dm755 ${srcdir}/launch_krita.sh ${pkgdir}/usr/bin/launch_krita.sh
   sed 's|Exec=krita %F|Exec=launch_krita.sh|' -i ${pkgdir}/usr/share/applications/org.kde.krita.desktop
