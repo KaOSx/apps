@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb' 'libcanberra' 'polkit-kde-agent-1'
          'systemsettings' 'ksysguard' 'powerdevil' 'kmenuedit' 'kpeople' 
          'kdbusaddons' 'plasma-integration' 'xorg-server' 'signon-oauth2' 'accountsservice'
-         'kactivities-stats' 'kaccounts-integration' 'xf86-input-evdev' 'xf86-input-libinput')
+         'kactivities-stats' 'kaccounts-integration' 'kio-fuse' 'xf86-input-evdev' 'xf86-input-libinput')
 makedepends=('extra-cmake-modules' 'kdoctools' 'xf86-input-synaptics' 'boost' 'intltool')
 groups=('kdeplasma5')
 conflicts=('user-kcm')
@@ -29,8 +29,6 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # prep for plasma 5.5, move to noto, no longer use oxygen-fonts in KaOS, uncomment with 5.5
-  #sed -i -e 's|QFont f1("Oxygen Mono", 9); // fixed font|QFont f1("DejaVu Sans Mono", 9); // fixed font|' kcms/fonts/fonts.cpp
   # adjust default settings for panel, kicker & desktop view
   patch -p1 -i ${srcdir}/layout_desktop_panel.diff
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff

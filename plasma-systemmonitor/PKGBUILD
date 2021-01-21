@@ -3,8 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-systemmonitor
-#pkgver=${_plasmaver}
-pkgver=5.20.0
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Provides an interface for monitoring system sensors, process information and other system resources.'
 arch=('x86_64')
@@ -13,9 +12,9 @@ license=('GPLv2')
 depends=('ki18n' 'kconfig' 'kdeclarative' 'kservice' 'kglobalaccel' 'kio' 'kdbusaddons' 'knewstuff'
          'knotifications' 'kirigami' 'libksysguard')
 makedepends=('extra-cmake-modules' 'kdoctools')
-#groups=('kdeplasma5')
+groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma-systemmonitor/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('ec0af476c7cf992a3fc43af4e7f066c22757b7c196ee49fdbc4286bdf02948d1')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

@@ -12,13 +12,10 @@ license=('GPL' 'LGPL')
 depends=('kconfig' 'kdbusaddons' 'kdeclarative' 'kglobalaccel' 'ki18n' 'kiconthemes' 'kcmutils'
          'kxmlgui'  'libkscreen' 'plasma-framework' 'qt5-sensors')
 makedepends=('extra-cmake-modules')
-conflicts=('kf5-kscreen')
-replaces=('kf5-kscreen')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 #md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-md5sums=('dc72669cfdc05f72472e31825b47c7bc')
+md5sums=('19c5ed4eb9aade393335c0bba2eda406')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
