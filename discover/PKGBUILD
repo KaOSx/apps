@@ -9,16 +9,13 @@ pkgrel=1
 pkgdesc="An Application Installer for the 22nd Century"
 url="https://userbase.kde.org/Discover"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kconfig' 'kcrash' 'kdbusaddons' 'ki18n' 'karchive' 'kcompletion' 
-         'kdeclarative' 'kxmlgui' 'kitemmodels' 'kio' 'knewstuff' 'kf5-attica' 
+depends=('kcoreaddons' 'kconfig' 'kcrash' 'kdbusaddons' 'ki18n' 'karchive' 'kxmlgui' 
+         'kitemmodels' 'kio' 'kdeclarative' 'kcmutils' 'kidletime' 'knewstuff' 'kf5-attica' 'kcompletion'
          'knotifications' 'kirigami' 'plasma-framework' 'appstream' 'flatpak' 'fwupd'
          'kuserfeedback' 'discount')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=($_mirror/${pkgname}-$_plasmaver.tar.xz
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
-        "https://github.com/KDE/discover/commit/36fc062a77257e5d744fe4029149fc05a71db4b2.diff")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '59500115af6e45ce751e881d38e50376')
+source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
