@@ -1,0 +1,46 @@
+pkgname=docker-cli
+pkgver=20.10.2
+DOCKER_GITCOMMIT=8891c58
+pkgrel=1
+pkgdesc='Run any application as a lightweight container - command line binary for docker'
+arch=('x86_64')
+url='https://www.docker.com/'
+license=('Apache-2.0')
+depends=('bridge-utils' 'iproute2' 'device-mapper' 'sqlite' 'systemd' 'containerd' 'docker-proxy')
+makedepends=('go' 'go-md2man')
+options=('!strip')
+source=("cli-${pkgver}.tar.gz::https://github.com/docker/cli/archive/v${pkgver}.tar.gz")
+md5sums=('b3e97ba282605d0c511d394d7a7be3b4')
+
+prepare() {
+  cd cli-${pkgver}
+  
+  sed -i 's|-v md2man|-v go-md2man|' scripts/docs/generate-man.sh
+  sed -i 's|md2man|go-md2man|' man/md2man-all.sh
+  
+  mkdir -p src/github.com/docker
+  ln -rsT ${srcdir}/cli-${pkgver} src/github.com/docker/cli
+}
+
+build() {
+  cd cli-${pkgver}
+  export DOCKER_GITCOMMIT
+  export DISABLE_WARN_OUTSIDE_CONTAINER=1
+  export GOPATH=${srcdir}/cli-${pkgver}
+  
+  LDFLAGS='' make dynbinary
+  man/md2man-all.sh
+}
+
+package() {
+  cd cli-${pkgver}
+  install -Dm755 build/docker-linux-amd64 ${pkgdir}/usr/bin/docker
+  
+  install -Dm644 contrib/completion/bash/docker ${pkgdir}/usr/share/bash-completion/completions/docker
+  install -Dm644 contrib/completion/zsh/_docker ${pkgdir}/usr/share/zsh/site-functions/_docker
+  install -Dm644 contrib/completion/fish/docker.fish ${pkgdir}/usr/share/fish/vendor_completions.d/docker.fish
+
+  install -dm755 ${pkgdir}/usr/share/man
+  mv man/man* ${pkgdir}/usr/share/man
+}
+

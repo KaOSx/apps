@@ -1,35 +1,35 @@
 pkgname=docker
-pkgver=20.10.1
-_pkgver=20.10.1
+pkgver=20.10.2
+_pkgver=20.10.2
 # add commit associated with the release tag
 # build runc & containerd from https://github.com/moby/moby/blob/master/hack/dockerfile/install/containerd.installer &
 # https://github.com/moby/moby/blob/master/hack/dockerfile/install/runc.installer & https://github.com/moby/moby/blob/master/hack/dockerfile/install/proxy.installer for docker-proxy
 # all at https://github.com/moby/moby/tree/master/hack/dockerfile/install --branch
-DOCKER_GITCOMMIT=f001486
+DOCKER_GITCOMMIT=8891c58
 pkgrel=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64')
 url='https://www.docker.com/'
 license=('Apache')
-depends=('bridge-utils' 'iproute2' 'device-mapper' 'sqlite' 'systemd' 'containerd' 'docker-proxy')
+depends=('bridge-utils' 'iproute2' 'device-mapper' 'sqlite' 'systemd' 'containerd'
+         'docker-proxy' 'docker-cli')
 makedepends=('git' 'go' 'go-md2man')
 options=('!strip')
 install=$pkgname.install
-source=("cli-${pkgver}.tar.gz::https://github.com/docker/cli/archive/v${pkgver}.tar.gz"
-        "moby-${_pkgver}.tar.gz::https://github.com/moby/moby/archive/v${_pkgver}.tar.gz"
+#source=("cli-${pkgver}.tar.gz::https://github.com/docker/cli/archive/v${pkgver}.tar.gz"
+source=("moby-${_pkgver}.tar.gz::https://github.com/moby/moby/archive/v${_pkgver}.tar.gz"
         'docker.sysusers'
         "https://github.com/docker/docker/commit/6f89a8ee1ba6b598dc1f76e829d6db6f830cdb8e.patch")
-md5sums=('004a91da8ff4680894b0637614998535'
-         '47c140982d8da8142c9e2fcb5ff70fe5'
+md5sums=('4a1025fd2affef73fb32e863ff6873bd'
          '4324edeb9adc210a2c22f44eb4cb8a74'
          'c7a8981a18cf7d67276cb0ab058173c0')
 
-prepare() {
-  mkdir -p ${srcdir}/go/src/github.com/docker
-  ln -s ${srcdir}/cli-${pkgver} ${srcdir}/go/src/github.com/docker/
+#prepare() {
+#  mkdir -p ${srcdir}/go/src/github.com/docker
+#  ln -s ${srcdir}/cli-${pkgver} ${srcdir}/go/src/github.com/docker/
   
-  export GOPATH=${srcdir}/go
-}
+#  export GOPATH=${srcdir}/go
+#}
          
 build() {
   cd moby-${_pkgver}
@@ -38,29 +38,30 @@ build() {
   
   hack/make.sh dynbinary
   
-  cd ../cli-${pkgver}
-  export DOCKER_GITCOMMIT
+  #cd ../cli-${pkgver}
+  #export DOCKER_GITCOMMIT
+  #export DISABLE_WARN_OUTSIDE_CONTAINER=1
   
-  LDFLAGS="" make dynbinary # manpages
-  man/md2man-all.sh
+  #LDFLAGS="" make dynbinary # manpages
+  #man/md2man-all.sh
 }
 
 package() {
-  cd docker-ce-${_pkgver}/components
-  install -Dm755 cli/build/docker-linux-amd64 ${pkgdir}/usr/bin/docker
+  cd moby-${_pkgver}
+  #install -Dm755 cli/build/docker-linux-amd64 ${pkgdir}/usr/bin/docker
   
-  install -Dm644 cli/contrib/completion/bash/docker ${pkgdir}/usr/share/bash-completion/completions/docker
-  install -Dm644 cli/contrib/completion/zsh/_docker ${pkgdir}/usr/share/zsh/site-functions/_docker
-  install -Dm644 cli/contrib/completion/fish/docker.fish ${pkgdir}/usr/share/fish/vendor_completions.d/docker.fish
+  #install -Dm644 cli/contrib/completion/bash/docker ${pkgdir}/usr/share/bash-completion/completions/docker
+  #install -Dm644 cli/contrib/completion/zsh/_docker ${pkgdir}/usr/share/zsh/site-functions/_docker
+  #install -Dm644 cli/contrib/completion/fish/docker.fish ${pkgdir}/usr/share/fish/vendor_completions.d/docker.fish
   
-  install -Dm644 packaging/systemd/docker.service ${pkgdir}/usr/lib/systemd/system/docker.service
-  install -Dm644 packaging/systemd/docker.socket ${pkgdir}/usr/lib/systemd/system/docker.socket
+  install -Dm644 contrib/init/systemd/docker.service ${pkgdir}/usr/lib/systemd/system/docker.service
+  install -Dm644 contrib/init/systemd/docker.socket ${pkgdir}/usr/lib/systemd/system/docker.socket
   
-  cd engine
+  #cd engine
   install -Dm755 bundles/dynbinary-daemon/dockerd-dev ${pkgdir}/usr/bin/dockerd
 
-  install -Dm644 contrib/syntax/vim/syntax/dockerfile.vim ${pkgdir}/usr/share/vim/vimfiles/syntax/dockerfile.vim
-  install -Dm644 contrib/syntax/vim/ftdetect/dockerfile.vim ${pkgdir}/usr/share/vim/vimfiles/ftdetect/dockerfile.vim
+  #install -Dm644 contrib/syntax/vim/syntax/dockerfile.vim ${pkgdir}/usr/share/vim/vimfiles/syntax/dockerfile.vim
+  #install -Dm644 contrib/syntax/vim/ftdetect/dockerfile.vim ${pkgdir}/usr/share/vim/vimfiles/ftdetect/dockerfile.vim
   
   install -Dm644 ${srcdir}/${pkgname}.sysusers ${pkgdir}/usr/lib/sysusers.d/$pkgname.conf
   
@@ -70,7 +71,7 @@ package() {
   ln -s containerd-shim ${pkgdir}/usr/bin/docker-containerd-shim
   ln -s ctr ${pkgdir}/usr/bin/docker-containerd-ctr
 
-  install -dm755 ${pkgdir}/usr/share/man
-  mv ../cli/man/man* ${pkgdir}/usr/share/man
+  #install -dm755 ${pkgdir}/usr/share/man
+  #mv ../cli/man/man* ${pkgdir}/usr/share/man
 }
 
