@@ -1,22 +1,19 @@
 
 pkgname=zulucrypt
 _pkgname=zuluCrypt
-pkgver=5.7.1
+pkgver=6.0.0
 pkgrel=1
 pkgdesc="Simple,feature rich and powerful solution for hard drives encryption."
-url="http://mhogomchungu.github.io/zuluCrypt/"
+url="https://mhogomchungu.github.io/zuluCrypt/"
 arch=('x86_64')
 license=('GPL') 
 depends=('cryptsetup' 'libpwquality' 'libsecret' 'libxkbcommon' 'qt5-base' 'kwalletmanager')
 makedepends=('cmake')
 source=("https://github.com/mhogomchungu/zuluCrypt/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.xz") 
-sha256sums=('c212450876d787cba617cf161dee935742cea7f1dc3d757c6d8e707849dd8806')
+sha256sums=('d149e220e0859f6cd88f45ce3c8de6dc3a632705f9092b86c9aaac490cc442a8')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr/ \
     -DCMAKE_BUILD_TYPE=release \
     -DLIB_SUFFIX=lib \
@@ -24,12 +21,11 @@ build() {
     -DQT5=ON \
     -DHOMEMOUNTPREFIX=OFF \
     -DNOKDE=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=$pkgdir install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
