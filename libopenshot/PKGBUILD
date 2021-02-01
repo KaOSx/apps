@@ -1,7 +1,7 @@
 
 pkgname=libopenshot
 pkgver=0.2.5
-pkgrel=4
+pkgrel=5
 pkgdesc="Open-source project dedicated to delivering high quality video editing, animation, and playback solutions to the world."
 arch=('x86_64')
 url="https://www.openshot.org/"
@@ -11,35 +11,30 @@ depends=('libopenshot-audio' 'ffmpeg' 'imagemagick' 'libx11' 'libxcursor' 'libxi
 makedepends=('cmake' 'swig') # 'doxygen')
 # http://bazaar.launchpad.net/~openshot.code/libopenshot/trunk/files
 source=("https://github.com/OpenShot/libopenshot/archive/v${pkgver}.tar.gz"
-        "https://github.com/OpenShot/libopenshot/commit/4c5851df2873458e9a84cbba7471d546b521083e.diff")
+        "https://github.com/OpenShot/libopenshot/commit/9922479945def383d7d425242ee8de8b519456c0.diff")
 md5sums=('2e271cf3ad03e6116564fa1bcc7bf46b'
-         '8cde2a610a23a04bb6950a6a569c3720')
+         '2f5d987ec3817e3a1cb21f1d925e981e')
 
 prepare () {
   cd ${pkgname}-${pkgver}
   
   #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' CMakeLists.txt
-  #patch -p1 -i ${srcdir}/4c5851df2873458e9a84cbba7471d546b521083e.diff
+  # gcc 10 needed
+  patch -p1 -i ${srcdir}/9922479945def383d7d425242ee8de8b519456c0.diff
 }   
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMAGICKCORE_HDRI_ENABLE=1 \
     -DENABLE_RUBY=OFF \
     -DDISABLE_TESTS=ON \
     -DDOXYGEN_FOUND=NO
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  make DESTDIR=${pkgdir} install
-  # install the example and simple player
-  #install -d ${pkgdir}/usr/bin
-  #install -m755 src/openshot-* ${pkgdir}/usr/bin
+
+  DESTDIR=${pkgdir} cmake --install build
 }
