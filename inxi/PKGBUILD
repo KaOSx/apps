@@ -2,7 +2,7 @@
 pkgname=inxi
 pkgver=3.3.00
 _commit=6c9b259375650625f12b1064cc27a7445244ba13
-pkgrel=1
+pkgrel=2
 pkgdesc="Script to get system information"
 arch=('x86_64')
 url="https://smxi.org/docs/inxi.htm"
@@ -15,6 +15,8 @@ package() {
   cd ${pkgname}-${_commit}
   
   install -D -m755 inxi ${pkgdir}/usr/bin/inxi
+  sed -i -e 's:kaos|::' ${pkgdir}/usr/bin/inxi
+  
   install -D -m755 inxi.1 ${pkgdir}/usr/share/man/man1/inxi.1
 }
 
