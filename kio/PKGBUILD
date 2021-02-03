@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kio'
@@ -14,15 +14,15 @@ depends=('karchive' 'kconfig' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kser
          'kwidgetsaddons' 'kwindowsystem' 'kauth' 'kwallet' 'knotifications' 'krb5' 'qt5-script')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/5.74/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/frameworks/kio/-/commit/4321b8ff8ac7a8ffdea1068d8bbc734a0a34c0d0.diff")
+source=("https://download.kde.org/stable/frameworks/5.78/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/kio/-/commit/a183dd0d1ee0659e5341c7cb4117df27edd6f125.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '0b4acd4ed3acb920154dc6481884aaf5')
+         '69a5d83a07c2096a2418625638384235')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/4321b8ff8ac7a8ffdea1068d8bbc734a0a34c0d0.diff
+  patch -p1 -i ${srcdir}/a183dd0d1ee0659e5341c7cb4117df27edd6f125.diff
 }
          
 build() {
