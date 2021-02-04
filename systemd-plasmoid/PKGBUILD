@@ -1,32 +1,34 @@
 
 pkgname=systemd-plasmoid
-pkgver=0.1
-_commit=bb12c957bb6bce796b68da182058f41a6e1abdc1
-pkgrel=5
+pkgver=2.0.1
+pkgrel=1
 pkgdesc="Plasma widget to control systemd services"
 arch=('x86_64')
 url="https://github.com/jansenm/systemd-plasmoid"
 license=('LGPLv2')
 depends=('ki18n' 'knotifications' 'plasma-framework')
 makedepends=('extra-cmake-modules')
-source=("https://github.com/jansenm/systemd-plasmoid/archive/${_commit}.zip")
-md5sums=('8910b655600885d796fbb5cc8c47607e')
+source=("https://github.com/jansenm/systemd-plasmoid/archive/${pkgver}.tar.gz")
+md5sums=('e0e19ea6d547bea552fce55a5048bae1')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/qmlplugin.diff
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 
 package() {
