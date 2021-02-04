@@ -1,7 +1,7 @@
 
 pkgname=quassel
-pkgver=0.13.1
-_pkgver=0.13.1
+pkgver=0.14rc1
+_pkgver=0.14-rc1
 pkgrel=1
 pkgdesc="Qt irc client with a separated core"
 url="https://quassel-irc.org"
@@ -23,7 +23,7 @@ source=("https://quassel-irc.org/pub/quassel-${_pkgver}.tar.bz2"
         'quassel.png')
 install=quassel.install
 backup=(etc/conf.d/quassel.conf)
-md5sums=('7f9b8074632262a392c1d00936808d03'
+md5sums=('fe77d4439ac0bec5a0b1a89b15d191e7'
          '7f56b8d2d54a1395ed8bada023ec710c'
          '479229556ba0dd94e3ce28e31e5deea9'
          'd22180823cda2ac7bedb238463714c15'
@@ -37,35 +37,25 @@ prepare() {
 }
          
 build() {
-  mkdir build
-  cd build
-
-  cmake ../${pkgname}-${_pkgver} \
+  cmake -B build -S ${pkgname}-${_pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr/ \
-    -DUSE_QT5=ON \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DWITH_WEBKIT=ON \
     -DWITH_KDE=ON \
-    -DCMAKE_BUILD_TYPE="Release" \
     -DHAVE_SSL=ON \
     -DWITH_BUNDLED_ICONS=OFF \
     -Wno-dev
-
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 
   install -D ${srcdir}/${pkgname}.service ${pkgdir}/usr/lib/systemd/system/${pkgname}.service
   install -D -m644 ${srcdir}/${pkgname}.conf ${pkgdir}/etc/conf.d/${pkgname}
   
-  #rm ${pkgdir}/usr/share/icons/hicolor/scalable/status/irc*
-  #rm ${pkgdir}/usr/share/pixmaps/quassel.png
-  #install -m 644 -p ${srcdir}/irc-channel* ${pkgdir}/usr/share/icons/hicolor/scalable/status/
-  #install -D ${srcdir}/irc-channel-inactive.svgz ${pkgdir}/usr/share/apps/quassel/icons/oxygen/scalable/irc*
-  #install -m 644 -p ${srcdir}/quassel.png ${pkgdir}/usr/share/pixmaps/
   # set default channel to KaOS
   sed -i -e 's|DefaultChannels=#quassel|DefaultChannels=#kaosx|' ${pkgdir}/usr/share/quassel/networks.ini
 }
