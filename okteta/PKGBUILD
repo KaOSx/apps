@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=okteta
-pkgver=0.26.4
+pkgver=0.26.5
 pkgrel=1
 epoch=1
 pkgdesc="KDE hex editor for viewing and editing the raw data of files"
@@ -14,13 +14,10 @@ depends=('kcmutils' 'kcodecs' 'kcompletion' 'kconfigwidgets' 'kdbusaddons' 'ki18
          'kparts' 'kservice' 'kwidgetsaddons' 'kxmlgui' 'qca-qt5' 'qt5-tools')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("https://download.kde.org/stable/okteta/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('ef22b096c4d8a682b5467ee7d8e9e05ede44cde116daef804312745c4bfd0f03')
+sha256sums=('9fc7edfff73e7b0583af540b0c052f9221ca3f11ea3fc3604c2bcedb09c29a97')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgbase}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -29,11 +26,10 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
