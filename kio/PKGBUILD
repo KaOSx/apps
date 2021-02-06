@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kio'
@@ -22,7 +22,7 @@ md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/a183dd0d1ee0659e5341c7cb4117df27edd6f125.diff
+  #patch -p1 -i ${srcdir}/a183dd0d1ee0659e5341c7cb4117df27edd6f125.diff
 }
          
 build() {

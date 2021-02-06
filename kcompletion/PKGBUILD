@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcompletion
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KCompletion'
 arch=('x86_64')
 url='https://community.kde.org/Frameworks'
@@ -20,7 +20,7 @@ md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/7acda936f06193e9fc85ae5cf9ccc8d65971f657.diff
+  #patch -p1 -i ${srcdir}/7acda936f06193e9fc85ae5cf9ccc8d65971f657.diff
 }
 
 build() {
