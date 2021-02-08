@@ -1,0 +1,24 @@
+
+pkgname=vscodium
+pkgver=1.53.0
+pkgrel=1
+pkgdesc="Binary releases of VS Code without MS branding/telemetry/licensing."
+arch=('x86_64')
+url="https://github.com/VSCodium/vscodium"
+license=('MIT')
+depends=('alsa-lib' 'cairo' 'fontconfig' 'gtk3' 'libnotify' 'libxss' 'libxtst' 'nss' 'python3')
+source=("https://github.com/VSCodium/vscodium/releases/download/${pkgver}/VSCodium-linux-x64-${pkgver}.tar.gz"
+        'vscodium.desktop')
+sha256sums=('131ece3924b406eef62e7241a62247268cfc59e6f427f5e283da0febf6d9629a'
+            'caa357df4d2b3c4e00322e4c359409fe05ad66af95fcf894196476845d1e55f8')
+
+package() {
+  install -dm755 ${pkgdir}/opt/vscodium
+  bsdtar -xf VSCodium-linux-x64-${pkgver}.tar.gz -C ${pkgdir}/opt/vscodium
+
+  install -dm755 ${pkgdir}/usr/share/applications
+  install -Dm644 ${srcdir}/vscodium.desktop ${pkgdir}/usr/share/applications/vscodium.desktop
+  
+  install -dm755 ${pkgdir}/usr/share/pixmaps
+  install -Dm644 ${srcdir}/resources/app/resources/linux/code.png ${pkgdir}/usr/share/pixmaps/vscodium.png
+}
