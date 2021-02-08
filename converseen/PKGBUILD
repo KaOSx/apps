@@ -1,7 +1,7 @@
 
 pkgname=converseen
 pkgver=0.9.8.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Open source image converter and resizer written in C++ with the powerful Qt5 libraries"
 arch=('x86_64')
 url="http://converseen.fasterland.net/"
@@ -13,18 +13,13 @@ source=("https://github.com/Faster3ck/Converseen/archive/v${pkgver}.tar.gz")
 md5sums=('a4d1b2d2b2ff0406837f74d44455ed63')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../Converseen-${pkgver} \
+  cmake -B build -S Converseen-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
-    
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build 
 }
