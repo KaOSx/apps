@@ -1,21 +1,21 @@
 
 pkgname=inxi
-pkgver=3.3.00
-_commit=6c9b259375650625f12b1064cc27a7445244ba13
-pkgrel=2
+pkgver=3.3.01
+_commit=d11f2a7a89368b92acafe9b89532c0ad8b0b4c90
+pkgrel=1
 pkgdesc="Script to get system information"
 arch=('x86_64')
 url="https://smxi.org/docs/inxi.htm"
 license=('GPL')
 depends=('mesa-demos' 'coreutils' 'pciutils' 'procps-ng' 'dmidecode' 'perl')
 source=("https://github.com/smxi/inxi/archive/${_commit}.zip")
-md5sums=('08741a1307cfe64ec86a07d46556efe9')
+md5sums=('00c6e3cccb06a07cb441da64d15685f5')
 
 package() {
   cd ${pkgname}-${_commit}
   
   install -D -m755 inxi ${pkgdir}/usr/bin/inxi
-  sed -i -e 's:kaos|::' ${pkgdir}/usr/bin/inxi
+  #sed -i -e 's:kaos|::' ${pkgdir}/usr/bin/inxi
   
   install -D -m755 inxi.1 ${pkgdir}/usr/share/man/man1/inxi.1
 }
