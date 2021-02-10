@@ -50,21 +50,20 @@ Rectangle {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2021.01</h3>
+            text: qsTr("<h3>KaOS - 2021.02</h3>
             <p>Two weeks into the New Year, KaOS is pleased to present you with a first ISO for 2021</p>
             
             <p>For the many changes in this release, a few stand out. This is a first ISO that ships with Qt 6. Not that Plasma is ready for Qt 6, but some are (Poppler, Strawberry,Qsynth, Qtkeychain for example), so to get this distribution in good shape for the eventual Qt 6 move, any that can be build with Qt 6 are done so now.</br>
             The KDE Applications release 20.12 saw the addition of almost a dozen new applications, some just moved from standalone releases to now a monthly release, but the addition of Itinerary (an app that provides you with all the information you need while on the road) and Spectacle using Kimageannotator for annotation tool are good improvements.</br>
             There has been a search for quite some time for a good GUI to handle Systemd services, the used systemd-kcm has not been maintained for years. This replacement is now found and included in the ISO, Stacer (it can also be used as system clean-up tool and handle startup applications). </p>
             
-            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.78.0, Plasma 5.20.5 and KDE Applications 20.12.1. All built on Qt 5.15.2.</p>
+            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.79.0, Plasma 5.21.0 and KDE Applications 20.12.2. All built on Qt 5.15.2.</p>
             
             <p>News for those working on KaOS (probably and hopefully not visible at all to regular users) is the migration to a new, dedicated server. This is a real hardware server, running KaOS, so no longer using a VPS. Advantage is direct access to the hardware and much more powerful specs.</p>
             
-            <p>For the installer Calamares, there is now preliminary support for “split” encryption, where the boot partition is not encrypted, but the rest of the system is encrypted and the users module now has a more detailed way to specify user groups</p>
+            <p>For the installer Calamares, it is now possible to hide the next and back buttons during the “exec” phase of installation. The mount module creates swap in its own subvolume -- if btrfs is used. During the creation of filesystems and partitions, automounting is turned off (if DBus is available, and the host system supports KDE Solid automount control).</p>
             
-            <p>New applications added include the Matrix chat client Neochat (KDE maintained fork of Spectral), and Barrier, allowing the user to use a single keyboard and mouse to control multiple computers. New are also
-            a PyQt 6 stack, including Sip 6, PyQt-Builder, PyQt6-sip and PyQt 6.0.0.</p>
+            <p>New applications added include VSCodium.</p>
             
             <p>Updates to the base of this distribution were numerous and include Python3 3.8.7, ICU 68.2, Boost 1.75.0, Git 2.30.0, LLVM/Clang 11 (11.0.1), Protobuf 3.14, Hdf5 1.12.0, Poppler 21.01.0, Mesa 20.3.2, NetworkManager 1.28.0, Libarchive 3.5.1, Samba 4.13.3. The maintenance of the Linux AUFS patches has started again, so the latest kernel can be included again in the ISO, 5.10.5</p>
             
@@ -90,12 +89,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.78.0, Plasma 5.20.5, KDE Applications 20.12.1</b>, Linux 5.10.5, Systemd 246, Kmod 27, NetworkManager 1.28.0, LibreOffice 7.0.4, Krita 4.4.1, Elisa, Xorg-Server 1.20.10, Mesa 20.3.2, Glibc 2.32, GCC 10.2.0, non-free Nvidia 460, Pepperflash and Python3 3.8.7 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.79.0, Plasma 5.20.90, KDE Applications 20.12.2</b>, Linux 5.10.6, Systemd 247, Kmod 27, NetworkManager 1.28.0, LibreOffice 7.0.4, Krita 4.4.1, Elisa, Xorg-Server 1.20.10, Mesa 20.3.2, Glibc 2.32, GCC 10.2.0, non-free Nvidia 460 and Python3 3.8.7 to name a few.</p>
             
-            <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.9.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
+            <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.11.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.10, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 84.0.1, Chrome 89, Ardour 6.5.0, Inkscape 1.0.1, GIMP 2.10.22 and Thunderbird 78.6.0.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 85.0.2, Chrome 90, Ardour 6.5.0, Inkscape 1.0.1, GIMP 2.10.22 and Thunderbird 78.7.1.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>

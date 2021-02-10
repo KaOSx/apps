@@ -1,7 +1,7 @@
 
 pkgbase=google-chrome
 pkgname=('google-chrome' 'widevine')
-pkgver=90.0.4408.0
+pkgver=90.0.4412.3
 pkgrel=1
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
@@ -14,7 +14,7 @@ makedepends=('gcc-libs' 'gtk3' 'nss' 'libjpeg-turbo' 'freetype2' 'cairo' 'libxsl
 source=("google-chrome-unstable_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb"
         "https://www.google.com/chrome/intl/en/eula_text.html"
         'google-chrome-unstable.desktop')
-sha256sums=('05c032bf386030aef91e44c9667b499097a6e58068ed03ac8ae13c8b5ceca229'
+sha256sums=('1f8ebf2b260aaf3183ac1dfacd510dec6e157ae3ac4f37a6129450b258944dab'
             '2cdb1f895d19a458299f5d9a2dfa5ffe18a5922e827afe5887895b6a2f7e3259'
             '6a5c0dd62112dcc3d9d750974d10d9e78b5964011cfe9e281c7e5acacb42b8cf')
 
@@ -26,7 +26,6 @@ package_google-chrome() {
     optdepends=('kde-gtk-config: gtk integration settings for Plasma')
     groups=('network-web')
     install=$pkgname.install
-    
     bsdtar -xf data.tar.xz -C ${pkgdir}/ 
 
     # Adding man page
@@ -55,12 +54,12 @@ package_google-chrome() {
 package_widevine() {
     pkgdesc="Google Chrome's plugin for viewing premium video content"
     depends=('pulseaudio')
-    
+
     bsdtar -xf data.tar.xz
-    
+
     install -Dm644 opt/google/chrome-unstable/WidevineCdm/LICENSE ${pkgdir}/usr/share/licenses/widevine/LICENSE
     install -Dm644 opt/google/chrome-unstable/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so ${pkgdir}/opt/google/chrome-unstable/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so
-    
+
     mkdir -p ${pkgdir}/usr/lib/chromium
     cd ${pkgdir}
     ln -s /opt/google/chrome-unstable/libwidevinecdm.so ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
