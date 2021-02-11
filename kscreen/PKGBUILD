@@ -15,7 +15,7 @@ makedepends=('extra-cmake-modules')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-md5sums=('19c5ed4eb9aade393335c0bba2eda406')
+md5sums=('e9ad62eb9c32163b839fca906ec5f72e')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
@@ -26,11 +26,11 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
 package() {
 
-  DESTDIR=${pkgdir} cmake --install build 
+  DESTDIR=${pkgdir} cmake --install build
 }
