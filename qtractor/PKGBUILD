@@ -1,6 +1,6 @@
 
 pkgname=qtractor
-pkgver=0.9.19
+pkgver=0.9.20
 pkgrel=1
 pkgdesc="Audio/MIDI multitrack sequencer"
 arch=('x86_64')
@@ -10,14 +10,14 @@ depends=('qt5-x11extras' 'suil' 'lilv' 'libmad' 'libogg' 'libsamplerate' 'rubber
 makedepends=('ladspa' 'dssi' 'qt5-tools')
 groups=('multimedia')
 source=("https://www.rncbc.org/archive/${pkgname}-${pkgver}.tar.gz"
-        "https://github.com/rncbc/qtractor/commit/b49da1c4c44e668f3ae9ceba3002d77d10694c85.diff")
-md5sums=('fc7c168604e283a65cd90624c3a371f7'
-         'ab5e784322e4a164d28ecd262dd0295a')
+        "https://github.com/rncbc/qtractor/commit/f6f6742e8318dfaa678734b3c3d00da510aeb017.diff")
+md5sums=('5560b108e88445d4e50e71c274ce9725'
+         '6f1e8a42cdb5226130ce8ca91d266ebf')
 
 build() {
   cd ${pkgname}-${pkgver}
-  # fix for Qt 5.11
-  #patch -p1 -i ${srcdir}/b49da1c4c44e668f3ae9ceba3002d77d10694c85.diff
+  # Fixed FTBFS when native LV2 UI GTK2 support is disabled.
+  patch -p1 -i ${srcdir}/f6f6742e8318dfaa678734b3c3d00da510aeb017.diff
   
   #CXXFLAGS="-std=c++11"
 
