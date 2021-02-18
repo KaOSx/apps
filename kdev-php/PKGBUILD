@@ -2,7 +2,7 @@
 pkgname=kdev-php
 pkgver=5.6.2
 _pkgver=5.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="PHP plugin for Kdevelop"
 arch=('x86_64')
 url="https://kde.org/applications/en/kdev-php?category=development"
@@ -13,14 +13,11 @@ groups=('programming')
 options=('!makeflags')
 replaces=('kdevelop-php' 'kdevelop-php-docs')
 conflicts=('kdevelop-php' 'kdevelop-php-docs')
-source=("https://download.kde.org/stable/kdevelop/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/kdevelop/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
 sha256sums=('f1083daec2b8c752de1a0441d0f9f72274b1e2d29c723005ed78dcf8ba717e0c')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -28,11 +25,10 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

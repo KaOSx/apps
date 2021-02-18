@@ -2,7 +2,7 @@
 pkgname=kdev-python
 pkgver=5.6.2
 _pkgver=5.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='KDevelop plugin which provides Python language support.'
 arch=('x86_64')
 url="https://kde.org/applications/en/kdev-python?category=development"
@@ -11,25 +11,21 @@ depends=('kdevelop' 'python3' 'ki18n' 'knewstuff' 'kitemmodels' 'threadweaver'
          'ktexteditor' 'kcmutils')
 makedepends=('extra-cmake-modules' 'kdoctools' 'kdevelop-pg-qt')
 groups=('kde' 'kdevelop-plugins')
-source=("https://download.kde.org/stable/kdevelop/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/kdevelop/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
 sha256sums=('20f9b771b961262ded986a4f32b8d259ad9f7bc48bb29eac0a5d5853be1d917f')
 
 build() {
-  mkdir -p build  
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
