@@ -1,0 +1,26 @@
+
+pkgname=waylandpp
+pkgver=0.2.8
+pkgrel=1
+pkgdesc='Library to create C++ bindings for Wayland using the most modern C++ technology currently available'
+arch=('x86_64')
+url='https://nilsbrause.github.io/waylandpp_docs/'
+license=('MIT' 'GPL3')
+depends=('pugixml' 'wayland')
+makedepends=('cmake')
+source=("https://github.com/NilsBrause/waylandpp/archive/${pkgver}.tar.gz")
+sha256sums=('e7f486165d3568c3558b5c7099133aea4a285b82820eeafad329fc10271c654d')
+
+build() {
+    cmake -B build -S ${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        -DBUILD_DOCUMENTATION=OFF
+    cmake --build build
+}
+
+package() {
+
+    DESTDIR=${pkgdir} cmake --install build
+}

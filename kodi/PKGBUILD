@@ -1,22 +1,23 @@
 
 pkgname=kodi
-pkgver=18.9
-_pkgver=18.9-Leia
+pkgver=19.0
+_pkgver=19.0-Matrix
 pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
 url="https://kodi.tv/"
 license=('GPL' 'custom')
-depends=( 'bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi' 
+depends=('bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi' 
           'glew' 'libgl' 'libmad' 'libmms' 'libass' 'yajl' 'x264' 'libcdio'
           'libmpeg2' 'libmariadbclient' 'libsamplerate' 'libpng' 'bluez'
           'libxrandr' 'libxtst' 'lzo2' 'sdl2' 'pulseaudio' 'libdvdcss'
           'samba' 'wavpack' 'mesa-demos' 'xorg-utils' 'libmicrohttpd' 'libjpeg-turbo' 'mesa' 'swig'
           'libssh' 'libva' 'libmodplug' 'lsb-release' 'sqlite3' 'libbluray' 'java-runtime'
           'tinyxml' 'taglib' 'libcap' 'glu' 'libusb' 'hicolor-icon-theme' 'libtiff' 'avahi'
-          'gnutls' 'nettle' 'libnfs' 'dcadec' 'lcms2' 'flatbuffers' 'giflib' 'ffmpeg' 'fstrcmp') #'python2-pillow' 'python2-simplejson' 'python2' 'python-pysqlite'
+          'gnutls' 'nettle' 'libnfs' 'dcadec' 'lcms2' 'flatbuffers' 'giflib' 'ffmpeg' 'fstrcmp'
+          'python3-pillow' 'python3-simplejson' 'wayland-protocols' 'waylandpp') # 'python-pysqlite'
 makedepends=('boost' 'cmake' 'gperf' 'nasm' 'libvdpau' 'zip' 'unzip' 'cmake'
-             'doxygen' 'upower' 'ghostscript')
+             'doxygen' 'upower' 'ghostscript' 'googletest')
 optdepends=('unrar: access compressed files without unpacking them'
             'upower: used to trigger suspend functionality'
             'libvdpau: for nvidia hardware acceleration'
@@ -25,43 +26,34 @@ groups=('multimedia')
 options=('makeflags')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
 source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
-md5sums=('b90fdfd3bdb9dd879debabaa09259cb3')
+md5sums=('051d10166e70c625e8ed3d11cfd48e27')
 
 build() {
-    mkdir -p build
-    cd build
-    
-    cmake ../xbmc-${_pkgver} \
+    cmake -B build -S xbmc-${_pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=/usr/lib \
         -DENABLE_EVENTCLIENTS=OFF \
         -DENABLE_OPTICAL=OFF \
-        -DENABLE_PYTHON=OFF \
+        -DENABLE_PYTHON=ON \
         -DENABLE_INTERNAL_FMT=ON \
         -DENABLE_INTERNAL_CROSSGUID=ON \
         -DENABLE_INTERNAL_FLATBUFFERS=OFF \
         -DENABLE_INTERNAL_FSTRCMP=OFF \
         -DENABLE_INTERNAL_RapidJSON=ON \
         -DENABLE_INTERNAL_FFMPEG=OFF \
-        -DENABLE_DVDCSS=OFF
-    make -j4 VERBOSE=1
-  
-    # use when switched to cmake build
-    #make -C ../xbmc-${_pkgver}/tools/depends/target/binary-addons PREFIX=/usr
+        -DENABLE_INTERNAL_SPDLOG=ON \
+        -DENABLE_DVDCSS=OFF \
+        -DAPP_RENDER_SYSTEM=gl
+    cmake --build build
 }
 
 package() {
-    cd build
 
-    make DESTDIR=${pkgdir} install
+    DESTDIR=${pkgdir} cmake --install build
 
     # various fixes
     sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KaOS-release/g" ${pkgdir}/usr/bin/kodi
 
-    install -Dm644 ../xbmc-${_pkgver}/LICENSE.md ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md
-    
-    # move from xbmc to kodi leaves conflicting symlinks in place of real files, pacman not handling it
-    #rm -r ${pkgdir}/usr/share/xbmc
-    #rm -r ${pkgdir}/usr/lib/xbmc
+    install -Dm644 xbmc-${_pkgver}/LICENSE.md ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md
 }
