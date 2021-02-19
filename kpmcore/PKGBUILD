@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kpmcore
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('x86_64')
 url="https://invent.kde.org/system/kpmcore"
@@ -13,13 +13,15 @@ depends=('ki18n' 'kcoreaddons' 'kwidgetsaddons' 'smartmontools' 'parted' 'qca-qt
 makedepends=('extra-cmake-modules' 'pkgconfig' 'kauth')
 groups=('system')
 options=('debug')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/system/kpmcore/commit/00de13088995ae96cf660911196fceda096e5b19.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'b2bbb30c9879df67e0093004a82eb4bd')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # Fix creation of encrypted volumes
-  #patch -p1 -i ${srcdir}/b10577e1c7ba0c856c96c96a80187b977f88ef34.diff
+  # support dosfstools 4.2
+  patch -p1 -i ${srcdir}/00de13088995ae96cf660911196fceda096e5b19.diff
 }
 
 build() {
