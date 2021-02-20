@@ -1,7 +1,7 @@
 
 pkgname=avogadrolibs
-pkgver=1.93.0
-pkgrel=7
+pkgver=1.93.1
+pkgrel=1
 pkgdesc="Libraries providing 3D rendering, visualization, analysis and data processing useful in computational chemistry and related areas."
 arch=('x86_64')
 url="https://www.openchemistry.org/projects/avogadro2/"
@@ -13,20 +13,18 @@ conflicts=('avogadro')
 replaces=('avogadro')
 source=("https://github.com/OpenChemistry/avogadrolibs/archive/${pkgver}.tar.gz"
         "https://github.com/OpenChemistry/avogadrolibs/pull/488/commits/32e3dd8ce9f48f74e3960dc9afcc614496d87c7f.diff")
-md5sums=('d27c6f1a4653577a063260969d3e72ce'
+md5sums=('fc8b73020bdd403958e3febc42e01844'
          'd9c78a3ad61228af53d802d6e25ea70b')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/32e3dd8ce9f48f74e3960dc9afcc614496d87c7f.diff
-  #sed -i 's|NAMES spglib|NAMES symspg|' cmake/FindSpglib.cmake
+  #patch -p1 -i ${srcdir}/32e3dd8ce9f48f74e3960dc9afcc614496d87c7f.diff
+  # https://github.com/OpenChemistry/avogadrolibs/issues/514
+  sed -i 's|add_subdirectory(cp2kinput)|#add_subdirectory(cp2kinput)|' avogadro/qtplugins/CMakeLists.txt
 }
 
 build() {
-  mkdir build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -37,15 +35,12 @@ build() {
     -DUSE_HDF5=ON \
     -DUSE_VTK=OFF \
     -DUSE_MMTF=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  make DESTDIR=${pkgdir} install
-  
-  # use system jsoncpp
-  #rm ${pkgdir}/usr/lib/libjsoncpp.a
-  
-  install -Dm644 ../${pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+
+  DESTDIR=${pkgdir} cmake --install build
+
+  install -Dm644 ${pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
