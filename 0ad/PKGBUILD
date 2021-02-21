@@ -1,8 +1,8 @@
 
 pkgname=0ad
-pkgver=a23.1
-_pkgver=0.0.23b-alpha
-pkgrel=11
+pkgver=a24
+_pkgver=0.0.24-alpha
+pkgrel=1
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="https://play0ad.com/"
@@ -10,24 +10,24 @@ groups=('games')
 license=('GPL2' 'CCPL')
 depends=('binutils' 'boost-libs' 'curl' 'enet>=1.3' 'libogg' 'libpng' 'libvorbis' 'libxml2'
          'openal' 'sdl2' 'zlib' 'libgl' '0ad-data' 'glu' 'libxcursor' 'mesa'
-         'libjpeg' 'libtiff' 'openexr' 'gloox' 'libsodium')
-makedepends=('boost' 'cmake' 'zip' 'python2')
+         'libjpeg' 'libtiff' 'openexr' 'gloox' 'libsodium' 'fmt')
+makedepends=('boost' 'cmake' 'zip' 'python3' 'rust')
 source=("https://releases.wildfiregames.com/${pkgname}-${_pkgver}-unix-build.tar.xz"
         'icu1.68.patch'
         '0ad-fcollada.patch')
-sha1sums=('3c6bb8924d65d17200e6b9475101e7d04f5db13a'
+sha1sums=('62ee3d2648f4696455e9f07b14733fb1db5eb285'
           'f703537288d133fcd1a0f8a15b73d9ce05b62771'
           '6fa4ea6d4e1ff119a32b36a78b426baaee56180a')
 
-prepare() {
-  cd ${pkgname}-${_pkgver}/
+#prepare() {
+  #cd ${pkgname}-${_pkgver}/
   
-  patch -p1 -i $srcdir/0ad-fcollada.patch
-  patch -p1 -i $srcdir/icu1.68.patch
-}
+  #patch -p1 -i $srcdir/0ad-fcollada.patch
+  #patch -p1 -i $srcdir/icu1.68.patch
+#}
 
 build() {
-  cd ${pkgname}-${_pkgver}/build/workspaces
+  cd build/workspaces
 
   unset CPPFLAGS 
 
@@ -36,7 +36,8 @@ build() {
       --bindir=/usr/bin \
       --libdir=/usr/lib/0ad \
       --disable-atlas \
-      --datadir=/usr/share/${pkgname}/data
+      --datadir=/usr/share/${pkgname}/data \
+      --without-tests
 
   cd gcc
 
@@ -46,12 +47,12 @@ build() {
 package() {
   install -d ${pkgdir}/usr/{bin,lib/0ad,share/${pkgname}/data}
 
-  install -Dm755 ${srcdir}/${pkgname}-${_pkgver}/binaries/system/pyrogenesis ${pkgdir}/usr/bin
-  install -Dm755 ${srcdir}/${pkgname}-${_pkgver}/binaries/system/*.so* ${pkgdir}/usr/lib/0ad
+  install -Dm755 binaries/system/pyrogenesis ${pkgdir}/usr/bin
+  install -Dm755 binaries/system/*.so* ${pkgdir}/usr/lib/0ad
   
-  cp -r ${srcdir}/${pkgname}-${_pkgver}/binaries/data/l10n/ ${pkgdir}/usr/share/${pkgname}/data/
+  cp -r binaries/data/l10n/ ${pkgdir}/usr/share/${pkgname}/data/
 
-  install -Dm755 ${srcdir}/${pkgname}-${_pkgver}/build/resources/${pkgname}.sh ${pkgdir}/usr/bin/${pkgname}
-  install -Dm644 ${srcdir}/$pkgname-$_pkgver/build/resources/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
-  install -Dm644 ${srcdir}/$pkgname-$_pkgver/build/resources/${pkgname}.png ${pkgdir}/usr/share/pixmaps/${pkgname}.png
+  install -Dm755 build/resources/${pkgname}.sh ${pkgdir}/usr/bin/${pkgname}
+  install -Dm644 build/resources/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
+  install -Dm644 build/resources/${pkgname}.png ${pkgdir}/usr/share/pixmaps/${pkgname}.png
 }
