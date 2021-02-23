@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
@@ -34,7 +34,7 @@ prepare() {
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
   sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
   # 5.21 keyboard repeat migration fail
-  patch -p1 -i ${srcdir}/64546c81d43f8b10487d9c6c5bb0fab4de457d13.diff
+  #patch -p1 -i ${srcdir}/64546c81d43f8b10487d9c6c5bb0fab4de457d13.diff
 }
 
 build() {
