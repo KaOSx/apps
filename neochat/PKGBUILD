@@ -1,6 +1,6 @@
  
 pkgname=neochat
-pkgver=1.0.1
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Client for Matrix, the decentralized communication protocol for instant messaging - Spectral fork."
 arch=('x86_64')
@@ -13,13 +13,20 @@ makedepends=('extra-cmake-modules')
 replaces=('spectral')
 conflicts=('spectral')
 source=("https://download.kde.org/stable/neochat/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('f432b780368335674aa019043090c921e0abc7f06c4097153bcaa79754ed141f')
+sha256sums=('9dc386b4630e630970fb8e6e47ddb034f9e6758996b27b0615a8c2725839b4c2')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  sed -i -e 's|include "events/stickerevent.h"|include "stickerevent.h"|' src/neochatroom.cpp
+  sed -i -e 's|include <events/stickerevent.h>|include "stickerevent.h"|' src/messageeventmodel.cpp
+}
 
 build() {
- cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release 
- cmake --build build
+  cmake --build build
 }
 
 package() {
