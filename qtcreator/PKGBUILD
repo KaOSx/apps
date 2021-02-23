@@ -1,10 +1,10 @@
 
 pkgname=qtcreator
 _pkgname=qt-creator-opensource-src
-pkgver=4.14.0
+pkgver=4.14.1
 _pkgver=4.14
-__pkgver=4.14.0
-pkgrel=3
+__pkgver=4.14.1
+pkgrel=1
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="https://www.qt.io/development-tools"
@@ -18,9 +18,9 @@ optdepends=('qt5-doc: for the integrated Qt documentation'
             'git: for git support'
             'mercurial: for mercurial support')
 groups=('programming')
-source=("https://download.qt.io/official_releases/${pkgname}/${_pkgver}/${__pkgver}/${_pkgname}-${__pkgver}.tar.xz"
+source=("https://download.qt.io/official_releases/${pkgname}/${_pkgver}/.${__pkgver}/${_pkgname}-${__pkgver}.tar.xz"
         'qtcreator.desktop')
-md5sums=('b495ce8d0451017d1e8a2f5a1e69b8c8'
+md5sums=('1882e6458e3c9291fdf25d2fad4be020'
          '5162b73dd63f457bdb02bd9c8b1cc66b')
 
 prepare() {
@@ -37,6 +37,7 @@ build() {
   cmake -B build -S ${_pkgname}-${__pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DIDE_LIBEXEC_PATH=lib \
     -DBUILD_WITH_PCH=OFF \
     -DENABLE_SVG_SUPPORT=ON \
