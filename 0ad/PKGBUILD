@@ -1,7 +1,7 @@
 
 pkgname=0ad
-pkgver=a24
-_pkgver=0.0.24-alpha
+pkgver=a24.b
+_pkgver=0.0.24b-alpha
 pkgrel=1
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
@@ -15,7 +15,7 @@ makedepends=('boost' 'cmake' 'zip' 'python3' 'rust')
 source=("https://releases.wildfiregames.com/${pkgname}-${_pkgver}-unix-build.tar.xz"
         'icu1.68.patch'
         '0ad-fcollada.patch')
-sha1sums=('62ee3d2648f4696455e9f07b14733fb1db5eb285'
+sha1sums=('d6f0e2a87d59d6ffd46aee2ac450bde9b6df3715'
           'f703537288d133fcd1a0f8a15b73d9ce05b62771'
           '6fa4ea6d4e1ff119a32b36a78b426baaee56180a')
 
@@ -27,7 +27,7 @@ sha1sums=('62ee3d2648f4696455e9f07b14733fb1db5eb285'
 #}
 
 build() {
-  cd build/workspaces
+  cd ${pkgname}-${_pkgver}/build/workspaces
 
   unset CPPFLAGS 
 
@@ -45,6 +45,7 @@ build() {
 }
 
 package() {
+  cd ${pkgname}-${_pkgver}/
   install -d ${pkgdir}/usr/{bin,lib/0ad,share/${pkgname}/data}
 
   install -Dm755 binaries/system/pyrogenesis ${pkgdir}/usr/bin

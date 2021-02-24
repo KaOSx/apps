@@ -1,8 +1,8 @@
 
 pkgname=0ad-data
 _pkgname=0ad
-pkgver=a24
-_pkgver=0.0.24-alpha
+pkgver=a24.b
+_pkgver=0.0.24b-alpha
 pkgrel=1
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game (data files)"
 arch=('x86_64')
@@ -10,9 +10,10 @@ url="https://play0ad.com/"
 license=('GPL2' 'CCPL')
 groups=('games')
 source=("http://releases.wildfiregames.com/${_pkgname}-${_pkgver}-unix-data.tar.xz")
-sha1sums=('cf92628b3dfa00daff9e719a060f154be93a7641')
+sha1sums=('ea21e5900906f1211d6cb6c1d3bb3dea07afd348')
 
 package(){
+  cd ${_pkgname}-${_pkgver}/
   install -d ${pkgdir}/usr/share/${_pkgname}/data
 
   cp -r binaries/data ${pkgdir}/usr/share/${_pkgname}
