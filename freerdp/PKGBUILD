@@ -1,8 +1,8 @@
 
 pkgname=freerdp
 _pkgname=FreeRDP
-pkgver=2.2.0
-_pkgver=2.2.0
+pkgver=2.3.0
+_pkgver=2.3.0
 _commit=f8c9f438436a4492e37011396148d804f7e3651f
 pkgrel=3
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)."
@@ -17,13 +17,10 @@ depends=('openssl' 'libxcursor' 'libcups' 'alsa-lib' 'libxext' 'libxdamage'
 makedepends=('krb5' 'cmake' 'damageproto' 'xmlto' 'docbook-xsl')
 #source=("https://github.com/FreeRDP/FreeRDP/archive/${_commit}.zip")
 source=("https://pub.freerdp.com/releases/${pkgname}-${_pkgver}.tar.gz")
-sha256sums=('19b30759e324ce7a9767af880116a4c571761e9ad9c5d6c98c5b302ff8c24c6c')
+sha256sums=('94ee88f56b344c7f960d6805ea2db8b1deba3c8f609db097e08ccdf6bdf9bd78')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${_pkgver} \
+  cmake -B build -S ${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -48,12 +45,10 @@ build() {
     -DCHANNEL_URBDRC_CLIENT=ON \
     -DWITH_SERVER=ON
     #-DWITH_X264=ON \
-    
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=$pkgdir install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
