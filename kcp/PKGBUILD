@@ -3,9 +3,9 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcp
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
-_commit=7789a39
+_commit=9ef192f
 pkgdesc="A command-line tool for KaOS Community Packages"
 arch=('x86_64')
 url="https://github.com/bvaudour/kcp"
@@ -15,18 +15,14 @@ depends=('git')
 makedepends=('go')
 source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
 #source=("https://github.com/bvaudour/kcp/releases/download/${pkgver}/kcp-${pkgver}.tar.gz")
-md5sums=('04d778d67ec04b59ff19456b0883b19a')
+md5sums=('30a5791dfec700423b90e2adffecf6a6')
  
 build() {
   cd bvaudour-${pkgname}-${_commit}
   
-  mkdir -p build
-  
-  sed -i 's|-mod=vendor|mod=readonly|' Makefile.in
+  #sed -i 's|-mod=vendor|mod=readonly|' Makefile.in
   
   #export GOPATH=${GOPATH}:"${srcdir}"
-  #export GO111MODULE=on
-  export GOFLAGS="-v -trimpath -modcacherw"
   #export LDFLAGS=''
   
   ./configure --version ${pkgver} --user ${_user} --password ${_password}
