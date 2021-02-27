@@ -22,45 +22,20 @@ build() {
   
   mkdir -p build
   
-  #sed -i 's|-modcacherw||' Makefile.in
   sed -i 's|-mod=vendor|mod=readonly|' Makefile.in
   
   #export GOPATH=${GOPATH}:"${srcdir}"
-  export AUTO_GOPATH=1
-  export GO111MODULE=off
-  export PATH="$GOPATH/bin:$PATH"
+  #export GO111MODULE=on
+  export GOFLAGS="-v -trimpath -modcacherw"
   #export LDFLAGS=''
-  export CGO_LDFLAGS="-g -O2"
-  export GOGCCFLAGS="-fPIC -m64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build949038115=/tmp/go-build -gno-record-gcc-switches"
-  #export GOPATH=${srcdir}/bvaudour-${pkgname}-${_commit}
+  
   ./configure --version ${pkgver} --user ${_user} --password ${_password}
-  #go mod vendor
   make 
 }
 
 package() {
   cd bvaudour-${pkgname}-${_commit} 
-  make DESTDIR="${pkgdir}" install
-  
-  for files in i18n/kcp/*; do
-  if [ -f "$files" ] && [ "$files" != 'i18n/kcp/kcp.pot' ]; then
-        STRING_PO=`echo ${files#*/*/}`
-        STRING=`echo ${STRING_PO%.po}`
-        mkdir -p ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES
-        msgfmt $files -o ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES/kcp.mo
-        echo "${STRING} installed..."
-  fi
-  done
-  
-  for files in i18n/pckcp/*; do
-  if [ -f "$files" ] && [ "$files" != 'i18n/pckcp/pckcp.pot' ]; then
-        STRING_PO=`echo ${files#*/*/}`
-        STRING=`echo ${STRING_PO%.po}`
-        mkdir -p ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES
-        msgfmt $files -o ${pkgdir}/usr/share/locale/${STRING}/LC_MESSAGES/pckcp.mo
-        echo "${STRING} installed..."
-  fi
-  done
+  make DESTDIR=${pkgdir} install
 
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
