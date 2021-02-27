@@ -1,8 +1,8 @@
 
 pkgname=kcp
-pkgver=0.91.0
+pkgver=1.0.0
 pkgrel=1
-_commit=df13041
+_commit=7789a39
 pkgdesc="A command-line tool for KaOS Community Packages"
 arch=('x86_64')
 url="https://github.com/bvaudour/kcp"
@@ -12,12 +12,12 @@ depends=('git')
 makedepends=('go')
 source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
 #source=("https://github.com/bvaudour/kcp/releases/download/${pkgver}/kcp-${pkgver}.tar.gz")
-md5sums=('bb930afc3aab57a74514e15fae577721')
+md5sums=('04d778d67ec04b59ff19456b0883b19a')
  
 build() {
   cd bvaudour-${pkgname}-${_commit}
   
-  export GOPATH=${GOPATH}:"${srcdir}"
+  #export GOPATH=${GOPATH}:"${srcdir}"
   ./configure 
   make 
 }
