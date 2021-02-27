@@ -15,8 +15,8 @@ md5sums=('be6e2edafd4f17fed8d239b0234ae31f')
 prepare() {
   cd cli-${pkgver}
   
-  sed -i 's|-v md2man|-v go-md2man|' scripts/docs/generate-man.sh
-  sed -i 's|md2man|go-md2man|' man/md2man-all.sh
+  #sed -i 's|-v md2man|-v go-md2man|' scripts/docs/generate-man.sh
+  #sed -i 's|md2man|go-md2man|' man/md2man-all.sh
   
   mkdir -p src/github.com/docker
   ln -rsT ${srcdir}/cli-${pkgver} src/github.com/docker/cli
@@ -27,8 +27,11 @@ build() {
   export DOCKER_GITCOMMIT
   export DISABLE_WARN_OUTSIDE_CONTAINER=1
   export GOPATH=${srcdir}/cli-${pkgver}
+  export PATH="$GOPATH/bin:$PATH"
+  export GO111MODULE=off
+  export LDFLAGS='' 
   
-  LDFLAGS='' make dynbinary
+  make VERSION=${pkgver} dynbinary
   man/md2man-all.sh
 }
 

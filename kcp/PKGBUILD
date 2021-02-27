@@ -1,4 +1,7 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kcp
 pkgver=1.0.0
 pkgrel=1
@@ -17,8 +20,21 @@ md5sums=('04d778d67ec04b59ff19456b0883b19a')
 build() {
   cd bvaudour-${pkgname}-${_commit}
   
+  mkdir -p build
+  
+  #sed -i 's|-modcacherw||' Makefile.in
+  sed -i 's|-mod=vendor|mod=readonly|' Makefile.in
+  
   #export GOPATH=${GOPATH}:"${srcdir}"
-  ./configure 
+  export AUTO_GOPATH=1
+  export GO111MODULE=off
+  export PATH="$GOPATH/bin:$PATH"
+  #export LDFLAGS=''
+  export CGO_LDFLAGS="-g -O2"
+  export GOGCCFLAGS="-fPIC -m64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build949038115=/tmp/go-build -gno-record-gcc-switches"
+  #export GOPATH=${srcdir}/bvaudour-${pkgname}-${_commit}
+  ./configure --version ${pkgver} --user ${_user} --password ${_password}
+  #go mod vendor
   make 
 }
 

@@ -20,7 +20,7 @@ install=$pkgname.install
 source=("moby-${_pkgver}.tar.gz::https://github.com/moby/moby/archive/v${_pkgver}.tar.gz"
         'docker.sysusers'
         "https://github.com/docker/docker/commit/6f89a8ee1ba6b598dc1f76e829d6db6f830cdb8e.patch")
-md5sums=('23858977a08f722ac2ef807d48d7b7f7'
+md5sums=('f9b08c31a40c083cd31b08a7f56c7ea9'
          '4324edeb9adc210a2c22f44eb4cb8a74'
          'c7a8981a18cf7d67276cb0ab058173c0')
 
@@ -34,7 +34,9 @@ md5sums=('23858977a08f722ac2ef807d48d7b7f7'
 build() {
   cd moby-${_pkgver}
   export AUTO_GOPATH=1
+  export PATH="$GOPATH/bin:$PATH"
   export DOCKER_GITCOMMIT
+  export GO111MODULE=off
   
   hack/make.sh dynbinary
   
