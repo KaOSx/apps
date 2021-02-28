@@ -47,9 +47,6 @@ prepare() {
   
   sed "/stdlib=libc++/d;/-lc++/d" -i gyp/common.gypi
   
-  #find . -name  \*.py        -type f -exec sed -i -e "1s|python.*$|python2|"  {} +
-  #find . -regex '.*\.gypi?$' -type f -exec sed -i -e "s|'python'|'python2'|g" {} +
-  
   # GCC > 8 needed
   #patch -p1 -i ${srcdir}/82d38f929882a9c62289b179c6fe41efed249987.diff
 

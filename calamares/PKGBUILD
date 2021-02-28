@@ -40,7 +40,7 @@ prepare () {
   #git submodule init
   #git submodule update
   
-  #sed -e "s|add_calamares_python_translations|#add_calamares_python_translations|" -i src/modules/CMakeLists.txt
+  sed -e "s|quitVisible, true|quitVisible, false|" -i src/libcalamaresui/ViewManager.cpp
   #patch -p1 -i ${srcdir}/3313a5341d547f0fa059320325cd093b1300395d.diff
 }
 
