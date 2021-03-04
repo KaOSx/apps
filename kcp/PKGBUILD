@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcp
-pkgver=1.0.1
+pkgver=1.0.1dev
 pkgrel=1
 _commit=9ef192f
 pkgdesc="A command-line tool for KaOS Community Packages"
@@ -13,24 +13,24 @@ license=('Public Domain')
 install=kcp.install
 depends=('git')
 makedepends=('go')
-source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
-#source=("https://github.com/bvaudour/kcp/releases/download/${pkgver}/kcp-${pkgver}.tar.gz")
-md5sums=('30a5791dfec700423b90e2adffecf6a6')
+#source=("https://github.com/bvaudour/kcp/tarball/master/kcp-${pkgver}.tar.gz")
+source=("https://github.com/bvaudour/kcp/archive/v${pkgver}.tar.gz")
+md5sums=('2f5059278610ba8fcefb263a60492b48')
  
 build() {
-  cd bvaudour-${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   
   #sed -i 's|-mod=vendor|mod=readonly|' Makefile.in
   
   #export GOPATH=${GOPATH}:"${srcdir}"
   #export LDFLAGS=''
   
-  ./configure --version ${pkgver} --user ${_user} --password ${_password}
+  ./configure --version ${pkgver} --user ${_kcuser} --password ${_kcpassword}
   make 
 }
 
 package() {
-  cd bvaudour-${pkgname}-${_commit} 
+  cd ${pkgname}-${pkgver}
   make DESTDIR=${pkgdir} install
 
   install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
