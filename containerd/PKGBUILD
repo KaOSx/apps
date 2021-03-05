@@ -1,7 +1,7 @@
 
 # stay with _commit builds, keep in sync with what docker ships
 pkgname=containerd
-pkgver=1.4.3
+pkgver=1.4.4
 _commit=7ad184331fa3e55e52b890ea95e65ba581ae3429
 pkgrel=1
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('runc' 'btrfs-progs')
 makedepends=('go')
 source=("https://github.com/containerd/containerd/archive/v${pkgver}.tar.gz")
 #source=("https://github.com/containerd/containerd/archive/${_commit}.zip")
-md5sums=('8b0201fa609d511ad01fd52d5b544fe7')
+md5sums=('94dedea260bb74b582ffc9f716269172')
 
 prepare() {
     cd ${srcdir}
@@ -24,9 +24,11 @@ prepare() {
 }
 
 build() {
-    export GOPATH=~/gocode
     cd src/github.com/containerd/${pkgname}
-    
+
+    export GOPATH=~/gocode
+    export GO111MODULE=off
+
     LDFLAGS="" GOPATH="$srcdir:$srcdir/${pkgname}/vendor" 
     make
 }
