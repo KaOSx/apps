@@ -40,7 +40,7 @@ prepare () {
   #git submodule init
   #git submodule update
   
-  sed -e "s|quitVisible, true|quitVisible, false|" -i src/libcalamaresui/ViewManager.cpp
+  #sed -e "s|quitVisible, true|quitVisible, false|" -i src/libcalamaresui/ViewManager.cpp
   #patch -p1 -i ${srcdir}/3313a5341d547f0fa059320325cd093b1300395d.diff
 }
 
@@ -48,10 +48,7 @@ build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
 
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -60,12 +57,11 @@ build() {
     -DINSTALL_CONFIG=ON \
     -DBoost_NO_BOOST_CMAKE=ON \
     -DSKIP_MODULES="bootloader notesqml oemid preservefiles webview"
-  make
+  cmake --build build
 }
 
 package() {
-  cd build 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
   
   install -Dm755 ${srcdir}/launch-calamares.sh ${pkgdir}/usr/bin/launch-calamares.sh
   rm -rf ${pkgdir}/usr/share/applications/${pkgname}.desktop
@@ -73,6 +69,5 @@ package() {
   install -Dm644 ${srcdir}/installer.svg ${pkgdir}/usr/share/pixmaps/installer.svg
   install -Dm644 ${srcdir}/chevron-left-solid.svg ${pkgdir}/usr/share/pixmaps/chevron-left-solid.svg
   install -Dm644 ${srcdir}/LICENSE.txt ${pkgdir}/usr/share/calamares/LICENSE.txt
-  #install -Dm644 ${srcdir}/release_notes.qml ${pkgdir}/usr/share/calamares/release_notes.qml
   install -Dm644 ${srcdir}/release_notes_welcomeq.qml ${pkgdir}/usr/share/calamares/release_notes_welcomeq.qml
 }
