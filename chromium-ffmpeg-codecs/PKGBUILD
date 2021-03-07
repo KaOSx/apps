@@ -1,6 +1,6 @@
  
 pkgname=chromium-ffmpeg-codecs
-pkgver=80.0.3987.163
+pkgver=87.0.4280.141
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
@@ -16,7 +16,7 @@ source=("https://commondatastorage.googleapis.com/chromium-browser-official/chro
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-FORTIFY_SOURCE-r2.patch"
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-memcpy-r0.patch"
         #"https://raw.githubusercontent.com/gentoo/gentoo/master/www-client/chromium/files/chromium-clang-r2.patch")
-md5sums=('b626d2d09fdad77c4df2daf23ec8bcb9'
+md5sums=('53a595e1512bbadfde98dd334f28ce26'
          '3354997dd0bfde3443499133a6e16a85'
          '767e3e82f89de949909eb990204185cd')
 
@@ -31,6 +31,8 @@ build() {
   
   export CC="/usr/bin/clang"
   export CXX="/usr/bin/clang++"
+  
+  sed -i '1s|python$|&2|' third_party/dom_distiller_js/protoc_plugins/*.py
   
   python2 tools/clang/scripts/update.py
 
