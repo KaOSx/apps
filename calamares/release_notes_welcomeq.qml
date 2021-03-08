@@ -57,11 +57,13 @@ Rectangle {
             The KDE Applications release 20.12 saw the addition of almost a dozen new applications, some just moved from standalone releases to now a monthly release, but the addition of Itinerary (an app that provides you with all the information you need while on the road) and Spectacle using Kimageannotator for annotation tool are good improvements.</br>
             There has been a search for quite some time for a good GUI to handle Systemd services, the used systemd-kcm has not been maintained for years. This replacement is now found and included in the ISO, Stacer (it can also be used as system clean-up tool and handle startup applications). </p>
             
+            <p>The tool to manage, search, and install KaOS Community Packages, kcp has been completely rewritten (still in Go)</p>
+            
             <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.80.0, Plasma 5.21.2 and KDE Applications 20.12.3. All built on Qt 5.15.2.</p>
             
             <p>News for those working on KaOS (probably and hopefully not visible at all to regular users) is the migration to a new, dedicated server. This is a real hardware server, running KaOS, so no longer using a VPS. Advantage is direct access to the hardware and much more powerful specs.</p>
             
-            <p>The installer Calamares has picked up the transition to QML again.  All navigation is now done in QML for KaOS. The finished module was also ported to QML, this gives simpler end page, with clear buttons showing two options.  It also opened the way to give users a clear message regarding installation logs once the install is completed.</p>
+            <p>The installer Calamares has picked up the transition to QML again.  All navigation is now done in QML for KaOS. The finished module was also ported to QML, this gives a simpler end page, with clear buttons showing two options.  It also opened the way to give users a clear message regarding installation logs once the install is completed.</p>
             
             <p>New applications added include VSCodium.</p>
             
