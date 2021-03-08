@@ -7,7 +7,7 @@ pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Wayland Server Components built on KDE Frameworks."
 arch=('x86_64')
-url="https://github.com/KDE/kwayland-server"
+url="https://invent.kde.org/plasma/kwayland-server"
 license=('LGPLv2+')
 depends=('kwayland' 'plasma-wayland-protocols' 'qt5-wayland')
 makedepends=('extra-cmake-modules'  'kdoctools')
@@ -16,19 +16,15 @@ source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.t
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DKDE_INSTALL_LIBDIR=lib
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

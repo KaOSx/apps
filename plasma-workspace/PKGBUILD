@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -16,14 +16,14 @@ depends=('frameworkintegration' 'knotifyconfig' 'krunner' 'kdesu' 'knewstuff'
          'khelpcenter' 'kio-extras' 'baloo' 'milou' 'libkscreen' 'breeze' 'gpsd' 'libqalculate' 'qt5-tools'
          'oxygen-icons5' 'prison' 'sddm-kcm' 'networkmanager-qt' 'kxmlrpcclient' 'kscreenlocker'
          'kactivitymanagerd' 'kpeople' 'kactivities-stats' 'iso-codes' 'kholidays' 'drkonqi' 'kuserfeedback'
-         'kquickcharts' 'pipewire')
+         'kquickcharts' 'kwayland-integration' 'pipewire')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 conflicts=('plasma-l10n')
 replaces=('plasma-l10n')
 provides=('plasma-l10n')
 groups=('kdeplasma5')
 options=('debug')
-source=("https://download.kde.org/unstable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         '10-kf5'
         'kde.pam'
         'kde-np.pam'
@@ -40,15 +40,11 @@ prepare () {
   cd ${pkgname}-${pkgver}
   
   #patch -p1 -i ${srcdir}/e3134289f522edb140797818fffd60d641b86cd8.diff
-  #sed -i 's|org.kde.breeze.desktop|org.kde.midna.desktop|' shell/packageplugins/lookandfeel/lookandfeel.cpp
   sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
 }         
          
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -58,18 +54,16 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  make DESTDIR=${pkgdir} install
-  
-  #sed 's|qdbus|qdbus-qt5|' -i $pkgdir/usr/bin/startplasmacompositor
+  DESTDIR=${pkgdir} cmake --install build
+
   #sed 's|qdbus|qdbus-qt5|' -i $pkgdir/usr/lib/startplasma
-  
+
   install -Dm755 ${srcdir}/10-kf5 ${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5
-  
+
   # install pam configuration, comment out for now, all provided by sddm
   #install -D -m644 ${srcdir}/kde.pam ${pkgdir}/etc/pam.d/kde
   #install -D -m644 ${srcdir}/kde-np.pam ${pkgdir}/etc/pam.d/kde-np

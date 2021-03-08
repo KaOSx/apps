@@ -7,29 +7,24 @@ pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Provides integration plugins for various KDE frameworks for the wayland windowing system."
 arch=('x86_64')
-url="https://github.com/KDE/kwayland-integration"
+url="https://invent.kde.org/plasma/kwayland-integration"
 license=('LGPLv2+')
 depends=('kidletime' 'kwindowsystem' 'kguiaddons' 'kwayland')
 makedepends=('extra-cmake-modules'  'kdoctools')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DKDE_INSTALL_LIBDIR=lib
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
