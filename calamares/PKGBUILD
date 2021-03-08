@@ -1,7 +1,7 @@
 
 pkgname=calamares
 pkgver=3.2.37
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://calamares.io/'
@@ -31,7 +31,7 @@ md5sums=('SKIP'
          '615754b142c33ad17f2936e65476276d'
          '4b126b6494c776016accd8ffbd0be51d'
          'bf4a935ae9b0e68639bd9968aff9c3ae'
-         '48305488d95fbda4488154b0e2c80990'
+         '99a5081af66bf09a35cc24c66e950931'
          'dc880f17456d5cad7f07d83554c22b9b')
 
 prepare () {
@@ -48,7 +48,7 @@ build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
 
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname} \
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
