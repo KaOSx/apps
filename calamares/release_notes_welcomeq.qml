@@ -57,7 +57,23 @@ Rectangle {
             The KDE Applications release 20.12 saw the addition of almost a dozen new applications, some just moved from standalone releases to now a monthly release, but the addition of Itinerary (an app that provides you with all the information you need while on the road) and Spectacle using Kimageannotator for annotation tool are good improvements.</br>
             There has been a search for quite some time for a good GUI to handle Systemd services, the used systemd-kcm has not been maintained for years. This replacement is now found and included in the ISO, Stacer (it can also be used as system clean-up tool and handle startup applications). </p>
             
-            <p>The tool to manage, search, and install KaOS Community Packages, kcp has been completely rewritten (still in Go)</p>
+            <p>The tool to manage, search, and install KaOS Community Packages, kcp has been completely rewritten (still in Go) in order to support the main new feature: the configuration.</p>
+            <p>Now, you can adapt kcp/pckcp to your needs in editing the configuration’s files (located in $HOME/.config/kcp/ directory). Notable options :</p>
+            <ul>
+                <li>You can use another temporary directory (for installations through kcp) than /tmp</li>
+                <li>kcp can use a third organization for package managements. The only constraint is the organization should be on github</li>
+                <li>For install or download operations, the clone method can use either ssh or https</li>
+                <li>You can define a locale different from the system</li>
+                <li>You can use un custom PKGBUILD prototype to use for PKGBUILD generation through pcpkcp</li>
+                <li>You can add packages to ignore for depends when you check a PKGBUILD with pckcp</li>
+            </ul>
+            <p>Other notable changes :</p>
+            <ul>
+                <li>Improved performances on updating the database (which needed to completelly refactor the database). The operation should be significatively faster.</li>
+                <li>Improved performances for the PKGBUILD parser. The scanner is more accurate and faster. Plus it is designed as an API in order to be usable for a third app.</li>
+                <li>Some PKBUILD checkers were added/modified/merged.</li>
+                <li>Added is a man for pckcp. The man for kcp was updated</li>
+            </ul>
             
             <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.80.0, Plasma 5.21.2 and KDE Applications 20.12.3. All built on Qt 5.15.2.</p>
             
