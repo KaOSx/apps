@@ -1,9 +1,9 @@
 
 # build version at https://dolphin-emu.org/download/ dev version
 pkgname=dolphin-emu
-pkgver=5.0.13671
+pkgver=5.0.13817
 pkgrel=1
-_commit=9d94a31eaea8ba5fee1f27816162fe1a291a0a4c
+_commit=72a6fff36c42989c71765012e26285943085b8c5
 pkgdesc='GameCube, Wii and Triforce emulator'
 arch=('x86_64')
 url='https://dolphin-emu.org'
@@ -13,26 +13,22 @@ depends=('bluez' 'ffmpeg' 'libao' 'mbedtls' 'miniupnpc' 'openal' 'portaudio'
 makedepends=('cmake')
 source=("https://github.com/dolphin-emu/dolphin/archive/${_commit}.zip")
 #source=("https://github.com/dolphin-emu/dolphin/archive/${pkgver}.tar.gz")
-md5sums=('c89acbe466128c87a5a4646d5ae8e732')
+md5sums=('13057b4b24f2b2e21ac3ef59f5892c2d')
          
 build() {
-  mkdir -p build 
-  cd build
-  
-  cmake ../dolphin-${_commit}\
+  cmake -B build -S dolphin-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DENABLE_QT2=ON \
     -DENABLE_WX=OFF \
     -DUSE_EGL=ON \
     -DDISTRIBUTOR=KaOS
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
   
   install -D -m644 ../dolphin-${_commit}/Data/51-usb-device.rules -t ${pkgdir}/usr/lib/udev/rules.d/
 }
