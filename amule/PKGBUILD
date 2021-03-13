@@ -1,8 +1,8 @@
 
 pkgname=amule
-pkgver=2.3.2.2
+pkgver=2.3.3
 _commit=f28e82b95ba5f1d65dbacda393bd0ccc4df03a53
-pkgrel=6
+pkgrel=1
 epoch=2
 pkgdesc="An eMule-like client for ed2k p2p network"
 arch=('x86_64')
@@ -10,15 +10,15 @@ url="http://www.amule.org"
 license=('GPL')
 depends=('wxgtk' 'gd' 'geoip' 'libupnp' 'crypto++' 'boost-libs')
 makedepends=('boost')
-source=("https://github.com/amule-project/amule/archive/${_commit}.zip")
-#source=("https://sourceforge.net/projects/amule/files/aMule/${pkgver}/aMule-${pkgver}.tar.xz")
-md5sums=('f0edaf0724c4d03fcede8c850d6dabc2')
+#source=("https://github.com/amule-project/amule/archive/${_commit}.zip")
+source=("https://sourceforge.net/projects/amule/files/aMule/${pkgver}/aMule-${pkgver}.tar.xz")
+md5sums=('2858a7f693c76c23f1786364d6a80900')
 
 build() {
-  cd amule-${_commit}
+  cd aMule-${pkgver}
   sed -i 's|pubkey.DEREncode(asink);|pubkey.AccessMaterial().Save(asink);|' src/ClientCreditsList.cpp
 
-  ./autogen.sh
+  #./autogen.sh
   ./configure --prefix=/usr \
               --mandir=/usr/share/man \
               --enable-cas \
@@ -40,7 +40,7 @@ build() {
 }
 
 package() {
-  cd amule-${_commit}
+  cd aMule-${pkgver}
   
   make DESTDIR=${pkgdir}/ install 
   # conflict with glibc

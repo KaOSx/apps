@@ -1,6 +1,6 @@
  
 pkgname=mbedtls
-pkgver=2.25.0
+pkgver=2.26.0
 pkgrel=1
 pkgdesc="Mbed TLS makes it easy for developers to include cryptographic and SSL/TLS capabilities in their (embedded) products"
 arch=('x86_64')
@@ -8,13 +8,16 @@ url="https://tls.mbed.org"
 license=('Apache')
 depends=('glibc' 'sh')
 makedepends=('cmake' 'python3')
-source=("https://github.com/ARMmbed/mbedtls/archive/mbedtls-${pkgver}.tar.gz")
-sha256sums=('ea2049c2dd4868693998d5a9780e198194be5aea1706ff4a9d4f882f18c0a101')
+source=("https://github.com/ARMmbed/mbedtls/archive/mbedtls-${pkgver}.tar.gz"
+        'mbedtls-alt-format-truncation.patch')
+sha256sums=('35d8d87509cd0d002bddbd5508b9d2b931c5e83747d087234cc7ad551d53fe05'
+            '2e65dc0c7f6d0d706ffe849a8f75fe85b933e2905ef4cf1e930095dab2e67f46')
 
 prepare() {
   cd ${pkgname}-${pkgname}-${pkgver}
 
   #sed -i 's|<time.h>|"platform.h"|' include/mbedtls/ssl.h
+  patch -p1 -i ${srcdir}/mbedtls-alt-format-truncation.patch
 }
 build() {
   mkdir -p build 
