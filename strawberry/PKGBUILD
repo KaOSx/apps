@@ -1,8 +1,8 @@
 
 pkgname=strawberry
-pkgver=0.8.5
+pkgver=0.9.1
 _commit=971fad4560b07cf1a95dc4df5d0568dd6cf4214d
-pkgrel=2
+pkgrel=1
 pkgdesc="Music player and music collection organizer, fork of Clementine"
 url="https://www.strawberrymusicplayer.org/"
 license=('GPL')
@@ -15,7 +15,7 @@ groups=('multimedia')
 source=("https://github.com/jonaski/strawberry/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/strawberrymusicplayer/strawberry/commit/0ab214fd5d43290262bb3d870a2203025cd2fecb.diff")
 #source=("https://github.com/strawberrymusicplayer/strawberry/archive/${_commit}.zip")
-sha256sums=('e8643e71588ba6b2245dbd96c54935941608643ea576e5413abb05b5cc186a89'
+sha256sums=('b71da4cec9cc7b60961bbb82378d15fb79798e6b880852414ce05276084047a0'
             '4b68a6c3db8924b909df99e99068cd5f93189543d842b795e317066a013d903f')
 
 prepare() {
@@ -23,9 +23,6 @@ prepare() {
   
   #sed -e "s|libplist|libplist-2.0|" -i CMakeLists.txt
   #patch -p1 -i ${srcdir}/0ab214fd5d43290262bb3d870a2203025cd2fecb.diff
-  grep -rl "\<pb::" . | xargs sed -e 's/pb::/spb::/g' -i
-  sed 's/namespace pb/namespace spb/' -i src/core/song.h
-  sed 's/pb\.tagreader/spb.tagreader/' -i ext/libstrawberry-tagreader/tagreadermessages.proto
 }
 
 build() {
