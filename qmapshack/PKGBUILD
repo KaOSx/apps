@@ -1,6 +1,7 @@
 
 pkgname=qmapshack
 pkgver=1.15.2
+_commit=2cee656cab3867e243483ec75e519012f14949be
 pkgrel=2
 pkgdesc="Plan your next outdoor trip or to visualize and archive all the GPS recordings, next generation of the QLandkarte GT application"
 arch=('x86_64')
@@ -11,35 +12,31 @@ depends=('gdal' 'libdmtx' 'libexif' 'mariadb' 'mesa' 'postgresql-libs'
          'routino' 'quazip')
 makedepends=('cmake' 'extra-cmake-modules' 'qt5-tools')
 groups=('utils')
-source=("https://github.com/Maproom/qmapshack/archive/V_${pkgver}.tar.gz"
+#source=("https://github.com/Maproom/qmapshack/archive/V_${pkgver}.tar.gz"
+source=("https://github.com/Maproom/qmapshack/archive/${_commit}.zip"
         'proj.patch'
         'quazip.patch')
-md5sums=('5fcf9e5d31fb0abe8d5ce442ba516b30'
+md5sums=('ac5421b961669bcebc74b07810b9c71a'
          '1a2192dfa8b63fce503a59d6917918a5'
          'cbdc25ae8121f347ddfedc10501d589e')
 
 prepare() {
-  cd ${pkgname}-V_${pkgver}
+  cd ${pkgname}-${_commit}
   
-  patch -p1 -i ${srcdir}/proj.patch
-  patch -p1 -i ${srcdir}/quazip.patch
-  #sed -i 's|PROJ4|PROJ|' CMakeLists.txt
+  #patch -p1 -i ${srcdir}/proj.patch
+  #patch -p1 -i ${srcdir}/quazip.patch
+  sed -i 's|PROJ4|PROJ|' CMakeLists.txt
 }
 
 build() {
-  mkdir -p build
-  cd build
- 
-  cmake ../${pkgname}-V_${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release 
-      
-  make
+  cmake --build build
 }
 
-package(){
-  cd build
-  make DESTDIR=${pkgdir} install
-  
+package() {
+  DESTDIR=${pkgdir} cmake --install build
+
   install -Dm644 ../${pkgname}-V_${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
