@@ -55,8 +55,8 @@ Rectangle {
             
             <p>With almost 60 % percent of the packages updated since the last ISO and the last release being over two months old, a new ISO is more than due. News for Plasma 5.21 include a new application launcher featuring two panes to make it simple to locate your programs and comes with improved keyboard, mouse, and touch input, boosting accessibility across the board, Plasma System Monitor, a new app for monitoring system resources and the sound applet now displays the live microphone volume. </p>
             
-            <p>The tool to manage, search, and install KaOS Community Packages, kcp has been completely rewritten (still in Go) in order to support the main new feature: the configuration.</p>
-            <p>Now, you can adapt kcp/pckcp to your needs in editing the configuration’s files (located in $HOME/.config/kcp/ directory). Notable options :</p>
+            <p>The tool to manage, search, and install <strong>KaOS Community Packages, kcp</strong> has been completely rewritten (still in Go) in order to support the main new feature: the configuration.</p>
+            <p>Now, you can adapt kcp/pckcp to your needs in editing the configuration’s files (located in <code>$HOME/.config/kcp/<code> directory). Notable options :</p>
             <ul>
                 <li>You can use another temporary directory (for installations through kcp) than /tmp</li>
                 <li>kcp can use a third organization for package managements. The only constraint is the organization should be on github</li>
@@ -73,7 +73,7 @@ Rectangle {
                 <li>Added is a man for pckcp. The man for kcp was updated</li>
             </ul>
             
-            <p>The installer Calamares has picked up the transition to QML again.  All navigation is now done in QML for KaOS. The finished module was also ported to QML, this gives a simpler end page, with clear buttons showing two options.  It also opened the way to give users a clear message regarding installation logs once the install is completed.</p>
+            <p>The installer Calamares has picked up the transition to QML again.  All navigation is now done in QML for KaOS. The <strong>finished module</strong> was also ported to QML, this gives a simpler end page, with clear buttons showing two options.  It also opened the way to give users a clear message regarding installation logs once the install is completed.</p>
             
             <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.80.0, Plasma 5.21.2 and KDE Applications 20.12.3. All built on Qt 5.15.2.</p>
             
