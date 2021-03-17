@@ -1,7 +1,7 @@
 
 pkgname=audacity
-pkgver=2.4.2
-pkgrel=3
+pkgver=3.0.0
+pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
 url=""
@@ -12,21 +12,23 @@ depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk' 'lame' 'hicolor-icon-theme' 'f
 makedepends=('cmake' 'zip' 'pkgconfig')
 options=('!makeflags')
 source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz")
-sha256sums=('cdb4800c8e9d1d4ca19964caf8d24000f80286ebd8a4db566c2622449744c099')
+sha256sums=('14c5b6d661fbe85fa09b7caac5fa261e392a28150fa18fca91380e695ca76cc9')
+
+prepare() {
+  cd ${pkgname}-Audacity-${pkgver}
+
+  sed -i 's|if( NOT ours )|if( ours )|' cmake-proxies/wxWidgets/CMakeLists.txt
+}
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-Audacity-${pkgver} \
+  cmake -B build -S ${pkgname}-Audacity-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 
