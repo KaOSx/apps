@@ -3,45 +3,41 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kimap2
-pkgver=0.3.0
+pkgver=0.4.0
 _commit=21ba1d2fa1f8b094e484e6c2d21b4347c44e9bda
 pkgrel=1
 pkgdesc="Job-based API for interacting with IMAP servers, 2 version"
 arch=('x86_64')
-url='https://github.com/KDE/kimap2'
+url='https://invent.kde.org/pim/kimap2'
 license=('LGPL')
 depends=('kcoreaddons' 'kcodecs' 'kmime')
 makedepends=('extra-cmake-modules')
 #source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://download.kde.org/unstable/kimap2/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
-#source=("https://github.com/KDE/kimap2/archive/${_commit}.zip"
+#source=("https://download.kde.org/unstable/kimap2/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+source=("https://invent.kde.org/pim/kimap2/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
         'update.patch')
-sha256sums=('f35b27772036168de9cd18326aa84f0881ed5694fdfa2fe15b8e51bd2b916f2b'
+sha256sums=('32f9d47234a3aca6b87de3f4bc46c57b37c7f14396a6cf0d9da5a648aee9f5c4'
             '6b56bc72a03b8543e30aa0962731ecbcea57fcbd174b7a507017dc5e139211d1')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-v${pkgver}
 
   #patch -p1 -i ${srcdir}/update.patch
 }
 
 build() {
-  mkdir -p build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-v${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

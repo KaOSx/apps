@@ -3,41 +3,38 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdav2
-pkgver=0.3.0
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="DAV protocol implementation with KJobs, 2 version"
 arch=('x86_64')
-url='https://github.com/KDE/kdav2'
+url='https://invent.kde.org/pim/kdav2'
 license=('LGPL')
 depends=('kcoreaddons' 'qt5-xmlpatterns')
 makedepends=('extra-cmake-modules')
 #source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://download.kde.org/unstable/kdav2/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('8dd391e67995156d15ad9c7a1e7de89c65e95e59e10c56ff18d43d2e84517063')
+#source=("https://download.kde.org/unstable/kdav2/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+source=("https://invent.kde.org/pim/kdav2/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.bz2")
+sha256sums=('b82817f2412a24faaf9372a60c17c474383fde0e82b0c306a400718ad6a249e1')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-v${pkgver}
 
   #sed -i -e 's|utcDateTime.toString(QString::fromAscii|QLocale::c().toString(utcDateTime, QString::fromAscii|' src/appendjob.cpp
 }
 
 build() {
-  mkdir -p build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-v${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
