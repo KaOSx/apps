@@ -6,7 +6,7 @@ pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
 url=""
 license=('GPL')
-depends=('libvorbis' 'libmad' 'libid3tag' 'wxgtk' 'lame' 'hicolor-icon-theme' 'ffmpeg'
+depends=('libvorbis' 'libmad' 'libid3tag' 'gtk2' 'lame' 'hicolor-icon-theme' 'ffmpeg'
          'shared-mime-info' 'desktop-file-utils' 'redland' 'jack' 'soundtouch' 'libsoxr'
          'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil' 'portmidi')
 makedepends=('cmake' 'zip' 'pkgconfig')
@@ -17,13 +17,14 @@ sha256sums=('14c5b6d661fbe85fa09b7caac5fa261e392a28150fa18fca91380e695ca76cc9')
 prepare() {
   cd ${pkgname}-Audacity-${pkgver}
 
-  sed -i 's|if( NOT ours )|if( ours )|' cmake-proxies/wxWidgets/CMakeLists.txt
+  #sed -i 's|if( NOT ours )|if( ours )|' cmake-proxies/wxWidgets/CMakeLists.txt
 }
 
 build() {
   cmake -B build -S ${pkgname}-Audacity-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_BUILD_TYPE=Release \
+    -Daudacity_use_wxwidgets=local
   cmake --build build
 }
 
