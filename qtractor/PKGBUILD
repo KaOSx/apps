@@ -1,33 +1,29 @@
 
 pkgname=qtractor
-pkgver=0.9.20
+pkgver=0.9.21
 pkgrel=1
 pkgdesc="Audio/MIDI multitrack sequencer"
 arch=('x86_64')
 url="https://qtractor.sourceforge.io/"
 license=('GPL')
-depends=('qt5-x11extras' 'suil' 'lilv' 'libmad' 'libogg' 'libsamplerate' 'rubberband' 'liblo' 'shared-mime-info')
-makedepends=('ladspa' 'dssi' 'qt5-tools')
+depends=('qt6-base' 'lilv' 'libmad' 'libogg' 'libsamplerate' 'rubberband' 'liblo' 'shared-mime-info')
+makedepends=('ladspa' 'dssi' 'qt6-tools') # not ready to be used with Qt6 build 'suil'
 groups=('multimedia')
 source=("https://www.rncbc.org/archive/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/rncbc/qtractor/commit/f6f6742e8318dfaa678734b3c3d00da510aeb017.diff")
-md5sums=('5560b108e88445d4e50e71c274ce9725'
+md5sums=('468f5e9f81d77f5bf605d05083b1adfb'
          '6f1e8a42cdb5226130ce8ca91d266ebf')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  # Fixed FTBFS when native LV2 UI GTK2 support is disabled.
-  patch -p1 -i ${srcdir}/f6f6742e8318dfaa678734b3c3d00da510aeb017.diff
-  
-  #CXXFLAGS="-std=c++11"
-
-  ./configure --prefix=/usr --enable-debug
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+  cmake --build build
 }
 
-package () {
-  cd ${pkgname}-${pkgver}
+package() {
 
-  make DESTDIR=${pkgdir}/ install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
