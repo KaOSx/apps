@@ -1,7 +1,7 @@
 
 pkgname=mediainfo
 _pkgname=MediaInfo
-pkgver=20.09
+pkgver=21.03
 pkgrel=1
 pkgdesc="Convenient unified display of the most relevant technical and tag data for video and audio files."
 arch=('x86_64')
@@ -9,17 +9,18 @@ url="https://github.com/MediaArea/MediaInfo"
 license=('GPL')
 depends=('mediainfolib' 'qt5-base')
 makedepends=('libtool')
-source=("https://github.com/MediaArea/MediaInfo/archive/v${pkgver}.tar.gz")
-md5sums=('5814d9ed34be0719cc71a7d90967bc16')
+#source=("https://github.com/MediaArea/MediaInfo/archive/v${pkgver}.tar.gz")
+source=("https://old.mediaarea.net/download/source/mediainfo/${pkgver}/${pkgname}_${pkgver}.tar.xz")
+md5sums=('b20676a62e41309b33d6b053e396154f')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
   
   #patch -p1 -i ${srcdir}/mediainfo-qt5.patch
 }
 
 build() {
-  cd ${_pkgname}-${pkgver}/Project/GNU/CLI
+  cd ${_pkgname}/Project/GNU/CLI
   
   ./autogen.sh
   ./configure --prefix=/usr
@@ -32,7 +33,7 @@ build() {
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}/Project/GNU/CLI
+  cd ${_pkgname}/Project/GNU/CLI
   make DESTDIR=${pkgdir} install
   
   cd ../../QMake/GUI
