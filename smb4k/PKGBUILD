@@ -1,6 +1,6 @@
 
 pkgname=smb4k
-pkgver=3.0.7
+pkgver=3.0.82
 _commit=3056bb01733ec009d789e831636e4fe487d79598
 pkgrel=1
 pkgdesc='Advanced network neighborhood browser and Samba share mounting utility for KDE.'
@@ -8,12 +8,12 @@ url='https://sourceforge.net/p/smb4k/home/Home/'
 arch=('x86_64')
 license=('GPL')
 depends=('kconfig' 'kauth' 'kiconthemes' 'solid' 'kwidgetsaddons' 'ki18n' 'kcompletion' 'kcoreaddons'
-         'kio' 'knotifications' 'kxmlgui' 'kcrash' 'kjobwidgets' 'kwallet' 'kdbusaddons' 'kparts' 'kconfigwidgets'
-         'kwindowsystem' 'plasma-framework' 'samba')
+         'kio' 'knotifications' 'kxmlgui' 'kcrash' 'kjobwidgets' 'kwallet' 'kdbusaddons' 'kparts' 
+         'kconfigwidgets' 'kwindowsystem' 'plasma-framework' 'kdnssd' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-network' 'kde-uninstall' 'network')
-source=("https://sourceforge.net/projects/smb4k/files/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('2b0cf981a9a605e9f65ddc9251e76d71')
+source=("https://sourceforge.net/projects/smb4k/files/Development/${pkgname}-${pkgver}.tar.xz")
+md5sums=('24964fcf4349ef7a38b2d0ee4eb39a45')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -23,21 +23,17 @@ prepare() {
 }
 
 build() {
-  mkdir -p build 
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
