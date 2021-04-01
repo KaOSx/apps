@@ -50,8 +50,8 @@ Rectangle {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2021.03</h3>
-            <p>KaOS is very proud to announce the availability of the March release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2021.04</h3>
+            <p>KaOS is very proud to announce the availability of the April release of a new stable ISO.</p>
             
             <p>With almost 60 % percent of the packages updated since the last ISO and the last release being over two months old, a new ISO is more than due. News for Plasma 5.21 include a new application launcher featuring two panes to make it simple to locate your programs and comes with improved keyboard, mouse, and touch input, boosting accessibility across the board, Plasma System Monitor, a new app for monitoring system resources and the sound applet now displays the live microphone volume. </p>
             
