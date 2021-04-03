@@ -7,29 +7,25 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Gallery application built using Kirigami'
 arch=('x86_64')
-url='https://github.com/KDE/kirigami-gallery'
+url='https://invent.kde.org/sdk/kirigami-gallery'
 license=('LGPL')
-depends=('qt5-svg' 'qt5-quickcontrols2' 'qt5-graphicaleffects' 'kirigami')
+depends=('qt5-svg' 'qt5-quickcontrols2' 'qt5-graphicaleffects' 'kirigami' 'kitemmodels')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 source=("https://download.kde.org/unstable/applications/${_kdever}/src/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
