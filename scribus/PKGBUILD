@@ -18,11 +18,11 @@ source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/
 #source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
         "https://github.com/scribusproject/scribus/commit/7ce0ac16fd42d61ef9082b27822c7d9d79c7fef7.diff"
         "https://github.com/scribusproject/scribus/commit/6b9ff916959bcb941866f0bd86da639a421337f8.diff"
-        'poppler21.04.diff')
+        "https://github.com/scribusproject/scribus/commit/c62844064cd6d85802d21e188b0f479463e22095.diff")
 sha256sums=('d4257695539cfa40dead8abdaf04c51e34d4d74bcad5a2c934d08e6e9d43b7ab'
             '93c57b873c044131cba1ec07028fdad2da061906c3c4023e91dae85a2dc2c729'
             'c08934b9e111f153b646398983f669a2b179fdb86a30c9dd6515f7b5636ddf03'
-            '6df686fdb36e5f0c36146f6a15d1c8d517abfa599139794560a5f068b427d172')
+            'c71c5bf4ab135c58838e5330a7981ec08a59c737f84203120d42c1b3f8ec062f')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -31,7 +31,8 @@ prepare() {
   # poppler 21.03.0 needed
   patch -p1 -i ${srcdir}/7ce0ac16fd42d61ef9082b27822c7d9d79c7fef7.diff
   patch -p1 -i ${srcdir}/6b9ff916959bcb941866f0bd86da639a421337f8.diff
-  patch -p1 -i ${srcdir}/poppler21.04.diff
+  # poppler 21.04.0 needed
+  patch -p1 -i ${srcdir}/c62844064cd6d85802d21e188b0f479463e22095.diff
 }
 
 build() {
