@@ -1,7 +1,7 @@
 
 pkgname=nomacs
 pkgver=3.17.2206
-pkgrel=1
+pkgrel=2
 pkgdesc="Qt based image viewer for all common image formats including RAW and psd images."
 arch=('x86_64')
 url="http://www.nomacs.org/"
@@ -22,21 +22,17 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver}/ImageLounge \
+  cmake -B build -S ${pkgname}-${pkgver}/ImageLounge \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQT_QMAKE_EXECUTABLE=/usr/lib/qt5/bin/qmake \
     -DENABLE_TRANSLATIONS=ON \
-    -DUSE_SYSTEM_QUAZIP=ON \
+    -DENABLE_QUAZIP=OFF \
     -DENABLE_CODE_COV=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir}/ install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

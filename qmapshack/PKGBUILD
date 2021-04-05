@@ -1,7 +1,7 @@
 
 pkgname=qmapshack
 pkgver=1.15.2
-_commit=2cee656cab3867e243483ec75e519012f14949be
+_commit=a68c771a346ae3cbe65233044a9c2648a620936b
 pkgrel=2
 pkgdesc="Plan your next outdoor trip or to visualize and archive all the GPS recordings, next generation of the QLandkarte GT application"
 arch=('x86_64')
@@ -16,7 +16,7 @@ groups=('utils')
 source=("https://github.com/Maproom/qmapshack/archive/${_commit}.zip"
         'proj.patch'
         'quazip.patch')
-md5sums=('ac5421b961669bcebc74b07810b9c71a'
+md5sums=('6dfb98efaf1ce545fc708711a741ac7f'
          '1a2192dfa8b63fce503a59d6917918a5'
          'cbdc25ae8121f347ddfedc10501d589e')
 
@@ -25,7 +25,7 @@ prepare() {
   
   #patch -p1 -i ${srcdir}/proj.patch
   #patch -p1 -i ${srcdir}/quazip.patch
-  sed -i 's|PROJ4|PROJ|' CMakeLists.txt
+  #sed -i 's|QuaZip-Qt5|QuaZip5|' CMakeLists.txt
 }
 
 build() {
@@ -38,5 +38,5 @@ build() {
 package() {
   DESTDIR=${pkgdir} cmake --install build
 
-  install -Dm644 ../${pkgname}-V_${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 ${pkgname}-${_commit}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
