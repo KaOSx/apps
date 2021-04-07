@@ -1,6 +1,6 @@
 
 pkgname=nodejs
-pkgver=15.13.0
+pkgver=15.14.0
 pkgrel=1
 pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications."
 arch=('x86_64')
@@ -10,11 +10,12 @@ depends=('python3' 'openssl' 'zlib' 'libuv' 'icu' 'c-ares')
 makedepends=('procps-ng')
 checkdepends=('curl') 
 options=('!emptydirs')
-source=("https://github.com/nodejs/node/archive/v${pkgver}.tar.gz")
-md5sums=('fe66cd576052a7c4ff49c5ecb572d907')
+#source=("https://github.com/nodejs/node/archive/v${pkgver}.tar.gz")
+source=("https://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.xz")
+sha256sums=('8122dc4eea4f00af32a1d14ca85a1d4d6ca7b2dcffd9a731bda149fc5593a66e')
 
 build() {
-  cd node-${pkgver}
+  cd node-v${pkgver}
   
   ./configure --prefix=/usr \
     --with-intl=system-icu \
@@ -27,13 +28,13 @@ build() {
 }
 
 check() {
-  cd node-${pkgver}
+  cd node-v${pkgver}
 
   #make test
 }
 
 package() {
-  cd node-${pkgver}
+  cd node-v${pkgver}
   make install DESTDIR=${pkgdir}
 
 
