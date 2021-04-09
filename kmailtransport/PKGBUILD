@@ -9,7 +9,8 @@ pkgdesc="Manage mail transport"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/kmailtransport'
 license=('LGPL')
-depends=('kcmutils' 'kconfigwidgets' 'kwallet' 'kmime' 'akonadi' 'akonadi-mime' 'ksmtp' 'libkgapi')
+depends=('kcmutils' 'kconfigwidgets' 'kwallet' 'kmime' 'akonadi' 'akonadi-mime'
+         'ksmtp' 'libkgapi' 'qtkeychain')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -25,10 +26,7 @@ prepare() {
 }
 
 build() {
-  mkdir build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -37,11 +35,10 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

@@ -17,7 +17,7 @@ source=("http://download.kde.org/stable/applications/$_kdever/src/${pkgname}-$_k
         'syslog-path.patch'
         "https://github.com/KDE/ksystemlog/commit/2e0261bb8fc11a0c70eaccf696ac0ba0cc5647e5.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '5486c901f707d7ea191eed58d3aef2c1'
+         '04abba8db538ab4bebac678d19482bd5'
          'e5797dd2e532e809b8607e6c928c2575')
 
 prepare() {
@@ -31,10 +31,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -43,11 +40,10 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

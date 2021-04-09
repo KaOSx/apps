@@ -1,12 +1,11 @@
---- a/src/modes/system/systemConfiguration.h	2015-11-15 07:46:00.000000000 -0500
-+++ b/src/modes/system/systemConfiguration.h	2016-01-16 14:49:39.645115221 -0500
-@@ -38,7 +38,7 @@
- public:
-     SystemConfiguration()
-         : GenericLogModeConfiguration(QStringLiteral(SYSTEM_LOG_MODE_ID),
--                                      QStringList() << QStringLiteral("/var/log/syslog"),
-+                                      QStringList() << QStringLiteral("/var/log/pacman.log"),
-                                       QList<int>() << Globals::INFORMATION_LOG_LEVEL_ID)
-     {
-         /*
-
+--- a/src/modes/system/systemConfiguration.cpp	2021-04-09 17:09:38.769227040 +0200
++++ b/src/modes/system/systemConfiguration1.cpp	2021-04-09 17:09:38.837227547 +0200
+@@ -23,7 +23,7 @@
+ 
+ SystemConfiguration::SystemConfiguration()
+     : GenericLogModeConfiguration(QStringLiteral(SYSTEM_LOG_MODE_ID),
+-                                  QStringList() << QStringLiteral("/var/log/syslog"),
++                                  QStringList() << QStringLiteral("/var/log/pacman.log"),
+                                   QList<int>() << Globals::INFORMATION_LOG_LEVEL_ID)
+ {
+     /*
