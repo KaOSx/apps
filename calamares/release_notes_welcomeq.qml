@@ -75,13 +75,13 @@ Rectangle {
             
             <p>The installer Calamares has picked up the transition to QML again.  All navigation is now done in QML for KaOS. The <strong>finished module</strong> was also ported to QML, this gives a simpler end page, with clear buttons showing two options.  It also opened the way to give users a clear message regarding installation logs once the install is completed. Usersq is another module being ported to QML, a preview is included in this release, but is not the default users module yet.</p>
             
-            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.80.0, Plasma 5.21.3 and KDE Applications 20.12.3. All built on Qt 5.15.2.</p>
+            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.81.0, Plasma 5.21.4 and KDE Applications 21.04.0. All built on Qt 5.15.2.</p>
             
             <p>This ISO means the end of the non-free Nvidia 340xx support in KaOS. This drivers needed to be heavily patched since Linux 5.6, but now with Linux 5.11, loading the module completely fails SDDM. Since upstream pretty much abandoned this driver, it is time to remove from KaOS.  Users with Nvidia cards prior to 2014 will need to switch over to the in-kernel modesetting driver or install nouveau.</p>
             
             <p>New applications added include VSCodium.</p>
             
-            <p>Updates to the base of this distribution were numerous and include Python3 3.8.8, Systemd 247.4, Proj 8.0.0, Git 2.30.1, LLVM/Clang 11.1.0, Protobuf 3.15, Hdf5 1.12.0, Poppler 21.03.0, Mesa 20.3.4, NetworkManager 1.30.2, ZSTD 1.4.9, Samba 4.13.5.</p>
+            <p>Updates to the base of this distribution were numerous and include GCC 10.3.0, Glibc2.33, Binutils 2.36.1, Systemd 247.4, Proj 8.0.0, Git 2.30.1, LLVM/Clang 11.1.0, Protobuf 3.15, Hdf5 1.12.0, Poppler 21.04.0, Mesa 21.0.2, NetworkManager 1.30.2, ZSTD 1.4.9, Samba 4.13.5.</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
@@ -103,7 +103,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.80.0, Plasma 5.21.3, KDE Applications 20.12.3</b>, Linux 5.11.8, Systemd 247.4, Kmod 28, NetworkManager 1.30.2, LibreOffice 7.1.1, Krita 4.4.2, Elisa, Xorg-Server 1.20.10, Mesa 20.3.4, Glibc 2.32, GCC 10.2.0, non-free Nvidia 460 and Python3 3.8.8 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.81.0, Plasma 5.21.4, KDE Applications 21.04.0</b>, Linux 5.11.8, Systemd 247.4, Kmod 28, NetworkManager 1.30.2, LibreOffice 7.1.1, Krita 4.4.2, Elisa, Xorg-Server 1.20.10, Mesa 21.0.2, Glibc 2.33, GCC 10.3.0, non-free Nvidia 460 and Python3 3.8.9 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.11.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
