@@ -1,7 +1,7 @@
 
 pkgname=kmymoney
 pkgver=5.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
 url="http://www.kmymoney.org/"
@@ -13,13 +13,15 @@ depends=('karchive' 'kcoreaddons' 'kconfig' 'kconfigwidgets' 'ki18n' 'kcompletio
          'kactivities' 'aqbanking' 'qtwebengine' 'sqlcipher')
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl' 'boost')  
 groups=('office')
-source=("https://download.kde.org/stable/kmymoney/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('df7b9f78e8596f99d28295ca738708f0655ee057789dfd921c7b1bab96578298')
+source=("https://download.kde.org/stable/kmymoney/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/office/kmymoney/-/commit/de390aed4652a0e9ff0bffcade33827a6283aaa1.diff")
+sha256sums=('df7b9f78e8596f99d28295ca738708f0655ee057789dfd921c7b1bab96578298'
+            'a85d8b44991c853eb9f9e3939a65dd4c5ed0fffd72617dbf88d6ebf708b11313')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  # lower aqbanking requirement until there actually is a 5.8.0 release
+  patch -p1 -i ${srcdir}/de390aed4652a0e9ff0bffcade33827a6283aaa1.diff
   #sed -i -e 's|find_package(AQBANKING 5.8.0)|find_package(AQBANKING 5.7.8)|' CMakeLists.txt
 }
 

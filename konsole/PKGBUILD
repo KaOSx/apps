@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://github.com/KDE/konsole'
@@ -18,14 +18,15 @@ conflicts=('kde-baseapps-konsole')
 replaces=('kde-baseapps-konsole')
 provides=('kde-baseapps-konsole')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/utilities/konsole/-/commit/e7e8e9d1a9b129d73a4c502af873fb01fb2795fb.diff")
+        "https://invent.kde.org/utilities/konsole/-/commit/3b06b6f22a9bdc0297a03ce45aa95642c08b1dd3.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '8c12fccd299ec325a719e4bfc46add48')
+         '15cd21faf776341ecfdd51335f5bdced')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # Qt 5.15 needed
-  #patch -p1 -i ${srcdir}/e7e8e9d1a9b129d73a4c502af873fb01fb2795fb.diff
+  # revert to make make text selection still visible in all color profiles
+  # https://bugs.kde.org/show_bug.cgi?id=435309
+  patch -p1 -R -i ${srcdir}/3b06b6f22a9bdc0297a03ce45aa95642c08b1dd3.diff
 }
          
 build() {
