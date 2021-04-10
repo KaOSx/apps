@@ -1,25 +1,26 @@
 
 pkgname=jitsi
-pkgver=2.10.5550
-pkgrel=3
+pkgver=2.11.5633
+_pkgver=5633
+pkgrel=1
 pkgdesc="An audio/video SIP VoIP phone and instant messenger written in Java (formerly SIP-Communicator)"
 arch=('x86_64')
 url="https://jitsi.org"
 license=('LGPL')
-depends=('java-runtime' 'gtk2')
+depends=('java-runtime')
 makedepends=('apache-ant' 'java-environment')
 options=('!strip' '!emptydirs' 'zipman' '!libtool' 'docs')
-#source=("https://github.com/jitsi/jitsi/archive/Jitsi-2.10.tar.gz")
-source=("https://download.jitsi.org/jitsi/src/jitsi-src-${pkgver}.zip"
+source=("https://github.com/jitsi/jitsi/archive/refs/tags/${_pkgver}.tar.gz"
+#source=("https://download.jitsi.org/jitsi/src/jitsi-src-${pkgver}.zip"
         'jitsi.desktop'
         'jitsi.sh')
-md5sums=('dc512fbf49a6056099917ff9ae8f3315'
+md5sums=('0844dc46176c7940cdeac075559d38e6'
          'aad7cf1fb18ff5d7c964834ecc38aed8'
          'ab1953a6442b685c7acb3c79b630a495')
 
 build()
 {
-  cd ${pkgname}
+  cd ${pkgname}-${_pkgver}
   # append the build revision to the jitsi version
   sed -i "s/0\.build\.by\.SVN/build.${pkgver}/" src/net/java/sip/communicator/impl/version/NightlyBuildID.java
   
@@ -28,7 +29,7 @@ build()
 }
 
 package() {
-  cd ${pkgname}
+  cd ${pkgname}-${_pkgver}
   
   find lib/ lib/bundle/ -maxdepth 1 -type f \
     -exec install -Dm644 {} ${pkgdir}/usr/lib/${pkgname}/{} \;
