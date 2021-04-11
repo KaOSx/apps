@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=akregator
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="RSS Feed Reader."
 arch=('x86_64')
 url='https://github.com/KDE/akregator'
@@ -17,14 +17,19 @@ depends=('kcrash' 'kcmutils' 'knotifyconfig' 'kparts' 'ktexteditor' 'kxmlgui' 'k
          'akonadi-import-wizard' 'pim-data-exporter' 'kuserfeedback')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/pim/akregator/-/commit/d51a165fc268192b02295752fa0752754e63b524.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'c367cdb42f6969946610dff1605afe94')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/d51a165fc268192b02295752fa0752754e63b524.diff
+}
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -32,11 +37,10 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
