@@ -18,14 +18,15 @@ depends=('kcrash' 'kcmutils' 'knotifyconfig' 'kparts' 'ktexteditor' 'kxmlgui' 'k
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://invent.kde.org/pim/akregator/-/commit/d51a165fc268192b02295752fa0752754e63b524.diff")
+        'qt5.15.3.patch')
+        #"https://invent.kde.org/pim/akregator/-/commit/d51a165fc268192b02295752fa0752754e63b524.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'c367cdb42f6969946610dff1605afe94')
+         'fff739fbdc3ebc512a6b93910140068f')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/d51a165fc268192b02295752fa0752754e63b524.diff
+  patch -p1 -i ${srcdir}/qt5.15.3.patch
 }
 
 build() {
