@@ -51,9 +51,7 @@ Rectangle {
             wrapMode: Text.WordWrap
 
             text: qsTr("<h3>KaOS - 2021.04</h3>
-            <p>KaOS is very proud to announce the availability of the April release of a new stable ISO.</p>
-            
-            <p>With almost 60 % percent of the packages updated since the last ISO and the last release being over two months old, a new ISO is more than due. News for Plasma 5.21 include a new application launcher featuring two panes to make it simple to locate your programs and comes with improved keyboard, mouse, and touch input, boosting accessibility across the board, Plasma System Monitor, a new app for monitoring system resources and the sound applet now displays the live microphone volume. </p>
+            <p>Time goes fast, it is eight years ago this week that KaOS started, so this is kind of an April anniversary release.  It has also been eight years that the same initramfs creation tool has been used (Mkinitcpio), but with Dracut being the more widely used and constantly maintained, it is time to move to this new tool for KaOS. For almost two years Mkinitcpio did not have a maintainer and upstream had talks about abandoning this tool. This will be a major change and will require lots of work for the ISO creation, but a start has been made, the linux-next kernel already defaults to Dracut for initramfs creation.</p>
             
             <p>The tool to manage, search, and install <strong>KaOS Community Packages, kcp</strong> has been completely rewritten (still in Go) in order to support the main new feature: the configuration.</p>
             <p>Now, you can adapt kcp/pckcp to your needs in editing the configuration’s files (located in <code>$HOME/.config/kcp/<code> directory). Notable options :</p>
@@ -81,7 +79,7 @@ Rectangle {
             
             <p>New applications added include VSCodium.</p>
             
-            <p>Updates to the base of this distribution were numerous and include GCC 10.3.0, Glibc2.33, Binutils 2.36.1, Systemd 247.4, Proj 8.0.0, Git 2.30.1, LLVM/Clang 11.1.0, Protobuf 3.15, Hdf5 1.12.0, Poppler 21.04.0, Mesa 21.0.2, NetworkManager 1.30.2, ZSTD 1.4.9, Samba 4.13.5.</p>
+            <p>Updates to the base of this distribution were numerous and include a new GCC 10.3.0, Glibc 2.33 & Binutils 2.36.1 based Toolchain, with most of the core being rebuild on this new Toolchain, Systemd 247.4, Proj 8.0.0, Git 2.30.1, LLVM/Clang 11.1.0, Protobuf 3.15, Hdf5 1.12.0, Poppler 21.04.0, Mesa 21.0.2, NetworkManager 1.30.2, ZSTD 1.4.9, Samba 4.13.5.</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
