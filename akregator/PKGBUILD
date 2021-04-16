@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=akregator
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="RSS Feed Reader."
 arch=('x86_64')
 url='https://github.com/KDE/akregator'
@@ -26,7 +26,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/qt5.15.3.patch
+  #patch -p1 -i ${srcdir}/qt5.15.3.patch
 }
 
 build() {
