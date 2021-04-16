@@ -79,7 +79,8 @@ Rectangle {
             
             <p>New applications added include VSCodium.</p>
             
-            <p>Updates to the base of this distribution were numerous and include a new GCC 10.3.0, Glibc 2.33 & Binutils 2.36.1 based Toolchain, with most of the core being rebuild on this new Toolchain, Systemd 247.4, Proj 8.0.0, Git 2.30.1, LLVM/Clang 11.1.0, Protobuf 3.15, Hdf5 1.12.0, Poppler 21.04.0, Mesa 21.0.2, NetworkManager 1.30.2, ZSTD 1.4.9, Samba 4.13.5.</p>
+            <p>Updates to the base of this distribution were numerous and include a new GCC 10.3.0, Glibc 2.33 & Binutils 2.36.1 based Toolchain, with most of the core being rebuild on this new Toolchain, Systemd 247.4, Proj 8.0.0, Git 2.30.1, LLVM/Clang 11.1.0, Protobuf 3.15, Hdf5 1.12.0, Poppler 21.04.0, Mesa 21.0.2, NetworkManager 1.30.2, ZSTD 1.4.9, Samba 4.13.5.< /br>
+            Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
