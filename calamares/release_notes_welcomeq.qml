@@ -79,7 +79,7 @@ Rectangle {
             
             <p>New applications added include VSCodium.</p>
             
-            <p>Updates to the base of this distribution were numerous and include a new GCC 10.3.0, Glibc 2.33 & Binutils 2.36.1 based Toolchain, with most of the core being rebuild on this new Toolchain, Systemd 247.4, Proj 8.0.0, Git 2.30.1, LLVM/Clang 11.1.0, Protobuf 3.15, Hdf5 1.12.0, Poppler 21.04.0, Mesa 21.0.2, NetworkManager 1.30.2, ZSTD 1.4.9, Samba 4.13.5.< /br>
+            <p>Updates to the base of this distribution were numerous and include a new GCC 10.3.0, Glibc 2.33 & Binutils 2.36.1 based Toolchain, with most of the core being rebuild on this new Toolchain, Systemd 247.6, Proj 8.0.0, Git 2.30.1, LLVM/Clang 11.1.0, Protobuf 3.15, Hdf5 1.12.0, Poppler 21.04.0, Mesa 21.0.2, NetworkManager 1.30.2, ZSTD 1.4.9, Samba 4.13.5.< /br>
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
@@ -102,12 +102,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.81.0, Plasma 5.21.4, KDE Applications 21.04.0</b>, Linux 5.11.8, Systemd 247.4, Kmod 28, NetworkManager 1.30.2, LibreOffice 7.1.1, Krita 4.4.2, Elisa, Xorg-Server 1.20.10, Mesa 21.0.2, Glibc 2.33, GCC 10.3.0, non-free Nvidia 460 and Python3 3.8.9 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.81.0, Plasma 5.21.4, KDE Applications 21.04.0</b>, Linux 5.11.16, Systemd 247.6, Kmod 28, NetworkManager 1.30.4, LibreOffice 7.1.2, Krita 4.4.3, Elisa, Xorg-Server 1.20.11, Mesa 21.0.2, Glibc 2.33, GCC 10.3.0, non-free Nvidia 465 and Python3 3.8.9 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.11.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.11, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 86.0, Chrome 91, Ardour 6.6.0, Inkscape 1.0.2, GIMP 2.10.22 and Thunderbird 78.8.0.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 88.0, Chrome 91, Ardour 6.6.0, Inkscape 1.0.2, GIMP 2.10.22 and Thunderbird 78.10.0.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
