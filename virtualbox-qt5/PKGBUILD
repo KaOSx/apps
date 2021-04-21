@@ -5,8 +5,8 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=6.1.18
-_pkgver=6.1.18
+pkgver=6.1.20
+_pkgver=6.1.20
 pkgrel=1
 arch=('x86_64')
 url='https://virtualbox.org'
@@ -25,7 +25,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         'include-path.patch'
         'VirtioCore.cpp'
         'VirtioCore.h')
-sha256sums=('108d42b9b391b7a332a33df1662cf7b0e9d9a80f3079d16288d8b9487f427d40'
+sha256sums=('e690c91974a2e7a5aca2c0939ad514382f9a2136797a5e0b96aab778e42bc8a7'
             '9c5238183019f9ebc7d92a8582cad232f471eab9d3278786225abc1a1c7bf66e'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             'c7dc4e484c8641e8fbb8e7fb342c7a72534936d6e9212b477ab7e2736fb8be88'
@@ -179,7 +179,7 @@ package_virtualbox-guest-utils() {
  
     install -Dm644 60-vboxguest.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxguest.rules
     install -Dm644 vboxservice.service ${pkgdir}/usr/lib/systemd/system/vboxservice.service
-    install -Dm644 vmsvga.service ${pkgdir}/usr/lib/systemd/system/vmsvga.service
+    #install -Dm644 vmsvga.service ${pkgdir}/usr/lib/systemd/system/vmsvga.service
 
     install -Dm644 VirtualBox-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
 }
