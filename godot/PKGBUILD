@@ -1,7 +1,7 @@
 
 pkgname=godot
-pkgver=3.2.3
-_pkgver=3.2.3-stable
+pkgver=3.3
+_pkgver=3.3-stable
 pkgrel=1
 pkgdesc="Full featured, open source, MIT licensed, game engine."
 arch=('x86_64')
@@ -9,9 +9,9 @@ url="http://www.godotengine.org"
 license=('MIT')
 depends=('alsa-lib' 'glu' 'libx11' 'libxcursor' 'libxinerama' 'libxrandr' 'freetype2'
          'mesa' 'libwebp' 'pulseaudio' 'openssl')
-makedepends=('scons' 'clang')
+makedepends=('scons') # 'clang')
 source=("https://downloads.tuxfamily.org/godotengine/${pkgver}/godot-${_pkgver}.tar.xz")
-sha256sums=('85fd73d742cc64887056a232f8f7a622112e78b51f31d4d08db0f982e5f3a023')
+sha256sums=('fcbbc6aaab16059e6622482c3358d58098d34ed51e099c854ec0ad79f466d555')
 
 build() {
     cd ${pkgname}-${_pkgver}
@@ -19,14 +19,14 @@ build() {
     #patch -p1 -i ${srcdir}/43bc27e2755f34017148097773da8a6988718aaf.diff
 
     scons platform=x11 \
-          use_llvm=yes \
+          use_llvm=no \
           target=release_debug
 }
 
 package() {
     cd ${pkgname}-${_pkgver}
     
-    install -Dm755 bin/godot.x11.opt.tools.64.llvm ${pkgdir}/usr/bin/godot
+    install -Dm755 bin/godot.x11.opt.tools.64 ${pkgdir}/usr/bin/godot
 
     install -Dm644 misc/dist/linux/org.godotengine.Godot.desktop ${pkgdir}/usr/share/applications/godot.desktop
     install -Dm644 icon.svg ${pkgdir}/usr/share/pixmaps/godot.svg  
