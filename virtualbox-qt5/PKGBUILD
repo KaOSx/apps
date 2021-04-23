@@ -7,7 +7,7 @@ pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
 pkgver=6.1.20
 _pkgver=6.1.20
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
@@ -179,7 +179,7 @@ package_virtualbox-guest-utils() {
  
     install -Dm644 60-vboxguest.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxguest.rules
     install -Dm644 vboxservice.service ${pkgdir}/usr/lib/systemd/system/vboxservice.service
-    #install -Dm644 vmsvga.service ${pkgdir}/usr/lib/systemd/system/vmsvga.service
+    install -Dm644 vmsvga.service ${pkgdir}/usr/lib/systemd/system/vmsvga.service
 
     install -Dm644 VirtualBox-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
 }
