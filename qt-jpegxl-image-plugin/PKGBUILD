@@ -1,0 +1,27 @@
+
+pkgname=qt-jpegxl-image-plugin
+pkgver=0.1
+_commit=1ed974e2f1a9e79939eb2f7660a0b4f65d812dc8
+pkgrel=1
+pkgdesc='Qt plug-in to allow Qt and KDE based applications to read/write JXL images'
+arch=('x86_64')
+url="https://github.com/novomesk/qt-jpegxl-image-plugin"
+license=('GPL3')
+depends=('qt5-base' 'jpeg-xl')
+source=("https://github.com/novomesk/qt-jpegxl-image-plugin/archive/${_commit}.zip")
+sha256sums=('34f46a5495f4b38b9dde0c87924fc46b0d526da235bdef2c5c382a09d487d7cc')
+
+
+build() {
+  cd ${pkgname}-${_commit}
+
+  /usr/lib/qt5/bin/qmake qt-jpegxl-image-plugin.pro
+  make
+}
+
+package() {
+  cd ${pkgname}-${_commit}
+  
+  make INSTALL_ROOT=${pkgdir}/ install
+  install -Dm644 LICENSE $pkgdir/usr/share/licenses/${pkgname}/LICENSE
+}
