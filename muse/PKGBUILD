@@ -1,8 +1,8 @@
 
 pkgname=muse
-pkgver=3.1.1
-_pkgver=3_1_1
-pkgrel=3
+pkgver=4.0
+_pkgver=4.0.0
+pkgrel=1
 _commit=db294aed5c1f449a2a58e3f82aff3602c95806fc
 pkgdesc="MIDI/Audio sequencer with recording and editing capabilities, aims to be a complete multitrack virtual studio for Linux."
 arch=('x86_64')
@@ -12,16 +12,11 @@ depends=('qt5-svg' 'qt5-tools' 'dssi' 'fluidsynth' 'jack' 'ladspa' 'liblo' 'libs
          'lv2' 'lilv' 'rubberband' 'liblrdf') 
 makedepends=('cmake')
 groups=('multimedia')
-source=("https://github.com/muse-sequencer/muse/releases/download/${pkgname}_${_pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('ac9da5c16b670fd6a3139e86845a3d4d')
+source=("https://github.com/muse-sequencer/muse/releases/download/${_pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('7bb0bd0453e4ca221f690437fef96a6b')
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  #CXXFLAGS+="-std=c++11"
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_EXPERIMENTAL=OFF \
@@ -30,11 +25,10 @@ build() {
     -DENABLE_RTAUDIO=OFF \
     -DENABLE_LV2_GTK2=OFF \
     -DENABLE_INSTPATCH=OFF
-  make -j4
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
