@@ -1,8 +1,8 @@
 
 pkgname=w3m
-pkgver=0.5.3.4
-_pkgver=0.5.3+git20190105
-_commit=0.5.3-git20190105
+pkgver=0.5.3git20210102.6
+_pkgver=0.5.3+git20210102-6
+_commit=debian-0.5.3-git20210102-6
 pkgrel=1
 pkgdesc="Pager that can be used as a text-mode WWW browser."
 arch=('x86_64')
@@ -10,8 +10,8 @@ url="http://w3m.sourceforge.net/"
 license=('custom')
 depends=('openssl' 'gc' 'ncurses' 'zlib' 'imlib2')
 groups=('network-web')
-source=("https://github.com/tats/w3m/archive/v${_pkgver}.zip")
-md5sums=('13134b0dff032eaacdd7000879dc1abf')
+source=("https://github.com/tats/w3m/archive/refs/tags/debian/${_pkgver}.tar.gz")
+md5sums=('f270bd3b238bba662f86fb9aeaba8834')
 
 build() {
 	cd ${pkgname}-${_commit}
