@@ -1,7 +1,7 @@
 
 pkgname=qmmp
-pkgver=1.4.4
-_pkgver=1.4.4
+pkgver=1.4.5
+_pkgver=1.4.5
 _commit=dev-code-5352-branches-qmmp-1.0
 pkgrel=1
 pkgdesc="Qt based audio-player"
@@ -15,21 +15,18 @@ makedepends=('cmake' 'ffmpeg' 'libsamplerate' 'mesa' 'qt5-tools')
 groups=('multimedia')
 source=("https://qmmp.ylsoftware.com/files/qmmp-${_pkgver}.tar.bz2")
 #source=("http://sourceforge.net/code-snapshots/svn/q/qm/qmmp-dev/code/qmmp-${_commit}.zip")
-md5sums=('2fe309a220407d185a789c6342142b57')
+md5sums=('332f6a8b75f8fb9411c342e52b6fc7a7')
 
 build() {
-  cd ${pkgname}-${_pkgver}
-  
-  cmake ./ \
+  cmake -B build -S ${pkgname}-${_pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DUSE_HAL=0 \
     -DUSE_CDA=0
-  make
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${_pkgver}
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
