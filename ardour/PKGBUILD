@@ -2,7 +2,7 @@
 pkgname=ardour
 _pkgname=Ardour
 pkgver=6.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A multichannel hard disk recorder and digital audio workstation"
 arch=('x86_64')
 url="https://ardour.org/"
@@ -14,12 +14,22 @@ makedepends=('boost' 'cppunit' 'itstool' 'libusb')
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 options=('!strip')
 source=("https://community.ardour.org/srctar"
-        'ardour.desktop')
+        'ardour.desktop'
+        "https://github.com/Ardour/ardour/commit/cc7b8b1bc5fb19e0ec5e476741c55627d4b62ba9.diff"
+        "https://github.com/Ardour/ardour/commit/8b4edaa9506dc945cfbd8ed9869fd9b384a513d7.diff"
+        "https://github.com/Ardour/ardour/commit/ea01ec5988185228c41b7799b45c5051f0b80d15.diff")
 md5sums=('c5a2d0f5cb54f9fb26023afa2a66abe7'
-         '27b85c4048094607d2cff4eb36a578d5')
+         '27b85c4048094607d2cff4eb36a578d5'
+         '97b3c03e76822d6e160d3662f497bf9d'
+         '01a089abf27ed5e4aa3a05d204ddac00'
+         '1c26611d3e6457704c18098e2f1b17d9')
 
 build() {
   cd ${_pkgname}-${pkgver}
+  # glib2 2.68 needed
+  patch -p1 -i ${srcdir}/cc7b8b1bc5fb19e0ec5e476741c55627d4b62ba9.diff
+  patch -p1 -i ${srcdir}/8b4edaa9506dc945cfbd8ed9869fd9b384a513d7.diff
+  patch -p1 -i ${srcdir}/ea01ec5988185228c41b7799b45c5051f0b80d15.diff
   
   ./waf configure --prefix=/usr \
     --configdir=/etc \
