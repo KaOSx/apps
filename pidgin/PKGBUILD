@@ -1,7 +1,7 @@
 
 # perl issue on server, build locally only
 pkgname=pidgin
-pkgver=2.14.3
+pkgver=2.14.4
 pkgrel=1
 pkgdesc="Multi-protocol instant messaging client"
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('nss' 'libsasl' 'python3' 'tk' 'ca-certificates' 'intltool' )
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 options=('!libtool')
 source=("https://downloads.sourceforge.net/pidgin/${pkgname}-${pkgver}.tar.bz2")
-sha256sums=('2b064802fdfec008878f7179120ccf1e67c68b46ec0966399a095e20bc762e76')
+sha256sums=('67c1a0104b0624a50100c6d73cd5504d53c9d221922b1b28fa86020531a9904e')
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -27,7 +27,8 @@ build() {
                 --disable-nm \
                 --with-python=/usr/bin/python3 \
                 --with-system-ssl-certs=/etc/ssl/certs \
-                --disable-gtkspell
+                --disable-gtkspell \
+                --disable-gevolution
     make
 }
 

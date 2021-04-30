@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=messagelib
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library components for messages (e.g. displaying Akonadi collections)"
 arch=('x86_64')
 url='https://invent.kde.org/pim/messagelib'
@@ -15,14 +15,14 @@ depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'akonadi-notes' 'libkdepim' 'k
          'libgravatar' 'grantleetheme' 'libkleo' 'pimcommon' 'grantlee' 'qtwebengine' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://invent.kde.org/pim/messagelib/-/commit/1f2548805df60707ffba2bba27d35d441232d140.diff")
+        "https://invent.kde.org/pim/messagelib/-/commit/3b5b171e91ce78b966c98b1292a1bcbc8d984799.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'e96a28b4dec084ad442b872bf7bb4ced')
+         '208dcb8e5fb6afc87c0bca4c83328da4')
 
 prepare() {
   cd $pkgname-${pkgver}
   #sed -i -e 's|set(KMIME_LIB_VERSION "4.81.0")|set(KMIME_LIB_VERSION "4.80.0")|' ${srcdir}/${pkgname}/CMakeLists.txt
-  #patch -p1 -i ${srcdir}/1f2548805df60707ffba2bba27d35d441232d140.diff
+  patch -p1 -i ${srcdir}/3b5b171e91ce78b966c98b1292a1bcbc8d984799.diff
 }
 
 build() {
