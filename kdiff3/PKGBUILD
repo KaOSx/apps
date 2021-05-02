@@ -1,16 +1,16 @@
  
 pkgname=kdiff3
-pkgver=1.8.5
+pkgver=1.9.0
 pkgrel=1
 pkgdesc='Utility for comparing and merging files and directories'
 arch=('x86_64')
 url='https://invent.kde.org/sdk/kdiff3'
 license=('LGPL')
 depends=('ki18n' 'kcoreaddons' 'kcrash' 'kiconthemes' 'kparts' 'kwidgetsaddons' 'kio' 'clang-tools-extra')
-makedepends=('extra-cmake-modules' 'kdoctools')
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('programming')
 source=("https://download.kde.org/stable/kdiff3/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('bc92f7d04eb123f9c56dbe3047af67bf715240fa99487ac1d1ccf2a45e0854c1')
+sha256sums=('a7fd61a23f1e37f25af0efa82265d4723e63889aa3213a58b76ce0c96eab23d0')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
