@@ -1,26 +1,27 @@
 
 pkgname=eric6
-pkgver=21.4
+pkgver=21.5
 pkgrel=1
 pkgdesc="Full-featured Python 3.x and Ruby IDE written in python, based on the cross 
         platform Qt gui toolkit, integrating the highly flexible Scintilla editor control"
 arch=('x86_64')
 url="http://eric-ide.python-projects.org/"
 license=('GPL3')
-depends=('python3' 'pyqt5-python3' 'python3-qscintilla-qt5' 'python3-pylint' 'pyqtwebengine')
+depends=('python3' 'pyqt5-python3' 'python3-qscintilla-qt5' 'python3-pylint'
+         'pyqtwebengine' 'pyyaml' 'python3-pygments' 'python3-toml' 'python3-chardet')
 makedepends=('eric6')
 provides=('eric6-i18n')
 replaces=('eric6-i18n')
 conflicts=('eric6-i18n')
 source=("https://downloads.sourceforge.net/eric-ide/${pkgname}-${pkgver}.tar.gz"
-        'install.diff')
-sha1sums=('59f3f476d2e6ef1881c9973bccd21ca7548f21bb'
-          '110d5e16b3e53e97a8a13bcc5515dbb392368c2f')
+        'install1.diff')
+sha1sums=('a332e07c977b68e08d934be6f7a8a58600667347'
+          '08a619fa08040117140271a8fc29f00f9b50eae3')
 
 prepare() {
     cd ${pkgname}-${pkgver}
     
-    #patch -p1 -i ${srcdir}/install.diff
+    patch -p1 -i ${srcdir}/install1.diff
 }
 
 package() {
