@@ -3,17 +3,17 @@ pkgname=qgis
 _pkgname=QGIS
 pkgver=3.18.2
 _commit=7dbe4943d606b8acd879dd6ed9e38542e3ab0bab
-pkgrel=1
+pkgrel=2
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='https://qgis.org/'
 license=('GPL')
 arch=('x86_64')
-depends=('mariadb' 'postgresql-libs' 'sqlite' 'curl' 'giflib' 'gsl' 'grass'
+depends=('mariadb' 'postgresql-libs' 'sqlite' 'curl' 'giflib' 'gsl' 
          'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt5' 
          'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
          'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5' 'qt5-xmlpatterns'
          'python3-numpy' 'python3-httplib2' 'python3-requests' 'pyyaml'
-         'libzip' 'qtkeychain' 'exiv2' 'protobuf' 'hdf5')
+         'libzip' 'qtkeychain' 'exiv2' 'protobuf' 'hdf5') #'grass'
 makedepends=('cmake'  'netcdf' 'sip3' 'qt5-tools') 
 source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
         'qt5.15.diff'
@@ -43,10 +43,10 @@ prepare() {
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_SKIP_RPATH=ON \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DGRASS_PREFIX=/opt/grass \
         -DQGIS_MANUAL_SUBDIR=share/man \
         -DPYTHON_EXECUTABLE=/usr/bin/python3 \
-        -DWITH_QWTPOLAR=FALSE \
+        -DWITH_QWTPOLAR=TRUE \
+        -DWITH_INTERNAL_QWTPOLAR=TRUE \
         -DWITH_QTWEBKIT=FALSE
     cmake --build build
 }
