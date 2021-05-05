@@ -4,14 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwin
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Window Manager'
 arch=('x86_64')
 url='https://github.com/KDE/kwin'
 license=('LGPL')
-depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'xcb-util-cursor'
+depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'krunner' 'xcb-util-cursor'
          'libepoxy' 'kwayland-server' 'kdecoration' 'libinput' 'kscreenlocker' 'kdeclarative' 'breeze'
-         'qt5-virtualkeyboard' 'xorg-server' 'qt5-sensors' 'qt5-quickcontrols2')
+         'qt5-virtualkeyboard' 'xorg-server' 'qt5-sensors' 'qt5-quickcontrols2' 'libqaccessibilityclient'
+         'pipewire')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kdeplasma5')
 options=('debug')
