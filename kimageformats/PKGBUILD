@@ -4,10 +4,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kimageformats
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KImageFormats'
 arch=('x86_64')
-url='https://github.com/KDE/kimageformats'
+url='https://invent.kde.org/frameworks/kimageformats'
 license=('LGPL')
 depends=('qt5-base' 'openexr' 'karchive')
 makedepends=('extra-cmake-modules')
@@ -16,20 +16,16 @@ source=("http://download.kde.org/stable/frameworks/5.67/${pkgname}-${pkgver}.tar
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR="${pkgdir}" install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
