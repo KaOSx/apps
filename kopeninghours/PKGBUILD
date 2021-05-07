@@ -2,15 +2,15 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kpublictransport
+pkgname=kopeninghours
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
-pkgdesc="Library to assist with accessing public transport timetables and other data."
-url="https://invent.kde.org/libraries/kpublictransport"
+pkgdesc="Library for parsing and evaluating OSM opening hours expressions."
+url="https://invent.kde.org/libraries/kopeninghours"
 license=('LGPL')
-depends=('qt5-declarative' 'protobuf')
-makedepends=('extra-cmake-modules')
+depends=('kholidays' 'ki18n' 'boost-libs')
+makedepends=('extra-cmake-modules' 'boost')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -19,6 +19,7 @@ prepare() {
   cd ${pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/7098c8be9a5e7fabf74543308bfaf11a2ebe5484.diff
+  #sed -e "s|PythonLibs 3.6|PythonLibs 3.8|" -i CMakeLists.txt
 }
 
 build() {

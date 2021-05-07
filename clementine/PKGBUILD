@@ -1,8 +1,8 @@
 
 pkgname=clementine
 _pkgname=Clementine
-pkgver=1.4.0rc1
-_pkgver=1.4.0rc1-471-gb989a674a
+pkgver=1.4.0rc1_593_g783213f9c
+_pkgver=1.4.0rc1-593-g783213f9c
 pkgrel=1
 _commit=d20c2244a82b65f1d2c444091649e28834a63341
 pkgdesc="Modern music player and library organiser that takes advantage of Qt."
@@ -18,18 +18,15 @@ makedepends=('cmake' 'boost' 'mesa' 'qt5-tools')
 groups=('multimedia')
 source=("https://github.com/clementine-player/Clementine/releases/download/${_pkgver}/${pkgname}-${_pkgver}.tar.xz"
 #source=("https://github.com/clementine-player/Clementine/archive/${_commit}.zip"
-        'qt5.15.diff'
-        "https://raw.githubusercontent.com/ahesford/void-packages/protobuf/srcpkgs/clementine/patches/pb_namespace.patch")
-md5sums=('1a92655f5267fd53d8a18538af8c6511'
-         '6d3ca42c0edb6ca32831aa2be518abc1'
-         '1923b47d29542e6d8c0350e763a21b9d')
+        'qt5.15.diff')
+md5sums=('10c164c572eee147752e2b297bad8073'
+         '6d3ca42c0edb6ca32831aa2be518abc1')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
 
   sed -i 's|Exec=clementine %U|Exec=clementine|g' ${srcdir}/${pkgname}-${_pkgver}/dist/clementine.desktop
   #patch -p1 -i ${srcdir}/qt5.15.diff
-  #patch -p0 -i ${srcdir}/pb_namespace.patch
 }
 
 build() {  
