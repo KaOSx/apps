@@ -1,7 +1,7 @@
 
 pkgname=kodi
-pkgver=19.0
-_pkgver=19.0-Matrix
+pkgver=19.1
+_pkgver=19.1-Matrix
 pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
@@ -25,11 +25,11 @@ optdepends=('unrar: access compressed files without unpacking them'
 groups=('multimedia')
 options=('makeflags')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
-source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
-md5sums=('051d10166e70c625e8ed3d11cfd48e27')
+source=("https://github.com/xbmc/xbmc/archive/v${pkgver}.tar.gz")
+md5sums=('c68059a8a904c1a7bb38e26928883c44')
 
 build() {
-    cmake -B build -S xbmc-${_pkgver} \
+    cmake -B build -S xbmc-${pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=/usr/lib \
@@ -55,5 +55,5 @@ package() {
     # various fixes
     sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/KaOS-release/g" ${pkgdir}/usr/bin/kodi
 
-    install -Dm644 xbmc-${_pkgver}/LICENSE.md ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md
+    install -Dm644 xbmc-${pkgver}/LICENSE.md ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md
 }
