@@ -1,6 +1,6 @@
 
 pkgname=vvave
-pkgver=1.2.1
+pkgver=1.2.2
 pkgrel=1
 arch=('x86_64')
 pkgdesc="VVave will handle your whole music collection, letting you create custom playlists to organize your music."
@@ -8,10 +8,10 @@ url="https://mauikit.org/"
 license=('GPL3')
 conflicts=('babe')
 replaces=('babe')
-depends=('mauikit' 'qt5-multimedia' 'qtwebengine' 'qt5-websockets' 'qt5-webview' 'taglib' 'youtube-dl')
+depends=('mauikit-filebrowsing' 'qt5-multimedia' 'qtwebengine' 'qt5-websockets' 'qt5-webview' 'taglib' 'youtube-dl')
 makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/stable/maui/vvave/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('73b04bf3328a350c60fe05a1f8b2b0e86939574e15dc1aab23e153b7c22af4d7')
+sha256sums=('b0f987e83884b103ab668697c9a220144445c4379d8823905d42e319abe2b46f')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
