@@ -1,9 +1,6 @@
 
-# include global config
-source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
-
 pkgname=ksysguard
-pkgver=${_plasmaver}
+pkgver=5.21.90
 pkgrel=1
 pkgdesc='KSysGuard is a program to monitor various elements of your system'
 arch=('x86_64')
@@ -13,11 +10,10 @@ depends=('kconfig' 'kcoreaddons' 'kdbusaddons' 'ki18n' 'kiconthemes' 'kinit' 'ki
          'knewstuff' 'knotifications' 'kwindowsystem' 'libksysguard' 'lm_sensors')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/unstable/ksysguard/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/plasma/ksysguard/-/commit/5391f4def701629ffbb2d0b20ef92af2fec7c313.diff")
-# grep md5 picks up libksysguard too
-md5sums=('749a0b3e32853d17884ccc840f7802d2'
-         '74c6458fa3e2af55fa043c6eac5da1c4')
+sha256sums=('474654f480aa24fa09a3cebb2517077506449eae961967f239c7ffe12ad91822'
+            '5d61e82ca415f6716b33814d7b89b3cf3368a8475a0ca1cd05c2b84a1cc88dc7')
 
 prepare() {
   cd ${pkgname}-${pkgver}
