@@ -10,7 +10,7 @@ pkgdesc="Library and components for secure lock screen architecture."
 url="https://projects.kde.org/projects/kde/workspace/kscreenlocker"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcrash' 'kdeclarative' 'kglobalaccel' 'ki18n' 'kidletime' 'kcmutils' 'knotifications' 
-         'solid' 'ktextwidgets' 'kwindowsystem' 'kxmlgui' 'kwayland')
+         'solid' 'ktextwidgets' 'kwindowsystem' 'kxmlgui' 'kwayland' 'layer-shell-qt')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
@@ -26,10 +26,7 @@ prepare() {
 }
 
 build() {
-  mkdir build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -38,11 +35,10 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

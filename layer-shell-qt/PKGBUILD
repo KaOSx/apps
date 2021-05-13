@@ -1,0 +1,31 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=layer-shell-qt
+arch=('x86_64')
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc="Qt component to allow applications to make use of the Wayland wl-layer-shell protocol."
+url="https://invent.kde.org/plasma/layer-shell-qt"
+license=('GPL' 'LGPL' 'FDL')
+depends=('qt5-wayland' 'wayland-protocols')
+makedepends=('extra-cmake-modules')
+groups=('kdeplasma5')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DBUILD_TESTING=OFF 
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
