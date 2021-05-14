@@ -4,37 +4,29 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=krfb
 pkgver=${_kdever}
-#pkgver=15.11.74
-pkgrel=1
-pkgdesc='Desktop Sharing Server'
-url='http://www.kde.org/applications/system/krfb'
+pkgrel=2
+pkgdesc='Server application that allows you to share your current session with a user on another machine'
+url='https://apps.kde.org/krfb/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kcompletion' 'kconfig' 'kcrash' 'kcoreaddons' 'kdnssd' 'knotifications' 'kwallet' 'kwidgetsaddons'
-         'kdbusaddons' 'kxmlgui' 'libvncserver' 'libxdamage' 'ktp-common-internals')
+         'kdbusaddons' 'kxmlgui' 'libvncserver' 'libxdamage' 'ktp-common-internals' 'pipewire')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdenetwork-krfb')
-replaces=('kdenetwork-krfb')
 groups=('kde' 'kde-network' 'kde-uninstall' 'network')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=$pkgdir install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
