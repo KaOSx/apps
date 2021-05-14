@@ -1,6 +1,6 @@
 
 pkgname=qtractor
-pkgver=0.9.21
+pkgver=0.9.22
 pkgrel=1
 pkgdesc="Audio/MIDI multitrack sequencer"
 arch=('x86_64')
@@ -11,14 +11,15 @@ makedepends=('ladspa' 'dssi' 'qt6-tools') # not ready to be used with Qt6 build 
 groups=('multimedia')
 source=("https://www.rncbc.org/archive/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/rncbc/qtractor/commit/f6f6742e8318dfaa678734b3c3d00da510aeb017.diff")
-md5sums=('468f5e9f81d77f5bf605d05083b1adfb'
+md5sums=('49c23639d2da33aa9e75af09fe3e8a90'
          '6f1e8a42cdb5226130ce8ca91d266ebf')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DCONFIG_QT6=ON
   cmake --build build
 }
 
