@@ -15,13 +15,19 @@ depends=('karchive' 'kconfig' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kser
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kf5')
 source=("https://download.kde.org/stable/frameworks/5.82/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/kio/-/commit/e79da836c34fce66231e396c7215314d0eba51b4.diff"
+        "https://invent.kde.org/frameworks/kio/-/commit/c748d6987252fafc296cde9351b289ef734cf861.diff"
         "https://invent.kde.org/frameworks/kio/-/commit/c19876052ecec18a87a82f5950e8909e22e895ba.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'cbf54244a8cff3f8a653c10fa49a32e6'
+         'ebfb8b6c0e5e4e3ed11ad5e240e3e39c'
          '113790d3e2b94145245cef2dd2c302dd')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
+  patch -p1 -i ${srcdir}/e79da836c34fce66231e396c7215314d0eba51b4.diff
+  patch -p1 -i ${srcdir}/c748d6987252fafc296cde9351b289ef734cf861.diff
   patch -p1 -i ${srcdir}/c19876052ecec18a87a82f5950e8909e22e895ba.diff
 }
          
