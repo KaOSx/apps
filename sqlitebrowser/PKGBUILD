@@ -1,7 +1,7 @@
 
 pkgname=sqlitebrowser
-pkgver=3.12.1
-_pkgver=3.12.1
+pkgver=3.12.2
+_pkgver=3.12.2
 pkgrel=1
 pkgdesc="High quality, visual, open source tool to create, design, and edit database files compatible with SQLite"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL')
 depends=('qt5-base' 'sqlite' 'sqlcipher') # 'python3-qscintilla-qt5')
 makedepends=('cmake' 'qt5-tools') # 'antlr2')
 source=("https://github.com/sqlitebrowser/sqlitebrowser/archive/v${_pkgver}.tar.gz")
-md5sums=('20edf6c9dd3dc6f871e676bddd03de19')
+md5sums=('e4498f6f8b9414133e1905283b1b4c05')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
@@ -28,8 +28,6 @@ build() {
   cmake ../${pkgname}-${_pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DQSCINTILLA_INCLUDE_DIR=/usr/share/qt5 \
-    -DQSCINTILLA_LIBRARY=/usr/lib \
     -DFORCE_INTERNAL_QSCINTILLA=ON
   make
 }
