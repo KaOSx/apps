@@ -1,39 +1,34 @@
 
 pkgname=latte-dock
 pkgver=0.9.11
+_commit=cf1a008791c573eaf00d367303c39c77f7c16af0
 pkgrel=1
 pkgdesc="Dock based on plasma frameworks that provides an elegant and intuitive experience for your tasks and plasmoids"
 arch=('x86_64')
-url="https://kde.org/applications/utilities/org.kde.latte-dock"
+url="https://apps.kde.org/latte-dock/"
 license=('GPL')
 depends=('plasma-framework' 'kactivities' 'kcoreaddons' 'kdbusaddons' 'kdeclarative' 'kwayland'
          'kpackage' 'kxmlgui' 'kiconthemes' 'ki18n' 'karchive' 'knotifications' 'kglobalaccel'
-         'kwindowsystem' 'kcrash' 'knewstuff' 'qt5-x11extras')
+         'kirigami' 'kwindowsystem' 'kcrash' 'kio' 'knewstuff' 'qt5-x11extras')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma-addons')
-conflicts=('now-dock' 'nowdock-panel')
-replaces=('now-dock' 'nowdock-panel')
-source=("https://download.kde.org/stable/latte-dock/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('513320e30f3016686ffb97f5502e513f4d21ce0f7bce75bf034a7775d448ea74')
+#source=("https://download.kde.org/stable/latte-dock/${pkgname}-${pkgver}.tar.xz")
+source=("https://invent.kde.org/plasma/latte-dock/-/archive/${_commit}/latte-dock-${_commit}.tar.bz2")
+sha256sums=('4ed4a0eaeed8ed22237e8c3f7f6bc5bcb0d54d53e707206f5e5a166b7c0e9611')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  mkdir -p build
-  cd build 
-  
-  cmake .. \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins 
-  make
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}/build
-  make DESTDIR=${pkgdir} install
-  
-  install -D -m644 ../COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+  DESTDIR=${pkgdir} cmake --install build
+
+  install -D -m644 ${pkgname}-${_commit}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
 }
 
