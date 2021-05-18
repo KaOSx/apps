@@ -1,6 +1,6 @@
 
 pkgname=latte-dock
-pkgver=0.9.11
+pkgver=0.9.12
 _commit=cf1a008791c573eaf00d367303c39c77f7c16af0
 pkgrel=1
 pkgdesc="Dock based on plasma frameworks that provides an elegant and intuitive experience for your tasks and plasmoids"
@@ -12,12 +12,12 @@ depends=('plasma-framework' 'kactivities' 'kcoreaddons' 'kdbusaddons' 'kdeclarat
          'kirigami' 'kwindowsystem' 'kcrash' 'kio' 'knewstuff' 'qt5-x11extras')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma-addons')
-#source=("https://download.kde.org/stable/latte-dock/${pkgname}-${pkgver}.tar.xz")
-source=("https://invent.kde.org/plasma/latte-dock/-/archive/${_commit}/latte-dock-${_commit}.tar.bz2")
-sha256sums=('4ed4a0eaeed8ed22237e8c3f7f6bc5bcb0d54d53e707206f5e5a166b7c0e9611')
+source=("https://download.kde.org/stable/latte-dock/${pkgname}-${pkgver}.tar.xz")
+#source=("https://invent.kde.org/plasma/latte-dock/-/archive/${_commit}/latte-dock-${_commit}.tar.bz2")
+sha256sums=('b2b8af8c69eb122ccbbe987b00fff4d9d3ac9ccc939cbddae9fd319bca0630be')
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -29,6 +29,6 @@ build() {
 package() {
   DESTDIR=${pkgdir} cmake --install build
 
-  install -D -m644 ${pkgname}-${_commit}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+  install -D -m644 ${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
 }
 
