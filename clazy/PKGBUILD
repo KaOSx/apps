@@ -1,0 +1,24 @@
+
+pkgname=clazy
+pkgver=1.9
+pkgrel=1
+pkgdesc="Compiler plugin, Qt oriented code checker based on clang framework"
+url="https://invent.kde.org/sdk/clazy"
+license=('GPL2')
+depends=('clang')
+makedepends=('cmake' 'llvm')
+arch=('x86_64')
+source=("https://download.kde.org/stable/clazy/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('4c6c2e473e6aa011cc5fab120ebcffec3fc11a9cc677e21ad8c3ea676eb076f8')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

@@ -1,7 +1,7 @@
 
 pkgname=darktable
 pkgver=3.4.1
-_pkgver=3.4.1
+_pkgver=release-3.4.1
 pkgrel=1
 pkgdesc="Open source photography workflow application and RAW developer"
 arch=('x86_64')
@@ -14,20 +14,17 @@ makedepends=('cmake' 'clang' 'intltool')
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 options=('!libtool')
 source=("https://github.com/darktable-org/darktable/releases/download/release-${pkgver}/darktable-${_pkgver}.tar.xz")
-sha256sums=('7fc3f851da9bcd7c5053ecd09f21aa3eb6103be98a6c58f52010b6f22174941e')
+#source=("https://github.com/darktable-org/darktable/archive/refs/tags/release-${pkgver}.tar.gz")
+sha256sums=('42ef4838ef7926b281bdc1539a12a7e207c974d27b6612e2e3c6f73a0cf7781a')
 
 prepare() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
   # https://github.com/darktable-org/darktable/issues/4752
   #./build.sh --disable-opencl
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  CXXFLAGS+=" -fpermissive"
-  cmake ../${pkgname}-${_pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_LIBDIR=lib \
@@ -36,11 +33,10 @@ build() {
       -DDONT_USE_INTERNAL_LUA=Off \
       -DUSE_COLORD=On \
       -DTESTBUILD_OPENCL_PROGRAMS=Off
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
