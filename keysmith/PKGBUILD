@@ -1,18 +1,19 @@
 
 pkgname=keysmith
-pkgver=0.2
+pkgver=21.05
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Application to generate two-factor authentication (2FA) tokens when logging in to your (online) accounts, supports both HOTP and TOTP tokens."
-url="https://kde.org/applications/en/utilities/org.kde.keysmith"
+url="https://apps.kde.org/keysmith/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kirigami' 'ki18n' 'libsodium' 'qt5-quickcontrols2')
+depends=('kirigami' 'ki18n' 'kdbusaddons' 'kwindowsystem' 'libsodium' 'qt5-quickcontrols2')
 makedepends=('extra-cmake-modules')
-source=("https://download.kde.org/stable/keysmith/0.2/keysmith-v${pkgver}.tar.gz")
-sha256sums=('0340e2e72c451695d22ca240a0a7549f927033c6922327a06e9380bbc786376a')
+#source=("https://download.kde.org/stable/keysmith/0.2/keysmith-v${pkgver}.tar.gz")
+source=("https://invent.kde.org/utilities/keysmith/-/archive/release/${pkgver}/keysmith-release-${pkgver}.tar.bz2")
+sha256sums=('0063face030b820a61a1a56eeff2713b24c31db00ff4bf54d95393458274f669')
 
 build() {
-  cmake -B build -S ${pkgname}-v${pkgver} \
+  cmake -B build -S ${pkgname}-release-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
