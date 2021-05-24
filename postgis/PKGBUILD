@@ -1,8 +1,8 @@
 
 pkgname=postgis
-pkgver=3.1.1
-_pkgver=3.1.1
-pkgrel=3
+pkgver=3.1.2
+_pkgver=3.1.2
+pkgrel=1
 pkgdesc="Adds support for geographic objects to PostgreSQL"
 arch=('x86_64')
 url="https://postgis.net/"
@@ -11,13 +11,13 @@ depends=('postgresql' 'proj' 'geos' 'gdal' 'json-c' 'protobuf-c')
 options=('!libtool' '!makeflags')
 source=("https://download.osgeo.org/postgis/source/${pkgname}-${_pkgver}.tar.gz"
         "https://github.com/postgis/postgis/commit/518ae076a8c6e6239b9f4c4b1808f5b10650bf1b.diff")
-md5sums=('10ef40ef64d7673cc34a1c1677584c95'
+md5sums=('7480799e603e587990cd686122cbe356'
          'e365bdf68bdf5918e3084b2f7720ebfd')
 
 build() {
    cd ${pkgname}-${_pkgver}
    #proj 8 needed
-   patch -p1 -i ${srcdir}/518ae076a8c6e6239b9f4c4b1808f5b10650bf1b.diff
+   #patch -p1 -i ${srcdir}/518ae076a8c6e6239b9f4c4b1808f5b10650bf1b.diff
 
    # remove autogen with 3.2, only needed for the above patch
    ./autogen.sh
