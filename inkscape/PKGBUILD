@@ -1,8 +1,8 @@
 
 pkgname=inkscape
-pkgver=1.0.2
-_commit=2021-01-15_e86c870879
-pkgrel=7
+pkgver=1.1
+_commit=2021-05-24_c4e8f9ed74
+pkgrel=1
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
@@ -16,13 +16,13 @@ options=('!libtool')
 source=("https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-${pkgver}.tar.xz"
         "https://gitlab.com/inkscape/inkscape/-/commit/ebc56b7dbc8b0f8f1decb43577b5bda1d356fafe.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
-md5sums=('ec90e0c1e4c7e3dba8f46b16c73462b3'
+md5sums=('45e38e25fb93c7c91c51b84b9e4cf0ee'
          'ce03dfd19b5429bfe934bd3752b37ce6')
 
 prepare() {
   cd ${pkgname}-${pkgver}_${_commit}
   # glib2 2.68 needed
-  patch -p1 -i ${srcdir}/ebc56b7dbc8b0f8f1decb43577b5bda1d356fafe.diff
+  #patch -p1 -i ${srcdir}/ebc56b7dbc8b0f8f1decb43577b5bda1d356fafe.diff
   # poppler 0.7.x and 0.8.x needed sed lines
   #sed -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' -i src/extension/internal/pdfinput/pdf-parser.*
 }
