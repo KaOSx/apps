@@ -1,0 +1,16 @@
+diff --git a/ruby/rubyinterpreter.cpp b/ruby/rubyinterpreter.cpp
+index 3bccdc29ded3d39bf80980de5c3d92fa5efb9bc7..ad236d52dbf4c9e0db9eb8311abe670926428580 100644
+--- a/ruby/rubyinterpreter.cpp
++++ b/ruby/rubyinterpreter.cpp
+@@ -65,8 +65,11 @@ RubyInterpreter::RubyInterpreter(Kross::InterpreterInfo* info)
+         initRuby();
+     }
+ 
++// The RUBY_SAFE_LEVEL_MAX with the safe levels were removed in Ruby 3.0.
++#ifdef RUBY_SAFE_LEVEL_MAX
+     const int defaultsafelevel = 4; // per default use the maximum safelevel
+     rb_set_safe_level( info->optionValue("safelevel", defaultsafelevel).toInt() );
++#endif
+ }
+ 
+ RubyInterpreter::~RubyInterpreter()
