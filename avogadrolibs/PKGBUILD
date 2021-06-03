@@ -1,26 +1,26 @@
 
 pkgname=avogadrolibs
-pkgver=1.93.1
+pkgver=1.94.0
 pkgrel=1
 pkgdesc="Libraries providing 3D rendering, visualization, analysis and data processing useful in computational chemistry and related areas."
 arch=('x86_64')
 url="https://www.openchemistry.org/projects/avogadro2/"
 license=('GPL2')
-depends=('qt5-base' 'glew' 'hdf5' 'spglib' 'libarchive') #'jsoncpp' 
+depends=('qt5-base' 'glew' 'hdf5' 'spglib' 'libarchive' 'qt5-svg') #'jsoncpp' 
 makedepends=('cmake' 'boost' 'eigen3')
 groups=('education')
 conflicts=('avogadro')
 replaces=('avogadro')
 source=("https://github.com/OpenChemistry/avogadrolibs/archive/${pkgver}.tar.gz"
         "https://github.com/OpenChemistry/avogadrolibs/pull/488/commits/32e3dd8ce9f48f74e3960dc9afcc614496d87c7f.diff")
-md5sums=('fc8b73020bdd403958e3febc42e01844'
-         'd9c78a3ad61228af53d802d6e25ea70b')
+md5sums=('93dcb75de2335676177a37a32485b900'
+         'f2d02d599acf9dbc7f9dada2cfdf23f7')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #patch -p1 -i ${srcdir}/32e3dd8ce9f48f74e3960dc9afcc614496d87c7f.diff
   # https://github.com/OpenChemistry/avogadrolibs/issues/514
-  sed -i 's|add_subdirectory(cp2kinput)|#add_subdirectory(cp2kinput)|' avogadro/qtplugins/CMakeLists.txt
+  #sed -i 's|add_subdirectory(cp2kinput)|#add_subdirectory(cp2kinput)|' avogadro/qtplugins/CMakeLists.txt
 }
 
 build() {
@@ -28,7 +28,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DUSE_MOLEQUEUE=OFF \
     -DUSE_LIBMSYM=OFF \
     -DUSE_OPENGL=ON \
     -DUSE_QT=ON \
