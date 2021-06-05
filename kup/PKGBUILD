@@ -13,18 +13,14 @@ source=("https://download.kde.org/stable/kup/${pkgname}-${pkgver}.tar.xz")
 sha256sums=('5597d215b025bfc76aa290efbe187fb6f92313fbdc40628b851180c535610976')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
