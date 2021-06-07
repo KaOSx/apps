@@ -1,35 +1,35 @@
 
 pkgname=strawberry
 pkgver=0.9.3
-_commit=971fad4560b07cf1a95dc4df5d0568dd6cf4214d
-pkgrel=3
+_commit=3ca0c828c61e5fe179b4bc921589b4c67cac770d
+pkgrel=4
 pkgdesc="Music player and music collection organizer, fork of Clementine"
 url="https://www.strawberrymusicplayer.org/"
 license=('GPL')
 arch=('x86_64')
 depends=('alsa-lib' 'chromaprint' 'gnutls' 'gst-plugins-bad' 'gst-plugins-good' 'gst-plugins-ugly'
          'libcdio' 'libimobiledevice' 'libmtp' 'libplist' 'pulseaudio' 'protobuf'
-         'qt6-x11extras' 'sqlite' 'taglib')
+         'qt6-base' 'sqlite' 'taglib')
 makedepends=('cmake' 'boost' 'qt6-tools')
 groups=('multimedia')
-source=("https://github.com/strawberrymusicplayer/strawberry/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+#source=("https://github.com/strawberrymusicplayer/strawberry/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://github.com/strawberrymusicplayer/strawberry/archive/${_commit}.zip"
         "https://github.com/strawberrymusicplayer/strawberry/commit/0ab214fd5d43290262bb3d870a2203025cd2fecb.diff")
 #source=("https://github.com/strawberrymusicplayer/strawberry/archive/${_commit}.zip")
-sha256sums=('0fe9c38c4d1e2f10c1130dbd87ea6e740bef729fe78820a84ffabe524a80c83e'
-            '4b68a6c3db8924b909df99e99068cd5f93189543d842b795e317066a013d903f')
+sha256sums=('2fd8587b12e81ef40af73c07aa4f7304b251579c049e446c4d44a3491bc74c19'
+            '7c422e6f6b442a9ddcecb0d3ed35c0107475db5b00ca94ffcd03951f1b32a0c3')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
   
   #sed -e "s|libplist|libplist-2.0|" -i CMakeLists.txt
   #patch -p1 -i ${srcdir}/0ab214fd5d43290262bb3d870a2203025cd2fecb.diff
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DUSE_SYSTEM_TAGLIB=ON \
     -DWITH_QT6=ON \
     -DINSTALL_TRANSLATIONS=ON
   cmake --build build
