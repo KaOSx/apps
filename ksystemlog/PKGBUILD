@@ -14,11 +14,9 @@ depends=('kxmlgui' 'kcoreaddons' 'kwidgetsaddons' 'kitemviews' 'kiconthemes' 'ki
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-admin' 'kde-uninstall')
 source=("http://download.kde.org/stable/applications/$_kdever/src/${pkgname}-$_kdever.tar.xz"
-        'syslog-path.patch'
-        "https://github.com/KDE/ksystemlog/commit/2e0261bb8fc11a0c70eaccf696ac0ba0cc5647e5.diff")
+        'syslog-path.patch')
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '04abba8db538ab4bebac678d19482bd5'
-         'e5797dd2e532e809b8607e6c928c2575')
+         '04abba8db538ab4bebac678d19482bd5')
 
 prepare() {
   cd $pkgname-${pkgver}
@@ -26,8 +24,6 @@ prepare() {
   sed -i -e 's|<Action name="kernelLogMode" />|<Action name="cupsLogMode" />|' src/ksystemlogui.rc
   sed -i -e 's|i18n("System Log")|i18n("Pacman Log")|' src/modes/system/systemLogMode.cpp
   patch -p1 -i ${srcdir}/syslog-path.patch
-  # build fix for 17.04.1
-  #patch -p1 -i ${srcdir}/2e0261bb8fc11a0c70eaccf696ac0ba0cc5647e5.diff
 }
 
 build() {
