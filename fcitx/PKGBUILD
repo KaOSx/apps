@@ -1,7 +1,7 @@
 
 pkgname=fcitx
 pkgver=4.2.9.8
-pkgrel=3
+pkgrel=4
 pkgdesc="A Flexible Input Method Framework"
 arch=('x86_64')
 license=('GPL')
@@ -21,10 +21,7 @@ prepare() {
 }
 
 build() { 
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release \
       -DSYSCONFDIR=/etc \
@@ -34,12 +31,11 @@ build() {
       -DFORCE_ENCHANT=ON \
       -DENABLE_OPENCC=On \
       -DENABLE_GIR=Off
-  make
+  cmake --build build
 }
 
-package(){
-    cd build
-    
-    make DESTDIR=${pkgdir} install
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 

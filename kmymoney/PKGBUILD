@@ -1,7 +1,7 @@
 
 pkgname=kmymoney
 pkgver=5.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc="An finance manager for KDE with HBCI support"
 arch=('x86_64')
 url="http://www.kmymoney.org/"
@@ -21,7 +21,7 @@ sha256sums=('df7b9f78e8596f99d28295ca738708f0655ee057789dfd921c7b1bab96578298'
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/de390aed4652a0e9ff0bffcade33827a6283aaa1.diff
+  #patch -p1 -i ${srcdir}/de390aed4652a0e9ff0bffcade33827a6283aaa1.diff
   #sed -i -e 's|find_package(AQBANKING 5.8.0)|find_package(AQBANKING 5.7.8)|' CMakeLists.txt
 }
 
