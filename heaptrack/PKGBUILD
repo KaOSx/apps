@@ -1,7 +1,7 @@
 
 pkgname=heaptrack
 pkgver=1.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A heap memory profiler for Linux'
 arch=('x86_64')
 url="https://github.com/KDE/heaptrack"
@@ -20,17 +20,13 @@ prepare() {
 }
          
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
