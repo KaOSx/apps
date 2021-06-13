@@ -3,7 +3,7 @@ pkgname=lyx
 pkgver=2.3.6.1
 _pkgver=2.3
 __pkgver=2.3.6
-pkgrel=4
+pkgrel=5
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
 url="https://www.lyx.org"
@@ -28,10 +28,7 @@ prepare() {
 }
          
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DLYX_RELEASE=ON \
     -DLYX_INSTALL_PREFIX=/usr \
     -DLYX_DATA_SUBDIR=share/lyx${_pkgver}/ \
@@ -42,14 +39,12 @@ build() {
     -DLYX_HUNSPELL=ON \
     -DLYX_EXTERNAL_BOOST=ON \
     -DLYX_INSTALL=ON
-    
-  make
-  make translations
+  cmake --build build
 }
 
 package() {
-  cd build
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
   
   #mv ${pkgdir}/usr/share/lyx${_pkgver}/locale ${pkgdir}/usr/share/locale
   #mv ${pkgdir}/usr/applications ${pkgdir}/usr/share/applications

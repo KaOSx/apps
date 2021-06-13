@@ -2,7 +2,7 @@
 pkgname=kdb
 pkgver=3.2.0
 _pkgver=3.2.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Database connectivity and creation framework for various database vendors"
 arch=('x86_64')
 url='https://github.com/KDE/kdb'
@@ -11,33 +11,33 @@ depends=('kcoreaddons' 'sqlite')
 makedepends=('extra-cmake-modules' 'icu' 'python3' 'postgresql' 'qt5-tools')
 optdepends=('postgresql: PostgreSQL database driver')
 source=("https://download.kde.org/stable/kdb/src/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/kdb/commit/40cdaea4d7824cc1b0d26e6ad2dcb61fa2077911.diff")
+        "https://github.com/KDE/kdb/commit/40cdaea4d7824cc1b0d26e6ad2dcb61fa2077911.diff"
+        "https://invent.kde.org/libraries/kdb/-/commit/b36d74f13a1421437a725fb74502c993c359392a.diff")
 sha256sums=('8f8983bc8d143832dc14bc2003ba6af1af27688e477c0c791fd61445464f2069'
-            '02db96bc684aff15784cf181616c6840f5a9905224f4a1b014e9bd4347c0f57d')
+            '02db96bc684aff15784cf181616c6840f5a9905224f4a1b014e9bd4347c0f57d'
+            'f6c87efb353ab55cd09e894ff07a80811441ce7d932e5bc16628b4e78a6e4d7f')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|K_GLOBAL_STATIC|Q_GLOBAL_STATIC|' ${srcdir}/${pkgname}/src/wrtembed/KReportDpi.cpp
   # fix build with PostgreSQL 12+
   patch -p1 -i ${srcdir}/40cdaea4d7824cc1b0d26e6ad2dcb61fa2077911.diff
+  # needed for patched Qt 5.15.2
+  patch -p1 -i ${srcdir}/b36d74f13a1421437a725fb74502c993c359392a.diff
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${_pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

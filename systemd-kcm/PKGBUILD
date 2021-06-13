@@ -1,7 +1,7 @@
 
 pkgname=systemd-kcm
 pkgver=1.2.1
-pkgrel=12
+pkgrel=13
 pkgdesc="Systemd control module for KDE"
 arch=('x86_64')
 url='https://github.com/KDE/systemd-kcm'
@@ -14,22 +14,19 @@ source=("https://download.kde.org/stable/systemd-kcm/${pkgname}-${pkgver}.tar.xz
 md5sums=('9081233ce9bb356eaacc5ab247c6dbb2')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
   
   sed -i -e 's|system-administration|session|' ${pkgdir}/usr/share/kservices5/kcm_systemd.desktop
   rm ${pkgdir}/usr/share/kservices5/settings-system-administration.desktop
