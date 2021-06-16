@@ -4,15 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kded
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Daemon'
 arch=('x86_64')
-url='https://github.com/KDE/kded'
+url='https://invent.kde.org/frameworks/kded'
 license=('LGPL')
-depends=('kservice' 'kinit')
+depends=('kconfig' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kservice')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         'blocking.diff')
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
          'd260c76d7ebcbe6e2980664bd8f9f99f')
@@ -24,19 +24,15 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR="${pkgdir}" install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
