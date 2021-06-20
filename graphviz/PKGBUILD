@@ -1,7 +1,7 @@
 
 pkgname=graphviz
-pkgver=2.47.2
-_pkgver=2.47.2
+pkgver=2.47.3
+_pkgver=2.47.3
 pkgrel=1
 pkgdesc="Open source graph visualization software"
 arch=('x86_64')
@@ -10,12 +10,10 @@ license=('CPL')
 depends=('gd' 'librsvg' 'libxaw' 'ghostscript' 'pango' 'libtool' 'perl' 'python3' 'tcl' 'qt5-base')
 makedepends=('swig' 'guile' 'groff')
 options=('!libtool')
-source=("https://gitlab.com/graphviz/graphviz/-/archive/${_pkgver}/graphviz-${_pkgver}.tar.bz2"
-#source=("https://www2.graphviz.org/Packages/stable/portable_source/graphviz-${_pkgver}.tar.gz"
-       'LICENSE')
+source=("https://gitlab.com/graphviz/graphviz/-/archive/${_pkgver}/graphviz-${_pkgver}.tar.bz2")
+#source=("https://www2.graphviz.org/Packages/stable/portable_source/graphviz-${_pkgver}.tar.gz")
 install='graphviz.install'
-md5sums=('bc9b89a91d75c21d69a5d4210edb9fcc'
-         '3e75bb9ec12a51993bd30e51011b4229')
+md5sums=('fd25f89e868de6ddf456d117b44eb0d1')
 
 build() {
     cd graphviz-${_pkgver}
@@ -35,5 +33,5 @@ package() {
     cd graphviz-${_pkgver}
     make DESTDIR=${pkgdir} install
 
-    install -Dm644 ../LICENSE ${pkgdir}/usr/share/licenses/graphviz/LICENSE
+    install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/graphviz/LICENSE
 }
