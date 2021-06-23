@@ -1,8 +1,8 @@
  
 pkgname=appstream
 _pkgname=AppStream
-pkgver=0.14.3
-pkgrel=3
+pkgver=0.14.4
+pkgrel=1
 pkgdesc="Provides a standard for creating app stores across distributions"
 arch=('x86_64')
 url="https://github.com/ximion/appstream"
@@ -12,7 +12,7 @@ makedepends=('meson' 'ninja' 'gobject-introspection' 'itstool' 'xmlto' 'gtk-doc'
 source=("https://www.freedesktop.org/software/appstream/releases/${_pkgname}-${pkgver}.tar.xz"
         'appstream.hook'
         "https://github.com/ximion/appstream/commit/306eb287a36a2779c304fe47b5473e468c7bd0f6.diff")
-md5sums=('fc4c5b9d4c7ace29063e68d16040fbd1'
+md5sums=('1668dea5144dad5939cca88604da02af'
          '1313427d15dc06b5baf29d8d9f344c76'
          'b5b5f3db71f2b86ed2de86b49ab9db91')
 
@@ -29,7 +29,7 @@ build() {
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
 
-   meson ../${_pkgname}-${pkgver} \
+  meson ../${_pkgname}-${pkgver} \
     --prefix=/usr \
     --buildtype=release \
     --libdir=lib \
