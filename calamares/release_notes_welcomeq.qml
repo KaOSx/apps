@@ -51,35 +51,19 @@ Rectangle {
             wrapMode: Text.WordWrap
 
             text: qsTr("<h3>KaOS - 2021.06</h3>
-            <p>Time goes fast, it is eight years ago this week that KaOS started, so this is kind of an April anniversary release.  It has also been eight years that the same initramfs creation tool has been used (Mkinitcpio), but with Dracut being the more widely used and constantly maintained, it is time to move to this new tool for KaOS. For almost two years Mkinitcpio did not have a maintainer and upstream had talks about abandoning this tool. This will be a major change and will require lots of work for the ISO creation, but a start has been made, the linux-next kernel already defaults to Dracut for initramfs creation.</p>
+            <p>KaOS is pleased to announce the availability of the June release of a new stable ISO.</p>
             
-            <p>The tool to manage, search, and install <strong>KaOS Community Packages, kcp</strong> has been completely rewritten (still in Go) in order to support the main new feature: the configuration.</p>
-            <p>Now, you can adapt kcp/pckcp to your needs in editing the configuration’s files (located in <code>$HOME/.config/kcp/<code> directory). Notable options :</p>
-            <ul>
-                <li>You can use another temporary directory (for installations through kcp) than /tmp</li>
-                <li>kcp can use a third organization for package managements. The only constraint is the organization should be on github</li>
-                <li>For install or download operations, the clone method can use either ssh or https</li>
-                <li>You can define a locale different from the system</li>
-                <li>You can use un custom PKGBUILD prototype to use for PKGBUILD generation through pcpkcp</li>
-                <li>You can add packages to ignore for depends when you check a PKGBUILD with pckcp</li>
-            </ul>
-            <p>Other notable changes :</p>
-            <ul>
-                <li>Improved performances on updating the database (which needed to completelly refactor the database). The operation should be significatively faster.</li>
-                <li>Improved performances for the PKGBUILD parser. The scanner is more accurate and faster. Plus it is designed as an API in order to be usable for a third app.</li>
-                <li>Some PKBUILD checkers were added/modified/merged.</li>
-                <li>Added is a man for pckcp. The man for kcp was updated</li>
-            </ul>
+            <p>You will find Plasma 5.22 on this ISO. Highlights of this new major version include the big new feature Adaptive Transparency: This means the panel and panel widgets will usually be pleasantly translucent, but will become entirely opaque if there are any maximized window, a transition to Plasma System Monitor from the older KSysguard as the default system monitoring app and Plasma Wayland session now supports Activities: a classic feature unique to the Plasma desktop that allows you to have completely different environments for different aspects of your computing life, other KWin Wayland improvements include the Present Windows effect. New in Plasma 5.22, System Settings opens up on a speed dial page that gives you direct access to the most commonly used settings, as well as to the ones you have accessed most.</p>
             
-            <p>The installer Calamares has picked up the transition to QML again.  All navigation is now done in QML for KaOS. The <strong>finished module</strong> was also ported to QML, this gives a simpler end page, with clear buttons showing two options.  It also opened the way to give users a clear message regarding installation logs once the install is completed. Usersq is another module being ported to QML, a preview is included in this release, but is not the default users module yet.</p>
+            <p>The installer Calamares has two new QML modules.  KaOS has ported the Packagechooser to QML, resulting in a clearer and more consistent layout, and giving the option to fully translate this module in the normal Transifex location.  The offline Locale module is now also ready for QML. The regular Locale module uses an interactive map, needing a network connection, so it is good to have to offline QML option also fully working.</p>
             
-            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.83.0, Plasma 5.22.0 and KDE Applications 21.04.1. All built on Qt 5.15.2.</p>
+            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.83.0, Plasma 5.22.2 and KDE Applications 21.04.2. All built on Qt 5.15.2+.</p>
             
             <p>This ISO means the end of the non-free Nvidia 340xx support in KaOS. This drivers needed to be heavily patched since Linux 5.6, but now with Linux 5.11, loading the module completely fails SDDM. Since upstream pretty much abandoned this driver, it is time to remove from KaOS.  Users with Nvidia cards prior to 2014 will need to switch over to the in-kernel modesetting driver or install nouveau.</p>
             
-            <p>New applications added include VSCodium.</p>
+            <p>New applications added include Maliit virtualkeyboard packages.</p>
             
-            <p>Updates to the base of this distribution were numerous and include a new GCC 10.3.0, Glibc 2.33 & Binutils 2.36.1 based Toolchain, with most of the core being rebuild on this new Toolchain, Systemd 248.3, Proj 8.0.1, Git 2.32.0, LLVM/Clang 11.1.0, Protobuf 3.17, Hdf5 1.12.0, Poppler 21.06.1, Mesa 21.1.2, NetworkManager 1.30.4, ZSTD 1.5.0, Samba 4.14.5.< /br>
+            <p>Updates to the base of this distribution were numerous and include a new ICU 69.1 & Boost 1.76.0 stack, Systemd 248.3, Glib2 2.68.3 with the whole glib/gobject group updated, Grub 2.06, Git 2.32.0, Hwids 20210613, Protobuf 3.17, Dracut 055, Poppler 21.06.1, Mesa 21.1.3, NetworkManager 1.32.0, ZSTD 1.5.0, Kmod 29.< /br>
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
@@ -102,12 +86,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.83.0, Plasma 5.22.0, KDE Applications 21.04.2</b>, Linux 5.11.16, Systemd 248.3, Kmod 29, NetworkManager 1.30.4, LibreOffice 7.1.4, Krita 4.4.5, Elisa, Xorg-Server 1.20.11, Mesa 21.1.2, Glibc 2.33, GCC 10.3.0, non-free Nvidia 465 and Python3 3.8.10 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.83.0, Plasma 5.22.2, KDE Applications 21.04.2</b>, Linux 5.12.13, Systemd 248.3, Kmod 29, NetworkManager 1.32.0, LibreOffice 7.1.4, Krita 4.4.5, Elisa, Xorg-Server 1.20.11, Mesa 21.1.3, Glibc 2.33, GCC 10.3.0, non-free Nvidia 465 and Python3 3.8.10 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.11.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.11, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 89.0, Chrome 93, Ardour 6.7.0, Inkscape 1.1, GIMP 2.10.24 and Thunderbird 78.11.0.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 89.0.2, Chrome 93, Ardour 6.7.0, Inkscape 1.1, GIMP 2.10.24 and Thunderbird 78.11.0.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
