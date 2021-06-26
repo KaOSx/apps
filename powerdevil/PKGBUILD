@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=powerdevil
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Manages the power consumption settings of a Plasma Shell.'
 arch=('x86_64')
 url='https://github.com/KDE/powerdevil'
 license=('LGPL')
 depends=('kactivities' 'kauth' 'kidletime' 'kconfig' 'kdbusaddons' 'solid' 'ki18n' 'kglobalaccel'
          'kio' 'knotifyconfig' 'kwayland' 'kcrash' 'knotifications' 'kscreen' 'plasma-workspace'
-         'libxrandr' 'bluez-qt' 'ddcutil')
+         'libxrandr' 'bluez-qt') # not complete/unmaintained 'ddcutil')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
@@ -39,7 +39,7 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
-    -DHAVE_DDCUTIL=On
+    -DHAVE_DDCUTIL=OFF
   make
 }
 
