@@ -1,7 +1,7 @@
 
 pkgname=keepassxc
 pkgver=2.6.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Cross-platform community-driven port of the Windows application Keepass Password Safe"
 arch=('x86_64')
 url="https://www.keepassxc.org/"
@@ -34,7 +34,9 @@ build() {
     -DWITH_XC_AUTOTYPE=ON \
     -DWITH_XC_SSHAGENT=ON \
     -DWITH_XC_KEESHARE=ON \
-    -DWITH_XC_DOCS=OFF
+    -DWITH_XC_FDOSECRETS=ON \
+    -DWITH_XC_DOCS=OFF \
+    -DWITH_XC_UPDATECHECK=OFF
   cmake --build build
 }
 
