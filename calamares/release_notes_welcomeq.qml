@@ -59,8 +59,6 @@ Rectangle {
             
             <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.83.0, Plasma 5.22.2 and KDE Applications 21.04.2. All built on Qt 5.15.2+.</p>
             
-            <p>This ISO means the end of the non-free Nvidia 340xx support in KaOS. This drivers needed to be heavily patched since Linux 5.6, but now with Linux 5.11, loading the module completely fails SDDM. Since upstream pretty much abandoned this driver, it is time to remove from KaOS.  Users with Nvidia cards prior to 2014 will need to switch over to the in-kernel modesetting driver or install nouveau.</p>
-            
             <p>New applications added include Maliit virtualkeyboard packages.</p>
             
             <p>Updates to the base of this distribution were numerous and include a new ICU 69.1 & Boost 1.76.0 stack, Systemd 248.3, Glib2 2.68.3 with the whole glib/gobject group updated, Grub 2.06, Git 2.32.0, Hwids 20210613, Protobuf 3.17, Dracut 055, Poppler 21.06.1, Mesa 21.1.3, NetworkManager 1.32.0, ZSTD 1.5.0, Kmod 29.< /br>
