@@ -1,37 +1,40 @@
 pkgname=mixxx
-pkgver=2.2.4
-_pkgver=release-2.2.4
+pkgver=2.3.0
+_pkgver=release-2.3.0
 _commit=286a52a432e05fbd7ed2ad029fe2a11f44f1cf85
-pkgrel=7
+pkgrel=1
 pkgdesc="Free, open source software for digital DJ'ing."
 arch=('x86_64')
 url='https://www.mixxx.org'
 license=('GPL')
-depends=('faad2' 'fftw' 'libid3tag' 'libmad' 'libmodplug' 'libogg' 'libshout' 'libsndfile' 'libusb' 
+depends=('faad2' 'fftw' 'flac' 'libid3tag' 'libmad' 'libmodplug' 'libogg' 'libshout' 'libsndfile' 'libusb' 'libvorbis' 
          'portaudio' 'portmidi' 'protobuf' 'qt5-xmlpatterns' 'qt5-svg' 'qt5-script' 'qt5-x11extras' 'rubberband'
-         'taglib' 'wavpack' 'opusfile' 'chromaprint' 'upower' 'lilv' 'libmp4v2' 'soundtouch')
-makedepends=('scons' 'glu' 'qt5-tools') # 'clang')
-source=("https://github.com/mixxxdj/mixxx/archive/${_pkgver}.tar.gz"
+         'taglib' 'wavpack' 'opusfile' 'chromaprint' 'upower' 'lilv' 'libmp4v2' 'soundtouch' 'qtkeychain')
+makedepends=('cmake' 'glu' 'qt5-tools') # 'clang')
+source=("https://github.com/mixxxdj/mixxx/archive/${pkgver}.tar.gz"
 #source=("https://github.com/mixxxdj/mixxx/archive/${_commit}.zip"
         "https://github.com/mixxxdj/mixxx/commit/03fad27e1f0f18ec83c9a4bc5f03f28948cd44fb.diff")
-md5sums=('25bbebca0187254db4d1c53dc0bdd77d'
+md5sums=('1aab96e59032ebceb2cd4bf6926367f8'
          'b03c4c7b79281f29bba54a4dd5003466')
 
 build() {
-  cd ${pkgname}-${_pkgver}
-  
-  #patch -p1 -i ${srcdir}/03fad27e1f0f18ec83c9a4bc5f03f28948cd44fb.diff
-  
-  #export CC=/usr/bin/clang
-  #export CXX=/usr/bin/clang++
-
-  scons build=release qtdir=/usr/lib/qt5 prefix=/usr faad=1 qt5=1 wv=1 modplug=1 opus=1
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_TESTING=OFF \
+    -DINSTALL_USER_UDEV_RULES=OFF \
+    -DOPTIMIZE=OFF \
+    -DCCACHE_SUPPORT=OFF \
+    -DFAAD=ON \
+    -DOPUS=ON \
+    -DVINYLCONTROL=ON \
+    -DWAVPACK=ON
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${_pkgver}
-  
-  #CXXFLAGS="-std=c++11"
+  DESTDIR=${pkgdir} cmake --install build
 
-  scons qtdir=/usr/lib/qt5 prefix=/usr qt5=1 install_root=${pkgdir}/usr install
+  install -m755 -d ${pkgdir}/usr/lib/udev/rules.d
+  install -m644 ${pkgname}-${pkgver}/res/linux/mixxx-usb-uaccess.rules  ${pkgdir}/usr/lib/udev/rules.d/
 }
