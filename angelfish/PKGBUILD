@@ -1,0 +1,26 @@
+
+pkgname=angelfish
+pkgver=21.06
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Web browser for Plasma Mobile"
+url="https://invent.kde.org/plasma-mobile/angelfish"
+license=('GPL2')
+depends=('qtwebengine' 'qt5-quickcontrols2' 'qt5-svg' 'qtfeedback' 'kirigami' 'purpose'
+         'ki18n' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kwindowsystem' 'knotifications')
+makedepends=('extra-cmake-modules' 'qt5-tools')
+source=("https://download.kde.org/stable/plasma-mobile/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('8878261bf0de6943e7457955214f0ffe851c6083627a7626476cc8f50e18777b')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_TESTING=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

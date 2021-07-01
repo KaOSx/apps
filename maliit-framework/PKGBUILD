@@ -1,0 +1,33 @@
+
+pkgname=maliit-framework
+_pkgname=framework
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="Core libraries of Maliit and server"
+arch=('x86_64')
+url="https://maliit.github.io/"
+license=('LGPL')
+depends=('qt5-declarative' 'qt5-wayland')
+makedepends=('cmake' 'wayland-protocols' 'python3')
+source=("https://github.com/maliit/framework/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('48e4e6dbf7eecb7b8002003a3cc3248b')
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQtWaylandScanner_EXECUTABLE=/usr/lib/qt5/bin/ \
+    -Denable-tests=OFF \
+    -Denable-docs=OFF \
+    -Denable-dbus-activation=ON \
+    -Denable-wayland-gtk=OFF \
+    -Denable-wayland=ON \
+    -Denable-qt5-inputcontext=OFF \
+    -DQT5_PLUGINS_INSTALL_DIR=lib/qt5/plugins \
+    -DQT5_MKSPECS_INSTALL_DIR=lib/qt5/mkspecs
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

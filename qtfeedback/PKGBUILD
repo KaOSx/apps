@@ -1,0 +1,26 @@
+
+pkgname=qtfeedback
+pkgver=0.0.0
+_commit=cd9ec4a7857a4ad472f960ddf78fb19629735187
+pkgrel=1
+pkgdesc="Qt Tactile Feedback"
+arch=('x86_64')
+url="https://github.com/qt/qtfeedback"
+license=('LGPL')
+depends=('qt5-declarative' 'qt5-multimedia')
+makedepends=('extra-cmake-modules')
+source=("https://invent.kde.org/jbbgameich/qtfeedback/-/archive/${_commit}/qtfeedback-${_commit}.tar.bz2")
+md5sums=('ba4ee127ca06230406d6f0c823ab774a')
+
+build() {
+  cmake -B build -S ${pkgname}-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
