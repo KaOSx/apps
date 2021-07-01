@@ -1,6 +1,6 @@
 
 pkgname=kdsoap
-pkgver=1.10.0
+pkgver=2.0.0
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Qt-based client-side and server-side SOAP component."
@@ -9,14 +9,14 @@ license=('GPL3' 'LGPL')
 depends=('qt5-base')
 makedepends=('cmake')
 source=("https://github.com/KDAB/KDSoap/releases/download/kdsoap-${pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('ac6fa410678873c634c4fe0db875c02a')
+md5sums=('511bf80dac042430edaabc46a658f101')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DINSTALL_LIBRARY_DIR=lib
-cmake --build build
+  cmake --build build
 }
 
 package() {
