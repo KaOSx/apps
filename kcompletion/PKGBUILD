@@ -12,10 +12,8 @@ license=('LGPL')
 depends=('kwidgetsaddons' 'kconfig')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/5.78/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/frameworks/kcompletion/commit/7acda936f06193e9fc85ae5cf9ccc8d65971f657.diff")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '7d0184d8c8e835207cf09a7b21bc6a8c')
+source=("https://download.kde.org/stable/frameworks/5.78/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
