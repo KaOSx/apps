@@ -1,10 +1,10 @@
 
 pkgname=kreport
 pkgver=3.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Framework for creation and generation of reports in multiple formats"
 arch=('x86_64')
-url='https://github.com/KDE/kreport'
+url='https://invent.kde.org/libraries/kreport'
 license=('LGPL')
 depends=('kcoreaddons' 'kwidgetsaddons' 'kguiaddons' 'kconfig' 'kproperty'
          'marble')
@@ -19,21 +19,17 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

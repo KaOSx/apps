@@ -7,12 +7,13 @@ pkgver=${_kf5ver}
 pkgrel=1
 pkgdesc='KNotifications'
 arch=('x86_64')
-url='https://community.kde.org/Frameworks'
+url='https://invent.kde.org/frameworks/knotifications'
 license=('LGPL')
-depends=('kiconthemes' 'kservice' 'kwindowsystem' 'libdbusmenu-qt5' 'libxslt' 'phonon-qt5' 'qt5-speech')
+depends=('kiconthemes' 'kservice' 'kwindowsystem' 'libdbusmenu-qt5' 'libxslt' 'phonon-qt5'
+         'qt5-speech' 'libcanberra')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/5.64/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/frameworks/5.83/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/KDE/knotifications/commit/56a301a1a0f4653d1b79d6b509ae073b5169a92d.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          'c87a84921e6a6a66acf465a7c906fc66')
@@ -24,21 +25,17 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR="${pkgdir}" install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
