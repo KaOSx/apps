@@ -15,10 +15,8 @@ depends=('kdbusaddons' 'kcmutils' 'kcrash' 'kwindowsystem' 'kiconthemes'
          'akonadi-import-wizard' 'pim-data-exporter')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://github.com/KDE/kontact/commit/b78bb7307dab374a5d97aad691c8faf9902db27a.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'da00d7e182abe46bf97c911f7f49ff8d')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
