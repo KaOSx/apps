@@ -2,7 +2,7 @@
 pkgname=digikam
 pkgver=7.2.0
 _pkgver=7.2.0
-pkgrel=2
+pkgrel=3
 url="https://www.digikam.org/"
 arch=('x86_64')
 license=('GPL')
@@ -17,15 +17,15 @@ depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kw
 makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'ruby' 'subversion') # 'clang')
 groups=('kde-graphics')
 source=("https://download.kde.org/stable/digikam/${_pkgver}/${pkgname}-${_pkgver}.tar.xz"
-        'facerect.diff')
+        "https://invent.kde.org/graphics/digikam/-/commit/b428a1fa.diff")
 sha256sums=('cd87ece143aefa02e692a4af5c3c3cc107b9a4d61804d79fa77dd2e344798a17'
-            'fcd9a18dee3b4d009ec7256207d1b6645d2e2aa918b5cf9f9dc9b44db41f6a7b')
+            '09fbc3a762a66d530797356a615b43cd5f442978dd27586261733e62c706df44')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
   #sed -i -e 's|QString module = QLatin1String(inf->module);|QString module = QLatin1String(inf->magick_module);|' core/tests/dimg/magickloader.cpp
-  #needed changes for opencv > 3.4.9
-  #patch -p1 -i ${srcdir}/facerect.diff
+  #needed changes for Qt 5.15.2+
+  patch -p1 -i ${srcdir}/b428a1fa.diff
 }
 
 build() {
