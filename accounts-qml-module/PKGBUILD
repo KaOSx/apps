@@ -1,5 +1,6 @@
 
 pkgname=accounts-qml-module
+_pkgname=accounts-qml-module-VERSION
 pkgver=0.7
 pkgrel=2
 pkgdesc='Client library for using Online Accounts from QML applications.'
@@ -7,20 +8,24 @@ arch=('x86_64')
 url="https://gitlab.com/accounts-sso/accounts-qml-module"
 license=('LGPL')
 depends=('accountsqt' 'signonqt' 'qt5-declarative')
-makedepends=('qt5-tools')
-source=("https://gitlab.com/accounts-sso/accounts-qml-module/repository/archive.tar.bz2?ref=VERSION_${pkgver}")
-md5sums=('633ae6f6c84f073d1e1bb978086e7dfd')
+makedepends=('qt5-tools' 'clang')
+source=("https://gitlab.com/accounts-sso/accounts-qml-module/-/archive/VERSION_${pkgver}/${_pkgname}_${pkgver}.tar.bz2"
+        "https://gitlab.com/accounts-sso/accounts-qml-module/-/commit/678c493a083a92d1fda2375f5d2e37c00c7b9a7e.diff")
+md5sums=('17f735646b47d42b5bfebaf85a561484'
+         'dd2c41277d76a76ce92040fcddfb2ac9')
 
 build() {
-  cd accounts-qml-module-VERSION_${pkgver}-*
+  cd ${_pkgname}_${pkgver}
+  sed -e 's|-Werror||' -i common-project-config.pri
+  patch -p1 -i ${srcdir}/678c493a083a92d1fda2375f5d2e37c00c7b9a7e.diff
 
   /usr/lib/qt5/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
   make
 }
 
 package() {
-  cd accounts-qml-module-VERSION_${pkgver}-*
-  make INSTALL_ROOT=$pkgdir install
-  
-  rm -r $pkgdir/usr/share
+  cd ${_pkgname}_${pkgver}
+  make INSTALL_ROOT=${pkgdir} install_subtargets
+
+  rm -r ${pkgdir}/usr/bin
 }

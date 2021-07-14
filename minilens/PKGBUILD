@@ -1,10 +1,10 @@
 
 pkgname=minilens
 pkgver=1.2
-pkgrel=2
+pkgrel=3
 pkgdesc="2D platform puzzle in post-apocalyptic Earth"
 arch=('x86_64')
-url="http://kobuge-games.github.io/minilens/"
+url="https://kobuge-games.github.io/minilens/"
 license=('MIT')
 depends=('godot')
 source=("https://github.com/KOBUGE-Games/minilens/archive/v${pkgver}.tar.gz"
@@ -16,11 +16,11 @@ md5sums=('ea80ca7a715acd0766a4bb18a004ea15'
 
 package() {
     cd ${pkgname}-${pkgver}
-    
+
     install -d ${pkgdir}/opt/minilens
     cp -r * ${pkgdir}/opt/minilens/
     chmod 755 -R ${pkgdir}/opt/minilens
-    
+
     install -Dm755 ${srcdir}/launch-minilens.sh ${pkgdir}/usr/bin/launch-minilens.sh
     install -Dm644 $srcdir/minilens.desktop ${pkgdir}/usr/share/applications/minilens.desktop
     install -Dm644 ${srcdir}/${pkgname}-${pkgver}/icon.png ${pkgdir}/usr/share/pixmaps/minilens.png
