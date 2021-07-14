@@ -1,8 +1,7 @@
 
 pkgname=kexi
 pkgver=3.2.0
-_pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Visual database applications creator"
 arch=('x86_64')
 url='http://kexi-project.org/'
@@ -14,37 +13,33 @@ depends=('karchive' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreadd
          'libmariadbclient' 'sqlite3' 'qtwebkit-tp' 'freetds' 'postgresql') # will switch to qtwebengine
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools') # 'clang') 
 source=("https://download.kde.org/stable/kexi/src/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/kexi/commit/1578fcb4a0407cf368edb6ee4605c4ef9e77b6ed.diff")
+        "https://invent.kde.org/office/kexi/-/commit/511d99b7745a6ce87a208bdbf69e631f1f136d53.diff"
+        "https://invent.kde.org/office/kexi/-/commit/73d3fa8e7a1028c89b20c74f6444a76a722d8041.diff")
 sha256sums=('7a813f9ea815a09c1e733d0e7dc879c64eee85f075389e87e6aab99cf0c1c1ff'
-            '0377c28c0489883c2e4a4db1fdacc055ea3fdcb36070dde022ac85a0d7f6ec3e')
+            '929070ff47302fb5a8dac4a972c769511193d1619ed5ecab4905b8a7458a0efa'
+            'c0288f55b39d78f850ee222e1f6e1dad4c324f47473b85baaee4d4c64e985e47')
 
 prepare() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
   
-  #patch -p1 -i $srcdir/1578fcb4a0407cf368edb6ee4605c4ef9e77b6ed.diff
+  patch -p1 -i ${srcdir}/511d99b7745a6ce87a208bdbf69e631f1f136d53.diff
+  patch -p1 -i ${srcdir}/73d3fa8e7a1028c89b20c74f6444a76a722d8041.diff
   sed -i -e 's|KexiMarble ${MARBLE_MIN_VERSION}|Marble ${MARBLE_MIN_VERSION}|' CMakeLists.txt
 }
 
 build() {
-  mkdir build
-  cd build
-  
-  #export CC=/usr/bin/clang
-  #export CXX=/usr/bin/clang++
-  
-  cmake ../${pkgname}-${_pkgver} \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 

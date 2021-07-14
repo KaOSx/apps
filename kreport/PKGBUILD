@@ -1,7 +1,7 @@
 
 pkgname=kreport
 pkgver=3.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Framework for creation and generation of reports in multiple formats"
 arch=('x86_64')
 url='https://invent.kde.org/libraries/kreport'
@@ -9,13 +9,15 @@ license=('LGPL')
 depends=('kcoreaddons' 'kwidgetsaddons' 'kguiaddons' 'kconfig' 'kproperty'
          'marble')
 makedepends=('extra-cmake-modules' 'qt5-tools')
-source=("https://download.kde.org/stable/kreport/src/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('22716d719654e8f887fe4d33654e252ddf3d3d818c44e15a8af0e6f2e7d6ccd7')
+source=("https://download.kde.org/stable/kreport/src/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/libraries/kreport/-/commit/5d3053ea78b349b81b7a562974ad78f93d169791.diff")
+sha256sums=('22716d719654e8f887fe4d33654e252ddf3d3d818c44e15a8af0e6f2e7d6ccd7'
+            'f28165ad348b1211fb3b84b0e0333081aca2aa2329954bc69eb261f4c9ebb632')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|K_GLOBAL_STATIC|Q_GLOBAL_STATIC|' ${srcdir}/${pkgname}/src/wrtembed/KReportDpi.cpp
-  #patch -p1 -i $srcdir/0003-Port-from-K_GLOBAL_STATIC-to-Q_GLOBAL_STATIC.patch
+  patch -p1 -i $srcdir/5d3053ea78b349b81b7a562974ad78f93d169791.diff
 }
 
 build() {

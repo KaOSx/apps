@@ -1,10 +1,10 @@
 
 pkgname=kproperty
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Property editing framework with editor widget similar to what is known from Qt Designer."
 arch=('x86_64')
-url='https://github.com/KDE/kproperty'
+url='https://invent.kde.org/libraries/kproperty'
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'kwidgetsaddons' 'kguiaddons') # 'kio'
 makedepends=('extra-cmake-modules' 'qt5-tools')
@@ -17,20 +17,16 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DKDE_INSTALL_LIBDIR=lib
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
