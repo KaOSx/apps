@@ -1,32 +1,30 @@
 
 pkgname=telepathy-morse
-pkgver=0.1.0
-_commit=8e701b53fd9d54df8388dd22127f736e7b5a7a43
-pkgrel=3
+pkgver=0.2.0beta
+_commit=a59a608401d341811a94ab08923e7e829c90de4f
+pkgrel=1
 pkgdesc="Telegram connection manager for Telepathy."
 arch=('x86_64')
-url="https://github.com/KDE/telepathy-morse"
+url="https://github.com/TelepathyIM/telepathy-morse"
 license=('GPL')
 depends=('telegram-qt' 'telepathy-qt5')
 makedepends=('extra-cmake-modules')
 #groups=('kde-telepathy')
-source=("https://github.com/TelepathyQt/telepathy-morse/archive/${pkgname}-${pkgver}.tar.gz")
-md5sums=('3e3250e6fca470546bb26eff76ff6d10')
+#source=("https://github.com/TelepathyQt/telepathy-morse/archive/${pkgname}-${pkgver}.tar.gz")
+source=("https://github.com/TelepathyIM/telepathy-morse/archive/${_commit}.zip")
+md5sums=('031dc420c1518768beffcbe08ff1c65c')
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DCMAKE_INSTALL_LIBEXECDIR=lib/telepathy 
-  make
+    -DCMAKE_INSTALL_LIBEXECDIR=lib/telepathy \
+    -DBUILD_QML_IMPORT=ON
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
