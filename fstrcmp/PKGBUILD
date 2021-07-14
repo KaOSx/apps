@@ -1,7 +1,7 @@
  
 pkgname=fstrcmp
 pkgver=0.7.D001
-pkgrel=1
+pkgrel=2
 pkgdesc="A library that is used to make fuzzy comparisons of strings and byte arrays, including multi-byte character strings"
 arch=('x86_64')
 url="http://fstrcmp.sourceforge.net/"
@@ -14,13 +14,13 @@ md5sums=('9c440bbdfcad9fd22e38f2388715b0cc')
 
 build() {
   cd ${pkgname}-${pkgver}
-  
+
   ./configure --prefix=/usr
   make
 }
 
 package() {
   cd ${pkgname}-${pkgver}
-  
+
   make DESTDIR=${pkgdir} install
 }
