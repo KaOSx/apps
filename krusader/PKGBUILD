@@ -1,10 +1,10 @@
 
 pkgname=krusader
 pkgver=2.7.2
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="An alternative file manager for KDE resembling Midnight Commander"
-url="http://krusader.sourceforge.net/"
+url="https://krusader.org/"
 arch=('x86_64')
 license=('GPL')
 depends=('karchive' 'kbookmarks' 'kcodecs' 'kcompletion' 'kconfig' 'ki18n' 'kiconthemes' 'kitemviews'
@@ -13,30 +13,24 @@ depends=('karchive' 'kbookmarks' 'kcodecs' 'kcompletion' 'kconfig' 'ki18n' 'kico
 makedepends=('extra-cmake-modules' 'kdoctools' 'docbook-xsl')
 groups=('kde-admin' 'kde-system')
 source=("https://download.kde.org/stable/krusader/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("https://github.com/KDE/krusader/archive/${_commit}.zip")
 sha256sums=('41a39a43b3c42dd1d1ecaea86df30caff6a061fecc1d66f60859b2a3ca976109')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
   #patch -p1 -i "$srcdir/kde_bug309119.diff" 
-  #patch -p1 -i "$srcdir/kde_bug325801.diff" 
 }
 
 build() {
-  mkdir build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDESU_PATH=/usr/lib/kf5/kdesu
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install 
+
+  DESTDIR=${pkgdir} cmake --install build
 }
