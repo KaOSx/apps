@@ -5,35 +5,30 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
-pkgdesc="KDE document viewer"
-url="http://www.kde.org"
+pkgrel=2
+pkgdesc="Document viewer that can view and annotate various formats, including PDF, Postscript, Comic Book, and image formats."
+url="https://okular.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kactivities' 'karchive' 'kbookmarks' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons'
          'kjs' 'kio' 'khtml' 'kparts' 'kpty' 'threadweaver' 'kiconthemes' 'kwallet' 'kwindowsystem' 'kcrash'
          'phonon-qt5' 'libxxf86vm' 'sane' 'poppler-qt5' 'chmlib' 'djvulibre' 'libspectre' 'ebook-tools'
          'json-c' 'libkexiv2' 'libkdcraw' 'kdegraphics-mobipocket' 'qt5-speech' 'discount' 'purpose')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'qca-qt5')
-conflicts=('kdegraphics-okular')
-replaces=('kdegraphics-okular')
 groups=('office')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
-        "https://invent.kde.org/kde/okular/-/commit/6a93a033b4f9248b3cd4d04689b8391df754e244.diff")
+        "https://invent.kde.org/kde/okular/-/commit/504eec7688e7139e9d193fc2b3ddafac0f835b6f.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'e916c0bc23f5ba5be0a5394838f2de3e')
+         'c94e922c31169d77419e23e380d3fba1')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # CVE-2020-9359
-  #patch -p1 -i ${srcdir}/6a93a033b4f9248b3cd4d04689b8391df754e244.diff
+
+  patch -p1 -i ${srcdir}/504eec7688e7139e9d193fc2b3ddafac0f835b6f.diff
   #sed -i -e 's|ecm_setup_version(0.99.|ecm_setup_version(1.0.|' CMakeLists.txt
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -41,13 +36,12 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
     -DKF5KExiv2_DIR=/usr/lib/cmake/KEXIV2
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
   # fix non-working menu/mobile only items in lost & found
   echo "NoDisplay=true" >> ${pkgdir}/usr/share/applications/org.kde.mobile.okular.desktop
   echo "NoDisplay=true" >> ${pkgdir}/usr/share/applications/org.kde.okular.kirigami.desktop
