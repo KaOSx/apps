@@ -4,17 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=cervisia
 pkgver=${_kdever}
-#pkgver=16.07.71
-_commit=c788b78153b30a1b9bad9fd6bcc06b3a610a1b98
 pkgrel=1
-pkgdesc='CVS GUI frontend for KDE'
-url='http://kde.org/applications/development/cervisia/'
+pkgdesc='User friendly version control system front-end, aiming to support CVS and other version control system programs'
+url='https://apps.kde.org/cervisia/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kparts' 'kinit' 'kiconthemes' 'knotifications' 'kwidgetsaddons' 'kitemviews' 'kdesu')
+depends=('ki18n' 'kparts' 'kinit' 'kiconthemes' 'knotifications' 'kwidgetsaddons' 'kitemviews'
+         'kdesu' 'ktextwidgets')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdesdk-cervisia')
-replaces=('kdesdk-cervisia')
 groups=('kde' 'kde-sdk' 'kde-uninstall' 'programming')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -22,27 +19,21 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
   #sed -i -e 's|#include <QRegExp>|#include <QtCore/QRegExp>|' ${srcdir}/${pkgname}/cvsservice/cvsaskpass.cpp
 }
 
 build() {
-  mkdir build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
