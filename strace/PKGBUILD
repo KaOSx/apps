@@ -1,6 +1,6 @@
 
 pkgname=strace
-pkgver=5.12
+pkgver=5.13
 pkgrel=1
 pkgdesc="A useful diagnositic, instructional, and debugging tool"
 arch=('x86_64')
@@ -9,11 +9,11 @@ license=('BSD')
 depends=('perl')
 groups=('programming')
 source=("https://strace.io/files/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('596da1613cbde1972733aeb415bf1787')
+md5sums=('a64471e9e9df0f5b0d81461cb17926ea')
 
 build() {
   cd ${pkgname}-${pkgver}
-  
+
   ./configure --prefix=/usr
   make
 }
