@@ -50,8 +50,8 @@ Rectangle {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2021.06</h3>
-            <p>KaOS is pleased to announce the availability of the June release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2021.08</h3>
+            <p>KaOS is pleased to announce the availability of the August release of a new stable ISO.</p>
             
             <p>You will find Plasma 5.22 on this ISO. Highlights of this new major version include the big new feature Adaptive Transparency: This means the panel and panel widgets will usually be pleasantly translucent, but will become entirely opaque if there are any maximized window, a transition to Plasma System Monitor from the older KSysguard as the default system monitoring app and Plasma Wayland session now supports Activities: a classic feature unique to the Plasma desktop that allows you to have completely different environments for different aspects of your computing life, other KWin Wayland improvements include the Present Windows effect. New in Plasma 5.22, System Settings opens up on a speed dial page that gives you direct access to the most commonly used settings, as well as to the ones you have accessed most.</p>
             
