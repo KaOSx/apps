@@ -1,7 +1,7 @@
 
 pkgname=dianara
 pkgver=1.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A Qt pump.io client"
 arch=('x86_64')
 url="http://dianara.nongnu.org/"
@@ -13,7 +13,7 @@ md5sums=('cae0b2e282651b012d01ef03bf4d5707')
 build() {
   cd ${pkgname}-v${pkgver}
   mkdir -p build 
-  
+
   cd build
   /usr/lib/qt5/bin/qmake ..
   sed -i 's|include5|include|' Makefile
@@ -22,7 +22,7 @@ build() {
 
 package() {
   cd ${pkgname}-v${pkgver}/build
-  
+
   make INSTALL_ROOT=${pkgdir} install
 }
 

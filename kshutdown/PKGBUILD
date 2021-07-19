@@ -2,7 +2,7 @@
 pkgname=kshutdown
 pkgver=5.2
 _pkgver=5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Graphical shutdown utility that allows you to turn off or suspend a computer at a specified time."
 url="https://kshutdown.sourceforge.io/"
 arch=('x86_64')
@@ -15,18 +15,14 @@ source=("https://sourceforge.net/projects/kshutdown/files/KShutdown/${_pkgver}/k
 sha256sums=('1ae0911b734a0d7eb12469ca95f066fb4d52c7880c2e9f1b692b236fd08337df')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${_pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKS_KF5=TRUE
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
