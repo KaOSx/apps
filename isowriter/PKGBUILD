@@ -1,7 +1,7 @@
  
 pkgname=isowriter
 pkgver=1.2.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Tool for creating bootable installation USB flash drives"
 arch=('x86_64')
 url="https://github.com/KaOSx/isowriter"
@@ -12,16 +12,16 @@ md5sums=('SKIP')
 
 build() { 
   cd ${pkgname}
-  
+
   /usr/lib/qt5/bin/qmake ImageWriter.pro
   make 
 }
 
 package() {
   cd ${pkgname}
-  
+
   make INSTALL_ROOT=${pkgdir}/ install
-  
+
   for mofile in po/*.mo
   do
     filename=`basename $mofile`

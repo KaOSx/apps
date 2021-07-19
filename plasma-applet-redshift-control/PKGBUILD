@@ -1,41 +1,36 @@
 
 pkgname=plasma-applet-redshift-control
+_pkgname=plasma-redshift-control
 pkgver=1.0.18
-pkgrel=3
-_commit=b45d454a6d0e8db022dd963cc50a59ccbda7f1c7
-pkgdesc='Plasmoid for enabling and disabling redshift process, providing simple settings and mouse-wheel screen temperature control.'
+pkgrel=4
+_commit=20471720bbaf32007af4923f94437af2da696e60
+pkgdesc='Redshift control applet for the Plasma Desktop'
 arch=('x86_64')
-url='https://www.linux-apps.com/content/show.php/Redshift+Control?content=170746'
+url='https://invent.kde.org/plasma/plasma-redshift-control'
 license=('GPL')
 depends=('plasma-desktop' 'redshift')
 makedepends=('extra-cmake-modules')
-conflicts=('redshift-plasmoid')
-replaces=('redshift-plasmoid')
-source=("https://github.com/kotelnik/plasma-applet-redshift-control/archive/v${pkgver}.tar.gz"
+source=("https://invent.kde.org/plasma/plasma-redshift-control/-/archive/${_commit}/${_pkgname}-${_commit}.tar.bz2"
         'redshift1.12.patch')
-md5sums=('5aab255007ba319fe9c4c73d45bb8d05'
+md5sums=('423873bf96922ffbd3d7f4152c8e6b34'
          '84ac2e88d9b92e8306408e419190d41a')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${_pkgname}-${_commit}
   
-  patch -p1 -i ${srcdir}/redshift1.12.patch
+  #patch -p1 -i ${srcdir}/redshift1.12.patch
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR="$pkgdir" install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

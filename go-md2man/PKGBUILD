@@ -1,7 +1,7 @@
 
 pkgname=go-md2man
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Pure Go written standard markdown formatted documents to manpages converter.'
 arch=('x86_64')
 url='https://github.com/cpuguy83/go-md2man'
@@ -11,18 +11,15 @@ source=("${pkgname}.tar.gz::https://github.com/cpuguy83/go-md2man/archive/v${pkg
 md5sums=('873f327dde3da82c821abc6e86d18f7b')
 
 build() {
-  export GOPATH=$(readlink -f .)
-  local repo=src/github.com/cpuguy83
-  
-  mkdir -p ${repo}
-  ln -sf ../../../go-md2man-${pkgver} ${repo}/go-md2man
-  
-  cd ${repo}/go-md2man
-  go get -v ./...
-  ${srcdir}/bin/go-md2man -in=go-md2man.1.md -out=go-md2man.1
+  cd ${pkgname}-${pkgver}
+  GOFLAGS="-mod=vendor -trimpath"
+
+  go build -o go-md2man .
+  ./go-md2man -in=go-md2man.1.md -out=go-md2man.1
 }
 
 package() {
-  install -Dm755 bin/go-md2man ${pkgdir}/usr/bin/go-md2man
-  install -Dm755 go-md2man-${pkgver}/go-md2man.1 ${pkgdir}/usr/share/man/man1/go-md2man.1
+  cd ${pkgname}-${pkgver}
+  install -Dm755 go-md2man ${pkgdir}/usr/bin/go-md2man
+  install -Dm755 go-md2man.1 ${pkgdir}/usr/share/man/man1/go-md2man.1
 }

@@ -1,30 +1,27 @@
  
 pkgname=kooka
 pkgver=0.90
-pkgrel=2
-_commit=c2ba68ee5329e6286f232a2d992bffec4a8eff02
+pkgrel=3
+_commit=2a1bd9f191acc6d32902e5046076367d0770f259
 pkgdesc="Scanning application and libkscan library which were formerly included in kdegraphics."
 arch=("x86_64")
-url="https://github.com/KDE/kooka"
+url="https://invent.kde.org/graphics/kooka"
 license=('GPL')
-depends=('ki18n' 'kconfig' 'ktextwidgets' 'kio' 'kwidgetsaddons' 'kiconthemes' 'libpaper' 'ocrad' 'sane')
+depends=('ki18n' 'kconfig' 'ktextwidgets' 'kio' 'kwidgetsaddons' 'kiconthemes' 'purpose' 'sonnet'
+         'libkipi' 'libpaper' 'ocrad' 'sane')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("https://github.com/KDE/kooka/archive/${_commit}.zip")
-md5sums=('4c31e91d6f7f792d9d9e6ae786734219')
+source=("https://invent.kde.org/graphics/kooka/-/archive/${_commit}/${pkgname}-${_commit}.tar.bz2")
+md5sums=('ad02384f4d1b941f9a27d128111f64e1')
  
 build() {
-  mkdir -p build
-  cd build
- 
-  cmake ../${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib
-  make
+  cmake --build build
 }
- 
+
 package() {
-  cd build
- 
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
