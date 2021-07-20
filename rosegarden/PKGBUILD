@@ -1,6 +1,6 @@
 
 pkgname=rosegarden
-pkgver=21.06
+pkgver=21.06.1
 _pkgver=21.06
 pkgrel=1
 pkgdesc="MIDI/audio sequencer and notation editor"
@@ -16,7 +16,7 @@ optdepends=('cups: printing support'
 groups=('multimedia')
 source=("https://sourceforge.net/projects/rosegarden/files/${pkgname}/${_pkgver}/${pkgname}-${pkgver}.tar.bz2"
         'qt5.15.diff')
-md5sums=('57801794dca62af44fdbd1e4ac5fc91f'
+md5sums=('242bcbf54af48b45878f6374a85163df'
          '1568185878c8b25fbe88df3aa281e53a')
 
 prepare() {
@@ -26,18 +26,14 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build 
-  
-  make DESTDIR="${pkgdir}" install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
