@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://github.com/KDE/konsole'
@@ -14,21 +14,17 @@ depends=('kbookmarks' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons'
          'knotifications' 'knotifyconfig' 'kparts' 'kpty' 'kservice' 
          'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 'knewstuff')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kde-baseapps-konsole')
-replaces=('kde-baseapps-konsole')
-provides=('kde-baseapps-konsole')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/utilities/konsole/-/commit/3b06b6f22a9bdc0297a03ce45aa95642c08b1dd3.diff")
+        "https://invent.kde.org/utilities/konsole/-/commit/b43548b22c4844db95c628a508199518bd3f4350.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '15cd21faf776341ecfdd51335f5bdced')
+         '2e4098e79c7a72a53886343b27bb00cb')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # revert to make make text selection still visible in all color profiles
-  # https://bugs.kde.org/show_bug.cgi?id=435309
-  #patch -p1 -R -i ${srcdir}/3b06b6f22a9bdc0297a03ce45aa95642c08b1dd3.diff
+  # https://bugs.kde.org/show_bug.cgi?id=437791
+  patch -p1 -i ${srcdir}/b43548b22c4844db95c628a508199518bd3f4350.diff
 }
-         
+
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \

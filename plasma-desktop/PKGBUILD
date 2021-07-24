@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
@@ -22,17 +22,20 @@ provides=('user-kcm')
 source=("https://download.kde.org/stable/plasma/5.18.1/${pkgname}-${pkgver}.tar.xz"
         'layout_desktop_panel.diff'
         'main_desktop_kicker.diff'
+        'main_desktop_kickoff.diff'
         "https://invent.kde.org/plasma/plasma-desktop/-/commit/29f73f1a7ce196af96ef3dd04d1314f9920963f9.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '4cee67971dd83b85ab313acd152bfcd2'
          '22b66401945f92bd9f99e6d334bc306e'
+         '49a47a27ef3f2adf446b4484086dd9b3'
          'df143af1b17f5acbcc8b372824798673')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # adjust default settings for panel, kicker & desktop view
+  # adjust default settings for panel, kickoff, kicker & desktop view
   patch -p1 -i ${srcdir}/layout_desktop_panel.diff
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
+  patch -p1 -i ${srcdir}/main_desktop_kickoff.diff
   sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
   # 5.22Beta
   #patch -p1 -i ${srcdir}/29f73f1a7ce196af96ef3dd04d1314f9920963f9.diff
