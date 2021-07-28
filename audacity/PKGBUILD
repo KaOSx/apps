@@ -1,6 +1,6 @@
 
 pkgname=audacity
-pkgver=3.0.2
+pkgver=3.0.3
 pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('libvorbis' 'libmad' 'libid3tag' 'gtk2' 'lame' 'hicolor-icon-theme' 'ff
 makedepends=('cmake' 'zip' 'pkgconfig')
 options=('!makeflags')
 source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz")
-sha256sums=('9eac298513f506cdeb07fd7c448f7d6a0d3f366b952ce5bb080084168d1ad75a')
+sha256sums=('36fe7079e76f88755d3b3a15584ab4e7587968dddbcc5b12889517dc45a6bf36')
 
 prepare() {
   cd ${pkgname}-Audacity-${pkgver}
@@ -24,7 +24,8 @@ build() {
   cmake -B build -S ${pkgname}-Audacity-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -Daudacity_use_wxwidgets=local
+    -Daudacity_use_wxwidgets=local \
+    -DALWAYS_ALLOW_CONAN_FALLBACK=ON
   cmake --build build
 }
 
