@@ -5,8 +5,8 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=6.1.24
-_pkgver=6.1.24
+pkgver=6.1.26
+_pkgver=6.1.26
 pkgrel=1
 arch=('x86_64')
 url='https://virtualbox.org'
@@ -25,7 +25,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         'include-path.patch'
         'VirtioCore.cpp'
         'VirtioCore.h')
-sha256sums=('3bd7ca9df231418008823e752b046e316843e896b4e608c763302c86146e6966'
+sha256sums=('0212602eea878d6c9fd7f4a3e0182da3e4505f31d25f5539fb8f7b1fbe366195'
             '9c5238183019f9ebc7d92a8582cad232f471eab9d3278786225abc1a1c7bf66e'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             'c7dc4e484c8641e8fbb8e7fb342c7a72534936d6e9212b477ab7e2736fb8be88'
@@ -45,6 +45,7 @@ prepare() {
     sed -i -e 's|.*&& check_makeself||' configure
     sed -i -e 's|smc-napa|smcnapa|' src/VBox/Devices/PC/vbox.dsl
     sed -i -e 's|$(filter-out vboxvideo_drv_%,$(DLLS)) vboxvideo_drv_system|$(filter-out vboxvideo_drv_%,$(DLLS))|' src/VBox/Additions/x11/vboxvideo/Makefile.kmk
+    sed -i -e 's|pkg-config Qt5Core Qt5Gui|pkg-config Qt5Core|' configure
 
     cp ${srcdir}/LocalConfig.kmk .
 
