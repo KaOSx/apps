@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
@@ -14,7 +14,7 @@ depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb' 'libcanberra' 'polkit-kde-
          'kdbusaddons' 'plasma-integration' 'xorg-server' 'signon-oauth2' 'accountsservice'
          'kactivities-stats' 'kaccounts-integration' 'kio-fuse' 'xf86-input-evdev' 
          'xf86-input-libinput' 'xdg-user-dirs' 'kdelibs4support')
-makedepends=('extra-cmake-modules' 'kdoctools' 'xf86-input-synaptics' 'boost' 'intltool' 'valgrind')
+makedepends=('extra-cmake-modules' 'kdoctools' 'xf86-input-synaptics' 'boost' 'intltool')
 groups=('kdeplasma5')
 conflicts=('user-kcm')
 replaces=('user-kcm')
@@ -25,9 +25,9 @@ source=("https://download.kde.org/stable/plasma/5.18.1/${pkgname}-${pkgver}.tar.
         'main_desktop_kickoff.diff'
         "https://invent.kde.org/plasma/plasma-desktop/-/commit/29f73f1a7ce196af96ef3dd04d1314f9920963f9.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '4cee67971dd83b85ab313acd152bfcd2'
+         '7eef3d29bd3a5f4c393782f771f346dc'
          '22b66401945f92bd9f99e6d334bc306e'
-         '49a47a27ef3f2adf446b4484086dd9b3'
+         '52b633331995a436f464ccbfbfa6df24'
          'df143af1b17f5acbcc8b372824798673')
 
 prepare() {

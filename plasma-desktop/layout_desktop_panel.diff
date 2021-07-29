@@ -1,5 +1,5 @@
---- a/layout-templates/org.kde.plasma.desktop.defaultPanel/contents/layout.js	2020-09-18 21:13:18.397201886 +0200
-+++ b/layout-templates/org.kde.plasma.desktop.defaultPanel/contents/layout.js	2020-09-18 21:13:18.300201877 +0200
+--- a/layout-templates/org.kde.plasma.desktop.defaultPanel/contents/layout.js	2021-07-29 16:46:20.507709968 +0200
++++ b/layout-templates/org.kde.plasma.desktop.defaultPanel/contents/layout.js	2021-07-29 16:46:20.577710663 +0200
 @@ -1,6 +1,6 @@
  var panel = new Panel
  var panelScreen = panel.screen
@@ -26,20 +26,12 @@
  } else {
      // There is no free edge, so leave the default value
      panel.location = "top";
-@@ -42,11 +42,12 @@
-     }
- }
+@@ -27,7 +27,7 @@
+ // For an Icons-Only Task Manager on the bottom, *3 is too much, *2 is too little
+ // Round down to next highest even number since the Panel size widget only displays
+ // even numbers
+-panel.height = 2 * Math.floor(gridUnit * 2.5 / 2)
++panel.height = 44 // 2 * Math.floor(gridUnit * 2.5 / 2)
  
--var kickoff = panel.addWidget("org.kde.plasma.kickoff")
--kickoff.currentConfigGroup = ["Shortcuts"]
--kickoff.writeConfig("global", "Alt+F1")
-+var kicker = panel.addWidget("org.kde.plasma.kicker")
-+kicker.currentConfigGroup = ["Shortcuts"]
-+kicker.writeConfig("global", "Alt+F1")
- 
--//panel.addWidget("org.kde.plasma.showActivityManager")
-+panel.addWidget("org.kde.plasma.lock_logout")
-+panel.addWidget("org.kde.plasma.calculator")
- panel.addWidget("org.kde.plasma.pager")
- panel.addWidget("org.kde.plasma.icontasks")
- 
+ // Restrict horizontal panel to a maximum size of a 21:9 monitor
+ const maximumAspectRatio = 21/9;
