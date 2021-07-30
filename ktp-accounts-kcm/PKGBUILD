@@ -4,19 +4,17 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktp-accounts-kcm
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KCM Module for configuring Telepathy Instant Messaging Accounts"
 arch=('x86_64')
-url="https://github.com/KDE/ktp-accounts-kcm"
+url="https://invent.kde.org/network/ktp-accounts-kcm"
 license=('GPL')
 depends=('kcmutils' 'kio' 'ki18n' 'kwidgetsaddons' 'kcoreaddons' 'kconfigwidgets' 'kiconthemes'
          'kitemviews' 'ktp-common-internals' 'kaccounts-providers'
          'telepathy-gabble' 'telepathy-haze' 'telepathy-morse')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost' 'intltool')
 groups=('kde-telepathy')
-conflicts=('kf5-ktp-accounts-kcm')
-replaces=('kf5-ktp-accounts-kcm')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+source=("${_mirror}/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {

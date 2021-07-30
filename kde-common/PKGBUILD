@@ -13,28 +13,27 @@ options=('strip')
 groups=('kde' 'kde-minimal' 'kde-uninstall')
 depends=('qt5-base' 'pinentry' 'openssh' 'bash' 'xclip' 'kdialog')
 install=kde-common.install
-source=("https://dl.opendesktop.org/api/files/download/id/1485341541/rootactions_servicemenu_2.9.1.tar.gz"
-        'CopyPath.desktop'
-	#"http://www.kde-apps.org/CONTENT/content-files/102825-compressattach.desktop.bz2"
-	'servicemenu-rootactions.patch'
-	'sysinfo.sh'
-	'agent-startup.sh'
-	'agent-shutdown.sh'
-	'skype.desktop'
-	'skype.svg'
-	'md5sha1calc.sh'
-	'md5sha1calc.desktop'
-	'bak.desktop'
-	'bak-restore.desktop'
-	'checkiso.sh'
-	'checkiso.desktop'
-	'org.freedesktop.blkid.policy'
-	'org.freedesktop.head.policy'
-	"https://dl.opendesktop.org/api/files/download/id/1463155225/176001-kompare_servicemenu.desktop"
-	'system.md')
+#source=("https://dl.opendesktop.org/api/files/download/id/1485341541/rootactions_servicemenu_2.9.1.tar.gz"
+source=('CopyPath.desktop'
+        #"http://www.kde-apps.org/CONTENT/content-files/102825-compressattach.desktop.bz2"
+        'servicemenu-rootactions.patch'
+        'sysinfo.sh'
+        'agent-startup.sh'
+        'agent-shutdown.sh'
+        'skype.desktop'
+        'skype.svg'
+        'md5sha1calc.sh'
+        'md5sha1calc.desktop'
+        'bak.desktop'
+        'bak-restore.desktop'
+        'checkiso.sh'
+        'checkiso.desktop'
+        'org.freedesktop.blkid.policy'
+        'org.freedesktop.head.policy'
+        "https://dl.opendesktop.org/api/files/download/id/1463155225/176001-kompare_servicemenu.desktop"
+        'system.md')
   
-md5sums=('44769ab05560bb1ba5a69a30be8b1c92'
-         '091595cec9e9e4222daedee71c01bc70'
+md5sums=('091595cec9e9e4222daedee71c01bc70'
          'e815fcdba963a79cd39989182df1a994'
          'cdb4a289c5cfbf55590327ced615e57a'
          '2c479e69c92e7f6a1dd9cfb03ed8ee4f'
@@ -61,18 +60,18 @@ package() {
 	#install -D -m755 -o root -g root ${srcdir}/sysinfo.sh ${pkgdir}/usr/bin/sysinfo
 
 	# install root actions service menu
-	cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1/dolphin-KDE4/
+	#cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1/dolphin-KDE4/
 	mkdir -p ${pkgdir}/usr/share/kservices5/ServiceMenus/
-	install -m755 10-rootactionsfolders.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/
+	#install -m755 10-rootactionsfolders.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/
 	
-    cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1
-    patch -p2 < ${srcdir}/servicemenu-rootactions.patch      
-	install -Dm755 rootactions-servicemenu.pl ${pkgdir}/usr/bin/rootactions-servicemenu.pl
-        sed "s|Icon=terminal|Icon=utilities-terminal|g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/10-rootactionsfolders.desktop
+    #cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1
+    #patch -p2 < ${srcdir}/servicemenu-rootactions.patch      
+	#install -Dm755 rootactions-servicemenu.pl ${pkgdir}/usr/bin/rootactions-servicemenu.pl
+        #sed "s|Icon=terminal|Icon=utilities-terminal|g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/10-rootactionsfolders.desktop
         #sed "s|Icon=terminal|Icon=utilities-terminal|g" -i ${pkgdir}/usr/share/kservices5/ServiceMenus/11-rootactionsfiles.desktop
         
-    cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1/krusader-KDE4/
-    install -Dm644 krusader_rootactions.xml ${pkgdir}/usr/share/krusader/krusader_rootactions.xml
+    #cd ${srcdir}/rootactions_servicemenu_2.9.1/Root_Actions_2.9.1/krusader-KDE4/
+    #install -Dm644 krusader_rootactions.xml ${pkgdir}/usr/share/krusader/krusader_rootactions.xml
  
 	# install all other service menus
 	install -m755 ${srcdir}/CopyPath.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/CopyPath.desktop

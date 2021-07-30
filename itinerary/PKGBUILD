@@ -16,7 +16,7 @@ makedepends=('extra-cmake-modules')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 # Need to set manually, automated also picks up md5 of kitinerary
-md5sums=('c17f85f686d105132f2814286056e4a1')
+md5sums=('afa17e5ec6ae10e9e151fbd1d4251a4d')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -36,5 +36,5 @@ build() {
 
 package() {
 
-  DESTDIR=${pkgdir} cmake --install build 
+  DESTDIR=${pkgdir} cmake --install build
 }

@@ -4,18 +4,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktp-auth-handler
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Provide UI/KWallet Integration for passwords and ssl errors on account connect"
 arch=('x86_64')
-url="https://projects.kde.org/projects/extragear/network/telepathy/ktp-auth-handler/"
+url="https://invent.kde.org/network/ktp-auth-handler"
 license=('GPL')
 depends=('kwallet' 'kwidgetsaddons' 'ki18n' 'kio' 'ktp-common-internals' 
          'kaccounts-integration' 'qca-qt5' 'signon-ui' 'signon-oauth2' 'signon-kwallet-extension')
-makedepends=('extra-cmake-modules' 'kdoctools' 'git')
-conflicts=('kf5-ktp-auth-handler')
-replaces=('kf5-ktp-auth-handler')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde-telepathy')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+source=("${_mirror}/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {

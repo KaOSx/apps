@@ -4,17 +4,17 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
-url='https://github.com/KDE/konsole'
+url='https://konsole.kde.org/'
 license=('LGPL')
 depends=('kbookmarks' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons'
          'kguiaddons' 'kdbusaddons' 'ki18n' 'kiconthemes' 'kinit' 'kio'
          'knotifications' 'knotifyconfig' 'kparts' 'kpty' 'kservice' 
          'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 'knewstuff')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
+source=("${_mirror}/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/utilities/konsole/-/commit/b43548b22c4844db95c628a508199518bd3f4350.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '2e4098e79c7a72a53886343b27bb00cb')

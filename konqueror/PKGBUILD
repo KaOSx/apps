@@ -4,16 +4,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konqueror
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE File Manager & Web Browser"
 arch=('x86_64')
-url='https://github.com/KDE/konqueror'
+url='https://apps.kde.org/konqueror/'
 license=('LGPL')
 depends=('kparts' 'kcmutils' 'karchive' 'kcrash' 'kwindowsystem' 'kinit' 'kiconthemes' 'kdbusaddons'
          'kwidgetsaddons' 'kdesu' 'kio' 'ki18n' 'kfind' 'kdialog' 'keditbookmarks' 'kguiaddons'
          'kactivities' 'tidyhtml' 'qtwebengine' 'qt5-location')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 groups=('kde-system')
 
@@ -26,21 +26,18 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DKDE_INSTALL_LIBDIR=lib
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
