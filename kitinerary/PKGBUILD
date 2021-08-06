@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kitinerary
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Library containing itinerary data model and itinerary extraction code."
 url="https://invent.kde.org/pim/kitinerary/"
@@ -24,7 +24,7 @@ prepare() {
   # zxing 1.1.0 needed
   #patch -p1 -i ${srcdir}/8bf24e2372b142f1a2189ad951fa396c5a4e0e74.diff
   # poppler 21.08 needed
-  patch -p1 -i ${srcdir}/e99d101e2bd4c32566e238ce1340a93781e19eee.diff
+  #patch -p1 -i ${srcdir}/e99d101e2bd4c32566e238ce1340a93781e19eee.diff
 }
 
 build() {
