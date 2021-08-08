@@ -1,8 +1,9 @@
 
 pkgname=0ad
-pkgver=a24.b
-_pkgver=0.0.24b-alpha
-pkgrel=3
+pkgver=alpha25
+_pkgver=0.0.25-alpha
+__pkgver=0.0.25-rc5-25848-alpha
+pkgrel=1
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="https://play0ad.com/"
@@ -15,7 +16,7 @@ makedepends=('boost' 'cmake' 'zip' 'python3' 'rust')
 source=("https://releases.wildfiregames.com/${pkgname}-${_pkgver}-unix-build.tar.xz"
         'icu1.68.patch'
         '0ad-fcollada.patch')
-sha1sums=('d6f0e2a87d59d6ffd46aee2ac450bde9b6df3715'
+sha1sums=('67a9d619699e2ff415a3d5a1bbe73292a020da9f'
           'f703537288d133fcd1a0f8a15b73d9ce05b62771'
           '6fa4ea6d4e1ff119a32b36a78b426baaee56180a')
 
@@ -27,7 +28,7 @@ sha1sums=('d6f0e2a87d59d6ffd46aee2ac450bde9b6df3715'
 #}
 
 build() {
-  cd ${pkgname}-${_pkgver}/build/workspaces
+  cd ${pkgname}-${__pkgver}/build/workspaces
 
   unset CPPFLAGS 
 
@@ -45,7 +46,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${_pkgver}/
+  cd ${pkgname}-${__pkgver}/
   install -d ${pkgdir}/usr/{bin,lib/0ad,share/${pkgname}/data}
 
   install -Dm755 binaries/system/pyrogenesis ${pkgdir}/usr/bin
