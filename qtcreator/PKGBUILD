@@ -42,8 +42,10 @@ build() {
     -DIDE_LIBEXEC_PATH=lib \
     -DBUILD_WITH_PCH=OFF \
     -DENABLE_SVG_SUPPORT=ON \
-    -DWITH_DOCS=ON
+    -DWITH_DOCS=ON \
+    -DBUILD_DEVELOPER_DOCS=ON
   cmake --build build
+  cmake --build build --target docs
 
   #/usr/lib/qt5/bin/qmake LLVM_INSTALL_DIR=/usr KSYNTAXHIGHLIGHTING_LIB_DIR=/usr/lib QMAKE_CFLAGS_ISYSTEM=-I ${srcdir}/qt-#creator-opensource-src-${__pkgver}/qtcreator.pro
   #make 
@@ -53,8 +55,7 @@ build() {
 package() {
   DESTDIR=${pkgdir} cmake --install build
 
-  #install -Dm644 ${srcdir}/qtcreator.desktop \
-  #  ${pkgdir}/usr/share/applications/qtcreator.desktop
+  cp -r build/share/doc ${pkgdir}/usr/share
   install -Dm644 ${_pkgname}-${__pkgver}/LICENSE.GPL3-EXCEPT \
     ${pkgdir}/usr/share/licenses/qtcreator/LICENSE.GPL3-EXCEPT
 }
