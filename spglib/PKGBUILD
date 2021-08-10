@@ -1,7 +1,7 @@
  
 pkgname=spglib
-pkgver=1.16.1
-pkgrel=2
+pkgver=1.16.2
+pkgrel=1
 pkgdesc="Library for finding and handling crystal symmetries written in C."
 arch=("x86_64")
 url="https://spglib.github.io/spglib/"
@@ -9,11 +9,11 @@ license=('custom')
 depends=('glibc')
 makedepends=('cmake')
 source=("https://github.com/spglib/spglib/archive/v${pkgver}.tar.gz")
-md5sums=('1933e2252a0e708951ee476eb93f6495')
+md5sums=('557db34280e1a5a20992f9c29ea82c6e')
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  
+
   #sed -i 's|${CMAKE_INSTALL_INCLUDEDIR}|${CMAKE_INSTALL_INCLUDEDIR}/spglib|' CMakeLists.txt
   #sed -i 's|${PROJECT_SOURCE_DIR}/include|${pkgdir}/usr/include/spglib|' CMakeLists.txt
 }      
@@ -26,8 +26,7 @@ build() {
 }
 
 package() {
-
   DESTDIR=${pkgdir} cmake --install build
-  
+
   install -Dm644 ${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
