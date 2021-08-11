@@ -1,6 +1,6 @@
 
 pkgname=nodejs
-pkgver=16.6.1
+pkgver=16.6.2
 pkgrel=1
 pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications."
 arch=('x86_64')
@@ -12,7 +12,7 @@ checkdepends=('curl')
 options=('!emptydirs')
 #source=("https://github.com/nodejs/node/archive/v${pkgver}.tar.gz")
 source=("https://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.xz")
-sha256sums=('79b1ea058cc67f2a69462cd5f2467a1efe08c64299c053da70384ce1a0e3e557')
+sha256sums=('8794cba1f971e4200a38690c76d7cc0a3bd1cba96fbf4305dfbe21fc459d79eb')
 
 build() {
   cd node-v${pkgver}
@@ -20,10 +20,10 @@ build() {
   ./configure --prefix=/usr \
     --with-intl=system-icu \
     --shared-openssl \
-    --shared-cares \
     --shared-libuv \
     --experimental-http-parser \
-    --shared-zlib 
+    --shared-zlib
+    #--shared-cares \
   make
 }
 
@@ -36,7 +36,6 @@ check() {
 package() {
   cd node-v${pkgver}
   make install DESTDIR=${pkgdir}
-
 
   install -d ${pkgdir}/usr/share/doc/nodejs
   cp -r doc/api/* ${pkgdir}/usr/share/doc/nodejs
