@@ -1,6 +1,6 @@
 
 pkgname=thunderbird
-pkgver=78.13.0
+pkgver=91.0
 pkgrel=1
 pkgdesc="Standalone Mail/News reader"
 arch=('x86_64')
@@ -15,7 +15,7 @@ groups=('network-email')
 source=("https://ftp.mozilla.org/pub/mozilla.org/thunderbird/releases/${pkgver}/linux-x86_64/en-US/thunderbird-${pkgver}.tar.bz2"
         'thunderbird.desktop'
         'vendor.js')
-sha256sums=('97515bda6e141aef0d74696db3459711985f7fb526ca0e2d7544725d72f5fb3b'
+sha256sums=('74776e073932dc77d24bf8967b6ff09052c3be7f8b78d82fd4684ed395f633e4'
             '8d0b499b3009934f66fd10975acee985fe64a8c0447918b309b8c5e6a5aa4372'
             'd283af3d8b65c3ad73fa831b6aa904ed6bc4487976d9906d4da6ad9953cfb522')
 
@@ -30,9 +30,9 @@ package() {
   for i in 16x16 22x22 24x24 32x32 48x48 64x64 128x128; do
       install -Dm644 thunderbird/chrome/icons/default/default${i/x*/}.png ${pkgdir}/usr/share/icons/hicolor/$i/apps/thunderbird.png
   done
-  
+
   install -Dm644 thunderbird.desktop ${pkgdir}/usr/share/applications/thunderbird.desktop
-  
+
   rm -rf ${pkgdir}/opt/${pkgname}-${pkgver}/dictionaries/
   ln -sf /usr/share/hunspell/ ${pkgdir}/opt/${pkgname}-${pkgver}/dictionaries
   ln -sf /usr/share/hyphen/ ${pkgdir}/opt/${pkgname}-${pkgver}/hyphenation
