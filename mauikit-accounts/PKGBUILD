@@ -1,0 +1,25 @@
+
+pkgname=mauikit-accounts
+pkgver=2.0.0
+pkgrel=1
+arch=('x86_64')
+pkgdesc="MauiKit utilities to handle User Accounts"
+url="https://invent.kde.org/maui/mauikit-accounts"
+license=('GPL3')
+depends=('mauikit' 'kconfig')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/stable/maui/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('4678793bde2ef41a5d7486b08055ed33dfd5ec4d515936656265233e1f7d4a2a')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
