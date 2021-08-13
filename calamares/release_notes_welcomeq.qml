@@ -51,18 +51,21 @@ Rectangle {
             wrapMode: Text.WordWrap
 
             text: qsTr("<h3>KaOS - 2021.08</h3>
-            <p>KaOS is pleased to announce the availability of the August release of a new stable ISO.</p>
+            <p>It is with great pleasure to present to you the August release of a new stable ISO.</p>
             
-            <p>You will find Plasma 5.22 on this ISO. Highlights of this new major version include the big new feature Adaptive Transparency: This means the panel and panel widgets will usually be pleasantly translucent, but will become entirely opaque if there are any maximized window, a transition to Plasma System Monitor from the older KSysguard as the default system monitoring app and Plasma Wayland session now supports Activities: a classic feature unique to the Plasma desktop that allows you to have completely different environments for different aspects of your computing life, other KWin Wayland improvements include the Present Windows effect. New in Plasma 5.22, System Settings opens up on a speed dial page that gives you direct access to the most commonly used settings, as well as to the ones you have accessed most.</p>
+            <p>Biggest news for this release are major changes in the aesthetics. The Midna theme has been redone, 
+            this includes a uniform look for SDDM and lockscreen with a (darker) transparent sidebar, cleaner splash-screen and darker logout look. The application menu has moved from the long used cascading menu option to the all new kickoff menu introduced with Plasma 5.22.< /br>
+            About eighteen months ago, KaOS set out to overhaul all the Calamares view modules into QML, this has now been almost completed (just one left, the partitioning). This release adds another two new QML converted modules, the users and summary pages.  It took a while, but now some other distributions are starting to use the KaOS converted modules too. The QML move gives Calamares a much more modern and uniform look with the other KaOS QML applications.
             
-            <p>The installer Calamares has two new QML modules.  KaOS has ported the Packagechooser to QML, resulting in a clearer and more consistent layout, and giving the option to fully translate this module in the normal Transifex location.  The offline Locale module is now also ready for QML. The regular Locale module uses an interactive map, needing a network connection, so it is good to have to offline QML option also fully working.</p>
+            <p>Of course is it is not just aesthetics for this release, the updates to packages are numerous, some 70 %
+            are new.< /br>
+            You will find KDE Applications 21.08 on this ISO. Highlights of this new major version include animated sequence of previews in Dolphin, if a folder contains a lot of previewable files. Easier to rename several files in Dolphin with `F2` and `TAB`. Konsole has color and image previews added, just typing a color will show it on hovering and it has an SSH plugin added to work with machines you regularly connect to. In Kdenlive, changing the speed of a clip is now a keyframeable effect.< /br>
+            For the Plasma desktop the latest Plasma (5.22.4) and Frameworks (5.85.0) are included.  All built on Qt 5.15.2+.< /br>
+            Updates to the base of this distribution include Systemd 249.3, Curl 7.78.0, IWD 1.16, NetworkManager 1.32.8, Mesa 21.1.7, Poppler 21.08.0, Vulkan packages 1.2.187, Udisks 2.9.3, MLT 7.0.1 and Openexr 3.1.1.< /br>
+            Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.
+            </p>
             
-            <p>As always with this rolling distribution, you will find the very latest packages for the Plasma Desktop, this includes Frameworks 5.85.0, Plasma 5.22.4 and KDE Applications 21.08.0. All built on Qt 5.15.2+.</p>
-            
-            <p>New applications added include Maliit virtualkeyboard packages.</p>
-            
-            <p>Updates to the base of this distribution were numerous and include a new ICU 69.1 & Boost 1.76.0 stack, Systemd 249.3, Glib2 2.68.3 with the whole glib/gobject group updated, Grub 2.06, Git 2.32.0, Hwids 20210613, Protobuf 3.17, Dracut 055, Poppler 21.08.0, Mesa 21.1.6, NetworkManager 1.32.6, ZSTD 1.5.0, Kmod 29.< /br>
-            Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.</p>
+            <p>New applications added include speedtest-cli, mauikit-accounts. Biggest change here is the addition of Plasma Mobile Apps, that are very suitable for desktop use. They include Angelfish (web-browser), Kasts (pocasts), Kalk (calculator) and Koko (image viewer).</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
@@ -84,12 +87,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.85.0, Plasma 5.22.4, KDE Applications 21.08.0</b>, Linux 5.12.13, Systemd 249.3, Kmod 29, NetworkManager 1.32.6, LibreOffice 7.1.5, Krita 4.4.7, Elisa, Xorg-Server 1.20.13, Mesa 21.1.6, Glibc 2.33, GCC 10.3.0, non-free Nvidia 470 and Python3 3.8.11 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.85.0, Plasma 5.22.4, KDE Applications 21.08.0</b>, Linux 5.13.10, Systemd 249.3, Kmod 29, NetworkManager 1.32.8, LibreOffice 7.1.5, Krita 4.4.7, Elisa, Xorg-Server 1.20.13, Mesa 21.1.7, Glibc 2.33, GCC 10.3.0, non-free Nvidia 470 and Python3 3.8.11 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.11.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.11, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 90.0, Chrome 94, Ardour 6.8.0, Inkscape 1.1, GIMP 2.10.24 and Thunderbird 78.12.0.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 91.0, Chrome 94, Ardour 6.9.0, Inkscape 1.1, GIMP 2.10.24 and Thunderbird 91.0.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
