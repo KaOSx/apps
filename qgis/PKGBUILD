@@ -17,20 +17,24 @@ depends=('mariadb' 'postgresql-libs' 'sqlite' 'curl' 'giflib' 'gsl'
 makedepends=('cmake'  'netcdf' 'sip3' 'qt5-tools') 
 source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
         'qt5.15.diff'
-        "https://github.com/qgis/QGIS/commit/fc1ac8bef8dcc3194857ecd32519aca4867b4fa1.diff")
+        "https://github.com/qgis/QGIS/commit/6f9cbde7c782274ebe5875da7dbac98d68e9827b.diff"
+        "https://github.com/qgis/QGIS/commit/581cb40603dd3daca2916b564a4cd2630d005556.diff")
 sha256sums=('cbc55a05d88e27251c36319ca99882541f3e6892c9f557117bb6f9ca7a279e6d'
             'b0b34ab28bf56f5a60366847df59f755cbb26af597c378959aa79f8c068c1b03'
-            '96197890f155659fd7cfb34e6cf9149b650230949d4c88b5d2b62738031c23ac') 
+            '1064c4c37b0a385a4c9b4b1bcd5109ba89f2aaec4bb9279f17d895222342eddc'
+            '2ec84d5bf9c0622f3d67e3cbd942f6b91a62fc1b10efe3ffd4bfa48e2bc4c135') 
          
 prepare() {
      cd ${pkgname}-${pkgver}
      
-     # proj 8
-     #patch -p1 -i ${srcdir}/fc1ac8bef8dcc3194857ecd32519aca4867b4fa1.diff
+     # qwt 6.2
+     patch -p1 -i ${srcdir}/6f9cbde7c782274ebe5875da7dbac98d68e9827b.diff
+     patch -p1 -i ${srcdir}/581cb40603dd3daca2916b564a4cd2630d005556.diff
+
      sed -i -e 's|qt/Qca-qt5/QtCrypto|qt5/Qca-qt5/QtCrypto|' cmake/FindQCA.cmake
      sed -i -e 's|set(QWT_LIBRARY_NAMES qwt-qt5 qwt6-qt5)|set(QWT_LIBRARY_NAMES qwt qwt6)|' cmake/FindQwt.cmake
      #sed -i -e 's|libqt5scintilla2|libqtscintilla2|' cmake/FindQScintilla.cmake
-     
+
      sed -i 's/\(env \|\/usr\/bin\/\)python$/&3/' $(find . -iname "*.py")
 }
 
@@ -41,8 +45,8 @@ prepare() {
         -DCMAKE_SKIP_RPATH=ON \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DQGIS_MANUAL_SUBDIR=share/man \
-        -DWITH_QWTPOLAR=TRUE \
-        -DWITH_INTERNAL_QWTPOLAR=TRUE \
+        -DWITH_QWTPOLAR=FALSE \
+        -DWITH_INTERNAL_QWTPOLAR=FALSE \
         -DWITH_QTWEBKIT=FALSE
     cmake --build build
 }
