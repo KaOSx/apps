@@ -1,7 +1,7 @@
 
 pkgname=qgis
 _pkgname=QGIS
-pkgver=3.20.1
+pkgver=3.20.2
 _commit=7dbe4943d606b8acd879dd6ed9e38542e3ab0bab
 pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
@@ -18,7 +18,7 @@ makedepends=('cmake'  'netcdf' 'sip3' 'qt5-tools')
 source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
         'qt5.15.diff'
         "https://github.com/qgis/QGIS/commit/fc1ac8bef8dcc3194857ecd32519aca4867b4fa1.diff")
-sha256sums=('a4209df4d5b1a2ffb1c8c3e0d2f0b17ccea118197b43fbb1185e5dcdf0bc520d'
+sha256sums=('cbc55a05d88e27251c36319ca99882541f3e6892c9f557117bb6f9ca7a279e6d'
             'b0b34ab28bf56f5a60366847df59f755cbb26af597c378959aa79f8c068c1b03'
             '96197890f155659fd7cfb34e6cf9149b650230949d4c88b5d2b62738031c23ac') 
          
@@ -41,9 +41,8 @@ prepare() {
         -DCMAKE_SKIP_RPATH=ON \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DQGIS_MANUAL_SUBDIR=share/man \
-        -DPYTHON_EXECUTABLE=/usr/bin/python3 \
         -DWITH_QWTPOLAR=TRUE \
-        -DWITH_INTERNAL_QWTPOLAR=FALSE \
+        -DWITH_INTERNAL_QWTPOLAR=TRUE \
         -DWITH_QTWEBKIT=FALSE
     cmake --build build
 }
