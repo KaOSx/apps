@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=4
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-desktop'
@@ -19,7 +19,7 @@ groups=('kdeplasma5')
 conflicts=('user-kcm')
 replaces=('user-kcm')
 provides=('user-kcm')
-source=("https://download.kde.org/stable/plasma/5.18.1/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/plasma/5.22.4/${pkgname}-${pkgver}.tar.xz"
         'layout_desktop_panel.diff'
         'main_desktop_kicker.diff'
         'main_desktop_kickoff.diff'
@@ -27,7 +27,7 @@ source=("https://download.kde.org/stable/plasma/5.18.1/${pkgname}-${pkgver}.tar.
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '7eef3d29bd3a5f4c393782f771f346dc'
          '22b66401945f92bd9f99e6d334bc306e'
-         '52b633331995a436f464ccbfbfa6df24'
+         '2bd3631a318fd8b370396eb42c8aebf0'
          'df143af1b17f5acbcc8b372824798673')
 
 prepare() {

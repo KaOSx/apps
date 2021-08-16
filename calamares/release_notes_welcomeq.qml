@@ -54,7 +54,7 @@ Rectangle {
             <p>It is with great pleasure to present to you the August release of a new stable ISO.</p>
             
             <p>Biggest news for this release are major changes in the aesthetics. The Midna theme has been redone, 
-            this includes a uniform look for SDDM and lockscreen with a (darker) transparent sidebar, cleaner splash-screen and darker logout look. The application menu has moved from the long used cascading menu option to the all new kickoff menu introduced with Plasma 5.22.< /br>
+            this includes a uniform look for SDDM and lockscreen with a (darker) transparent sidebar, cleaner splash-screen and darker logout look. The application menu has moved from the long used cascading menu option to the all new Application Launcher introduced with Plasma 5.22.< /br>
             About eighteen months ago, KaOS set out to overhaul all the Calamares view modules into QML, this has now been almost completed (just one left, the partitioning). This release adds another two new QML converted modules, the users and summary pages.  It took a while, but now some other distributions are starting to use the KaOS converted modules too. The QML move gives Calamares a much more modern and uniform look with the other KaOS QML applications.
             
             <p>Of course is it is not just aesthetics for this release, the updates to packages are numerous, some 70 %
@@ -65,7 +65,9 @@ Rectangle {
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.
             </p>
             
-            <p>New applications added include speedtest-cli, mauikit-accounts. Biggest change here is the addition of Plasma Mobile Apps, that are very suitable for desktop use. They include Angelfish (web-browser), Kasts (pocasts), Kalk (calculator) and Koko (image viewer).</p>
+            <p>The installer Calamares now also has the ability added to carry over the network settings from the Live system, so no longer a need to enter the Wifi password again on booting into the newly installed system.</p>
+            
+            <p>New applications added include speedtest-cli, mauikit-accounts and bibletime. Biggest change here is the addition of Plasma Mobile Apps, that are very suitable for desktop use. They include Angelfish (web-browser), Kasts (pocasts), Kalk (calculator) and Koko (image viewer).</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
@@ -87,7 +89,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.85.0, Plasma 5.22.4, KDE Applications 21.08.0</b>, Linux 5.13.10, Systemd 249.3, Kmod 29, NetworkManager 1.32.8, LibreOffice 7.1.5, Krita 4.4.7, Elisa, Xorg-Server 1.20.13, Mesa 21.1.7, Glibc 2.33, GCC 10.3.0, non-free Nvidia 470 and Python3 3.8.11 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.85.0, Plasma 5.22.4, KDE Applications 21.08.0</b>, Linux 5.13.11, Systemd 249.3, Kmod 29, NetworkManager 1.32.8, LibreOffice 7.1.5, Krita 4.4.7, Elisa, Xorg-Server 1.20.13, Mesa 21.1.7, Glibc 2.33, GCC 10.3.0, non-free Nvidia 470 and Python3 3.8.11 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 5.2.2</strong>, with the simple but powerful Octopi 0.11.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
