@@ -1,6 +1,6 @@
 
 pkgname=go
-pkgver=1.16.7
+pkgver=1.17
 pkgrel=1
 pkgdesc='Google Go compiler and tools (release version)'
 arch=('x86_64')
@@ -12,7 +12,7 @@ options=('!strip' 'staticlibs')
 install="${pkgname}.install"
 # check for versions: http://golang.org/dl/
 source=("https://storage.googleapis.com/golang/${pkgname}${pkgver}.linux-amd64.tar.gz")
-sha256sums=('7fe7a73f55ba3e2285da36f8b085e5c0159e9564ef5f63ee0ed6b818ade8ef04')
+sha256sums=('6bf89fc4f5ad763871cf7eac80a2d594492de7a818303283f1366a7f6a30372d')
 
 build() {
   cd go/src
@@ -89,8 +89,6 @@ package() {
   install -Dm755 src/make.bash "${pkgdir}/usr/lib/go/src/make.bash"
   install -Dm755 src/run.bash "${pkgdir}/usr/lib/go/src/run.bash"
   cp -r misc/ "${pkgdir}/usr/lib/go/"
-
-  install -Dm644 favicon.ico "${pkgdir}/usr/lib/go/favicon.ico"
 
   rm -f "${pkgdir}/usr/share/go/doc/articles/wiki/get.bin"
   rm -rf "${pkgdir}"/usr/lib/go/pkg/obj/go-build/*
