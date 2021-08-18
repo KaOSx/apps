@@ -1,6 +1,6 @@
 
 pkgname=nodejs
-pkgver=16.6.2
+pkgver=16.7.0
 pkgrel=1
 pkgdesc="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications."
 arch=('x86_64')
@@ -12,11 +12,11 @@ checkdepends=('curl')
 options=('!emptydirs')
 #source=("https://github.com/nodejs/node/archive/v${pkgver}.tar.gz")
 source=("https://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.xz")
-sha256sums=('8794cba1f971e4200a38690c76d7cc0a3bd1cba96fbf4305dfbe21fc459d79eb')
+sha256sums=('fa85fdfbd378e587fa04ad9548e7c9f50e690af9575730d3b330cba6fc3f2d37')
 
 build() {
   cd node-v${pkgver}
-  
+
   ./configure --prefix=/usr \
     --with-intl=system-icu \
     --shared-openssl \
