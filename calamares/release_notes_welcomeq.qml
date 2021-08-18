@@ -55,7 +55,7 @@ Rectangle {
             
             <p>Biggest news for this release are major changes in the aesthetics. The Midna theme has been redone, 
             this includes a uniform look for SDDM and lockscreen with a (darker) transparent sidebar, cleaner splash-screen and darker logout look. The application menu has moved from the long used cascading menu option to the all new Application Launcher introduced with Plasma 5.22.< /br>
-            About eighteen months ago, KaOS set out to overhaul all the Calamares view modules into QML, this has now been almost completed (just one left, the partitioning). This release adds another two new QML converted modules, the users and summary pages.  It took a while, but now some other distributions are starting to use the KaOS converted modules too. The QML move gives Calamares a much more modern and uniform look with the other KaOS QML applications.
+            About eighteen months ago, KaOS set out to overhaul all the Calamares view modules into QML, this has now been almost completed (just one left, the partitioning). This release adds another two new QML converted modules, the users and summary pages.  It took a while, but now some other distributions are starting to use the KaOS converted modules too. The QML move gives Calamares a much more modern and uniform look with the other KaOS QML applications.</p>
             
             <p>Of course is it is not just aesthetics for this release, the updates to packages are numerous, some 70 %
             are new.< /br>
@@ -65,9 +65,11 @@ Rectangle {
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.
             </p>
             
-            <p>The installer Calamares now also has the ability added to carry over the network settings from the Live system, so no longer a need to enter the Wifi password again on booting into the newly installed system.</p>
+            <p>The installer Calamares now also has the ability added to carry over the network settings from the Live system, so no longer a need to enter the Wifi password again on booting into the newly installed system. There now also is an option to select the preferred filesystem when using the automated partitioning.</p>
             
             <p>New applications added include speedtest-cli, mauikit-accounts and bibletime. Biggest change here is the addition of Plasma Mobile Apps, that are very suitable for desktop use. They include Angelfish (web-browser), Kasts (pocasts), Kalk (calculator) and Koko (image viewer).</p>
+            
+            <p>Big thanks goes to <strong>Fosshost</strong> for not only providing the default mirror (through the <strong>Fastly CDN</strong>, but also providing a server for KaOS. This server is replacing the old Centos server (used for package upload, ZNC bouncer and the old PHP based package viewer).</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
