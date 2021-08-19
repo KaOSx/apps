@@ -2,29 +2,33 @@
 # stay with 2.6 until glabel is ready for newer
 pkgname=zint
 pkgver=2.6.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Suite of programs to allow easy encoding of data in any of the wide range of public domain barcode standards"
 arch=('x86_64')
-url="http://zint.org.uk/"
+url="https://zint.org.uk/"
 license=('GPL3')
 depends=('libpng' 'qt5-base')
 makedepends=('cmake' 'qt5-tools')
-source=("https://downloads.sourceforge.net/zint/${pkgname}-${pkgver}.tar.gz")
-md5sums=('46c7c22dd1268c66be9293ddbe11506c')
+source=("https://downloads.sourceforge.net/zint/${pkgname}-${pkgver}.tar.gz"
+        'qzint.diff')
+md5sums=('46c7c22dd1268c66be9293ddbe11506c'
+         '0b7c392a1d5f0ccda4215cbbc2606f7c')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/qzint.diff
+}
 
 build() {
-    mkdir -p build
-    cd build
-
-    cmake ../${pkgname}-${pkgver} \
+    cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release
-    make
+    cmake --build build
 }
 
 package() {
-    cd build
+    DESTDIR=${pkgdir} cmake --install build
 
-    make DESTDIR=${pkgdir} install
-    install -Dm644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+    install -Dm644 ${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
 }

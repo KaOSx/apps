@@ -1,8 +1,8 @@
 
 pkgname=glabels
 pkgver=3.99
-_pkgver=3.99-master561
-pkgrel=1
+_pkgver=3.99-master564
+pkgrel=2
 pkgdesc="Development version of the next major version of gLabels, Label Designer (Qt/C++)"
 arch=('x86_64')
 url="https://github.com/jimevins/glabels-qt"
@@ -10,21 +10,17 @@ license=('GPL3')
 depends=('qrencode' 'qt5-svg' 'zint')
 makedepends=('cmake' 'qt5-tools')
 source=("https://github.com/jimevins/glabels-qt/archive/${pkgname}-${_pkgver}.tar.gz")
-md5sums=('6d68b9a4883080fc0657cbfca7070dba')
+md5sums=('4b415511fdd615420be18837d03ef7b9')
 
 build() {
-    mkdir -p build
-    cd build
-
-    cmake ../glabels-qt-${pkgname}-${_pkgver} \
+    cmake -B build -S glabels-qt-${pkgname}-${_pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release
-    make
+    cmake --build build
 }
 
 package() {
-    cd build
+    DESTDIR=${pkgdir} cmake --install build
 
-    make DESTDIR=${pkgdir} install
-    install -Dm644 ../glabels-qt-${pkgname}-${_pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+    install -Dm644 glabels-qt-${pkgname}-${_pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
