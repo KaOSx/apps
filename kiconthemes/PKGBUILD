@@ -4,41 +4,40 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kiconthemes
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=3
 pkgdesc='KIconThemes'
 arch=('x86_64')
-url='https://projects.kde.org/projects/frameworks/kiconthemes'
+url='https://invent.kde.org/frameworks/kiconthemes'
 license=('LGPL')
 depends=('qt5-svg' 'kconfigwidgets' 'kitemviews')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/5.51/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/kiconthemes/commit/e0006451d5b03a9e15277ad9e7b1c8a74864b532.diff")
+        "https://invent.kde.org/frameworks/kiconthemes/-/commit/a1a49a3d153798ed22ac5b6eba1883ef06756339.diff"
+        "https://invent.kde.org/frameworks/kiconthemes/-/commit/ed30c6c5bad397444f78a70f89b2f4aec152466c.diff")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '5d398c86272650f26f0da7dbae1ecfc4')
+         'd5d605d0ca5c36625145d4d4fbddd174'
+         'b50114d80e9fc52246cbaeab7ce6eadf')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
-  #patch -p1 -i ${srcdir}/e0006451d5b03a9e15277ad9e7b1c8a74864b532.diff
+
+  patch -p1 -R -i ${srcdir}/a1a49a3d153798ed22ac5b6eba1883ef06756339.diff
+  patch -p1 -R -i ${srcdir}/ed30c6c5bad397444f78a70f89b2f4aec152466c.diff
 }
 
 build() {
-  mkdir -p build 
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR="${pkgdir}" install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

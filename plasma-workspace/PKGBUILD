@@ -56,7 +56,8 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_DISABLE_FIND_PACKAGE_PackageKitQt5=ON
   cmake --build build
 }
 
