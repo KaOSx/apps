@@ -2,12 +2,12 @@
 pkgname=inkscape
 pkgver=1.1
 _commit=2021-05-24_c4e8f9ed74
-pkgrel=4
+pkgrel=5
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
 license=('GPL' 'LGPL')
-depends=('poppler' 'imagemagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
+depends=('poppler' 'graphicsmagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
          'desktop-file-utils' 'hicolor-icon-theme' 'python3-lxml' 'python3-numpy'
          'libwpg' 'libvisio' 'libwpd' 'potrace' 'python3' 'dbus-glib' 'double-conversion'
          'libsoup' 'gdl')
@@ -32,8 +32,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DWITH_DBUS=ON \
-    -DWITH_LIBCDR=OFF \
-    -DWITH_GTKSPELL=OFF
+    -DWITH_LIBCDR=OFF
   cmake --build build
 }
 

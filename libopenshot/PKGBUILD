@@ -1,7 +1,7 @@
 
 pkgname=libopenshot
 pkgver=0.2.5
-pkgrel=6
+pkgrel=7
 pkgdesc="Open-source project dedicated to delivering high quality video editing, animation, and playback solutions to the world."
 arch=('x86_64')
 url="https://www.openshot.org/"
@@ -13,15 +13,15 @@ makedepends=('cmake' 'swig') # 'doxygen')
 source=("https://github.com/OpenShot/libopenshot/archive/v${pkgver}.tar.gz"
         "https://github.com/OpenShot/libopenshot/commit/9922479945def383d7d425242ee8de8b519456c0.diff")
 md5sums=('2e271cf3ad03e6116564fa1bcc7bf46b'
-         '2f5d987ec3817e3a1cb21f1d925e981e')
+         'be81bb2f7693bc75bbec2a93c9afebc8')
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  
+
   #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' CMakeLists.txt
   # gcc 10 needed
   patch -p1 -i ${srcdir}/9922479945def383d7d425242ee8de8b519456c0.diff
-}   
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

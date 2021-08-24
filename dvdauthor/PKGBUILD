@@ -1,7 +1,7 @@
 
 pkgname=dvdauthor
 pkgver=0.7.2
-pkgrel=9
+pkgrel=10
 pkgdesc="DVD authoring tools"
 arch=('x86_64')
 url="http://dvdauthor.sourceforge.net/"
@@ -9,14 +9,14 @@ license=('GPL')
 depends=('libdvdread' 'imagemagick' 'libxml2' 'libpng' 'fribidi')
 groups=('multimedia')
 source=("https://downloads.sourceforge.net/dvdauthor/${pkgname}-${pkgver}.tar.gz"
-        'glibc220.patch')
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-video/dvdauthor/files/dvdauthor-0.7.2-imagemagick7.patch")
 md5sums=('1173dcb8d40e74fc90c0f3a25dbd642d'
-         '61a24ecc4ffd7d4fa211bd716a90a8f3')
+         '94aeb59229b1a82955a4f3179ead90a5')
 
 build() {
   cd ${pkgname}
-  #patch -p1 -i ${srcdir}/glibc220.patch
-  
+  patch -p1 -i ${srcdir}/dvdauthor-0.7.2-imagemagick7.patch
+
   ./configure --prefix=/usr --sysconfdir=/etc 
   make 
 }

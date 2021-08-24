@@ -1,7 +1,7 @@
 
 pkgname=grub2-editor
 pkgver=0.8.1
-pkgrel=4
+pkgrel=5
 _commit=2f7de2ce74e8f92107c26efdfad90d9cdbcb9a06
 pkgdesc="A KDE control module for configuring the GRUB2 bootloader."
 arch=('x86_64')
@@ -15,22 +15,18 @@ source=("https://github.com/maz-1/grub2-editor/archive/${_commit}.zip")
 md5sums=('22a79788409e75bd1598d0f10f8e47a9')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DBUILD_TESTING=OFF \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DKDE_INSTALL_LIBDIR=lib
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 
