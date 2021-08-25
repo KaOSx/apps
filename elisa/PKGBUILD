@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=elisa
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Music Player"
 url="https://community.kde.org/Elisa"
@@ -13,23 +13,26 @@ depends=('ki18n' 'kdeclarative' 'kcoreaddons' 'baloo' 'kfilemetadata' 'kxmlgui'
          'kconfig' 'kcmutils' 'qt5-quickcontrols' 'qt5-quickcontrols2' 
          'qt5-websockets' 'kirigami') # 'kdsoap' 'upnp-qt')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
+        "https://invent.kde.org/multimedia/elisa/-/commit/618cf9b589ef9dd58e3ec3dd7450a80f10e118f8.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '64685288682ae3f8c86edf956b690843')
+
+prepare () {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/618cf9b589ef9dd58e3ec3dd7450a80f10e118f8.diff
+}
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib
-    
-  make
+cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
