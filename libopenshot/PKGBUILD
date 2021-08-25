@@ -1,18 +1,18 @@
 
 pkgname=libopenshot
-pkgver=0.2.5
-pkgrel=7
+pkgver=0.2.6
+pkgrel=1
 pkgdesc="Open-source project dedicated to delivering high quality video editing, animation, and playback solutions to the world."
 arch=('x86_64')
 url="https://www.openshot.org/"
 license=('LGPL3')
 depends=('libopenshot-audio' 'ffmpeg' 'imagemagick' 'libx11' 'libxcursor' 'libxinerama' 'python3'
-         'x264' 'qt5-multimedia' 'zeromq' 'jsoncpp') # build fails with gcc > 6.4 & ruby 'ruby' 
+         'x264' 'qt5-multimedia' 'zeromq' 'jsoncpp' 'opencv' 'protobuf') # build fails with gcc > 6.4 & ruby 'ruby' 
 makedepends=('cmake' 'swig') # 'doxygen')
 # http://bazaar.launchpad.net/~openshot.code/libopenshot/trunk/files
 source=("https://github.com/OpenShot/libopenshot/archive/v${pkgver}.tar.gz"
         "https://github.com/OpenShot/libopenshot/commit/9922479945def383d7d425242ee8de8b519456c0.diff")
-md5sums=('2e271cf3ad03e6116564fa1bcc7bf46b'
+md5sums=('307ce4cb16e53a131baf40933e0aa687'
          'be81bb2f7693bc75bbec2a93c9afebc8')
 
 prepare () {
@@ -20,7 +20,7 @@ prepare () {
 
   #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' CMakeLists.txt
   # gcc 10 needed
-  patch -p1 -i ${srcdir}/9922479945def383d7d425242ee8de8b519456c0.diff
+  #patch -p1 -i ${srcdir}/9922479945def383d7d425242ee8de8b519456c0.diff
 }
 
 build() {

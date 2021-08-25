@@ -1,8 +1,8 @@
 
 pkgname=openshot
-pkgver=2.5.1
-_pkgver=2.5
-pkgrel=3
+pkgver=2.6.0
+_pkgver=2.6
+pkgrel=1
 pkgdesc="Non-linear video editor for Linux based on MLT framework"
 arch=('x86_64')
 url="https://www.openshot.org/"
@@ -10,10 +10,10 @@ license=('GPL')
 depends=('pyqt5-python3' 'ffmpeg' 'libopenshot' 'desktop-file-utils' 'python3-setuptools'
          'python3-httplib2' 'pyzmq' 'python3-requests')
 source=("https://github.com/OpenShot/openshot-qt/archive/v${pkgver}.tar.gz")
-md5sums=('e59bf56ac01aee5f43491aebebe479a8')
+md5sums=('90f3986ebc770f3605fad87460fb0698')
 
 package() {
   cd ${pkgname}-qt-${pkgver}
-  
+
   python3 setup.py install --root=${pkgdir}/ --optimize=1
 }
