@@ -1,6 +1,6 @@
 
 pkgname=wireshark
-pkgver=3.4.8
+pkgver=3.5.0
 pkgrel=1
 pkgdesc='Network packet analyzer that will try to capture network packets and tries to display that packet data as detailed as possible'
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('cmake' 'python3' 'qt5-tools' 'asciidoc')
 source=("https://www.wireshark.org/download/src/${pkgname}-${pkgver}.tar.xz"
         'udpdump.diff'
         'udpdump.pod')
-sha256sums=('58a7fa8dfe2010a8c8b7dcf66438c653e6493d47eb936ba48ef49d4aa4dbd725'
+sha256sums=('cb96804f6283980ae1218843bcf0d0866d8952ef215b5f85337fce7c5d6221b3'
             '0226c807a7590f14ae17a487665353f90f2f9fe3901b095bdd06c978fc8425a2'
             '4f2a6f7c0f39793c9bf14db5563fc284275a342677aeaef02d91a3980a5c37d1')
 
@@ -25,22 +25,16 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DDISABLE_WERROR=yes
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  make DESTDIR=${pkgdir} install
-  
-  sed -i 's|System;Monitor;GTK;|System;Monitor;Tools;|' ${srcdir}/${pkgname}-${pkgver}/wireshark.desktop
-  install -Dm644 ${srcdir}/${pkgname}-${pkgver}/wireshark.desktop ${pkgdir}/usr/share/applications/wireshark.desktop
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 
