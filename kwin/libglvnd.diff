@@ -1,0 +1,13 @@
+diff --git a/src/plugins/platforms/x11/common/eglonxbackend.cpp b/src/plugins/platforms/x11/common/eglonxbackend.cpp
+index c62ec170d..33b75eee1 100644
+--- a/src/plugins/platforms/x11/common/eglonxbackend.cpp
++++ b/src/plugins/platforms/x11/common/eglonxbackend.cpp
+@@ -224,7 +224,7 @@
+         //       cannot be an xcb_window_t.
+         surface = eglCreatePlatformWindowSurfaceEXT(eglDisplay(), config(), (void *) &window, nullptr);
+     } else {
+-        surface = eglCreateWindowSurface(eglDisplay(), config(), window, nullptr);
++        surface = eglCreateWindowSurface(eglDisplay(), config(), (void *) &window, nullptr);
+     }
+ 
+     return surface;

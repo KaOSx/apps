@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwin
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE Window Manager'
 arch=('x86_64')
 url='https://github.com/KDE/kwin'
@@ -16,13 +16,14 @@ depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'kru
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kdeplasma5')
 options=('debug')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        'libglvnd.diff')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '73ab76727205d4a56898db49d0b5b9a7')
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/closeview.diff
+  patch -p1 -i ${srcdir}/libglvnd.diff
   #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
   #rm -rf po/id/docs
 }  
