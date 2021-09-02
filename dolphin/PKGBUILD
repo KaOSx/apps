@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=dolphin
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE File Manager"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/dolphin'
@@ -16,10 +16,12 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'ruby')
 groups=('kde-system')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'kdesu.diff'
-        'dolphinui.diff')
+        'dolphinui.diff'
+        "https://invent.kde.org/system/dolphin/-/commit/27bfcde4efaf936243fc41e4a61d0cac32105ef6.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          '759a01a07a1f4379d182b60dcb84fae9'
-         'e0211cc01ceb848101e19cbd0bd95fcf')
+         'e0211cc01ceb848101e19cbd0bd95fcf'
+         '0c321ada7e9b729ebbd887f534c52fd0')
 
 prepare() {
   cd $pkgname-${pkgver}
@@ -27,6 +29,9 @@ prepare() {
   patch -p1 -i ${srcdir}/kdesu.diff
   # set KaOS defaults
   patch -p1 -i ${srcdir}/dolphinui.diff
+  # KDE Bug 441072
+  sed -i 's|5.81.0|5.82.0|' CMakeLists.txt
+  patch -p1 -i ${srcdir}/27bfcde4efaf936243fc41e4a61d0cac32105ef6.diff
 }
 
 build() {
