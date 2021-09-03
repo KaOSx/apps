@@ -1,12 +1,13 @@
 
 pkgname=clamav
-pkgver=0.103.3
+pkgver=0.104.0
 pkgrel=1
 pkgdesc='Anti-virus toolkit for Unix'
 arch=('x86_64')
 url='https://www.clamav.net/'
 license=('GPL')
 depends=('bzip2' 'zlib' 'libtool' 'json-c')
+makedepends=('cmake')
 options=('!libtool')
 install="$pkgname.install"
 groups=('system')
@@ -19,7 +20,7 @@ source=("https://www.clamav.net/downloads/production/${pkgname}-${pkgver}.tar.gz
         'logrotate'
         'tmpfiles.d'
         'rarCVE.patch')
-md5sums=('f8dcf678953f6af056ddd5917bcc50c3'
+md5sums=('3f4789c09f5a35e9ea580edd5c3e54b6'
          '75584367b1fb2a335061afef95c07ba4'
          'ea0beeef854b4a3cf6b25dc49b228f56'
          '5c646ed6f7100c5223dab648c57d802a'
@@ -29,30 +30,32 @@ md5sums=('f8dcf678953f6af056ddd5917bcc50c3'
          'e497f962919d04f2569e07211dd5d683')
 
 build() {
-	cd ${pkgname}-${pkgver}
-	# CVE-2012-6706 https://bugzilla.suse.com/show_bug.cgi?id=1045490
-	#patch -p1 -i ${srcdir}/rarCVE.patch
-	
-	./configure --prefix=/usr \
-	       --sysconfdir=/etc/clamav \
-	       --with-dbdir=/var/lib/clamav \
-	       --disable-clamav \
-	       --disable-zlib-vcheck \
-	       --disable-llvm
-	make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DAPP_CONFIG_DIRECTORY=/etc/clamav \
+    -DDATABASE_DIRECTORY=/var/lib/clamav \
+    -DBYTECODE_RUNTIME=interpreter \
+    -DENABLE_EXTERNAL_MSPACK=OFF \
+    -DENABLE_JSON_SHARED=ON \
+    -DENABLE_APP=ON \
+    -DENABLE_MILTER=OFF \
+    -DENABLE_EXAMPLES=OFF \
+    -DENABLE_TESTS=OFF
+  cmake --build build
 }
 
 package() {
-	cd ${pkgname}-${pkgver}
-	make DESTDIR=${pkgdir} install
 
-	install -Dm644 ../clamd.conf ${pkgdir}/etc/clamav/clamd.conf
-	install -Dm644 ../freshclam.conf ${pkgdir}/etc/clamav/freshclam.conf
-	install -Dm644 ../freshclamd.service ${pkgdir}/usr/lib/systemd/system/freshclamd.service
-	install -Dm644 ../clamd.service ${pkgdir}/usr/lib/systemd/system/clamd.service
-	install -Dm644 ../tmpfiles.d ${pkgdir}/usr/lib/tmpfiles.d/clamav.conf
-	install -Dm644 ../logrotate ${pkgdir}/etc/logrotate.d/clamav
-	install -d -o 64 -g 64 ${pkgdir}/run/clamav
-	install -d -o 64 -g 64 ${pkgdir}/var/log/clamav
-	install -d -o 64 -g 64 ${pkgdir}/var/lib/clamav
+  DESTDIR=${pkgdir} cmake --install build
+
+  install -Dm644 ../clamd.conf ${pkgdir}/etc/clamav/clamd.conf
+  install -Dm644 ../freshclam.conf ${pkgdir}/etc/clamav/freshclam.conf
+  install -Dm644 ../logrotate ${pkgdir}/etc/logrotate.d/clamav
+  install -Dm644 ../tmpfiles.d ${pkgdir}/usr/lib/tmpfiles.d/clamav.conf
+
+  install -d -o 64 -g 64 ${pkgdir}/run/clamav
+  install -d -o 64 -g 64 ${pkgdir}/var/log/clamav
+  install -d -o 64 -g 64 ${pkgdir}/var/lib/clamav
 }
