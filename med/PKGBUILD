@@ -1,0 +1,37 @@
+
+pkgname=med
+pkgver=4.1.0
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Library to store and exchange meshed data or computation results"
+url="http://www.salome-platform.org/"
+license=('LGPL')
+depends=('hdf5' 'openmpi' 'python3')
+makedepends=('cmake' 'swig')
+source=("http://files.salome-platform.org/Salome/other/${pkgname}-${pkgver}.tar.gz"
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/med/files/med-4.1.0-0003-build-against-hdf5-1.12.patch")
+md5sums=('677aff7321463bf6c6668f5a360ae282'
+         'adc6a6b686f6e1e268b51db42cc862c8')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/med-4.1.0-0003-build-against-hdf5-1.12.patch
+}
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DMEDFILE_USE_MPI=OFF \
+    -DMEDFILE_BUILD_STATIC_LIBS=OFF \
+    -DMEDFILE_INSTALL_DOC=OFF \
+    -DMEDFILE_BUILD_PYTHON=ON \
+    -DMEDFILE_BUILD_TESTS=OFF 
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

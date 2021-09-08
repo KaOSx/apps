@@ -1,23 +1,24 @@
 
 pkgname=vtk
-pkgver=8.1.1
-_pkgver=8.1
+pkgver=9.0.3
+_pkgver=9.0
 pkgrel=1
 pkgdesc='Open-source software system for 3D computer graphics, image processing, and visualization.'
 arch=('x86_64')
 url='https://gitlab.kitware.com/vtk/vtk'
 license=('BSD')
 depends=('java-environment' 'gnuplot' 'tk' 'python3-matplotlib' 'unixodbc' 'gdal' 'openmpi' 'mariadb'
-         'glew' 'ffmpeg' 'python3-six' 'qtwebkit-tp' 'qt5-x11extras' 'jsoncpp')
+         'glew' 'ffmpeg' 'python3-six' 'qtwebkit-tp' 'qt5-x11extras' 'jsoncpp' 'double-conversion'
+         'netcdf' 'libtiff' 'libtheora' 'gl2ps')
 makedepends=('boost' 'cmake' 'qt5-tools')
 options=('!emptydirs')
 source=("https://www.vtk.org/files/release/${_pkgver}/VTK-${pkgver}.tar.gz"
         "https://www.vtk.org/files/release/${_pkgver}/VTKData-${pkgver}.tar.gz"
         "https://www.vtk.org/files/release/${_pkgver}/VTKLargeData-${pkgver}.tar.gz"
         'gdal2.patch')
-md5sums=('cf078a71c298c76b13707c7c27704248'
-         '6de8c1e3884b805c47dca02e7b049301'
-         '032c078450121f0cae9ffc501cf4569b'
+md5sums=('1abe6e2d7988193cf7d64c4d84287956'
+         'd4c1eed39fab9a2583b0f61e869314dd'
+         '2499ab7975d13e0fb74659685b20ce76'
          'e85edd330937a2395a233e0cb6be0b83')
 
 prepare() {
@@ -34,23 +35,32 @@ build() {
 
   # use system libs
   local cmake_system_flags=""
-  for lib in EXPAT FREETYPE JPEG PNG TIFF ZLIB OGGTHEORA SIX JSONCPP GLEW; do
-    cmake_system_flags+="-DVTK_USE_SYSTEM_${lib}:BOOL=ON "
+  for lib in EXPAT FREETYPE JPEG PNG TIFF ZLIB OGGTHEORA SIX JSONCPP GLEW DOUBLECONVERSION LZ4 LZMA; do
+    cmake_system_flags+="-DVTK_USE_EXTERNAL_${lib}:BOOL=ON "
   done
 
   cmake ../VTK-${pkgver} \
     -Wno-dev \
-    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DBUILD_SHARED_LIBS:BOOL=ON \
     -DCMAKE_INSTALL_PREFIX:FILEPATH=/usr \
-    -DBUILD_DOCUMENTATION:BOOL=OFF \
-    -DDOCUMENTATION_HTML_HELP:BOOL=OFF \
-    -DDOCUMENTATION_HTML_TARZ:BOOL=OFF \
     -DBUILD_EXAMPLES:BOOL=ON \
     -DVTK_USE_FFMPEG_ENCODER:BOOL=ON \
     -DVTK_BUILD_ALL_MODULES:BOOL=ON \
+    -DVTK_ENABLE_OSPRAY=OFF \
+    -DVTK_MODULE_ENABLE_VTK_DomainsMicroscopy="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_FiltersOpenTURNS="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_IOADIOS2="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_IOLAS="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_IOPDAL="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_MomentInvariants="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_PoissonReconstruction="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_Powercrust="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_RenderingOpenVR="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_SignedTensor="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_SplineDrivenImageSlicer="DONT_WANT" \
+    -DVTK_MODULE_ENABLE_VTK_vtkDICOM="DONT_WANT" \
     -DVTK_USE_LARGE_DATA:BOOL=ON \
-    -DVTK_QT_VERSION:STRING="5" \
     -DVTK_WRAP_JAVA:BOOL=ON \
     -DVTK_WRAP_PYTHON:BOOL=ON \
     -DVTK_PYTHON_VERSION="3" \
@@ -59,7 +69,7 @@ build() {
     -DVTK_CUSTOM_LIBRARY_SUFFIX="" \
     -DVTK_INSTALL_INCLUDE_DIR:PATH=include/vtk \
     -DVTK_RENDERING_BACKEND="OpenGL2" \
-    -DVTK_USE_SYSTEM_GL2PS=OFF \
+    -DVTK_USE_SYSTEM_GL2PS=ON \
     ${cmake_system_flags} \
     -DCMAKE_BUILD_TYPE=Release 
 
@@ -72,13 +82,13 @@ package() {
   make DESTDIR=${pkgdir} install
 
   install -dv ${pkgdir}/usr/share/java/vtk
-  mv -v ${pkgdir}/usr/lib/vtk.jar ${pkgdir}/usr/share/java/vtk
+  mv -v ${pkgdir}/usr/lib/java/vtk.jar ${pkgdir}/usr/share/java/vtk
   #rm -rf ${pkgdir}/usr/lib/vtk-${_pkgver}/java
 
   install -dv ${pkgdir}/usr/share/licenses/vtk
   install -m644 ${srcdir}/VTK-${pkgver}/Copyright.txt ${pkgdir}/usr/share/licenses/vtk
 
-  install -dv ${pkgdir}/usr/lib/qt5
-  mv ${pkgdir}/usr/plugins ${pkgdir}/usr/lib/qt5/plugins
+  #install -dv ${pkgdir}/usr/lib/qt5
+  #mv ${pkgdir}/usr/plugins ${pkgdir}/usr/lib/qt5/plugins
 }
 
