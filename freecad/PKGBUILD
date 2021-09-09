@@ -49,7 +49,7 @@ build() {
         -DOCCT_CMAKE_FALLBACK=ON \
         -DOCC_INCLUDE_DIR=/usr/include/opencascade \
         -DOCC_LIBRARY_DIR=/usr/lib
-  cmake --build build
+  cmake --build build -j16
 }
 
 package() {
@@ -57,22 +57,22 @@ package() {
   DESTDIR=${pkgdir} cmake --install build
 
   # Symlink to /usr/bin
-  #mkdir -p ${pkgdir}/usr/bin/
-  #ln -sf /opt/${pkgname}/bin/FreeCAD ${pkgdir}/usr/bin/freecad
-  #ln -sf /opt/${pkgname}/bin/FreeCADCmd ${pkgdir}/usr/bin/freecadcmd
+  install -d ${pkgdir}/usr/bin/
+  ln -sf /usr/lib/${pkgname}/bin/FreeCAD ${pkgdir}/usr/bin/freecad
+  ln -sf /usr/lib/${pkgname}/bin/FreeCAD ${pkgdir}/usr/bin/FreeCAD
+  ln -sf /usr/lib/${pkgname}/bin/FreeCADCmd ${pkgdir}/usr/bin/freecadcmd
+  ln -sf /usr/lib/${pkgname}/bin/FreeCADCmd ${pkgdir}/usr/bin/FreeCADCmd
 
   # Installs Qt plugin
   #install -Dm755 ../src/Tools/plugins/widget/libFreeCAD_widgets.so "${pkgdir}/usr/lib/qt/plugins/designer/libFreeCAD_widgets.so"
 
-  # Install pixmaps and desktop shortcut
-  #desktop-file-install \
-  #  --dir=${pkgdir}/usr/share/applications ${srcdir}/${pkgname}.desktop
+  # Move pixmaps, icons, xml & desktop files
+  mv ${pkgdir}/usr/lib/${pkgname}/share/* ${pkgdir}/usr/share
 
    # Mime info
-   install -D -m644 ../${pkgname}.xml ${pkgdir}/usr/share/mime/packages/${pkgname}.xml
+   #install -D -m644 ../${pkgname}.xml ${pkgdir}/usr/share/mime/packages/${pkgname}.xml
    
    # set to PySide2
    #cd ${pkgdir}/opt/freecad/Mod
    #find . -type f -exec sed -i 's|from PySide import|from PySide2 import|' {} +
 }
-
