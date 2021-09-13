@@ -50,8 +50,8 @@ Rectangle {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2021.08</h3>
-            <p>It is with great pleasure to present to you the August release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2021.09</h3>
+            <p>It is with great pleasure to present to you the September release of a new stable ISO.</p>
             
             <p>Biggest news for this release are major changes in the aesthetics. The Midna theme has been redone, 
             this includes a uniform look for SDDM and lockscreen with a (darker) transparent sidebar, cleaner splash-screen and darker logout look. The application menu has moved from the long used cascading menu option to the all new Application Launcher introduced with Plasma 5.22.< /br>
