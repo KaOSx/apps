@@ -1,6 +1,6 @@
 
 pkgname=kstars
-pkgver=3.5.4
+pkgver=3.5.5
 epoch=1
 pkgrel=1
 pkgdesc="Open source, cross-platform Astronomy Software by KDE"
@@ -13,14 +13,12 @@ depends=('kauth' 'kconfig' 'kcrash' 'kwidgetsaddons' 'knewstuff' 'kio' 'ki18n' '
 makedepends=('extra-cmake-modules' 'kdoctools' 'eigen3')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("https://download.kde.org/stable/kstars/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('24275261ca20be8526bbebc1fefc9efba64c209a95a127002ab7a1f3d771a035')
+sha256sums=('703df56050672af10fc8142296ceaa27134a6a00e8222f3f6677f18ff1ac6b43')
 
 prepare() {
   cd ${pkgname}-${pkgver} 
   #sed -i -e 's|add_subdirectory(doc)|#add_subdirectory(doc)|' ${srcdir}/${pkgname}/CMakeLists.txt
-  #patch -p1 -i $srcdir/isnan.diff 
-  # workaround for https://bugs.kde.org/show_bug.cgi?id=439541
-  rm -r po/de/docs
+  #patch -p1 -i $srcdir/isnan.diff
 }
 
 build() {

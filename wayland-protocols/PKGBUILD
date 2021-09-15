@@ -1,6 +1,6 @@
 
 pkgname=wayland-protocols
-pkgver=1.22
+pkgver=1.23
 pkgrel=1
 pkgdesc='Contains protocols and protocol extensions complementing the Wayland core protocol with additional functionality.'
 arch=('x86_64')
@@ -8,20 +8,23 @@ url='https://wayland.freedesktop.org'
 license=('MIT')
 options=('!libtool')
 depends=('wayland')
+makedepends=('meson' 'ninja')
 source=("https://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('96e7cf03524995a47028236c6d6141c874e693cb80c0be8dabe15455cdd5a5a7')
+sha256sums=('6c0af1915f96f615927a6270d025bd973ff1c58e521e4ca1fc9abfc914633f76')
 
 build() {
-   cd ${pkgname}-${pkgver}
+  mkdir -p build
+  cd build
 
-   ./configure \
-       --prefix=/usr 
-   make
+  meson ../${pkgname}-${pkgver} \
+    --prefix=/usr \
+    --buildtype=release 
+  ninja
 }
 
 package() {
-   cd ${pkgname}-${pkgver}
-   make DESTDIR=${pkgdir} install
+  cd build
+  DESTDIR=${pkgdir} ninja install
 
-   install -Dm644 COPYING $pkgdir/usr/share/licenses/${pkgname}/COPYING
+  install -Dm644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
 }
