@@ -1,0 +1,30 @@
+
+pkgname=wayland-utils
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Utility for displaying information about the Wayland protocols supported by a Wayland compositor.'
+arch=('x86_64')
+url='https://wayland.freedesktop.org'
+license=('MIT')
+options=('!libtool')
+depends=('wayland')
+makedepends=('meson' 'ninja' 'wayland-protocols')
+source=("https://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('64fecc4c58e87ae9b302901abe10c2e8af69c7503c221a96ecd0700e0aa268c0')
+
+build() {
+  mkdir -p build
+  cd build
+
+  meson ../${pkgname}-${pkgver} \
+    --prefix=/usr \
+    --buildtype=release 
+  ninja
+}
+
+package() {
+  cd build
+  DESTDIR=${pkgdir} ninja install
+
+  install -Dm644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+}
