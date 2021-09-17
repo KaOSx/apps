@@ -1,7 +1,7 @@
 
 pkgname=mediainfo
 _pkgname=MediaInfo
-pkgver=21.03
+pkgver=21.09
 pkgrel=1
 pkgdesc="Convenient unified display of the most relevant technical and tag data for video and audio files."
 arch=('x86_64')
@@ -11,23 +11,23 @@ depends=('mediainfolib' 'qt5-base')
 makedepends=('libtool')
 #source=("https://github.com/MediaArea/MediaInfo/archive/v${pkgver}.tar.gz")
 source=("https://old.mediaarea.net/download/source/mediainfo/${pkgver}/${pkgname}_${pkgver}.tar.xz")
-md5sums=('b20676a62e41309b33d6b053e396154f')
+md5sums=('97f538366dec7dea23e5186bf73f7185')
 
 prepare() {
   cd ${_pkgname}
-  
+
   #patch -p1 -i ${srcdir}/mediainfo-qt5.patch
 }
 
 build() {
   cd ${_pkgname}/Project/GNU/CLI
-  
+
   ./autogen.sh
   ./configure --prefix=/usr
   make
-  
+
   cd ../../QMake/GUI
-  
+
   /usr/lib/qt5/bin/qmake
   make
 }
@@ -35,10 +35,10 @@ build() {
 package() {
   cd ${_pkgname}/Project/GNU/CLI
   make DESTDIR=${pkgdir} install
-  
+
   cd ../../QMake/GUI
   make INSTALL_ROOT=${pkgdir} install
-  
+
  install -D -m644 ../../GNU/GUI/mediainfo-gui.desktop ${pkgdir}/usr/share/applications/mediainfo-gui.desktop
  install -Dm 644 ../../../Source/Resource/Image/MediaInfo.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/mediainfo.svg
 }

@@ -2,7 +2,7 @@
 pkgname=mediainfolib
 _pkgname=libmediainfo
 __pkgname=MediaInfoLib
-pkgver=21.03
+pkgver=21.09
 pkgrel=1
 pkgdesc="Convenient unified display of the most relevant technical and tag data for video and audio files, shared libraries"
 arch=('x86_64')
@@ -14,11 +14,11 @@ conflicts=('libmediainfo')
 replaces=('libmediainfo')
 #source=("https://github.com/MediaArea/MediaInfoLib/archive/v${pkgver}.tar.gz")
 source=("https://old.mediaarea.net/download/source/libmediainfo/${pkgver}/${_pkgname}_${pkgver}.tar.xz")
-md5sums=('ced4b08e4534a31092480b7e1eec9275')
+md5sums=('f1f185ebce278f52a46c1abf33bb647a')
 
 build() {
   cd ${__pkgname}/Project/GNU/Library
-  
+
   ./autogen.sh
   ./configure --prefix=/usr \
     --enable-shared \
@@ -30,7 +30,7 @@ build() {
 package() {
   cd ${__pkgname}/Project/GNU/Library
   make DESTDIR=${pkgdir} install
-  
+
   cd ../../..
 
   install -dm 755 ${pkgdir}/usr/lib/pkgconfig
