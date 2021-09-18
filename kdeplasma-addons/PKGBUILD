@@ -5,39 +5,31 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdeplasma-addons
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Plasma Addons"
 url="http://www.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('karchive' 'kconfig' 'kcoreaddons' 'kdeclarative' 'kholidays' 'ki18n' 'kiconthemes' 'kio' 'kcmutils'  'kross'
+depends=('karchive' 'kconfig' 'kcoreaddons' 'kdeclarative' 'kholidays' 'ki18n' 'kiconthemes' 'kio' 'kcmutils'
          'knotifications' 'plasma-framework' 'krunner' 'kservice' 'sonnet' 'kunitconversion' 'kwindowsystem' 'knewstuff'
-         'plasma-workspace' 'phonon-qt5' 'qca-qt5' 'purpose')
+         'plasma-workspace' 'phonon-qt5' 'qca-qt5' 'purpose' 'qt5-declarative')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz"
-        'notes.diff'
         'metadata.desktop'
         "https://invent.kde.org/plasma/kdeplasma-addons/commit/a50d30b14b204306e962c77a062a142f68bed1e5.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'c318dd4c4679effbaf50a5487a6d5a07'
          '80d8ea43dfb1e34accc407cc72c0395b'
          '48c80cd6400d77c2ab570002d5d55bc5')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
+
   #patch -p1 -i ${srcdir}/notes.diff
-  #patch -p1 -i ${srcdir}/a50d30b14b204306e962c77a062a142f68bed1e5.diff
-  
   #cp ${srcdir}/metadata.desktop applets/activitypager/
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -46,12 +38,11 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 
