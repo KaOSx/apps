@@ -4,15 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kipi-plugins
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Plugins extending KDE graphics apps, e.g. with import/export capabilities."
 url="https://invent.kde.org/graphics/kipi-plugins"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kparts' 'kconfig' 'kiconthemes' 'kwindowsystem' 'kxmlgui' 'kio' 'kservice'
          'threadweaver' 'karchive' 'ki18n' 'libkexiv2' 'libkdcraw' 'libkipi'
-         'libkvkontakte' 'libmediawiki' 'libtiff' 'qt5-xmlpatterns'
-         'kcalcore' 'kwallet' 'phonon-qt5') 
+         'libmediawiki' 'libtiff' 'qt5-xmlpatterns' 'kcalcore' 'kwallet' 'phonon-qt5') 
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 optdepends=('enblend-enfuse: to work with the panorama tool')
 groups=('kde' 'kde-graphics' 'kde-uninstall')
@@ -37,5 +36,5 @@ build() {
 
 package() {
 
-  DESTDIR=${pkgdir} cmake --install build 
+  DESTDIR=${pkgdir} cmake --install build
 }

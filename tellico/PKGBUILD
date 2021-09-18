@@ -2,15 +2,15 @@
 pkgname=tellico
 pkgver=3.4.1
 _pkgver=3.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A collection manager for KDE"
 arch=('x86_64')
 url="https://tellico-project.org/"
 license=('GPL')
 depends=('karchive' 'kcodecs' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kiconthemes'
          'kitemmodels' 'ki18n' 'kio' 'solid' 'kwidgetsaddons' 'kwindowsystem' 'kguiaddons' 'kxmlgui' 
-         'kjobwidgets' 'kwallet' 'khtml' 'kfilemetadata' 'knewstuff' 'libksane' 
-         'taglib' 'libdiscid' 'poppler-qt5' 'v4l-utils' 'libkcddb5' 'libcdio' 'qtwebengine' 'qt5-charts') # 'yaz' 'exempi' 
+         'kjobwidgets' 'kwallet' 'kfilemetadata' 'knewstuff' 'libksane' 'taglib' 'libdiscid'
+         'poppler-qt5' 'v4l-utils' 'libkcddb5' 'libcdio' 'qtwebengine' 'qt5-charts') # 'yaz' 'exempi' 
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('office')
 source=("https://tellico-project.org/files/${pkgname}-${_pkgver}.tar.xz")
@@ -18,10 +18,7 @@ source=("https://tellico-project.org/files/${pkgname}-${_pkgver}.tar.xz")
 md5sums=('a6c7c533c7e459e9f2b65e5b870916d1')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${_pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -30,12 +27,10 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DENABLE_WEBCAM=TRUE
-
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
