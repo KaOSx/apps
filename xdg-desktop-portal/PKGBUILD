@@ -1,7 +1,7 @@
 
 # 1.x odd numbers are dev, not stable
 pkgname=xdg-desktop-portal
-pkgver=1.10.0
+pkgver=1.10.1
 pkgrel=1
 pkgdesc="Portal frontend service for Flatpak and possibly other desktop containment frameworks."
 url="https://github.com/flatpak/xdg-desktop-portal"
@@ -10,11 +10,11 @@ license=('LGPL2.1')
 depends=('fuse' 'glib2' 'pipewire')
 makedepends=('python3' 'flatpak')
 source=("https://github.com/flatpak/xdg-desktop-portal/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('a22dc980a41fa255dff62512f1ade9ad6c1192b561634d920214677117ed4f0f')
+sha256sums=('ed798de9e7994949f72d8aca69c95fec79446b404395de2dc6c96b7a45c634a5')
 
 build() {
   cd ${pkgname}-${pkgver}
-  
+
   ./configure --prefix=/usr \
     --libexecdir=/usr/lib \
     --enable-pipewire \
@@ -31,6 +31,6 @@ check() {
 
 package() {
   cd ${pkgname}-${pkgver}
-  
+
   make DESTDIR=${pkgdir} install
 }

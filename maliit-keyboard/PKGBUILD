@@ -1,21 +1,22 @@
 
 pkgname=maliit-keyboard
 _pkgname=keyboard
-pkgver=2.0.0
+pkgver=2.1.0
 pkgrel=1
 pkgdesc="Maliit Keyboard 2 (based on Ubuntu Keyboard)"
 arch=('x86_64')
 url="https://maliit.github.io/"
 license=('LGPL')
-depends=('maliit-framework' 'hunspell' 'qt5-multimedia' 'qtfeedback')
+depends=('maliit-framework' 'hunspell' 'qt5-multimedia') # 'qtfeedback')
 makedepends=('cmake')
 source=("https://github.com/maliit/keyboard/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('fa24bbc7b45344d44e8fed4bcd300dc0')
+md5sums=('d52b920174d8cfeaa57fcbe7249cb91f')
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -Denable-presage=OFF
+    -Denable-presage=OFF \
+    -DPinyin_FOUND=FALSE
   cmake --build build
 }
 
