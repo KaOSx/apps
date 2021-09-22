@@ -13,11 +13,11 @@ depends=('poppler' 'graphicsmagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
          'libsoup' 'gdl')
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
-source=("https://inkscape.org/release/inkscape-${pkgver}/source/dl/inkscape-${pkgver}.tar.xz"
+source=("https://media.inkscape.org/dl/resources/file/${pkgname}-${pkgver}_${_commit}.tar.xz"
         "https://gitlab.com/inkscape/inkscape/-/commit/ebc56b7dbc8b0f8f1decb43577b5bda1d356fafe.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
-md5sums=('aeca0b9d33b5b1cfa9aa70433bdee6a8c3d020ffafc2e6f0c9a60eed7a7978af'
-         'ce03dfd19b5429bfe934bd3752b37ce6')
+sha256sums=('aeca0b9d33b5b1cfa9aa70433bdee6a8c3d020ffafc2e6f0c9a60eed7a7978af'
+            'bfc169fb119e5642aa1d736c36de1f44f6d222b0fb3db4330f4ee6d7a2967a2c')
 
 prepare() {
   cd ${pkgname}-${pkgver}_${_commit}
