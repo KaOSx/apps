@@ -13,14 +13,14 @@ md5sums=('SKIP')
 
 build() {
   cd ${pkgname}
-  
+
   python3 ./build/gen.py
   ninja -C out gn
 }
 
 package() {
   cd ${pkgname}
-  
+
   install -D out/gn ${pkgdir}/usr/bin/gn
   install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
