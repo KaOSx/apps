@@ -65,7 +65,7 @@ Rectangle {
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.
             </p>
             
-            <p>The installer Calamares now also has the ability added to carry over the network settings from the Live system, so no longer a need to enter the Wifi password again on booting into the newly installed system. There now also is an option to select the preferred filesystem when using the automated partitioning.</p>
+            <p>Two major changes for installer Calamares. Biggest one is the addition of a bootloader selection module. For UEFI installs it is now possible to select between systemd-boot, rEFInd or no bootloader, all presented in a nice, QML based GUI. Second change is the addition of an interactive keybaord preview in the keyboard setup page.</p>
             
             <p>New applications added include speedtest-cli, mauikit-accounts and bibletime. Biggest change here is the addition of Plasma Mobile Apps, that are very suitable for desktop use. They include Angelfish (web-browser), Kasts (pocasts), Kalk (calculator) and Koko (image viewer).</p>
             
