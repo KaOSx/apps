@@ -1,0 +1,24 @@
+
+pkgname=gopls
+_pkgname=tools-gopls
+pkgver=0.7.2
+pkgrel=1
+pkgdesc='Language server for Go programming language'
+arch=('x86_64')
+url='https://github.com/golang/tools/blob/master/gopls/README.md'
+license=('BSD')
+depends=('go')
+source=("https://github.com/golang/tools/archive/refs/tags/gopls/v${pkgver}.tar.gz")
+md5sums=('a726fa8c597701f13fdb560487752710')
+
+build() {
+  cd ${_pkgname}-v${pkgver}/${pkgname}
+
+  go build -o ${pkgname}
+}
+
+package() {
+  cd ${_pkgname}-v${pkgver}
+  install -Dm755 ${pkgname}/${pkgname} -t ${pkgdir}/usr/bin/
+  install -Dm644 LICENSE -t ${pkgdir}/usr/share/licenses/${pkgname}/
+}

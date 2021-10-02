@@ -1,0 +1,29 @@
+
+pkgname=bash-language-server
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="Bash language server implementation based on Tree Sitter and its grammar for Bash with explainshell integration."
+arch=("x86_64")
+url="https://github.com/bash-lsp/bash-language-server"
+license=('MIT')
+depends=('nodejs')
+makedepends=('yarn')
+source=("https://github.com/bash-lsp/bash-language-server/archive/refs/tags/server-${pkgver}.tar.gz")
+md5sums=('a1749a038b4ca7350cc8ba02be530830')
+
+build() {
+    cd ${pkgname}-server-${pkgver}
+
+    yarn
+    yarn run compile
+}
+
+package() {
+    install -d ${pkgdir}/usr/lib/${pkgname}
+    install -d ${pkgdir}/usr/bin
+
+    cp -a ${pkgname}-server-${pkgver}/server/* ${pkgdir}/usr/lib/${pkgname}/
+    ln -s /usr/lib/${pkgname}/bin/main.js $pkgdir/usr/bin/${pkgname}
+
+    install -Dm644 ${pkgname}-server-${pkgver}/LICENSE -t ${pkgdir}/usr/share/licenses/${pkgname}/
+}
