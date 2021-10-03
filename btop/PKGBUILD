@@ -1,21 +1,27 @@
  
-pkgname=bpytop
-pkgver=1.0.67
+pkgname=btop
+pkgver=1.0.13
 pkgrel=1
 pkgdesc='Resource monitor that shows usage and stats for processor, memory, disks, network and processes.'
 arch=('x86_64')
 url="https://github.com/aristocratos/bpytop"
 license=('Apache 2.0')
-depends=('python3-psutil')
-conflicts=('bashtop')
-provides=('bashtop')
-replaces=('bashtop')
-source=("https://github.com/aristocratos/bpytop/archive/v${pkgver}.tar.gz")
-md5sums=('a3d1109b9e7e7da1603ed1f39ee49642')
+depends=('gcc-libs')
+conflicts=('bashtop' 'bpytop')
+provides=('bashtop' 'bpytop')
+replaces=('bashtop' 'bpytop')
+source=("https://github.com/aristocratos/btop/archive/v${pkgver}.tar.gz")
+md5sums=('7f9ea3b155abd85781094e02bfa8d7cf')
+
+build() {
+    cd ${pkgname}-${pkgver}
+
+    make all
+}
 
 package() {
     cd ${pkgname}-${pkgver}
-    
+
     make DESTDIR=${pkgdir} PREFIX=/usr install
     install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
