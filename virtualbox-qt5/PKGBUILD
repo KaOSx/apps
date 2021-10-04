@@ -7,7 +7,7 @@ pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
 pkgver=6.1.26
 _pkgver=6.1.26
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
@@ -156,7 +156,7 @@ package_virtualbox-qt5() {
 package_virtualbox-guest-utils() {
     pkgdesc='Oracle VM VirtualBox Guest userspace utilities'
     depends=('glibc' 'pam' 'libx11' 'libxcomposite' 'libxdamage' 'libxext' 'libxfixes' 
-             'libxmu' 'libxt' 'xorg-server-utils' 'virtualbox-guest-modules')
+             'libxmu' 'libxt' 'xorg-server-utils') # 'virtualbox-guest-modules')
     install=virtualbox-guest-utils.install
 
     source VirtualBox-${pkgver}/env.sh
