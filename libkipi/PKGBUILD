@@ -6,9 +6,9 @@ pkgname=libkipi
 pkgver=${_kdever}
 #pkgver=15.07.70
 pkgrel=1
-pkgdesc="An interface to use kipi-plugins from a KDE application"
+pkgdesc="Qt/C++ interface to use kipi-plugins from KDE image management programs"
 arch=('x86_64')
-url='http://www.kde.org'
+url='https://invent.kde.org/graphics/libkipi'
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kconfig' 'kxmlgui' 'kservice')
 makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
@@ -22,21 +22,17 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 #md5sums=('SKIP')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
