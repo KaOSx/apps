@@ -1,8 +1,8 @@
 
 pkgname=subtitlecomposer
 _pkgname=SubtitleComposer
-pkgver=0.7.0
-pkgrel=5
+pkgver=0.7.1
+pkgrel=1
 pkgdesc="Open source text-based subtitle editor that supports basic and more advanced operations "
 arch=('x86_64')
 url="https://invent.kde.org/kde/subtitlecomposer"
@@ -11,15 +11,15 @@ depends=('kauth' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'ki18n' 'kio' 'kxmlgui
          'kross' 'kcodecs' 'ktextwidgets' 'kwidgetsaddons' 
          'gettext' 'mplayer' 'mpv' 'icu' 'ffmpeg')
 makedepends=('extra-cmake-modules')
-source=("https://github.com/maxrd2/subtitlecomposer/archive/v${pkgver}.tar.gz"
+source=("https://download.kde.org/stable/subtitlecomposer/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/maxrd2/SubtitleComposer/commit/d09a3cbc60da86f57d06477dea1a57962a11ffb2.diff")
 #source=("https://github.com/maxrd2/subtitlecomposer/archive/${_commit}.zip")
-md5sums=('7259470373adc297d38625fee08aafb2'
-         'd0052f22a09291c3762a3fbf84fd4f70')
+sha256sums=('ef9cb3c0c1fe1f40cf9d8e795859b9b28adf2da3be77a076d46bc28df4cd0255'
+            '88c708e25b29966f7ead31430937e9cb768f93076d34546f059ba7a4244b2876')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/d09a3cbc60da86f57d06477dea1a57962a11ffb2.diff
+  cd ${pkgname}-${pkgver}
+  #patch -p1 -i ${srcdir}/d09a3cbc60da86f57d06477dea1a57962a11ffb2.diff
   #sed -i -e 's|KF5::SonnetUi|KF5::SonnetUi KF5::KHtml|' src/common/CMakeLists.txt
   #sed -i -e 's|I18n KIO XmlGui|I18n KIO KHtml XmlGui|' CMakeLists.txt
 }
