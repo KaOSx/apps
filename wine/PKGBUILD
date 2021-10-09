@@ -1,6 +1,6 @@
 
 pkgname=wine
-pkgver=6.18
+pkgver=6.19
 _pkgver=6.x
 pkgrel=1
 pkgdesc="Compatibility layer capable of running Windows applications on several POSIX-compliant operating systems."
@@ -16,7 +16,7 @@ makedepends=('autoconf' 'perl' 'fontforge' 'flex' 'libxpm' 'libxmu')
 install=wine.install
 groups=('system')
 source=("https://dl.winehq.org/wine/source/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha1sums=('5790e50f95fe6591f8549fa52cb7f114499374fc')
+sha1sums=('4f18f0044121c0e4f3b657f7c4abdd9baa74261d')
 
 build() {
     mkdir -p build
@@ -36,7 +36,7 @@ build() {
 package() {
     cd build
     make prefix=${pkgdir}/usr libdir=${pkgdir}/usr/lib dlldir=${pkgdir}/usr/lib/wine install
-    
+
     sed -i -e 's|wine start /unix %f|wine64 start /unix %f|' ${pkgdir}/usr/share/applications/wine.desktop
 }
 
