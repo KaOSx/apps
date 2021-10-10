@@ -1,7 +1,7 @@
 
 pkgname=mkvtoolnix
-pkgver=61.0.0
-pkgrel=2
+pkgver=62.0.0
+pkgrel=1
 pkgdesc="Set of tools to create, edit and inspect Matroska files."
 arch=('x86_64')
 license=('GPL')
@@ -11,20 +11,20 @@ depends=('flac' 'libmatroska' 'libogg' 'libvorbis' 'qt5-declarative' 'xdg-utils'
 makedepends=('gcc' 'boost' 'ruby') # 'clang') 
 groups=('multimedia')
 source=("https://mkvtoolnix.download/sources/${pkgname}-${pkgver}.tar.xz")
-sha512sums=('9f35b5af8784eb4b92b437f41b5df677aa7fc859827eaef4d0e2d8531ad9908331f70a852c7e6e965a5f8cec47b38c6c91b8fbdbcaee0edca54f8cbb000ba582')
+sha512sums=('9ed7db1b9f09b6d563a08104a6b458c3a02e059a28fc62880d1ffd633b6fdf01ce92542ba52d61fd3836108ca408f3a3ead711bbe01598395e8e05d47b23558c')
 
 build() {
   cd ${pkgname}-${pkgver}
-  
+
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
-  
+
   ./configure --prefix=/usr --with-boost-libdir=/usr/lib
   rake
 }
 
 package () {
   cd ${pkgname}-${pkgver}
-  
+
   rake DESTDIR=${pkgdir} install
 }
