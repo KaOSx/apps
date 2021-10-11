@@ -2,8 +2,8 @@
 # build twice, when building on the server, j8 fails to honor without wx first time
 
 pkgname=grass
-pkgver=7.8.5
-pkgrel=3
+pkgver=7.8.6
+pkgrel=1
 pkgdesc='Geographic Information System (GIS) used for geospatial data management and analysis, image processing, graphics/maps production, spatial modeling, and visualization.'
 arch=('x86_64')
 url='https://grass.osgeo.org/'
@@ -20,7 +20,7 @@ groups=('gis')
 source=("https://grass.osgeo.org/grass78/source/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}.sh"
         "${pkgname}.conf")
-md5sums=('91f4830a5164cea703384814cd89cdf9'
+md5sums=('6a16bbefdb1f31480be82e6f352c3c10'
          '23da2e9399b3c5504851dec37821abe1'
          '6103480c2a1adc19a50b9e925e5e6d4c')
 
@@ -62,7 +62,7 @@ build() {
     --without-wxwidgets \
     --without-htmldocs
    
-  make -j8
+  make
 }
 
 package() {
