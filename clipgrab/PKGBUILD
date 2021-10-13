@@ -1,6 +1,6 @@
 
 pkgname=clipgrab
-pkgver=3.9.6
+pkgver=3.9.7
 _commit=c7507264e4b4dd835d41b6a493de4ae42d90856e
 pkgrel=1
 pkgdesc='A friendly downloader for YouTube and other sites'
@@ -13,7 +13,7 @@ source=("https://download.clipgrab.org/${pkgname}-${pkgver}.tar.gz"
         'clipgrab.desktop'
         'clipgrab.png'
         "https://gitlab.com/kikadf/clipgrab-qt5/raw/master/clipgrab-3.8.7-kde.patch")
-md5sums=('d51fff29999bd0c2518bb702d705349d'
+md5sums=('9f7769e7b3676a012af01870a4706892'
          '9dd39ffcccb179d76ac84503bf3ffc11'
          'e427c3a49fe3f7a86abeaa443fcdbec3'
          'ea6a25c843a74a69be17d564e79a3557')
@@ -28,7 +28,7 @@ build() {
 
 package() {
   cd ${pkgname}-${pkgver}
-  
+
   install -Dm755 ${pkgname} ${pkgdir}/usr/bin/${pkgname}
   install -Dm644 ../${pkgname}.png ${pkgdir}/usr/share/pixmaps/${pkgname}.png
   install -Dm644 ../${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
