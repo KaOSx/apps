@@ -58,15 +58,15 @@ Rectangle {
             
             <p>Plasma 5.23 - the 25th Anniversary Edition is included already. Highlights of this new major version include Kickoff receiving a code overhaul with improved performance & accessibility, and the option to choose a list or grid view for all apps, Systemsettings has easier find options, sorted screen refresh rates, and a timer to revert possible undesired display settings, for Wayland sessions there is a new screen rotation animation and, it is now possible to middle-click-paste between native Wayland and XWayland apps.</p>
 
-            <p>Updates to the base of this distribution include Systemd 249.4, Curl 7.79.1, Coreutils 9.0, NetworkManager 1.32.12, Mesa 21.2.3, Bison 3.8.2, Vulkan packages 1.2.195, Udisks 2.9.4, Sudo 1.9.8p2 and Pacman 6.0.1.< /br>
+            <p>Updates to the base of this distribution include Systemd 249.4, Curl 7.79.1, Coreutils 9.0, NetworkManager 1.32.12, Mesa 21.2.3, Bison 3.8.2, Vulkan packages 1.2.195, Udisks 2.9.4, Sudo 1.9.8p2, and Pacman 6.0.1.< /br>
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.
             </p>
             
             <p>pmanager, the packages’ viewer used by KaOS, was largely rewritten in its backend part. It is due to the migration of the old database based on json to the more consistent SQLite system. That permits the simplification of the flags management. Previously, flags & packages data were completely independent. Now a flag is linked to a package’s name &amp; version, so it can be automatically removed when the package is updated. The frontend got 2 minor changes: the URL of the package’s view was simplified (with the concatenation of the repo and the name/version of the package in one argument) and the flag button is replaced by a link to the build version of the package (if exists) if the package is not flagged. This is due because too many packages were flagged though update was in build.</p>
             
-            <p>Qt 6.2.0 is included and is now far more complete, since many more are ported from Qt5, that includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web-browsers.</p>
+            <p>Qt 6.2.0 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web-browsers.</p>
             
-            <p>New applications added include FreeCAD, with the whole stack such a CAD application needs, like PySide, Shiboken, Coin, Soqt, VTK and Opencascade. And a few Language Server Protocols have been added to use in Kate.</p>
+            <p>New applications added include FreeCAD, with the whole stack such a CAD application needs, like PySide, Shiboken, Coin, Soqt, VTK, and Opencascade. And a few Language Server Protocols have been added to use in Kate.</p>
             
             <p>Big thanks goes to <strong>Fosshost</strong> for not only providing the default mirror (through the <strong>Fastly CDN</strong>, but also providing a server for KaOS. This server is replacing the old Centos server (used for package upload, ZNC bouncer and the old PHP based package viewer).</p>
             
