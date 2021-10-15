@@ -20,7 +20,7 @@ md5sums=('ca4fdbe0d24556254d196eaca68f2254'
 
 prepare() {
   cd lmms
-  
+
   #git submodule update --init --recursive
   #sed -i 's|add_subdirectory(qt5-x11embed)|#add_ubdirectory(qt5-x11embed)|' src/3rdparty/CMakeLists.txt
   #patch -p1 -i ${srcdir}/qt5.15.diff
@@ -39,6 +39,6 @@ build() {
 
 package() {
   cd lmms
-  
+
   make DESTDIR=${pkgdir} install
 }

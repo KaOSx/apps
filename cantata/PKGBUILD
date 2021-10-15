@@ -1,7 +1,7 @@
 
 pkgname=cantata
 pkgver=2.4.2
-pkgrel=1
+pkgrel=2
 _commit=d60f2973918f5ef50903297620777f9973e7ca22
 pkgdesc="A KDE client for the music player daemon (MPD)"
 arch=('x86_64')
@@ -21,21 +21,17 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_HTTP_STREAM_PLAYBACK=ON \
     -DENABLE_LIBVLC=OFF \
     -DENABLE_SIMPLE_MPD_SUPPORT=ON \
     -DLRELEASE_EXECUTABLE=/usr/lib/qt5/bin/lrelease
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} PREFIX=/usr install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
