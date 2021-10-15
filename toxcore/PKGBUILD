@@ -1,7 +1,7 @@
 
 pkgname=toxcore
 pkgver=0.2.12
-pkgrel=3
+pkgrel=5
 pkgdesc='Easy to use, all-in-one communication platform that ensures full privacy and secure message delivery.'
 arch=('x86_64')
 url='https://tox.chat'
@@ -14,7 +14,7 @@ md5sums=('16033d63c6520cd023acddaabe84fb95')
 
 build() {
   cd c-${pkgname}-${pkgver}
-  
+
   ./autogen.sh
   ./configure \
     --prefix=/usr \
@@ -31,7 +31,7 @@ check() {
 
 package() {
   cd c-${pkgname}-${pkgver}
-  
+
   make DESTDIR=${pkgdir} install
 }
 
