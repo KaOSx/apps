@@ -10,18 +10,19 @@ url="https://github.com/tsujan/Kvantum"
 license=('GPL3')
 depends=('qt5-svg' 'qt5-x11extras' 'kwindowsystem' 'libxext')
 makedepends=('cmake' 'qt5-tools')
-source=("https://github.com/tsujan/Kvantum/archive/V${pkgver}.tar.gz")
+source=("https://github.com/tsujan/Kvantum/releases/download/V${pkgver}/${_pkgname}-${pkgver}.tar.gz")
 #source=("https://github.com/tsujan/Kvantum/archive/${_commit}.zip")
 md5sums=('500065fd279ad30b02df22d794faf69b')
 
 build() {
     cmake -B build -S ${_pkgname}-${pkgver}/${_pkgname} \
-        -DCMAKE_INSTALL_PREFIX=/usr
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DENABLE_QT5=ON
     cmake --build build
 }
 
 package() {
     DESTDIR=${pkgdir} cmake --install build
-    
+
     install -Dm644 ${_pkgname}-${pkgver}/${_pkgname}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
 } 
