@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -42,7 +42,7 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare () {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/d5a3e749a30613294f41386180aaf31dfb1a9bee.diff
+  #patch -p1 -i ${srcdir}/d5a3e749a30613294f41386180aaf31dfb1a9bee.diff
   #sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
 }
 
