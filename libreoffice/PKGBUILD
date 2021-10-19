@@ -3,7 +3,7 @@ pkgname=libreoffice
 _LOver=7.2.2.2
 pkgver=7.2.2.2
 _pkgver=7.2.2
-pkgrel=1
+pkgrel=3
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
@@ -80,7 +80,11 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/box2d-2.3.1.tar.gz
 	https://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 	https://dev-www.libreoffice.org/extern/f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
-	poppler.diff)
+	poppler.diff
+	soffice.odg.desktop
+	soffice.odp.desktop
+	soffice.ods.desktop
+	soffice.odt.desktop)
 	
 	noextract=(18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
         185d60944ea767075d27247c3162b3bc-unowinreg.dll
@@ -262,6 +266,10 @@ package() {
         install -dm755 ${pkgdir}/etc/libreoffice
         install -m644 ${pkgdir}/usr/lib/libreoffice/program/{bootstraprc,sofficerc} ${pkgdir}/etc/libreoffice/
         install -m644 ${pkgdir}/usr/lib/libreoffice/share/psprint/psprint.conf ${pkgdir}/etc/libreoffice/
+        # Dolphin right click > Create New menu, taken from https://packages.debian.org/sid/amd64/libreoffice-plasma/filelist
+        install -dm755 ${pkgdir}/usr/share/templates/.source
+        install -v -m644 extras/source/shellnew/soffice.* ${pkgdir}/usr/share/templates/.source
+        install -v -m644 ../soffice.* ${pkgdir}/usr/share/templates
         # links 
         cd ${pkgdir}/usr/lib/libreoffice/program/
         ln -vsf /etc/libreoffice/{bootstraprc,sofficerc} .
@@ -273,5 +281,5 @@ package() {
         #rm -rf ${pkgdir}/etc/bash_completion.d
  
         install -dm755 ${pkgdir}/usr/share/metainfo
-        install -v -m644 ${srcdir}/libreoffice-$_LOver/sysui/desktop/appstream-appdata/*.xml ${pkgdir}/usr/share/metainfo 
+        install -v -m644 ${srcdir}/libreoffice-$_LOver/sysui/desktop/appstream-appdata/*.xml ${pkgdir}/usr/share/metainfo
 }
