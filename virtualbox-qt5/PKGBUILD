@@ -5,9 +5,9 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=6.1.26
-_pkgver=6.1.26
-pkgrel=3
+pkgver=6.1.28
+_pkgver=6.1.28
+pkgrel=1
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
@@ -25,7 +25,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         'include-path.patch'
         'VirtioCore.cpp'
         'VirtioCore.h')
-sha256sums=('0212602eea878d6c9fd7f4a3e0182da3e4505f31d25f5539fb8f7b1fbe366195'
+sha256sums=('8d34993d8e9c0cf35e7bd44dd26c8c757f17a3b7d5a64052f945d00fd798ebfe'
             '9c5238183019f9ebc7d92a8582cad232f471eab9d3278786225abc1a1c7bf66e'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             'c7dc4e484c8641e8fbb8e7fb342c7a72534936d6e9212b477ab7e2736fb8be88'
@@ -110,7 +110,7 @@ package_virtualbox-qt5() {
 
     # components
     # temporary remove non existing link
-    rm components/VBoxREM.so
+    #rm components/VBoxREM.so
     install -dm755 ${pkgdir}/usr/lib/virtualbox/components
     install -m755 components/* -t ${pkgdir}/usr/lib/virtualbox/components
 
