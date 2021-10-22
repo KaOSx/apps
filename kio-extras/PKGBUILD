@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://invent.kde.org/network/kio-extras'
@@ -13,13 +13,15 @@ depends=('exiv2' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddon
          'kio' 'solid' 'kbookmarks' 'kguiaddons' 'kactivities-stats' 'syntax-highlighting'
          'libmtp' 'libssh' 'openexr' 'samba' 'qtwebengine' 'qt5-location' 'kdsoap' 'libappimage')
 makedepends=('extra-cmake-modules' 'kdoctools' 'khtml' 'gperf')
-source=("https://download.kde.org/stable/release-service/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/release-service/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/network/kio-extras/-/commit/c3d52ebecb7f4890e8a412930bce9c74fc9e2f1f.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '4e78b92fec7e716de3d534e8af227228')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/d813cef3cecdec9af1532a40d677a203ff979145.diff
+  patch -p1 -i ${srcdir}/c3d52ebecb7f4890e8a412930bce9c74fc9e2f1f.diff
 }
 
 build() {
