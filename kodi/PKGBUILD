@@ -1,7 +1,7 @@
 
 pkgname=kodi
-pkgver=19.2
-_pkgver=19.2-Matrix
+pkgver=19.3
+_pkgver=19.3-Matrix
 pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
@@ -25,8 +25,8 @@ optdepends=('unrar: access compressed files without unpacking them'
 groups=('multimedia')
 options=('makeflags')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
-source=("https://github.com/xbmc/xbmc/archive/v${_pkgver}.tar.gz")
-md5sums=('3c3e41154276569ae43058d16f833fa6')
+source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
+md5sums=('623583e6eac14668468d6c5628b8f1c5')
 
 build() {
     cmake -B build -S xbmc-${_pkgver} \
