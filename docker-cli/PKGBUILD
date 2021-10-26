@@ -1,7 +1,7 @@
 pkgname=docker-cli
-pkgver=20.10.9
-DOCKER_GITCOMMIT=c2ea9bc
-pkgrel=2
+pkgver=20.10.10
+DOCKER_GITCOMMIT=b485636
+pkgrel=1
 pkgdesc='Run any application as a lightweight container - command line binary for docker'
 arch=('x86_64')
 url='https://www.docker.com/'
@@ -10,11 +10,11 @@ depends=('bridge-utils' 'iproute2' 'device-mapper' 'sqlite' 'systemd' 'container
 makedepends=('go' 'go-md2man')
 options=('!strip')
 source=("cli-${pkgver}.tar.gz::https://github.com/docker/cli/archive/v${pkgver}.tar.gz")
-md5sums=('e84aefc6d8bf8659f560fce40624913b')
+md5sums=('9f6b1bbc478a03193c2fd6948f2bd97b')
 
 prepare() {
   cd cli-${pkgver}
-  
+
   #sed -i 's|-v md2man|-v go-md2man|' scripts/docs/generate-man.sh
   #sed -i 's|md2man|go-md2man|' man/md2man-all.sh
   
@@ -30,7 +30,7 @@ build() {
   export PATH="$GOPATH/bin:$PATH"
   export GO111MODULE=off
   export LDFLAGS='' 
-  
+
   make VERSION=${pkgver} dynbinary
   man/md2man-all.sh
 }
@@ -38,7 +38,7 @@ build() {
 package() {
   cd cli-${pkgver}
   install -Dm755 build/docker-linux-amd64 ${pkgdir}/usr/bin/docker
-  
+
   install -Dm644 contrib/completion/bash/docker ${pkgdir}/usr/share/bash-completion/completions/docker
   install -Dm644 contrib/completion/zsh/_docker ${pkgdir}/usr/share/zsh/site-functions/_docker
   install -Dm644 contrib/completion/fish/docker.fish ${pkgdir}/usr/share/fish/vendor_completions.d/docker.fish
