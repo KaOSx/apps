@@ -1,6 +1,6 @@
 
 pkgname=qmmp
-pkgver=2.0.0
+pkgver=2.0.2
 _pkgver=2.0
 _commit=dev-code-5352-branches-qmmp-1.0
 pkgrel=1
@@ -9,14 +9,14 @@ arch=('x86_64')
 url="https://qmmp.ylsoftware.com/"
 license=('GPL')
 depends=('alsa-lib' 'curl' 'hicolor-icon-theme' 'libmad' 'libvorbis' 'libogg'  'qt6-base'
-         'taglib' 'xdg-utils' 'enca' 'opusfile' 'qt5-multimedia' 'libcdio' 'libarchive' 'solid'
+         'taglib' 'xdg-utils' 'enca' 'opusfile' 'qt6-multimedia' 'libcdio' 'libarchive' 'solid'
          'flac' 'jack2' 'libmpcdec' 'libmodplug' 'libsndfile' 'wavpack' 'libcdio-paranoia'
          'pipewire')
 makedepends=('cmake' 'ffmpeg' 'libsamplerate' 'mesa' 'qt6-tools')
 groups=('multimedia')
 source=("https://qmmp.ylsoftware.com/files/qmmp/${_pkgver}/qmmp-${pkgver}.tar.bz2")
 #source=("http://sourceforge.net/code-snapshots/svn/q/qm/qmmp-dev/code/qmmp-${_commit}.zip")
-md5sums=('0162f8b285e5d2cf6cc904a84736fbac')
+md5sums=('ff7a74ba9859ae704b5558b0c9d2bb8f')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
