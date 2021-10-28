@@ -4,36 +4,28 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=networkmanager-qt
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt wrapper for NetworkManager API.'
 arch=('x86_64')
-url='https://community.kde.org/Frameworks'
+url='https://invent.kde.org/frameworks/networkmanager-qt'
 license=('LGPL')
 depends=('networkmanager' 'qt5-base' 'libffi')
 makedepends=('extra-cmake-modules')
-conflicts=('libnm-qt')
-provides=('libnm-qt')
-replaces=('libnm-qt')
 groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/5.87/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
-
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
