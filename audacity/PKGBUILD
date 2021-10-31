@@ -9,7 +9,7 @@ license=('GPL')
 depends=('libvorbis' 'libmad' 'libid3tag' 'gtk3' 'lame' 'hicolor-icon-theme' 'ffmpeg'
          'shared-mime-info' 'desktop-file-utils' 'redland' 'jack2' 'soundtouch' 'libsoxr'
          'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil' 'portmidi' 'wxwidgets'
-         'vamp-plugin-sdk')
+         'vamp-plugin-sdk' 'portsmf')
 makedepends=('cmake' 'zip' 'pkgconfig')
 options=('!makeflags')
 source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz")
@@ -29,7 +29,7 @@ build() {
     -Daudacity_obey_system_dependencies=On \
     -Daudacity_conan_enabled=Off \
     -Daudacity_use_ffmpeg=loaded \
-    -Daudacity_use_portsmf=off \
+    -Daudacity_use_portsmf=system \
     -Daudacity_use_sbsms=off \
     -Daudacity_use_twolame=off
     #-DALWAYS_ALLOW_CONAN_FALLBACK=ON
