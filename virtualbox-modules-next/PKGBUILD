@@ -1,17 +1,17 @@
 
-_extramodules=extramodules-5.14-next
+_extramodules=extramodules-5.15-next
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 #_kernver=4.8.3-1-next  # hardcode in case system not running linux-next
 
 pkgname=virtualbox-modules-next
 pkgver=6.1.28
 _pkgver=6.1.28
-pkgrel=3
+pkgrel=4
 pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
 arch=('x86_64')
 license=('GPL-2')
-depends=('linux-next>=5.14.0' 'linux-next<5.15')
+depends=('linux-next>=5.15.0' 'linux-next<5.16')
 makedepends=('linux-next-headers' 'elfutils')
 provides=('virtualbox-modules')
 options=('!strip')
