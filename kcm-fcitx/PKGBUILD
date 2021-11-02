@@ -1,7 +1,7 @@
 
 pkgname=kcm-fcitx
 pkgver=0.5.6
-pkgrel=2
+pkgrel=3
 pkgdesc="KDE Config Module for Fcitx"
 arch=('x86_64')
 url="https://github.com/fcitx/kcm-fcitx"
@@ -12,19 +12,14 @@ source=("https://download.fcitx-im.org/kcm-fcitx/$pkgname-${pkgver}.tar.xz")
 md5sums=('686a4c6ad42bacde746bb3a1ec97aa1e')
 
 build() {
-    cd ${pkgname}-${pkgver}
-    mkdir -p build
-    cd build
-    
-    cmake -DCMAKE_INSTALL_PREFIX=/usr \
-          -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_INSTALL_LIBDIR=lib \
-          -DKDE_INSTALL_USE_QT_SYS_PATHS=ON ..
-    make
+    cmake -B build -S ${pkgname}-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+    cmake --build build
 }
 
-package () {
-    cd ${pkgname}-${pkgver}/build
-    
-    make DESTDIR=${pkgdir} install
+package() {
+
+    DESTDIR=${pkgdir} cmake --install build
 }

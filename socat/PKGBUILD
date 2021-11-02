@@ -1,18 +1,18 @@
 
 pkgname=socat
-pkgver=1.7.4.1
+pkgver=1.7.4.2
 pkgrel=1
 arch=('x86_64')
 pkgdesc='Relay for bidirectional data transfer between two independent data channels.'
 url='http://www.dest-unreach.org/socat/'
 license=('GPL2')
 depends=('openssl' 'readline')
-source=("http://www.dest-unreach.org/socat/download/${pkgname}-${pkgver}.tar.bz2")
-sha256sums=('3faca25614e89123dff5045680549ecef519d02e331aaf3c4f5a8f6837c675e9')
+source=("http://www.dest-unreach.org/socat/download/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('a38f507dea8aaa8f260f54ebc1de1a71e5adca416219f603cda3e3002960173c')
 
 build() {
     cd ${pkgname}-${pkgver}
-    
+
     ./configure \
         --prefix=/usr \
         --mandir=/usr/share/man \
@@ -21,6 +21,6 @@ build() {
 
 package() {
     cd ${pkgname}-${pkgver}
-    
+
     make DESTDIR=${pkgdir} install
 }

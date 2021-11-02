@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=cantor
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE Frontend to Mathematical Software"
 url="https://apps.kde.org/en/cantor"
 arch=('x86_64')
@@ -22,7 +22,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
+
   sed -i -e 's|add_subdirectory(sage)|#add_subdirectory(sage)|' src/backends/CMakeLists.txt
   # needed changes for e-c-m 5.31.0
   #patch -p1 -i $srcdir/pythonhighlighter.diff

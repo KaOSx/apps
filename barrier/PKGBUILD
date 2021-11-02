@@ -1,6 +1,6 @@
 
 pkgname=barrier
-pkgver=2.3.3
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="Software that mimics the functionality of a KVM switch, allowing you to use a single keyboard and mouse to control multiple computers"
 arch=('x86_64')
@@ -10,13 +10,13 @@ depends=('curl' 'avahi' 'libx11' 'libxrandr' 'libxext' 'libxinerama' 'libxtst' '
          'libsm' 'libice' 'openssl' 'qt5-base')
 makedepends=('cmake' 'googletest')
 source=("https://github.com/debauchee/barrier/archive/v${pkgver}.tar.gz")
-md5sums=('10130132b006e6a1bdad595ec1d5960f')
+md5sums=('6f9b98a12a53cf8d0aa3b6b159aeb64f')
 
 prepare() {
     cd ${pkgname}-${pkgver}
 
-    sed -i 's|add_library.*||g' src/test/CMakeLists.txt 
-    sed -i 's|set_target_properties.*||g' src/test/CMakeLists.txt 
+    #sed -i 's|add_library.*||g' src/test/CMakeLists.txt 
+    #sed -i 's|set_target_properties.*||g' src/test/CMakeLists.txt 
 }
 
 build() {
@@ -25,7 +25,7 @@ build() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DBARRIER_BUILD_TESTS=OFF \
         -DBARRIER_USE_EXTERNAL_GTEST=ON
-    cmake --build build
+    cmake --build build -j1
 }
 
 package() {
