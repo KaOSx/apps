@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://invent.kde.org/network/kio-extras'
@@ -21,7 +21,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/c3d52ebecb7f4890e8a412930bce9c74fc9e2f1f.diff
+  #patch -p1 -i ${srcdir}/c3d52ebecb7f4890e8a412930bce9c74fc9e2f1f.diff
 }
 
 build() {
