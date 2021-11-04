@@ -20,10 +20,8 @@ depends=('kcrash' 'kbookmarks' 'kcodecs' 'kconfig' 'kconfigwidgets' 'kdbusaddons
          'pim-sieve-editor' 'kdepim-runtime' 'kuserfeedback')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim' 'network-email')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://github.com/KDE/kmail/commit/97e165dcf5a851ee10526631d24f9af7736da2e6.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '42efd1b5597ff4cb1cd8c7b762b5c43d')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare () {
   cd ${pkgname}-${pkgver}

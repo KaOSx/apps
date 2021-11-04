@@ -13,10 +13,8 @@ depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusa
          'ki18n' 'kio' 'knewstuff' 'kwidgetsaddons' 'kxmlgui' 'libkdegames' 'phonon-qt5' 'freecell-solver')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-games' 'kde-uninstall')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
-        "https://github.com/KDE/kpat/commit/fac28f110c0a9c976677bee2d9d2126f93a711fd.diff")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'b6b7bdf8ce19be111929824df28e74c3')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
