@@ -3,7 +3,7 @@ pkgname=scribus
 _pkgname=Scribus
 _commit=3742559924136c2471ab15081c5b600dd5feaeb0
 pkgver=1.5.7
-pkgrel=9
+pkgrel=10
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="https://www.scribus.net"
@@ -16,23 +16,19 @@ groups=('office')
 options=('!libtool' '!makeflags')
 source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 #source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
-        "https://github.com/scribusproject/scribus/commit/7ce0ac16fd42d61ef9082b27822c7d9d79c7fef7.diff"
-        "https://github.com/scribusproject/scribus/commit/6b9ff916959bcb941866f0bd86da639a421337f8.diff"
-        "https://github.com/scribusproject/scribus/commit/c62844064cd6d85802d21e188b0f479463e22095.diff")
+         "https://github.com/scribusproject/scribus/commit/1b546978bc4ea0b2a73fbe4d7cf947887e865162.diff"
+         "https://github.com/scribusproject/scribus/commit/68ec41169eaceea4a6e1d6f359762a191c7e61d5.diff")
 sha256sums=('318316b2cfc7a76191d3e0d3f8c2265147daea0570162028e243c292d826f8ce'
-            '93c57b873c044131cba1ec07028fdad2da061906c3c4023e91dae85a2dc2c729'
-            'c08934b9e111f153b646398983f669a2b179fdb86a30c9dd6515f7b5636ddf03'
-            'c71c5bf4ab135c58838e5330a7981ec08a59c737f84203120d42c1b3f8ec062f')
+            'c3f3214ead6948d6d709b99725fb05410a3d1a0532f6b8bfd92f3d5b75187ba0'
+            'd5db592b1f69c549348173d2cd3a815756a7c3e5c81bdbc9d3323400fb691a09')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
   #sed -i 's|pBase->SetOwner(cs->GetOwner());||' scribus/pdf_analyzer.cpp
-  # poppler 21.03.0 needed
-  #patch -p1 -i ${srcdir}/7ce0ac16fd42d61ef9082b27822c7d9d79c7fef7.diff
-  #patch -p1 -i ${srcdir}/6b9ff916959bcb941866f0bd86da639a421337f8.diff
-  # poppler 21.04.0 needed
-  #patch -p1 -i ${srcdir}/c62844064cd6d85802d21e188b0f479463e22095.diff
+  # harfbuzz 3 needed
+  patch -p1 -i ${srcdir}/1b546978bc4ea0b2a73fbe4d7cf947887e865162.diff
+  patch -p1 -i ${srcdir}/68ec41169eaceea4a6e1d6f359762a191c7e61d5.diff
 }
 
 build() {
