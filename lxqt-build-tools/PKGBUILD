@@ -1,6 +1,6 @@
 
 pkgname=lxqt-build-tools
-pkgver=0.9.0
+pkgver=0.10.0
 pkgrel=1
 pkgdesc="Various packaging tools and scripts for LXQt applications"
 arch=("x86_64")
@@ -9,20 +9,16 @@ license=('LGPL2.1')
 depends=('qt5-base')
 makedepends=('cmake')
 source=("https://github.com/lxde/lxqt-build-tools/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=('69600b98bea8fd18b0a3fab7730ee2cf')
+md5sums=('5e6ed4ee23d675cb5e2d85ce5a2c20fb')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr/ \
     -DCMAKE_BUILD_TYPE=release 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=$pkgdir install
+  DESTDIR=${pkgdir} cmake --install build
 }

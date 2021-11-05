@@ -1,6 +1,6 @@
  
 pkgname=pavucontrol-qt
-pkgver=0.17.0
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="Qt port of volume control pavucontrol of sound server PulseAudio."
 arch=("x86_64")
@@ -9,20 +9,16 @@ license=('GPL2')
 depends=('pulseaudio' 'qt5-base')
 makedepends=('lxqt-build-tools' 'qt5-tools')
 source=("https://github.com/lxqt/pavucontrol-qt/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('6c274cd3a80a699c4b3f4dbf4eccaef3fafdc677c6240e2b45672bafe46da170')
+sha256sums=('2407aa55a2d3dc0fdc7074b461c02b97fd455514fbbf9f5b711e68fadd45ac69')
 
 build() {
-    mkdir -p build
-    cd build
-
-    cmake ../${pkgname}-${pkgver} \
+    cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=lib
-    make
+    cmake --build build
 }
 
 package() {
-    cd build
-    
-    make DESTDIR=${pkgdir} install
+
+    DESTDIR=${pkgdir} cmake --install build
 }
