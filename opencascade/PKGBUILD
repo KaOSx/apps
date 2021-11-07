@@ -1,8 +1,10 @@
 
 pkgname=opencascade
-pkgver=7.5.3
-_commit=fecb042498514186bd37fa621cdcf09eb61899a3
-pkgrel=2
+pkgver=7.6.0
+_commit=80ffc5f84dae96de6ed093d3e5d2466a9e368b27
+__commit=80ffc5f
+_vtk=9.1
+pkgrel=1
 epoch=1
 pkgdesc="Open CASCADE Technology, 3D modeling & numerical simulation"
 arch=('x86_64')
@@ -18,7 +20,7 @@ source=("opencascade-${pkgver}.tar.gz::https://git.dev.opencascade.org/gitweb/?p
         'cmake.patch'
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/opencascade/files/opencascade-7.5.1-fix-AllValues-name-collision-with-vtk-9.0.patch"
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/opencascade/files/opencascade-7.5.1-0005-fix-write-permissions-on-scripts.patch")
-md5sums=('8fc0891ab20752de80c148c3eed5c570'
+md5sums=('e07797fe8e8e7aac9899bb55bf47d3e2'
          '545f3842f87750dd04569f93f1921e07'
          'fc4b64a9425c02d4daeaeb1425e0a70d'
          '2924ecf57c95d25888f51071fdc72ad0'
@@ -27,23 +29,23 @@ md5sums=('8fc0891ab20752de80c148c3eed5c570'
          '9c052ce94a6c7587e8df088ec1b30bae')
 
 prepare() {
-  cd occt-fecb042
+  cd occt-${__commit}
 
   patch -p1 -i ${srcdir}/cmake.patch
-  patch -p1 -i ${srcdir}/opencascade-7.5.1-fix-AllValues-name-collision-with-vtk-9.0.patch
-  patch -p1 -i ${srcdir}/opencascade-7.5.1-0005-fix-write-permissions-on-scripts.patch
+  #patch -p1 -i ${srcdir}/opencascade-7.5.1-fix-AllValues-name-collision-with-vtk-9.0.patch
+  #patch -p1 -i ${srcdir}/opencascade-7.5.1-0005-fix-write-permissions-on-scripts.patch
   sed -i -e 's|/lib$|/lib(64)?$|' adm/templates/OpenCASCADEConfig.cmake.in
 }
          
 build() {
-  cmake -B build -S occt-fecb042 \
+  cmake -B build -S occt-${__commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_RELEASE_DISABLE_EXCEPTIONS=OFF \
     -DUSE_FFMPEG=ON \
     -DUSE_VTK=ON \
     -D3RDPARTY_VTK_DIR=/usr \
-    -D3RDPARTY_VTK_INCLUDE_DIR=/usr/include/vtk-9.0 \
+    -D3RDPARTY_VTK_INCLUDE_DIR=/usr/include/vtk-${_vtk} \
     -D3RDPARTY_VTK_LIBRARY_DIR=/usr/lib
   cmake --build build
 }
@@ -57,7 +59,7 @@ package() {
   #install -m 755 ${srcdir}/env.sh ${pkgdir}/opt/${pkgname}
   
   install -dm755 ${pkgdir}/usr/share/licenses/${pkgname}/
-  install -m644 occt-fecb042/LICENSE_LGPL_21.txt  ${pkgdir}/usr/share/licenses/${pkgname}
-  install -m644 occt-fecb042/OCCT_LGPL_EXCEPTION.txt ${pkgdir}/usr/share/licenses/${pkgname}
+  install -m644 occt-${__commit}/LICENSE_LGPL_21.txt  ${pkgdir}/usr/share/licenses/${pkgname}
+  install -m644 occt-${__commit}/OCCT_LGPL_EXCEPTION.txt ${pkgdir}/usr/share/licenses/${pkgname}
 }
 
