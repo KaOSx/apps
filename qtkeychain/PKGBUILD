@@ -1,6 +1,6 @@
 
 pkgname=qtkeychain
-pkgver=0.12.0
+pkgver=0.13.0
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Qt API to store passwords and other secret data securely"
@@ -9,19 +9,20 @@ license=('BSD')
 depends=('qt5-base' 'kwallet')
 makedepends=('cmake' 'qt5-tools' 'icu')
 source=("https://github.com/frankosterfeld/qtkeychain/archive/v${pkgver}.tar.gz")
-md5sums=('474f172b42017872dd50eec6c9981fed')
+md5sums=('5eb06c76b04c30860d2fa5f589cc2782')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DCMAKE_INSTALL_LIBEXECDIR=lib/${pkgname}
+    -DCMAKE_INSTALL_LIBEXECDIR=lib/${pkgname} \
+    -DLIBSECRET_SUPPORT=Off
   cmake --build build
 }
 
 package() {
   DESTDIR=${pkgdir} cmake --install build
-  
+
   install -D -m644 ${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
