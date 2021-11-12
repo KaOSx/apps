@@ -1,6 +1,6 @@
 
 pkgname=audacity
-pkgver=3.1.0
+pkgver=3.1.1
 pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
@@ -9,11 +9,11 @@ license=('GPL')
 depends=('libvorbis' 'libmad' 'libid3tag' 'gtk3' 'lame' 'hicolor-icon-theme' 'ffmpeg'
          'shared-mime-info' 'desktop-file-utils' 'redland' 'jack2' 'soundtouch' 'libsoxr'
          'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil' 'portmidi' 'wxwidgets'
-         'vamp-plugin-sdk' 'portsmf')
+         'vamp-plugin-sdk' 'portsmf' 'portaudio')
 makedepends=('cmake' 'zip' 'pkgconfig')
 options=('!makeflags')
 source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz")
-sha256sums=('f441fc6115277b407b7496e5009fd5066875ceccbe3a31635bbcbe5558d31828')
+sha256sums=('183b9cd27179230b35a17786b978fc3062782a06a08965795585658398fd3ff0')
 
 prepare() {
   cd ${pkgname}-Audacity-${pkgver}
