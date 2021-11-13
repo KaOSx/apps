@@ -1,6 +1,6 @@
 
 pkgname=sqlcipher
-pkgver=4.4.3
+pkgver=4.5.0
 pkgrel=1
 pkgdesc="SQLite extension that provides transparent 256-bit AES encryption of database files"
 arch=('x86_64')
@@ -9,11 +9,11 @@ license=('BSD')
 depends=('openssl' 'sqlite')
 makedepends=('tcl')
 source=("https://github.com/sqlcipher/sqlcipher/archive/v${pkgver}.tar.gz")
-md5sums=('47a2a4c0fbbf4c46891b1678e893c4a3')
+md5sums=('27c29693591188e930a71de46a815cb6')
 
 build() {
   cd ${pkgname}-${pkgver}
-  
+
     ./configure --prefix=/usr --enable-tempstore=yes CFLAGS="$CFLAGS -DSQLITE_HAS_CODEC " \
     LDFLAGS="-lcrypto" 
   make
