@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kldap
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="LDap support library"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/pim/kldap'
@@ -13,8 +13,6 @@ depends=('kcompletion' 'kio' 'ki18n' 'kmbox' 'kwidgetsaddons' 'libldap' 'qtkeych
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kldap.git")
-#md5sums=('SKIP')
 
 prepare() {
   cd $pkgname-${pkgver}
