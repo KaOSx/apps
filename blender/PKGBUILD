@@ -1,33 +1,26 @@
 
 pkgname=blender
-# adjust .desktop for version
 pkgver=2.93.6
-_pkgver=2.93
-pkgrel=1
+_pkgver=2.93.7-candidate+v293.4ec6cc412d7f-linux.x86_64-release
+pkgrel=2
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
 license=('GPL')
 url="https://www.blender.org"
 depends=('desktop-file-utils' 'shared-mime-info' 'hicolor-icon-theme' 'xdg-utils')
-source=("https://download.blender.org/release/Blender${_pkgver}/${pkgname}-${pkgver}-linux-x64.tar.xz"
-        'blender.desktop')
-sha256sums=('9a5c66db4024355ec6a6e544e99f827ca8b49256dcfe3b43816474540fcd778d'
-            'dc5fe661e8dc8d9b09105363e913bf81bac7fd16e59509504dd45c8c98040c1b')
-
-prepare() {
-
-  mv -v "${pkgname}-"*/ ${pkgname}-${pkgver}
-}
+#source=("https://download.blender.org/release/Blender${_pkgver}/${pkgname}-${pkgver}-linux-x64.tar.xz")
+source=("https://builder.blender.org/download/daily/${pkgname}-${_pkgver}.tar.xz")
+sha256sums=('f06da649cf91439a130b87cbae9af562cbb90779ef1f6a71b38044c2408e2472')
 
 package() {
-  cd ${pkgname}-${pkgver}
-  
-  install -d ${pkgdir}/opt
-  mv -iv ${srcdir}/${pkgname}-${pkgver} ${pkgdir}/opt
-  
-  mkdir -p ${pkgdir}/usr/share/icons/hicolor/scalable/apps
-  install -m 644 -p ${pkgdir}/opt/${pkgname}-${pkgver}/blender.svg \
-      ${pkgdir}/usr/share/icons/hicolor/scalable/apps/blender.svg
+  cd ${pkgname}-${_pkgver}
 
-  install -Dm644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
+  install -dm755 ${pkgdir}/{usr/bin,opt/blender}
+  cp -r ${srcdir}/${pkgname}-${_pkgver}/* ${pkgdir}/opt/blender
+  ln -s /opt/${pkgname}/blender ${pkgdir}/usr/bin/blender
+
+  mkdir -p ${pkgdir}/usr/share/icons/hicolor/scalable/apps
+  install -m 644 -p blender.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/blender.svg
+
+  install -Dm644 blender.desktop ${pkgdir}/usr/share/applications/blender.desktop
 }
