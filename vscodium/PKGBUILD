@@ -1,7 +1,7 @@
 
 pkgname=vscodium
 pkgver=1.62.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Binary releases of VS Code without MS branding/telemetry/licensing."
 arch=('x86_64')
 url="https://github.com/VSCodium/vscodium"
@@ -15,6 +15,9 @@ sha256sums=('2fb1b204013e912b628d593457d2a0720e2b22b8186e00b487e44d0b22422c3c'
 package() {
   install -dm755 ${pkgdir}/opt/vscodium
   bsdtar -xf VSCodium-linux-x64-${pkgver}.tar.gz -C ${pkgdir}/opt/vscodium
+
+  install -dm755 ${pkgdir}/usr/bin
+  ln -s /opt/vscodium/bin/codium ${pkgdir}/usr/bin/codium
 
   install -dm755 ${pkgdir}/usr/share/applications
   install -Dm644 ${srcdir}/vscodium.desktop ${pkgdir}/usr/share/applications/vscodium.desktop
