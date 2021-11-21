@@ -2,14 +2,14 @@
 # odd numbers are for development
 pkgname=flatpak
 pkgver=1.12.2
-pkgrel=1
+pkgrel=2
 pkgdesc="System for building, distributing and running sandboxed desktop applications on Linux."
 url="https://flatpak.org"
 arch=('x86_64')
 license=('GPL')
-depends=('bubblewrap' 'elfutils' 'fuse' 'glib2' 'json-glib' 'libarchive' 'ostree'
+depends=('bubblewrap' 'dconf' 'elfutils' 'fuse' 'glib2' 'json-glib' 'libarchive' 'ostree'
          'polkit' 'xorg-xauth' 'python3' 'patch' 'systemd' 'appstream-glib' 'xdg-desktop-portal-kde')
-makedepends=('intltool' 'xmlto' 'libdwarf' 'dconf' 'socat' 'python3-pyparsing')
+makedepends=('intltool' 'xmlto' 'libdwarf' 'socat' 'python3-pyparsing')
 install=flatpak.install
 source=("https://github.com/flatpak/flatpak/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 sha256sums=('df1eb464f9142c11627f99f04f6a5c02c868bbb145489b8902cb6c105e774b75')
