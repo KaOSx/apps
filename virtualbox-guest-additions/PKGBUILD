@@ -1,7 +1,7 @@
 
 pkgname=virtualbox-guest-additions
-pkgver=6.1.28
-_pkgver=6.1.28
+pkgver=6.1.30
+_pkgver=6.1.30
 pkgrel=1
 pkgdesc='The official VirtualBox Guest Additions ISO image'
 arch=('x86_64')
@@ -14,14 +14,14 @@ source=("https://download.virtualbox.org/virtualbox/${_pkgver}/VBoxGuestAddition
         'vboxservice.service'
         'LICENSE')
 noextract=(VBoxGuestAdditions_${_pkgver}.iso)
-sha256sums=('eab85206cfb9d7087982deb2635d19a4244a3c6783622a4817fb1a31e48e98e5'
+sha256sums=('d324d2d09d8dd00b1eb3ef3d80ab2e1726998421d13adc0d2a90e05d355aaa5c'
             'aaa8d3d71c8585edf43ed11676ccd567cc85fc23752d3c3499506741cef3c9ba'
             'e7a050caef7c640d3f5ccfecc03dc6e2c67402e192031034fbc88ee85034d29f')
 
 package() {
   install -Dm 644 VBoxGuestAdditions_${_pkgver}.iso \
     ${pkgdir}/usr/lib/virtualbox/additions/VBoxGuestAdditions.iso
-  
+
   #install -Dm0644 vboxservice.service ${pkgdir}/usr/lib/systemd/system/vboxservice.service
   install -Dm 644 ${srcdir}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
