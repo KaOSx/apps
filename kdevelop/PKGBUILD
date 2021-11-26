@@ -1,8 +1,10 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kdevelop
-pkgver=5.6.2
-_pkgver=5.6.2
-pkgrel=6
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc="A C/C++ development environment for KDE"
 arch=('x86_64')
 url="https://www.kdevelop.org/"
@@ -17,8 +19,8 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'perl' 'docbook-xsl' 'boost')
 conflicts=('kdevplatform')
 replaces=('kdevplatform')
 groups=('programming')
-source=("https://download.kde.org/stable/kdevelop/${_pkgver}/src/kdevelop-${pkgver}.tar.xz")      
-sha256sums=('0f86bc3fe53f761c1e3e3f7544577a0c41433be8bff310cf2e729f76f4363bf6')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}

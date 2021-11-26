@@ -1,8 +1,10 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kdev-php
-pkgver=5.6.2
-_pkgver=5.6.2
-pkgrel=2
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc="PHP plugin for Kdevelop"
 arch=('x86_64')
 url="https://kde.org/applications/en/kdev-php?category=development"
@@ -11,10 +13,8 @@ depends=('kdevelop' 'kdevelop-pg-qt' 'threadweaver' 'ktexteditor' 'ki18n')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('programming')
 options=('!makeflags')
-replaces=('kdevelop-php' 'kdevelop-php-docs')
-conflicts=('kdevelop-php' 'kdevelop-php-docs')
-source=("https://download.kde.org/stable/kdevelop/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('f1083daec2b8c752de1a0441d0f9f72274b1e2d29c723005ed78dcf8ba717e0c')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

@@ -1,8 +1,10 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kdev-python
-pkgver=5.6.2
-_pkgver=5.6.2
-pkgrel=2
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc='KDevelop plugin which provides Python language support.'
 arch=('x86_64')
 url="https://kde.org/applications/en/kdev-python?category=development"
@@ -11,8 +13,8 @@ depends=('kdevelop' 'python3' 'ki18n' 'knewstuff' 'kitemmodels' 'threadweaver'
          'ktexteditor' 'kcmutils')
 makedepends=('extra-cmake-modules' 'kdoctools' 'kdevelop-pg-qt')
 groups=('kde' 'kdevelop-plugins')
-source=("https://download.kde.org/stable/kdevelop/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('20f9b771b961262ded986a4f32b8d259ad9f7bc48bb29eac0a5d5853be1d917f')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
