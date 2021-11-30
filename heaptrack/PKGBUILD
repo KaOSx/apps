@@ -1,7 +1,7 @@
 
 pkgname=heaptrack
 pkgver=1.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A heap memory profiler for Linux'
 arch=('x86_64')
 url="https://github.com/KDE/heaptrack"
@@ -15,10 +15,10 @@ sha256sums=('d494dff438aa0ae5d6bae286db14b0ac582604b8674f7a2adfb9fc19dfe62848')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
+
   #patch -p1 -i $srcdir/bluezqt5.11.patch
 }
-         
+
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \

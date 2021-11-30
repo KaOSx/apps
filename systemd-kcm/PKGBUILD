@@ -1,7 +1,7 @@
 
 pkgname=systemd-kcm
 pkgver=1.2.1
-pkgrel=13
+pkgrel=14
 pkgdesc="Systemd control module for KDE"
 arch=('x86_64')
 url='https://github.com/KDE/systemd-kcm'
@@ -27,7 +27,7 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
-  
+
   sed -i -e 's|system-administration|session|' ${pkgdir}/usr/share/kservices5/kcm_systemd.desktop
   rm ${pkgdir}/usr/share/kservices5/settings-system-administration.desktop
 }
