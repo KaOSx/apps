@@ -1,7 +1,7 @@
 
 pkgname=fcitx
 pkgver=4.2.9.8
-pkgrel=5
+pkgrel=6
 pkgdesc="A Flexible Input Method Framework"
 arch=('x86_64')
 license=('GPL')
@@ -16,7 +16,7 @@ md5sums=('fbd1d76ce81353f003dffb73053b4803')
 
 prepare() {
   cd  ${pkgname}-${pkgver}
-  
+
   sed -i -e 's|PC_ENCHANT enchant|PC_ENCHANT enchant-2|' cmake/FindEnchant.cmake
 }
 
