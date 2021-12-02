@@ -1,27 +1,22 @@
 
 pkgname=qtcreator
 _pkgname=qt-creator-opensource-src
-pkgver=5.0.3
-_pkgver=5.0
-__pkgver=5.0.3
+pkgver=6.0.0
+_pkgver=6.0
+__pkgver=6.0.0
 pkgrel=1
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="https://www.qt.io/development-tools"
 license=('GPL3')
-depends=('qt5-tools' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-quick3d' 'qt5-svg' 'qt5-script'
-         'qt5-serialport' 'qt5-quick3d' 'qtwebengine' 'llvm' 'clang' 'yaml-cpp' 'clang-tools-extra'
-         'syntax-highlighting' 'clazy')
-makedepends=('cmake')
-optdepends=('qt5-doc: for the integrated Qt documentation'
-            'gdb: for the debugger'
-            'cmake: for cmake project suppport'
-            'git: for git support'
-            'mercurial: for mercurial support')
+depends=('qt6-tools' 'qt5-quick3d' 'qt5-svg' 'qt5-script' 'qt6-serialport' 'qt6-webengine'
+         'qt6-translations' 'llvm' 'clang' 'yaml-cpp' 'clang-tools-extra' 'syntax-highlighting'
+         'clazy' 'gdb' 'git' 'cmake')
+optdepends=('mercurial: for mercurial support')
 groups=('programming')
 source=("https://download.qt.io/official_releases/${pkgname}/${_pkgver}/${__pkgver}/${_pkgname}-${__pkgver}.tar.xz"
         'qtcreator.desktop')
-md5sums=('94fad14bd0ecd5e9388899a984f851c0'
+md5sums=('44c3d613b2d6eb06d17ee1c0e92ce1d0'
          '5162b73dd63f457bdb02bd9c8b1cc66b')
 
 prepare() {
