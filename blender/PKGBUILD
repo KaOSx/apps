@@ -1,22 +1,22 @@
 
 pkgname=blender
-pkgver=2.93.6
-_pkgver=2.93.7-candidate+v293.4ec6cc412d7f-linux.x86_64-release
-pkgrel=2
+pkgver=3.0.0
+_pkgver=3.0
+pkgrel=1
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
 license=('GPL')
 url="https://www.blender.org"
 depends=('desktop-file-utils' 'shared-mime-info' 'hicolor-icon-theme' 'xdg-utils')
-#source=("https://download.blender.org/release/Blender${_pkgver}/${pkgname}-${pkgver}-linux-x64.tar.xz")
-source=("https://builder.blender.org/download/daily/${pkgname}-${_pkgver}.tar.xz")
-sha256sums=('f06da649cf91439a130b87cbae9af562cbb90779ef1f6a71b38044c2408e2472')
+source=("https://download.blender.org/release/Blender${_pkgver}/${pkgname}-${pkgver}-linux-x64.tar.xz")
+#source=("https://builder.blender.org/download/daily/${pkgname}-${_pkgver}.tar.xz")
+sha256sums=('19b09dfcf5d3f3a068827454f0a704a9aa9c826350f73016121afef5f4d287ce')
 
 package() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}-linux-x64
 
   install -dm755 ${pkgdir}/{usr/bin,opt/blender}
-  cp -r ${srcdir}/${pkgname}-${_pkgver}/* ${pkgdir}/opt/blender
+  cp -r ${srcdir}/${pkgname}-${pkgver}-linux-x64/* ${pkgdir}/opt/blender
   ln -s /opt/${pkgname}/blender ${pkgdir}/usr/bin/blender
 
   mkdir -p ${pkgdir}/usr/share/icons/hicolor/scalable/apps
