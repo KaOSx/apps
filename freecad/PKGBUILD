@@ -1,9 +1,9 @@
 
 pkgname=freecad
 _pkgname=FreeCAD
-pkgver=0.19.2
+pkgver=0.19.3
 _commit=7b5e18a0759de778b74d3a5c17eba9cb815035ac
-pkgrel=3
+pkgrel=1
 pkgdesc='A general purpose 3D CAD modeler'
 arch=('x86_64')
 url='https://www.freecadweb.org/'
@@ -13,21 +13,21 @@ depends=('boost-libs' 'curl' 'glew' 'jsoncpp' 'libspnav' 'opencascade' 'shiboken
          'qt5-tools' 'shared-mime-info' 'med' 'coin' 'pivy')
 makedepends=('boost' 'eigen3' 'swig' 'cmake')
 options=('!libtool' '!makeflags')
-#source=("https://github.com/FreeCAD/FreeCAD/archive/${pkgver}.tar.gz"
-source=("https://github.com/FreeCAD/FreeCAD/archive/${_commit}.zip"
+source=("https://github.com/FreeCAD/FreeCAD/archive/${pkgver}.tar.gz"
+#source=("https://github.com/FreeCAD/FreeCAD/archive/${_commit}.zip"
         #'freecad.desktop'
         'freecad.xml'
         'vtk9.patch'
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-gfx/freecad/files/freecad-0.19.2-0007-fix-build-failure-with-opencascade-7.5.2.patch"
         'boost.patch')
-md5sums=('5743ae32dc0baca5553342fd35a988db'
+md5sums=('abd7951f878126341ed7fe81b9ab2781'
          'c2f4154c8e4678825411de8e7fa54c6b'
          '73bd4ea78c50fb4e2c282c485565fc4b'
          'bbac718fa741068390f3a44206fc6609'
          '41fecfec2ca6bb43d7353e428988819c')
 
 prepare() {
-  cd ${_pkgname}-${_commit}/
+  cd ${_pkgname}-${pkgver}/
 
   patch -p1 -i ${srcdir}/vtk9.patch
   patch -p1 -i ${srcdir}/freecad-0.19.2-0007-fix-build-failure-with-opencascade-7.5.2.patch
@@ -36,7 +36,7 @@ prepare() {
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${_commit} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_DATADIR=/usr/share/freecad \
         -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/freecad \
