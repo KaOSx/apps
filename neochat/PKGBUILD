@@ -1,31 +1,32 @@
  
 pkgname=neochat
-pkgver=1.2.0
+pkgver=21.12
 _commit=1d5b7dee94407a0522a9ce6dcf4b231068b618fd
-pkgrel=5
+pkgrel=1
 pkgdesc="Client for Matrix, the decentralized communication protocol for instant messaging - Spectral fork."
 arch=('x86_64')
 url="https://apps.kde.org/en/neochat"
 license=('GPL3')
 depends=('qt5-multimedia' 'qt5-quickcontrols2' 'qt5-svg' 'kirigami' 'ki18n' 
          'knotifications' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'qtkeychain' 'libquotient' 
-         'cmark' 'kquickimageeditor' 'qqc2-desktop-style' 'kitemmodels' 'sonnet' 'kio')
+         'cmark' 'kquickimageeditor' 'kitemmodels' 'qqc2-desktop-style' 'kconfigwidgets' 'kio'
+         'kwindowsystem' 'sonnet' 'syntax-highlighting' 'qcoro')
 makedepends=('extra-cmake-modules')
 replaces=('spectral')
 conflicts=('spectral')
-#source=("https://download.kde.org/stable/neochat/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("https://invent.kde.org/network/neochat/-/archive/${_commit}/neochat-${_commit}.tar.bz2")
-sha256sums=('c2f4dbe9342d9ce6119ffc29ec1fc7599eeaf2967a3bf200c50bb7b7f4315ca3')
+source=("https://download.kde.org/stable/plasma-mobile/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#source=("https://invent.kde.org/network/neochat/-/archive/${_commit}/neochat-${_commit}.tar.bz2")
+sha256sums=('8393147b95fda221dc99034c2e72d5f91d8ba85cf6f5f5d2d29734c85028ab8a')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   
   #sed -i -e 's|include "events/stickerevent.h"|include "stickerevent.h"|' src/neochatroom.cpp
   #sed -i -e 's|include <events/stickerevent.h>|include "stickerevent.h"|' src/messageeventmodel.cpp
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release 
   cmake --build build

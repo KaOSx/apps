@@ -1,0 +1,26 @@
+ 
+pkgname=qcoro
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="Library that provides set of tools to make use of the C++20 coroutines in connection with certain asynchronous Qt actions."
+arch=('x86_64')
+url="https://qcoro.dvratil.cz/"
+license=('MIT')
+depends=('qt5-base')
+makedepends=('cmake')
+source=("https://github.com/danvratil/qcoro/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('610fcf621de0cf04597e2e308d1d22a7fce2a39eafa2d4827d1ff6c8b0e724c0')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DUSE_QT_VERSION=5
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+  install -D -m644 ${pkgname}-${pkgver}/LICENSES/MIT.txt ${pkgdir}/usr/share/licenses/${pkgname}/MIT.txt
+}

@@ -6,7 +6,7 @@ arch=('x86_64')
 pkgdesc="Kirigami-based podcast player"
 url="https://invent.kde.org/plasma-mobile/kasts"
 license=('GPL2')
-depends=('qt5-multimedia' 'qt5-quickcontrols2' 'qt5-svg' 'kirigami'
+depends=('qt5-multimedia' 'qt5-quickcontrols2' 'qt5-svg' 'kirigami' 'networkmanager-qt'
          'kcoreaddons' 'syndication' 'kconfig' 'ki18n' 'qtkeychain')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 source=("https://download.kde.org/stable/plasma-mobile/${pkgver}/${pkgname}-${pkgver}.tar.xz")
@@ -16,6 +16,7 @@ build() {
   cmake -B build -S ${pkgname}-${pkgver} \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release \
+      -DKDE_INSTALL_LIBDIR=lib \
       -DBUILD_TESTING=OFF
   cmake --build build
 }
