@@ -3,13 +3,13 @@ pkgname=filezilla
 _pkgname=FileZilla
 pkgver=3.56.2
 _pkgver=3.56.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client."
 arch=('x86_64')
 url="https://filezilla-project.org/"
 license=('GPL2')
-depends=('dbus' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'wxgtk' 'sqlite'
-         'libfilezilla' 'pugixml' 'gnutls' 'nettle')
+depends=('dbus' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'sqlite' 'wxgtk'
+         'libfilezilla' 'pugixml' 'gnutls' 'nettle') #'wxwidgets' 
 source=("https://download.filezilla-project.org/client/${_pkgname}_${_pkgver}_src.tar.bz2"
         'filezilla.desktop')
 sha512sums=('6aab8a0a8b2205ac5428c6b5ef698010cb9a42759913254ac5981be85ffb8d725251724c1972c9b9ba6c88029573ef2c8a36f6814252b8080476f0b080a9d2f1'
@@ -18,6 +18,9 @@ sha512sums=('6aab8a0a8b2205ac5428c6b5ef698010cb9a42759913254ac5981be85ffb8d72525
 build() {
   cd ${pkgname}-${_pkgver}
   #patch -p1 -i ${srcdir}/filezilla-3.47.2.1-interface_Mainfrm_h_include_list.patch
+  # trial to move to wxwidgets, only 3.0 is supported
+  #sed -e 's|${WX_VERSION_MINOR}" = "3.1"|${WX_VERSION_MINOR}" = "3.2"|' -i configure
+  #sed -e 's|${WX_VERSION_MINOR}" != "3.0"|${WX_VERSION_MINOR}" != "3.1"|' -i configure
 
   ./configure --prefix=/usr \
     --disable-manualupdatecheck \
