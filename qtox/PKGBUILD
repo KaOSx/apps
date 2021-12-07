@@ -18,7 +18,7 @@ md5sums=('90a3a03d146ea9656909a4d8dd360c47'
 
 prepare() {
   cd ${_pkgname}-${pkgver}
-  
+
   #patch -Rp1 -i ${srcdir}/5b120c18ef4a20ea27dcedd89b043b0d22ca534e.diff
 }
 
@@ -26,7 +26,7 @@ build() {
   cd ${_pkgname}-${pkgver}
   mkdir -p build
   cd build
-  
+
   cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr 
