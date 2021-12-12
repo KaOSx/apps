@@ -58,7 +58,7 @@ Rectangle {
             
             <p>Plasma 5.23 - the 25th Anniversary Edition is included already. Highlights of this new major version include Kickoff receiving a code overhaul with improved performance & accessibility, and the option to choose a list or grid view for all apps, Systemsettings has easier find options, sorted screen refresh rates, and a timer to revert possible undesired display settings, for Wayland sessions there is a new screen rotation animation and, it is now possible to middle-click-paste between native Wayland and XWayland apps.</p>
 
-            <p>Updates to the base of this distribution include Systemd 249.7, Curl 7.80.0, Coreutils 9.0, NetworkManager 1.32.12, Mesa 21.3.1, Bison 3.8.2, Vulkan packages 1.2.201, Udisks 2.9.4, Sudo 1.9.8p2, and Pacman 6.0.1.< /br>
+            <p>Updates to the base of this distribution include Systemd 249.7, Curl 7.80.0, Coreutils 9.0, NetworkManager 1.32.12, Mesa 21.3.1, Bison 3.8.2, Vulkan packages 1.2.202, Udisks 2.9.4, Sudo 1.9.8p2, and Pacman 6.0.1.< /br>
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.
             </p>
             
@@ -90,7 +90,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.88.0, Plasma 5.23.4, KDE Applications 21.11.90</b>, Linux 5.14.18, Systemd 249.7, Kmod 29, NetworkManager 1.32.12, LibreOffice 7.3.2, Krita 4.4.7, Elisa, Xorg-Server 1.21.1, Mesa 21.3.1, Glibc 2.33, GCC 11.2.0, non-free Nvidia 495 and Python3 3.8.12 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.89.0, Plasma 5.23.4, KDE Applications 21.12.0</b>, Linux 5.14.18, Systemd 249.7, Kmod 29, NetworkManager 1.32.12, LibreOffice 7.2.4, Krita 4.4.7, Elisa, Xorg-Server 1.21.1, Mesa 21.3.1, Glibc 2.33, GCC 11.2.0, non-free Nvidia 495 and Python3 3.8.12 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.11.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             

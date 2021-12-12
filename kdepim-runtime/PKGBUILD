@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdepim-runtime
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="KDE Pim Runtime"
 url="https://invent.kde.org/pim/kdepim-runtime"
@@ -18,13 +18,15 @@ depends=('akonadi-mime' 'akonadi-notes' 'akonadi-contacts' 'kconfig' 'kconfigwid
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 options=('debug')
 groups=('kde' 'kdepim' 'kde-uninstall')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/pim/kdepim-runtime/-/commit/f14fabcefb45790175e209ef8ae394def4a805e9.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '4516e03b02c156f00e89bb53956c26ef')
 
 prepare() {
     cd ${pkgname}-${pkgver}
 
-    #patch -p1 -i ${srcdir}/d148d6214590c03b8edbd237be7b1354ce4fcfbd.diff
+    patch -p1 -i ${srcdir}/f14fabcefb45790175e209ef8ae394def4a805e9.diff
 }
 
 build() {    
