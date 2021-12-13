@@ -1,7 +1,7 @@
 
 pkgname=aubio
 pkgver=0.4.9
-pkgrel=2
+pkgrel=3
 pkgdesc="Tool designed for the extraction of annotations from audio signals"
 arch=('x86_64')
 url="https://aubio.org/"
@@ -13,7 +13,7 @@ md5sums=('50c9c63b15a2692378af5d602892f16a')
 
 build() {
   cd ${pkgname}-${pkgver}
-  
+
   ./waf configure --prefix=/usr \
     --alltests \
     --enable-fftw3 \
@@ -24,7 +24,7 @@ build() {
 
 package() {
   cd ${pkgname}-${pkgver}
-  
+
   ./waf --destdir=${pkgdir} install
   python setup.py install --skip-build --optimize=1 --root=${pkgdir}
 }
