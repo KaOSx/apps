@@ -2,7 +2,7 @@
 pkgname=frescobaldi
 pkgver=3.1.3
 _commit=ef771c03f858693fdb7bc62e4a8ded61535b1cbf
-pkgrel=4
+pkgrel=5
 pkgdesc="A LilyPond sheet music editor. It aims to be powerful, yet lightweight and easy to use."
 arch=('x86_64')
 url="https://www.frescobaldi.org/"
@@ -16,7 +16,7 @@ sha256sums=('9c7f5036f367691454753f1db06ea02c33501c1e4f24bfb47485103911f3e9c1')
 
 prepare() {
     cd ${pkgname}-${pkgver}
-    
+
     sed -i 's|single-version-externally-managed = 1||' setup.cfg
 }
 

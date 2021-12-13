@@ -7,7 +7,7 @@ pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
 pkgver=6.1.30
 _pkgver=6.1.30
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
@@ -39,7 +39,7 @@ prepare() {
     cd VirtualBox-${pkgver}
 
     #patch -p1 -i ${srcdir}/include-path.patch
-    
+
     sed -i -e 's|X11R6/||' configure
     sed -i -e 's|X11R6/||' Config.kmk
     sed -i -e 's|.*&& check_makeself||' configure

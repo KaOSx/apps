@@ -1,7 +1,7 @@
 
 pkgname=powerline
 pkgver=2.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Statusline plugin for vim, provides statuslines and prompts for other applications, including zsh and bash'
 url='https://powerline.readthedocs.io/en/latest/overview.html'
 license=('MIT')
@@ -14,13 +14,13 @@ md5sums=('2337d2f226b31e163aa752ce22aa532a')
 
 build() {
     cd ${pkgname}-${pkgver}
-    
+
     python3 setup.py build
 }
 
 package() {
     cd ${pkgname}-${pkgver}
-    
+
     python3 setup.py install --root=${pkgdir} --optimize=1 --skip-build
 
     install -dm755 ${pkgdir}/etc/fonts/conf.d
