@@ -1,6 +1,6 @@
 
 pkgname=gendesk
-pkgver=1.0.8
+pkgver=1.0.9
 pkgrel=1
 pkgdesc="Utility to generate .desktop files and download icons"
 arch=('x86_64')
@@ -10,12 +10,12 @@ depends=('glibc')
 makedepends=('go')
 source=("https://roboticoverlords.org/gendesk/${pkgname}-${pkgver}.tar.xz"
         "https://roboticoverlords.org/images/default.png")
-md5sums=('55b9c2912fb268b33bbcd307e30d05e4'
+md5sums=('9b87ee175550c4ac4ebb3a1c15c74a0b'
          '76e9160caf563badd49c13f34cd137cf')
 
 build() {
   cd ${pkgname}-${pkgver}
-  
+
   go build -mod=vendor
 }
 
