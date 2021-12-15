@@ -23,18 +23,13 @@ prepare() {
 }
 
 build() {
-  cd ${_pkgname}-${pkgver}
-  mkdir -p build
-  cd build
-
-  cmake .. \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr 
-  make
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}/build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
