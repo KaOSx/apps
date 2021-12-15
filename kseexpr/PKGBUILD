@@ -1,19 +1,19 @@
 
 pkgname=kseexpr
-pkgver=4.0.3.0
-_pkgver=4.0.3
+pkgver=4.0.4.0
+_pkgver=4.0.4
 pkgrel=1
 pkgdesc='Fork of Walt Disney Animation Studios SeExpr, an embeddable expression evaluation engine'
 arch=('x86_64')
 url='https://invent.kde.org/graphics/kseexpr'
 license=('LGPL')
-depends=('python3' 'boost-libs' 'pyqt5-python3') #'llvm'
+depends=('python3' 'boost-libs' 'pyqt5-python3' 'ki18n') #'llvm'
 makedepends=('extra-cmake-modules' 'boost' 'qt5-tools')
 provides=('seexpr')
 replaces=('seexpr')
 conflicts=('seexpr')
 source=("https://download.kde.org/stable/kseexpr/${_pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('e07b5ec4c874fbeeee3cd2490a0c8e4360230e3492c7f8e3b02dd63dbfd3f195')
+sha256sums=('ea4f6a8e820e6cc12d2a1e6977e96ea5457f37729fe0bc4ee8cc62d4c26c36ae')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
@@ -23,7 +23,6 @@ build() {
     -DBUILD_DEMOS=TRUE \
     -DBUILD_DOC=OFF \
     -DBUILD_TESTS=OFF \
-    -DPYQT_SIP_DIR=/usr/share/sip/PyQt5 \
     -DENABLE_LLVM_BACKEND=OFF
   cmake --build build
 }
