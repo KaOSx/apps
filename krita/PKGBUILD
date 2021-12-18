@@ -2,7 +2,7 @@
 pkgname=krita
 pkgver=4.4.8
 _pkgver=4.4.8
-pkgrel=4
+pkgrel=5
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -12,15 +12,17 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'kimageformats'
          'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
          'libraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'gmic-qt' 'pyqt5-python3' 'quazip' 'qt5-tools' 
-         'opencolorio' 'kseexpr')
+          'kseexpr') #'opencolorio'
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost') # 'clang') 
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
 source=("https://download.kde.org/stable/krita/${_pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/graphics/krita/-/commit/d66383f6c593d21463c658fbcc6adef28a7f570f.diff"
+        "https://invent.kde.org/graphics/krita/-/commit/6f8b60768033428178d560e0612bcd8073aed3f5.diff"
         'launch_krita.sh')
 sha256sums=('45112bf9d59beaf70de1e221699711a66b617a680d07e59d037d3b93ae77f450'
             'a944a1b36c52aad46a950361d6f99c6015bddf15121f4c5333f526e9946d1e8d'
+            '109925e30a291e99b4fe9f714cfbc119643da1830dc9c881fa9754fbd3db4bf3'
             'df345142ede5ec8f2d3422850dd78059944220f163fa30b5cdefdc9bd54235ff')
 
 prepare() {
@@ -30,6 +32,8 @@ prepare() {
   #sed -e "/CMAKE_CXX_STANDARD/s/11/14/" -i CMakeLists.txt
   # openexr 3.0 needed
   patch -p1 -i ${srcdir}/d66383f6c593d21463c658fbcc6adef28a7f570f.diff
+  # opencolorio 2.x needed
+  #patch -p1 -i ${srcdir}/6f8b60768033428178d560e0612bcd8073aed3f5.diff
 }
 
 build() {
