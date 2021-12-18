@@ -1,8 +1,8 @@
 
 pkgname=postgis
-pkgver=3.1.4
-_pkgver=3.1.4
-pkgrel=3
+pkgver=3.2.0
+_pkgver=3.2.0
+pkgrel=1
 pkgdesc="Adds support for geographic objects to PostgreSQL"
 arch=('x86_64')
 url="https://postgis.net/"
@@ -11,7 +11,7 @@ depends=('postgresql' 'proj' 'geos' 'gdal' 'json-c' 'protobuf-c')
 options=('!libtool' '!makeflags')
 source=("https://download.osgeo.org/postgis/source/${pkgname}-${_pkgver}.tar.gz"
         "https://github.com/postgis/postgis/commit/518ae076a8c6e6239b9f4c4b1808f5b10650bf1b.diff")
-md5sums=('179954c38aac48efd606bcacbf3ca970'
+md5sums=('3460eaf96e8a3879d66bc732e374f75e'
          'e365bdf68bdf5918e3084b2f7720ebfd')
 
 build() {
@@ -27,6 +27,6 @@ build() {
 
 package() {
     cd ${pkgname}-${_pkgver}
-	
+
     make DESTDIR=${pkgdir} install
 }
