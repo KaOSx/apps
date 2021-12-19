@@ -51,22 +51,22 @@ Rectangle {
             wrapMode: Text.WordWrap
 
             text: qsTr("<h3>KaOS - 2021.12</h3>
-            <p>KaOS is very proud to announce the availability of the December release of a new stable ISO..</p>
+            <p>KaOS is very proud to announce the availability of the December release of a new stable ISO.</p>
 
             <p>For installer Calamares there are three major changes. Biggest one is the addition of a bootloader selection module. For UEFI installs it is now possible to select between systemd-boot, rEFInd or no bootloader, all presented in a nice, QML based GUI. Second change is the addition of an interactive keybaord preview in the keyboard setup page. And third is the porting of the License page to QML.</p>
 
-            
-            <p>Plasma 5.23 - the 25th Anniversary Edition is included already. Highlights of this new major version include Kickoff receiving a code overhaul with improved performance & accessibility, and the option to choose a list or grid view for all apps, Systemsettings has easier find options, sorted screen refresh rates, and a timer to revert possible undesired display settings, for Wayland sessions there is a new screen rotation animation and, it is now possible to middle-click-paste between native Wayland and XWayland apps.</p>
-
-            <p>Updates to the base of this distribution include Systemd 249.7, Curl 7.80.0, Coreutils 9.0, NetworkManager 1.32.12, Mesa 21.3.1, Bison 3.8.2, Vulkan packages 1.2.202, Udisks 2.9.4, Sudo 1.9.8p2, and Pacman 6.0.1.< /br>
+            <p>Updates to the base of this distribution were numerous and they included a GCC 11.2/Binutils 2.73 based Toolchain (with a move to libxcrypt), complete updated libffi 3.4.2/Glib2 2.70.2 stack, ICU 70.1/Boost 1.77.0 stack, Python 3.9.9, Systemd 249.7, Curl 7.80.0, Mesa 21.3.2, Vulkan packages 1.2.202, Wayland 1.20.0, Sudo 1.9.8p2, and Openldap 2.6.0.< /br>
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.
             </p>
             
-            <p>pmanager, the packages’ viewer used by KaOS, was largely rewritten in its backend part. It is due to the migration of the old database based on json to the more consistent SQLite system. That permits the simplification of the flags management. Previously, flags & packages data were completely independent. Now a flag is linked to a package’s name &amp; version, so it can be automatically removed when the package is updated. The frontend got 2 minor changes: the URL of the package’s view was simplified (with the concatenation of the repo and the name/version of the package in one argument) and the flag button is replaced by a link to the build version of the package (if exists) if the package is not flagged. This is due because too many packages were flagged though update was in build.</p>
+            <p>When KaOS started in 2013, there was some serious consideration to base this distro on Illumos. One of the biggest draws for Illumos was the ZFS filesystem.
+            ZFS has been possible on Linux system for a few years now, but licensing issues and no installer support meant it was not an option to use in KaOS.
+            Calamares received initial support for ZFS, and licensing issues should be no problem if the needed modules are not build into the kernel but distributed as separate modules instead, thus ZFS is added to the KaOS repositories.
+            For now, the only kernel that supports ZFS is the linux-next kernel, since dracut is fully supported by ZFS, anything mkinitcpio based needs to come from downstream.</p>
             
-            <p>Qt 6.2.0 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web-browsers.</p>
+            <p>For Nvidia, a new longterm support version is added to this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.
             
-            <p>New applications added include FreeCAD, with the whole stack such a CAD application needs, like PySide, Shiboken, Coin, Soqt, VTK, and Opencascade. And a few Language Server Protocols have been added to use in Kate.</p>
+            <p>Qt 6.2.2 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web-browsers. All of the PyQt packages are now available in a Qt6 version too.</p>
             
             <p>Big thanks goes to <strong>Fosshost</strong> for not only providing the default mirror (through the <strong>Fastly CDN</strong>, but also providing a server for KaOS. This server is replacing the old Centos server (used for package upload, ZNC bouncer and the old PHP based package viewer).</p>
             
