@@ -1,6 +1,6 @@
 
 pkgname=gmic-qt
-pkgver=3.0.0
+pkgver=3.0.0.1
 _gmic=74a9457dd807682ac6e767f712402c6c1e2c688a
 _commit=8548172228870168e5fe1ecefea5599a9a824d6e
 pkgrel=1
@@ -12,13 +12,14 @@ depends=('qt5-base' 'libpng' 'zlib' 'fftw' 'curl')
 makedepends=('cmake' 'qt5-tools')
 #source=("https://github.com/dtschump/gmic/archive/${_gmic}.zip"
 #        "https://github.com/c-koi/gmic-qt/archive/${_commit}.zip")
-source=("https://gmic.eu/files/source/gmic_${pkgver}.tar.gz")
-md5sums=('f0b945e8bd9d148ed6c16fb15e713a53')
+#source=("https://gmic.eu/files/source/gmic_${pkgver}.tar.gz")
+source=("https://files.kde.org/krita/build/dependencies/gmic-3.0.0.1-patched.tar.gz")
+sha256sums=('05e25367af01039a97c52d48694f00daf36ee180fa68220f72522aaf245a782b')
 
 build() {
-  cd gmic-${pkgver}/
+  cd gmic-${pkgver}-patched/
   make -C src CImg.h gmic_stdlib.h
-  
+
   cd gmic-qt
   /usr/lib/qt5/bin/qmake GMIC_PATH=../src GMIC_DYNAMIC_LINKING=off HOST=krita
   #cmake \
@@ -31,11 +32,11 @@ build() {
 }
 
 package() {
-  cd gmic-${pkgver}/gmic-qt
-  
+  cd gmic-${pkgver}-patched/gmic-qt
+
   #make DESTDIR=${pkgdir} install
   install -D -m755 gmic_krita_qt ${pkgdir}/usr/bin/gmic_krita_qt
   #install -D -m755 *.qm ${pkgdir}/usr/share/gmic-qt/locale/
-  
+
   install -Dm644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
 } 
