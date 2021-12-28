@@ -1,6 +1,7 @@
  
 pkgname=libdwarf
-pkgver=20210528
+pkgver=0.3.1
+epoch=1
 pkgrel=1
 pkgdesc="DWARF Debugging Information Format is of interest to programmers working on compilers and debuggers"
 arch=('x86_64')
@@ -10,12 +11,12 @@ depends=('elfutils' 'zlib')
 provides=('dwarf')
 replaces=('dwarf')
 conflicts=('dwarf')
-source=("https://www.prevanders.net/libdwarf-${pkgver}.tar.gz")
-md5sums=('61fc47c4fab6730e0262c75a8432c17f')
+source=("https://www.prevanders.net/libdwarf-${pkgver}.tar.xz")
+md5sums=('0c862e8bd1df80df6683ec889d8be68d')
 
 build() {
   cd ${pkgname}-${pkgver}
-  
+
   ./configure --prefix=/usr \
     --enable-shared \
     --includedir=/usr/include/libdwarf
@@ -24,7 +25,7 @@ build() {
 
 package() {
   cd ${pkgname}-${pkgver}
-  
+
   make DESTDIR=${pkgdir} install
 
   #install -dm755 ${pkgdir}/usr/lib
