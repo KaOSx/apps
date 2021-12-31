@@ -1,7 +1,8 @@
 
 pkgname=wine
-pkgver=6.23
-_pkgver=6.x
+pkgver=7.0rc3
+_pkgver=7.0
+__pkgver=7.0-rc3
 pkgrel=1
 pkgdesc="Compatibility layer capable of running Windows applications on several POSIX-compliant operating systems."
 url="https://www.winehq.org"
@@ -15,21 +16,20 @@ depends=('fontconfig' 'glu' 'libxcursor' 'libxrandr' 'libxdamage' 'alsa-lib'
 makedepends=('autoconf' 'perl' 'fontforge' 'flex' 'libxpm' 'libxmu')
 install=wine.install
 groups=('system')
-source=("https://dl.winehq.org/wine/source/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha1sums=('26613f26e492d196ab722d57a0880c91f529e8d7')
+source=("https://dl.winehq.org/wine/source/${_pkgver}/${pkgname}-${__pkgver}.tar.xz")
+sha1sums=('fce1d35dba6ae735f069694c8a88c69cc946f27c')
 
 build() {
     mkdir -p build
     cd build
 
-    ../${pkgname}-${pkgver}/configure \
+    ../${pkgname}-${__pkgver}/configure \
         --prefix=/usr \
         --sysconfdir=/etc \
         --libdir=/usr/lib \
         --with-x \
         --with-gstreamer \
         --enable-win64
-
     make
 }
 
