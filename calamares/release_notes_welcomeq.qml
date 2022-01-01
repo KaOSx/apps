@@ -50,12 +50,12 @@ Rectangle {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2021.12</h3>
-            <p>KaOS is very proud to announce the availability of the December release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2022.01</h3>
+            <p>KaOS is very proud to announce the availability of a first ISO for 2022.</p>
 
             <p>For installer Calamares there are three major changes. Biggest one is the addition of a bootloader selection module. For UEFI installs it is now possible to select between systemd-boot, rEFInd or no bootloader, all presented in a nice, QML based GUI. Second change is the addition of an interactive keybaord preview in the keyboard setup page. And third is the porting of the License page to QML.</p>
 
-            <p>Updates to the base of this distribution were numerous and they included a GCC 11.2/Binutils 2.73 based Toolchain (with a move to libxcrypt), complete updated libffi 3.4.2/Glib2 2.70.2 stack, ICU 70.1/Boost 1.77.0 stack, Python 3.9.9, Systemd 249.7, Curl 7.80.0, Mesa 21.3.2, Vulkan packages 1.2.202, Wayland 1.20.0, Sudo 1.9.8p2, and Openldap 2.6.0.< /br>
+            <p>Updates to the base of this distribution were numerous and they included a GCC 11.2/Binutils 2.73 based Toolchain (with a move to libxcrypt), complete updated libffi 3.4.2/Glib2 2.70.2 stack, ICU 70.1/Boost 1.77.0 stack, Python 3.9.9, Systemd 249.7, Curl 7.80.0, Mesa 21.3.3, Vulkan packages 1.2.203, Wayland 1.20.0, Sudo 1.9.8p2, and Openldap 2.6.0.< /br>
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.
             </p>
             
@@ -66,7 +66,7 @@ Rectangle {
             
             <p>For Nvidia, a new longterm support version is added to this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.
             
-            <p>Qt 6.2.2 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web-browsers. All of the PyQt packages are now available in a Qt6 version too.</p>
+            <p>Qt 6.2.2 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web-browsers. All of the PyQt packages are now available in a Qt6 version too. Plus the Kvantum theming has support for Qt6.</p>
             
             <p>Big thanks goes to <strong>Fosshost</strong> for not only providing the default mirror (through the <strong>Fastly CDN</strong>, but also providing a server for KaOS. This server is replacing the old Centos server (used for package upload, ZNC bouncer and the old PHP based package viewer).</p>
             
@@ -90,12 +90,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.89.0, Plasma 5.23.4, KDE Applications 21.12.0</b>, Linux 5.15.11, Systemd 249.7, Kmod 29, NetworkManager 1.32.12, LibreOffice 7.2.4, Krita 4.4.7, Elisa, Xorg-Server 1.21.1, Mesa 21.3.1, Glibc 2.33, GCC 11.2.0, non-free Nvidia 495 and Python3 3.8.12 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.89.0, Plasma 5.23.4, KDE Applications 21.12.0</b>, Linux 5.14.21, Systemd 249.7, Kmod 29, NetworkManager 1.32.12, LibreOffice 7.2.4, Elisa, Xorg-Server 1.21.2, Mesa 21.3.3, Glibc 2.33, GCC 11.2.0, non-free Nvidia 495 and Python3 3.9.9 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.11.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
-            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.14, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 94.0.2, Chrome 98, Ardour 6.9.0, Inkscape 1.1.1, GIMP 2.10.28 and Thunderbird 91.3.2.<br />
+            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.15, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 95.0.2, Chrome 98, Ardour 6.9.0, Inkscape 1.1.1, GIMP 2.10.30 and Thunderbird 91.4.1.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
