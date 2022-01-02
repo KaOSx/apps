@@ -1,8 +1,9 @@
 
 pkgname=quassel
-pkgver=0.14.0.rc1
-_pkgver=0.14-rc1
-pkgrel=3
+pkgver=0.14.0
+_pkgver=0.14.0
+epoch=1
+pkgrel=1
 pkgdesc="Qt irc client with a separated core"
 url="https://quassel-irc.org"
 arch=('x86_64')
@@ -24,7 +25,7 @@ source=("https://quassel-irc.org/pub/quassel-${_pkgver}.tar.bz2"
         "https://github.com/quassel/quassel/commit/322bec12418ab267d7b770ec90465a1a1034b17d.diff")
 install=quassel.install
 backup=(etc/conf.d/quassel.conf)
-md5sums=('fe77d4439ac0bec5a0b1a89b15d191e7'
+md5sums=('abc3843021840a00d9d83778a2c1211b'
          '7f56b8d2d54a1395ed8bada023ec710c'
          '479229556ba0dd94e3ce28e31e5deea9'
          'd22180823cda2ac7bedb238463714c15'
@@ -35,7 +36,7 @@ md5sums=('fe77d4439ac0bec5a0b1a89b15d191e7'
 prepare() {
   cd ${pkgname}-${_pkgver}
   # spellchecking through sonnet
-  patch -p1 -i ${srcdir}/322bec12418ab267d7b770ec90465a1a1034b17d.diff
+  #patch -p1 -i ${srcdir}/322bec12418ab267d7b770ec90465a1a1034b17d.diff
 }
          
 build() {
