@@ -1,7 +1,7 @@
 
 pkgname=vokoscreenng
 _pkgname=vokoscreenNG
-pkgver=3.0.9
+pkgver=3.1.0
 _commit=2e0cb14ff296fd8f4842d8b3f73747fc722ee883
 pkgrel=1
 pkgdesc="Easy to use screencast creator to record educational videos, videoconferences, etc"
@@ -9,7 +9,7 @@ arch=('x86_64')
 url="https://github.com/vkohaupt/vokoscreenNG"
 license=('GPL2')
 depends=('qt5-x11extras' 'gst-plugins-good' 'gst-plugins-bad' 'gst-plugins-ugly' 'qt5-gstreamer' 
-         'pulseaudio-alsa' 'alsa-utils' 'v4l-utils' 'mpv' 'qt5-multimedia')
+         'pulseaudio-alsa' 'alsa-utils' 'v4l-utils' 'mpv' 'qt5-multimedia' 'pipewire' 'xdg-desktop-portal-kde')
 makedepends=('cmake' 'qt5-tools')
 provides=('vokoscreen')
 replaces=('vokoscreen')
@@ -17,12 +17,12 @@ conflicts=('vokoscreen')
 options=('!strip')
 source=("https://github.com/vkohaupt/vokoscreenNG/archive/${pkgver}.tar.gz")
 #source=("https://github.com/vkohaupt/vokoscreenNG/archive/${_commit}.zip")
-md5sums=('ff3e3a05ce7a8ae1ca10cf44cefd818d')
+md5sums=('e19414c71e9ac26ffce81c8ef4c2748b')
 
 build() {
     mkdir -p build
     cd build
-    
+
     /usr/lib/qt5/bin/qmake ../${_pkgname}-${pkgver}/src/${_pkgname}.pro \
       "CONFIG+=release" \
       "CONFIG+=c++14"
@@ -31,7 +31,7 @@ build() {
 
 package() {
     cd build
-    
+
     install -Dm755 vokoscreenNG ${pkgdir}/usr/bin/vokoscreenNG
     cd ../${_pkgname}-${pkgver}/src/applications/
     install -Dm755 vokoscreenNG.desktop ${pkgdir}/usr/share/applications/vokoscreenNG.desktop

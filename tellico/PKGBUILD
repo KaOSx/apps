@@ -1,7 +1,7 @@
 
 pkgname=tellico
-pkgver=3.4.2
-_pkgver=3.4.2
+pkgver=3.4.3
+_pkgver=3.4.3
 pkgrel=1
 pkgdesc="A collection manager for KDE"
 arch=('x86_64')
@@ -13,9 +13,17 @@ depends=('karchive' 'kcodecs' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 
          'poppler-qt5' 'v4l-utils' 'libkcddb5' 'libcdio' 'qtwebengine' 'qt5-charts') # 'yaz' 'exempi' 
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('office')
-source=("https://tellico-project.org/files/${pkgname}-${_pkgver}.tar.xz")
+source=("https://tellico-project.org/files/${pkgname}-${_pkgver}.tar.xz"
+        "https://invent.kde.org/office/tellico/-/commit/46400b75b4c39ab2eb713bec04f02416c3c1e52b.diff")
 #source=("https://github.com/KDE/tellico/archive/${_commit}.zip")
-md5sums=('93290892eb290b82a8be78314d75a685')
+md5sums=('770b854099b812d9dff44416fbf512c9'
+         '62df1b305b0fd144c72021594446fa05')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/46400b75b4c39ab2eb713bec04f02416c3c1e52b.diff
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
