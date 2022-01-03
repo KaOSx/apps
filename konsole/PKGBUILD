@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://konsole.kde.org/'
@@ -15,14 +15,14 @@ depends=('kbookmarks' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons'
          'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 'knewstuff')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("${_mirror}/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/utilities/konsole/-/commit/b43548b22c4844db95c628a508199518bd3f4350.diff")
+        "https://invent.kde.org/utilities/konsole/-/commit/eb44240235fa61e662e9a521f72e8be9213bb536.diff")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '2e4098e79c7a72a53886343b27bb00cb')
+         'c400f6ef491f0c0f503e3e84a35c8def')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # https://bugs.kde.org/show_bug.cgi?id=437791
-  #patch -p1 -i ${srcdir}/b43548b22c4844db95c628a508199518bd3f4350.diff
+  # https://bugs.kde.org/show_bug.cgi?id=447872
+  patch -p1 -i ${srcdir}/eb44240235fa61e662e9a521f72e8be9213bb536.diff
 }
 
 build() {
