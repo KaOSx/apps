@@ -16,12 +16,12 @@ md5sums=('7d0ed07ac0f546b5c4641ce4d2b46b99')
 build() {
   cd ${pkgname}-v${pkgver}
   PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
-  
+
   make
 }
 
 package() {
   cd ${pkgname}-v${pkgver}
-  
+
   make DESTDIR=${pkgdir} install
 }
