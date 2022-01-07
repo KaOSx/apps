@@ -18,25 +18,25 @@ makedepends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiadd
          'extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang
 source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
 #source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
-        'poppler0.82.diff'
+        'cpp17.patch'
         "https://invent.kde.org/office/calligra/-/commit/eab11436712f92afc6e7b14b25d1f6df217d79d7.diff"
         "https://invent.kde.org/office/calligra/-/commit/c7636fb343c848000300a9429410b74d17a4d54d.diff")
 #source=("https://share.kde.org/index.php/s/yanrJWiQFB3rrvc/download?path=%2F&files=${pkgbase}-${pkgver}.tar.xz")
 sha256sums=('b1f8a6eb8208543a2f908caa83d089075fcd1e530d00e19f5362b2f9cc371147'
-            '8f95ec7c6ab71b10b91061c10ba8f118d6462b06d6e64ee9f5f5b74a7d9fc16a'
+            '732fcc81b8d47b0720d83d514b7fdbbb6a3b6f3c35171066684dfb6e09fc51cd'
             '3575f42f5d3ec76a020f41d0be6998d4369b31bc279792a7fb13d7becc59fc26'
             'aeb7660a07f548fb2c32834ba55740040e6ca579541600ba304ef8a07da6b7f3')
 
 prepare() {
   cd ${pkgbase}-${pkgver}
-  #patch -p1 -i ${srcdir}/poppler0.82.diff
+  patch -p1 -i ${srcdir}/cpp17.patch
   patch -p1 -i ${srcdir}/eab11436712f92afc6e7b14b25d1f6df217d79d7.diff
   patch -p1 -i ${srcdir}/c7636fb343c848000300a9429410b74d17a4d54d.diff
   #sed -i 's|KPropertyWidgets 3.0.0 EXACT QUIET|KPropertyWidgets 3.0 QUIET|' CMakeLists.txt
 }
 
 build() {
-  mkdir -p build
+  #mkdir -p build
   cd build
   
   #export CC=/usr/bin/clang

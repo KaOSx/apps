@@ -1,0 +1,72 @@
+diff -up calligra-3.2.1/CMakeLists.txt.omv~ calligra-3.2.1/CMakeLists.txt
+--- a/CMakeLists.txt.omv~	2022-01-06 13:50:53.744757079 +0100
++++ b/CMakeLists.txt	2022-01-06 13:51:02.026784277 +0100
+@@ -108,7 +108,7 @@ message(STATUS "Release build: ${RELEASE
+ if (CMAKE_VERSION VERSION_LESS "3.1")
+     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+ else ()
+-    set (CMAKE_CXX_STANDARD 11)
++    set (CMAKE_CXX_STANDARD 17)
+ endif ()
+ 
+ ############
+diff -up calligra-3.2.1/filters/words/msword-odf/wv2/src/styles.cpp.omv~ calligra-3.2.1/filters/words/msword-odf/wv2/src/styles.cpp
+--- a/filters/words/msword-odf/wv2/src/styles.cpp.omv~	2022-01-06 16:44:47.667885823 +0100
++++ b/filters/words/msword-odf/wv2/src/styles.cpp	2022-01-06 16:44:52.768888819 +0100
+@@ -42,7 +42,7 @@ STD::STD()
+ }
+ 
+ STD::STD( U16 baseSize, U16 totalSize, OLEStreamReader* stream, bool preservePos )
+-throw(InvalidFormatException)
++noexcept(false)
+ {
+     clearInternal();
+     if (!read( baseSize, totalSize, stream, preservePos )) {
+@@ -112,7 +112,7 @@ STD& STD::operator=( const STD& rhs )
+ }
+ 
+ bool STD::read( const U16 cbStd, const U16 stdfSize, OLEStreamReader* stream, bool preservePos )
+-throw(InvalidFormatException)
++noexcept(false)
+ {
+     U16 shifterU16;
+     S32 startOffset=stream->tell();  // address where the STD starts
+@@ -938,7 +938,7 @@ void Style::mergeUpechpx( const Style* p
+ }
+ 
+ 
+-StyleSheet::StyleSheet( OLEStreamReader* tableStream, U32 fcStshf, U32 lcbStshf ) throw(InvalidFormatException)
++StyleSheet::StyleSheet( OLEStreamReader* tableStream, U32 fcStshf, U32 lcbStshf ) noexcept(false)
+     : m_udsNum(0)
+ {
+     WordVersion version = Word8;
+diff -up calligra-3.2.1/filters/words/msword-odf/wv2/src/styles.h.omv~ calligra-3.2.1/filters/words/msword-odf/wv2/src/styles.h
+--- a/filters/words/msword-odf/wv2/src/styles.h.omv~	2022-01-06 16:34:12.067378436 +0100
++++ b/filters/words/msword-odf/wv2/src/styles.h	2022-01-06 16:34:41.225441536 +0100
+@@ -59,7 +59,7 @@ struct STD
+     /**
+      * Simply calls read(...)
+      */
+-    STD( U16 stdfSize, U16 totalSize, OLEStreamReader* stream, bool preservePos = false ) throw(InvalidFormatException);
++    STD( U16 stdfSize, U16 totalSize, OLEStreamReader* stream, bool preservePos = false ) noexcept(false);
+     /**
+      * Attention: This struct allocates memory on the heap
+      */
+@@ -75,7 +75,7 @@ struct STD
+      *
+      * @return true - success, false - failed
+      */
+-    bool read( const U16 cbStd, const U16 stdfSize, OLEStreamReader* stream, bool preservePos = false ) throw(InvalidFormatException);
++    bool read( const U16 cbStd, const U16 stdfSize, OLEStreamReader* stream, bool preservePos = false ) noexcept(false);
+ 
+     /**
+      * Same as reading :)
+@@ -365,7 +365,7 @@ private:
+ class WV2_EXPORT StyleSheet
+ {
+ public:
+-    StyleSheet( OLEStreamReader* tableStream, U32 fcStshf, U32 lcbStshf ) throw(InvalidFormatException);
++    StyleSheet( OLEStreamReader* tableStream, U32 fcStshf, U32 lcbStshf ) noexcept(false);
+     ~StyleSheet();
+ 
+     /**
