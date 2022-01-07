@@ -1,6 +1,6 @@
 
 pkgname=uriparser
-pkgver=0.9.5
+pkgver=0.9.6
 pkgrel=1
 pkgdesc="Strictly RFC 3986 compliant, cross-platform, fast URI parsing library, fast, supports Unicode"
 arch=('x86_64')
@@ -10,25 +10,21 @@ makedepends=('cmake' 'doxygen' 'googletest')
 options=('!libtool')
 source=("https://github.com/uriparser/uriparser/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.bz2"
         'Makefile.diff')
-md5sums=('0206f4e4e8cbd9c45a4318020cab5293'
+md5sums=('0b5ee8d9d7570db7aa668543c150b980'
          'c2738fa9cf521adb98552de548e02e14')
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DURIPARSER_BUILD_DOCS=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
-  
-  install -D -m644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+
+  DESTDIR=${pkgdir} cmake --install build
+
+  install -D -m644 ${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
