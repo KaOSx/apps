@@ -1,20 +1,20 @@
 
 pkgname=qbittorrent
-pkgver=4.3.9
+pkgver=4.4.0
 _commit=46e2e5342bb5b6f7a479f9ec7746e58d28ff783e
-pkgrel=2
+pkgrel=1
 pkgdesc="Bittorrent client programmed in C++ / Qt that uses libtorrent (sometimes called libtorrent-rasterbar)"
 arch=('x86_64')
 url="https://www.qbittorrent.org/"
 license=('GPL')
-depends=('qt5-svg' 'libtorrent-rasterbar' 'xdg-utils' 'boost-libs' 'python3')
-makedepends=('boost' 'which' 'qt5-tools' 'cmake')
+depends=('qt6-svg' 'libtorrent-rasterbar' 'xdg-utils' 'boost-libs' 'python3')
+makedepends=('boost' 'which' 'qt6-tools' 'cmake')
 groups=('network')
 source=("https://sourceforge.net/projects/qbittorrent/files/${pkgname}/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/qbittorrent/qBittorrent/commit/729c80f9104a3d01ec724351bd6910b4b8d14c6c.diff")
 #source=("https://github.com/qbittorrent/qBittorrent/archive/${_commit}.zip")
-sha256sums=('16ebe2e761922b3fb21c35d2bccc5d4b4b0a3e853434bcaddbbc00c72003d880'
-            'f292cd816f1dbb3a3157cac1295ca88f8aa3c09ee34962cf330feadfc38b034d')
+sha256sums=('6b783a88c7bd567e48cd9f20c67b788776ee2a6d474fe3df4af216acbdfe501b'
+            'c98bad42f28b558ef864e88f85d5d267f0d1d116310d2779d0979cf52a23bcdc')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -25,7 +25,8 @@ prepare() {
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr 
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQT6=ON
   cmake --build build
 }
 
