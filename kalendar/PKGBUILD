@@ -1,0 +1,27 @@
+ 
+pkgname=kalendar
+pkgver=0.4.0
+pkgrel=1
+pkgdesc="Calendar application supporting both local calendars as well as a multitude of online calendars."
+arch=("x86_64")
+url="https://apps.kde.org/kalendar/"
+license=('GPL')
+depends=('kirigami' 'kdbusaddons' 'ki18n' 'kcalendarcore' 'kconfigwidgets' 'kwindowsystem' 'kcoreaddons'
+         'qqc2-desktop-style' 'kcontacts' 'kitemmodels' 'kxmlgui' 'knotifications' 'kiconthemes' 'kservice'
+         'akonadi-contacts' 'calendarsupport' 'eventviews' 'kdepim-runtime')
+makedepends=('extra-cmake-modules' 'boost')
+source=("https://download.kde.org/stable/kalendar/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('d64b19caab3e1365cce58ae27b76417b515cf3a07777ed1905f82cfbf0d1947a')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
