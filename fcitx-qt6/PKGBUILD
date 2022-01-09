@@ -1,0 +1,32 @@
+
+pkgname=fcitx-qt6
+_pkgname=fcitx-qt5
+pkgver=1.2.7
+pkgrel=1
+pkgdesc="Qt6 IM Module for Fcitx"
+arch=('x86_64')
+url="https://github.com/fcitx/fcitx-qt5"
+license=('GPL')
+depends=('fcitx' 'qt6-base' 'fcitx-qt5')
+makedepends=('extra-cmake-modules')
+source=("https://download.fcitx-im.org/${_pkgname}/${_pkgname}-${pkgver}.tar.xz")
+#source=("https://github.com/fcitx/fcitx-qt5/archive/${_commit}.zip")
+md5sums=('d03560966737ffee3b11bb3986f0b109')
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DENABLE_QT5=Off \
+    -DENABLE_QT6=On
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+  #locale packages part of fcitx-qt5
+  rm -r ${pkgdir}/usr/share
+}
+
