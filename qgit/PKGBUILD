@@ -1,8 +1,8 @@
 
 pkgname=qgit
 arch=('x86_64')
-pkgver=2.9
-pkgrel=2
+pkgver=2.10
+pkgrel=1
 pkgdesc="Git repository viewer created using the Qt library, it uses git process (command-line calls) to extract data"
 url="https://github.com/tibirna/qgit/"
 license=('GPL')
@@ -10,27 +10,23 @@ depends=('qt5-base' 'git')
 makedepends=('cmake')
 source=("https://github.com/tibirna/qgit/archive/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/tibirna/qgit/commit/7b8f1ff9ce16bc2d8457362df2017bc0ffe65458.diff")
-md5sums=('8c414199170de6311a1b88587a191d10'
+md5sums=('0bbc4308cc5c366964ff9f8d77aca6a8'
          '39dd245b03668999e2e8c259806248c4')
 
 prepare() {
   cd qgit-${pkgname}-${pkgver}
-  
+
   #patch -p1 -i ${srcdir}/7b8f1ff9ce16bc2d8457362df2017bc0ffe65458.diff
 }
 
 build() {  
-  mkdir -p build
-  cd build
-
-  cmake ../qgit-${pkgname}-${pkgver} \
+  cmake -B build -S qgit-${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
