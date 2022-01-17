@@ -1,48 +1,55 @@
 
 pkgname=mumble
-pkgver=1.3.4
-_pkgver=1.3.4
-pkgrel=5
+pkgver=1.4.230
+_pkgver=1.4.230
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Open source, low-latency, high quality voice chat software"
 url="https://wiki.mumble.info/wiki/Main_Page"
 license=('BSD')
-depends=('speex' 'lsb-release' 'libxi' 'avahi' 'libsndfile' 'protobuf' 'pulseaudio' 'opus' 'qt5-svg') 
+depends=('speex' 'lsb-release' 'libxi' 'avahi' 'libsndfile' 'protobuf' 'pulseaudio' 'opus' 'qt5-svg'
+         'pipewire' 'poco')
 makedepends=('boost' 'mesa' 'qt5-tools')
-#source=("https://mumble.info/snapshot/${pkgname}-1.3.0-rc2.tar.gz"
-source=("https://github.com/mumble-voip/mumble/releases/download/${_pkgver}/${pkgname}-${_pkgver}.tar.gz"
+source=("https://github.com/mumble-voip/mumble/archive/refs/tags/v${pkgver}.tar.gz"
+#source=("https://github.com/mumble-voip/mumble/releases/download/${_pkgver}/${pkgname}-${_pkgver}.tar.gz"
         'setupview.diff')
-md5sums=('d41ece1a4cefadfc1d04a16863514f98'
+md5sums=('afb1661e283deba80ac1750a051ba675'
          'ab49563b33a6d8fee7e9f32d856e9948')
 
 build() {
-  cd ${pkgname}-${_pkgver}
-  #patch -p1 -i ${srcdir}/setupview.diff
-
-  /usr/lib/qt5/bin/qmake main.pro \
-    CONFIG+="bundled-celt no-bundled-opus no-bundled-speex no-speechd no-g15 no-xevie no-server \
-    no-embed-qt-translations no-update packaged" \
-    DEFINES+="PLUGIN_PATH=/usr/lib/mumble"
-  make release
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Dpackaging=ON \
+    -DBUILD_NUMBER=1 \
+    -Dbundle-qt-translations=OFF \
+    -Dbundled-opus=OFF \
+    -Dbundled-speex=OFF \
+    -Dupdate=OFF
+    #CONFIG+="bundled-celt no-bundled-opus no-bundled-speex no-speechd no-g15 no-xevie no-server \
+    #no-embed-qt-translations no-update packaged" \
+    #DEFINES+="PLUGIN_PATH=/usr/lib/mumble"
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${_pkgver}
 
-  install -m755 -D ./release/mumble ${pkgdir}/usr/bin/mumble
-  install -m755 -D ./scripts/mumble-overlay ${pkgdir}/usr/bin/mumble-overlay
+  DESTDIR=${pkgdir} cmake --install build
 
-  install -m755 -D ./release/libmumble.so.1.3.3 ${pkgdir}/usr/lib/mumble/libmumble.so.1.3.3
-  ln -s libmumble.so.1.3.3 ${pkgdir}/usr/lib/mumble/libmumble.so
-  ln -s libmumble.so.1.3.3 ${pkgdir}/usr/lib/mumble/libmumble.so.1
-  ln -s libmumble.so.1.3.3 ${pkgdir}/usr/lib/mumble/libmumble.so.1.3
-  install -m755 -D ./release/plugins/liblink.so ${pkgdir}/usr/lib/mumble/liblink.so
-  install -m755 -D ./release/libcelt* ${pkgdir}/usr/lib/mumble/
+  #install -m755 -D ./release/mumble ${pkgdir}/usr/bin/mumble
+  #install -m755 -D ./scripts/mumble-overlay ${pkgdir}/usr/bin/mumble-overlay
 
-  install -m644 -D ./scripts/mumble.desktop ${pkgdir}/usr/share/applications/mumble.desktop
-  install -m755 -d ${pkgdir}/usr/share/man/man1
-  install -m644 -D ./man/mum* ${pkgdir}/usr/share/man/man1/
-  install -m644 -D ./icons/mumble.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/mumble.svg
-  install -m644 -D ./LICENSE $pkgdir/usr/share/licenses/${pkgname}/LICENSE
+  #install -m755 -D ./release/libmumble.so.1.3.3 ${pkgdir}/usr/lib/mumble/libmumble.so.1.3.3
+  #ln -s libmumble.so.1.3.3 ${pkgdir}/usr/lib/mumble/libmumble.so
+  #ln -s libmumble.so.1.3.3 ${pkgdir}/usr/lib/mumble/libmumble.so.1
+  #ln -s libmumble.so.1.3.3 ${pkgdir}/usr/lib/mumble/libmumble.so.1.3
+  #install -m755 -D ./release/plugins/liblink.so ${pkgdir}/usr/lib/mumble/liblink.so
+  #install -m755 -D ./release/libcelt* ${pkgdir}/usr/lib/mumble/
+
+  #install -m644 -D ./scripts/mumble.desktop ${pkgdir}/usr/share/applications/mumble.desktop
+  #install -m755 -d ${pkgdir}/usr/share/man/man1
+  #install -m644 -D ./man/mum* ${pkgdir}/usr/share/man/man1/
+  #install -m644 -D ./icons/mumble.svg ${pkgdir}/usr/share/icons/hicolor/scalable/apps/mumble.svg
+  #install -m644 -D ./LICENSE $pkgdir/usr/share/licenses/${pkgname}/LICENSE
 }
 
