@@ -8,16 +8,16 @@ pkgdesc="Open source, low-latency, high quality voice chat software"
 url="https://wiki.mumble.info/wiki/Main_Page"
 license=('BSD')
 depends=('speex' 'lsb-release' 'libxi' 'avahi' 'libsndfile' 'protobuf' 'pulseaudio' 'opus' 'qt5-svg'
-         'pipewire' 'poco')
+         'pipewire' 'poco' 'speech-dispatcher')
 makedepends=('boost' 'mesa' 'qt5-tools')
-source=("https://github.com/mumble-voip/mumble/archive/refs/tags/v${pkgver}.tar.gz"
-#source=("https://github.com/mumble-voip/mumble/releases/download/${_pkgver}/${pkgname}-${_pkgver}.tar.gz"
+#source=("https://github.com/mumble-voip/mumble/archive/refs/tags/v${pkgver}.tar.gz"
+source=("https://github.com/mumble-voip/mumble/releases/download/v${_pkgver}/${pkgname}-${_pkgver}.tar.gz"
         'setupview.diff')
-md5sums=('afb1661e283deba80ac1750a051ba675'
+md5sums=('8069db67ecb4b601f0e324c62dbed90a'
          'ab49563b33a6d8fee7e9f32d856e9948')
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_pkgver}.src \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Dpackaging=ON \
@@ -25,7 +25,10 @@ build() {
     -Dbundle-qt-translations=OFF \
     -Dbundled-opus=OFF \
     -Dbundled-speex=OFF \
-    -Dupdate=OFF
+    -Dupdate=OFF \
+    -Dspeechd=ON \
+    -Dice=OFF \
+    -Doverlay-xcompile=OFF
     #CONFIG+="bundled-celt no-bundled-opus no-bundled-speex no-speechd no-g15 no-xevie no-server \
     #no-embed-qt-translations no-update packaged" \
     #DEFINES+="PLUGIN_PATH=/usr/lib/mumble"
