@@ -3,40 +3,31 @@ pkgname=gmic-qt
 pkgver=3.0.0.2
 _gmic=74a9457dd807682ac6e767f712402c6c1e2c688a
 _commit=8548172228870168e5fe1ecefea5599a9a824d6e
-pkgrel=1
+pkgrel=2
 pkgdesc="Plug-in to bring the full-featured open-source framework for image processing -G'MIC- to Krita"
 url="https://gmic.eu/"
 license=('GPLv3')
 arch=('x86_64')
-depends=('qt5-base' 'libpng' 'zlib' 'fftw' 'curl')
-makedepends=('cmake' 'qt5-tools')
+depends=('qt5-base' 'libpng' 'zlib' 'fftw' 'curl' 'kcoreaddons' 'krita')
+makedepends=('cmake' 'qt5-tools' 'extra-cmake-modules')
 #source=("https://github.com/dtschump/gmic/archive/${_gmic}.zip"
 #        "https://github.com/c-koi/gmic-qt/archive/${_commit}.zip")
 #source=("https://gmic.eu/files/source/gmic_${pkgver}.tar.gz")
-source=("https://files.kde.org/krita/build/dependencies/gmic-3.0.0.2-patched.tar.gz")
+source=("https://files.kde.org/krita/build/dependencies/gmic-${pkgver}-patched.tar.gz")
 sha256sums=('22d4104fb83f6c9f4d6045ba3cd634e3df1995a803890f56199ed8664fe463b6')
 
 build() {
-  cd gmic-${pkgver}-patched/
-  make -C src CImg.h gmic_stdlib.h
-
-  cd gmic-qt
-  /usr/lib/qt5/bin/qmake GMIC_PATH=../src GMIC_DYNAMIC_LINKING=off HOST=krita
-  #cmake \
-  #  -DCMAKE_BUILD_TYPE=Release \
-  #  -DCMAKE_INSTALL_PREFIX=/usr \
-  #  -DGMIC_QT_HOST=krita \
-  #  -GMIC_DYNAMIC_LINKING=on \
-  #  -DGMIC_PATH="../src" 
-  make
+  cmake -B build -S gmic-${pkgver}-patched/gmic-qt \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DGMIC_QT_HOST=krita-plugin \
+    -DENABLE_SYSTEM_GMIC=FALSE
+  cmake --build build
 }
 
 package() {
-  cd gmic-${pkgver}-patched/gmic-qt
 
-  #make DESTDIR=${pkgdir} install
-  install -D -m755 gmic_krita_qt ${pkgdir}/usr/bin/gmic_krita_qt
-  #install -D -m755 *.qm ${pkgdir}/usr/share/gmic-qt/locale/
-
-  install -Dm644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
-} 
+  DESTDIR=${pkgdir} cmake --install build
+  install -Dm644 gmic-${pkgver}-patched/gmic-qt/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+}
