@@ -7,31 +7,25 @@ pkgver=${_kf5ver}
 pkgrel=1
 pkgdesc='Widgets for configuration dialogs'
 arch=('x86_64')
-url='https://projects.kde.org/projects/frameworks/kconfigwidgets'
+url='https://invent.kde.org/frameworks/kconfigwidgets'
 license=('LGPL')
 depends=('karchive' 'kauth' 'kcodecs' 'kconfig' 'kguiaddons' 'ki18n' 'kwidgetsaddons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kf5')
-source=("http://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/stable/frameworks/5.90/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  #export XDG_DATA_DIRS="/opt/kf5/share:$XDG_DATA_DIRS"
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR="${pkgdir}" install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
