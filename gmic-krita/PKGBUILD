@@ -1,24 +1,22 @@
 
-pkgname=gmic-qt
-pkgver=3.0.0.2
-_gmic=74a9457dd807682ac6e767f712402c6c1e2c688a
-_commit=8548172228870168e5fe1ecefea5599a9a824d6e
-pkgrel=2
+pkgname=gmic-krita
+pkgver=3.0.2.1
+pkgrel=1
 pkgdesc="Plug-in to bring the full-featured open-source framework for image processing -G'MIC- to Krita"
 url="https://gmic.eu/"
-license=('GPLv3')
+license=('custom:CeCILL')
 arch=('x86_64')
 depends=('qt5-base' 'libpng' 'zlib' 'fftw' 'curl' 'kcoreaddons' 'krita')
 makedepends=('cmake' 'qt5-tools' 'extra-cmake-modules')
-#source=("https://github.com/dtschump/gmic/archive/${_gmic}.zip"
-#        "https://github.com/c-koi/gmic-qt/archive/${_commit}.zip")
-#source=("https://gmic.eu/files/source/gmic_${pkgver}.tar.gz")
-source=("https://files.kde.org/krita/build/dependencies/gmic-${pkgver}-patched.tar.gz")
-sha256sums=('22d4104fb83f6c9f4d6045ba3cd634e3df1995a803890f56199ed8664fe463b6')
+provides=('gmic-qt')
+replaces=('gmic-qt')
+conflicts=('gmic-qt')
+source=("https://github.com/amyspark/gmic/releases/download/v3.0.2.1/gmic-${pkgver}-patched.tar.xz")
+sha256sums=('3a45ed88e690db458a973239e5a6b5abbf963315d2fd63af8d155b150fffc428')
 
 build() {
   cmake -B build -S gmic-${pkgver}-patched/gmic-qt \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DGMIC_QT_HOST=krita-plugin \
