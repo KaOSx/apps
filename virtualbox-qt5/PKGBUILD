@@ -7,7 +7,7 @@ pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
 pkgver=6.1.32
 _pkgver=6.1.32
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
@@ -26,7 +26,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         'VirtioCore.cpp'
         'VirtioCore.h')
 sha256sums=('5d11384200b4e943ad0056d2cf75980ae4bee852c89650e2914e1b34eedc2d2c'
-            '9c5238183019f9ebc7d92a8582cad232f471eab9d3278786225abc1a1c7bf66e'
+            'f876e9f55243eded423fda4fc2ffe3b174dca90380a6315f7c9b3cd1c9d07206'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             'c7dc4e484c8641e8fbb8e7fb342c7a72534936d6e9212b477ab7e2736fb8be88'
             '94a808f46909a51b2d0cf2c6e0a6c9dea792034943e6413bf9649a036c921b21'
@@ -167,11 +167,8 @@ package_virtualbox-guest-utils() {
     pushd VirtualBox-${pkgver}/out/linux.amd64/release/bin/additions
     install -d ${pkgdir}/usr/bin
     install -m755 VBoxClient VBoxControl VBoxDRMClient VBoxService mount.vboxsf ${pkgdir}/usr/bin
-    # Adjust VBoxClient-all, segfaults with vmsvga-x11, needs vmsvga, don't run with .desktop, needs to run as root
     install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
         ${pkgdir}/usr/bin/VBoxClient-all
-    sed -i -e 's|/usr/bin/VBoxClient --vmsvga|#/usr/bin/VBoxClient --vmsvga|' ${pkgdir}/usr/bin/VBoxClient-all
-        
     install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
         ${pkgdir}/etc/xdg/autostart/vboxclient.desktop
     #install -D vboxvideo_drv_system.so ${pkgdir}/usr/lib/xorg/modules/drivers/vboxvideo.so
@@ -183,7 +180,7 @@ package_virtualbox-guest-utils() {
  
     install -Dm644 60-vboxguest.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxguest.rules
     install -Dm644 vboxservice.service ${pkgdir}/usr/lib/systemd/system/vboxservice.service
-    install -Dm644 vmsvga.service ${pkgdir}/usr/lib/systemd/system/vmsvga.service
+    #install -Dm644 vmsvga.service ${pkgdir}/usr/lib/systemd/system/vmsvga.service
 
     install -Dm644 VirtualBox-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
 }
