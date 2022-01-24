@@ -2,8 +2,8 @@
 pkgname=scribus
 _pkgname=Scribus
 _commit=3742559924136c2471ab15081c5b600dd5feaeb0
-pkgver=1.5.7
-pkgrel=15
+pkgver=1.5.8
+pkgrel=1
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="https://www.scribus.net"
@@ -16,19 +16,16 @@ groups=('office')
 options=('!libtool' '!makeflags')
 source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 #source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
-         "https://github.com/scribusproject/scribus/commit/1b546978bc4ea0b2a73fbe4d7cf947887e865162.diff"
-         "https://github.com/scribusproject/scribus/commit/68ec41169eaceea4a6e1d6f359762a191c7e61d5.diff")
-sha256sums=('318316b2cfc7a76191d3e0d3f8c2265147daea0570162028e243c292d826f8ce'
-            'c3f3214ead6948d6d709b99725fb05410a3d1a0532f6b8bfd92f3d5b75187ba0'
-            'd5db592b1f69c549348173d2cd3a815756a7c3e5c81bdbc9d3323400fb691a09')
+         "https://github.com/scribusproject/scribus/commit/1b546978bc4ea0b2a73fbe4d7cf947887e865162.diff")
+sha256sums=('47816e8fcf6d05788ff16aa4499f97ff22431c777a7789149b0a88b451e16b74'
+            'c3f3214ead6948d6d709b99725fb05410a3d1a0532f6b8bfd92f3d5b75187ba0')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
   #sed -i 's|pBase->SetOwner(cs->GetOwner());||' scribus/pdf_analyzer.cpp
   # harfbuzz 3 needed
-  patch -p1 -i ${srcdir}/1b546978bc4ea0b2a73fbe4d7cf947887e865162.diff
-  patch -p1 -i ${srcdir}/68ec41169eaceea4a6e1d6f359762a191c7e61d5.diff
+  #patch -p1 -i ${srcdir}/1b546978bc4ea0b2a73fbe4d7cf947887e865162.diff
 }
 
 build() {
