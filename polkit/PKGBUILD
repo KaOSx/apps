@@ -1,7 +1,7 @@
 
 pkgname=polkit
 pkgver=0.120
-pkgrel=1
+pkgrel=2
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=('x86_64')
 license=('LGPL')
@@ -13,14 +13,15 @@ options=('!libtool')
 install=polkit.install
 source=("https://www.freedesktop.org/software/polkit/releases/${pkgname}-${pkgver}.tar.gz"
         'polkit.pam'
-        'jsauthority.patch')
+        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff")
 md5sums=('a6efe21d021fafe4191ee30331ef801c'
          '6564f95878297b954f0572bc1610dd15'
-         '8b148474eb8bff1e9e3eef10aa73b0cc')
+         'e9355c69556b48415b4b1dc810944950')
 
 build() {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/jsauthority.patch
+  # CVE-2021-4034
+  patch -p1 -i ${srcdir}/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff
 
   ./configure --prefix=/usr \
       --sysconfdir=/etc \
@@ -38,6 +39,6 @@ package() {
 
   chown 102 ${pkgdir}/etc/polkit-1/rules.d
   chown 102 ${pkgdir}/usr/share/polkit-1/rules.d
-  
+
   install -m644 ${srcdir}/polkit.pam ${pkgdir}/etc/pam.d/polkit-1 
 }
