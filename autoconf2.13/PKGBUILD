@@ -2,7 +2,7 @@
 pkgname=autoconf2.13
 _pkgname=autoconf
 pkgver=2.13
-pkgrel=6
+pkgrel=7
 pkgdesc="Legacy 2.13 version of GNU tool for automatically configuring source code"
 arch=('x86_64')
 url="https://www.gnu.org/software/autoconf/"
@@ -13,7 +13,7 @@ md5sums=('9de56d4a161a723228220b0f425dc711')
 
 build() {
   cd ${_pkgname}-${pkgver} 
-  
+
   ./configure --prefix=/usr \
     --infodir=/usr/share/info \
     --program-suffix=-2.13
@@ -23,7 +23,7 @@ build() {
 package() {
   cd ${_pkgname}-${pkgver} 
   make prefix=${pkgdir}/usr infodir=${pkgdir}/usr/share/info install
-  
+
   mv ${pkgdir}/usr/share/info/autoconf{,-2.13}.info
   mv ${pkgdir}/usr/share/info/standards{,-2.13}.info
 }
