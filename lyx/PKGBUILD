@@ -3,7 +3,7 @@ pkgname=lyx
 pkgver=2.3.6.1
 _pkgver=2.3
 __pkgver=2.3.6
-pkgrel=7
+pkgrel=8
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
 url="https://www.lyx.org"
@@ -26,7 +26,7 @@ prepare() {
   #patch -p1 -i ${srcdir}/qt5.11.diff
   sed -i 's|hunspell-1.2|hunspell-1.7|' development/cmake/modules/FindHUNSPELL.cmake
 }
-         
+
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DLYX_RELEASE=ON \
@@ -45,7 +45,7 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
-  
+
   #mv ${pkgdir}/usr/share/lyx${_pkgver}/locale ${pkgdir}/usr/share/locale
   #mv ${pkgdir}/usr/applications ${pkgdir}/usr/share/applications
   #mv ${pkgdir}/usr/icons ${pkgdir}/usr/share/icons

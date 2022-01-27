@@ -2,7 +2,7 @@
 pkgname=lftp
 pkgver=4.9.2
 _pkgver=4.9.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Sophisticated command line based FTP client with openssl"
 arch=('x86_64')
 url="https://lftp.yar.ru/"
@@ -15,7 +15,7 @@ md5sums=('b3a272ecb7a2b60e3827776f90ffb2f3')
 
 build() {
   cd ${pkgname}-${_pkgver}
-  
+
   ./configure --prefix=/usr \
         --with-gnutls \
         --without-included-regex \
@@ -27,6 +27,6 @@ build() {
 package() {
   cd ${pkgname}-${_pkgver}
   make DESTDIR=${pkgdir} install
-  
+
   rm -rf ${pkgdir}/usr/lib
 }
