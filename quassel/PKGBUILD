@@ -3,7 +3,7 @@ pkgname=quassel
 pkgver=0.14.0
 _pkgver=0.14.0
 epoch=1
-pkgrel=1
+pkgrel=2
 pkgdesc="Qt irc client with a separated core"
 url="https://quassel-irc.org"
 arch=('x86_64')
@@ -60,6 +60,6 @@ package() {
   install -D -m644 ${srcdir}/${pkgname}.conf ${pkgdir}/etc/conf.d/${pkgname}
   
   # set default channel to KaOS
-  sed -i -e 's|DefaultChannels=#quassel|DefaultChannels=#kaosx|' ${pkgdir}/usr/share/quassel/networks.ini
+  sed -i -e 's|DefaultChannels=#quassel|DefaultChannels=#KaOS|' ${pkgdir}/usr/share/quassel/networks.ini
 }
 
