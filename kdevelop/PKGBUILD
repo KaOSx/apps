@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdevelop
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="A C/C++ development environment for KDE"
 arch=('x86_64')
 url="https://www.kdevelop.org/"
@@ -24,7 +24,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
+
   #patch -p1 -i $srcdir/qt55.diff
   sed -i -e 's|qdbus|qdbus-qt5|g' app/kdevelop!
 }
