@@ -1,27 +1,26 @@
 
 # build version at https://dolphin-emu.org/download/ dev version
 pkgname=dolphin-emu
-pkgver=5.0.15445
-pkgrel=2
-_commit=db02b50d2ecdfbbc21e19aadc57253c353069f77
+pkgver=5.0.15993
+pkgrel=1
+_commit=5e595616379a694789fe749e40a27ef069f0090e
 pkgdesc='GameCube, Wii and Triforce emulator'
 arch=('x86_64')
 url='https://dolphin-emu.org'
 license=('GPL2')
 depends=('bluez' 'ffmpeg' 'libao' 'mbedtls' 'miniupnpc' 'openal' 'portaudio'
-         'libevdev' 'soundtouch' 'qt5-base' 'pulseaudio' 'vulkan-loader')
+         'libevdev' 'soundtouch' 'qt5-base' 'pulseaudio' 'vulkan-loader'
+         'pugixml' 'fmt')
 makedepends=('cmake')
 source=("https://github.com/dolphin-emu/dolphin/archive/${_commit}.zip")
 #source=("https://github.com/dolphin-emu/dolphin/archive/${pkgver}.tar.gz")
-md5sums=('f10f8600dd4932acc3f28a9e82b5eb31')
+md5sums=('ab8b4244c2c46f01194acab699a03632')
 
 build() {
   cmake -B build -S dolphin-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
-    -DENABLE_QT2=ON \
-    -DENABLE_WX=OFF \
-    -DUSE_EGL=ON \
+    -DENABLE_QT=ON \
     -DUSE_MGBA=OFF \
     -DDISTRIBUTOR=KaOS
   cmake --build build
