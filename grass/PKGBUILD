@@ -2,14 +2,14 @@
 # build twice, when building on the server, j8 fails to honor without wx first time
 
 pkgname=grass
-pkgver=7.8.6
-pkgrel=3
+pkgver=8.0.0
+pkgrel=1
 pkgdesc='Geographic Information System (GIS) used for geospatial data management and analysis, image processing, graphics/maps production, spatial modeling, and visualization.'
 arch=('x86_64')
 url='https://grass.osgeo.org/'
 license=('GPL')
 depends=('gdal' 'tk' 'sqlite3' 'python3-numpy' 'python3-pillow' 'mesa' 'proj' 'libjpeg-turbo' 'libpng' 'libtiff'
-         'cfitsio' 'fftw' 'libxmu' 'postgresql' 'xorg-server' 'glu' 'tcl' 'zlib' 'cairo' 'geos' 'zstd')
+         'cfitsio' 'fftw' 'libxmu' 'postgresql' 'xorg-server' 'glu' 'tcl' 'zlib' 'cairo' 'geos' 'zstd' 'bzip2')
 makedepends=('mariadb' 'freetype2' 'r')
 optdepends=('fftw: required for i.fft and i.ifft modules'
             'postgresql: PostgreSQL database interface'
@@ -17,10 +17,10 @@ optdepends=('fftw: required for i.fft and i.ifft modules'
             'lapack: required for GMATH library')
 options=('!libtool' '!makeflags')
 groups=('gis')
-source=("https://grass.osgeo.org/grass78/source/${pkgname}-${pkgver}.tar.gz"
+source=("https://grass.osgeo.org/grass80/source/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}.sh"
         "${pkgname}.conf")
-md5sums=('6a16bbefdb1f31480be82e6f352c3c10'
+md5sums=('cb79d510eddbf93719f78b1e7202e1c1'
          '23da2e9399b3c5504851dec37821abe1'
          '6103480c2a1adc19a50b9e925e5e6d4c')
 
@@ -32,16 +32,15 @@ build() {
   unset CPPFLAGS
 
   # see ${srcdir}/grass-6.4.0/REQUIREMENTS.html for options
-  ./configure --enable-64bit \
-    --prefix=/opt/grass \
+  ./configure --prefix=/opt/grass \
     --with-mysql-includes=/usr/include/mysql \
     --with-mysql \
     --with-sqlite \
     --with-postgres \
     --with-fftw \
     --with-gdal=/usr/bin/gdal-config \
-    --with-python \
     --with-blas \
+    --with-bzlib \
     --with-lapack \
     --with-readline \
     --with-pthread \
@@ -59,8 +58,7 @@ build() {
     --with-freetype-includes=/usr/include/freetype2 \
     --with-zstd \
     --without-glw \
-    --without-wxwidgets \
-    --without-htmldocs
+    --without-wxwidgets
    
   make
 }
