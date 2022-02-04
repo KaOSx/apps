@@ -1,7 +1,7 @@
 
 pkgname=kuserfeedback
-pkgver=1.0.0
-pkgrel=2
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="Framework for collecting user feedback for applications via telemetry and surveys"
 arch=('x86_64')
 url="https://invent.kde.org/libraries/kuserfeedback/"
@@ -10,13 +10,13 @@ depends=('qt5-declarative' 'qt5-svg') # 'php' optional, check what needs with pl
 makedepends=('extra-cmake-modules' 'qt5-tools' 'clang')
 source=("https://download.kde.org/stable/kuserfeedback/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/libraries/kuserfeedback/-/commit/17db7d75643b4f3dccd5b36a6ab175f03ba74297.diff")
-sha256sums=('5a2f53ebb4b99a280757ca32bd9b686a7764a726e7e4d8bafee33acbb44b9db7'
+sha256sums=('76aac922b153249b274680a6f4c72c238ef14e3df04bad00cb64158b1063f264'
             '50fe80c634fc685798bb8ba07ff1424ef67e8e378b18477514c4a01b2925b0ea')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   sed -i -e 's|QMLLINT_EXECUTABLE qmllint|QMLLINT_EXECUTABLE qmllint-qt5|' cmake/FindQmlLint.cmake
-  patch -p1 -i ${srcdir}/17db7d75643b4f3dccd5b36a6ab175f03ba74297.diff
+  #patch -p1 -i ${srcdir}/17db7d75643b4f3dccd5b36a6ab175f03ba74297.diff
 }
 
 build() {
