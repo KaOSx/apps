@@ -1,8 +1,8 @@
 
 pkgname=octopi
 pkgver=0.12.0
-pkgrel=1
-_commit=31980010af501a731c4c5d06d400a50665b6ce89
+pkgrel=2
+_commit=76a4ac7874a6df55ed1caf1d381809d2b734378f
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://tintaescura.com/projects/octopi/"
 arch=('x86_64')
@@ -14,11 +14,13 @@ groups=('system')
 source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
         "images3.tar.xz"
         'folder_tree.png'
-        'searchlineedit.diff')
-md5sums=('d204c57c3e53c14b218b4491c07a0465'
+        'qtsingleapplication.diff'
+        'mainwindow.diff')
+md5sums=('56724730b058850d44c2b5536b524d5b'
          '09decb09a2fa58f2211ff3d5e0350ff0'
          'eff9d31629ad8de08c9198524f798bd3'
-         '79be301d683ccd8572db0571f868298c')
+         'b40bc05a359372ff4277e776e15211f6'
+         'fea73aca460daf0d3cdeefa2875182a9')
 
 prepare() {
    cd ${pkgname}-${_commit}/
@@ -36,6 +38,9 @@ prepare() {
    # show correct text for SysInfo window
    sed -e "s|mhwd -li -d|installation.log|" -i src/strconstants.cpp
    sed -e "s|head --bytes=256K /var/log/pacman.log|/var/log/pacman.log|" -i src/strconstants.cpp
+
+   patch -p1 -i ${srcdir}/qtsingleapplication.diff
+   patch -p1 -i ${srcdir}/mainwindow.diff
 }
          
 build() {
