@@ -1,6 +1,6 @@
 
 pkgname=init-live
-pkgver=2020.03
+pkgver=2022.02
 pkgrel=1
 pkgdesc="Live-session systemd startup scripts"
 arch=('x86_64')
@@ -19,6 +19,6 @@ package() {
   mkdir ${pkgdir}/etc
   install -m755 -t ${pkgdir}/etc live
   install -m755 -t ${pkgdir}/etc locale_setup.sh	
-  
+
   install -Dm644 live.service ${pkgdir}/usr/lib/systemd/system/live.service
 }

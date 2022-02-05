@@ -53,16 +53,15 @@ Rectangle {
             text: qsTr("<h3>KaOS - 2022.02</h3>
             <p>It is with great pleasure to present to you the February release of a new stable ISO.</p>
 
-            <p>For the installer Calamares there are three major changes. Biggest one is the addition of a bootloader selection module. For UEFI installs it is now possible to select between systemd-boot, rEFInd or no bootloader, all presented in a nice, QML based GUI. Second change is the addition of an interactive keybaord preview in the keyboard setup page. And third is the porting of the License page to QML.</p>
+            <p>With the release of Plasma 5.24, a first for KaOS can be announced.  Wayland on Plasma is in such a good shape that it now can be the default session for KaOS.  For Virtualbox this means some intervention is needed for auto-resize, upstream does not support this yet for a Wayland session, so you will need to set the desired screen resolution in Systemsettings.  When you choose to use non-free Nvidia during the boot-up of the Live session, then Wayland won't be used, for Nvidia it is till better to use an X session.< p>
 
-            <p>Updates to the base of this distribution were numerous and they included a GCC 11.2/Binutils 2.73 based Toolchain (with a move to libxcrypt), complete updated libffi 3.4.2/Glib2 2.70.3 stack, ICU 70.1/Boost 1.77.0 stack, Python 3.9.10, Systemd 250.3, Curl 7.81.0, Mesa 21.3.5, Vulkan packages 1.3.204, Wayland 1.20.0, Sudo 1.9.9, and Openldap 2.6.1.< /br>
+            <p>Other news regarding Plasma 5.24 includes    . For the other KDE parts, the latest Frameworks (5.90.0) and KDE Gear (21.12.2) are included. All built on <strong>Qt 5.15.2+</strong>.</p>
+
+            <p>Updates to the base of this distribution were very large and they included an updated Toolchain, due to numerous CVE fixes in Glibc 2.33 and almost six months worth of commits for GCC 11.2, a move to Perl 5.34.0, PHP move to 8.1.2 (PHP 7 is still available, to make the transition easier), GStreamer stack moving to 1.20.0, kernel moved to Linux 5.15.20 (lts release), Systemd 250.3, Curl 7.81.0, Mesa 21.3.5, Vulkan packages 1.3.204, Wayland 1.20.0, Sudo 1.9.9, and Openldap 2.6.1.< /br>
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.
             </p>
             
-            <p>When KaOS started in 2013, there was some serious consideration to base this distro on Illumos. One of the biggest draws for Illumos was the ZFS filesystem.
-            ZFS has been possible on Linux system for a few years now, but licensing issues and no installer support meant it was not an option to use in KaOS.
-            Calamares received initial support for ZFS, and licensing issues should be no problem if the needed modules are not build into the kernel but distributed as separate modules instead, thus ZFS is added to the KaOS repositories.
-            For now, the only kernel that supports ZFS is the linux-next kernel, since dracut is fully supported by ZFS, anything mkinitcpio based needs to come from downstream.</p>
+            <p>The installer Calamares now prints a warning when the partition module has a conflicting configuration for the swap choices, rather than always using “suspend” and always sets bigtime option on XFS filesystems.</p>
             
             <p>For Nvidia, a new longterm support version is added to this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
             
@@ -90,12 +89,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.90.0, Plasma 5.23.90, KDE Applications 21.12.2</b>, Linux 5.15.19, Systemd 250.3, Kmod 29, NetworkManager 1.34.0, LibreOffice 7.2.5, Elisa, Xorg-Server 1.21.2, Mesa 21.3.5, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.10 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.90.0, Plasma 5.24.0, KDE Applications 21.12.2</b>, Linux 5.15.20, Systemd 250.3, Kmod 29, NetworkManager 1.34.0, LibreOffice 7.3.0, Elisa, Xorg-Server 1.21.2, Mesa 21.3.5, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.10 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.12.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.16, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 96.0.3, Chrome 99, Ardour 6.9.0, Inkscape 1.1.1, GIMP 2.10.30 and Thunderbird 91.5.1.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 96.0.3, Chrome 100, Ardour 6.9.0, Inkscape 1.1.1, GIMP 2.10.30 and Thunderbird 91.5.1.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
