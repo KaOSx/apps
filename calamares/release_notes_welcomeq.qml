@@ -53,7 +53,9 @@ Rectangle {
             text: qsTr("<h3>KaOS - 2022.02</h3>
             <p>It is with great pleasure to present to you the February release of a new stable ISO.</p>
 
-            <p>With the release of Plasma 5.24, a first for KaOS can be announced.  Wayland on Plasma is in such a good shape that it now can be the default session for KaOS.  For Virtualbox this means some intervention is needed for auto-resize, upstream does not support this yet for a Wayland session, so you will need to set the desired screen resolution in Systemsettings.  When you choose to use non-free Nvidia during the boot-up of the Live session, then Wayland won't be used, for Nvidia it is till better to use an X session.< p>
+            <p>With the release of Plasma 5.24, a first for KaOS can be announced.  Wayland on Plasma is in such a good shape that it now can be the default session for KaOS.  For Virtualbox this means some intervention is needed for auto-resize, upstream does not support this yet for a Wayland session, so you will need to set the desired screen resolution in Systemsettings.  When you choose to use non-free Nvidia during the boot-up of the Live session, then Wayland won't be used, for Nvidia it is still better to use an X session.< /br>
+            The one application that is not ready for Wayland, is SMplayer, used in KaOS for many years as the default media player. From the many bug reports for Wayland support & SMplayer (dating back to 2017), it seems SMplayer is unable to move to Wayland, thus can no longer be default.< /br>
+            Haruna is the replacement. It is developed for Plasma, is QML based, has yt-dlp support, subtitle feature and a rich set of configuration options.< p>
 
             <p>Other news regarding Plasma 5.24 includes    . For the other KDE parts, the latest Frameworks (5.90.0) and KDE Gear (21.12.2) are included. All built on <strong>Qt 5.15.2+</strong>.</p>
 
