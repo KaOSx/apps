@@ -4,30 +4,20 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkleo
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="This lib provides crypto for mails."
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/pim/libkleo'
+url='https://invent.kde.org/pim/libkleo'
 license=('LGPL')
 depends=('gpgme' 'kpimtextedit' 'kconfig' 'ki18n' 'kwidgetsaddons' 'kcompletion' 'kwindowsystem'
          'kcoreaddons' 'kcodecs' 'kitemmodels')
 makedepends=('extra-cmake-modules' 'boost')
 groups=('kde' 'kdepim' 'kde-uninstall')
-source=("http://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/libkleo.git")
-#md5sums=('SKIP')
-
-#prepare() {
-#  cd $pkgname-${pkgver}
-  #patch -p1 -i $srcdir/qt55.diff
-#}
 
 build() {
-  mkdir build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -36,11 +26,10 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build 
 }
