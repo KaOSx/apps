@@ -4,10 +4,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=syntax-highlighting
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Syntax highlighting Engine for Structured Text and Code.'
 arch=('x86_64')
-url='https://github.com/KDE/syntax-highlighting'
+url='https://invent.kde.org/frameworks/syntax-highlighting'
 license=('LGPL')
 depends=('qt5-xmlpatterns' 'perl')
 makedepends=('extra-cmake-modules' 'qt5-tools')
@@ -18,7 +18,7 @@ md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 prepare () {
   cd ${pkgname}-${pkgver}
   # syntax highlighting for PKGBUILD files
-  sed -i -e 's|.bash_login;.profile|.bash_login;.profile;PKGBUILD|' data/syntax/bash.xml
+  #sed -i -e 's|.bash_login;.profile|.bash_login;.profile;PKGBUILD|' data/syntax/bash.xml
 }
 
 build() {
