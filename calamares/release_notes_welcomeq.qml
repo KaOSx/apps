@@ -1,6 +1,6 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
- *   Copyright 2020 - 2021, Anke Boersma <demm@kaosx.us>
+ *   Copyright 2020 - 2022, Anke Boersma <demm@kaosx.us>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ Rectangle {
             <p>Other news regarding Plasma 5.24 includes a new Configure Display Settings item. This lets you adjust your screens' resolution, orientation, scaling, and position relative to other monitors. Desktop Panels are now easier to move around and stick to any edge you want, as you can now drag them from anywhere on their toolbar while in Edit Mode. To make critically important Plasma notifications stand out, they now come with an orange strip on the side to visually distinguish them from less urgent messages. The Task Manager’s context menus have been clarified and simplified. The Add a keyboard layout dialog has been redesigned for simplicity and ease of use. And the Cover Flip and Flip Switch effects are back, you can find them in the System Settings Window Management > Task Switcher page. 
             For the other KDE parts, the latest Frameworks (5.90.0) and KDE Gear (21.12.2) are included. All built on <strong>Qt 5.15.2+</strong>.</p>
 
-            <p>Updates to the base of this distribution were very large and they included an updated Toolchain, due to numerous CVE fixes in Glibc 2.33 and almost six months worth of commits for GCC 11.2, a move to Perl 5.34.0, PHP move to 8.1.2 (PHP 7 is still available, to make the transition easier), GStreamer stack moving to 1.20.0, kernel moved to Linux 5.15.20 (lts release), Systemd 250.3, Curl 7.81.0, Mesa 21.3.5, Vulkan packages 1.3.204, Wayland 1.20.0, Sudo 1.9.9, and Openldap 2.6.1.< /br>
+            <p>Updates to the base of this distribution were very large and they included an updated Toolchain, due to numerous CVE fixes in Glibc 2.33 and almost six months worth of commits for GCC 11.2, a move to Perl 5.34.0, PHP move to 8.1.2 (PHP 7 is still available, to make the transition easier), GStreamer stack moving to 1.20.0, kernel moved to Linux 5.15.23 (lts release), Systemd 250.3, Curl 7.81.0, Mesa 21.3.6, Vulkan packages 1.3.205, Wayland 1.20.0, Sudo 1.9.9, and Openldap 2.6.1.< /br>
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.3.
             </p>
             
@@ -92,12 +92,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.90.0, Plasma 5.24.0, KDE Applications 21.12.3</b>, Linux 5.15.21, Systemd 250.3, Kmod 29, NetworkManager 1.34.0, LibreOffice 7.3.0, Elisa, Xorg-Server 1.21.2, Mesa 21.3.5, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.10 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.90.0, Plasma 5.24.0, KDE Applications 21.12.2</b>, Linux 5.15.23, Systemd 250.3, Kmod 29, NetworkManager 1.34.0, LibreOffice 7.3.0, Elisa, Xorg-Server 1.21.2, Mesa 21.3.6, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.10 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.12.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.16, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 96.0.3, Chrome 100, Ardour 6.9.0, Inkscape 1.1.2, GIMP 2.10.30 and Thunderbird 91.5.1.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 97.0, Chrome 100, Ardour 6.9.0, Inkscape 1.1.2, GIMP 2.10.30 and Thunderbird 91.6.0.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
