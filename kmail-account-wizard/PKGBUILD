@@ -4,10 +4,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kmail-account-wizard
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Application which assists you with the configuration of accounts in KMail."
 arch=('x86_64')
-url='https://github.com/KDE/kmail-account-wizard'
+url='https://invent.kde.org/pim/kmail-account-wizard'
 license=('LGPL')
 depends=('kwallet' 'kcmutils' 'knotifyconfig' 'kconfig' 'kservice' 'kdbusaddons' 'ktexteditor' 'kcodecs' 
          'kcrash' 'knotifications' 'kross' 'knewstuff'
@@ -19,10 +19,7 @@ source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -30,11 +27,10 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

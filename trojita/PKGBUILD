@@ -1,7 +1,7 @@
 
 pkgname=trojita
 pkgver=0.7
-pkgrel=3
+pkgrel=4
 _commit=b443ca2d025b402558a49f006c286d700f14d733
 pkgdesc="Trojita is a Qt IMAP e-mail client."
 arch=('x86_64')
@@ -19,10 +19,10 @@ build() {
   cd ${pkgname}-${_commit}
   sed -e "s|KF5Gpgmepp|QGpgme|" -i CMakeLists.txt
   sed -e "s|Cryptography KF5::Gpgmepp-pthread KF5::QGpgme|Cryptography QGpgme|" -i CMakeLists.txt
-  
+
   mkdir -p build
   cd build
-  
+
   cmake .. -DCMAKE_BUILD_TYPE=Release \
            -DCMAKE_INSTALL_PREFIX=/usr \
            -DWITH_QT5=ON
@@ -31,7 +31,7 @@ build() {
 
 package() {
   cd ${pkgname}-${_commit}/build
-  
+
   make DESTDIR=${pkgdir} install
 }
 
