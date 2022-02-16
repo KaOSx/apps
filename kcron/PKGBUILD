@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcron
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Task Scheduler is a graphical front end to the standard cron utility'
 url='https://kde.org/applications/en/kcron?category=utilities'
 arch=('x86_64')
@@ -12,28 +12,34 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'kiconthemes' 'kio' 'kxmlgui')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-admin' 'kde-uninstall')
-conflicts=('kdeadmin-kcron')
-replaces=('kdeadmin-kcron')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz") 
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-$_kdever.tar.xz"
+        "https://invent.kde.org/system/kcron/-/commit/2c04c9f665283e8480a65f4ac0accfe6a8e0539a.diff"
+        "https://invent.kde.org/system/kcron/-/commit/ef4266e3d5ea741c4d4f442a2cb12a317d7502a1.diff")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '54af4add766d884b674c9a66aafd4b25'
+         '247cd04f822a40b7bd05fabaa822b2b3')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # CVE 2022-24986
+  patch -p1 -i ${srcdir}/2c04c9f665283e8480a65f4ac0accfe6a8e0539a.diff
+  patch -p1 -i ${srcdir}/ef4266e3d5ea741c4d4f442a2cb12a317d7502a1.diff
+}
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  make DESTDIR=${pkgdir} install
-  
-  sed -e "s|system-administration|session|" -i ${pkgdir}/usr/share/kservices5/kcm_cron.desktop
+
+  DESTDIR=${pkgdir} cmake --install build
+
+  #sed -e "s|system-administration|session|" -i ${pkgdir}/usr/share/kservices5/kcm_cron.desktop
 }
