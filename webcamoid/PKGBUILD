@@ -1,27 +1,29 @@
 
 pkgname=webcamoid
-pkgver=8.8.0
+pkgver=9.0.0
 _commit=0e85ca398e26752d3cae7c0de200eabd72ac3268
 pkgrel=1
 pkgdesc="Webcamoid is a full featured webcam capture application."
 url='https://webcamoid.github.io/'
 license=('GPL')
 arch=('x86_64')
-depends=('qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-svg' 'ffmpeg' 'v4l-utils' 'kdesu')
-makedepends=('qt5-tools')
+depends=('qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-svg' 'ffmpeg' 'v4l-utils'
+         'kdesu' 'pipewire')
+makedepends=('qt5-tools' 'cmake')
 source=("https://github.com/webcamoid/webcamoid/archive/${pkgver}.tar.gz")
 #source=("https://github.com/webcamoid/webcamoid/archive/${_commit}.zip")
-md5sums=('d2b4455aa01924a07fc03165185e317c')
+md5sums=('e6371867cdc87baf0b50bcd962e656d2')
 
 build() {
-  cd webcamoid-${pkgver}
-
-  /usr/lib/qt5/bin/qmake Webcamoid.pro 
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+  cmake --build build
 }
 
 package() {
-  cd webcamoid-${pkgver}
 
-  make INSTALL_ROOT=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
+
