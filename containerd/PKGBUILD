@@ -31,7 +31,7 @@ build() {
 
 package() {
     cd ${pkgname}-${pkgver}
-    make install DESTDIR=${pkgdir}/usr
+    make install DESTDIR=${pkgdir} PREFIX=/usr
 
     install -Dm644 containerd.service ${pkgdir}/usr/lib/systemd/system/containerd.service
 }
