@@ -16,16 +16,19 @@ groups=('office')
 options=('!libtool' '!makeflags')
 source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 #source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
-         "https://github.com/scribusproject/scribus/commit/1b546978bc4ea0b2a73fbe4d7cf947887e865162.diff")
+         "https://github.com/scribusproject/scribus/commit/85c0dff3422fa3c26fbc2e8d8561f597ec24bd92.diff"
+         "https://github.com/scribusproject/scribus/commit/f75c1613db67f4067643d0218a2db3235e42ec9f.diff")
 sha256sums=('47816e8fcf6d05788ff16aa4499f97ff22431c777a7789149b0a88b451e16b74'
-            'c3f3214ead6948d6d709b99725fb05410a3d1a0532f6b8bfd92f3d5b75187ba0')
+            '388350c269e4c8f149ed71850d7905cb947f4da5a92b638766bf5b903ee605e2'
+            '348c023fb934d92249d78dff908b1790f21231941053ebf35b03f925ec7e4397')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
   #sed -i 's|pBase->SetOwner(cs->GetOwner());||' scribus/pdf_analyzer.cpp
-  # harfbuzz 3 needed
-  #patch -p1 -i ${srcdir}/1b546978bc4ea0b2a73fbe4d7cf947887e865162.diff
+  # poppler 22.2.0 needed
+  patch -p1 -i ${srcdir}/85c0dff3422fa3c26fbc2e8d8561f597ec24bd92.diff
+  patch -p1 -i ${srcdir}/f75c1613db67f4067643d0218a2db3235e42ec9f.diff
 }
 
 build() {
