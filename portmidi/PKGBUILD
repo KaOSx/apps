@@ -1,42 +1,43 @@
 
 pkgname=portmidi
-pkgver=234
+pkgver=2.0.2
 pkgrel=1
+epoch=1
 pkgdesc="Cross-platform, open-source I/O libraries for digital media including MIDI, video, and audio"
 arch=('x86_64')
-url="http://portmedia.sourceforge.net/"
+url="https://github.com/PortMidi/portmidi"
 license=('GPL')
 depends=('alsa-lib')
 makedepends=('cmake' 'java-environment')
 optdepends=('java-runtime: for using pmdefaults')
 options=('!makeflags')
-#source=("https://downloads.sourceforge.net/project/portmedia/portmidi/${pkgver}/${pkgname}-src-${pkgver}.zip"
-source=("https://sourceforge.net/projects/portmedia/files/portmedia-code-r${pkgver}.zip"
+source=("https://downloads.sourceforge.net/project/portmedia/portmidi/v${pkgver}/${pkgname}-v${pkgver}.zip"
+#source=("https://sourceforge.net/projects/portmedia/files/portmedia-code-r${pkgver}.zip"
         'java.patch')
-md5sums=('bdda0bd7f20e8d1d82a87d2818ea33d4'
+md5sums=('1bf08bbdb9f96175034908ca0cbf136b'
          '59cb428b29a33bab3bb5811cda479a9b')
 
 prepare() {
-  cd portmedia-code-r${pkgver}/${pkgname}/trunk
-  sed -i "s|/usr/local|/usr|" */CMakeLists.txt pm_python/setup.py
-  mkdir -p pm_java/Release
+  cd ${pkgname}
+  #sed -i "s|/usr/local|/usr|" */CMakeLists.txt pm_python/setup.py
+  #mkdir -p pm_java/Release
 
   #patch -p1 -i ${srcdir}/java.patch 
 }
 
 build() {
-  cd portmedia-code-r${pkgver}/${pkgname}/trunk
-  
-  cmake . -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release \
-    -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release \
-    -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release
-  make
+  cmake -B build -S ${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_JAVA_NATIVE_INTERFACE=ON \
+    -DBUILD_PMDEFAULTS=ON
+  cmake --build build
 }
 
 package() {
-  cd portmedia-code-r${pkgver}/${pkgname}/trunk
-  make DESTDIR=${pkgdir} install
 
-  ln -s libportmidi.so ${pkgdir}/usr/lib/libporttime.so
+  DESTDIR=${pkgdir} cmake --install build
+
+  cd ${pkgname}
+  install -Dm644 pm_java/pmdefaults/pmdefaults.jar ${pkgdir}/usr/share/java/pmdefaults.jar
+  install -Dm644 license.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
 }
