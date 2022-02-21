@@ -7,7 +7,7 @@ arch=('x86_64')
 url="https://www.musescore.org/en/"
 license=('GPL')
 depends=('qtwebengine' 'qt5-svg' 'qt5-tools' 'qt5-xmlpatterns' 'qt5-quickcontrols2'
-         'qt5-graphicaleffects' 'openssl' 'pulseaudio' 'lame' 'portaudio' 'jack' 'portmidi')
+         'qt5-graphicaleffects' 'openssl' 'pulseaudio' 'lame' 'portaudio' 'jack2' 'portmidi')
 makedepends=('cmake' 'doxygen' 'texlive-core' 'qt5-script')
 groups=('multimedia')
 source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz"
@@ -25,7 +25,7 @@ prepare() {
 build() {
   mkdir -p build
   cd build
-  
+
   PATH=/usr/lib/qt5/bin:${PATH}
   cmake ../MuseScore-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
@@ -39,9 +39,9 @@ build() {
 package() {
   cd build
   #patch -p1 -i ${srcdir}/cmake_install.diff
-  
+
   make DESTDIR=${pkgdir} install
-  
+
   # package mscore fonts so they can be used by other apps
   cd ../MuseScore-${pkgver}
   install -m755 -d ${pkgdir}/usr/share/fonts/mscore
