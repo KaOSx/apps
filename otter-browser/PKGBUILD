@@ -1,7 +1,7 @@
 pkgname=otter-browser
 pkgver=1.0.81
-_commit=141ceb64e60b4d9fff4a7a71793c6fd70300853d
-pkgrel=1
+_commit=e36aea387e12b9e9c1e3d83e512ef41b325e37d6
+pkgrel=2
 pkgdesc='Browser aiming to recreate the best aspects of the classic Opera (12.x) UI using Qt5.'
 arch=('x86_64')
 url="https://www.otter-browser.org"
@@ -11,7 +11,7 @@ makedepends=('cmake' 'qt5-tools')
 groups=('network-web')
 #source=("https://sourceforge.net/projects/otter-browser/files/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.bz2")
 source=("https://github.com/OtterBrowser/otter-browser/archive/${_commit}.zip")
-md5sums=('b63ebdc575b7afa02bb90a9e191451b7')
+md5sums=('c4e27bb577bf4a13fbd5d18206f7f379')
 
 prepare() {
   cd ${pkgname}-${_commit}
@@ -25,7 +25,7 @@ build() {
 
   mkdir -p build
   cd build
-  
+
   cmake ../ \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DENABLE_QTWEBENGINE=OFF \
@@ -36,7 +36,7 @@ build() {
 package() {
   cd ${pkgname}-${_commit}/build
   make DESTDIR=${pkgdir} install
-  
+
   install -D -m0644 ../../${pkgname}-${_commit}/COPYING  ${pkgdir}/usr/share/licenses/otter-browser/COPYING
 }
 
