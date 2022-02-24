@@ -1,9 +1,9 @@
 
 pkgname=sigil
 _pkgname=Sigil
-pkgver=1.8.0
+pkgver=1.9.0
 _pagever=1.7.0
-pkgrel=3
+pkgrel=1
 pkgdesc="A multi-platform WYSIWYG ebook editor. It is designed to edit books in ePub format. "
 arch=('x86_64')
 url="https://github.com/Sigil-Ebook/Sigil"
@@ -16,7 +16,7 @@ groups=('office')
 source=("Sigil-${pkgver}.tar.gz::https://github.com/Sigil-Ebook/Sigil/archive/${pkgver}.tar.gz"
         "PageEdit-${_pagever}.tar.gz::https://github.com/Sigil-Ebook/PageEdit/archive/${_pagever}.tar.gz")
 #source=("https://github.com/Sigil-Ebook/Sigil/archive/${_commit}.zip")
-sha256sums=('33d84331f259ab8d92fc2c5fed6f05fd5f011695c48f83537423635a7afdd2ec'
+sha256sums=('c44b0cf2472ef59c4d76178883a7795af39febf32496fb7af1e34f7a3977791f'
             '918349373049b0234169534f6c705f3de4f10036c458c484d71fad2cdf46cc28')
 
 prepare() {
@@ -30,7 +30,7 @@ build() {
   cd ${_pkgname}-${pkgver}
   mkdir -p build 
   cd build
-  
+
   export CC=/usr/bin/clang
   export CXX=/usr/bin/clang++
 
@@ -42,12 +42,12 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_SKIP_RPATH=ON ..
   make
-  
+
   cd ../..
   cd PageEdit-${_pagever}
   mkdir -p build
   cd build
-  
+
   cmake -G "Unix Makefiles" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
@@ -61,7 +61,7 @@ package() {
   make install DESTDIR=${pkgdir}
 
   cd ../..
-  
+
   cd PageEdit-${_pagever}/build
   make install DESTDIR=${pkgdir}
 }
