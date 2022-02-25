@@ -1,0 +1,27 @@
+
+pkgname=transifex-cli
+pkgver=1.0.3
+pkgrel=1
+pkgdesc="Command line tool that enables you to easily manage your translations within a project without the need of an elaborate UI system."
+arch=('x86_64')
+url="https://github.com/transifex/transifex-client"
+license=('GPL2')
+depends=('go')
+provides=('transifex-client')
+replaces=('transifex-client')
+conflicts=('transifex-client')
+source=("https://github.com/transifex/cli/archive/v${pkgver}.tar.gz")
+md5sums=('83aa7fd491bbe5c524f3b3a902c4abc8')
+
+build() {
+  cd cli-${pkgver}
+
+  go build -o ./bin/tx
+}
+
+package() {
+  cd cli-${pkgver}
+
+  install -Dm755 bin/tx ${pkgdir}/usr/bin/tx
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
