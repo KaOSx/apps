@@ -50,8 +50,8 @@ Rectangle {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2022.02</h3>
-            <p>It is with great pleasure to present to you the February release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2022.03</h3>
+            <p>It is with great pleasure to present to you the March release of a new stable ISO.</p>
 
             <p>With the release of Plasma 5.24, a first for KaOS can be announced.  Wayland on Plasma is in such a good shape that it now can be the default session for KaOS.  For Virtualbox this means some intervention is needed for auto-resize, upstream does not support this yet for a Wayland session, so you will need to set the desired screen resolution in Systemsettings.  When you choose to use non-free Nvidia during the boot-up of the Live session, then Wayland won't be used, for Nvidia it is still better to use an X session.< /br>
             The one application that is not ready for Wayland, is SMplayer, used in KaOS for many years as the default media player. From the many bug reports for Wayland support & SMplayer (dating back to 2017), it seems SMplayer is unable to move to Wayland, thus can no longer be default.< /br>
@@ -94,7 +94,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.91.0, Plasma 5.24.0, KDE Applications 21.12.2</b>, Linux 5.15.23, Systemd 250.3, Kmod 29, NetworkManager 1.34.0, LibreOffice 7.3.0, Elisa, Xorg-Server 1.21.2, Mesa 21.3.6, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.10 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.91.0, Plasma 5.24.2, KDE Applications 21.12.2</b>, Linux 5.15.23, Systemd 250.3, Kmod 29, NetworkManager 1.36.0, LibreOffice 7.3.0, Elisa, Xorg-Server 1.21.2, Mesa 21.3.7, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.10 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.12.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
