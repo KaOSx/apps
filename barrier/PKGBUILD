@@ -7,14 +7,17 @@ arch=('x86_64')
 url="https://github.com/debauchee/barrier"
 license=('GPLv2')
 depends=('curl' 'avahi' 'libx11' 'libxrandr' 'libxext' 'libxinerama' 'libxtst' 'libxi'
-         'libsm' 'libice' 'openssl' 'qt5-base')
+         'libsm' 'libice' 'openssl' 'qt5-base' 'gulrak-filesystem')
 makedepends=('cmake' 'googletest')
-source=("https://github.com/debauchee/barrier/archive/v${pkgver}.tar.gz")
-md5sums=('6f9b98a12a53cf8d0aa3b6b159aeb64f')
+source=("https://github.com/debauchee/barrier/archive/v${pkgver}.tar.gz"
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/x11-misc/barrier/files/barrier-2.4.0-includes.patch")
+md5sums=('6f9b98a12a53cf8d0aa3b6b159aeb64f'
+         'eaabd4997d613b28e9e655702409baed')
 
 prepare() {
     cd ${pkgname}-${pkgver}
 
+    patch -p1 -i ${srcdir}/barrier-2.4.0-includes.patch
     #sed -i 's|add_library.*||g' src/test/CMakeLists.txt 
     #sed -i 's|set_target_properties.*||g' src/test/CMakeLists.txt 
 }
@@ -24,8 +27,9 @@ build() {
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DBARRIER_BUILD_TESTS=OFF \
-        -DBARRIER_USE_EXTERNAL_GTEST=ON
-    cmake --build build -j1
+        -DBARRIER_USE_EXTERNAL_GTEST=ON \
+        -DBARRIER_REVISION=00000000
+    cmake --build build
 }
 
 package() {

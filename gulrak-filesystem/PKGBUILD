@@ -1,0 +1,28 @@
+
+pkgname=gulrak-filesystem
+pkgver=1.5.10
+pkgrel=1
+pkgdesc="Software that mimics the functionality of a KVM switch, allowing you to use a single keyboard and mouse to control multiple computers"
+arch=('x86_64')
+url="https://github.com/debauchee/barrier"
+license=('GPLv2')
+depends=('gcc-libs')
+makedepends=('cmake')
+source=("https://github.com/gulrak/filesystem/archive/refs/tags/v${pkgver}.tar.gz")
+md5sums=('8e8a1f588c763ea24161cd5647e67f8d')
+
+build() {
+    cmake -B build -S filesystem-${pkgver} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DGHC_FILESYSTEM_BUILD_EXAMPLES=OFF \
+        -DGHC_FILESYSTEM_BUILD_TESTING=OFF \
+        -DGHC_FILESYSTEM_WITH_INSTALL=ON
+    cmake --build build
+}
+
+package() {
+    DESTDIR=${pkgdir} cmake --install build
+
+    install -Dm 644 filesystem-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
