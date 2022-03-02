@@ -2,7 +2,7 @@
 pkgname=inkscape
 pkgver=1.1.2
 _commit=2022-02-04_0a00cf5339
-pkgrel=2
+pkgrel=3
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
@@ -14,15 +14,15 @@ depends=('poppler' 'graphicsmagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 source=("https://media.inkscape.org/dl/resources/file/${pkgname}-${pkgver}.tar.xz"
-        "https://gitlab.com/inkscape/inkscape/-/commit/ebc56b7dbc8b0f8f1decb43577b5bda1d356fafe.diff")
+        "https://gitlab.com/inkscape/inkscape/-/commit/15ab83e02b07018c3ffd4952a2623393187659e0.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
 sha256sums=('3ffe54a06d0b25a4cd8b6eb424536ef1ed205be13443a39cd437c8c7b89b96d1'
-            'bfc169fb119e5642aa1d736c36de1f44f6d222b0fb3db4330f4ee6d7a2967a2c')
+            '249ad7a025013a593cd48a79b450ebd92221bde17ff030d1b67c4fc959c793ba')
 
 prepare() {
   cd ${pkgname}-${pkgver}_${_commit}
-  # glib2 2.68 needed
-  #patch -p1 -i ${srcdir}/ebc56b7dbc8b0f8f1decb43577b5bda1d356fafe.diff
+  # poppler 22.03.0 needed
+  patch -p1 -i ${srcdir}/15ab83e02b07018c3ffd4952a2623393187659e0.diff
   # poppler 21.11 needed
   #sed -i 's|font->getTag()->getCString(),|font->getTag().c_str(),|g' src/extension/internal/pdfinput/pdf-parser.cpp
 }
