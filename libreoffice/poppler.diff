@@ -1,15 +1,28 @@
-diff --git a/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx b/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
-index e9c2a407c279..16ad04bf660a 100644
---- a/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
-+++ b/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
-@@ -563,7 +563,9 @@ void PDFOutDev::processLink(Link* link, Catalog*)
-     if (!(pAction && pAction->getKind() == actionURI))
-         return;
+diff --git a/sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx b/sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx
+index ad6320139..e5f6d9c68 100644
+--- a/sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx
++++ b/sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx
+@@ -138,6 +138,15 @@ int main(int argc, char **argv)
+     _setmode( _fileno( g_binary_out ), _O_BINARY );
+ #endif
  
--#if POPPLER_CHECK_VERSION(0, 72, 0)
-+#if POPPLER_CHECK_VERSION(0, 86, 0)
-+    const char* pURI = static_cast<LinkURI*>(pAction)->getURI().c_str();
-+#elif POPPLER_CHECK_VERSION(0, 72, 0)
-     const char* pURI = static_cast<LinkURI*>(pAction)->getURI()->c_str();
- #else
-     const char* pURI = static_cast<LinkURI*>(pAction)->getURI()->getCString();
++#if POPPLER_CHECK_VERSION(22, 3, 0)
++    PDFDoc aDoc( std::make_unique<GooString>(pFileName),
++                 GooString(pOwnerPasswordStr),
++                 GooString(pUserPasswordStr) );
++
++    PDFDoc aErrDoc( std::make_unique<GooString>(pErrFileName),
++                 GooString(pOwnerPasswordStr),
++                 GooString(pUserPasswordStr) );
++#else
+     PDFDoc aDoc( pFileName,
+                  pOwnerPasswordStr,
+                  pUserPasswordStr );
+@@ -145,6 +154,7 @@ int main(int argc, char **argv)
+     PDFDoc aErrDoc( pErrFileName,
+                  pOwnerPasswordStr,
+                  pUserPasswordStr );
++#endif
+ 
+     // Check various permissions for aDoc.
+     PDFDoc &rDoc = aDoc.isOk()? aDoc: aErrDoc;
