@@ -10,12 +10,12 @@ url='https://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
 makedepends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons' 'ki18n' 'kitemviews' 'kwidgetsaddons'
          'threadweaver' 'kcompletion' 'kiconthemes' 'kparts' 'kxmlgui' 'kross' 'kconfigwidgets' 'ktexteditor' 
-         'kdelibs4support' 'kio' 'knotifyconfig' 'knotifications' 'ktextwidgets'
+         'kdelibs4support' 'kio' 'knotifyconfig' 'knotifications' 'ktextwidgets' 'khtml'
          'eigen3' 'freetds' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
-         'lcms2' 'libodfgen' 'poppler' 'libspnav' 'fftw' 'hicolor-icon-theme' 
+         'lcms2' 'libodfgen' 'libspnav' 'fftw' 'hicolor-icon-theme' 
          'sqlite3' 'libkdcraw' 'qca-qt5' 'qt5-declarative' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
-         'kcontacts' 'akonadi-contacts' 'kholidays' 'okular' 'openexr' 'vc' 'kreport'
-         'extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang
+         'kcontacts' 'akonadi-contacts' 'kholidays' 'openexr' 'vc' 'kreport'
+         'extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang 'poppler' 'okular'
 source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
 #source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
         'cpp17.patch'
@@ -58,11 +58,11 @@ package_calligra() {
   pkgdesc="Suite is a collection of office applications linked together by a common base."
   depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons' 'ki18n' 'kitemviews' 'kwidgetsaddons'
          'threadweaver' 'kcompletion' 'kiconthemes' 'kparts' 'kxmlgui' 'kross' 'kconfigwidgets' 'ktexteditor' 
-         'kdelibs4support' 'kio' 'knotifyconfig' 'knotifications' 'ktextwidgets'
+         'kdelibs4support' 'kio' 'knotifyconfig' 'knotifications' 'ktextwidgets' 'khtml'
          'eigen3' 'freetds' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
-         'lcms2' 'libodfgen' 'poppler' 'libspnav' 'fftw' 'hicolor-icon-theme' 
+         'lcms2' 'libodfgen' 'libspnav' 'fftw' 'hicolor-icon-theme' 
          'sqlite3' 'libkdcraw' 'exiv2' 'qca-qt5' 'qt5-declarative' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
-         'kcontacts' 'akonadi-contacts' 'kholidays' 'okular' 'openexr' 'vc' 'kreport' 'qt5-webkit')
+         'kcontacts' 'akonadi-contacts' 'kholidays' 'openexr' 'vc' 'kreport' 'qt5-webkit') # 'poppler' 'okular'
          
   cd build
   

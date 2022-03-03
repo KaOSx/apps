@@ -1,8 +1,9 @@
 
 pkgname=kstars
 pkgver=3.5.7
+_commit=cf5db0400263577fb4805fad64fd5ad67c3b3bec
 epoch=1
-pkgrel=1
+pkgrel=2
 pkgdesc="Open source, cross-platform Astronomy Software by KDE"
 url="https://edu.kde.org/kstars/"
 arch=('x86_64')
@@ -12,17 +13,18 @@ depends=('kauth' 'kconfig' 'kcrash' 'kwidgetsaddons' 'knewstuff' 'kio' 'ki18n' '
          'libraw' 'qt5-websockets' 'qtkeychain' 'gsl' 'qt5-datavis3d' 'stellarsolver')
 makedepends=('extra-cmake-modules' 'kdoctools' 'eigen3')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
-source=("https://download.kde.org/stable/kstars/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('aa8f122ee9b8e81334433191eab276c361112b9dcb9bcf8dfa0851e87a100d06')
+#source=("https://download.kde.org/stable/kstars/${pkgname}-${pkgver}.tar.xz")
+source=("https://invent.kde.org/education/kstars/-/archive/${_commit}/kstars-${_commit}.tar.bz2")
+sha256sums=('21c9a1c810f2a86fd1217563c7b3f90937628d0c8907d8a5e60bb5a137438724')
 
 prepare() {
-  cd ${pkgname}-${pkgver} 
+  cd ${pkgname}-${_commit}
   #sed -i -e 's|add_subdirectory(doc)|#add_subdirectory(doc)|' ${srcdir}/${pkgname}/CMakeLists.txt
   #patch -p1 -i $srcdir/isnan.diff
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

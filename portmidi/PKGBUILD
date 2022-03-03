@@ -1,6 +1,6 @@
 
 pkgname=portmidi
-pkgver=2.0.2
+pkgver=2.0.3
 pkgrel=1
 epoch=1
 pkgdesc="Cross-platform, open-source I/O libraries for digital media including MIDI, video, and audio"
@@ -11,14 +11,14 @@ depends=('alsa-lib')
 makedepends=('cmake' 'java-environment')
 optdepends=('java-runtime: for using pmdefaults')
 options=('!makeflags')
-source=("https://downloads.sourceforge.net/project/portmedia/portmidi/v${pkgver}/${pkgname}-v${pkgver}.zip"
+source=("https://github.com/PortMidi/portmidi/archive/refs/tags/v${pkgver}.tar.gz"
 #source=("https://sourceforge.net/projects/portmedia/files/portmedia-code-r${pkgver}.zip"
         'java.patch')
-md5sums=('1bf08bbdb9f96175034908ca0cbf136b'
+md5sums=('c418253bd6a106b52d9b7f5eb5a16cb7'
          '59cb428b29a33bab3bb5811cda479a9b')
 
 prepare() {
-  cd ${pkgname}
+  cd ${pkgname}-${pkgver}
   #sed -i "s|/usr/local|/usr|" */CMakeLists.txt pm_python/setup.py
   #mkdir -p pm_java/Release
 
@@ -26,7 +26,7 @@ prepare() {
 }
 
 build() {
-  cmake -B build -S ${pkgname} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_JAVA_NATIVE_INTERFACE=ON \
     -DBUILD_PMDEFAULTS=ON
@@ -37,7 +37,7 @@ package() {
 
   DESTDIR=${pkgdir} cmake --install build
 
-  cd ${pkgname}
+  cd ${pkgname}-${pkgver}
   install -Dm644 pm_java/pmdefaults/pmdefaults.jar ${pkgdir}/usr/share/java/pmdefaults.jar
   install -Dm644 license.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
 }
