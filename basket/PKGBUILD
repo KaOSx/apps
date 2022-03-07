@@ -2,7 +2,7 @@
 pkgname=basket
 pkgver=2.49.90
 _commit=00e1d089d5d8b956f6dd46d9bfaa5f1979794b31
-pkgrel=1
+pkgrel=2
 pkgdesc="BasKet Note Pads - A system for organizing information in KDE."
 url="https://github.com/basket-notepads/basket"
 arch=('x86_64')
@@ -21,10 +21,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -33,11 +30,10 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
