@@ -2,7 +2,7 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=98.0
+pkgver=98.0.1
 # Check nss version in build repo
 _nssver=3.76
 pkgrel=1
@@ -24,7 +24,7 @@ source=("https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/source/${pkgname
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('fd0a4c11d007d9045706667eb0f99f9b7422945188424cb937bfef530cb6f4dd'
+sha256sums=('f8de2f514d94cad25a2c8a5d219399de5c05a907607d51c5c5235a8bc9bb361c'
             '5401a208af2ceb7fef22c4435d9f619502ca63098eaf0e5abbdcce5163cf78f1'
             'e74e001006982efd7e55bf9cde80eafddec755cb8bd4d0030b4518f0062ca742'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
@@ -36,10 +36,10 @@ prepare() {
   # run prior to building:
   export LC_ALL="en_US.UTF-8"
 
-  #cp ../mozconfig .mozconfig
+  cp ../mozconfig .mozconfig
   #patch -p1 -i ${srcdir}/firefox-install-dir.patch
 
-  #mkdir -p ${srcdir}/path
+  mkdir -p ${srcdir}/path
   
   #sed -i '/ac_cpp=/s/$CPPFLAGS/& -O2/' configure
 }
