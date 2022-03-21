@@ -1,15 +1,18 @@
- 
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=skanpage
-pkgver=1.0.0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Scanning application designed for multi-page scanning and saving of documents and images."
 arch=("x86_64")
 url="https://apps.kde.org/skanpage/"
 license=('GPL')
-depends=('kcoreaddons' 'ki18n' 'kirigami' 'kcrash' 'kconfig' 'libksane')
+depends=('kcoreaddons' 'ki18n' 'kirigami' 'kcrash' 'kconfig' 'libksane' 'purpose')
 makedepends=('extra-cmake-modules')
-source=("https://download.kde.org/stable/skanpage/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('90f5401bae283e4285df3b4707857b336c5cd4072fc221e762930c2cc40d6060')
+source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

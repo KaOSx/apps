@@ -1,6 +1,9 @@
- 
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kalendar
-pkgver=1.0.0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Calendar application supporting both local calendars as well as a multitude of online calendars."
 arch=("x86_64")
@@ -10,8 +13,8 @@ depends=('kirigami' 'kdbusaddons' 'ki18n' 'kcalendarcore' 'kconfigwidgets' 'kwin
          'qqc2-desktop-style' 'kcontacts' 'kitemmodels' 'kxmlgui' 'knotifications' 'kiconthemes' 'kservice'
          'akonadi-contacts' 'calendarsupport' 'eventviews' 'kdepim-runtime')
 makedepends=('extra-cmake-modules' 'boost')
-source=("https://download.kde.org/stable/kalendar/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('ca4e840dc17a4e39111f5fb16bfcab29e34a10b9c840d22b81c52890f0c9fae0')
+source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
