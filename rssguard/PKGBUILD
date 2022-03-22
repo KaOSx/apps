@@ -1,15 +1,15 @@
 
 pkgname=rssguard
-pkgver=4.1.2
+pkgver=4.2.0
 pkgrel=1
 pkgdesc="Simple (yet powerful) feed reader, able to fetch the most known feed formats, including RSS/RDF and ATOM."
 arch=('x86_64')
 url="https://github.com/martinrotter/rssguard"
 license=('GPL')
-depends=('qtwebengine' 'qt5-multimedia')
-makedepends=('qt5-tools')
+depends=('qt6-webengine' 'qt6-multimedia' 'qt6-5compat')
+makedepends=('cmake' 'qt6-tools')
 source=("https://github.com/martinrotter/rssguard/archive/${pkgver}.tar.gz")
-md5sums=('eb1e68901490a582998e8360e52d6db6')
+md5sums=('4fcda9801f883436335873f7395880f5')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -18,18 +18,16 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-
-  /usr/lib/qt5/bin/qmake ../${pkgname}-${pkgver}/build.pro -r \
-    CONFIG+=release PREFIX=/usr \
-    INSTALL_ROOT=${pkgdir}/ \
-    USE_WEBENGINE=true
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DBUILD_WITH_QT6=ON \
+    -DUSE_WEBENGINE=ON
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make INSTALL_ROOT=${pkgdir}/ install
+    DESTDIR=${pkgdir} cmake --install build
 }
