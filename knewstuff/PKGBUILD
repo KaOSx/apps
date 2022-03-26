@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=knewstuff
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KNewStuff'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/knewstuff'
@@ -12,13 +12,15 @@ license=('LGPL')
 depends=('kf5-attica' 'kconfigwidgets' 'kio' 'kirigami' 'kpackage')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("https://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/knewstuff/-/commit/693a2ea3926400b1482888a2df2c532852b8f971.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '07fcfc0f5e36c31532060c177cd6beb0')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
-  #patch -p1 -i ${srcdir}/e98a2e4b6f0042c10a31023ef37a3534832135b6.diff
+  patch -p1 -i ${srcdir}/693a2ea3926400b1482888a2df2c532852b8f971.diff
 }
 
 build() {
