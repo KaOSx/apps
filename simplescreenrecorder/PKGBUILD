@@ -1,35 +1,30 @@
  
 pkgname=simplescreenrecorder
-pkgver=0.4.3
+pkgver=0.4.4
 pkgrel=1
 _commit=65975c6
 pkgdesc="Screen recorder that is actually quite complex, but 'simple' in the sense that it's easy to use"
 arch=('x86_64')
 url="https://www.maartenbaert.be/simplescreenrecorder/"
 license=("GPL3")
-depends=('qt5-x11extras' 'ffmpeg' 'alsa-lib' 'pulseaudio' 'jack' 'libgl' 'glu' 'libx11' 'libxext' 
+depends=('qt5-x11extras' 'ffmpeg' 'alsa-lib' 'pulseaudio' 'jack2' 'libgl' 'glu' 'libx11' 'libxext' 
          'libxfixes' 'libxi')
 makedepends=('qt5-tools' 'cmake')
 options=('!libtool')
 source=("https://github.com/MaartenBaert/ssr/archive/${pkgver}.tar.gz")
-md5sums=('3f8337db93f5a6a3f64525e7249815d6')
+md5sums=('6360ff633bcb88b0c221d56fd52b7dac')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../ssr-${pkgver} \
+  cmake -B build -S ssr-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DWITH_QT5=TRUE \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DLRELEASE=/usr/lib/qt5/bin/lrelease
-    
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
