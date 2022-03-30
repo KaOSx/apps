@@ -51,7 +51,7 @@ Rectangle {
             wrapMode: Text.WordWrap
 
             text: qsTr("<h3>KaOS - 2022.03</h3>
-            <p>It is with great pleasure to present to you the March release of a new stable ISO.</p>
+            <p>It is with great pleasure to present to you the April release of a new stable ISO.</p>
 
             <p>With the release of Plasma 5.24, a first for KaOS can be announced.  Wayland on Plasma is in such a good shape that it now can be the default session for KaOS.  For Virtualbox this means some intervention is needed for auto-resize, upstream does not support this yet for a Wayland session, so you will need to set the desired screen resolution in Systemsettings.  When you choose to use non-free Nvidia during the boot-up of the Live session, then Wayland won't be used, for Nvidia it is still better to use an X session.< /br>
             The one application that is not ready for Wayland, is SMplayer, used in KaOS for many years as the default media player. From the many bug reports for Wayland support & SMplayer (dating back to 2017), it seems SMplayer is unable to move to Wayland, thus can no longer be default.< /br>
@@ -60,13 +60,13 @@ Rectangle {
             <p>Other news regarding Plasma 5.24 includes a new Configure Display Settings item. This lets you adjust your screens' resolution, orientation, scaling, and position relative to other monitors. Desktop Panels are now easier to move around and stick to any edge you want, as you can now drag them from anywhere on their toolbar while in Edit Mode. To make critically important Plasma notifications stand out, they now come with an orange strip on the side to visually distinguish them from less urgent messages. The Task Manager’s context menus have been clarified and simplified. The Add a keyboard layout dialog has been redesigned for simplicity and ease of use. And the Cover Flip and Flip Switch effects are back, you can find them in the System Settings Window Management > Task Switcher page. 
             For the other KDE parts, the latest Frameworks (5.921.0) and KDE Gear (21.12.3) are included. All built on <strong>Qt 5.15.3+</strong>.</p>
 
-            <p>Updates to the base of this distribution were very large and they included an updated Toolchain, due to numerous CVE fixes in Glibc 2.33 and almost six months worth of commits for GCC 11.2, a move to Perl 5.34.1, PHP move to 8.1.4 (PHP 7 is still available, to make the transition easier), GStreamer stack moving to 1.20.0, kernel moved to Linux 5.15.23 (lts release), Systemd 250.4, Curl 7.82.0, Mesa 21.3.8, Vulkan packages 1.3.208, Wayland 1.20.0, Sudo 1.9.9, and Openldap 2.6.1.< /br>
+            <p>Updates to the base of this distribution were very large and they included an updated Toolchain, due to numerous CVE fixes in Glibc 2.33 and almost six months worth of commits for GCC 11.2, a move to Perl 5.34.1, PHP move to 8.1.4 (PHP 7 is still available, to make the transition easier), GStreamer stack moving to 1.20.0, kernel moved to Linux 5.15.23 (lts release), Systemd 250.4, Curl 7.82.0, Mesa 22.0.1, Vulkan packages 1.3.209, Wayland 1.20.0, Sudo 1.9.9, and Openldap 2.6.1.< /br>
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.4.
             </p>
             
-            <p>The installer Calamares now prints a warning when the partition module has a conflicting configuration for the swap choices, rather than always using “suspend” and always sets bigtime option on XFS filesystems.</p>
+            <p>During the install, there now is an option to either view a slidshow with information about the distribution, or watch what the installer Calamares is currently doing by selecting the Log View.</p>
             
-            <p>New applications added include <strong>Kalendar</strong>, a calendar application that allows you to manage your tasks and events. Kalendar supports both local calendars as well as a multitude of online calendars: Nextcloud, Google® Calendar, Outlook®, Caldav, and many more.
+            <p>After almost two years of testing IWD, it is now in such a good state that it has replaced wpa_suplicant as the default wireless daemon for KaOS.
             
             <p>For Nvidia, a new longterm support version is added to this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
             
@@ -94,7 +94,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.92.0, Plasma 5.24.3, KDE Applications 21.12.3</b>, Linux 5.15.23, Systemd 250.4, Kmod 29, NetworkManager 1.36.2, LibreOffice 7.3.1, Elisa, Xorg-Server 1.21.3, Mesa 21.3.8, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.11 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.92.0, Plasma 5.24.4, KDE Applications 21.12.3</b>, Linux 5.15.23, Systemd 250.4, Kmod 29, NetworkManager 1.36.4, LibreOffice 7.3.1, Elisa, Xorg-Server 1.21.3, Mesa 22.0.1, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.12 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.12.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
