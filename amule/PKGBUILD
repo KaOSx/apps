@@ -2,13 +2,13 @@
 pkgname=amule
 pkgver=2.3.3
 _commit=f28e82b95ba5f1d65dbacda393bd0ccc4df03a53
-pkgrel=7
+pkgrel=8
 epoch=2
 pkgdesc="An eMule-like client for ed2k p2p network"
 arch=('x86_64')
 url="http://www.amule.org"
 license=('GPL')
-depends=('wxwidgets' 'gd' 'geoip' 'libupnp' 'crypto++' 'boost-libs')
+depends=('wxwidgets' 'gd' 'geoip' 'libupnp' 'crypto++' 'boost-libs' 'gdk-pixbuf2')
 makedepends=('boost')
 #source=("https://github.com/amule-project/amule/archive/${_commit}.zip")
 source=("https://sourceforge.net/projects/amule/files/aMule/${pkgver}/aMule-${pkgver}.tar.xz")
@@ -36,7 +36,7 @@ build() {
               --with-wx-config=wx-config \
               --with-boost
 
-  make 
+  make
 }
 
 package() {
