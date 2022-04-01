@@ -1,8 +1,8 @@
 
 pkgname=discount
-pkgver=2.2.7
-_pkgver=2.2.7
-pkgrel=2
+pkgver=2.2.7.b
+_pkgver=2.2.7b
+pkgrel=1
 pkgdesc="Markdown text to html language implementation written in C"
 arch=('x86_64')
 url="http://www.pell.portland.or.us/~orc/Code/discount/"
@@ -10,13 +10,13 @@ license=('custom:BSD')
 #source=("https://www.pell.portland.or.us/~orc/Code/discount/${pkgname}-${_pkgver}.tar.bz2"
 source=("https://github.com/Orc/discount/archive/v${_pkgver}.tar.gz"
         'configure.diff')
-md5sums=('c02c81bea757667fbaf0fefdf9b3749c'
+md5sums=('634f5368ebed3c6cc9bf5b317d5939d9'
          'f2821d2461350ba8e9f0420bda0b9b2e')
 
 build() {
   cd ${pkgname}-${_pkgver}
   patch -p1 -i ${srcdir}/configure.diff
-  
+
   ./configure.sh --prefix=/usr \
     --enable-all-features \
     --with-fenced-code \
@@ -27,6 +27,6 @@ build() {
 package() {
   cd ${pkgname}-${_pkgver}
   make DESTDIR=${pkgdir} install.everything
-  
+
   install -Dm644 COPYRIGHT ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
