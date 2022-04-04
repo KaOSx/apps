@@ -7,14 +7,12 @@ arch=('x86_64')
 pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Plasma applet for audio volume management using PulseAudio."
-url="https://github.com/KDE/plasma-pa"
+url="https://invent.kde.org/plasma/plasma-pa"
 license=('GPL' 'LGPL' 'FDL')
 options=('!docs')
 depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'kdeclarative' 'plasma-framework' 'pulseaudio' 'glib2'
          'libcanberra')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
-conflicts=('plasma-volume-control')
-replaces=('plasma-volume-control')
 source=($_mirror/${pkgname}-${pkgver}.tar.xz
         'pa-streams-applet.diff')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
@@ -28,10 +26,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -40,11 +35,10 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

@@ -8,7 +8,7 @@ pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
-url="https://github.com/KDE/plasma-nm"
+url="https://invent.kde.org/plasma/plasma-nm"
 license=('GPL')
 depends=('modemmanager-qt' 'networkmanager-qt' 'ki18n' 'kwindowsystem' 'kservice' 'kcompletion' 'kwidgetsaddons'
          'kio' 'kcoreaddons' 'kwallet' 'kitemviews' 'kxmlgui' 'kconfigwidgets' 'kiconthemes' 'solid' 'prison'
@@ -17,29 +17,20 @@ depends=('modemmanager-qt' 'networkmanager-qt' 'ki18n' 'kwindowsystem' 'kservice
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/c5eb19bb44c8b10d848628557405b597b680bbe8.diff
-  sed -i 's|X-KDE-System-Settings-Parent-Category=network|X-KDE-System-Settings-Parent-Category=connectivity|' kcm/kcm_networkmanagement.desktop
-  
-  mkdir -p build  
-  cd build
-  
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+  cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DKDE_INSTALL_LIBDIR=lib \
         -DKDE_INSTALL_SYSCONFDIR=/etc \
         -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
         -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
         -DBUILD_TESTING=OFF ..
-  make
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}/build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
