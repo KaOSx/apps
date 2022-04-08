@@ -6,42 +6,30 @@ pkgname=libkgapi
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="A KDE-based library for accessing various Google services via their public API"
-url='https://github.com/KDE/libkgapi'
+url='https://invent.kde.org/pim/libkgapi'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kio' 'kwindowsystem' 'kcalcore' 'kcontacts' 'qtwebengine')
+depends=('kwallet' 'kcalcore' 'kcontacts' 'qtwebengine')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'boost')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://github.com/KDE/libkgapi/commit/2980ace5fc69f900432f18481397c5498dcc4bb1.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'd34106feeda3c965fa442a4f0fdb5d3f')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  # fix Google token page
   #patch -p1 -i ${srcdir}/2980ace5fc69f900432f18481397c5498dcc4bb1.diff
-}     
+}
 
 build() {
-  mkdir -p build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=ON 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 
