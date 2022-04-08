@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://github.com/KDE/plasma-framework'
@@ -24,7 +24,7 @@ prepare() {
   cd ${pkgname}-${pkgver}
   # https://forum.kaosx.us/d/2322-plasma-shell-crashes-after-update
   #cp -v ${srcdir}/plasma-framework-master/src/desktoptheme/breeze/dialogs/background.svgz src/desktoptheme/breeze/dialogs/background.svgz
-  patch -p1 -i ${srcdir}/7352045b388f4b0ef553706bd219457e5018ce4e.diff
+  #patch -p1 -i ${srcdir}/7352045b388f4b0ef553706bd219457e5018ce4e.diff
 }
 
 build() {
