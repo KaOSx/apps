@@ -4,38 +4,29 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdegraphics-thumbnailers
 pkgver=${_kdever}
-#pkgver=15.07.70
 pkgrel=1
 pkgdesc="Thumbnailers for various graphics file formats"
 arch=('x86_64')
-url="https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-thumbnailers"
+url="https://invent.kde.org/graphics/kdegraphics-thumbnailers"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kio' 'libkexiv2' 'libkdcraw')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
+depends=('kio' 'libkexiv2' 'libkdcraw' 'kdegraphics-mobipocket')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde-graphics')
-conflicts=('kf5-kdegraphics-thumbnailers')
-replaces=('kf5-kdegraphics-thumbnailers')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kdegraphics-thumbnailers.git#branch=frameworks")
-#md5sums=('SKIP')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

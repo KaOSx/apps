@@ -6,7 +6,7 @@ pkgname=print-manager
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="A KDE tool for managing print jobs and printers"
-url="https://projects.kde.org/projects/kde/kdeutils/print-manager"
+url="https://invent.kde.org/utilities/print-manager"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'kiconthemes'
@@ -14,35 +14,29 @@ depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'kiconthemes'
          'kwidgetsaddons' 'kwindowsystem' 'libcups' 'qt5-tools' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-utils' 'kde-uninstall')
-conflicts=('kdeadmin-print-manager')
-replaces=('kdeadmin-print-manager')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz"
         's-c-p.diff')
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '9715f36444a20df19a7f421782b3d340')
+         '67a5a9e3c84d53d61fbec8ce44094d68')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
+
   patch -p1 -i ${srcdir}/s-c-p.diff
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver}  \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

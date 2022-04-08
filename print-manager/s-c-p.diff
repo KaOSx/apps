@@ -18,8 +18,8 @@
  {
      qWarning() << error <<  message;
      groupedDevicesFallback();
--    emit errorMessage(i18n("Failed to group devices: '%1'", error.message()));
-+    emit errorMessage(i18n("Install system-config-printer to automate printer detection"));
-     emit loaded();
+-    Q_EMIT errorMessage(i18n("Failed to group devices: '%1'", error.message()));
++    Q_EMIT errorMessage(i18n("Install system-config-printer to automate printer detection"));
+     Q_EMIT loaded();
  }
  
