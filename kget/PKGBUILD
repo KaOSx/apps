@@ -6,13 +6,13 @@ pkgname=kget
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Download Manager'
-url='http://kde.org/applications/internet/kget/'
+url='https://apps.kde.org/kget/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde-network')
 depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kiconthemes'
-         'kitemviews' 'kcmutils' 'kio' 'knotifications' 'knotifyconfig' 'kparts' 'kservice' 'ktextwidgets' 
-         'kwallet' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 'kdelibs4support' 
+         'kitemviews' 'kcmutils' 'kio' 'knotifications' 'knotifyconfig' 'kparts' 'ktextwidgets' 
+         'kwallet' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui'
          'libmms' 'gpgme' 'qca-qt5' 'libktorrent')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
@@ -27,10 +27,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -39,12 +36,11 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 

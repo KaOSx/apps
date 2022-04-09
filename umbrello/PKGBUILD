@@ -6,11 +6,11 @@ pkgname=umbrello
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='UML modeling tool for KDE'
-url='https://kde.org/applications/development/org.kde.umbrello'
+url='https://apps.kde.org/umbrello/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('karchive' 'kauth' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kiconthemes' 'kinit'
-         'kio' 'kparts' 'kservice' 'ktexteditor' 'kwindowsystem' 'kwidgetsaddons' 'kxmlgui' 'qt5-webkit' 'kdelibs4support')
+         'kio' 'kparts' 'kservice' 'ktexteditor' 'kwindowsystem' 'kwidgetsaddons' 'kxmlgui' 'kdelibs4support')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost') # 'clang')
 groups=('kde' 'kde-sdk' 'kde-uninstall' 'programming' )
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
@@ -22,21 +22,17 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_TESTING=OFF \
     -DBUILD_UNITTESTS=0 \
     -DBUILD_KF5=ON
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
