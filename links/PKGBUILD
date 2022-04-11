@@ -1,6 +1,6 @@
 
 pkgname=links
-pkgver=2.25
+pkgver=2.26
 pkgrel=1
 pkgdesc="A text WWW browser, similar to Lynx"
 arch=('x86_64')
@@ -11,14 +11,14 @@ makedepends=('libtiff' 'libpng' 'libxt')
 groups=('network-web')
 source=("http://links.twibright.com/download/${pkgname}-${pkgver}.tar.bz2"
         'links.desktop')
-md5sums=('2aa45c8827d9210e936ee91b5b8801b9'
+md5sums=('54dd66bb3d200207a087206379b9e6d6'
          '7c47b15aaef51f1de129ff3a2afb7eac')
 
 build() {
   cd ${pkgname}-${pkgver}
   sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" configure
   (cd intl; ./gen-intl; ./synclang)
-  
+
   ./configure --prefix=/usr \
         --mandir=/usr/share/man \
         --disable-javascript \
