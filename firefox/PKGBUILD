@@ -2,7 +2,7 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=99.0
+pkgver=99.0.1
 # Check nss version in build repo
 _nssver=3.77
 pkgrel=1
@@ -24,7 +24,7 @@ source=("https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/source/${pkgname
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('513f8d2cafa39a2d50f2c4a25cc48093e89f715a706b941170fa48e397976327'
+sha256sums=('76d22279ce99588a728bb2d034064be0d5918b5900631f2148d4565b8a72e00b'
             '5401a208af2ceb7fef22c4435d9f619502ca63098eaf0e5abbdcce5163cf78f1'
             'e74e001006982efd7e55bf9cde80eafddec755cb8bd4d0030b4518f0062ca742'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
@@ -40,8 +40,8 @@ prepare() {
   #patch -p1 -i ${srcdir}/firefox-install-dir.patch
 
   mkdir -p ${srcdir}/path
-  
-  #sed -i '/ac_cpp=/s/$CPPFLAGS/& -O2/' configure
+
+  #sed -e "s|psutil>=5.4.2,<=5.8.0|psutil>=5.4.2,<=5.9.0|" -i python/sites/mach.txt
 }
 
 build() {
