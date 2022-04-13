@@ -1,7 +1,7 @@
 
 pkgname=gcompris
-pkgver=2.3
-_pkgver=2.3
+pkgver=2.4
+_pkgver=2.4
 pkgrel=1
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('texinfo' 'intltool' 'extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kaos-kids')
 source=("https://download.kde.org/stable/gcompris/qt/src/gcompris-qt-${_pkgver}.tar.xz"
         'https://github.com/KDE/gcompris/commit/5b46f5f96e77631ea871084bd54e68d834599442.diff')
-sha256sums=('52058ba79215a9b7851423bf3d1149fd7d6c3e6ee74a46a055c804a7949dcc62'
+sha256sums=('fd066e6f8f2b6ab547703d0f80e3dce8d4e538aaec13354afea8c76f90a3592d'
             '8278a848e5573f49a3fbed0044096d3704f441efad94d324383334b4140fce44')
 
 prepare() {
@@ -20,7 +20,7 @@ prepare() {
 
   #patch -R -p1 -i ${srcdir}/5b46f5f96e77631ea871084bd54e68d834599442.diff
 }
-         
+
 build() {
   mkdir -p build
   
@@ -37,7 +37,7 @@ build() {
 
 package() {
   cd build
-  
+
   make DESTDIR=${pkgdir} install
 }
 
