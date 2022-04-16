@@ -4,10 +4,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
-url='https://github.com/KDE/plasma-framework'
+url='https://invent.kde.org/frameworks/plasma-framework'
 license=('LGPL')
 depends=('kactivities' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'kdeclarative' 'kglobalaccel'
          'kguiaddons' 'ki18n' 'kiconthemes' 'kio' 'kservice' 'kwindowsystem' 'kxmlgui' 'knotifications' 'kpackage'
@@ -16,15 +16,15 @@ makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
 options=('debug')
 source=("https://download.kde.org/stable/frameworks/5.85/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/frameworks/plasma-framework/-/commit/7352045b388f4b0ef553706bd219457e5018ce4e.diff")
+        "https://invent.kde.org/frameworks/plasma-framework/-/commit/b62d83bef7733e4943e6f66787166b41198d1359.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'adc51050ca0d57583c9f58a74dcc08fc')
+         'e5cca75ebb4614583e04289b74ffaa65')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://forum.kaosx.us/d/2322-plasma-shell-crashes-after-update
   #cp -v ${srcdir}/plasma-framework-master/src/desktoptheme/breeze/dialogs/background.svgz src/desktoptheme/breeze/dialogs/background.svgz
-  #patch -p1 -i ${srcdir}/7352045b388f4b0ef553706bd219457e5018ce4e.diff
+  patch -p1 -i ${srcdir}/b62d83bef7733e4943e6f66787166b41198d1359.diff
 }
 
 build() {

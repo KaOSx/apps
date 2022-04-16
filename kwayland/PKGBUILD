@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwayland
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc="KWayland provides a Qt-style Client and Server library wrapper for the Wayland libraries"
 arch=('x86_64')
 url="https://invent.kde.org/frameworks/kwayland"
@@ -13,13 +13,15 @@ depends=('qt5-wayland' 'wayland' 'plasma-wayland-protocols')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
 #source=("git://anongit.kde.org/kwayland.git")
-source=("https://download.kde.org/stable/frameworks/5.64/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.93/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/kwayland/-/commit/9e70125d2991a2a2ab64e606ccabd223848945b0.diff")
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'd7b9009732a95d7c4086dc1901bd300e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # Qt 5.14 needed
-  #patch -p1 -i ${srcdir}/c4a49fbf2d5dd63659ed0c679ce180eda89a6d0d.diff
+
+  patch -p1 -i ${srcdir}/9e70125d2991a2a2ab64e606ccabd223848945b0.diff
 }
 
 build() {
