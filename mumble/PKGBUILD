@@ -2,7 +2,7 @@
 pkgname=mumble
 pkgver=1.4.230
 _pkgver=1.4.230
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 pkgdesc="Open source, low-latency, high quality voice chat software"
 url="https://wiki.mumble.info/wiki/Main_Page"
@@ -12,9 +12,15 @@ depends=('speex' 'libxi' 'avahi' 'libsndfile' 'protobuf' 'pulseaudio' 'opus' 'qt
 makedepends=('boost' 'mesa' 'qt5-tools')
 #source=("https://github.com/mumble-voip/mumble/archive/refs/tags/v${pkgver}.tar.gz"
 source=("https://github.com/mumble-voip/mumble/releases/download/v${_pkgver}/${pkgname}-${_pkgver}.tar.gz"
-        'setupview.diff')
+        "https://github.com/mumble-voip/mumble/commit/eb8f957d05aaae6a151d694cbc8790af80884f1f.diff")
 md5sums=('8069db67ecb4b601f0e324c62dbed90a'
-         'ab49563b33a6d8fee7e9f32d856e9948')
+         'cb6ab055c5bbebf6bf989c26fa3b454b')
+
+prepare() {
+    cd ${pkgname}-${_pkgver}.src
+    # poco 1.11.2 needed
+    patch -p1 -i ${srcdir}/eb8f957d05aaae6a151d694cbc8790af80884f1f.diff
+}
 
 build() {
   cmake -B build -S ${pkgname}-${_pkgver}.src \
