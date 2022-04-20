@@ -1,6 +1,6 @@
 
 pkgname=toxcore
-pkgver=0.2.17
+pkgver=0.2.18
 pkgrel=1
 pkgdesc='Easy to use, all-in-one communication platform that ensures full privacy and secure message delivery.'
 arch=('x86_64')
@@ -8,31 +8,29 @@ url='https://tox.chat'
 license=('GPL3')
 depends=('systemd' 'libconfig' 'libsndfile' 'libsodium' 'libvpx' 'opus' 'opencv' 'portaudio'
          'msgpack-c')
-makedepends=('check')
+makedepends=('check' 'cmake')
 options=('!staticlibs')
-source=("https://github.com/TokTok/c-toxcore/archive/v${pkgver}.tar.gz")
-md5sums=('e22f6ce064d3c2b437a07a602ccfe224')
+source=("https://github.com/TokTok/c-toxcore/releases/download/v${pkgver}/c-toxcore-${pkgver}.tar.gz")
+md5sums=('7c501026ab3687a8d105714305e21318')
 
 build() {
-  cd c-${pkgname}-${pkgver}
-
-  ./autogen.sh
-  ./configure \
-    --prefix=/usr \
-    --enable-tests \
-    --enable-daemon
-  make
+  cmake -B build -S c-${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_TOXAV=ON \
+    -DMUST_BUILD_TOXAV=ON \
+    -DBOOTSTRAP_DAEMON=ON
+  cmake --build build
 }
 
 check() {
   cd c-${pkgname}-${pkgver}
   # tox_test 
-  make check 
+  #make check 
 }
 
 package() {
-  cd c-${pkgname}-${pkgver}
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
