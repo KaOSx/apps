@@ -1,31 +1,31 @@
 
 pkgname=kjots
 pkgver=5.1.0
-_commit=800f804d7633c00597c7c573f36a41c959401f7b
-pkgrel=1
+_commit=80c02294eb06c9878e879f81ba3f5d0c4067733c
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Note taking application for KDE using Akonadi"
 url="https://invent.kde.org/pim/kjots"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcmutils' 'kio' 'kconfig' 'kconfigwidgets' 'kparts' 'kbookmarks' 'kxmlgui' 'ktextwidgets'
-         'akonadi' 'kmime' 'akonadi-notes' 'kpimtextedit' 'kontactinterface'
-         'grantlee' 'libkdepim')
+         'akonadi' 'kmime' 'akonadi-notes' 'kpimtextedit' 'ki18n' 'kontactinterface'
+         'grantlee')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-#source=("https://github.com/KDE/kjots/archive/${_commit}.zip"
-source=("https://download.kde.org/stable/kjots/${pkgver}/src/kjots-${pkgver}.tar.xz"
+source=("https://invent.kde.org/pim/kjots/-/archive/${_commit}/kjots-${_commit}.tar.bz2"
+#source=("https://download.kde.org/stable/kjots/${pkgver}/src/kjots-${pkgver}.tar.xz"
         "https://github.com/KDE/kjots/commit/d536dbdf606d18baa437d03a9852fa6bb7289953.diff")
-sha256sums=('0cee6238410ef4ae6ec66dc45a1499d8db92801122e4d7906060ce4623e812be'
+sha256sums=('81e9382da5d00d3c8d68a37f6f8575a020de31499993d6409dead2562e853690'
             '012fbbb00c3706a4af4491fe9fed90d37d7b66280b32a88a953dd08d8e71e652')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
   
   # fix .desktop file
   #patch -p1 -i ${srcdir}/d536dbdf606d18baa437d03a9852fa6bb7289953.diff
 }
   
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
