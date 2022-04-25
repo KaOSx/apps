@@ -66,7 +66,7 @@ Rectangle {
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.4.
             </p>
             
-            <p>For Nvidia, a new longterm support version is added to this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
+            <p>For Nvidia, a new longterm support version is included in this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
             
             <p>Qt 6.3.0 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web-browsers. All of the PyQt packages are now available in a Qt6 version too. Plus the Kvantum theming has support for Qt6.</p>
             
@@ -92,7 +92,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.93.0, Plasma 5.24.4, KDE Applications 22.04.0</b>, Linux 5.17.4, Systemd 250.4, Kmod 29, NetworkManager 1.36.4, LibreOffice 7.3.1, Elisa, Xorg-Server 1.21.3, Mesa 22.0.2, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.12 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.93.0, Plasma 5.24.4, KDE Applications 22.04.0</b>, Linux 5.17.4, Systemd 250.4, Kmod 29, NetworkManager 1.36.4, LibreOffice 7.3.2, Elisa, Xorg-Server 1.21.3, Mesa 22.0.2, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.12 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
