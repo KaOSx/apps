@@ -4,10 +4,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kcalutils
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library that provides utility functions for the handling of calendar data."
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/pim/kcalutils'
+url='https://invent.kde.org/pim/kcalutils'
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'ki18n' 'kcodecs' 'kwidgetsaddons' 'kconfigwidgets' 'kiconthemes'
          'kcalcore' 'kidentitymanagement' 'grantlee')
@@ -15,34 +15,26 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'git' 'boost')
 conflicts=('kalarmcal')
 provides=('kalarmcal')
 replaces=('kalarmcal')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kcalutils.git")
-#md5sums=('SKIP')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/pim/kcalutils/-/commit/494331a28bb722b4ab4c38a2520f305b8f7ad8fa.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '9cee9cb6f9cf7956921f015e09ed224d')
 
 prepare() {
   cd $pkgname-${pkgver}
-  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
+
+  patch -p1 -i ${srcdir}/494331a28bb722b4ab4c38a2520f305b8f7ad8fa.diff
 }
 
 build() {
-  mkdir build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
