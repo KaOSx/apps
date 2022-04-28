@@ -2,19 +2,18 @@
 pkgname=flattr-icons
 _pkgname=flattr-icons-kde
 pkgver=0.9.19
-pkgrel=3
+pkgrel=4
 pkgdesc='Flattr Icon theme, designed and developed by Uri Herrera, adjusted for KaOS'
 url='https://github.com/KaOSx/flattr-icons-kde'
 license=('cc-by-nc-nd-4.0')
 arch=('x86_64')
 makedepends=('git')
-conflicts=('flattr-icons-kde')
 source=("https://github.com/KaOSx/flattr-icons-kde/archive/master.zip")
 md5sums=('9bdda248cf4f6b279d6b206b53d77907')
 
 package() {
   mkdir -p ${pkgdir}/usr/share/icons/flattr-icons-kde
   cp -r ${_pkgname}-master/* ${pkgdir}/usr/share/icons/flattr-icons-kde/
-  
+
   install -Dm644 ${_pkgname}-master/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }

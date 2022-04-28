@@ -1,7 +1,7 @@
 
 pkgname=megaglest-data
 pkgver=3.13.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Libre software cross platform real-time strategy game. (data files)"
 arch=('x86_64')
 url="https://github.com/megaglest"
@@ -11,17 +11,15 @@ source=("https://github.com/MegaGlest/megaglest-data/releases/download/${pkgver}
 md5sums=('f9664a250cab051686367bf534d449d1')
 
 build() {
-  cd megaglest-${pkgver}
-
-  mkdir build 
-  cd build
-
-  cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+  cmake -B build -S megaglest-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
 }
 
 package() {
-  cd megaglest-${pkgver}/build
-  make DESTDIR=${pkgdir} install
 
-  install -Dm644 ../docs/README.data-license.txt ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  DESTDIR=${pkgdir} cmake --install build
+
+  install -Dm644 megaglest-${pkgver}/docs/README.data-license.txt \
+    ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }

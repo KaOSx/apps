@@ -2,7 +2,7 @@
 pkgname=kile
 pkgver=2.9.93
 _commit=6c824b8174b1609187a7981d820cd81b5a532cd5
-pkgrel=2
+pkgrel=3
 pkgdesc="User friendly TeX/LaTeX frontend for KDE."
 arch=('x86_64')
 license=('GPL2')
@@ -16,10 +16,7 @@ source=("https://sourceforge.net/projects/kile/files/unstable/kile-3.0b3/${pkgna
 sha256sums=('04499212ffcb24fb3a6829149a7cae4c6ad5d795985f080800d6df72f88c5df0')
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -27,12 +24,11 @@ build() {
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make
+    -DBUILD_TESTING=OFF
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

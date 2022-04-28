@@ -2,7 +2,7 @@
 pkgname=spideroakone
 _pkgname=SpiderOakONE
 pkgver=7.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Secure and consolidated free online backup, storage, access, sharing & sync tool for Windows, Mac OS X, and Linux."
 url="https://spideroak.com/"
 arch=('x86_64')
@@ -21,13 +21,13 @@ sha256sums=('5d526e4c27124a8b37285e7ee7ca4feec61439ffcfe291d9bd14509a0d784ca2'
 
 package() {
     tar -Jxvf ${srcdir}/data.tar.xz -C ${pkgdir}/
-    
+
     rm -r ${pkgdir}/etc/apt
     # use system libs
     rm -r ${pkgdir}/opt/SpiderOakONE/lib/libstdc++.so.6
     rm -r ${pkgdir}/opt/SpiderOakONE/lib/libgcc_s.so.1
     #rm -r ${pkgdir}/opt/SpiderOakONE/lib/libpng12.so.0
     rm -r ${pkgdir}/opt/SpiderOakONE/lib/libz.so.1
-    
+
     install -Dm644 terms.txt ${pkgdir}/usr/share/licenses/${pkgname}/terms.txt
 }

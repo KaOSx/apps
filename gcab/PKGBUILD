@@ -1,11 +1,11 @@
  
 pkgname=gcab
 pkgver=1.4
-pkgrel=1
+pkgrel=2
 pkgdesc="GObject library to create cabinet files"
 arch=('x86_64')
 license=('LGPL')
-url="https://github.com/GNOME/gcab"
+url="https://gitlab.gnome.org/GNOME/gcab"
 depends=('glib2')
 makedepends=('gobject-introspection' 'zlib' 'intltool' 'meson' 'ninja' 'vala')
 source=("https://ftp.gnome.org/pub/GNOME/sources/gcab/${pkgver}/${pkgname}-${pkgver}.tar.xz")
@@ -14,7 +14,7 @@ sha256sums=('67a5fa9be6c923fbc9197de6332f36f69a33dadc9016a2b207859246711c048f')
 build() {
   mkdir -p build
   cd build
-  
+
   meson ../${pkgname}-${pkgver} \
     --prefix=/usr \
     --buildtype=release \
@@ -24,6 +24,6 @@ build() {
 
 package() {
   cd build
-  
+
   DESTDIR=${pkgdir} ninja install
 }

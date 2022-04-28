@@ -1,7 +1,7 @@
 
 pkgname=xclip
 pkgver=0.13.1
-pkgrel=1
+pkgrel=2
 _commit=8d10aec4784d5e02f5649ac4cb83d812bc4a03cf
 pkgdesc='Command line interface to the X11 clipboard'
 url='https://github.com/astrand/xclip'
@@ -13,7 +13,7 @@ md5sums=('7cf6ed13c181d2148c863d0792cb3b99')
 
 build() {
   cd ${pkgname}-${_commit}
-  
+
   ./bootstrap
   ./configure --prefix=/usr
   make
@@ -21,6 +21,6 @@ build() {
 
 package() {
   cd ${pkgname}-${_commit}
-  
+
   make DESTDIR=${pkgdir} install
 }
