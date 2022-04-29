@@ -1,7 +1,7 @@
 
 # perl issue on server, build locally only
 pkgname=pidgin
-pkgver=2.14.8
+pkgver=2.14.9
 pkgrel=1
 pkgdesc="Multi-protocol instant messaging client"
 arch=('x86_64')
@@ -13,22 +13,22 @@ makedepends=('nss' 'libsasl' 'python3' 'tk' 'ca-certificates' 'intltool' )
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 options=('!libtool')
 source=("https://downloads.sourceforge.net/pidgin/${pkgname}-${pkgver}.tar.bz2")
-sha256sums=('3f8085c0211c4ca1ba9f8a03889b3d60738432c1673b57b0086070ef6e094cca')
+sha256sums=('1872d1629a26e9b775d9ec0bdd3d3fd348f721376f320b29bcd5ff3f0443222b')
 
 build() {
   cd ${pkgname}-${pkgver}
 
     ./configure --prefix=/usr \
-                --sysconfdir=/etc \
-                --disable-schemas-install \
-                --disable-meanwhile \
-                --disable-gnutls \
-                --enable-cyrus-sasl \
-                --disable-nm \
-                --with-python=/usr/bin/python3 \
-                --with-system-ssl-certs=/etc/ssl/certs \
-                --disable-gtkspell \
-                --disable-gevolution
+        --sysconfdir=/etc \
+        --disable-schemas-install \
+        --disable-meanwhile \
+        --disable-gnutls \
+        --enable-cyrus-sasl \
+        --disable-nm \
+        --with-python=/usr/bin/python3 \
+        --with-system-ssl-certs=/etc/ssl/certs \
+        --disable-gtkspell \
+        --disable-gevolution
     make
 }
 
@@ -46,6 +46,8 @@ package(){
     install -D -m 0644 pidgin/data/pidgin.desktop ${pkgdir}/usr/share/applications/pidgin.desktop
 
     rm -f ${pkgdir}/usr/share/man/man1/finch.1
+    # empty perl dir is installed in /home on server
+    rm -r ${pkgdir}/home
 }
 
 
