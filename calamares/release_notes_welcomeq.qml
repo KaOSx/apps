@@ -62,7 +62,7 @@ Rectangle {
             
             <p>A shift has started as to how all Python packages are build.  Historically, just about all were build with setuptools though a setup.py script.  PEP17 is the new standard for building python packages, see https://peps.python.org/pep-0517/.  At this stage, KaOS is testing this transition with different new Python build tools, such as Python-flit & Python-build, with Python-wheel currently in use to install the build packages.</p>
 
-            <p>Updates to the base of this distribution included Glib2 2.72.1, kernel moved to Linux 5.17.5, Systemd 250.4, Boost 1.78.0, DBus 1.14.0, Mesa 22.0.2, Vulkan packages 1.3.212, Util-linux 2.38, Coreutils 9.1, and Libusb 1.0.26.< /br>
+            <p>Updates to the base of this distribution included Glib2 2.72.1, kernel moved to Linux 5.17.5, Systemd 250.4, Boost 1.78.0, DBus 1.14.0, Mesa 22.0.2, Vulkan packages 1.3.212, Util-linux 2.38, Coreutils 9.1, and Libusb 1.0.26.</br>
             Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.4.
             </p>
             
