@@ -2,9 +2,9 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=99.0.1
+pkgver=100.0
 # Check nss version in build repo
-_nssver=3.77
+_nssver=3.78
 pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
@@ -24,7 +24,7 @@ source=("https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/source/${pkgname
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('76d22279ce99588a728bb2d034064be0d5918b5900631f2148d4565b8a72e00b'
+sha256sums=('664c0cc4e0fb70886aa4e652d144996045d533a18eebc7d61093103cbb2d5e7f'
             '5401a208af2ceb7fef22c4435d9f619502ca63098eaf0e5abbdcce5163cf78f1'
             'e74e001006982efd7e55bf9cde80eafddec755cb8bd4d0030b4518f0062ca742'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
@@ -39,16 +39,16 @@ prepare() {
   cp ../mozconfig .mozconfig
   #patch -p1 -i ${srcdir}/firefox-install-dir.patch
 
-  mkdir -p ${srcdir}/path
+  mkdir -p ${srcdir}/mozbuild
 
-  #sed -e "s|psutil>=5.4.2,<=5.8.0|psutil>=5.4.2,<=5.9.0|" -i python/sites/mach.txt
+  sed -e "s|psutil>=5.4.2,<=5.8.0|psutil>=5.4.2,<=5.9.0|" -i python/sites/mach.txt
 }
 
 build() {
   cd ${pkgname}-${pkgver}
 
-  export PATH=${srcdir}/path:$PATH
-  export MACH_USE_SYSTEM_PYTHON=1
+  export MOZBUILD_STATE_PATH=${srcdir}/mozbuild
+  export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE="system"
   unset CPPFLAGS
 
   #make -f client.mk build # MOZ_PGO=0
