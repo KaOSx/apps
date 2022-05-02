@@ -1,6 +1,6 @@
 
 pkgname=htop
-pkgver=3.1.2
+pkgver=3.2.0
 pkgrel=1
 pkgdesc="Cross-platform interactive process viewer"
 arch=('x86_64')
@@ -9,17 +9,17 @@ license=('GPL')
 depends=('ncurses')
 makedepends=('python3')
 groups=('utils')
-source=("https://github.com/htop-dev/htop/archive/${pkgver}.tar.gz")
-md5sums=('2177554fcc3a5390f85313fae3729d7d')
+source=("https://github.com/htop-dev/htop/releases/download/${pkgver}/htop-${pkgver}.tar.xz")
+sha256sums=('e0f645d4ac324f2c4c48aaa7a3a96d007b95516559550be0b56e423fc5b6d783')
 
 build() {
     cd ${pkgname}-${pkgver}
 
     ./autogen.sh
     ./configure --prefix=/usr \
-            --enable-unicode \
-            --enable-openvz \
-            --enable-vserver
+        --enable-unicode \
+        --enable-openvz \
+        --enable-vserver
     make 
     }
 
