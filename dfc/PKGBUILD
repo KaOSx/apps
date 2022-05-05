@@ -1,29 +1,31 @@
 
 pkgname=dfc
 pkgver=3.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Display file system space usage using graphs and colors"
 arch=('x86_64')
-url="https://projects.gw-computing.net/projects/dfc"
+url="https://github.com/Rolinh/dfc/"
 license=('BSD')
 depends=('glibc')
 makedepends=('cmake' 'gettext')
-source=("https://projects.gw-computing.net/attachments/download/615/${pkgname}-${pkgver}.tar.gz")
-install='dfc.install'
-md5sums=('26fd905a07078332d98c2806cdd0fc0e')
 groups=('color')
+install='dfc.install'
+#source=("https://projects.gw-computing.net/attachments/download/615/${pkgname}-${pkgver}.tar.gz")
+source=("https://github.com/Rolinh/dfc/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('26fd905a07078332d98c2806cdd0fc0e')
 
 build() {
-  cd ${pkgname}-${pkgver}
-
-  cmake . -DPREFIX=/usr -DSYSCONFDIR=/etc -DCMAKE_BUILD_TYPE=RELEASE
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DSYSCONFDIR=/etc
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  make DESTDIR=${pkgdir} install
 
-  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  DESTDIR=${pkgdir} cmake --install build
+
+  install -Dm644 ${pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
 

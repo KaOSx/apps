@@ -1,7 +1,7 @@
 
 pkgname=focuswriter
 pkgver=1.7.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple fullscreen word processor."
 arch=('x86_64')
 url="https://gottcode.org/focuswriter/"
@@ -17,13 +17,13 @@ sha256sums=('34f576a49c9fe64aedad66e02efafc29c840b6c3ddc98a42d87dfda499710541'
 build() {
   cd ${pkgname}-${pkgver}
   #patch -p1 -i ${srcdir}/3e06c2c6b6935f2c88a7e201e4a5a51a326570a4.diff
-  
+
   /usr/lib/qt5/bin/qmake PREFIX=/usr
   make
 }
 
 package() {
   cd ${pkgname}-${pkgver}
-  
+
   make INSTALL_ROOT=${pkgdir} install
 }

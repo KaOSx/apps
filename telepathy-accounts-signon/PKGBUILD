@@ -1,7 +1,7 @@
 
 pkgname=telepathy-accounts-signon
 pkgver=2.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Mission control plugin for Telepathy, integrating with libaccounts and libsignon to provide IM accounts and authentication.'
 arch=('x86_64')
 url="https://gitlab.com/accounts-sso/telepathy-accounts-signon"
@@ -9,14 +9,14 @@ license=('LGPL')
 depends=('telepathy-mission-control' 'libaccounts-glib' 'libsignon-glib')
 makedepends=('meson' 'ninja')
 # https://gitlab.com/accounts-sso/telepathy-accounts-signon/tags
-source=("https://gitlab.com/accounts-sso/telepathy-accounts-signon/repository/archive.tar.gz?ref=${pkgver}")
-md5sums=('a37be7404bfcae2d830292008967f8fa')
+source=("https://gitlab.com/accounts-sso/telepathy-accounts-signon/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('057c905f0ee88a18e8ffb295608b5523')
 
 build() {
   mkdir -p build
   cd build
-  
-  meson ../${pkgname}-${pkgver}-* \
+
+  meson ../${pkgname}-${pkgver} \
     --prefix=/usr \
     --buildtype=release \
     --libdir=/usr/lib 

@@ -1,7 +1,7 @@
 
 pkgname=gnugo
 pkgver=3.8
-pkgrel=4
+pkgrel=5
 pkgdesc='Program that plays the game of Go'
 url='https://www.gnu.org/software/gnugo/'
 license=('GPL3')
@@ -12,7 +12,7 @@ md5sums=('6db0a528df58876d2b0ef1659c374a9a')
 
 build() {
 	cd ${pkgname}-${pkgver}
-	
+	CFLAGS+=' -fcommon'
 	./configure --prefix=/usr
 	make
 }
@@ -20,7 +20,7 @@ build() {
 package() {
 	cd ${pkgname}-${pkgver}
 	make DESTDIR=${pkgdir} install
-	
+
 	rm -r ${pkgdir}/usr/share/info
 	install -Dm644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
 }

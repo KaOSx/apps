@@ -1,7 +1,7 @@
 
 pkgname=netctl-gui
 pkgver=1.4.9
-pkgrel=3
+pkgrel=4
 pkgdesc="Qt5 graphical interface for netctl, including a widget"
 arch=('x86_64')
 url="https://arcanis.me/projects/netctl-gui/"
@@ -15,18 +15,15 @@ md5sums=('64c04c36eea017e7c0ddf687d60de128')
 
 prepare() {
   cd ${pkgname}
-  
+
   #git submodule init
   #git submodule update
-  
+
   #sed -i 's|WPACLI_PATH=/usr/bin/wpa_cli|WPACLI_PATH=/usr/sbin/wpa_cli|' ${srcdir}/${pkgname}/helper/netctl-gui.conf
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname} \
+  cmake -B build -S ${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
@@ -36,13 +33,11 @@ build() {
     -DBUILD_DATAENGINE:BOOL=1 \
     -DBUILD_PLASMOID:BOOL=1 \
     -DUSE_CAPABILITIES:BOOL=1 
-  make
+  cmake --build build
 }
 
-
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
