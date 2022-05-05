@@ -1,13 +1,13 @@
 
 pkgname=krename
 pkgver=5.0.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Powerful batch renamer for KDE."
 arch=("x86_64")
 url="https://userbase.kde.org/KRename"
 license=('GPL')
 depends=('kcompletion' 'kconfig' 'kcoreaddons' 'kcrash' 'ki18n' 'kiconthemes' 'kitemviews' 'kjobwidgets'
-         'kio' 'kservice' 'kwidgetsaddons' 'kxmlgui' 'taglib' 'exiv2' 'podofo' 'qt5-declarative')
+         'kio' 'kservice' 'kwidgetsaddons' 'kxmlgui' 'taglib' 'exiv2' 'podofo' 'kjs') # 'qt5-declarative')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("https://download.kde.org/stable/krename/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/utilities/krename/-/commit/e0a93830d0ea0c71ab649b7e68af0238bd48eb10.diff")
@@ -17,7 +17,7 @@ sha256sums=('caac78afd3ba06613df47bbd1570bb900acf4185547354d6eb588e70656f6a7d'
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/e0a93830d0ea0c71ab649b7e68af0238bd48eb10.diff
+  #patch -p1 -i ${srcdir}/e0a93830d0ea0c71ab649b7e68af0238bd48eb10.diff
 }
 
 build() {

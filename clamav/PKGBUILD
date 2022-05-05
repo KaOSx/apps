@@ -1,13 +1,13 @@
 
 pkgname=clamav
-pkgver=0.104.2
+pkgver=0.105.0
 pkgrel=1
 pkgdesc='Anti-virus toolkit for Unix'
 arch=('x86_64')
 url='https://www.clamav.net/'
 license=('GPL')
 depends=('bzip2' 'zlib' 'libtool' 'json-c')
-makedepends=('cmake')
+makedepends=('cmake' 'rust')
 options=('!libtool')
 install="$pkgname.install"
 groups=('system')
@@ -20,7 +20,7 @@ source=("https://www.clamav.net/downloads/production/${pkgname}-${pkgver}.tar.gz
         'logrotate'
         'tmpfiles.d'
         'rarCVE.patch')
-md5sums=('ad099675f2c09c07850e36496b06c552'
+md5sums=('f9994b5036da80f61d18d5941d49545d'
          '75584367b1fb2a335061afef95c07ba4'
          'ea0beeef854b4a3cf6b25dc49b228f56'
          '5c646ed6f7100c5223dab648c57d802a'
