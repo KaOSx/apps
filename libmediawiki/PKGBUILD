@@ -2,40 +2,39 @@
 pkgname=libmediawiki
 #pkgver=${_kdever}
 pkgver=5.37.0
-pkgrel=2
+pkgrel=3
 pkgdesc="KDE C++ interface for MediaWiki based web service as wikipedia.org"
-url="https://github.com/KDE/libmediawiki"
+url="https://invent.kde.org/libraries/libmediawiki"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-graphics' 'kde-uninstall')
-source=("https://download.kde.org/stable/libmediawiki/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('da167259c49d012359ad65175c365613f0c42699fb99ac7fb9d1f1c8c48292c1')
+source=("https://download.kde.org/stable/libmediawiki/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/libraries/libmediawiki/-/commit/7c79dae079d20b46d05462ed9f5b3cfae78f420a.diff")
+sha256sums=('da167259c49d012359ad65175c365613f0c42699fb99ac7fb9d1f1c8c48292c1'
+            '1909e083ecd3a831c13391938442b7ac17f0a17583b9c5a435939bd4e4594a99')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i $srcdir/qt5.5.diff
+
+  patch -p1 -i $srcdir/7c79dae079d20b46d05462ed9f5b3cfae78f420a.diff
   #sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/tasks/preprocesstask.h
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 

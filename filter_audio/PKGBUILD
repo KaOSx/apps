@@ -2,7 +2,7 @@
 pkgname=filter_audio
 pkgver=0.0.1
 _commit=ada2f4fdc04940cdeee47caffe43add4fa017096
-pkgrel=2
+pkgrel=3
 pkgdesc="Lightweight audio filtering library made from webrtc code."
 arch=('x86_64')
 url="https://github.com/irungentoo/filter_audio"
@@ -15,13 +15,13 @@ md5sums=('7b9405ddd09a6c0a90a986a6aecba4c8'
 
 build() {
     cd ${pkgname}-${_commit}
-    
+
     make
 }
 
 package() {
     cd ${pkgname}-${_commit}
     make DESTDIR=$pkgdir PREFIX=/usr install
-    
+
     install -Dm644 ${srcdir}/github-terms-of-service ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
