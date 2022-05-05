@@ -1,8 +1,8 @@
  
 pkgname=ostree
 _pkgname=libostree
-pkgver=2022.2
-_pkgver=2022.2
+pkgver=2022.3
+_pkgver=2022.3
 pkgrel=1
 pkgdesc="Suite of command line tools that combines a git-like model for committing and downloading bootable filesystem trees"
 url="https://github.com/ostreedev/ostree"
@@ -14,13 +14,13 @@ makedepends=('e2fsprogs' 'libxslt' 'python3')
 source=("https://github.com/ostreedev/ostree/releases/download/v${_pkgver}/${_pkgname}-${pkgver}.tar.xz"
         'ostree-mkinitcpio.conf'
         "https://github.com/ostreedev/ostree/commit/522d31b2d4604026f1c0a442887ca9d4b319e9cc.diff")
-md5sums=('9d391f1d8cceb55ae25d1e413207a7bf'
+md5sums=('cabd01818c50eed1d73492c8a2df71c5'
          '5b424fa5c03398f9ab3a60fd669a768a'
          '073c8ab33717a8070ab4868eaac906f9')
 
 prepare() {
   cd ${_pkgname}-${_pkgver}
-  
+
   cp ${srcdir}/ostree-mkinitcpio.conf src/boot/mkinitcpio/ostree-mkinitcpio.conf
   # https://bugs.kde.org/show_bug.cgi?id=411657
   #patch -p1 -i $srcdir/522d31b2d4604026f1c0a442887ca9d4b319e9cc.diff
@@ -48,6 +48,6 @@ build() {
 
 package() {
   cd ${_pkgname}-${_pkgver}
-  
+
   make DESTDIR=${pkgdir} install
 }
