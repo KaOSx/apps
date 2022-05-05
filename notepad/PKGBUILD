@@ -1,14 +1,14 @@
 
 pkgname=notepad
 pkgver=0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Very simple text-editor for use during the Qt 6 transition"
 url="https://kaosx.us"
 arch=('x86_64')
 license=('GPL3')
 depends=('qt6-base')
 groups=('utils') 
-source=("git://github.com/KaOSx/notepad.git"
+source=("git+https://github.com/KaOSx/notepad.git"
         'notepad.desktop')
 md5sums=('SKIP'
          '231cadbec24b7468f4f9013e29c5f2e6')
@@ -22,10 +22,10 @@ build() {
 
 package() {
    cd notepad
-   
+
    mkdir -p ${pkgdir}/usr/bin
    cp Notepad ${pkgdir}/usr/bin
-   
+
    mkdir -p ${pkgdir}/usr/share/applications
    install -m644 -p ${srcdir}/notepad.desktop ${pkgdir}/usr/share/applications
 }
