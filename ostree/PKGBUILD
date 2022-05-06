@@ -3,7 +3,7 @@ pkgname=ostree
 _pkgname=libostree
 pkgver=2022.3
 _pkgver=2022.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Suite of command line tools that combines a git-like model for committing and downloading bootable filesystem trees"
 url="https://github.com/ostreedev/ostree"
 arch=('x86_64')
@@ -13,17 +13,17 @@ depends=('glib2' 'gpgme' 'fuse3' 'libarchive' 'curl' 'mkinitcpio' 'util-linux' '
 makedepends=('e2fsprogs' 'libxslt' 'python3')
 source=("https://github.com/ostreedev/ostree/releases/download/v${_pkgver}/${_pkgname}-${pkgver}.tar.xz"
         'ostree-mkinitcpio.conf'
-        "https://github.com/ostreedev/ostree/commit/522d31b2d4604026f1c0a442887ca9d4b319e9cc.diff")
+        "https://github.com/ostreedev/ostree/commit/4fd0d6b4c1566a75cb234a41e895a603c19448d4.diff")
 md5sums=('cabd01818c50eed1d73492c8a2df71c5'
          '5b424fa5c03398f9ab3a60fd669a768a'
-         '073c8ab33717a8070ab4868eaac906f9')
+         '6473a024330a2b0b165331f4c9cdcd6b')
 
 prepare() {
   cd ${_pkgname}-${_pkgver}
 
   cp ${srcdir}/ostree-mkinitcpio.conf src/boot/mkinitcpio/ostree-mkinitcpio.conf
   # https://bugs.kde.org/show_bug.cgi?id=411657
-  #patch -p1 -i $srcdir/522d31b2d4604026f1c0a442887ca9d4b319e9cc.diff
+  patch -p1 -R -i $srcdir/4fd0d6b4c1566a75cb234a41e895a603c19448d4.diff
 }
 
 build() {
