@@ -1,6 +1,6 @@
 
 pkgname=photoflare
-pkgver=1.6.9
+pkgver=1.6.10
 pkgrel=1
 pkgdesc='Cross-platform image editor with an aim to balance between powerful features and a friendly graphical user interface.'
 arch=('x86_64')
@@ -9,17 +9,17 @@ license=('GPL3')
 depends=('graphicsmagick' 'qt5-imageformats')
 makedepends=('qt5-tools')
 source=("https://github.com/PhotoFlare/photoflare/archive/v${pkgver}.tar.gz")
-md5sums=('9f7418ea5e9b60cb64fc4c781715051c')
+md5sums=('dbd48c75e34eef0f12cb95f1f1b16eea')
 
 build() {
   cd ${pkgname}-${pkgver}
-  
+
   /usr/lib/qt5/bin/qmake Photoflare.pro PREFIX=/usr
   make
 }
 
 package() {
   cd ${pkgname}-${pkgver}
-  
+
   make INSTALL_ROOT=${pkgdir} install
 } 

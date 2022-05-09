@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ ! -f /var/log/nvidia ] && [ ! -f /var/log/nvidia-340xx ] \
+if [ ! -f /var/log/nvidia ] && [ ! -f /var/log/nvidia-470xx ] \
     && [ ! -f /var/log/nvidia-390xx ] && [ ! -f /var/log/nvidia-prime ]; then
     sudo sed -i -e 's|- packagechooserq@licenseq|#- packagechooserq@licenseq|' /usr/share/calamares/settings.conf
 fi
@@ -9,4 +9,4 @@ fi
 #    sudo sed -i -e 's|- localeq|- locale|' /usr/share/calamares/settings.conf
 #fi
 
-sudo /usr/bin/calamares -d > installation.log
+sudo /usr/bin/calamares -d8 > installation.log
