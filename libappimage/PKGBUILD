@@ -1,7 +1,7 @@
  
 pkgname=libappimage
-pkgver=1.0.4.1
-_pkgver=1.0.4-1
+pkgver=1.0.4.5
+_pkgver=1.0.4-5
 pkgrel=1
 pkgdesc='Library that is part of the AppImage project, implementing functionality for dealing with AppImage files.'
 arch=('x86_64')
@@ -10,10 +10,8 @@ license=('GPL')
 depends=('libarchive' 'boost-libs' 'librsvg')
 makedepends=('cmake' 'vim' 'desktop-file-utils' 'boost' 'fuse') #'clang' 
 groups=('programming')
-source=("https://github.com/AppImage/libappimage/archive/v${_pkgver}.tar.gz"
-        "https://github.com/AppImage/libappimage/commit/5939f5976bd89af1a8c9964508c640410b18333c.diff")
-sha256sums=('b03ce735c7672ae01f152be24367844dd0d1111000c34a62d970f83e025fe716'
-            '0c489ccdd7e86ef41d584fc2de092b626fef67f1ec6637e9b0885e51858c9a8c')
+source=("https://github.com/AppImage/libappimage/archive/v${_pkgver}.tar.gz")
+sha256sums=('2c4e18860a790c5959da6eb064cbd07f165fe6a9b15989491a3a3f176d06af31')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
