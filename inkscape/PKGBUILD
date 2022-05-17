@@ -1,8 +1,8 @@
 
 pkgname=inkscape
-pkgver=1.1.2
-_commit=2022-02-04_0a00cf5339
-pkgrel=8
+pkgver=1.2
+_commit=2022-05-15_dc2aedaf03
+pkgrel=1
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
@@ -10,32 +10,28 @@ license=('GPL' 'LGPL')
 depends=('poppler' 'graphicsmagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
          'desktop-file-utils' 'hicolor-icon-theme' 'python3-lxml' 'python3-numpy'
          'libwpg' 'libvisio' 'libwpd' 'potrace' 'python3' 'dbus-glib' 'double-conversion'
-         'libsoup' 'gdl')
+         'libsoup' 'gdl' 'libcdr')
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
-source=("https://media.inkscape.org/dl/resources/file/${pkgname}-${pkgver}.tar.xz"
-        "https://gitlab.com/inkscape/inkscape/-/commit/f7857a4fc2b916e64d9689ccc89914ad19f3ef0a.diff"
-        'https://gitlab.com/inkscape/inkscape/-/commit/08b2f3d93c08bcf1e363f4284112fd14a7cbd09c.diff')
+source=("https://media.inkscape.org/dl/resources/file/${pkgname}-${pkgver}_${_commit}.tar.xz"
+        "https://gitlab.com/inkscape/inkscape/-/commit/f7857a4fc2b916e64d9689ccc89914ad19f3ef0a.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
-sha256sums=('3ffe54a06d0b25a4cd8b6eb424536ef1ed205be13443a39cd437c8c7b89b96d1'
-            '5478635169cdfaf22cde9ce9eceaaa7470fb563f1de47a25366ac503f3e8e748'
-            'df5f032892205d1d83938e35349e2bbaac780021588c297503346f4a944e433c')
+sha256sums=('8d9b31142554945664edfefe2d6b55910a5099765f7176a71107c34f1dcde6ad'
+            '5478635169cdfaf22cde9ce9eceaaa7470fb563f1de47a25366ac503f3e8e748')
 
 prepare() {
   cd ${pkgname}-${pkgver}_${_commit}
   # poppler 22.03.0 needed
-  patch -p1 -i ${srcdir}/f7857a4fc2b916e64d9689ccc89914ad19f3ef0a.diff
+  #patch -p1 -i ${srcdir}/f7857a4fc2b916e64d9689ccc89914ad19f3ef0a.diff
   # poppler 22.04 needed
   #sed -i 's|_POPPLER_FONT_RAW_PTR(font_ptr) font_ptr|_POPPLER_FONT_RAW_PTR(font_ptr) font_ptr.get()|g' src/extension/internal/pdfinput/poppler-transition-api.h
-  patch -p1 -i ${srcdir}/08b2f3d93c08bcf1e363f4284112fd14a7cbd09c.diff
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver}_${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DWITH_DBUS=ON \
-    -DWITH_LIBCDR=OFF
+    -DWITH_LIBCDR=ON
   cmake --build build
 }
 
