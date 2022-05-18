@@ -50,11 +50,11 @@ Rectangle {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2022.04</h3>
-            <p>KaOS is pleased to announce the availability of the April release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2022.05</h3>
+            <p>KaOS is pleased to announce the availability of the May release of a new stable ISO.</p>
 
             <p>With the release of KDE Gear 22.04, some nice new features and enhancements are introduced.  Konsole's completely new feature is Quick Commands: open a quick commands pane from Plugins > Show Quick Commands and you will be able to create short scripts you use frequently, Konsole's SSH plugin has been further enhanced and you can assign different visual profiles.  For Kdenlive, two new options stick out: you can create customised profiles so that your rendered movie adapts perfectly to your needs, and you can also render by zones, using the guides you set up on the timeline as references.  Okular now alerts you immediately when you go to sign a document but have no valid digital certificates.  With Skanpage, you can now share scanned documents (including multi-page PDFs) using KDE’s general sharing system, which allows you to push documents to instant messaging apps, online cloud services, social services, and through Bluetooth to other devices.< /br>
-            For the other KDE parts, the latest Frameworks (5.93.0) and Plasma (5.24.4) are included. All built on <strong>Qt 5.15.3+</strong>.</p>
+            For the other KDE parts, the latest Frameworks (5.94.0) and Plasma (5.24.5) are included. All built on <strong>Qt 5.15.4+</strong>.</p>
 
             <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.</p>
 
@@ -62,8 +62,8 @@ Rectangle {
             
             <p>A shift has started as to how all Python packages are build.  Historically, just about all were build with setuptools though a setup.py script.  PEP17 is the new standard for building python packages, see https://peps.python.org/pep-0517/.  At this stage, KaOS is testing this transition with different new Python build tools, such as Python-flit & Python-build, with Python-wheel currently in use to install the build packages.</p>
 
-            <p>Updates to the base of this distribution included Glib2 2.72.1, kernel moved to Linux 5.17.5, Systemd 250.4, Boost 1.78.0, DBus 1.14.0, Mesa 22.0.2, Vulkan packages 1.3.212, Util-linux 2.38, Coreutils 9.1, and Libusb 1.0.26.</br>
-            Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.4.
+            <p>Updates to the base of this distribution included a new Glibc 2.35, Binutils 2.38 & GCC 11.3.0 based toolchain, kernel moved to Linux 5.17.9, Systemd 250.5, Boost 1.78.0, DBus 1.14.0, Mesa 22.0.3, Vulkan packages 1.3.214, Util-linux 2.38, Coreutils 9.1, and Libusb 1.0.26.</br>
+            Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.5.
             </p>
             
             <p>For Nvidia, a new longterm support version is included in this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
@@ -92,12 +92,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.93.0, Plasma 5.24.4, KDE Applications 22.04.0</b>, Linux 5.17.5, Systemd 250.4, Kmod 29, NetworkManager 1.36.4, LibreOffice 7.3.2, Elisa, Xorg-Server 1.21.3, Mesa 22.0.2, Glibc 2.33, GCC 11.2.0, non-free Nvidia 510 and Python3 3.9.12 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.94.0, Plasma 5.24.5, KDE Applications 22.04.1</b>, Linux 5.17.9, Systemd 250.5, Kmod 29, NetworkManager 1.38.0, LibreOffice 7.3.3, Elisa, Xorg-Server 1.21.3, Mesa 22.0.3, Glibc 2.35, GCC 11.3.0, non-free Nvidia 510 and Python3 3.9.12 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
-            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.17, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 99.0.1, Chrome 102, Ardour 6.9.0, Inkscape 1.1.2, GIMP 2.10.30 and Thunderbird 91.8.1.<br />
+            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.18, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 100.0.1, Chrome 103, Ardour 6.9.0, Inkscape 1.2, GIMP 2.10.30 and Thunderbird 91.9.0.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
