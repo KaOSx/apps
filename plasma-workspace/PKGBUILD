@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=4
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -31,18 +31,21 @@ source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.t
         'kde.pam'
         'kde-np.pam'
         'kscreensaver.pam'
-        "https://invent.kde.org/plasma/plasma-workspace/-/commit/f77b7284e39b14b0e9a8b4d2b77c0b93b2c9ea59.diff")
+        "https://invent.kde.org/plasma/plasma-workspace/-/commit/f77b7284e39b14b0e9a8b4d2b77c0b93b2c9ea59.diff"
+        "https://invent.kde.org/plasma/plasma-workspace/-/commit/4d3f99558cff95259590e70dfbf854a479f772ce.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '280f3ca356b59607074da2343a4155b2'
          '6589fb28bd20d5ec1b4a7b9db9fc4209'
          '5a035421a9bfaa353caf04250c2b285c'
          '367a3538f54db71f108b34cfa31088ac'
-         '390a151febe90a7e130ffefc8b573516')
+         '390a151febe90a7e130ffefc8b573516'
+         '0944d8474ee44abcdb2e35bc20cec43d')
 
 prepare () {
   cd ${pkgname}-${pkgver}
 
   patch -p1 -i ${srcdir}/f77b7284e39b14b0e9a8b4d2b77c0b93b2c9ea59.diff
+  patch -p1 -i ${srcdir}/4d3f99558cff95259590e70dfbf854a479f772ce.diff
   #sed -i 's|<default>1</default>|<default>2</default>|' applets/systemtray/package/contents/config/main.xml
 }
 
