@@ -10,12 +10,15 @@ arch=('x86_64')
 url='https://invent.kde.org/plasma/kwin'
 license=('LGPL')
 depends=('qt5-multimedia' 'plasma-framework' 'kcmutils' 'kinit' 'knewstuff' 'krunner' 'xcb-util-cursor'
-         'libepoxy' 'kwayland-server' 'kdecoration' 'libinput' 'kscreenlocker' 'kdeclarative' 'breeze'
+         'libepoxy' 'kwayland' 'kdecoration' 'libinput' 'kscreenlocker' 'kdeclarative' 'breeze'
          'qt5-virtualkeyboard' 'xorg-server' 'qt5-sensors' 'qt5-quickcontrols2' 'libqaccessibilityclient'
-         'wireplumber' 'xwayland')
+         'wireplumber' 'xwayland' 'plasma-wayland-protocols')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kdeplasma5')
 options=('debug')
+conflicts=('kwayland-server')
+replaces=('kwayland-server')
+provides=('kwayland-server')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/plasma/kwin/-/commit/839710201c389b7f4ed248cb3818e755a37ce977.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
