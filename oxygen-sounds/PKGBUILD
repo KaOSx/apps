@@ -1,0 +1,29 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=oxygen-sounds
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc='KDE Oxygen style, sound theme'
+arch=('x86_64')
+url='https://invent.kde.org/plasma/oxygen-sounds'
+license=('GPL3')
+makedepends=('extra-cmake-modules')
+groups=('kdeplasma5')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
+
