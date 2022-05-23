@@ -1,0 +1,13 @@
+--- a/vboxnetflt/linux/VBoxNetFlt-linux.c
++++ b/vboxnetflt/linux/VBoxNetFlt-linux.c
+@@ -2310,8 +2310,8 @@
+             {
+                 vboxNetFltDumpPacket(pSG, true, "host", (fDst & INTNETTRUNKDIR_WIRE) ? 0 : 1);
+                 Log6(("vboxNetFltPortOsXmit: pBuf->cb dump:\n%.*Rhxd\n", sizeof(pBuf->cb), pBuf->cb));
+-                Log6(("vboxNetFltPortOsXmit: netif_rx_ni(%p)\n", pBuf));
+-                err = netif_rx_ni(pBuf);
++                Log6(("vboxNetFltPortOsXmit: netif_rx(%p)\n", pBuf));
++                err = netif_rx(pBuf);
+                 if (err)
+                     rc = RTErrConvertFromErrno(err);
+             }
