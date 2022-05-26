@@ -1,6 +1,6 @@
 
 pkgname=gmic-krita
-pkgver=3.1.2.1
+pkgver=3.1.2.2
 pkgrel=1
 pkgdesc="Plug-in to bring the full-featured open-source framework for image processing -G'MIC- to Krita"
 url="https://gmic.eu/"
@@ -13,13 +13,13 @@ replaces=('gmic-qt')
 conflicts=('gmic-qt')
 source=("https://github.com/amyspark/gmic/releases/download/v${pkgver}/gmic-${pkgver}-patched.tar.xz"
         "https://github.com/amyspark/gmic/commit/b2a1c72b45b68720072d93e5e53c77000f611075.diff")
-sha256sums=('eb6cec9de254d2323fab2f4eac6f7a65310728617110cd41a9067774138e241f'
+sha256sums=('271e5486404db34704d573a77f72f966d5d71d4ce01b3ade05b206f679b02441'
             '07fdbc702c6e89f71e06ffbebd025ca0ebac72e09b174fe2ef4922010b6a9e2e')
 
 prepare() {
   cd gmic-${pkgver}-patched
 
-  patch -p1 -R -i ${srcdir}/b2a1c72b45b68720072d93e5e53c77000f611075.diff
+  #patch -p1 -R -i ${srcdir}/b2a1c72b45b68720072d93e5e53c77000f611075.diff
 }
 
 build() {
