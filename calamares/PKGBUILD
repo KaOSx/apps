@@ -1,6 +1,6 @@
 
 pkgname=calamares
-pkgver=3.2.58.1
+pkgver=3.2.59
 pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -31,7 +31,7 @@ md5sums=('SKIP'
          'ef997b48e019b411d0fe3a26a81e2194'
          '4b126b6494c776016accd8ffbd0be51d'
          'bf4a935ae9b0e68639bd9968aff9c3ae'
-         '3394f59f6f7f2ea1ea1b54972aad92bb'
+         '5199b9fc34a92fa828f04bb8218b0fa6'
          'dc880f17456d5cad7f07d83554c22b9b')
 
 prepare () {
@@ -56,7 +56,7 @@ build() {
     -DWITH_KF5DBus=ON \
     -DINSTALL_CONFIG=ON \
     -DBoost_NO_BOOST_CMAKE=ON \
-    -DSKIP_MODULES="bootldr bootloader license notesqml oemid preservefiles webview zfs"
+    -DSKIP_MODULES="bootldr bootloader license notesqml oemid preservefiles webview zfs partitionq"
   cmake --build build
 }
 
