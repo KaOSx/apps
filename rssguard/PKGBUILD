@@ -15,6 +15,7 @@ prepare() {
   cd ${pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/139e014d2af6a6e156098ba486dbbe2681018fab.diff
+  sed -i 's|desired_count - msgs.size())|int(desired_count - msgs.size()))|' src/librssguard/services/reddit/redditnetworkfactory.cpp
 }
 
 build() {
