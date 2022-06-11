@@ -9,13 +9,11 @@ pkgdesc='Ki18n'
 arch=('x86_64')
 url='https://github.com/KDE/ki18n'
 license=('LGPL')
-depends=('qt5-script' 'qt5-declarative')
+depends=('qt5-declarative' 'iso-codes')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/5.20/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/ki18n/commit/97ce7535124aff6a576bc748260ce6fa4ab781d8.diff")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '475a0939bc9d3c650a27c3812a03e288')
+source=("http://download.kde.org/stable/frameworks/5.20/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare () {
   cd ${pkgname}-${pkgver}
@@ -24,26 +22,17 @@ prepare () {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR="${pkgdir}" install
-  # conflicts with kde-l10n since kf5 5.20.0
-  #rm ${pkgdir}/usr/share/locale/nb/LC_SCRIPTS/ki18n5/ki18n5.js
-  #rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/ki18n5.js
-  #rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/skjermelement.pmap
-  #rm ${pkgdir}/usr/share/locale/nn/LC_SCRIPTS/ki18n5/skjermelement.pmapc
+
+  DESTDIR=${pkgdir} cmake --install build
 }

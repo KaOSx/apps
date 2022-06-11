@@ -12,10 +12,8 @@ license=('LGPL')
 depends=('karchive' 'ki18n' 'kcoreaddons' 'kconfig')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/5.29/${pkgname}-${pkgver}.tar.xz"
-        "https://github.com/KDE/kpackage/commit/e7861d979c71815a614f2baf0b3d25f329fadef0.diff")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '5de4d8d74ed58ff4b13abe87b215f78e')
+source=("http://download.kde.org/stable/frameworks/5.29/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -24,10 +22,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -36,11 +31,10 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
