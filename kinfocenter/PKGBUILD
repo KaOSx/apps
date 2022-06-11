@@ -11,7 +11,8 @@ url='https://invent.kde.org/plasma/kinfocenter'
 license=('LGPL')
 depends=('glu' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kiconthemes'
          'kcmutils' 'kio' 'kservice' 'solid' 'kwidgetsaddons' 'kxmlgui' 'kdeclarative' 'kpackage' 'libraw1394'
-         'pciutils' 'wayland-utils' 'systemsettings' 'vulkan-tools' 'xorg-utils' 'mesa-demos' 'procps-ng')
+         'pciutils' 'wayland-utils' 'systemsettings' 'vulkan-tools' 'xorg-utils' 'mesa-demos' 'procps-ng'
+         'fwupd' 'dmidecode')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
 conflicts=('kde-workspace' 'about-distro')
@@ -20,7 +21,7 @@ source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.t
         'kcm-about-distrorc'
         'KaOS.png')
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'ca586bf84e50439b8335a3ec903914e6'
+         'f4e373cde99c52125bafc3bea2a7afd9'
          '0957d15eee83c30c1351571d3b875bc9')
 
 
@@ -39,7 +40,7 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
-  
+
   install -Dm644 ${srcdir}/kcm-about-distrorc ${pkgdir}/etc/xdg/kcm-about-distrorc
   install -Dm644 ${srcdir}/KaOS.png ${pkgdir}/usr/share/${pkgname}/KaOS.png
 }
