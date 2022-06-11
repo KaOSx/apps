@@ -1,19 +1,19 @@
 
 pkgname=audacity
-pkgver=3.1.3
-pkgrel=1
+pkgver=3.0.2
+pkgrel=3
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
-url=""
+url="https://www.audacityteam.org/"
 license=('GPL')
-depends=('libvorbis' 'libmad' 'libid3tag' 'gtk3' 'lame' 'hicolor-icon-theme' 'ffmpeg'
+depends=('libvorbis' 'libmad' 'libid3tag' 'gtk2' 'lame' 'hicolor-icon-theme' 'ffmpeg'
          'shared-mime-info' 'desktop-file-utils' 'redland' 'jack2' 'soundtouch' 'libsoxr'
-         'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil' 'portmidi' 'wxwidgets'
+         'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil' 'portmidi' # 'wxwidgets'
          'vamp-plugin-sdk' 'portsmf' 'portaudio')
 makedepends=('cmake' 'zip' 'pkgconfig')
 options=('!makeflags')
 source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz")
-sha256sums=('07aed333a20b8df381d5c0a167840883fff8ef65f5e5f71e654c0925d6c60de8')
+sha256sums=('9eac298513f506cdeb07fd7c448f7d6a0d3f366b952ce5bb080084168d1ad75a')
 
 prepare() {
   cd ${pkgname}-Audacity-${pkgver}
@@ -25,13 +25,14 @@ build() {
   cmake -B build -S ${pkgname}-Audacity-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -Daudacity_lib_preference=system \
-    -Daudacity_obey_system_dependencies=On \
-    -Daudacity_conan_enabled=Off \
-    -Daudacity_use_ffmpeg=loaded \
-    -Daudacity_use_portsmf=system \
-    -Daudacity_use_sbsms=off \
-    -Daudacity_use_twolame=off
+    -Daudacity_use_wxwidgets=local
+    #-Daudacity_lib_preference=system \
+    #-Daudacity_obey_system_dependencies=On \
+    #-Daudacity_conan_enabled=Off \
+    #-Daudacity_use_ffmpeg=loaded \
+    #-Daudacity_use_portsmf=system \
+    #-Daudacity_use_sbsms=off \
+    #-Daudacity_use_twolame=off
     #-DALWAYS_ALLOW_CONAN_FALLBACK=ON
   cmake --build build
 }
