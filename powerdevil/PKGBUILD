@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=powerdevil
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Manages the power consumption settings of a Plasma Shell.'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/powerdevil'
@@ -15,14 +15,14 @@ depends=('kactivities' 'kauth' 'kidletime' 'kconfig' 'kdbusaddons' 'solid' 'ki18
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-         "https://invent.kde.org/plasma/powerdevil/-/commit/fcb26be2fb279e6ad3b7b814d26a5921d16201eb.diff")
+         "https://invent.kde.org/plasma/powerdevil/-/commit/2ebe655d220c9167b66893a823b2fff2e2b8a531.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '2441492db6dfe944468f6a0ce28af88d')
+         'cd324b92c311db8e6bcc8e492cb126fd')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # ddcutil 0.9.9 needed fix
-  #patch -p1 -i ${srcdir}/fcb26be2fb279e6ad3b7b814d26a5921d16201eb.diff
+
+  patch -p1 -i ${srcdir}/2ebe655d220c9167b66893a823b2fff2e2b8a531.diff
 }
 
 build() {
