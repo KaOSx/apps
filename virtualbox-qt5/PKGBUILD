@@ -7,7 +7,7 @@ pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
 pkgver=6.1.34
 _pkgver=6.1.34
-pkgrel=2
+pkgrel=4
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
@@ -24,7 +24,8 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         'vmsvga.service'
         'vbox-linux-5.19.patch'
         'VirtioCore.cpp'
-        'VirtioCore.h')
+        'VirtioCore.h'
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-emulation/virtualbox/files/virtualbox-6.1.34-vboxr0.patch")
 sha256sums=('9c3ce1829432e5b8374f950698587038f45fb0492147dc200e59edb9bb75eb49'
             'f876e9f55243eded423fda4fc2ffe3b174dca90380a6315f7c9b3cd1c9d07206'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
@@ -33,12 +34,14 @@ sha256sums=('9c3ce1829432e5b8374f950698587038f45fb0492147dc200e59edb9bb75eb49'
             '090c5a5d72b2dd9a1338b8e453ff042df27731f0d4cb4f0ca161568ecb58e454'
             '7f7da514cfc64ae45de4c40ab37f82d788476e2d5cfc0e178a1c1eae159338eb'
             '5b80711f5a47605b163913b52ad1310faf1c3d850a19474e455b204e7c11feb1'
-            '616ba2906a05079ec5e5272e3126c936e612ebc927b2efd91da8094a190a1ab2')
+            '616ba2906a05079ec5e5272e3126c936e612ebc927b2efd91da8094a190a1ab2'
+            '1b9d032011fe63af7b2b6c818bb0d82ef8e5ebc2e0cbfeda4ae6974acd41b251')
 
 prepare() {
     cd VirtualBox-${pkgver}
 
     patch -p0 -i ${srcdir}/vbox-linux-5.19.patch
+    patch -p1 -i ${srcdir}/virtualbox-6.1.34-vboxr0.patch
 
     sed -i -e 's|X11R6/||' configure
     sed -i -e 's|X11R6/||' Config.kmk
