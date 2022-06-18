@@ -51,10 +51,14 @@ Rectangle {
             wrapMode: Text.WordWrap
 
             text: qsTr("<h3>KaOS - 2022.06</h3>
-            <p>KaOS is pleased to announce the availability of the June release of a new stable ISO.</p>
+            <p>It is with great pleasure to present to you the June release of a new stable ISO.</p>
 
-            <p>With the release of KDE Gear 22.04, some nice new features and enhancements are introduced.  Konsole's completely new feature is Quick Commands: open a quick commands pane from Plugins > Show Quick Commands and you will be able to create short scripts you use frequently, Konsole's SSH plugin has been further enhanced and you can assign different visual profiles.  For Kdenlive, two new options stick out: you can create customised profiles so that your rendered movie adapts perfectly to your needs, and you can also render by zones, using the guides you set up on the timeline as references.  Okular now alerts you immediately when you go to sign a document but have no valid digital certificates.  With Skanpage, you can now share scanned documents (including multi-page PDFs) using KDE’s general sharing system, which allows you to push documents to instant messaging apps, online cloud services, social services, and through Bluetooth to other devices.< /br>
-            For the other KDE parts, the latest Frameworks (5.94.0) and Plasma (5.24.5) are included. All built on <strong>Qt 5.15.4+</strong>.</p>
+            <p>Changes were numerous and all over the place, the base of the system for example was build on a new Glibc 2.35, GCC 11.3.0 and Binutils 2.38 based Toolchain. Further updates in <i>Core</i> included DBus 1.14.0, Systemd 250.7, Nettle 3.8 and the kernel moved to 5.17.15.< /br>
+            Midna, the Plasma theme used in KaOS received some changes (partly to get ready for Plasma 5.25), visual biggest change is the addition of well integrated virtual keyboard in the login & lock screen.< /br>
+            The installer <strong> Calamares</strong> now uses the 3.3 branch.  There are no releases with it yet, but it comes with enough improvements that it is a better fit for KaOS.</p>
+
+            <p>But for most the biggest news for this release will be Plasma 5.25.  KDE Plasma 5.25 redesigns and enhances how you navigate between windows and workspaces. The Overview effect shows all of your open windows and virtual desktops. Gestures on touchpads and touchscreens put Plasma at your fingertips. The dominant color of your background picture can be applied to all components that use the accent color. Titlebars of KDE apps become taller when in Touch Mode, making it easier to press, drag, and close windows with touch. Floating Panels add a margin all around the panel to make it float, while animating it back to look normal when a window is maximized. And Plasma panels can now be navigated with the keyboard, and you can assign custom shortcuts to focus individual panels.< /br>
+            For the other KDE parts, the latest Frameworks (5.95.0) and KDE Gear (22.04.2) are included. All built on <strong>Qt 5.15.5+</strong>.</p>
 
             <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.</p>
 
@@ -62,8 +66,7 @@ Rectangle {
             
             <p>A shift has started as to how all Python packages are build.  Historically, just about all were build with setuptools though a setup.py script.  PEP17 is the new standard for building python packages, see https://peps.python.org/pep-0517/.  At this stage, KaOS is testing this transition with different new Python build tools, such as Python-flit & Python-build, with Python-wheel currently in use to install the build packages.</p>
 
-            <p>Updates to the base of this distribution included a new Glibc 2.35, Binutils 2.38 & GCC 11.3.0 based toolchain, kernel moved to Linux 5.17.15, Systemd 250.7, Boost 1.78.0, DBus 1.14.0, Mesa 22.0.5, Vulkan packages 1.3.217, Util-linux 2.38, Coreutils 9.1, and Libusb 1.0.26.</br>
-            Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.5.
+            <p>Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.6.
             </p>
             
             <p>For Nvidia, a new longterm support version is included in this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
@@ -92,7 +95,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.95.0, Plasma 5.25.o, KDE Applications 22.04.2</b>, Linux 5.17.15, Systemd 250.5, Kmod 29, NetworkManager 1.38.0, LibreOffice 7.3.4, Elisa, Xorg-Server 1.21.3, Mesa 22.0.5, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.95.0, Plasma 5.25.0, KDE Applications 22.04.2</b>, Linux 5.17.15, Systemd 250.7, Kmod 29, NetworkManager 1.38.2, LibreOffice 7.3.4, Elisa, Xorg-Server 1.21.3, Mesa 22.1.2, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
