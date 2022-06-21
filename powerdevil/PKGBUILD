@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=powerdevil
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Manages the power consumption settings of a Plasma Shell.'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/powerdevil'
@@ -22,7 +22,7 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/2ebe655d220c9167b66893a823b2fff2e2b8a531.diff
+  #patch -p1 -i ${srcdir}/2ebe655d220c9167b66893a823b2fff2e2b8a531.diff
 }
 
 build() {
