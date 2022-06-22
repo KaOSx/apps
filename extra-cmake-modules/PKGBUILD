@@ -4,33 +4,28 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=extra-cmake-modules
 pkgver=${_kf5ver}
-_pkgver=5.51
 pkgrel=2
 pkgdesc='Extra CMake modules'
 arch=('x86_64')
-url='https://github.com/KDE/extra-cmake-modules'
+url='https://invent.kde.org/frameworks/extra-cmake-modules'
 license=('LGPL')
 depends=('cmake' 'python3')
 makedepends=('qt5-tools') # 'python3-sphinx' 'python3-requests')  'sphinx_rtd_theme' 'alabaster' sphinx needs many deps, disable)
-source=("https://download.kde.org/stable/frameworks/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/5.95/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_QTHELP_DOCS=OFF \
     -DBUILD_MAN_DOCS=OFF \
     -DBUILD_HTML_DOCS=OFF \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
