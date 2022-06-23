@@ -1,9 +1,9 @@
 
 pkgname=digikam
 _pkgname=digiKam
-pkgver=7.6.0
-_pkgver=7.6.0
-pkgrel=2
+pkgver=7.7.0
+_pkgver=7.7.0
+pkgrel=1
 url="https://www.digikam.org/"
 arch=('x86_64')
 license=('GPL')
@@ -19,14 +19,14 @@ makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'ru
 groups=('kde-graphics')
 source=("https://download.kde.org/stable/digikam/${_pkgver}/${_pkgname}-${_pkgver}.tar.xz"
         "https://invent.kde.org/graphics/digikam/-/commit/51efe295a222070743187af0367b0bf957879337.diff")
-sha256sums=('d8e1ee7321d3fc313916f515756e3029ac4187dc453b6933848d4de5314b6641'
+sha256sums=('c0c6dd2ea8a07514acbf2462f3a54518e7e8099b3337f881336168cff63d771c'
             'bb670e79d1638fea2337f68db0a7b4c502faa4b3706b790a7c40404b475d8274')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
   #sed -i -e 's|QString module = QLatin1String(inf->module);|QString module = QLatin1String(inf->magick_module);|' core/tests/dimg/magickloader.cpp
   #akonadi 22.04 support
-  patch -p1 -i ${srcdir}/51efe295a222070743187af0367b0bf957879337.diff
+  #patch -p1 -i ${srcdir}/51efe295a222070743187af0367b0bf957879337.diff
 }
 
 build() {
