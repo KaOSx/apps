@@ -1,6 +1,6 @@
 
 pkgname=keysmith
-pkgver=22.04
+pkgver=22.06
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Application to generate two-factor authentication (2FA) tokens when logging in to your (online) accounts, supports both HOTP and TOTP tokens."
@@ -10,7 +10,7 @@ depends=('kirigami' 'ki18n' 'kdbusaddons' 'kwindowsystem' 'libsodium' 'qt5-quick
 makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/stable/plasma-mobile/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #source=("https://invent.kde.org/utilities/keysmith/-/archive/v${pkgver}/keysmith-v${pkgver}.tar.bz2")
-sha256sums=('9122320da1281a5e0ee5b64dc585b59156deb9078cae41cb81d456205026a133')
+sha256sums=('d2a73a191eb3fa88472d5740312f1fc69b8fd9bcc5e736fc48bea02beddf8e63')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
