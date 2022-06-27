@@ -1,0 +1,29 @@
+
+pkgname=qpwgraph
+pkgver=0.3.2
+pkgrel=1
+pkgdesc="Graph manager dedicated to PipeWire, based on and pretty much the same of QjackCtl."
+url="https://gitlab.freedesktop.org/rncbc/qpwgraph"
+arch=('x86_64')
+license=('GPL')
+depends=('alsa-lib' 'pipewire' 'qt6-base' 'qt6-svg')
+makedepends=('cmake' 'qt6-tools')
+options=('!makeflags')
+groups=('multimedia')
+source=("https://gitlab.freedesktop.org/rncbc/qpwgraph/-/archive/v0.3.2/${pkgname}-v${pkgver}.tar.bz2")
+md5sums=('043b8979da7340d916af89c5ba52f3e8')
+
+build() {
+  cmake -B build -S ${pkgname}-v${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCONFIG_WAYLAND=ON \
+    -DCONFIG_QT6=ON
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
