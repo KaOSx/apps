@@ -5,11 +5,11 @@ pkgrel=1
 pkgdesc="Full-featured Python 3.x and Ruby IDE written in python, based on the cross 
         platform Qt gui toolkit, integrating the highly flexible Scintilla editor control"
 arch=('x86_64')
-url="http://eric-ide.python-projects.org/"
+url="https://eric-ide.python-projects.org/"
 license=('GPL3')
 depends=('python3' 'pyqt6-python3' 'python3-qscintilla-qt6' 'python3-pylint'
-         'pyyaml' 'python3-pygments' 'python3-toml' 'python3-chardet') #'pyqtwebengine'
-#makedepends=('eric7')
+         'pyyaml' 'python3-pygments' 'python3-toml' 'python3-chardet' 'pyqt6-webengine' 'pyqt6-charts')
+makedepends=('qt6-tools')
 replaces=('eric6')
 conflicts=('eric6')
 source=("https://downloads.sourceforge.net/eric-ide/${pkgname}-${pkgver}.tar.gz")
@@ -25,7 +25,7 @@ package() {
     cd ${pkgname}-${pkgver}
 
     install -d ${pkgdir}/usr/bin
-    install -d ${pkgdir}/usr/lib/python3.8/site-packages
+    install -d ${pkgdir}/usr/lib/python3.9/site-packages
     install -d ${pkgdir}/usr/share/pixmaps
 
     python3 install.py -c -b /usr/bin -i ${pkgdir}
