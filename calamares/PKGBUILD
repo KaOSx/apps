@@ -1,7 +1,7 @@
 
 pkgname=calamares
 pkgver=3.3.0alpha1
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://calamares.io/'
@@ -22,7 +22,8 @@ source=("git+https://github.com/KaOSx/calamares"
         'LICENSE.txt'
         'release_notes.qml'
         'release_notes_welcomeq.qml'
-        'chevron-left-solid.svg')
+        'chevron-left-solid.svg'
+        "https://github.com/calamares/calamares/commit/79db04dc2eb00b354044f73c054a94fe2b9f9aae.diff")
 md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
          'd5c65f43e057054e9728810530c4a030'
@@ -32,7 +33,8 @@ md5sums=('SKIP'
          '4b126b6494c776016accd8ffbd0be51d'
          'bf4a935ae9b0e68639bd9968aff9c3ae'
          '8b54eaf178d58b9c773150494566ae5f'
-         'dc880f17456d5cad7f07d83554c22b9b')
+         'dc880f17456d5cad7f07d83554c22b9b'
+         'fc80b0501d09ce2526aa8e044256918d')
 
 prepare () {
   cd ${pkgname}
@@ -41,7 +43,7 @@ prepare () {
   #git submodule update
   
   #sed -e "s|quitVisible, true|quitVisible, false|" -i src/libcalamaresui/ViewManager.cpp
-  #patch -p1 -i ${srcdir}/3313a5341d547f0fa059320325cd093b1300395d.diff
+  patch -R -p1 -i ${srcdir}/79db04dc2eb00b354044f73c054a94fe2b9f9aae.diff
 }
 
 build() {
@@ -56,7 +58,7 @@ build() {
     -DWITH_KF5DBus=ON \
     -DINSTALL_CONFIG=ON \
     -DBoost_NO_BOOST_CMAKE=ON \
-    -DSKIP_MODULES="bootldr bootloader license notesqml oemid preservefiles webview zfs" # partitionq"
+    -DSKIP_MODULES="bootldr bootloader license notesqml oemid preservefiles zfs" # partitionq"
   cmake --build build
 }
 
