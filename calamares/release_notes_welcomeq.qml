@@ -50,8 +50,8 @@ Rectangle {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2022.06</h3>
-            <p>It is with great pleasure to present to you the June release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2022.07</h3>
+            <p>It is with great pleasure to present to you the July release of a new stable ISO.</p>
 
             <p>Changes were numerous and all over the place, the base of the system for example was build on a new Glibc 2.35, GCC 11.3.0 and Binutils 2.38 based Toolchain. Further updates in <i>Core</i> included DBus 1.14.0, Systemd 250.7, Nettle 3.8 and the kernel moved to 5.17.15.< /br>
             Midna, the Plasma theme used in KaOS received some changes (partly to get ready for Plasma 5.25), visual biggest change is the addition of well integrated virtual keyboard in the login & lock screen.< /br>
@@ -95,12 +95,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.95.0, Plasma 5.25.1, KDE Applications 22.04.2</b>, Linux 5.17.15, Systemd 250.7, Kmod 29, NetworkManager 1.38.2, LibreOffice 7.3.4, Elisa, Xorg-Server 1.21.3, Mesa 22.1.2, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.95.0, Plasma 5.25.1, KDE Applications 22.04.2</b>, Linux 5.17.15, Systemd 250.7, Kmod 30, NetworkManager 1.38.2, LibreOffice 7.3.4, Elisa, Xorg-Server 1.21.3, Mesa 22.1.3, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.18, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 101.0.1, Chrome 104, Ardour 6.9.0, Inkscape 1.2, GIMP 2.10.32 and Thunderbird 91.10.0.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 102.0, Chrome 105, Ardour 6.9.0, Inkscape 1.2, GIMP 2.10.32 and Thunderbird 102.0.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>

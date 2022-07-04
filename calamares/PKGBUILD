@@ -1,7 +1,7 @@
 
 pkgname=calamares
 pkgver=3.3.0alpha1
-pkgrel=2
+pkgrel=3
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://calamares.io/'
@@ -32,7 +32,7 @@ md5sums=('SKIP'
          'ef997b48e019b411d0fe3a26a81e2194'
          '4b126b6494c776016accd8ffbd0be51d'
          'bf4a935ae9b0e68639bd9968aff9c3ae'
-         '8b54eaf178d58b9c773150494566ae5f'
+         '60f5e7ce212d0eeb2851469f209d42bc'
          'dc880f17456d5cad7f07d83554c22b9b'
          'fc80b0501d09ce2526aa8e044256918d')
 
@@ -43,7 +43,7 @@ prepare () {
   #git submodule update
   
   #sed -e "s|quitVisible, true|quitVisible, false|" -i src/libcalamaresui/ViewManager.cpp
-  patch -R -p1 -i ${srcdir}/79db04dc2eb00b354044f73c054a94fe2b9f9aae.diff
+  #patch -R -p1 -i ${srcdir}/79db04dc2eb00b354044f73c054a94fe2b9f9aae.diff
 }
 
 build() {
@@ -54,7 +54,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DWITH_PYTHONQT=OFF \
     -DWITH_KF5DBus=ON \
     -DINSTALL_CONFIG=ON \
     -DBoost_NO_BOOST_CMAKE=ON \
