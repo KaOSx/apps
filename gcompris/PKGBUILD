@@ -2,14 +2,14 @@
 pkgname=gcompris
 pkgver=2.4
 _pkgver=2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
 url="https://gcompris.net/"
 license=('GPL3')
 depends=('qt5-multimedia' 'qt5-declarative' 'qt5-svg' 'qt5-graphicaleffects' 'qt5-sensors' 'qt5-xmlpatterns' 'qml-box2d')
 makedepends=('texinfo' 'intltool' 'extra-cmake-modules' 'kdoctools' 'qt5-tools')
-groups=('kaos-kids')
+groups=('games' 'kaos-kids')
 source=("https://download.kde.org/stable/gcompris/qt/src/gcompris-qt-${_pkgver}.tar.xz"
         'https://github.com/KDE/gcompris/commit/5b46f5f96e77631ea871084bd54e68d834599442.diff')
 sha256sums=('fd066e6f8f2b6ab547703d0f80e3dce8d4e538aaec13354afea8c76f90a3592d'
@@ -23,7 +23,7 @@ prepare() {
 
 build() {
   mkdir -p build
-  
+
   cd build 
   cmake ../${pkgname}-qt-${_pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
