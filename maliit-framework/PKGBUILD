@@ -1,7 +1,7 @@
 
 pkgname=maliit-framework
 _pkgname=framework
-pkgver=2.2.1
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="Core libraries of Maliit and server"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('qt5-declarative' 'qt5-wayland')
 makedepends=('cmake' 'wayland-protocols' 'python3')
 source=("https://github.com/maliit/framework/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/maliit/framework/commit/38b743d5eface516f846b18d46f36620457bb138.diff")
-md5sums=('79a5f61ab238508370688a7928da0408'
+md5sums=('cd4af8825569685ba2eb20d0e7641e8c'
          'caea389d96885066eb9d4874d3a15128')
 
 prepare() {
@@ -23,11 +23,9 @@ prepare() {
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DQtWaylandScanner_EXECUTABLE=/usr/lib/qt5/bin/ \
     -Denable-tests=OFF \
     -Denable-docs=OFF \
     -Denable-dbus-activation=ON \
-    -Denable-wayland-gtk=OFF \
     -Denable-wayland=OFF \
     -Denable-qt5-inputcontext=OFF \
     -DQT5_PLUGINS_INSTALL_DIR=lib/qt5/plugins \
