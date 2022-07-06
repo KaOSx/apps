@@ -8,38 +8,24 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Five-in-a-row Board Game"
 arch=('x86_64')
-url='http://www.kde.org'
+url='https://apps.kde.org/bovo/'
 license=('GPL' 'LGPL' 'FDL')
 depends=('libkdegames' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kxmlgui' )
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
+makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('games' 'kde' 'kde-games' 'kde-uninstall')
-conflicts=('kdegames-bovo')
-replaces=('kdegames-bovo')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd ${srcdir}
-  #sed -e "s/Qt5::core/Qt5::core KF5::KWidgetsAddons/" -i ${srcdir}/$pkgname/libkdegames/CMakeLists.txt
-  
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 

@@ -27,10 +27,10 @@ prepare() {
 build() {
   mkdir -p build
   cd build 
-  
+
   export CC=/usr/bin/clang
   export CXX=/usr/bin/clang++
-  
+
   cmake ../${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
@@ -45,6 +45,6 @@ build() {
 
 package() {
   cd build
-  
+
   make DESTDIR=${pkgdir} install
 }
