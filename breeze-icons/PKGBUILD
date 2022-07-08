@@ -12,12 +12,12 @@ license=('LGPL')
 depends=('qt5-base')
 makedepends=('extra-cmake-modules' 'python3-lxml')
 #groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/5.95/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/5.96/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  #sed -i -e 's|actions apps categories|actions applets apps categories|' icons/CMakeLists.txt
+
   #sed -i -e 's|actions apps categories|actions applets apps categories|' icons-dark/CMakeLists.txt
 }
 
