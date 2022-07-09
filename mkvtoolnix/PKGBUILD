@@ -1,17 +1,17 @@
 
 pkgname=mkvtoolnix
-pkgver=68.0.0
+pkgver=69.0.0
 pkgrel=1
 pkgdesc="Set of tools to create, edit and inspect Matroska files."
 arch=('x86_64')
 license=('GPL')
 url="https://mkvtoolnix.download/index.html"
-depends=('flac' 'libmatroska' 'libogg' 'libvorbis' 'qt5-declarative' 'xdg-utils'
-         'libebml' 'zlib' 'boost-libs' 'bzip2' 'curl' 'lzo2' 'qt5-multimedia' 'cmark')
-makedepends=('gcc' 'boost' 'ruby') # 'clang') 
+depends=('flac' 'libmatroska' 'libogg' 'libvorbis' 'qt6-declarative' 'xdg-utils'
+         'libebml' 'zlib' 'boost-libs' 'bzip2' 'curl' 'lzo2' 'qt6-multimedia' 'cmark')
+makedepends=('gcc' 'boost' 'ruby' 'qt6-tools') # 'clang') 
 groups=('multimedia')
 source=("https://mkvtoolnix.download/sources/${pkgname}-${pkgver}.tar.xz")
-sha512sums=('fd078208f5ef0438f06b3bb19c3f3c477f87561997a847c56a731265ee9627b089cc568e1d31a9a2c7e46f63aeeabccf98a27694b6b4b1586ba93f7656d20838')
+sha512sums=('c7ce69e9a921103da4745c75cd6fa41a49dbb8637f48097233388e5d8be121714d3fde10f745b78e84a8ef70e46f0168f36f069331f04623805c0bda8a90060c')
 
 build() {
   cd ${pkgname}-${pkgver}
