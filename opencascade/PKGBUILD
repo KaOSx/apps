@@ -1,28 +1,28 @@
 
 pkgname=opencascade
-pkgver=7.6.2
-_pkgver=7_6_2
-_commit=d2abb6d844231cb8f29be6894440874a4700e4a5
-__commit=d2abb6d
+pkgver=7.5.3
+#_pkgver=7_6_2
+_commit=fecb042498514186bd37fa621cdcf09eb61899a3
+__commit=fecb042
 _vtk=9.1
-pkgrel=1
+pkgrel=3
 epoch=1
 pkgdesc="Open CASCADE Technology, 3D modeling & numerical simulation"
 arch=('x86_64')
 url="https://dev.opencascade.org/"
 license=('custom')
-depends=('tk' 'mesa' 'java-runtime' 'libxmu' 'ftgl' 'vtk' 'qtwebkit-tp' 'gl2ps')
+depends=('tk' 'mesa' 'java-runtime' 'libxmu' 'ftgl' 'vtk' 'qt5-base' 'gl2ps')
 makedepends=('java-environment' 'cmake')
 options=('!libtool')
-#source=("opencascade-${pkgver}.tar.gz::https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=${_commit};sf=tgz"
-source=("https://github.com/Open-Cascade-SAS/OCCT/archive/refs/tags/V${_pkgver}.tar.gz"
+source=("opencascade-${pkgver}.tar.gz::https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=${_commit};sf=tgz"
+#source=("https://github.com/Open-Cascade-SAS/OCCT/archive/refs/tags/V${_pkgver}.tar.gz"
         'env.sh'
         'opencascade.sh'
         'opencascade.conf'
         'cmake.patch'
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/opencascade/files/opencascade-7.5.1-fix-AllValues-name-collision-with-vtk-9.0.patch"
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/opencascade/files/opencascade-7.5.1-0005-fix-write-permissions-on-scripts.patch")
-md5sums=('972a170cad0c308b1b12e41d1873294b'
+md5sums=('8fc0891ab20752de80c148c3eed5c570'
          '545f3842f87750dd04569f93f1921e07'
          'fc4b64a9425c02d4daeaeb1425e0a70d'
          '2924ecf57c95d25888f51071fdc72ad0'
@@ -31,16 +31,16 @@ md5sums=('972a170cad0c308b1b12e41d1873294b'
          '9c052ce94a6c7587e8df088ec1b30bae')
 
 prepare() {
-  cd OCCT-${_pkgver}
+  cd occt-${__commit}
 
   patch -p1 -i ${srcdir}/cmake.patch
-  #patch -p1 -i ${srcdir}/opencascade-7.5.1-fix-AllValues-name-collision-with-vtk-9.0.patch
-  #patch -p1 -i ${srcdir}/opencascade-7.5.1-0005-fix-write-permissions-on-scripts.patch
+  patch -p1 -i ${srcdir}/opencascade-7.5.1-fix-AllValues-name-collision-with-vtk-9.0.patch
+  patch -p1 -i ${srcdir}/opencascade-7.5.1-0005-fix-write-permissions-on-scripts.patch
   sed -i -e 's|/lib$|/lib(64)?$|' adm/templates/OpenCASCADEConfig.cmake.in
 }
          
 build() {
-  cmake -B build -S OCCT-${_pkgver} \
+  cmake -B build -S occt-${__commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_RELEASE_DISABLE_EXCEPTIONS=OFF \
@@ -61,7 +61,7 @@ package() {
   #install -m 755 ${srcdir}/env.sh ${pkgdir}/opt/${pkgname}
   
   install -dm755 ${pkgdir}/usr/share/licenses/${pkgname}/
-  install -m644 OCCT-${_pkgver}/LICENSE_LGPL_21.txt  ${pkgdir}/usr/share/licenses/${pkgname}
-  install -m644 OCCT-${_pkgver}/OCCT_LGPL_EXCEPTION.txt ${pkgdir}/usr/share/licenses/${pkgname}
+  install -m644 occt-${__commit}/LICENSE_LGPL_21.txt  ${pkgdir}/usr/share/licenses/${pkgname}
+  install -m644 occt-${__commit}/OCCT_LGPL_EXCEPTION.txt ${pkgdir}/usr/share/licenses/${pkgname}
 }
 
