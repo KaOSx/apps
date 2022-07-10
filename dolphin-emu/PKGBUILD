@@ -2,7 +2,7 @@
 # build version at https://dolphin-emu.org/download/ dev version
 pkgname=dolphin-emu
 pkgver=5.0.16793
-pkgrel=1
+pkgrel=2
 _commit=3cd82b619388d0877436390093a6edc2319a6904
 pkgdesc='GameCube, Wii and Triforce emulator'
 arch=('x86_64')
@@ -13,9 +13,17 @@ depends=('bluez' 'ffmpeg' 'libao' 'mbedtls' 'miniupnpc' 'openal' 'portaudio'
          'pugixml' 'fmt')
 makedepends=('cmake')
 groups=('games')
-source=("https://github.com/dolphin-emu/dolphin/archive/${_commit}.zip")
+source=("https://github.com/dolphin-emu/dolphin/archive/${_commit}.zip"
+        "https://github.com/dolphin-emu/dolphin/commit/66f330e57316257fe81b46f57dad22ea6dee7bae.diff")
 #source=("https://github.com/dolphin-emu/dolphin/archive/${pkgver}.tar.gz")
-md5sums=('3e577ecabfe3953888404342375f42e0')
+md5sums=('3e577ecabfe3953888404342375f42e0'
+         '4359d3babf0d0745f2ccd3aece79782c')
+
+prepare() {
+  cd dolphin-${_commit}
+
+  patch -p1 -i ${srcdir}/66f330e57316257fe81b46f57dad22ea6dee7bae.diff
+}
 
 build() {
   cmake -B build -S dolphin-${_commit} \

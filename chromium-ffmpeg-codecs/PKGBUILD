@@ -1,6 +1,6 @@
  
 pkgname=chromium-ffmpeg-codecs
-pkgver=93.0.4577.82
+pkgver=103.0.5060.114
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
@@ -17,7 +17,7 @@ source=("https://commondatastorage.googleapis.com/chromium-browser-official/chro
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-FORTIFY_SOURCE-r2.patch"
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-memcpy-r0.patch"
         #"https://raw.githubusercontent.com/gentoo/gentoo/master/www-client/chromium/files/chromium-clang-r2.patch")
-md5sums=('5d59c8619445f74d6c9b9650f16f8430'
+md5sums=('6bb5e3b0e627338a29a204794bd381dd'
          'd4c8aed09b852568a58591933b7b0c96'
          '767e3e82f89de949909eb990204185cd')
 
@@ -28,7 +28,7 @@ build() {
   # from https://github.com/gentoo/gentoo/tree/master/www-client/chromium/files
   #patch -p1 -i ${srcdir}/ffmpeg_clang.patch
   #patch -p1 -i ${srcdir}/chromium-FORTIFY_SOURCE-r2.patch
-  patch -p1 -i ${srcdir}/glibc2.34.patch
+  #patch -p1 -i ${srcdir}/glibc2.34.patch
 
   export CC="/usr/bin/clang"
   export CXX="/usr/bin/clang++"
@@ -48,7 +48,6 @@ build() {
                 'enable_platform_dolby_vision=true'
                 'enable_mse_mpeg2ts_stream_parser=true'
                 'enable_wayland_server=false'
-                'use_gio=false'
                 'use_gnome_keyring=false'
                 'use_kerberos=false'
                 'use_cups=false'
