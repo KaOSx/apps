@@ -1,0 +1,30 @@
+
+pkgname=duktape
+pkgver=2.7.0
+pkgrel=1
+pkgdesc='Embeddable Javascript engine, with a focus on portability and compact footprint.'
+arch=('x86_64')
+url='https://duktape.org/'
+license=('MIT')
+depends=('glibc')
+source=("https://duktape.org/${pkgname}-${pkgver}.tar.xz")
+md5sums=('b3200b02ab80125b694bae887d7c1ca6')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  mv Makefile.sharedlibrary Makefile
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+
+  make INSTALL_PREFIX=/usr
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  make INSTALL_PREFIX=/usr DESTDIR=${pkgdir} install
+
+  install -Dm644 LICENSE.txt ${pkgdir}/usr/share/licenses/{$pkgname}/LICENSE
+}

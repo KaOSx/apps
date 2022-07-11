@@ -1,45 +1,50 @@
 
 pkgname=polkit
-pkgver=0.120
-pkgrel=3
+pkgver=121
+pkgrel=1
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=('x86_64')
 license=('LGPL')
 url="https://gitlab.freedesktop.org/polkit/polkit/"
-depends=('glib2' 'pam' 'expat' 'systemd' 'js')
-makedepends=('intltool' 'gobject-introspection' 'docbook-xsl')
+depends=('glib2' 'pam' 'expat' 'systemd' 'duktape')
+makedepends=('intltool' 'gobject-introspection' 'docbook-xsl' 'meson' 'ninja')
 provides=('consolekit')
 options=('!libtool')
 install=polkit.install
 source=("https://www.freedesktop.org/software/polkit/releases/${pkgname}-${pkgver}.tar.gz"
         'polkit.pam'
-        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff"
-        "https://src.fedoraproject.org/rpms/polkit/raw/0a203bd46a1e2ec8cc4b3626840e2ea9d0d13a9a/f/CVE-2021-4115.patch")
-md5sums=('a6efe21d021fafe4191ee30331ef801c'
+        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff")
+md5sums=('255761abdc616805a6592bb5fffae178'
          '6564f95878297b954f0572bc1610dd15'
-         'e9355c69556b48415b4b1dc810944950'
-         '3841d88798ac15a6a372884dc8d34c80')
+         'e9355c69556b48415b4b1dc810944950')
+
+prepare() {
+  cd ${pkgname}-v.${pkgver}
+  # CVE-2021-4034
+  #patch -p1 -i ${srcdir}/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff
+}
 
 build() {
-  cd ${pkgname}-${pkgver}
-  # CVE-2021-4034
-  patch -p1 -i ${srcdir}/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff
-  # CVE-2021-4115
-  patch -p1 -i ${srcdir}/CVE-2021-4115.patch
+  mkdir -p build
+  cd build
 
-  ./configure --prefix=/usr \
-      --sysconfdir=/etc \
-      --localstatedir=/var \
-      --libexecdir=/usr/lib/polkit-1 \
-      --enable-libsystemd-login=yes \
-      --disable-static \
-      --with-os-type=redhat
-  make 
+  meson ../${pkgname}-v.${pkgver} \
+    --prefix=/usr \
+    --buildtype=release \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib/polkit-1 \
+    -Dsession_tracking=libsystemd-login \
+    -Dos_type=redhat \
+    -Dexamples=true \
+    -Dman=true \
+    -Djs_engine=duktape
+  ninja
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  make DESTDIR=${pkgdir} install
+  cd build
+
+  DESTDIR=${pkgdir} ninja install
 
   chown 102 ${pkgdir}/etc/polkit-1/rules.d
   chown 102 ${pkgdir}/usr/share/polkit-1/rules.d
