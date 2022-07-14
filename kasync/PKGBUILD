@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kasync
 pkgver=0.3.0
 _commit=abc6d4d4fed6afd0cb361eb1fe387458de532134
-pkgrel=2
+pkgrel=3
 pkgdesc="KAsync helps writing composable asynchronous code using a continuation based approach."
 arch=('x86_64')
 url='https://github.com/KDE/kasync'
@@ -25,21 +25,17 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

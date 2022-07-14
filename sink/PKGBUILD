@@ -4,12 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=sink
 pkgver=0.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Data access layer handling synchronization, caching and indexing."
 arch=('x86_64')
 url='https://invent.kde.org/pim/sink/'
 license=('LGPL')
-depends=('kmime' 'kcontacts' 'kcalendarcore' 'kasync' 'lmdb' 'kdav2' 'kimap2' 'curl' 'xapian-core')
+depends=('kmime' 'kcontacts' 'kcalendarcore' 'kasync' 'lmdb' 'kdav2' 'kimap2' 'curl'
+         'xapian-core' 'libgit2')
 makedepends=('extra-cmake-modules' 'flatbuffers')
 #source=("https://download.kde.org/unstable/sink/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
 source=("https://invent.kde.org/pim/sink/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.bz2")
@@ -19,6 +20,7 @@ prepare() {
   cd ${pkgname}-v${pkgver}
 
   sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' CMakeLists.txt
+  sed -e '/CMAKE_CXX_STANDARD/d' -i CMakeLists.txt
   sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' examples/imapresource/CMakeLists.txt
   sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' examples/maildirresource/CMakeLists.txt
   sed -i -e 's|add_subdirectory(tests)|#add_subdirectory(tests)|' examples/mailtransportresource/CMakeLists.txt
