@@ -1,0 +1,27 @@
+
+pkgname=kwin-effects-cube
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Desktop cube effect for kwin.'
+arch=('x86_64')
+url='https://github.com/ksnip/kImageAnnotator'
+license=('GPL3')
+depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kglobalaccel' 'ki18n' 'kwindowsystem'
+         'kxmlgui' 'libepoxy' 'kwin' 'qt5-quick3d')
+makedepends=('extra-cmake-modules')
+source=("https://github.com/zzag/kwin-effects-cube/archive/refs/tags/$pkgver.tar.gz")
+md5sums=('11b345044fcd77c06bf7ca242d41c8e3')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+
+  install -Dm644 ${pkgname}-${pkgver}/LICENSES/GPL-3.0-only.txt ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
