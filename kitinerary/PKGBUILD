@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kitinerary
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Library containing itinerary data model and itinerary extraction code."
 url="https://invent.kde.org/pim/kitinerary/"
@@ -13,18 +13,17 @@ depends=('ki18n' 'kmime' 'kcalcore' 'kcontacts' 'kpkpass' 'poppler' 'zxing-cpp')
 makedepends=('extra-cmake-modules')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://invent.kde.org/pim/kitinerary/-/commit/8bf24e2372b142f1a2189ad951fa396c5a4e0e74.diff"
-        "https://invent.kde.org/pim/kitinerary/-/commit/e99d101e2bd4c32566e238ce1340a93781e19eee.diff")
+        "https://invent.kde.org/pim/kitinerary/-/commit/c93acfecb4a6af736fe5aea26cbf496ba1138c04.diff"
+        "https://invent.kde.org/pim/kitinerary/-/commit/e60195421aa159462353892ed32bf46ac8c57d19.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '344067cb2180d87508bbe2c9f3fcb066'
-         '4b6d8414ba30e961430cf5d8c44b8b44')
+         'aefee61bce85aafc9a282fb130d02084'
+         '95e1736c5f11e945d88871ebd501fc40')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # zxing 1.1.0 needed
-  #patch -p1 -i ${srcdir}/8bf24e2372b142f1a2189ad951fa396c5a4e0e74.diff
-  # poppler 21.08 needed
-  #patch -p1 -i ${srcdir}/e99d101e2bd4c32566e238ce1340a93781e19eee.diff
+  # zxing 1.4.0 needed
+  patch -p1 -i ${srcdir}/c93acfecb4a6af736fe5aea26cbf496ba1138c04.diff
+  patch -p1 -i ${srcdir}/e60195421aa159462353892ed32bf46ac8c57d19.diff
 }
 
 build() {
@@ -38,5 +37,5 @@ build() {
 
 package() {
 
-  DESTDIR=${pkgdir} cmake --install build 
+  DESTDIR=${pkgdir} cmake --install build
 }

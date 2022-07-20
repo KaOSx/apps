@@ -4,38 +4,37 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=prison
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="A barcode api to produce QRCode barcodes and DataMatrix barcode"
-url="https://github.com/KDE/prison"
+url="https://invent.kde.org/frameworks/prison"
 license=('GPL' 'LGPL' 'FDL')
-depends=('qt5-base' 'libdmtx' 'qrencode')
+depends=('qt5-base' 'libdmtx' 'qrencode' 'zxing-cpp')
 makedepends=('extra-cmake-modules' 'doxygen' 'qt5-tools')
-source=("http://download.kde.org/stable/frameworks/5.53/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.96/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/prison/-/commit/74e34fa35a59098db7c4358b788ad3ac0a5745f7.diff")
+md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '82bc65d22b0705b8a96269fe667ec8ca')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # zxing 1.4.0 needed
+  patch -p1 -i ${srcdir}/74e34fa35a59098db7c4358b788ad3ac0a5745f7.diff
+}
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_QCH=ON
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
-  
-  cd ${pkgdir}/usr/lib/
-  ln -s libKF5Prison.so.5 libKF5Prison.so.1
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 
