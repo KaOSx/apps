@@ -60,7 +60,7 @@ Rectangle {
             Third is the removal of QtWebKit.  Upstream Qt abandoned it some then years ago, but a fork picked up maintenance.  Unfortunately, that maintenance stopped a few years ago, so it is time to move away from QtWebKit.  All that still depended on it are now ready to move to QtWebEngine.  A couple could not do that move, thus they were removed from the repositories.</p>
 
             <p>But for most, the biggest news for this release will be Plasma 5.25.  KDE Plasma 5.25 redesigns and enhances how you navigate between windows and workspaces. The Overview effect shows all of your open windows and virtual desktops. Gestures on touchpads and touchscreens put Plasma at your fingertips. The dominant color of your background picture can be applied to all components that use the accent color. Titlebars of KDE apps become taller when in Touch Mode, making it easier to press, drag, and close windows with touch. Floating Panels add a margin all around the panel to make it float, while animating it back to look normal when a window is maximized. And Plasma panels can now be navigated with the keyboard, and you can assign custom shortcuts to focus individual panels.< /br>
-            For the other KDE parts, the latest Frameworks (5.95.0) and KDE Gear (22.04.2) are included. All built on <strong>Qt 5.15.5+</strong>.</p>
+            For the other KDE parts, the latest Frameworks (5.96.0) and KDE Gear (22.04.2) are included. All built on <strong>Qt 5.15.5+</strong>.</p>
 
             <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.</p>
 
@@ -97,12 +97,12 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.96.0, Plasma 5.25.3, KDE Applications 22.04.3</b>, Linux 5.17.15, Systemd 250.7, Kmod 30, NetworkManager 1.38.2, LibreOffice 7.3.4, Elisa, Xorg-Server 1.21.3, Mesa 22.1.3, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.96.0, Plasma 5.25.3, KDE Applications 22.04.3</b>, Linux 5.17.15, Systemd 251.3, Kmod 30, NetworkManager 1.38.2, LibreOffice 7.3.5, Elisa, Xorg-Server 1.21.4, Mesa 22.1.4, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.18, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 102.0, Chrome 105, Ardour 6.9.0, Inkscape 1.2, GIMP 2.10.32 and Thunderbird 102.0.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 102.0.1, Chrome 105, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.10.32 and Thunderbird 102.0.3.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.6 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
