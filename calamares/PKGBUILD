@@ -1,14 +1,14 @@
 
 pkgname=calamares
 pkgver=3.3.0alpha1
-pkgrel=6
+pkgrel=7
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://calamares.io/'
 license=('LGPL')
 depends=('qt5-svg' 'qt5-xmlpatterns' 'qt5-location' 'kconfig' 'ki18n' 'kcoreaddons' 'solid'
          'kpackage' 'plasma-framework' 'yaml-cpp' 'parted' 'libatasmart' 'udisks2'
-         'polkit-qt5' 'kpmcore' 'kparts' 'kdbusaddons' 'libpwquality') # 'zfs')
+         'polkit-qt5' 'kpmcore' 'kparts' 'kdbusaddons' 'libpwquality' 'qt5-virtualkeyboard') # 'zfs')
 makedepends=('extra-cmake-modules' 'git' 'qt5-tools' 'boost') # 'clang')
 options=('debug' '!staticlibs')
 #source=("git://github.com/KaOSx/calamares#commit=f36b58f2df47b00487e9e505cdd7f207f4da2fda"
@@ -32,7 +32,7 @@ md5sums=('SKIP'
          'ef997b48e019b411d0fe3a26a81e2194'
          '4b126b6494c776016accd8ffbd0be51d'
          'bf4a935ae9b0e68639bd9968aff9c3ae'
-         '466e6861168fca31acf29660d0dcf74b'
+         '7f7da8114358ab6207e23fdfbef39fdf'
          'dc880f17456d5cad7f07d83554c22b9b'
          'fc80b0501d09ce2526aa8e044256918d')
 
@@ -56,7 +56,7 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DWITH_KF5DBus=ON \
     -DINSTALL_CONFIG=ON \
-    -DBoost_NO_BOOST_CMAKE=ON \
+    -DWITH_QT_VIRTUAL_KEYBOARD=ON \
     -DSKIP_MODULES="bootldr bootloader license notesqml oemid preservefiles zfs" # partitionq"
   cmake --build build
 }
