@@ -2,7 +2,7 @@
 pkgname=opencpn
 pkgver=5.6.2
 _pkgver=4.1.1329
-pkgrel=1
+pkgrel=2
 pkgdesc="Open Source Chart Plotting / Marine Navigation"
 url="https://opencpn.org"
 arch=('x86_64')
@@ -16,17 +16,13 @@ md5sums=('ee3592d86abdbd90d4791cfaa6a6c53b'
          '44141670b980726a35b10d1c57962985')
  
 build() {
-  cd OpenCPN-Release_${pkgver}
-  #patch -p1 -i ${srcdir}/cmake.patch
-
-  cmake -DCMAKE_BUILD_TYPE=Release \
+  cmake -B build -S OpenCPN-Release_${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr
-  make
+  cmake --build build
 }
 
 package() {
-  cd OpenCPN-Release_${pkgver}
 
-  make DESTDIR=${pkgdir} install
+    DESTDIR=${pkgdir} cmake --install build
 }
 
