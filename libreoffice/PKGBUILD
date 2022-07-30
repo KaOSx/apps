@@ -3,7 +3,7 @@ pkgname=libreoffice
 _LOver=7.3.5.2
 pkgver=7.3.5.2
 _pkgver=7.3.5
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
@@ -159,14 +159,14 @@ build() {
 	#patch -p1 -i ${srcdir}/poppler.diff
 
 	# move external sources into place
-	mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
-	for source in "${noextract[@]}"; do
-	  ln -s ${srcdir}/$source .
-	done
-	popd
+	#mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
+	#for source in "${noextract[@]}"; do
+	#  ln -s ${srcdir}/$source .
+	#done
+	#popd
 
-	rm ${srcdir}/ext_sources/185d60944ea767075d27247c3162b3bc-unowinreg.dll
-        cp -f ${srcdir}/185d60944ea767075d27247c3162b3bc-unowinreg.dll ${srcdir}/ext_sources
+	#rm ${srcdir}/ext_sources/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+    #    cp -f ${srcdir}/185d60944ea767075d27247c3162b3bc-unowinreg.dll ${srcdir}/ext_sources
 	
 	#use the CFLAGS but remove the LibO overridden ones
 	for i in $CFLAGS; do
