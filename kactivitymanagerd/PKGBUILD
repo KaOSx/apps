@@ -5,37 +5,30 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kactivitymanagerd
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="System service to manage user's activities, track the usage patterns etc"
 arch=('x86_64')
-url="https://projects.kde.org/projects/kde/workspace/kactivitymanagerd"
+url="https://invent.kde.org/plasma/kactivitymanagerdd"
 license=('GPL')
 depends=('kdbusaddons' 'ki18n' 'kconfig' 'kcoreaddons' 'kwindowsystem' 'kglobalaccel'
          'kxmlgui' 'kio' 'boost-libs')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
