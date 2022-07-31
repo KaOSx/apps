@@ -8,6 +8,11 @@ post_install() {
          systemctl enable ntpd.service
          systemctl enable bluetooth.service
          systemctl enable live.service
+         systemctl --global enable pipewire.socket
+         systemctl --global enable pipewire.service
+         systemctl --global enable pipewire-pulse.socket
+         systemctl --global enable pipewire-pulse.service
+         systemctl --global enable wireplumber
 }
 
 post_upgrade() {
