@@ -1,6 +1,6 @@
 
 pkgname=dnscrypt-proxy
-pkgver=2.1.1
+pkgver=2.1.2
 pkgrel=1
 pkgdesc="Flexible DNS proxy, with support for encrypted DNS protocols."
 arch=('x86_64')
@@ -8,20 +8,20 @@ url="https://github.com/DNSCrypt/dnscrypt-proxy"
 license=('custom:ISC')
 makedepends=('go')
 source=("https://github.com/DNSCrypt/dnscrypt-proxy/archive/${pkgver}.tar.gz")
-md5sums=('e6f79ddb45069a2213300e126bebe0f3')
+md5sums=('b2aa253edf09e7efe41c76cf4d9a03e6')
 
 build() {
   mkdir -p dnscrypt-proxy-src
-  
+
   export GOPATH=${srcdir}/dnscrypt-proxy-src
   export GOOS=linux 
   export GOARCH=amd64
-  
+
   mkdir -p ${srcdir}/dnscrypt-proxy-src/src/github.com/jedisct1
   cp -r ${pkgname}-${pkgver} ${srcdir}/dnscrypt-proxy-src/src/github.com/jedisct1/dnscrypt-proxy
   
   cd dnscrypt-proxy-src/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
-  go build 
+  go build
 }
 
 package() {
@@ -32,12 +32,12 @@ package() {
   install -Dm644 example-forwarding-rules.txt ${pkgdir}/usr/share/doc/dnscrypt-proxy/example-forwarding-rules.txt
   install -Dm644 example-blocked-ips.txt ${pkgdir}/usr/share/doc/dnscrypt-proxy/example-blocked-ips.txt
   install -Dm644 example-cloaking-rules.txt ${pkgdir}/usr/share/doc/dnscrypt-proxy/example-cloaking-rules.txt
-  
+
   #cd ../systemd
   #sed -i -e 's|ExecStart=/opt/dnscrypt-proxy/dnscrypt-proxy|ExecStart=/usr/bin/dnscrypt-proxy|' dnscrypt-proxy.service
   #install -Dm644 dnscrypt-proxy.service ${pkgdir}/usr/lib/systemd/system/dnscrypt-proxy.service
   #install -Dm644 dnscrypt-proxy.socket ${pkgdir}/usr/lib/systemd/system/dnscrypt-proxy.socket
-    
+
   install -Dm644 ../LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
 
