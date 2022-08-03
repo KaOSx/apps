@@ -2,14 +2,14 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=libksane
+pkgname=ksanecore
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Library providing QWidget with all the logic to interface scanners"
+pkgdesc="Library providing logic to interface scanners"
 arch=('x86_64')
-url='https://invent.kde.org/graphics/libksane'
+url='https://invent.kde.org/libraries/ksanecore'
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kwallet' 'kwidgetsaddons' 'ktextwidgets' 'ksanecore')
+depends=('ki18n' 'sane')
 makedepends=('extra-cmake-modules')
 groups=('kde-graphics')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
@@ -20,7 +20,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_TESTING=OFF 
-  cmake --build build
+   cmake --build build
 }
 
 package() {
