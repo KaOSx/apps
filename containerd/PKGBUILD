@@ -1,8 +1,6 @@
 
-# stay with _commit builds, keep in sync with what docker ships
 pkgname=containerd
-pkgver=1.6.6
-_commit=7ad184331fa3e55e52b890ea95e65ba581ae3429
+pkgver=1.6.7
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Daemon to control runC, built for performance and density."
@@ -11,8 +9,7 @@ license=('APACHE')
 depends=('runc' 'btrfs-progs')
 makedepends=('go')
 source=("https://github.com/containerd/containerd/archive/v${pkgver}.tar.gz")
-#source=("https://github.com/containerd/containerd/archive/${_commit}.zip")
-md5sums=('dc6812ac5afe2e70ac7a3df4c3ca117a')
+md5sums=('8899f4bff98b5729b884ca40291fa0f3')
 
 prepare() {
     cd ${pkgname}-${pkgver}
