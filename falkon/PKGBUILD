@@ -19,18 +19,18 @@ source=("${_mirror}/${pkgname}-${_kdever}.tar.xz"
         'preferences.diff'
         'browserwindow.diff'
         'bookmarks_json.diff'
-        "https://github.com/KDE/falkon/commit/7308b64df6a13d5822f491f2cbc7f39ae6781488.diff")
+        'revert.diff') #taken from commit https://github.com/KDE/falkon/commit/7308b64df6a13d5822f491f2cbc7f39ae6781488
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'add41876289657b8605b5ba5889271f9'
          '2addb3a5e484bcfbb19f702d2e86d2fd'
          'cafc9d1284e700ad615265bf39a2bafb'
          'ac21fc6a8c6d85eefcbbb7e7ad93ca1c'
-         '1f85f8f166cabc5e792586c7c4565551')
+         'e1b0fbbc51de79774757b7b60a482ebe')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -R -p1 -i ${srcdir}/7308b64df6a13d5822f491f2cbc7f39ae6781488.diff
+  patch -R -p1 -i ${srcdir}/revert.diff
   patch -p1 -i ${srcdir}/speeddial.diff
   patch -p0 -i ${srcdir}/preferences.diff
   patch -p0 -i ${srcdir}/browserwindow.diff
