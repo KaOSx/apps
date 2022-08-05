@@ -61,12 +61,12 @@ Rectangle {
 
             <p>Third is the removal of QtWebKit.  Upstream Qt abandoned it some ten years ago, but a fork picked up maintenance.  Unfortunately, that maintenance stopped a few years ago, so it is time to move away from QtWebKit.  All that still depended on it are now ready to move to QtWebEngine.  A couple could not do that move, thus they were removed from the repositories.</p>
 
-            <p>The addition of an Audio module isn't the only change to the installer Calamares, it is now also possible to do a typical install entirely from a touchpad or mouse, a keyboard is no longer needed. A virtual keyboard has been implemented for those modules that need text input.< /br>
+            <p>The addition of an Audio module isn't the only change to the installer Calamares, it is now also possible to do a typical install entirely from a touch-pad or mouse, a keyboard is no longer needed. A virtual keyboard has been implemented for those modules that need text input.< /br>
             The layout has also been adjusted, so it is now more intuitive to move through the steps and is more in line visually with the other KaOS application presented in Live mode and first boot into the new system.< /p>
 
-            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0,kernel moved to Linux 5.18.16, Systemd 251.3,  KMod 30, Mesa 22.1.4, Vulkan packages 1.3.223, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
+            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0,kernel moved to Linux 5.18.16, Systemd 251.3,  KMod 30, Mesa 22.1.5, Vulkan packages 1.3.224, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
 
-            <p>For the KDE parts, the latest Frameworks (5.96.0), Plasma (5.25.4) and KDE Gear (22.04.2) are included. All built on <strong>Qt 5.15.5+</strong>.</p>
+            <p>For the KDE parts, the latest Frameworks (5.96.0), Plasma (5.25.4) and KDE Gear (22.07.90) are included. All built on <strong>Qt 5.15.5+</strong>.</p>
 
             <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.</p>
 
@@ -103,7 +103,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.96.0, Plasma 5.25.4, KDE Applications 22.04.3</b>, Linux 5.18.16, Systemd 251.3, Kmod 30, NetworkManager 1.38.2, LibreOffice 7.3.5, Elisa, Xorg-Server 1.21.4, Mesa 22.1.4, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.96.0, Plasma 5.25.4, KDE Applications 22.07.90</b>, Linux 5.18.16, Systemd 251.3, Kmod 30, NetworkManager 1.38.2, LibreOffice 7.3.5, Elisa, Xorg-Server 1.21.4, Mesa 22.1.5, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
