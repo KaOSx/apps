@@ -10,8 +10,9 @@ arch=('x86_64')
 url="http://kde.org/applications/graphics/gwenview/"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kio' 'kitemmodels' 'ki18n' 'kparts' 'kwindowsystem' 'kiconthemes' 'knotifications'
+         'kguiaddons' 'kwidgetsaddons' 'kactivities' 'purpose'
          'baloo' 'kimageformats' 'phonon-qt5' 'libpng' 'exiv2' 'lcms2'
-         'libjpeg-turbo' 'libkdcraw' 'libkipi' 'kipi-plugins' 'cfitsio')
+         'libjpeg-turbo' 'libkdcraw' 'cfitsio' 'kimageannotator')
 makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
 opdepends=('kamera: to work directly with cameras')
 groups=('kde-graphics')
@@ -28,10 +29,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -39,12 +37,11 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
     -DGWENVIEW_SEMANTICINFO_BACKEND_BALOO=ON
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
