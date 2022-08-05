@@ -5,42 +5,30 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kmime
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="library for handling mail messages and newsgroup articles."
+pkgdesc="Library to assist handling MIME data."
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/pim/kmime'
+url='https://invent.kde.org/pim/kmime'
 license=('LGPL')
 depends=('ki18n' 'kcodecs')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+makedepends=('extra-cmake-modules' 'kdoctools')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kmime.git")
-#md5sums=('SKIP')
 
 prepare() {
-  cd $pkgname-${pkgver}
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
 }
 
 build() {
-  cd ${srcdir}
-
-  mkdir build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd ${srcdir}/build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

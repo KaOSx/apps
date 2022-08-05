@@ -6,36 +6,25 @@ pkgname=ktp-contact-runner
 pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
-url="http://www.kde.org"
+url="https://www.kde.org"
 license=('GPL')
 pkgdesc='Finds entries from your KDE-Telepathy Contacts'
 depends=('ktp-common-internals' 'ki18n' 'kservice' 'krunner')
 makedepends=('extra-cmake-modules' 'kdoctools' 'git')
 groups=('kde-telepathy')
-conflicts=('kf5-ktp-contact-runner')
-replaces=('kf5-ktp-contact-runner')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd ${srcdir}
-  
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
