@@ -43,7 +43,7 @@ Rectangle {
             id: intro
             x: 130
             y: 8
-            width: 640
+            width: 760
             font.pointSize: 14
             textFormat: Text.RichText
             antialiasing: true
