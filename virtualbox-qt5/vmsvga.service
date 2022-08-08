@@ -1,9 +1,8 @@
 [Unit]
-Description=VMSVGA Guest Service
-BindsTo=sddm.service
+Description=VMSVGA Guest Service (resize client)
+ConditionVirtualization=|oracle
 
 [Service]
+Type=simple
 ExecStart=/usr/bin/VBoxDRMClient
-
-[Install]
-WantedBy=multi-user.target
+Restart=on-failure
