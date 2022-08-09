@@ -4,11 +4,12 @@ post_install() {
 
   getent group vboxsf &> /dev/null || groupadd -f -g 109 vboxsf
 
+  systemctl enable vmsvga
+
 }
 
-post_upgrade() {
+post_remove() {
 
-  # remove post_upgrade april 2022
   systemctl disable vmsvga
 
 }

@@ -1,4 +1,4 @@
-[Unit]
+#[Unit]
 Description=VMSVGA Guest Service (resize client)
 ConditionVirtualization=|oracle
 
@@ -6,3 +6,7 @@ ConditionVirtualization=|oracle
 Type=simple
 ExecStart=/usr/bin/VBoxDRMClient
 Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
