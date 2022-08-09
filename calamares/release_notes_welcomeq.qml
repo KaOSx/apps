@@ -64,7 +64,7 @@ Rectangle {
             <p>The addition of an Audio module isn't the only change to the installer Calamares, it is now also possible to do a typical install entirely from a touch-pad or mouse, a keyboard is no longer needed. A virtual keyboard has been implemented for those modules that need text input.< /br>
             The layout has also been adjusted, so it is now more intuitive to move through the steps and is more in line visually with the other KaOS application presented in Live mode and first boot into the new system.< /p>
 
-            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0,kernel moved to Linux 5.18.16, Systemd 251.3,  KMod 30, Mesa 22.1.5, Vulkan packages 1.3.224, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
+            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0,kernel moved to Linux 5.18.16, Systemd 251.4,  KMod 30, Mesa 22.1.5, Vulkan packages 1.3.224, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
 
             <p>For the KDE parts, the latest Frameworks (5.96.0), Plasma (5.25.4) and KDE Gear (22.07.90) are included. All built on <strong>Qt 5.15.5+</strong>.</p>
 
@@ -108,7 +108,7 @@ Rectangle {
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.19, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 103.0.1, Chrome 105, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.10.32 and Thunderbird 102.1.0.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 103.0.2, Chrome 105, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.10.32 and Thunderbird 102.1.2.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
