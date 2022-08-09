@@ -4,14 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://invent.kde.org/network/kio-extras'
 license=('LGPL')
 depends=('exiv2' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'kdnssd' 'kiconthemes' 'ki18n'
          'kio' 'solid' 'kbookmarks' 'kguiaddons' 'kactivities-stats' 'syntax-highlighting'
-         'libmtp' 'libssh' 'openexr' 'samba' 'qtwebengine' 'qt5-location' 'kdsoap' 'libappimage')
+         'libmtp' 'libssh' 'openexr' 'samba' 'qtwebengine' 'qt5-location' 'kdsoap' 'libappimage'
+         'libkexiv2')
 makedepends=('extra-cmake-modules' 'kdoctools' 'khtml' 'gperf')
 source=("https://download.kde.org/stable/release-service/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/network/kio-extras/-/commit/c3d52ebecb7f4890e8a412930bce9c74fc9e2f1f.diff")
@@ -29,6 +30,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
