@@ -1,7 +1,7 @@
 
 pkgname=freecell-solver
 pkgver=5.0.0
-pkgrel=3
+pkgrel=4
 arch=('x86_64')
 pkgdesc="C library for automatically solving Freecell and some other variants of card Solitaire."
 url="https://fc-solve.shlomifish.org/"
@@ -12,6 +12,7 @@ source=("https://fc-solve.shlomifish.org/downloads/fc-solve/${pkgname}-${pkgver}
 md5sums=('def258dd81ac99928fa9187ff16a6285')
 
 build() {  
+  # keep old cmake calls, until moving to 6.x.x
   mkdir -p build
   cd build
 
