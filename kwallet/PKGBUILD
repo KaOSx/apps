@@ -10,28 +10,24 @@ arch=('x86_64')
 url='https://invent.kde.org/frameworks/kwallet'
 license=('LGPL')
 depends=('kcoreaddons' 'kconfig' 'kwindowsystem' 'ki18n' 'kiconthemes' 'knotifications'
-         'kconfigwidgets' 'kdbusaddons' 'kservice' 'kwidgetsaddons' 'gpgme')
+         'kconfigwidgets' 'kdbusaddons' 'kservice' 'kwidgetsaddons' 'gpgme' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kf5')
 source=("https://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=prison
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 pkgdesc="A barcode api to produce QRCode barcodes and DataMatrix barcode"
 url="https://invent.kde.org/frameworks/prison"
@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   # zxing 1.4.0 needed
-  patch -p1 -i ${srcdir}/74e34fa35a59098db7c4358b788ad3ac0a5745f7.diff
+  #patch -p1 -i ${srcdir}/74e34fa35a59098db7c4358b788ad3ac0a5745f7.diff
 }
 
 build() {
