@@ -14,12 +14,13 @@ makedepends=('extra-cmake-modules')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
+build() {
 cmake -B build -S ${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DKDE_INSTALL_LIBDIR=lib \
+      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+      -DBUILD_TESTING=OFF
   cmake --build build
 }
 
