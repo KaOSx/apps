@@ -24,7 +24,7 @@ _mirror="https://ftp.acc.umu.se/mirror/documentfoundation.org/libreoffice/src/$_
 #_mirror="http://dev-builds.libreoffice.org/pre-releases/src""
 _additional_source_url="https://dev-www.libreoffice.org/src"
 source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz  
-	${_additional_source_url}/xmlsec1-1.2.33.tar.gz     
+	${_additional_source_url}/xmlsec1-1.2.34.tar.gz
 	${_additional_source_url}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 	${_additional_source_url}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 	${_additional_source_url}/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
@@ -71,14 +71,15 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/libstaroffice-0.0.7.tar.xz 
 	${_additional_source_url}/libzmf-0.0.2.tar.xz
 	${_additional_source_url}/ltm-1.0.zip
-	${_additional_source_url}/pdfium-4699.tar.bz2
+	${_additional_source_url}/pdfium-5058.tar.bz2
 	${_additional_source_url}/libepubgen-0.1.1.tar.xz
 	${_additional_source_url}/libqxp-0.0.2.tar.xz
 	${_additional_source_url}/QR-Code-generator-1.4.0.tar.gz
 	${_additional_source_url}/dtoa-20180411.tgz
-	${_additional_source_url}/skia-m97-a7230803d64ae9d44f4e1282444801119a3ae967.tar.xz
-	${_additional_source_url}/box2d-2.3.1.tar.gz
+	${_additional_source_url}/skia-m103-b301ff025004c9cd82816c86c547588e6c24b466.tar.xz
+	${_additional_source_url}/box2d-2.4.1.tar.gz
 	${_additional_source_url}/libcuckoo-93217f8d391718380c508a722ab9acd5e9081233.tar.gz
+	${_additional_source_url}/dragonbox-1.1.0.tar.gz
 	https://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 	https://dev-www.libreoffice.org/extern/f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
 	poppler.diff
@@ -92,8 +93,8 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
         f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
 	ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 	798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
-	xmlsec1-1.2.33.tar.gz    
-	libexttextcat-3.4.6.tar.xz 
+	xmlsec1-1.2.34.tar.gz
+	libexttextcat-3.4.6.tar.xz
 	libcmis-0.5.2.tar.xz 
 	35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 	2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
@@ -136,15 +137,16 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	libstaroffice-0.0.7.tar.xz
 	libzmf-0.0.2.tar.xz
 	ltm-1.0.zip
-	pdfium-4699.tar.bz2
+	pdfium-5058.tar.bz2
 	libgltf-0.1.0.tar.gz
 	libepubgen-0.1.1.tar.xz
 	libqxp-0.0.2.tar.xz
 	QR-Code-generator-1.4.0.tar.gz
 	dtoa-20180411.tgz
-	skia-m97-a7230803d64ae9d44f4e1282444801119a3ae967.tar.xz
-	box2d-2.3.1.tar.gz
-	libcuckoo-93217f8d391718380c508a722ab9acd5e9081233.tar.gz)
+	skia-m103-b301ff025004c9cd82816c86c547588e6c24b466.tar.xz
+	box2d-2.4.1.tar.gz
+	libcuckoo-93217f8d391718380c508a722ab9acd5e9081233.tar.gz
+	dragonbox-1.1.0.tar.gz)
 
 source libreoffice.md5
 
@@ -198,7 +200,6 @@ build() {
 		--disable-scripting-beanshell \
 		--disable-scripting-javascript \
 		--without-fonts \
-		--with-system-apr \
 		--with-system-libcdr \
 		--without-system-jfreereport \
 		--with-system-libodfgen \
@@ -231,7 +232,6 @@ build() {
 		--with-system-libwpg \
 		--with-system-libwps \
 		--with-system-redland \
-		--with-system-serf \
 		--with-system-boost \
 		--with-system-icu \
 		--with-system-cairo \
@@ -245,6 +245,8 @@ build() {
 		--without-system-libqxp \
 		--without-system-box2d \
 		--without-system-cuckoo \
+		--without-system-dragonbox \
+		--without-system-libfixmath \
 		--with-system-libnumbertext \
 		--with-system-clucene \
 		--disable-dependency-tracking \
@@ -258,7 +260,7 @@ build() {
 	touch src.downloaded
 	#./download
 	# one test in sw_ooxmlexport7 fails, rebuild with '-no-check' added
-	make build-nocheck
+	make
 }
 
 package() {
