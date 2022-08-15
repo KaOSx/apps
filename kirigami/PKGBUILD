@@ -4,20 +4,27 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
  
 pkgname=kirigami
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Set of QtQuick components at the moment targeted for mobile use (in the future desktop as well)'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kirigami'
 license=('LGPL')
 depends=('qt5-svg' 'qt5-quickcontrols2' 'qt5-graphicaleffects')
 makedepends=('extra-cmake-modules' 'qt5-tools')
-source=("https://download.kde.org/stable/frameworks/5.64/${pkgname}2-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}2-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.97/${pkgname}2-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/kirigami/-/commit/bacfaf6744c269d1167f71a46769a941698c1c35.diff"
+        'scrollablepage.diff')
+md5sums=(`grep ${pkgname}2-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '04c5fe205270a73f7861685153efe318'
+         '913c6b84713515c6922763d82fcf4def')
 
 prepare() {
   cd ${pkgname}2-${pkgver}
 
-  #patch -p1 -i ${srcdir}/4a9820a6df15a55a7d36d343ce70a25ba7d56b79.diff
+  # Revert https://invent.kde.org/frameworks/kirigami/-/commit/c28dff79721d3805edcd413ef233216b3b3b0104
+  # breaks QML modules in Calamares
+  patch -R -p1 -i ${srcdir}/bacfaf6744c269d1167f71a46769a941698c1c35.diff
+  patch -R -p1 -i ${srcdir}/scrollablepage.diff
 }
 
 build() {
