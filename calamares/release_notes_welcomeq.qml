@@ -53,18 +53,18 @@ Rectangle {
             text: qsTr("<h3>KaOS - 2022.08</h3>
             <p>KaOS is pleased to announce the availability of the August release of a new stable ISO.</p>
 
-            <p>This is a release were quite a few changes that have long been wanted finally can be implemented.< /br>
+            <p>This is a release where quite a few changes that have long been wanted finally can be implemented.< /br>
             The longest wanted of those is the final removal of Python2 from KaOS.  The default install has been Python2 free for quite some time, but some major packages had still required it to build, now the last one of those, QtWebEngine, has been patched to build against Python3, so now KaOS is completely Python2 free.</p>
 
-            <p>Second is the move to Pipewire (away from PulseAudio) as the default sound/low level multimedia framework.  A switch had been a planned a while, but there were some issues on a Wayland session, so it had to wait.  Those are now all resolved, and you will see Pipewire as the default on this ISO.< /br>
+            <p>Second is the move to Pipewire (away from PulseAudio) as the default sound/low-level multimedia framework.  A switch had been planned for a while, but there were some issues on a Wayland session, so it had to wait.  Those are now all resolved, and you will see Pipewire as the default on this ISO.< /br>
             For those who still prefer PulseAudio, the installer Calamares now has a module added (KaOS only), that gives users the option to select which sound server they prefer (with Pipewire set as default).</p>
 
             <p>Third is the removal of QtWebKit.  Upstream Qt abandoned it some ten years ago, but a fork picked up maintenance.  Unfortunately, that maintenance stopped a few years ago, so it is time to move away from QtWebKit.  All that still depended on it are now ready to move to QtWebEngine.  A couple could not do that move, thus they were removed from the repositories.</p>
 
-            <p>The addition of an Audio module isn't the only change to the installer Calamares, it is now also possible to do a typical install entirely from a touch-pad or mouse, a keyboard is no longer needed. A virtual keyboard has been implemented for those modules that need text input.< /br>
+            <p>The addition of an Audio module isn't the only change to the installer Calamares, it is now also possible to do a typical install entirely from a touchpad or mouse, a keyboard is no longer needed. A virtual keyboard has been implemented for those modules that need text input.< /br>
             The layout has also been adjusted, so it is now more intuitive to move through the steps and is more in line visually with the other KaOS application presented in Live mode and first boot into the new system.< /p>
 
-            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0,kernel moved to Linux 5.18.17, Systemd 251.4,  KMod 30, Mesa 22.1.6, Vulkan packages 1.3.224, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
+            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0, kernel moved to Linux 5.18.17, Systemd 251.4,  KMod 30, Mesa 22.1.6, Vulkan packages 1.3.224, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
 
             <p>For the KDE parts, the latest Frameworks (5.97.0), Plasma (5.25.4) and KDE Gear (22.08.0) are included. All built on <strong>Qt 5.15.5+</strong>.</p>
 
@@ -79,7 +79,7 @@ Rectangle {
             
             <p>For Nvidia, a new longterm support version is included in this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
             
-            <p>Qt 6.3.1 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web-browsers. All of the PyQt packages are now available in a Qt6 version too. Plus the Kvantum theming has support for Qt6.</p>
+            <p>Qt 6.3.1 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web browsers. All of the PyQt packages are now available in a Qt6 version too. Plus the Kvantum theming has support for Qt6.</p>
             
             <p>Big thanks goes to <strong>Fosshost</strong> for not only providing the default mirror (through the <strong>Fastly CDN</strong>, but also providing a server for KaOS. This server is replacing the old Centos server (used for package upload, ZNC bouncer and the old PHP based package viewer).</p>
             
