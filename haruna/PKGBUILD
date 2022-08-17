@@ -1,6 +1,6 @@
 
 pkgname=haruna
-pkgver=0.8.0
+pkgver=0.9.0
 _commit=cb1f6116963b0757e3bdf46891cfc5e5c45f55bd
 pkgrel=1
 arch=('x86_64')
@@ -10,17 +10,17 @@ license=('GPL3')
 depends=('breeze' 'kconfig' 'kcoreaddons' 'kfilemetadata' 'ki18n' 'kio' 'kirigami'
          'kconfigwidgets' 'kxmlgui' 'qt5-quickcontrols2' 'mpv' 'ffmpeg' 'yt-dlp')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("https://invent.kde.org/multimedia/haruna/-/archive/${_commit}/haruna-${_commit}.tar.bz2")
-md5sums=('e23b9aa6d754798add627bd398789283')
+source=("https://download.kde.org/stable/haruna/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('06dad208e79dd8d9b46b9e654aefcc0a8a76b9cdca19f88d2c6bd320fd641be4')
 
 prepare () {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/dd7450a80f10e118f8.diff
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release
 cmake --build build
@@ -29,5 +29,5 @@ cmake --build build
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
-  install -D -m644 ${pkgname}-${_commit}/LICENSES/GPL-3.0-or-later.txt ${pkgdir}/usr/share/licenses/${pkgname}/GPL-3.0-or-later.txt
+  install -D -m644 ${pkgname}-${pkgver}/LICENSES/GPL-3.0-or-later.txt ${pkgdir}/usr/share/licenses/${pkgname}/GPL-3.0-or-later.txt
 }
