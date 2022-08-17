@@ -66,7 +66,8 @@ Rectangle {
 
             <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0, kernel moved to Linux 5.18.17, Systemd 251.4,  KMod 30, Mesa 22.1.6, Vulkan packages 1.3.224, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
 
-            <p>For the KDE parts, the latest Frameworks (5.97.0), Plasma (5.25.4) and KDE Gear (22.08.0) are included. All built on <strong>Qt 5.15.5+</strong>.</p>
+            <p>For the KDE parts, the just-released <b>KDE Gear 22.08</b> is on this ISO.  Highlights of 22.08 include Spectacle, KDE's popular screen-capturing app, allows you to push your screencaps directly to social media, online image hosting services, instant messaging apps, and much more. Itinerary is KDE's travel assistant that helps you plan your trip, added an integrated barcode scanner that allows you to import paper tickets into the app, as well as support for flat rate tickets or discount program cards.  Both Kate and KWrite have recently incorporated a nifty new feature that allows you to place several cursors throughout a document and add text or code in various places simultaneously. Dolphin now lets you sort files also by file extension if you prefer that.  Elisa (KDE's elegant and compact music player), has improved its accessibility features in this version by making the playlist sidebar once again keyboard-navigable.< /br>
+            For the rest of KDE, the latest Frameworks (5.97.0) and Plasma (5.25.4) are included. All built on <b>Qt 5.15.5+</b>.</p>
 
             <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.</p>
 
