@@ -4,41 +4,35 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=baloo-widgets
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Widgets for the baloo framework for searching and managing metadata"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/kdelibs/baloo'
+url='https://invent.kde.org/libraries/baloo-widgets'
 license=('LGPL')
-depends=('baloo' 'kconfig' 'kio' 'ki18n' 'kfilemetadata')
+depends=('baloo' 'kconfig' 'kio' 'ki18n' 'kfilemetadata' 'kservice')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kf5-baloo-widgets')
-provides=('kf5-baloo-widgets')
-replaces=('kf5-baloo-widgets')
-source=($_mirror/${pkgname}-$_kdever.tar.xz)
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-$_kdever.tar.xz
+        "https://invent.kde.org/libraries/baloo-widgets/-/commit/7ff54ae9b68ca0edf3d6cd57c3eefb6cf072b6f8.diff")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '68c50f7f43866799fb6854dda8d8a8e0')
 groups=('kde-system')
 
 prepare() {
-  cd $_pkgname
-  #sed -i -e 's|#include <baloo/completionproposal.h>||' ${srcdir}/${_pkgname}/src/querybuilder.cpp
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/7ff54ae9b68ca0edf3d6cd57c3eefb6cf072b6f8.diff
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DLIB_INSTALL_DIR=lib
-  make
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
