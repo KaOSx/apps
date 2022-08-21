@@ -35,7 +35,7 @@ Rectangle {
         
         ScrollBar.vertical: ScrollBar {
             id: fscrollbar 
-            width: 10
+            width: 5
             policy: ScrollBar.AlwaysOn
         }
 
