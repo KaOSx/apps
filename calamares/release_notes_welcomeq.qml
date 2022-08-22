@@ -50,8 +50,8 @@ Rectangle {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2022.08</h3>
-            <p>KaOS is pleased to announce the availability of the August release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2022.09</h3>
+            <p>KaOS is pleased to announce the availability of the September release of a new stable ISO.</p>
 
             <p>This is a release where quite a few changes that have long been wanted finally can be implemented.< /br>
             The longest wanted of those is the final removal of Python2 from KaOS.  The default install has been Python2 free for quite some time, but some major packages had still required it to build, now the last one of those, QtWebEngine, has been patched to build against Python3, so now KaOS is completely Python2 free.</p>
@@ -64,7 +64,7 @@ Rectangle {
             <p>The addition of an Audio module isn't the only change to the installer Calamares, it is now also possible to do a typical install entirely from a touchpad or mouse, a keyboard is no longer needed. A virtual keyboard has been implemented for those modules that need text input.< /br>
             The layout has also been adjusted, so it is now more intuitive to move through the steps and is more in line visually with the other KaOS application presented in Live mode and first boot into the new system.< /p>
 
-            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0, kernel moved to Linux 5.18.17, Systemd 251.4,  KMod 30, Mesa 22.1.6, Vulkan packages 1.3.224, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
+            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0, kernel moved to Linux 5.18.17, Systemd 251.4,  KMod 30, Mesa 22.1.7, Vulkan packages 1.3.225, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
 
             <p>For the KDE parts, the just-released <b>KDE Gear 22.08</b> is on this ISO.  Highlights of 22.08 include Spectacle, KDE's popular screen-capturing app, allows you to push your screencaps directly to social media, online image hosting services, instant messaging apps, and much more. Itinerary is KDE's travel assistant that helps you plan your trip, added an integrated barcode scanner that allows you to import paper tickets into the app, as well as support for flat rate tickets or discount program cards.  Both Kate and KWrite have recently incorporated a nifty new feature that allows you to place several cursors throughout a document and add text or code in various places simultaneously. Dolphin now lets you sort files also by file extension if you prefer that.  Elisa (KDE's elegant and compact music player), has improved its accessibility features in this version by making the playlist sidebar once again keyboard-navigable.< /br>
             For the rest of KDE, the latest Frameworks (5.97.0) and Plasma (5.25.4) are included. All built on <b>Qt 5.15.5+</b>.</p>
@@ -104,7 +104,7 @@ Rectangle {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.97.0, Plasma 5.25.4, KDE Applications 22.08.0</b>, Linux 5.18.17, Systemd 251.4, Kmod 30, NetworkManager 1.38.4, LibreOffice 7.4.0, Elisa, Xorg-Server 1.21.4, Mesa 22.1.6, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.97.0, Plasma 5.25.4, KDE Applications 22.08.0</b>, Linux 5.18.17, Systemd 251.4, Kmod 30, NetworkManager 1.38.4, LibreOffice 7.4.0, Elisa, Xorg-Server 1.21.4, Mesa 22.1.7, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             

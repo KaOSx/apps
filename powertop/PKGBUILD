@@ -9,14 +9,11 @@ license=('GPL2')
 depends=('gcc-libs' 'libnl' 'ncurses' 'pciutils')
 groups=('utils')
 #source=("https://01.org/sites/default/files/downloads/powertop-${pkgver}.tar.gz")
-source=("https://github.com/fenrus75/powertop/archive/v${pkgver}.tar.gz"
-        'glibc.patch')
-md5sums=('4a5fb8a23ea9fa6b50e4ee3d158965e1'
-         'fb8ac8307de11c06416b69f37540b89a')
+source=("https://github.com/fenrus75/powertop/archive/v${pkgver}.tar.gz")
+md5sums=('4a5fb8a23ea9fa6b50e4ee3d158965e1')
 
 build() {
   cd powertop-${pkgver}
-  patch -p0 -i ${srcdir}/glibc.patch
 
   autoreconf -vi
   ./configure --prefix=/usr
