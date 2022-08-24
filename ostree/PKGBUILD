@@ -3,7 +3,7 @@ pkgname=ostree
 _pkgname=libostree
 pkgver=2022.5
 _pkgver=2022.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Suite of command line tools that combines a git-like model for committing and downloading bootable filesystem trees"
 url="https://github.com/ostreedev/ostree"
 arch=('x86_64')
@@ -23,7 +23,7 @@ prepare() {
 
   cp ${srcdir}/ostree-mkinitcpio.conf src/boot/mkinitcpio/ostree-mkinitcpio.conf
   # https://forum.kaosx.us/d/2942-discover-wont-start-after-update-to-5245
-  patch -p1 -R -i $srcdir/4fd0d6b4c1566a75cb234a41e895a603c19448d4.diff
+  #patch -p1 -R -i $srcdir/4fd0d6b4c1566a75cb234a41e895a603c19448d4.diff
 }
 
 build() {
