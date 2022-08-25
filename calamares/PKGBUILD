@@ -13,24 +13,14 @@ makedepends=('extra-cmake-modules' 'git' 'qt5-tools' 'boost') # 'clang')
 options=('debug' '!staticlibs')
 #source=("git://github.com/KaOSx/calamares#commit=f36b58f2df47b00487e9e505cdd7f207f4da2fda"
 source=("git+https://github.com/KaOSx/calamares"
-#source=("git://github.com/calamares/calamares"
         'calamares.desktop'
         'installer.svg'
-        'kdm_sddm.conf'
-        'unpackfs.conf'
         'launch-calamares.sh'
-        'LICENSE.txt'
-        'release_notes.qml'
         'release_notes_welcomeq.qml'
         'chevron-left-solid.svg'
         "https://github.com/calamares/calamares/commit/79db04dc2eb00b354044f73c054a94fe2b9f9aae.diff")
 md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
-         'd5c65f43e057054e9728810530c4a030'
-         '184d5b6886fc7a6156d4b790657f77f4'
-         '8b69a3a86923e2ee67a5a0725acb93e6'
-         'ef997b48e019b411d0fe3a26a81e2194'
-         '4b126b6494c776016accd8ffbd0be51d'
          'bf4a935ae9b0e68639bd9968aff9c3ae'
          'b157428fa88dfb72c5f875ab462d3648'
          'dc880f17456d5cad7f07d83554c22b9b'
@@ -63,12 +53,13 @@ build() {
 
 package() {
   DESTDIR=${pkgdir} cmake --install build
-  
+
   install -Dm755 ${srcdir}/launch-calamares.sh ${pkgdir}/usr/bin/launch-calamares.sh
   rm -rf ${pkgdir}/usr/share/applications/${pkgname}.desktop
   install -Dm644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
   install -Dm644 ${srcdir}/installer.svg ${pkgdir}/usr/share/pixmaps/installer.svg
   install -Dm644 ${srcdir}/chevron-left-solid.svg ${pkgdir}/usr/share/pixmaps/chevron-left-solid.svg
-  install -Dm644 ${srcdir}/LICENSE.txt ${pkgdir}/usr/share/calamares/LICENSE.txt
   install -Dm644 ${srcdir}/release_notes_welcomeq.qml ${pkgdir}/usr/share/calamares/release_notes_welcomeq.qml
+
+  install -Dm644 ${pkgname}/LICENSES/LGPL-3.0-or-later ${pkgdir}/usr/share/calamares/LICENSE.txt
 }
