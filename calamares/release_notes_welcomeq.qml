@@ -53,13 +53,8 @@ Rectangle {
             text: qsTr("<h3>KaOS - 2022.09</h3>
             <p>KaOS is pleased to announce the availability of the September release of a new stable ISO.</p>
 
-            <p>This is a release where quite a few changes that have long been wanted finally can be implemented.< /br>
-            The longest wanted of those is the final removal of Python2 from KaOS.  The default install has been Python2 free for quite some time, but some major packages had still required it to build, now the last one of those, QtWebEngine, has been patched to build against Python3, so now KaOS is completely Python2 free.</p>
-
             <p>Second is the move to Pipewire (away from PulseAudio) as the default sound/low-level multimedia framework.  A switch had been planned for a while, but there were some issues on a Wayland session, so it had to wait.  Those are now all resolved, and you will see Pipewire as the default on this ISO.< /br>
             For those who still prefer PulseAudio, the installer Calamares now has a module added (KaOS only), that gives users the option to select which sound server they prefer (with Pipewire set as default).</p>
-
-            <p>Third is the removal of QtWebKit.  Upstream Qt abandoned it some ten years ago, but a fork picked up maintenance.  Unfortunately, that maintenance stopped a few years ago, so it is time to move away from QtWebKit.  All that still depended on it are now ready to move to QtWebEngine.  A couple could not do that move, thus they were removed from the repositories.</p>
 
             <p>The addition of an Audio module isn't the only change to the installer Calamares, it is now also possible to do a typical install entirely from a touchpad or mouse, a keyboard is no longer needed. A virtual keyboard has been implemented for those modules that need text input.< /br>
             The layout has also been adjusted, so it is now more intuitive to move through the steps and is more in line visually with the other KaOS application presented in Live mode and first boot into the new system.< /p>
@@ -109,7 +104,7 @@ Rectangle {
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.19, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 103.0.2, Chrome 106, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.10.32 and Thunderbird 102.1.2.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 104.0, Chrome 106, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.10.32 and Thunderbird 102.2.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>

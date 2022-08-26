@@ -1,7 +1,7 @@
 
 pkgname=calamares
 pkgver=3.3.0alpha2
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://calamares.io/'
@@ -17,14 +17,13 @@ source=("git+https://github.com/KaOSx/calamares"
         'installer.svg'
         'launch-calamares.sh'
         'release_notes_welcomeq.qml'
-        'chevron-left-solid.svg'
-        "https://github.com/calamares/calamares/commit/79db04dc2eb00b354044f73c054a94fe2b9f9aae.diff")
+        'chevron-left-solid.svg')
 md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
-         'bf4a935ae9b0e68639bd9968aff9c3ae'
-         'b157428fa88dfb72c5f875ab462d3648'
-         'dc880f17456d5cad7f07d83554c22b9b'
-         'fc80b0501d09ce2526aa8e044256918d')
+         'd5c65f43e057054e9728810530c4a030'
+         'ef997b48e019b411d0fe3a26a81e2194'
+         'f510d0559fc4a84d5d1398fdc9c2633d'
+         'dc880f17456d5cad7f07d83554c22b9b')
 
 prepare () {
   cd ${pkgname}
@@ -61,5 +60,5 @@ package() {
   install -Dm644 ${srcdir}/chevron-left-solid.svg ${pkgdir}/usr/share/pixmaps/chevron-left-solid.svg
   install -Dm644 ${srcdir}/release_notes_welcomeq.qml ${pkgdir}/usr/share/calamares/release_notes_welcomeq.qml
 
-  install -Dm644 ${pkgname}/LICENSES/LGPL-3.0-or-later ${pkgdir}/usr/share/calamares/LICENSE.txt
+  install -Dm644 ${pkgname}/LICENSES/LGPL-3.0-or-later.txt ${pkgdir}/usr/share/calamares/LICENSE.txt
 }
