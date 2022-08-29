@@ -20,13 +20,13 @@ import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls.Material 2.1
+//import QtQuick.Controls.Material 2.1
 
-Rectangle {
+Item {
     width: parent.width
     height: parent.height
-    focus: true
-    color: "#f2f2f2"
+    //focus: true
+    //color: "#f2f2f2"
 
     Flickable {
         id: flick
@@ -41,10 +41,10 @@ Rectangle {
 
         TextArea {
             id: intro
-            x: 130
-            y: 8
-            width: 760
-            font.pointSize: 14
+            //x: 130
+            //y: 8
+            width: parent.width
+            font.pointSize: 12
             textFormat: Text.RichText
             antialiasing: true
             activeFocusOnPress: false
@@ -117,7 +117,7 @@ Rectangle {
         }
     }
 
-    ToolButton {
+    /*ToolButton {
         id: toolButton
         x: 19
         y: 29
@@ -136,6 +136,6 @@ Rectangle {
             source: "file:/usr/share/pixmaps/chevron-left-solid.svg"
             fillMode: Image.PreserveAspectFit
         }
-    }
+    }*/
 
 }

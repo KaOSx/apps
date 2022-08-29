@@ -1,8 +1,8 @@
 
 pkgname=libmediawiki
 #pkgver=${_kdever}
-pkgver=5.37.0
-pkgrel=3
+pkgver=5.38.0
+pkgrel=1
 pkgdesc="KDE C++ interface for MediaWiki based web service as wikipedia.org"
 url="https://invent.kde.org/libraries/libmediawiki"
 arch=('x86_64')
@@ -10,15 +10,15 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-graphics' 'kde-uninstall')
-source=("https://download.kde.org/stable/libmediawiki/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/Attic/libmediawiki/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/libraries/libmediawiki/-/commit/7c79dae079d20b46d05462ed9f5b3cfae78f420a.diff")
-sha256sums=('da167259c49d012359ad65175c365613f0c42699fb99ac7fb9d1f1c8c48292c1'
+sha256sums=('6250f11fff0abc70e0a0359232cbb5c907bf644fdc21ef35a28d43bacf62bb86'
             '1909e083ecd3a831c13391938442b7ac17f0a17583b9c5a435939bd4e4594a99')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i $srcdir/7c79dae079d20b46d05462ed9f5b3cfae78f420a.diff
+  #patch -p1 -i $srcdir/7c79dae079d20b46d05462ed9f5b3cfae78f420a.diff
   #sed -i -e 's|#include <libkdcraw/kdcraw.h|#include <kdcraw.h|' ${srcdir}/${pkgname}/panorama/tasks/preprocesstask.h
 }
 
