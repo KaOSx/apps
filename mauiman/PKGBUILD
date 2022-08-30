@@ -1,0 +1,25 @@
+ 
+pkgname=mauiman
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Maui Manager Library. Server and public library API.'
+arch=('x86_64')
+url="https://mauikit.org/"
+license=('GPL3')
+depends=('qt5-base')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/stable/maui/mauiman/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('027142eec1535a3e3eda8348b21625a4f7ec601c80f2ca3f62049927dfef3ae6')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
