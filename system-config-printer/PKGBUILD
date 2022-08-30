@@ -1,6 +1,6 @@
 
 pkgname=system-config-printer
-pkgver=1.5.17
+pkgver=1.5.18
 _commit=340ec91a5702ccb75c6cde3a8ba634a01eab59d5
 pkgrel=1
 pkgdesc="A CUPS printer configuration tool and status applet"
@@ -8,13 +8,13 @@ url="https://github.com/OpenPrinting/system-config-printer"
 arch=('x86_64')
 license=('GPL')
 depends=('pycups' 'dbus-python3' 'pysmbc' 'libusb' 'python3-pycurl' 'systemd'
-         'python3-gobject3' 'dbus-glib' 'libnotify' 'libsecret')
+         'python3-gobject3' 'dbus-glib' 'libnotify' 'libsecret' 'cups')
 makedepends=('intltool' 'xmlto' 'docbook-xsl' 'desktop-file-utils' 'libxml2')
 optdepends=('print-manager: for the administration tool in KDE System Settings')
 provides=('system-config-printer-common')
 source=("https://github.com/OpenPrinting/system-config-printer/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #source=("https://github.com/OpenPrinting/system-config-printer/archive/${_commit}.zip")
-md5sums=('27b2f246dce23fbc6b9f0d768ba7bdad')
+md5sums=('ee92ed28a0f89a88ff0478c62c59c599')
 
 build() {
   cd ${pkgname}-${pkgver}
