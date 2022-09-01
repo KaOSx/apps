@@ -157,8 +157,8 @@ build() {
 	#[ -z "${ANT_HOME}" ] && . /etc/profile.d/apache-ant.sh
 
 	cd ${srcdir}/libreoffice-$_LOver
-	# poppler 22.03.0 needed
-	#patch -p1 -i ${srcdir}/poppler.diff
+	# poppler 22.09.0 needed
+	patch -p1 -i ${srcdir}/poppler.diff
 
 	# move external sources into place
 	mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
