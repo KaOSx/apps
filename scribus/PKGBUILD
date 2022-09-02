@@ -20,13 +20,13 @@ source=("https://sourceforge.net/projects/scribus/files/scribus-devel/${pkgver}/
          "https://github.com/scribusproject/scribus/commit/f75c1613db67f4067643d0218a2db3235e42ec9f.diff"
          "https://github.com/scribusproject/scribus/commit/f19410ac3b27e33dd62105746784e61e85b90a1d.diff"
          "https://github.com/scribusproject/scribus/commit/f2237b8f0b5cf7690e864a22ef7a63a6d769fa36.diff"
-         'poppler22.09.diff')
+         "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-office/scribus/files/scribus-1.5.8-poppler-22.09.0.patch")
 sha256sums=('47816e8fcf6d05788ff16aa4499f97ff22431c777a7789149b0a88b451e16b74'
             '388350c269e4c8f149ed71850d7905cb947f4da5a92b638766bf5b903ee605e2'
             '348c023fb934d92249d78dff908b1790f21231941053ebf35b03f925ec7e4397'
             'a485b7b3cd0c3a86edf372572d8e31e78c75c6a10411a5341ac728c7fd5ed061'
             '0845f08c50732336d17cdf2a9596a2137320a4534f5671636aa012c48ff7e7c2'
-            'f99e7c8e61c47e460b269859581c34d79f3e5e4ccd734bf0570fa44d2ef7c566')
+            'd1712c200f7be2eb4f791cc046379747af39a1f9a262a090ae2de990b939b9b3')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -40,7 +40,7 @@ prepare() {
   # poppler 22.04.0 needed
   patch -p1 -i ${srcdir}/f2237b8f0b5cf7690e864a22ef7a63a6d769fa36.diff
   # poppler 22.09.0 needed
-  patch -p1 -i ${srcdir}/poppler22.09.diff
+  patch -p1 -i ${srcdir}/scribus-1.5.8-poppler-22.09.0.patch
 }
 
 build() {
