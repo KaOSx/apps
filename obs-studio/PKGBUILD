@@ -1,7 +1,7 @@
 
 pkgname=obs-studio
 pkgver=28.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Free and open source software for video recording and live streaming."
 arch=('x86_64')
 url="https://obsproject.com/"
@@ -10,12 +10,15 @@ depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon' 'qt6-svg' 'qt6-wayland'
          'libxcomposite' 'x264' 'pulseaudio' 'vlc' 'jack2' 'mbedtls' 'pipewire'
          'python3')
 makedepends=('cmake' 'swig')
-source=("https://github.com/obsproject/obs-studio/archive/${pkgver}.tar.gz")
-md5sums=('c78fa1c54b1c3595bb67fedf9ecefcac')
+source=("https://github.com/obsproject/obs-studio/archive/${pkgver}.tar.gz"
+        "https://git.alpinelinux.org/aports/plain/community/obs-studio/disable-some-plugins.patch")
+md5sums=('c78fa1c54b1c3595bb67fedf9ecefcac'
+         '6cccce89bc0a459b153023f49fda10f7')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
+  patch -p1 -i ${srcdir}/disable-some-plugins.patch
   #sed -i "s|add_subdirectory(obs-outputs)|#add_subdirectory(obs-outputs)|g" plugins/CMakeLists.txt
 }
 
@@ -28,9 +31,10 @@ build() {
     -DWITH_RTMPS=ON \
     -DENABLE_BROWSER=OFF \
     -DBUILD_VST=OFF \
+    -DENABLE_NEW_MPEGTS_OUTPUT=OFF \
     -DENABLE_SCRIPTING_LUA=OFF \
     -DENABLE_SCRIPTING_PYTHON=ON \
-    -DENABLE_PLUGINS=OFF
+    -DENABLE_PLUGINS=ON
   cmake --build build
 }
 
