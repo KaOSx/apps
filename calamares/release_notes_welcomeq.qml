@@ -53,21 +53,24 @@ Item {
             text: qsTr("<h3>KaOS - 2022.09</h3>
             <p>KaOS is pleased to announce the availability of the September release of a new stable ISO.</p>
 
-            <p>Second is the move to Pipewire (away from PulseAudio) as the default sound/low-level multimedia framework.  A switch had been planned for a while, but there were some issues on a Wayland session, so it had to wait.  Those are now all resolved, and you will see Pipewire as the default on this ISO.< /br>
-            For those who still prefer PulseAudio, the installer Calamares now has a module added (KaOS only), that gives users the option to select which sound server they prefer (with Pipewire set as default).</p>
+            <p>Many changes have been implemented to the installer <strong>Calamares</strong> in the last few months, so it is fitting to start with listing all that is new or has changed.< /br>
+            It is now possible to do a typical install entirely from a touchpad or mouse, a keyboard is no longer needed. A virtual keyboard has been implemented for those modules that need text input.< /br>
+            For those who prefer PulseAudio over Pipewire, a module has been added (KaOS only), that gives users the option to select which sound server they prefer (with Pipewire set as default).< /br>
+            Dracut is the new default for the initramfs image creation (mkinitcpio is no longer in use for new installs). To accommodate that change, the Dracut module in Calamares had to be adjusted, so it now supports version-less kernels.< /br>
+            The slideshow presented during the install had a complete overhaul, no  longer in use are complete different images for each slide, now it has one static background and animated text sliding & fading in & out. Corresponding images for each text are now fading in as slides too. Less jarring transition as was before, so now it is no longer needed to mouse click to advance the slides, it loops automatically.< /br>
+            There now is an option however to either view the slideshow with information about the distribution, or watch what the installer Calamares is currently doing by selecting the Log View.< /br>
+            The layout has also been adjusted, so it is now more intuitive to move through the steps and is more in line visually with the other KaOS application presented in Live mode and first boot into the new system.</p>
 
-            <p>The addition of an Audio module isn't the only change to the installer Calamares, it is now also possible to do a typical install entirely from a touchpad or mouse, a keyboard is no longer needed. A virtual keyboard has been implemented for those modules that need text input.< /br>
-            The layout has also been adjusted, so it is now more intuitive to move through the steps and is more in line visually with the other KaOS application presented in Live mode and first boot into the new system.< /p>
+            <p>As mentioned above, KaOS has moved to Dracut as the new initramfs infrastructure. Unlike other implementations, dracut hard-codes as little as possible into the initramfs. The initramfs has (basically) one purpose in life -- getting the rootfs mounted so that transitioning to the real rootfs can be done. Dracut is distribution agnostic and used by many (examples Fedora, VOID, OpenSuse, Gentoo), plus the code-base is very actively maintained.</p>
 
-            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0, kernel moved to Linux 5.18.17, Systemd 251.4,  KMod 30, Mesa 22.1.7, Vulkan packages 1.3.225, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
+            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0, kernel moved to Linux 5.1.7, Systemd 251.4,  KMod 30, Mesa 22.1.7, Vulkan packages 1.3.226, Libnl 3.7.0, Hdparm 9.64, and Upower 1.90.0.</p>
 
             <p>For the KDE parts, the just-released <b>KDE Gear 22.08</b> is on this ISO.  Highlights of 22.08 include Spectacle, KDE's popular screen-capturing app, allows you to push your screencaps directly to social media, online image hosting services, instant messaging apps, and much more. Itinerary is KDE's travel assistant that helps you plan your trip, added an integrated barcode scanner that allows you to import paper tickets into the app, as well as support for flat rate tickets or discount program cards.  Both Kate and KWrite have recently incorporated a nifty new feature that allows you to place several cursors throughout a document and add text or code in various places simultaneously. Dolphin now lets you sort files also by file extension if you prefer that.  Elisa (KDE's elegant and compact music player), has improved its accessibility features in this version by making the playlist sidebar once again keyboard-navigable.< /br>
             For the rest of KDE, the latest Frameworks (5.97.0) and Plasma (5.25.4) are included. All built on <b>Qt 5.15.5+</b>.</p>
 
-            <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.</p>
+            <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.< /br>
+            Similar, Pipewire has replaced PulseAudio as the default sound/low-level multimedia framework.</p>
 
-            <p>During the install, there now is an option to either view a slideshow with information about the distribution, or watch what the installer Calamares is currently doing by selecting the Log View.</p>
-            
             <p>A shift has started as to how all Python packages are build.  Historically, just about all were build with setuptools though a setup.py script.  PEP17 is the new standard for building python packages, see https://peps.python.org/pep-0517/.  At this stage, KaOS is testing this transition with different new Python build tools, such as Python-flit & Python-build, with Python-wheel currently in use to install the build packages.</p>
 
             <p>Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.6.
@@ -99,7 +102,7 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.97.0, Plasma 5.25.4, KDE Applications 22.08.0</b>, Linux 5.18.17, Systemd 251.4, Kmod 30, NetworkManager 1.40.0, LibreOffice 7.4.0, Elisa, Xorg-Server 1.21.4, Mesa 22.1.7, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.97.0, Plasma 5.25.5, KDE Applications 22.08.1</b>, Linux 5.19.7, Systemd 251.4, Kmod 30, NetworkManager 1.40.0, LibreOffice 7.4.0, Elisa, Xorg-Server 1.21.4, Mesa 22.1.7, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.13 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
