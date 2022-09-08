@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
  
 pkgname=kirigami
 pkgver=${_kf5ver}
-pkgrel=4
+pkgrel=1
 pkgdesc='Set of QtQuick components at the moment targeted for mobile use (in the future desktop as well)'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kirigami'
@@ -17,16 +17,14 @@ source=("https://download.kde.org/stable/frameworks/5.97/${pkgname}2-${pkgver}.t
         "https://invent.kde.org/frameworks/kirigami/-/commit/e14f9a8e4a1d4b2ef63c36ef8ff958e281a67db8.diff"
         "https://invent.kde.org/frameworks/kirigami/-/commit/bacfaf6744c269d1167f71a46769a941698c1c35.diff"
         "https://invent.kde.org/frameworks/kirigami/-/commit/c28dff79721d3805edcd413ef233216b3b3b0104.diff"
-        "https://invent.kde.org/frameworks/kirigami/-/commit/b5126b2bac3564908881e4c657a9470047a4b71e.diff"
-        "https://invent.kde.org/frameworks/kirigami/-/commit/27b2a4fbbdb919a54e9a825840f9e9200eaabf74.diff")
+        "https://invent.kde.org/frameworks/kirigami/-/commit/b5126b2bac3564908881e4c657a9470047a4b71e.diff")
 md5sums=(`grep ${pkgname}2-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          'cdff1a5444d2a7b5314d7f5d3e11d984'
          '8d137216b70da9d0ecedc5b709fbb8d1'
          '1193ddf51b55118caf4d4ac582813bb0'
          '04c5fe205270a73f7861685153efe318'
          '8ed74c641f9b6860af6b3273d6c2e4d4'
-         '19525c529db2904a731422d51657b44b'
-         '73124621b42388b06933ff70b78f064e')
+         '19525c529db2904a731422d51657b44b')
 
 prepare() {
   cd ${pkgname}2-${pkgver}
@@ -39,8 +37,7 @@ prepare() {
   #patch -R -p1 -i ${srcdir}/bacfaf6744c269d1167f71a46769a941698c1c35.diff
   #patch -R -p1 -i ${srcdir}/c28dff79721d3805edcd413ef233216b3b3b0104.diff
   # https://bugs.kde.org/show_bug.cgi?id=458099
-  patch -p1 -i ${srcdir}/b5126b2bac3564908881e4c657a9470047a4b71e.diff
-  patch -p1 -i ${srcdir}/27b2a4fbbdb919a54e9a825840f9e9200eaabf74.diff
+  #patch -p1 -i ${srcdir}/b5126b2bac3564908881e4c657a9470047a4b71e.diff
 }
 
 build() {
