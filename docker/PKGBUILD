@@ -1,11 +1,11 @@
 pkgname=docker
-pkgver=20.10.17
-_pkgver=20.10.17
+pkgver=20.10.18
+_pkgver=20.10.18
 # add commit associated with the release tag
 # build runc & containerd from https://github.com/moby/moby/blob/master/hack/dockerfile/install/containerd.installer &
 # https://github.com/moby/moby/blob/master/hack/dockerfile/install/runc.installer & https://github.com/moby/moby/blob/master/hack/dockerfile/install/proxy.installer for docker-proxy
 # all at https://github.com/moby/moby/tree/master/hack/dockerfile/install --branch
-DOCKER_GITCOMMIT=a89b842
+DOCKER_GITCOMMIT=e42327a
 pkgrel=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64')
@@ -19,7 +19,7 @@ install=$pkgname.install
 #source=("cli-${pkgver}.tar.gz::https://github.com/docker/cli/archive/v${pkgver}.tar.gz"
 source=("moby-${_pkgver}.tar.gz::https://github.com/moby/moby/archive/v${_pkgver}.tar.gz"
         'docker.sysusers')
-md5sums=('5bbf0916264c1c5cd47c893527c048f2'
+md5sums=('02b52effebd21c8bbbd51cee9e1ae22d'
          '4324edeb9adc210a2c22f44eb4cb8a74')
 
 #prepare() {
