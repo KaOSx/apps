@@ -1,7 +1,7 @@
 
 pkgname=soundkonverter
 pkgver=3.0.1.1
-pkgrel=1
+pkgrel=2
 _commit=aceda48bf37b77e042769ee5b2337b38a6d40538
 pkgdesc="SoundKonverter is a frontend to various audio converters"
 arch=('x86_64')
@@ -22,20 +22,16 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${_commit}/src \
+  cmake -B build -S ${pkgname}-${_commit}/src \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

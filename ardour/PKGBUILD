@@ -2,7 +2,7 @@
 pkgname=ardour
 _pkgname=Ardour
 pkgver=6.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A multichannel hard disk recorder and digital audio workstation"
 arch=('x86_64')
 url="https://ardour.org/"
@@ -13,7 +13,8 @@ depends=('atkmm' 'aubio' 'cairomm' 'gdk-pixbuf2' 'gtkmm' 'libx11' 'libxml2' 'pan
 makedepends=('boost' 'cppunit' 'itstool' 'libusb')
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 options=('!strip')
-source=("https://community.ardour.org/srctar"
+#source=("https://community.ardour.org/srctar"
+source=("https://sourceforge.net/projects/kaosx/files/sources/ardour/${_pkgname}-${pkgver}.tar.bz2"
         "https://github.com/Ardour/ardour/commit/cc7b8b1bc5fb19e0ec5e476741c55627d4b62ba9.diff")
 md5sums=('dd71fe27e1e04e945bda314a8fc7ae38'
          'a5f2b506deee5852bb6a92a34e1d8cc4')
@@ -22,7 +23,7 @@ build() {
   cd ${_pkgname}-${pkgver}
   # glib2 2.68 needed
   #patch -p1 -i ${srcdir}/cc7b8b1bc5fb19e0ec5e476741c55627d4b62ba9.diff
-  
+
   ./waf configure --prefix=/usr \
     --configdir=/etc \
     --with-backends="alsa,dummy,jack,pulseaudio" \

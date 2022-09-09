@@ -3,7 +3,7 @@ pkgname=qmmp
 pkgver=2.1.1
 _pkgver=2.1
 _commit=dev-code-5352-branches-qmmp-1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Qt based audio-player"
 arch=('x86_64')
 url="https://qmmp.ylsoftware.com/"
@@ -22,7 +22,6 @@ build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DUSE_HAL=0 \
     -DUSE_CDA=0 \
     -DUSE_SKINNED=0 \
     -DUSE_QSUI=1
