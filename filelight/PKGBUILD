@@ -4,36 +4,26 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=filelight
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
-pkgdesc="Allows you to understand exactly where your diskspace is being used bygraphically representating your filesystem"
-url="https://projects.kde.org/projects/kde/kdeutils/filelight"
+pkgdesc="Application to visualize the disk usage on your computer"
+url="https://apps.kde.org/filelight/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kio' 'kparts' 'kxmlgui' 'kcoreaddons' 'solid')
+depends=('kxmlgui' 'kio' 'kdeclarative' 'ki18n' 'qqc2-desktop-style' 'kquickcharts')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
-conflicts=('kdeutils-filelight' 'kf5-filelight')
-replaces=('kdeutils-filelight' 'kf5-filelight')
 groups=('kde' 'kde-utils' 'kde-uninstall')
 source=($_mirror/${pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir build
-  
-  cd build
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
-        -DLIB_INSTALL_DIR=lib \
-        -DSYSCONF_INSTALL_DIR=/etc \
-        -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-        -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
         -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=$pkgdir install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
