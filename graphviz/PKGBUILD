@@ -1,7 +1,7 @@
 
 pkgname=graphviz
-pkgver=5.0.1
-_pkgver=5.0.1
+pkgver=6.0.0
+_pkgver=6.0.0
 pkgrel=1
 pkgdesc="Open source graph visualization software"
 arch=('x86_64')
@@ -10,17 +10,17 @@ license=('CPL')
 depends=('gd' 'librsvg' 'libxaw' 'ghostscript' 'pango' 'libtool' 'perl' 'python3' 'tcl' 'qt5-base')
 makedepends=('swig' 'guile' 'groff')
 options=('!libtool')
-source=("https://gitlab.com/graphviz/graphviz/-/archive/${_pkgver}/graphviz-${_pkgver}.tar.bz2")
-#source=("https://www2.graphviz.org/Packages/stable/portable_source/graphviz-${_pkgver}.tar.gz")
+#source=("https://gitlab.com/graphviz/graphviz/-/archive/${_pkgver}/graphviz-${_pkgver}.tar.bz2")
+source=("https://gitlab.com/api/v4/projects/4207231/packages/generic/${pkgname}-releases/${_pkgver}/${pkgname}-${_pkgver}.tar.xz")
 install='graphviz.install'
-sha256sums=('c01a174a8f468f05ac5ff17a1923e51275e332a95b7f549552593c46091b27a3')
+sha256sums=('bbc6164ef0d2ef60a462eca1cf48b6012cbf72ebd47c68759437b595bd98f8d6')
 
 build() {
-    cd graphviz-${_pkgver}
+    cd ${pkgname}-${_pkgver}
     #sed -i '/LIBPOSTFIX="64"/d' configure
     export LIBPOSTFIX=/
 
-    ./autogen.sh
+    #./autogen.sh
     ./configure --prefix=/usr \
         --enable-python3=yes \
         --disable-python \
@@ -30,8 +30,8 @@ build() {
 }
 
 package() {
-    cd graphviz-${_pkgver}
+    cd ${pkgname}-${_pkgver}
     make DESTDIR=${pkgdir} install
 
-    install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/graphviz/LICENSE
+    install -Dm644 COPYING ${pkgdir}/usr/share/licenses/graphviz/COPYING
 }
