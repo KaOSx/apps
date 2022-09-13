@@ -1,6 +1,6 @@
 
 pkgname=wayland-utils
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=1
 pkgdesc='Utility for displaying information about the Wayland protocols supported by a Wayland compositor.'
 arch=('x86_64')
@@ -9,8 +9,8 @@ license=('MIT')
 options=('!libtool')
 depends=('wayland')
 makedepends=('meson' 'ninja' 'wayland-protocols')
-source=("https://wayland.freedesktop.org/releases/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('64fecc4c58e87ae9b302901abe10c2e8af69c7503c221a96ecd0700e0aa268c0')
+source=("https://gitlab.freedesktop.org/wayland/wayland-utils/-/releases/${pkgver}/downloads/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('9e685863025b4feade36d53bbc8e31b43e26498be743dea84c7a84912959410a')
 
 build() {
   mkdir -p build
