@@ -1,9 +1,9 @@
 
 pkgname=libreoffice
-_LOver=7.4.0.3
-pkgver=7.4.0.3
-_pkgver=7.4.0
-pkgrel=2
+_LOver=7.4.1.2
+pkgver=7.4.1.2
+_pkgver=7.4.1
+pkgrel=1
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
@@ -156,6 +156,8 @@ build() {
 	#[ -z "${JAVA_HOME}" ] && .  /etc/profile.d/openjdk.sh
 	#[ -z "${ANT_HOME}" ] && . /etc/profile.d/apache-ant.sh
 
+	export ac_cv_lib_gpgmepp_progress_callback=yes
+	
 	cd ${srcdir}/libreoffice-$_LOver
 	# poppler 22.09.0 needed
 	patch -p1 -i ${srcdir}/poppler.diff
@@ -244,7 +246,6 @@ build() {
 		--without-system-libepubgen \
 		--without-system-libqxp \
 		--without-system-box2d \
-		--without-system-cuckoo \
 		--without-system-dragonbox \
 		--without-system-libfixmath \
 		--with-system-libnumbertext \
