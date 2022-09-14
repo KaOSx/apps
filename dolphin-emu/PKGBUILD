@@ -1,32 +1,32 @@
 
 # build version at https://dolphin-emu.org/download/ dev version
 pkgname=dolphin-emu
-pkgver=5.0.16793
-pkgrel=2
-_commit=3cd82b619388d0877436390093a6edc2319a6904
+pkgver=5.0.17269
+pkgrel=1
+_commit=48c9c224cf9f82f0f9f2690b7cc6283d7448480c
 pkgdesc='GameCube, Wii and Triforce emulator'
 arch=('x86_64')
 url='https://dolphin-emu.org'
 license=('GPL2')
 depends=('bluez' 'ffmpeg' 'libao' 'mbedtls' 'miniupnpc' 'openal' 'portaudio'
-         'libevdev' 'soundtouch' 'qt5-base' 'pulseaudio' 'vulkan-loader'
+         'libevdev' 'soundtouch' 'qt6-base' 'pulseaudio' 'vulkan-loader'
          'pugixml' 'fmt')
 makedepends=('cmake')
 groups=('games')
-source=("https://github.com/dolphin-emu/dolphin/archive/${_commit}.zip"
-        "https://github.com/dolphin-emu/dolphin/commit/66f330e57316257fe81b46f57dad22ea6dee7bae.diff")
-#source=("https://github.com/dolphin-emu/dolphin/archive/${pkgver}.tar.gz")
-md5sums=('3e577ecabfe3953888404342375f42e0'
-         '4359d3babf0d0745f2ccd3aece79782c')
+#source=("https://github.com/dolphin-emu/dolphin/archive/${_commit}.zip"
+#        "https://github.com/dolphin-emu/dolphin/commit/66f330e57316257fe81b46f57dad22ea6dee7bae.diff")
+source=("git+https://github.com/dolphin-emu/dolphin.git#commit=${_commit}")
+md5sums=('SKIP')
 
 prepare() {
-  cd dolphin-${_commit}
+  cd dolphin
 
-  patch -p1 -i ${srcdir}/66f330e57316257fe81b46f57dad22ea6dee7bae.diff
+  git submodule update --init
+  #patch -p1 -i ${srcdir}/66f330e57316257fe81b46f57dad22ea6dee7bae.diff
 }
 
 build() {
-  cmake -B build -S dolphin-${_commit} \
+  cmake -B build -S dolphin \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DENABLE_QT=ON \
@@ -39,7 +39,7 @@ package() {
 
   DESTDIR=${pkgdir} cmake --install build
 
-  install -D -m644 dolphin-${_commit}/Data/51-usb-device.rules -t ${pkgdir}/usr/lib/udev/rules.d/
+  install -D -m644 dolphin/Data/51-usb-device.rules -t ${pkgdir}/usr/lib/udev/rules.d/
 }
 
 
