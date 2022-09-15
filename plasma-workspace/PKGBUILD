@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=1
 pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
@@ -45,7 +45,7 @@ prepare () {
   cd ${pkgname}-${pkgver}
 
   patch -p1 -i ${srcdir}/shellcorona.diff
-  patch -p1 -i ${srcdir}/c7ba560ccaac5e469cb2d6bf66c39e1acf967454.diff
+  #patch -p1 -i ${srcdir}/c7ba560ccaac5e469cb2d6bf66c39e1acf967454.diff
   #sed -i 's|m_thickness(30)|m_thickness(44)|' shell/panelview.cpp
 }
 
