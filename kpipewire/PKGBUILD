@@ -1,0 +1,39 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kpipewire
+arch=('x86_64')
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc="Offers a set of convenient classes to use PipeWire (https://pipewire.org/) in Qt projects."
+url="https://invent.kde.org/plasma/kpipewire"
+license=('GPL' 'LGPL')
+depends=('kwayland' 'ki18n' 'kcoreaddons' 'plasma-wayland-protocols' 'pipewire')
+makedepends=('extra-cmake-modules' 'kdoctools')
+source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/34ce31a821c440ed73c7ef21efee7c55a42dcbce.diff
+}
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DBUILD_TESTING=OFF 
+  cmake --build build
+}
+
+package() {
+
+    DESTDIR=${pkgdir} cmake --install build
+}
