@@ -1,6 +1,6 @@
 
 pkgname=conky
-pkgver=1.12.2
+pkgver=1.13.1
 pkgrel=1
 pkgdesc="Advanced, highly configurable system monitor for X based on torsmo"
 arch=('x86_64')
@@ -13,21 +13,18 @@ groups=('utils')
 backup=('etc/conky/conky.conf' 'etc/conky/conky_no_x11.conf')
 source=("https://github.com/brndnmtthws/conky/archive/v${pkgver}.tar.gz"
         'conky.conf')
-md5sums=('31b6d5d139d06f2639813bfa87c372bb'
+md5sums=('79080d2df4aca7b927ec6158cc73dfb8'
          '3e8bc1cf7cf7587ccc5b333ef33284e0')
-    
+
 prepare() {
   cd ${pkgname}-${pkgver}
-  
+
   sed -i -e 's|REQUIRED lua>=5.3 lua5.3 lua-5.3 lua53 lua5.2 lua-5.2 lua52|REQUIRED lua|g' 3rdparty/toluapp/CMakeLists.txt
   sed -i -e 's|lua>=5.3|lua|g' cmake/ConkyPlatformChecks.cmake
 }
-         
+
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DDOC_PATH=/etc/conky \
@@ -37,18 +34,16 @@ build() {
     -DBUILD_CURL=true \
     -DBUILD_RSS=true \
     -DBUILD_XDBE=true
-  make
+  cmake --build build
 }
-
 
 package() {
-  cd build
-  make DESTDIR=${pkgdir} install 
-  
+
+  DESTDIR=${pkgdir} cmake --install build
+
   #rm ${pkgdir}/etc/conky/conky.conf
   install -D -m755 ${srcdir}/conky.conf ${pkgdir}/etc/conky/conky.conf
-  
+
   install -D -m644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
-         
 
