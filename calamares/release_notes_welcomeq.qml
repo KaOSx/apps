@@ -63,7 +63,7 @@ Item {
 
             <p>As mentioned above, KaOS has moved to Dracut as the new initramfs infrastructure. Unlike other implementations, dracut hard-codes as little as possible into the initramfs. The initramfs has (basically) one purpose in life -- getting the rootfs mounted so that transitioning to the real rootfs can be done. Dracut is distribution agnostic and used by many (examples Fedora, VOID, OpenSuse, Gentoo), plus the code-base is very actively maintained.</p>
 
-            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0, kernel moved to Linux 5.18.7, Systemd 251.4,  KMod 30, Mesa 22.1.7, Texlive packages moved to 2022, Libnl 3.7.0, Libssh 0.10.4, and Upower 1.90.0.</p>
+            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0, kernel moved to Linux 5.19.10, Systemd 251.4,  KMod 30, Mesa 22.1.7, Texlive packages moved to 2022, Libnl 3.7.0, Libssh 0.10.4, and Upower 1.90.0.</p>
 
             <p>For the Plasma desktop, the latest Plasma (5.25.90), KDE Gear (22.08.1) and Frameworks (5.78.0) are included. All built on <b>Qt 5.15.5+</b>.</p>
 
@@ -101,12 +101,12 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.98.0, Plasma 5.25.90, KDE Applications 22.08.1</b>, Linux 5.19.9, Systemd 251.4, Kmod 30, NetworkManager 1.40.0, LibreOffice 7.4.1, Elisa, Xorg-Server 1.21.4, Mesa 22.1.7, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.14 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.98.0, Plasma 5.25.90, KDE Applications 22.08.1</b>, Linux 5.19.10, Systemd 251.4, Kmod 30, NetworkManager 1.40.0, LibreOffice 7.4.1, Elisa, Xorg-Server 1.21.4, Mesa 22.1.7, Glibc 2.35, GCC 11.3.0, non-free Nvidia 515 and Python3 3.9.14 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.19, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 104.0, Chrome 107, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.10.32 and Thunderbird 102.2.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 104.0, Chrome 107, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.10.32 and Thunderbird 102.3.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
