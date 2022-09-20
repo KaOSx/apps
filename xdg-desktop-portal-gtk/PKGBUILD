@@ -1,0 +1,28 @@
+
+pkgname=xdg-desktop-portal-gtk
+pkgver=1.14.0
+pkgrel=1
+pkgdesc="Gtk implementation of xdg-desktop-portal"
+arch=('x86_64')
+url="https://github.com/flatpak/xdg-desktop-portal-gtk"
+license=('GPL' 'LGPL' 'FDL')
+depends=('gsettings-desktop-schemas' 'gtk3' 'xdg-desktop-portal')
+makedepends=('python3')
+source=("https://github.com/flatpak/xdg-desktop-portal-gtk/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('f621210716a9cf821d969eecb1df1e3e46fc687b87f7add83300d35321594954')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  ./configure --prefix=/usr \
+      --libexecdir=/usr/lib \
+      --enable-wallpaper=no \
+      --enable-screencast=no \
+      --enable-background=no
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+
+  make DESTDIR=${pkgdir} install
+}

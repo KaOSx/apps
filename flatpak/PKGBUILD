@@ -2,7 +2,7 @@
 # odd numbers are for development
 pkgname=flatpak
 pkgver=1.14.0
-pkgrel=5
+pkgrel=6
 pkgdesc="System for building, distributing and running sandboxed desktop applications on Linux."
 url="https://flatpak.org"
 arch=('x86_64')
@@ -10,6 +10,7 @@ license=('GPL')
 depends=('bubblewrap' 'dconf' 'elfutils' 'fuse3' 'glib2' 'json-glib' 'libarchive' 'ostree'
          'polkit' 'xorg-xauth' 'python3' 'patch' 'systemd' 'appstream' 'xdg-desktop-portal-kde')
 makedepends=('intltool' 'xmlto' 'libdwarf' 'socat' 'python3-pyparsing')
+optdepends=('xdg-desktop-portal-gtk: Integration for GTK based Flatpaks')
 install=flatpak.install
 source=("https://github.com/flatpak/flatpak/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 sha256sums=('8e276973770ea24ddf2597ad4aecd36b98393e6bde91e48e1743aaca67f27815')
