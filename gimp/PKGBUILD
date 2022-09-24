@@ -1,48 +1,48 @@
 
 pkgname=gimp
-pkgver=2.10.32
-_pkgver=2.10
-__pkgver=2.10.32
+pkgver=2.99.12
+_pkgver=2.99
 pkgrel=2
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
 url="https://www.gimp.org/"
 license=('GPL3' 'LGPL3')
-depends=('gtk2' 'lcms2' 'libxpm' 'librsvg' 'libmng' 'libgudev' 'dbus-glib' 'libexif' 
+depends=('poppler' 'lcms2' 'libxpm' 'librsvg' 'libmng' 'libgudev' 'dbus-glib' 'libexif' 
          'gegl' 'desktop-file-utils' 'hicolor-icon-theme' 'gexiv2' 'libmypaint' 'alsa-lib'
-         'curl' 'glib-networking' 'mypaint-brushes' 'graphviz' 'jpeg-xl')
-makedepends=('intltool' 'poppler' 'iso-codes' 'ghostscript')
-optdepends=('kde-gtk-config: gtk integration settings for Plasma')
-optdepends=('gutenprint: for sophisticated printing only as gimp has built-in cups print support')
+         'curl' 'glib-networking' 'mypaint-brushes' 'ghostscript' 'aalib' 'libunwind' 'python3'
+         'appstream-glib' 'gtk3' 'jpeg-xl')
+makedepends=('intltool' 'iso-codes' 'meson' 'ninja' 'python3-gobject3')
 options=('!libtool' '!makeflags')
-source=("https://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${__pkgver}.tar.bz2"
-        'linux.gpl'
-        "https://github.com/GNOME/gimp/commit/46bcd82800e37b0f5aead76184430ef2fe802748.diff")
-sha256sums=('3f15c70554af5dcc1b46e6dc68f3d8f0a6cc9fe56b6d78ac08c0fd859ab89a25'
-            '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3'
-            'd811a79902368975af6373d2d0a25a2bb699231d6883bc0f7d24fd9e22f80198')
+source=("https://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${pkgver}.tar.xz"
+#source=("https://github.com/GNOME/gimp/archive/${_commit}.zip"
+        'linux.gpl')
+sha256sums=('7ba1b032ea520d540e4acad3da16d8637fe693743fdb36e0121775eea569f6a3'
+            '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  sed -i -e 's|mypaint-brushes-1.0|mypaint-brushes-2.0|' meson.build
+}
 
 build() {
-  cd gimp-${__pkgver}
-  #sed -e "s|gegl-0.2 >= 0.2.0|gegl-0.3 >= 0.3.0|" -i ${srcdir}/gimp-${pkgver}/configure
-  # CVE-2007-3126
-  #patch -p1 -i ${srcdir}/46bcd82800e37b0f5aead76184430ef2fe802748.diff
-  
-  ./configure --prefix=/usr \
-    --sysconfdir=/etc \
-    --enable-mp \
-    --enable-gimp-console \
-    --disable-python \
-    --without-aa \
-    --without-wmf 
-    #--enable-vector-icons
-  make -j4
+  mkdir -p build
+  cd build
+
+  meson ../${pkgname}-${pkgver} \
+    --prefix=/usr \
+    --buildtype=release \
+    --libexecdir=/usr/lib \
+    -Djavascript=false \
+    -Dlua=false \
+    -Dbug-report-url=https://kaosx.us/bugs/
+  ninja
 }
 
 package() {
-  cd gimp-${__pkgver}
-  make DESTDIR=${pkgdir} install
-  
+  cd build
+  DESTDIR=${pkgdir} ninja install
+
   install -D -m644 ${srcdir}/linux.gpl ${pkgdir}/usr/share/gimp/2.0/palettes/Linux.gpl
 
   ln -sf gimp-console-${pkgver}.1.gz ${pkgdir}/usr/share/man/man1/gimp-console.1.gz
