@@ -2,7 +2,7 @@
 pkgname=gimp
 pkgver=2.99.12
 _pkgver=2.99
-pkgrel=2
+pkgrel=3
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
 url="https://www.gimp.org/"
@@ -15,9 +15,11 @@ makedepends=('intltool' 'iso-codes' 'meson' 'ninja' 'python3-gobject3')
 options=('!libtool' '!makeflags')
 source=("https://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${pkgver}.tar.xz"
 #source=("https://github.com/GNOME/gimp/archive/${_commit}.zip"
-        'linux.gpl')
+        'linux.gpl'
+        'Adwaita.tar.gz')
 sha256sums=('7ba1b032ea520d540e4acad3da16d8637fe693743fdb36e0121775eea569f6a3'
-            '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3')
+            '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3'
+            '4e23495f95c9716061b7daa31135d0a964ae0950e118d33b65d67aea988bea58')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -43,10 +45,14 @@ package() {
   cd build
   DESTDIR=${pkgdir} ninja install
 
-  install -D -m644 ${srcdir}/linux.gpl ${pkgdir}/usr/share/gimp/2.0/palettes/Linux.gpl
+  install -D -m644 ${srcdir}/linux.gpl ${pkgdir}/usr/share/gimp/2.99/palettes/Linux.gpl
 
   ln -sf gimp-console-${pkgver}.1.gz ${pkgdir}/usr/share/man/man1/gimp-console.1.gz
   ln -sf gimprc-${pkgver}.5.gz ${pkgdir}/usr/share/man/man5/gimprc.5.gz
   ln -sf gimptool-2.0.1.gz ${pkgdir}/usr/share/man/man1/gimptool.1.gz
   ln -s gimp-${pkgver}.1.gz ${pkgdir}/usr/share/man/man1/gimp.1.gz
+  # workaround to stop gimp from crashing on image-missing.png
+  mkdir -p ${pkgdir}/usr/share/icons/Adwaita/48x48/status
+  install -D -m644 ${srcdir}/Adwaita/index.theme ${pkgdir}/usr/share/icons/Adwaita/
+  install -D -m644 ${srcdir}/Adwaita/48x48/status/image-missing.png ${pkgdir}/usr/share/icons/Adwaita/48x48/status/
 }
