@@ -2,7 +2,7 @@
 pkgname=qt5-gstreamer
 _pkgname=qt-gstreamer
 pkgver=1.2.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Qt5 bindings for GStreamer"
 arch=('x86_64')
 url="https://gstreamer.freedesktop.org/modules/qt-gstreamer.html"
@@ -24,23 +24,17 @@ prepare() {
 }
 
 build() {
-  cd ${srcdir} 
-  #git clone -b 1.0-proposed https://github.com/detrout/qt-gstreamer.git
-
-  mkdir build
-  cd build
-  cmake ../${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DQTGSTREAMER_EXAMPLES=OFF \
     -DQTGSTREAMER_TESTS=OFF \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DQT_VERSION=5
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir}/ install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

@@ -4,10 +4,10 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktp-call-ui
 pkgver=${_kdever}
-pkgrel=2
-pkgdesc="Telepathy call handler "
+pkgrel=3
+pkgdesc="Voice/video call UI for Telepathy"
 arch=('x86_64')
-url="http://www.kde.org"
+url="https://invent.kde.org/network/ktp-call-ui"
 license=('GPL')
 depends=('kconfig' 'kdeclarative' 'kiconthemes' 'ki18n' 'knotifications' 'kxmlgui' 'kcmutils'
          'ktp-common-internals' 'telepathy-farstream'
@@ -19,29 +19,21 @@ source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep " ${pkgname}-${_kdever}.tar.xz" ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname-${pkgver}
+  cd ${pkgname}-${pkgver}
   #sed -i -e 's|#include <phonon/Global>|#include <phonon4qt5/phonon/Global>|' ${srcdir}/${pkgname}/libktpcall/private/phonon-integration.h
-  #sed -i -e 's|#include <phonon/ObjectDescription>|#include <phonon4qt5/phonon/ObjectDescription>|' ${srcdir}/${pkgname}/libktpcall/private/phonon-integration.h
 }
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
