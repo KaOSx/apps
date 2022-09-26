@@ -2,7 +2,7 @@
 pkgname=gcompris
 pkgver=2.4
 _pkgver=2.4
-pkgrel=2
+pkgrel=3
 pkgdesc="High quality educational software suite comprising of numerous activities for children aged 2 to 10."
 arch=('x86_64')
 url="https://gcompris.net/"
@@ -30,7 +30,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
     -DQML_BOX2D_MODULE=system \
-    -DQML_BOX2D_LIBRARY=/usr/lib/qt5/qml/Box2D.2.0 
+    -DQML_BOX2D_LIBRARY=/usr/lib/Box2D 
   make 
   make BuildTranslations
 }

@@ -2,9 +2,9 @@
 pkgbase=transmission
 pkgname=('transmission-cli' 'transmission-qt')
 pkgver=3.00
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
-url="http://www.transmissionbt.com/"
+url="https://transmissionbt.com/"
 license=('GNU GPLv2')
 makedepends=('intltool' 'curl' 'pkgconfig' 'desktop-file-utils' 'qt5-declarative' 'libevent'
              'gettext' 'cmake' 'qt5-tools' 'miniupnpc')
@@ -23,12 +23,12 @@ md5sums=('a23a32672b83c89b9b61e90408f53d98'
          '019c6e9dbdcdb2704a266874d02975c0'
          'dbbc3c6ce0707808895778bd81e36707'
          'c4d8952b3280d99d909ccfbd48940a0a')
-        
+
 prepare () {
   cd ${pkgbase}-${pkgver}
 
   #patch -p1 -i $srcdir/dbushelper.diff
-}  
+}
 
 build() {
   mkdir -p build
