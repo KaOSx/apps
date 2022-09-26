@@ -3,7 +3,7 @@ pkgname=mellowplayer
 _pkgname=MellowPlayer
 pkgver=3.6.8
 _commit=0f919a1
-pkgrel=1
+pkgrel=2
 pkgdesc="Open source and cross-platform desktop application that runs web-based music streaming 
          services in its own window and provides integration with your desktop, specifically crafted for KaOS"
 url='https://colinduquesnoy.gitlab.io/MellowPlayer/'
@@ -23,20 +23,16 @@ prepare() {
 
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTS=OFF \
     -Wno-dev \
     -DDEFAULT_THEME="Midna"
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

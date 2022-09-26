@@ -1,15 +1,11 @@
 
-# include global config
-source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdiagram
-#pkgver=${_kdever}
 pkgver=2.8.0
-_commit=8bf3a958316609a581243443075725523dec998d
-pkgrel=1
+pkgrel=3
 pkgdesc='Powerful libraries (KChart, KGantt) for creating business diagrams'
 arch=('x86_64')
-url='https://github.com/KDE/kdiagram/'
+url='https://invent.kde.org/graphics/kdiagram'
 license=('LGPL')
 depends=('qt5-svg')
 makedepends=('extra-cmake-modules' 'qt5-tools')
@@ -17,21 +13,17 @@ source=("https://download.kde.org/stable/kdiagram/${pkgver}/${pkgname}-${pkgver}
 sha256sums=('579dad3bd1ea44b5a20c0f133ebf47622e38960f9c7c8b3a316be30a369f431f')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

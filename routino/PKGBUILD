@@ -1,7 +1,7 @@
 
 pkgname=routino
 pkgver=3.3.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Finding a route between two points using the dataset of topographical information collected by OpenStreetMap Data'
 arch=('x86_64')
 url='https://www.routino.org/'
@@ -25,6 +25,6 @@ build() {
 
 package() {
   cd ${pkgname}-${pkgver}
-    
+
   make DESTDIR=${pkgdir} install
 }
