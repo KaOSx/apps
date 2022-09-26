@@ -2,11 +2,11 @@
 pkgname=qtcurve
 pkgver=1.9.1
 _commit=0020a42c02a3c488fef23d33a27fea41f302ba98
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('GPL')
 pkgdesc='The QtCurve style engine for Qt5 and Plasma 5.'
-url='https://github.com/KDE/qtcurve/'
+url='https://invent.kde.org/system/qtcurve'
 depends=('karchive' 'kconfig' 'kconfigwidgets' 'frameworkintegration' 'ki18n' 'kguiaddons'
          'kio' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 'kguiaddons' 'kiconthemes' 
          'libx11' 'qt5-x11extras' 'qt5-svg')
@@ -18,7 +18,7 @@ md5sums=('36d0057ee3766062964d11797c505e13'
 
 prepare() {
   cd ${pkgname}-${_commit}
-  
+
   #patch -p0 -i ${srcdir}/DBus_crashing.diff
 }
 

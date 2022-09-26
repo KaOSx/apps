@@ -3,11 +3,11 @@ pkgname=qtcurve-gtk
 _pkgname=qtcurve
 pkgver=1.9.1
 _commit=0020a42c02a3c488fef23d33a27fea41f302ba98
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('GPL')
 pkgdesc='The QtCurve style engine for GTK.'
-url='https://projects.kde.org/projects/playground/base/qtcurve'
+url='https://invent.kde.org/system/qtcurve'
 depends=('qtcurve')
 makedepends=('extra-cmake-modules' 'gtk2')
 source=("https://github.com/KDE/qtcurve/archive/${_commit}.zip"
@@ -29,7 +29,7 @@ build() {
 
 package() {
 	DESTDIR=${pkgdir} cmake --install build 
-	
+
 	rm -r ${pkgdir}/usr/lib/libqtcurve-utils.so*
 	rm -r ${pkgdir}/usr/share/themes/QtCurve/gtk-2.0/kdeglobals
 	install -D -m644 ${srcdir}/kdeglobals ${pkgdir}/usr/share/themes/QtCurve/gtk-2.0/

@@ -2,7 +2,7 @@
 pkgname=kdevelop-pg-qt
 pkgver=2.2.1
 _pkgver=2.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc="KDevelop Parser Generator, a LL(1) parser generator used by KDevelop language plugins"
 arch=('x86_64')
 url="https://www.kdevelop.org/"
@@ -14,18 +14,14 @@ source=("https://download.kde.org/stable/kdevelop-pg-qt/${_pkgver}/src/${pkgname
 md5sums=('25c86fcde834decbc138ced67a9d4d17')
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
