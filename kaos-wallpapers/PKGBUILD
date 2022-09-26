@@ -2,7 +2,7 @@
 pkgname=kaos-wallpapers
 pkgver=3.1
 _commit=3e113bbf16b450f2b9d4a8e15a9c0c579aa78857
-pkgrel=3
+pkgrel=4
 pkgdesc="KaOS Wallpaper Set"
 url="https://kaosx.us"
 license=('GPL')
@@ -15,20 +15,16 @@ source=("https://github.com/kaosx/kaos-wallpapers/archive/${_commit}.zip")
 md5sums=('beb0d2b5550014d240bf15b83280e9c3')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
 

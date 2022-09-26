@@ -2,9 +2,9 @@
 pkgname=knemo
 pkgver=1.7.7.1
 _commit=e5a3984ed26b76024e889ca347d587ff4073b036
-pkgrel=1
+pkgrel=2
 pkgdesc='The KDE Network Monitor'
-url='http://kde-apps.org/content/show.php?content=12956'
+url='https://www.linux-apps.com/p/1128337'
 arch=('x86_64')
 license=('GPL')
 depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kglobalaccel' 'kguiaddons' 'kdbusaddons' 'ki18n' 
@@ -21,21 +21,17 @@ prepare() {
 }
 
 build() {
-  mkdir -p build 
-  cd build
-  
-  cmake ../${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

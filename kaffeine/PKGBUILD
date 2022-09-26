@@ -2,11 +2,11 @@
 pkgname=kaffeine
 pkgver=2.0.18
 _pkgver=2.0.18
-pkgrel=2
+pkgrel=3
 pkgdesc='Media player with support for digital television (DVB-C/S/S2/T, ATSC, CI/CAM)'
 license=('GPL')
 arch=('x86_64')
-url="https://kde.org/applications/en/kaffeine"
+url="https://apps.kde.org/kaffeine/"
 depends=('kcoreaddons' 'kdbusaddons' 'ki18n' 'solid' 'kio' 'knotifications'
          'kwidgetsaddons' 'kxmlgui' 'kidletime' 'qt5-x11extras' 'vlc')
 makedepends=('extra-cmake-modules' 'kdoctools') 
@@ -14,7 +14,7 @@ groups=('multimedia')
 source=("https://download.kde.org/stable/kaffeine/${pkgname}-${_pkgver}.tar.xz"
         "https://github.com/KDE/kaffeine/commit/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff")
 sha256sums=('d9799a5b7b94a55963f94938b36b8fcb1be3e753b2be110989934ab15386b681'
-            'f88e6f1b7da9d635da92aff11ec4570ea1d174a6340e2944542b418b657ea4b8')
+            '146e504d48ef26fa4bb04c0f724b4a473ebd46fd5847d7432f68f7a7fdfeb8ce')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
@@ -24,19 +24,15 @@ prepare() {
 }
 
 build() {
-  mkdir build
-  cd build
-  
-  cmake ../${pkgname}-${_pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

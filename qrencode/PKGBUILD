@@ -1,7 +1,7 @@
 
 pkgname=qrencode
 pkgver=4.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="C library for encoding data in a QR Code symbol."
 arch=('x86_64')
 url="https://fukuchi.org/works/qrencode/"
@@ -13,19 +13,15 @@ source=("https://fukuchi.org/works/qrencode/${pkgname}-${pkgver}.tar.bz2")
 sha512sums=('981b3242c213e1b40ac88711912dd8c27ea11f3437d1a04b6b226499a6e991a8f0b3b10f818bcc104812192a1dac4ce05f16ecd847a50cb03d4859b84bad89b8')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DBUILD_SHARED_LIBS=ON
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
