@@ -1,6 +1,7 @@
 
 pkgname=kasts
-pkgver=22.09
+pkgver=22.09.2
+_pkgver=22.09
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Kirigami-based podcast player"
@@ -9,8 +10,8 @@ license=('GPL2')
 depends=('qt5-multimedia' 'qt5-quickcontrols2' 'qt5-svg' 'kirigami' 'networkmanager-qt'
          'kcoreaddons' 'syndication' 'kconfig' 'ki18n' 'qtkeychain' 'threadweaver')
 makedepends=('extra-cmake-modules' 'qt5-tools')
-source=("https://download.kde.org/stable/plasma-mobile/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('060d523a4e6428a2d4a6422e3c90aed0ff15ff7afc153279e3087ca3202ca8ca')
+source=("https://download.kde.org/stable/plasma-mobile/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('a9b43dce4b91fd5f92f4b3af44b08ae55c7b7c3a496a88f045718219265a2082')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
