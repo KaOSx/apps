@@ -1,7 +1,7 @@
 
 pkgname=obs-studio
 pkgver=28.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Free and open source software for video recording and live streaming."
 arch=('x86_64')
 url="https://obsproject.com/"
@@ -34,7 +34,8 @@ build() {
     -DENABLE_NEW_MPEGTS_OUTPUT=OFF \
     -DENABLE_SCRIPTING_LUA=OFF \
     -DENABLE_SCRIPTING_PYTHON=ON \
-    -DENABLE_PLUGINS=ON
+    -DENABLE_PLUGINS=ON \
+    -DENABLE_JACK=ON
   cmake --build build
 }
 
