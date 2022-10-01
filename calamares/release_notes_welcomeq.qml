@@ -50,7 +50,7 @@ Item {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2022.09</h3>
+            text: qsTr("<h3>KaOS - 2022.10</h3>
             <p>It is with great pleasure to present to you the October release of a new stable ISO.</p>
 
             <p>Many changes have been implemented to the installer <strong>Calamares</strong> in the last few months, so it is fitting to start with listing all that is new or has changed.< /br>
@@ -67,7 +67,7 @@ Item {
 
             <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0, kernel moved to Linux 5.19.12, Systemd 251.4,  KMod 30, Mesa 22.1.7, Texlive packages moved to 2022, Libnl 3.7.0, Libssh 0.10.4, and Upower 1.90.0.</p>
 
-            <p>For the Plasma desktop, the latest Plasma (5.25.90), KDE Gear (22.08.1) and Frameworks (5.78.0) are included. All built on <b>Qt 5.15.6+</b>.</p>
+            <p>For the Plasma desktop, the latest Plasma (5.25.90), KDE Gear (22.08.1) and Frameworks (5.78.0) are included. All built on <b>Qt 5.15.6+</b>. Among the changes included in Plasma 5.25.90 is improved Wayland support with the possibilty to select if apps will be scaled by the compositor or by themselves to avoid having blurry apps on Wayland.</p>
 
             <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.< /br>
             Similar, Pipewire has replaced PulseAudio as the default sound/low-level multimedia framework.</p>
@@ -108,7 +108,7 @@ Item {
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.13.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.19, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 105.0.1, Chrome 107, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.99.12 and Thunderbird 102.3.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 105.0.1, Chrome 108, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.99.12 and Thunderbird 102.3.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
             
             <p><b>Known issues:</b></p>
