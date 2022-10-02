@@ -2,7 +2,7 @@
 pkgname=stacer
 _pkgname=Stacer
 pkgver=1.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='System optimizer and application monitor that helps users to manage the entire system'
 arch=('x86_64')
 url='https://oguzhaninan.github.io/Stacer-Web/'
@@ -16,6 +16,10 @@ prepare() {
   cd ${_pkgname}-${pkgver}
 
   #cp -f stacer/static/themes/light/style/values.ini stacer/static/themes/default/style/values.ini
+  # set to light theme & startpage to systemd services
+  sed -i "s|default|light|g" stacer/Managers/setting_manager.cpp
+  sed -i "s|/static/themes/default/img/sidebar-icons/dash.png|/static/themes/light/img/app.png|g" stacer/Managers/app_manager.cpp
+  sed -i "s|Dashboard|Services|g" stacer/Managers/setting_manager.cpp
 
   export CC=/usr/bin/clang
   export CXX=/usr/bin/clang++
