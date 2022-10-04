@@ -1,0 +1,12 @@
+diff --git a/src/package.cpp b/src/package.cpp
+index 85679e79..db0c9aef 100644
+--- a/src/package.cpp
++++ b/src/package.cpp
+@@ -2405,6 +2405,7 @@ QString Package::parseSearchString(QString searchStr, bool exactMatch)
+     else searchStr.append(QLatin1Char('$'));
+   }
+ 
++  searchStr.replace(QLatin1String("+"), QLatin1String("\\+"));
+   searchStr.replace(QLatin1String("?"), QLatin1String("."));
+   return searchStr;
+ }
