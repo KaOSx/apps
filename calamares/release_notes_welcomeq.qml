@@ -111,7 +111,7 @@ Item {
             A limited number of the most well-known GTK applications are available, examples Firefox 105.0.1, Chrome 108, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.99.12 and Thunderbird 102.3.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
             <p><strong>kcp</strong>, the tool to help to manage Community packages, received a small update to list broken depends.
-            This was needed to make possible the full-rewriting of <a href="http://kaos-community-packages.github.io">KCP-Center</a> (the inline Community packages viewer).
+            This was needed to make possible the full-rewriting of <a href="https://kaos-community-packages.github.io">KCP-Center</a> (the inline Community packages viewer).
             Indeed, the backend of KCP-Center to update the database, whelp, was obsolete since Python2 was removed from the KaOS repos.
             Plus it needed too long time to update the database. It has been simplified to use directly the kcp features to get the database and is now Python3-compatible.
             The frontend was rewrotten too, removing jQuery depends and unmaintained jQuery Plugins, and using the <a href="https://mithril.js.org">Mithril framework</a> to create dynamic pages.</p>            
