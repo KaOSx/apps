@@ -1,8 +1,8 @@
 
 pkgname=octopi
 pkgver=0.13.0
-pkgrel=2
-_commit=fd0307f0334ed7c2ff1baf24a2247ffd3595a35f
+pkgrel=3
+_commit=ba9a934c7c99e9ec38799dd1db0692c6e299903d
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://tintaescura.com/projects/octopi/"
 arch=('x86_64')
@@ -15,14 +15,12 @@ source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
         "images3.tar.xz"
         'folder_tree.png'
         'qtsingleapplication.diff'
-        'mainwindow.diff'
-        '++.diff')
-md5sums=('28bedb1152a0daeeeb041b95a5740b49'
+        'mainwindow.diff')
+md5sums=('66c71ba24967601451de9c43a0bfa9d3'
          '09decb09a2fa58f2211ff3d5e0350ff0'
          'eff9d31629ad8de08c9198524f798bd3'
          'b40bc05a359372ff4277e776e15211f6'
-         'fea73aca460daf0d3cdeefa2875182a9'
-         '702066ab01b3f7adc5e5b3b368ed382a')
+         'fea73aca460daf0d3cdeefa2875182a9')
 
 prepare() {
    cd ${pkgname}-${_commit}/
@@ -43,7 +41,6 @@ prepare() {
 
    patch -p1 -i ${srcdir}/qtsingleapplication.diff
    patch -p1 -i ${srcdir}/mainwindow.diff
-   patch -p1 -i ${srcdir}/++.diff
 }
          
 build() {

@@ -10,7 +10,7 @@ fi
 #fi
 
 if [ ! -d /sys/firmware/efi/efivars ]; then
-    sed -i -e 's|"xfs","ext4","zfs"|"xfs","ext4"|' /usr/share/calamares/modules/partition.conf
+    sudo sed -i -e 's|"xfs","ext4","zfs"|"xfs","ext4"|' /usr/share/calamares/modules/partition.conf
 fi
 
 sudo /usr/bin/calamares -d > installation.log
