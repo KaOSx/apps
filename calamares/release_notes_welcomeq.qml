@@ -110,7 +110,11 @@ Item {
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 5.19, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
             A limited number of the most well-known GTK applications are available, examples Firefox 105.0.1, Chrome 108, Ardour 6.9.0, Inkscape 1.2.1, GIMP 2.99.12 and Thunderbird 102.3.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
-            
+            <p><strong>kcp</strong>, the tool to help to manage Community packages, received a small update to list broken depends.
+            This was needed to make possible the full-rewriting of <a href="http://kaos-community-packages.github.io">KCP-Center</a> (the inline Community packages viewer).
+            Indeed, the backend of KCP-Center to update the database, whelp, was obsolete since Python2 was removed from the KaOS repos.
+            Plus it needed too long time to update the database. It has been simplified to use directly the kcp features to get the database and is now Python3-compatible.
+            The frontend was rewrotten too, removing jQuery depends and unmaintained jQuery Plugins, and using the <a href="https://mithril.js.org">Mithril framework</a> to create dynamic pages.</p>            
             <p><b>Known issues:</b></p>
             <ul>
                 <li>Installing on RAID is currently not possible</li>
