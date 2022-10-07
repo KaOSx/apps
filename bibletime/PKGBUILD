@@ -1,7 +1,7 @@
 
 pkgname=bibletime
 pkgver=3.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Bible study program that uses the Sword Engine'
 arch=('x86_64')
 url='http://bibletime.info/'
@@ -26,4 +26,6 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  # empty doc directory needed since 3.0.3, see https://github.com/bibletime/bibletime/issues/392
+  mkdir -p ${pkgdir}/usr/share/doc/bibletime
 }
