@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwayland
 pkgver=${_kf5ver}
-pkgrel=3
+pkgrel=1
 pkgdesc="KWayland provides a Qt-style Client and Server library wrapper for the Wayland libraries"
 arch=('x86_64')
 url="https://invent.kde.org/frameworks/kwayland"
@@ -23,8 +23,8 @@ md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/d02188ad1f6222215adcf842f4c9806ba9e62ccb.diff
-  patch -p1 -i ${srcdir}/a59a303291829747fcb5cdd2d8dac5514772672c.diff
+  #patch -p1 -i ${srcdir}/d02188ad1f6222215adcf842f4c9806ba9e62ccb.diff
+  #patch -p1 -i ${srcdir}/a59a303291829747fcb5cdd2d8dac5514772672c.diff
 }
 
 build() {
