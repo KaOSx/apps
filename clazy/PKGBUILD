@@ -1,7 +1,7 @@
 
 pkgname=clazy
 pkgver=1.11
-pkgrel=3
+pkgrel=4
 pkgdesc="Compiler plugin, Qt oriented code checker based on clang framework"
 url="https://invent.kde.org/sdk/clazy"
 license=('GPL2')
@@ -9,14 +9,14 @@ depends=('clang')
 makedepends=('cmake' 'llvm')
 arch=('x86_64')
 source=("https://download.kde.org/stable/clazy/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/sdk/clazy/-/commit/2592a6e3393ebc75e16c91e606ad2015a16295c3.diff")
+        "https://invent.kde.org/sdk/clazy/-/commit/20fca52da739ebefa47e35f6b338bb99a0da3cfe.diff")
 sha256sums=('66165df33be8785218720c8947aa9099bae6d06c90b1501953d9f95fdfa0120a'
-            '3cbc99a221bc1c561b9a6dcf89d364896f55e74688e45dda78b116c625a01880')
+            'b6f76075f9ecd9fad0d1bea84c3868de07d128df6d24c99d2de761e5718429f5')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # LLVM 12 needed fix
-  #patch -p1 -i ${srcdir}/2592a6e3393ebc75e16c91e606ad2015a16295c3.diff
+  # LLVM 15 needed fix
+  patch -p1 -i ${srcdir}/20fca52da739ebefa47e35f6b338bb99a0da3cfe.diff
 }
 
 build() {

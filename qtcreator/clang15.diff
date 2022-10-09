@@ -1,0 +1,27 @@
+diff --git a/src/plugins/clangformat/CMakeLists.txt b/src/plugins/clangformat/CMakeLists.txt
+index 61ebc03c421..9a0d230315b 100644
+--- a/src/plugins/clangformat/CMakeLists.txt
++++ b/src/plugins/clangformat/CMakeLists.txt
+@@ -13,6 +13,8 @@ add_qtc_plugin(ClangFormat
+     clangformatplugin.cpp clangformatplugin.h
+     clangformatsettings.cpp clangformatsettings.h
+     clangformatutils.cpp clangformatutils.h
++  EXPLICIT_MOC
++    clangformatconfigwidget.cpp clangformatconfigwidget.h
+ )
+ 
+ if(TARGET ClangFormat)
+--- a/src/plugins/clangformat/clangformatutils.cpp	2022-08-11 03:44:37.000000000 +0200
++++ b/src/plugins/clangformat/clangformatutils.cpp	2022-10-09 21:22:03.507200989 +0200
+@@ -118,7 +118,11 @@
+     style.ColumnLimit = 100;
+     style.CommentPragmas = "^ IWYU pragma:";
+     style.CompactNamespaces = false;
++#if LLVM_VERSION_MAJOR >= 15
++    style.PackConstructorInitializers = FormatStyle::PCIS_BinPack;
++#else
+     style.ConstructorInitializerAllOnOneLineOrOnePerLine = false;
++#endif
+     style.ConstructorInitializerIndentWidth = 4;
+     style.ContinuationIndentWidth = 4;
+     style.Cpp11BracedListStyle = true;
