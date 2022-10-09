@@ -2,7 +2,7 @@
 pkgname=avidemux
 pkgver=2.8.1
 _commit=ed7aa6bdbffc43a2cd198130a353b088abd02aa0
-pkgrel=1
+pkgrel=2
 pkgdesc="Video editor designed for simple cutting, filtering and encoding tasks using a variety of codecs."
 arch=('x86_64')
 url="http://fixounet.free.fr/avidemux/"
@@ -24,6 +24,8 @@ prepare() {
     patch -p1 -i ${srcdir}/bootStrap.diff
     # Don't hide the build output
     sed 's|$PARAL >& /tmp/log$BUILDDIR|$PARAL |g' -i bootStrap.bash
+    # set to Qt6
+    sed 's|avidemux3_qt5|avidemux3_qt6|g' -i avidemux/qt4/xdg_data/org.avidemux.Avidemux.desktop
 }
 
 build() {
