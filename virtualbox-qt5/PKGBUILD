@@ -5,8 +5,8 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=6.1.38
-_pkgver=6.1.38
+pkgver=7.0.0
+_pkgver=7.0.0
 pkgrel=1
 arch=('x86_64')
 url='https://virtualbox.org'
@@ -15,7 +15,7 @@ makedepends=('alsa-lib' 'bin86' 'cdrkit' 'curl' 'device-mapper' 'glu' 'iasl' 'op
              'libidl2' 'libvncserver' 'libvpx' 'libxcomposite' 'libxcursor' 'libxinerama'
              'libxml2' 'libxmu' 'libxrandr' 'libxslt' 'libxtst' 'linux-headers' 'mesa' 'pulseaudio'
              'python3' 'qt5-tools' 'qt5-x11extras' 'sdl' 'sdl_ttf' 'xf86driproto' 
-             'xf86-input-mouse' 'xorg-server' 'nasm' 'yasm' 'opus')
+             'xf86-input-mouse' 'xorg-server' 'nasm' 'yasm' 'opus' 'glslang')
 source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgver}.tar.bz2"
         '60-vboxdrv.rules'
         '60-vboxguest.rules'
@@ -25,7 +25,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         'vbox-linux-5.19.patch'
         'VirtioCore.cpp'
         'VirtioCore.h')
-sha256sums=('56d997b58154df3974ce040a64970fa774add41e84b23dfb84b279b24545d7e4'
+sha256sums=('1e5b321bf20eec03154e2b3e16331f827a472d6e8e5b1e04c27041978975a97a'
             'f876e9f55243eded423fda4fc2ffe3b174dca90380a6315f7c9b3cd1c9d07206'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             'c7dc4e484c8641e8fbb8e7fb342c7a72534936d6e9212b477ab7e2736fb8be88'
@@ -99,14 +99,14 @@ package_virtualbox-qt5() {
         ln -sf VBox ${pkgdir}/usr/bin/$i
         ln -sf VBox ${pkgdir}/usr/bin/${i,,}
     done
-    install -m755 VBoxTunctl ${pkgdir}/usr/bin
+    #install -m755 VBoxTunctl ${pkgdir}/usr/bin
 
     # libraries
     install -dm755 ${pkgdir}/usr/lib/virtualbox
     install -m755 *.so ${pkgdir}/usr/lib/virtualbox
     install -m644 *.r0 VBoxEFI*.fd ${pkgdir}/usr/lib/virtualbox
     ## setuid root binaries
-    install -m4755 VBoxSDL VirtualBoxVM VBoxHeadless VBoxNetDHCP VBoxNetAdpCtl VBoxNetNAT -t ${pkgdir}/usr/lib/virtualbox
+    install -m4755 VirtualBoxVM VBoxHeadless VBoxNetDHCP VBoxNetAdpCtl VBoxNetNAT -t ${pkgdir}/usr/lib/virtualbox
     ## other binaries
     install -m755 VirtualBox VBoxManage VBoxSVC VBoxExtPackHelperApp VBoxXPCOMIPCD VBoxTestOGL VBoxBalloonCtrl -t ${pkgdir}/usr/lib/virtualbox
 
