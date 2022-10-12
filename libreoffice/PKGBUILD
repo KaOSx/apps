@@ -1,8 +1,8 @@
 
 pkgname=libreoffice
-_LOver=7.4.1.2
-pkgver=7.4.1.2
-_pkgver=7.4.1
+_LOver=7.4.2.3
+pkgver=7.4.2.3
+_pkgver=7.4.2
 pkgrel=2
 arch=('x86_64')
 license=('LGPL3')
@@ -20,7 +20,8 @@ depends=('curl' 'python3' 'libabw' 'libwpd' 'libwps' 'libxaw' 'neon'
          'libnumbertext' 'libcdr' 'zxing-cpp' 'libldap') # 'icu'
 makedepends=('perl-archive-zip' 'zip' 'unzip' 'gperf' 'cppunit'
              'doxygen' 'apr' 'serf' 'mdds' 'boost' 'glm' 'abseil-cpp')
-_mirror="https://ftp.acc.umu.se/mirror/documentfoundation.org/libreoffice/src/$_pkgver"
+#_mirror="https://ftp.acc.umu.se/mirror/documentfoundation.org/libreoffice/src/$_pkgver"
+_mirror="https://downloadarchive.documentfoundation.org/libreoffice/old/$pkgver/src/"
 #_mirror="http://dev-builds.libreoffice.org/pre-releases/src""
 _additional_source_url="https://dev-www.libreoffice.org/src"
 source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz  
@@ -160,17 +161,17 @@ build() {
 	
 	cd ${srcdir}/libreoffice-$_LOver
 	# poppler 22.09.0 needed
-	patch -p1 -i ${srcdir}/poppler.diff
+	#patch -p1 -i ${srcdir}/poppler.diff
 
 	# move external sources into place
-	#mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
-	#for source in "${noextract[@]}"; do
-	#  ln -s ${srcdir}/$source .
-	#done
-	#popd
+	mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
+	for source in "${noextract[@]}"; do
+	  ln -s ${srcdir}/$source .
+	done
+	popd
 
-	#rm ${srcdir}/ext_sources/185d60944ea767075d27247c3162b3bc-unowinreg.dll
-    #    cp -f ${srcdir}/185d60944ea767075d27247c3162b3bc-unowinreg.dll ${srcdir}/ext_sources
+	rm ${srcdir}/ext_sources/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+        cp -f ${srcdir}/185d60944ea767075d27247c3162b3bc-unowinreg.dll ${srcdir}/ext_sources
 	
 	#use the CFLAGS but remove the LibO overridden ones
 	for i in $CFLAGS; do
