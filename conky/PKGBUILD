@@ -1,6 +1,6 @@
 
 pkgname=conky
-pkgver=1.13.1
+pkgver=1.14.0
 pkgrel=1
 pkgdesc="Advanced, highly configurable system monitor for X based on torsmo"
 arch=('x86_64')
@@ -13,7 +13,7 @@ groups=('utils')
 backup=('etc/conky/conky.conf' 'etc/conky/conky_no_x11.conf')
 source=("https://github.com/brndnmtthws/conky/archive/v${pkgver}.tar.gz"
         'conky.conf')
-md5sums=('79080d2df4aca7b927ec6158cc73dfb8'
+md5sums=('5836710559db86f08152700cc13d361a'
          '3e8bc1cf7cf7587ccc5b333ef33284e0')
 
 prepare() {
@@ -44,6 +44,6 @@ package() {
   #rm ${pkgdir}/etc/conky/conky.conf
   install -D -m755 ${srcdir}/conky.conf ${pkgdir}/etc/conky/conky.conf
 
-  install -D -m644 ../${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  install -D -m644 ${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
 
