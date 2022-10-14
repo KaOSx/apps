@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kpmcore
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('x86_64')
 url="https://invent.kde.org/system/kpmcore"
@@ -29,6 +29,7 @@ build() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DKDE_INSTALL_LIBDIR=lib \
+        -DCMAKE_INSTALL_LIBEXECDIR=lib \
         -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
         -DBUILD_TESTING=OFF 
   cmake --build build

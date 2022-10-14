@@ -2,7 +2,7 @@
 pkgname=rkward
 pkgver=0.7.4
 _pkgver=0.7.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Provides an easily extensible, easy to use IDE/GUI for R."
 arch=('x86_64')
 url="https://rkward.kde.org/"
@@ -28,6 +28,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DBUILD_TESTING=OFF 
   cmake --build build
 }
