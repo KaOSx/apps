@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kguiaddons
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KGuiAddons'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kguiaddons'
@@ -12,8 +12,16 @@ license=('LGPL')
 depends=('qt5-x11extras' 'qt5-wayland' 'plasma-wayland-protocols')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/5.12/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.99/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/kguiaddons/-/commit/a30c1fd20870c425e586cec3d46d7eb944509b89.diff")
+md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'c904a080c87913101dfc09d26ecf3761')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/a30c1fd20870c425e586cec3d46d7eb944509b89.diff
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
