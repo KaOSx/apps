@@ -1,14 +1,13 @@
  
 pkgname=chromium-ffmpeg-codecs
-pkgver=104.0.5112.102
+pkgver=106.0.5249.119
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
 url="https://ffmpeg.org/"
 license=('LGPL2.1')
-depends=('gtk3' 'libexif' 'pulseaudio' 'libxss' 'gdk-pixbuf2')
-makedepends=('ninja' 'nss' 'pciutils' 'python3' 'xdg-utils' 'mesa' 'gn'
-             'clang' 'libva' 'nodejs')
+depends=('gtk3')
+makedepends=('ninja' 'nss' 'python3' 'gn' 'clang' 'libva')
 options=('!strip')
 groups=('network-web' 'multimedia')
 source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${pkgver}.tar.xz"
@@ -17,7 +16,7 @@ source=("https://commondatastorage.googleapis.com/chromium-browser-official/chro
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-FORTIFY_SOURCE-r2.patch"
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-memcpy-r0.patch"
         #"https://raw.githubusercontent.com/gentoo/gentoo/master/www-client/chromium/files/chromium-clang-r2.patch")
-md5sums=('37e0c3fecfcc0b92ffe1d617afea6b3d'
+md5sums=('157e0fdacba6ad253804c8471d004805'
          'd4c8aed09b852568a58591933b7b0c96'
          '767e3e82f89de949909eb990204185cd')
 
@@ -37,8 +36,8 @@ build() {
 
   python3 tools/clang/scripts/update.py
 
-  mkdir -p third_party/node/linux/node-linux-x64/bin/
-  ln -sf /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
+  #mkdir -p third_party/node/linux/node-linux-x64/bin/
+  #ln -sf /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
 
   local _flags=("ffmpeg_branding=\"ChromeOS\""
                 'proprietary_codecs=true'
@@ -47,7 +46,6 @@ build() {
                 'enable_platform_mpeg_h_audio=true'
                 'enable_platform_dolby_vision=true'
                 'enable_mse_mpeg2ts_stream_parser=true'
-                'enable_wayland_server=false'
                 'use_gnome_keyring=false'
                 'use_kerberos=false'
                 'use_cups=false'
@@ -59,20 +57,23 @@ build() {
                 'clang_use_chrome_plugins=true'
                 'fatal_linker_warnings=false'
                 'treat_warnings_as_errors=false'
-                'enable_nacl=false' 
-                'enable_nacl_nonsfi=false'
-                'is_component_build=true'
+                'enable_nacl=false'
+                'is_component_build=false'
+                'is_component_ffmpeg=true'
                 'is_debug=false'
                 'symbol_level=0'
                 'use_custom_libcxx=true')
 
-  gn gen out/Release -v --args="${_flags[*]}" --script-executable=/usr/bin/python3
+  gn gen -v \
+   --args="${_flags[*]}" \
+   --script-executable=/usr/bin/python3 \
+   out/ffmpegso
 
-  ninja -C out/Release -v media/ffmpeg
+  ninja -C out/ffmpegso libffmpeg.so
 }
 
 package() {
   cd chromium-${pkgver}
 
-  install -Dm644 out/Release/libffmpeg.so ${pkgdir}/usr/lib/chromium/libs/libffmpeg.so
+  install -Dm644 out/ffmpegso/libffmpeg.so ${pkgdir}/usr/lib/chromium/libs/libffmpeg.so
 }
