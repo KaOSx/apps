@@ -1,8 +1,8 @@
 
 pkgname=rkward
-pkgver=0.7.4
-_pkgver=0.7.4
-pkgrel=2
+pkgver=0.7.5
+_pkgver=0.7.5
+pkgrel=1
 pkgdesc="Provides an easily extensible, easy to use IDE/GUI for R."
 arch=('x86_64')
 url="https://rkward.kde.org/"
@@ -13,13 +13,13 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'icu')
 groups=('science')
 source=("https://download.kde.org/stable/rkward/${_pkgver}/rkward-${_pkgver}.tar.gz")
 #source=("https://files.kde.org/rkward/testing/for_packaging/rkward-${_pkgver}.tar.gz")
-sha256sums=('7633f3b269f6cf2c067b3b09cbe3da3e0ffdcd9dc3ecb9a9fa63b4f865e8161e')
+sha256sums=('eb7d385b0b9e694fd639c858340ac14cdc7c932ec5e06b61adffbf77d12cd8c8')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
-  
+
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd|V4.5-Based Variant V1.1//EN" "dtd/kdex45.dtd|' doc/rkwardplugins/index.docbook
-  
+
   #scripts/import_translations.py es fr de nl
 }
 
