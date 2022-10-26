@@ -1,6 +1,6 @@
 
 pkgname=polkit
-pkgver=121
+pkgver=122
 pkgrel=1
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=('x86_64')
@@ -11,15 +11,15 @@ makedepends=('intltool' 'gobject-introspection' 'docbook-xsl' 'meson' 'ninja')
 provides=('consolekit')
 options=('!libtool')
 install=polkit.install
-source=("https://www.freedesktop.org/software/polkit/releases/${pkgname}-${pkgver}.tar.gz"
+source=("https://gitlab.freedesktop.org/polkit/polkit/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.bz2"
         'polkit.pam'
         "https://gitlab.freedesktop.org/polkit/polkit/-/commit/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff")
-md5sums=('255761abdc616805a6592bb5fffae178'
+md5sums=('7eb1f0070c66e5e8646d23ad38773253'
          '6564f95878297b954f0572bc1610dd15'
          'e9355c69556b48415b4b1dc810944950')
 
 prepare() {
-  cd ${pkgname}-v.${pkgver}
+  cd ${pkgname}-${pkgver}
   # CVE-2021-4034
   #patch -p1 -i ${srcdir}/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff
 }
@@ -28,7 +28,7 @@ build() {
   mkdir -p build
   cd build
 
-  meson ../${pkgname}-v.${pkgver} \
+  meson ../${pkgname}-${pkgver} \
     --prefix=/usr \
     --buildtype=release \
     --sysconfdir=/etc \
