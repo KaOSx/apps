@@ -1,0 +1,29 @@
+
+pkgname=polkit-qt6
+_pkgname=polkit-qt-1
+pkgver=0.114.0
+_commit=590e7108acf4e2ccb3d2d95e6c436054e310e756
+pkgrel=1
+pkgdesc='Qt6 wrapper around polkit-1 client libraries, to provide the polkit-1 kauth used by KDE'
+arch=('x86_64')
+url='https://invent.kde.org/libraries/polkit-qt-1'
+license=('LGPL')
+depends=('polkit' 'qt6-base')
+makedepends=('extra-cmake-modules')
+#source=("https://download.kde.org/stable/polkit-qt-1/${_pkgname}-${pkgver}.tar.xz")
+source=("https://invent.kde.org/libraries/polkit-qt-1/-/archive/${_commit}/polkit-qt-1-${_commit}.tar.bz2")
+sha256sums=('a257b34f2f969e38dbdcf8e4540044bea0486927593a486e66a8d2fbce25693d')
+
+build() {
+  cmake -B build -S ${_pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
