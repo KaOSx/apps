@@ -1,0 +1,42 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kitemviews6
+_pkgname=kitemviews
+pkgver=${_kf5ver}
+pkgrel=1
+pkgdesc='KItemViews'
+arch=('x86_64')
+url='https://invent.kde.org/frameworks/kitemviews'
+license=('LGPL')
+depends=('qt6-base')
+makedepends=('extra-cmake-modules' 'qt6-tools')
+groups=('kf6')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+        "https://github.com/KDE/kitemviews/commit/69b9ac0575d905ded79ed013c6e2374d9ebeb841.diff")
+md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '5e9dc6d09b787790fe9d84913f0ccbed')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/69b9ac0575d905ded79ed013c6e2374d9ebeb841.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

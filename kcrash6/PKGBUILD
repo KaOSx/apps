@@ -1,0 +1,35 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kcrash6
+_pkgname=kcrash
+pkgver=${_kf5ver}
+pkgrel=1
+pkgdesc='Graceful handling of application crashes'
+arch=('x86_64')
+url='https://invent.kde.org/frameworks/kcrash'
+license=('LGPL')
+depends=('kcoreaddons6' 'kwindowsystem6')
+makedepends=('extra-cmake-modules')
+groups=('kf6')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DKCRASH_CORE_PATTERN_RAISE=ON \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
