@@ -1,0 +1,31 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=modemmanager-qt6
+_pkgname=modemmanager-qt
+pkgver=${_kf5ver}
+pkgrel=1
+pkgdesc='Qt-only wrapper for ModemManager DBus API'
+arch=('x86_64')
+url='https://projects.kde.org/projects/frameworks/modemmanager-qt'
+license=('LGPL')
+depends=('qt6-base' 'modemmanager')
+makedepends=('extra-cmake-modules')
+groups=('kf6')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=/usr/lib \
+    -DQT_MAJOR_VERSION=6 \
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

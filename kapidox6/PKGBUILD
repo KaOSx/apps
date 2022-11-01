@@ -1,0 +1,23 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kapidox6
+_pkgname=kapidox
+pkgver=${_kf5ver}
+pkgrel=1
+pkgdesc='Frameworks API Documentation Tools'
+arch=('x86_64')
+url='https://invent.kde.org/frameworks/kapidox'
+license=('LGPL')
+depends=('python3-jinja')
+makedepends=('extra-cmake-modules' 'qt6-base')
+groups=('kf6')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+package() {
+  cd ${_pkgname}-${pkgver}
+
+  python3 setup.py install --root=${pkgdir}
+}

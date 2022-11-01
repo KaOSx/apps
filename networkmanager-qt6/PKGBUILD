@@ -1,0 +1,33 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=networkmanager-qt6
+_pkgname=networkmanager-qt
+pkgver=${_kf5ver}
+pkgrel=1
+pkgdesc='Qt wrapper for NetworkManager API.'
+arch=('x86_64')
+url='https://invent.kde.org/frameworks/networkmanager-qt'
+license=('LGPL')
+depends=('networkmanager' 'qt6-base' 'libffi')
+makedepends=('extra-cmake-modules')
+groups=('kf6')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
