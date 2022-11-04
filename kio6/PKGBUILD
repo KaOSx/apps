@@ -1,0 +1,46 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kio6
+_pkgname=kio
+pkgver=${_kf5ver}
+pkgrel=1
+pkgdesc='Framework that implements almost all the file management functions you will ever need'
+arch=('x86_64')
+url='https://invent.kde.org/frameworks/kio'
+license=('LGPL')
+depends=('karchive6' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'ki18n6' 'kservice6' 'solid6'
+         'kbookmarks6' 'kcompletion6' 'kconfigwidgets6' 'kguiaddons6' 'kiconthemes6' 'kitemviews6' 'kjobwidgets6'
+         'kwidgetsaddons6' 'kwindowsystem6' 'kauth6' 'kwallet6' 'knotifications6' 'kded6'
+         'ktextwidgets6' 'krb5' 'qt6-5compat')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
+groups=('kf6')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/kio/-/commit/75c48fcf018116aacc30c362a4cde37ea9262164.diff")
+md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '28d8ceac6db7fc26346c13828ba209f6')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/75c48fcf018116aacc30c362a4cde37ea9262164.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
