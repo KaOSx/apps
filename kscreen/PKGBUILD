@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kscreen
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE's screen management software"
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kscreen'
@@ -15,7 +15,7 @@ makedepends=('extra-cmake-modules')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-md5sums=('d9fef213b7d1fe992ee687d29db37948')
+md5sums=('6daba8c9922acf2f8fcff835bece643e')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
