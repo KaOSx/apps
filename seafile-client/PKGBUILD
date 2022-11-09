@@ -1,35 +1,33 @@
 
 pkgname=seafile-client
-pkgver=8.0.8
-_commit=c371897
+pkgver=8.0.9
 pkgrel=1
 pkgdesc="Seafile desktop client."
 arch=('x86_64')
 url="https://github.com/haiwen/seafile-client/"
 license=('Apache' 'GPLv3')
-depends=('qtwebengine' 'seafile')
-makedepends=('libtool' 'intltool' 'vala' 'cmake' 'qt5-tools' 'libevent')
+depends=('qt6-webengine' 'seafile' 'qt6-5compat')
+makedepends=('libtool' 'intltool' 'vala' 'cmake' 'qt6-tools' 'libevent')
 source=("https://github.com/haiwen/seafile-client/archive/v${pkgver}.tar.gz"
         "https://github.com/haiwen/seafile-client/pull/1297/commits/86ebea086c6b78738b3140c922c909331d2b9a94.diff")
-#source=("https://github.com/haiwen/seafile-client/tarball/qt5/sea-client-${pkgver}.tar.gz")
-md5sums=('ec6e91926b1d2ef3be50d77309e1b0aa'
+md5sums=('a80c9fb8349838d9b6c958d221ab5118'
          '1b72d68d42112d6f37c0e42b4441eaf1')
 
 build() {
-  #cd haiwen-${pkgname}-${_commit}
   cd ${pkgname}-${pkgver}
-  sed -i -e 's|NAMES qmake qmake.exe|NAMES qmake-qt5 qmake.exe|' CMakeLists.txt
+  sed -i -e 's|NAMES qmake qmake.exe|NAMES qmake-qt6 qmake.exe|' CMakeLists.txt
+  sed -i -e 's|qmake --version|qmake-qt6 --version|' CMakeLists.txt
   #patch -p1 -i ${srcdir}/86ebea086c6b78738b3140c922c909331d2b9a94.diff
-  
+
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_SHIBBOLETH_SUPPORT=ON 
+    -DBUILD_SHIBBOLETH_SUPPORT=ON \
+    -DQT_VERSION_MAJOR=6
   make
 }
 
 package() {
-  #cd haiwen-${pkgname}-${_commit}
   cd ${pkgname}-${pkgver}
-  
+
   make DESTDIR=${pkgdir} install
 }
