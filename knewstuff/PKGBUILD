@@ -9,10 +9,10 @@ pkgdesc='KNewStuff'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/knewstuff'
 license=('LGPL')
-depends=('kf5-attica' 'kconfigwidgets' 'kio' 'kirigami' 'kpackage')
-makedepends=('extra-cmake-modules')
+depends=('kf5-attica' 'kconfigwidgets' 'kio' 'kirigami' 'kpackage' 'syndication')
+makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("https://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/frameworks/knewstuff/-/commit/b634b65dd081746ccb8bdfa9bf2d878d13e2c0fb.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '352d232c8fc66905b3ab889c036a78f9')
