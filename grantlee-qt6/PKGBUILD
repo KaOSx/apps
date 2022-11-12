@@ -1,0 +1,27 @@
+
+pkgname=grantlee-qt6
+_pkgname=grantlee
+pkgver=5.3.1
+pkgrel=1
+pkgdesc="A string template engine based on the Django template system and written in Qt6"
+arch=('x86_64')
+url="https://github.com/steveire/grantlee"
+license=('LGPL3')
+depends=('qt6-declarative') # 'qt5-script')
+makedepends=('cmake' 'doxygen')
+source=("https://github.com/steveire/grantlee/releases/download/v${pkgver}/${_pkgname}-${pkgver}.tar.gz")
+md5sums=('4ef8eae5dd61e3c7603d76208eb4d922')
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTS=OFF \
+    -DGRANTLEE_BUILD_WITH_QT6=TRUE
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
