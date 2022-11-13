@@ -1,0 +1,48 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=plasma-framework6
+_pkgname=plasma-framework
+pkgver=${_kf5ver}
+pkgrel=1
+pkgdesc='Foundational libraries, components, and tools of the Plasma workspaces'
+arch=('x86_64')
+url='https://invent.kde.org/frameworks/plasma-framework'
+license=('LGPL')
+depends=('kactivities6' 'karchive6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kdbusaddons6'
+         'kdeclarative6' 'kglobalaccel6' 'kguiaddons6' 'ki18n6' 'kiconthemes6' 'kio6' 'kwindowsystem6'
+         'kxmlgui6' 'knotifications6' 'kpackage6' 'kwayland6' 'qt6-declarative' 'kirigami6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+groups=('kf6')
+#options=('debug')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/plasma-framework/-/commit/e589eac536e3de89248e768d3c3a8b6d42ee3518.diff"
+        "https://invent.kde.org/frameworks/plasma-framework/-/commit/1fedb81c7200eff19fb8446a921a4a3ba064ec7d.diff")
+md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '9718f3e6008be73a56ab6ab745ca8046'
+         '03e2e39f83bb325a8333b539d8d828f4')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/e589eac536e3de89248e768d3c3a8b6d42ee3518.diff
+  patch -p1 -i ${srcdir}/1fedb81c7200eff19fb8446a921a4a3ba064ec7d.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
