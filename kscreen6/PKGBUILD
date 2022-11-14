@@ -1,0 +1,37 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kscreen6
+_pkgname=kscreen
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc="KDE's screen management software"
+arch=('x86_64')
+url='https://invent.kde.org/plasma/kscreen'
+license=('GPL' 'LGPL')
+depends=('kconfig6' 'kdbusaddons6' 'kdeclarative6' 'kglobalaccel6' 'ki18n6' 'kiconthemes6' 'kcmutils6'
+         'kxmlgui6' 'libkscreen6' 'plasma-framework6' 'layer-shell-qt6' 'qt6-sensors')
+makedepends=('extra-cmake-modules')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+#md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=('6daba8c9922acf2f8fcff835bece643e')
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

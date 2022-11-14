@@ -1,0 +1,46 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=libksysguard6
+_pkgname=libksysguard
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc='Library to retrieve information on the current status of computer hardware'
+arch=('x86_64')
+url='https://invent.kde.org/plasma/libksysguard'
+license=('LGPL')
+depends=('libxres' 'kcoreaddons6' 'kconfig6' 'ki18n6' 'kjobwidgets6' 'kwindowsystem6' 'kcompletion6' 'kauth6'
+         'kwidgetsaddons6' 'kiconthemes6' 'kconfigwidgets6' 'kservice6' 'kglobalaccel6' 
+         'plasma-framework6' 'kio6' 'kpackage6' 'knewstuff6' 'qt6-webengine' 'lm_sensors')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/plasma/libksysguard/-/commit/27da06df3abaf707d61686e3a301a84df7b099c8.diff")
+md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'f1eed8ca6a051d4a25cd1fc0a3f03d35')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/isnan.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
+

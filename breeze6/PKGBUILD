@@ -1,0 +1,36 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=breeze6
+_pkgname=breeze
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
+arch=('x86_64')
+url='https://invent.kde.org/plasma/breeze'
+license=('LGPL')
+depends=('kdecoration6' 'kpackage6' 'ki18n6' 'frameworkintegration6' 'breeze-icons6' 'kwayland6'
+         'kcmutils6')
+makedepends=('extra-cmake-modules')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build () {  
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
+
