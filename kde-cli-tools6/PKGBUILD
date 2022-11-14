@@ -1,0 +1,48 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kde-cli-tools6
+_pkgname=kde-cli-tools
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc='Tools based on KDE Frameworks to better interact with the system'
+arch=('x86_64')
+url='https://invent.kde.org/plasma/kde-cli-tools'
+license=('LGPL')
+depends=('kconfig6' 'kiconthemes6' 'ki18n6' 'kcmutils6' 'kio6' 'kservice6' 'kwindowsystem6'
+         'kactivities6' 'kdesu6' 'plasma-workspace6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/plasma/kde-cli-tools/-/commit/ed621870ead4f001ba78017e7810251ed5f5509a.diff"
+        "https://invent.kde.org/plasma/kde-cli-tools/-/commit/58401249fb212937d7a896c3816cecc045e8bcf0.diff")
+md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '7a30c9314b922ec56e6a4908e9befb92'
+         'd401dc9e3fed73c6b21f7971d2857da6')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/ed621870ead4f001ba78017e7810251ed5f5509a.diff
+  patch -p1 -i ${srcdir}/58401249fb212937d7a896c3816cecc045e8bcf0.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
+

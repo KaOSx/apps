@@ -1,0 +1,11 @@
+--- a/shell/shellcorona.cpp	2022-06-14 13:47:10.557449163 +0200
++++ b/shell/shellcorona.cpp	2022-06-14 13:47:10.645450057 +0200
+@@ -1788,7 +1788,7 @@
+     QScreen *wantedScreen = qGuiApp->focusWindow() ? qGuiApp->focusWindow()->screen() : m_screenPool->primaryScreen();
+ 
+     QList<Plasma::Types::Location> availableLocations;
+-    availableLocations << Plasma::Types::BottomEdge << Plasma::Types::TopEdge << Plasma::Types::LeftEdge << Plasma::Types::RightEdge;
++    availableLocations << Plasma::Types::RightEdge << Plasma::Types::BottomEdge << Plasma::Types::TopEdge << Plasma::Types::LeftEdge;
+ 
+     for (auto it = m_panelViews.constBegin(); it != m_panelViews.constEnd(); ++it) {
+         if ((*it)->screenToFollow() == wantedScreen) {

@@ -1,0 +1,36 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=ksystemstats6
+_pkgname=ksystemstats
+arch=('x86_64')
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc="Plugin based system monitoring daemon."
+url="https://invent.kde.org/plasma/ksystemstats"
+license=('GPL' 'LGPL' 'FDL')
+depends=('kcoreaddons6' 'kdbusaddons6' 'solid6' 'kio6' 'libksysguard6' 'networkmanager-qt6'
+         'lm_sensors')
+makedepends=('extra-cmake-modules')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

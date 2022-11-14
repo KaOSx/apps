@@ -1,0 +1,20 @@
+diff --git a/applets/kicker/plugin/autotests/CMakeLists.txt b/applets/kicker/plugin/autotests/CMakeLists.txt
+index 5b94da4e5344afb544f3729bcdef2db239caa617..bb33c6c14c1ba94c39b7458d3388a74eec661584 100644
+--- a/applets/kicker/plugin/autotests/CMakeLists.txt
++++ b/applets/kicker/plugin/autotests/CMakeLists.txt
+@@ -1,6 +1,6 @@
+-find_package(Qt5QuickTest ${REQUIRED_QT_VERSION} CONFIG QUIET)
++find_package(Qt${QT_MAJOR_VERSION}QuickTest ${REQUIRED_QT_VERSION} CONFIG QUIET)
+ 
+-if(NOT Qt5QuickTest_FOUND)
++if(NOT TARGET Qt::QuickTest)
+     message(STATUS "Qt5QuickTest not found, autotests will not be built.")
+     return()
+ endif()
+@@ -32,5 +32,5 @@ include(ECMAddTests)
+ 
+ ecm_add_test(
+     testrunnermodel.cpp
+-    LINK_LIBRARIES kickerplugin Qt5::Test
++    LINK_LIBRARIES kickerplugin Qt::Test
+ )
