@@ -1,0 +1,27 @@
+
+pkgname=midna-themes6
+_pkgname=midna-themes
+pkgver=6.0.8
+_commit=1e1a8d2b4b6c568494ca5d9b57dfd603241fdbc9
+pkgrel=1
+pkgdesc='KaOS Plasma 6 Look & Feel theme files'
+url='https://kaosx.us'
+arch=('x86_64')
+license=('LGPL')
+depends=('plasma-framework6' 'ttf-raleway' 'kvantum-qt6')
+makedepends=('extra-cmake-modules')
+source=("https://github.com/KaOSx/midna/archive/${_commit}.zip")
+md5sums=('6260e582f671653866ca7eca8d661e7f')
+
+build() {
+  cmake -B build -S midna-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON  
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

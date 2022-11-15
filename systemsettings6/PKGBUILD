@@ -1,0 +1,60 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=systemsettings6
+_pkgname=systemsettings
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc='Control center to configure your Plasma Desktop.'
+arch=('x86_64')
+url='https://invent.kde.org/plasma/systemsettings'
+license=('LGPL')
+depends=('kauth6' 'kcrash6' 'kitemviews6' 'kitemmodels6' 'kcmutils6' 'ki18n6' 'kio6' 'kservice6'
+         'kiconthemes6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'kdbusaddons6' 'kconfig6'
+         'kpackage6' 'kactivities6' 'kactivities-stats6' 'kguiaddons6'  'kirigami6' 'plasma-workspace6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/plasma/systemsettings/-/commit/8c289f052a8de53e50ffe7ba10879c55f59c306d.diff"
+        "https://invent.kde.org/plasma/systemsettings/-/commit/cb4bdb22fa917c7837f42d11551265d2c6afdcc5.diff"
+        "https://invent.kde.org/plasma/systemsettings/-/commit/68c53794026abeef727fe744213f160983c98791.diff"
+        "https://invent.kde.org/plasma/systemsettings/-/commit/2d0a0054e629bff8067d9a4905108e51167aed79.diff"
+        "https://invent.kde.org/plasma/systemsettings/-/commit/15ef0322dc66583b3648efa09e179f4d8325087c.diff"
+        "https://invent.kde.org/plasma/systemsettings/-/commit/9b89905dfc6e335a97f0b789a033256a6482c940.diff")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'd225579567645f75e6cb463693ea6492'
+         '2227903bd0bd7ccc72b08b6297604586'
+         '316ba86a5da1737d11a8648d0b6da9f0'
+         'dba4c1b2f7e3a5b01ee5881a8c92fe52'
+         '0e336169a9ae34e6527c305d59a20e3a'
+         'bcb6fc76e2357a9b6f5f49278e399217')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/8c289f052a8de53e50ffe7ba10879c55f59c306d.diff
+  patch -p1 -i ${srcdir}/cb4bdb22fa917c7837f42d11551265d2c6afdcc5.diff
+  patch -p1 -i ${srcdir}/68c53794026abeef727fe744213f160983c98791.diff
+  patch -p1 -i ${srcdir}/2d0a0054e629bff8067d9a4905108e51167aed79.diff
+  patch -p1 -i ${srcdir}/15ef0322dc66583b3648efa09e179f4d8325087c.diff
+  patch -p1 -i ${srcdir}/9b89905dfc6e335a97f0b789a033256a6482c940.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
