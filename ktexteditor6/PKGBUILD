@@ -15,14 +15,14 @@ depends=('karchive6' 'kconfig6' 'kguiaddons6' 'ki18n6' 'kio6' 'kparts6' 'sonnet6
 makedepends=('extra-cmake-modules')
 groups=('kf6')
 source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/frameworks/ktexteditor/-/commit/804e49444c093fe58ec0df2ab436565e50dc147e.diff")
+        "https://invent.kde.org/frameworks/ktexteditor/-/commit/99bb4f0250f8f394cbefeaa15111c196d72ab83f.diff")
 md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'f4c7eb690bc4c00b6700a3801c1b0857')
+         'f38f65b0774673b772ff860a029708bf')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/804e49444c093fe58ec0df2ab436565e50dc147e.diff
+  #patch -p1 -i ${srcdir}/99bb4f0250f8f394cbefeaa15111c196d72ab83f.diff
 }
 
 build() {

@@ -26,8 +26,8 @@ md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/e589eac536e3de89248e768d3c3a8b6d42ee3518.diff
-  patch -p1 -i ${srcdir}/1fedb81c7200eff19fb8446a921a4a3ba064ec7d.diff
+  #patch -p1 -i ${srcdir}/e589eac536e3de89248e768d3c3a8b6d42ee3518.diff
+  #patch -p1 -i ${srcdir}/1fedb81c7200eff19fb8446a921a4a3ba064ec7d.diff
 }
 
 build() {
@@ -37,7 +37,7 @@ build() {
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF \
     -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=5.99.0 \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }

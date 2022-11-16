@@ -14,13 +14,15 @@ depends=('kconfig6' 'ki18n6' 'kiconthemes6' 'kio6' 'kwidgetsaddons6' 'kwindowsys
          'kguiaddons6' 'kpackage6' 'knotifications6' 'libepoxy')
 makedepends=('extra-cmake-modules')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/kdeclarative/-/commit/6780343dfa34e44f0bea4661d4a0c5170ee5c5d1.diff")
+md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '39c6cacf8dd22d6d029e816cc9e51f8b')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/695f24fb522a5ae6fe2530cbd72d3966b234b025.diff
+  patch -p1 -i ${srcdir}/6780343dfa34e44f0bea4661d4a0c5170ee5c5d1.diff
 }
 
 build() {

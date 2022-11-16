@@ -13,8 +13,16 @@ license=('LGPL')
 depends=('kcoreaddons6' 'kwidgetsaddons6' 'qt6-base')
 makedepends=('extra-cmake-modules' 'qt6-tools')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/kjobwidgets/-/commit/bb23b26fbf291b572145b00d4f37d73f3b92b072.diff")
+md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'ae23cd1c14b7a25c1b75c9f3703d127a')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/bb23b26fbf291b572145b00d4f37d73f3b92b072.diff
+}
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \
