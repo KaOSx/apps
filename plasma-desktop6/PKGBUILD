@@ -23,14 +23,28 @@ source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.
         'main_desktop_kickoff.diff'
         "https://invent.kde.org/plasma/plasma-desktop/-/commit/1dfba7045c82ae2553be2cb7018fcd893c19d7bc.diff"
         "https://invent.kde.org/plasma/plasma-desktop/-/commit/57c3e3fdb489eac24169c96ee80934762161611d.diff"
-        "https://invent.kde.org/plasma/plasma-desktop/-/commit/d8715f5fdc445e35a8c1511b8df1b983cc54ca33.diff")
+        "https://invent.kde.org/plasma/plasma-desktop/-/commit/d8715f5fdc445e35a8c1511b8df1b983cc54ca33.diff"
+        "https://invent.kde.org/plasma/plasma-desktop/-/commit/fba6fbf70d8b055370587ced46324f1d18c729c8.diff"
+        "https://invent.kde.org/plasma/plasma-desktop/-/commit/4758cfa703d34dcf1ba99327dfa005d319e435f3.diff"
+        "https://invent.kde.org/plasma/plasma-desktop/-/commit/b30586dd626b1de0a19bdee8a36cca942317a2ef.diff"
+        "https://invent.kde.org/plasma/plasma-desktop/-/commit/4441f1932b13b620db5d6388dbfbcb68375cdef6.diff"
+        "https://invent.kde.org/plasma/plasma-desktop/-/commit/2348b9475cca2bd35380c2e84486a75dac6b5fee.diff"
+        "https://invent.kde.org/plasma/plasma-desktop/-/commit/65ac0388b03e52852cd9066c58b854c058a6acc0.diff"
+        "https://invent.kde.org/plasma/plasma-desktop/-/commit/bef87a2fad9dbacb71e26c558a3a35cd6b672073.diff")
 md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '6e13e785600f1a6c1e181ab2934f1558'
          'd48023d707667150ed8978203806baa2'
          'bc7c07f2754de81b64ead90aa20b1020'
          '46b4248270d75f1c7e481145c5c797a7'
          'fe6b203d1481117357bd5d1c9e394ebd'
-         '04c9c8b8e868d7418a1f32b9deebf7a4')
+         '04c9c8b8e868d7418a1f32b9deebf7a4'
+         'ac1db0b48d541c58323dc1e243722a80'
+         '545325275f8c6d6b55e02587e4ee6294'
+         'e98ea767e3c3090d81981f3140f75121'
+         'c034fc14224bd2fb78216273edf25b02'
+         '380c18f380f6ebbf361db7658fd00185'
+         'c052d63051e5a8b34c99e0534d3598d2'
+         '7ac4f4f84cd3cb6a6d5553524864e0eb')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
@@ -42,6 +56,13 @@ prepare() {
   patch -p1 -i ${srcdir}/1dfba7045c82ae2553be2cb7018fcd893c19d7bc.diff
   patch -p1 -i ${srcdir}/57c3e3fdb489eac24169c96ee80934762161611d.diff
   patch -p1 -i ${srcdir}/d8715f5fdc445e35a8c1511b8df1b983cc54ca33.diff
+  patch -p1 -i ${srcdir}/fba6fbf70d8b055370587ced46324f1d18c729c8.diff
+  patch -p1 -i ${srcdir}/4758cfa703d34dcf1ba99327dfa005d319e435f3.diff
+  patch -p1 -i ${srcdir}/b30586dd626b1de0a19bdee8a36cca942317a2ef.diff
+  patch -p1 -i ${srcdir}/4441f1932b13b620db5d6388dbfbcb68375cdef6.diff
+  patch -p1 -i ${srcdir}/2348b9475cca2bd35380c2e84486a75dac6b5fee.diff
+  patch -p1 -i ${srcdir}/65ac0388b03e52852cd9066c58b854c058a6acc0.diff
+  patch -p1 -i ${srcdir}/bef87a2fad9dbacb71e26c558a3a35cd6b672073.diff
 }
 
 build() {
