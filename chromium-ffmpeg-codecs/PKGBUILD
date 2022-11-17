@@ -1,6 +1,6 @@
  
 pkgname=chromium-ffmpeg-codecs
-pkgver=106.0.5249.119
+pkgver=107.0.5304.110
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
@@ -16,7 +16,7 @@ source=("https://commondatastorage.googleapis.com/chromium-browser-official/chro
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-FORTIFY_SOURCE-r2.patch"
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-memcpy-r0.patch"
         #"https://raw.githubusercontent.com/gentoo/gentoo/master/www-client/chromium/files/chromium-clang-r2.patch")
-md5sums=('157e0fdacba6ad253804c8471d004805'
+md5sums=('56d3077b0ee579eed0580805363cec1d'
          'd4c8aed09b852568a58591933b7b0c96'
          '767e3e82f89de949909eb990204185cd')
 
@@ -47,6 +47,7 @@ build() {
                 'enable_platform_dolby_vision=true'
                 'enable_mse_mpeg2ts_stream_parser=true'
                 'use_gnome_keyring=false'
+                'use_qt=false'
                 'use_kerberos=false'
                 'use_cups=false'
                 'use_sysroot=false'
