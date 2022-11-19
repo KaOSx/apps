@@ -1,0 +1,26 @@
+
+pkgname=kjournald
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Framework for interacting with systemd-journald'
+arch=('x86_64')
+url='https://invent.kde.org/system/kjournald'
+license=('LGPL')
+depends=('kcoreaddons' 'ki18n' 'qt5-quickcontrols2' 'systemd')
+makedepends=('extra-cmake-modules')
+source=("http://download.kde.org/stable/kjournald/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('dd2d190621d084430fc7934b01e774553e16081cd8beb9e6546afc82cd9382a8')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF
+  cmake --build build
+}
+
+package() {
+
+    DESTDIR=${pkgdir} cmake --install build
+}
