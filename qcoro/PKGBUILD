@@ -1,20 +1,17 @@
  
 pkgname=qcoro
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="Library that provides set of tools to make use of the C++20 coroutines in connection with certain asynchronous Qt actions."
 arch=('x86_64')
 url="https://qcoro.dvratil.cz/"
 license=('MIT')
 depends=('qt5-websockets')
-makedepends=('cmake' 'clang')
+makedepends=('cmake')
 source=("https://github.com/danvratil/qcoro/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('26d6ea1103c51b895e93d27b59bee394f80db8fd9ca21e7c0056583b1938906d')
+sha256sums=('23ef0217926e67c8d2eb861cf91617da2f7d8d5a9ae6c62321b21448b1669210')
 
 build() {
-  export CC=/usr/bin/clang
-  export CXX=/usr/bin/clang++
-
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
