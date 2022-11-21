@@ -1,0 +1,52 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=dolphin6
+_pkgname=dolphin
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="File manager by KDE."
+arch=('x86_64')
+url='https://invent.kde.org/system/dolphin'
+license=('LGPL')
+depends=('kcmutils6' 'knewstuff6' 'kcoreaddons6' 'ki18n6' 'kdbusaddons6' 'kbookmarks6' 'kconfig6' 'kio6'
+         'kparts6' 'solid6' 'kiconthemes6' 'kcompletion6' 'ktextwidgets6' 'knotifications6' 'kwindowsystem6'
+         'kwidgetsaddons6' 'kuserfeedback6' 'kactivities6' 'baloo6' 'kfilemetadata6' 'kde-cli-tools6') # 'baloo-widgets'
+makedepends=('extra-cmake-modules' 'kdoctools6' 'ruby')
+#groups=('kde-system')
+source=("$_mirror/${_pkgname}-${_kdever}.tar.xz"
+        'kdesu.diff'
+        'dolphinui.diff'
+        "https://invent.kde.org/system/dolphin/-/commit/27bfcde4efaf936243fc41e4a61d0cac32105ef6.diff")
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'b4f0491bacf3c9f923f2ee0810cc3576'
+         'e0211cc01ceb848101e19cbd0bd95fcf'
+         '0c321ada7e9b729ebbd887f534c52fd0')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+  # keep kdesu option for dolphin, comment out for now, wait for upstream decision
+  patch -p1 -i ${srcdir}/kdesu.diff
+  # set KaOS defaults
+  patch -p1 -i ${srcdir}/dolphinui.diff
+  sed -i 's|dirLister->setShowingDotFiles|dirLister->setShowHiddenFiles|' src/kitemviews/kfileitemmodel.cpp
+  sed -i 's|dirLister->showingDotFiles|dirLister->showHiddenFiles|' src/kitemviews/kfileitemmodel.cpp
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_WITH_QT6=ON \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
