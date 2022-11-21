@@ -16,14 +16,14 @@ depends=('kbookmarks6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6'
          'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'icu')
 makedepends=('extra-cmake-modules' 'kdoctools6')
 source=("${_mirror}/${_pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/utilities/konsole/-/commit/3213a177989e2bd310430cd684f080069f8c4efe.diff")
+        "https://invent.kde.org/utilities/konsole/-/commit/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff")
 md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'd5f00dc447dbd716909fe9bab776aa45')
+         'cf7a0f9cb05195f716a1164b1d116cb5')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/3213a177989e2bd310430cd684f080069f8c4efe.diff
+  patch -p1 -i ${srcdir}/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff
 }
 
 build() {
