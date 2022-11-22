@@ -27,7 +27,7 @@ md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${_pkgname}-${pkgver}
   # keep kdesu option for dolphin, comment out for now, wait for upstream decision
-  patch -p1 -i ${srcdir}/kdesu.diff
+  #patch -p1 -i ${srcdir}/kdesu.diff
   # set KaOS defaults
   patch -p1 -i ${srcdir}/dolphinui.diff
   sed -i 's|dirLister->setShowingDotFiles|dirLister->setShowHiddenFiles|' src/kitemviews/kfileitemmodel.cpp
