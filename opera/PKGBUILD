@@ -1,6 +1,6 @@
 
 pkgname=opera
-pkgver=93.0.4585.11
+pkgver=93.0.4585.21
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite."
 arch=('x86_64')
@@ -10,18 +10,18 @@ depends=('gcc-libs' 'libxt' 'freetype2' 'libxext' 'glib2' 'shared-mime-info' 'hi
         'desktop-file-utils' 'gtk3' 'libnotify' 'gsettings-desktop-schemas' 'chromium-ffmpeg-codecs')
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 groups=('network-web')
-source=("https://download1.operacdn.com/pub/opera/desktop/${pkgver}/linux/opera-stable_${pkgver}_amd64.rpm")
-sha256sums=('a2960c9d863e76b3b624487e1b1ed22e2e15069b7c9a773b314521016c985e9b')
+source=("https://download1.operacdn.com/pub/opera/desktop/${pkgver}/linux/opera-stable_${pkgver}_amd64.deb")
+sha256sums=('216c0098d50e816e5a787013174d53a4beb2184de8dcb5512faf9e6e3ba08f6f')
 
 package() {
-	#bsdtar -xJf data.tar.xz -C ${pkgdir}/
+	bsdtar -xJf data.tar.xz -C ${srcdir}/
 	#chmod 4755 ${pkgdir}/usr/lib/x86_64-linux-gnu/opera/opera_sandbox
 
 	install -dm755 ${pkgdir}/usr/lib
-	cp -r usr/lib64/* ${pkgdir}/usr/lib/
+	cp -r usr/lib/x86_64-linux-gnu/opera ${pkgdir}/usr/lib/
 
 	install -dm755 ${pkgdir}/usr/share
-	cp -r usr/share/* ${pkgdir}/usr/share/
+	cp -r usr/share/{applications,icons,mime,pixmaps} ${pkgdir}/usr/share/
 
 	install -dm755 ${pkgdir}/usr/bin
 	ln -s /usr/lib/opera/opera ${pkgdir}/usr/bin/opera
