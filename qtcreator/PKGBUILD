@@ -1,10 +1,10 @@
 
 pkgname=qtcreator
 _pkgname=qt-creator-opensource-src
-pkgver=8.0.2
-_pkgver=8.0
-__pkgver=8.0.2
-pkgrel=2
+pkgver=9.0.0
+_pkgver=9.0
+__pkgver=9.0.0
+pkgrel=1
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="https://www.qt.io/development-tools"
@@ -17,7 +17,7 @@ groups=('programming')
 source=("https://download.qt.io/official_releases/${pkgname}/${_pkgver}/${__pkgver}/${_pkgname}-${__pkgver}.tar.xz"
         'qtcreator.desktop'
         'clang15.diff')
-md5sums=('bdd73958efa2383a6a0953b81f48cc57'
+md5sums=('f3adf33aaf6859b590aebf2c95710ab0'
          '5162b73dd63f457bdb02bd9c8b1cc66b'
          'bd768440fb33f478173b95b005993833')
 
@@ -26,7 +26,7 @@ prepare() {
 
   sed -e 's|libexec/qtcreator|lib/qtcreator|' -i cmake/QtCreatorAPIInternal.cmake
   # LLVM 15 needed fix
-  patch -p1 -i ${srcdir}/clang15.diff
+  #patch -p1 -i ${srcdir}/clang15.diff
 }
 
 build() {
