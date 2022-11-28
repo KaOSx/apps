@@ -1,13 +1,13 @@
 
 pkgname=midna-themes
-pkgver=6.0.8
-_commit=1e1a8d2b4b6c568494ca5d9b57dfd603241fdbc9
+pkgver=6.1.0
+_commit=d6bcbe3bf652d41fe13501fa07d187d563841551
 pkgrel=1
 pkgdesc='KaOS Plasma 5 Look & Feel theme files'
 url='https://kaosx.us'
 arch=('x86_64')
 license=('LGPL')
-depends=('plasma-framework' 'qtcurve' 'ttf-raleway' 'kvantum')
+depends=('plasma-framework' 'ttf-raleway' 'kvantum')
 makedepends=('extra-cmake-modules')
 conflicts=('kde-kdm-themes-midna'
            'kde-ksplash-themes-midna'
@@ -20,7 +20,7 @@ replaces=('kde-kdm-themes-midna'
           'midna-colors' 
           'wallpapers-midna')
 source=("https://github.com/KaOSx/midna/archive/${_commit}.zip")
-md5sums=('6260e582f671653866ca7eca8d661e7f')
+md5sums=('9f8fd403e0092f84d951d0581a57aa6e')
 
 build() {
   cmake -B build -S midna-${_commit} \
