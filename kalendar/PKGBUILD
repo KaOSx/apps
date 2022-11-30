@@ -9,9 +9,9 @@ pkgdesc="Calendar application supporting both local calendars as well as a multi
 arch=("x86_64")
 url="https://apps.kde.org/kalendar/"
 license=('GPL')
-depends=('kirigami' 'kdbusaddons' 'ki18n' 'kcalendarcore' 'kconfigwidgets' 'kwindowsystem' 'kcoreaddons'
-         'qqc2-desktop-style' 'kcontacts' 'kitemmodels' 'kxmlgui' 'knotifications' 'kiconthemes' 'kservice'
-         'akonadi-contacts' 'calendarsupport' 'eventviews' 'kdepim-runtime')
+depends=('kcalendarcore' 'kconfigwidgets' 'kcontacts'  'kcoreaddons' 'kdbusaddons' 'ki18n' 'kiconthemes'
+         'kitemmodels' 'kirigami' 'kio' 'qqc2-desktop-style' 'kwindowsystem' 'kxmlgui' 'knotifications'  'kservice'
+         'akonadi-calendar' 'akonadi-contacts' 'calendarsupport' 'eventviews' 'mailcommon' 'pimcommon')
 makedepends=('extra-cmake-modules' 'boost')
 source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

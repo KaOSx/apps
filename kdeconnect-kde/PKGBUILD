@@ -14,16 +14,14 @@ depends=('ki18n' 'kconfigwidgets' 'kdbusaddons' 'kiconthemes' 'knotifications' '
          'kservice' 'solid' 'kirigami' 'kpeoplevcard' 'kwindowsystem' 'kdeclarative' 'kwayland'
          'qqc2-desktop-style' 'qca-qt5' 'libfakekey' 'qt5-quickcontrols' 'sshfs' 'pulseaudio-qt')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
-        'openssh8.2.patch')
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'ec00e96b184e6e0ab3641dab9dbac9e8')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|import QtQuick.Layouts 1.2|import QtQuick.Layouts 1.1|' ${srcdir}/${pkgname}/app/qml/DeviceDelegate.qml
-  # file browsing crashes with openssh 8.2, fix from ArchLinux
-  patch -p1 -i ${srcdir}/openssh8.2.patch
+
+  #patch -p1 -i ${srcdir}/openssh8.2.patch
 }
 
 build() {
