@@ -1,0 +1,25 @@
+ 
+pkgname=kirigami-addons
+pkgver=0.6
+pkgrel=1
+pkgdesc="Add-ons for the Kirigami framework."
+arch=('x86_64')
+url="https://invent.kde.org/libraries/kirigami-addons"
+license=('GPL3')
+depends=('qt5-quickcontrols2' 'kirigami' 'ki18n')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/stable/kirigami-addons/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('2fc18d25ad684d5fec260b872c3320068290c59abab50e26a61811ca8bd5882f')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
