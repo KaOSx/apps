@@ -53,21 +53,13 @@ Item {
             text: qsTr("<h3>KaOS - 2022.12</h3>
             <p>It is with great pleasure to present to you the November release of a new stable ISO.</p>
 
-            <p>Many changes have been implemented to the installer <strong>Calamares</strong> in the last few months, so it is fitting to start with listing all that is new or has changed.< /br>
-            It is now possible to do a typical install entirely from a touchpad or mouse, a keyboard is no longer needed. A virtual keyboard has been implemented for those modules that need text input.< /br>
-            For those who prefer PulseAudio over Pipewire, a module has been added (KaOS only), that gives users the option to select which sound server they prefer (with Pipewire set as default).< /br>
-            Dracut is the new default for the initramfs image creation (mkinitcpio is no longer in use for new installs). To accommodate that change, the Dracut module in Calamares had to be adjusted, so it now supports version-less kernels.< /br>
-            The slideshow presented during the install had a complete overhaul, no  longer in use are complete different images for each slide, now it has one static background and animated text sliding & fading in & out. Corresponding images for each text are now fading in as slides too. Less jarring transition as was before, so now it is no longer needed to mouse click to advance the slides, it loops automatically.< /br>
-            There now is an option however to either view the slideshow with information about the distribution, or watch what the installer Calamares is currently doing by selecting the Log View.< /br>
-            The layout has also been adjusted, so it is now more intuitive to move through the steps and is more in line visually with the other KaOS application presented in Live mode and first boot into the new system. Gone is the use of a ComboBox in the different modules, Drawer is in use instead (for a more consistent behavior).</p>
+            <p>With over 70% of the distribution rebuild, a new ISO is more then due. Updates to the base of the system included a new GCC 12.2.0, Glibc 2.36 and binutils 2.39 based toolchain, CLang/LLVM 15.0.6, ICU 71.1, Boost 1.79.0, kernel moved to Linux 6.0.10, Systemd 252.2,  Glib2 2.74.2, Python 3.10.8, Texlive packages moved to 2022, Libnl 3.7.0, Libssh 0.10.4, and Upower 1.90.0.</p>
 
             <p>As mentioned above, KaOS has moved to Dracut as the new initramfs infrastructure. Unlike other implementations, dracut hard-codes as little as possible into the initramfs. The initramfs has (basically) one purpose in life -- getting the rootfs mounted so that transitioning to the real rootfs can be done. Dracut is distribution agnostic and used by many (examples Fedora, VOID, OpenSuse, Gentoo), plus the code-base is very actively maintained.</p>
             
-            <p>With Dracut in place, the move to include ZFS as a new filesystem option could also be implemented. Using ZFS has been a goal for KaOS, ever since it started in 2013.  ZFS is not default at this stage, since it cannot be used (yet) for BIOS installs.  For UEFI installs, only the systemd-boot bootloader is ready for ZFS. rEfind adaptation needs to be done still.</p>
+            <p>The move to include ZFS exposed a shortcoming in the installer Calamares.  A generated hostid for ZFS during the installation, did not copy over to the installed system, thus the installed system failed to match the hostid on system updates where a new initramfs was created. This is now corrected by adding a new <code>zfshostid</code> module to Calamares. This module was presented to upstream Calamares, but is not included yet in a release, at this point it is a KaOS only option.</p>
 
-            <p>Updates to the base of this distribution included ICU 71.1, Boost 1.79.0, kernel moved to Linux 6.0.10, Systemd 252.2,  KMod 30, Mesa 22.2.4, Texlive packages moved to 2022, Libnl 3.7.0, Libssh 0.10.4, and Upower 1.90.0.</p>
-
-            <p>For the Plasma desktop, the latest Plasma (5.26.3), KDE Gear (22.08.3) and Frameworks (5.100.0) are included. All built on <b>Qt 5.15.7+</b>. Among the changes included in Plasma 5.26.0 is improved Wayland support with the possibilty to select if apps will be scaled by the compositor or by themselves to avoid having blurry apps on Wayland.</p>
+            <p>For the Plasma desktop, the latest Plasma (5.26.4), KDE Gear (22.11.90) and Frameworks (5.100.0) are included. All built on <b>Qt 5.15.7+</b>. Among the changes included in Plasma 5.26.0 is improved Wayland support with the possibilty to select if apps will be scaled by the compositor or by themselves to avoid having blurry apps on Wayland.</p>
 
             <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.< /br>
             Similar, Pipewire has replaced PulseAudio as the default sound/low-level multimedia framework.</p>
@@ -103,12 +95,12 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.100.0, Plasma 5.26.3, KDE Applications 22.08.3</b>, Linux 6.0.10, Systemd 252.2, Kmod 30, NetworkManager 1.40.4, LibreOffice 7.4.3, Elisa, Xorg-Server 1.21.4, Mesa 22.2.4, Glibc 2.36, GCC 12.2.0, non-free Nvidia 520 and Python3 3.10.8 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.100.0, Plasma 5.26.4, KDE Applications 22.11.90</b>, Linux 6.0.10, Systemd 252.2, Kmod 30, NetworkManager 1.40.4, LibreOffice 7.4.3, Elisa, Xorg-Server 1.21.4, Mesa 22.2.4, Glibc 2.36, GCC 12.2.0, non-free Nvidia 525 and Python3 3.10.8 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.1</strong>, with the simple but powerful Octopi 0.14.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 6.0, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 107.0, Chrome 109, Ardour 7.1.0, Inkscape 1.2.1, GIMP 2.99.14 and Thunderbird 102.5.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 107.0.1, Chrome 109, Ardour 7.1.0, Inkscape 1.2.1, GIMP 2.99.14 and Thunderbird 102.5.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
 
             <p><b>Known issues:</b></p>
