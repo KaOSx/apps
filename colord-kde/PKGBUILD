@@ -1,24 +1,24 @@
 
-# colord GUI vs Oyranus GUI https://www.freedesktop.org/software/colord/faq.html#oyranos
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=colord-kde
-pkgver=0.5.0
-pkgrel=3
-_commit=7c1be5c0728d4be8232d9a9ac8c74834361d9cf5
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc="Daemon that manages color profiles, including a KCM that manages colord profiles"
 url='https://dantti.wordpress.com/2012/03/12/coloring-you-desktop-with-colord-kde/'
 arch=('x86_64')
 license=('GPL')
 depends=('colord' 'libxrandr' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'ki18n'
-         'kcmutils' 'kwidgetsaddons' 'kwindowsystem')
+         'kcmutils' 'kwidgetsaddons' 'kwindowsystem' 'kio')
 makedepends=('extra-cmake-modules')
 groups=('color')
-source=("https://invent.kde.org/graphics/colord-kde/-/archive/${_commit}/colord-kde-${_commit}.tar.bz2")
-md5sums=('539bd8ef21e67a4e461c86c97a983822')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
