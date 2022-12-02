@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=partitionmanager
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
 arch=('x86_64')
@@ -22,8 +22,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 prepare() {
   cd ${pkgname}-${pkgver}
   # filsystem code from src/fs/filesystem.h, set as default
-  #sed -i -e 's/FileSystem::Ext3/FileSystem::Xfs/' ${srcdir}/${pkgname}-${pkgver}/src/config.kcfg
-  sed -i -e 's/FileSystem::Ext4/FileSystem::Xfs/' src/partitionmanager.kcfg
+  sed -i -e 's/FileSystem::Type::Btrfs/FileSystem::Type::Xfs/' src/partitionmanager.kcfg
 }
 
 build() {
