@@ -29,7 +29,7 @@ prepare() {
   patch -p1 -i ${srcdir}/kdesu.diff
   # set KaOS defaults
   patch -p1 -i ${srcdir}/dolphinui.diff
-  #sed -i 's|5.81.0|5.82.0|' CMakeLists.txt
+  # https://bugs.kde.org/show_bug.cgi?id=457529 patch only reverted in 22.12 branch, will re-surface with 23.04
   patch -p1 -i ${srcdir}/57909ebe66fd4aa83d1fbaf2c746d408451e80cb.diff
 }
 

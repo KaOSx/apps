@@ -1,27 +1,26 @@
 
 pkgname=scala
-pkgver=2.13.10
-_pkgver=2.13.10
+pkgver=3.2.1
+_pkgver=3.2.1
 pkgrel=1
-pkgdesc="Acronym for Scalable Language, running on the JVM. Java and Scala classes"
+pkgdesc="Acronym for Scalable Language, running on the JVM, Java and Scala classes"
 arch=('x86_64')
 url="https://www.scala-lang.org"
 license=('custom')
 depends=('sh' 'java-environment')
-source=("https://www.scala-lang.org/files/archive/scala-${_pkgver}.tgz")
-md5sums=('79e3cc22cbd363a6ea66c225113385c2')
+#source=("https://www.scala-lang.org/files/archive/scala-${_pkgver}.tgz")
+source=("https://github.com/lampepfl/dotty/releases/download/${_pkgver}/scala3-${_pkgver}.tar.gz")
+sha256sums=('914e96e6d1d73df2fc68985a394e27ccbfb299306d95a9663fa4fefe83349e59')
 
 package() {
-  cd scala-${_pkgver}
+  cd scala3-${_pkgver}
 
-  install -d ${pkgdir}/usr/{bin,share} ${pkgdir}/usr/share/man/man1 ${pkgdir}/usr/share/scala/{bin,lib}
+  install -d ${pkgdir}/usr/{bin,share} ${pkgdir}/usr/share/scala/{bin,lib}
   cp -r lib ${pkgdir}/usr/share/scala/
-  cp -r man ${pkgdir}/usr/share/
-  install -m 755 bin/{fsc,scala,scalac,scalap,scaladoc} ${pkgdir}/usr/share/scala/bin
-  install -D -m0644 doc/LICENSE.md ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
-  ln -s ../share/scala/bin/fsc ${pkgdir}/usr/bin/fsc
+  install -m 755 bin/{common,scala,scalac,scaladoc} ${pkgdir}/usr/share/scala/bin
+  #install -D -m0644 doc/LICENSE.md ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  ln -s ../share/scala/bin/common ${pkgdir}/usr/bin/common
   ln -s ../share/scala/bin/scala ${pkgdir}/usr/bin/scala
   ln -s ../share/scala/bin/scalac ${pkgdir}/usr/bin/scalac
-  ln -s ../share/scala/bin/scalap ${pkgdir}/usr/bin/scalap
   ln -s ../share/scala/bin/scaladoc ${pkgdir}/usr/bin/scaladoc
 }
