@@ -53,7 +53,7 @@ Item {
             text: qsTr("<h3>KaOS - 2022.12</h3>
             <p>KaOS is pleased to announce the availability of the December release of a new stable ISO.</p>
 
-            <p>With over 70% of the distribution rebuild, a new ISO is more then due. Updates to the base of the system included a new GCC 12.2.0, Glibc 2.36 and binutils 2.39 based toolchain, CLang/LLVM 15.0.6, ICU 71.1, Boost 1.79.0, kernel moved to Linux 6.0.10, Systemd 252.2, Libffi 3.4.4/Glib2 2.74.2 stack, Python 3.10.8, Texlive packages moved to 2022, Bash 5.2, Gawk 5.2, and Shadow 4.13.</p>
+            <p>With over 70% of the distribution rebuild, a new ISO is more then due. Updates to the base of the system included a new GCC 12.2.0, Glibc 2.36 and binutils 2.39 based toolchain, CLang/LLVM 15.0.6, ICU 71.1, Boost 1.79.0, kernel moved to Linux 6.0.10, Systemd 252.2, Libffi 3.4.4/Glib2 2.74.3 stack, Python 3.10.8, Texlive packages moved to 2022, Bash 5.2, Gawk 5.2, and Shadow 4.13.</p>
 
             <p>To get good logs has always been a bit of a challenge, since you have to know what journalctl commands to use. That is now a thing of the past, <strong>Kjournald</strong> gives the option to view the logs from a nice GUI, with all kinds of filter option in the left hand pane (it is now part of the default install)</p>
             
