@@ -6,4 +6,4 @@ Actions=CopyPath
 [Desktop Action CopyPath]
 Name=Copy Path
 Icon=klipper
-Exec=echo "%F" | tr -d '\n' | xclip -selection clipboard
+Exec=exe=`command -v qdbus-qt5 || command -v qdbus`;$exe org.kde.klipper /klipper setClipboardContents '%f'

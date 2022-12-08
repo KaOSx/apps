@@ -11,7 +11,7 @@ url="http://www.kde.org"
 license=('GPL')
 options=('strip')
 groups=('kde' 'kde-minimal' 'kde-uninstall')
-depends=('qt5-base' 'pinentry' 'openssh' 'bash' 'xclip' 'kdialog')
+depends=('qt5-base' 'pinentry' 'openssh' 'bash' 'kdialog')
 install=kde-common.install
 #source=("https://dl.opendesktop.org/api/files/download/id/1485341541/rootactions_servicemenu_2.9.1.tar.gz"
 source=('CopyPath.desktop'
@@ -30,10 +30,9 @@ source=('CopyPath.desktop'
         'checkiso.desktop'
         'org.freedesktop.blkid.policy'
         'org.freedesktop.head.policy'
-        "https://dl.opendesktop.org/api/files/download/id/1463155225/176001-kompare_servicemenu.desktop"
-        'system.md')
+        "https://dl.opendesktop.org/api/files/download/id/1463155225/176001-kompare_servicemenu.desktop")
   
-md5sums=('091595cec9e9e4222daedee71c01bc70'
+md5sums=('c12a8223e1a6389102c7e99a0a844e7f'
          'e815fcdba963a79cd39989182df1a994'
          'cdb4a289c5cfbf55590327ced615e57a'
          '2c479e69c92e7f6a1dd9cfb03ed8ee4f'
@@ -48,8 +47,7 @@ md5sums=('091595cec9e9e4222daedee71c01bc70'
          '9bb1c9c96d03286ae27bc0c3c624af01'
          '453e083b8ef8164c1810275046dd7c81'
          'e97a9f4b8f70462b88ad166909e4122d'
-         'a8a51d833d9207f5a497638c1f43dd35'
-         '3a3391b9ce594c872673db37350f2476')
+         'a8a51d833d9207f5a497638c1f43dd35')
 
 package() {
 	# install scripts for gpg/ssh-agent
@@ -101,7 +99,4 @@ package() {
 	install -D -m644 checkiso.desktop ${pkgdir}/usr/share/kservices5/ServiceMenus/checkiso.desktop
 	install -D -m755 org.freedesktop.blkid.policy ${pkgdir}/usr/bin/org.freedesktop.blkid.policy
 	install -D -m755 org.freedesktop.head.policy ${pkgdir}/usr/bin/org.freedesktop.head.policy
-	
-	# install system warning
-	install -D -m755 system.md ${pkgdir}/usr/share/kde-common/system.md
 }
