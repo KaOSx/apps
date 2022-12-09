@@ -4,34 +4,27 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkscreen
 pkgver=${_plasmaver}
-pkgrel=1
-pkgdesc="A library for extracting file metadata"
+pkgrel=2
+pkgdesc="KDE's screen management software"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/libkscreen'
+url='https://invent.kde.org/plasma/libkscreen'
 license=('LGPL')
-depends=('qt5-x11extras' 'kwayland')
+depends=('qt5-x11extras' 'kwayland' 'kconfig' 'plasma-wayland-protocols')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kdeplasma5')
-source=("http://download.kde.org/unstable/plasma/$pkgver/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

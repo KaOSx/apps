@@ -5,15 +5,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=drkonqi
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="DrKonqi: The KDE Crash Handler"
 url="https://invent.kde.org/plasma/drkonqi"
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kcoreaddons' 'kconfig' 'kservice' 'kjobwidgets' 'kio' 'kcrash' 'kcompletion' 
-         'kxmlrpcclient' 'kwidgetsaddons' 'kwallet' 'knotifications' 'kidletime' 'kwindowsystem'
-         'syntax-highlighting' 'kirigami' 'kitemmodels' 'kuserfeedback' 'qt5-x11extras')
+depends=('ki18n' 'kcoreaddons' 'kconfig' 'kdeclarative' 'kservice' 'kjobwidgets' 'kio' 'kcrash' 'kcompletion' 
+         'kwidgetsaddons' 'kwallet' 'knotifications' 'kidletime' 'kwindowsystem'
+         'syntax-highlighting' 'kirigami' 'kuserfeedback' 'qt5-x11extras')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=($_mirror/${pkgname}-$_plasmaver.tar.xz)
+source=($_mirror/${pkgname}-${_plasmaver}.tar.xz)
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
@@ -27,9 +27,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_LIBEXECDIR=lib \
     -DBUILD_TESTING=OFF 
   cmake --build build
