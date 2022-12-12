@@ -10,14 +10,20 @@ pkgdesc='Frameworks API Documentation Tools'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kapidox'
 license=('LGPL')
-depends=('python3-jinja')
-makedepends=('extra-cmake-modules' 'qt6-base')
+depends=('python3-jinja' 'pyyaml')
+makedepends=('python3-build' 'python3-installer' 'python3-setuptools' 'python3-wheel' 'qt6-base')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/5.101/${_pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+
+build() {
+  cd ${_pkgname}-${pkgver}
+
+  python3 -m build -nw
+}
 
 package() {
   cd ${_pkgname}-${pkgver}
 
-  python3 setup.py install --root=${pkgdir}
+  python3 -m installer --destdir=${pkgdir} dist/*.whl
 }
