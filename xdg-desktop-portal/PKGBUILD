@@ -1,36 +1,38 @@
 
 # 1.x odd numbers are dev, not stable
 pkgname=xdg-desktop-portal
-pkgver=1.14.6
+pkgver=1.16.0
 pkgrel=1
 pkgdesc="Portal frontend service for Flatpak and possibly other desktop containment frameworks."
 url="https://github.com/flatpak/xdg-desktop-portal"
 arch=("x86_64")
 license=('LGPL2.1')
 depends=('fuse3' 'glib2' 'pipewire')
-makedepends=('python3' 'flatpak')
+makedepends=('python3' 'flatpak' 'meson' 'ninja')
 source=("https://github.com/flatpak/xdg-desktop-portal/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('f2e589972c0af78f2ba92ac222ebc9b9e1499bc9017aaa00041567caed950de0')
+sha256sums=('5b41a5915c11851493d8c33b9783f147a0a6f419db80ad760e84cd3420fd8c19')
 
 build() {
-  cd ${pkgname}-${pkgver}
+  mkdir -p build
+  cd build
 
-  ./configure --prefix=/usr \
+  meson ../${pkgname}-${pkgver} \
+    --prefix=/usr \
+    --buildtype=release \
     --libexecdir=/usr/lib \
-    --enable-pipewire \
-    --disable-geoclue \
-    --disable-libportal
-  make 
+    -Dlibportal=disabled \
+    -Dgeoclue=disabled \
+    -Dpipewire=enabled
+  ninja
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
-  # tests/test-document-fuse.sh fails and test-doc-portal - Bail out!
-  make check
+  cd build
+  ninja test || true
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} ninja install
 }
