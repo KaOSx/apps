@@ -1,0 +1,57 @@
+
+pkgname=audacity
+pkgver=3.2.2
+epoch=1
+pkgrel=1
+pkgdesc="A program that lets you manipulate digital audio waveforms"
+arch=('x86_64')
+url="https://www.audacityteam.org/"
+license=('GPL')
+depends=('libvorbis' 'libmad' 'mpg123' 'libid3tag' 'lame' 'hicolor-icon-theme' 'ffmpeg'
+         'shared-mime-info' 'desktop-file-utils' 'redland' 'jack2' 'soundtouch' 'libsoxr'
+         'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil' 'portmidi' 'wxwidgets'
+         'vamp-plugin-sdk' 'portsmf' 'portaudio' 'wavpack')
+makedepends=('cmake' 'zip' 'pkgconfig')
+options=('!makeflags')
+source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz"
+        "https://github.com/audacity/audacity/commit/9b743cc1fb2715735139fe9c4210416ac522b765.diff"
+        "https://github.com/audacity/audacity/commit/55383fccd0c281b4f189d9b07699b21bb802c736.diff")
+sha256sums=('290bd3023380ec3c737c3653e55f8afb2ad8f208a4a4d30bcb7662f0e5f4824b'
+            '3860f59d833e106ca1cfd9f09d35b7ce889025b3ab47ce12ea247c203d7bfd8a'
+            '04122cdec40ebd6cde8188b5c1938fe0f60c86fe1491442d990bd285ddaaa554')
+
+prepare() {
+  cd ${pkgname}-Audacity-${pkgver}
+
+  #sed -i 's|if( NOT ours )|if( ours )|' cmake-proxies/wxWidgets/CMakeLists.txt
+  #patch -p1 -i ${srcdir}/9b743cc1fb2715735139fe9c4210416ac522b765.diff
+  #patch -p1 -i ${srcdir}/55383fccd0c281b4f189d9b07699b21bb802c736.diff
+}
+
+build() {
+  cmake -B build -S ${pkgname}-Audacity-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -Daudacity_use_wxwidgets=system \
+    -Daudacity_lib_preference=system \
+    -Daudacity_obey_system_dependencies=On \
+    -Daudacity_conan_enabled=Off \
+    -Daudacity_use_ffmpeg=loaded \
+    -Daudacity_use_portsmf=system \
+    -Daudacity_use_sbsms=off \
+    -Daudacity_use_twolame=off \
+    -Daudacity_has_vst3=Off \
+    -Daudacity_has_sentry_reporting=Off \
+    -Daudacity_has_networking=Off \
+    -Daudacity_has_crashreports=Off \
+    -Daudacity_has_updates_check=Off
+    #-DCMAKE_SKIP_BUILD_RPATH=ON \
+    #-DALWAYS_ALLOW_CONAN_FALLBACK=ON
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
+
