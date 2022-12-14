@@ -1,19 +1,19 @@
 
 pkgname=musescore
-pkgver=3.6.2
-pkgrel=2
+pkgver=4.0
+pkgrel=1
 pkgdesc="Music notation and composition software written in Qt"
 arch=('x86_64')
 url="https://www.musescore.org/en/"
 license=('GPL')
-depends=('qtwebengine' 'qt5-svg' 'qt5-tools' 'qt5-xmlpatterns' 'qt5-quickcontrols2'
-         'qt5-graphicaleffects' 'openssl' 'pulseaudio' 'lame' 'portaudio' 'jack2' 'portmidi')
+depends=('qtwebengine' 'qt5-networkauth' 'qt5-svg' 'qt5-tools' 'qt5-xmlpatterns' 'qt5-quickcontrols2'
+         'qt5-graphicaleffects' 'qt5-x11extras' 'openssl' 'pulseaudio' 'lame' 'portaudio' 'jack2' 'portmidi')
 makedepends=('cmake' 'doxygen' 'texlive-core' 'qt5-script')
 groups=('multimedia')
 source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz"
 #source=("https://download.musescore.com/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.zip"
         "https://github.com/musescore/MuseScore/commit/7a465c3727bc28ed12e9614b50684cb18e5525e7.diff")
-md5sums=('682c4a38b8b39d246d196c392ae08ab7'
+md5sums=('44bab4cfbb2cc9821a3602e6f5c6a387'
          '624ad150d4cff71168553522f0236df4')
 
 prepare() {
@@ -23,30 +23,31 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-
   PATH=/usr/lib/qt5/bin:${PATH}
-  cmake ../MuseScore-${pkgver} \
+  cmake -B build -S MuseScore-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_CRASH_REPORTER=OFF 
-  make lrelease
-  make manpages
-  make
+    -DCRASH_REPORT_URL="https://kaosx.us/docs/bugs/" \
+    -DUSE_SYSTEM_FREETYPE=ON \
+    -DBUILD_UNIT_TESTS=OFF \
+    -DBUILD_AUTOUPDATE=OFF
+  cmake --build build
 }
 
 package() {
-  cd build
-  #patch -p1 -i ${srcdir}/cmake_install.diff
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 
   # package mscore fonts so they can be used by other apps
-  cd ../MuseScore-${pkgver}
+  cd MuseScore-${pkgver}
   install -m755 -d ${pkgdir}/usr/share/fonts/mscore
   install -m644 fonts/mscoreTab.*tf ${pkgdir}/usr/share/fonts/mscore/
   install -m644 fonts/musejazz/MuseJazz.otf ${pkgdir}/usr/share/fonts/mscore/
   #install -m644 fonts/mscore/mscore.otf ${pkgdir}/usr/share/fonts/mscore/
   install -m644 fonts/mscore/*.ttf ${pkgdir}/usr/share/fonts/mscore/
+  
+  # remove opus files, no cmake option yet to disable third party, see:
+  # https://github.com/musescore/MuseScore/issues/11572
+  rm -r ${pkgdir}/usr/include/opus
+  rm ${pkgdir}/usr/lib/libopus.a
 }
