@@ -1,19 +1,20 @@
 
 pkgname=lilypond-doc
-pkgver=2.22.2
-_pkgver=2.22.2-1
+pkgver=2.24.0
+_pkgver=2.24.0
 pkgrel=1
 pkgdesc='Documentation of Lilypond'
 url='https://lilypond.org/'
 license=('GPL')
 arch=('x86_64')
 depends=('lilypond')
-source=("https://lilypond.org/downloads/binaries/documentation/lilypond-${_pkgver}.documentation.tar.bz2")
-md5sums=('6031cfeb792b96e6d3c5e178519f0581')
+#source=("https://lilypond.org/downloads/binaries/documentation/lilypond-${_pkgver}.documentation.tar.bz2")
+source=("https://gitlab.com/lilypond/lilypond/-/releases/v${_pkgver}/downloads/lilypond-${pkgver}-documentation.tar.xz")
+md5sums=('05f889491d608cead9f76de84e255a05')
 
 package() {
 	cd ${srcdir}
 	mkdir -p ${pkgdir}/usr/
 	mv share/ ${pkgdir}/usr/
-	install -Dm644 license/${pkgname} ${pkgdir}/usr/share/licences/${pkgname}/LICENSE
+	#install -Dm644 license/${pkgname} ${pkgdir}/usr/share/licences/${pkgname}/LICENSE
 }

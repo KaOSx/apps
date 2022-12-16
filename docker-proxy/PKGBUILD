@@ -1,9 +1,9 @@
 
 # stay with _commit builds, keep in sync with what docker ships
 pkgname=docker-proxy
-pkgver=0.7.98
+pkgver=0.7.99
 # LIBNETWORK_COMMIT=7b2b1feb1de4817d522cc372af149ff48d25028e
-_commit=64b7a4574d1426139437d20e81c0b6d391130ec8
+_commit=dcdf8f176d1e13ad719e913e796fb698d846de98
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Docker container Networking"
@@ -12,7 +12,7 @@ license=('APACHE')
 depends=('glibc')
 makedepends=('go')
 source=("https://github.com/docker/libnetwork/archive/${_commit}.zip")
-md5sums=('f7a55c26476085ae2f768649be689a97')
+md5sums=('c5cf0d39685380b3f9081c3040f25bda')
 
 build() {
     cd libnetwork-${_commit}
@@ -20,12 +20,12 @@ build() {
     export GOPATH=${srcdir}/libnetwork-${_commit}/
     export PATH=$PATH:$GOPATH/bin
     export GO111MODULE=off
-    
+
     go build -o "bin/docker-proxy" ./cmd/proxy
 }
 
 package() {
     cd libnetwork-${_commit}
-    
+
     install -Dm755 bin/docker-proxy ${pkgdir}/usr/bin/docker-proxy
 }
