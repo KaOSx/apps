@@ -13,8 +13,16 @@ license=('LGPL')
 depends=('qt6-base' 'qt6-5compat')
 makedepends=('extra-cmake-modules' 'qt6-tools' 'gperf')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/kcodecs/-/commit/19e7a37c845ccaf96bcd1b2b6ff571c936e05484.diff")
+md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '5bdf992a762bcc08d47f098c1c58f45b')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/19e7a37c845ccaf96bcd1b2b6ff571c936e05484.diff
+}
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \

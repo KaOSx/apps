@@ -13,8 +13,16 @@ license=('LGPL')
 depends=('karchive6' 'kauth6' 'kcodecs6' 'kconfig6' 'kguiaddons6' 'ki18n6' 'kwidgetsaddons6')
 makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/kconfigwidgets/-/commit/c6e4547a53d728e0f956d86166abf8197911ac83.diff")
+md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         'c6e4547a53d728e0f956d86166abf819783')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/c6e4547a53d728e0f956d86166abf8197911ac83.diff
+}
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \
