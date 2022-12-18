@@ -4,15 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kimageformats
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Plugins to allow QImage to support extra file formats.'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kimageformats'
 license=('LGPL')
-depends=('qt5-base' 'openexr' 'karchive' 'libavif' 'jpeg-xl')
+depends=('qt5-base' 'openexr' 'karchive' 'libavif' 'jpeg-xl' 'libraw')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/5.99/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/frameworks/5.101/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/frameworks/kimageformats/-/commit/350ce1b990460cb2178f369f22fe80803f5645f3.diff")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
          '22945362bb6aceff48998429140af608')
