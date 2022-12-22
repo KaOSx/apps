@@ -2,7 +2,7 @@
 pkgname=zenlib
 _pkgname=libzen
 __pkgname=ZenLib
-pkgver=0.4.39
+pkgver=0.4.40
 pkgrel=1
 pkgdesc="Small C++ derivate classes to have an easier life"
 arch=('x86_64')
@@ -14,11 +14,11 @@ conflicts=('libzen')
 replaces=('libzen')
 #source=("https://github.com/MediaArea/ZenLib/archive/v${pkgver}.tar.gz")
 source=("https://old.mediaarea.net/download/source/libzen/${pkgver}/${_pkgname}_${pkgver}.tar.xz")
-md5sums=('61c47005f2d383876b0bce57ee173e20')
+md5sums=('44e52daaba43416f15b92dd01ba7aa39')
 
 build() {
   cd ${__pkgname}/Project/GNU/Library
-  
+
   ./autogen.sh
   ./configure --prefix=/usr --enable-shared
   make
@@ -27,7 +27,7 @@ build() {
 package() {
   cd ${__pkgname}/Project/GNU/Library
   make DESTDIR=${pkgdir} install
-  
+
   cd ../../..
   install -D -m 644 License.txt ${pkgdir}/usr/share/licenses/zenlib/License.txt
 }
