@@ -1,0 +1,32 @@
+
+pkgname=cubeb
+pkgver=202214
+pkgrel=1
+_commit=dbc60333f54246cf75253c65989e08d0b8c60e7b
+pkgdesc='Cross platform audio library'
+arch=('x86_64')
+url='https://github.com/mozilla/cubeb/'
+license=('ISC')
+depends=('alsa-lib' 'jack2' 'pulseaudio' 'speexdsp')
+makedepends=('cmake')
+source=("https://github.com/mozilla/cubeb/archive/${_commit}.zip")
+md5sums=('d5d1a39bcccc14d60a60f212568a8fb4')
+
+build() {
+  cmake -B build -S ${pkgname}-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_TESTS=OFF \
+    -DBUILD_TOOLS=OFF \
+    -DUSE_SANITIZERS=OFF \
+    -DUSE_SNDIO=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
+
+
