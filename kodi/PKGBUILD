@@ -1,8 +1,8 @@
 
 pkgname=kodi
-pkgver=19.4
-_pkgver=19.4-Matrix
-pkgrel=8
+pkgver=19.5
+_pkgver=19.5-Matrix
+pkgrel=1
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
 url="https://kodi.tv/"
@@ -25,8 +25,16 @@ optdepends=('unrar: access compressed files without unpacking them'
 groups=('multimedia')
 options=('makeflags')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
-source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
-md5sums=('a668854505eff3ca5ed9f33e3ac91c80')
+source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz"
+        'mesa22.3.patch')
+md5sums=('44f78712d1752af1c9c3d43dd5a56a17'
+         '59520d1bc4362bea01095713205baba0')
+
+prepare() {
+  cd xbmc-${_pkgver}
+
+  patch -p1 -i ${srcdir}/mesa22.3.patch
+}
 
 build() {
     cmake -B build -S xbmc-${_pkgver} \
