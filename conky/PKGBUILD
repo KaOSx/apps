@@ -1,13 +1,13 @@
 
 pkgname=conky
 pkgver=1.16.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Advanced, highly configurable system monitor for X based on torsmo"
 arch=('x86_64')
 url="https://github.com/brndnmtthws/conky/wiki"
 license=('custom')
 depends=('alsa-lib' 'libxml2' 'curl' 'wireless_tools' 'libxft' 'glib2' 'libxdamage' 'imlib2' 'lua'
-         'mpd' 'libxinerama')
+         'mpd' 'libxinerama' 'wayland-protocols')
 makedepends=('pkgconfig' 'cmake')
 groups=('utils')
 backup=('etc/conky/conky.conf' 'etc/conky/conky_no_x11.conf')
@@ -33,7 +33,8 @@ build() {
     -DBUILD_MPD=true \
     -DBUILD_CURL=true \
     -DBUILD_RSS=true \
-    -DBUILD_XDBE=true
+    -DBUILD_XDBE=true \
+    -DBUILD_WAYLAND=ON
   cmake --build build
 }
 
