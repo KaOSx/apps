@@ -13,12 +13,15 @@ depends=('bzip2' 'gcc-libs' 'gst-plugins-base' 'libnotify' 'dbus-glib' 'fribidi'
 makedepends=('intltool' 'python3' 'nasm' 'wget' 'meson')
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 #source=("https://download.handbrake.fr/releases/${pkgver}/HandBrake-${pkgver}-source.tar.bz2")
-source=("https://github.com/HandBrake/HandBrake/releases/download/${pkgver}/HandBrake-${pkgver}-source.tar.bz2")
-sha256sums=('7f23c76038b7bf329089d0eb33c14898400fcc0426e310e87dc11e538c103cda')
+source=("https://github.com/HandBrake/HandBrake/releases/download/${pkgver}/HandBrake-${pkgver}-source.tar.bz2"
+        "https://github.com/HandBrake/HandBrake/commit/fa9e4bfd3a5be0b433d1a67cd4058d27fea9a061.diff")
+sha256sums=('7f23c76038b7bf329089d0eb33c14898400fcc0426e310e87dc11e538c103cda'
+            '21d7a018cb3eb1ea6fd313a75f83daeb1108fb3598ee4eac8d7a96ffa2543dbd')
 
 build() {
   cd HandBrake-${pkgver}
   #cd HandBrake-HandBrake-${_commit}/
+  patch -p1 -i ${srcdir}/fa9e4bfd3a5be0b433d1a67cd4058d27fea9a061.diff
 
   ./configure --prefix=/usr --disable-numa
   cd build
