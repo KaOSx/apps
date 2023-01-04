@@ -3,7 +3,7 @@ pkgname=freecad
 _pkgname=FreeCAD
 pkgver=0.20.2
 _commit=7b5e18a0759de778b74d3a5c17eba9cb815035ac
-pkgrel=1
+pkgrel=2
 pkgdesc='A general purpose 3D CAD modeler'
 arch=('x86_64')
 url='https://www.freecadweb.org/'
@@ -18,20 +18,19 @@ source=("https://github.com/FreeCAD/FreeCAD/archive/${pkgver}.tar.gz"
         #'freecad.desktop'
         'freecad.xml'
         'vtk9.patch'
-        #"https://gitweb.gentoo.org/repo/gentoo.git/plain/media-gfx/freecad/files/freecad-0.19.2-0007-fix-build-failure-with-opencascade-7.5.2.patch"
-        'boost.patch')
-md5sums=('f99966634e3d2c5cd03ee45e3258f137'
+        "https://github.com/FreeCAD/FreeCAD/commit/9a41845a417189776741297c50a3827ce292bc4f.diff")
+md5sums=('eb80214ec61df548fdf25430ae70d503'
          'c2f4154c8e4678825411de8e7fa54c6b'
          '73bd4ea78c50fb4e2c282c485565fc4b'
-         '41fecfec2ca6bb43d7353e428988819c')
+         '77a9788e37da88da4939b9cd8295c84c')
 
 prepare() {
   cd ${_pkgname}-${pkgver}/
 
   #patch -p1 -i ${srcdir}/vtk9.patch
   #patch -p1 -i ${srcdir}/freecad-0.19.2-0007-fix-build-failure-with-opencascade-7.5.2.patch
-  #patch -p1 -i ${srcdir}/boost.patch
-  #sed -i -e 's|find_executable("qmake")|find_executable("qmake-qt5")|' qtinfo.py
+  #patch -p1 -i ${srcdir}/9a41845a417189776741297c50a3827ce292bc4f.diff
+  sed -i -e 's|# include <Standard_TooManyUsers.hxx>||' src/Mod/Part/App/OCCError.h
 }
 
 build() {
