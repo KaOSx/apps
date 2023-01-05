@@ -20,7 +20,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
   #sed -i -e 's|add_subdirectory(src)|add_subdirectory(src) add_subdirectory(data)|' ${srcdir}/${pkgname}/CMakeLists.txt
-  patch -p1 -i ${srcdir}/libraw0.21.diff
+  #patch -p1 -i ${srcdir}/libraw0.21.diff
 }
 
 build() {

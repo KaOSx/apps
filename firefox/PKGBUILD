@@ -2,7 +2,7 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=108.0.1
+pkgver=108.0.2
 # Check nss version in build repo
 _nssver=3.86
 pkgrel=1
@@ -10,7 +10,7 @@ arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
 groups=('network-web')
 #install=firefox.install
-depends=('desktop-file-utils' 'libxt' 'mime-types' "nss>=${_nssver}" 'shared-mime-info' 'gtk3' 'networkmanager'
+depends=('desktop-file-utils' 'libxt' 'mailcap' "nss>=${_nssver}" 'shared-mime-info' 'gtk3' 'networkmanager'
          'gst-plugins-good' 'gst-plugins-bad' 'gst-libav' 'startup-notification'
          'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libevent' 'pulseaudio' 'libjpeg-turbo') # 'icu')
 makedepends=('unzip' 'zip' 'diffutils' 'python3' 'python3-psutil' 'yasm' 'mesa' 'imake' 'xorg-server' 
@@ -24,7 +24,7 @@ source=("https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/source/${pkgname
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('9821ac130dad01383e03276bf6cc92d41329d351da1fa7fa238168f8890611ea'
+sha256sums=('42e6d6b27ad0694a4fc9dd736888ad36c99eb2dbcce96e134584805d644ca300'
             '5401a208af2ceb7fef22c4435d9f619502ca63098eaf0e5abbdcce5163cf78f1'
             'e74e001006982efd7e55bf9cde80eafddec755cb8bd4d0030b4518f0062ca742'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
