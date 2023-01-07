@@ -1,7 +1,7 @@
 
 pkgname=bitcoin
 pkgver=24.0.1
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Bitcoin is a peer-to-peer network based digital currency"
 url="https://bitcoin.org/en/"
@@ -29,7 +29,7 @@ build() {
 
   ./autogen.sh
   ./configure --prefix=/usr \
-      --with-incompatible-bdb \
+      --without-bdb \
       --with-gui=qt5
   make
 }
