@@ -1,8 +1,9 @@
 
 pkgname=lyx
-pkgver=2.3.7
+pkgver=2.3.7.1
 _pkgver=2.3
-__pkgver=2.3.7-1
+__pkgver=2.3.7
+___pkgver=2.3.7-1
 pkgrel=1
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
@@ -12,7 +13,7 @@ depends=('qt5-base' 'qt5-svg' 'qt5-x11extras' 'texlive-core' 'python3' 'perl' 'i
 makedepends=('boost' 'bc' 'cmake' 'qt5-tools')
 groups=('office')
 license=('GPL')
-source=("https://ftp.lip6.fr/pub/lyx/stable/${_pkgver}.x/${pkgname}-${__pkgver}.tar.xz" 
+source=("https://ftp.lip6.fr/pub/lyx/stable/${_pkgver}.x/${pkgname}-${___pkgver}.tar.xz" 
 #source=("ftp://ftp.lyx.org/pub/lyx/devel/lyx-2.2/lyx-${_pkgver}/lyx-${_pkgver}.tar.xz"
         'lyx.desktop'
         'qt5.11.diff')
@@ -21,14 +22,14 @@ md5sums=('d12aa448dc0fcc209f9baa8c13123840'
          '6b356426b38480ed65a7efa6846ae2ec')
          
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${__pkgver}
 
   #patch -p1 -i ${srcdir}/qt5.11.diff
   sed -i 's|hunspell-1.2|hunspell-1.7|' development/cmake/modules/FindHUNSPELL.cmake
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${__pkgver} \
     -DLYX_RELEASE=ON \
     -DLYX_INSTALL_PREFIX=/usr \
     -DLYX_DATA_SUBDIR=share/lyx${_pkgver}/ \
