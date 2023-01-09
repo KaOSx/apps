@@ -3,13 +3,14 @@
 
 pkgname=grass
 pkgver=8.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Geographic Information System (GIS) used for geospatial data management and analysis, image processing, graphics/maps production, spatial modeling, and visualization.'
 arch=('x86_64')
 url='https://grass.osgeo.org/'
 license=('GPL')
 depends=('gdal' 'tk' 'sqlite3' 'python3-numpy' 'python3-pillow' 'mesa' 'proj' 'libjpeg-turbo' 'libpng' 'libtiff'
-         'cfitsio' 'fftw' 'libxmu' 'postgresql' 'xorg-server' 'glu' 'tcl' 'zlib' 'cairo' 'geos' 'zstd' 'bzip2')
+         'cfitsio' 'fftw' 'libxmu' 'postgresql' 'xorg-server' 'glu' 'tcl' 'zlib' 'cairo' 'geos' 'zstd' 'bzip2'
+         'python3-six')
 makedepends=('mariadb' 'freetype2' 'r')
 optdepends=('fftw: required for i.fft and i.ifft modules'
             'postgresql: PostgreSQL database interface'
@@ -57,7 +58,6 @@ build() {
     --with-freetype \
     --with-freetype-includes=/usr/include/freetype2 \
     --with-zstd \
-    --without-glw \
     --without-wxwidgets
   make
 }
