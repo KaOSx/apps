@@ -2,15 +2,25 @@
 pkgname=kaidan
 pkgver=0.8.0
 _pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://www.kaidan.im/'
 pkgdesc="Simple, user-friendly Jabber/XMPP client providing a modern user-interface using Kirigami and QtQuick. "
 license=('LGPL2.1')
-depends=('qt5-declarative' 'qxmpp' 'kirigami' 'knotifications' 'qt5-quickcontrols2' 'zxing-cpp')
+depends=('qt5-declarative' 'qxmpp' 'kirigami' 'knotifications' 'qqc2-desktop-style' 'qt5-quickcontrols2' 'zxing-cpp')
 makedepends=('extra-cmake-modules' 'qt5-tools')
-source=("https://download.kde.org/unstable/kaidan/${_pkgver}/${pkgname}-${_pkgver}.tar.xz") 
-sha256sums=('a7e772dc7abab565fdf9a7bdaf575a6229bdd509de0891079a83bd32766bb1a4')
+source=("https://download.kde.org/unstable/kaidan/${_pkgver}/${pkgname}-${_pkgver}.tar.xz"
+        "https://invent.kde.org/network/kaidan/-/commit/c92fe3125c08e61b454b41f151b435a6a9e6da4b.diff") 
+sha256sums=('a7e772dc7abab565fdf9a7bdaf575a6229bdd509de0891079a83bd32766bb1a4'
+            '7a89ff20ae4088d6020022134c3ffdcc58c173846e765f84057545cdfd57c33d')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # zxing 2.0.0 needed
+  sed -i -e 's|setFormats(BarcodeFormat::QR_CODE)|setFormats(BarcodeFormat::QRCode)|' src/QrCodeDecoder.cpp
+  sed -i -e 's|ZXing::BarcodeFormat::QR_CODE|ZXing::BarcodeFormat::QRCode|' src/QrCodeGenerator.cpp
+  patch -p1 -i ${srcdir}/c92fe3125c08e61b454b41f151b435a6a9e6da4b.diff
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

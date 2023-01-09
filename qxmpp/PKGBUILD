@@ -1,23 +1,27 @@
 
 pkgname=qxmpp
 pkgver=1.4.0
-pkgrel=2
+_commit=381f83764d84ffff73ba05e07498e0dafd8844f5
+pkgrel=3
 arch=('x86_64')
 url='https://github.com/qxmpp-project/qxmpp'
 pkgdesc="Cross-platform C++ XMPP client and server library"
 license=('LGPL2.1')
-depends=('qt5-base' 'gstreamer')
+depends=('qt5-base' 'gstreamer' 'qca-qt5')
 makedepends=('cmake')
-source=("https://github.com/qxmpp-project/qxmpp/archive/v${pkgver}.tar.gz") 
-md5sums=('2f6159c42535e8ab9990ed9150ab1003')
+#source=("https://github.com/qxmpp-project/qxmpp/archive/v${pkgver}.tar.gz")
+source=("https://github.com/qxmpp-project/qxmpp/archive/${_commit}.zip")
+md5sums=('3ab61bcbe0c002a46ccd1f1e46552883')
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DWITH_GSTREAMER=ON \
-    -DBUILD_EXAMPLES=OFF
+    -DBUILD_EXAMPLES=OFF \
+    -DBUILD_OMEMO=OFF \
+    -DWITH_QCA=ON
   cmake --build build
 }
 
