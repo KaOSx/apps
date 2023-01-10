@@ -14,13 +14,15 @@ depends=('kservice6' 'kwindowsystem6' 'kconfig6' 'kcoreaddons6' 'libxslt' 'phono
          'qt6-speech' 'libcanberra')
 makedepends=('extra-cmake-modules' 'qt6-tools')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/knotifications/-/commit/c759b34d86300a725c29ebc50b32173fe27720c4.diff")
+md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+         '20547c0b2ec6422b020b37a08ed44673')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
-  # Qt 5.14 needed
-  #patch -p1 -i ${srcdir}/56a301a1a0f4653d1b79d6b509ae073b5169a92d.diff
+
+  patch -p1 -i ${srcdir}/c759b34d86300a725c29ebc50b32173fe27720c4.diff
 }
 
 build() {

@@ -14,14 +14,17 @@ depends=('karchive6' 'kauth6' 'kcodecs6' 'kconfig6' 'kguiaddons6' 'ki18n6' 'kwid
 makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
 groups=('kf6')
 source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/frameworks/kconfigwidgets/-/commit/c6e4547a53d728e0f956d86166abf8197911ac83.diff")
+        "https://invent.kde.org/frameworks/kconfigwidgets/-/commit/3193788a3c0ecdf775a91d451b95ff8e9f1bd6d9.diff"
+        "https://invent.kde.org/frameworks/kconfigwidgets/-/commit/795c524654a56f80aead975814905556dec82e30.diff")
 md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'c6e4547a53d728e0f956d86166abf819783')
+         '51e6023faf71da6e1c1ef5320be1f382'
+         'da741898e5bba531aec21f362c949481')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/c6e4547a53d728e0f956d86166abf8197911ac83.diff
+  patch -p1 -i ${srcdir}/3193788a3c0ecdf775a91d451b95ff8e9f1bd6d9.diff
+  patch -p1 -i ${srcdir}/795c524654a56f80aead975814905556dec82e30.diff
 }
 
 build() {
@@ -31,7 +34,7 @@ build() {
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF \
     -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=5.103.0 \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }
