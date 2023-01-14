@@ -17,17 +17,14 @@ depends=('karchive6' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'ki18n6'
 makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
 groups=('kf6')
 source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/frameworks/kio/-/commit/cdef47d3e7262df62a109ae526a55132eecf942e.diff"
-        "https://invent.kde.org/frameworks/kio/-/commit/20eeee2cfb7a25d5862c60febd77d57525f73445.diff")
+        "https://invent.kde.org/frameworks/kio/-/commit/a37f2f869772e8e5304a1a12cd197926c7397aeb.diff")
 md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'a25087a4ae88d86b00e1db326d05723e'
-         '16aff853891be17bd0d5927dd0d505b6')
+         '924b1a13601944bc8dddf6a490c7969b')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/cdef47d3e7262df62a109ae526a55132eecf942e.diff
-  #patch -p1 -i ${srcdir}/20eeee2cfb7a25d5862c60febd77d57525f73445.diff
+  patch -p1 -i ${srcdir}/a37f2f869772e8e5304a1a12cd197926c7397aeb.diff
 }
 
 build() {
