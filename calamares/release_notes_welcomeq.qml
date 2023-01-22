@@ -1,6 +1,6 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
- *   Copyright 2020 - 2022, Anke Boersma <demm@kaosx.us>
+ *   Copyright 2020 - 2023, Anke Boersma <demm@kaosx.us>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -50,17 +50,17 @@ Item {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2022.12</h3>
-            <p>KaOS is pleased to announce the availability of the December release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2023.02</h3>
+            <p>It is with great pleasure to present to you the February release of a new stable ISO.</p>
 
-            <p>With over 70% of the distribution rebuilt, a new ISO is more then due. Updates to the base of the system included a new GCC 12.2.0, Glibc 2.36 and binutils 2.39 based toolchain, CLang/LLVM 15.0.6, ICU 72.1, Boost 1.80.0, kernel moved to Linux 6.0.12, Systemd 252.3, Libffi 3.4.4/Glib2 2.74.3 stack, Python 3.10.9, Texlive packages moved to 2022, Bash 5.2, Gawk 5.2, and Shadow 4.13.</p>
+            <p>Updates to the base of the system included a new GCC 12.2.0, Glibc 2.36 and binutils 2.39 based toolchain, CLang/LLVM 15.0.7, Libtiff 4.5.0, Sqlite 3.40.1, kernel moved to Linux 6.1.7, Systemd 252.4, Libffi 3.4.4/Glib2 2.74.3 stack, Python 3.10.9, Dracut 059, ZFS 2.1.8, Gnupg 2.4.0, and Libarchive 3.6.2.</p>
             
             <p>The move to include ZFS exposed a shortcoming in the installer Calamares.  A generated hostid for ZFS during the installation did not copy over to the installed system, thus the installed system failed to match the hostid on system updates where a new initramfs was created. This is now corrected by adding a new <code>zfshostid</code> module to Calamares. This module was presented to upstream Calamares, but is not included yet in a release, at this point it is a KaOS-only option.</br>
             It is now also possible to select the EurKEY layout in the keyboard page.</p>
             
             <p>To get good logs has always been a bit of a challenge since you have to know what journalctl commands to use. That is now a thing of the past, <strong>Kjournald</strong> gives the option to view the logs from a nice GUI, with all kinds of filter options in the left-hand pane (it is now part of the default install)</p>
 
-            <p>For the Plasma desktop, the latest Plasma (5.26.4), KDE Gear (22.12.0), and Frameworks (5.101.0) are included. All built on <b>Qt 5.15.7+</b>. Among the changes included in KDE Gear 22.12 are Dolphin added Selection Mode, you can now click or tap files and folders and quickly and easily select the ones you want to work with, Gwenview now also lets you adjust the brightness, contrast, and gamma of your pictures as you preview them, Kate/Kwrite added the Keyboard Macro tool, with it you can record a long sequence of key presses you need to type often and then hit Ctrl + Alt + K and Kate will type the sequence for you. and Kalendar, the new calendaring app from KDE, now uses pop-up windows for displaying events, making it easier and more convenient to view and manage your schedule.</p>
+            <p>For the Plasma desktop, the latest Plasma (5.26.90), KDE Gear (22.12.1), and Frameworks (5.102.0) are included. All built on <b>Qt 5.15.8+</b>. Among the changes included in KDE Gear 22.12 are Dolphin added Selection Mode, you can now click or tap files and folders and quickly and easily select the ones you want to work with, Gwenview now also lets you adjust the brightness, contrast, and gamma of your pictures as you preview them, Kate/Kwrite added the Keyboard Macro tool, with it you can record a long sequence of key presses you need to type often and then hit Ctrl + Alt + K and Kate will type the sequence for you. and Kalendar, the new calendaring app from KDE, now uses pop-up windows for displaying events, making it easier and more convenient to view and manage your schedule.</p>
             
             <p>New applications added include <strong>Ghostwriter</strong>, a dedicated Markdown editor. A start is also made to get ready for Plasma 6. For the adventurous, the kde-next repository is used for a complete Qt6-based KDE stack, all Frameworks are built there on Qt6, most of Plasma and a few KDE Applications have also been ported to Qt6.  Plasma 6 does boot but is not usable yet (so, of course not part of this ISO).</p>
 
@@ -69,14 +69,14 @@ Item {
 
             <p>A shift has started as to how all Python packages are build.  Historically, just about all were build with setuptools though a setup.py script.  PEP17 is the new standard for building python packages, see https://peps.python.org/pep-0517/.  At this stage, KaOS is testing this transition with different new Python build tools, such as Python-flit & Python-build, with Python-wheel currently in use to install the build packages.</p>
 
-            <p>Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.8.
+            <p>Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.9.
             </p>
             
             <p>For Nvidia, a new longterm support version is included in this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
             
-            <p>Qt 6.4.1 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web browsers. All of the PyQt packages are now available in a Qt6 version too. Plus the Kvantum theming has support for Qt6.</p>
+            <p>Qt 6.4.2 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web browsers. All of the PyQt packages are now available in a Qt6 version too. Plus the Kvantum theming has support for Qt6.</p>
             
-            <p>Big thanks goes to <strong>Fosshost</strong> for not only providing the default mirror (through the <strong>Fastly CDN</strong>, but also providing a server for KaOS. This server is replacing an eight-year-old server (used for package upload, ZNC bouncer and the old PHP based package viewer).</p>
+            <p>Big thanks goes to <strong>YourHostingSolutions</strong> for not only providing a mirror, but also providing a server for KaOS. This server is replacing an eight-year-old server (used for package upload, ZNC bouncer and the old PHP based package viewer).</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
@@ -98,12 +98,12 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.101.0, Plasma 5.26.4, KDE Applications 22.12.0</b>, Linux 6.0.12, Systemd 252.3, Kmod 30, NetworkManager 1.40.6, LibreOffice 7.4.3, Elisa, Xorg-Server 1.21.4, Mesa 22.2.4, Glibc 2.36, GCC 12.2.0, non-free Nvidia 525 and Python3 3.10.9 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.102.0, Plasma 5.27 Beta, KDE Applications 22.12.1</b>, Linux 6.0.12, Systemd 252.4, Kmod 30, NetworkManager 1.40.10, LibreOffice 7.4.4, Elisa, Xorg-Server 1.21.6, Mesa 22.3.3, Glibc 2.36, GCC 12.2.0, non-free Nvidia 525 and Python3 3.10.9 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.14.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
-            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 6.0, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 107.0.1, Chrome 110, Ardour 7.1.0, Inkscape 1.2.2, GIMP 2.99.14 and Thunderbird 102.5.<br />
+            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 6.1, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 109.0, Chrome 111, Ardour 7.2.0, Inkscape 1.2.2, GIMP 2.99.14 and Thunderbird 102.7.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
 
             <p><b>Known issues:</b></p>
