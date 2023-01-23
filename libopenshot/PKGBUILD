@@ -1,13 +1,13 @@
 
 pkgname=libopenshot
 pkgver=0.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Open-source project dedicated to delivering high quality video editing, animation, and playback solutions to the world."
 arch=('x86_64')
 url="https://www.openshot.org/"
 license=('LGPL3')
 depends=('libopenshot-audio' 'ffmpeg' 'imagemagick' 'libx11' 'libxcursor' 'libxinerama' 'python3'
-         'x264' 'qt5-multimedia' 'zeromq' 'jsoncpp' 'opencv' 'protobuf') # build fails with gcc > 6.4 & ruby 'ruby' 
+         'x264' 'qt5-multimedia' 'qt5-svg' 'zeromq' 'jsoncpp' 'opencv' 'protobuf' 'ruby')
 makedepends=('cmake' 'swig') # 'doxygen')
 # http://bazaar.launchpad.net/~openshot.code/libopenshot/trunk/files
 source=("https://github.com/OpenShot/libopenshot/archive/v${pkgver}.tar.gz"
@@ -28,7 +28,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMAGICKCORE_HDRI_ENABLE=1 \
-    -DENABLE_RUBY=OFF \
+    -DENABLE_RUBY=ON \
     -DDISABLE_TESTS=ON \
     -DDOXYGEN_FOUND=NO
   cmake --build build
