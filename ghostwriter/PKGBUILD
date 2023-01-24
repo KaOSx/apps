@@ -1,17 +1,17 @@
 
 pkgname=ghostwriter
 pkgver=22.11.70
-_commit=180399ccfd794ef8ca1d3b0358ed3b0b674a8cec
-pkgrel=1
+_commit=3b45dd45b2244e10edfb52fcca7aa7425504326e
+pkgrel=2
 pkgdesc="Distraction-free text editor for Markdown."
 arch=('x86_64')
 url="https://ghostwriter.kde.org/"
 license=('GPL3')
 depends=('cmark' 'qt5-svg' 'qtwebengine' 'sonnet' 'kcoreaddons' 'kxmlgui' 'kconfigwidgets' 'kwidgetsaddons')
-makedepends=('cmake' 'qt5-tools')
+makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('office')
 source=("https://invent.kde.org/office/ghostwriter/-/archive/${_commit}/${pkgname}-${_commit}.tar.bz2")
-sha256sums=('cfe79c339555a3ef1ec9605e28bd7e40967b74b87666fe09009a7e5eaf341e99')
+sha256sums=('01211e62c16c53e4a72fc983b28f2330f073dde89c29309f1101ae0b34aada75')
 
 prepare() {
   cd ${pkgname}-${_commit}
