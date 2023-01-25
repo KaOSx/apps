@@ -1,9 +1,9 @@
 
 pkgname=filezilla
 _pkgname=FileZilla
-pkgver=3.62.2
-_pkgver=3.62.2
-pkgrel=3
+pkgver=3.63.0
+_pkgver=3.63.0
+pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client."
 arch=('x86_64')
 url="https://filezilla-project.org/"
@@ -13,13 +13,13 @@ depends=('dbus' 'hicolor-icon-theme' 'libidn' 'libjpeg-turbo' 'xdg-utils' 'sqlit
 source=("https://download.filezilla-project.org/client/${_pkgname}_${_pkgver}_src.tar.bz2"
         'filezilla.desktop'
         "https://raw.githubusercontent.com/archlinux/svntogit-community/packages/filezilla/trunk/wxwidgets-3.2.patch")
-sha512sums=('a7dec07f6b6fe6fe1a54481e67e9ad2cb057bf84db6e6128f5e853f2edac3c34583a84f25c206f382f8bac6fa4ab48ea54a2a2f7efe8cc6c9d18cb1d3eba0255'
+sha512sums=('47065cfbc1944cd9f8b2c4d3b2a2bb1e9e169b083a46d79fe477cc3a628e91241822c739f308ce614212710f431c333f33193b9261f9b5ec677eb8c62a634364'
             'a9d36573bc30a476e75f33f04f8aef990bdb03a151e7a4b72cdc69c351fc7313da8a84fc2e43383d3945b78a510d01b31a820c3615a185ead3343606285c893b'
             '0f92bd0180830fdb54cfb2eff2b6ebb3413aaace2b901300ca2f192b5abffea28f511eb26dea4eb8fb2ff8b951d15b4c39bef77cad59542b9f3632bbddd79183')
 
 build() {
   cd ${pkgname}-${_pkgver}
-  patch -p1 -i ${srcdir}/wxwidgets-3.2.patch
+  #patch -p1 -i ${srcdir}/wxwidgets-3.2.patch
 
   autoreconf -vi
   ./configure --prefix=/usr \
