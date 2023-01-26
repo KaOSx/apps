@@ -1,9 +1,9 @@
 
 pkgname=libreoffice
-_LOver=7.4.4.2
-pkgver=7.4.4.2
-_pkgver=7.4.4
-pkgrel=2
+_LOver=7.5.0.3
+pkgver=7.5.0.3
+_pkgver=7.5.0
+pkgrel=1
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
@@ -17,7 +17,7 @@ depends=('curl' 'python3' 'libabw' 'libwpd' 'libwps' 'libxaw' 'neon'
          'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' 
          'vigra' 'pstoedit' 'libmythes' 'boost-libs' 'libepoxy'
          'kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kwindowsystem' 'plasma-framework' 'python3-lxml'
-         'libnumbertext' 'libcdr' 'libldap') # 'icu' 'zxing-cpp'
+         'libnumbertext' 'libcdr' 'libldap' 'zxing-cpp') # 'icu'
 makedepends=('perl-archive-zip' 'zip' 'unzip' 'gperf' 'cppunit'
              'doxygen' 'apr' 'serf' 'mdds' 'boost' 'glm' 'abseil-cpp')
 #_mirror="https://ftp.acc.umu.se/mirror/documentfoundation.org/libreoffice/src/$_pkgver"
@@ -81,7 +81,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/box2d-2.4.1.tar.gz
 	${_additional_source_url}/libcuckoo-93217f8d391718380c508a722ab9acd5e9081233.tar.gz
 	${_additional_source_url}/dragonbox-1.1.3.tar.gz
-	${_additional_source_url}/zxing-cpp-1.2.0.tar.gz
+	#${_additional_source_url}/zxing-cpp-1.2.0.tar.gz
 	https://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 	https://dev-www.libreoffice.org/extern/f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
 	poppler.diff
@@ -148,8 +148,8 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	skia-m103-b301ff025004c9cd82816c86c547588e6c24b466.tar.xz
 	box2d-2.4.1.tar.gz
 	libcuckoo-93217f8d391718380c508a722ab9acd5e9081233.tar.gz
-	dragonbox-1.1.3.tar.gz
-	zxing-cpp-1.2.0.tar.gz)
+	dragonbox-1.1.3.tar.gz)
+	#zxing-cpp-1.2.0.tar.gz)
 
 source libreoffice.md5
 
@@ -253,7 +253,7 @@ build() {
 		--without-system-libfixmath \
 		--with-system-libnumbertext \
 		--with-system-clucene \
-		--without-system-zxing \
+		--wit-system-zxing \
 		--disable-dependency-tracking \
 		--disable-cve-tests \
 		--with-theme="breeze breeze_dark breeze_svg breeze_dark_svg sifr sifr_svg sifr_dark sifr_dark_svg" \
