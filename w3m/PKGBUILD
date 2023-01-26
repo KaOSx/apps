@@ -1,20 +1,20 @@
 
 pkgname=w3m
-pkgver=0.5.3git20220429.1
-_pkgver=0.5.3+git20220429-1
-_commit=debian-0.5.3-git20220429-1
-pkgrel=3
+pkgver=0.5.3git20230121
+_pkgver=0.5.3+git20230121
+_commit=f66eee8a0e43b27bc6a3c353578efa14
+pkgrel=1
 pkgdesc="Pager that can be used as a text-mode WWW browser."
 arch=('x86_64')
-url="https://w3m.sourceforge.net/"
+url="https://salsa.debian.org/debian/w3m"
 license=('custom')
 depends=('openssl' 'gc' 'ncurses' 'zlib' 'imlib2')
 groups=('network-web')
-source=("https://github.com/tats/w3m/archive/refs/tags/debian/${_pkgver}.tar.gz")
-md5sums=('39f4e992f6049b247854c028447b3c5e')
+source=("https://salsa.debian.org/debian/w3m/uploads/${_commit}/w3m-${_pkgver}.tar.xz")
+sha256sums=('974d1095a47f1976150a792fe9c5a44cc821c02b6bdd714a37a098386250e03a')
 
 build() {
-	cd ${pkgname}-${_commit}
+	cd ${pkgname}-${_pkgver}
 
 	./configure \
         --prefix=/usr \
@@ -28,7 +28,7 @@ build() {
 }
 
 package() {
-	cd ${pkgname}-${_commit}
+	cd ${pkgname}-${_pkgver}
 	make DESTDIR=${pkgdir} install
 
 	install -d ${pkgdir}/usr/share/{doc,licenses}/${pkgname}
