@@ -1,31 +1,31 @@
 
 pkgname=qpdfview
-pkgver=0.4.18
-_pkgver=0.4.18
-pkgrel=5
+pkgver=0.5
+_pkgver=0.5.0
+pkgrel=1
 pkgdesc='Tabbed document viewer using Poppler, libspectre, DjVuLibre, CUPS and Qt'
 arch=('x86_64')
 url='https://launchpad.net/qpdfview'
 license=('GPL2')
 depends=('desktop-file-utils' 'djvulibre' 'hicolor-icon-theme' 'libcups' 'libspectre' 
-         'poppler-qt5' 'qt5-svg' 'texlive-bin')
-makedepends=('qt5-tools')
-source=("https://launchpad.net/qpdfview/trunk/${_pkgver}/+download/${pkgname}-${_pkgver}.tar.gz"
+         'poppler' 'qt6-svg' 'texlive-bin')
+makedepends=('qt6-tools')
+source=("https://launchpad.net/qpdfview/trunk/${_pkgver}/+download/${pkgname}-${pkgver}.tar.gz"
         'qt5.15.diff')
-md5sums=('4d63ee0095e939602f9bf4759ae57953'
+md5sums=('820c0f48ec2175355247bb624757867b'
          '14b420059f5a7652b12c183526c60efc')
 
 build() {
-  cd ${pkgname}-${_pkgver}
-  patch -p1 -i ${srcdir}/qt5.15.diff
+  cd ${pkgname}-${pkgver}
+  #patch -p1 -i ${srcdir}/qt5.15.diff
 
-  /usr/lib/qt5/bin/lrelease qpdfview.pro
-  /usr/lib/qt5/bin/qmake "CONFIG+=without_synctex static_resources" qpdfview.pro
+  /usr/lib/qt6/bin/lrelease qpdfview.pro
+  /usr/lib/qt6/bin/qmake "CONFIG+=without_synctex static_resources" qpdfview.pro
   make
 }
 
 package() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${pkgver}
 
   make INSTALL_ROOT=${pkgdir} install
 }

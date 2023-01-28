@@ -1,8 +1,8 @@
 
 pkgname=audacity
-pkgver=2.4.1
+pkgver=3.2.4
 epoch=1
-pkgrel=5
+pkgrel=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=('x86_64')
 url="https://www.audacityteam.org/"
@@ -16,7 +16,7 @@ options=('!makeflags')
 source=("https://github.com/audacity/audacity/archive/Audacity-${pkgver}.tar.gz"
         "https://github.com/audacity/audacity/commit/9b743cc1fb2715735139fe9c4210416ac522b765.diff"
         "https://github.com/audacity/audacity/commit/55383fccd0c281b4f189d9b07699b21bb802c736.diff")
-sha256sums=('50240f07471373a7e5c2df65cc26eeeaaced9a0850ad1f95cb795f171ea3009f'
+sha256sums=('9a85b5db02e25e46672c489ffa96d2f5115ee58650bfd57c5b8a07259f4f550f'
             '3860f59d833e106ca1cfd9f09d35b7ce889025b3ab47ce12ea247c203d7bfd8a'
             '04122cdec40ebd6cde8188b5c1938fe0f60c86fe1491442d990bd285ddaaa554')
 
@@ -24,8 +24,8 @@ prepare() {
   cd ${pkgname}-Audacity-${pkgver}
 
   #sed -i 's|if( NOT ours )|if( ours )|' cmake-proxies/wxWidgets/CMakeLists.txt
-  patch -p1 -i ${srcdir}/9b743cc1fb2715735139fe9c4210416ac522b765.diff
-  patch -p1 -i ${srcdir}/55383fccd0c281b4f189d9b07699b21bb802c736.diff
+  #patch -p1 -i ${srcdir}/9b743cc1fb2715735139fe9c4210416ac522b765.diff
+  #patch -p1 -i ${srcdir}/55383fccd0c281b4f189d9b07699b21bb802c736.diff
 }
 
 build() {
@@ -33,7 +33,18 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -Daudacity_use_wxwidgets=system \
-    -Daudacity_lib_preference=system
+    -Daudacity_lib_preference=system \
+    -Daudacity_obey_system_dependencies=On \
+    -Daudacity_conan_enabled=Off \
+    -Daudacity_use_ffmpeg=loaded \
+    -Daudacity_use_portsmf=system \
+    -Daudacity_use_sbsms=off \
+    -Daudacity_use_twolame=off \
+    -Daudacity_has_vst3=Off \
+    -Daudacity_has_sentry_reporting=Off \
+    -Daudacity_has_networking=Off \
+    -Daudacity_has_crashreports=Off \
+    -Daudacity_has_updates_check=Off
     #-DCMAKE_SKIP_BUILD_RPATH=ON \
     #-DALWAYS_ALLOW_CONAN_FALLBACK=ON
   cmake --build build
