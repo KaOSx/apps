@@ -1,16 +1,16 @@
 
 pkgname=angelfish
-pkgver=22.11
+pkgver=23.01.0
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Web browser for Plasma Mobile"
 url="https://invent.kde.org/plasma-mobile/angelfish"
 license=('GPL2')
-depends=('qtwebengine' 'qt5-quickcontrols2' 'qt5-svg' 'qtfeedback' 'kirigami' 'purpose'
+depends=('qtwebengine' 'qt5-quickcontrols2' 'qt5-svg' 'qtfeedback' 'kirigami-addons' 'purpose'
          'ki18n' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kwindowsystem' 'knotifications')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 source=("https://download.kde.org/stable/plasma-mobile/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('3e69ab543fe7bc8a4faf23176b79d0002a36c9f7d8ccffe170301f860c31f71d')
+sha256sums=('771ca0bb2f5c9e32d5fbc801cd69477aa14d5c926c3900c866289f223bd2f5df')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

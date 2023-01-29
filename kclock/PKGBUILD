@@ -1,16 +1,16 @@
 
 pkgname=kclock
-pkgver=22.11
+pkgver=23.01.0
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Clock application for desktop and mobile containing alarm, timer, stopwatch and timezone functionalities."
 url="https://apps.kde.org/kclock/"
 license=('GPLv3')
 depends=('qt5-quickcontrols2' 'qt5-multimedia' 'qt5-svg' 'kconfig' 'ki18n' 'kcoreaddons' 'plasma-framework' 
-          'kirigami-addons' 'knotifications' 'kdbusaddons')
+         'kirigami-addons' 'knotifications' 'kdbusaddons')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 source=("https://download.kde.org/stable/plasma-mobile/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('a48c8eb50af485bb12d872be7674ed56e3887b4619b47438c1e385bddc27660b')
+sha256sums=('397c0d8f5fd5792cfeaa629af38bff5f9611519608e83fa99018a7889950ad3b')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
