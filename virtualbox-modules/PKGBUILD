@@ -1,16 +1,16 @@
 
-_extramodules=extramodules-6.0
+_extramodules=extramodules-6.1
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-modules
 pkgver=7.0.6
 _pkgver=7.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
 arch=('x86_64')
 license=('GPL-2')
-depends=('linux>=6.0.10' 'linux<6.1')
+depends=('linux>=6.1.9' 'linux<6.2')
 makedepends=('linux-headers' 'elfutils')
 install=${pkgname}.install
 options=('!strip')

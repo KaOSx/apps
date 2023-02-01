@@ -11,7 +11,7 @@ url='https://invent.kde.org/plasma/powerdevil'
 license=('LGPL')
 depends=('kactivities' 'kauth' 'kidletime' 'kconfig' 'kdbusaddons' 'solid' 'ki18n' 'kglobalaccel'
          'kio' 'knotifyconfig' 'kwayland' 'kcrash' 'knotifications' 'kscreen' 'plasma-workspace'
-         'libxrandr' 'bluez-qt')
+         'libxrandr' 'bluez-qt' 'ddcutil')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
@@ -35,7 +35,7 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
-    -DHAVE_DDCUTIL=OFF
+    -DHAVE_DDCUTIL=ON
   cmake --build build
 }
 
