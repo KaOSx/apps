@@ -1,16 +1,16 @@
 pkgname=docker-cli
-pkgver=20.10.23
-DOCKER_GITCOMMIT=7155243
+pkgver=23.0.0
+DOCKER_GITCOMMIT=e92dd87
 pkgrel=1
 pkgdesc='Run any application as a lightweight container - command line binary for docker'
 arch=('x86_64')
 url='https://www.docker.com/'
 license=('Apache-2.0')
-depends=('bridge-utils' 'iproute2' 'device-mapper' 'sqlite' 'systemd' 'containerd' 'docker-proxy')
+depends=('bridge-utils' 'iproute2' 'device-mapper' 'sqlite' 'systemd' 'containerd')
 makedepends=('go' 'go-md2man')
 options=('!strip')
 source=("cli-${pkgver}.tar.gz::https://github.com/docker/cli/archive/v${pkgver}.tar.gz")
-md5sums=('fd5b5c367e0b821dbb282cd1e1798db5')
+md5sums=('f021a55d0c1c0613de2451ab6bb23f5e')
 
 prepare() {
   cd cli-${pkgver}
@@ -32,7 +32,8 @@ build() {
   export LDFLAGS='' 
 
   make VERSION=${pkgver} dynbinary
-  man/md2man-all.sh
+  make manpages
+  #man/md2man-all.sh
 }
 
 package() {

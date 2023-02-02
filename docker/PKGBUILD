@@ -1,25 +1,27 @@
 pkgname=docker
-pkgver=20.10.23
-_pkgver=20.10.23
+pkgver=23.0.0
+_pkgver=23.0.0
 # add commit associated with the release tag
 # build runc & containerd from https://github.com/moby/moby/blob/master/hack/dockerfile/install/containerd.installer &
 # https://github.com/moby/moby/blob/master/hack/dockerfile/install/runc.installer & https://github.com/moby/moby/blob/master/hack/dockerfile/install/proxy.installer for docker-proxy
 # all at https://github.com/moby/moby/tree/master/hack/dockerfile/install --branch
-DOCKER_GITCOMMIT=6051f14
+DOCKER_GITCOMMIT=d7573ab
 pkgrel=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64')
 url='https://www.docker.com/'
 license=('Apache')
-depends=('bridge-utils' 'iproute2' 'device-mapper' 'sqlite' 'systemd' 'containerd'
-         'docker-proxy' 'docker-cli')
+depends=('bridge-utils' 'iproute2' 'device-mapper' 'sqlite' 'systemd' 'containerd' 'docker-cli')
 makedepends=('git' 'go' 'go-md2man')
 options=('!strip')
+provides=('docker-proxy')
+replaces=('docker-proxy')
+conflicts=('docker-proxy')
 install=$pkgname.install
 #source=("cli-${pkgver}.tar.gz::https://github.com/docker/cli/archive/v${pkgver}.tar.gz"
 source=("moby-${_pkgver}.tar.gz::https://github.com/moby/moby/archive/v${_pkgver}.tar.gz"
         'docker.sysusers')
-md5sums=('8d6af91abb68c0459001c4f98dd7ef63'
+md5sums=('9b8566730b6899e7296bc08b6d938bc6'
          '4324edeb9adc210a2c22f44eb4cb8a74')
 
 #prepare() {
@@ -56,9 +58,10 @@ package() {
 
   install -Dm644 contrib/init/systemd/docker.service ${pkgdir}/usr/lib/systemd/system/docker.service
   install -Dm644 contrib/init/systemd/docker.socket ${pkgdir}/usr/lib/systemd/system/docker.socket
-  
+
   #cd engine
-  install -Dm755 bundles/dynbinary-daemon/dockerd-dev ${pkgdir}/usr/bin/dockerd
+  install -Dm755 bundles/dynbinary-daemon/dockerd ${pkgdir}/usr/bin/dockerd
+  install -Dm755 bundles/dynbinary-daemon/docker-proxy ${pkgdir}/usr/bin/docker-proxy
 
   #install -Dm644 contrib/syntax/vim/syntax/dockerfile.vim ${pkgdir}/usr/share/vim/vimfiles/syntax/dockerfile.vim
   #install -Dm644 contrib/syntax/vim/ftdetect/dockerfile.vim ${pkgdir}/usr/share/vim/vimfiles/ftdetect/dockerfile.vim
