@@ -1,7 +1,7 @@
 
 pkgname=xdg-user-dirs
 pkgver=0.18
-pkgrel=1
+pkgrel=2
 pkgdesc="Manage user directories like ~/Video and ~/Music"
 arch=('x86_64')
 url="https://www.freedesktop.org/wiki/Software/xdg-user-dirs"
@@ -16,7 +16,7 @@ md5sums=('dc7decea7ffb58cd067eff1fe1798cae'
 
 build() {
   cd ${pkgname}-${pkgver}
-  
+
   ./configure --prefix=/usr --sysconfdir=/etc
   make
 }
@@ -24,9 +24,10 @@ build() {
 package() {
   cd ${pkgname}-${pkgver}
   make DESTDIR=${pkgdir} install 
-  
+
   install -D ../xdg-user-dirs ${pkgdir}/etc/X11/xinit/xinitrc.d/xdg-user-dirs
-  
+
   sed -i -e 's|TEMPLATES|#TEMPLATES|' ${pkgdir}/etc/xdg/user-dirs.defaults
   sed -i -e 's|PUBLICSHARE|#PUBLICSHARE|' ${pkgdir}/etc/xdg/user-dirs.defaults
+  sed -i '/GNOME/d' ${pkgdir}/etc/xdg/autostart/xdg-user-dirs.desktop
 }
