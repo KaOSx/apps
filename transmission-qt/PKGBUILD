@@ -1,14 +1,14 @@
 
 pkgbase=transmission
 pkgname=('transmission-cli' 'transmission-qt')
-pkgver=3.00
-pkgrel=2
+pkgver=4.0.0
+pkgrel=1
 arch=('x86_64')
 url="https://transmissionbt.com/"
 license=('GNU GPLv2')
-makedepends=('intltool' 'curl' 'pkgconfig' 'desktop-file-utils' 'qt5-declarative' 'libevent'
-             'gettext' 'cmake' 'qt5-tools' 'miniupnpc')
-source=("https://github.com/transmission/transmission-releases/raw/master/${pkgbase}-${pkgver}.tar.xz"
+makedepends=('intltool' 'curl' 'pkgconfig' 'desktop-file-utils' 'qt6-declarative' 'libevent'
+             'gettext' 'cmake' 'qt6-svg' 'qt6-tools' 'miniupnpc')
+source=("https://github.com/transmission/transmission/releases/download/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
 #source=("https://build.transmissionbt.com/job/trunk-linux/lastBuild/artifact/transmission-trunk-r14679.tar.xz"
         'transmission.systemd'
         'transmission.tmpfiles'
@@ -16,7 +16,7 @@ source=("https://github.com/transmission/transmission-releases/raw/master/${pkgb
         'transmission.svg'
         'transmission-tray.svg'
         'transmission-tray-dark.svg')
-md5sums=('a23a32672b83c89b9b61e90408f53d98'
+md5sums=('d73915000cf2871404b45a64969cea83'
          '5c289c8901221a94be74665368ab5c2c'
          '23f2320361ad54373c3a4551ef634fe8'
          '796d52f26433300767ce16f8c92eebfb'
@@ -41,7 +41,7 @@ build() {
         -DENABLE_GTK=OFF \
         -DENABLE_QT=ON \
         -DENABLE_CLI=ON \
-        -DUSE_QT5=ON \
+        -DUSE_QT_VERSION=6 \
         -DINSTALL_LIB=OFF \
         -DWITH_CRYPTO="openssl" \
         -DWITH_INOTIFY=ON
@@ -68,7 +68,7 @@ package_transmission-cli() {
 
 package_transmission-qt() {
   pkgdesc="Fast, easy, and free BitTorrent client (Qt GUI)"
-  depends=('curl' 'qt5-declarative' 'libevent' 'miniupnpc')
+  depends=('curl' 'qt6-declarative' 'qt6-svg' 'libevent' 'miniupnpc')
   optdepends=('transmission-cli: daemon support')
   groups=('network')
   install=transmission-qt.install
