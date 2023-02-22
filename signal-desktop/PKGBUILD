@@ -1,0 +1,17 @@
+
+pkgname=signal-desktop
+pkgver=6.6.0
+pkgrel=1
+pkgdesc='Signal Desktop links with Signal on Android or iOS and lets you message from your computer.'
+arch=('x86_64')
+url='https://github.com/signalapp/Signal-Desktop'
+license=('GPL3')
+options=('!strip')
+depends=('alsa-lib' 'gtk3' 'libnotify' 'libxtst' 'nss' 'libxss')
+sha256sums=('6bcf3a8e8688690feba9c26c0797d4ecfcbc7d0b04084d2a32e7dcf43267ce63')
+source=("https://updates.signal.org/desktop/apt/pool/main/s/signal-desktop/${pkgname}_${pkgver}_amd64.deb")
+
+package() {
+
+  tar xf data.tar.xz -C ${pkgdir}
+}
