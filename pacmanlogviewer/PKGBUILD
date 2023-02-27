@@ -1,30 +1,25 @@
 
 pkgname=pacmanlogviewer
-pkgver=1.4.3
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="Inspect pacman log file."
 arch=('x86_64')
 url="https://opendesktop.org/content/show.php?content=150484"
 license=('GPL')
-depends=('qt5-base')
-makedepends=('extra-cmake-modules' 'qt5-tools')
+depends=('qt6-base')
+makedepends=('cmake' 'qt6-tools')
 groups=('system')
 source=("https://github.com/gcala/pacmanlogviewer/archive/v${pkgver}.tar.gz")
-md5sums=('9b9229ac3bde0b42a8109d59631ebce4')
+md5sums=('ee27d24551e1e15275ab12432c384fa6')
  
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_WITH_QT5=ON
-  make
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
