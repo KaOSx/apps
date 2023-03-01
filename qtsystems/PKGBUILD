@@ -1,0 +1,26 @@
+
+pkgname=qtsystems
+pkgver=5.4.0
+_commit=e3332ee38d27a134cef6621fdaf36687af1b6f4a
+pkgrel=1
+pkgdesc="Module that provides a set of APIs to discover system related information and capabilities."
+arch=('x86_64')
+url="https://github.com/qt/qtsystems"
+license=('GPL')
+depends=('qt5-declarative' 'bluez')
+makedepends=('git')
+source=("https://github.com/qt/qtsystems/archive/${_commit}.zip")
+md5sums=('ac6fd84c0ccc2c42def37e004a399d20')
+
+build() {
+    cd ${pkgname}-${_commit}
+
+    /usr/lib/qt5/bin/qmake CONFIG+=git_build
+    make
+}
+
+package() {
+    cd ${pkgname}-${_commit}
+
+    make INSTALL_ROOT=${pkgdir}/ install
+}
