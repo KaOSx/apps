@@ -1,7 +1,7 @@
 
 pkgname=godot
-pkgver=3.5.1
-_pkgver=3.5.1-stable
+pkgver=4.0
+_pkgver=4.0-stable
 pkgrel=1
 pkgdesc="Full featured, open source, MIT licensed, game engine."
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('alsa-lib' 'glu' 'libx11' 'libxcursor' 'libxinerama' 'libxrandr' 'freet
 makedepends=('scons') # 'clang')
 groups=('games')
 source=("https://downloads.tuxfamily.org/godotengine/${pkgver}/godot-${_pkgver}.tar.xz")
-sha256sums=('f4e0d9045b659d36df07ad6e0c5b54e34551bce2618da2549d8f8089749ac767')
+sha256sums=('8d92d2250176e2e5751e126ece72b78e6a124ee556111a8d8374c106e801b67f')
 
 build() {
     cd ${pkgname}-${_pkgver}
@@ -21,13 +21,13 @@ build() {
 
     scons platform=x11 \
           use_llvm=no \
-          target=release_debug
+          target=template_release
 }
 
 package() {
     cd ${pkgname}-${_pkgver}
 
-    install -Dm755 bin/godot.x11.opt.tools.64 ${pkgdir}/usr/bin/godot
+    install -Dm755 bin/godot.linuxbsd.template_release.x86_64 ${pkgdir}/usr/bin/godot
 
     install -Dm644 misc/dist/linux/org.godotengine.Godot.desktop ${pkgdir}/usr/share/applications/godot.desktop
     install -Dm644 icon.svg ${pkgdir}/usr/share/pixmaps/godot.svg  
