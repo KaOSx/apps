@@ -1,6 +1,7 @@
  
 pkgname=mauikit
 pkgver=2.2.2
+_pkgver=1.0.2
 pkgrel=1
 pkgdesc='Modular front-end framework for developing fast and compelling user experiences'
 arch=('x86_64')
@@ -9,11 +10,11 @@ license=('GPL3')
 depends=('ki18n' 'kconfig' 'kcoreaddons' 'knotifications' 'qt5-svg' 'qt5-quickcontrols2'
          'qt5-graphicaleffects' 'mauiman')
 makedepends=('extra-cmake-modules')
-source=("https://download.kde.org/stable/maui/mauikit/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/maui/mauikit/${pkgver}/${pkgname}-${_pkgver}.tar.xz")
 sha256sums=('c85ca983ef9ad43b88f496f0b91b2fc62e7b15330797d6caa7dc677201c37964')
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib
