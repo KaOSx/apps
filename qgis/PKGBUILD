@@ -9,12 +9,12 @@ url='https://qgis.org/'
 license=('GPL')
 arch=('x86_64')
 depends=('mariadb' 'postgresql-libs' 'sqlite' 'curl' 'giflib' 'gsl' 
-         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt6' 
-         'postgis' 'fcgi' 'qt6-svg' 'qt6-5compat' 'qt6-3d' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
-         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt6-python3' 'qca-qt6'
+         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt5' 
+         'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'qt5-3d' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
+         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt6-python3' 'qca-qt5'
          'python3-numpy' 'python3-httplib2' 'python3-requests' 'python3-pygments' 'pyyaml'
-         'libzip' 'qtkeychain-qt6' 'exiv2' 'protobuf' 'hdf5' 'grass')
-makedepends=('cmake'  'netcdf' 'sip' 'qt6-tools' 'pyqt-builder') 
+         'libzip' 'qtkeychain' 'exiv2' 'protobuf' 'hdf5' 'grass') #'qt6-5compat'
+makedepends=('cmake'  'netcdf' 'sip' 'qt5-tools' 'pyqt-builder') 
 source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
         'qt5.15.diff')
 sha256sums=('e72d196c1891de303acaa9555ee493cdcfb58c86929c96ba3537a331dbee74f5'
@@ -41,8 +41,8 @@ prepare() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DQGIS_MANUAL_SUBDIR=share/man \
         -DWITH_QWTPOLAR=FALSE \
-        -DWITH_QTWEBKIT=FALSE \
-        -DBUILD_WITH_QT6=TRUE
+        -DWITH_QTWEBKIT=FALSE
+        #-DBUILD_WITH_QT6=TRUE
     cmake --build build
 }
 
