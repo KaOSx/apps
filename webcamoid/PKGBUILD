@@ -2,7 +2,7 @@
 pkgname=webcamoid
 pkgver=9.0.0
 _commit=0e85ca398e26752d3cae7c0de200eabd72ac3268
-pkgrel=1
+pkgrel=2
 pkgdesc="Webcamoid is a full featured webcam capture application."
 url='https://webcamoid.github.io/'
 license=('GPL')
@@ -10,9 +10,17 @@ arch=('x86_64')
 depends=('qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-svg' 'ffmpeg' 'v4l-utils'
          'kdesu' 'pipewire')
 makedepends=('qt5-tools' 'cmake')
-source=("https://github.com/webcamoid/webcamoid/archive/${pkgver}.tar.gz")
+source=("https://github.com/webcamoid/webcamoid/archive/${pkgver}.tar.gz"
+        "https://github.com/webcamoid/webcamoid/commit/3a6426a0d489732fa79648a08aaf9d85c0f1dc8d.diff")
 #source=("https://github.com/webcamoid/webcamoid/archive/${_commit}.zip")
-md5sums=('e6371867cdc87baf0b50bcd962e656d2')
+md5sums=('e6371867cdc87baf0b50bcd962e656d2'
+         '3d1a62f176c0b2bbb58526ab6366cff6')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # ffmpeg 5 needed
+  patch -p1 -i ${srcdir}/3a6426a0d489732fa79648a08aaf9d85c0f1dc8d.diff
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
