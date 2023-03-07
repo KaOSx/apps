@@ -1,30 +1,33 @@
 
 pkgname=aubio
 pkgver=0.4.9
-pkgrel=4
+pkgrel=5
 pkgdesc="Tool designed for the extraction of annotations from audio signals"
 arch=('x86_64')
 url="https://aubio.org/"
 license=('GPL3')
 depends=('ffmpeg' 'fftw' 'jack' 'python3-numpy')
-makedepends=('python3-setuptools')
-source=("https://aubio.org/pub/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('50c9c63b15a2692378af5d602892f16a')
+makedepends=('python3-build' 'python3-installer' 'python3-setuptools' 'python3-wheel')
+source=("https://aubio.org/pub/${pkgname}-${pkgver}.tar.bz2"
+        "https://github.com/aubio/aubio/commit/8a05420e5dd8c7b8b2447f82dc919765876511b3.diff")
+md5sums=('50c9c63b15a2692378af5d602892f16a'
+         '3f803778641b43f08e9363638821b337')
 
 build() {
   cd ${pkgname}-${pkgver}
+  patch -p1 -i ${srcdir}/8a05420e5dd8c7b8b2447f82dc919765876511b3.diff
 
   ./waf configure --prefix=/usr \
     --alltests \
     --enable-fftw3 \
     --libdir=/usr/lib
   ./waf build
-  python3 setup.py build
+  python3 -m build -nw
 }
 
 package() {
   cd ${pkgname}-${pkgver}
 
   ./waf --destdir=${pkgdir} install
-  python setup.py install --skip-build --optimize=1 --root=${pkgdir}
+  python3 -m installer --destdir=${pkgdir} dist/*.whl
 }
