@@ -4,28 +4,27 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kconfig6
 _pkgname=kconfig
-pkgver=${_kf5ver}
+pkgver=${_kf6ver}
 pkgrel=1
 pkgdesc='KConfig'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kconfig'
 license=('LGPL')
 depends=('qt6-declarative')
-makedepends=('extra-cmake-modules' 'qt6-tools')
+makedepends=('extra-cmake-modules6' 'qt6-tools')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("git+https://invent.kde.org/frameworks/${_pkgname}.git")
+md5sums=('SKIP')
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
-    -DQT_MAJOR_VERSION=6
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
