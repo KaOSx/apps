@@ -4,34 +4,33 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=prison6
 _pkgname=prison
-pkgver=${_kf5ver}
+pkgver=${_kf6ver}
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Barcode abstraction layer providing uniform access to generation of barcodes with data."
 url="https://invent.kde.org/frameworks/prison"
 license=('GPL' 'LGPL' 'FDL')
 depends=('qt6-multimedia' 'libdmtx' 'qrencode' 'zxing-cpp')
-makedepends=('extra-cmake-modules' 'doxygen' 'qt6-tools')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/frameworks/prison/-/commit/74e34fa35a59098db7c4358b788ad3ac0a5745f7.diff")
-md5sums=(`grep ${_pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '82bc65d22b0705b8a96269fe667ec8ca')
+makedepends=('extra-cmake-modules6' 'doxygen' 'qt6-tools')
+#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+#        "https://invent.kde.org/frameworks/prison/-/commit/74e34fa35a59098db7c4358b788ad3ac0a5745f7.diff")
+#md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+#         '82bc65d22b0705b8a96269fe667ec8ca')
+source=("git+https://invent.kde.org/frameworks/${_pkgname}.git")
+md5sums=('SKIP')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
 
   #patch -p1 -i ${srcdir}/74e34fa35a59098db7c4358b788ad3ac0a5745f7.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF \
-    -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
-    -DQT_MAJOR_VERSION=6 \
     -DBUILD_QCH=ON
   cmake --build build
 }
