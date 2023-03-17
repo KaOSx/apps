@@ -4,35 +4,35 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kimageformats6
 _pkgname=kimageformats
-pkgver=${_kf5ver}
+pkgver=${_kf6ver}
 pkgrel=1
 pkgdesc='Plugins to allow QImage to support extra file formats.'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kimageformats'
 license=('LGPL')
-depends=('qt6-base' 'openexr' 'karchive6' 'libavif' 'jpeg-xl' 'libraw')
-makedepends=('extra-cmake-modules')
+depends=('qt6-base' 'openexr' 'karchive6' 'libavif' 'jpeg-xl' 'libraw' 'libheif')
+makedepends=('extra-cmake-modules6')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/frameworks/kimageformats/-/commit/350ce1b990460cb2178f369f22fe80803f5645f3.diff")
-md5sums=(`grep ${_pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '22945362bb6aceff48998429140af608')
+#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+#        "https://invent.kde.org/frameworks/kimageformats/-/commit/350ce1b990460cb2178f369f22fe80803f5645f3.diff")
+#md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf5.md5 | cut -d" " -f1`
+#         '22945362bb6aceff48998429140af608')
+source=("git+https://invent.kde.org/frameworks/${_pkgname}.git")
+md5sums=('SKIP')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
 
   #patch -p1 -i ${srcdir}/350ce1b990460cb2178f369f22fe80803f5645f3.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF \
-    -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
-    -DQT_MAJOR_VERSION=6
+    -DKIMAGEFORMATS_HEIF=ON
   cmake --build build
 }
 
