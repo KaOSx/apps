@@ -17,39 +17,31 @@ depends=('qt6-multimedia' 'qt6-virtualkeyboard' 'qt6-sensors' 'qt6-declarative'
          'kservice6' 'kxmlgui6' 'kitemviews6' 'kwayland6' 'kactivities6' 'krunner6' 
          'kirigami6' 'kdecoration6' 'breeze6' 'knotifications6' 'kscreenlocker6' 
          'libepoxy' 'plasma-wayland-protocols' 'xcb-util-cursor' 'libinput' 'xwayland'
-         'wireplumber' 'xorg-server') #'libqaccessibilityclient6' 
-makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
+         'wireplumber' 'xorg-server' 'libqaccessibilityclient6')
+makedepends=('extra-cmake-modules6' 'kdoctools6' 'qt6-tools')
 groups=('kdeplasma6')
 #options=('debug')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/plasma/kwin/-/commit/7f80c47758ce5d3a2ed9f8c1e5c61644931672c2.diff"
-        "https://invent.kde.org/plasma/kwin/-/commit/35606fd9eed0be6078dfafeeac4e65adc89d538e.diff"
-        "https://invent.kde.org/plasma/kwin/-/commit/bcd43ff44d323044cc130aac4d9423f4d0411122.diff"
-        "https://invent.kde.org/plasma/kwin/-/commit/74ae78d4c6e3bb6269ec884522a0c2753c35483d.diff")
-md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '862c64c710361da217b4394797ef6801'
-         '1dc9c40c66992742e83b9d6e350abe49'
-         'a2fe372e705ae2c2b896bf90e01721be'
-         '0c433673b414db432e7d79a156178c3a')
+#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+#        "https://invent.kde.org/plasma/kwin/-/commit/7f80c47758ce5d3a2ed9f8c1e5c61644931672c2.diff")
+#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+#         '862c64c710361da217b4394797ef6801')
+source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
+md5sums=('SKIP')
+
 
 prepare () {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
 
-  patch -p1 -i ${srcdir}/7f80c47758ce5d3a2ed9f8c1e5c61644931672c2.diff
-  patch -p1 -i ${srcdir}/35606fd9eed0be6078dfafeeac4e65adc89d538e.diff
-  patch -p1 -i ${srcdir}/bcd43ff44d323044cc130aac4d9423f4d0411122.diff
-  patch -p1 -i ${srcdir}/74ae78d4c6e3bb6269ec884522a0c2753c35483d.diff
+  #patch -p1 -i ${srcdir}/7f80c47758ce5d3a2ed9f8c1e5c61644931672c2.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF \
-    -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }

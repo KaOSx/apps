@@ -11,25 +11,25 @@ pkgdesc="Components relating to Flatpak--pipewire use in Plasma."
 url="https://invent.kde.org/plasma/kpipewire"
 license=('GPL' 'LGPL')
 depends=('kwayland6' 'ki18n6' 'kcoreaddons6' 'libepoxy' 'plasma-wayland-protocols' 'pipewire')
-makedepends=('extra-cmake-modules' 'kdoctools6')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${_plasmaver}.tar.xz")
-md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+makedepends=('extra-cmake-modules6' 'kdoctools6')
+#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${_plasmaver}.tar.xz")
+#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
+md5sums=('SKIP')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
 
   #patch -p1 -i ${srcdir}/34ce31a821c440ed73c7ef21efee7c55a42dcbce.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF \
-    -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }

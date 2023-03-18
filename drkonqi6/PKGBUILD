@@ -12,28 +12,28 @@ url="https://invent.kde.org/plasma/drkonqi"
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n6' 'kcoreaddons6' 'kconfig6' 'kservice6' 'kjobwidgets6' 'kio6' 'kcrash6' 'kcompletion6' 
          'kwidgetsaddons6' 'kwallet6' 'knotifications6' 'kidletime6' 'kwindowsystem6'
-         'syntax-highlighting6' 'kirigami6' 'kuserfeedback6')
-makedepends=('extra-cmake-modules' 'kdoctools6')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/plasma/drkonqi/-/commit/ef22aade1ae5299367b5cfb4d828c8849839caf2.diff")
-md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'd90fe4eb45f94cde6f4ec3b1df692d39')
+         'syntax-highlighting6' 'kirigami6' 'kitemmodels6' 'kuserfeedback6')
+makedepends=('extra-cmake-modules6' 'kdoctools6')
+#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+#        "https://invent.kde.org/plasma/drkonqi/-/commit/ef22aade1ae5299367b5cfb4d828c8849839caf2.diff")
+#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+#         'd90fe4eb45f94cde6f4ec3b1df692d39')
+source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
+md5sums=('SKIP')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
 
-  patch -p1 -i ${srcdir}/ef22aade1ae5299367b5cfb4d828c8849839caf2.diff
+  #patch -p1 -i ${srcdir}/ef22aade1ae5299367b5cfb4d828c8849839caf2.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF \
-    -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }
