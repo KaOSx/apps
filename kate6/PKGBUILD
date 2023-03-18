@@ -12,8 +12,8 @@ url='https://invent.kde.org/utilities/kate'
 license=('LGPL')
 depends=('kconfig6' 'kguiaddons6' 'ki18n6' 'kjobwidgets6' 'kitemmodels6' 'threadweaver6'
          'kio6' 'knewstuff6' 'kparts6' 'ktexteditor6' 'kwindowsystem6' 'kxmlgui6'
-         'plasma-framework6' 'kuserfeedback6')
-makedepends=('extra-cmake-modules' 'kdoctools6')
+         'plasma-framework6' 'kuserfeedback6' 'kmoretools')
+makedepends=('extra-cmake-modules6' 'kdoctools6')
 source=("$_mirror/${_pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/utilities/kate/commit/4cfb4123efc89b425dea176ccb5b58ce2f0ad5da.diff")
 md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
@@ -23,7 +23,7 @@ prepare() {
   cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/4cfb4123efc89b425dea176ccb5b58ce2f0ad5da.diff
-  sed -i 's|dirOperator->setView|dirOperator->setViewMode|' addons/filebrowser/katefilebrowser.cpp
+  #sed -i 's|dirOperator->setView|dirOperator->setViewMode|' addons/filebrowser/katefilebrowser.cpp
 }
 
 build() {
@@ -32,8 +32,6 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF \
-    -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }

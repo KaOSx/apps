@@ -14,26 +14,28 @@ depends=('kbookmarks6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6'
          'kglobalaccel6' 'kguiaddons6' 'kdbusaddons6' 'ki18n6' 'kiconthemes6' 'kio6'
          'knewstuff6' 'knotifications6' 'knotifyconfig6' 'kparts6' 'kpty6' 'kservice6' 
          'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'icu')
-makedepends=('extra-cmake-modules' 'kdoctools6')
-source=("${_mirror}/${_pkgname}-${pkgver}.tar.xz"
+makedepends=('extra-cmake-modules6' 'kdoctools6')
+#source=("${_mirror}/${_pkgname}-${pkgver}.tar.xz"
+source=("https://invent.kde.org/davism/konsole/-/archive/kf6/konsole-kf6.tar.bz2"
         "https://invent.kde.org/utilities/konsole/-/commit/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff")
-md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+#md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=('92d28d50093c94557ac09634be54c875'
          'cf7a0f9cb05195f716a1164b1d116cb5')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}-kf6
 
-  patch -p1 -i ${srcdir}/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff
+  #patch -p1 -i ${srcdir}/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname}-kf6 \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF \
     -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
+    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf6ver} \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }
