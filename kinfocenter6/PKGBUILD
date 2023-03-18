@@ -14,24 +14,32 @@ depends=('glu' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'ki18n6' 'kcmutils6' 
          'kservice6' 'solid6' 'kwidgetsaddons6' 'kdeclarative6' 'kpackage6'
          'libraw1394' 'pciutils' 'wayland-utils' 'systemsettings6' 'vulkan-tools'
          'xorg-utils' 'mesa-demos' 'procps-ng' 'fwupd' 'dmidecode')
-makedepends=('extra-cmake-modules' 'kdoctools6')
+makedepends=('extra-cmake-modules6' 'kdoctools6')
 groups=('kdeplasma6')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+source=("git+https://invent.kde.org/plasma/${_pkgname}.git"
         'kcm-about-distrorc'
-        'KaOS.png')
-md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+        'KaOS.png'
+        "https://invent.kde.org/plasma/kinfocenter/-/commit/287fac58cabbbb0ec36f053c4a18fc4c8be20dfb.diff")
+#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+md5sums=('SKIP'
          'f4e373cde99c52125bafc3bea2a7afd9'
-         '0957d15eee83c30c1351571d3b875bc9')
+         '0957d15eee83c30c1351571d3b875bc9'
+         '993d9b8b21e585c1992036e0eaa13eb3')
+
+prepare() {
+  cd ${_pkgname}
+
+  patch -p1 -i ${srcdir}/287fac58cabbbb0ec36f053c4a18fc4c8be20dfb.diff
+}
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF \
-    -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }

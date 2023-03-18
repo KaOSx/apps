@@ -18,48 +18,33 @@ depends=('kauth6' 'plasma-framework6' 'krunner6' 'knotifications6' 'knotifyconfi
          'kholidays6' 'breeze6' 'attica'
          'libqalculate' 'phonon-qt6' 'qt6-wayland' 'qt6-tools' 'plasma-wayland-protocols' 'icu'
          'glu' 'libxkbfile' 'libxcursor' 'lm_sensors' 'libraw1394' 'libusb' 'pciutils' 'libbsd' 'libxrandr'
-         'gpsd' 'iso-codes' 'oxygen-icons5' 'sddm-kcm6' 'kactivitymanagerd6' 'drkonqi6') # 'kwayland-integration' 'accountsservice' 'kio-extras' 'kio-fuse' 'libdbusmenu-qt' 'khelpcenter''milou''frameworkintegration' 'kdesu' 'libkexiv2'
-makedepends=('extra-cmake-modules' 'kdoctools6' 'boost') 
+         'gpsd' 'iso-codes' 'oxygen-icons5' 'sddm-kcm6' 'kactivitymanagerd6' 'drkonqi6' 'plasma5support') # 'kwayland-integration' 'accountsservice' 'kio-extras' 'kio-fuse' 'libdbusmenu-qt' 'khelpcenter''milou''frameworkintegration' 'kdesu' 'libkexiv2'
+makedepends=('extra-cmake-modules6' 'kdoctools6' 'boost') 
 groups=('kdeplasma6')
 #options=('debug')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+source=("git+https://invent.kde.org/plasma/${_pkgname}.git"
         'shellcorona.diff'
-        "https://invent.kde.org/plasma/plasma-workspace/-/commit/af0c797735eac0446c77f0acecea50d2163f9064.diff"
-        'kicker_qt6.diff'
-        "https://invent.kde.org/plasma/plasma-workspace/-/commit/f60a589433c68937e875e3fe26b0027270f0e4cc.diff"
-        "https://invent.kde.org/plasma/plasma-workspace/-/commit/16d483919fae11e92511b007196c6108993294f9.diff"
-        "https://invent.kde.org/plasma/plasma-workspace/-/commit/bcd2bfefcca02c6f1632027401dbb3e081ec3f78.diff"
-        "https://invent.kde.org/plasma/plasma-workspace/-/commit/38b7850ceaf51ef56d1d7104bf38f71e216ed6d8.diff")
-md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+        'kicker_qt6.diff')
+#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+md5sums=('SKIP'
          '1913544f6cbf179033c3a1fdceac1b7e'
-         'f3558b3f155208037885b7ae2801bf07'
-         'c12de12d61f8c65c998d971cb83b74d5'
-         '7dd1cce0778e446e916f07f0b78ac3fc'
-         'd1cd671bfbbe0becb71edfa228ee73c4'
-         'ab01c6852c6f0c22efbcf78d4c3068f5'
-         '2f48425a3ec76d6abeb839e24da3cf49')
+         'c12de12d61f8c65c998d971cb83b74d5')
 
 prepare () {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
 
   patch -p1 -i ${srcdir}/shellcorona.diff
-  patch -p1 -i ${srcdir}/af0c797735eac0446c77f0acecea50d2163f9064.diff
-  patch -p1 -i ${srcdir}/kicker_qt6.diff
-  patch -p1 -i ${srcdir}/f60a589433c68937e875e3fe26b0027270f0e4cc.diff
-  patch -p1 -i ${srcdir}/16d483919fae11e92511b007196c6108993294f9.diff
-  patch -p1 -i ${srcdir}/bcd2bfefcca02c6f1632027401dbb3e081ec3f78.diff
-  patch -p1 -i ${srcdir}/38b7850ceaf51ef56d1d7104bf38f71e216ed6d8.diff
+  #patch -p1 -i ${srcdir}/kicker_qt6.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF \
-    -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf5ver} \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }
