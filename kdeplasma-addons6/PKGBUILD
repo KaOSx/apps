@@ -1,0 +1,38 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdeplasma-addons6
+_pkgname=kdeplasma-addons
+arch=('x86_64')
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc="All kind of add-ons to improve your Plasma experience"
+url="https://invent.kde.org/plasma/kdeplasma-addons"
+license=('GPL' 'LGPL' 'FDL')
+depends=('kconfig6' 'kcoreaddons6' 'kdeclarative6' 'kholidays6' 'ki18n6' 'kio6' 'kcmutils6'
+         'knotifications6' 'plasma-framework6' 'plasma5support' 'krunner6' 'kservice6' 'sonnet6'
+         'kunitconversion6' 'kxmlgui6' 'knewstuff6'
+         'plasma-workspace6' 'phonon-qt6' 'qca-qt6' 'purpose6' 'qt6-declarative')
+makedepends=('extra-cmake-modules6' 'kdoctools6')
+groups=('kdeplasma6')
+#source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
+md5sums=('SKIP')
+
+build() {
+  cmake -B build -S ${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
+
