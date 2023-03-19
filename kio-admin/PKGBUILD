@@ -3,19 +3,19 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-admin
-pkgver=1.0.0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Manage files as administrator using the admin:// KIO protocol."
 arch=('x86_64')
 url='https://invent.kde.org/system/kio-admin'
 license=('GPL2')
 depends=('ki18n6' 'kio6' 'polkit-qt6')
-makedepends=('extra-cmake-modules')
-source=("https://download.kde.org/stable/kio-admin/${pkgname}-${pkgver}.tar.zst")
-sha256sums=('e5472f7726aae9e9af0b2ad91348a042a906d4170146949e6cd5fa6175fb4359')
+makedepends=('extra-cmake-modules6')
+source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${pkgname}-v${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \

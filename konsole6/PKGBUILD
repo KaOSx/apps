@@ -26,6 +26,7 @@ prepare() {
   cd ${_pkgname}-kf6
 
   #patch -p1 -i ${srcdir}/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff
+  sed -e 's|kcoreaddons_desktop_to_json|#kcoreaddons_desktop_to_json|g' -i src/CMakeLists.txt
 }
 
 build() {
@@ -34,8 +35,6 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF \
-    -DBUILD_WITH_QT6=ON \
-    -DEXCLUDE_DEPRECATED_BEFORE_AND_AT=${_kf6ver} \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }
