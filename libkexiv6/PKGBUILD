@@ -1,0 +1,43 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=libkexiv6
+_pkgname=libkexiv2
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="Wrapper around Exiv2 library to manipulate picture metadata as EXIF and XMP."
+arch=('x86_64')
+url='https://invent.kde.org/graphics/libkexiv2'
+license=('GPL' 'LGPL' 'FDL')
+depends=('exiv2' 'qt6-5compat')
+makedepends=('extra-cmake-modules6')
+#groups=('kde-graphics')
+source=("$_mirror/${_pkgname}-${_kdever}.tar.xz"
+        "https://invent.kde.org/graphics/libkexiv2/-/commit/a36255b569e4c44dda5aa18c8d53008c7fdfbac8.diff"
+        "https://invent.kde.org/graphics/libkexiv2/-/commit/3746d06ebf0c9e5fba1c5ab1cc4a2c51538bb79f.diff")
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '8661e03bb0664c1dfb269e09e1ba0d8e'
+         '3b212376fe37bb462d70dd770973335e')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/a36255b569e4c44dda5aa18c8d53008c7fdfbac8.diff
+  patch -p1 -i ${srcdir}/3746d06ebf0c9e5fba1c5ab1cc4a2c51538bb79f.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

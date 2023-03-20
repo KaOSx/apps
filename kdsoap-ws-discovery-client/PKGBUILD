@@ -1,0 +1,27 @@
+
+pkgname=kdsoap-ws-discovery-client
+pkgver=0.2
+_commit=b57001968fb23c5aef4d81f4df431ef23c5b36e7
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Qt-based client-side and server-side SOAP component."
+url="https://invent.kde.org/libraries/kdsoap-ws-discovery-client"
+license=('MIT')
+depends=('kdsoap6')
+makedepends=('extra-cmake-modules6')
+source=("https://invent.kde.org/libraries/kdsoap-ws-discovery-client/-/archive/${_commit}/kdsoap-ws-discovery-client-${_commit}.tar.bz2")
+md5sums=('32648f305cc6f90860c874beadda7cd2')
+
+build() {
+  cmake -B build -S ${pkgname}-${_commit} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
