@@ -1,7 +1,9 @@
- 
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=neochat
-pkgver=23.01.0
-_commit=1d5b7dee94407a0522a9ce6dcf4b231068b618fd
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Client for Matrix, the decentralized communication protocol for instant messaging - Spectral fork."
 arch=('x86_64')
@@ -14,11 +16,8 @@ depends=('qt5-multimedia' 'qt5-quickcontrols2' 'qt5-svg' 'kirigami-addons' 'ki18
 makedepends=('extra-cmake-modules' 'kdoctools')
 replaces=('spectral')
 conflicts=('spectral')
-source=("https://download.kde.org/stable/plasma-mobile/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/network/neochat/-/commit/9300e65239f9204a688084af20d05138d272fdb4.diff")
-#source=("https://invent.kde.org/network/neochat/-/archive/${_commit}/neochat-${_commit}.tar.bz2")
-sha256sums=('4dfb8b5c931ab440491ca511d84a493ec658ca3c4aedd4358131780e39d26a5e'
-            '09bd5ed06c49c555f8b09d3a69f62c6519f54005700f767f4586665ef10fcff6')
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}

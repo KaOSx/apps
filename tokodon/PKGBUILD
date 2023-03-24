@@ -1,6 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=tokodon
-pkgver=23.02.0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Mastodon client for Plasma and Plasma Mobile."
 arch=('x86_64')
@@ -9,8 +12,8 @@ license=('GPL3')
 depends=('kirigami-addons' 'ki18n' 'knotifications' 'kconfig' 'kcoreaddons' 'kio' 'kdbusaddons'
          'kwindowsystem' 'kitemmodels' 'sonnet' 'qqc2-desktop-style' 'qtkeychain' 'qt5-websockets' )
 makedepends=('extra-cmake-modules')
-source=("https://download.kde.org/stable/tokodon/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('33622ee42e81bcc716fe820d7da35cce40f1d621bdb4a9d2fa1c35b4e92f15a7')
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

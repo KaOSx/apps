@@ -1,6 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=angelfish
-pkgver=23.01.0
+pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Web browser for Plasma Mobile"
@@ -9,8 +12,8 @@ license=('GPL2')
 depends=('qtwebengine' 'qt5-quickcontrols2' 'qt5-svg' 'qtfeedback' 'kirigami-addons' 'purpose'
          'ki18n' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kwindowsystem' 'knotifications')
 makedepends=('extra-cmake-modules' 'qt5-tools')
-source=("https://download.kde.org/stable/plasma-mobile/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('771ca0bb2f5c9e32d5fbc801cd69477aa14d5c926c3900c866289f223bd2f5df')
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

@@ -1,8 +1,11 @@
 
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=ghostwriter
-pkgver=22.11.70
-_commit=3b45dd45b2244e10edfb52fcca7aa7425504326e
-pkgrel=2
+pkgver=${_kdever}
+pkgrel=1
 pkgdesc="Distraction-free text editor for Markdown."
 arch=('x86_64')
 url="https://ghostwriter.kde.org/"
@@ -10,17 +13,17 @@ license=('GPL3')
 depends=('cmark' 'qt5-svg' 'qtwebengine' 'sonnet' 'kcoreaddons' 'kxmlgui' 'kconfigwidgets' 'kwidgetsaddons')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('office')
-source=("https://invent.kde.org/office/ghostwriter/-/archive/${_commit}/${pkgname}-${_commit}.tar.bz2")
-sha256sums=('01211e62c16c53e4a72fc983b28f2330f073dde89c29309f1101ae0b34aada75')
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
 
   sed -i 's|GW_DARK_MODE_KEY, QVariant(true)|GW_DARK_MODE_KEY, QVariant(false)|' src/appsettings.cpp
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib

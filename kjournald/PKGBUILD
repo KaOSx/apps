@@ -1,6 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kjournald
-pkgver=0.1.0
+pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Framework for interacting with systemd-journald'
 arch=('x86_64')
@@ -8,8 +11,8 @@ url='https://invent.kde.org/system/kjournald'
 license=('LGPL')
 depends=('kcoreaddons' 'ki18n' 'qt5-quickcontrols2' 'systemd')
 makedepends=('extra-cmake-modules')
-source=("http://download.kde.org/stable/kjournald/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('dd2d190621d084430fc7934b01e774553e16081cd8beb9e6546afc82cd9382a8')
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

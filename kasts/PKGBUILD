@@ -1,7 +1,9 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kasts
-pkgver=23.01.0
-_pkgver=23.01.0
+pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Kirigami-based podcast player"
@@ -10,8 +12,8 @@ license=('GPL2')
 depends=('qt5-multimedia' 'qt5-quickcontrols2' 'qt5-svg' 'kirigami-addons' 'networkmanager-qt'
          'kcoreaddons' 'syndication' 'kconfig' 'ki18n' 'qtkeychain' 'threadweaver')
 makedepends=('extra-cmake-modules' 'qt5-tools')
-source=("https://download.kde.org/stable/plasma-mobile/${_pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('6ec76b04fd6c06fa1f3201cb907e9b58ec9b414b35e6ae2cc5d1d6b64b7bbb27')
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
