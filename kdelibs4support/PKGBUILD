@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdelibs4support
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides code and utilities to ease the transition from kdelibs 4 to KDE Frameworks 5'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kdelibs4support'
@@ -15,7 +15,7 @@ depends=('kcompletion' 'kconfigwidgets' 'kconfig' 'kcrash' 'kdesignerplugin' 'kg
          'libsm' 'networkmanager')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools' 'perl-uri')
 groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/${pkgver}/portingAids/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/5.104/portingAids/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {

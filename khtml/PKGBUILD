@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=khtml
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Web rendering engine, based on the KParts technology and using KJS for JavaScript support.'
 arch=('x86_64')
 url='https://projects.kde.org/projects/frameworks/khtml'
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('phonon-qt5' 'giflib' 'karchive' 'kcodecs' 'kglobalaccel' 'ki18n' 'kiconthemes'
          'kio' 'kjs' 'kparts' 'qt5-x11extras')
 makedepends=('extra-cmake-modules' 'gperf')
-source=("https://download.kde.org/unstable/frameworks/${pkgver}/portingAids/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/5.104/portingAids/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
