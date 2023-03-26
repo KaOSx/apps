@@ -1,8 +1,8 @@
 
 pkgname=mumble
-pkgver=1.4.287
-_pkgver=1.4.287
-pkgrel=3
+pkgver=1.5.517
+_pkgver=1.5.517
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Open source, low-latency, high quality voice chat software"
 url="https://wiki.mumble.info/wiki/Main_Page"
@@ -13,17 +13,17 @@ makedepends=('boost' 'mesa' 'qt5-tools')
 #source=("https://github.com/mumble-voip/mumble/archive/refs/tags/v${pkgver}.tar.gz"
 source=("https://github.com/mumble-voip/mumble/releases/download/v${_pkgver}/${pkgname}-${_pkgver}.tar.gz"
         "https://github.com/mumble-voip/mumble/commit/eb8f957d05aaae6a151d694cbc8790af80884f1f.diff")
-md5sums=('c9a2eb6413d165da606fb8d4657a1697'
+md5sums=('23ebbda45eeaca3048536cd0629056b9'
          'cb6ab055c5bbebf6bf989c26fa3b454b')
 
 prepare() {
-    cd ${pkgname}-${_pkgver}.src
+    cd ${pkgname}-${_pkgver}
     # poco 1.11.2 needed
     #patch -p1 -i ${srcdir}/eb8f957d05aaae6a151d694cbc8790af80884f1f.diff
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${_pkgver}.src \
+  cmake -B build -S ${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Dpackaging=ON \

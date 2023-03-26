@@ -1,20 +1,18 @@
 
 pkgname=musescore
 pkgver=4.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Music notation and composition software written in Qt"
 arch=('x86_64')
 url="https://www.musescore.org/en/"
 license=('GPL')
-depends=('qtwebengine' 'qt5-networkauth' 'qt5-svg' 'qt5-tools' 'qt5-xmlpatterns' 'qt5-quickcontrols2'
+depends=('qt5-networkauth' 'qt5-svg' 'qt5-tools' 'qt5-xmlpatterns' 'qt5-quickcontrols2'
          'qt5-graphicaleffects' 'qt5-x11extras' 'openssl' 'pulseaudio' 'lame' 'portaudio' 'jack2' 'portmidi')
 makedepends=('cmake' 'doxygen' 'texlive-core' 'qt5-script')
 groups=('multimedia')
-source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz"
-#source=("https://download.musescore.com/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.zip"
-        "https://github.com/musescore/MuseScore/commit/7a465c3727bc28ed12e9614b50684cb18e5525e7.diff")
-md5sums=('e1a5b52bd2cede8f6f332f0f6e315b73'
-         '81f7790762c7f6093158a17717c74eff')
+source=("https://github.com/musescore/MuseScore/archive/v${pkgver}.tar.gz")
+#source=("https://download.musescore.com/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.zip")
+md5sums=('e1a5b52bd2cede8f6f332f0f6e315b73')
 
 prepare() {
   cd MuseScore-${pkgver}
@@ -27,6 +25,7 @@ build() {
   cmake -B build -S MuseScore-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_CRASHPAD_CLIENT=OFF \
     -DCRASH_REPORT_URL="https://kaosx.us/docs/bugs/" \
     -DUSE_SYSTEM_FREETYPE=ON \
     -DBUILD_UNIT_TESTS=OFF \
