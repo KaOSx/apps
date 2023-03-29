@@ -17,6 +17,8 @@ sha256sums=('89a1fb73528ef653c4b99af06bbc8d1175d56893d67422b998be8a500fe79c8c')
 build() {
     cd ${pkgname}-${pkgver}
 
+    make -C i18n/
+    make -C linux/
     python3 -m build -nw
 }
 
