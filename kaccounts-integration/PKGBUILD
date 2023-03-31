@@ -10,7 +10,8 @@ arch=('x86_64')
 url="https://kde.org/applications/internet/"
 license=('GPL')
 depends=('kcmutils' 'kio' 'ki18n' 'kwidgetsaddons' 'kcoreaddons' 
-         'kiconthemes' 'kconfig' 'kwallet' 'kdbusaddons' 'accounts-qml-module' 'signonqt')
+         'kiconthemes' 'kconfig' 'kwallet' 'kdbusaddons' 'accounts-qml-module'
+         'signonqt' 'qcoro')
 makedepends=('extra-cmake-modules' 'kdoctools' 'akonadi')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -19,7 +20,7 @@ prepare () {
   cd ${pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/2420b04e3d01cd02c26e238221a7603614830d15.diff
-}    
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

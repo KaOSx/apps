@@ -15,10 +15,8 @@ depends=('shared-mime-info' 'mariadb' 'qt5-base' 'libxslt' 'kitemviews'  'kio' '
 makedepends=('extra-cmake-modules' 'postgresql' 'boost' 'qt5-tools')
 groups=('kdepim')
 optdepends=('postgresql: PostgreSQL backend')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
-        "https://github.com/KDE/akonadi/commit/2dc7fbf569ba3f7eeef98fb818d7af0820caf7a3.diff") 
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '65deb2ccabfb088e8e94daffb9b511a3')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz") 
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}

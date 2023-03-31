@@ -6,10 +6,10 @@ pkgname=kdenetwork-filesharing
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Properties dialog plugin to share a directory with the local network'
-url='https://projects.kde.org/projects/kde/kdenetwork/kdenetwork-filesharing'
+url='https://invent.kde.org/network/kdenetwork-filesharing'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcompletion' 'kcoreaddons' 'ki18n' 'kio' 'kwidgetsaddons' 'samba')
+depends=('kauth' 'kcompletion' 'kcoreaddons' 'ki18n' 'kio' 'kwidgetsaddons' 'qcore' 'samba')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde-network' 'kde-uninstall')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
@@ -21,21 +21,15 @@ prepare() {
 }
 
 build() {
-  mkdir build 
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make 
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=$pkgdir install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
