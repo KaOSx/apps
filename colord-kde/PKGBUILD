@@ -10,12 +10,11 @@ url='https://dantti.wordpress.com/2012/03/12/coloring-you-desktop-with-colord-kd
 arch=('x86_64')
 license=('GPL')
 depends=('colord' 'libxrandr' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'ki18n'
-         'kcmutils' 'kwidgetsaddons' 'kwindowsystem' 'kio')
+         'kcmutils' 'kwidgetsaddons' 'kwindowsystem' 'kpackage' 'kdeclarative' 'kitemmodels')
 makedepends=('extra-cmake-modules')
 groups=('color')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

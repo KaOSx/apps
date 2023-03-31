@@ -7,14 +7,11 @@ _pkgname=libkcddb
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="KDE CDDB library"
-url='https://projects.kde.org/projects/kde/kdemultimedia/libkcddb'
+url='https://invent.kde.org/multimedia/libkcddb'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kcodecs' 'ki18n' 'kio' 'kwidgetsaddons' 'libmusicbrainz')
+depends=('kconfig' 'kcodecs' 'ki18n' 'kio' 'kwidgetsaddons' 'kcmutils' 'libmusicbrainz')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kf5-libkcddb' 'libkcddb')
-replaces=('kf5-libkcddb')
-provides=('kf5-libkcddb' 'libkcddb')
 source=("$_mirror/${_pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -25,24 +22,18 @@ prepare() {
 }
 
 build() {
- mkdir -p build
-  cd build
-
-  cmake ../${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
