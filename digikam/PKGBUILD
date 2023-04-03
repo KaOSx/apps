@@ -11,10 +11,9 @@ pkgdesc="Digital photo management application for kde"
 depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
          'solid' 'kiconthemes' 'kfilemetadata' 'libksane' 'ki18n' 'kitemmodels' 'lensfun' 
          'marble' 'qt5-xmlpatterns' 'qt5-x11extras' 'qtwebengine' 'libgphoto2' 'liblqr' 'opencv'
-         'lapack' 'eigen3' 'mariadb' 'akonadi-contacts'
-         'kparts' 'kconfig' 'kxmlgui' 'kservice' 'threadweaver' 'karchive' 'libkexiv2' 
-         'libkdcraw' 'libmediawiki' 'libtiff' 'image-exiftool'
-         'kcalendarcore' 'kwallet' 'phonon-qt5' 'kdepimlibs' 'imagemagick')
+         'lapack' 'eigen3' 'mariadb' 'kparts' 'kconfig' 'kxmlgui' 'kservice' 'threadweaver'
+         'karchive' 'libkexiv2' 'libkdcraw' 'libmediawiki' 'libtiff' 'image-exiftool'
+         'kcalendarcore' 'kwallet' 'phonon-qt5' 'imagemagick') # 'akonadi-contacts' 'kdepimlibs'
 makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'ruby' 'subversion') # 'clang')
 groups=('kde-graphics')
 source=("https://download.kde.org/stable/digikam/${_pkgver}/${_pkgname}-${_pkgver}.tar.xz"
@@ -39,7 +38,7 @@ build() {
      -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
      -DBUILD_TESTING=OFF \
-     -DENABLE_AKONADICONTACTSUPPORT=ON \
+     -DENABLE_AKONADICONTACTSUPPORT=OFF \
      -DENABLE_MYSQLSUPPORT=ON \
      -DENABLE_KFILEMETADATASUPPORT=ON \
      -DENABLE_MEDIAPLAYER=OFF \
