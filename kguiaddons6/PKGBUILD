@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kguiaddons6
 _pkgname=kguiaddons
 pkgver=${_kf6ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KGuiAddons'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kguiaddons'
@@ -24,6 +24,7 @@ prepare() {
   cd ${_pkgname}
 
   #patch -p1 -i ${srcdir}/a30c1fd20870c425e586cec3d46d7eb944509b89.diff
+  sed -i 's|QX11Application|QWaylandApplication|' src/util/kmodifierkeyinfoprovider_xcb.cpp
 }
 
 build() {
