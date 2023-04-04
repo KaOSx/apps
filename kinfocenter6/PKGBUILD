@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kinfocenter6
 _pkgname=kinfocenter
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='View information about your computers hardware'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kinfocenter'
@@ -23,14 +23,14 @@ source=("git+https://invent.kde.org/plasma/${_pkgname}.git"
         "https://invent.kde.org/plasma/kinfocenter/-/commit/287fac58cabbbb0ec36f053c4a18fc4c8be20dfb.diff")
 #md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 md5sums=('SKIP'
-         'f4e373cde99c52125bafc3bea2a7afd9'
+         '79189d568c3b1b25e4e61f2af4686c7b'
          '0957d15eee83c30c1351571d3b875bc9'
          '993d9b8b21e585c1992036e0eaa13eb3')
 
 prepare() {
   cd ${_pkgname}
 
-  patch -p1 -i ${srcdir}/287fac58cabbbb0ec36f053c4a18fc4c8be20dfb.diff
+  #patch -p1 -i ${srcdir}/287fac58cabbbb0ec36f053c4a18fc4c8be20dfb.diff
 }
 
 build() {
