@@ -6,16 +6,15 @@ pkgname=sddm-kcm
 pkgver=${_plasmaver}
 pkgrel=1
 epoch=1
-pkgdesc="SDDM configuration module for KDE"
+pkgdesc="Configuration module for SDDM."
 arch=('x86_64')
-url="https://github.com/sddm/sddm-kcm"
+url="https://invent.kde.org/plasma/sddm-kcm"
 license=("GPL")
 depends=('kcoreaddons' 'ki18n' 'kxmlgui' 'kauth' 'kconfigwidgets' 'kio' 'karchive' 'knewstuff' 
          'kdeclarative' 'kcmutils' 'sddm' 'libx11' 'libxcb' 'libxcursor')
-makedepends=('git' 'extra-cmake-modules' 'kdoctools' 'qt5-tools')
+makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kdeplasma5')
-source=("http://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
@@ -25,10 +24,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -36,11 +32,10 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
