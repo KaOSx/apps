@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=dolphin
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE File Manager"
 arch=('x86_64')
 url='https://projects.kde.org/projects/kde/applications/dolphin'
 license=('LGPL')
 depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kdbusaddons' 'kbookmarks' 'kconfig' 'kio' 'kparts' 'solid'
          'kiconthemes' 'kcompletion' 'ktextwidgets' 'kwindowsystem' 'knotifications' 'baloo-widgets' 'kactivities' 
-         'kfilemetadata' 'kde-cli-tools') 
+         'kfilemetadata' 'kde-cli-tools' 'kio-admin')
 makedepends=('extra-cmake-modules' 'kdoctools' 'ruby')
 groups=('kde-system')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
@@ -26,7 +26,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd $pkgname-${pkgver}
   # keep kdesu option for dolphin, comment out for now, wait for upstream decision
-  patch -p1 -i ${srcdir}/kdesu.diff
+  # patch -p1 -i ${srcdir}/kdesu.diff
   # set KaOS defaults
   patch -p1 -i ${srcdir}/dolphinui.diff
   # https://bugs.kde.org/show_bug.cgi?id=457529 patch only reverted in 22.12 branch, will re-surface with 23.04
