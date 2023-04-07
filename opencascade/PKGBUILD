@@ -38,13 +38,13 @@ prepare() {
   patch -p1 -i ${srcdir}/opencascade-7.7.0-build-against-vtk-9.2.patch
   sed -i -e 's|/lib$|/lib(64)?$|' adm/templates/OpenCASCADEConfig.cmake.in
 }
-         
+
 build() {
   cmake -B build -S occt-${__commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_RELEASE_DISABLE_EXCEPTIONS=OFF \
-    -DUSE_FFMPEG=ON \
+    -DUSE_FFMPEG=OFF \
     -DUSE_VTK=ON \
     -D3RDPARTY_VTK_DIR=/usr \
     -D3RDPARTY_VTK_INCLUDE_DIR=/usr/include/vtk-${_vtk} \
