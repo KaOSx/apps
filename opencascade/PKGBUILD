@@ -1,9 +1,9 @@
 
 pkgname=opencascade
-pkgver=7.7.0
-_pkgver=7_7_0
-_commit=185d29b92f6764ffa9fc195b7dbe7bba3c4ac855
-__commit=185d29b
+pkgver=7.7.1
+_pkgver=7_7_1
+_commit=ffce0d66bbaafe3a95984d0e61804c201b9995d2
+__commit=ffce0d6
 _vtk=9.2
 pkgrel=1
 epoch=1
@@ -22,7 +22,7 @@ source=("opencascade-${pkgver}.tar.gz::https://git.dev.opencascade.org/gitweb/?p
         'cmake.patch'
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/opencascade/files/opencascade-7.7.0-add-missing-include-limits.patch"
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/opencascade/files/opencascade-7.7.0-build-against-vtk-9.2.patch")
-md5sums=('bc958cd8e8244ddfa392e851cced90e1'
+md5sums=('3e803b63a5b3b8780baceb6eeb2e88a8'
          '545f3842f87750dd04569f93f1921e07'
          'fc4b64a9425c02d4daeaeb1425e0a70d'
          '2924ecf57c95d25888f51071fdc72ad0'
@@ -34,7 +34,7 @@ prepare() {
   cd occt-${__commit}
 
   patch -p1 -i ${srcdir}/cmake.patch
-  patch -p1 -i ${srcdir}/opencascade-7.7.0-add-missing-include-limits.patch
+  #patch -p1 -i ${srcdir}/opencascade-7.7.0-add-missing-include-limits.patch
   patch -p1 -i ${srcdir}/opencascade-7.7.0-build-against-vtk-9.2.patch
   sed -i -e 's|/lib$|/lib(64)?$|' adm/templates/OpenCASCADEConfig.cmake.in
 }
