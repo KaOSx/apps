@@ -1,6 +1,6 @@
 
 pkgname=qxmpp
-pkgver=1.5.2
+pkgver=1.5.4
 _commit=381f83764d84ffff73ba05e07498e0dafd8844f5
 pkgrel=1
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('qt5-base' 'gstreamer' 'qca-qt5')
 makedepends=('cmake')
 source=("https://github.com/qxmpp-project/qxmpp/archive/v${pkgver}.tar.gz")
 #source=("https://github.com/qxmpp-project/qxmpp/archive/${_commit}.zip")
-md5sums=('2063e6cb8c50db0aaa62ab00c3682608')
+md5sums=('d7c92eb7fdc4b4ecbc40c2ef9b0f8009')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
@@ -21,7 +21,8 @@ build() {
     -DWITH_GSTREAMER=ON \
     -DBUILD_EXAMPLES=OFF \
     -DBUILD_OMEMO=OFF \
-    -DWITH_QCA=ON
+    -DWITH_QCA=ON \
+    -DQT_VERSION_MAJOR=5
   cmake --build build
 }
 
