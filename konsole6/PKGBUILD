@@ -16,21 +16,21 @@ depends=('kbookmarks6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6'
          'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'icu')
 makedepends=('extra-cmake-modules6' 'kdoctools6')
 #source=("${_mirror}/${_pkgname}-${pkgver}.tar.xz"
-source=("https://invent.kde.org/davism/konsole/-/archive/kf6/konsole-kf6.tar.bz2"
+source=("https://invent.kde.org/utilities/konsole/-/archive/work/kf6/konsole-work-kf6.tar.bz2"
         "https://invent.kde.org/utilities/konsole/-/commit/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff")
 #md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-md5sums=('92d28d50093c94557ac09634be54c875'
+md5sums=('800995ba0e0fe4c6f36c582b3c7bf144'
          'cf7a0f9cb05195f716a1164b1d116cb5')
 
 prepare() {
-  cd ${_pkgname}-kf6
+  cd ${_pkgname}-work-kf6
 
   #patch -p1 -i ${srcdir}/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff
-  sed -e 's|kcoreaddons_desktop_to_json|#kcoreaddons_desktop_to_json|g' -i src/CMakeLists.txt
+  #sed -e 's|kcoreaddons_desktop_to_json|#kcoreaddons_desktop_to_json|g' -i src/CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-kf6 \
+  cmake -B build -S ${_pkgname}-work-kf6 \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

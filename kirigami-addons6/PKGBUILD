@@ -1,0 +1,35 @@
+ 
+pkgname=kirigami-addons6
+_pkgname=kirigami-addons
+pkgver=0.7.2
+pkgrel=1
+pkgdesc="Add-ons for the Kirigami framework (kf6 version)."
+arch=('x86_64')
+url="https://invent.kde.org/libraries/kirigami-addons"
+license=('GPL3')
+depends=('qt6-declarative' 'kirigami6' 'ki18n6')
+makedepends=('extra-cmake-modules6')
+source=("https://download.kde.org/stable/kirigami-addons/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/libraries/kirigami-addons/-/commit/c27ea7d599f0234da5e2b2e0d9bc933ead605837.diff")
+sha256sums=('f8629c597d6df715b3eece9ffed94926bf3cab829f22f3aab22e3c822e2b7b76'
+            '868d33ef7154deaf497b61d48598b5a069a35162ac7afb35fe64956b0519f0fa')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/c27ea7d599f0234da5e2b2e0d9bc933ead605837.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

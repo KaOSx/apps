@@ -1,0 +1,41 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=elisa6
+_pkgname=elisa
+pkgver=${_kdever}
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Music Player"
+url="https://community.kde.org/Elisa"
+license=('GPL')
+depends=('ki18n6' 'kdeclarative6' 'kcoreaddons6' 'baloo6' 'kfilemetadata6' 'kxmlgui6' 
+         'kconfig6' 'kcmutils6' 'qt6-multimedia' 'qt6-websockets' 'kirigami6') # 'kdsoap' 'upnp-qt')
+makedepends=('extra-cmake-modules6' 'kdoctools6')
+#source=("$_mirror/${_pkgname}-${_kdever}.tar.xz"
+#        "https://invent.kde.org/multimedia/elisa/-/commit/618cf9b589ef9dd58e3ec3dd7450a80f10e118f8.diff")
+#md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+#         '64685288682ae3f8c86edf956b690843')
+source=("git+https://invent.kde.org/multimedia/${_pkgname}.git")
+md5sums=('SKIP')
+
+#prepare () {
+#  cd ${pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/618cf9b589ef9dd58e3ec3dd7450a80f10e118f8.diff
+#}
+
+build() {
+  cmake -B build -S ${_pkgname}\
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
+cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
