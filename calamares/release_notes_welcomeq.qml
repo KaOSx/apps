@@ -53,7 +53,7 @@ Item {
             text: qsTr("<h3>KaOS - 2023.04</h3>
             <p>To celebrate ten years of KaOS a new ISO is released.</p>
 
-            <p>Not only is there a new stable ISO released, but to look at the next ten years, there is also a Plasma 6 preview ISO available.  This ISO is not installable, only meant to test in Live mode.  The installer Calamares is not ready for Qt 6/Plasma 6, nor are there many KDE Applications available in their Qt6 version.  This ISO is only linked in the News item, not available from the Download page.</p>
+            <p>Not only is there a new stable ISO released, but to look forward to the next ten years, there is also a Plasma 6 preview ISO available.  This ISO is not installable, only meant to test in Live mode.  The installer Calamares is not ready for Qt 6/Plasma 6, nor are there many KDE Applications available in their Qt6 version.  This ISO is only linked in the News item, not available from the Download page.</p>
             
             <p>And to look back, there is an option added to play music during the install.  This was a common feature some 10-15 years ago, but has never been available in KaOS, thus available this one time, ten years later.</p>
             
@@ -99,12 +99,12 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.104.0, Plasma 5.27.4, KDE Applications 23.03.90</b>, Linux 6.2.10, Systemd 253.3, Kmod 30, NetworkManager 1.42.4, LibreOffice 7.5.2, Elisa, Xorg-Server 1.21.8, Mesa 23.0.1, Glibc 2.36, GCC 12.2.0, non-free Nvidia 530 and Python3 3.10.11 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.105.0, Plasma 5.27.4, KDE Applications 23.03.90</b>, Linux 6.2.10, Systemd 253.3, Kmod 30, NetworkManager 1.42.4, LibreOffice 7.5.2, Elisa, Xorg-Server 1.21.8, Mesa 23.0.2, Glibc 2.36, GCC 12.2.0, non-free Nvidia 530 and Python3 3.10.11 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.14.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 6.2, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 111.0.1, Chrome 113, Ardour 7.3.0, Inkscape 1.2.2, GIMP 2.99.14 and Thunderbird 102.9.1.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 112.0, Chrome 114, Ardour 7.3.0, Inkscape 1.2.2, GIMP 2.99.14 and Thunderbird 102.10.0.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
 
             <p><b>Known issues:</b></p>
