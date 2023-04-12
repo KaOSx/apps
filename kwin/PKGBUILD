@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwin
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE Window Manager'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kwin'
@@ -19,7 +19,7 @@ options=('debug')
 conflicts=('kwayland-server')
 replaces=('kwayland-server')
 provides=('kwayland-server')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/plasma/5.27.4/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/plasma/kwin/-/commit/2339f7bfb7872e05fbdbd931850a74a3441b3292.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '87fd6786ecf79ffa8bdad4b962d628c1')
