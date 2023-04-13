@@ -1,9 +1,9 @@
 
 pkgname=digikam
 _pkgname=digiKam
-pkgver=7.10.0
-_pkgver=7.10.0
-pkgrel=2
+pkgver=8.0.0
+_pkgver=8.0.0
+pkgrel=1
 url="https://www.digikam.org/"
 arch=('x86_64')
 license=('GPL')
@@ -13,12 +13,12 @@ depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kw
          'marble' 'qt5-xmlpatterns' 'qt5-x11extras' 'qtwebengine' 'libgphoto2' 'liblqr' 'opencv'
          'lapack' 'eigen3' 'mariadb' 'kparts' 'kconfig' 'kxmlgui' 'kservice' 'threadweaver'
          'karchive' 'libkexiv2' 'libkdcraw' 'libmediawiki' 'libtiff' 'image-exiftool'
-         'kcalendarcore' 'kwallet' 'phonon-qt5' 'imagemagick') # 'akonadi-contacts' 'kdepimlibs'
+         'kcalendarcore' 'kwallet' 'phonon-qt5' 'imagemagick' 'qt5-networkauth') # 'kdepimlibs' 'akonadi-contacts'
 makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'ruby' 'subversion') # 'clang')
 groups=('kde-graphics')
 source=("https://download.kde.org/stable/digikam/${_pkgver}/${_pkgname}-${_pkgver}.tar.xz"
         "https://invent.kde.org/graphics/digikam/-/commit/51efe295a222070743187af0367b0bf957879337.diff")
-sha256sums=('a3f30f01b7d1b6d585822bcd5ebf8df69e0ff024563a72462ebf8069dbda22e1'
+sha256sums=('102c712b6209fe2ac877c9b1d019dacadaf115adf915570d26816066d151e847'
             'bb670e79d1638fea2337f68db0a7b4c502faa4b3706b790a7c40404b475d8274')
 
 prepare() {
@@ -41,9 +41,8 @@ build() {
      -DENABLE_AKONADICONTACTSUPPORT=OFF \
      -DENABLE_MYSQLSUPPORT=ON \
      -DENABLE_KFILEMETADATASUPPORT=ON \
-     -DENABLE_MEDIAPLAYER=OFF \
+     -DENABLE_MEDIAPLAYER=ON \
      -DCMAKE_C_COMPILER=gcc \
-     -DDIGIKAMSC_CHECKOUT_DOC=ON \
      -DENABLE_APPSTYLES=ON \
      -DENABLE_QWEBENGINE=ON
    cmake --build build
