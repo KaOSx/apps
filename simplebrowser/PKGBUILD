@@ -1,0 +1,27 @@
+
+pkgname=simplebrowser
+pkgver=6.5.0
+pkgrel=1
+pkgdesc="A simple browser based on QWE Widgets."
+arch=('x86_64')
+url="https://www.qt.io/"
+license=('GPL3')
+depends=('qt6-webengine')
+makedepends=('cmake')
+source=("simplebrowser-${pkgver}.tar.xz"
+        'simplebrowser.desktop')
+md5sums=('48bceb33a199128d686f880e0ded053d'
+         '7680f72df00cf93d85f3452efbd8c034')
+
+build() {
+  cmake -B build -S ${pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+  install -D -m644 ../simplebrowser.desktop ${pkgdir}/usr/share/applications/simplebrowser.desktop
+}
