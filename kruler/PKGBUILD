@@ -6,34 +6,25 @@ pkgname=kruler
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Screen Ruler"
-url="http://kde.org/applications/graphics/kruler/"
+url="https://apps.kde.org/kruler/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n' 'knotifications' 'kwindowsystem' 'kxmlgui')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde' 'kde-graphics' 'kde-uninstall')
-conflicts=('kdegraphics-kruler')
-replaces=('kdegraphics-kruler')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 

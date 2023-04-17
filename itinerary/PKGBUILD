@@ -17,7 +17,7 @@ makedepends=('extra-cmake-modules')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 # Need to set manually, automated also picks up md5 of kitinerary
-md5sums=('4efe5ea83c1cf15b6e18f1414ee7eefd')
+md5sums=(`grep -w ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}

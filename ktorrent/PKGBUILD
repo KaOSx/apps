@@ -19,7 +19,7 @@ groups=('network')
 options=('libtool')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 # Need to set manually, automated also picks up md5 of libktorrent
-md5sums=('b91137361622052debe0d467ed2011ca')
+md5sums=(`grep -w ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
