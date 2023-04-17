@@ -1,0 +1,27 @@
+
+pkgname=croeso6
+_pkgname=croeso
+_commit=51224c89f44e6e34dcd9a53f2cdb671312e2c011
+pkgver=2.0
+pkgrel=1
+pkgdesc="First run settings, package selection and info app for KaOS, written in QML"
+arch=('x86_64')
+url="https://kaosx.us/"
+license=('GPL')
+depends=('qt6-declarative' 'qt6-webview' 'plasma-framework6' 'imagemagick')
+makedepends=('git')
+source=("git+https://github.com/KaOSx/croeso.git#commit=${_commit}")
+md5sums=('SKIP')
+
+build() {
+    cd croeso/
+
+    /usr/lib/qt6/bin/qmake croeso.pro
+    make
+}
+
+package() {
+    cd croeso/
+
+    make INSTALL_ROOT=${pkgdir}/ install
+}
