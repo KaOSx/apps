@@ -1,25 +1,30 @@
 
 pkgname=opencpn
-pkgver=5.6.2
-_pkgver=4.1.1329
+pkgver=5.8.0
 _commit=4ea65cd1a11edd1e9e98e674cac38ef63c697459
-pkgrel=3
+pkgrel=1
 pkgdesc="Open Source Chart Plotting / Marine Navigation"
 url="https://opencpn.org"
 arch=('x86_64')
 license=("GPL2")
-depends=('wxwidgets' 'gpsd' 'portaudio' 'tinyxml' 'hicolor-icon-theme' 'lsb-release')
+depends=('wxwidgets' 'gpsd' 'portaudio' 'tinyxml' 'hicolor-icon-theme' 'lsb-release' 'glew')
 makedepends=('cmake')
 groups=('education' 'science')
-#source=("https://github.com/OpenCPN/OpenCPN/archive/Release_${pkgver}.tar.gz"
-source=("https://github.com/OpenCPN/OpenCPN/archive/${_commit}.zip"
+source=("https://github.com/OpenCPN/OpenCPN/archive/Release_${pkgver}.tar.gz"
+#source=("https://github.com/OpenCPN/OpenCPN/archive/${_commit}.zip"
         'cmake.patch')
-md5sums=('cbbd55f3880f4791384755aa7ef320c4'
+md5sums=('9fd39b0c14edea46e383eb77b110f89e'
          '44141670b980726a35b10d1c57962985')
 
 build() {
-  cmake -B build -S OpenCPN-${_commit} \
-    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake -B build -S OpenCPN-Release_${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DOCPN_BUILD_TEST=OFF \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DOCPN_BUNDLE_DOCS=OFF \
+    -DOCPN_USE_BUNDLED_LIBS=OFF \
+    -DOCPN_USE_EXTERN_CURL=OFF \
+    -DOCPN_FORCE_GTK3=ON
   cmake --build build
 }
 
