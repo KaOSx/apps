@@ -12,7 +12,7 @@ url="https://kde.org/applications/system/org.kde.yakuake"
 license=('GPL')
 depends=('karchive6' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'kglobalaccel6' 'ki18n6' 'kiconthemes6'
          'kio6' 'knewstuff6' 'knotifications6' 'knotifyconfig6' 'kparts6' 'kwidgetsaddons6' 
-         'kwindowsystem6' 'kwayland6')
+         'kwindowsystem6' 'kwayland6' 'konsole6')
 makedepends=('extra-cmake-modules6')
 #groups=('system')
 #source=($_mirror/${_pkgname}-${_kdever}.tar.xz)
@@ -22,7 +22,8 @@ md5sums=('SKIP')
 
 prepare() {
   cd ${_pkgname}
-  #sed -i -e 's|<default>default<default>|<default>breezeV1.0</default>|' ${srcdir}/${pkgname}/app/config/yakuake.kcfg
+  # revert KStatusNotifierItem change, remove on kf6 rebuild
+  sed -i -e 's|m_notifierItem->setAssociatedWindow|m_notifierItem->setAssociatedWidget|' app/mainwindow.cpp
   # wayland erratic placement fix
   #patch -p1 -i $srcdir/7534df21025b10fd236dd5a8f92d0dff7889e0ef.diff
 }

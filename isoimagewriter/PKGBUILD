@@ -1,16 +1,16 @@
 
 pkgname=isoimagewriter
-pkgver=0.9.2
+pkgver=1.0.0
 pkgrel=1
 arch=('x86_64')
-pkgdesc="Web browser for Plasma Mobile (kf6 version)"
-url="https://invent.kde.org/plasma-mobile/angelfish"
+pkgdesc="Program to write hybrid ISO files onto USB disks"
+url="https://invent.kde.org/utilities/isoimagewriter"
 license=('GPL2')
 depends=('ki18n6' 'kcoreaddons6' 'kwidgetsaddons6' 'kiconthemes6' 'karchive6'
          'kcrash6' 'solid6')
 makedepends=('extra-cmake-modules6') 
-source=("https://download.kde.org/unstable/isoimagewriter/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('73a7079c654a3cec3f7065e5296b1ce34ff565b894247fc7f9799f7c4d0c41c5')
+source=("https://download.kde.org/stable/isoimagewriter/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('a69022303ec1beb6b7b4f0d68e59e4199d3c9868767cb9eb23c6dd1999e06a5d')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
