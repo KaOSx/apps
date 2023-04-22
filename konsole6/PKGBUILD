@@ -26,7 +26,7 @@ prepare() {
   cd ${_pkgname}-work-kf6
 
   #patch -p1 -i ${srcdir}/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff
-  #sed -e 's|kcoreaddons_desktop_to_json|#kcoreaddons_desktop_to_json|g' -i src/CMakeLists.txt
+  sed -e 's|EQUAL "5"|EQUAL "6"|g' -i desktop/CMakeLists.txt
 }
 
 build() {
