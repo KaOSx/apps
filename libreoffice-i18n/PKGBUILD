@@ -111,7 +111,7 @@ pkgname=('libreoffice-af'
          'libreoffice-zu')
 pkgver=7.5.2.2
 _pkgver=7.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="LibreOffice language/localisation files"
 arch=('x86_64')
 url="https://www.documentfoundation.org"
@@ -296,7 +296,7 @@ build() {
     #cd ${srcdir}/LibreOffice_${_oover/-/}_Linux_x86-64_rpm_langpack_${_pkglang}/RPMS
     cd ${srcdir}/LibreOffice_${_dirver}_Linux_x86-64_rpm_langpack_${_pkglang}/RPMS
     # remove dictionaries if shipped - we ship them now in separate packages
-    rm -vf lo*-dict-*.rpm || /bin/true
+    rm -vf *-dict-*.rpm || /bin/true
 	for j in *.rpm
 	 do rpmextract.sh $j
 	done
