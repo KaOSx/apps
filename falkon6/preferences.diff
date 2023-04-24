@@ -1,0 +1,20 @@
+--- src/lib/preferences/preferences.cpp.orig	2022-01-31 19:57:13.114800008 +0100
++++ src/lib/preferences/preferences.cpp	2022-01-31 19:57:13.181800665 +0100
+@@ -151,7 +151,7 @@
+     Settings settings;
+     //GENERAL URLs
+     settings.beginGroup("Web-URL-Settings");
+-    m_homepage = settings.value("homepage", QUrl(QSL("falkon:start"))).toUrl();
++    m_homepage = settings.value("homepage", QUrl(QSL("falkon:speeddial"))).toUrl();
+     m_newTabUrl = settings.value("newTabUrl", QUrl(QSL("falkon:speeddial"))).toUrl();
+     ui->homepage->setText(m_homepage.toEncoded());
+     ui->newTabUrl->setText(m_newTabUrl.toEncoded());
+@@ -305,7 +305,7 @@
+     ui->disableVideoAutoPlay->setChecked(settings.value("DisableVideoAutoPlay", false).toBool());
+     ui->webRTCPublicIpOnly->setChecked(settings.value("WebRTCPublicIpOnly", true).toBool());
+     ui->dnsPrefetch->setChecked(settings.value("DNSPrefetch", true).toBool());
+-    ui->intPDFViewer->setChecked(settings.value("intPDFViewer", false).toBool());
++    ui->intPDFViewer->setChecked(settings.value("intPDFViewer", true).toBool());
+     ui->intPDFViewer->setEnabled(ui->allowPlugins->isChecked());
+     ui->screenCaptureEnabled->setChecked(settings.value("screenCaptureEnabled", false).toBool());
+ 

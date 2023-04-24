@@ -1,0 +1,56 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=falkon6
+_pkgname=falkon
+pkgver=${_kdever}
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Open source browser based on QtWebengine, written in Qt Framework"
+url="https://www.falkon.org/"
+license=('GPL3')
+depends=('qt6-webengine' 'qt6-webchannel' 'qt6-5compat' 'ki18n6' 'kwallet6' 'kio6'
+         'kcrash6' 'kcoreaddons6' 'purpose6')
+makedepends=('extra-cmake-modules6' 'qt6-tools')
+#groups=('network-web')
+#source=("${_mirror}/${pkgname}-${_kdever}.tar.xz"
+source=("https://invent.kde.org/thubble/falkon/-/archive/qt6/falkon-qt6.tar.bz2"
+        'speeddial.diff'
+        'preferences.diff'
+        'browserwindow.diff'
+        'revert.diff') #taken from commit https://github.com/KDE/falkon/commit/7308b64df6a13d5822f491f2cbc7f39ae6781488
+#md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=('b91740b48d3a1c22411aaa7a215b984f'
+         'add41876289657b8605b5ba5889271f9'
+         '2addb3a5e484bcfbb19f702d2e86d2fd'
+         'cafc9d1284e700ad615265bf39a2bafb'
+         'e1b0fbbc51de79774757b7b60a482ebe')
+
+prepare() {
+  cd ${_pkgname}-qt6
+
+  patch -R -p1 -i ${srcdir}/revert.diff
+  patch -p1 -i ${srcdir}/speeddial.diff
+  patch -p0 -i ${srcdir}/preferences.diff
+  patch -p0 -i ${srcdir}/browserwindow.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-qt6 \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DENABLE_KDE_FRAMEWORKS_INTEGRATION_PLUGIN=TRUE \
+    -DQT_MAJOR_VERSION=6 \
+    -DNO_X11=ON
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+
+  install -Dm644 ${_pkgname}-qt6/linux/completion/_falkon ${pkgdir}/usr/share/zsh/site-functions/_falkon
+}
+
