@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kauth6
 _pkgname=kauth
 pkgver=${_kf6ver}
-pkgrel=3
+pkgrel=4
 pkgdesc='KAuth provides a convenient, system-integrated way to offload actions that need to be performed as a privileged user.'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kauth'
@@ -37,4 +37,7 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  #make it installable alongside kauth kf5
+  rm ${pkgdir}/usr/lib/kauth/kauth-policy-gen
+  rm ${pkgdir}/usr/share/dbus-1/system.d/org.kde.kf5auth.conf
 }

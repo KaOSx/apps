@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kguiaddons6
 _pkgname=kguiaddons
 pkgver=${_kf6ver}
-pkgrel=3
+pkgrel=4
 pkgdesc='KGuiAddons'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kguiaddons'
@@ -39,4 +39,10 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  #make it installable alongside kguiaddons kf5
+  rm ${pkgdir}/usr/bin/kde-geo-uri-handler
+  rm ${pkgdir}/usr/share/applications/google-maps-geo-handler.desktop
+  rm ${pkgdir}/usr/share/applications/openstreetmap-geo-handler.desktop
+  rm ${pkgdir}/usr/share/applications/qwant-maps-geo-handler.desktop
+  rm ${pkgdir}/usr/share/applications/wheelmap-geo-handler.desktop
 }
