@@ -5,9 +5,10 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=7.0.8
+pkgver=7.0.8.a
 _pkgver=7.0.8
-pkgrel=3
+__pkgver=7.0.8a
+pkgrel=1
 arch=('x86_64')
 url='https://virtualbox.org'
 license=('GPL' 'custom')
@@ -16,7 +17,7 @@ makedepends=('alsa-lib' 'cdrtools' 'curl' 'device-mapper' 'glu' 'iasl' 'openjdk'
              'libxml2' 'libxmu' 'libxrandr' 'libxslt' 'libxtst' 'linux-headers' 'mesa' 'pulseaudio'
              'python3' 'qt5-tools' 'qt5-x11extras' 'sdl' 'sdl_ttf' 'xf86driproto' 
              'xf86-input-mouse' 'xorg-server' 'nasm' 'yasm' 'opus' 'glslang')
-source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgver}.tar.bz2"
+source=("https://download.virtualbox.org/virtualbox/${_pkgver}/VirtualBox-${__pkgver}.tar.bz2"
         '60-vboxdrv.rules'
         '60-vboxguest.rules'
         'LocalConfig.kmk'
@@ -25,7 +26,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_pkgv
         'vbox-linux-5.19.patch'
         'VirtioCore.cpp'
         'VirtioCore.h')
-sha256sums=('c305fbe480f507eac7c36893ead66dffaacda944f19c3813a4533e9c39bae237'
+sha256sums=('7de37359518d467b7f888235175cd388f66e9f16bd9359dd6265fbc95933c1e6'
             'f876e9f55243eded423fda4fc2ffe3b174dca90380a6315f7c9b3cd1c9d07206'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             'c7dc4e484c8641e8fbb8e7fb342c7a72534936d6e9212b477ab7e2736fb8be88'
@@ -36,7 +37,7 @@ sha256sums=('c305fbe480f507eac7c36893ead66dffaacda944f19c3813a4533e9c39bae237'
             '616ba2906a05079ec5e5272e3126c936e612ebc927b2efd91da8094a190a1ab2')
 
 prepare() {
-    cd VirtualBox-${pkgver}
+    cd VirtualBox-${_pkgver}
 
     #patch -p0 -i ${srcdir}/vbox-linux-5.19.patch
 
@@ -58,7 +59,7 @@ prepare() {
 }
 
 build() {
-    cd VirtualBox-${pkgver}
+    cd VirtualBox-${_pkgver}
 
     ./configure \
         --disable-docs \
@@ -89,8 +90,8 @@ package_virtualbox-qt5() {
     backup=('etc/vbox/vbox.cfg')
     install=virtualbox.install
 
-    source VirtualBox-${pkgver}/env.sh
-    cd VirtualBox-${pkgver}/out/linux.amd64/release/bin
+    source VirtualBox-${_pkgver}/env.sh
+    cd VirtualBox-${_pkgver}/out/linux.amd64/release/bin
 
     # binaries
     install -dm755 ${pkgdir}/usr/bin
@@ -149,7 +150,7 @@ package_virtualbox-qt5() {
 
     cd ${srcdir}
 
-    install -Dm644 VirtualBox-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
+    install -Dm644 VirtualBox-${_pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
 
     # systemd
     install -Dm644 60-vboxdrv.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxdrv.rules
@@ -164,14 +165,14 @@ package_virtualbox-guest-utils() {
     provides=('virtualbox-guest-modules')
     install=virtualbox-guest-utils.install
 
-    source VirtualBox-${pkgver}/env.sh
+    source VirtualBox-${_pkgver}/env.sh
     
-    pushd VirtualBox-${pkgver}/out/linux.amd64/release/bin/additions
+    pushd VirtualBox-${_pkgver}/out/linux.amd64/release/bin/additions
     install -d ${pkgdir}/usr/bin
     install -m755 VBoxClient VBoxControl VBoxDRMClient VBoxService mount.vboxsf ${pkgdir}/usr/bin
-    install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
+    install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
         ${pkgdir}/usr/bin/VBoxClient-all
-    install -m755 -D ${srcdir}/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
+    install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
         ${pkgdir}/etc/xdg/autostart/vboxclient.desktop
     #install -D vboxvideo_drv_system.so ${pkgdir}/usr/lib/xorg/modules/drivers/vboxvideo.so
     install -d ${pkgdir}/usr/lib/xorg/modules/dri
@@ -184,7 +185,7 @@ package_virtualbox-guest-utils() {
     install -Dm644 vboxservice.service ${pkgdir}/usr/lib/systemd/system/vboxservice.service
     install -Dm644 vmsvga.service ${pkgdir}/usr/lib/systemd/system/vmsvga.service
 
-    install -Dm644 VirtualBox-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
+    install -Dm644 VirtualBox-${_pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
     #Remove on new version, poperly set in prepare()
     sed -i -e 's|/usr/bin/VBoxClient --vmsvga|#/usr/bin/VBoxClient --vmsvga|' ${pkgdir}/usr/bin/VBoxClient-all
 }
