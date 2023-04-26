@@ -20,9 +20,9 @@ source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname-${pkgver}
+  cd ${pkgname}-${pkgver}
   #patch -p1 -i $srcdir/qt55.diff
-  sed -i -e 's|setRecursiveFiltering(true)|setRecursiveFilteringEnabled(true);|' src/pimcommonakonadi/folderdialog/checkedcollectionwidget.cpp
+  #sed -i -e 's|setRecursiveFiltering(true)|setRecursiveFilteringEnabled(true);|' src/pimcommonakonadi/folderdialog/checkedcollectionwidget.cpp
 }
 
 build() {
