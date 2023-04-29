@@ -1,0 +1,20 @@
+--- a/isoimagewriter/mainwindow.cpp	2023-04-29 21:01:00.684647322 +0200
++++ b/isoimagewriter/mainwindow.cpp	2023-04-29 21:01:10.822763234 +0200
+@@ -281,7 +281,7 @@
+ 
+     file.close();
+ 
+-#ifdef _USE_GPG
++//#ifdef _USE_GPG
+     // Verify ISO image
+     m_busyLabel->setText(i18n("Verifying ISO image"));
+     m_busyWidget->show();
+@@ -303,7 +303,7 @@
+ 
+     isoVerifier->moveToThread(verifierThread);
+     verifierThread->start();
+-#endif
++//#endif
+ 
+     // Enable the Write button (if there are USB flash disks present)
+     m_createButton->setEnabled(m_usbDriveComboBox->count() > 0);

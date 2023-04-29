@@ -1,0 +1,11 @@
+--- a/isoimagewriter/isoverifier.cpp	2023-04-29 20:56:01.535228601 +0200
++++ b/isoimagewriter/isoverifier.cpp	2023-04-29 20:57:18.802111337 +0200
+@@ -52,7 +52,7 @@
+     } else if (fileName.startsWith("ubuntu-")
+                && importSigningKey("ubuntu-signing-key.gpg", keyFingerprint)) {
+         m_verificationMean = VerificationMean::Sha256SumsFile;
+-    } else if (fileName.startsWith("netrunner-")) {
++    } else if (fileName.startsWith("KaOS-")) {
+         m_verificationMean = VerificationMean::Sha256SumInput;
+     } else {
+         m_error = i18n("Could not verify as a known distro image.");
