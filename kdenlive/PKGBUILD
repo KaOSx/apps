@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdenlive
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Free and Open Source video editing application, based on MLT Framework and KDE Frameworks 5."
 arch=('x86_64')
 url="https://www.kdenlive.org/"
@@ -17,14 +17,14 @@ makedepends=('extra-cmake-modules' 'kdoctools' 'gettext' 'docbook-xsl')
 optdepends=("dvdauthor: for creating dvds")
 groups=('multimedia')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        "https://invent.kde.org/multimedia/kdenlive/-/commit/f86dbde2fac1b1b0043deb7601ec90763400640c.diff") 
+        "https://invent.kde.org/multimedia/kdenlive/-/commit/364e23f6d1ba104e40623297b82a0ee873942925.diff") 
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '15c70697b870e6d324c6a77692411070')
+         '27f4dda2f5d1f0df81244a401961218c')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # Qt 5.15.2+ needed
-  #patch -p1 -i ${srcdir}/f86dbde2fac1b1b0043deb7601ec90763400640c.diff
+  # https://bugs.kde.org/show_bug.cgi?id=468962
+  patch -p1 -i ${srcdir}/364e23f6d1ba104e40623297b82a0ee873942925.diff
 }
 
 build() {
