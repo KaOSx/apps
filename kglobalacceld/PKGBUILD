@@ -1,0 +1,33 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kglobalacceld
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc='Daemon providing Global Keyboard Shortcut (Accelerator) functionality.'
+arch=('x86_64')
+url='hhttps://invent.kde.org/plasma/kglobalacceld'
+license=('LGPL')
+depends=('qt6-base' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'kwindowsystem6' 'kglobalaccel6'
+         'kservice6' 'kio6' 'knotifications6')
+makedepends=('extra-cmake-modules6' 'qt6-tools')
+groups=('kf6')
+#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+#md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("git+https://invent.kde.org/plasma/${pkgname}.git")
+md5sums=('SKIP')
+
+build() {
+ cmake -B build -S ${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

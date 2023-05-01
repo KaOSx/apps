@@ -1,0 +1,28 @@
+ 
+pkgname=qcoro-qt6
+_pkgname=qcoro
+pkgver=0.9.0
+pkgrel=1
+pkgdesc="Library that provides set of tools to make use of the C++20 coroutines in connection with certain asynchronous Qt6 actions."
+arch=('x86_64')
+url="https://qcoro.dvratil.cz/"
+license=('MIT')
+depends=('qt6-websockets')
+makedepends=('cmake')
+source=("https://github.com/danvratil/qcoro/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('cfaf6b778450f06adac4ce5e353eb6eae213a3b62b8c8740520d58cf9fe3ec1a')
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=ON \
+    -DUSE_QT_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+  install -D -m644 ${_pkgname}-${pkgver}/LICENSES/MIT.txt ${pkgdir}/usr/share/licenses/${pkgname}/MIT.txt
+}

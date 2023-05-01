@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=konsole6
 _pkgname=konsole
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://konsole.kde.org/'
@@ -19,14 +19,14 @@ makedepends=('extra-cmake-modules6' 'kdoctools6')
 source=("https://invent.kde.org/utilities/konsole/-/archive/work/kf6/konsole-work-kf6.tar.bz2"
         "https://invent.kde.org/utilities/konsole/-/commit/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff")
 #md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-md5sums=('800995ba0e0fe4c6f36c582b3c7bf144'
+md5sums=('b88beea1629e526b035f3e8ec55fb7cc'
          'cf7a0f9cb05195f716a1164b1d116cb5')
 
 prepare() {
   cd ${_pkgname}-work-kf6
 
   #patch -p1 -i ${srcdir}/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff
-  sed -e 's|EQUAL "5"|EQUAL "6"|g' -i desktop/CMakeLists.txt
+  #sed -e 's|EQUAL "5"|EQUAL "6"|g' -i desktop/CMakeLists.txt
 }
 
 build() {
