@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=yakuake6
 _pkgname=yakuake
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="A KDE konsole application with the look and feel of that in the Quake engine, kf6 version"
 arch=('x86_64')
 url="https://kde.org/applications/system/org.kde.yakuake"
@@ -23,7 +23,7 @@ md5sums=('SKIP')
 prepare() {
   cd ${_pkgname}
   # revert KStatusNotifierItem change, remove on kf6 rebuild
-  sed -i -e 's|m_notifierItem->setAssociatedWindow|m_notifierItem->setAssociatedWidget|' app/mainwindow.cpp
+  #sed -i -e 's|m_notifierItem->setAssociatedWindow|m_notifierItem->setAssociatedWidget|' app/mainwindow.cpp
   # wayland erratic placement fix
   #patch -p1 -i $srcdir/7534df21025b10fd236dd5a8f92d0dff7889e0ef.diff
 }
