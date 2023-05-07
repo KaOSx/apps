@@ -1,0 +1,40 @@
+
+pkgname=tenacity
+pkgver=1.3beta3
+_pkgver=1.3-beta3-1
+pkgrel=1
+pkgdesc="Easy-to-use, cross-platform multi-track audio editor/recorder"
+arch=('x86_64')
+url="https://tenacityaudio.org/"
+license=('GPL')
+depends=('libvorbis' 'libmad' 'mpg123' 'libid3tag' 'lame' 'hicolor-icon-theme' 'ffmpeg'
+         'shared-mime-info' 'desktop-file-utils' 'redland' 'jack2' 'soundtouch' 'libsoxr'
+         'lilv' 'flac' 'libsndfile' 'libsamplerate' 'suil' 'portmidi' 'wxwidgets'
+         'vamp-plugin-sdk' 'portsmf' 'portaudio' 'wavpack')
+makedepends=('cmake' 'zip' 'pkgconfig')
+provides=('audacity')
+replaces=('audacity')
+source=("https://codeberg.org/tenacityteam/tenacity/archive/v${_pkgver}.tar.gz")
+sha256sums=('0b2c11e02e5a9393634453b1b0dd3dd878ab9e8e6fe9bf530b6696a706d08555')
+
+build() {
+  cd tenacity
+  cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DUSE_FFMPEG=ON\
+    -DUSE_SBSMS=OFF \
+    -DUSE_LIBTWOLAME=OFF
+    #-DPCH=OFF
+    #-DCMAKE_SKIP_BUILD_RPATH=ON \
+    #-DALWAYS_ALLOW_CONAN_FALLBACK=ON
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install tenacity/build
+
+  rm ${pkgdir}/usr/share/pixmaps/gnome-mime-application-x-audacity-project.xpm
+  mv ${pkgdir}/usr/share/mime/packages/audacity.xml ${pkgdir}/usr/share/mime/packages/tenacity.xml
+}
