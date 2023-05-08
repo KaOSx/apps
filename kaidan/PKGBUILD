@@ -1,33 +1,34 @@
 
 pkgname=kaidan
-pkgver=0.9.0
-_pkgver=0.9.0
+pkgver=0.9.1
+_pkgver=0.9.1
 pkgrel=1
 arch=('x86_64')
 url='https://www.kaidan.im/'
 pkgdesc="Simple, user-friendly Jabber/XMPP client providing a modern user-interface using Kirigami and QtQuick. "
 license=('LGPL2.1')
-depends=('qt5-declarative' 'qxmpp' 'kirigami' 'knotifications' 'qqc2-desktop-style' 'qt5-quickcontrols2' 'zxing-cpp')
+depends=('qt5-declarative' 'qt5-quickcontrols2' 'qt5-svg' 'qt5-location' 'qt5-multimedia' 'qxmpp'
+         'kio' 'kcoreaddons' 'kirigami-addons' 'knotifications' 'kquickimageeditor' 'qqc2-desktop-style'
+         'zxing-cpp')
 makedepends=('extra-cmake-modules' 'qt5-tools')
-source=("https://download.kde.org/unstable/kaidan/${_pkgver}/${pkgname}-${_pkgver}.tar.xz"
+source=("https://download.kde.org/unstable/kaidan/${pkgname}-${_pkgver}.tar.xz"
         "https://invent.kde.org/network/kaidan/-/commit/c92fe3125c08e61b454b41f151b435a6a9e6da4b.diff") 
-sha256sums=('2ff1ea53b73525df79aedecefff6fa4027c645344f28e1311b77c3d91cd858f1'
+sha256sums=('8137011d5c36a11d23fcc600d4fd5b0767951d69cf21c8eaac43e98d1c918f90'
             '7a89ff20ae4088d6020022134c3ffdcc58c173846e765f84057545cdfd57c33d')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # zxing 2.0.0 needed
-  sed -i -e 's|setFormats(BarcodeFormat::QR_CODE)|setFormats(BarcodeFormat::QRCode)|' src/QrCodeDecoder.cpp
-  sed -i -e 's|ZXing::BarcodeFormat::QR_CODE|ZXing::BarcodeFormat::QRCode|' src/QrCodeGenerator.cpp
-  patch -p1 -i ${srcdir}/c92fe3125c08e61b454b41f151b435a6a9e6da4b.diff
+  #sed -i -e 's|setFormats(BarcodeFormat::QR_CODE)|setFormats(BarcodeFormat::QRCode)|' src/QrCodeDecoder.cpp
+  #sed -i -e 's|ZXing::BarcodeFormat::QR_CODE|ZXing::BarcodeFormat::QRCode|' src/QrCodeGenerator.cpp
+  #patch -p1 -i ${srcdir}/c92fe3125c08e61b454b41f151b435a6a9e6da4b.diff
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DI18N=ON
+    -DCMAKE_INSTALL_LIBDIR=lib
   cmake --build build
 }
 
