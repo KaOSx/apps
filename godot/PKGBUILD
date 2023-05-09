@@ -2,7 +2,7 @@
 pkgname=godot
 pkgver=4.0.2
 _pkgver=4.0.2-stable
-pkgrel=1
+pkgrel=2
 pkgdesc="Full featured, open source, MIT licensed, game engine."
 arch=('x86_64')
 url="https://www.godotengine.org"
@@ -19,15 +19,16 @@ build() {
     # https://github.com/godotengine/godot/issues/7676
     #patch -p1 -i ${srcdir}/43bc27e2755f34017148097773da8a6988718aaf.diff
 
-    scons platform=x11 \
+    scons platform=linuxbsd \
           use_llvm=no \
-          target=template_release
+          target=editor \
+          production=yes
 }
 
 package() {
     cd ${pkgname}-${_pkgver}
 
-    install -Dm755 bin/godot.linuxbsd.template_release.x86_64 ${pkgdir}/usr/bin/godot
+    install -Dm755 bin/godot.linuxbsd.editor.x86_64 ${pkgdir}/usr/bin/godot
 
     install -Dm644 misc/dist/linux/org.godotengine.Godot.desktop ${pkgdir}/usr/share/applications/godot.desktop
     install -Dm644 icon.svg ${pkgdir}/usr/share/pixmaps/godot.svg  
