@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwin
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Window Manager'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kwin'
@@ -20,13 +20,13 @@ conflicts=('kwayland-server')
 replaces=('kwayland-server')
 provides=('kwayland-server')
 source=("https://download.kde.org/stable/plasma/5.27.4/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/plasma/kwin/-/commit/2339f7bfb7872e05fbdbd931850a74a3441b3292.diff")
+        "https://invent.kde.org/plasma/kwin/-/commit/2237391e979b2423462bb5eaf1fdf4c0876f7476.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '87fd6786ecf79ffa8bdad4b962d628c1')
+         '148fef6cbf4112b3f091886824a7e3c2')
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  #patch -p1 -i ${srcdir}/2339f7bfb7872e05fbdbd931850a74a3441b3292.diff
+  patch -p1 -i ${srcdir}/2237391e979b2423462bb5eaf1fdf4c0876f7476.diff
   #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
   #rm -rf po/id/docs
 }  
