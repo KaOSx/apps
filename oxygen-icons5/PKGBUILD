@@ -6,7 +6,7 @@ _origname=oxygen-icons5
 pkgname=('oxygen-icons5' 'oxygen-icons5-svg')
 arch=('x86_64')
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc="split package"
 url="http://www.kde.org"
 license=('GPL' 'LGPL' 'FDL')
@@ -14,10 +14,10 @@ makedepends=('extra-cmake-modules')
 source=($_mirror/${_origname}-$_kf5ver.tar.xz)
 md5sums=(`grep ${_origname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
-build () {  
+build () {
   mkdir -p build
   cd build
-  
+
   cmake ../${_origname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -33,9 +33,9 @@ package_oxygen-icons5() {
     conflicts=('oxygen-icons')
     replaces=('oxygen-icons')
     provides=('oxygen-icons')
-	
+
     cd build
-	
+
     make DESTDIR=${pkgdir} install 
     # conflicts with kdepim
     #rm ${pkgdir}/usr/share/icons/oxygen/*/mimetypes/x-mail-distribution-list.png
@@ -45,7 +45,7 @@ package_oxygen-icons5-svg() {
     pkgdesc="Oxygen (Emot)Icons - SVG Sources"
     conflicts=('oxygen-icons-svg')
     replaces=('oxygen-icons-svg')
-	
+
     cd $_origname-${pkgver}
     find scalable -type f ! -name '*.sh' -exec \
         install -D -m644 "{}" "${pkgdir}/usr/share/icons/oxygen/{}" \;
