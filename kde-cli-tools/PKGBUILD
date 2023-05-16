@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kde-cli-tools
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kde-cli-tools'
@@ -13,7 +13,7 @@ depends=('kconfig' 'kiconthemes' 'kinit' 'ki18n' 'kcmutils' 'kio' 'kservice' 'kw
          'kactivities' 'kdesu' 'plasma-workspace')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kdeplasma5')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/plasma/5.27.5/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
