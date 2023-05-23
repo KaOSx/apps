@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=mailcommon
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Lib which provides support for mail apps"
 arch=('x86_64')
 url='https://invent.kde.org/pim/mailcommon'
 license=('LGPL')
 depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'kcodecs' 'kiconthemes' 'karchive' 'kitemviews'
          'kwindowsystem' 'kxmlgui' 'messagelib' 'libkdepim' 'pimcommon' 'mailimporter' 'kmailtransport'
-         'kldap' 'phonon-qt5')
+         'kldap' 'phonon-qt5' 'ktextaddons')
 makedepends=('extra-cmake-modules' 'kdesignerplugin' 'qt5-tools' 'boost')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

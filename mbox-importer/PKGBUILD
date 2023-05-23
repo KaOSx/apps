@@ -4,13 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=mbox-importer
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Wizard to assist with importing MBox email archives into Akonadi."
 arch=('x86_64')
 url='https://github.com/KDE/mbox-importer'
 license=('LGPL')
-depends=('kconfig' 'kservice' 'kcrash' 'kio'
-         'akonadi' 'mailcommon' 'mailimporter')
+depends=('kconfig' 'kservice' 'kcrash' 'kio' 'akonadi' 'mailcommon' 'mailimporter'
+         'ktextaddons')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
