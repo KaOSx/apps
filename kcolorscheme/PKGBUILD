@@ -1,0 +1,38 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kcolorscheme
+pkgver=${_kf6ver}
+pkgrel=1
+pkgdesc='Widgets for configuration dialogs'
+arch=('x86_64')
+url='https://invent.kde.org/frameworks/kcolorscheme'
+license=('LGPL')
+depends=('kconfig6' 'kguiaddons6' 'ki18n6')
+makedepends=('extra-cmake-modules6' 'kdoctools6' 'qt6-tools')
+groups=('kf6')
+#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
+#md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("git+https://invent.kde.org/frameworks/${pkgname}.git")
+md5sums=('SKIP')
+
+prepare() {
+  cd ${pkgname}
+
+  #patch -p1 -i ${srcdir}/3193788a3c0ecdf775a91d451b95ff8e9f1bd6d9.diff
+}
+
+build() {
+  cmake -B build -S ${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
