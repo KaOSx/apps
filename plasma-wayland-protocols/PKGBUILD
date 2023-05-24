@@ -1,6 +1,7 @@
 
 pkgname=plasma-wayland-protocols
-pkgver=1.10.0
+pkgver=1.10.80
+_commit=6e08d9c981278660791e72fec06d143403a98ba2
 pkgrel=1
 pkgdesc="Project to install only the xml files of the non-standard wayland protocols we use in Plasma."
 arch=('x86_64')
@@ -8,19 +9,20 @@ url="https://invent.kde.org/libraries/plasma-wayland-protocols"
 license=('LGPLv2+')
 depends=('wayland-protocols')
 makedepends=('extra-cmake-modules')
-source=("https://download.kde.org/stable/plasma-wayland-protocols/${pkgname}-${pkgver}.tar.xz"
+#source=("https://download.kde.org/stable/plasma-wayland-protocols/${pkgname}-${pkgver}.tar.xz"
+source=("https://invent.kde.org/libraries/plasma-wayland-protocols/-/archive/${_commit}/plasma-wayland-protocols-${_commit}.tar.bz2"
         "https://invent.kde.org/libraries/plasma-wayland-protocols/-/commit/e4bc4e0d60484507d2808a8d271b7e0b3675f098.diff")
-sha256sums=('31948867c9a04613e6de0d23adfcbc5acecddef0b39f986b345ec6c1972736fe'
+sha256sums=('75cdad6080338f4b73cc0310030fe34585ca2fec5156e0d6ececa6b97b7a91f5'
             'c8226e02be9e0a1bd12177bd1675caf65f241ff0e70c551caf196bfbc7f9017d')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
 
   #patch -p1 -i ${srcdir}/e4bc4e0d60484507d2808a8d271b7e0b3675f098.diff
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib
