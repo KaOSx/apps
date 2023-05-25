@@ -15,20 +15,22 @@ depends=('exiv2' 'karchive6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kdbusa
          'libmtp' 'libssh' 'openexr' 'samba' 'qt6-webengine' 'qt6-5compat' 'libappimage'
          'libkexiv6' 'phonon-qt6' 'kdsoap6' 'kdsoap-ws-discovery-client')
 makedepends=('extra-cmake-modules6' 'kdoctools6' 'gperf')
-source=("https://download.kde.org/stable/release-service/${pkgver}/src/${_pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/network/kio-extras/-/commit/322fd114961916234da43330af90b0fc1d3d0aad.diff")
-md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '1f90dcac98d119a21e6ec8646da1c1dc')
+#source=("https://download.kde.org/stable/release-service/${pkgver}/src/${_pkgname}-${pkgver}.tar.xz"
+#        "https://invent.kde.org/network/kio-extras/-/commit/322fd114961916234da43330af90b0fc1d3d0aad.diff")
+#md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+#         '1f90dcac98d119a21e6ec8646da1c1dc')
+source=("git+https://invent.kde.org/network/${_pkgname}.git#branch=kf6")
+md5sums=('SKIP')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
 
-  patch -p1 -i ${srcdir}/322fd114961916234da43330af90b0fc1d3d0aad.diff
+  #patch -p1 -i ${srcdir}/322fd114961916234da43330af90b0fc1d3d0aad.diff
   #sed -i 's|find_package(KDSoap|find_package(KDSoap-qt6|' smb/kdsoap-ws-discovery-client/CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
