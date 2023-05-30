@@ -1,0 +1,509 @@
+diff --git a/.kde-ci.yml b/.kde-ci.yml
+index 7d83eca7dc0c3c0b82f6526fc6db12984aff8451..cf7786d414fa6832f2162c2d31b0d0ae9a68b113 100644
+--- a/.kde-ci.yml
++++ b/.kde-ci.yml
+@@ -2,7 +2,7 @@
+ # SPDX-License-Identifier: CC0-1.0
+ 
+ Dependencies:
+-- 'on': ['@all']
++- 'on': ['Linux/Qt5', 'FreeBSD/Qt5']
+   'require':
+     'frameworks/extra-cmake-modules': '@stable'
+     'frameworks/kio': '@stable'
+@@ -10,3 +10,12 @@ Dependencies:
+     'graphics/libkexiv2': '@same'
+     'graphics/libkdcraw': '@same'
+     'graphics/kdegraphics-mobipocket': '@same'
++
++- 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
++  'require':
++    'frameworks/extra-cmake-modules': '@latest-kf6'
++    'frameworks/kio': '@latest-kf6'
++    'frameworks/karchive': '@latest-kf6'
++    'graphics/libkexiv2': '@same'
++    'graphics/libkdcraw': '@same'
++    'graphics/kdegraphics-mobipocket': '@same'
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 20621f04a1a948fa38abc994f8a67daaf637862d..72f76801bf0b173eee0600f55570ec81fd734fc7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.16)
+ project(kdegraphics-thumbnailers)
+ 
+ set(QT_MIN_VERSION "5.15.2")
+-set(KF5_MIN_VERSION "5.92.0")
++set(KF_MIN_VERSION "5.92.0")
+ set(KDE_COMPILERSETTINGS_LEVEL "5.82")
+ set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+-find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
++find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
+ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+ 
+ include(ECMOptionalAddSubdirectory)
+@@ -17,22 +17,22 @@ include(FeatureSummary)
+ include(ECMDeprecationSettings)
+ 
+ find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Gui)
+-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS KIO)
+-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Archive)
++find_package(KF${QT_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED COMPONENTS KIO)
++find_package(KF${QT_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED COMPONENTS Archive)
+ add_definitions(-DQT_USE_QSTRINGBUILDER)
+ 
+ option(DISABLE_MOBIPOCKET "Disable the mobipocket thumbnailer." OFF)
+ 
+-find_package(KF5KExiv2)
+-set_package_properties("KF5KExiv2"    PROPERTIES
++find_package(KF${QT_MAJOR_VERSION}KExiv2)
++set_package_properties("KF${QT_MAJOR_VERSION}KExiv2"    PROPERTIES
+                        DESCRIPTION "A library for reading and writing image metadata"
+                        URL         "www.kde.org"
+                        TYPE        OPTIONAL
+                        PURPOSE     "Required to build the RAW thumbnailer"
+ )
+ 
+-find_package(KF5KDcraw)
+-set_package_properties("KF5KDcraw"    PROPERTIES
++find_package(KF${QT_MAJOR_VERSION}KDcraw)
++set_package_properties("KF${QT_MAJOR_VERSION}KDcraw"    PROPERTIES
+                        DESCRIPTION "A library for accessing raw files"
+                        URL         "www.kde.org"
+                        TYPE        OPTIONAL
+@@ -47,13 +47,23 @@ else()
+     set(DISABLE_MOBIPOCKET_TEXT "Disable with DISABLE_MOBIPOCKET")
+ endif()
+ 
+-find_package(QMobipocket)
+-set_package_properties("QMobipocket"    PROPERTIES
+-                       DESCRIPTION "A library for accessing mobipocket files"
+-                       URL         "www.kde.org"
+-                       TYPE        ${MOBIPOCKET_REQUIRED_TYPE}
+-                       PURPOSE     "Required to build the mobipocket thumbnailer. ${DISABLE_MOBIPOCKET_TEXT}"
+-)
++if(QT_MAJOR_VERSION STREQUAL "6")
++    find_package(QMobipocket6)
++    set_package_properties("QMobipocket6"    PROPERTIES
++                        DESCRIPTION "A library for accessing mobipocket files"
++                        URL         "www.kde.org"
++                        TYPE        ${MOBIPOCKET_REQUIRED_TYPE}
++                        PURPOSE     "Required to build the mobipocket thumbnailer. ${DISABLE_MOBIPOCKET_TEXT}"
++    )
++else()
++    find_package(QMobipocket)
++    set_package_properties("QMobipocket"    PROPERTIES
++                        DESCRIPTION "A library for accessing mobipocket files"
++                        URL         "www.kde.org"
++                        TYPE        ${MOBIPOCKET_REQUIRED_TYPE}
++                        PURPOSE     "Required to build the mobipocket thumbnailer. ${DISABLE_MOBIPOCKET_TEXT}"
++    )
++endif()
+ 
+ 
+ ecm_set_disabled_deprecation_versions(QT 5.15.2 KF 5.100.0
+@@ -61,13 +71,13 @@ ecm_set_disabled_deprecation_versions(QT 5.15.2 KF 5.100.0
+ 
+ ecm_optional_add_subdirectory(ps)
+ 
+-if(KF5KExiv2_FOUND AND KF5KDcraw_FOUND)
++if(KF${QT_MAJOR_VERSION}KExiv2_FOUND AND KF${QT_MAJOR_VERSION}KDcraw_FOUND)
+ ecm_optional_add_subdirectory(raw)
+ endif()
+ 
+ ecm_optional_add_subdirectory(blend)
+ 
+-if(QMobipocket_FOUND)
++if(QMobipocket6_FOUND OR QMobipocket_FOUND)
+ ecm_optional_add_subdirectory(mobipocket)
+ endif()
+ 
+diff --git a/blend/CMakeLists.txt b/blend/CMakeLists.txt
+index 57e1126fa21a441a742acc8311532339b3c864ef..c53cdaf183b90aae438a4eb95f2603f19ee12683 100644
+--- a/blend/CMakeLists.txt
++++ b/blend/CMakeLists.txt
+@@ -1,19 +1,11 @@
+-add_library(blenderthumbnail MODULE)
++kcoreaddons_add_plugin(blenderthumbnail INSTALL_NAMESPACE "kf${QT_MAJOR_VERSION}/thumbcreator")
+ 
+-#sources
+ target_sources(blenderthumbnail PRIVATE
+     blendercreator.cpp
+ )
+ 
+-kcoreaddons_desktop_to_json(blenderthumbnail blenderthumbnail.desktop)
+-
+-## includes and linking
+ target_link_libraries(blenderthumbnail
+-    KF5::KIOGui
+-    KF5::Archive
++    KF${QT_MAJOR_VERSION}::KIOGui
++    KF${QT_MAJOR_VERSION}::Archive
+     Qt::Core
+ )
+-
+-## install the plugin
+-install(TARGETS blenderthumbnail DESTINATION ${KDE_INSTALL_PLUGINDIR})
+-install(FILES blenderthumbnail.desktop DESTINATION ${KDE_INSTALL_KSERVICESDIR})
+diff --git a/blend/blenderthumbnail.json b/blend/blenderthumbnail.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..4c64e1fe5f745a0d8b653e8523eaedf473950a34
+--- /dev/null
++++ b/blend/blenderthumbnail.json
+@@ -0,0 +1,51 @@
++{
++    "CacheThumbnail": true,
++    "KPlugin": {
++        "MimeTypes": [
++            "application/x-blender"
++        ],
++        "Name": "Blender files",
++        "Name[ar]": "Ù…Ù„ÙØ§Øª Ø¨Ù„Ù†Ø¯Ø±",
++        "Name[bg]": "Ð¤Ð°Ð¹Ð»Ð¾Ð²Ðµ Ð½Ð° Blender",
++        "Name[ca@valencia]": "Fitxers de Blender",
++        "Name[ca]": "Fitxers del Blender",
++        "Name[cs]": "Soubory Blender",
++        "Name[da]": "Blender-filer",
++        "Name[de]": "Blender-Dateien",
++        "Name[el]": "Î‘ÏÏ‡ÎµÎ¯Î± Blender",
++        "Name[en_GB]": "Blender files",
++        "Name[eo]": "Blender-dosieroj",
++        "Name[es]": "Archivos de Blender",
++        "Name[et]": "Blenderi failid",
++        "Name[eu]": "Blender fitxategiak",
++        "Name[fi]": "Blender-tiedostot",
++        "Name[fr]": "Fichiers Blender",
++        "Name[gl]": "Ficheiros de Blender",
++        "Name[hi]": "à¤¬à¥à¤²à¥‡à¤‚à¤¡à¤° à¤«à¤¼à¤¾à¤‡à¤²à¥‡à¤‚",
++        "Name[ia]": "Files de Blender",
++        "Name[is]": "Blender skrÃ¡r",
++        "Name[it]": "File Blender",
++        "Name[ka]": "Blender-áƒ˜áƒ¡ áƒ¤áƒáƒ˜áƒšáƒ”áƒ‘áƒ˜",
++        "Name[ko]": "Blender íŒŒì¼",
++        "Name[lt]": "Blender failai",
++        "Name[ml]": "à´¬àµà´²àµ†àµ»à´¡àµ¼ à´«à´¯à´²àµà´•àµ¾",
++        "Name[nl]": "Blender-bestanden",
++        "Name[nn]": "Blender-filer",
++        "Name[pl]": "Pliki Blendera",
++        "Name[pt]": "Ficheiros do Blender",
++        "Name[pt_BR]": "Arquivos do Blender",
++        "Name[ro]": "FiÈ™iere Blender",
++        "Name[ru]": "Ð¤Ð°Ð¹Ð»Ñ‹ Blender",
++        "Name[sk]": "SÃºbory Blender",
++        "Name[sl]": "Datoteke Blender",
++        "Name[sv]": "Blender-filer",
++        "Name[tg]": "Ð¤Ð°Ð¹Ð»Ò³Ð¾Ð¸ Ð‘Ð»ÐµÐ½Ð´ÐµÑ€",
++        "Name[tr]": "Blender DosyalarÄ±",
++        "Name[uk]": "Ð¤Ð°Ð¹Ð»Ð¸ Blender",
++        "Name[vi]": "Tá»‡p Blender",
++        "Name[x-test]": "xxBlender filesxx",
++        "Name[zh_CN]": "Blender æ–‡ä»¶",
++        "Name[zh_TW]": "Blender æª”æ¡ˆ"
++    },
++    "MimeType": "application/x-blender;"
++}
+diff --git a/mobipocket/CMakeLists.txt b/mobipocket/CMakeLists.txt
+index 385953926c346c2cddc3bed36f68b53016cd07fd..8f4a22fb949a15b7491681282fb3a43fa6f1c5ad 100644
+--- a/mobipocket/CMakeLists.txt
++++ b/mobipocket/CMakeLists.txt
+@@ -1,10 +1,11 @@
+-add_library(mobithumbnail MODULE)
++kcoreaddons_add_plugin(mobithumbnail INSTALL_NAMESPACE "kf${QT_MAJOR_VERSION}/thumbcreator")
+ 
+ target_sources(mobithumbnail PRIVATE mobithumbnail.cpp)
+ 
+-kcoreaddons_desktop_to_json(mobithumbnail mobithumbnail.desktop)
++target_link_libraries(mobithumbnail KF${QT_MAJOR_VERSION}::KIOCore KF${QT_MAJOR_VERSION}::KIOGui Qt::Gui)
+ 
+-target_link_libraries(mobithumbnail KF5::KIOCore KF5::KIOGui Qt::Gui qmobipocket)
+-install(TARGETS mobithumbnail DESTINATION ${KDE_INSTALL_PLUGINDIR})
+-
+-install( FILES mobithumbnail.desktop  DESTINATION  ${KDE_INSTALL_KSERVICESDIR} )
++if (QT_MAJOR_VERSION STREQUAL "5")
++    target_link_libraries(mobithumbnail qmobipocket)
++else()
++    target_link_libraries(mobithumbnail QMobipocket6)
++endif()
+diff --git a/mobipocket/mobithumbnail.json b/mobipocket/mobithumbnail.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..e0d13af089f12194eacb15e91efbfb27098651ea
+--- /dev/null
++++ b/mobipocket/mobithumbnail.json
+@@ -0,0 +1,53 @@
++{
++    "CacheThumbnail": true,
++    "KPlugin": {
++        "MimeTypes": [
++            "application/x-mobipocket-ebook"
++        ],
++        "Name": "Mobipocket Files",
++        "Name[ar]": "Ù…Ù„ÙØ§Øª Mobipocket",
++        "Name[bg]": "Ð¤Ð°Ð¹Ð»Ð¾Ð²Ðµ Ð·Ð° Mobipocket",
++        "Name[ca@valencia]": "Fitxers Mobipocket",
++        "Name[ca]": "Fitxers Mobipocket",
++        "Name[cs]": "Dokumenty Mobipocket",
++        "Name[da]": "Mobipocket-filer",
++        "Name[de]": "Mobipocket-Dateien",
++        "Name[en_GB]": "Mobipocket Files",
++        "Name[eo]": "Mobipocket-dosieroj",
++        "Name[es]": "Archivos de Mobipocket",
++        "Name[et]": "Mobipocketi failid",
++        "Name[eu]": "Mobipocket fitxategiak",
++        "Name[fi]": "Mobipocket-tiedostot",
++        "Name[fr]": "Fichiers Â«Â MobipocketÂ Â»",
++        "Name[hi]": "à¤®à¥‹à¤¬à¤¿à¤ªà¥‹à¤•à¥‡à¤Ÿ à¤«à¤¾à¤‡à¤²à¥‡à¤‚",
++        "Name[hr]": "Mobipocket datoteke",
++        "Name[hu]": "Mobipocket-fÃ©jlok",
++        "Name[ia]": "Files de Mobipocket",
++        "Name[is]": "Mobipocket skrÃ¡r",
++        "Name[it]": "File Mobipocket",
++        "Name[ka]": "Mobipocket-áƒ˜áƒ¡ áƒ¤áƒáƒ˜áƒšáƒ”áƒ‘áƒ˜",
++        "Name[kk]": "Mobipocket Ñ„Ð°Ð¹Ð»Ð´Ð°Ñ€Ñ‹",
++        "Name[km]": "áž¯áž€ážŸáž¶ážš Mobipocket",
++        "Name[ko]": "Mobipocket íŒŒì¼",
++        "Name[nds]": "Mobipocket-Dateien",
++        "Name[nl]": "Mobipocket-bestanden",
++        "Name[nn]": "Mobipocket-filer",
++        "Name[pa]": "à¨®à©‹à¨¬à©€à¨ªà¨¾à¨•à¨Ÿ à¨«à¨¾à¨‡à¨²à¨¾à¨‚",
++        "Name[pl]": "Pliki Mobipocket",
++        "Name[pt]": "Ficheiros do Mobipocket",
++        "Name[pt_BR]": "Arquivos Mobipocket",
++        "Name[ro]": "FiÈ™iere Mobipocket",
++        "Name[ru]": "Ð­Ð»ÐµÐºÑ‚Ñ€Ð¾Ð½Ð½Ñ‹Ðµ ÐºÐ½Ð¸Ð³Ð¸ Mobipocket",
++        "Name[si]": "Mobipocket à¶œà·œà¶±à·”",
++        "Name[sk]": "Mobipocket sÃºbory",
++        "Name[sl]": "Datoteke Mobipocket",
++        "Name[sv]": "Mobipocket-filer",
++        "Name[tr]": "Mobipocket DosyalarÄ±",
++        "Name[uk]": "Ð¤Ð°Ð¹Ð»Ð¸ Mobipocket",
++        "Name[vi]": "Tá»‡p Mobipocket",
++        "Name[x-test]": "xxMobipocket Filesxx",
++        "Name[zh_CN]": "Mobipocket æ–‡ä»¶",
++        "Name[zh_TW]": "Mobipocket æª”æ¡ˆ"
++    },
++    "MimeType": "application/x-mobipocket-ebook;"
++}
+diff --git a/ps/CMakeLists.txt b/ps/CMakeLists.txt
+index e913d8d6528510d12a726c7864e9d6929ab35aa6..de765e72c2dd3faac8f73da36e44fe5faac8092b 100644
+--- a/ps/CMakeLists.txt
++++ b/ps/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-add_library(gsthumbnail MODULE)
++kcoreaddons_add_plugin(gsthumbnail INSTALL_NAMESPACE "kf${QT_MAJOR_VERSION}/thumbcreator")
+ 
+ target_sources(gsthumbnail PRIVATE
+     gscreator.cpp
+@@ -6,13 +6,7 @@ target_sources(gsthumbnail PRIVATE
+     dscparse_adapter.cpp
+ )
+ 
+-kcoreaddons_desktop_to_json(gsthumbnail gsthumbnail.desktop)
+-
+ target_link_libraries(gsthumbnail
+-    KF5::KIOGui
++    KF${QT_MAJOR_VERSION}::KIOGui
+     Qt::Gui
+ )
+-
+-install(TARGETS gsthumbnail  DESTINATION ${KDE_INSTALL_PLUGINDIR} )
+-install(FILES gsthumbnail.desktop  DESTINATION  ${KDE_INSTALL_KSERVICESDIR})
+-
+diff --git a/ps/gsthumbnail.json b/ps/gsthumbnail.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..9744102df4fec3635b0a60b68c213a310a59d0e7
+--- /dev/null
++++ b/ps/gsthumbnail.json
+@@ -0,0 +1,86 @@
++{
++    "CacheThumbnail": true,
++    "KPlugin": {
++        "MimeTypes": [
++            "application/x-dvi",
++            "application/postscript",
++            "application/pdf",
++            "image/x-eps"
++        ],
++        "Name": "PostScript, PDF and DVI Files",
++        "Name[ar]": "Ù…Ù„ÙØ§Øª PostScript, PDF Ùˆ DVI",
++        "Name[bg]": "Ð¤Ð°Ð¹Ð»Ð¾Ð²Ðµ PostScript, PDF Ð¸ DVI",
++        "Name[br]": "RestroÃ¹ PostScript, PDF ha DVI",
++        "Name[bs]": "Postskript, PDF i DVI datoteke",
++        "Name[ca@valencia]": "Fitxers PostScript, PDF i DVI",
++        "Name[ca]": "Fitxers PostScript, PDF i DVI",
++        "Name[cs]": "PostscriptovÃ©, PDF a DVI soubory",
++        "Name[cy]": "Ffeiliau PostScript, PDF a DVI",
++        "Name[da]": "PostScript, PDF- og DVI-filer",
++        "Name[de]": "PostScript-, PDF- und DVI-Dateien",
++        "Name[el]": "Î‘ÏÏ‡ÎµÎ¯Î± PostScript, PDF ÎºÎ±Î¹ DVI",
++        "Name[en_GB]": "PostScript, PDF and DVI Files",
++        "Name[eo]": "Postskriptaj, PDF- kaj DVI-dosieroj",
++        "Name[es]": "Archivos PostScript, PDF y DVI",
++        "Name[et]": "PostScript-, PDF- ja DVI-failid",
++        "Name[eu]": "PostScript, PDF eta DVI fitxategiak",
++        "Name[fa]": "Ù¾Ø±ÙˆÙ†Ø¯Ù‡â€ŒÙ‡Ø§ÛŒ PostScriptØŒ PDF Ùˆ  DVI",
++        "Name[fi]": "PostScript-, PDF- ja DVI-tiedostot",
++        "Name[fr]": "Fichiers Â«Â PostScriptÂ Â», Â«Â PDFÂ Â» et Â«Â DVIÂ Â»",
++        "Name[ga]": "Comhaid PostScript, PDF agus DVI",
++        "Name[gl]": "Ficheiros PostScript, PDF e DVI",
++        "Name[he]": "×§×‘×¦×™ PostScript, PDF ×•Ö¾DVI",
++        "Name[hi]": "à¤ªà¥‹à¤¸à¥à¤Ÿ-à¤¸à¥à¤•à¥à¤°à¤¿à¤ªà¥à¤Ÿ, à¤ªà¥€à¤¡à¥€à¤à¤« à¤¤à¤¥à¤¾ à¤¡à¥€à¤µà¥€à¤†à¤ˆ à¤«à¤¼à¤¾à¤‡à¤²à¥‡à¤‚",
++        "Name[hne]": "à¤ªà¥‹à¤¸à¥à¤Ÿ-à¤¸à¥à¤•à¥à¤°à¤¿à¤ªà¥à¤Ÿ, à¤ªà¥€à¤¡à¥€à¤à¤« à¤…à¤‰ à¤¡à¥€à¤µà¥€à¤†à¤ˆ à¤«à¤¾à¤‡à¤² à¤®à¤¨ à¤²",
++        "Name[hr]": "Datoteke oblika PostScript, PDF i DVI",
++        "Name[hu]": "PostScript-, PDF- Ã©s DVI-fÃ¡jlok",
++        "Name[ia]": "Files PostScript, PDF e DVI",
++        "Name[is]": "PostScript, PDF og DVI skrÃ¡r",
++        "Name[it]": "File PostScript, PDF e DVI",
++        "Name[ja]": "PostScript, PDF, DVI ãƒ•ã‚¡ã‚¤ãƒ«",
++        "Name[ka]": "PostScript, PDF and DVI-áƒ˜áƒ¡ áƒ¤áƒáƒ˜áƒšáƒ”áƒ‘áƒ˜",
++        "Name[kk]": "PostScript, PDF Ð¶Ó™Ð½Ðµ DVI Ñ„Ð°Ð¹Ð»Ð´Ð°Ñ€Ñ‹",
++        "Name[km]": "áž¯áž€ážŸáž¶ážš PostScript, PDF áž“áž·áž„ DVI",
++        "Name[ko]": "í¬ìŠ¤íŠ¸í¬ìŠ¤ë¦½íŠ¸, PDF, DVI íŒŒì¼",
++        "Name[ku]": "PelÃªn PostScript, PDF Ã» DVI",
++        "Name[lt]": "Postscript, PDF ir DVI failai",
++        "Name[lv]": "Postscript, PDF un DVI faili",
++        "Name[ml]": "à´ªàµ‹à´¸àµà´±àµà´±àµà´¸àµà´•àµà´°à´¿à´ªàµà´±àµà´±àµ, à´ªà´¿à´¡à´¿à´Žà´«àµ, à´¡à´¿à´µà´¿à´ à´«à´¯à´²àµà´•àµ¾",
++        "Name[mr]": "à¤ªà¥‹à¤¸à¥à¤Ÿà¤¸à¥à¤•à¥à¤°à¤¿à¤ªà¥à¤Ÿ, PDF à¤µ DVI à¤«à¤¾à¤ˆà¤²à¥à¤¸",
++        "Name[ms]": "PostScript, PDF dan Fail DVI",
++        "Name[nb]": "PostScript, PDF og DVI filer",
++        "Name[nds]": "PostScript-, PDF- un DVI-Dateien",
++        "Name[ne]": "à¤ªà¥‹à¤·à¥à¤Ÿà¤¸à¥à¤•à¥à¤°à¤¿à¤ªà¥à¤Ÿ, à¤ªà¥€à¤¡à¥€à¤à¤« à¤° à¤¡à¥€à¤­à¥€à¤†à¤ˆ à¤«à¤¾à¤‡à¤²",
++        "Name[nl]": "PostScript-, DVI- en PDF-bestanden",
++        "Name[nn]": "PostScript-, PDF- og DVI-filer",
++        "Name[pa]": "à¨ªà©‹à¨¸à¨Ÿ-à¨¸à¨•à©à¨°à¨¿à¨ªà¨Ÿ, PDF à¨…à¨¤à©‡ DVI à¨«à¨¾à¨‡à¨²à¨¾à¨‚",
++        "Name[pl]": "Pliki PostScript, PDF i DVI",
++        "Name[pt]": "Ficheiros PostScript, PDF e DVI",
++        "Name[pt_BR]": "Arquivos PostScript, PDF e DVI",
++        "Name[ro]": "FiÈ™iere PostScript, PDF È™i DVI",
++        "Name[ru]": "Ð¤Ð°Ð¹Ð»Ñ‹ PostScript, PDF Ð¸ DVI",
++        "Name[se]": "PostScript-, PDF- ja DVI-fiillat",
++        "Name[si]": "PostScript, PDF à·ƒà·„ DVI à¶œà·œà¶±à·”",
++        "Name[sk]": "PostScript, PDF a DVI sÃºbory",
++        "Name[sl]": "Datoteke PostScript, PDF in DVI",
++        "Name[sr@ijekavian]": "ÐŸÐ¾ÑÑ‚ÑÐºÑ€Ð¸Ð¿Ñ‚, ÐŸÐ”Ð¤ Ð¸ Ð”Ð’Ð˜ Ñ„Ð°Ñ˜Ð»Ð¾Ð²Ð¸",
++        "Name[sr@ijekavianlatin]": "PostScript, PDF i DVI fajlovi",
++        "Name[sr@latin]": "PostScript, PDF i DVI fajlovi",
++        "Name[sr]": "ÐŸÐ¾ÑÑ‚ÑÐºÑ€Ð¸Ð¿Ñ‚, ÐŸÐ”Ð¤ Ð¸ Ð”Ð’Ð˜ Ñ„Ð°Ñ˜Ð»Ð¾Ð²Ð¸",
++        "Name[sv]": "Postscript-, PDF- och DVI-filer",
++        "Name[ta]": "à®ªà¯‹à®¸à¯à®Ÿà¯à®•à®¿à®°à®¿à®ªà¯à®Ÿà¯, à®ªà®¿à®Ÿà®¿à®ƒà®ªà¯ à®®à®±à¯à®±à¯à®®à¯ à®Ÿà®¿à®µà®¿à® à®•à¯‹à®ªà¯à®ªà¯à®•à®³à¯",
++        "Name[tg]": "Ð¤Ð°Ð¹Ð»Ò³Ð¾Ð¸ PostScript, PDF Ð²Ð° DVI",
++        "Name[th]": "à¹à¸Ÿà¹‰à¸¡ PDF, DVI à¹à¸¥à¸° à¹‚à¸žà¸ªà¸•à¹Œà¸ªà¸„à¸£à¸´à¸›à¸•à¹Œ",
++        "Name[tr]": "PostScript, PDF ve DVI DosyalarÄ±",
++        "Name[ug]": "PostScriptØŒ PDF Û‹Û• DVI Ú¾Û†Ø¬Ø¬Û•ØªÙ„Ù‰Ø±Ù‰",
++        "Name[uk]": "Ð¤Ð°Ð¹Ð»Ð¸ PostScript, PDF Ñ‚Ð° DVI",
++        "Name[uz@cyrillic]": "PostScript, PDF Ð²Ð° DVI Ñ„Ð°Ð¹Ð»Ð»Ð°Ñ€Ð¸",
++        "Name[uz]": "PostScript, PDF va DVI fayllari",
++        "Name[vi]": "CÃ¡c tá»‡p PostScript, PDF vÃ  DVI",
++        "Name[x-test]": "xxPostScript, PDF and DVI Filesxx",
++        "Name[zh_CN]": "PostScriptã€PDF å’Œ DVI æ–‡ä»¶",
++        "Name[zh_HK]": "PostScript ã€PDF åŠ DVI æª”æ¡ˆ",
++        "Name[zh_TW]": "PostScriptï¼ŒPDF èˆ‡ DVI æª”"
++    },
++    "MimeType": "application/x-dvi;application/postscript;application/pdf;image/x-eps;"
++}
+diff --git a/raw/CMakeLists.txt b/raw/CMakeLists.txt
+index 925cfd7b44e0f95299702dacb82d6fac37e2896b..633ed04fe81055c6516998e2d42cb1db797d68da 100644
+--- a/raw/CMakeLists.txt
++++ b/raw/CMakeLists.txt
+@@ -1,22 +1,12 @@
+-add_library(rawthumbnail MODULE)
++kcoreaddons_add_plugin(rawthumbnail INSTALL_NAMESPACE "kf${QT_MAJOR_VERSION}/thumbcreator")
+ 
+-#sources
+ target_sources(rawthumbnail PRIVATE
+     rawcreator.cpp
+ )
+ 
+-kcoreaddons_desktop_to_json(rawthumbnail rawthumbnail.desktop)
+-
+-## includes and linking
+ target_link_libraries(rawthumbnail
+-    KF5::KIOGui
+-    KF5::KDcraw
+-    KF5::KExiv2
++    KF${QT_MAJOR_VERSION}::KIOGui
++    KF${QT_MAJOR_VERSION}::KDcraw
++    KF${QT_MAJOR_VERSION}::KExiv2
+     Qt::Gui
+ )
+-
+-## install the plugin
+-install(TARGETS rawthumbnail DESTINATION ${KDE_INSTALL_PLUGINDIR})
+-install(FILES rawthumbnail.desktop DESTINATION ${KDE_INSTALL_KSERVICESDIR})
+-
+-
+diff --git a/raw/rawthumbnail.json b/raw/rawthumbnail.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..65492e018825f853448b2ed9ab8846f0d2212ba5
+--- /dev/null
++++ b/raw/rawthumbnail.json
+@@ -0,0 +1,70 @@
++{
++    "CacheThumbnail": true,
++    "KPlugin": {
++        "MimeTypes": [
++            "image/x-dcraw"
++        ],
++        "Name": "RAW Photo Camera Files",
++        "Name[ar]": "Ù…Ù„ÙØ§Øª Ø§Ù„Ø®Ø§Ù…Ø© RAW Ù„Ø¢Ù„Ø© Ø§Ù„ØªØµÙˆÙŠØ±",
++        "Name[bg]": "Ð¡Ð½Ð¸Ð¼ÐºÐ¸ RAW Ð¾Ñ‚ Ñ„Ð¾Ñ‚Ð¾Ð°Ð¿Ð°Ñ€Ð°Ñ‚",
++        "Name[bs]": "Sirove datoteke s kamere",
++        "Name[ca@valencia]": "Fitxers RAW de la cÃ mera de fotografies",
++        "Name[ca]": "Fitxers RAW de la cÃ mera de fotografies",
++        "Name[cs]": "RAW soubory z fotoaparÃ¡tu",
++        "Name[da]": "Kamera-filer i RAW-foto",
++        "Name[de]": "RAW-Fotokamera-Dateien",
++        "Name[el]": "RAW Î±ÏÏ‡ÎµÎ¯Î± Ï†Ï‰Ï„Î¿Î³ÏÎ±Ï†Î¹ÏŽÎ½",
++        "Name[en_GB]": "RAW Photo Camera Files",
++        "Name[eo]": "RAW fotaj kameradosieroj",
++        "Name[es]": "Archivos RAW de cÃ¡mara fotogrÃ¡fica",
++        "Name[et]": "Kaamera toorfailid",
++        "Name[eu]": "RAW argazki kamera-fitxategiak",
++        "Name[fi]": "RAW-kuvakameratiedostot",
++        "Name[fr]": "Fichiers Â«Â RawÂ Â» d'appareil photo numÃ©rique",
++        "Name[ga]": "Comhaid Cheamara RAW",
++        "Name[gl]": "Ficheiros RAW de cÃ¡mara de fotos",
++        "Name[hi]": "à¤°à¥‰ à¤«à¤¼à¥‹à¤Ÿà¥‹ à¤•à¥ˆà¤®à¤°à¤¾ à¤«à¤¼à¤¾à¤‡à¤²à¥‡à¤‚",
++        "Name[hr]": "Fotografske datoteke RAW",
++        "Name[hu]": "RAW-fÃ¡jlok",
++        "Name[ia]": "Files de photo camera RAW",
++        "Name[is]": "RAW myndavÃ©laskrÃ¡r",
++        "Name[it]": "File grezzi della fotocamera",
++        "Name[ja]": "ã‚«ãƒ¡ãƒ©ã® RAW ãƒ•ã‚¡ã‚¤ãƒ«",
++        "Name[ka]": "RAW áƒ¤áƒáƒ¢áƒáƒ™áƒáƒ›áƒ”áƒ áƒ˜áƒ¡ áƒ¤áƒáƒ˜áƒšáƒ”áƒ‘áƒ˜",
++        "Name[kk]": "ÐšÐ°Ð¼ÐµÑ€Ð°Ð½Ñ‹Ò£ RAW ('ÑˆÐ¸ÐºÑ–') Ñ„Ð°Ð¹Ð»Ð´Ð°Ñ€Ñ‹",
++        "Name[km]": "áž¯áž€ážŸáž¶ážšâ€‹ážšáž¼áž”ážážâ€‹ážšáž”ážŸáŸ‹â€‹áž˜áŸ‰áž¶ážŸáŸŠáž¸áž“â€‹ážážâ€‹ážŠáž¾áž˜",
++        "Name[ko]": "RAW ì‚¬ì§„ ì¹´ë©”ë¼ íŒŒì¼",
++        "Name[lt]": "Fotoaparato RAW nuotraukÅ³ failai",
++        "Name[lv]": "RAW fotogrÄfiju faili",
++        "Name[ml]": "à´±àµ‹ à´«àµ‹à´Ÿàµà´Ÿàµ‹ à´•àµà´¯à´¾à´®à´± à´«à´¯à´²àµà´•àµ¾",
++        "Name[mr]": "RAW à¤«à¥‹à¤Ÿà¥‹ à¤•à¥…à¤®à¥‡à¤°à¤¾ à¤«à¤¾à¤ˆà¤²à¥à¤¸",
++        "Name[nb]": "RAW foto kamerafiler",
++        "Name[nds]": "RAW-Fotokamera-Dateien",
++        "Name[nl]": "Bestanden met RAW-camera-afbeelding",
++        "Name[nn]": "RAW-kamerafiler",
++        "Name[pa]": "RAW à¨«à©‹à¨Ÿà©‹ à¨•à©ˆà¨®à¨°à¨¾ à¨«à¨¾à¨‡à¨²à¨¾à¨‚",
++        "Name[pl]": "Pliki RAW z aparatÃ³w cyfrowych",
++        "Name[pt]": "Ficheiros de MÃ¡quinas FotogrÃ¡ficas RAW",
++        "Name[pt_BR]": "Arquivos RAW de cÃ¢meras fotogrÃ¡ficas",
++        "Name[ro]": "FiÈ™iere fotografice brute",
++        "Name[ru]": "Ð¦Ð¸Ñ„Ñ€Ð¾Ð²Ñ‹Ðµ Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ñ‹ (RAW)",
++        "Name[si]": "RAW à¶´à·’à¶‚à¶­à·–à¶» à¶šà·à¶¸à¶»à· à¶œà·œà¶±à·”",
++        "Name[sk]": "RAW sÃºbory z digitÃ¡lneho fotoaparÃ¡tu",
++        "Name[sl]": "Surove datoteke iz fotoaparata",
++        "Name[sr@ijekavian]": "Ð¡Ð¸Ñ€Ð¾Ð²Ð¸ Ñ„Ð°Ñ˜Ð»Ð¾Ð²Ð¸ Ñ Ñ„Ð¾Ñ‚Ð¾Ð°Ð¿Ð°Ñ€Ð°Ñ‚Ð°",
++        "Name[sr@ijekavianlatin]": "Sirovi fajlovi s fotoaparata",
++        "Name[sr@latin]": "Sirovi fajlovi s fotoaparata",
++        "Name[sr]": "Ð¡Ð¸Ñ€Ð¾Ð²Ð¸ Ñ„Ð°Ñ˜Ð»Ð¾Ð²Ð¸ Ñ Ñ„Ð¾Ñ‚Ð¾Ð°Ð¿Ð°Ñ€Ð°Ñ‚Ð°",
++        "Name[sv]": "Obehandlade kamerafiler",
++        "Name[ta]": "RAW à®ªà®Ÿà®•à¯à®•à®°à¯à®µà®¿ à®•à¯‹à®ªà¯à®ªà¯à®•à®³à¯",
++        "Name[tg]": "ÐšÐ°Ð¼ÐµÑ€Ð°Ð¸ Ñ€Ð°Ò›Ð°Ð¼Ó£",
++        "Name[tr]": "RAW FotoÄŸraf Makinesi DosyalarÄ±",
++        "Name[ug]": "RAW Ø³ÛˆØ±Û•Øª ÙƒØ§Ù…ÛØ±Ø§ Ú¾Û†Ø¬Ø¬Ù‰ØªÙ‰",
++        "Name[uk]": "Ð¤Ð°Ð¹Ð»Ð¸ Ñ†Ð¸Ñ„Ñ€Ð¾Ð²Ð¸Ñ… Ð½ÐµÐ³Ð°Ñ‚Ð¸Ð²Ñ–Ð²",
++        "Name[vi]": "Tá»‡p mÃ¡y áº£nh RAW",
++        "Name[x-test]": "xxRAW Photo Camera Filesxx",
++        "Name[zh_CN]": "RAW ç›¸æœºæ–‡ä»¶",
++        "Name[zh_TW]": "åŽŸå§‹ç›¸æ©Ÿæª”"
++    },
++    "MimeType": "image/x-dcraw;"
++}

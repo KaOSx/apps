@@ -1,0 +1,40 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=libkdcraw6
+_pkgname=libkdcraw
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="C++ interface around LibRaw library used to decode RAW picture files."
+arch=('x86_64')
+url='https://invent.kde.org/graphics/libkdcraw'
+license=('GPL' 'LGPL' 'FDL')
+depends=('qt6-base' 'libraw')
+makedepends=('extra-cmake-modules6')
+#groups=('kde-graphics')
+source=("$_mirror/${_pkgname}-${_kdever}.tar.xz"
+        "https://invent.kde.org/graphics/libkdcraw/-/commit/1a1f0816c99cc85886d24cbb83fd2d479983d3a9.diff")
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '0b5c29dc9e2dd3c7643ca8e03b8f246d')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+  #sed -i -e 's|add_subdirectory(src)|add_subdirectory(src) add_subdirectory(data)|' ${srcdir}/${pkgname}/CMakeLists.txt
+  patch -p1 -i ${srcdir}/1a1f0816c99cc85886d24cbb83fd2d479983d3a9.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
