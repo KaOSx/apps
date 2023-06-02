@@ -1,6 +1,6 @@
 
 pkgname=qtkeychain
-pkgver=0.14.0
+pkgver=0.14.1
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Qt API to store passwords and other secret data securely"
@@ -8,8 +8,8 @@ url="https://github.com/frankosterfeld/qtkeychain"
 license=('BSD')
 depends=('qt5-base' 'kwallet')
 makedepends=('cmake' 'qt5-tools' 'icu')
-source=("https://github.com/frankosterfeld/qtkeychain/archive/v${pkgver}.tar.gz")
-md5sums=('80a0e955493bf9d9a5044a5df880f9c5')
+source=("https://github.com/frankosterfeld/qtkeychain/archive/${pkgver}.tar.gz")
+md5sums=('3abe32290c1537346731ba53facdd4d7')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
