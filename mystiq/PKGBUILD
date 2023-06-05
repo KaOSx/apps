@@ -1,8 +1,9 @@
 
 pkgname=mystiq
 _pkgname=MystiQ
-pkgver=20.03.23
-pkgrel=4
+pkgver=23.05.15
+_pkgver=23.05.15-2109
+pkgrel=1
 pkgdesc="FFmpeg GUI front-end based on Qt5."
 arch=('x86_64')
 url="https://github.com/swl-x/MystiQ"
@@ -10,19 +11,19 @@ license=('GPL3')
 depends=('qt5-declarative' 'qt5-multimedia' 'ffmpeg' 'libnotify' 'sox')
 makedepends=('qt5-tools')
 replaces=('qwinff')
-source=("https://github.com/swl-x/MystiQ/archive/v${pkgver}.tar.gz")
-md5sums=('d6e3babb0be21ae7592f4c313cc6edac')
+source=("https://github.com/biglinux/MystiQ/archive/refs/tags/mystiq-${_pkgver}.tar.gz")
+md5sums=('ac9f53b36e7f69f92d0025337abddfe5')
 
 build() {
-   cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}-mystiq-${_pkgver}
 
-   /usr/lib/qt5/bin/qmake DEFINES+=NO_NEW_VERSION_CHECK mystiq.pro
-   make
+  /usr/lib/qt5/bin/qmake DEFINES+=NO_NEW_VERSION_CHECK mystiq.pro
+  make
 }
 
 package() {
-   cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}-mystiq-${_pkgver}
 
-   make INSTALL_ROOT=${pkgdir} install
-   install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  make INSTALL_ROOT=${pkgdir} install
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
