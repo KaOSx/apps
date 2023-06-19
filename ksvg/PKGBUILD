@@ -2,26 +2,23 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=plasma-pa6
-_pkgname=plasma-pa
+pkgname=ksvg
 arch=('x86_64')
-pkgver=${_plasmaver}
-pkgrel=5
+pkgver=${_kf6ver}
+pkgrel=1
 pkgdesc="Plasma applet for audio volume management using PulseAudio."
 url="https://invent.kde.org/plasma/plasma-pa"
 license=('GPL' 'LGPL' 'FDL')
 options=('!docs')
-depends=('kcoreaddons6' 'kdeclarative6' 'kglobalaccel6' 'knotifications6' 'ki18n6' 'plasma-framework6'
-         'kcmutils6' 'kirigami6' 'ksvg' 'pulseaudio' 'glib2' 'libcanberra')
-makedepends=('pkg-config' 'extra-cmake-modules6' 'kdoctools6')
-groups=('kdeplasma6')
+depends=('karchive6' 'kconfig6' 'kcolorscheme' 'kcoreaddons6' 'kguiaddons6' 'kirigami6')
+makedepends=('extra-cmake-modules6')
 #source=($_mirror/${pkgname}-${pkgver}.tar.xz)
 #md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
+source=("git+https://invent.kde.org/libraries/${pkgname}.git")
 md5sums=('SKIP')
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
