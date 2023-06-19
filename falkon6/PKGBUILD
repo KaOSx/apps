@@ -21,7 +21,7 @@ source=("https://invent.kde.org/thubble/falkon/-/archive/qt6/falkon-qt6.tar.bz2"
         'browserwindow.diff'
         'revert.diff') #taken from commit https://github.com/KDE/falkon/commit/7308b64df6a13d5822f491f2cbc7f39ae6781488
 #md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-md5sums=('b91740b48d3a1c22411aaa7a215b984f'
+md5sums=('7bdf1da33c7b7168e1cc0eeac2212b29'
          'add41876289657b8605b5ba5889271f9'
          '2addb3a5e484bcfbb19f702d2e86d2fd'
          'cafc9d1284e700ad615265bf39a2bafb'
@@ -43,7 +43,7 @@ build() {
     -DKDE_INSTALL_LIBDIR=lib \
     -DENABLE_KDE_FRAMEWORKS_INTEGRATION_PLUGIN=TRUE \
     -DQT_MAJOR_VERSION=6 \
-    -DNO_X11=ON
+    -DNO_X11=OFF
   cmake --build build
 }
 
