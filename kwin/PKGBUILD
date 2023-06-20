@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwin
 pkgver=${_plasmaver}
-pkgrel=3
+pkgrel=1
 pkgdesc='KDE Window Manager'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kwin'
@@ -26,7 +26,7 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/2237391e979b2423462bb5eaf1fdf4c0876f7476.diff
+  #patch -p1 -i ${srcdir}/2237391e979b2423462bb5eaf1fdf4c0876f7476.diff
   #sed -i 's|add_subdirectory(tests)|#add_subdirectory(tests)|' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
   #rm -rf po/id/docs
 }  
