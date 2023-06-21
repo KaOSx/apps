@@ -1,13 +1,13 @@
 
 pkgname=chromium-ffmpeg-codecs
-pkgver=113.0.5672.127
+pkgver=114.0.5735.133
 pkgrel=1
 pkgdesc="Extra ffmpeg codecs from the Chromium Browser for use in other browsers"
 arch=('x86_64')
 url="https://ffmpeg.org/"
 license=('LGPL2.1')
 depends=('gtk3')
-makedepends=('ninja' 'nss' 'python3' 'gn' 'clang' 'libva')
+makedepends=('ninja' 'nss' 'python3' 'gn' 'clang' 'libva' 'libevdev')
 options=('!strip')
 groups=('network-web' 'multimedia')
 source=("https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${pkgver}.tar.xz"
@@ -16,7 +16,7 @@ source=("https://commondatastorage.googleapis.com/chromium-browser-official/chro
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-FORTIFY_SOURCE-r2.patch"
         #"https://gitweb.gentoo.org/repo/gentoo.git/plain/www-client/chromium/files/chromium-memcpy-r0.patch"
         #"https://raw.githubusercontent.com/gentoo/gentoo/master/www-client/chromium/files/chromium-clang-r2.patch")
-md5sums=('023ad0ea082ac4d27640e01ff5ff55e1'
+md5sums=('7c0841e88c964d4c98af7d158dbdb292'
          'd4c8aed09b852568a58591933b7b0c96'
          '767e3e82f89de949909eb990204185cd')
 
@@ -35,6 +35,7 @@ build() {
   #sed -i '1s|python$|&2|' third_party/dom_distiller_js/protoc_plugins/*.py
 
   python3 tools/clang/scripts/update.py
+  python3 tools/rust/update_rust.py
 
   #mkdir -p third_party/node/linux/node-linux-x64/bin/
   #ln -sf /usr/bin/node third_party/node/linux/node-linux-x64/bin/node
