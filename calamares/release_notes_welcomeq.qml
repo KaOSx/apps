@@ -57,7 +57,9 @@ Item {
             
             <p>For the Plasma desktop, the latest Plasma (5.27.5), KDE Gear (23.04.2), and Frameworks (5.107.0) are included. All built on <b>Qt 5.15.10+</b>. Among the many changes included in KDE Gear 23.04 are the option to run Dolphin with kio-admin, thus giving the option again to run Dolphin with administrator rights from the menu.</p>
 
-            <p>Updates to the base of the system included a new GCC 12.3.0, Glibc 2.37, Binutils 2.40 based Toolchain, Glib2 stack all updated rebuild for 2.76.3, kernel moved to Linux 6.2.16, Systemd 253.5, Python 3.10.12, Dracut 059, ZFS 2.1.12, Gnupg 2.4.2, and Libarchive 3.6.2.</p>
+            <p>The automated partitioning option in the installer (Calamares) now offers the use of all popular filesystems, so no need to use manually partitioning to be able to choose XFS, EXT4, BTRFS or ZFS.
+
+            <p>Updates to the base of the system included a new GCC 12.3.0, Glibc 2.37, Binutils 2.40 based Toolchain, Glib2 stack all updated rebuild for 2.76.3, kernel moved to Linux 6.3.9, Systemd 253.5, Python 3.10.12, Dracut 059, ZFS 2.1.12, Gnupg 2.4.2, and Libarchive 3.6.2.</p>
             
             <p>Big thanks goes to <strong>YourHostingSolutions</strong> for not only providing a mirror, but also providing a server for KaOS. With the discontinuation of Fosshost, a new server was sorely needed.</p>
             
