@@ -1,8 +1,8 @@
 
 pkgname=sddm
-pkgver=20201103
-_commit=c5e7043291a6d237e33c2f666d9937c93d668594 # 0.19.0
-pkgrel=8
+pkgver=0.20.0
+epoch=1
+pkgrel=1
 pkgdesc="QML based X11 and Wayland display manager"
 arch=('x86_64')
 url="https://github.com/sddm/sddm"
@@ -16,29 +16,25 @@ backup=('etc/sddm.conf'
         'etc/pam.d/sddm-autologin'
         'etc/pam.d/sddm-greeter')
 install=sddm.install
-source=("https://github.com/sddm/sddm/archive/${_commit}.zip"
+source=("https://github.com/sddm/sddm/archive/refs/tags/v${pkgver}.tar.gz"
         'sddm.conf'
-        "https://github.com/sddm/sddm/commit/e93bf95c54ad8c2a1604f8d7be05339164b19308.diff"
         "https://github.com/sddm/sddm/commit/fc24321541f6f65b7d1aac89cd82336ffd53e1a0.diff")
-md5sums=('f6a2e2a387c42f9191fc5642f13e8303'
-         '1051028cf00fd26c3845b03af3904aa7'
-         'a96c2223465e6e59e1babe7e346ade2a'
-         '36e5009839b027a802e8db1efe9915a9')
+md5sums=('7af67d5fb767639861d35c80eb4e1191'
+         '868fbd1bce62b07306c39ac9a2d6434b'
+         'a0e194a541d4cfee72815a34df0335fa')
 
 prepare() {
-  cd $pkgname-${_commit}
+  cd $pkgname-${pkgver}
 
   # Pam > 1.5 no longer ships pam_tally
   # https://github.com/sddm/sddm/issues/1313
-  sed -i -e 's|pam_tally2.so file=/var/log/tallylog onerr=succeed|pam_faillock.so preauth|' services/sddm-autologin.pam
+  #sed -i -e 's|pam_tally2.so file=/var/log/tallylog onerr=succeed|pam_faillock.so preauth|' services/sddm-autologin.pam
   # needed for Qt 5.15.2+
-  patch -p1 -i ${srcdir}/e93bf95c54ad8c2a1604f8d7be05339164b19308.diff
-  # don't load XDG portal in sddm
-  patch -p1 -i ${srcdir}/fc24321541f6f65b7d1aac89cd82336ffd53e1a0.diff
+  #patch -p1 -i ${srcdir}/e93bf95c54ad8c2a1604f8d7be05339164b19308.diff
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib/sddm \
