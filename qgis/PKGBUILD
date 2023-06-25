@@ -1,7 +1,7 @@
 
 pkgname=qgis
 _pkgname=QGIS
-pkgver=3.30.3
+pkgver=3.32.0
 _commit=7dbe4943d606b8acd879dd6ed9e38542e3ab0bab
 pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
@@ -17,7 +17,7 @@ depends=('mariadb' 'postgresql-libs' 'sqlite' 'curl' 'giflib' 'gsl'
 makedepends=('cmake'  'netcdf' 'sip' 'qt5-tools' 'pyqt-builder') 
 source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
         'qt5.15.diff')
-sha256sums=('e291cb7c74fd44bfebf8ac3738490e185ab8e64b3e45bbec769b4b14c2f82687'
+sha256sums=('dfc90a6103a3c6020d005dbb68c81caf9a4c11fca4be53bfe070226813f87a9a'
             'b0b34ab28bf56f5a60366847df59f755cbb26af597c378959aa79f8c068c1b03') 
 
 prepare() {
@@ -41,7 +41,8 @@ prepare() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DQGIS_MANUAL_SUBDIR=share/man \
         -DWITH_QWTPOLAR=FALSE \
-        -DWITH_QTWEBKIT=FALSE
+        -DWITH_QTWEBKIT=FALSE \
+        -DWITH_PDAL=FALSE
         #-DBUILD_WITH_QT6=TRUE
     cmake --build build
 }
