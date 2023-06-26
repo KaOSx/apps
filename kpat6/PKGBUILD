@@ -1,0 +1,37 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kpat6
+_pkgname=kpat
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="Collection of solitaire card games known all over the world"
+arch=('x86_64')
+url='https://apps.kde.org/en/kpat'
+license=('GPL' 'LGPL' 'FDL')
+depends=('kcompletion6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'kguiaddons6' 
+         'ki18n6' 'kio6' 'knewstuff6' 'kwidgetsaddons6' 'kxmlgui6' 'libkdegames6' 'phonon-qt6' 'freecell-solver')
+makedepends=('extra-cmake-modules6' 'kdoctools6')
+#groups=('kde' 'kde-games' 'kde-uninstall')
+#source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git+https://invent.kde.org/games/${_pkgname}.git")
+md5sums=('SKIP')
+
+build() {
+  cmake -B build -S ${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DWITH_BH_SOLVER=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
+
