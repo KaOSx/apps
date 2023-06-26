@@ -2,13 +2,13 @@
 pkgname=sddm
 pkgver=0.20.0
 epoch=1
-pkgrel=1
+pkgrel=2
 pkgdesc="QML based X11 and Wayland display manager"
 arch=('x86_64')
 url="https://github.com/sddm/sddm"
 license=('GPL')
-depends=('qt5-declarative' 'libxcb')
-makedepends=('extra-cmake-modules' 'qt5-tools' 'python3-docutils')
+depends=('qt6-declarative' 'libxcb')
+makedepends=('extra-cmake-modules6' 'qt6-tools' 'python3-docutils')
 backup=('etc/sddm.conf'
         'usr/share/sddm/scripts/Xsetup'
         'usr/share/sddm/scripts/Xstop'
@@ -38,7 +38,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib/sddm \
-    -DBUILD_MAN_PAGES=ON 
+    -DBUILD_MAN_PAGES=ON \
+    -DBUILD_WITH_QT6=ON
   cmake --build build
 }
 
