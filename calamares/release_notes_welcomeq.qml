@@ -53,19 +53,21 @@ Item {
             text: qsTr("<h3>KaOS - 2023.06</h3>
             <p>KaOS is pleased to announce the availability of the June release of a new stable ISO.</p>
 
-            <p>Not only is there a new stable ISO released, but to look forward to the next ten years, there is also a Plasma 6 preview ISO available.  This ISO is not installable, only meant to test in Live mode.  The installer Calamares is not ready for Qt 6/Plasma 6, nor are there many KDE Applications available in their Qt6 version.  This ISO is only linked in the News item, not available from the Download page.</p>
+            <p>For the Plasma desktop, the latest Plasma (5.27.6), KDE Gear (23.04.2), and Frameworks (5.107.0) are included. All built on <b>Qt 5.15.10+</b>. Among the many changes included in KDE Gear 23.04 are the option to run Dolphin with kio-admin, thus giving the option again to run Dolphin with administrator rights from the menu.</p>
+
+            <p>Not only is there a new stable ISO released, but there is also a new Plasma 6 preview ISO available.  This ISO is not installable, only meant to test in Live mode.  The installer Calamares is not ready for Qt 6/Plasma 6, nor are there many KDE Applications available in their Qt6 version.  This ISO is only linked in the dedicated Forum post, not available from the Download page.</p>
             
-            <p>For the Plasma desktop, the latest Plasma (5.27.5), KDE Gear (23.04.2), and Frameworks (5.107.0) are included. All built on <b>Qt 5.15.10+</b>. Among the many changes included in KDE Gear 23.04 are the option to run Dolphin with kio-admin, thus giving the option again to run Dolphin with administrator rights from the menu.</p>
+            <p>SDDM 0.20.0 added the option to run this display manager in Wayland mode. That option is enabled on this ISO, so KaOS is one step closer to being to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using weston).</p>
 
-            <p>The automated partitioning option in the installer (Calamares) now offers the use of all popular filesystems, so no need to use manually partitioning to be able to choose XFS, EXT4, BTRFS or ZFS.
+            <p>The automated partitioning option in the installer (Calamares) now offers the use of all popular filesystems, so no need to use manually partitioning to be able to choose XFS, EXT4, BTRFS or ZFS.</p>
 
-            <p>Updates to the base of the system included a new GCC 12.3.0, Glibc 2.37, Binutils 2.40 based Toolchain, Glib2 stack all updated rebuild for 2.76.3, kernel moved to Linux 6.3.9, Systemd 253.5, Python 3.10.12, Dracut 059, ZFS 2.1.12, Gnupg 2.4.2, and Libarchive 3.6.2.</p>
+            <p>Updates to the base of the system included a new GCC 12.3.0, Glibc 2.37, Binutils 2.40 based Toolchain, Glib2 stack all updated rebuild for 2.76.3, kernel moved to Linux 6.3.10, Systemd 253.5, Python 3.10.12, Util-linux 2.39.1, ZFS 2.1.12, Gnupg 2.4.2, and Libssh2 1.11.0.</p>
             
             <p>Big thanks goes to <strong>YourHostingSolutions</strong> for not only providing a mirror, but also providing a server for KaOS. With the discontinuation of Fosshost, a new server was sorely needed.</p>
             
             <p>To get good logs has always been a bit of a challenge since you have to know what journalctl commands to use. That is now a thing of the past, <strong>Kjournald</strong> gives the option to view the logs from a nice GUI, with all kinds of filter options in the left-hand pane (it is now part of the default install)</p>
 
-            <p>New applications added include <strong>Ghostwriter</strong>, a dedicated Markdown editor. A start is also made to get ready for Plasma 6. For the adventurous, the kde-next repository is used for a complete Qt6-based KDE stack, all Frameworks are built there on Qt6, most of Plasma and a few KDE Applications have also been ported to Qt6.  Plasma 6 does boot but is not usable yet (so, of course not part of this ISO).</p>
+            <p>New applications added include <strong>Ghostwriter</strong>, a dedicated Markdown editor. A start is also made to get ready for Plasma 6. For the adventurous, the kde-next repository is used for a complete Qt6-based KDE stack, all Frameworks are built there on Qt6, most of Plasma and a few KDE Applications have also been ported to Qt6.</p>
 
             <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.</br>
             Similar, Pipewire has replaced PulseAudio as the default sound/low-level multimedia framework.</p>
@@ -99,7 +101,7 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.107.0, Plasma 5.27.5, KDE Applications 23.04.2</b>, Linux 6.2.16, Systemd 253.5, Kmod 30, NetworkManager 1.42.6, LibreOffice 7.5.4, Elisa, Xorg-Server 1.21.8, Mesa 23.1.2, Glibc 2.37, GCC 12.3.0, non-free Nvidia 535 and Python3 3.10.12 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.107.0, Plasma 5.27.6, KDE Applications 23.04.2</b>, Linux 6.3.10, Systemd 253.5, Kmod 30, NetworkManager 1.42.6, LibreOffice 7.5.4, Elisa, Xorg-Server 1.21.8, Mesa 23.1.3, Glibc 2.37, GCC 12.3.0, non-free Nvidia 530 and Python3 3.10.12 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.14.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
