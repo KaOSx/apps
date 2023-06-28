@@ -1,0 +1,27 @@
+
+pkgname=kquickimageeditor6
+_pkgname=kquickimageeditor
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Set of QtQuick components providing basic image editing capabilities."
+arch=('x86_64')
+url="https://invent.kde.org/libraries/kquickimageeditor"
+license=('LGPL')
+depends=('qt6-declarative' 'qt6-5compat')
+makedepends=('extra-cmake-modules6')
+#source=("https://download.kde.org/stable/kquickimageeditor/${pkgname}-${pkgver}.tar.xz")
+#sha256sums=('3cfba775498e031f6963669ee0e4426d4fddd48a244b9583620de4d312ba92ca')
+source=("git+https://invent.kde.org/libraries/${_pkgname}.git")
+md5sums=('SKIP')
+
+build() {
+ cmake -B build -S ${_pkgname} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+ cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
