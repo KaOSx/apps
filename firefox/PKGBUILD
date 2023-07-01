@@ -2,9 +2,10 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=114.0.2
+pkgver=115.0
+_pkgver=115.0esr
 # Check nss version in build repo
-_nssver=3.90
+_nssver=3.91
 pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
@@ -18,13 +19,13 @@ makedepends=('unzip' 'zip' 'diffutils' 'python3' 'python3-psutil' 'yasm' 'mesa' 
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 options=('!emptydirs' '!makeflags')
 #source=("https://hg.mozilla.org/releases/mozilla-release/archive/${_commit}.tar.bz2"
-source=("https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/source/${pkgname}-${pkgver}.source.tar.xz"
+source=("https://ftp.mozilla.org/pub/firefox/releases/${_pkgver}/source/${pkgname}-${_pkgver}.source.tar.xz"
         'mozconfig'
         'firefox.desktop'
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('aa602032f0b7065b743ba7fabf96714398aba538bcc017a4b0fff556dc69f8fe'
+sha256sums=('dbf35684998012aa085e8e0bc9e995d16dcbf5fd5aa5cbb1f7381be4967b400d'
             '5401a208af2ceb7fef22c4435d9f619502ca63098eaf0e5abbdcce5163cf78f1'
             'e74e001006982efd7e55bf9cde80eafddec755cb8bd4d0030b4518f0062ca742'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
@@ -41,7 +42,7 @@ prepare() {
 
   mkdir -p ${srcdir}/mozbuild
 
-  sed -e "s|psutil>=5.4.2,<=5.8.0|psutil>=5.4.2,<=5.9.5|" -i python/sites/mach.txt
+  #sed -e "s|psutil>=5.4.2,<=5.8.0|psutil>=5.4.2,<=5.9.5|" -i python/sites/mach.txt
 }
 
 build() {
