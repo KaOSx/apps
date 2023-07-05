@@ -1,6 +1,6 @@
  
 pkgname=gcab
-pkgver=1.5
+pkgver=1.6
 pkgrel=1
 pkgdesc="GObject library to create cabinet files"
 arch=('x86_64')
@@ -9,13 +9,13 @@ url="https://gitlab.gnome.org/GNOME/gcab"
 depends=('glib2')
 makedepends=('gobject-introspection' 'zlib' 'intltool' 'meson' 'ninja' 'vala')
 source=("https://ftp.gnome.org/pub/GNOME/sources/gcab/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('46bf7442491faa4148242b9ec2a0786a5f6e9effb1b0566e5290e8cc86f00f0c')
+sha256sums=('2f0c9615577c4126909e251f9de0626c3ee7a152376c15b5544df10fc87e560b')
 
 build() {
   mkdir -p build
   cd build
 
-  meson ../${pkgname}-${pkgver} \
+  meson setup ../${pkgname}-${pkgver} \
     --prefix=/usr \
     --buildtype=release \
     -Ddocs=false
