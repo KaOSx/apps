@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=neochat
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Client for Matrix, the decentralized communication protocol for instant messaging - Spectral fork."
 arch=('x86_64')
 url="https://apps.kde.org/en/neochat"
@@ -16,13 +16,15 @@ depends=('qt5-multimedia' 'qt5-quickcontrols2' 'qt5-svg' 'kirigami-addons' 'ki18
 makedepends=('extra-cmake-modules' 'kdoctools')
 replaces=('spectral')
 conflicts=('spectral')
-source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz"
+        "https://invent.kde.org/network/neochat/-/commit/d9d5e17be2a2057ab2ee545561fab721cb211f7f.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'b9abc43a98147371e547c1fe5035bbde')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/9300e65239f9204a688084af20d05138d272fdb4.diff
+  patch -p1 -i ${srcdir}/d9d5e17be2a2057ab2ee545561fab721cb211f7f.diff
   #sed -i -e 's|include <events/stickerevent.h>|include "stickerevent.h"|' src/messageeventmodel.cpp
 }
 
