@@ -3,7 +3,7 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=okteta
-pkgver=0.26.11
+pkgver=0.26.12
 pkgrel=1
 epoch=1
 pkgdesc="KDE hex editor for viewing and editing the raw data of files"
@@ -14,7 +14,7 @@ depends=('kcmutils' 'kcodecs' 'kcompletion' 'kconfigwidgets' 'kdbusaddons' 'ki18
          'kparts' 'kservice' 'kwidgetsaddons' 'kxmlgui' 'qca-qt5' 'qt5-tools')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("https://download.kde.org/stable/okteta/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('fea97a064c780a9f3a7b9acfdcf07d53942a2d2f31c8d7ac37fcc87b0d034c5f')
+sha256sums=('49c26b68beaa774e82583abfa971b1d847a73432864e7f7d41b3ed99da4372a1')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
