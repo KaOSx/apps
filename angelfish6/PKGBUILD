@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=angelfish6
 _pkgname=angelfish
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Web browser for Plasma Mobile (kf6 version)"
 url="https://invent.kde.org/plasma-mobile/angelfish"
@@ -16,6 +16,13 @@ depends=('qt6-webengine' 'qt6-declarative' 'qt6-svg' 'kirigami-addons6' 'purpose
 makedepends=('extra-cmake-modules6' 'qt6-tools') #'qtfeedback' 
 source=("$_mirror/${_pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+prepare () {
+  cd ${_pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/dd7450a80f10e118f8.diff
+  sed -i 's|QtGraphicalEffects 1.0|Qt5Compat.GraphicalEffects|' src/contents/ui/desktop/desktop.qml
+}
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \
