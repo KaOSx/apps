@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=marble
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
@@ -32,7 +32,8 @@ build() {
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DBUILD_MARBLE_TOOLS=YES \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_MARBLE_TESTS=NO 
+    -DBUILD_MARBLE_TESTS=NO \
+    -DCMAKE_CXX_STANDARD=17
   cmake --build build
 }
 

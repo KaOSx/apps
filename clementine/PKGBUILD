@@ -3,7 +3,7 @@ pkgname=clementine
 _pkgname=Clementine
 pkgver=1.4.0rc2
 _pkgver=1.4.0rc2
-pkgrel=3
+pkgrel=4
 _commit=d20c2244a82b65f1d2c444091649e28834a63341
 pkgdesc="Modern music player and library organiser that takes advantage of Qt."
 url="https://www.clementine-player.org/"
@@ -36,7 +36,8 @@ build() {
     -DENABLE_BREAKPAD=OFF \
     -DENABLE_SPOTIFY_BLOB=OFF \
     -DUSE_SYSTEM_TAGLIB=ON \
-    -DENABLE_VISUALISATIONS=OFF
+    -DENABLE_VISUALISATIONS=OFF \
+    -DCMAKE_CXX_STANDARD=17
   cmake --build build
 }
 

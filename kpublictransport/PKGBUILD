@@ -4,12 +4,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kpublictransport
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Library to assist with accessing public transport timetables and other data."
 url="https://invent.kde.org/libraries/kpublictransport"
 license=('LGPL')
-depends=('qt5-declarative' 'protobuf')
+depends=('qt5-declarative' 'protobuf' 'networkmanager-qt' 'ki18n')
 makedepends=('extra-cmake-modules')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)

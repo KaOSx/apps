@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kosmindoormap
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Library and QML component for rendering multi-level OSM indoor maps of for example a train station."
 url="https://invent.kde.org/libraries/kosmindoormap"
@@ -12,13 +12,18 @@ license=('LGPL')
 depends=('ki18n' 'kpublictransport' 'kopeninghours' 'protobuf')
 makedepends=('extra-cmake-modules')
 groups=('kde' 'kdepim' 'kde-uninstall')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/libraries/kosmindoormap/-/commit/6dfceab2bacef67ea27b4d1045100b6e0d2be430.diff"
+        "https://invent.kde.org/libraries/kosmindoormap/-/commit/eac8c57528b5ef8e694df4072ed7a60be799c270.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '6a7f9122ea8c600bd7ccc7bceb1c9e2a'
+         '2733f4217ba41d888e5b68361d8c68c9')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/7098c8be9a5e7fabf74543308bfaf11a2ebe5484.diff
+  patch -p1 -i ${srcdir}/6dfceab2bacef67ea27b4d1045100b6e0d2be430.diff
+  patch -p1 -i ${srcdir}/eac8c57528b5ef8e694df4072ed7a60be799c270.diff
 }
 
 build() {
@@ -26,7 +31,9 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON \
+    -Dprotobuf_MODULE_COMPATIBLE=ON
   cmake --build build
 }
 
