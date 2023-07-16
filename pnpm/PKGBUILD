@@ -1,0 +1,24 @@
+
+pkgname=pnpm
+pkgver=8.6.7
+pkgrel=1
+pkgdesc='Fast, disk space efficient package manager'
+arch=('x86_64')
+url="https://pnpm.io"
+license=('MIT')
+depends=('nodejs')
+source=("https://github.com/pnpm/pnpm/archive/v${pkgver}.tar.gz")
+sha256sums=('0d96a2bd6823d9e594c2de43953ac4e7d0feccd8538756100a0a349c7200f334')
+
+package() {
+  npm install -g \
+    --cache ${srcdir}/npm-cache \
+    --prefix ${pkgdir}/usr \
+    pnpm
+
+  cd ${pkgdir}/usr/lib/node_modules/pnpm
+  rm -r dist/node-gyp-bin
+  rm -r dist/vendor
+
+  install -Dm644 LICENSE -t ${pkgdir}/usr/share/licenses/${pkgname}/
+}

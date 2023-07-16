@@ -1,29 +1,35 @@
 
 pkgname=bash-language-server
-pkgver=4.10.2
+pkgver=5.0.0
 pkgrel=1
 pkgdesc="Bash language server implementation based on Tree Sitter and its grammar for Bash with explainshell integration."
 arch=("x86_64")
 url="https://github.com/bash-lsp/bash-language-server"
 license=('MIT')
 depends=('nodejs')
-makedepends=('yarn')
+makedepends=('pnpm')
 source=("https://github.com/bash-lsp/bash-language-server/archive/refs/tags/server-${pkgver}.tar.gz")
-md5sums=('81ae014acaf65ccd186e505ca1402ca0')
+md5sums=('a0e47d783fecac75a3b4dc0c1da61f80')
 
 build() {
     cd ${pkgname}-server-${pkgver}
 
-    yarn
-    yarn run compile
+    pnpm install --frozen-lockfile
+    pnpm run compile
 }
 
 package() {
+    cd ${pkgname}-server-${pkgver}/server
+
     install -d ${pkgdir}/usr/lib/${pkgname}
     install -d ${pkgdir}/usr/bin
 
-    cp -a ${pkgname}-server-${pkgver}/server/* ${pkgdir}/usr/lib/${pkgname}/
+    # running npm on this dir requires husky
+    rm -r node_modules
+    npm install --omit=dev
+
+    cp -a * ${pkgdir}/usr/lib/${pkgname}/
     ln -s /usr/lib/${pkgname}/bin/main.js $pkgdir/usr/bin/${pkgname}
 
-    install -Dm644 ${pkgname}-server-${pkgver}/LICENSE -t ${pkgdir}/usr/share/licenses/${pkgname}/
+    install -Dm644 ../LICENSE -t ${pkgdir}/usr/share/licenses/${pkgname}/
 }
