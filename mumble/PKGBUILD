@@ -20,6 +20,7 @@ prepare() {
     cd ${pkgname}-${_pkgver}
     # poco 1.11.2 needed
     #patch -p1 -i ${srcdir}/eb8f957d05aaae6a151d694cbc8790af80884f1f.diff
+    sed -e 's|CMAKE_CXX_STANDARD 14|CMAKE_CXX_STANDARD 17|' -i CMakeLists.txt
 }
 
 build() {
@@ -34,7 +35,8 @@ build() {
     -Dupdate=OFF \
     -Dspeechd=ON \
     -Dice=OFF \
-    -Doverlay-xcompile=OFF
+    -Doverlay-xcompile=OFF \
+    -Dwarnings-as-errors=OFF
     #CONFIG+="bundled-celt no-bundled-opus no-bundled-speex no-speechd no-g15 no-xevie no-server \
     #no-embed-qt-translations no-update packaged" \
     #DEFINES+="PLUGIN_PATH=/usr/lib/mumble"
