@@ -1,7 +1,7 @@
 
 pkgname=musescore
 pkgver=4.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Music notation and composition software written in Qt"
 arch=('x86_64')
 url="https://www.musescore.org/en/"
@@ -25,11 +25,10 @@ build() {
   cmake -B build -S MuseScore-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_CRASHPAD_CLIENT=OFF \
-    -DCRASH_REPORT_URL="https://kaosx.us/docs/bugs/" \
-    -DUSE_SYSTEM_FREETYPE=ON \
-    -DBUILD_UNIT_TESTS=OFF \
-    -DBUILD_AUTOUPDATE=OFF
+    -DMUE_BUILD_CRASHPAD_CLIENT=OFF \
+    -DMUE_CRASH_REPORT_URL="https://kaosx.us/docs/bugs/" \
+    -DMUE_BUILD_UNIT_TESTS=OFF \
+    -DMUE_ENABLE_FILE_ASSOCIATION=ON
   cmake --build build
 }
 
