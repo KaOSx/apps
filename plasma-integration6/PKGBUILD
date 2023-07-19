@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-integration6
 _pkgname=plasma-integration
 pkgver=${_plasmaver}
-pkgrel=6
+pkgrel=7
 pkgdesc='Qt Platform Theme integration plugins for Plasma Workspaces.'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/plasma-integration'
@@ -34,7 +34,9 @@ build () {
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6
+    -DQT_MAJOR_VERSION=6 \
+    -DBUILD_QT5=OFF \
+    -DBUILD_QT6=ON
   cmake --build build
 }
 
