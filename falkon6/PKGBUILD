@@ -15,25 +15,29 @@ depends=('qt6-webengine' 'qt6-webchannel' 'qt6-5compat' 'ki18n6' 'kwallet6' 'kio
 makedepends=('extra-cmake-modules6' 'qt6-tools')
 #groups=('network-web')
 #source=("${_mirror}/${pkgname}-${_kdever}.tar.xz"
-source=("https://invent.kde.org/thubble/falkon/-/archive/qt6/falkon-qt6.tar.bz2"
+source=("https://invent.kde.org/carewolf/falkon/-/archive/qt6/falkon-qt6.tar.bz2"
         'speeddial.diff'
         'preferences.diff'
         'browserwindow.diff'
-        'revert.diff') #taken from commit https://github.com/KDE/falkon/commit/7308b64df6a13d5822f491f2cbc7f39ae6781488
+        'CMakeLists.diff')
 #md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-md5sums=('7bdf1da33c7b7168e1cc0eeac2212b29'
-         'add41876289657b8605b5ba5889271f9'
+md5sums=('83301646cfb1d6865e01e71fdd1ca55a'
+         '2f1cec281364a60aac4b1d7f03f9902f'
          '2addb3a5e484bcfbb19f702d2e86d2fd'
          'cafc9d1284e700ad615265bf39a2bafb'
-         'e1b0fbbc51de79774757b7b60a482ebe')
+         '3c008ce76f095cc5237cdd1638ccee13')
 
 prepare() {
   cd ${_pkgname}-qt6
 
-  patch -R -p1 -i ${srcdir}/revert.diff
-  patch -p1 -i ${srcdir}/speeddial.diff
+  #patch -R -p1 -i ${srcdir}/revert.diff
+  #patch -p1 -i ${srcdir}/speeddial.diff
   patch -p0 -i ${srcdir}/preferences.diff
   patch -p0 -i ${srcdir}/browserwindow.diff
+  patch -p1 -i ${srcdir}/CMakeLists.diff
+  sed -e "s|</opt/kde6/include/KF6/KArchive/KZip>|</usr/include/KF6/KArchive/KZip>|" -i src/lib/plugins/ocssupport.cpp
+  sed -e "s|<PurposeWidgets/Menu>|</usr/include/KF6/PurposeWidgets/Purpose/Menu>|" -i src/plugins/KDEFrameworksIntegration/kdeframeworksintegrationplugin.h
+  sed -e "s|#include <KIO/AccessManager>||" -i src/plugins/KDEFrameworksIntegration/kioschemehandler.cpp
 }
 
 build() {

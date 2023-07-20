@@ -1,28 +1,18 @@
---- a/src/lib/plugins/speeddial.cpp	2018-02-27 14:56:58.000000000 +0100
-+++ b/src/lib/plugins/speeddial.cpp	2018-02-28 16:29:38.798407779 +0100
-@@ -58,15 +58,19 @@
-     setBackgroundImage(settings.value("background", QString()).toString());
-     m_backgroundImageSize = settings.value("backsize", "auto").toString();
-     m_maxPagesInRow = settings.value("pagesrow", 4).toInt();
--    m_sizeOfSpeedDials = settings.value("sdsize", 231).toInt();
-+    m_sizeOfSpeedDials = settings.value("sdsize", 225).toInt();
-     m_sdcentered = settings.value("sdcenter", false).toBool();
+--- a/src/lib/plugins/speeddial.cpp	2023-07-20 11:49:30.094965418 +0200
++++ b/src/lib/plugins/speeddial.cpp	2023-07-20 11:49:30.156966154 +0200
+@@ -63,10 +63,12 @@
      settings.endGroup();
  
      if (allPages.isEmpty()) {
--        allPages = "url:\"https:/kde.org\"|title:\"KDE Community Home\";"
--                   "url:\"https://phabricator.kde.org/source/falkon/\"|title:\"Falkon Git\";"
--                   "url:\"https://bugs.kde.org/describecomponents.cgi?product=Falkon\"|title:\"Falkon Bug Tracker\";"
--                   "url:\"https://duckduckgo.com\"|title:\"DuckDuckGo\";";
+-        allPages = "url:\"https://www.falkon.org\"|title:\"Falkon\";"
 +        allPages = "url:\"https://kaosx.us\"|title:\"KaOS - Welcome\";"
-+                   "url:\"https://forum.kaosx.us\"|title:\"Forum\";"
-+                   "url:\"https://web.libera.chat/#KaOS\"|title:\"IRC\";"
-+                   "url:\"https://www.youtube.com/html5\"|title:\"YouTube-html5\";"
-+                   "url:\"https://www.google.com\"|title:\"Google\";"
-+                   "url:\"https://www.falkon.org/\"|title:\"Falkon\";"
-+                   "url:\"http://madebyevan.com/webgl-water\"|title:\"WebGL\";"
-+                   "url:\"https://vimeo.com/categories\"|title:\"Vimeo\";";
- 
++                  "url:\"https://forum.kaosx.us\"|title:\"Forum\";"
++                  "url:\"https://web.libera.chat/#KaOS\"|title:\"IRC\";"
++                   "url:\"https://www.falkon.org\"|title:\"Falkon\";"
+                    "url:\"https://store.falkon.org\"|title:\"Falkon Store\";"
+-                   "url:\"https://www.kde.org\"|title:\"KDE Planet\";"
+-                   "url:\"https://planet.kde.org\"|title:\"KDE Community\";";
++                   "url:\"https://www.kde.org\"|title:\"KDE Community\";";
      }
      changed(allPages);
  
