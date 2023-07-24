@@ -15,7 +15,7 @@ makedepends=('cmake' 'zip' 'pkgconfig')
 provides=('audacity')
 replaces=('audacity')
 source=("https://codeberg.org/tenacityteam/tenacity/archive/v${_pkgver}.tar.gz")
-sha256sums=('0b2c11e02e5a9393634453b1b0dd3dd878ab9e8e6fe9bf530b6696a706d08555')
+sha256sums=('434b7c6be5bdf3a3d120aed01a0f098a33cfaf6b34307997ef4962e78d7858ae')
 
 build() {
   cd tenacity
@@ -36,5 +36,4 @@ package() {
   DESTDIR=${pkgdir} cmake --install tenacity/build
 
   rm ${pkgdir}/usr/share/pixmaps/gnome-mime-application-x-audacity-project.xpm
-  mv ${pkgdir}/usr/share/mime/packages/audacity.xml ${pkgdir}/usr/share/mime/packages/tenacity.xml
 }
