@@ -1,6 +1,6 @@
 
 pkgname=polkit
-pkgver=122
+pkgver=123
 pkgrel=1
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=('x86_64')
@@ -14,7 +14,7 @@ install=polkit.install
 source=("https://gitlab.freedesktop.org/polkit/polkit/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.bz2"
         'polkit.pam'
         "https://gitlab.freedesktop.org/polkit/polkit/-/commit/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff")
-md5sums=('7eb1f0070c66e5e8646d23ad38773253'
+md5sums=('5e8c9fe7464776c73aa7116335d701a2'
          '6564f95878297b954f0572bc1610dd15'
          'e9355c69556b48415b4b1dc810944950')
 
@@ -28,7 +28,7 @@ build() {
   mkdir -p build
   cd build
 
-  meson ../${pkgname}-${pkgver} \
+  meson setup ../${pkgname}-${pkgver} \
     --prefix=/usr \
     --buildtype=release \
     --sysconfdir=/etc \
