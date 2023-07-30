@@ -1,0 +1,46 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdenlive6
+_pkgname=kdenlive
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="Free and Open Source video editing application, based on MLT Framework and KDE Frameworks 6."
+arch=('x86_64')
+url="https://www.kdenlive.org/"
+license=('GPL')
+depends=('karchive6' 'kbookmarks6' 'kcodecs' 'kcoreaddons6' 'kconfig6' 'kconfigwidgets6' 'kdbusaddons6' 'kio6'
+         'kwidgetsaddons6' 'knotifyconfig6' 'knewstuff6' 'kxmlgui6' 'knotifications6'
+         'kguiaddons6' 'ktextwidgets6' 'kiconthemes6' 'solid6' 'kfilemetadata6' 'kcrash6' 'purpose6' 'ki18n6'
+         'mlt6' 'dvgrab' 'frei0r-plugins' 'qt6-networkauth' 'qt6-svg' 'qt6-tools' 'qt6-5compat') 
+makedepends=('extra-cmake-modules6' 'kdoctools6' 'gettext' 'docbook-xsl')
+optdepends=("dvdauthor: for creating dvds")
+groups=('multimedia')
+source=("$_mirror/${_pkgname}-${_kdever}.tar.xz"
+        "https://invent.kde.org/multimedia/kdenlive/-/commit/364e23f6d1ba104e40623297b82a0ee873942925.diff") 
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '27f4dda2f5d1f0df81244a401961218c')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/364e23f6d1ba104e40623297b82a0ee873942925.diff
+  sed -e "s|QtGraphicalEffects 1.15|Qt5Compat.GraphicalEffects|" -i src/timeline2/view/qml/TrackHead.qml
+}
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt6/plugins \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
