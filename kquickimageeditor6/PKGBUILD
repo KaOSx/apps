@@ -2,7 +2,7 @@
 pkgname=kquickimageeditor6
 _pkgname=kquickimageeditor
 pkgver=0.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Set of QtQuick components providing basic image editing capabilities."
 arch=('x86_64')
 url="https://invent.kde.org/libraries/kquickimageeditor"
@@ -17,7 +17,9 @@ md5sums=('SKIP')
 build() {
  cmake -B build -S ${_pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
  cmake --build build
 }
 
