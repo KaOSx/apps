@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kinfocenter6
 _pkgname=kinfocenter
 pkgver=${_plasmaver}
-pkgrel=7
+pkgrel=8
 pkgdesc='View information about your computers hardware'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kinfocenter'
@@ -49,6 +49,6 @@ package() {
   DESTDIR=${pkgdir} cmake --install build
 
   install -Dm644 ${srcdir}/kcm-about-distrorc ${pkgdir}/etc/xdg/kcm-about-distrorc
-  install -Dm644 ${srcdir}/KaOS.png ${pkgdir}/usr/share/${pkgname}/KaOS.png
+  install -Dm644 ${srcdir}/KaOS.png ${pkgdir}/usr/share/${_pkgname}/KaOS.png
 }
 
