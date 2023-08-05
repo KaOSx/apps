@@ -1,0 +1,30 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=futuresql6
+_pkgname=futuresql
+pkgver=0.1.1
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Non-blocking Qt database framework"
+url="https://invent.kde.org/libraries/futuresql"
+license=('GPL2')
+depends=('qt6-base')
+makedepends=('extra-cmake-modules6')
+source=("https://download.kde.org/stable/futuresql/${_pkgname}-${pkgver}.tar.xz")
+sha256sums=('e44ed8d5a9618b3ca7ba2983ed9c5f7572e6e0a5b199f94868834b71ccbebd43')
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_TESTING=OFF \
+      -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

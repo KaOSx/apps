@@ -1,0 +1,31 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=skanpage6
+_pkgname=skanpage
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="Scanning application designed for multi-page scanning and saving of documents and images."
+arch=("x86_64")
+url="https://apps.kde.org/skanpage/"
+license=('GPL')
+depends=('kcoreaddons6' 'ki18n6' 'kirigami6' 'kcrash6' 'kconfig6' 'ksanecore6' 'purpose6' 'kxmlgui6'
+         'kquickimageeditor6')
+makedepends=('extra-cmake-modules6')
+source=("${_mirror}/${_pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}

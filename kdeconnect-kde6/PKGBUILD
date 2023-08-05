@@ -6,7 +6,6 @@ pkgname=kdeconnect-kde6
 _pkgname=kdeconnect-kde
 pkgver=${_kdever}
 pkgrel=1
-epoch=1
 pkgdesc='KDE Connect adds communication between KDE and your smartphone'
 url='https://invent.kde.org/network/kdeconnect-kde'
 license=('GPL')
@@ -18,18 +17,18 @@ depends=('ki18n6' 'kconfigwidgets6' 'kdbusaddons6' 'kiconthemes6' 'knotification
 makedepends=('extra-cmake-modules6' 'kdoctools6')
 #source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://invent.kde.org/network/kdeconnect-kde/-/archive/work/alex/qt6/kdeconnect-kde-work-alex-qt6.tar.bz2")
-md5sums=('b4e535722afe368c193a03e996bc436a')
+source=("git+https://invent.kde.org/network/${_pkgname}.git")
+md5sums=('SKIP')
 
 prepare() {
-  cd ${_pkgname}-work-alex-qt6
+  cd ${_pkgname}
   #sed -i -e 's|FILES package/metadata.desktop|FILES package/metadata.json|' plasmoid/CMakeLists.txt
 
   #patch -p1 -i ${srcdir}/openssh8.2.patch
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-work-alex-qt6 \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -37,6 +36,7 @@ build() {
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DBUILD_TESTING=OFF \
+    -DWITH_PULSEAUDIO=OFF \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }
