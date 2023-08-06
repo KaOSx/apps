@@ -50,20 +50,20 @@ Item {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2023.07</h3>
-            <p>This July release is a quick update from the June release a few days ago.  A major issue was found on that ISO with the use of non-free Nvidia, resulting in systems not booting, thus a new is needed right away.</p>
+            text: qsTr("<h3>KaOS - 2023.08</h3>
+            <p>This August release is a quick update from the June release a few days ago.  A major issue was found on that ISO with the use of non-free Nvidia, resulting in systems not booting, thus a new is needed right away.</p>
 
-            <p>KaOS is pleased to announce the availability of the July release of a new stable ISO.</p>
+            <p>KaOS is pleased to announce the availability of the August release of a new stable ISO.</p>
 
-            <p>For the Plasma desktop, the latest Plasma (5.27.6), KDE Gear (23.04.3), and Frameworks (5.107.0) are included. All built on <b>Qt 5.15.10+</b>. Among the many changes included in KDE Gear 23.04 are, the option to run Dolphin with kio-admin, thus giving the option again to run Dolphin with administrator rights from the menu.</p>
+            <p>For the Plasma desktop, the latest Plasma (5.27.7), KDE Gear (23.04.3), and Frameworks (5.108.0) are included. All built on <b>Qt 5.15.10+</b>. Among the many changes included in KDE Gear 23.04 are, the option to run Dolphin with kio-admin, thus giving the option again to run Dolphin with administrator rights from the menu.</p>
 
-            <p>Not only is there a new stable ISO released, but there is also a new Plasma 6 preview ISO available.  This ISO is not installable, only meant to test in Live mode.  The installer Calamares is not ready for Qt 6/Plasma 6, nor are there many KDE Applications available in their Qt6 version.  This ISO is only linked in the dedicated Forum post, not available from the Download page. The Midna theme is getting a complete overhaul for Plasma 6, major parts are included in this ISO.</p>
+            <p>Not only is there a new stable ISO released, but there is also a new Plasma 6 preview ISO available.  This ISO is now also installable, the installer Calamares is still not ready for Qt 6/Plasma 6, but is now packaged in such a way that it can use the needed kf5 packages.  There are now many more KDE Applications also ready for Qt6/kf6, you will find quite a few on this ISO.  This ISO is only linked in the dedicated Forum post, not available from the Download page. The Midna theme is getting a complete overhaul for Plasma 6, major parts are included in this ISO.</p>
             
             <p>SDDM 0.20.0 added the option to run this display manager in Wayland mode, so KaOS is one step closer to being to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using Weston).</p>
 
             <p>The automated partitioning option in the installer (Calamares) now offers the use of all popular filesystems, so no need to use manually partitioning to be able to choose XFS, EXT4, BTRFS or ZFS.</p>
 
-            <p>Updates to the base of the system included a new GCC 12.3.0, Glibc 2.37, Binutils 2.40 based Toolchain, Glib2 stack all updated rebuild for 2.76.3, kernel moved to Linux 6.3.12, Systemd 253.5, Python 3.10.12, Util-Linux 2.39.1, ZFS 2.1.12, Gnupg 2.4.2, and Libssh2 1.11.0.</p>
+            <p>Updates to the base of the system included a new GCC 12.3.0, Glibc 2.37, Binutils 2.40 based Toolchain, Glib2 stack all updated rebuild for 2.76.3, kernel moved to Linux 6.3.12, Systemd 253.7, Python 3.10.12, Util-Linux 2.39.1, ZFS 2.1.12, Gnupg 2.4.3, and Libssh2 1.11.0.</p>
             
             <p>Big thanks goes to <strong>YourHostingSolutions</strong> for not only providing a mirror, but also providing a server for KaOS. With the discontinuation of Fosshost, a new server was sorely needed.</p>
             
@@ -81,7 +81,7 @@ Item {
             
             <p>For Nvidia, a new longterm support version is included in this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
             
-            <p>Qt 6.5.1 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web browsers. All of the PyQt packages are now available in a Qt6 version too. Plus the Kvantum theming has support for Qt6.</p>
+            <p>Qt 6.5.2 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web browsers. All of the PyQt packages are now available in a Qt6 version too. Plus the Kvantum theming has support for Qt6.</p>
             
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
@@ -103,12 +103,12 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.107.0, Plasma 5.27.6, KDE Applications 23.04.3</b>, Linux 6.3.12, Systemd 253.5, Kmod 30, NetworkManager 1.42.8, LibreOffice 7.5.4, Elisa, Xorg-Server 1.21.8, Mesa 23.1.3, Glibc 2.37, GCC 12.3.0, non-free Nvidia 530 and Python3 3.10.12 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.108.0, Plasma 5.27.7, KDE Applications 23.04.3</b>, Linux 6.3.12, Systemd 253.7, Kmod 30, NetworkManager 1.42.8, LibreOffice 7.5.5, Elisa, Xorg-Server 1.21.8, Mesa 23.1.5, Glibc 2.37, GCC 12.3.0, non-free Nvidia 535 and Python3 3.10.12 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.14.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
-            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 6.3, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 115.0, Chrome 116, Ardour 7.4.0, Inkscape 1.2.2, GIMP 2.99.14 and Thunderbird 102.12.0.<br />
+            <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 6.4, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 116.0, Chrome 117, Ardour 7.5.0, Inkscape 1.3, GIMP 2.99.16 and Thunderbird 115.1.0.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
 
             <p><b>Known issues:</b></p>
