@@ -6,26 +6,23 @@ _origname=oxygen-icons5
 pkgname=('oxygen-icons5' 'oxygen-icons5-svg')
 arch=('x86_64')
 pkgver=${_kf5ver}
-pkgrel=4
-pkgdesc="split package"
-url="http://www.kde.org"
+pkgrel=1
+url="https://invent.kde.org/frameworks/oxygen-icons5"
 license=('GPL' 'LGPL' 'FDL')
+depends=('qt5-base')
 makedepends=('extra-cmake-modules')
 source=($_mirror/${_origname}-$_kf5ver.tar.xz)
 md5sums=(`grep ${_origname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build () {
-  mkdir -p build
-  cd build
-
-  cmake ../${_origname}-${pkgver} \
+  cmake -B build -S ${_origname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
-  make
+  cmake --build build
 }
 
 package_oxygen-icons5() {
@@ -34,9 +31,7 @@ package_oxygen-icons5() {
     replaces=('oxygen-icons')
     provides=('oxygen-icons')
 
-    cd build
-
-    make DESTDIR=${pkgdir} install 
+    DESTDIR=${pkgdir} cmake --install build
     # conflicts with kdepim
     #rm ${pkgdir}/usr/share/icons/oxygen/*/mimetypes/x-mail-distribution-list.png
 }
