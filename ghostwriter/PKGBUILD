@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  sed -i 's|GW_DARK_MODE_KEY, QVariant(true)|GW_DARK_MODE_KEY, QVariant(false)|' src/appsettings.cpp
+  sed -i 's|GW_DARK_MODE_KEY, QVariant(true)|GW_DARK_MODE_KEY, QVariant(false)|' src/settings/appsettings.cpp
 }
 
 build() {
