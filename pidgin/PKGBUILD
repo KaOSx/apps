@@ -2,15 +2,18 @@
 # perl issue on server, build locally only
 pkgname=pidgin
 pkgver=2.14.12
-pkgrel=1
+pkgrel=2
 pkgdesc="Multi-protocol instant messaging client"
 arch=('x86_64')
 url="https://pidgin.im/"
 license=('GPL')
-depends=("libpurple=${pkgver}" 'startup-notification' 'gtk2' 'libxss' 'hicolor-icon-theme'
-         'libsm' 'libidn' 'avahi' 'gst-plugins-good' 'farstream')
+depends=('startup-notification' 'gtk2' 'libxss' 'hicolor-icon-theme'
+         'libsm' 'libidn' 'avahi' 'gst-plugins-good' 'farstream' 'libgadu')
 makedepends=('nss' 'libsasl' 'python3' 'tk' 'ca-certificates' 'intltool' )
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
+conflicts=('libpurple')
+provides=('libpurple')
+replaces=('libpurple')
 options=('!libtool')
 source=("https://downloads.sourceforge.net/pidgin/${pkgname}-${pkgver}.tar.bz2")
 sha256sums=('2b05246be208605edbb93ae9edc079583d449e2a9710db6d348d17f59020a4b7')
@@ -25,7 +28,6 @@ build() {
         --disable-gnutls \
         --enable-cyrus-sasl \
         --disable-nm \
-        --with-python=/usr/bin/python3 \
         --with-system-ssl-certs=/etc/ssl/certs \
         --disable-gtkspell \
         --disable-gevolution
@@ -34,20 +36,8 @@ build() {
 
 package(){
     cd ${pkgbase}-${pkgver}
-    #for linking
-    make -C libpurple DESTDIR=${pkgdir} install-libLTLIBRARIES
 
-    make -C pidgin DESTDIR=${pkgdir} install
-    make -C doc DESTDIR=${pkgdir} install
-
-    #clean up libpurple
-    make -C libpurple DESTDIR=${pkgdir} uninstall-libLTLIBRARIES
-
-    install -D -m 0644 pidgin/data/pidgin.desktop ${pkgdir}/usr/share/applications/pidgin.desktop
-
-    rm -f ${pkgdir}/usr/share/man/man1/finch.1
-    # empty perl dir is installed in /home on server
-    #rm -r ${pkgdir}/home
+    make DESTDIR=${pkgdir} install
 }
 
 
