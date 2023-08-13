@@ -2,7 +2,7 @@
 pkgname=0ad
 pkgver=alpha26
 _pkgver=0.0.26-alpha
-pkgrel=3
+pkgrel=4
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="https://play0ad.com/"
@@ -14,17 +14,16 @@ depends=('binutils' 'boost-libs' 'curl' 'enet>=1.3' 'libogg' 'libpng' 'libvorbis
 makedepends=('boost' 'cmake' 'zip' 'python3' 'rust')
 source=("https://releases.wildfiregames.com/${pkgname}-${_pkgver}-unix-build.tar.xz"
         'icu1.68.patch'
-        '0ad-fcollada.patch')
+        "https://github.com/0ad/0ad/commit/839edc3ae61cd313d37a14a9a24e2ef1bd4e5808.diff")
 sha1sums=('e3b62b28cd61ee97f6ae989fc9ba351e6405264c'
           'f703537288d133fcd1a0f8a15b73d9ce05b62771'
-          '6fa4ea6d4e1ff119a32b36a78b426baaee56180a')
+          'ee6a5577b049a7c50b1c7be5ea1a537e54ee7aae')
 
-#prepare() {
-  #cd ${pkgname}-${_pkgver}/
-  
-  #patch -p1 -i $srcdir/0ad-fcollada.patch
-  #patch -p1 -i $srcdir/icu1.68.patch
-#}
+prepare() {
+  cd ${pkgname}-${_pkgver}/
+  #fmt 10.x needed
+  patch -p1 -i $srcdir/839edc3ae61cd313d37a14a9a24e2ef1bd4e5808.diff
+}
 
 build() {
   cd ${pkgname}-${_pkgver}/build/workspaces
