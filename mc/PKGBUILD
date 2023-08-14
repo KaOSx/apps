@@ -1,7 +1,7 @@
 
 pkgname=mc
-pkgver=4.8.29
-pkgrel=3
+pkgver=4.8.30
+pkgrel=1
 pkgdesc="Text based filemanager/shell that emulates Norton Commander"
 arch=('x86_64')
 url="https://www.midnight-commander.org"
@@ -14,7 +14,7 @@ optdepends=('p7zip: support for 7zip archives'
 groups=('system')
 options=('!emptydirs' '!makeflags')
 source=("https://www.midnight-commander.org/downloads/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('01d8a3b94f58180cca5bf17257b5078d1fd6fd27a9b5c0e970ec767549540ad4')
+sha256sums=('5ebc3cb2144b970c5149fda556c4ad50b78780494696cdf2d14a53204c95c7df')
 
 build() {
 	cd ${pkgname}-${pkgver}
@@ -24,10 +24,9 @@ build() {
 	    --sysconfdir=/etc \
 	    --enable-background \
 	    --with-x \
-	    --enable-vfs-smb \
 	    --libexecdir=/usr/lib \
-	    --with-screen=slang
-
+	    --with-screen=slang \
+	    --with-search-engine=pcre2
 	make 
 }
 
