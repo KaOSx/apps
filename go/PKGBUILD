@@ -1,7 +1,7 @@
 
 pkgname=go
 pkgver=1.21.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Google Go compiler and tools (release version)'
 arch=('x86_64')
 url='https://go.dev/'
@@ -18,27 +18,14 @@ build() {
   # run prior to building:
   export LC_ALL="en_US.UTF-8"
 
-  export GOROOT="${srcdir}/${pkgname}"
-  export GOBIN="$GOROOT/bin"
-  export GOPATH="${srcdir}/"
   export GOROOT_FINAL=/usr/lib/go
   export GOROOT_BOOTSTRAP="$GOROOT_FINAL"
   export GOOS=linux
-
-  bash make.bash
-
   export GOARCH=amd64
 
-  bash make.bash -v
+  ./make.bash -v
 
   GOOS=linux
-
-  #$GOROOT/bin/go get -d golang.org/x/tools/cmd/godoc
-  #$GOROOT/bin/go build -o ${srcdir}/godoc golang.org/x/tools/cmd/godoc
-  #for tool in benchcmp bundle callgraph cover digraph eg fiximports goimports gorename html2article present ssadump stress stringer toolstash; do
-  #  $GOROOT/bin/go get -d golang.org/x/tools/cmd/${tool}
-  #  $GOROOT/bin/go build -o $GOROOT/pkg/tool/${GOOS}_amd64/${tool} golang.org/x/tools/cmd/${tool}
-  #done
 }
 
 check() {
@@ -46,9 +33,6 @@ check() {
 
   export GOOS=linux
   export GOARCH=amd64
-  export GOROOT="${srcdir}/${pkgname}"
-  export GOBIN="$GOROOT/bin"
-  #export GOCACHE=off
   export PATH="${srcdir}/${pkgname}-$pkgver/bin:$PATH"
 
   cd src && bash run.bash --no-rebuild || true
@@ -57,33 +41,23 @@ check() {
 package() {
   cd go
 
-  export GOROOT="${srcdir}/${pkgname}"
-  export GOBIN="$GOROOT/bin"
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/go/LICENSE
 
-  #install -Dm755 "${srcdir}/godoc" "${pkgdir}/usr/bin/godoc"
+  install -d ${pkgdir}/usr/bin ${pkgdir}/usr/lib/go ${pkgdir}/usr/share/doc/go
 
-  install -Dm644 LICENSE \
-    "${pkgdir}/usr/share/licenses/go/LICENSE"
 
-  mkdir -p \
-    "${pkgdir}/"{etc/profile.d,usr/{share/go,lib/go,lib/go/bin,lib/go/src,lib/go/site/src}}
-
-  cp -r doc misc -t "${pkgdir}/usr/share/go"
+  cp -r doc -t "${pkgdir}/usr/share/doc/go"
   ln -s /usr/share/go/doc "${pkgdir}/usr/lib/go/doc"
-  cp -a bin "${pkgdir}/usr"
+  cp -a bin "${pkgdir}/usr/lib/go"
   cp -a pkg "${pkgdir}/usr/lib/go"
-  cp -a "$GOROOT/src" "${pkgdir}/usr/lib/go/"
-  cp -a "$GOROOT/src/cmd" "${pkgdir}/usr/lib/go/src/cmd"
-  cp -a "$GOROOT/lib" "${pkgdir}/usr/lib/go/"
+  cp -a src "${pkgdir}/usr/lib/go/"
+  cp -a lib "${pkgdir}/usr/lib/go/"
+  cp -a misc "${pkgdir}/usr/lib/go/"
 
   install -Dm644 src/Make.* "${pkgdir}/usr/lib/go/src"
 
-  find "${pkgdir}/usr/lib/go/src/" -type f -name '*.[ao]' -delete
-  find "${pkgdir}" -type f -name sql.go -exec chmod -x {} \;
-  find "${pkgdir}/usr/lib/go/src" -type f -executable -delete
-
-  ln -sf /usr/bin/go "${pkgdir}/usr/lib/go/bin/go"
-  ln -sf /usr/bin/gofmt "${pkgdir}/usr/lib/go/bin/gofmt"
+  ln -sf /usr/lib/go/bin/go "${pkgdir}/usr/bin/go"
+  ln -sf /usr/lib/go/bin/gofmt "${pkgdir}/usr/bin/gofmt"
 
   install -Dm755 src/make.bash "${pkgdir}/usr/lib/go/src/make.bash"
   install -Dm755 src/run.bash "${pkgdir}/usr/lib/go/src/run.bash"
@@ -94,6 +68,4 @@ package() {
 
   install -Dm644 VERSION "${pkgdir}/usr/lib/go/VERSION"
   install -Dm644 go.env "$pkgdir/usr/lib/go/go.env"
-
-  find "${pkgdir}/usr/"{lib/go/pkg,bin} -type f -exec touch '{}' +
 }
