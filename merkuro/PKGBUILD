@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=merkuro
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Calendar application supporting both local calendars as well as a multitude of online calendars."
 arch=("x86_64")
 url="https://apps.kde.org/merkuro.calendar/"
@@ -13,6 +13,9 @@ depends=('kcalendarcore' 'kconfigwidgets' 'kcontacts'  'kcoreaddons' 'kdbusaddon
          'kitemmodels' 'kirigami-addons' 'kio' 'qqc2-desktop-style' 'kwindowsystem' 'kxmlgui' 'knotifications'  'kservice'
          'akonadi-calendar' 'akonadi-contacts' 'calendarsupport' 'eventviews' 'mailcommon' 'pimcommon')
 makedepends=('extra-cmake-modules' 'boost')
+replaces=('kalendar')
+provides=('kalendar')
+conflicts=('kalendar')
 source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
