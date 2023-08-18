@@ -12,6 +12,12 @@ groups=('color')
 source=("https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v${pkgver}.tar.gz")
 md5sums=('372d6982cf01818a21a12f9628701a91')
 
+prepare() {
+  cd OpenColorIO-${pkgver}
+
+  sed -i 's|yaml-cpp 0.7.0|yaml-cpp 0.8.0|' share/cmake/modules/FindExtPackages.cmake
+}
+
 build() {
   cmake -B build -S OpenColorIO-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
