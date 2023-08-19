@@ -17,20 +17,22 @@ depends=('karchive6' 'kbookmarks6' 'kcodecs' 'kcoreaddons6' 'kconfig6' 'kconfigw
 makedepends=('extra-cmake-modules6' 'kdoctools6' 'gettext' 'docbook-xsl')
 optdepends=("dvdauthor: for creating dvds")
 groups=('multimedia')
-source=("$_mirror/${_pkgname}-${_kdever}.tar.xz"
-        "https://invent.kde.org/multimedia/kdenlive/-/commit/364e23f6d1ba104e40623297b82a0ee873942925.diff") 
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '27f4dda2f5d1f0df81244a401961218c')
+#source=("$_mirror/${_pkgname}-${_kdever}.tar.xz"
+#        "https://invent.kde.org/multimedia/kdenlive/-/commit/364e23f6d1ba104e40623297b82a0ee873942925.diff") 
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+#         '27f4dda2f5d1f0df81244a401961218c')
+source=("git+https://invent.kde.org/multimedia/${_pkgname}.git")
+md5sums=('SKIP')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}
 
   #patch -p1 -i ${srcdir}/364e23f6d1ba104e40623297b82a0ee873942925.diff
   sed -e "s|QtGraphicalEffects 1.15|Qt5Compat.GraphicalEffects|" -i src/timeline2/view/qml/TrackHead.qml
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

@@ -13,13 +13,17 @@ license=('GPL2')
 depends=('ki18n6' 'kio6' 'polkit-qt6')
 makedepends=('extra-cmake-modules6')
 #groups=('kde-system')
-source=("$_mirror/${_pkgname}-${pkgver}.tar.xz"
+#source=("$_mirror/${_pkgname}-${pkgver}.tar.xz"
+#        'org.kde.dolphin-admin.desktop')
+#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+#         'f77ac6fe210c48155dd445338749d217')
+source=("git+https://invent.kde.org/system/${_pkgname}.git"
         'org.kde.dolphin-admin.desktop')
-md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=('SKIP'
          'f77ac6fe210c48155dd445338749d217')
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
