@@ -1,16 +1,16 @@
 
-_extramodules=extramodules-6.3
+_extramodules=extramodules-6.4
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 
 pkgname=virtualbox-modules
 pkgver=7.0.10
 _pkgver=7.0.10
-pkgrel=1
+pkgrel=2
 pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
 arch=('x86_64')
 license=('GPL-2')
-depends=('linux>=6.3.9' 'linux<6.4')
+depends=('linux>=6.4.12' 'linux<6.5')
 makedepends=('linux-headers' 'elfutils')
 install=${pkgname}.install
 options=('!strip')
@@ -27,6 +27,7 @@ prepare() {
     cd vbox-kernel-module-src-${_pkgver}
 
     #patch -p1 -i ${srcdir}/linux5.11.patch
+    sed -i -e 's|if RTLNX_VER_MIN(6,5,0)|if RTLNX_VER_MIN(6,4,10)|g' vboxnetflt/linux/VBoxNetFlt-linux.c
 }
 
 build() {
