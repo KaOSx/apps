@@ -1,17 +1,17 @@
 
-_extramodules=extramodules-6.4-next
+_extramodules=extramodules-6.5-next
 _kernver="$(cat /lib/modules/$_extramodules/version)"
 #_kernver=4.8.3-1-next  # hardcode in case system not running linux-next
 
 pkgname=virtualbox-modules-next
 pkgver=7.0.10
 _pkgver=7.0.10
-pkgrel=10
+pkgrel=11
 pkgdesc="Kernel modules for VirtualBox"
 url="https://www.virtualbox.org"
 arch=('x86_64')
 license=('GPL-2')
-depends=('linux-next>=6.4' 'linux-next<6.5.0')
+depends=('linux-next>=6.5' 'linux-next<6.6.0')
 makedepends=('linux-next-headers' 'elfutils')
 provides=('virtualbox-modules')
 options=('!strip')
@@ -29,7 +29,7 @@ prepare() {
     cd vbox-kernel-module-src-${_pkgver}
 
     #patch -p1 -i ${srcdir}/linux5.18.patch
-    sed -i -e 's|if RTLNX_VER_MIN(6,5,0)|if RTLNX_VER_MIN(6,4,10)|g' vboxnetflt/linux/VBoxNetFlt-linux.c
+    #sed -i -e 's|if RTLNX_VER_MIN(6,5,0)|if RTLNX_VER_MIN(6,4,10)|g' vboxnetflt/linux/VBoxNetFlt-linux.c
 }
 
 build() {
