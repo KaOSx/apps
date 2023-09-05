@@ -1,8 +1,8 @@
 
 pkgname=freerdp
 _pkgname=FreeRDP
-pkgver=2.11.0
-_pkgver=2.11.0
+pkgver=2.11.1
+_pkgver=2.11.1
 _commit=f8c9f438436a4492e37011396148d804f7e3651f
 pkgrel=1
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)."
@@ -17,7 +17,7 @@ depends=('openssl' 'libxcursor' 'libcups' 'alsa-lib' 'libxext' 'libxdamage'
 makedepends=('krb5' 'cmake' 'damageproto' 'xmlto' 'docbook-xsl')
 #source=("https://github.com/FreeRDP/FreeRDP/archive/${_commit}.zip")
 source=("https://pub.freerdp.com/releases/${pkgname}-${_pkgver}.tar.gz")
-sha256sums=('8d08e638df21e67c3761462b4efb9e596576f58bd6886f902e6021cdd17d396e')
+sha256sums=('fa9aeff43ffef27c8bd04f9be124e58dd30df1be5f0cce90eb0342153bfa2425')
 
 build() {
   cmake -B build -S ${pkgname}-${_pkgver} \
