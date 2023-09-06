@@ -16,14 +16,14 @@ depends=('karchive6' 'kconfig6' 'kcrash6' 'kdbusaddons6' 'ki18n6' 'kitemmodels6'
 makedepends=('extra-cmake-modules6' 'kdoctools6')
 #groups=('kde' 'kde-utils' 'kde-uninstall' 'utils')
 source=($_mirror/${_pkgname}-${_kdever}.tar.xz
-        "https://invent.kde.org/utilities/ark/-/commit/8bf8c5ef07b0ac5e914d752681e470dea403a5bd.diff")
+        "https://invent.kde.org/utilities/ark/-/commit/e0e998ed4aad8b8c5dffaed8a49b0b97dd78a27b.diff")
 md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'cdfeb4706f6ac2c9583040d7d12c86e4')
+         '2878a958ede72ee6415a9c13ae5fc1b1')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
-  # security issue, fixed in 20.08.1
-  #patch -p1 -i ${srcdir}/8bf8c5ef07b0ac5e914d752681e470dea403a5bd.diff
+
+  patch -p1 -i ${srcdir}/e0e998ed4aad8b8c5dffaed8a49b0b97dd78a27b.diff
   
   #sed -i 's|application/x-rar|application/vnd.rar|' plugins/clirarplugin/CMakeLists.txt
 }
