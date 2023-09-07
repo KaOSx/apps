@@ -1,0 +1,54 @@
+
+pkgname=calamares6
+_pkgname=calamares
+pkgver=3.3.0
+pkgrel=1
+pkgdesc='Distribution-independent installer framework'
+arch=('x86_64')
+url='https://calamares.io/'
+license=('LGPL')
+depends=('qt6-svg' 'qt6-location' 'qt6-5compat' 'kconfig6' 'ki18n6' 'kcoreaddons6' 'solid6'
+         'kpackage6' 'plasma-framework6' 'yaml-cpp' 'parted' 'libatasmart' 'udisks2'
+         'polkit-qt6' 'kpmcore6' 'kparts6' 'kdbusaddons6' 'libpwquality' 'qt6-virtualkeyboard' 'zfs')
+makedepends=('extra-cmake-modules6' 'git' 'qt6-tools' 'boost') # 'clang')
+options=('debug' '!staticlibs')
+source=("git+https://github.com/KaOSx/calamares.git#branch=kf6"
+        'calamares.desktop'
+        'installer.svg'
+        'launch-calamares.sh'
+        'release_notes_welcomeq.qml')
+md5sums=('SKIP'
+         '663fce16ac08b3149516e6a0d2797f65'
+         'd5c65f43e057054e9728810530c4a030'
+         '3940358b12a14ce9302c0611cdad8cab'
+         '45f2e1e35227e478489321607334d02a')
+
+prepare () {
+  cd ${_pkgname}
+
+  #sed -e "s|add_subdirectory(lang)|#add_subdirectory(lang)|" -i CMakeLists.txt
+  #patch -R -p1 -i ${srcdir}/79db04dc2eb00b354044f73c054a94fe2b9f9aae.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DINSTALL_CONFIG=ON \
+    -DWITH_QT6=ON \
+    -DSKIP_MODULES="bootldr bootloader license notesqml oemid preservefiles partitionq"
+  cmake --build build
+}
+
+package() {
+  DESTDIR=${pkgdir} cmake --install build
+
+  install -Dm755 ${srcdir}/launch-calamares.sh ${pkgdir}/usr/bin/launch-calamares.sh
+  rm -rf ${pkgdir}/usr/share/applications/${pkgname}.desktop
+  install -Dm644 ${srcdir}/${_pkgname}.desktop ${pkgdir}/usr/share/applications/${_pkgname}.desktop
+  install -Dm644 ${srcdir}/installer.svg ${pkgdir}/usr/share/pixmaps/installer.svg
+  install -Dm644 ${srcdir}/release_notes_welcomeq.qml ${pkgdir}/usr/share/calamares/release_notes_welcomeq.qml
+
+  install -Dm644 ${_pkgname}/LICENSES/LGPL-3.0-or-later.txt ${pkgdir}/usr/share/calamares/LICENSE.txt
+}
