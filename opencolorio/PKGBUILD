@@ -15,7 +15,9 @@ md5sums=('c05f24a516fe82d381c4b0d471e12ad5')
 prepare() {
   cd OpenColorIO-${pkgver}
 
-  #sed -i 's|yaml-cpp 0.7.0|yaml-cpp 0.8.0|' share/cmake/modules/FindExtPackages.cmake
+  sed -i 's|yaml-cpp 0.7.0|yaml-cpp 0.8.0|' share/cmake/modules/FindExtPackages.cmake
+  sed -i 's|yaml-cpp 0.7.0|yaml-cpp 0.8.0|' share/cmake/modules/Findyaml-cpp.cmake
+  sed -i 's|get_target_property(yaml-cpp_LIBRARY yaml-cpp LOCATION)||' share/cmake/modules/Findyaml-cpp.cmake
 }
 
 build() {
