@@ -1,8 +1,8 @@
 
 pkgname=krita
-pkgver=5.1.5
-_pkgver=5.1.5
-pkgrel=7
+pkgver=5.2.0rc1
+_pkgver=5.2.0-rc1
+pkgrel=1
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -10,40 +10,38 @@ license=('FDL1.2' 'GPL2' 'LGPL')
 depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 
          'kiconthemes' 'kitemmodels' 'kitemviews' 'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem'
          'kimageformats'
-         'eigen3' 'gsl' 'lcms2' 'openexr' 'vc' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
-         'libraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'pyqt5-python3' 'quazip' 'qt5-tools' 
-         'kseexpr' 'opencolorio' 'libmypaint')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost') # 'clang')
+         'eigen3' 'gsl' 'lcms2' 'openexr' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
+         'libkdcraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'pyqt5-python3' 'quazip' 'qt5-tools' 
+         'kseexpr' 'libmypaint' 'fftw' 'libwebp' 'mlt' 'libunibreak' 'xsimd') # 'opencolorio'
+makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'immer' 'lager' 'zug') # 'clang')
 optdepends=('gmic-krita: bring GMIC capabilities to the image retouching in Krita')
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
-source=("https://download.kde.org/stable/krita/${_pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/unstable/krita/${_pkgver}/${pkgname}-${_pkgver}.tar.xz"
         "https://invent.kde.org/graphics/krita/-/commit/d66383f6c593d21463c658fbcc6adef28a7f570f.diff"
-        "https://invent.kde.org/graphics/krita/-/commit/6f8b60768033428178d560e0612bcd8073aed3f5.diff"
         'launch_krita.sh')
-sha256sums=('45eac209a3c4ac285ca223e1978d35694cdca31b0075e596ad252d6619f04249'
+sha256sums=('df2cc8a1a07a96f81ee9eb601282cbbcbf018cbbbd88cc68b50ecf5f51fb4d87'
             'a944a1b36c52aad46a950361d6f99c6015bddf15121f4c5333f526e9946d1e8d'
-            '109925e30a291e99b4fe9f714cfbc119643da1830dc9c881fa9754fbd3db4bf3'
             'df345142ede5ec8f2d3422850dd78059944220f163fa30b5cdefdc9bd54235ff')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
   sed -i 's|X-KDE-Import": "image/x-krita-raw|X-KDE-Import": "image/x-nikon-nef,image/x-canon-cr2,image/x-sony-sr2,image/x-canon-crw,image/x-pentax-pef,image/x-sigma-x3f,image/x-kodak-kdc,image/x-minolta-mrw,image/x-sony-arw,image/x-kodak-k25,image/x-kodak-dcr,image/x-olympus-orf,image/x-panasonic-raw,image/x-panasonic-raw2,image/x-fuji-raf,image/x-sony-srf,image/x-adobe-dng|' plugins/impex/raw/krita_raw_import.json
 
-  sed -i -e 's|raw.imgdata.params.shot_select|raw.imgdata.rawparams.shot_select|' plugins/impex/raw/3rdparty/libkdcraw/src/kdcraw.cpp
+  #sed -i -e 's|foreach(xsimd_version 8.1.0 9 10)|foreach(xsimd_version 8.1.0 9 10 11)|' CMakeLists.txt
   # openexr 3.0 needed
   #patch -p1 -i ${srcdir}/d66383f6c593d21463c658fbcc6adef28a7f570f.diff
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  cmake -B build -S ${pkgname}-${_pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_KRITA_QT_DESIGNER_PLUGINS=ON \
-    -DBUILD_TESTING=FALSE 
+    -DBUILD_TESTING=FALSE \
+    -DCMAKE_POSITION_INDEPENDENT_CODE=ON
   cmake --build build
 }
 
