@@ -1,0 +1,31 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=ocean-sound-theme
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc='Ocean Sound Theme for Plasma'
+arch=('x86_64')
+url='https://invent.kde.org/plasma/ocean-sound-theme'
+license=('GPL3')
+depends=('qt6-base')
+makedepends=('extra-cmake-modules6')
+groups=('kdeplasma6')
+#source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+#md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("git+https://invent.kde.org/plasma/${pkgname}.git")
+md5sums=('SKIP')
+
+build() {
+  cmake -B build -S ${pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
+
