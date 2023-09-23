@@ -52,10 +52,12 @@ Item {
 
             text: qsTr("<h3>KaOS - 2023.09</h3>
             <p>It is with great pleasure to present to you the September release of a new stable ISO.</p>
-
-            <p>Updates to the base of the system included a move to OpenSSL 3.1.2, fully updated Boost 1.82.0/ICU 73.2 stack, Alsa packages 1.2.10 , kernel moved to Linux 6.4.16, Systemd 253.10, Python 3.10.13, Util-Linux 2.39.2, IWD 2.8, OpenEXR 3.2.0, and Libarchive 3.7.2.</p>
             
-            <p>For the Plasma desktop, the latest Plasma (5.27.7), KDE Gear (23.08.1), and Frameworks (5.110.0) are included. All built on <b>Qt 5.15.10+</b>. Among the many changes included in KDE Gear 23.08 are, Kate has added support for the GLSL language and Godot's game design engine in its LSP client, and includes a QML language server option when using Qt 6. NeoChat can now display location events and also a map with the location of all the users currently broadcasting their location using Itineray's Matrix integration. Skanpage, KDE's scanning utility, now lets you re-order multi-page scans using drag-and-drop, and offers more adjustment options, like brightness, contrast, gamma, and color balance.</p>
+            <p>As you will note in this release announcement, work in KaOS is really shifting toward Plasma 6.  This ISO is still Plasma 5 based and includes all the latest updates, but Plasma 5 & Qt5 are not were upstream development is anymore. Plan is to have this or the November ISO be the last Plasma 5 based stable ISO, after that it will be Plasma 6 only.</p>
+
+            <p>Updates to the base of the system included a move to OpenSSL 3.1.3, fully updated Boost 1.82.0/ICU 73.2 stack, Alsa packages 1.2.10 , kernel moved to Linux 6.4.16, Systemd 253.10, Python 3.10.13, Util-Linux 2.39.2, IWD 2.8, OpenEXR 3.2.0, and Libarchive 3.7.2.</p>
+            
+            <p>For the Plasma desktop, the latest Plasma (5.27.8), KDE Gear (23.08.1), and Frameworks (5.110.0) are included. All built on <b>Qt 5.15.10+</b>. Among the many changes included in KDE Gear 23.08 are, Kate has added support for the GLSL language and Godot's game design engine in its LSP client, and includes a QML language server option when using Qt 6. NeoChat can now display location events and also a map with the location of all the users currently broadcasting their location using Itineray's Matrix integration. Skanpage, KDE's scanning utility, now lets you re-order multi-page scans using drag-and-drop, and offers more adjustment options, like brightness, contrast, gamma, and color balance.</p>
 
             <p>Not only is there a new stable ISO released, but there is also a new Plasma 6 preview ISO available.  This ISO is now also installable, the installer Calamares is almost ready for Qt 6/Plasma 6 (it builds and runs, but can't execute an installation yet), but the Qt5/kf5 version is included for now.  There are now many more KDE Applications also ready for Qt6/kf6, you will find quite a few on this ISO. Octopi is now also available in a Qt6/kf6 version. This ISO is only linked in the dedicated Forum post, not available from the Download page. The Midna theme is getting a complete overhaul for Plasma 6, major parts are included in this ISO.</p>
             
@@ -79,8 +81,6 @@ Item {
             
             <p>For Nvidia, a new longterm support version is included in this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
             
-            <p>Qt 6.5.2 is included and is now far more complete since many more are ported from Qt5, this includes qt6-location and the big one, qt6-webengine (plus all the Qt6 webengine depends on). A few test applications have been build on qt6-webengine, including some web browsers. All of the PyQt packages are now available in a Qt6 version too. Plus the Kvantum theming has support for Qt6.</p>
-            
             <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
             
             <p>KaOS' creation <strong>Croeso</strong> (Welsh for welcome) for helping with configuring a new install is included.  It will run on the newly installed system and offers to adjust some 15 commonly used settings, includes a custom Wallpaper selector, distribution info, and the option to select packages to install from six different groups.  It is written in QML and fits well with the Welcome application used in the Live system.  The latter includes an Installation Guide.</p>
@@ -101,7 +101,7 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.110.0, Plasma 5.27.7, KDE Applications 23.08.1</b>, Linux 6.4.16, Systemd 253.10, Kmod 30, NetworkManager 1.44.0, LibreOffice 7.6.1, Elisa, Xorg-Server 1.21.8, Mesa 23.1.7, Glibc 2.37, GCC 12.3.0, non-free Nvidia 535 and Python3 3.10.13 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.110.0, Plasma 5.27.8, KDE Applications 23.08.1</b>, Linux 6.4.16, Systemd 253.10, Kmod 30, NetworkManager 1.44.0, LibreOffice 7.6.1, Elisa, Xorg-Server 1.21.8, Mesa 23.1.7, Glibc 2.37, GCC 12.3.0, non-free Nvidia 535 and Python3 3.10.13 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
