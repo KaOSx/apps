@@ -12,16 +12,16 @@ depends=('karchive' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n'
          'kimageformats'
          'eigen3' 'gsl' 'lcms2' 'openexr' 'poppler-qt5' 'hicolor-icon-theme' 'exiv2'
          'libkdcraw' 'qca-qt5' 'qt5-svg' 'boost-libs' 'pyqt5-python3' 'quazip' 'qt5-tools' 
-         'kseexpr' 'libmypaint' 'fftw' 'libwebp' 'mlt' 'libunibreak' 'xsimd') # 'opencolorio'
+         'kseexpr' 'opencolorio' 'libmypaint' 'fftw' 'libwebp' 'mlt' 'libunibreak' 'xsimd')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'immer' 'lager' 'zug') # 'clang')
 optdepends=('gmic-krita: bring GMIC capabilities to the image retouching in Krita')
 conflicts=('krita-l10n')
 replaces=('krita-l10n')
 source=("https://download.kde.org/unstable/krita/${_pkgver}/${pkgname}-${_pkgver}.tar.xz"
-        "https://invent.kde.org/graphics/krita/-/commit/d66383f6c593d21463c658fbcc6adef28a7f570f.diff"
+        'ocio.diff'
         'launch_krita.sh')
 sha256sums=('df2cc8a1a07a96f81ee9eb601282cbbcbf018cbbbd88cc68b50ecf5f51fb4d87'
-            'a944a1b36c52aad46a950361d6f99c6015bddf15121f4c5333f526e9946d1e8d'
+            '93fadc54eb304d8507140790ae25d14b32edb589180aee0fca497ba1fb44748e'
             'df345142ede5ec8f2d3422850dd78059944220f163fa30b5cdefdc9bd54235ff')
 
 prepare() {
@@ -30,7 +30,7 @@ prepare() {
 
   #sed -i -e 's|foreach(xsimd_version 8.1.0 9 10)|foreach(xsimd_version 8.1.0 9 10 11)|' CMakeLists.txt
   # openexr 3.0 needed
-  #patch -p1 -i ${srcdir}/d66383f6c593d21463c658fbcc6adef28a7f570f.diff
+  patch -p1 -i ${srcdir}/ocio.diff
 }
 
 build() {

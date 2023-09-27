@@ -1,0 +1,15 @@
+diff --git a/plugins/dockers/lut/ocio_display_filter_vfx2021.cpp b/plugins/dockers/lut/ocio_display_filter_vfx2021.cpp
+index 13cc9727616af33530c99e015ce0706453dbb118..26a6e775d35aebe3f88f1fa37d9a261a3a8dd2da 100644
+--- a/plugins/dockers/lut/ocio_display_filter_vfx2021.cpp
++++ b/plugins/dockers/lut/ocio_display_filter_vfx2021.cpp
+@@ -506,8 +506,9 @@ bool OcioDisplayFilter::updateShaderImpl(F *f)
+         unsigned width = 0;
+         unsigned height = 0;
+         OCIO::GpuShaderDesc::TextureType channel = OCIO::GpuShaderDesc::TEXTURE_RGB_CHANNEL;
++        OCIO::GpuShaderCreator::TextureDimensions dimensions;
+         OCIO::Interpolation interpolation = OCIO::INTERP_LINEAR;
+-        shaderDesc->getTexture(idx, textureName, samplerName, width, height, channel, interpolation);
++        shaderDesc->getTexture(idx, textureName, samplerName, width, height, channel, dimensions, interpolation);
+ 
+         if (!textureName || !*textureName || !samplerName || !*samplerName || width == 0) {
+             errOpenGL << "The texture data is corrupted";
