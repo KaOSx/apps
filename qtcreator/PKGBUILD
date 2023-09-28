@@ -1,10 +1,10 @@
 
 pkgname=qtcreator
 _pkgname=qt-creator-opensource-src
-pkgver=11.0.2
+pkgver=11.0.3
 _pkgver=11.0
-__pkgver=11.0.2
-pkgrel=2
+__pkgver=11.0.3
+pkgrel=1
 pkgdesc="Lightweight, cross-platform integrated development environment."
 arch=('x86_64')
 url="https://www.qt.io/development-tools"
@@ -18,7 +18,7 @@ source=("https://download.qt.io/official_releases/${pkgname}/${_pkgver}/${__pkgv
         'qtcreator.desktop'
         "https://github.com/qt-creator/qt-creator/commit/170f9acfb41704b68e2ba98690fd6d5e98addd85.diff"
         "https://github.com/qt-creator/qt-creator/commit/6c9d4a60e00cd00712d739746d9ded34876901a9.diff")
-md5sums=('3fbaa230c6a92308190e807f7d5e0119'
+md5sums=('68d78bc58aee5f9dcc3775f7234259cb'
          '5162b73dd63f457bdb02bd9c8b1cc66b'
          '0608e38a4aae9ea23b683c33652797fc'
          '061ee2095f554460bdcd0ec7e1522c5c')
@@ -28,8 +28,8 @@ prepare() {
 
   sed -e 's|libexec/qtcreator|lib/qtcreator|' -i cmake/QtCreatorAPIInternal.cmake
   # yaml-cpp 0.8.0 needed
-  patch -p1 -i ${srcdir}/170f9acfb41704b68e2ba98690fd6d5e98addd85.diff
-  patch -p1 -i ${srcdir}/6c9d4a60e00cd00712d739746d9ded34876901a9.diff
+  #patch -p1 -i ${srcdir}/170f9acfb41704b68e2ba98690fd6d5e98addd85.diff
+  #patch -p1 -i ${srcdir}/6c9d4a60e00cd00712d739746d9ded34876901a9.diff
 }
 
 build() {
