@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=falkon6
 _pkgname=falkon
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Open source browser based on QtWebengine, written in Qt Framework"
 url="https://www.falkon.org/"
@@ -15,18 +15,18 @@ depends=('qt6-webengine' 'qt6-webchannel' 'qt6-5compat' 'ki18n6' 'kwallet6' 'kio
 makedepends=('extra-cmake-modules6' 'qt6-tools')
 #groups=('network-web')
 #source=("${_mirror}/${pkgname}-${_kdever}.tar.xz"
-source=("https://invent.kde.org/carewolf/falkon/-/archive/kf6/falkon-kf6.tar.bz2"
+source=("git+https://invent.kde.org/network/${_pkgname}.git"
         'speeddial.diff'
         'preferences.diff'
         'browserwindow.diff')
 #md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-md5sums=('0b616754a13af30271beb8dc9da09495'
+md5sums=('SKIP'
          '7820b47cdc6bc0f19786a39c843cb14c'
          '2addb3a5e484bcfbb19f702d2e86d2fd'
          'cafc9d1284e700ad615265bf39a2bafb')
 
 prepare() {
-  cd ${_pkgname}-kf6
+  cd ${_pkgname}
 
   #patch -R -p1 -i ${srcdir}/revert.diff
   patch -p1 -i ${srcdir}/speeddial.diff
@@ -35,7 +35,7 @@ prepare() {
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-kf6 \
+  cmake -B build -S ${_pkgname} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -49,6 +49,6 @@ package() {
 
   DESTDIR=${pkgdir} cmake --install build
 
-  install -Dm644 ${_pkgname}-kf6/linux/completion/_falkon ${pkgdir}/usr/share/zsh/site-functions/_falkon
+  install -Dm644 ${_pkgname}/linux/completion/_falkon ${pkgdir}/usr/share/zsh/site-functions/_falkon
 }
 
