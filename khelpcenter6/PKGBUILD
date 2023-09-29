@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=khelpcenter6
 _pkgname=khelpcenter
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='Application to show KDE Applications documentation'
 arch=('x86_64')
 url='https://invent.kde.org/system/khelpcenter'
@@ -15,7 +15,7 @@ depends=('karchive6' 'kbookmarks6' 'kconfig6' 'kcoreaddons6' 'kcompletion6' 'kdb
 makedepends=('extra-cmake-modules6' 'kdoctools6')
 #source=("https://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/system/${_pkgname}.git#branch=kf6")
+source=("git+https://invent.kde.org/system/${_pkgname}.git")
 md5sums=('SKIP')
 
 prepare() {
