@@ -1,7 +1,7 @@
 
 pkgname=muse
-pkgver=4.2
-_pkgver=4.2.0
+pkgver=4.2.1
+_pkgver=4.2.1
 pkgrel=1
 _commit=db294aed5c1f449a2a58e3f82aff3602c95806fc
 pkgdesc="MIDI/Audio sequencer with recording and editing capabilities, aims to be a complete multitrack virtual studio for Linux."
@@ -10,10 +10,10 @@ url='https://muse-sequencer.github.io/'
 license=('GPL2')
 depends=('qt5-svg' 'qt5-tools' 'dssi' 'fluidsynth' 'jack' 'ladspa' 'liblo' 'libsamplerate' 'libsndfile'
          'lv2' 'lilv' 'rubberband' 'liblrdf') 
-makedepends=('cmake')
+makedepends=('extra-cmake-modules')
 groups=('multimedia')
 source=("https://github.com/muse-sequencer/muse/releases/download/${_pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('752c27bc0cbe3eb037a186d3ef68af96')
+md5sums=('9a3d08619a9a959ae8c61dbd6bcff827')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
