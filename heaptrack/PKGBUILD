@@ -1,7 +1,7 @@
 
 pkgname=heaptrack
-pkgver=1.4.0
-pkgrel=4
+pkgver=1.5.0
+pkgrel=1
 pkgdesc='A heap memory profiler for Linux'
 arch=('x86_64')
 url="https://invent.kde.org/sdk/heaptrack"
@@ -10,15 +10,15 @@ depends=('boost-libs' 'libunwind' 'elfutils' 'kcoreaddons' 'ki18n' 'kitemmodels'
          'kio' 'kconfigwidgets' 'kdiagram' 'sparsehash')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kde')
-source=("https://download.kde.org/stable/heaptrack/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/heaptrack/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/sdk/heaptrack/-/commit/de3174aa1d1293636079473ff693d9a274a093a9.diff")
-sha256sums=('fc6b3226c36ca7faef58c9268dce427a83558ee48a2b636044ca084453a01f6d'
+sha256sums=('a278d9d8f91e8bfb8a1c2f5b73eecab47fd45d0693f5dbea637536413cec2ea5'
             '5d5364e04f99bfd914e2d627061bb8c1ae38c25388265fe753c6db1eb969a67e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i $srcdir/de3174aa1d1293636079473ff693d9a274a093a9.diff
+  #patch -p1 -i $srcdir/de3174aa1d1293636079473ff693d9a274a093a9.diff
 }
 
 build() {
