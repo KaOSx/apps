@@ -1,8 +1,8 @@
 
 pkgname=ardour
 _pkgname=Ardour
-pkgver=7.5.0
-pkgrel=2
+pkgver=8.0.0
+pkgrel=1
 pkgdesc="A multichannel hard disk recorder and digital audio workstation"
 arch=('x86_64')
 url="https://ardour.org/"
@@ -16,7 +16,7 @@ options=('!strip')
 #source=("https://community.ardour.org/srctar"
 source=("https://sourceforge.net/projects/kaosx/files/sources/ardour/${_pkgname}-${pkgver}.tar.bz2"
         "https://github.com/Ardour/ardour/commit/cc7b8b1bc5fb19e0ec5e476741c55627d4b62ba9.diff")
-md5sums=('142531c818199ab8a6f89547fb1a2f1b'
+md5sums=('450e1ec843458779d09d6c815c6e6f86'
          'a5f2b506deee5852bb6a92a34e1d8cc4')
 
 build() {
@@ -28,12 +28,10 @@ build() {
     --configdir=/etc \
     --with-backends="alsa,dummy,jack,pulseaudio" \
     --libjack=weak \
-    --nls \
     --optimize \
     --cxx11 \
     --freedesktop \
     --ptformat \
-    --lxvst \
     --no-phone-home
   ./waf build -v
 }
