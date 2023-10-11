@@ -13,25 +13,18 @@ depends=('kcoreaddons' 'polkit-qt5')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
 source=("http://download.kde.org/stable/frameworks/5.33/${pkgname}-${pkgver}.tar.xz"
-        'deadlock.patch'
-        "https://github.com/KDE/kauth/commit/df875f725293af53399f5146362eb158b4f9216a.diff")
+        'deadlock.patch')
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '150cefa733d5f51d174b91c6183a638d'
-         '0aebfa8962c7320bd054f231f81e9a15')
+         '150cefa733d5f51d174b91c6183a638d')
 
 prepare() {
   cd $pkgname-${pkgver}
-  
-  patch -p1 -i ${srcdir}/deadlock.patch
-  # CVE-2017-8422
-  #patch -p1 -i ${srcdir}/df875f725293af53399f5146362eb158b4f9216a.diff
+
+  #patch -p1 -i ${srcdir}/deadlock.patch
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -41,11 +34,10 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR="${pkgdir}" install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
