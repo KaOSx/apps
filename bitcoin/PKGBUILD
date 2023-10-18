@@ -10,15 +10,9 @@ depends=('boost-libs' 'qt5-base' 'miniupnpc' 'qrencode' 'libevent' 'zeromq')
 makedepends=('boost' 'qt5-tools')
 #source=("git://github.com/bitcoin/bitcoin.git")
 source=("https://github.com/bitcoin/bitcoin/archive/v${pkgver}.tar.gz"
-        "https://raw.githubusercontent.com/bitcoin-core/packaging/master/debian/bitcoin-qt.desktop"
-        'qt5.15.diff')
+        "https://raw.githubusercontent.com/bitcoin-core/packaging/master/debian/bitcoin-qt.desktop")
 md5sums=('f88f60790a2aeb94d528bc39d1cf7917'
-         'a1322d92df28647f88332030f414a0da'
-         '20133f2006e7f23517d46bd573d1e1f3')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-}
+         'a1322d92df28647f88332030f414a0da')
 
 build() {
   cd ${pkgname}-${pkgver}
