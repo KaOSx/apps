@@ -1,12 +1,12 @@
 
 pkgname=bitcoin
 pkgver=25.1
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Bitcoin is a peer-to-peer network based digital currency"
 url="https://bitcoin.org/en/"
 license=('MIT')
-depends=('boost-libs' 'qt5-base' 'miniupnpc' 'qrencode' 'protobuf' 'libevent' 'zeromq')
+depends=('boost-libs' 'qt5-base' 'miniupnpc' 'qrencode' 'libevent' 'zeromq')
 makedepends=('boost' 'qt5-tools')
 #source=("git://github.com/bitcoin/bitcoin.git")
 source=("https://github.com/bitcoin/bitcoin/archive/v${pkgver}.tar.gz"
@@ -18,14 +18,10 @@ md5sums=('f88f60790a2aeb94d528bc39d1cf7917'
 
 prepare() {
   cd ${pkgname}-${pkgver}
-
-  #patch -p1 -i ${srcdir}/qt5.15.diff
 }
 
 build() {
   cd ${pkgname}-${pkgver}
-  #CXXFLAGS="$CXXFLAGS -DBOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT=1"
-  #CXXFLAGS="-std=c++11"
 
   ./autogen.sh
   ./configure --prefix=/usr \
