@@ -94,7 +94,7 @@ Item {
         <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
         
         <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 6.5, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-        A limited number of the most well-known GTK applications are available, examples Firefox 118, Chrome 120, Ardour 8.0.0, Inkscape 1.3, GIMP 2.99.16 and Thunderbird 115.<br />
+        A limited number of the most well-known GTK applications are available, examples Firefox 119, Chrome 120, Ardour 8.1.0, Inkscape 1.3, GIMP 2.99.16 and Thunderbird 115.<br />
         Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
 
         <p><b>Known issues:</b></p>
