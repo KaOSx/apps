@@ -2,7 +2,7 @@
 pkgname=jitsi
 pkgver=2.11.5633
 _pkgver=5633
-pkgrel=1
+pkgrel=2
 pkgdesc="An audio/video SIP VoIP phone and instant messenger written in Java (formerly SIP-Communicator)"
 arch=('x86_64')
 url="https://jitsi.org"
@@ -23,25 +23,25 @@ build()
   cd ${pkgname}-${_pkgver}
   # append the build revision to the jitsi version
   sed -i "s/0\.build\.by\.SVN/build.${pkgver}/" src/net/java/sip/communicator/impl/version/NightlyBuildID.java
-  
+
   . /etc/profile.d/apache-ant.sh
   ant rebuild
 }
 
 package() {
   cd ${pkgname}-${_pkgver}
-  
+
   find lib/ lib/bundle/ -maxdepth 1 -type f \
     -exec install -Dm644 {} ${pkgdir}/usr/lib/${pkgname}/{} \;
-  
+
   shopt -sq extglob
-  
+
   find lib/native/linux$(sed 's/_/-/g' <<<${CARCH/#*(i?86|x86)/})/ -maxdepth 1 -type f \
     -execdir install -Dm644 {} ${pkgdir}/usr/lib/${pkgname}/lib/native/{} \;
-    
+
   find sc-bundles/{,os-specific/linux/} -maxdepth 1 -type f \
     -execdir install -Dm644 {} ${pkgdir}/usr/lib/${pkgname}/sc-bundles/{} \;
-    
+
   install -Dm755 ${srcdir}/${pkgname}.sh ${pkgdir}/usr/bin/${pkgname}
   install -Dm644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop
 

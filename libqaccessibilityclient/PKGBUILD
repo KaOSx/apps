@@ -4,30 +4,26 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libqaccessibilityclient
 pkgver=0.4.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Library used for when writing accessibility clients such as screen readers."
 arch=('x86_64')
-url='https://github.com/KDE/libkdeaccessibilityclient'
+url='https://invent.kde.org/libraries/libqaccessibilityclient'
 license=('LGPL')
 depends=('qt5-base')
 makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/stable/libqaccessibilityclient/${pkgname}-${pkgver}.tar.xz")
 md5sums=('d0f12d023741f611744cc8ff28b22634')
-         
+
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib 
-  make
+    -DCMAKE_INSTALL_LIBDIR=lib
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 

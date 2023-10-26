@@ -1,7 +1,7 @@
 
 pkgname=calligraplan
 pkgver=3.3.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Project management application, intended for managing moderately large projects with multiple resources."
 url='https://www.calligra.org/plan/'
@@ -24,13 +24,7 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  #export CC=/usr/bin/clang
-  #export CXX=/usr/bin/clang++
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -38,12 +32,11 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=FALSE \
     -DPACKAGERS_BUILD=true 
-  make
+   cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 

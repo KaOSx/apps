@@ -1,7 +1,7 @@
 
 pkgname=fcitx-anthy
 pkgver=0.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Anthy Wrapper for Fcitx, ported from scim-anthy."
 arch=('x86_64')
 url="https://fcitx-im.org/wiki/Fcitx"
@@ -12,15 +12,13 @@ source=("https://download.fcitx-im.org/fcitx-anthy/${pkgname}-${pkgver}.tar.xz")
 md5sums=('01eea99ce3e1cdc41f881f1cd422ca0d')
 
 build(){
-  cd ${pkgname}-${pkgver}
-
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release .
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+   cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

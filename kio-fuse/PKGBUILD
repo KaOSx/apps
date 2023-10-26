@@ -1,7 +1,7 @@
 
 pkgname=kio-fuse
 pkgver=5.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="FUSE Interface for KIO"
 arch=('x86_64')
 url='https://invent.kde.org/system/kio-fuse'
@@ -12,19 +12,15 @@ source=("https://download.kde.org/stable/kio-fuse/${pkgver}/${pkgname}-${pkgver}
 sha256sums=('66679a8bf68fe60e19f31449f4110d4cf822915b3d245af3c0cd0056081466dd')
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DBUILD_TESTING=OFF 
-  make 
+   cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
