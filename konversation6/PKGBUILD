@@ -1,0 +1,42 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=konversation6
+_pkgname=konversation
+pkgver=${_kdever}
+pkgrel=1
+pkgdesc="A user friendly IRC client for KDE"
+arch=('x86_64')
+url="https://konversation.kde.org"
+license=('GPL2' 'FDL')
+depends=('karchive6' 'kbookmarks6' 'kcodecs6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6'
+         'ki18n6' 'kidletime6' 'kitemviews6' 'kio6' 'knewstuff6' 'knotifications6' 'knotifyconfig6' 'kparts6'
+         'kstatusnotifieritem' 'ktextwidgets6' 'kwallet6' 'kwidgetsaddons6' 'kwindowsystem6' 'kglobalaccel6'
+         'phonon-qt6' 'qca-qt6' 'qt6-5compat')
+makedepends=('extra-cmake-modules6' 'kdoctools6')
+#groups=('communication')
+#source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("git+https://invent.kde.org/network/${_pkgname}.git#branch=work/port_qt6_keep_konsole")
+md5sums=('SKIP')
+
+prepare() {
+  cd ${_pkgname}
+  # set default channel to KaOS
+  sed -i -e 's|setName(QStringLiteral("#konversation")|setName(QStringLiteral("#kaos")|' src/config/preferences.cpp
+  
+  #patch -p1 -i ${srcdir}/461c7dd504299871d6e9068116125b9bd26e8985.diff
+}
+
+build() {
+  cmake -B build -S ${_pkgname} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTING=OFF 
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
