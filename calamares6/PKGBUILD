@@ -2,7 +2,7 @@
 pkgname=calamares6
 _pkgname=calamares
 pkgver=3.3.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://calamares.io/'
@@ -10,7 +10,7 @@ license=('LGPL')
 depends=('qt6-svg' 'qt6-location' 'qt6-5compat' 'kconfig6' 'ki18n6' 'kcoreaddons6' 'solid6'
          'kpackage6' 'plasma-framework6' 'yaml-cpp' 'parted' 'libatasmart' 'udisks2'
          'polkit-qt6' 'kpmcore6' 'kparts6' 'kdbusaddons6' 'libpwquality' 'qt6-virtualkeyboard' 'zfs')
-makedepends=('extra-cmake-modules6' 'git' 'qt6-tools') # 'clang')
+makedepends=('extra-cmake-modules6' 'git' 'qt6-tools' 'boost') # 'clang')
 options=('debug' '!staticlibs')
 source=("git+https://github.com/KaOSx/calamares.git#branch=kf6"
         'calamares.desktop'
@@ -21,7 +21,7 @@ md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
          'd5c65f43e057054e9728810530c4a030'
          '3940358b12a14ce9302c0611cdad8cab'
-         '42fa6362b56db7183efd3f2972393b1b')
+         '9dee57d676b21708ee9736c7d407888f')
 
 prepare () {
   cd ${_pkgname}
@@ -37,7 +37,7 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DINSTALL_CONFIG=ON \
     -DWITH_QT6=ON \
-    -DWITH_PYBIND11=ON \
+    -DWITH_PYBIND11=OFF \
     -DSKIP_MODULES="bootldr bootloader license notesqml oemid preservefiles partitionq"
   cmake --build build
 }
