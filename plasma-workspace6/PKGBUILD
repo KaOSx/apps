@@ -19,7 +19,7 @@ depends=('kauth6' 'kparts6' 'plasma-framework6' 'krunner6' 'knotifications6' 'kn
          'libqalculate' 'phonon-qt6' 'qt6-wayland' 'qt6-tools' 'plasma-wayland-protocols' 'icu'
          'glu' 'libxkbfile' 'libxcursor' 'lm_sensors' 'libraw1394' 'libusb' 'pciutils' 'libbsd' 'libxrandr'
          'gpsd' 'iso-codes' 'oxygen-icons5' 'sddm-kcm6' 'kactivitymanagerd6' 'drkonqi6' 'plasma5support'
-         'kwayland-integration6' 'kio-extras6' 'libkexiv6' 'khelpcenter6') #  'accountsservice' 'kio-fuse' 'libdbusmenu-qt' 
+         'kio-extras6' 'libkexiv6' 'khelpcenter6') #  'accountsservice' 'kio-fuse' 'libdbusmenu-qt' 
 makedepends=('extra-cmake-modules6' 'kdoctools6' 'boost') 
 groups=('kdeplasma6')
 #options=('debug')
@@ -27,14 +27,12 @@ groups=('kdeplasma6')
 source=("git+https://invent.kde.org/plasma/${_pkgname}.git"
         'shellcorona.diff'
         'kicker_qt6.diff'
-        "https://invent.kde.org/noee/plasma-workspace/-/commit/c8166b72886461250e76666f7a3bf8d385c79acc.diff"
-        "https://invent.kde.org/plasma/plasma-workspace/-/commit/74cc0a73c762aa72c8c8f2cb23fa3a5e8f8e656d.diff")
+        "https://invent.kde.org/noee/plasma-workspace/-/commit/c8166b72886461250e76666f7a3bf8d385c79acc.diff")
 #md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
 md5sums=('SKIP'
          '1913544f6cbf179033c3a1fdceac1b7e'
          'c12de12d61f8c65c998d971cb83b74d5'
-         'a42a1856f42fc7798ce2f65639298fc9'
-         '86d9b051a6d8a6d36fcab0902bb0ea17')
+         'b744f8ed671531d8a29641df5060f716')
 
 prepare () {
   cd ${_pkgname}
