@@ -1,23 +1,23 @@
 
 pkgname=qgis
 _pkgname=QGIS
-pkgver=3.32.3
+pkgver=3.34.0
 _commit=7dbe4943d606b8acd879dd6ed9e38542e3ab0bab
-pkgrel=2
+pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='https://qgis.org/'
 license=('GPL')
 arch=('x86_64')
 depends=('mariadb' 'postgresql-libs' 'sqlite' 'curl' 'giflib' 'gsl' 
-         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt5' 
-         'postgis' 'fcgi' 'qt5-svg' 'qt5-script' 'qt5-3d' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
-         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt6-python3' 'qca-qt5'
+         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt6' 
+         'postgis' 'fcgi' 'qt6-svg' 'qt6-serialport' 'qt6-3d' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
+         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt6-python3' 'qca-qt6'
          'python3-numpy' 'python3-httplib2' 'python3-requests' 'python3-pygments' 'pyyaml'
-         'libzip' 'qtkeychain' 'exiv2' 'protobuf' 'hdf5' 'grass') #'qt6-5compat'
-makedepends=('cmake'  'netcdf' 'sip' 'qt5-tools' 'pyqt-builder') 
+         'libzip' 'qtkeychain-qt6' 'exiv2' 'protobuf' 'hdf5' 'grass' 'qt6-5compat' 'qt6-positioning')
+makedepends=('cmake'  'netcdf' 'sip' 'qt6-tools' 'pyqt-builder') 
 source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
         'qt5.15.diff')
-sha256sums=('cd52487447ebd952b4fbb158b8602de95f8e940e9d79391bba15f941cddd0740'
+sha256sums=('348a2df4c4520813a319b7f72546b3823e044cacd28646ba189b56a49c7d1b5f'
             'b0b34ab28bf56f5a60366847df59f755cbb26af597c378959aa79f8c068c1b03') 
 
 prepare() {
@@ -42,8 +42,10 @@ prepare() {
         -DQGIS_MANUAL_SUBDIR=share/man \
         -DWITH_QWTPOLAR=FALSE \
         -DWITH_QTWEBKIT=FALSE \
-        -DWITH_PDAL=FALSE
-        #-DBUILD_WITH_QT6=TRUE
+        -DWITH_PDAL=FALSE \
+        -DWITH_DRACO=FALSE \
+        -DWITH_QTSERIALPORT=TRUE \
+        -DBUILD_WITH_QT6=TRUE
     cmake --build build
 }
 
