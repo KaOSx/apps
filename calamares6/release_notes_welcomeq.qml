@@ -38,12 +38,12 @@ Item {
         activeFocusOnPress: false
         wrapMode: Text.WordWrap
 
-        text: qsTr("<h3>KaOS - 2023.10</h3>
-        <p>It is with great pleasure to present to you the September release of a new stable ISO.</p>
+        text: qsTr("<h3>KaOS - 2023.11</h3>
+        <p>It is with great pleasure to present to you the November release of a new Plasma 6 ISO.</p>
         
         <p>As you will note in this release announcement, work in KaOS is really shifting toward Plasma 6.  This ISO is still Plasma 5 based and includes all the latest updates, but Plasma 5 & Qt5 are not were upstream development is anymore. Plan is to have this or the November ISO be the last Plasma 5 based stable ISO, after that it will be Plasma 6 only.</p>
 
-        <p>Updates to the base of the system included a move to OpenSSL 3.1.4, fully updated Glib2 2.78.1 stack, Alsa packages 1.2.10 , kernel moved to Linux 6.4.16, Systemd 254.5, Python 3.10.13, Util-Linux 2.39.2, IWD 2.8, OpenEXR 3.2.0, and Libarchive 3.7.2.</p>
+        <p>Updates to the base of the system included a move to OpenSSL 3.1.4, fully updated Glib2 2.78.1 stack, Alsa packages 1.2.10 , kernel moved to Linux 6.5.9, Systemd 254.5, Python 3.10.13, Util-Linux 2.39.2, IWD 2.8, OpenEXR 3.2.0, and Libarchive 3.7.2.</p>
         
         <p>For the Plasma desktop, the latest Plasma (5.27.9), KDE Gear (23.08.2), and Frameworks (5.111.0) are included. All built on <b>Qt 5.15.11+</b>. Among the many changes included in KDE Gear 23.08 are, Kate has added support for the GLSL language and Godot's game design engine in its LSP client, and includes a QML language server option when using Qt 6. NeoChat can now display location events and also a map with the location of all the users currently broadcasting their location using Itineray's Matrix integration. Skanpage, KDE's scanning utility, now lets you re-order multi-page scans using drag-and-drop, and offers more adjustment options, like brightness, contrast, gamma, and color balance.</p>
 
@@ -89,7 +89,7 @@ Item {
         
         <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
         
-        <p>The ISO ships with <b>Frameworks 5.240.0, Plasma 5.27.80, KDE Applications 23.08.2</b>, Linux 6.4.16, Systemd 254.5, Kmod 31, NetworkManager 1.44.2, LibreOffice 7.6.2, Elisa, Xorg-Server 1.21.9, Mesa 23.2.1, Glibc 2.37, GCC 12.3.0, non-free Nvidia 535 and Python3 3.10.13 to name a few.</p>
+        <p>The ISO ships with <b>Frameworks 5.240.0, Plasma 5.27.80, KDE Applications 23.08.2</b>, Linux 6.5.9, Systemd 254.5, Kmod 31, NetworkManager 1.44.2, LibreOffice 7.6.2, Elisa, Xorg-Server 1.21.9, Mesa 23.2.1, Glibc 2.37, GCC 12.3.0, non-free Nvidia 535 and Python3 3.10.13 to name a few.</p>
         
         <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
         
