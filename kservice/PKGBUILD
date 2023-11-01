@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kservice
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KService provides a plugin framework for handling desktop services'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kservice'
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('ki18n' 'kconfig' 'kcrash' 'kdbusaddons')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/5.77/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/5.111/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
@@ -29,4 +29,6 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  # kf6 conflict
+  rm -r ${pkgdir}/etc
 }

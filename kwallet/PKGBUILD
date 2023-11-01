@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwallet
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KWallet Framework - Safe desktop-wide storage for passwords'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kwallet'
@@ -13,7 +13,7 @@ depends=('kcoreaddons' 'kconfig' 'kwindowsystem' 'ki18n' 'kiconthemes' 'knotific
          'kconfigwidgets' 'kdbusaddons' 'kservice' 'kwidgetsaddons' 'gpgme' 'qca-qt5')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/5.111/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
@@ -21,9 +21,9 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DBUILD_KWALLETD=OFF \
+    -DBUILD_KWALLET_QUERY=OFF
   cmake --build build
 }
 

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kio'
@@ -15,7 +15,7 @@ depends=('karchive' 'kconfig' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kser
          'qt5-script' 'switcheroo-control')
 makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
 groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/5.109/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/frameworks/5.111/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/frameworks/kio/-/commit/48322f44323a1fc09305d66d9093fe6c3780709e.diff")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
          '9fbdce78cd14a4dcb40d6a67375200f1')
@@ -33,7 +33,6 @@ build() {
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
@@ -41,4 +40,6 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  # kf6 conflict
+  rm -r ${pkgdir}/etc/xdg/accept-languages.codes
 }
