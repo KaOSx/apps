@@ -16,15 +16,14 @@ depends=('mariadb' 'postgresql-libs' 'sqlite' 'curl' 'giflib' 'gsl'
          'libzip' 'qtkeychain-qt6' 'exiv2' 'protobuf' 'hdf5' 'grass' 'qt6-5compat' 'qt6-positioning')
 makedepends=('cmake'  'netcdf' 'sip' 'qt6-tools' 'pyqt-builder') 
 source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
-        'qt5.15.diff')
+        "https://github.com/qgis/QGIS/commit/24580230311ef850dfb7d64dc79653bd9230fb64.diff")
 sha256sums=('348a2df4c4520813a319b7f72546b3823e044cacd28646ba189b56a49c7d1b5f'
-            'b0b34ab28bf56f5a60366847df59f755cbb26af597c378959aa79f8c068c1b03') 
+            '131d494357c06cae56aa094e9f7da2ec0de59173679a18348b2a0e25ab2d496e') 
 
 prepare() {
      cd ${pkgname}-${pkgver}
 
-     # qwt 6.2
-     #patch -p1 -i ${srcdir}/6f9cbde7c782274ebe5875da7dbac98d68e9827b.diff
+     patch -R -p1 -i ${srcdir}/24580230311ef850dfb7d64dc79653bd9230fb64.diff
 
      #sed -i -e 's|qt/Qca-qt5/QtCrypto|qt5/Qca-qt5/QtCrypto|' cmake/FindQCA.cmake
      sed -i -e 's|set(QWT_LIBRARY_NAMES qwt-qt5 qwt6-qt5)|set(QWT_LIBRARY_NAMES qwt qwt6)|' cmake/FindQwt.cmake
