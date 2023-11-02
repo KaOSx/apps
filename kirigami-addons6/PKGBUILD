@@ -1,23 +1,23 @@
  
 pkgname=kirigami-addons6
 _pkgname=kirigami-addons
-pkgver=0.11.0
-pkgrel=2
+pkgver=0.11.75
+pkgrel=1
 pkgdesc="Add-ons for the Kirigami framework (kf6 version)."
 arch=('x86_64')
 url="https://invent.kde.org/libraries/kirigami-addons"
 license=('GPL3')
 depends=('qt6-declarative' 'kirigami6' 'ki18n6')
 makedepends=('extra-cmake-modules6')
-source=("https://download.kde.org/stable/kirigami-addons/${_pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/unstable/kirigami-addons/${_pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/libraries/kirigami-addons/-/commit/dc6e1ea099622801750ada8b59beded3dc2da5fa.diff")
-sha256sums=('05296c5afbe6804308bf9c0d2751f3b748b40d00fa784946d1dcdf3af4bffbad'
+sha256sums=('28a8aa85aa48640fc98d496ae44a5354e952b520b88762f6e0787f7788ba1b14'
             'ca37e7412bc12a105aa28552399ee49b0fe148230e3c2338fba8d792b548557f')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/dc6e1ea099622801750ada8b59beded3dc2da5fa.diff
+  #patch -p1 -i ${srcdir}/dc6e1ea099622801750ada8b59beded3dc2da5fa.diff
 }
 
 build() {
@@ -32,4 +32,6 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  # remove kirigami-addons locale conflict
+  rm -r ${pkgdir}/usr/share/locale
 }
