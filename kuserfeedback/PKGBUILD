@@ -1,16 +1,16 @@
 
 pkgname=kuserfeedback
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="Framework for collecting user feedback for applications via telemetry and surveys"
 arch=('x86_64')
 url="https://invent.kde.org/libraries/kuserfeedback/"
 license=('MIT')
-depends=('qt5-declarative' 'qt5-svg') # 'php' optional, check what needs with plasma 5.15
+depends=('qt5-declarative' 'qt5-svg' 'qt5-charts') # 'php' optional, check what needs with plasma 5.15
 makedepends=('extra-cmake-modules' 'qt5-tools' 'clang')
 source=("https://download.kde.org/stable/kuserfeedback/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/libraries/kuserfeedback/-/commit/17db7d75643b4f3dccd5b36a6ab175f03ba74297.diff")
-sha256sums=('76aac922b153249b274680a6f4c72c238ef14e3df04bad00cb64158b1063f264'
+sha256sums=('252308b822dd4690ea85ab1688c9b0da5512978ac6b435f77a5979fc1d2ffd13'
             '50fe80c634fc685798bb8ba07ff1424ef67e8e378b18477514c4a01b2925b0ea')
 
 prepare() {
@@ -24,7 +24,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=5
   cmake --build build
 }
 
