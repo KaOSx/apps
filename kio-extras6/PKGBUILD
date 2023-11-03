@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kio-extras6
 _pkgname=kio-extras
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://invent.kde.org/network/kio-extras'
@@ -43,4 +43,6 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  # conflicts with kio kf5
+  rm -r ${pkgdir}/usr/share/applications/kcm_trash.desktop
 }
