@@ -50,16 +50,16 @@ Item {
             activeFocusOnPress: false
             wrapMode: Text.WordWrap
 
-            text: qsTr("<h3>KaOS - 2023.09</h3>
-            <p>It is with great pleasure to present to you the September release of a new stable ISO.</p>
+            text: qsTr("<h3>KaOS - 2023.11</h3>
+            <p>KaOS is pleased to announce the availability of the November release of a new stable ISO.</p>
             
             <p>As you will note in this release announcement, work in KaOS is really shifting toward Plasma 6.  This ISO is still Plasma 5 based and includes all the latest updates, but Plasma 5 & Qt5 are not were upstream development is anymore. Plan is to have this or the November ISO be the last Plasma 5 based stable ISO, after that it will be Plasma 6 only.</p>
 
-            <p>Updates to the base of the system included a move to OpenSSL 3.1.3, fully updated Boost 1.82.0/ICU 73.2 stack, Alsa packages 1.2.10 , kernel moved to Linux 6.4.16, Systemd 253.10, Python 3.10.13, Util-Linux 2.39.2, IWD 2.8, OpenEXR 3.2.0, and Libarchive 3.7.2.</p>
+            <p>Updates to the base of the system included a move to OpenSSL 3.1.4, fully updated Glib2 2.78.1 stack, Alsa packages 1.2.10 , kernel moved to Linux 6.5.10, Systemd 254.5, Python 3.10.13, Util-Linux 2.39.2, IWD 2.8, OpenEXR 3.2.0, and Libarchive 3.7.2.</p>
             
-            <p>For the Plasma desktop, the latest Plasma (5.27.8), KDE Gear (23.08.1), and Frameworks (5.110.0) are included. All built on <b>Qt 5.15.10+</b>. Among the many changes included in KDE Gear 23.08 are, Kate has added support for the GLSL language and Godot's game design engine in its LSP client, and includes a QML language server option when using Qt 6. NeoChat can now display location events and also a map with the location of all the users currently broadcasting their location using Itineray's Matrix integration. Skanpage, KDE's scanning utility, now lets you re-order multi-page scans using drag-and-drop, and offers more adjustment options, like brightness, contrast, gamma, and color balance.</p>
+            <p>For the Plasma desktop, the latest Plasma (5.27.9), KDE Gear (23.08.2), and Frameworks (5.111.0) are included. All built on <b>Qt 5.15.11+</b>. Among the many changes included in KDE Gear 23.08 are, Kate has added support for the GLSL language and Godot's game design engine in its LSP client, and includes a QML language server option when using Qt 6. NeoChat can now display location events and also a map with the location of all the users currently broadcasting their location using Itineray's Matrix integration. Skanpage, KDE's scanning utility, now lets you re-order multi-page scans using drag-and-drop, and offers more adjustment options, like brightness, contrast, gamma, and color balance.</p>
 
-            <p>Not only is there a new stable ISO released, but there is also a new Plasma 6 preview ISO available.  This ISO is now also installable, the installer Calamares is almost ready for Qt 6/Plasma 6 (it builds and runs, but can't execute an installation yet), but the Qt5/kf5 version is included for now.  There are now many more KDE Applications also ready for Qt6/kf6, you will find quite a few on this ISO. Octopi is now also available in a Qt6/kf6 version. This ISO is only linked in the dedicated Forum post, not available from the Download page. The Midna theme is getting a complete overhaul for Plasma 6, major parts are included in this ISO.</p>
+            <p>Not only is there a new stable ISO released, but there is also a new Plasma 6 preview ISO available.  This ISO is installable, with the installer Calamares fully moved to Qt 6/Plasma 6.  There are now many more KDE Applications also ready for Qt6/kf6, you will find quite a few on this ISO. Everything is now packaged in such a way that just about all kf5 based KDE Applications can also run on Plasma 6, so Plasma 6 is almost ready to full replace Plasma 5 in KaOS. This ISO is only linked in the dedicated Forum post, not available from the Download page. The Midna theme is getting a complete overhaul for Plasma 6, major parts are included in this ISO.</p>
             
             <p>SDDM 0.20.0 added the option to run this display manager in Wayland mode, so KaOS is one step closer to being to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using Weston).</p>
 
@@ -76,7 +76,7 @@ Item {
 
             <p>A shift has started as to how all Python packages are build.  Historically, just about all were build with setuptools though a setup.py script.  PEP17 is the new standard for building python packages, see https://peps.python.org/pep-0517/.  At this stage, KaOS is testing this transition with different new Python build tools, such as Python-flit & Python-build, with Python-wheel currently in use to install the build packages.</p>
 
-            <p>Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.11.
+            <p>Qt 5.15 does not receive updates or maintenance from the Qt company (only closed source, paid support is available). KDE has stepped up though and published a maintained 5.15 fork https://dot.kde.org/2021/04/06/announcing-kdes-qt-5-patch-collection. KaOS now regularly does a patch update from this fork for all of Qt 5.15, so it basically is now at 5.15.12.
             </p>
             
             <p>For Nvidia, a new longterm support version is included in this ISO, 470xx. The move by Nvidia to 495 meant the end of support for Kepler based cards, thus the need to add a new legacy version.</p>
@@ -101,12 +101,12 @@ Item {
             
             <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
             
-            <p>The ISO ships with <b>Frameworks 5.110.0, Plasma 5.27.8, KDE Applications 23.08.1</b>, Linux 6.4.16, Systemd 253.10, Kmod 30, NetworkManager 1.44.0, LibreOffice 7.6.1, Elisa, Xorg-Server 1.21.8, Mesa 23.1.7, Glibc 2.37, GCC 12.3.0, non-free Nvidia 535 and Python3 3.10.13 to name a few.</p>
+            <p>The ISO ships with <b>Frameworks 5.111.0, Plasma 5.27.9, KDE Applications 23.08.2</b>, Linux 6.5.10, Systemd 254.5, Kmod 30, NetworkManager 1.44.2, LibreOffice 7.6.2, Elisa, Xorg-Server 1.21.9, Mesa 23.2.1, Glibc 2.37, GCC 12.3.0, non-free Nvidia 545 and Python3 3.10.13 to name a few.</p>
             
             <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
             
             <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 6.5, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-            A limited number of the most well-known GTK applications are available, examples Firefox 117, Chrome 118, Ardour 7.5.0, Inkscape 1.3, GIMP 2.99.16 and Thunderbird 115.<br />
+            A limited number of the most well-known GTK applications are available, examples Firefox 119, Chrome 120, Ardour 8.1.0, Inkscape 1.3, GIMP 2.99.16 and Thunderbird 115.<br />
             Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
 
             <p><b>Known issues:</b></p>
