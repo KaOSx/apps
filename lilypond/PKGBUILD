@@ -2,7 +2,7 @@
 pkgname=lilypond
 pkgver=2.24.2
 _pkgver=2.24
-pkgrel=1
+pkgrel=2
 pkgdesc="A music engraving program, devoted to producing the highest-quality sheet music possible."
 arch=('x86_64')
 url="https://lilypond.org/"
@@ -15,11 +15,15 @@ optdepends=('netpbm: building HTML documentation'
             'imagemagick: building HTML documentation'
             'rsync: installing HTML documentation')
 groups=('multimedia')
-source=("https://lilypond.org/downloads/source/v${_pkgver}/${pkgname}-${pkgver}.tar.gz")
-md5sums=('61636a6a731a8f0cb2d69a599e0f7daa')
+source=("https://lilypond.org/downloads/source/v${_pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "https://gitlab.com/lilypond/lilypond/-/commit/1695a4d64dc6bcfda4dbd2b56f908d9f61929e96.diff")
+md5sums=('61636a6a731a8f0cb2d69a599e0f7daa'
+         '32d4236812230d52720a54b6450b0701')
 
 build() {
   cd ${pkgname}-${pkgver}
+  # Ghostscript 10.02.1 needed
+  patch -p1 -i ${srcdir}/1695a4d64dc6bcfda4dbd2b56f908d9f61929e96.diff
 
   ./autogen.sh \
     --prefix=/usr \
