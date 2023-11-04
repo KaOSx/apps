@@ -1,16 +1,16 @@
 
 pkgname=octopi
 pkgver=0.15.0
-pkgrel=1
+pkgrel=2
 _commit=b4301d72cc24c4b00f555b2ddf38db8df1640ec1
 pkgdesc="This is Octopi, a powerful Pacman frontend using Qt libs"
 url="https://tintaescura.com/projects/octopi/"
 arch=('x86_64')
 license=('GPL2')
-depends=('pacman' 'pacman-contrib' 'knotifications' 'alpm_octopi_utils' 'qtermwidget' 'sudo')
-makedepends=('qt5-tools' 'cmake')
+depends=('pacman' 'pacman-contrib' 'pkgfile' 'alpm_octopi_utils' 'qtermwidget-qt6' 'sudo' 'knotifications6')
+makedepends=('qt6-tools' 'cmake')
+replaces=('octopi6')
 groups=('system')
-#install=octopi.install
 source=("https://github.com/aarnt/octopi/archive/${_commit}.zip"
         "images3.tar.xz"
         'folder_tree.png'
@@ -30,7 +30,7 @@ prepare() {
    cp ${srcdir}/folder_tree.png resources/images/folder_tree.png
 
    # enable the kstatus switch
-   sed -e "s|#KSTATUS|KSTATUS|" -i notifier/octopi-notifier.pro
+   sed -e "s|KF5Notifications|KF6Notifications|" -i notifier/CMakeLists.txt
    sed -e "s|gui network|gui network dbus|" -i notifier/octopi-notifier.pro
    
    sed -e "s|pacman -U --force|pacman -U|" -i src/pacmanexec.cpp
@@ -46,7 +46,8 @@ prepare() {
 build() {
   cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUSE_QTERMWIDGET6=ON
   cmake --build build
 }
 
