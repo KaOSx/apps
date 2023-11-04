@@ -4,12 +4,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=markdownpart
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Markdown viewer KParts plugin, which allows KParts-using applications to display files in Markdown format in the target format"
 arch=('x86_64')
 url="https://invent.kde.org/utilities/markdownpart"
 license=('LGPL2.1+')
-depends=('ki18n' 'kparts')
+depends=('ki18n6' 'kparts6')
 makedepends=('extra-cmake-modules')
 provides=('kmarkdownwebview')
 replaces=('kmarkdownwebview')
@@ -21,7 +21,8 @@ build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_SHARED_LIBS=ON
+    -DBUILD_SHARED_LIBS=ON \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
