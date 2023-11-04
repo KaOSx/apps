@@ -3,26 +3,29 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kapidox
-pkgver=${_kf5ver}
-pkgrel=1
+pkgver=${_kf6ver}
+pkgrel=2
 pkgdesc='Frameworks API Documentation Tools'
 arch=('x86_64')
-url='https://github.com/KDE/kapidox'
+url='https://invent.kde.org/frameworks/kapidox'
 license=('LGPL')
 depends=('python3-jinja' 'pyyaml')
-makedepends=('python3-build' 'python3-installer' 'python3-setuptools' 'python3-wheel' 'qt5-base')
-groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/5.101/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+makedepends=('python3-build' 'python3-installer' 'python3-setuptools' 'python3-wheel' 'qt6-base')
+replaces=('kapidox6')
+groups=('kf6')
+#source=("https://download.kde.org/stable/frameworks/5.101/${_pkgname}-${pkgver}.tar.xz")
+#md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`)
+source=("git+https://invent.kde.org/frameworks/${pkgname}.git")
+md5sums=('SKIP')
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
 
   python3 -m build -nw
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
 
   python3 -m installer --destdir=${pkgdir} dist/*.whl
 }
