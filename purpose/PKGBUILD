@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=purpose
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/purpose'
@@ -12,7 +12,7 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kconfig' 'ki18n' 'kio' 'kaccounts-integration' 'kirigami'
          'accounts-qml-module' 'kdeconnect-kde' 'kdeclarative')
 makedepends=('extra-cmake-modules' 'kdoctools' 'intltool')
-source=("http://download.kde.org/stable/frameworks/5.43/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/stable/frameworks/5.111/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 prepare() {
@@ -36,5 +36,8 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  # conflicts with purpose6
+  rm -r ${pkgdir}/usr/share/icons/hicolor/128x128/apps
+  rm -r ${pkgdir}/usr/share/icons/hicolor/16x16/apps
 }
 
