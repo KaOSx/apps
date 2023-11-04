@@ -1,0 +1,26 @@
+
+pkgname=xwaylandvideobridge
+pkgver=0.3.0
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Utility to allow streaming Wayland windows to X applications"
+url="https://invent.kde.org/system/xwaylandvideobridge"
+license=('GPL2')
+depends=('kcoreaddons6' 'ki18n6' 'kwindowsystem6' 'knotifications6' 'kstatusnotifieritem' 'kpipewire6')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/stable/xwaylandvideobridge/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('f8da6e8fe0ec3bd5ea797af8aad8fe1daab36fc3c77e2d36bb7443832cdfcffa')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_TESTING=OFF \
+      -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
