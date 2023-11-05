@@ -12,23 +12,19 @@ url='https://invent.kde.org/frameworks/frameworkintegration'
 license=('LGPL')
 depends=('kconfig6' 'kconfigwidgets6' 'ki18n6' 'kiconthemes6' 'knotifications6' 
          'kwidgetsaddons6' 'kpackage6' 'knewstuff6' 'noto-fonts' 'libxcursor' 'ttf-dejavu')
-makedepends=('extra-cmake-modules6')
+makedepends=('extra-cmake-modules')
 groups=('kf6')
-#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-#        "https://invent.kde.org/frameworks/frameworkintegration/-/commit/675802e706a737c008aa74600ac804b06db52140.diff")
-#md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         'f0d207f27967e0f4e02df83f28671d57')
-source=("git+https://invent.kde.org/frameworks/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/675802e706a737c008aa74600ac804b06db52140.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

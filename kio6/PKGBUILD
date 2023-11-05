@@ -15,23 +15,19 @@ depends=('karchive6' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'ki18n6'
          'kbookmarks6' 'kcompletion6' 'kconfigwidgets6' 'kguiaddons6' 'kiconthemes6' 'kitemviews6' 'kjobwidgets6'
          'kwidgetsaddons6' 'kwindowsystem6' 'kauth6' 'kwallet6' 'knotifications6' 'kded6'
          'ktextwidgets6' 'krb5' 'qt6-5compat' 'switcheroo-control')
-makedepends=('extra-cmake-modules6' 'kdoctools6' 'qt6-tools')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
 groups=('kf6')
-#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-#        "https://invent.kde.org/frameworks/kio/-/commit/a37f2f869772e8e5304a1a12cd197926c7397aeb.diff")
-#md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         '924b1a13601944bc8dddf6a490c7969b')
-source=("git+https://invent.kde.org/frameworks/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/a37f2f869772e8e5304a1a12cd197926c7397aeb.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
