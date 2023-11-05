@@ -11,23 +11,19 @@ arch=('x86_64')
 url='https://invent.kde.org/frameworks/kitemviews'
 license=('LGPL')
 depends=('qt6-base')
-makedepends=('extra-cmake-modules6' 'qt6-tools')
+makedepends=('extra-cmake-modules' 'qt6-tools')
 groups=('kf6')
-#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-#        "https://github.com/KDE/kitemviews/commit/69b9ac0575d905ded79ed013c6e2374d9ebeb841.diff")
-#md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         '5e9dc6d09b787790fe9d84913f0ccbed')
-source=("git+https://invent.kde.org/frameworks/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/69b9ac0575d905ded79ed013c6e2374d9ebeb841.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

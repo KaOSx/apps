@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=extra-cmake-modules
 pkgver=${_kf6ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Extra CMake modules'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/extra-cmake-modules'
@@ -14,13 +14,11 @@ makedepends=('qt6-tools') # 'python3-sphinx' 'python3-requests')  'sphinx_rtd_th
 replaces=('extra-cmake-modules6')
 provides=('extra-cmake-modules6')
 conflicts=('extra-cmake-modules6')
-#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/frameworks/${pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${pkgname} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_QTHELP_DOCS=OFF \
