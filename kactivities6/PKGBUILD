@@ -4,17 +4,18 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kactivities6
 _pkgname=kactivities
-pkgver=${_kf6ver}
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Core components for the KDE Activity concept"
 arch=('x86_64')
-url='https://invent.kde.org/frameworks/kactivities'
+url='https://invent.kde.org/plasma/kactivities'
 license=('LGPL')
 depends=('qt6-declarative' 'boost-libs' 'kconfig6' 'kcoreaddons6' 'kwindowsystem6')
 makedepends=('extra-cmake-modules' 'boost')
+groups=('kdeplasma6')
 #options=('debug')
 source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`)
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${_pkgname}-${pkgver}

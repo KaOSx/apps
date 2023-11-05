@@ -4,21 +4,21 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework6
 _pkgname=plasma-framework
-pkgver=${_kf6ver}
+pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Foundational libraries, components, and tools of the Plasma workspaces'
 arch=('x86_64')
-url='https://invent.kde.org/frameworks/plasma-framework'
+url='https://invent.kde.org/plasma/plasma-framework'
 license=('LGPL')
 depends=('kactivities6' 'karchive6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kdbusaddons6'
          'kglobalaccel6' 'kguiaddons6' 'ki18n6' 'kiconthemes6' 'kio6' 'kwindowsystem6'
          'kxmlgui6' 'knotifications6' 'kpackage6' 'kwayland6' 'qt6-declarative' 'kirigami6' 'kcmutils6'
          'ksvg')
 makedepends=('extra-cmake-modules' 'kdoctools6')
-groups=('kf6')
+groups=('kdeplasma6')
 #options=('debug')
 source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${_pkgname}-${pkgver}
