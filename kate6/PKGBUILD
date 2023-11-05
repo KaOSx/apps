@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kate6
 _pkgname=kate
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Modern text editor built on the KDE Frameworks and Qt'
 arch=('x86_64')
 url='https://invent.kde.org/utilities/kate'
@@ -13,29 +13,19 @@ license=('LGPL')
 depends=('kconfig6' 'kguiaddons6' 'ki18n6' 'kjobwidgets6' 'kitemmodels6' 'threadweaver6'
          'kio6' 'knewstuff6' 'kparts6' 'ktexteditor6' 'kwindowsystem6' 'kxmlgui6'
          'plasma-framework6' 'kuserfeedback6' 'kmoretools')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
-#source=("$_mirror/${_pkgname}-${pkgver}.tar.xz"
-#        "https://invent.kde.org/utilities/kate/commit/a971fc17552f3c0ea4d7f54ac2bf52b4749dbb9c.diff"
-#        "https://invent.kde.org/utilities/kate/-/commit/98008ec5eade30bfa89bee13fef76f05e2c46328.diff"
-#        "https://invent.kde.org/utilities/kate/-/commit/b7d51ce23064ccb76d55ae23d7fd54b8e8bb0cf6.diff")
-#md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-#         'a3084dd0e5ad91b35a9abe5f74e1079c'
-#         '191c1b2891b978ea3d5e45d0718bf715'
-#         '80165076e7ee010c5ac05ff9870a9488')
-source=("git+https://invent.kde.org/utilities/${_pkgname}.git")
-md5sums=('SKIP')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+source=("$_mirror/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/a971fc17552f3c0ea4d7f54ac2bf52b4749dbb9c.diff
-  #patch -p1 -i ${srcdir}/98008ec5eade30bfa89bee13fef76f05e2c46328.diff
   #patch -p1 -i ${srcdir}/b7d51ce23064ccb76d55ae23d7fd54b8e8bb0cf6.diff
   #sed -i 's|dirOperator->setView|dirOperator->setViewMode|' addons/filebrowser/katefilebrowser.cpp
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

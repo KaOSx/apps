@@ -5,27 +5,25 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=khelpcenter6
 _pkgname=khelpcenter
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Application to show KDE Applications documentation'
 arch=('x86_64')
 url='https://invent.kde.org/system/khelpcenter'
 license=('LGPL')
 depends=('karchive6' 'kbookmarks6' 'kconfig6' 'kcoreaddons6' 'kcompletion6' 'kdbusaddons6' 'ki18n6' 'kio6'
          'kxmlgui6' 'kservice6' 'kwindowsystem6' 'ktexttemplate' 'xapian-core' 'qt6-webengine')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
-#source=("https://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/system/${_pkgname}.git")
-md5sums=('SKIP')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+source=("https://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
   # kdoctools header file not found, revert for now
   #patch -p1 -R -i ${srcdir}/bc0bc0f139cf28ccb1020d37cc270be451b0362b.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

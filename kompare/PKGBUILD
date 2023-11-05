@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kompare
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='GUI front-end program that enables differences between source files to be viewed and merged'
 url='https://apps.kde.org/en/kompare'
 arch=('x86_64')
@@ -14,13 +14,11 @@ depends=('kcoreaddons6' 'kcodecs6' 'kiconthemes6' 'kjobwidgets6' 'kconfig6' 'kpa
 makedepends=('extra-cmake-modules' 'kdoctools6')
 replaces=('kompare6')
 groups=('kde' 'kde-sdk' 'kde-uninstall' 'programming')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/sdk/${pkgname}.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${pkgname} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

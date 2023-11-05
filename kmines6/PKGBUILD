@@ -5,22 +5,20 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kmines6
 _pkgname=kmines
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Classic Minesweeper game for KDE"
 arch=('x86_64')
 url='https://apps.kde.org/kmines/'
 license=('GPL' 'LGPL' 'FDL')
 depends=('libkdegames6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'ki18n6' 
          'ktextwidgets6' 'kwidgetsaddons6' 'kxmlgui6')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 #groups=('kde' 'kde-games' 'kde-uninstall')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/games/${_pkgname}.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

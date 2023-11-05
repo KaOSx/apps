@@ -5,13 +5,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kjournald6
 _pkgname=kjournald
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Framework for interacting with systemd-journald'
 arch=('x86_64')
 url='https://invent.kde.org/system/kjournald'
 license=('LGPL')
 depends=('kcoreaddons6' 'ki18n6' 'qt6-declarative' 'systemd')
-makedepends=('extra-cmake-modules6')
+makedepends=('extra-cmake-modules')
 source=($_mirror/${_pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 

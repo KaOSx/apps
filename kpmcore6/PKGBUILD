@@ -5,15 +5,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kpmcore6
 _pkgname=kpmcore
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('x86_64')
 url="https://invent.kde.org/system/kpmcore"
 license=('GPL2')
 depends=('ki18n6' 'kcoreaddons6' 'kwidgetsaddons6' 'smartmontools' 'parted' 'qca-qt6' 'polkit-qt6')
-makedepends=('extra-cmake-modules6' 'pkgconfig' 'kauth6')
+makedepends=('extra-cmake-modules' 'pkgconfig' 'kauth6')
 #groups=('system')
-#options=('debug')
+options=('debug')
 source=($_mirror/${_pkgname}-${_kdever}.tar.xz
         "https://invent.kde.org/system/kpmcore/commit/03e38c8292df62beac216251c4d8ea025c5e8945.diff"
         "https://invent.kde.org/system/kpmcore/commit/4490081c7acc60ff9a9a158cf8af4d7ed26a57b4.diff"

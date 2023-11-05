@@ -12,15 +12,13 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n6' 'kguiaddons6' 'kwidgetsaddons6' 'kio6' 'kxmlgui6' 'ktextwidgets6'
          'kjobwidgets6' 'libkexiv6' 'libksane6')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 #groups=('kde-graphics')
-#source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/graphics/${_pkgname}.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

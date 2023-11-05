@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=spectacle6
 _pkgname=spectacle
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="The new KDE Screenshot Utility"
 url="https://kde.org/applications/utilities/org.kde.spectacle"
 arch=('x86_64')
@@ -14,14 +14,8 @@ depends=('kcoreaddons6' 'kwidgetsaddons6' 'kdbusaddons6' 'knotifications6' 'kcon
          'kwindowsystem6' 'kglobalaccel6'  'kxmlgui6' 'kguiaddons6' 'kirigami6' 'purpose6' 'plasma-wayland-protocols' 'kpipewire6' 'qt6-tools' 'xcb-util-cursor') # 'kimageannotator'
 makedepends=('extra-cmake-modules6' 'kdoctools6' 'pkg-config')
 #groups=('kde' 'kde-graphics' 'kde-uninstall')
-#source=("$_mirror/${_pkgname}-${_kdever}.tar.xz"
-        #"https://invent.kde.org/graphics/spectacle/-/commit/491f561dd488f2eb5d932b2f32f41599c20aabc8.diff")
-#md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-#         'c715f84b61a6e6e6ce9e7ab75b777673')
-source=("git+https://invent.kde.org/graphics/${_pkgname}.git"
-        "https://invent.kde.org/graphics/spectacle/-/commit/491f561dd488f2eb5d932b2f32f41599c20aabc8.diff")
-md5sums=('SKIP'
-         '54f2e93f7d794492398e6a8ae75df3ac')
+source=("$_mirror/${_pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${_pkgname}
@@ -31,7 +25,7 @@ prepare() {
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=neochat6
 _pkgname=neochat
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Client for Matrix, the decentralized communication protocol for instant messaging - Spectral fork."
 arch=('x86_64')
 url="https://apps.kde.org/en/neochat"
@@ -14,21 +14,19 @@ depends=('qt6-multimedia' 'qt6-declarative' 'qt6-svg' 'qt6-location' 'qt6-webvie
          'knotifications6' 'kconfig6' 'kcoreaddons6' 'kdbusaddons6' 'qtkeychain-qt6' 'libquotient-qt6' 
          'cmark' 'kquickimageeditor6' 'kitemmodels6' 'qqc2-desktop-style6' 'kconfigwidgets6' 'kio6'
          'kwindowsystem6' 'sonnet6' 'syntax-highlighting6' 'qcoro-qt6' 'kquickcharts6' 'kstatusnotifieritem')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
-#source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/network/${_pkgname}.git")
-md5sums=('SKIP')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/9300e65239f9204a688084af20d05138d272fdb4.diff
   #sed -i -e 's|include <events/stickerevent.h>|include "stickerevent.h"|' src/messageeventmodel.cpp
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DQT_MAJOR_VERSION=6

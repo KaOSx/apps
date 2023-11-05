@@ -5,23 +5,21 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=dolphin-plugins6
 _pkgname=dolphin-plugins
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Extra Dolphin plugins'
 url='https://invent.kde.org/sdk/dolphin-plugins'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 #groups=('kde' 'kde-sdk' 'kde-uninstall' 'programming')
 depends=('kxmlgui6' 'ki18n6' 'kio6' 'ktextwidgets6' 'kcoreaddons6' 'solid6' 'dolphin6' 'qt6-5compat')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 optdepends=('git: git support'
             'subversion: svn support')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/sdk/${_pkgname}.git")
-md5sums=('SKIP')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

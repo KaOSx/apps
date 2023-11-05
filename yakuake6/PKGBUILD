@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=yakuake6
 _pkgname=yakuake
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="A KDE konsole application with the look and feel of that in the Quake engine, kf6 version"
 arch=('x86_64')
 url="https://kde.org/applications/system/org.kde.yakuake"
@@ -13,15 +13,13 @@ license=('GPL')
 depends=('karchive6' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'kglobalaccel6' 'ki18n6' 'kiconthemes6'
          'kio6' 'knewstuff6' 'knotifications6' 'knotifyconfig6' 'kparts6' 'kwidgetsaddons6' 
          'kwindowsystem6' 'kwayland6' 'kstatusnotifieritem' 'konsole6')
-makedepends=('extra-cmake-modules6')
+makedepends=('extra-cmake-modules')
 #groups=('system')
-#source=($_mirror/${_pkgname}-${_kdever}.tar.xz)
-#md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/utilities/${_pkgname}.git")
-md5sums=('SKIP')
+source=($_mirror/${_pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
   # revert KStatusNotifierItem change, remove on kf6 rebuild
   #sed -i -e 's|m_notifierItem->setAssociatedWindow|m_notifierItem->setAssociatedWidget|' app/mainwindow.cpp
   # wayland erratic placement fix
@@ -29,7 +27,7 @@ prepare() {
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_TESTING=OFF \

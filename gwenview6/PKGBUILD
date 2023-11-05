@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=gwenview6
 _pkgname=gwenview
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="A fast and easy to use image viewer for KDE"
 arch=('x86_64')
 url="http://kde.org/applications/graphics/gwenview/"
@@ -14,17 +14,14 @@ depends=('kio6' 'kitemmodels6' 'ki18n6' 'kparts6' 'kwindowsystem6' 'kiconthemes6
          'kguiaddons6' 'kwidgetsaddons6' 'kactivities6' 'libkdcraw6' 'purpose6'
          'baloo6' 'kimageformats6' 'phonon-qt6' 'libpng' 'exiv2' 'lcms2'
          'libjpeg-turbo' 'cfitsio') # 'kimageannotator' 
-makedepends=('extra-cmake-modules6' 'kdoctools6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 #opdepends=('kamera: to work directly with cameras')
 #groups=('kde-graphics')
-#source=("$_mirror/${_pkgname}-${pkgver}.tar.xz")
-#md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/graphics/${_pkgname}.git")
-md5sums=('SKIP')
-
+source=("$_mirror/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
