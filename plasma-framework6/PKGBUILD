@@ -14,24 +14,20 @@ depends=('kactivities6' 'karchive6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 
          'kglobalaccel6' 'kguiaddons6' 'ki18n6' 'kiconthemes6' 'kio6' 'kwindowsystem6'
          'kxmlgui6' 'knotifications6' 'kpackage6' 'kwayland6' 'qt6-declarative' 'kirigami6' 'kcmutils6'
          'ksvg')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kf6')
 #options=('debug')
-#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-#        "https://invent.kde.org/frameworks/plasma-framework/-/commit/e589eac536e3de89248e768d3c3a8b6d42ee3518.diff")
-#md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         '9718f3e6008be73a56ab6ab745ca8046')
-source=("git+https://invent.kde.org/frameworks/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/e589eac536e3de89248e768d3c3a8b6d42ee3518.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

@@ -5,22 +5,20 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kfilemetadata6
 _pkgname=kfilemetadata
 pkgver=${_kf6ver}
-pkgrel=2
+pkgrel=1
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kfilemetadata'
 license=('LGPL')
 depends=('ebook-tools' 'karchive6' 'kcoreaddons6' 'exiv2' 'ki18n6' 'poppler' 'taglib'
          'ffmpeg' 'kconfig6' 'qt6-5compat') #'libappimage'
-makedepends=('extra-cmake-modules6')
+makedepends=('extra-cmake-modules')
 groups=('kf6')
-#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-$pkgver.tar.xz")
-#md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/frameworks/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-$pkgver.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

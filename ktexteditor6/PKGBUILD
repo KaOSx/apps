@@ -12,23 +12,19 @@ url='https://invent.kde.org/frameworks/ktexteditor'
 license=('LGPL')
 depends=('karchive6' 'kconfig6' 'kguiaddons6' 'ki18n6' 'kio6' 'kparts6' 'sonnet6'
          'syntax-highlighting6' 'kauth6' 'editorconfig-core-c' 'qt6-5compat')
-makedepends=('extra-cmake-modules6')
+makedepends=('extra-cmake-modules')
 groups=('kf6')
-#source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-#        "https://invent.kde.org/frameworks/ktexteditor/-/commit/99bb4f0250f8f394cbefeaa15111c196d72ab83f.diff")
-#md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         'f38f65b0774673b772ff860a029708bf')
-source=("git+https://invent.kde.org/frameworks/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/99bb4f0250f8f394cbefeaa15111c196d72ab83f.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

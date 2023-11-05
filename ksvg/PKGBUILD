@@ -6,19 +6,16 @@ pkgname=ksvg
 arch=('x86_64')
 pkgver=${_kf6ver}
 pkgrel=1
-pkgdesc="Plasma applet for audio volume management using PulseAudio."
-url="https://invent.kde.org/plasma/plasma-pa"
+pkgdesc="Library for rendering SVG-based themes with stylesheet re-coloring and on-disk caching."
+url="https://invent.kde.org/frameworks/ksvg"
 license=('GPL' 'LGPL' 'FDL')
-options=('!docs')
 depends=('karchive6' 'kconfig6' 'kcolorscheme' 'kcoreaddons6' 'kguiaddons6' 'kirigami6')
-makedepends=('extra-cmake-modules6')
-#source=($_mirror/${pkgname}-${pkgver}.tar.xz)
-#md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/libraries/${pkgname}.git")
-md5sums=('SKIP')
+makedepends=('extra-cmake-modules')
+source=($_mirror/${pkgname}-${pkgver}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${pkgname} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
