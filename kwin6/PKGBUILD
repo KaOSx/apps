@@ -18,25 +18,21 @@ depends=('qt6-multimedia' 'qt6-virtualkeyboard' 'qt6-sensors' 'qt6-declarative'
          'kirigami6' 'kdecoration6' 'breeze6' 'knotifications6' 'kscreenlocker6' 'kglobalacceld'
          'libepoxy' 'plasma-wayland-protocols' 'xcb-util-cursor' 'libinput' 'xwayland'
          'wireplumber' 'xorg-server' 'libqaccessibilityclient6' 'libdisplay-info')
-makedepends=('extra-cmake-modules6' 'kdoctools6' 'qt6-tools')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
 groups=('kdeplasma6')
 #options=('debug')
-#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
-#        "https://invent.kde.org/plasma/kwin/-/commit/7f80c47758ce5d3a2ed9f8c1e5c61644931672c2.diff")
-#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         '862c64c710361da217b4394797ef6801')
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 
 prepare () {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/7f80c47758ce5d3a2ed9f8c1e5c61644931672c2.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

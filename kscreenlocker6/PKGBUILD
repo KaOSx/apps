@@ -12,23 +12,19 @@ url="https://invent.kde.org/plasma/kscreenlocker"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcrash6' 'kdeclarative6' 'kcmutils6' 'kio6' 'kglobalaccel6' 'ki18n6' 'kidletime6'
          'knotifications6' 'solid6' 'kwindowsystem6' 'kxmlgui6' 'kwayland6' 'layer-shell-qt6' 'libkscreen6')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdeplasma6')
-#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
-#        "https://invent.kde.org/plasma/kscreenlocker/-/commit/b50674debeab0d70c2d2b567a0ab973abce7fb31.diff")
-#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         '3f6e48cbc4548d8aa3743b7da0162b27')
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/b50674debeab0d70c2d2b567a0ab973abce7fb31.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \

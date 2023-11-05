@@ -11,15 +11,13 @@ arch=('x86_64')
 url="https://invent.kde.org/plasma/kwallet-pam"
 license=('LGPL')
 depends=('kwallet6' 'pam' 'socat')
-makedepends=('extra-cmake-modules6')
+makedepends=('extra-cmake-modules')
 groups=('kdeplasma6')
-#source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${_plasmaver}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${_plasmaver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

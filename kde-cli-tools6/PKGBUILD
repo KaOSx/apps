@@ -12,23 +12,19 @@ url='https://invent.kde.org/plasma/kde-cli-tools'
 license=('LGPL')
 depends=('kconfig6' 'kiconthemes6' 'ki18n6' 'kcmutils6' 'kio6' 'kservice6' 'kwindowsystem6'
          'kactivities6' 'kdesu6' 'plasma-workspace6')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdeplasma6')
-#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
-#        "https://invent.kde.org/plasma/kde-cli-tools/-/commit/ed621870ead4f001ba78017e7810251ed5f5509a.diff")
-#md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         '7a30c9314b922ec56e6a4908e9befb92')
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-$_plasmaver.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/ed621870ead4f001ba78017e7810251ed5f5509a.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

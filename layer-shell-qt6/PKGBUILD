@@ -11,15 +11,13 @@ pkgdesc="Qt component to allow applications to make use of the Wayland wl-layer-
 url="https://invent.kde.org/plasma/layer-shell-qt"
 license=('GPL' 'LGPL' 'FDL')
 depends=('qt6-wayland' 'wayland-protocols')
-makedepends=('extra-cmake-modules6')
+makedepends=('extra-cmake-modules')
 groups=('kdeplasma6')
-#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
-#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \

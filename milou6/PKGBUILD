@@ -11,23 +11,19 @@ arch=('x86_64')
 url='https://invent.kde.org/plasma/milou'
 license=('GPL')
 depends=('kcoreaddons6' 'ki18n6' 'kdeclarative6' 'kitemmodels6' 'kservice6' 'plasma-framework6' 'krunner6')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdeplasma6')
-#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
-#        "https://invent.kde.org/plasma/milou/-/commit/18009426ba97daefe658696bbbed3cd2c618854a.diff")
-#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         'ee56e407d61ace2b566063c1a49552e9')
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/18009426ba97daefe658696bbbed3cd2c618854a.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

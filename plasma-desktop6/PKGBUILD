@@ -15,23 +15,21 @@ depends=('qt6-svg' 'libxkbfile' 'libusb' 'libcanberra' 'polkit-kde-agent-6'
          'kdbusaddons6' 'qqc2-desktop-style6' 'xorg-server' 'signon-oauth2'
          'kactivities-stats6' 'kirigami-addons6' 'xf86-input-evdev' 
          'xf86-input-libinput' 'xdg-user-dirs' 'plasma-integration6') #'kaccounts-integration' 'kio-fuse'
-makedepends=('extra-cmake-modules6' 'kdoctools6' 'xf86-input-synaptics' 'boost')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'boost')
 groups=('kdeplasma6')
-#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git"
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
         'layout_desktop_panel.diff'
         'main_desktop_kicker.diff'
         'main_desktop_kickoff.diff'
         "https://invent.kde.org/plasma/plasma-desktop/-/commit/1dfba7045c82ae2553be2cb7018fcd893c19d7bc.diff")
-#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-md5sums=('SKIP'
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
          '6e13e785600f1a6c1e181ab2934f1558'
          'dbd6e948c39b65c3e84df7d291d9bf47'
          'e46e7d42002e826e978a02a45173a4cd'
          '46b4248270d75f1c7e481145c5c797a7')
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
   # adjust default settings for panel, kickoff, kicker & desktop view
   patch -p1 -i ${srcdir}/layout_desktop_panel.diff
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
@@ -41,7 +39,7 @@ prepare() {
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

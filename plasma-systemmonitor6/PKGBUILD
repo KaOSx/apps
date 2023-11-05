@@ -12,15 +12,13 @@ url='https://invent.kde.org/plasma/plasma-systemmonitor'
 license=('GPLv2')
 depends=('ki18n6' 'kconfig6' 'kservice6' 'kglobalaccel6' 'kio6' 'kdbusaddons6' 'knewstuff6'
          'kitemmodels6' 'kwindowsystem6' 'knotifications6' 'kpackage6' 'kirigami-addons6' 'libksysguard6' 'ksystemstats6')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdeplasma6')
-#source=("https://download.kde.org/stable/plasma/${_pkgver}/${_pkgname}-${pkgver}.tar.xz")
-#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/plasma/${_pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQT_MAJOR_VERSION=6

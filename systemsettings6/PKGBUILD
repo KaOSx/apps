@@ -13,23 +13,19 @@ license=('LGPL')
 depends=('kauth6' 'kcrash6' 'kitemviews6' 'kitemmodels6' 'kcmutils6' 'ki18n6' 'kio6' 'kservice6'
          'kiconthemes6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'kdbusaddons6' 'kconfig6'
          'kpackage6' 'kactivities6' 'kactivities-stats6' 'kguiaddons6'  'kirigami6' 'plasma-workspace6')
-makedepends=('extra-cmake-modules6' 'kdoctools6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdeplasma6')
-#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
-#        "https://invent.kde.org/plasma/systemsettings/-/commit/8c289f052a8de53e50ffe7ba10879c55f59c306d.diff")
-#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-#         'd225579567645f75e6cb463693ea6492')
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/8c289f052a8de53e50ffe7ba10879c55f59c306d.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

@@ -20,29 +20,27 @@ depends=('kauth6' 'kparts6' 'plasma-framework6' 'krunner6' 'knotifications6' 'kn
          'glu' 'libxkbfile' 'libxcursor' 'lm_sensors' 'libraw1394' 'libusb' 'pciutils' 'libbsd' 'libxrandr'
          'gpsd' 'iso-codes' 'oxygen-icons5' 'sddm-kcm6' 'kactivitymanagerd6' 'drkonqi6' 'plasma5support'
          'kio-extras6' 'libkexiv6' 'khelpcenter6') #  'accountsservice' 'kio-fuse' 'libdbusmenu-qt' 
-makedepends=('extra-cmake-modules6' 'kdoctools6' 'boost') 
+makedepends=('extra-cmake-modules' 'kdoctools6' 'boost') 
 groups=('kdeplasma6')
 #options=('debug')
-#source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
-source=("git+https://invent.kde.org/plasma/${_pkgname}.git"
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
         'shellcorona.diff'
         'kicker_qt6.diff'
         "https://invent.kde.org/noee/plasma-workspace/-/commit/c8166b72886461250e76666f7a3bf8d385c79acc.diff")
-#md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-md5sums=('SKIP'
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
          '1913544f6cbf179033c3a1fdceac1b7e'
          'c12de12d61f8c65c998d971cb83b74d5'
          'b744f8ed671531d8a29641df5060f716')
 
 prepare () {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   patch -p1 -i ${srcdir}/shellcorona.diff
   sed -i 's|<default>@KDE_INSTALL_FULL_WALLPAPERDIR@/Next/</default>|<default>@KDE_INSTALL_FULL_WALLPAPERDIR@/midna/</default>|' wallpapers/image/main.xml.in
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
