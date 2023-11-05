@@ -3,25 +3,25 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=wacomtablet
-pkgver=3.2.0
-pkgrel=3
+pkgver=${_plasmaver}
+pkgrel=1
 pkgdesc="Implements a GUI for the Wacom Linux Drivers and extends it with profile support to handle 
          different button / pen layouts per profile."
 arch=('x86_64')
-url='https://invent.kde.org/system/wacomtablet'
+url='https://invent.kde.org/plasma/wacomtablet'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'ki18n' 'kglobalaccel' 'kconfig' 'kxmlgui' 'kwidgetsaddons' 'kwindowsystem' 'knotifications'
-         'kdbusaddons' 'plasma-framework' 'xf86-input-wacom')
-makedepends=('extra-cmake-modules' 'kdoctools')
-groups=('kde' 'kde-graphics' 'kde-uninstall')
-source=("https://download.kde.org/stable/wacomtablet/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+depends=('kcoreaddons6' 'ki18n6' 'kglobalaccel6' 'kconfig6' 'kxmlgui6' 'kwidgetsaddons6' 'kwindowsystem6' 'knotifications6'
+         'kdbusaddons6' 'plasma-framework6' 'kcmutils6' 'kio6' 'plasma5support' 'xf86-input-wacom')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/system/wacomtablet/-/commit/4f73ff02b3efd5e8728b18fcf1067eca166704ee.diff")
-sha256sums=('c80ce63a41f6fcbb50ac4c2130ed2f8273c4b744e62e33d4b714bf83e8e5f7a4'
+sha256sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
             '6d47da4ac1c6b4fd5d1917acdc522c5aa54c40ac34b8770b3afe699a3aebf8af')
 
 prepare() {
    cd ${pkgname}-${pkgver}
-   patch -p1 -i ${srcdir}/4f73ff02b3efd5e8728b18fcf1067eca166704ee.diff
+   #patch -p1 -i ${srcdir}/4f73ff02b3efd5e8728b18fcf1067eca166704ee.diff
    #sed -i -e 's|macro_optional_add_subdirectory|ecm_optional_add_subdirectory|' CMakeLists.txt
 }
 
@@ -30,9 +30,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6 \
   cmake --build build
 }
 
