@@ -1,7 +1,8 @@
 
 pkgname=qtermwidget-qt6
-pkgver=1.3.0
-_commit=97608c57bccf4e67f5203e55c2d854e581a6dd36
+_pkgname=qtermwidget
+pkgver=1.4.0
+_commit=f0194f94e83ebd668d1e9c554b2945807bc89069
 pkgrel=1
 pkgdesc="Terminal emulator widget for Qt 6."
 arch=("x86_64")
@@ -10,20 +11,21 @@ license=('LGPL2.1')
 depends=('qt6-base' 'qt6-5compat')
 makedepends=('cmake' 'lxqt2-build-tools' 'qt6-tools')
 #source=("https://github.com/lxde/qtermwidget/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("https://github.com/kitsnotes/qtermwidget-qt6/archive/${_commit}.zip")
-md5sums=('5175c59f3790a02773b07d638c75418b')
+source=("https://github.com/lxqt/qtermwidget/archive/${_commit}.zip")
+md5sums=('72fee6ff17476e72d2a39f2d4773709e')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${_pkgname}-${_commit}
 
-  sed -i -e 's|lxqt-build-tools|lxqt2-build-tools|' CMakeLists.txt
+  #sed -i -e 's|lxqt-build-tools|lxqt2-build-tools|' CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${_pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr/ \
     -DCMAKE_BUILD_TYPE=release \
-    -DCMAKE_INSTALL_LIBDIR=lib
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DUSE_QT6=ON
   cmake --build build
 }
 
