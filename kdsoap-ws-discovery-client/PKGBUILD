@@ -1,19 +1,18 @@
 
 pkgname=kdsoap-ws-discovery-client
-pkgver=0.2
-_commit=e68683974f2215989f1432390c3e9384585323ce
-pkgrel=2
+pkgver=0.3.0
+pkgrel=1
 arch=('x86_64')
-pkgdesc="Library for finding WS-Discovery devices in the network using Qt5 and KDSoap."
+pkgdesc="Library for finding WS-Discovery devices in the network using Qt6 and KDSoap."
 url="https://invent.kde.org/libraries/kdsoap-ws-discovery-client"
 license=('MIT')
 depends=('kdsoap6')
-makedepends=('extra-cmake-modules6')
-source=("https://invent.kde.org/libraries/kdsoap-ws-discovery-client/-/archive/${_commit}/kdsoap-ws-discovery-client-${_commit}.tar.bz2")
-md5sums=('378187d7b534c3ec85ff2f67a21e4043')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/unstable/kdsoap-ws-discover-client/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('5007747f1ce607639bb63244f8894c03a15194c0a891b8d85e10d76dbdf79188')
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
