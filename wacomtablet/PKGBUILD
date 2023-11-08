@@ -14,10 +14,10 @@ depends=('kcoreaddons6' 'ki18n6' 'kglobalaccel6' 'kconfig6' 'kxmlgui6' 'kwidgets
          'kdbusaddons6' 'plasma-framework6' 'kcmutils6' 'kio6' 'plasma5support' 'xf86-input-wacom')
 makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdeplasma6')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/system/wacomtablet/-/commit/4f73ff02b3efd5e8728b18fcf1067eca166704ee.diff")
-sha256sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
-            '6d47da4ac1c6b4fd5d1917acdc522c5aa54c40ac34b8770b3afe699a3aebf8af')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
+         'e3f30239de2d1601fdf657cbc59e65af')
 
 prepare() {
    cd ${pkgname}-${pkgver}
@@ -31,7 +31,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6 \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

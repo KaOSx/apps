@@ -16,8 +16,8 @@ depends=('kconfig6' 'kcoreaddons6' 'kdeclarative6' 'kholidays6' 'ki18n6' 'kio6' 
          'plasma-workspace6' 'phonon-qt6' 'qca-qt6' 'purpose6' 'qt6-declarative')
 makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdeplasma6')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \

@@ -21,7 +21,7 @@ source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.
 md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/e9bf1aa962344af80208df2942502041f0ad1890.diff
 }

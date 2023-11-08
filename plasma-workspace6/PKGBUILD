@@ -25,12 +25,10 @@ groups=('kdeplasma6')
 #options=('debug')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
         'shellcorona.diff'
-        'kicker_qt6.diff'
-        "https://invent.kde.org/noee/plasma-workspace/-/commit/c8166b72886461250e76666f7a3bf8d385c79acc.diff")
+        'kicker_qt6.diff')
 md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
          '1913544f6cbf179033c3a1fdceac1b7e'
-         'c12de12d61f8c65c998d971cb83b74d5'
-         'b744f8ed671531d8a29641df5060f716')
+         'c12de12d61f8c65c998d971cb83b74d5')
 
 prepare () {
   cd ${_pkgname}-${pkgver}

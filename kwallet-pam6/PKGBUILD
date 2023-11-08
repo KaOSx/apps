@@ -13,8 +13,8 @@ license=('LGPL')
 depends=('kwallet6' 'pam' 'socat')
 makedepends=('extra-cmake-modules')
 groups=('kdeplasma6')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${_plasmaver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${_plasmaver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \

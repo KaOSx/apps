@@ -15,8 +15,8 @@ depends=('kcoreaddons6' 'kdeclarative6' 'kglobalaccel6' 'kstatusnotifieritem' 'k
          'kcmutils6' 'kirigami6' 'ksvg' 'pulseaudio' 'glib2' 'libcanberra')
 makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdeplasma6')
-source=($_mirror/${pkgname}-${pkgver}.tar.xz)
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+source=($_mirror/${_pkgname}-${pkgver}.tar.xz)
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \

@@ -12,13 +12,13 @@ arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kdbusaddons6' 'kiconthemes6'
          'ki18n6' 'kcmutils6' 'kio6' 'knotifications6' 'plasma-framework6'
-         'kwidgetsaddons6' 'kwindowsystem6' 'libcups' 'qt6-tools' 'samba' 'qt6-5compat')
+         'kwidgetsaddons6' 'kwindowsystem6' 'kirigami-addons6' 'libcups' 'qt6-tools' 'samba' 'qt6-5compat')
 makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
         's-c-p.diff')
 md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
-         '9a9e6ca561f286fec2b8262c7c05eb02')
+         '4f6e48d697411a51950ab93db1bd2f49')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
