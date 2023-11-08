@@ -1,7 +1,7 @@
 
 pkgname=polkit-qt5
 _pkgname=polkit-qt-1
-pkgver=0.114.0
+pkgver=0.175.0
 pkgrel=1
 pkgdesc='Qt5 wrapper around polkit-1 client libraries, to provide the polkit-1 kauth used by KDE'
 arch=('x86_64')
@@ -9,8 +9,8 @@ url='https://invent.kde.org/libraries/polkit-qt-1'
 license=('LGPL')
 depends=('polkit' 'qt5-base')
 makedepends=('extra-cmake-modules')
-source=("https://download.kde.org/stable/polkit-qt-1/${_pkgname}-${pkgver}.tar.xz")
-sha256sums=('2eb0f22445888295ffa2bfbc0c3693847a0f973bb6b0c3e4cce0218be7e3907e')
+source=("https://download.kde.org/unstable/polkit-qt-1/${_pkgname}-${pkgver}.tar.xz")
+sha256sums=('73a32d1a1819684145e0ef8a1f2ea804f9ec10ad78d62aa03bad4dbdb39c4c99')
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \
