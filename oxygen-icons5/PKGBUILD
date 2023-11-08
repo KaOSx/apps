@@ -2,17 +2,17 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-_origname=oxygen-icons5
+_origname=oxygen-icons
 pkgname=('oxygen-icons5' 'oxygen-icons5-svg')
 arch=('x86_64')
-pkgver=${_kf5ver}
+pkgver=5.245.0
 pkgrel=1
-url="https://invent.kde.org/frameworks/oxygen-icons5"
+url="https://invent.kde.org/frameworks/oxygen-icons"
 license=('GPL' 'LGPL' 'FDL')
-depends=('qt5-base')
+depends=('qt6-base')
 makedepends=('extra-cmake-modules')
-source=($_mirror/${_origname}-$_kf5ver.tar.xz)
-md5sums=(`grep ${_origname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/unstable/oxygen-icons/${_origname}-${pkgver}.tar.xz")
+sha256sums=('b082a1a9a6d06cdeee2863555951609e95dd499f133035d04719a16f8500497f')
 
 build () {
   cmake -B build -S ${_origname}-${pkgver} \

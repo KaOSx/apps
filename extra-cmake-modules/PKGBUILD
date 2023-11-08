@@ -14,8 +14,8 @@ makedepends=('qt6-tools') # 'python3-sphinx' 'python3-requests')  'sphinx_rtd_th
 replaces=('extra-cmake-modules6')
 provides=('extra-cmake-modules6')
 conflicts=('extra-cmake-modules6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/unstable/frameworks/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
