@@ -13,8 +13,8 @@ depends=('karchive6' 'kcompletion6' 'kconfig6' 'kcoreaddons6' 'ki18n6' 'kio6'
          'kitemviews6' 'kservice6')
 makedepends=('extra-cmake-modules')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/frameworks/5.99/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

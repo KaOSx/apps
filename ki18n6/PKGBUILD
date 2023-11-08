@@ -17,13 +17,13 @@ source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.t
 md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare () {
-  cd ${_pkgname}
+  cd ${_pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/97ce7535124aff6a576bc748260ce6fa4ab781d8.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
