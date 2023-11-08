@@ -1,7 +1,10 @@
 
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
 pkgname=kuserfeedback6
 _pkgname=kuserfeedback
-pkgver=1.3.0
+pkgver=${_kf6ver}
 pkgrel=1
 pkgdesc="Framework for collecting user feedback for applications via telemetry and surveys"
 arch=('x86_64')
@@ -9,8 +12,9 @@ url="https://invent.kde.org/libraries/kuserfeedback/"
 license=('MIT')
 depends=('qt6-declarative' 'qt6-svg') # add once added to repo 'qt6-charts' # 'php' optional
 makedepends=('extra-cmake-modules6' 'qt6-tools' 'clang')
-source=("https://download.kde.org/stable/kuserfeedback/${_pkgname}-${pkgver}.tar.xz")
-sha256sums=('252308b822dd4690ea85ab1688c9b0da5512978ac6b435f77a5979fc1d2ffd13')
+groups=('kf6')
+source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${_pkgname}-${pkgver}
