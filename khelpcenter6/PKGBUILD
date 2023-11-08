@@ -13,8 +13,8 @@ license=('LGPL')
 depends=('karchive6' 'kbookmarks6' 'kconfig6' 'kcoreaddons6' 'kcompletion6' 'kdbusaddons6' 'ki18n6' 'kio6'
          'kxmlgui6' 'kservice6' 'kwindowsystem6' 'ktexttemplate' 'xapian-core' 'qt6-webengine')
 makedepends=('extra-cmake-modules' 'kdoctools6')
-source=("https://download.kde.org/stable/applications/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/applications/${pkgver}/src/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${_pkgname}-${pkgver}

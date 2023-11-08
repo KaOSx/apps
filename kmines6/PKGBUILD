@@ -14,8 +14,8 @@ depends=('libkdegames6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'k
          'ktextwidgets6' 'kwidgetsaddons6' 'kxmlgui6')
 makedepends=('extra-cmake-modules' 'kdoctools6')
 #groups=('kde' 'kde-games' 'kde-uninstall')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \

@@ -15,8 +15,8 @@ depends=('kbookmarks6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6'
          'knewstuff6' 'knotifications6' 'knotifyconfig6' 'kparts6' 'kpty6' 'kservice6' 
          'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'icu')
 makedepends=('extra-cmake-modules' 'kdoctools6')
-source=("${_mirror}/${_pkgname}-${pkgver}.tar.xz"
-md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+source=("${_mirror}/${_pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep -w ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${_pkgname}-${pkgver}

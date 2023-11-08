@@ -13,8 +13,8 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('ki18n6' 'kwallet6' 'kwidgetsaddons6' 'ktextwidgets6' 'ksanecore6')
 makedepends=('extra-cmake-modules')
 #groups=('kde-graphics')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${_pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${_pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${_pkgname}-${pkgver} \
