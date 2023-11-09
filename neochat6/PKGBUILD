@@ -15,8 +15,8 @@ depends=('qt6-multimedia' 'qt6-declarative' 'qt6-svg' 'qt6-location' 'qt6-webvie
          'cmark' 'kquickimageeditor6' 'kitemmodels6' 'qqc2-desktop-style6' 'kconfigwidgets6' 'kio6'
          'kwindowsystem6' 'sonnet6' 'syntax-highlighting6' 'qcoro-qt6' 'kquickcharts6' 'kstatusnotifieritem')
 makedepends=('extra-cmake-modules' 'kdoctools6')
-source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${_pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${_pkgname}-${pkgver}

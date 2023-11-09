@@ -15,18 +15,18 @@ depends=('exiv2' 'karchive6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kdbusa
          'libmtp' 'libssh' 'openexr' 'samba' 'qt6-webengine' 'qt6-5compat' 'libappimage'
          'libkexiv6' 'phonon-qt6' 'kdsoap6' 'kdsoap-ws-discovery-client' 'qcoro-qt6')
 makedepends=('extra-cmake-modules' 'kdoctools6' 'gperf')
-source=("https://download.kde.org/stable/release-service/${pkgver}/src/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/release-service/${pkgver}/src/${_pkgname}-kf6-${pkgver}.tar.xz")
+md5sums=(`grep ${_pkgname}-kf6-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}-kf6-${pkgver}
 
   #patch -p1 -i ${srcdir}/322fd114961916234da43330af90b0fc1d3d0aad.diff
   #sed -i 's|find_package(KDSoap|find_package(KDSoap-qt6|' smb/kdsoap-ws-discovery-client/CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname}-kf6-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
