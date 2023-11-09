@@ -5,16 +5,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-workspace-wallpapers
 pkgver=${_plasmaver}
 pkgrel=1
-pkgdesc="Wallpapers for the Plasma Workspace"
-url="https://github.com/KDE/plasma-workspace-wallpapers"
+pkgdesc="Wallpapers for the Plasma Workspaces"
+url="https://invent.kde.org/plasma/plasma-workspace-wallpapers"
 license=('GPL')
 arch=('x86_64')
-depends=('kservice')
 makedepends=('extra-cmake-modules')
-groups=('kdeplasma5')
+groups=('kdeplasma5' 'kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
