@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=purpose
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/purpose'
@@ -37,7 +37,7 @@ package() {
 
   DESTDIR=${pkgdir} cmake --install build
   # conflicts with purpose6
-  rm -r ${pkgdir}/usr/share/icons/hicolor/128x128/apps
-  rm -r ${pkgdir}/usr/share/icons/hicolor/16x16/apps
+  #rm -r ${pkgdir}/usr/share/icons/hicolor/128x128/apps
+  #rm -r ${pkgdir}/usr/share/icons/hicolor/16x16/apps
 }
 

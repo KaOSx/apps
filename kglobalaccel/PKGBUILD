@@ -28,4 +28,6 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  # kf6 conflict
+  #rm -r ${pkgdir}/usr/lib/systemd/user/plasma-kglobalaccel.service
 }

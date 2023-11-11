@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-framework
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/plasma-framework'
@@ -34,8 +34,8 @@ build() {
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_DESKTOPTHEMES=OFF
+    -DBUILD_TESTING=OFF
+    #-DBUILD_DESKTOPTHEMES=OFF
   cmake --build build
 }
 

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwallet
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='KWallet Framework - Safe desktop-wide storage for passwords'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kwallet'
@@ -21,9 +21,9 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_KWALLETD=OFF \
-    -DBUILD_KWALLET_QUERY=OFF
+    -DBUILD_TESTING=OFF
+    #-DBUILD_KWALLETD=OFF \
+    #-DBUILD_KWALLET_QUERY=OFF
   cmake --build build
 }
 
