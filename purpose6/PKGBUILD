@@ -5,12 +5,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=purpose6
 _pkgname=purpose
 pkgver=${_kf6ver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled."
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/purpose'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons6' 'kconfig6' 'ki18n6' 'kio6' 'kirigami6' 'kdeclarative6' 'prison6' 'kdeconnect-kde6') #'kaccounts-integration' 'accounts-qml-module'
+depends=('kcoreaddons6' 'kconfig6' 'ki18n6' 'kio6' 'kirigami6' 'kdeclarative6' 'prison6') # 'kdeconnect-kde6' 'kaccounts-integration' 'accounts-qml-module'
 makedepends=('extra-cmake-modules' 'kdoctools6')
 source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktexteditor
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KTextEditor provides a powerful text editor component that you can embed in your application'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/ktexteditor'
@@ -13,7 +13,7 @@ depends=('karchive' 'kconfig' 'kguiaddons' 'ki18n' 'kio' 'kparts' 'sonnet' 'kico
          'syntax-highlighting' 'editorconfig-core-c')
 makedepends=('extra-cmake-modules')
 groups=('kf5')
-source=("https://download.kde.org/stable/frameworks/5.111/${pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/frameworks/5.112/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/frameworks/ktexteditor/-/commit/804e49444c093fe58ec0df2ab436565e50dc147e.diff")
 md5sums=(`grep ${pkgname}-$_kf5ver.tar.xz ../kf5.md5 | cut -d" " -f1`
          'f4c7eb690bc4c00b6700a3801c1b0857')
@@ -39,6 +39,6 @@ package() {
 
   DESTDIR=${pkgdir} cmake --install build
   # kf6 conflict
-  #rm -r ${pkgdir}/usr/share/dbus-1
-  #rm -r ${pkgdir}/usr/share/polkit-1
+  rm -r ${pkgdir}/usr/share/dbus-1
+  rm -r ${pkgdir}/usr/share/polkit-1
 }

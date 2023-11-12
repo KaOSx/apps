@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kglobalaccel
 pkgver=${_kf5ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='KGlobalAccel allows you to have global accelerators that are independent of the focused window.'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kglobalaccel'
@@ -12,7 +12,7 @@ license=('LGPL')
 depends=('qt5-x11extras' 'kconfig' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kwindowsystem')
 makedepends=('extra-cmake-modules' 'qt5-tools')
 groups=('kf5')
-source=("http://download.kde.org/stable/frameworks/5.111/${pkgname}-${pkgver}.tar.xz")
+source=("http://download.kde.org/stable/frameworks/5.112/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kf5ver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
@@ -20,8 +20,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF
-    #-DKF6_COMPAT_BUILD=ON
+    -DBUILD_TESTING=OFF \
+    -DKF6_COMPAT_BUILD=ON
   cmake --build build
 }
 
