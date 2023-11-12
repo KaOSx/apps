@@ -1,18 +1,18 @@
  
 pkgname=appstream
 _pkgname=AppStream
-pkgver=0.16.4
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="Provides a standard for creating app stores across distributions"
 arch=('x86_64')
 url="https://github.com/ximion/appstream"
 license=('GPL')
-depends=('libyaml' 'libxml2' 'glib2' 'qt5-base' 'libxmlb' 'libsoup')
-makedepends=('meson' 'ninja' 'gobject-introspection' 'itstool' 'xmlto' 'gtk-doc' 'gperf' 'qt5-tools') # 'clang')
+depends=('libyaml' 'libxml2' 'glib2' 'qt6-base' 'libxmlb' 'libsoup')
+makedepends=('meson' 'ninja' 'gobject-introspection' 'itstool' 'xmlto' 'gtk-doc' 'gperf' 'qt6-tools') # 'clang')
 source=("https://www.freedesktop.org/software/appstream/releases/${_pkgname}-${pkgver}.tar.xz"
         'appstream.hook'
         "https://github.com/ximion/appstream/commit/306eb287a36a2779c304fe47b5473e468c7bd0f6.diff")
-md5sums=('5d3d3045711a91e3c3c29dcdeaa14074'
+md5sums=('6465ef5b23d5b0724fe6dd0aec8b0bec'
          '1313427d15dc06b5baf29d8d9f344c76'
          'cff1cb4cab86ecdc534abc3c63a1fd90')
 
@@ -37,6 +37,7 @@ build() {
     -Dqt=true \
     -Dstemming=false \
     -Ddocs=false \
+    -Dapidocs=false \
     -Dmaintainer=false
   ninja
 }
