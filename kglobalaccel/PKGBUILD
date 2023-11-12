@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kglobalaccel
 pkgver=${_kf5ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KGlobalAccel allows you to have global accelerators that are independent of the focused window.'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kglobalaccel'
@@ -20,14 +20,12 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DKF6_COMPAT_BUILD=ON
+    -DBUILD_TESTING=OFF
+    #-DKF6_COMPAT_BUILD=ON
   cmake --build build
 }
 
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
-  # kf6 conflict
-  #rm -r ${pkgdir}/usr/lib/systemd/user/plasma-kglobalaccel.service
 }
