@@ -1,7 +1,7 @@
 
 pkgname=krename
 pkgver=5.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful batch renamer for KDE."
 arch=("x86_64")
 url="https://userbase.kde.org/KRename"
@@ -10,14 +10,14 @@ depends=('kcompletion' 'kconfig' 'kcoreaddons' 'kcrash' 'ki18n' 'kiconthemes' 'k
          'kio' 'kservice' 'kwidgetsaddons' 'kxmlgui' 'taglib' 'exiv2' 'podofo' 'kjs') # 'qt5-declarative')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("https://download.kde.org/stable/krename/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/utilities/krename/-/commit/e0a93830d0ea0c71ab649b7e68af0238bd48eb10.diff")
+        "https://invent.kde.org/utilities/krename/-/commit/e7dd767a9a1068ee1fe1502c4d619b57d3b12add.diff")
 sha256sums=('b23c60a7ddd9f6db4dd7f55ac55fcca8a558fa68aaf8fa5cb89e1eaf692f23ed'
-            'f50a721f28b41931666ff2af4f138d5f8788bc2e211c0488b0a72991ba31d8c5')
+            'b0c2be2a9957edf11b9d8c91bac02ba7ff92174ad586cbad9046a966d3fa1fd6')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-
-  #patch -p1 -i ${srcdir}/e0a93830d0ea0c71ab649b7e68af0238bd48eb10.diff
+  # exiv2 0.28 needed
+  patch -p1 -i ${srcdir}/e7dd767a9a1068ee1fe1502c4d619b57d3b12add.diff
 }
 
 build() {

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=koko
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="An Image Gallery application"
 arch=('x86_64')
 url='https://invent.kde.org/graphics/koko'
@@ -13,7 +13,7 @@ depends=('ki18n' 'kdeclarative' 'kconfig' 'kdbusaddons' 'kio' 'kguiaddons' 'kcor
          'knotifications' 'kfilemetadata' 'kirigami' 'exiv2' 'qt5-location'
          'kquickimageeditor')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
