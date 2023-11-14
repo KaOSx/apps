@@ -4,23 +4,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkexiv2
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Wrapper around exiv2"
 arch=('x86_64')
-url='http://www.kde.org'
+url='https://www.kde.org'
 license=('GPL' 'LGPL' 'FDL')
 depends=('ktextwidgets' 'kcoreaddons' 'ki18n' 'libjpeg-turbo' 'exiv2')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
 groups=('kde-graphics')
-conflicts=('kdegraphics-libkexiv2')
-replaces=('kdegraphics-libkexiv2')
-provides=('kdegraphics-libkexiv2')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
-        "https://github.com/KDE/libkexiv2/commit/2bcdea1a25b7ee69b4db93a12b8197a5bfa0bc1a.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '63577aa5da06464ef90cd96ab876b74d')
-#source=("git://anongit.kde.org/libkexiv2.git")
-#md5sums=('SKIP')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd $pkgname-${pkgver}
@@ -28,20 +21,16 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
