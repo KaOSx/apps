@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-systemmonitor6
 _pkgname=plasma-systemmonitor
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides an interface for monitoring system sensors, process information and other system resources.'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/plasma-systemmonitor'
@@ -21,6 +21,7 @@ build() {
   cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
     -DQT_MAJOR_VERSION=6
   cmake --build build
 }
