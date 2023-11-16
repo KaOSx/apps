@@ -1,50 +1,48 @@
 
 # odd numbers are for development
 pkgname=flatpak
-pkgver=1.14.4
-pkgrel=4
+pkgver=1.15.6
+pkgrel=1
 pkgdesc="System for building, distributing and running sandboxed desktop applications on Linux."
 url="https://flatpak.org"
 arch=('x86_64')
 license=('GPL')
 depends=('bubblewrap' 'dconf' 'elfutils' 'fuse3' 'glib2' 'json-glib' 'libarchive' 'ostree'
          'polkit' 'xorg-xauth' 'python3' 'patch' 'systemd' 'appstream' 'xdg-desktop-portal-kde'
-         'libsodium')
-makedepends=('intltool' 'xmlto' 'libdwarf' 'socat' 'python3-pyparsing')
+         'libsodium' 'wayland-protocols')
+makedepends=('intltool' 'xmlto' 'libdwarf' 'socat' 'python3-pyparsing' 'meson' 'ninja')
 optdepends=('xdg-desktop-portal-gtk: Integration for GTK based Flatpaks')
 install=flatpak.install
 source=("https://github.com/flatpak/flatpak/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('8a34dbd0b67c434e7598b98ec690953d046f0db26e480aeafb46d72aec716799')
+sha256sums=('8eb68189eb4850a34752feb29827cc2cc744c1981b8915e280ec1cf5bc387962')
 
 build() {
-  cd ${pkgname}-${pkgver}
+    mkdir -p build
+    cd build
 
-  ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --sbindir=/usr/bin \
-    --libexecdir=/usr/lib/${pkgname} \
-    --disable-static \
-    --disable-documentation \
-    --disable-docbook-docs \
-    --with-system-bubblewrap \
-    --with-priv-mode=setuid \
-    --with-dbus-config-dir=/usr/share/dbus-1/system.d \
-    --with-system-install-dir=/var/lib/flatpak
-  make
+    meson setup ../${pkgname}-${pkgver} \
+        --prefix=/usr \
+        --buildtype=release \
+        --libexecdir=lib \
+        -Ddbus_config_dir=/usr/share/dbus-1/system.d \
+        -Dsystem_bubblewrap=bwrap \
+        -Ddocbook_docs=disabled \
+        -Dgtkdoc=disabled \
+        -Dsystem_install_dir=/var/lib/flatpak \
+        -Dtests=false
+    ninja
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
-  # 4 docs tests fail
-  make -k check || :
+    cd build
+
+    meson test
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+    cd build
 
-  make DESTDIR=${pkgdir} install
+    DESTDIR=${pkgdir} ninja install
 
-  install -d -o root -g 102 -m 700 ${pkgdir}/usr/share/polkit-1/rules.d
+    install -d -o root -g 102 -m 700 ${pkgdir}/usr/share/polkit-1/rules.d
 }
