@@ -1,0 +1,33 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=plasma-vault6
+_pkgname=plasma-vault
+arch=('x86_64')
+pkgver=${_plasmaver}
+pkgrel=1
+pkgdesc="Plasma applet and services for creating encrypted vaults"
+url="https://invent.kde.org/plasma/plasma-vault"
+license=('GPL' 'LGPL' 'FDL')
+depends=('kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kdbusaddons6' 'ki18n6' 'kitemmodels6'
+         'kio6' 'kservice6' 'kwidgetsaddons6' 'plasma-framework6' 'kactivities6' 'libksysguard6'
+         'networkmanager-qt6' 'encfs')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+source=($_mirror/${_pkgname}-${_plasmaver}.tar.xz)
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DBUILD_TESTING=OFF 
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
