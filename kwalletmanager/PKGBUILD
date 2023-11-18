@@ -5,37 +5,27 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kwalletmanager
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Wallet Manager is a tool to manage the passwords on your KDE system"
+pkgdesc="Tool to manage the passwords on your system."
 arch=('x86_64')
-url="https://projects.kde.org/projects/kde/kdeutils/kwalletmanager"
+url="https://invent.kde.org/utilities/kwalletmanager"
 license=('LGPL')
-depends=('karchive' 'kauth' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'ki18n' 'kiconthemes'
-         'kjobwidgets' 'kcmutils' 'kio' 'knotifications' 'kservice' 'ktextwidgets' 'kwallet' 'kwindowsystem'
-         'kxmlgui' 'kcrash')
-makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdeutils-kwalletmanager')
-replaces=('kdeutils-kwalletmanager')
+depends=('karchive6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kdbusaddons6' 'ki18n6' 'kcmutils6'
+         'kio6' 'kwallet6' 'kwindowsystem6' 'kxmlgui6' 'kcrash6' 'kstatusnotifieritem')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 source=("http://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd $pkgname-${pkgver}
-  mkdir build
-  
-  cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DKDE_INSTALL_LIBDIR=lib \
-        -DKDE_INSTALL_LIBEXECDIR=lib \
-        -DKDE_INSTALL_SYSCONFDIR=/etc \
-        -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-        -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-        -DBUILD_TESTING=OFF ..
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd $pkgname-${pkgver}/build
-  
-  make DESTDIR="$pkgdir" install
+
+    DESTDIR=${pkgdir} cmake --install build
 }
