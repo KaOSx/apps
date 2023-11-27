@@ -1,21 +1,22 @@
 
 pkgname=converseen
-pkgver=0.11.0.1
+pkgver=0.12.0.0
 pkgrel=1
-pkgdesc="Open source image converter and resizer written in C++ with the powerful Qt5 libraries"
+pkgdesc="Open source image converter and resizer written in C++ with the powerful Qt6 libraries"
 arch=('x86_64')
 url="https://converseen.fasterland.net/"
 license=('GPL3')
 groups=('graphics')
-depends=('imagemagick' 'qt5-base' 'libwebp' 'openexr')
-makedepends=('qt5-tools')
+depends=('imagemagick' 'qt6-base' 'libwebp' 'openexr')
+makedepends=('qt6-tools')
 source=("https://github.com/Faster3ck/Converseen/archive/v${pkgver}.tar.gz")
-md5sums=('bcf3fc5014781a1532bea5633ac94c06')
+md5sums=('ee0066d6d65b74f0d1e276740bd573a0')
 
 build() {
   cmake -B build -S Converseen-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUSE_QT6=yes
   cmake --build build
 }
 
