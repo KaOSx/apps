@@ -5,12 +5,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kdesdk-kio
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc='KIO-Slaves'
-url="https://github.com/KDE/kdesdk-kioslaves"
+pkgdesc='KIO workers useful for software development'
+url="https://invent.kde.org/sdk/kdesdk-kio"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kio')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('ki18n6' 'kio6')
+makedepends=('extra-cmake-modules')
 groups=('kde' 'kdesdk' 'kde-uninstall' 'programming')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -20,8 +20,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

@@ -5,17 +5,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kapptemplate
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc='KDE Template Generator'
+pkgdesc='Factory for the easy creation of KDE/Qt components and programs'
 url='https://apps.kde.org/kapptemplate'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kconfigwidgets' 'kcompletion' 'karchive' 'kio' 'ki18n')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kcoreaddons6' 'kconfigwidgets6' 'kcompletion6' 'karchive6' 'kio6' 'ki18n6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-sdk' 'kde-uninstall' 'programming')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
-        'template.diff')
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '096a81c21b4b9774690dffac211e1fab')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
     cd $pkgname-${pkgver}
@@ -27,7 +25,8 @@ build() {
     cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DBUILD_TESTING=OFF
+        -DBUILD_TESTING=OFF \
+        -DQT_MAJOR_VERSION=6
     cmake --build build
 }
 

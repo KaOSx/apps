@@ -5,13 +5,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kalgebra
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Graph Calculator"
-url="https://apps.kde.org/education"
+pkgdesc="Application that can replace your graphing calculator."
+url="https://apps.kde.org/kalgebra/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('analitza' 'readline' 'ki18n' 'kconfigwidgets' 'kwidgetsaddons' 'kio'
-         'qtwebengine' 'qt5-location')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('analitza' 'readline' 'qt6-webengine' 'qt6-location' 'qt6-5compat'
+         'ki18n6' 'kcoreaddons6' 'kconfigwidgets6' 'kwidgetsaddons6' 'kio6' 'kxmlgui6' 'libplasma')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -20,7 +20,8 @@ build() {
     cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DBUILD_TESTING=OFF
+        -DBUILD_TESTING=OFF \
+        -DQT_MAJOR_VERSION=6
     cmake --build build
 }
 
