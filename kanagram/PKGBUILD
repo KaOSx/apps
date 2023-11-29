@@ -9,9 +9,9 @@ pkgdesc="Letter Order Game"
 url="https://apps.kde.org/en/kanagram"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kcrash' 'sonnet' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdeclarative' 'kio' 'knewstuff'
-         'libkeduvocdocument' 'phonon-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('ki18n6' 'kcrash6' 'sonnet6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kio6' 'knewstuff6' 'kxmlgui6'
+         'libkeduvocdocument' 'phonon-qt6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education' 'kaos-kids')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -20,7 +20,8 @@ build() {
     cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DBUILD_TESTING=OFF
+        -DBUILD_TESTING=OFF \
+        -DQT_MAJOR_VERSION=6
     cmake --build build
 }
 

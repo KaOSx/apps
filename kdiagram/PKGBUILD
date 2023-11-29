@@ -1,24 +1,22 @@
 
 
 pkgname=kdiagram
-pkgver=2.8.0
-pkgrel=3
+pkgver=3.0.0
+pkgrel=1
 pkgdesc='Powerful libraries (KChart, KGantt) for creating business diagrams'
 arch=('x86_64')
 url='https://invent.kde.org/graphics/kdiagram'
 license=('LGPL')
-depends=('qt5-svg')
-makedepends=('extra-cmake-modules' 'qt5-tools')
+depends=('qt6-svg')
+makedepends=('extra-cmake-modules' 'qt6-tools')
 source=("https://download.kde.org/stable/kdiagram/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('579dad3bd1ea44b5a20c0f133ebf47622e38960f9c7c8b3a316be30a369f431f')
+sha256sums=('6d5f53dfdd019018151c0193a01eed36df10111a92c7c06ed7d631535e943c21')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DECM_MKSPECS_INSTALL_DIR=/usr/lib/qt5/mkspecs/modules \
     -DBUILD_TESTING=OFF
   cmake --build build
 }

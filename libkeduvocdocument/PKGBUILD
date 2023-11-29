@@ -7,17 +7,13 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Library to parse, convert, and manipulate KVTML files "
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/kdeedu/libkeduvocdocument'
+url='https://invent.kde.org/education/libkeduvocdocument'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'ki18n' 'karchive' 'kio')
-makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdeedu-libkdeedu' 'kdeedu-libkdeedu-debug' 'libkdeedu')
-replaces=('kdeedu-libkdeedu' 'kdeedu-libkdeedu-debug' 'libkdeedu')
+depends=('ki18n6' 'karchive6' 'kio6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-edu' 'kde-uninstall')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz"
-        'QFile.diff')
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'ed559f15849258295e962a1c72769650')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -26,21 +22,16 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
