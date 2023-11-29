@@ -2,8 +2,7 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=kactivities6
-_pkgname=kactivities
+pkgname=plasma-activities
 pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Core components for the KDE Activity concept"
@@ -12,19 +11,22 @@ url='https://invent.kde.org/plasma/kactivities'
 license=('LGPL')
 depends=('qt6-declarative' 'boost-libs' 'kconfig6' 'kcoreaddons6' 'kwindowsystem6')
 makedepends=('extra-cmake-modules' 'boost')
+provides=('kactivities6')
+replaces=('kactivities6')
+conflicts=('kactivities6')
 groups=('kdeplasma6')
 #options=('debug')
-source=("https://download.kde.org/stable/plasma/5.27.80/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/unstable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/plugin_dir.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
