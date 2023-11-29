@@ -5,16 +5,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kwin6
 _pkgname=kwin
 pkgver=${_plasmaver}
-pkgrel=5
+pkgrel=1
 pkgdesc='Easy to use, but flexible, X Window Manager and Wayland Compositor'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kwin'
 license=('LGPL')
 depends=('qt6-multimedia' 'qt6-virtualkeyboard' 'qt6-sensors' 'qt6-declarative'
          'kauth6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6'
-         'kglobalaccel6' 'ki18n6' 'kidletime6' 'kpackage6' 'plasma-framework6'
+         'kglobalaccel6' 'ki18n6' 'kidletime6' 'kpackage6' 'libplasma'
          'kwidgetsaddons6' 'kwindowsystem6' 'kdeclarative6' 'kcmutils6' 'knewstuff6'
-         'kservice6' 'kxmlgui6' 'kitemviews6' 'kwayland6' 'kactivities6' 'krunner6' 
+         'kservice6' 'kxmlgui6' 'kitemviews6' 'kwayland6' 'plasma-activities' 'krunner6' 
          'kirigami6' 'kdecoration6' 'breeze6' 'knotifications6' 'kscreenlocker6' 'kglobalacceld'
          'libepoxy' 'plasma-wayland-protocols' 'xcb-util-cursor' 'libinput' 'xwayland'
          'wireplumber' 'xorg-server' 'libqaccessibilityclient6' 'libdisplay-info')
@@ -30,7 +30,7 @@ md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
 prepare () {
   cd ${_pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/4692.patch
+  #patch -p1 -i ${srcdir}/4692.patch
 }
 
 build() {

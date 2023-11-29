@@ -12,8 +12,8 @@ url='https://invent.kde.org/plasma/plasma-workspace'
 license=('LGPL')
 depends=('kauth6' 'kparts6' 'libplasma' 'krunner6' 'knotifications6' 'knotifyconfig6' 'knewstuff6'
          'kwallet6' 'kidletime6' 'kdeclarative6' 'ki18n6' 'kcmutils6' 'ktextwidgets6' 'kcrash6'
-         'kglobalaccel6' 'kdbusaddons6' 'kwayland6' 'kcoreaddons6' 'kpeople6' 'kactivities-stats6'
-         'kactivities6' 'kio6' 'prison6' 'kpackage6' 'kguiaddons6' 'karchive6' 'kitemmodels6' 'kiconthemes6' 'kunitconversion6' 'ktexteditor6' 'kded6' 'kpipewire6' 'networkmanager-qt6' 'kirigami6' 'kquickcharts6'
+         'kglobalaccel6' 'kdbusaddons6' 'kwayland6' 'kcoreaddons6' 'kpeople6' 'plasma-activities-stats'
+         'kactivities6' 'kio6' 'prison6' 'kpackage6' 'kguiaddons6' 'karchive6' 'kitemmodels6' 'kiconthemes6' 'kunitconversion6' 'ktexteditor6' 'kded6' 'kpipewire6' 'networkmanager-qt6' 'kirigami-addons6' 'kquickcharts6'
          'kuserfeedback6' 'libksysguard6' 'baloo6' 'kwin6' 'libkscreen6' 'kscreenlocker6' 'layer-shell-qt6'
          'kholidays6' 'breeze6' 'attica' 'frameworkintegration6' 'milou6' 'kdesu6'
          'libqalculate' 'phonon-qt6' 'qt6-wayland' 'qt6-tools' 'plasma-wayland-protocols' 'icu'
@@ -34,7 +34,7 @@ prepare () {
   cd ${_pkgname}-${pkgver}
 
   patch -p1 -i ${srcdir}/shellcorona.diff
-  sed -i 's|<default>@KDE_INSTALL_FULL_WALLPAPERDIR@/Next/</default>|<default>@KDE_INSTALL_FULL_WALLPAPERDIR@/midna/</default>|' wallpapers/image/main.xml.in
+  #sed -i 's|<default>@KDE_INSTALL_FULL_WALLPAPERDIR@/Next/</default>|<default>@KDE_INSTALL_FULL_WALLPAPERDIR@/midna/</default>|' wallpapers/image/main.xml.in
 }
 
 build() {
