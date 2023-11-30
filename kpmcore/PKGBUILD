@@ -9,29 +9,32 @@ pkgdesc="Library for managing partitions. Common code for KDE Partition Manager 
 arch=('x86_64')
 url="https://invent.kde.org/system/kpmcore"
 license=('GPL2')
-depends=('ki18n' 'kcoreaddons' 'kwidgetsaddons' 'smartmontools' 'parted' 'qca-qt5' 'polkit-qt5')
-makedepends=('extra-cmake-modules' 'pkgconfig' 'kauth')
+depends=('ki18n6' 'kcoreaddons6' 'kwidgetsaddons6' 'smartmontools' 'parted' 'qca-qt6' 'polkit-qt6')
+makedepends=('extra-cmake-modules' 'pkgconfig' 'kauth6')
+conflicts=('kpmcore6')
+replaces=('kpmcore6')
 groups=('system')
 options=('debug')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://invent.kde.org/system/kpmcore/commit/00de13088995ae96cf660911196fceda096e5b19.diff")
+        "https://invent.kde.org/system/kpmcore/commit/03e38c8292df62beac216251c4d8ea025c5e8945.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'b2bbb30c9879df67e0093004a82eb4bd')
+         'dc507bda3da02892ec17414594a5d866')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # support dosfstools 4.2
-  #patch -p1 -i ${srcdir}/00de13088995ae96cf660911196fceda096e5b19.diff
+
+  #patch -p1 -i ${srcdir}/03e38c8292df62beac216251c4d8ea025c5e8945.diff
+
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-        -DKDE_INSTALL_LIBDIR=lib \
-        -DCMAKE_INSTALL_LIBEXECDIR=lib \
-        -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-        -DBUILD_TESTING=OFF 
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
