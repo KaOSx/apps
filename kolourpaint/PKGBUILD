@@ -4,36 +4,30 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kolourpaint
 pkgver=${_kdever}
-_commit=6c8d56fc966311468c13bcc855c8fffbf5240394
 pkgrel=1
 pkgdesc="Painting program to quickly create raster images plus useful as a touch-up tool and simple image editing tasks."
 url="http://kde.org/applications/graphics/kolourpaint/"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kguiaddons' 'kwidgetsaddons' 'kio' 'kxmlgui' 'ktextwidgets'
-         'kjobwidgets' 'libkexiv2' 'libksane')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('ki18n6' 'kguiaddons6' 'kwidgetsaddons6' 'kio6' 'kxmlgui6' 'ktextwidgets6'
+         'kjobwidgets6' 'libkexiv6') # re-add on libksane6 move to libksane 'libksane6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('kolourpaint6')
+replaces=('kolourpaint6')
 groups=('kde-graphics')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("https://github.com/KDE/kolourpaint/archive/${_commit}.zip")
-#md5sums=('c3a9547479929e4f3db29eb7d2946185')
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_LIBDIR=lib
-  make
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
