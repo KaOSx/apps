@@ -4,32 +4,35 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konsole
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="KDE's terminal emulator"
 arch=('x86_64')
 url='https://konsole.kde.org/'
 license=('LGPL')
-depends=('kbookmarks' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons'
-         'kguiaddons' 'kdbusaddons' 'ki18n' 'kiconthemes' 'kinit' 'kio'
-         'knotifications' 'knotifyconfig' 'kparts' 'kpty' 'kservice' 
-         'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 'knewstuff' 'icu')
-makedepends=('extra-cmake-modules' 'kdoctools')
-source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
+depends=('kbookmarks6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6'
+         'kglobalaccel6' 'kguiaddons6' 'kdbusaddons6' 'ki18n6' 'kiconthemes6' 'kio6'
+         'knewstuff6' 'knotifications6' 'knotifyconfig6' 'kparts6' 'kpty6' 'kservice6' 
+         'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'icu')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('konsole6')
+replaces=('konsole6')
+source=("${_mirror}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep -w ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # https://bugs.kde.org/show_bug.cgi?id=452955 & 453112
-  #patch -p1 -i ${srcdir}/a6fce70f6c4e4d355c14475be8f5669a83c7023f.diff
+
+  #patch -p1 -i ${srcdir}/0decf4e30acdee6324197b0499cb80e4bc7f835a.diff
+  #sed -e 's|EQUAL "5"|EQUAL "6"|g' -i desktop/CMakeLists.txt
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_LIBDIR=lib
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
