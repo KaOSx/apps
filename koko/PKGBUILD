@@ -4,15 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=koko
 pkgver=${_kdever}
-pkgrel=2
-pkgdesc="An Image Gallery application"
+pkgrel=1
+pkgdesc="Image viewer designed for desktop and touch devices."
 arch=('x86_64')
 url='https://invent.kde.org/graphics/koko'
 license=('LGPL-3.0')
-depends=('ki18n' 'kdeclarative' 'kconfig' 'kdbusaddons' 'kio' 'kguiaddons' 'kcoreaddons'
-         'knotifications' 'kfilemetadata' 'kirigami' 'exiv2' 'qt5-location'
-         'kquickimageeditor')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('ki18n6' 'kdeclarative6' 'kconfig6' 'kio6' 'kguiaddons6' 'kcoreaddons6' 'knotifications6'
+         'kfilemetadata6' 'kdbusaddons6' 'kirigami6' 'exiv2' 'qt6-positioning' 'qt6-svg'
+         'kquickimageeditor6')
+makedepends=('extra-cmake-modules')
 source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -20,7 +20,8 @@ build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

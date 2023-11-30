@@ -7,11 +7,10 @@ pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
 pkgdesc="Powerful cross-platform calculator application built with the Kirigami framework"
-url="https://invent.kde.org/plasma-mobile/kalk"
+url="https://invent.kde.org/utilities/kalk"
 license=('GPLv3')
-depends=('qt5-quickcontrols2' 'qtfeedback' 'kconfig' 'kirigami' 'ki18n'
-         'kcoreaddons' 'kunitconversion')
-makedepends=('extra-cmake-modules' 'qt5-tools')
+depends=('qt6-declarative' 'kirigami6' 'ki18n6' 'kcoreaddons6' 'kunitconversion6' 'libqalculate') # 'qtfeedback'
+makedepends=('extra-cmake-modules' 'qt6-tools')
 source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -19,7 +18,8 @@ build() {
   cmake -B build -S ${pkgname}-${pkgver} \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release \
-      -DBUILD_TESTING=OFF
+      -DBUILD_TESTING=OFF \
+      -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
