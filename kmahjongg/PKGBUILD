@@ -7,33 +7,26 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Tile matching game for one or two players"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/kdegames/kmahjongg'
+url='https://apps.kde.org/kmahjongg/'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kdeclarative' 'knewstuff' 'kxmlgui'
+depends=('kconfig6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'knewstuff6' 'kxmlgui6'
          'libkdegames' 'libkmahjongg')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-games' 'kde-uninstall')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep " ${pkgname}-${_kdever}.tar.xz" ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

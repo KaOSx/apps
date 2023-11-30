@@ -5,31 +5,27 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kpat
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Collection of various patience games known all over the world"
+pkgdesc="Collection of solitaire card games known all over the world"
 arch=('x86_64')
 url='https://apps.kde.org/en/kpat'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kguiaddons' 
-         'ki18n' 'kio' 'knewstuff' 'kwidgetsaddons' 'kxmlgui' 'libkdegames' 'phonon-qt5' 'freecell-solver')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kcompletion6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'kguiaddons6' 
+         'ki18n6' 'kio6' 'knewstuff6' 'kwidgetsaddons6' 'kxmlgui6' 'libkdegames' 'phonon-qt6' 'freecell-solver')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('kpat6')
+replaces=('kpat6')
 groups=('kde' 'kde-games' 'kde-uninstall')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  # Restore cards autoplaying to foundation
-  #patch -p1 -i ${srcdir}/fac28f110c0a9c976677bee2d9d2126f93a711fd.diff
-}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF \
-    -DWITH_BH_SOLVER=OFF
+    -DWITH_BH_SOLVER=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

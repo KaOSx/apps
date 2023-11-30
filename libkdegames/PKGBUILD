@@ -5,40 +5,31 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkdegames
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Shared libraries for KDE games"
+pkgdesc="Common code and data for many KDE games."
 arch=('x86_64')
-url='http://www.kde.org'
+url='https://invent.kde.org/games/libkdegames'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kconfig' 'kwidgetsaddons' 'kcodecs' 'karchive' 'kdbusaddons' 'kdnssd' 'kdeclarative'
-         'ki18n' 'kguiaddons' 'kservice' 'kconfigwidgets' 'kitemviews' 'kiconthemes' 'kcompletion' 'kjobwidgets'
-         'ktextwidgets' 'kglobalaccel' 'kxmlgui' 'kcrash' 'kbookmarks' 'kio' 'knewstuff'
-         'libsndfile' 'openal')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'git')
+depends=('karchive6' 'kcompletion6' 'kconfig6' 'kconfigwidgets6' 'kdnssd6' 'kguiaddons6' 'kiconthemes6'
+         'ki18n6' 'knewstuff6' 'kservice6' 'kxmlgui6' 'kwidgetsaddons6'
+         'libsndfile' 'openal' 'qt6-5compat')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('libkdegames6')
+replaces=('libkdegames6')
 groups=('kde' 'kde-games' 'kde-uninstall')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd ${srcdir}
-  #sed -e "s/Qt5::core/Qt5::core KF5::KWidgetsAddons/" -i ${srcdir}/$pkgname/libkdegames/CMakeLists.txt
-  
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

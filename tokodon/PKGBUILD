@@ -9,8 +9,9 @@ pkgdesc="Mastodon client for Plasma and Plasma Mobile."
 arch=('x86_64')
 url="https://apps.kde.org/tokodon/"
 license=('GPL3')
-depends=('kirigami-addons' 'ki18n' 'knotifications' 'kconfig' 'kcoreaddons' 'kio' 'kdbusaddons'
-         'kwindowsystem' 'kitemmodels' 'sonnet' 'qqc2-desktop-style' 'qtkeychain' 'qt5-websockets' 'mpv')
+depends=('kirigami-addons6' 'ki18n6' 'knotifications6' 'kconfig6' 'kcoreaddons6' 'kcolorscheme' 'kio6'
+         'purpose6' 'kdbusaddons6' 'kwindowsystem6' 'kitemmodels6' 'sonnet6' 'qqc2-desktop-style6'
+         'qtkeychain-qt6' 'qt6-svg' 'qt6-websockets' 'qt6-webview' 'mpvqt')
 makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -18,7 +19,8 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_BUILD_TYPE=Release \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
