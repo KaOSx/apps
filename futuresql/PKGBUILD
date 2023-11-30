@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=futuresql
 pkgver=0.1.1
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Non-blocking Qt database framework"
 url="https://invent.kde.org/libraries/futuresql"
@@ -19,6 +19,7 @@ build() {
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_TESTING=OFF \
+      -DKDE_INSTALL_LIBDIR=lib \
       -DQT_MAJOR_VERSION=5
   cmake --build build
 }
