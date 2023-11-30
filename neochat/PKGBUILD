@@ -9,29 +9,28 @@ pkgdesc="Client for Matrix, the decentralized communication protocol for instant
 arch=('x86_64')
 url="https://apps.kde.org/en/neochat"
 license=('GPL3')
-depends=('qt5-multimedia' 'qt5-quickcontrols2' 'qt5-svg' 'kirigami-addons' 'ki18n' 
-         'knotifications' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'qtkeychain' 'libquotient' 
-         'cmark' 'kquickimageeditor' 'kitemmodels' 'qqc2-desktop-style' 'kconfigwidgets' 'kio'
-         'kwindowsystem' 'sonnet' 'syntax-highlighting' 'qcoro')
-makedepends=('extra-cmake-modules' 'kdoctools')
-replaces=('spectral')
-conflicts=('spectral')
-source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz"
-        "https://invent.kde.org/network/neochat/-/commit/d9d5e17be2a2057ab2ee545561fab721cb211f7f.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'b9abc43a98147371e547c1fe5035bbde')
+depends=('qt6-multimedia' 'qt6-declarative' 'qt6-svg' 'qt6-location' 'qt6-webview' 'kirigami-addons6' 'ki18n6' 
+         'knotifications6' 'kconfig6' 'kcoreaddons6' 'kdbusaddons6' 'qtkeychain-qt6' 'libquotient-qt6' 
+         'cmark' 'kquickimageeditor6' 'kitemmodels6' 'qqc2-desktop-style6' 'kconfigwidgets6' 'kio6'
+         'kwindowsystem6' 'sonnet6' 'syntax-highlighting6' 'qcoro-qt6' 'kquickcharts6' 'kstatusnotifieritem' 'icu')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('neochat6')
+replaces=('neochat6')
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/d9d5e17be2a2057ab2ee545561fab721cb211f7f.diff
+  #patch -p1 -i ${srcdir}/9300e65239f9204a688084af20d05138d272fdb4.diff
   #sed -i -e 's|include <events/stickerevent.h>|include "stickerevent.h"|' src/messageeventmodel.cpp
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release 
+    -DCMAKE_BUILD_TYPE=Release \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
