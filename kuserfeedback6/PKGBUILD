@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kuserfeedback6
 _pkgname=kuserfeedback
 pkgver=${_kf6ver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Framework for collecting user feedback for applications via telemetry and surveys"
 arch=('x86_64')
 url="https://invent.kde.org/libraries/kuserfeedback/"
@@ -39,6 +39,4 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
-  # remove kuserfeedback conflict
-  rm -r ${pkgdir}/usr/share/locale
 }

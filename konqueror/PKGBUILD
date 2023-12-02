@@ -5,14 +5,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=konqueror
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="KDE File Manager & Web Browser"
+pkgdesc="Web browser and Swiss Army knife for any kind of file management and previewing."
 arch=('x86_64')
 url='https://apps.kde.org/konqueror/'
 license=('LGPL')
-depends=('kparts' 'kcmutils' 'karchive' 'kcrash' 'kwindowsystem' 'kinit' 'kiconthemes' 'kdbusaddons'
-         'kwidgetsaddons' 'kdesu' 'kio' 'ki18n' 'kfind' 'kdialog' 'keditbookmarks' 'kguiaddons'
-         'kactivities' 'tidyhtml' 'qtwebengine' 'qt5-location')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kparts6' 'kcmutils6' 'karchive6' 'kcrash6' 'kwindowsystem6' 'kiconthemes6' 'kdbusaddons6'
+         'kguiaddons6' 'ki18n6' 'ktextwidgets6' 'kcodecs6' 'kwidgetsaddons6' 'kcoreaddons6' 'kdesu6' 'kio6'
+         'kbookmarks6' 'kwallet6' 'knotifications6' 'sonnet6' 'kfind' 'kdialog' 
+         'plasma-activities' 'qt6-webengine' 'qt6-speech')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 groups=('kde-system')
@@ -30,14 +31,14 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_LIBDIR=lib
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  # conflict with kio-extras
+  rm ${pkgdir}/usr/share/kio_bookmarks/kio_bookmarks.css
 }
