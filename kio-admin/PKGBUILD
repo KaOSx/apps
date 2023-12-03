@@ -9,8 +9,10 @@ pkgdesc="Manage files as administrator using the admin:// KIO protocol."
 arch=('x86_64')
 url='https://invent.kde.org/system/kio-admin'
 license=('GPL2')
-depends=('ki18n' 'kio' 'polkit-qt5')
+depends=('ki18n6' 'kio6' 'polkit-qt6')
 makedepends=('extra-cmake-modules')
+conflicts=('kio-admin6')
+replaces=('kio-admin6')
 groups=('kde-system')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
         'org.kde.dolphin-admin.desktop')
@@ -23,7 +25,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

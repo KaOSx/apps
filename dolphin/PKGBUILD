@@ -5,42 +5,41 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=dolphin
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="KDE File Manager"
+pkgdesc="File manager by KDE."
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/applications/dolphin'
+url='https://invent.kde.org/system/dolphin'
 license=('LGPL')
-depends=('kinit' 'kcmutils' 'knewstuff' 'kcoreaddons' 'ki18n' 'kdbusaddons' 'kbookmarks' 'kconfig' 'kio' 'kparts' 'solid'
-         'kiconthemes' 'kcompletion' 'ktextwidgets' 'kwindowsystem' 'knotifications' 'baloo-widgets' 'kactivities' 
-         'kfilemetadata' 'kde-cli-tools' 'kio-admin')
-makedepends=('extra-cmake-modules' 'kdoctools' 'ruby')
+depends=('kcmutils6' 'knewstuff6' 'kcoreaddons6' 'ki18n6' 'kdbusaddons6' 'kbookmarks6' 'kconfig6' 'kio6'
+         'kparts6' 'solid6' 'kiconthemes6' 'kcompletion6' 'ktextwidgets6' 'knotifications6' 'kwindowsystem6'
+         'kwidgetsaddons6' 'kuserfeedback6' 'plasma-activities' 'baloo6' 'kfilemetadata6' 'kde-cli-tools'
+         'baloo-widgets' 'kio-admin')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'ruby')
+conflicts=('dolphin6')
+replaces=('dolphin6')
 groups=('kde-system')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'kdesu.diff'
-        'dolphinui.diff'
-        "https://invent.kde.org/system/dolphin/-/commit/57909ebe66fd4aa83d1fbaf2c746d408451e80cb.diff")
+        'dolphinui.diff')
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '5b38f16d400b31ae927ed094634f0c6c'
-         'e0211cc01ceb848101e19cbd0bd95fcf'
-         'b03e2661a955a44e278030d01dbd44d1')
+         'b4f0491bacf3c9f923f2ee0810cc3576'
+         'e0211cc01ceb848101e19cbd0bd95fcf')
 
 prepare() {
-  cd $pkgname-${pkgver}
+  cd ${pkgname}-${pkgver}
   # keep kdesu option for dolphin, comment out for now, wait for upstream decision
-  # patch -p1 -i ${srcdir}/kdesu.diff
+  #patch -p1 -i ${srcdir}/kdesu.diff
   # set KaOS defaults
   patch -p1 -i ${srcdir}/dolphinui.diff
-  # https://bugs.kde.org/show_bug.cgi?id=457529 patch only reverted in 22.12 branch, will re-surface with 23.04
-  #patch -p1 -i ${srcdir}/57909ebe66fd4aa83d1fbaf2c746d408451e80cb.diff
+  #sed -i 's|dirLister->setShowingDotFiles|dirLister->setShowHiddenFiles|' src/kitemviews/kfileitemmodel.cpp
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_LIBDIR=lib
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
