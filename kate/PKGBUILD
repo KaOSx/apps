@@ -5,36 +5,35 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kate
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc='Advanced editor component which is used in numerous KDE applications requiring a text editing component'
+pkgdesc='Modern text editor built on the KDE Frameworks and Qt'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/applications/kate'
+url='https://apps.kde.org/kate/'
 license=('LGPL')
-depends=('kconfig' 'kguiaddons' 'ki18n' 'kjobwidgets' 'kitemmodels' 'threadweaver'
-         'kio' 'knewstuff' 'kparts' 'ktexteditor' 'kwindowsystem' 'kxmlgui'
-         'plasma-framework' 'kuserfeedback')
-makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdesdk-kate' 'kdesdk-kate-debug' 'ktexteditorpreviewplugin')
-replaces=('kdesdk-kate' 'kdesdk-kate-debug' 'ktexteditorpreviewplugin')
-provides=('kdesdk-kate' 'ktexteditorpreviewplugin')
-source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/utilities/kate/commit/d679aca69c946c21a5bfa7ca1eb4e146ea90d139.diff")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'dea8f5217586297ff61080c5a38868d7')
+depends=('ki18n6' 'kcoreaddons6' 'kguiaddons6' 'kcrash6' 'kiconthemes6' 'ktexteditor6' 'kio6'
+         'kbookmarks6' 'kxmlgui6' 'knewstuff6' 'kdbusaddons6' 'ktextwidgets6' 'kwindowsystem6'
+         'kwallet6' 'libplasma' 'kuserfeedback6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('kate6')
+replaces=('kate6')
+source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname-${pkgver}
-  # 20.08 issue with menu disappearing 
-  #patch -p1 -i ${srcdir}/d679aca69c946c21a5bfa7ca1eb4e146ea90d139.diff
+  cd ${pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/b7d51ce23064ccb76d55ae23d7fd54b8e8bb0cf6.diff
+  #sed -i 's|dirOperator->setView|dirOperator->setViewMode|' addons/filebrowser/katefilebrowser.cpp
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_LIBDIR=lib
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6 \
+    -DBUILD_git-blame=ON \
+    -DBUILD_symbolviewer=ON
   cmake --build build
 }
 
