@@ -9,19 +9,18 @@ arch=('x86_64')
 pkgdesc="Collection of plugins to handle mobipocket files"
 url="https://invent.kde.org/graphics/kdegraphics-mobipocket"
 license=('GPL' 'LGPL' 'FDL')
-depends=('qt5-base')
+depends=('qt6-base' 'qt6-5compat')
 makedepends=('extra-cmake-modules')
 groups=('kde-graphics')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
