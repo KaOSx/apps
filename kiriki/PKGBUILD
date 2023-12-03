@@ -4,44 +4,30 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kiriki
 pkgver=${_kdever}
-#pkgver=15.03.70
 pkgrel=1
 pkgdesc="Yahtzee-like Dice Game"
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/kdegames/kiriki'
+url='https://apps.kde.org/kiriki/'
 license=('GPL' 'LGPL' 'FDL')
-depends=('libkdegames' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kxmlgui')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
+depends=('kcoreaddons6' 'kconfig6' 'kcrash6' 'kdbusaddons6' 'ki18n6' 'kconfigwidgets6'
+         'kiconthemes6' 'kwidgetsaddons6' 'kxmlgui6' 'libkdegames')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-games' 'kde-uninstall')
-conflicts=('kdegames-kiriki')
-replaces=('kdegames-kiriki')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kiriki.git#branch=frameworks")
-#md5sums=('SKIP')
-
-prepare() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
-}
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 

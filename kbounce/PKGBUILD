@@ -5,41 +5,28 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kbounce
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Ball bouncing game"
+pkgdesc="Single player arcade game with the elements of puzzle"
 arch=('x86_64')
-url='http://www.kde.org'
+url='https://apps.kde.org/kbounce/'
 license=('GPL' 'LGPL' 'FDL')
-depends=('libkdegames' 'kcoreaddons' 'kconfig' 'kitemmodels' 'kwidgetsaddons' 'kwindowsystem' 'kcodecs'
-         'karchive' 'kconfig' 'kdbusaddons' 'kdnssd' 'kdeclarative' 'ki18n' 'kguiaddons' 'kservice'
-         'kconfigwidgets' 'kitemviews' 'kiconthemes' 'kcompletion' 'kjobwidgets' 'ktextwidgets'
-         'kglobalaccel' 'kxmlgui' 'kcrash' 'kbookmarks' 'kio' 'knotifyconfig' 'knewstuff' 'phonon-qt5')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
+depends=('kcolorscheme' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'kwidgetsaddons6' 'kdbusaddons6' 'ki18n6'
+         'kconfigwidgets6' 'kcompletion6' 'kxmlgui6' 'kio6' 'libkdegames' 'qt6-svg')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-games' 'kde-uninstall')
-conflicts=('kdegames-kbounce')
-replaces=('kdegames-kbounce')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/kbounce.git#branch=frameworks")
-#md5sums=('SKIP')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
     -DLIB_INSTALL_DIR=lib \
-    -DSYSCONF_INSTALL_DIR=/etc \
-    -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

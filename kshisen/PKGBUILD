@@ -5,35 +5,26 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kshisen
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Shisen-Sho Tile Game"
+pkgdesc="Shisen-Sho is a solitaire-like game played using the standard set of Mahjong tiles"
 arch=('x86_64')
-url='http://www.kde.org'
+url='https://apps.kde.org/kshisen/'
 license=('GPL' 'LGPL' 'FDL')
-depends=('libkdegames' 'libkmahjongg' 'phonon-qt5')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
-source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+depends=('kcoreaddons6' 'kconfig6' 'kconfigwidgets6' 'kcrash6' 'kdbusaddons6' 'ki18n6'
+         'kwidgetsaddons6' 'kxmlgui6' 'libkdegames' 'libkmahjongg')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-games' 'kde-uninstall')
-provides=('kshisen')
-options=('docs')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cd ${srcdir}
-  
-  mkdir build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
-  make
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd ${srcdir}/build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

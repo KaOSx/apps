@@ -5,13 +5,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kblocks
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Single-player Tetris-like KDE game"
+pkgdesc="Classic falling blocks game"
 arch=('x86_64')
-url='https://kde.org/applications/games/org.kde.kblocks'
+url='https://apps.kde.org/kblocks/'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons'
-         'ki18n' 'kwidgetsaddons' 'kxmlgui' 'libkdegames')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6'
+         'ki18n6' 'kwidgetsaddons6' 'kxmlgui6' 'libkdegames' 'qt6-svg')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('games' 'kde' 'kdeedu' 'kde-uninstall')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -21,8 +21,8 @@ build() {
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DKDE_INSTALL_LIBDIR=lib \
-        -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-        -DBUILD_TESTING=OFF
+        -DBUILD_TESTING=OFF \
+        -DQT_MAJOR_VERSION=6
     cmake --build build
 }
 

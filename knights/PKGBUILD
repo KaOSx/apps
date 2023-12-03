@@ -7,11 +7,12 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Chess board for KDE with XBoard protocol support"
 arch=('x86_64')
-url="https://github.com/KDE/knights"
+url="https://apps.kde.org/knights/"
 license=('GPL')
-depends=('kdbusaddons' 'kconfigwidgets' 'kcrash' 'ktextwidgets' 'kxmlgui' 'kio' 'kplotting'
-         'kwallet' 'plasma-framework' 'libkdegames' 'gnuchess' 'qt5-speech')
-makedepends=('extra-cmake-modules' 'kdoctools' 'clang')
+depends=('kcoreaddons6' 'kdbusaddons6' 'kconfigwidgets6' 'kcrash6' 'ktextwidgets6'
+         'kxmlgui6' 'kio6' 'kplotting6' 'kcompletion6' 'kwallet6' 'ksvg'
+         'libplasma' 'libkdegames' 'gnuchess' 'qt6-speech' 'qt6-svg' 'qt6-5compat')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('games' 'kde-games')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         'historywidget.diff')
@@ -20,31 +21,20 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
+
   #patch -p1 -i $srcdir/historywidget.diff
 }
 
 build() {
-  mkdir -p build
-  cd build 
-
-  export CC=/usr/bin/clang
-  export CXX=/usr/bin/clang++
-
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
