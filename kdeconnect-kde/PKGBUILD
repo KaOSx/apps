@@ -10,31 +10,32 @@ pkgdesc='KDE Connect adds communication between KDE and your smartphone'
 url='https://invent.kde.org/network/kdeconnect-kde'
 license=('GPL')
 arch=('x86_64')
-depends=('ki18n' 'kconfigwidgets' 'kdbusaddons' 'kiconthemes' 'knotifications' 'kio' 'kcmutils'
-         'kservice' 'solid' 'kirigami' 'kpeoplevcard' 'kwindowsystem' 'kwayland' 'qqc2-desktop-style'
-         'qca-qt5' 'libfakekey' 'qt5-quickcontrols' 'sshfs' 'pulseaudio-qt' 'libxkbcommon' 'wayland-protocols'
-         'modemmanager-qt')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('ki18n6' 'kconfigwidgets6' 'kdbusaddons6' 'kiconthemes6' 'knotifications6' 'kio6' 'kcmutils6'
+         'kservice6' 'solid6' 'kirigami-addons6' 'kpeople6' 'kwindowsystem6' 'kwayland6' 'qqc2-desktop-style6'
+         'qca-qt6' 'libfakekey' 'qt6-multimedia' 'sshfs' 'libxkbcommon' 'wayland-protocols'
+         'modemmanager-qt6' 'kstatusnotifieritem' 'qt6-connectivity') #'kpeoplevcard' 'pulseaudio-qt'
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('kdeconnect-kde6')
+replaces=('kdeconnect-kde6')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #sed -i -e 's|import QtQuick.Layouts 1.2|import QtQuick.Layouts 1.1|' ${srcdir}/${pkgname}/app/qml/DeviceDelegate.qml
 
-  #patch -p1 -i ${srcdir}/openssh8.2.patch
+  #sed -i -e 's|FILES package/metadata.desktop|FILES package/metadata.json|' plasmoid/CMakeLists.txt
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DWITH_PULSEAUDIO=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
