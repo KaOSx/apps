@@ -5,12 +5,12 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkleo
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="This lib provides crypto for mails."
+pkgdesc="Library that provides cryptography support for mails."
 arch=('x86_64')
 url='https://invent.kde.org/pim/libkleo'
 license=('LGPL')
-depends=('gpgme' 'kpimtextedit' 'kconfig' 'ki18n' 'kwidgetsaddons' 'kcompletion' 'kwindowsystem'
-         'kcoreaddons' 'kcodecs' 'kitemmodels')
+depends=('ki18n' 'kconfig6' 'kwidgetsaddons6' 'kcolorscheme' 'kcompletion6'
+         'kcoreaddons6' 'kcodecs6' 'kitemmodels6' 'ktextaddons' 'gpgme-qt6')
 makedepends=('extra-cmake-modules' 'boost')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
@@ -20,12 +20,9 @@ build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

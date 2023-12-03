@@ -5,14 +5,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ktextaddons
 pkgver=1.5.2
 epoch=1
-pkgrel=1
+pkgrel=2
 pkgdesc='Various text handling addons'
 arch=('x86_64')
 url='https://invent.kde.org/libraries/ktextaddons'
 license=('LGPL')
-depends=('ki18n' 'kconfigwidgets' 'karchive' 'kxmlgui' 'kcoreaddons' 'sonnet' 'kio'
-         'syntax-highlighting' 'qtkeychain' 'qt5-speech')
-makedepends=('extra-cmake-modules' 'qt5-tools')
+depends=('ki18n6' 'kconfigwidgets6' 'karchive6' 'kxmlgui6' 'kcoreaddons6' 'sonnet6' 'kio6'
+         'syntax-highlighting6' 'qtkeychain-qt6' 'qt6-speech')
+makedepends=('extra-cmake-modules' 'qt6-tools')
 source=("https://download.kde.org/stable/ktextaddons/${pkgname}-${pkgver}.tar.xz")
 sha256sums=('288bbb1cefb1e8b570a383c792eba5fca291c46dd0155dbc2531f0a36684a7db')
 
@@ -21,7 +21,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

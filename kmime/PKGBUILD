@@ -14,11 +14,6 @@ makedepends=('extra-cmake-modules')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-prepare() {
-  cd ${pkgname}-${pkgver}
-  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
-}
-
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
