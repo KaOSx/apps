@@ -7,16 +7,14 @@ pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Configuration dialog to adapt GTK applications appearance to your taste under KDE"
 arch=('x86_64')
-url="https://github.com/KDE/kde-gtk-config"
+url="https://invent.kde.org/plasma/kde-gtk-config"
 license=('LGPL')
-groups=('kdeplasma5')
-depends=('karchive' 'kauth' 'kcmutils' 'kconfigwidgets' 'knewstuff' 'kde-cli-tools' 'qt5-svg'
-         'xsettingsd' 'gsettings-desktop-schemas')
+groups=('kdeplasma6')
+depends=('kcolorscheme' 'kcoreaddons6' 'kconfig6' 'kguiaddons6' 'kdbusaddons6' 'kwindowsystem6'
+         'kdecoration6' 'qt6-svg' 'xsettingsd' 'gsettings-desktop-schemas')
 makedepends=('extra-cmake-modules' 'gtk2' 'gtk3' 'sassc')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-        #'org.gnome.desktop.interface.gschema.xml')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -28,26 +26,19 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF
-  make
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
-  
+
+  DESTDIR=${pkgdir} cmake --install build
+
   #install -Dm644 ${srcdir}/org.gnome.desktop.interface.gschema.xml ${pkgdir}/usr/share/glib-2.0/schemas/org.gnome.desktop.interface.gschema.xml
 }

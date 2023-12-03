@@ -5,34 +5,41 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kde-cli-tools
 pkgver=${_plasmaver}
 pkgrel=1
-pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
+pkgdesc='Tools based on KDE Frameworks to better interact with the system'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kde-cli-tools'
 license=('LGPL')
-depends=('kconfig' 'kiconthemes' 'kinit' 'ki18n' 'kcmutils' 'kio' 'kservice' 'kwindowsystem'
-         'kactivities' 'kdesu' 'plasma-workspace')
-makedepends=('extra-cmake-modules' 'kdoctools')
-groups=('kdeplasma5')
-source=("https://download.kde.org/stable/plasma/5.27.5/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`)
+depends=('kconfig6' 'kiconthemes6' 'ki18n6' 'kcmutils6' 'kio6' 'kservice6' 'kwindowsystem6'
+         'kparts6' 'kcoreaddons6' 'kdesu6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('kde-cli-tools6')
+replaces=('kde-cli-tools6')
+provides=('kde-cli-tools6')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/ed621870ead4f001ba78017e7810251ed5f5509a.diff
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
-  
   # place kdesu in bin too
-  ln -sf /usr/lib/kf5/kdesu ${pkgdir}/usr/bin/
+  ln -sf /usr/lib/kf6/kdesu ${pkgdir}/usr/bin/
 }
 

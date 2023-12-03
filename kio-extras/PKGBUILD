@@ -4,25 +4,27 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kio-extras
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=('x86_64')
 url='https://invent.kde.org/network/kio-extras'
 license=('LGPL')
-depends=('exiv2' 'karchive' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kdbusaddons' 'kdnssd' 'kiconthemes' 'ki18n'
-         'kio' 'solid' 'kbookmarks' 'kguiaddons' 'kactivities-stats' 'syntax-highlighting'
-         'libmtp' 'libssh' 'openexr' 'samba' 'qtwebengine' 'qt5-location' 'kdsoap' 'libappimage'
-         'libkexiv2')
-makedepends=('extra-cmake-modules' 'kdoctools' 'khtml' 'gperf')
-source=("https://download.kde.org/stable/release-service/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/network/kio-extras/-/commit/c3d52ebecb7f4890e8a412930bce9c74fc9e2f1f.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '4e78b92fec7e716de3d534e8af227228')
+depends=('exiv2' 'karchive6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kdbusaddons6' 'kdnssd6' 'ki18n6'
+         'kio6' 'solid6' 'kbookmarks6' 'kguiaddons6' 'plasma-activities-stats' 'syntax-highlighting6' 'kcmutils6'
+         'libmtp' 'libssh' 'openexr' 'samba' 'qt6-webengine' 'qt6-5compat' 'libappimage'
+         'libkexiv6' 'phonon-qt6' 'kdsoap' 'kdsoap-ws-discovery-client' 'qcoro-qt6')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'gperf')
+conflicts=('kio-extras6')
+replaces=('kio-extras6')
+provides=('kio-extras6')
+source=("https://download.kde.org/stable/release-service/${pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/c3d52ebecb7f4890e8a412930bce9c74fc9e2f1f.diff
+  #patch -p1 -i ${srcdir}/322fd114961916234da43330af90b0fc1d3d0aad.diff
+  #sed -i 's|find_package(KDSoap|find_package(KDSoap-qt6|' smb/kdsoap-ws-discovery-client/CMakeLists.txt
 }
 
 build() {
@@ -31,14 +33,14 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
 package() {
 
-  DESTDIR=${pkgdir} cmake --install build 
+  DESTDIR=${pkgdir} cmake --install build
+  # conflicts with kio kf5
+  rm -r ${pkgdir}/usr/share/applications/kcm_trash.desktop
 }
