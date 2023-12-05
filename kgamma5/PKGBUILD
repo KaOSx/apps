@@ -13,15 +13,15 @@ license=('GPL' 'LGPL' 'FDL')
 depends=('kconfig' 'kconfigwidgets' 'ki18n' 'libxxf86vm')
 makedepends=('extra-cmake-modules' 'kdoctools')
 groups=('kde-graphics' 'kde-uninstall')
-source=("$_mirror/${pkgname}-${_plasmaver}.tar.xz")
+source=("$_mirror/${_pkgname}-${_plasmaver}.tar.xz")
 #source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
 
 build() {
   mkdir -p build
   cd build
 
-  cmake ../${pkgname}-${pkgver} \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
