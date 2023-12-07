@@ -2,7 +2,7 @@
 pkgname=krita
 pkgver=5.2.2
 _pkgver=5.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Program for sketching and painting, offering an end–to–end solution for creating digital painting files from scratch"
 arch=('x86_64')
 url='https://krita.org/'
@@ -28,7 +28,7 @@ prepare() {
   cd ${pkgname}-${_pkgver}
   sed -i 's|X-KDE-Import": "image/x-krita-raw|X-KDE-Import": "image/x-nikon-nef,image/x-canon-cr2,image/x-sony-sr2,image/x-canon-crw,image/x-pentax-pef,image/x-sigma-x3f,image/x-kodak-kdc,image/x-minolta-mrw,image/x-sony-arw,image/x-kodak-k25,image/x-kodak-dcr,image/x-olympus-orf,image/x-panasonic-raw,image/x-panasonic-raw2,image/x-fuji-raf,image/x-sony-srf,image/x-adobe-dng|' plugins/impex/raw/krita_raw_import.json
 
-  #sed -i -e 's|foreach(xsimd_version 8.1.0 9 10)|foreach(xsimd_version 8.1.0 9 10 11)|' CMakeLists.txt
+  sed -i -e 's|xsimd_version 8.1.0 9 10 11|xsimd_version 8.1.0 9 10 11 12|' CMakeLists.txt
   # openexr 3.0 needed
   #patch -p1 -i ${srcdir}/ocio.diff
 }
