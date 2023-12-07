@@ -1,8 +1,8 @@
 
 pkgname=plasma-wayland-protocols
-pkgver=1.11.1
+pkgver=1.12.0
 _commit=1cb363d4979a4387febfacf5b26b5ddda40bb771
-pkgrel=2
+pkgrel=1
 pkgdesc="Project to install only the xml files of the non-standard wayland protocols we use in Plasma."
 arch=('x86_64')
 url="https://invent.kde.org/libraries/plasma-wayland-protocols"
@@ -11,13 +11,13 @@ depends=('wayland-protocols')
 makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/stable/plasma-wayland-protocols/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/libraries/plasma-wayland-protocols/-/commit/a95fc86fba3895308ce803876e0bc4f72e42e658.diff")
-sha256sums=('451aa890431cee5066fa93bf8c03640a18b5595621a18a35b1f777afd50186cd'
+sha256sums=('1483bfd279cb913c83579b5d71c58f9958764f9ba4303b3647e1007cb70d4f9e'
             '920efbedc3369a781f4145e3f56cc9ec82c3e9de78765372d1e5b15c69ebe58e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/a95fc86fba3895308ce803876e0bc4f72e42e658.diff
+  #patch -p1 -i ${srcdir}/a95fc86fba3895308ce803876e0bc4f72e42e658.diff
 }
 
 build() {
