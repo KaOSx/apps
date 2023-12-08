@@ -1,0 +1,48 @@
+
+# odd numbers are for development
+pkgname=flatpak
+pkgver=1.15.6
+pkgrel=1
+pkgdesc="System for building, distributing and running sandboxed desktop applications on Linux."
+url="https://flatpak.org"
+arch=('x86_64')
+license=('GPL')
+depends=('bubblewrap' 'dconf' 'elfutils' 'fuse3' 'glib2' 'json-glib' 'libarchive' 'ostree'
+         'polkit' 'xorg-xauth' 'python3' 'patch' 'systemd' 'appstream' 'xdg-desktop-portal-kde'
+         'libsodium' 'wayland-protocols')
+makedepends=('intltool' 'xmlto' 'libdwarf' 'socat' 'python3-pyparsing' 'meson' 'ninja')
+optdepends=('xdg-desktop-portal-gtk: Integration for GTK based Flatpaks')
+install=flatpak.install
+source=("https://github.com/flatpak/flatpak/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('8eb68189eb4850a34752feb29827cc2cc744c1981b8915e280ec1cf5bc387962')
+
+build() {
+    mkdir -p build
+    cd build
+
+    meson setup ../${pkgname}-${pkgver} \
+        --prefix=/usr \
+        --buildtype=release \
+        --libexecdir=lib \
+        -Ddbus_config_dir=/usr/share/dbus-1/system.d \
+        -Dsystem_bubblewrap=bwrap \
+        -Ddocbook_docs=disabled \
+        -Dgtkdoc=disabled \
+        -Dsystem_install_dir=/var/lib/flatpak \
+        -Dtests=false
+    ninja
+}
+
+check() {
+    cd build
+
+    meson test
+}
+
+package() {
+    cd build
+
+    DESTDIR=${pkgdir} ninja install
+
+    install -d -o root -g 102 -m 700 ${pkgdir}/usr/share/polkit-1/rules.d
+}
