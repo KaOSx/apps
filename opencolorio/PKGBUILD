@@ -1,23 +1,23 @@
 
 pkgname=opencolorio
-pkgver=2.3.0
+pkgver=2.3.1
 pkgrel=1
 pkgdesc="A color management framework for visual effects and animation"
 arch=('x86_64')
 url="https://opencolorio.org"
 license=('BSD')
 depends=('python3' 'lcms2' 'yaml-cpp' 'openexr' 'glew' 'freeglut')
-makedepends=('cmake' 'boost')
+makedepends=('cmake' 'boost' 'pybind11')
 groups=('color')
 source=("https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v${pkgver}.tar.gz")
-md5sums=('c05f24a516fe82d381c4b0d471e12ad5')
+md5sums=('35f448262c260e142c8cdc9bcc81017c')
 
 prepare() {
   cd OpenColorIO-${pkgver}
 
-  sed -i 's|yaml-cpp 0.7.0|yaml-cpp 0.8.0|' share/cmake/modules/FindExtPackages.cmake
-  sed -i 's|yaml-cpp 0.7.0|yaml-cpp 0.8.0|' share/cmake/modules/Findyaml-cpp.cmake
-  sed -i 's|get_target_property(yaml-cpp_LIBRARY yaml-cpp LOCATION)||' share/cmake/modules/Findyaml-cpp.cmake
+  #sed -i 's|yaml-cpp 0.7.0|yaml-cpp 0.8.0|' share/cmake/modules/FindExtPackages.cmake
+  #sed -i 's|yaml-cpp 0.7.0|yaml-cpp 0.8.0|' share/cmake/modules/Findyaml-cpp.cmake
+  #sed -i 's|get_target_property(yaml-cpp_LIBRARY yaml-cpp LOCATION)||' share/cmake/modules/Findyaml-cpp.cmake
 }
 
 build() {

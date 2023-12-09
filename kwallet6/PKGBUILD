@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kwallet6
 _pkgname=kwallet
 pkgver=${_kf6ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KWallet Framework - Safe desktop-wide storage for passwords'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kwallet'
@@ -14,7 +14,7 @@ depends=('kcoreaddons6' 'kconfig6' 'kwindowsystem6' 'ki18n6' 'kiconthemes6' 'kno
          'kconfigwidgets6' 'kdbusaddons6' 'kservice6' 'kwidgetsaddons6' 'gpgme' 'qca-qt6')
 makedepends=('extra-cmake-modules' 'kdoctools6' 'boost')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/unstable/frameworks/${_kf6ver}/${_pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
@@ -22,7 +22,9 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DBUILD_KWALLETD=OFF \
+    -DBUILD_KWALLET_QUERY=OFF
   cmake --build build
 }
 
