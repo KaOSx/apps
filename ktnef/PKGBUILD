@@ -5,34 +5,26 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ktnef
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Library that contains an API for the handling of TNEF data."
+pkgdesc="Libraries to work with TNEF Email Attachments."
 arch=('x86_64')
-url='https://kontact.kde.org/'
+url='https://invent.kde.org/pim/ktnef'
 license=('LGPL')
-depends=('ki18n' 'kcalcore' 'kcalutils' 'kcontacts')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('ki18n6' 'kcalendarcore6' 'kcalutils' 'kcontacts6')
+makedepends=('extra-cmake-modules')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-prepare() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
-}
-
 build() {
-  mkdir -p build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

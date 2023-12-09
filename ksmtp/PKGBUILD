@@ -7,35 +7,24 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Job-based library to send email through an SMTP server."
 arch=('x86_64')
-url='https://github.com/KDE/ksmtp'
+url='https://invent.kde.org/pim/ksmtp'
 license=('LGPL')
-depends=('kcoreaddons' 'ki18n' 'kio' 'kmime')
+depends=('kcoreaddons6' 'ki18n6' 'kio6')
 makedepends=('extra-cmake-modules')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://github.com/KDE/ksmtp/commit/ec2afd27c790fbde63a9c2bdd1f97a59fe04b18e.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'e9e9ec2c2f5e08b9b0a0d26d9b58c30c')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  
-  #patch -p1 -i ${srcdir}/ec2afd27c790fbde63a9c2bdd1f97a59fe04b18e.diff
-}
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
