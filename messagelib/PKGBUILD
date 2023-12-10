@@ -9,12 +9,14 @@ pkgdesc="Library components for messages (e.g. displaying Akonadi collections)"
 arch=('x86_64')
 url='https://invent.kde.org/pim/messagelib'
 license=('LGPL')
-depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'akonadi-notes' 'libkdepim' 'karchive' 
-         'kldap' 'kpimtextedit' 'kmailtransport' 'kidentitymanagement' 'kiconthemes'
-         'kcompletion' 'kcodecs' 'kconfig' 'kxmlgui' 'akonadi-search' 'kcontacts' 'kmbox'  
-         'libgravatar' 'grantleetheme' 'libkleo' 'pimcommon' 'grantlee' 'qtwebengine' 'qca-qt5'
-         'gpgme' 'ktextaddons')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kcoreaddons6' 'kcodecs6' 'ki18n6' 'knewstuff6' 'karchive6' 'kcompletion6' 'kconfig6'
+         'kcontacts6' 'kiconthemes6' 'kitemviews6' 'kjobwidgets6' 'kio6' 'kservice6' 'sonnet6'
+         'ktextwidgets6' 'kxmlgui6' 'syntax-highlighting6' 'kdbusaddons6' 'kguiaddons6' 
+         'knotifications6' 'kcolorscheme' 'ktexttemplate'
+         'akonadi' 'akonadi-mime' 'akonadi-contacts' 'grantleetheme' 'libgravatar'
+         'kidentitymanagement' 'libkleo' 'kmailtransport' 'kmbox' 'kmime' 'pimcommon' 'kpimtextedit'
+         'libkdepim' 'ktextaddons' 'akonadi-search' 'qt6-webengine' 'gpgme')
+makedepends=('extra-cmake-modules')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
         "https://invent.kde.org/pim/messagelib/-/commit/3b5b171e91ce78b966c98b1292a1bcbc8d984799.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
@@ -31,8 +33,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

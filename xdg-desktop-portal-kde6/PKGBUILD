@@ -6,13 +6,13 @@ pkgname=xdg-desktop-portal-kde6
 _pkgname=xdg-desktop-portal-kde
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="A backend implementation for xdg-desktop-portal that is using Qt/KDE"
 url="https://invent.kde.org/plasma/xdg-desktop-portal-kde"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons6' 'kconfig6' 'ki18n6' 'kguiaddons6' 'kglobalaccel6' 'kio6' 'kirigami6' 'knotifications6'
          'kservice6' 'kwidgetsaddons6' 'kwindowsystem6' 'kiconthemes6' 'kstatusnotifieritem' 'kwayland6'
-         'libepoxy' 'pipewire' 'xdg-desktop-portal' 'libcups') # 'kio-fuse')
+         'libepoxy' 'pipewire' 'xdg-desktop-portal' 'cups' 'kio-fuse')
 makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/unstable/plasma/${_plasmaver}/${_pkgname}-${_plasmaver}.tar.xz")
 md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
