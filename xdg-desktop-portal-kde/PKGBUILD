@@ -5,13 +5,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=xdg-desktop-portal-kde
 arch=('x86_64')
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="A backend implementation for xdg-desktop-portal that is using Qt/KDE"
 url="https://github.com/KDE/xdg-desktop-portal-kde"
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcoreaddons' 'kconfig' 'ki18n' 'kdeclarative' 'kio' 'kirigami' 'knotifications'
          'plasma-framework' 'kwayland' 'kwidgetsaddons' 'kwindowsystem' 
-         'libepoxy' 'pipewire' 'xdg-desktop-portal' 'libcups' 'kio-fuse')
+         'libepoxy' 'pipewire' 'xdg-desktop-portal' 'cups' 'kio-fuse')
 makedepends=('extra-cmake-modules')
 source=($_mirror/${pkgname}-${_plasmaver}.tar.xz)
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
