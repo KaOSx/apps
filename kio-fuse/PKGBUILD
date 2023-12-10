@@ -1,15 +1,15 @@
 
 pkgname=kio-fuse
-pkgver=5.0.1
-pkgrel=2
+pkgver=5.1.0
+pkgrel=1
 pkgdesc="FUSE Interface for KIO"
 arch=('x86_64')
 url='https://invent.kde.org/system/kio-fuse'
 license=('GPLv3.0')
 depends=('kcoreaddons' 'kdbusaddons' 'kio' 'fuse3')
 makedepends=('extra-cmake-modules')
-source=("https://download.kde.org/stable/kio-fuse/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('66679a8bf68fe60e19f31449f4110d4cf822915b3d245af3c0cd0056081466dd')
+source=("https://download.kde.org/stable/kio-fuse/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('7d104581227d5a19b424b33f4168d181556b1015d6df2218e01a88d64449e94b')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
