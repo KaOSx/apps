@@ -7,36 +7,27 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Assistant to import PIM data from other applications into Akonadi for use in KDE PIM applications."
 arch=('x86_64')
-url='https://github.com/KDE/akonadi-import-wizard'
+url='https://invent.kde.org/pim/akonadi-import-wizard'
 license=('LGPL')
-depends=('kwallet' 'kconfig' 'kdbusaddons' 'kauth' 'kcrash' 'kio'
-         'akonadi' 'kcontacts' 'kidentitymanagement' 'kmailtransport' 'mailcommon'
-         'mailimporter' 'messagelib' 'pimcommon' 'libkdepim' 'ktextaddons')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-replaces=('kdepim')
-conflicts=('kdepim')
-install=${pkgname}.install
+depends=('kconfig6' 'kdbusaddons6' 'kauth6' 'kcrash6' 'kio6' 'karchive6' 'kcontacts6'
+         'akonadi' 'kidentitymanagement' 'kmailtransport' 'mailcommon'
+         'mailimporter' 'messagelib' 'pimcommon' 'qtkeychain-qt6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

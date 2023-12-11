@@ -9,7 +9,7 @@ arch=('x86_64')
 pkgdesc="Library to assist with accessing public transport timetables and other data."
 url="https://invent.kde.org/libraries/kpublictransport"
 license=('LGPL')
-depends=('qt5-declarative' 'protobuf' 'networkmanager-qt' 'ki18n')
+depends=('qt5-declarative' 'protobuf' 'networkmanager-qt6' 'ki18n6')
 makedepends=('extra-cmake-modules')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
@@ -26,7 +26,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

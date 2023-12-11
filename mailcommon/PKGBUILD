@@ -5,22 +5,20 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=mailcommon
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Lib which provides support for mail apps"
+pkgdesc="Library which provides support for mail applications."
 arch=('x86_64')
 url='https://invent.kde.org/pim/mailcommon'
 license=('LGPL')
-depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'kcodecs' 'kiconthemes' 'karchive' 'kitemviews'
-         'kwindowsystem' 'kxmlgui' 'messagelib' 'libkdepim' 'pimcommon' 'mailimporter' 'kmailtransport'
-         'kldap' 'phonon-qt5' 'ktextaddons')
-makedepends=('extra-cmake-modules' 'kdesignerplugin' 'qt5-tools' 'boost')
+depends=('karchive6' 'kcompletion6' 'kconfig6' 'ki18n6' 'kiconthemes6' 'kitemmodels6' 'kitemviews6'
+         'kio6' 'ktextwidgets6' 'kwidgetsaddons6' 'kxmlgui6' 'kdbusaddons6' 'syntax-highlighting6'
+         'kguiaddons6' 'kcodecs6' 
+         'akonadi' 'akonadi-mime' 'libkdepim' 'mailimporter' 'messagelib' 'kmime' 'pimcommon'
+         'akonadi-contacts' 'kidentitymanagement' 'phonon-qt6' 'ktextaddons' 'gpgme')
+makedepends=('extra-cmake-modules' 'qt6-tools')
+groups=('network-email')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-groups=('network-email')
 
-prepare() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's|set(AKONADIMIME_LIB_VERSION "4.81.0")|set(AKONADIMIME_LIB_VERSION "4.80.0")|' CMakeLists.txt
-}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
@@ -28,10 +26,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
