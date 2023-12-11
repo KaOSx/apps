@@ -5,40 +5,32 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=pim-data-exporter
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Application to assist you with backing up and archiving PIM data, for archival or transfer to another computer."
+pkgdesc="Application to assist you with backing up and archiving PIM data."
 arch=('x86_64')
-url='https://github.com/KDE/pim-data-exporter'
+url='https://invent.kde.org/pim/pim-data-exporter'
 license=('LGPL')
-depends=('kdbusaddons' 'kcrash' 'kpimtextedit' 'akonadi' 'kcontacts' 'kcalcore' 'akonadi-contacts'
-         'calendarsupport' 'akonadi-mime' 'kcalutils' 'mailcommon' 'libkdepim' 'kmailtransport'
-         'kuserfeedback' 'ktextaddons')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('karchive6' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'kitemviews6' 'kio6'
+         'knotifications6' 'kwidgetsaddons6' 'kxmlgui6' 'kstatusnotifieritem'
+         'kcontacts6' 'kcalendarcore6' 
+         'akonadi' 'kidentitymanagement' 'mailcommon' 'kmailtransport' 'kmime' 'pimcommon'
+         'akonadi-notes'
+         'kuserfeedback6' 'ktextaddons')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-prepare() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's/${DATA_INSTALL_DIR}/${KXMLGUI_INSTALL_DIR}/' ${srcdir}/${pkgname}/src/CMakeLists.txt
-}
-
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

@@ -6,28 +6,29 @@ pkgname=kdepim-addons
 pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
-pkgdesc="Addons for kdepim apps (as kmail addons/ kmail theme/ kaddressbook addons etc.)"
+pkgdesc="Add-ons for KDE PIM apps (as kmail addons/ kmail theme/ kaddressbook addons etc.)"
 url="https://invent.kde.org/pim/kdepim-addons"
 license=('GPL' 'LGPL' 'FDL')
-depends=('libkgapi' 'qtwebengine' 'boost-libs'
-         #frameworks
-         'ki18n' 'kconfig' 'kdbusaddons' 'kxmlgui' 'kdeclarative' 'syntax-highlighting'
-         'kio' 'kiconthemes' 'kparts' 'prison' 'kholidays' 'kguiaddons'
+depends=(#frameworks
+         'ki18n6' 'kconfig6' 'kdbusaddons6' 'kxmlgui6' 'kdeclarative6' 'syntax-highlighting6'
+         'kio6' 'kiconthemes6' 'kiconthemes6' 'kparts6' 'prison6' 'kholidays6' 'kguiaddons6'
+         'kcalendarcore6' 'kcontacts6' 'ktexttemplate'
          #kdepimlibs
-         'mailcommon' 'libkleo' 'grantleetheme'
-         'pimcommon' 'libkdepim' 'incidenceeditor' 'ktnef' 'akonadi-import-wizard'
-         'messagelib' 'calendarsupport' 'eventviews' 'akonadi' 'libgravatar' 'libksieve'
-         'kpkpass' 'kitinerary' 'kontactinterface' 'kaddressbook'
-         'discount' 'ktextaddons')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+         'mailcommon' 'libgravatar' 'pimcommon' 'grantleetheme' 
+         'eventviews' 'libkdepim' 'kaddressbook' 'libkleo' 'akonadi' 'incidenceeditor' 'ktnef'
+         'messagelib' 'akonadi-calendar' 'kpimtextedit' 'kimap' 'libksieve' 'kmailtransport'
+         'kpkpass' 'kitinerary' 'akonadi-notes' 'kmime' 'kcalutils' 'calendarsupport' 'kidentitymanagement'
+         'akonadi-import-wizard' 'mailimporter'
+         #other
+         'ktextaddons' 'gpgme' 'discount' 'qt6-webengine')
+makedepends=('extra-cmake-modules')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd $pkgname-${pkgver}
-  sed -i -e 's|setRecursiveFiltering(true)|setRecursiveFilteringEnabled(true);|' sieveeditor/imapfoldercompletion/selectimapfolderwidget.cpp
-  # fix license issue
+  cd ${pkgname}-${pkgver}
+  #sed -i -e 's|setRecursiveFiltering(true)|setRecursiveFilteringEnabled(true);|' sieveeditor/imapfoldercompletion/selectimapfolderwidget.cpp
   #patch -p1 -i ${srcdir}/ad9b246409bf9fbea70f57a69b4cfef1ca45c2b3.diff
 }
 
@@ -37,11 +38,9 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=FALSE \
-    -DKDEPIMADDONS_BUILD_EXAMPLES=TRUE
+    -DKDEPIMADDONS_BUILD_EXAMPLES=TRUE \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

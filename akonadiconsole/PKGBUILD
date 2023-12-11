@@ -7,34 +7,29 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Application for debugging Akonadi Resources."
 arch=('x86_64')
-url='https://github.com/KDE/akonadiconsole'
+url='https://invent.kde.org/pim/akonadiconsole'
 license=('LGPL')
-depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kdbusaddons' 'ki18n' 'kitemmodels'
-         'ktextwidgets' 'kwidgetsaddons' 'kxmlgui' 'kcrash'
-         'kpimtextedit' 'akonadi' 'kcontacts' 'kcalcore' 'akonadi-contacts' 'calendarsupport'
-         'akonadi-mime' 'messagelib' 'kmime' 'libkdepim' 'libkleo')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kcompletion6' 'kconfig6' 'kdbusaddons6' 'ki18n6' 'kitemmodels6'
+         'ktextwidgets6' 'kwidgetsaddons6' 'kxmlgui6' 'kcrash6' 'kcompletion6' 'kitemviews6'
+         'kio6' 'kcontacts6' 'kcalendarcore6'
+         'akonadi' 'kmime' 'akonadi-mime' 'libkdepim' 'akonadi-contacts' 'calendarsupport'
+         'messagelib' 'akonadi-search' 'xapian-core')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

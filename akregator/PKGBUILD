@@ -7,37 +7,24 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="RSS Feed Reader."
 arch=('x86_64')
-url='https://github.com/KDE/akregator'
+url='https://invent.kde.org/pim/akregator'
 license=('LGPL')
-depends=('kcrash' 'kcmutils' 'knotifyconfig' 'kparts' 'ktexteditor' 'kxmlgui' 'kiconthemes'
-         'knotifications' 'kwindowsystem'
-         'akonadi-mime' 'grantleetheme' 'kontactinterface' 'libkdepim' 'libkleo' 'messagelib' 
-         'pimcommon' 'kpimtextedit' 'syndication'
-         'grantlee' 'qtwebengine' 'kdepim-addons'
-         'akonadi-import-wizard' 'pim-data-exporter' 'kuserfeedback')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('ki18n6' 'kcrash6' 'kcmutils6' 'knotifyconfig6' 'kparts6' 'ktextwidgets6' 'kxmlgui6'
+         'knotifications6' 'syndication6' 'kcodecs6' 'kstatusnotifieritem' 
+         'grantleetheme' 'kontactinterface' 'libkdepim' 'messagelib' 'pimcommon' 'kpimtextedit'
+         'qt6-webengine' 'kuserfeedback6' 'ktextaddons')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        'qt5.15.3.patch')
-        #"https://invent.kde.org/pim/akregator/-/commit/d51a165fc268192b02295752fa0752754e63b524.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'fff739fbdc3ebc512a6b93910140068f')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-
-  #patch -p1 -i ${srcdir}/qt5.15.3.patch
-}
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
