@@ -5,42 +5,41 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=incidenceeditor
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Lib which provides incidence editor"
+pkgdesc="Library that provides calendar incidence editor."
 arch=('x86_64')
-url='https://github.com/KDE/incidenceeditor'
+url='https://invent.kde.org/pim/incidenceeditor'
 license=('LGPL')
-depends=('akonadi' 'ki18n' 'kmime' 'akonadi-mime' 'kldap' 'kcodecs' 'calendarsupport' 'libkdepim'
-         'kdiagram' 'kcalutils' 'kcalendarcore' 'kmailtransport' 'eventviews')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kcalendarcore6' 'kcodecs6' 'ki18n6' 'kiconthemes6' 'kio6' 'ktextwidgets6'
+         'akonadi' 'kldap' 'calendarsupport' 'kcalutils' 'eventviews' 'libkdepim' 
+         'kmime' 'akonadi-calendar' 'akonadi-mime' 'pimcommon' 'kpimtextedit' 'kidentitymanagement'
+         'kdiagram')
+makedepends=('extra-cmake-modules')
 groups=('kde' 'kdepim' 'kde-uninstall')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/incidenceeditor.git")
-#md5sums=('SKIP')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/pim/incidenceeditor/-/commit/c64502a92568abe54e27f6d3adfcb1fe84baac4b.diff"
+        "https://invent.kde.org/pim/incidenceeditor/-/commit/d2bda9e3754f7daa8ea876e1d909fe038e03c85b.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '8167c4b987888e9b0d96f1d83841e7d0'
+         'acd54f99335ad8bb4321bec43b6e6ace')
 
 prepare() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's|set(AKONADIMIME_LIB_VERSION "4.81.0")|set(AKONADIMIME_LIB_VERSION "4.80.0")|' ${srcdir}/${pkgname}/CMakeLists.txt
+    cd ${pkgname}-${pkgver}
+
+    patch -p1 -i ${srcdir}/d2bda9e3754f7daa8ea876e1d909fe038e03c85b.diff
+    patch -p1 -i ${srcdir}/c64502a92568abe54e27f6d3adfcb1fe84baac4b.diff
 }
 
 build() {
-  mkdir build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

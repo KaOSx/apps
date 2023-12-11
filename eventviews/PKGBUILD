@@ -5,41 +5,36 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=eventviews
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Contains libs for creating events"
+pkgdesc="Library for displaying and creating events and calendars"
 arch=('x86_64')
-url='https://github.com/KDE/eventviews'
+url='https://invent.kde.org/pim/eventviews'
 license=('LGPL')
-depends=('akonadi' 'ki18n' 'kcodecs' 'libkdepim' 'kdiagram' 'kcalutils' 'calendarsupport' 'akonadi-calendar'
-         'kmime' 'kidentitymanagement')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/eventviews.git")
-#md5sums=('SKIP')
+depends=('ki18n6' 'kcodecs6' 'kguiaddons6' 'kiconthemes6' 'kitemmodels6' 'kservice6' 'kcompletion6'
+         'kholidays6' 'kcontacts6' 'kconfigwidgets6' 'kcalendarcore6' 'kdiagram'
+         'akonadi' 'libkdepim' 'kcalutils' 'calendarsupport' 'akonadi-calendar' 'kmime')
+makedepends=('extra-cmake-modules')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/pim/eventviews/-/commit/601f88f1d05f00e621976be58d170355caa29fdd.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'eda1522be9549f53e9c9a1e634924b40')
 
 prepare() {
-  cd $pkgname-${pkgver}
-  #sed -i -e 's|set(AKONADIMIME_LIB_VERSION "4.81.0")|set(AKONADIMIME_LIB_VERSION "4.80.0")|' ${srcdir}/${pkgname}/CMakeLists.txt
+    cd ${pkgname}-${pkgver}
+
+    patch -p1 -i ${srcdir}/601f88f1d05f00e621976be58d170355caa29fdd.diff
 }
 
 build() {
-  mkdir build
-  
-  cd build 
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

@@ -2,18 +2,18 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=calendarsupport
+pkgname=mimetreeparser
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Library that provides calendar support for PIM."
+pkgdesc="Parser for MIME trees."
 arch=('x86_64')
-url='https://invent.kde.org/pim/calendarsupport'
+url='https://invent.kde.org/pim/mimetreeparser'
 license=('LGPL')
-depends=('ki18n6' 'kguiaddons6' 'kio6' 'kcodecs6' 'kcalendarcore6' 'kholidays6'
-         'kmime' 'kcalutils' 'kidentitymanagement' 'akonadi-calendar' 'akonadi-notes' 'ktextaddons')
-makedepends=('extra-cmake-modules')
+depends=('ki18n6' 'kcodecs6' 'kcalendarcore6' 'kwidgetsaddons6'
+         'gpgme' 'kmime' 'kmbox' 'libkleo')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kdepim' 'kde-uninstall')
-source=("http://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
@@ -29,5 +29,5 @@ build() {
 
 package() {
 
-  DESTDIR=${pkgdir} cmake --install build 
+  DESTDIR=${pkgdir} cmake --install build
 }

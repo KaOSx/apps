@@ -6,33 +6,27 @@ pkgname=kdepim-runtime
 pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
-pkgdesc="KDE Pim Runtime"
+pkgdesc="Akonadi agents and resources"
 url="https://invent.kde.org/pim/kdepim-runtime"
 license=('GPL' 'LGPL' 'FDL')
-depends=('akonadi-mime' 'akonadi-notes' 'akonadi-contacts' 'kconfig' 'kconfigwidgets' 'knotifyconfig' 'kio'
-         'kitemmodels' 'kcodecs' 'kwindowsystem' 'ktextwidgets' 'knotifications' 'kholidays' 'kdbusaddons' 'kiconthemes'
-         'accountsqt' 'signonqt' 'shared-mime-info' 
-         'akonadi' 'kmime' 'kmailtransport' 'kidentitymanagement' 'kcontacts' 'kcalutils' 'kcalcore' 
-         'kcalutils' 'kmbox' 'kimap' 'syndication' 'akonadi-calendar' 'kaccounts-integration' 'pimcommon'
-         'kdav' 'libkgapi' 'qca-qt5' 'qt5-networkauth') # 'libkolabxml')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kconfig6' 'kconfigwidgets6' 'knotifyconfig6' 'kio6' 'kitemmodels6' 'kcodecs6'
+         'kwindowsystem6' 'ktextwidgets6' 'knotifications6' 'kcmutils6' 'kdav6' 'kwallet6' 'kcontacts6'
+         'kcalendarcore6' 'kholidays' 'kdbusaddons' 'kiconthemes' 
+         'akonadi' 'kmime' 'akonadi-mime' 'kmailtransport' 'kidentitymanagement' 'akonadi-contacts'
+         'kcalutils' 'kmbox' 'kimap' 'akonadi-notes' 'akonadi-calendar' 'libkgapi' 'kldap'
+         'qca-qt6' 'qt6-networkauth' 'qt6-speech' 'qt6-webengine' 'qtkeychain-qt6') #'kaccounts-integration''accountsqt' 'signonqt'
+makedepends=('extra-cmake-modules')
 options=('debug')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://invent.kde.org/pim/kdepim-runtime/-/commit/fb0d78fb3bcfce5bd4ff7f51e4cd1405693e0275.diff"
-        "https://invent.kde.org/pim/kdepim-runtime/-/commit/2fd3604ad6a9594b9dd8b0f1529f4f4589fe831f.diff"
-        "https://invent.kde.org/pim/kdepim-runtime/-/commit/c99afc75a503fff6ca83df2f47a5d5d951579524.diff")
+        "https://invent.kde.org/pim/kdepim-runtime/-/commit/fb0d78fb3bcfce5bd4ff7f51e4cd1405693e0275.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '9e1a4c5fe084a5c3cdffa0865552a3d8'
-         'de384764c89452fd9616a290e25eca11'
-         '73c183c35e56acddd3664ee568b10576')
+         '9e1a4c5fe084a5c3cdffa0865552a3d8')
 
 prepare() {
     cd ${pkgname}-${pkgver}
 
     #patch -p1 -i ${srcdir}/fb0d78fb3bcfce5bd4ff7f51e4cd1405693e0275.diff
-    #patch -p1 -i ${srcdir}/2fd3604ad6a9594b9dd8b0f1529f4f4589fe831f.diff
-    #patch -p1 -i ${srcdir}/c99afc75a503fff6ca83df2f47a5d5d951579524.diff
 }
 
 build() {    
@@ -41,11 +35,8 @@ build() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_SKIP_RPATH=ON \
         -DKDE_INSTALL_LIBDIR=lib \
-        -DKDE_INSTALL_SYSCONFDIR=/etc \
-        -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-        -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-        -DBUILD_TESTING=OFF
+        -DBUILD_TESTING=OFF \
+        -DQT_MAJOR_VERSION=6
     cmake --build build
 }
 
