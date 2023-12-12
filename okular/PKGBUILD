@@ -9,34 +9,35 @@ pkgrel=1
 pkgdesc="Document viewer that can view and annotate various formats, including PDF, Postscript, Comic Book, and image formats."
 url="https://okular.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kactivities' 'karchive' 'kbookmarks' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons'
-          'kcrash' 'ki18n' 'kiconthemes' 'kjs' 'kio' 'kparts' 'kpty' 'khtml' 'ktextwidgets'
-          'threadweaver' 'kwallet' 'kwindowsystem'
-         'phonon-qt5' 'libxxf86vm' 'sane' 'poppler-qt5' 'chmlib' 'djvulibre' 'libspectre' 'ebook-tools'
-         'json-c' 'libkexiv2' 'libkdcraw' 'kdegraphics-mobipocket' 'qt5-speech' 'discount' 'purpose')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools' 'qca-qt5')
+depends=('plasma-activities' 'karchive6' 'kbookmarks6' 'kcompletion6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6'
+         'kcrash6' 'ki18n6' 'kiconthemes6' 'kpty6' 'kio6' 'kparts6' 'ktextwidgets6'
+         'threadweaver6' 'kwallet6' 'kwindowsystem6'
+         'phonon-qt6' 'libxxf86vm' 'sane' 'poppler' 'chmlib' 'djvulibre' 'libspectre' 'ebook-tools'
+         'json-c' 'libkexiv6' 'libkdcraw6'  'qt6-speech' 'discount' 'purpose6' 'kdegraphics-mobipocket')
+makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools6' 'qca-qt6')
 groups=('office')
-source=("${_mirror}/${pkgname}-${_kdever}.tar.xz"
+#source=("${_mirror}/${pkgname}-${_kdever}.tar.xz"
+source=("https://invent.kde.org/graphics/okular/-/archive/work/nico/qt6-buildsystem/okular-work-nico-qt6-buildsystem.tar.bz2"
         "https://invent.kde.org/kde/okular/-/commit/504eec7688e7139e9d193fc2b3ddafac0f835b6f.diff")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+md5sums=('ed2a69b5450bb8bc0d5135130162ad10'
          'c94e922c31169d77419e23e380d3fba1')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-work-nico-qt6-buildsystem
 
   #patch -p1 -i ${srcdir}/504eec7688e7139e9d193fc2b3ddafac0f835b6f.diff
-  #sed -i -e 's|ecm_setup_version(0.99.|ecm_setup_version(1.0.|' CMakeLists.txt
+  #sed -i -e 's|KF_REQUIRED_VERSION "5.92.0"|KF_REQUIRED_VERSION "5.27.80"|' CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-work-nico-qt6-buildsystem \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
-    -DKF5KExiv2_DIR=/usr/lib/cmake/KEXIV2
+    -DQT_MAJOR_VERSION=6 \
+    -DFORCE_NOT_REQUIRED_DEPENDENCIES=""
   cmake --build build
 }
 
