@@ -9,10 +9,10 @@ pkgdesc="Utilities and tools to manage themes in KDE PIM applications."
 arch=('x86_64')
 url='https://invent.kde.org/pim/grantlee-editor'
 license=('LGPL2')
-depends=('kcrash' 'kdbusaddons' 'kxmlgui' 'ktexteditor' 'kwallet' 'knewstuff' 'karchive' 'pimcommon'
-         'messagelib' 'grantleetheme' 'akonadi-mime' 'libkleo' 'syntax-highlighting'
-         'kpimtextedit' 'libkdepim')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kcrash6' 'kdbusaddons6' 'kxmlgui6' 'karchive6' 'syntax-highlighting6'
+         'pimcommon' 'messagelib' 'grantleetheme' 'akonadi-contacts' 'kimap'
+         'kmime' 'ktextaddons')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -22,10 +22,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

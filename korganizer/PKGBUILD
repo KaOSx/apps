@@ -5,18 +5,16 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=korganizer
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Organizational assistant, providing calendars and other similar functionality to help you organize your life."
+pkgdesc="Organizational assistant, providing calendars and other similar functionality."
 arch=('x86_64')
 url='https://apps.kde.org/en/korganizer'
 license=('LGPL')
-depends=('knewstuff' 'kcmutils' 'kconfig' 'kservice' 'kdbusaddons' 'kcodecs' 'kcrash'  
-         'kpimtextedit' 'akonadi' 'kcontacts' 'kcalcore' 'akonadi-contacts' 'kidentitymanagement'
-         'kmailtransport' 'akonadi-mime' 'kcalutils' 'kholidays' 'kldap' 'akonadi-calendar' 'kontactinterface'
-         'kmime' 'akonadi-notes' 'pimcommon' 'libkdepim' 'incidenceeditor' 'calendarsupport'
-         'eventviews' 'akonadi-search' 'kdepim-runtime'
-         'phonon-qt5' 'qt5-x11extras' 'kdepim-addons'
-         'akonadi-import-wizard' 'pim-data-exporter' 'kuserfeedback')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost' 'qt5-tools')
+depends=('ki18n6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kiconthemes6'
+         'kitemviews6' 'kjobwidgets6' 'kcmutils6' 'knewstuff6' 'kparts6' 'kwidgetsaddons6'
+         'kxmlgui6' 'kholidays6' 'kuserfeedback6' 'kcontacts6' 'kcalendarcore6'
+         'akonadi' 'akonadi-contacts' 'kidentitymanagement' 'kmailtransport' 'kcalutils'
+         'kldap' 'akonadi-calendar' 'kontactinterface' 'kmime' 'akonadi-notes' 'pimcommon' 'libkdepim' 'incidenceeditor' 'calendarsupport' 'eventviews' 'kdepim-runtime' 'kdepim-addons')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -31,10 +29,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

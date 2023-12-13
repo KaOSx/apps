@@ -7,32 +7,26 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Application to assist with editing IMAP Sieve filters."
 arch=('x86_64')
-url='https://github.com/KDE/pim-sieve-editor'
+url='https://invent.kde.org/pim/pim-sieve-editor'
 license=('LGPL')
-depends=('kdbusaddons' 'kcrash' 'kbookmarks' 'kiconthemes' 'kio'
-         'kpimtextedit' 'kmailtransport' 'messagelib' 'pimcommon' 'libksieve' 'kuserfeedback')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kdbusaddons6' 'kcoreaddons6' 'kcrash6' 'kbookmarks6' 'kio6' 'kxmlgui6' 'ki18n6' 'kuserfeedback6'
+         'kmailtransport' 'pimcommon' 'libksieve' 'kimap' 'qtkeychain-qt6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

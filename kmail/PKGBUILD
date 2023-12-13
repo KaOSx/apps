@@ -5,20 +5,22 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kmail
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Email client, supporting POP3 and IMAP mailboxes."
+pkgdesc="State-of-the-art feature-rich email client that supports many protocols."
 arch=('x86_64')
 url='https://kontact.kde.org'
 license=('LGPL')
-depends=('kcrash' 'kbookmarks' 'kcodecs' 'kconfig' 'kconfigwidgets' 'kdbusaddons' 'kguiaddons' 'ki18n' 'kitemviews'
-         'kjobwidgets' 'kio' 'kcmutils' 'knotifications' 'knotifyconfig' 'kparts' 'kservice' 'sonnet'
-         'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 
-         'akonadi' 'akonadi-contacts' 'akonadi-mime' 'kcontacts' 'kcalcore' 'kcalutils' 'kidentitymanagement'
+depends=('kbookmarks6' 'kconfig6' 'kconfigwidgets6' 'kcrash6' 'kdbusaddons6' 'kguiaddons6' 'ki18n6' 'kitemviews6'
+         'kjobwidgets6' 'kio6' 'kcmutils6' 'knotifications6' 'knotifyconfig6' 'kparts6' 'kservice6' 'sonnet6'
+         'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'kcontacts6' 'kcalendarcore6'
+         'kstatusnotifieritem'
+         'akonadi' 'akonadi-contacts' 'akonadi-mime' 'akonadi-search' 'kcalutils' 'kidentitymanagement'
          'kldap' 'kmailtransport' 'kpimtextedit' 'kontactinterface' 'kmime' 'libgravatar'
-         'libkdepim' 'libkleo' 'libksieve' 'mailcommon' 'messagelib' 'pimcommon'
-         'qtwebengine' 'gpgme' 'kdepim-addons'
+         'libkdepim' 'libkleo' 'libksieve' 'mailcommon' 'messagelib' 'pimcommon' 'ktnef'
+         'kdepim-addons'
          'akonadi-import-wizard' 'grantlee-editor' 'kmail-account-wizard' 'mbox-importer' 'pim-data-exporter'
-         'pim-sieve-editor' 'kdepim-runtime' 'kuserfeedback' 'ktextaddons')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+         'pim-sieve-editor' 'kdepim-runtime' 'kdepim-addons' 'kuserfeedback6' 'ktextaddons'
+         'qt6-webengine' 'gpgme' 'qtkeychain-qt6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim' 'network-email')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -34,9 +36,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

@@ -9,10 +9,13 @@ pkgdesc="Calendar application supporting both local calendars as well as a multi
 arch=("x86_64")
 url="https://apps.kde.org/merkuro.calendar/"
 license=('GPL')
-depends=('kcalendarcore' 'kconfigwidgets' 'kcontacts'  'kcoreaddons' 'kdbusaddons' 'ki18n' 'kiconthemes'
-         'kitemmodels' 'kirigami-addons' 'kio' 'qqc2-desktop-style' 'kwindowsystem' 'kxmlgui' 'knotifications'  'kservice'
-         'akonadi-calendar' 'akonadi-contacts' 'calendarsupport' 'eventviews' 'mailcommon' 'pimcommon')
-makedepends=('extra-cmake-modules' 'boost')
+depends=('kcalendarcore6' 'kconfigwidgets6' 'kcontacts6'  'kcoreaddons6' 'kdbusaddons6' 'ki18n6'
+         'kiconthemes6' 'kitemmodels6' 'kirigami-addons6' 'kio6' 'qqc2-desktop-style6' 'kwindowsystem6'
+         'kxmlgui6' 'gpgme'
+         'akonadi-calendar' 'akonadi-contacts' 'akonadi-mime' 'kcalutils' 'kidentitymanagement'
+         'mailcommon' 'mimetreeparser' 'kmbox' 'kmime' 'kdepim-runtime'
+         'qt6-svg')
+makedepends=('extra-cmake-modules')
 replaces=('kalendar')
 provides=('kalendar')
 conflicts=('kalendar')
@@ -23,7 +26,8 @@ build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

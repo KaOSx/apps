@@ -9,23 +9,32 @@ pkgdesc="Application to manage alarms and other timer based alerts for the deskt
 arch=('x86_64')
 url='https://invent.kde.org/pim/kalarm'
 license=('LGPL')
-depends=('kauth' 'kcalendarcore' 'kcodecs' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcrash'
-         'kdbusaddons' 'kglobalaccel' 'kguiaddons' 'ki18n' 'kidletime' 'kjobwidgets' 'kcmutils'
-         'kio' 'knotifications' 'knotifyconfig' 'kservice' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 
-         'kholidays' 'akonadi' 'akonadi-contacts' 'akonadi-mime' 'kcalcore' 'kcalutils'
-         'kidentitymanagement' 'libkdepim' 'mailcommon' 'kmailtransport' 'kmime' 'pimcommon' 'kpimtextedit' 
-         'libxslt' 'akonadi-import-wizard' 'pim-data-exporter')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kauth6' 'kcalendarcore6' 'kcodecs6' 'kcompletion6' 'kconfig6' 'kconfigwidgets6' 'kcontacts6' 'kcrash6'
+         'kdbusaddons6' 'kglobalaccel6' 'kguiaddons6' 'kholidays6' 'ki18n6' 'kitemmodels6' 'kjobwidgets6'
+         'kio6' 'knotifications6' 'knotifyconfig6' 'kservice6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6'
+         'ktextwidgets6' 'kstatusnotifieritem' 'ktextwidgets6'
+         'akonadi' 'akonadi-contacts' 'akonadi-mime' 'kmailtransport' 'kcalutils' 'kidentitymanagement' 'kmime' 'ktextaddons' 'phonon-qt6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/pim/kalarm/-/commit/d0998827b0fd5ce761957d0c57296975bd383d97.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'af2b9fe185f95f06284b1042426027ed')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  
+  patch -p1 -i ${srcdir}/d0998827b0fd5ce761957d0c57296975bd383d97.diff
+
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

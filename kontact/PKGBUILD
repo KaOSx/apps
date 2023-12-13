@@ -9,11 +9,10 @@ pkgdesc="Container application to unify several major PIM applications within on
 arch=('x86_64')
 url='https://kontact.kde.org/'
 license=('LGPL')
-depends=('kdbusaddons' 'kcmutils' 'kcrash' 'kwindowsystem' 'kiconthemes' 
-         'kpimtextedit' 'akonadi' 'kontactinterface' 'mailcommon' 'libkdepim' 'grantleetheme'
-         'qtwebengine'
-         'akonadi-import-wizard' 'pim-data-exporter' 'kmail-account-wizard')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('ki18n6' 'kdbusaddons6' 'kcmutils6' 'kcrash6' 'kiconthemes6' 'kguiaddons6'
+         'akonadi' 'kontactinterface' 'grantleetheme' 'pimcommon'
+         'qt6-webengine')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -29,10 +28,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

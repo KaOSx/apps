@@ -5,44 +5,32 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=knotes
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Note taking application."
+pkgdesc="Note-taking application."
 arch=('x86_64')
-url='https://github.com/KDE/knotes'
+url='https://apps.kde.org/knotes/'
 license=('LGPL')
-depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kdnssd'
-         'kglobalaccel' 'kiconthemes' 'kitemmodels' 'kitemviews' 'kcmutils' 'knewstuff' 'knotifications'
-         'knotifyconfig' 'kparts' 'ktextwidgets' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 
-         'akonadi' 'akonadi-notes' 'kcalutils' 'kontactinterface' 'libkdepim' 'kmime' 'pimcommon'
-         'kpimtextedit' 'akonadi-search'
-         'akonadi-import-wizard' 'pim-data-exporter')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kcompletion6' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'kdnssd6' 'kglobalaccel6' 'ki18n6'
+         'kiconthemes6' 'kitemmodels6' 'kitemviews6' 'kcmutils6' 'knewstuff6' 'knotifications6'
+         'knotifyconfig6' 'kparts6' 'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6'
+         'kstatusnotifieritem'
+         'akonadi' 'akonadi-notes' 'kcalutils' 'kontactinterface' 'kmime' 'pimcommon' 'grantleetheme'
+         'akonadi-search' 'ktextaddons')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-prepare() {
-  cd $pkgname-${pkgver}
-  
-  #sed -i -e 's|setRecursiveFiltering(true)|setRecursiveFilteringEnabled(true);|' src/configdialog/knotecollectionconfigwidget.cpp
-}
-
 build() {
-  mkdir -p build
-  cd build 
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
