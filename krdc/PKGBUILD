@@ -4,24 +4,18 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=krdc
 pkgver=${_kdever}
-#pkgver=16.03.70
-pkgrel=1
+pkgrel=2
 pkgdesc='Desktop Sharing Client'
 url='http://kde.org/applications/internet/krdc/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kde-network' 'kde-uninstall' 'network')
 depends=('kconfig' 'kcmutils' 'kdnssd' 'knotifyconfig' 'knotifications' 'kbookmarks' 'kiconthemes'
-         'kxmlgui' 'kcompletion' 'kwallet' 'kwidgetsaddons' 'ki18n' 'freerdp')
-         # not ported yet/removed? 'telepathy-qt5')
+         'kxmlgui' 'kcompletion' 'kwallet' 'kwidgetsaddons' 'ki18n' 'kactivities' 'freerdp' 'libssh')
 makedepends=('extra-cmake-modules' 'kdoctools' 'libvncserver')
 optdepends=('libvncserver: VNC support')
-conflicts=('kdenetwork-krdc')
-replaces=('kdenetwork-krdc')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-#source=("git://anongit.kde.org/krdc.git")
-#md5sums=('SKIP')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -30,22 +24,16 @@ prepare() {
 }
 
 build() {
-  mkdir build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF \
-    -DHAVE_XFREERDP=ON
-  make
+    -DBUILD_TESTING=OFF
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=$pkgdir install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
