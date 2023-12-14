@@ -3,18 +3,18 @@ pkgname=digikam
 _pkgname=digiKam
 pkgver=8.2.0
 _pkgver=8.2.0
-pkgrel=1
+pkgrel=2
 url="https://www.digikam.org/"
 arch=('x86_64')
 license=('GPL')
 pkgdesc="Digital photo management application for kde"
-depends=('knotifyconfig' 'knotifications' 'kio' 'ktextwidgets' 'kcoreaddons' 'kwindowsystem'
-         'solid' 'kiconthemes' 'kfilemetadata' 'libksane' 'ki18n' 'kitemmodels' 'lensfun' 
-         'marble' 'qt5-xmlpatterns' 'qt5-x11extras' 'qtwebengine' 'libgphoto2' 'liblqr' 'opencv'
-         'lapack' 'eigen3' 'mariadb' 'kparts' 'kconfig' 'kxmlgui' 'kservice' 'threadweaver'
-         'karchive' 'libkexiv2' 'libkdcraw' 'libmediawiki' 'libtiff' 'image-exiftool'
-         'kcalendarcore' 'kwallet' 'phonon-qt5' 'imagemagick' 'qt5-networkauth' 'akonadi-contacts') # 'kdepimlibs'
-makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools' 'doxygen' 'boost' 'ruby' 'subversion') # 'clang')
+depends=('knotifyconfig6' 'knotifications6' 'kio6' 'ktextwidgets6' 'kcoreaddons6' 'kwindowsystem'6
+         'solid6' 'kiconthemes6' 'kfilemetadata6' 'libksane6' 'ki18n6' 'kitemmodels6' 'lensfun' 
+         'qt6-5compat' 'qt6-scxml' 'qt6-webview' 'libgphoto2' 'liblqr' 'opencv'
+         'lapack' 'eigen3' 'mariadb' 'kparts6' 'kconfig6' 'kxmlgui6' 'kservice6' 'threadweaver6'
+         'karchive6' 'libkexiv6' 'libkdcraw6' 'libtiff' 'image-exiftool'
+         'kcalendarcore6' 'kwallet6' 'phonon-qt6' 'imagemagick' 'qt6-networkauth' 'akonadi-contacts') #'marble' 'libmediawiki' 
+makedepends=('pkgconfig' 'extra-cmake-modules' 'kdoctools6' 'doxygen' 'boost' 'ruby' 'subversion') # 'clang')
 groups=('kde-graphics')
 source=("https://download.kde.org/stable/digikam/${_pkgver}/${_pkgname}-${_pkgver}.tar.xz"
         "https://invent.kde.org/graphics/digikam/-/commit/5b4ba173f6a84a8be1131b1523dc42df95171ec7.diff")
@@ -34,9 +34,6 @@ build() {
      -DCMAKE_INSTALL_PREFIX=/usr \
      -DKDE_INSTALL_LIBDIR=lib \
      -DCMAKE_SKIP_RPATH=ON \
-     -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
      -DBUILD_TESTING=OFF \
      -DENABLE_AKONADICONTACTSUPPORT=ON \
      -DENABLE_MYSQLSUPPORT=ON \
@@ -44,7 +41,8 @@ build() {
      -DENABLE_MEDIAPLAYER=ON \
      -DCMAKE_C_COMPILER=gcc \
      -DENABLE_APPSTYLES=ON \
-     -DENABLE_QWEBENGINE=ON
+     -DENABLE_QWEBENGINE=ON \
+     -DBUILD_WITH_QT6=ON
    cmake --build build
 }
 
