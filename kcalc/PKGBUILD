@@ -6,13 +6,12 @@ pkgname=kcalc
 pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
-pkgdesc="Scientific calculator"
-url="https://www.kde.org/applications/utilities/kcalc"
+pkgdesc="Calculator offering everything a scientific calculator does, and more."
+url="https://apps.kde.org/kcalc/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kconfigwidgets' 'kguiaddons' 'ki18n' 'kinit' 'knotifications' 'kxmlgui' 'mpfr')
-makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdeutils-kcalc')
-replaces=('kdeutils-kcalc')
+depends=('kcoreaddons6' 'kcrash6' 'kconfig6' 'kconfigwidgets6' 'kguiaddons6' 'ki18n6' 'knotifications6' 'kxmlgui6'
+         'mpfr' 'qt6-5compat')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-utils' 'kde-uninstall' 'utils')
 source=($_mirror/${pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -20,26 +19,19 @@ md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 prepare() {
   cd ${pkgname}-${pkgver}
   # https://bugs.kde.org/show_bug.cgi?id=360105
-  sed -i -e 's|setFixedSize(minimumSize());|layout()->setSizeConstraint(QLayout::SetFixedSize);|' kcalc.cpp
+  #sed -i -e 's|setFixedSize(minimumSize());|layout()->setSizeConstraint(QLayout::SetFixedSize);|' kcalc.cpp
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver}  \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make
+    -DBUILD_TESTING=OFF
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
