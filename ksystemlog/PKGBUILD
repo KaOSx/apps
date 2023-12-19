@@ -5,13 +5,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ksystemlog
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc='System log viewer tool'
-url='http://kde.org/applications/system/ksystemlog/'
+pkgdesc='KDE SystemLog Application'
+url='https://apps.kde.org/ksystemlog/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kxmlgui' 'kcoreaddons' 'kwidgetsaddons' 'kitemviews' 'kiconthemes' 'kio' 'kconfig' 'karchive'
-         'ki18n' 'kcompletion' 'ktextwidgets')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kxmlgui6' 'kcoreaddons6' 'kwidgetsaddons6' 'kitemviews6' 'kio6' 'kconfig6' 'karchive6'
+         'ki18n6' 'kcompletion6' 'ktextwidgets6' 'qt6-5compat')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-admin' 'kde-uninstall')
 source=("http://download.kde.org/stable/applications/$_kdever/src/${pkgname}-$_kdever.tar.xz"
         'syslog-path.patch')
@@ -31,11 +31,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

@@ -5,17 +5,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=dragon
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="A multimedia player where the focus is on simplicity, instead of features"
+pkgdesc="Multimedia player with the focus on simplicity, not features"
 url='https://apps.kde.org/en/dragonplayer'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kconfigwidgets' 'kcoreaddons' 'ki18n' 'kio' 'knotifications'
-         'kwidgetsaddons' 'kwindowsystem' 'kparts' 'solid' 'kxmlgui' 'kjobwidgets' 
-         'kdbusaddons' 'phonon-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools')
-groups=("kde" "kde-multimedia" "kde-uninstall")
-conflicts=('kdemultimedia-dragonplayer')
-replaces=('kdemultimedia-dragonplayer')
+depends=('kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons' 'ki18n6' 'kjobwidgets6'
+         'kio6' 'kparts6' 'solid6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'phonon-qt6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+groups=('kde' 'kde-multimedia' 'kde-uninstall')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -29,9 +26,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
