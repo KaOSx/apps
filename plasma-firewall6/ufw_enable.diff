@@ -1,0 +1,21 @@
+--- a/kcm/backends/ufw/helper/kcm_ufw_helper.py.cmake	2018-05-28 18:42:07.000000000 +0200
++++ b/kcm/backends/ufw/helper/kcm_ufw_helper.py.cmake	2020-03-11 17:20:08.890711609 +0100
+@@ -35,6 +35,7 @@
+ 
+ import getopt
+ import shutil
++import subprocess
+ import hashlib
+ import io
+ 
+@@ -326,8 +327,10 @@
+ def setEnabled(ufw, status):
+     if status.lower() == "false":
+         stat=False
++        os.system('systemctl disable ufw')
+     else:
+         stat=True
++        os.system('systemctl enable ufw')
+     if stat != ufw.backend._is_enabled():
+         ufw.set_enabled(stat)
+         if ufw.backend._is_enabled() != stat:

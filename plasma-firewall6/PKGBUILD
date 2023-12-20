@@ -1,0 +1,42 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=plasma-firewall6
+_pkgname=plasma-firewall
+pkgver=${_plasmaver}
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Firewall KCM that provides users with a graphical user interface for the Uncomplicated Firewall"
+url="https://invent.kde.org/network/plasma-firewall"
+license=('BSD-3-Clause')
+depends=('kconfig6' 'kcoreaddons6' 'kcmutils6' 'ki18n6' 'kauth6' 'python3' 'ufw')
+makedepends=('extra-cmake-modules')
+groups=('utils')
+source=("https://download.kde.org/unstable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+        'ufw_enable.diff')
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
+         '9735b8e07c2640d79fd57f9e45fa5784')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/ufw_enable.diff
+  sed -i 's|findExecutable("ss")|findExecutable("/usr/sbin/ss")|' kcm/backends/netstat/netstathelper.cpp
+  sed -i 's|QStringLiteral("ss")|QStringLiteral("/usr/sbin/ss")|' kcm/backends/netstat/netstathelper.cpp
+}
+
+build() {  
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
+    -DBUILD_TESTING=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build 
+}
