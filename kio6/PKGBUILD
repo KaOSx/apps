@@ -6,7 +6,7 @@ pkgname=kio6
 _pkgname=kio
 pkgver=${_kf6ver}
 _commit=858d79539d04e390d793508b6e8c0a55317da80d
-pkgrel=2
+pkgrel=1
 pkgdesc='Framework that implements almost all the file management functions you will ever need'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kio'
@@ -25,7 +25,7 @@ md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/cbafb685bce8a7a09543d5fa3df286955cd6d5af.diff
+  #patch -p1 -i ${srcdir}/cbafb685bce8a7a09543d5fa3df286955cd6d5af.diff
 }
 
 build() {
