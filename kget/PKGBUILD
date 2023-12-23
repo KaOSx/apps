@@ -10,20 +10,18 @@ url='https://apps.kde.org/kget/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde-network')
-depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kiconthemes'
-         'kitemviews' 'kcmutils' 'kio' 'knotifications' 'knotifyconfig' 'kparts' 'ktextwidgets' 
-         'kwallet' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui'
-         'libmms' 'gpgme' 'qca-qt5' 'libktorrent')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('kcompletion6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'ki18n6' 'kiconthemes6'
+         'kitemviews6' 'kcmutils6' 'kio6' 'knotifications6' 'knotifyconfig6' 'kstatusnotifieritem'
+         'kparts6' 'ktextwidgets6' 'kwallet6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6'
+         'libmms' 'gpgme-qt6' 'libktorrent')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'boost')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #sed -i -e 's|find_package(Qca 2.1.0)|find_package(Qca 2.1.0 NAMES Qca-qt5 Qca)|' ${srcdir}/${pkgname}/CMakeLists.txt
-  #sed -i -e 's|find_package(KF5QGpgme)||' ${srcdir}/${pkgname}/CMakeLists.txt
-  #sed -i -e 's|if(KF5Gpgme_FOUND)|if(KF5Gpgmepp_FOUND)|' ${srcdir}/${pkgname}/CMakeLists.txt
-  
+
+  sed -i -e 's|KF6::ConfigWidgets|KF6::ConfigWidgets KF6::KCMUtils|' transfer-plugins/mmsthreads/CMakeLists.txt
 }
 
 build() {
@@ -31,10 +29,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   cmake --build build
 }
