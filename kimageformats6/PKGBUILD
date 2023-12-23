@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kimageformats6
 _pkgname=kimageformats
 pkgver=${_kf6ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Plugins to allow QImage to support extra file formats.'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kimageformats'
@@ -13,7 +13,7 @@ license=('LGPL')
 depends=('qt6-base' 'openexr' 'karchive6' 'libavif' 'jpeg-xl' 'libraw' 'libheif')
 makedepends=('extra-cmake-modules')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/unstable/frameworks/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
