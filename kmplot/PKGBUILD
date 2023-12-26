@@ -9,14 +9,16 @@ pkgdesc="Program to plot graphs of functions, their integrals or derivatives"
 url="https://apps.kde.org/en/kmplot"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcrash' 'kguiaddons' 'ki18n' 'kparts' 'kwidgetsaddons' 'kdbusaddons')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kcrash6' 'kguiaddons6' 'ki18n6' 'kparts6' 'kwidgetsaddons6' 'kdbusaddons6' 'ktextwidgets6'
+         'qt6-svg')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-    cd $pkgname-${pkgver}
+    cd ${pkgname}-${pkgver}
+
     #sed -i -e 's|if ( isnan(x) )|if ( std::isnan(x) )|' kmplot/view.cpp
 }
 
@@ -25,8 +27,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
