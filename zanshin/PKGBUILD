@@ -9,9 +9,9 @@ pkgdesc="A Getting Things Done application which aims at getting your mind like 
 url="https://zanshin.kde.org/"
 arch=('x86_64')
 license=('GPL')
-depends=('akonadi-calendar' 'kontactinterface' 'kmime' 'kcalcore' 
-         'krunner' 'kwindowsystem' 'ki18n' 'kwidgetsaddons' 'kparts' 'kcoreaddons')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('akonadi-calendar' 'kontactinterface'
+         'krunner6' 'kwindowsystem6' 'ki18n6' 'kcalendarcore6' 'kparts6')
+makedepends=('extra-cmake-modules' 'boost')
 groups=('office')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -27,8 +27,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   cmake --build build
 }
