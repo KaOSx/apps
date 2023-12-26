@@ -9,9 +9,9 @@ pkgdesc="Interactive physical simulator, allowing you to explore the physical wo
 url="https://apps.kde.org/en/step"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcrash' 'kconfig' 'ki18n' 'kiconthemes' 'kio' 'knewstuff' 'kplotting'
-         'ktextwidgets' 'libqalculate' 'gsl' 'eigen3')
-makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
+depends=('kcrash6' 'kconfig6' 'ki18n6' 'kiconthemes6' 'kio6' 'knewstuff6' 'kplotting6'
+         'ktextwidgets6' 'kxmlgui6' 'libqalculate' 'gsl' 'eigen3' 'qt6-svg')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -20,7 +20,8 @@ build() {
     cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DBUILD_TESTING=OFF
+        -DBUILD_TESTING=OFF \
+        -DQT_MAJOR_VERSION=6
     cmake --build build
 }
 
