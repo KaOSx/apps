@@ -2,29 +2,31 @@
 pkgname=accounts-qml-module
 _pkgname=accounts-qml-module-VERSION
 pkgver=0.7
-pkgrel=2
+pkgrel=3
+_commit=05e79ebbbf3784a87f72b7be571070125c10dfe3
 pkgdesc='Client library for using Online Accounts from QML applications.'
 arch=('x86_64')
 url="https://gitlab.com/accounts-sso/accounts-qml-module"
 license=('LGPL')
-depends=('accountsqt' 'signonqt' 'qt5-declarative')
-makedepends=('qt5-tools' 'clang')
-source=("https://gitlab.com/accounts-sso/accounts-qml-module/-/archive/VERSION_${pkgver}/${_pkgname}_${pkgver}.tar.bz2"
+depends=('libaccounts-qt' 'signond' 'qt6-declarative')
+makedepends=('qt6-tools' 'clang')
+source=("https://gitlab.com/accounts-sso/accounts-qml-module/-/archive/${_commit}/accounts-qml-module-${_commit}.tar.bz2"
+#source=("https://gitlab.com/accounts-sso/accounts-qml-module/-/archive/VERSION_${pkgver}/${_pkgname}_${pkgver}.tar.bz2"
         "https://gitlab.com/accounts-sso/accounts-qml-module/-/commit/678c493a083a92d1fda2375f5d2e37c00c7b9a7e.diff")
-md5sums=('17f735646b47d42b5bfebaf85a561484'
+md5sums=('8d1bc9dc3ce70ecfac5b3c546a02a6b6'
          'dd2c41277d76a76ce92040fcddfb2ac9')
 
 build() {
-  cd ${_pkgname}_${pkgver}
-  sed -e 's|-Werror||' -i common-project-config.pri
-  patch -p1 -i ${srcdir}/678c493a083a92d1fda2375f5d2e37c00c7b9a7e.diff
+  cd ${pkgname}-${_commit}
+  #sed -e 's|-Werror||' -i common-project-config.pri
+  #patch -p1 -i ${srcdir}/678c493a083a92d1fda2375f5d2e37c00c7b9a7e.diff
 
-  /usr/lib/qt5/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
+  /usr/lib/qt6/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
   make
 }
 
 package() {
-  cd ${_pkgname}_${pkgver}
+  cd ${pkgname}-${_commit}
   make INSTALL_ROOT=${pkgdir} install_subtargets
 
   rm -r ${pkgdir}/usr/bin

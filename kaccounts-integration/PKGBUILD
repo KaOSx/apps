@@ -9,10 +9,9 @@ pkgdesc="Integration library and QML module for Accounts-SSO and SignOn-SSO"
 arch=('x86_64')
 url="https://kde.org/applications/internet/"
 license=('GPL')
-depends=('kcmutils' 'kio' 'ki18n' 'kwidgetsaddons' 'kcoreaddons' 
-         'kiconthemes' 'kconfig' 'kwallet' 'kdbusaddons' 'accounts-qml-module'
-         'signonqt' 'qcoro')
-makedepends=('extra-cmake-modules' 'kdoctools' 'akonadi')
+depends=('kcmutils6' 'ki18n6' 'kcoreaddons6' 'kdbusaddons6' 'kdeclarative6' 'kwallet6' 'kio6'
+         'libaccounts-qt' 'signond' 'qcoro-qt6')
+makedepends=('extra-cmake-modules')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -27,9 +26,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
   cmake --build build
 }

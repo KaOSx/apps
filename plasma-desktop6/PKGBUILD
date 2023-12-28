@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=plasma-desktop6
 _pkgname=plasma-desktop
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/plasma-desktop'
@@ -14,8 +14,8 @@ depends=('qt6-svg' 'libxkbfile' 'libusb' 'libcanberra' 'polkit-kde-agent-6'
          'systemsettings6' 'ksystemstats6' 'powerdevil6' 'kmenuedit6' 'kpeople6' 
          'kdbusaddons6' 'qqc2-desktop-style6' 'xorg-server' 'signon-oauth2'
          'kactivities-stats6' 'kirigami-addons6' 'xf86-input-evdev' 
-         'xf86-input-libinput' 'xdg-user-dirs' 'plasma-integration6') #'kaccounts-integration' 'kio-fuse'
-makedepends=('extra-cmake-modules' 'kdoctools6' 'boost')
+         'xf86-input-libinput' 'xdg-user-dirs' 'plasma-integration6' 'kaccounts-integration' 'kio-fuse')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'boost' 'intltool')
 groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
         'layout_desktop_panel.diff'

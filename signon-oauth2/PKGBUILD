@@ -1,27 +1,28 @@
 
 pkgname=signon-oauth2
 pkgver=0.25
-_commit=b74b5397992caddeb32a6158c9295126c55a3025
-pkgrel=2
+_commit=fab698862466994a8fdc9aa335c87b4f05430ce6
+pkgrel=3
 pkgdesc='OAuth 2 plugin for signon'
 arch=('x86_64')
 url="https://gitlab.com/accounts-sso"
 license=('LGPL')
-depends=('signonqt' 'qt5-xmlpatterns')
+depends=('signond' 'qt6-base')
 # https://groups.google.com/forum/#!forum/accounts-sso-announce
-source=("https://gitlab.com/accounts-sso/signon-plugin-oauth2/-/archive/VERSION_${pkgver}/signon-plugin-oauth2-VERSION_${pkgver}.tar.bz2")
-md5sums=('8d6f21d4bcfb527dddc20129f6972d14')
+#source=("https://gitlab.com/accounts-sso/signon-plugin-oauth2/-/archive/VERSION_${pkgver}/signon-plugin-oauth2-VERSION_${pkgver}.tar.bz2")
+source=("https://gitlab.com/nicolasfella/signon-plugin-oauth2/-/archive/${_commit}/signon-plugin-oauth2-${_commit}.tar.bz2")
+md5sums=('943c67196b26811a53c74a4398ddc27e')
 
 build() {
-  cd signon-plugin-oauth2-VERSION_${pkgver}
-  sed -i '/-Werror/d' common-project-config.pri
+  cd signon-plugin-oauth2-${_commit}
+  #sed -i '/-Werror/d' common-project-config.pri
 
-  /usr/lib/qt5/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
+  /usr/lib/qt6/bin/qmake PREFIX=/usr LIBDIR=/usr/lib
   make
 }
 
 package() {
-  cd signon-plugin-oauth2-VERSION_${pkgver}
+  cd signon-plugin-oauth2-${_commit}
   make INSTALL_ROOT=$pkgdir install
 
   # kaccounts-providers conflict

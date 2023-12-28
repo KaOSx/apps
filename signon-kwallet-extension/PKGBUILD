@@ -9,7 +9,7 @@ pkgdesc="KWallet integration for signon framework (code.google.com/p/accounts-ss
 arch=('x86_64')
 url="https://invent.kde.org/network/signon-kwallet-extension"
 license=('LGPL')
-depends=('signon-qt5' 'kwallet')
+depends=('signond' 'kwallet6')
 makedepends=('extra-cmake-modules')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -19,8 +19,8 @@ cmake -B build -S ${pkgname}-${pkgver} \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DKDE_INSTALL_LIBDIR=lib \
-      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-      -DBUILD_TESTING=OFF
+      -DBUILD_TESTING=OFF \
+      -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
