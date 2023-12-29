@@ -9,10 +9,10 @@ arch=('x86_64')
 url='https://community.kde.org/KDE_PIM/Akonadi'
 pkgdesc="PIM layer, which provides an asynchronous API to access all kind of PIM data"
 license=('LGPL')
-depends=('shared-mime-info' 'mariadb' 'qt5-base' 'libxslt' 'kitemviews'  'kio' 'kconfig' 'ki18n'
-         'kdesignerplugin' 'kdbusaddons' 'kitemmodels' 'kguiaddons' 'kiconthemes' 'kwindowsystem'
-         'kcompletion' 'kaccounts-integration')
-makedepends=('extra-cmake-modules' 'postgresql' 'boost' 'qt5-tools')
+depends=('shared-mime-info' 'mariadb' 'libxslt' 
+         'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'ki18n6' 'kiconthemes6' 'kitemmodels6' 'kio6'
+         'kwidgetsaddons6' 'kxmlgui6' 'kcrash6' 'kaccounts-integration')
+makedepends=('extra-cmake-modules' 'postgresql' 'boost' 'qt6-tools')
 groups=('kdepim')
 optdepends=('postgresql: PostgreSQL backend')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz") 
@@ -29,8 +29,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
