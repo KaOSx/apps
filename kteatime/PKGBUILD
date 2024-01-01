@@ -6,34 +6,26 @@ pkgname=kteatime
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="System tray applet that makes sure your tea doesn't get too strong"
-url='http://www.kde.org/'
+url='https://apps.kde.org/kteatime/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kcrash' 'ki18n' 'kiconthemes' 'knotifyconfig' 'knotifications' 'kwidgetsaddons'
-         'ktextwidgets' 'kxmlgui')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kconfig6' 'kcoreaddons6' 'kcrash6' 'kguiaddons6' 'ki18n6' 'kiconthemes6' 'knotifyconfig6'
+         'knotifications6' 'ktextwidgets' 'kxmlgui6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-toys' 'kde-uninstall' 'accessories')
-conflicts=('kdetoys-kteatime')
-replaces=('kdetoys-kteatime')
 source=($_mirror/${pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver}  \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
-    -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make
+    -DBUILD_TESTING=OFF
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }

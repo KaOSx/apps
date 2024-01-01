@@ -9,17 +9,17 @@ arch=('x86_64')
 pkgdesc="Application to visualize the disk usage on your computer"
 url="https://apps.kde.org/filelight/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kxmlgui' 'kio' 'kdeclarative' 'ki18n' 'qqc2-desktop-style' 'kquickcharts')
-makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools')
+depends=('kcoreaddons6' 'kxmlgui6' 'kio6' 'ki18n6' 'qqc2-desktop-style6' 'kirigami-addons6' 'kquickcharts6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-utils' 'kde-uninstall')
 source=($_mirror/${pkgname}-$_kdever.tar.xz)
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DBUILD_TESTING=OFF
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
