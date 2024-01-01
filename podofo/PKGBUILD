@@ -1,34 +1,27 @@
 
 pkgname=podofo
-pkgver=0.10.0
+pkgver=0.10.3
 pkgrel=1
 pkgdesc="PoDoFo is a library to work with the PDF file format."
 arch=('x86_64')
-url="https://podofo.sourceforge.net"
+url="https://github.com/podofo/podofo"
 license=('GPL')
 depends=( 'openssl' 'fontconfig' 'libpng' 'libtiff' 'lua' 'libidn' 'libunistring')
 makedepends=( 'cmake' )
-#source=("https://downloads.sourceforge.net/podofo/${pkgname}-${pkgver}.tar.gz")
-source=("https://github.com/podofo/podofo/archive/refs/tags/0.10.0.tar.gz")
-md5sums=('2eaf0a8a0ee6cb2e3fd445d72ea6fb82')
+source=("https://github.com/podofo/podofo/archive/refs/tags/${pkgver}.tar.gz")
+md5sums=('41580f583e3210563cb65478ee8697c0')
 
 build() {
-  cd ${pkgname}-${pkgver}
-
-  #mkdir -p "test/TokenizerTest/objects"
-
-  mkdir -p build
-  cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr .. \
-    -DPODOFO_HAVE_JPEG_LIB=1 \
-    -DPODOFO_HAVE_PNG_LIB=1 \
-    -DPODOFO_HAVE_TIFF_LIB=1
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPODOFO_HAVE_JPEG_LIB=TRUE \
+    -DPODOFO_HAVE_PNG_LIB=TRUE \
+    -DPODOFO_HAVE_TIFF_LIB=TRUE
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}/build
 
-  make DESTDIR=$pkgdir install
+  DESTDIR=${pkgdir} cmake --install build
 }
 
