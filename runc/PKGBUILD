@@ -1,8 +1,6 @@
 
-# stay with _commit builds, keep in sync with what docker ships
 pkgname=runc
-pkgver=1.1.10
-_commit=ccaecfcbc907d70a7aa870a6650887b901b25b82
+pkgver=1.1.11
 pkgrel=1
 arch=('x86_64')
 pkgdesc="CLI tool for spawning and running containers according to the OCI specification."
@@ -10,15 +8,14 @@ url="http://runc.io/"
 license=('APACHE')
 depends=('glibc' 'libseccomp')
 makedepends=('go')
-#source=("https://github.com/opencontainers/runc/archive/v${pkgver}.tar.gz")
-source=("https://github.com/opencontainers/runc/archive/${_commit}.zip")
-md5sums=('7b217f60cf7803ee0ca260fdcfab3b5a')
+source=("https://github.com/opencontainers/runc/archive/v${pkgver}.tar.gz")
+md5sums=('7775fb12906dda729d9b28718d6dcc00')
 
 prepare() {
     cd ${srcdir}
 
     install -d go/src/github.com/opencontainers
-    mv ${pkgname}-${_commit} go/src/github.com/opencontainers/${pkgname}
+    mv ${pkgname}-${pkgver} go/src/github.com/opencontainers/${pkgname}
 }
 
 build() {
