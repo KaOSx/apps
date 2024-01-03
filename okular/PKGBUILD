@@ -16,28 +16,24 @@ depends=('plasma-activities' 'karchive6' 'kbookmarks6' 'kcompletion6' 'kconfig6'
          'json-c' 'libkexiv6' 'libkdcraw6'  'qt6-speech' 'discount' 'purpose6' 'kdegraphics-mobipocket')
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools6' 'qca-qt6')
 groups=('office')
-#source=("${_mirror}/${pkgname}-${_kdever}.tar.xz"
-source=("https://invent.kde.org/graphics/okular/-/archive/work/nico/qt6-buildsystem/okular-work-nico-qt6-buildsystem.tar.bz2"
+source=("${_mirror}/${pkgname}-${_kdever}.tar.xz"
         "https://invent.kde.org/kde/okular/-/commit/504eec7688e7139e9d193fc2b3ddafac0f835b6f.diff")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-md5sums=('ed2a69b5450bb8bc0d5135130162ad10'
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
          'c94e922c31169d77419e23e380d3fba1')
 
 prepare() {
-  cd ${pkgname}-work-nico-qt6-buildsystem
+  cd ${pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/504eec7688e7139e9d193fc2b3ddafac0f835b6f.diff
   #sed -i -e 's|KF_REQUIRED_VERSION "5.92.0"|KF_REQUIRED_VERSION "5.27.80"|' CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${pkgname}-work-nico-qt6-buildsystem \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6 \
-    -DFORCE_NOT_REQUIRED_DEPENDENCIES=""
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
@@ -45,6 +41,6 @@ package() {
 
   DESTDIR=${pkgdir} cmake --install build
   # fix non-working menu/mobile only items in lost & found
-  echo "NoDisplay=true" >> ${pkgdir}/usr/share/applications/org.kde.mobile.okular.desktop
-  echo "NoDisplay=true" >> ${pkgdir}/usr/share/applications/org.kde.okular.kirigami.desktop
+  #echo "NoDisplay=true" >> ${pkgdir}/usr/share/applications/org.kde.mobile.okular.desktop
+  #echo "NoDisplay=true" >> ${pkgdir}/usr/share/applications/org.kde.okular.kirigami.desktop
 }
