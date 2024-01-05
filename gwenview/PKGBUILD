@@ -9,23 +9,24 @@ pkgdesc="A fast and easy to use image viewer for KDE"
 arch=('x86_64')
 url="http://kde.org/applications/graphics/gwenview/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kio' 'kitemmodels' 'ki18n' 'kparts' 'kwindowsystem' 'kiconthemes' 'knotifications'
-         'kguiaddons' 'kwidgetsaddons' 'kactivities' 'purpose'
-         'baloo' 'kimageformats' 'phonon-qt5' 'libpng' 'exiv2' 'lcms2'
-         'libjpeg-turbo' 'libkdcraw' 'cfitsio' 'kimageannotator')
-makedepends=('extra-cmake-modules' 'kdoctools' 'pkg-config')
+depends=('kio6' 'kitemmodels6' 'ki18n6' 'kparts6' 'kwindowsystem6' 'kiconthemes6' 'knotifications6'
+         'kguiaddons6' 'kwidgetsaddons6' 'plasma-activities' 'libkdcraw6' 'purpose6'
+         'baloo6' 'kimageformats6' 'phonon-qt6' 'libpng' 'exiv2' 'lcms2'
+         'libjpeg-turbo' 'cfitsio' 'kimageannotator')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 opdepends=('kamera: to work directly with cameras')
+conflicts=('gwenview6')
+replaces=('gwenview6')
 groups=('kde-graphics')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        'exiv2.patch')
+        'cmake.diff')
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '80f8e51c55f657228ea98a576e55377a')
+         'ad90af10cdd2bf1ebcae14614bab76cb')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  #sed -i -e 's/Kdcraw/KF5KDcraw/' ${srcdir}/${pkgname}-${pkgver}/CMakeLists.txt
 
-  #patch -p1 -i ${srcdir}/exiv2.patch
+  patch -p1 -i ${srcdir}/cmake.diff
 }
 
 build() {
@@ -33,10 +34,9 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF \
-    -DGWENVIEW_SEMANTICINFO_BACKEND_BALOO=ON
+    -DGWENVIEW_SEMANTICINFO_BACKEND_BALOO=ON \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

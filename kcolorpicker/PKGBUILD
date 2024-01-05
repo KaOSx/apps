@@ -2,23 +2,26 @@
 pkgname=kcolorpicker
 _pkgname=kColorPicker
 pkgver=0.2.0
-pkgrel=1
+_commit=e62b362bbd2173de6d9221f336f48fa31d3193fc
+pkgrel=2
 pkgdesc='QToolButton with color popup menu which lets you select a color.'
 arch=('x86_64')
 url='https://github.com/ksnip/kColorPicker'
 license=('GPL')
-depends=('qt5-base')
+depends=('qt6-base')
 makedepends=('cmake')
-source=("https://github.com/ksnip/kColorPicker/archive/v$pkgver.tar.gz")
-md5sums=('58a14db496f2e782be9abc4b604b5334')
+#source=("https://github.com/ksnip/kColorPicker/archive/v$pkgver.tar.gz")
+source=("https://codeload.github.com/ahmadsamir/kColorPicker/zip/${_commit}")
+md5sums=('829ea5e44ca5b85379692230b7fe12b6')
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_SHARED_LIBS=ON \
     -DBUILD_EXAMPLE=ON \
-    -DBUILD_TESTS=OFF
+    -DBUILD_TESTS=OFF \
+    -DBUILD_WITH_QT6=true
   cmake --build build
 }
 
