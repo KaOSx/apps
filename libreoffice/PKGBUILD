@@ -1,8 +1,8 @@
 
 pkgname=libreoffice
-_LOver=7.6.4.1
-pkgver=7.6.4.1
-_pkgver=7.6.4
+_LOver=24.2.0.1
+pkgver=24.2.0.1
+_pkgver=24.2.0
 pkgrel=1
 arch=('x86_64')
 license=('LGPL3')
@@ -16,8 +16,8 @@ depends=('curl' 'python3' 'libabw' 'libwpd' 'libwps' 'libxaw' 'neon'
          'mesa' 'gst-plugins-base' 'postgresql-libs' 'libvisio' 'bluez' 'liblangtag'
          'libetonyek' 'libodfgen' 'libatomic_ops' 'clucene' 'glew' 'glu' 
          'vigra' 'pstoedit' 'libmythes' 'boost-libs' 'libepoxy'
-         'kconfig' 'kcoreaddons' 'ki18n' 'kio' 'kwindowsystem' 'plasma-framework' 'python3-lxml'
-         'libnumbertext' 'libcdr' 'libldap' 'zxing-cpp') # 'icu'
+         'kconfig6' 'kcoreaddons6' 'ki18n6' 'kio6' 'kwindowsystem6' 'libplasma' 'python3-lxml'
+         'libnumbertext' 'libcdr' 'libldap' 'zxing-cpp') # 'icu')
 makedepends=('perl-archive-zip' 'zip' 'unzip' 'gperf' 'cppunit'
              'doxygen' 'apr' 'serf' 'mdds' 'boost' 'glm' 'abseil-cpp')
 #_mirror="https://ftp.acc.umu.se/mirror/documentfoundation.org/libreoffice/src/$_pkgver"
@@ -25,7 +25,7 @@ makedepends=('perl-archive-zip' 'zip' 'unzip' 'gperf' 'cppunit'
 _mirror="https://dev-builds.libreoffice.org/pre-releases/src"
 _additional_source_url="https://dev-www.libreoffice.org/src"
 source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz  
-	${_additional_source_url}/xmlsec1-1.2.37.tar.gz
+	${_additional_source_url}/xmlsec1-1.3.2.tar.gz
 	${_additional_source_url}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 	${_additional_source_url}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 	${_additional_source_url}/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
@@ -48,7 +48,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
 	${_additional_source_url}/libexttextcat-3.4.6.tar.xz 
 	${_additional_source_url}/libcmis-0.6.1.tar.xz 
-	${_additional_source_url}/liborcus-0.18.1.tar.xz
+	${_additional_source_url}/liborcus-0.19.2.tar.xz
 	#${_additional_source_url}/aa899eff126216dafe721149fbdb511b-liblangtag-0.5.8.tar.bz2
 	${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 	#${_additional_source_url}/libcdr-0.1.6.tar.xz
@@ -58,13 +58,12 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/Firebird-3.0.7.33374-0.tar.bz2 
 	${_additional_source_url}/libe-book-0.1.3.tar.xz
 	${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-	#${_additional_source_url}/976734806026a4ef8bdd17937c8898b9-icu4c-57_1-src.tgz
 	#${_additional_source_url}/boost_1_69_0.tar.bz2
 	${_additional_source_url}/icu4c-73_2-src.tgz
 	${_additional_source_url}/icu4c-73_2-data.zip
 	${_additional_source_url}/language-subtag-registry-2022-08-08.tar.bz2
 	${_additional_source_url}/libgltf/libgltf-0.1.0.tar.gz
-	${_additional_source_url}/CoinMP-1.7.6.tgz
+	${_additional_source_url}/CoinMP-1.8.4.tgz
 	#${_additional_source_url}/bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
 	${_additional_source_url}/4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2
 	${_additional_source_url}/OpenCOLLADA-master-6509aa13af.tar.bz2
@@ -72,17 +71,18 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/libstaroffice-0.0.7.tar.xz 
 	${_additional_source_url}/libzmf-0.0.2.tar.xz
 	${_additional_source_url}/ltm-1.2.1.tar.xz
-	${_additional_source_url}/pdfium-5778.tar.bz2
+	${_additional_source_url}/pdfium-6179.tar.bz2
 	${_additional_source_url}/libepubgen-0.1.1.tar.xz
 	${_additional_source_url}/libqxp-0.0.2.tar.xz
 	${_additional_source_url}/QR-Code-generator-1.4.0.tar.gz
 	${_additional_source_url}/dtoa-20180411.tgz
-	${_additional_source_url}/skia-m111-a31e897fb3dcbc96b2b40999751611d029bf5404.tar.xz
+	${_additional_source_url}/skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz
 	${_additional_source_url}/box2d-2.4.1.tar.gz
 	${_additional_source_url}/libcuckoo-93217f8d391718380c508a722ab9acd5e9081233.tar.gz
 	${_additional_source_url}/dragonbox-1.1.3.tar.gz
 	${_additional_source_url}/frozen-1.1.1.tar.gz
 	#${_additional_source_url}/zxing-cpp-1.2.0.tar.gz
+	${_additional_source_url}/zxcvbn-c-2.5.tar.gz
 	https://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 	https://dev-www.libreoffice.org/extern/f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
 	poppler.diff
@@ -90,14 +90,15 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	soffice.odp.desktop
 	soffice.ods.desktop
 	soffice.odt.desktop
-	"https://crux.nu/ports/crux-3.7/contrib/libreoffice/optjava.patch")
+	"https://crux.nu/ports/crux-3.7/contrib/libreoffice/optjava.patch"
+	"https://raw.githubusercontent.com/OpenMandrivaAssociation/libreoffice/master/libreoffice-24.2-kf6-buildfix.patch")
 	
 	noextract=(18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
         185d60944ea767075d27247c3162b3bc-unowinreg.dll
         f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
 	ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 	798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
-	xmlsec1-1.2.37.tar.gz
+	xmlsec1-1.3.2.tar.gz
 	libexttextcat-3.4.6.tar.xz
 	libcmis-0.6.1.tar.xz 
 	35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
@@ -118,11 +119,10 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
 	db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
 	ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
-	liborcus-0.18.1.tar.xz
+	liborcus-0.19.2.tar.xz
 	#aa899eff126216dafe721149fbdb511b-liblangtag-0.5.8.tar.bz2
 	0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 	17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-	#976734806026a4ef8bdd17937c8898b9-icu4c-57_1-src.tgz
 	#boost_1_69_0.tar.bz2
 	icu4c-73_2-src.tgz
 	icu4c-73_2-data.zip
@@ -133,7 +133,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	Firebird-3.0.7.33374-0.tar.bz2 
 	libe-book-0.1.3.tar.xz
 	language-subtag-registry-2022-08-08.tar.bz2
-	CoinMP-1.7.6.tgz
+	CoinMP-1.8.4.tgz
 	#bae83fa5dc7f081768daace6e199adc3-glm-0.9.4.6-libreoffice.zip
 	4b87018f7fff1d054939d19920b751a0-collada2gltf-master-cb1d97788a.tar.bz2
 	OpenCOLLADA-master-6509aa13af.tar.bz2
@@ -141,17 +141,18 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	libstaroffice-0.0.7.tar.xz
 	libzmf-0.0.2.tar.xz
 	ltm-1.2.1.tar.xz
-	pdfium-5778.tar.bz2
+	pdfium-6179.tar.bz2
 	libgltf-0.1.0.tar.gz
 	libepubgen-0.1.1.tar.xz
 	libqxp-0.0.2.tar.xz
 	QR-Code-generator-1.4.0.tar.gz
 	dtoa-20180411.tgz
-	skia-m111-a31e897fb3dcbc96b2b40999751611d029bf5404.tar.xz
+	skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz
 	box2d-2.4.1.tar.gz
 	libcuckoo-93217f8d391718380c508a722ab9acd5e9081233.tar.gz
 	dragonbox-1.1.3.tar.gz
-	frozen-1.1.1.tar.gz)
+	frozen-1.1.1.tar.gz
+	zxcvbn-c-2.5.tar.gz)
 	#zxing-cpp-1.2.0.tar.gz)
 
 source libreoffice.md5
@@ -166,17 +167,18 @@ build() {
 	
 	cd ${srcdir}/libreoffice-$_LOver
 	# Java build failure, patch from Crux
-	patch -p0 -i ${srcdir}/optjava.patch
+	#patch -p0 -i ${srcdir}/optjava.patch
+	#patch -p1 -i ${srcdir}/libreoffice-24.2-kf6-buildfix.patch
 
 	# move external sources into place
-	mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
-	for source in "${noextract[@]}"; do
-	  ln -s ${srcdir}/$source .
-	done
-	popd
+	#mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
+	#for source in "${noextract[@]}"; do
+	#  ln -s ${srcdir}/$source .
+	#done
+	#popd
 
-	rm ${srcdir}/ext_sources/185d60944ea767075d27247c3162b3bc-unowinreg.dll
-        cp -f ${srcdir}/185d60944ea767075d27247c3162b3bc-unowinreg.dll ${srcdir}/ext_sources
+	#rm ${srcdir}/ext_sources/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+    #    cp -f ${srcdir}/185d60944ea767075d27247c3162b3bc-unowinreg.dll ${srcdir}/ext_sources
 	
 	#use the CFLAGS but remove the LibO overridden ones
 	for i in $CFLAGS; do
@@ -188,8 +190,10 @@ build() {
 	
 	# Use python3
 	export PYTHON=python3
+	export qt6_libexec_dirs="/usr/lib/qt6"
+	LDFLAGS="-lz"
 
-	./autogen.sh --with-extra-buildid="${_LOver} for KaOS Qt/kf5" --with-vendor="KaOS" \
+	./autogen.sh --with-extra-buildid="${_LOver} for KaOS Qt/kf6" --with-vendor="KaOS" \
 		--with-external-tar="${srcdir}/ext_sources" \
 		--disable-fetch-external \
 		--prefix=/usr --exec-prefix=/usr --sysconfdir=/etc \
@@ -258,12 +262,13 @@ build() {
 		--with-system-libnumbertext \
 		--with-system-clucene \
 		--with-system-zxing \
+		--without-system-zxcvbn \
 		--disable-dependency-tracking \
 		--disable-cve-tests \
 		--with-theme="breeze breeze_dark breeze_svg breeze_dark_svg sifr sifr_svg sifr_dark sifr_dark_svg" \
 		--disable-gtk3-kde5 \
-		--enable-kf5 \
-		--enable-qt5 \
+		--enable-kf6 \
+		--enable-qt6 \
 		--without-java \
 
 	touch src.downloaded
@@ -284,6 +289,9 @@ package() {
         install -dm755 ${pkgdir}/usr/share/templates/.source
         install -v -m644 extras/source/shellnew/soffice.* ${pkgdir}/usr/share/templates/.source
         install -v -m644 ../soffice.* ${pkgdir}/usr/share/templates
+        # not installed with kf6 build yet
+        install -m644 instdir/program/libvclplug_kf6lo.so ${pkgdir}/usr/lib/libreoffice/program/
+        install -m644 instdir/program/libvclplug_qt6lo.so ${pkgdir}/usr/lib/libreoffice/program/
         # links 
         cd ${pkgdir}/usr/lib/libreoffice/program/
         ln -vsf /etc/libreoffice/{bootstraprc,sofficerc} .
