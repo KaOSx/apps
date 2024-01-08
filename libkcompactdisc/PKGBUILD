@@ -5,29 +5,27 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=libkcompactdisc
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="A library for interfacing with CDs"
-url='https://github.com/KDE/libkcompactdisc'
+pkgdesc="Library for interfacing with CDs"
+url='https://invent.kde.org/multimedia/libkcompactdisc'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'solid' 'ki18n' 'phonon-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('solid6' 'ki18n6' 'phonon-qt6')
+makedepends=('extra-cmake-modules')
 groups=('kde-multimedia')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  
-  cd build
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib
-  make 
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install 
+
+  DESTDIR=${pkgdir} cmake --install build
 }

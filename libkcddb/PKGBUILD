@@ -2,16 +2,17 @@
 # include global config
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
-pkgname=audiocd-kio
+pkgname=libkcddb
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Kio worker for accessing audio CDs"
-url='https://invent.kde.org/multimedia/audiocd-kio'
+pkgdesc="KDE CDDB library"
+url='https://invent.kde.org/multimedia/libkcddb'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig6' 'ki18n6' 'kio6' 'kcmutils6' 'libkcddb' 'libkcompactdisc' 'lame')
+depends=('kconfig6' 'ki18n6' 'kio6' 'kwidgetsaddons6' 'kcmutils6' 'libmusicbrainz' 'qt6-5compat')
 makedepends=('extra-cmake-modules' 'kdoctools6')
-groups=('kde-multimedia')
+conflicts=('libkcddb5')
+replaces=('libkcddb5')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -20,7 +21,8 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
@@ -28,3 +30,4 @@ package() {
 
   DESTDIR=${pkgdir} cmake --install build
 }
+

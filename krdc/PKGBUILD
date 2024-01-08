@@ -4,32 +4,27 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=krdc
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc='Desktop Sharing Client'
 url='https://apps.kde.org/krdc/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kde-network' 'kde-uninstall' 'network')
-depends=('kconfig' 'kcmutils' 'kdnssd' 'knotifyconfig' 'knotifications' 'kbookmarks' 'kiconthemes'
-         'kxmlgui' 'kcompletion' 'kwallet' 'kwidgetsaddons' 'ki18n' 'kactivities' 'freerdp' 'libssh')
-makedepends=('extra-cmake-modules' 'kdoctools' 'libvncserver')
+depends=('kconfig6' 'kcmutils6' 'kdnssd6' 'knotifyconfig6' 'knotifications6' 'kbookmarks6' 'kiconthemes6'
+         'kxmlgui6' 'kcompletion6' 'kwallet6' 'kwidgetsaddons6' 'kwindowsystem6' 'ki18n6' 'kio6'
+         'kstatusnotifieritem' 'plasma-activities' 'freerdp' 'libssh')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'libvncserver')
 optdepends=('libvncserver: VNC support')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-
-  #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/doc/index.docbook
-}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

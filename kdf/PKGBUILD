@@ -6,38 +6,26 @@ pkgname=kdf
 arch=('x86_64')
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc="Displays the available file devices along with information on their capacity, free space, type and mount point."
+pkgdesc="Displays available storage devices and information about their usage."
 url="https://apps.kde.org/en/kdf"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfigwidgets' 'kcoreaddons' 'ki18n' 'kiconthemes' 'kio' 'kcmutils' 'knotifications'
-         'kwidgetsaddons' 'kxmlgui')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kconfigwidgets6' 'kcoreaddons6' 'ki18n6' 'kiconthemes6' 'kio6' 'kcmutils6' 'knotifications6'
+         'kwidgetsaddons6' 'kxmlgui6' 'kstatusnotifieritem' 'qt6-5compat')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-utils' 'kde-uninstall' 'utils')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-prepare() {
-  cd ${pkgname}-${pkgver}
-
-  #sed -i -e 's|dtd/kdex.dtd|dtd/kdedbx45.dtd|' doc/kcontrol/index.docbook
-}
-
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DKDE_INSTALL_LIBDIR=lib
-  make
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
