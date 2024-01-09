@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=koko
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Image viewer designed for desktop and touch devices."
 arch=('x86_64')
 url='https://invent.kde.org/graphics/koko'
 license=('LGPL-3.0')
 depends=('ki18n6' 'kdeclarative6' 'kconfig6' 'kio6' 'kguiaddons6' 'kcoreaddons6' 'knotifications6'
          'kfilemetadata6' 'kdbusaddons6' 'kirigami6' 'exiv2' 'qt6-positioning' 'qt6-svg'
-         'kquickimageeditor6')
+         'kquickimageeditor')
 makedepends=('extra-cmake-modules')
 source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
