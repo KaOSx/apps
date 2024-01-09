@@ -10,7 +10,7 @@ pkgdesc="KDE CDDB library"
 url='https://invent.kde.org/multimedia/libkcddb'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kcodecs' 'ki18n' 'kio' 'kwidgetsaddons' 'kcmutils' 'libmusicbrainz')
+depends=('kconfig' 'kcodecs' 'ki18n' 'kio' 'kwidgetsaddons' 'kcmutils' 'libmusicbrainz' 'libkcddb')
 makedepends=('extra-cmake-modules' 'kdoctools')
 source=("$_mirror/${_pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${_pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
@@ -35,5 +35,7 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  # avoid libkcddb conflict, use files from kf6 package
+  rm -r ${pkgdir}/usr/share
 }
 
