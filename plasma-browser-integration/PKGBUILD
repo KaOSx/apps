@@ -6,30 +6,28 @@ pkgname=plasma-browser-integration
 pkgver=${_plasmaver}
 pkgrel=1
 arch=('x86_64')
-pkgdesc="Plasma5 browser integration"
-url="https://github.com/KDE/plasma-browser-integration"
+pkgdesc="Components necessary to integrate browsers into the Plasma Desktop"
+url="https://invent.kde.org/plasma/plasma-browser-integration"
 license=('GPL')
-depends=('kio' 'ki18n' 'knotifications' 'krunner' 'kwindowsystem' 'kactivities'
-         'purpose' 'kfilemetadata' 'plasma-workspace')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kio6' 'ki18n6' 'kcoreaddons6' 'kconfig6' 'kcrash6' 'kdbusaddons6' 'knotifications6'
+         'krunner6' 'purpose6' 'kfilemetadata6' 'kjobwidgets6' 'kservice6' 'kstatusnotifieritem'
+         'plasma-activities' 'plasma-workspace')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('plasma-browser-integration6')
+replaces=('plasma-browser-integration6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DINSTALL_CHROME_MANIFEST=ON
-    
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+    DESTDIR=${pkgdir} cmake --install build
 }

@@ -10,8 +10,9 @@ pkgdesc="Implements a GUI for the Wacom Linux Drivers and extends it with profil
 arch=('x86_64')
 url='https://invent.kde.org/plasma/wacomtablet'
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons6' 'ki18n6' 'kglobalaccel6' 'kconfig6' 'kxmlgui6' 'kwidgetsaddons6' 'kwindowsystem6' 'knotifications6'
-         'kdbusaddons6' 'plasma-framework6' 'kcmutils6' 'kio6' 'plasma5support' 'xf86-input-wacom')
+depends=('kcoreaddons6' 'ki18n6' 'kglobalaccel6' 'kconfig6' 'kxmlgui6' 'kwidgetsaddons6'
+         'kwindowsystem6' 'knotifications6' 'kdbusaddons6' 'libplasma' 'kcmutils6'
+         'kio6' 'plasma5support' 'xf86-input-wacom')
 makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
@@ -30,8 +31,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 

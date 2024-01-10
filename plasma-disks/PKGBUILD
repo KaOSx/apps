@@ -10,12 +10,14 @@ pkgdesc="Monitors S.M.A.R.T. capable devices for imminent failure."
 url="https://invent.kde.org/plasma/plasma-disks"
 arch=('x86_64')
 license=('LGPL')
-depends=('kcoreaddons' 'kdbusaddons' 'knotifications' 'ki18n' 'solid' 'kservice' 'kio' 'kauth'
-         'kdeclarative' 'smartmontools')
+depends=('kcoreaddons6' 'kdbusaddons6' 'knotifications6' 'ki18n6' 'solid6' 'kservice6' 'kio6' 'kauth6'
+         'kcmutils6' 'smartmontools')
 makedepends=('extra-cmake-modules')
-groups=('kdeplasma5')
+conflicts=('plasma-disks6')
+replaces=('plasma-disks6')
+groups=('kdeplasma6')
 source=("$_mirror/${pkgname}-${_plasmaver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
     cmake -B build -S ${pkgname}-${pkgver} \
