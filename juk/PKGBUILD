@@ -5,37 +5,31 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=juk
 pkgver=${_kdever}
 pkgrel=1
-pkgdesc='A jukebox, tagger and music collection manager'
-url='http://kde.org/applications/multimedia/juk/'
+pkgdesc='Audio jukebox app, supporting collections of MP3, Ogg Vorbis and FLAC audio files.'
+url='https://apps.kde.org/juk/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kcompletion' 'kconfig' 'kcrash' 'kglobalaccel' 'ki18n' 'kiconthemes' 'kdbusaddons'
-         'kio' 'kjobwidgets' 'knotifications' 'ktextwidgets' 'kxmlgui' 'kwallet' 'kwidgetsaddons'
-         'kwindowsystem' 'qt5-svg' 'taglib')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kcoreaddons6' 'kcompletion6' 'kconfig6' 'kcrash6' 'kglobalaccel6' 'ki18n6'
+         'kiconthemes6' 'kdbusaddons6' 'kio6' 'kjobwidgets6' 'knotifications6'
+         'ktextwidgets6' 'kxmlgui6' 'kwallet6' 'kwidgetsaddons6' 'kwindowsystem6'
+         'qt6-svg' 'phonon-qt6' 'taglib')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-multimedia' 'kde-uninstall')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DHAVE_TUNEPIMP=0 \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
-  make 
+    -DBUILD_TESTING=OFF
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
 

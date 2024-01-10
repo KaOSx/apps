@@ -6,12 +6,12 @@ pkgname=sweeper
 pkgver=${_kdever}
 pkgrel=1
 arch=('x86_64')
-pkgdesc="Clean unwanted traces the user leaves on the system"
-url="https://github.com/KDE/sweeper"
+pkgdesc="Application that helps to clean unwanted traces the user leaves on the system"
+url="https://apps.kde.org/sweeper/"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kactivities-stats' 'kbookmarks' 'kcrash' 'kconfig' 'kconfigwidgets' 'kcoreaddons'
-         'ki18n' 'kio' 'ktextwidgets' 'kxmlgui')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('plasma-activities-stats' 'kbookmarks6' 'kcrash6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6'
+         'ki18n6' 'kio' 'ktextwidgets6' 'kxmlgui6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kde' 'kde-utils' 'kde-uninstall' 'utils')
 source=(${_mirror}/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

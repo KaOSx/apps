@@ -9,19 +9,22 @@ pkgdesc="A user friendly IRC client for KDE"
 arch=('x86_64')
 url="https://konversation.kde.org"
 license=('GPL2' 'FDL')
-depends=('karchive' 'kbookmarks' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kemoticons' 'ki18n' 
-         'kidletime' 'knotifyconfig' 'kio' 'kparts' 'solid' 'kwallet' 'kwidgetsaddons' 'kglobalaccel'
-         'kdbusaddons' 'knotifications' 'kwindowsystem' 'kiconthemes' 'kitemviews' 'knewstuff'
-         'phonon-qt5' 'qca-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('karchive6' 'kbookmarks6' 'kcodecs6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6'
+         'kcrash6' 'kdbusaddons6' 'ki18n6' 'kidletime6' 'kitemviews6' 'kio6' 'knewstuff6'
+         'knotifications6' 'knotifyconfig6' 'kparts6' 'kstatusnotifieritem' 'ktextwidgets6'
+         'kwallet6' 'kwidgetsaddons6' 'kwindowsystem6' 'kglobalaccel6'
+         'phonon-qt6' 'qca-qt6' 'qt6-5compat')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('communication')
+conflicts=('konversation6')
+replaces=('konversation6')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # set default channel to KaOS
-  sed -i -e 's|setName(QStringLiteral("#konversation")|setName(QStringLiteral("#kaosx")|' src/config/preferences.cpp
+  sed -i -e 's|setName(QStringLiteral("#konversation")|setName(QStringLiteral("#kaos")|' src/config/preferences.cpp
   
   #patch -p1 -i ${srcdir}/461c7dd504299871d6e9068116125b9bd26e8985.diff
 }
