@@ -9,19 +9,22 @@ pkgdesc='Qt Platform Theme integration plugins for Plasma Workspaces.'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/plasma-integration'
 license=('LGPL')
-depends=('kconfig' 'kconfigwidgets' 'ki18n' 'kiconthemes' 'kio' 'knotifications' 'kwidgetsaddons'
-         'kwayland' 'noto-fonts' 'breeze' 'ttf-hack' 'qt5-quickcontrols2' 'qqc2-desktop-style')
+depends=('kconfig6' 'kconfigwidgets6' 'ki18n6' 'kiconthemes6' 'kio6' 'knotifications6' 'kwidgetsaddons6'
+         'kwindowsystem6' 'kwayland' 'kguiaddons6' 'kxmlgui6' 'kstatusnotifieritem' 'breeze'
+         'noto-fonts' 'ttf-hack' 'qt6-declarative' 'qqc2-desktop-style6' 'xdg-desktop-portal-kde')
 makedepends=('extra-cmake-modules')
-groups=('kdeplasma5')
+conflicts=('plasma-integration6')
+replaces=('plasma-integration6')
+groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/plasma/plasma-integration/-/commit/52bd3c9cc2a78e2ba8d87e09e01706d309720a6f.diff")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '66d92e94c294fb123b5dfecc90472369')
+        "https://invent.kde.org/plasma/plasma-integration/-/commit/14f80450ff4202fe9f2a64b14629748fd7cb1334.diff")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
+         'd92eade8ddfd3d3781d4a5ec47d95a41')
 
 prepare () {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/52bd3c9cc2a78e2ba8d87e09e01706d309720a6f.diff
+  #patch -p1 -i ${srcdir}/14f80450ff4202fe9f2a64b14629748fd7cb1334.diff
 }
 
 build () {
@@ -29,8 +32,11 @@ build () {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6 \
+    -DBUILD_QT5=OFF \
+    -DBUILD_QT6=ON
   cmake --build build
 }
 

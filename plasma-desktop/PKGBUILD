@@ -9,26 +9,25 @@ pkgdesc='KDE Plasma Desktop'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/plasma-desktop'
 license=('LGPL')
-depends=('qt5-graphicaleffects' 'libxkbfile' 'libusb' 'libcanberra' 'polkit-kde-agent-1'
-         'systemsettings' 'ksystemstats' 'powerdevil' 'kmenuedit' 'kpeople' 
-         'kdbusaddons' 'plasma-integration' 'xorg-server' 'signon-oauth2'
-         'kactivities-stats' 'kaccounts-integration' 'kio-fuse' 'xf86-input-evdev' 
-         'xf86-input-libinput' 'xdg-user-dirs' 'kdelibs4support')
-makedepends=('extra-cmake-modules' 'kdoctools' 'xf86-input-synaptics' 'boost' 'intltool')
-groups=('kdeplasma5')
-conflicts=('user-kcm')
-replaces=('user-kcm')
-provides=('user-kcm')
-source=("https://download.kde.org/stable/plasma/5.27.7/${pkgname}-${pkgver}.tar.xz"
+depends=('qt6-svg' 'libxkbfile' 'libusb' 'libcanberra' 'polkit-kde-agent-1'
+         'systemsettings' 'ksystemstats' 'powerdevil' 'kmenuedit' 'kpeople6' 
+         'kdbusaddons6' 'qqc2-desktop-style6' 'xorg-server' 'signon-oauth2'
+         'plasma-activities-stats' 'kirigami-addons' 'xf86-input-evdev' 
+         'xf86-input-libinput' 'xdg-user-dirs' 'plasma-integration' 'kaccounts-integration' 'kio-fuse')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'boost' 'intltool')
+conflicts=('plasma-desktop6')
+replaces=('plasma-desktop6')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         'layout_desktop_panel.diff'
         'main_desktop_kicker.diff'
         'main_desktop_kickoff.diff'
-        'automountersettings.diff')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+        "https://invent.kde.org/plasma/plasma-desktop/-/commit/1dfba7045c82ae2553be2cb7018fcd893c19d7bc.diff")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
          '6e13e785600f1a6c1e181ab2934f1558'
-         '63f0088dd9e7a9dfc341650b0f91c447'
-         'bc7c07f2754de81b64ead90aa20b1020'
-         '71302e4853361fcb25afa6994a4852e1')
+         'a5d83777cc835399a7c825088548cb5d'
+         'c07c318e7b8a3b9616924ff6502de1ef'
+         '46b4248270d75f1c7e481145c5c797a7')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -37,8 +36,7 @@ prepare() {
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
   patch -p1 -i ${srcdir}/main_desktop_kickoff.diff
   sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
-  # 5.24
-  #patch -p1 -i ${srcdir}/automountersettings.diff
+  #patch -p1 -i ${srcdir}/1dfba7045c82ae2553be2cb7018fcd893c19d7bc.diff
 }
 
 build() {
@@ -46,13 +44,9 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF \
-    -DCMAKE_DISABLE_FIND_PACKAGE_PackageKitQt5=ON
+    -DCMAKE_DISABLE_FIND_PACKAGE_PackageKitQt6=ON
   cmake --build build
 }
 

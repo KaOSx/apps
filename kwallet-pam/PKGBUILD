@@ -5,31 +5,28 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kwallet-pam
 pkgver=${_plasmaver}
 pkgrel=1
-pkgdesc="Kwallet-pam is added to open your wallet on login"
+pkgdesc="PAM Integration with KWallet - Unlock KWallet when you login"
 arch=('x86_64')
-url="https://projects.kde.org/projects/kdereview/kwallet-pam"
+url="https://invent.kde.org/plasma/kwallet-pam"
 license=('LGPL')
-depends=('kwallet' 'pam' 'socat')
+depends=('kwallet6' 'pam' 'socat')
 makedepends=('extra-cmake-modules')
-#groups=('kdeplasma5')
+conflicts=('kwalle-pam6')
+replaces=('kwallet-pam6')
+groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${_plasmaver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build  
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DLIBEXEC_INSTALL_DIR=lib
-  make
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

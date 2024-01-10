@@ -4,35 +4,40 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kinfocenter
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc='View information about your computers hardware'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kinfocenter'
 license=('LGPL')
-depends=('glu' 'kcompletion' 'kconfig' 'kconfigwidgets' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'ki18n' 'kiconthemes'
-         'kcmutils' 'kio' 'kservice' 'solid' 'kwidgetsaddons' 'kxmlgui' 'kdeclarative' 'kpackage' 'libraw1394'
-         'pciutils' 'wayland-utils' 'systemsettings' 'vulkan-tools' 'xorg-utils' 'mesa-demos' 'procps-ng'
-         'fwupd' 'dmidecode')
-makedepends=('extra-cmake-modules' 'kdoctools')
-groups=('kdeplasma5')
-conflicts=('kde-workspace' 'about-distro')
-replaces=('about-distro')
+depends=('glu' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'ki18n6' 'kcmutils6' 'kio6'
+         'kservice6' 'solid6' 'kwidgetsaddons6' 'kdeclarative6' 'kpackage6'
+         'libraw1394' 'pciutils' 'wayland-utils' 'systemsettings' 'vulkan-tools'
+         'xorg-utils' 'mesa-demos' 'procps-ng' 'fwupd' 'dmidecode')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('kinfocenter6')
+replaces=('kinfocenter6')
+groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
         'kcm-about-distrorc'
-        'KaOS.png')
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
+        'KaOS.png'
+        "https://invent.kde.org/plasma/kinfocenter/-/commit/287fac58cabbbb0ec36f053c4a18fc4c8be20dfb.diff")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
          'dde85aece050e2f48e71f72e73ba5168'
-         '0957d15eee83c30c1351571d3b875bc9')
+         '0957d15eee83c30c1351571d3b875bc9'
+         '993d9b8b21e585c1992036e0eaa13eb3')
 
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/287fac58cabbbb0ec36f053c4a18fc4c8be20dfb.diff
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
@@ -42,6 +47,6 @@ package() {
   DESTDIR=${pkgdir} cmake --install build
 
   install -Dm644 ${srcdir}/kcm-about-distrorc ${pkgdir}/etc/xdg/kcm-about-distrorc
-  install -Dm644 ${srcdir}/KaOS.png ${pkgdir}/usr/share/${pkgname}/KaOS.png
+  install -Dm644 ${srcdir}/KaOS.png ${pkgdir}/usr/share/${_pkgname}/KaOS.png
 }
 
