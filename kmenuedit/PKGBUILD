@@ -5,31 +5,30 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kmenuedit
 pkgver=${_plasmaver}
 pkgrel=1
-pkgdesc='KDE menu editor'
+pkgdesc='Menu Editor for Plasma Workspaces'
 arch=('x86_64')
-url='https://github.com/KDE/kmenuedit'
+url='https://invent.kde.org/plasma/kmenuedit'
 license=('LGPL')
-depends=('ki18n' 'kxmlgui' 'kdbusaddons' 'kiconthemes' 'kio' 'kitemviews' 'sonnet' 'kinit' 'kglobalaccel')
-makedepends=('extra-cmake-modules' 'kdoctools')
-groups=('kdeplasma5')
+depends=('ki18n6' 'kxmlgui6' 'kdbusaddons6' 'kiconthemes6' 'kio6' 'kitemviews6' 'sonnet6'
+         'kglobalaccel6' 'kwindowsystem6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('bluedevil6')
+replaces=('kmenuedit6')
+groups=('kmenuedit6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

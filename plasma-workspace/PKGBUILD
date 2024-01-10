@@ -4,49 +4,36 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=2
-pkgdesc='Provides the interface and basic tools for the KDE Plasma Workspace'
+pkgrel=1
+pkgdesc='Various components needed to run a Plasma-based environment.'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/plasma-workspace'
+url='https://invent.kde.org/plasma/plasma-workspace'
 license=('LGPL')
-depends=('plasma-framework' 'frameworkintegration' 'knotifications' 'knotifyconfig' 'krunner' 'kdesu' 'knewstuff' 
-         'kwallet' 'kidletime' 'kdeclarative' 'ki18n' 'kcmutils' 'ktextwidgets' 'kcrash' 'kglobalaccel'
-         'kdbusaddons' 'kwayland' 'kcoreaddons' 'kpeople' 'kactivities-stats' 'kactivities' 'kio' 'prison'
-         'kpackage' 'kguiaddons' 'karchive' 'kitemmodels' 'kiconthemes' 'kunitconversion' 'kinit'
-         'libdbusmenu-qt5' 'glu' 'libxkbfile' 'libxcursor' 'lm_sensors' 'libraw1394'
-         'libusb' 'pciutils' 'libbsd' 'kf5-attica'
-         'kemoticons' 'libxrandr' 'kded' 'kwin' 'libksysguard' 'ktexteditor'
-         'khelpcenter' 'kio-extras' 'baloo' 'milou' 'libkscreen' 'breeze' 'gpsd' 'libqalculate' 'qt5-tools'
-         'oxygen-icons5' 'sddm-kcm' 'networkmanager-qt' 'kxmlrpcclient' 'kscreenlocker'
-         'kactivitymanagerd' 'iso-codes' 'kholidays' 'drkonqi' 'kuserfeedback' 'libkexiv2'
-         'kquickcharts' 'kwayland-integration' 'kpipewire' 'layer-shell-qt' 'accountsservice' 'icu')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
-conflicts=('plasma-l10n')
-replaces=('plasma-l10n')
-provides=('plasma-l10n')
-groups=('kdeplasma5')
+depends=('kauth6' 'kparts6' 'libplasma' 'krunner6' 'knotifications6' 'knotifyconfig6' 'knewstuff6'
+         'kwallet6' 'kidletime6' 'kdeclarative6' 'ki18n6' 'kcmutils6' 'ktextwidgets6' 'kcrash6'
+         'kglobalaccel6' 'kdbusaddons6' 'kwayland' 'kcoreaddons6' 'kpeople6' 'plasma-activities-stats'
+         'plasma-activities' 'kio6' 'prison6' 'kpackage6' 'kguiaddons6' 'karchive6' 'kitemmodels6' 'kiconthemes6' 'kunitconversion6' 'ktexteditor6' 'kded6' 'kpipewire' 'networkmanager-qt6' 'kirigami-addons' 'kquickcharts6'
+         'kuserfeedback6' 'libksysguard' 'baloo6' 'kwin' 'libkscreen' 'kscreenlocker' 'layer-shell-qt'
+         'kholidays6' 'breeze' 'attica' 'frameworkintegration6' 'milou' 'kdesu6'
+         'libqalculate' 'phonon-qt6' 'qt6-wayland' 'qt6-tools' 'plasma-wayland-protocols' 'icu'
+         'glu' 'libxkbfile' 'libxcursor' 'lm_sensors' 'libraw1394' 'libusb' 'pciutils' 'libbsd' 'libxrandr'
+         'gpsd' 'iso-codes' 'oxygen-icons5' 'sddm-kcm' 'kactivitymanagerd' 'drkonqi' 'plasma5support'
+         'kio-extras' 'libkexiv6' 'khelpcenter' 'accountsservice' 'kio-fuse') # 'libdbusmenu-qt' 
+makedepends=('extra-cmake-modules' 'kdoctools6' 'boost')
+conflicts=('plasma-workspace6')
+replaces=('plasma-workspace6')
+groups=('kdeplasma6')
 options=('debug')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        '10-kf5'
-        'kde.pam'
-        'kde-np.pam'
-        'kscreensaver.pam'
-        'shellcorona.diff'
-        "https://invent.kde.org/plasma/plasma-workspace/-/commit/c7ba560ccaac5e469cb2d6bf66c39e1acf967454.diff")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`
-         '280f3ca356b59607074da2343a4155b2'
-         '6589fb28bd20d5ec1b4a7b9db9fc4209'
-         '5a035421a9bfaa353caf04250c2b285c'
-         '367a3538f54db71f108b34cfa31088ac'
-         '1913544f6cbf179033c3a1fdceac1b7e'
-         '9312d357190fb2b89b80b403669588fe')
+        'shellcorona.diff')
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
+         '1913544f6cbf179033c3a1fdceac1b7e')
 
 prepare () {
   cd ${pkgname}-${pkgver}
 
   patch -p1 -i ${srcdir}/shellcorona.diff
-  #patch -p1 -i ${srcdir}/c7ba560ccaac5e469cb2d6bf66c39e1acf967454.diff
-  #sed -i 's|m_thickness(30)|m_thickness(44)|' shell/panelview.cpp
+  #sed -i 's|<default>@KDE_INSTALL_FULL_WALLPAPERDIR@/Next/</default>|<default>@KDE_INSTALL_FULL_WALLPAPERDIR@/midna/</default>|' wallpapers/image/main.xml.in
 }
 
 build() {
@@ -54,24 +41,12 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
 
 package() {
+
   DESTDIR=${pkgdir} cmake --install build
-
-  #sed 's|qdbus|qdbus-qt5|' -i $pkgdir/usr/lib/startplasma
-
-  #install -Dm755 ${srcdir}/10-kf5 ${pkgdir}/etc/X11/xinit/xinitrc.d/10-kf5
-
-  # install pam configuration, comment out for now, all provided by sddm
-  #install -D -m644 ${srcdir}/kde.pam ${pkgdir}/etc/pam.d/kde
-  #install -D -m644 ${srcdir}/kde-np.pam ${pkgdir}/etc/pam.d/kde-np
-  #install -D -m644 ${srcdir}/kscreensaver.pam ${pkgdir}/etc/pam.d/kscreensaver
 }

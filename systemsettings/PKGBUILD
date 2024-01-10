@@ -5,43 +5,37 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=systemsettings
 pkgver=${_plasmaver}
 pkgrel=1
-pkgdesc='KDE system settings'
+pkgdesc='Control center to configure your Plasma Desktop.'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/systemsettings'
+url='https://invent.kde.org/plasma/systemsettings'
 license=('LGPL')
-depends=('kitemviews' 'kcmutils' 'ki18n' 'kio' 'kservice' 'kiconthemes' 'kwidgetsaddons'
-         'kwindowsystem' 'kxmlgui' 'kdbusaddons' 'kconfig' 'kpackage' 'kdeclarative' 'kactivities'
-         'kactivities-stats' 'kirigami' 'plasma-workspace')
-makedepends=('extra-cmake-modules' 'kdoctools')
-groups=('kdeplasma5')
-source=("http://download.kde.org/stable/plasma/5.20.0/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+depends=('kauth6' 'kcrash6' 'kitemviews6' 'kitemmodels6' 'kcmutils6' 'ki18n6' 'kio6' 'kservice6'
+         'kiconthemes6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'kdbusaddons6' 'kconfig6'
+         'kpackage6' 'plasma-activities' 'plasma-activities-stats' 'kguiaddons6' 'kirigami6' 'plasma-workspace')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('systemsettings6')
+replaces=('systemsettings6')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
-  sed -i 's|kcm:user_manager.desktop|kcm:kwindecoration.desktop|' sidebar/SidebarMode.cpp
-  #patch -p1 -i ${srcdir}/1490607667954f9d5bf2b9ec6d466b89b9b582c4.diff
-  #rm -rf po/id/docs
+
+  #patch -p1 -i ${srcdir}/8c289f052a8de53e50ffe7ba10879c55f59c306d.diff
 }
 
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

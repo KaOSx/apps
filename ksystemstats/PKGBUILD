@@ -6,23 +6,25 @@ pkgname=ksystemstats
 arch=('x86_64')
 pkgver=${_plasmaver}
 pkgrel=1
-pkgdesc="A plugin based system monitoring daemon."
+pkgdesc="Plugin based system monitoring daemon."
 url="https://invent.kde.org/plasma/ksystemstats"
 license=('GPL' 'LGPL' 'FDL')
-depends=('kcoreaddons' 'kdbusaddons' 'solid' 'kio' 'libksysguard' 'networkmanager-qt'
+depends=('kcoreaddons6' 'kdbusaddons6' 'solid6' 'kio6' 'libksysguard' 'networkmanager-qt6'
          'lm_sensors')
 makedepends=('extra-cmake-modules')
-groups=('kdeplasma5')
+conflicts=('ksystemstats6')
+replaces=('ksystemstats6')
+groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
