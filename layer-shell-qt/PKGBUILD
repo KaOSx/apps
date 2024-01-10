@@ -9,19 +9,20 @@ pkgrel=1
 pkgdesc="Qt component to allow applications to make use of the Wayland wl-layer-shell protocol."
 url="https://invent.kde.org/plasma/layer-shell-qt"
 license=('GPL' 'LGPL' 'FDL')
-depends=('qt5-wayland' 'wayland-protocols')
+depends=('qt6-wayland' 'wayland-protocols')
 makedepends=('extra-cmake-modules')
-groups=('kdeplasma5')
+conflicts=('layer-shell-qt6')
+replaces=('layer-shell-qt6')
+groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${_pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 

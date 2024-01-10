@@ -9,11 +9,13 @@ pkgdesc='Plugin based library to create window decorations.'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kdecoration'
 license=('LGPL')
-depends=('qt5-base' 'ki18n' 'kcoreaddons')
-makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
-groups=('kdeplasma5')
+depends=('qt6-base' 'ki18n6' 'kcoreaddons6')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
+conflicts=('kdecoration6')
+replaces=('kdecoration6')
+groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

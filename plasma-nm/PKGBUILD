@@ -10,23 +10,28 @@ pkgdesc="Plasma applet written in QML for managing network connections"
 arch=('x86_64')
 url="https://invent.kde.org/plasma/plasma-nm"
 license=('GPL')
-depends=('modemmanager-qt' 'networkmanager-qt' 'ki18n' 'kwindowsystem' 'kservice' 'kcompletion' 'kwidgetsaddons'
-         'kio' 'kcoreaddons' 'kwallet' 'kitemviews' 'kxmlgui' 'kconfigwidgets' 'kiconthemes' 'solid' 'prison'
-         'kdbusaddons' 'knotifications' 'kdeclarative' 'kinit' 'plasma-framework' 'kcmutils'
-         'mobile-broadband-provider-info' 'openconnect' 'qca-qt5')
-makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
-groups=('kdeplasma5')
+depends=('modemmanager-qt6' 'networkmanager-qt6' 'ki18n6' 'kwindowsystem6' 'kservice6' 'kcompletion6'
+         'kwidgetsaddons6' 'kio6' 'kcoreaddons6' 'kwallet6' 'kconfigwidgets6' 'solid6' 'prison6'
+         'kdbusaddons6' 'knotifications6' 'kdeclarative6' 'libplasma' 'kcmutils6' 'kirigami6'
+         'mobile-broadband-provider-info' 'openconnect' 'qca-qt6' 'qt6-webengine' 'qcoro-qt6')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
+conflicts=('plasma-nm6')
+replaces=('plasma-nm6')
+groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/e9bf1aa962344af80208df2942502041f0ad1890.diff
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DKDE_INSTALL_LIBDIR=lib \
-        -DKDE_INSTALL_SYSCONFDIR=/etc \
-        -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-        -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-        -DBUILD_TESTING=OFF
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
