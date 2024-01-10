@@ -7,30 +7,25 @@ pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
 arch=('x86_64')
-url='https://projects.kde.org/projects/kde/workspace/breeze'
+url='https://invent.kde.org/plasma/breeze'
 license=('LGPL')
-depends=('kdecoration' 'kpackage' 'ki18n' 'frameworkintegration' 'breeze-icons' 'kwayland'
-         'kcmutils')
+depends=('kdecoration' 'kpackage6' 'ki18n6' 'frameworkintegration6' 'breeze-icons' 'kwayland'
+         'kcmutils6')
 makedepends=('extra-cmake-modules')
-groups=('kdeplasma5')
+conflicts=('breeze6')
+replaces=('breeze6')
+groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
-prepare () {
-  cd ${pkgname}-${pkgver}
-  #sed -i -e 's|devices emblems places status|devices emblems emotes mimetypes places status|' icons-dark/CMakeLists.txt
-
-  #patch -p1 -i $srcdir/c2008d6d3a62b3f7f6e5198e047d39b4a40ecf7e.diff
-}
-  
 build () {  
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6 \
+    -DBUILD_QT5=OFF
   cmake --build build
 }
 

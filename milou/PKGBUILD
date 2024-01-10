@@ -7,30 +7,33 @@ pkgver=${_plasmaver}
 pkgrel=1
 pkgdesc="Dedicated search application built on top of Baloo"
 arch=('x86_64')
-url='https://github.com/KDE/milou'
+url='https://invent.kde.org/plasma/milou'
 license=('GPL')
-depends=('ki18n' 'kdeclarative' 'kitemmodels' 'kservice' 'plasma-framework' 'krunner')
-makedepends=('extra-cmake-modules' 'kdoctools')
-groups=('kdeplasma5')
+depends=('kcoreaddons6' 'ki18n6' 'kdeclarative6' 'kitemmodels6' 'kservice6' 'libplasma' 'krunner6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
+conflicts=('milou6')
+replaces=('milou6')
+groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-#source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KDE/${pkgname}/archive/${_branch}.tar.gz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  #patch -p1 -i ${srcdir}/18009426ba97daefe658696bbbed3cd2c618854a.diff
+}
 
 build() {
-  mkdir -p build
-  cd build
-
-  cmake ../${pkgname}-${pkgver} \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-      -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-      -DKDE_INSTALL_LIBDIR=lib
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
+    -DBUILD_TESTING=OFF
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR="${pkgdir}" install
+  DESTDIR=${pkgdir} cmake --install build
 }

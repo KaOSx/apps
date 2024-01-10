@@ -9,15 +9,15 @@ pkgdesc='Library to retrieve information on the current status of computer hardw
 arch=('x86_64')
 url='https://invent.kde.org/plasma/libksysguard'
 license=('LGPL')
-depends=('libxres' 'kcoreaddons' 'kconfig' 'ki18n' 'kjobwidgets' 'kwindowsystem' 'kcompletion' 'kauth'
-         'kwidgetsaddons' 'kiconthemes' 'kconfigwidgets' 'kservice' 'kglobalaccel' 
-         'plasma-framework' 'kio' 'knewstuff' 'qtwebengine' 'lm_sensors')
-makedepends=('extra-cmake-modules' 'kdoctools' 'qt5-tools')
-groups=('kdeplasma5')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/plasma/libksysguard/-/commit/27da06df3abaf707d61686e3a301a84df7b099c8.diff")
-md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf5.md5 | cut -d" " -f1`
-         'f1eed8ca6a051d4a25cd1fc0a3f03d35')
+depends=('libxres' 'kcoreaddons6' 'kconfig6' 'ki18n6' 'kjobwidgets6' 'kwindowsystem6' 'kcompletion6' 'kauth6'
+         'kwidgetsaddons6' 'kiconthemes6' 'kconfigwidgets6' 'kservice6' 'kglobalaccel6' 
+         'libplasma' 'kio6' 'kpackage6' 'knewstuff6' 'qt6-webengine' 'lm_sensors')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
+conflicts=('libksysguard6')
+replaces=('libksysguard6')
+groups=('kdeplasma6')
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-$_plasmaver.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -30,8 +30,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_LIBEXECDIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
