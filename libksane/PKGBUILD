@@ -9,18 +9,21 @@ pkgdesc="Library providing QWidget with all the logic to interface scanners"
 arch=('x86_64')
 url='https://invent.kde.org/graphics/libksane'
 license=('GPL' 'LGPL' 'FDL')
-depends=('ki18n' 'kwallet' 'kwidgetsaddons' 'ktextwidgets' 'ksanecore')
+depends=('ki18n6' 'kwallet6' 'kwidgetsaddons6' 'ktextwidgets6' 'ksanecore6')
 makedepends=('extra-cmake-modules')
+conflicts=('libksane6')
+replaces=('libksane6')
 groups=('kde-graphics')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
