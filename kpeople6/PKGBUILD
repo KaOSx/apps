@@ -10,8 +10,11 @@ pkgdesc="Library that provides access to all contacts and the people who hold th
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kpeople'
 license=('LGPL')
-depends=('kcoreaddons6' 'kwidgetsaddons6' 'ki18n6' 'kitemviews6')
+depends=('kcoreaddons6' 'kwidgetsaddons6' 'ki18n6' 'kitemviews6' 'kcontacts6')
 makedepends=('extra-cmake-modules')
+conflicts=('kpeoplevcard')
+replaces=('kpeoplevcard')
+provides=('kpeoplevcard')
 source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
