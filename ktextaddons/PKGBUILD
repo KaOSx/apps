@@ -3,9 +3,9 @@
 source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ktextaddons
-pkgver=1.5.2
+pkgver=1.5.3
 epoch=1
-pkgrel=2
+pkgrel=1
 pkgdesc='Various text handling addons'
 arch=('x86_64')
 url='https://invent.kde.org/libraries/ktextaddons'
@@ -14,7 +14,7 @@ depends=('ki18n6' 'kconfigwidgets6' 'karchive6' 'kxmlgui6' 'kcoreaddons6' 'sonne
          'syntax-highlighting6' 'qtkeychain-qt6' 'qt6-speech')
 makedepends=('extra-cmake-modules' 'qt6-tools')
 source=("https://download.kde.org/stable/ktextaddons/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('288bbb1cefb1e8b570a383c792eba5fca291c46dd0155dbc2531f0a36684a7db')
+sha256sums=('8a52db8abfa8a9d68d2d291fb0f8be20659fd7899987b4dcafdf2468db0917dc')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
