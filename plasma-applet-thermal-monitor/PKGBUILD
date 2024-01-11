@@ -1,20 +1,29 @@
 
 pkgname=plasma-applet-thermal-monitor
-pkgver=0.1.1
+pkgver=0.1.3
 pkgrel=1
 pkgdesc="KDE Plasmoid for displaying system temperatures."
 arch=('x86_64')
 url="https://invent.kde.org/olib/thermalmonitor/"
 license=('MIT')
-depends=('ksystemstats6' 'kdeclarative6')
-makedepends=('extra-cmake-modules6')
-source=("git+https://invent.kde.org/olib/thermalmonitor.git")
-md5sums=('SKIP')
+depends=('ksystemstats' 'libksysguard' 'kitemmodels6' 'kdeclarative6' 'libplasma')
+makedepends=('extra-cmake-modules')
+source=("https://invent.kde.org/olib/thermalmonitor/-/archive/v${pkgver}/thermalmonitor-v${pkgver}.tar.bz2"
+        'cmake.diff')
+md5sums=('4d8946e3d0770d0648dc1c54c29549cf'
+         '7c49377e8c2c16f728889ffaf64b5a4f')
+
+prepare() {
+  cd thermalmonitor-v${pkgver}
+
+  patch -p1 -i ${srcdir}/cmake.diff
+}
 
 build() {
-  cmake -B build -S thermalmonitor \
+  cmake -B build -S thermalmonitor-v${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_BUILD_TYPE=Release \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
