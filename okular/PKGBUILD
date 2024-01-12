@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=okular
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Document viewer that can view and annotate various formats, including PDF, Postscript, Comic Book, and image formats."
 url="https://okular.kde.org/"
 license=('GPL' 'LGPL' 'FDL')
@@ -17,14 +17,17 @@ depends=('plasma-activities' 'karchive6' 'kbookmarks6' 'kcompletion6' 'kconfig6'
 makedepends=('pkg-config' 'extra-cmake-modules' 'kdoctools6' 'qca-qt6')
 groups=('office')
 source=("${_mirror}/${pkgname}-${_kdever}.tar.xz"
-        "https://invent.kde.org/kde/okular/-/commit/504eec7688e7139e9d193fc2b3ddafac0f835b6f.diff")
+        "https://invent.kde.org/kde/okular/-/commit/f23a2448b00e1aa83158bfdb66a1f981afe61938.diff"
+        "https://invent.kde.org/kde/okular/-/commit/7aac8a4f9aa8f1c296f6f5c3e68d0404e3925913.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'c94e922c31169d77419e23e380d3fba1')
+         'acb68ff8b4b393dff378ddc7b986059c'
+         '0ddf16ea597d5690dc516747a5eb4f1d')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/504eec7688e7139e9d193fc2b3ddafac0f835b6f.diff
+  patch -p1 -i ${srcdir}/f23a2448b00e1aa83158bfdb66a1f981afe61938.diff
+  patch -p1 -i ${srcdir}/7aac8a4f9aa8f1c296f6f5c3e68d0404e3925913.diff
   #sed -i -e 's|KF_REQUIRED_VERSION "5.92.0"|KF_REQUIRED_VERSION "5.27.80"|' CMakeLists.txt
 }
 
