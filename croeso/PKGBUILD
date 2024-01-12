@@ -1,12 +1,12 @@
 
 pkgname=croeso
-pkgver=1.16
+pkgver=2.0
 pkgrel=1
 pkgdesc="First run settings, package selection and info app for KaOS, written in QML"
 arch=('x86_64')
 url="https://kaosx.us/"
 license=('GPL')
-depends=('qt5-quickcontrols2' 'qt5-webview' 'plasma-framework' 'imagemagick')
+depends=('qt6-declarative' 'qt6-webview' 'libplasma' 'imagemagick')
 makedepends=('git')
 source=("git+https://github.com/KaOSx/croeso.git")
 md5sums=('SKIP')
@@ -14,7 +14,7 @@ md5sums=('SKIP')
 build() {
     cd croeso/
 
-    /usr/lib/qt5/bin/qmake croeso.pro
+    /usr/lib/qt6/bin/qmake croeso.pro
     make
 }
 
