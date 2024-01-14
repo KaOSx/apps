@@ -2,7 +2,7 @@
 pkgname=sqlitebrowser
 pkgver=3.12.2
 _pkgver=3.12.2
-pkgrel=1
+pkgrel=2
 pkgdesc="High quality, visual, open source tool to create, design, and edit database files compatible with SQLite"
 arch=('x86_64')
 url="https://sqlitebrowser.org/"
@@ -14,28 +14,19 @@ md5sums=('e4498f6f8b9414133e1905283b1b4c05')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
-  
+
   sed -e "s|DB Browser for SQLite|sqlitebrowser|" -i CMakeLists.txt
 }
 
 build() {
-  #cd ${pkgname}-${_pkgver}
-  
-  # /usr/lib/qt5/bin/qmake
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${_pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DFORCE_INTERNAL_QSCINTILLA=ON
-  make
+  cmake --build build
 }
 
 package() {
-  #cd ${pkgname}-${_pkgver}
-  cd build
-  
-  #make INSTALL_ROOT=${pkgdir} install
-  make DESTDIR=${pkgdir} install
+
+  DESTDIR=${pkgdir} cmake --install build
 }
