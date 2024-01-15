@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Various components needed to run a Plasma-based environment.'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/plasma-workspace'
@@ -25,14 +25,18 @@ replaces=('plasma-workspace6')
 groups=('kdeplasma6')
 options=('debug')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        'shellcorona.diff')
+        'shellcorona.diff'
+        "https://invent.kde.org/plasma/plasma-workspace/-/commit/5841566a33f10236e396222d40451aa3baff0f2a.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
-         '1913544f6cbf179033c3a1fdceac1b7e')
+         '1913544f6cbf179033c3a1fdceac1b7e'
+         '1fe9968bcd29c205072dd79ba2aeeed2')
 
 prepare () {
   cd ${pkgname}-${pkgver}
 
   patch -p1 -i ${srcdir}/shellcorona.diff
+  # remove PLasma RC banner
+  patch -p1 -i ${srcdir}/5841566a33f10236e396222d40451aa3baff0f2a.diff
   #sed -i 's|<default>@KDE_INSTALL_FULL_WALLPAPERDIR@/Next/</default>|<default>@KDE_INSTALL_FULL_WALLPAPERDIR@/midna/</default>|' wallpapers/image/main.xml.in
 }
 
