@@ -43,7 +43,7 @@ Item {
         
         <p>Think of this ISO as an early start of a test cycle for a first Plasma 6 based stable ISO.  Expect such an ISO to be released in January 2024.</p>
 
-        <p>Updates to the base of the system included a move to FFMPEG 6, fully updated Boost 1.83.0/ICU 74.1 stack, LLVM/Clang 17.0.6 , kernel moved to Linux 6.6.11, Systemd 254.8, Python 3.10.13, Util-Linux 2.39.3, IWD 2.12, MariaDB 11, and Postgresql 16.</p>
+        <p>Updates to the base of the system included a move to FFMPEG 6, fully updated Boost 1.83.0/ICU 74.1 stack, LLVM/Clang 17.0.6 , kernel moved to Linux 6.6.12, Systemd 254.8, Python 3.10.13, Util-Linux 2.39.3, IWD 2.13, MariaDB 11, and Postgresql 16.</p>
         
         <p>For the Plasma desktop, the latest KDE Megarelease RC 1 is included, that means Plasma 5.92.0, KDE Gear 243.01.90, and Frameworks 5.248.0. All built on <b>Qt 6.6.1</b>.Everything is now packaged in such a way that just about all kf5 based KDE Applications can also run on Plasma 6, so Plasma 6 is ready to fully replace Plasma 5 in KaOS. The Midna theme is getting a complete overhaul for Plasma 6, major parts are included in this ISO.</p>
 
@@ -84,7 +84,7 @@ Item {
         
         <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
         
-        <p>The ISO ships with <b>Frameworks 5.248.0, Plasma 5.92.0, KDE Applications 24.01.90</b>, Linux 6.6.11, Systemd 254.8, Kmod 31, NetworkManager 1.44.2, LibreOffice 24.2.0, Elisa, Xorg-Server 1.21.10, Mesa 23.3.3, Glibc 2.37, GCC 12.3.0, non-free Nvidia 545 and Python3 3.10.13 to name a few.</p>
+        <p>The ISO ships with <b>Frameworks 5.248.0, Plasma 5.92.0, KDE Applications 24.01.90</b>, Linux 6.6.12, Systemd 254.8, Kmod 31, NetworkManager 1.44.2, LibreOffice 24.2.0, Elisa, Xorg-Server 1.21.10, Mesa 23.3.3, Glibc 2.37, GCC 12.3.0, non-free Nvidia 545 and Python3 3.10.13 to name a few.</p>
         
         <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
         
