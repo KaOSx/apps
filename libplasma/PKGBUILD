@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libplasma
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Foundational libraries, components, and tools of the Plasma workspaces'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/libplasma'
@@ -18,8 +18,9 @@ provides=('plasma-framework6')
 conflicts=('plasma-framework6')
 replaces=('plasma-framework6')
 groups=('kdeplasma6')
-#options=('debug')
-source=("https://download.kde.org/stable/frameworks/5.99/${pkgname}-${pkgver}.tar.xz")
+options=('debug')
+install=libplasma.install
+source=("https://download.kde.org/unstable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {

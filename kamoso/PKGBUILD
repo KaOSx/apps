@@ -17,32 +17,18 @@ groups=('multimedia')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-prepare() {
-  cd $pkgname-${pkgver}
-  # fix for building with gstreamer 1.14 https://bugs.kde.org/show_bug.cgi?id=392245
-  #sed -i -e 's|kamoso-qt5videosink|kamosoqt5videosink|' src/elements/CMakeLists.txt
-}
-
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
-  
-  #sed -i 's|KAlgebra|Kamoso|' ${pkgdir}/usr/share/applications/org.kde.kamoso.desktop
-  #sed -i 's|Exec=kamoso|Exec=kamoso -qwindowtitle %c|' ${pkgdir}/usr/share/applications/org.kde.kamoso.desktop
-  #sed -i 's|Categories=Qt;KDE;Multimedia|Categories=Qt;KDE;AudioVideo;|' ${pkgdir}/usr/share/applications/org.kde.kamoso.desktop
+  DESTDIR=${pkgdir} cmake --install build
 }

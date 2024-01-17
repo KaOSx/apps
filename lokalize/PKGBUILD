@@ -7,28 +7,22 @@ pkgver=${_kdever}
 pkgrel=1
 pkgdesc="Computer-aided translation"
 arch=('x86_64')
-url="https://projects.kde.org/projects/kde/kdesdk/lokalize"
+url="https://apps.kde.org/lokalize/"
 license=('LGPL')
 depends=('hunspell' 'ki18n' 'ktextwidgets' 'kio' 'kxmlgui' 'knotifications' 'kconfig' 'kcoreaddons'
          'sonnet' 'kdbusaddons' 'kcrash')
 makedepends=('extra-cmake-modules' 'kdoctools')
-conflicts=('kdesdk-lokalize')
-replaces=('kdesdk-lokalize')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  
+
   #sed -i 's|hunspell-1.2|hunspell-1.6|g' cmake/FindHUNSPELL.cmake
-  
 }
 
 build() {
-  mkdir build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -37,11 +31,10 @@ build() {
     -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
-  
-  make DESTDIR="$pkgdir" install
+
+  DESTDIR=${pkgdir} cmake --install build
 }

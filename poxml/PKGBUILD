@@ -6,22 +6,17 @@ pkgname=poxml
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc='Tools for using .po-files to translate DocBook XML files'
-url='https://projects.kde.org/projects/kde/kdesdk/poxml'
+url='https://invent.kde.org/sdk/poxml'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 groups=('kde' 'kde-sdk' 'kde-uninstall')
 depends=('kdoctools')
-makedepends=('extra-cmake-modules' 'pkg-config')
-conflicts=('kdesdk-poxml')
-replaces=('kdesdk-poxml')
+makedepends=('extra-cmake-modules')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-    cd ${srcdir}/${pkgname}-${pkgver}
-    #sed -i -e 's|XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd"|XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd"|' ${srcdir}/${pkgname}/tests/lauri.xml
-	
-    cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=lib \
@@ -29,12 +24,10 @@ build() {
     -DQML_INSTALL_DIR=/usr/lib/qt5/qml \
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
-    make
+  cmake --build build
 }
 
 package() {
-    cd ${srcdir}/${pkgname}-${pkgver}
-	
-    make DESTDIR=${pkgdir} install
 
+  DESTDIR=${pkgdir} cmake --install build
 }
