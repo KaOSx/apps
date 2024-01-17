@@ -6,7 +6,7 @@ pkgname=kmix
 pkgver=${_kdever}
 pkgrel=1
 pkgdesc="KDE volume control program"
-url='http://kde.org/applications/multimedia/kmix/'
+url='https://apps.kde.org/kmix/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
 depends=('kcompletion' 'kconfig' 'kconfigwidgets' 'kcrash' 'kdbusaddons' 'kglobalaccel' 'ki18n' 
@@ -17,17 +17,8 @@ groups=('kde' 'kde-multimedia' 'kde-uninstall')
 source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
-prepare() {
-  cd ${pkgname}-${pkgver}
-  #sed -i -e 's/KF5 REQUIRED COMPONENTS I18n Init Config Solid KDELibs4Support/KF5 REQUIRED COMPONENTS I18n Init Config Solid KDELibs4Support DBusAddons/' ${srcdir}/${pkgname}/CMakeLists.txt
-  #sed -i -e 's/KF5::KDELibs4Support/KF5::KDELibs4Support KF5::DBusAddons K5::GLobalAccel/' ${srcdir}/${pkgname}/CMakeLists.txt
-}
-
 build() {
-  mkdir -p build
-  cd build
-  
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
@@ -35,11 +26,10 @@ build() {
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
     -DBUILD_TESTING=OFF 
-  make
+  cmake --build build
 }
 
 package() {
-  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} cmake --install build
 }
