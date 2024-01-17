@@ -1,28 +1,26 @@
 
 pkgname=kimageannotator
 _pkgname=kImageAnnotator
-pkgver=0.6.1
-_commit=e0d22fedf76e572801ca2c9936c3a4514b2e52ea
-pkgrel=2
+pkgver=0.7.0
+pkgrel=1
 pkgdesc='Tool for annotating images.'
 arch=('x86_64')
 url='https://github.com/ksnip/kImageAnnotator'
 license=('LGPL-3.0')
 depends=('qt6-svg' 'kcolorpicker')
 makedepends=('cmake' 'qt6-tools')
-#source=("https://github.com/ksnip/kImageAnnotator/archive/v$pkgver.tar.gz")
-source=("https://codeload.github.com/nicolasfella/kImageAnnotator/zip/${_commit}")
-md5sums=('75aae5eaac4ef72944fb83a2513cc368')
+source=("https://github.com/ksnip/kImageAnnotator/archive/v${pkgver}.tar.gz")
+md5sums=('337b493d010bc82b87a7b908855270cf')
 
 prepare() {
-  cd ${_pkgname}-${_commit}
+  cd ${_pkgname}-${pkgver}
 
-  sed -i -e 's|find_package(kColorPicker|find_package(kColorPicker-Qt6|' CMakeLists.txt
-  sed -i -e 's|kColorPicker::kColorPicker|kColorPicker::kColorPicker-Qt6|' CMakeLists.txt
+  #sed -i -e 's|find_package(kColorPicker|find_package(kColorPicker-Qt6|' CMakeLists.txt
+  #sed -i -e 's|kColorPicker::kColorPicker|kColorPicker::kColorPicker-Qt6|' CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${_commit} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_SHARED_LIBS=ON \
@@ -36,5 +34,5 @@ package() {
 
   DESTDIR=${pkgdir} cmake --install build
 
-  install -Dm644 ${_pkgname}-${_commit}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 ${_pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }

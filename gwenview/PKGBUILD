@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=gwenview
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and easy to use image viewer for KDE"
 arch=('x86_64')
 url="http://kde.org/applications/graphics/gwenview/"
@@ -19,14 +19,14 @@ conflicts=('gwenview6')
 replaces=('gwenview6')
 groups=('kde-graphics')
 source=("$_mirror/${pkgname}-${pkgver}.tar.xz"
-        'cmake.diff')
+        "https://invent.kde.org/graphics/gwenview/-/commit/f4bfce4f73e9990ba984dd5a4f55fc2b62edc661.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'ad90af10cdd2bf1ebcae14614bab76cb')
+         'd02caf17a52aea9736d48cc3d746eb81')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/cmake.diff
+  patch -p1 -i ${srcdir}/f4bfce4f73e9990ba984dd5a4f55fc2b62edc661.diff
 }
 
 build() {
