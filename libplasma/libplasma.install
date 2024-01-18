@@ -1,6 +1,7 @@
 #!/bin/bash
 
 desktop=$(ps -e | grep kwin)
+plasma5=$(plasmashell -v | grep 5.2)
 timestamp=$( date +%F-%T )
 
 post_install() {
@@ -8,39 +9,31 @@ post_install() {
 }
 
 post_upgrade() {
-  
-    if [[ -n ${desktop} ]]; then
 
-kdialog --warningyesno "This update will replace Plasma 5 with <b>Plasma 6</b><br>
-        Before rebooting make sure to remove all kf5 based widgets<br><br>
-        Also make sure to merge changes from <b>/etc/sddm.conf.pacnew</b> into /etc/sddm.conf<br>
-        For questions go to https://forum.kaosx.us/d/3114-timing-of-plasma-6-move-to-stable<br><br>
-        Do you want to save this output?"        
+    if [[ -n ${desktop} && ${plasma5} ]]; then
+
+        kdialog --warningyesno "This update will replace Plasma 5 with <b>Plasma 6</b><br>
+                Before rebooting make sure to remove all kf5 based widgets<br><br>
+                Also make sure to merge changes from <b>/etc/sddm.conf.pacnew</b> into /etc/sddm.conf<br>
+                For questions go to https://forum.kaosx.us/d/3114-timing-of-plasma-6-move-to-stable<br><br>
+                Do you want to save this output?" 
 
         save=${?}
 
-            if [[ ${save} == 1 ]]; then
+        if [[ ${save} == 1 ]]; then
 
-                kdialog --msgbox "Output not saved"
+            kdialog --msgbox "Output not saved"
 
-            else
+        else
 
-                echo "This update will replace Plasma 5 with <b>Plasma 6</b><br>
-                     Before rebooting make sure to remove all kf5 based widgets<br><br>
-                     Also make sure to merge changes from <b>/etc/sddm.conf.pacnew</b> into /etc/sddm.conf<br>
-                     For questions go to https://forum.kaosx.us/d/3114-timing-of-plasma-6-move-to-stable<br><br>" > /var/log/libplasma_install${timestamp}.txt
+            echo "This update will replace Plasma 5 with <b>Plasma 6</b><br>
+                    Before rebooting make sure to remove all kf5 based widgets<br><br>
+                    Also make sure to merge changes from <b>/etc/sddm.conf.pacnew</b> into /etc/sddm.conf<br>
+                    For questions go to https://forum.kaosx.us/d/3114-timing-of-plasma-6-move-to-stable<br><br>" > /var/log/libplasma_install${timestamp}.txt
 
-                kdialog --msgbox "Output is saved in /var/log/libplasma_install${timestamp}.txt"
-                
-            fi   
+            kdialog --msgbox "Output is saved in /var/log/libplasma_install${timestamp}.txt"
 
-    else
-
-        echo -e "This update will replace Plasma 5 with Plasma 6"
-        echo -e "Before rebooting make sure to remove all kf5 based widgets"
-        echo -e "Also make sure to merge changes from /etc/sddm.conf.pacnew"
-        echo -e "into /etc/sddm.conf"
-        echo -e "For questions go to https://forum.kaosx.us/ \e[0m"
+        fi
 
     fi
 }
