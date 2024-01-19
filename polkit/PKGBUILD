@@ -13,15 +13,15 @@ options=('!libtool')
 install=polkit.install
 source=("https://gitlab.freedesktop.org/polkit/polkit/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.bz2"
         'polkit.pam'
-        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff")
+        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/22193ca2cc0f4e023d331cc1391f55143ef9cade.diff")
 md5sums=('5cb95118e21d0cf2348069847c3879e8'
          '6564f95878297b954f0572bc1610dd15'
-         'e9355c69556b48415b4b1dc810944950')
+         'fa903fbcce53e93271f42a1f5babf373')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # CVE-2021-4034
-  #patch -p1 -i ${srcdir}/a2bf5c9c83b6ae46cbd5c779d3055bff81ded683.diff
+  # keep pam files in /etc
+  patch -R -p1 -i ${srcdir}/22193ca2cc0f4e023d331cc1391f55143ef9cade.diff
 }
 
 build() {
