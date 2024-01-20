@@ -11,7 +11,7 @@ license=('LGPL')
 depends=('fontconfig' 'libxcursor' 'libxrandr' 'alsa-lib' 'desktop-file-utils' 'giflib'
          'jack' 'cups' 'gnutls' 'v4l-utils' 'libxinerama' 'ncurses' 'libxcomposite'
          'alsa-plugins' 'samba' 'gst-plugins-base' 'pulseaudio' 'sane'
-         'libgphoto2' 'opencl-headers' 'vulkan-validationlayers')
+         'libgphoto2' 'opencl-headers' 'vulkan-validationlayers' 'libxkbcommon' 'wayland')
 makedepends=('autoconf' 'perl' 'fontforge' 'flex' 'libxpm')
 install=wine.install
 groups=('system')
@@ -28,7 +28,8 @@ build() {
         --libdir=/usr/lib \
         --with-x \
         --with-gstreamer \
-        --enable-win64
+        --enable-win64 \
+        --with-wayland
     make
 }
 
