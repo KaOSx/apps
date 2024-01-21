@@ -1,6 +1,6 @@
 /* === This file is part of Calamares - <https://github.com/calamares> ===
  *
- *   Copyright 2020 - 2023, Anke Boersma <demm@kaosx.us>
+ *   Copyright 2020 - 2024, Anke Boersma <demm@kaosx.us>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -39,13 +39,16 @@ Item {
         wrapMode: Text.WordWrap
 
         text: qsTr("<h3>KaOS - 2024.01</h3>
-        <p>It is with great pleasure to present to you the January release of a new Plasma 6 ISO.</p>
+        <p>It is with great pleasure to present to you the January release of a new stable ISO.
+        This release brings the end of Plasma 5 as the default Desktop Environment for KaOS. Almost fifteen months ago work started to fully migrate to a Frameworks 6, Plasma 6 based distribution and with the release of Plasma 6RC this migration is now deemed ready to bring a better user experience then Plasma 5. From the unset of this migration there was never a plan to mix the two environments. What you will see on this ISO is a pure Plasma 6 based environment.</p>
         
-        <p>Think of this ISO as an early start of a test cycle for a first Plasma 6 based stable ISO.  Expect such an ISO to be released in January 2024.</p>
+        <p>KaOS though has been shipping all ported applications from their frameworks 6 branch in the many snapshot ISO it has released to get ready for this migration. Just about all applications that users have become used to seeing in a Frameworks5/Plasma 5 version are available as a Frameworks6/Plasma 6 port.
+        A few though are not ready yet, for those Frameworks 5 is still packaged, so they can be used in a Plasma 6 environment.  Those that rely on parts of Plasma 5 will be missing from the KaOS repositories until their ports are ready for daily use.
+        Look & Feel is a KaOS exclusive version "Midna", fully redone for the Plasma 6 move.</p>
 
-        <p>Updates to the base of the system included a move to FFMPEG 6, fully updated Boost 1.83.0/ICU 74.1 stack, LLVM/Clang 17.0.6 , kernel moved to Linux 6.6.12, Systemd 254.8, Python 3.10.13, Util-Linux 2.39.3, IWD 2.13, MariaDB 11, and Postgresql 16.</p>
-        
-        <p>For the Plasma desktop, the latest KDE Megarelease RC 1 is included, that means Plasma 5.92.0, KDE Gear 243.01.90, and Frameworks 5.248.0. All built on <b>Qt 6.6.1</b>.Everything is now packaged in such a way that just about all kf5 based KDE Applications can also run on Plasma 6, so Plasma 6 is ready to fully replace Plasma 5 in KaOS. The Midna theme is getting a complete overhaul for Plasma 6, major parts are included in this ISO.</p>
+        <p>Once this ISO is released, all of Plasma 5 will be removed from the repositories, and KaOS will once again go back to focusing on one Desktop Environment.</p>
+
+        <p>Updates to the base of the system included a move to FFMPEG 6, fully updated Boost 1.83.0/ICU 74.1 stack, LLVM/Clang 17.0.6 , kernel moved to Linux 6.6.13, Systemd 254.8, Python 3.10.13, Util-Linux 2.39.3, IWD 2.13, MariaDB 11, and Postgresql 16.</p>
 
         <p>SDDM 0.20.0 added the option to run this display manager in Wayland mode, so KaOS is one step closer to being to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using Weston).</p>
 
@@ -55,8 +58,6 @@ Item {
         
         <p>To get good logs has always been a bit of a challenge since you have to know what journalctl commands to use. That is now a thing of the past, <strong>Kjournald</strong> gives the option to view the logs from a nice GUI, with all kinds of filter options in the left-hand pane (it is now part of the default install)</p>
 
-        <p>For the adventurous, the kde-next repository is used for a complete Qt6-based KDE stack, all Frameworks and Plasma are built there on Qt6, and about half of KDE Applications have also been ported to Qt6.</p>
-
         <p>After almost two years of testing IWD, it is now in such a good state that it has replaced Wpa_Suplicant as the default wireless daemon for KaOS.</br>
         Similar, Pipewire has replaced PulseAudio as the default sound/low-level multimedia framework.</p>
 
@@ -64,7 +65,7 @@ Item {
         
         <p>For Nvidia, longterm supported versions 390xx and 470xx are include, alongside the latest released version.</p>
         
-        <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt5/kf5 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
+        <p>Since LibreOffice 6.2, it is now possible to supply this as a pure Qt6/kf6 application.  LibreOffice has thus replaced Calligra as the default Office Application for KaOS.</p>
         
         <p>KaOS' creation <strong>Croeso</strong> (Welsh for welcome) for helping with configuring a new install is included.  It will run on the newly installed system and offers to adjust some 15 commonly used settings, includes a custom Wallpaper selector, distribution info, and the option to select packages to install from six different groups.  It is written in QML and fits well with the Welcome application used in the Live system.  The latter includes an Installation Guide.</p>
         
@@ -84,7 +85,7 @@ Item {
         
         <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
         
-        <p>The ISO ships with <b>Frameworks 5.248.0, Plasma 5.92.0, KDE Applications 24.01.90</b>, Linux 6.6.12, Systemd 254.8, Kmod 31, NetworkManager 1.44.2, LibreOffice 24.2.0, Elisa, Xorg-Server 1.21.10, Mesa 23.3.3, Glibc 2.37, GCC 12.3.0, non-free Nvidia 545 and Python3 3.10.13 to name a few.</p>
+        <p>The ISO ships with <b>Frameworks 5.248.0, Plasma 5.92.0, KDE Applications 24.01.90</b>, Linux 6.6.13, Systemd 254.8, Kmod 31, NetworkManager 1.44.2, LibreOffice 24.2.0, Elisa, Xorg-Server 1.21.11, Mesa 23.3.3, Glibc 2.37, GCC 12.3.0, non-free Nvidia 545 and Python3 3.10.13 to name a few.</p>
         
         <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
         
