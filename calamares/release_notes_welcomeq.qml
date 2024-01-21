@@ -39,18 +39,17 @@ Item {
         wrapMode: Text.WordWrap
 
         text: qsTr("<h3>KaOS - 2024.01</h3>
-        <p>It is with great pleasure to present to you the January release of a new stable ISO.
-        This release brings the end of Plasma 5 as the default Desktop Environment for KaOS. Almost fifteen months ago work started to fully migrate to a Frameworks 6, Plasma 6 based distribution and with the release of Plasma 6RC this migration is now deemed ready to bring a better user experience then Plasma 5. From the unset of this migration there was never a plan to mix the two environments. What you will see on this ISO is a pure Plasma 6 based environment.</p>
-        
-        <p>KaOS though has been shipping all ported applications from their frameworks 6 branch in the many snapshot ISO it has released to get ready for this migration. Just about all applications that users have become used to seeing in a Frameworks5/Plasma 5 version are available as a Frameworks6/Plasma 6 port.
-        A few though are not ready yet, for those Frameworks 5 is still packaged, so they can be used in a Plasma 6 environment.  Those that rely on parts of Plasma 5 will be missing from the KaOS repositories until their ports are ready for daily use.
-        Look & Feel is a KaOS exclusive version "Midna", fully redone for the Plasma 6 move.</p>
+        <p>It is a great pleasure to present to you the January release of a new stable ISO.
 
-        <p>Once this ISO is released, all of Plasma 5 will be removed from the repositories, and KaOS will once again go back to focusing on one Desktop Environment.</p>
+        <p>This release marks the end of Plasma 5 as the default Desktop Environment for KaOS. Almost fifteen months ago work started to fully migrate to a Frameworks 6, Plasma 6 based distribution and with the release of Plasma 6 Release Candidate 1 this migration is now deemed ready to bring a better user experience than Plasma 5. From the onset of this migration there was never a plan to mix the two environments. What you will see on this ISO is a pure Plasma 6 based environment.</p>
 
+        <p>KaOS though has been shipping all ported applications from their frameworks 6 branch in the many snapshot ISOs it has released to get ready for this migration. Just about all applications that users have become used to seeing in a Frameworks 5 / Plasma 5 version are available as a Frameworks 6 / Plasma 6 port.
+        For the few applications that are not ready yet, Frameworks 5 is still packaged, so they can be used in a Plasma 6 environment.  Those that rely on parts of Plasma 5 will be missing from the KaOS repositories until their ports are ready for daily use.
+        The Look & Feel is also updated for the Plasma 6 move, with the "Midna" theme, exclusive to KaOS, fully redone.</p>
+        <p>Once this ISO is released, all Plasma 5 packages will be removed from the repositories, and KaOS will once again go back to focusing on one Desktop Environment.</p>
         <p>Updates to the base of the system included a move to FFMPEG 6, fully updated Boost 1.83.0/ICU 74.1 stack, LLVM/Clang 17.0.6 , kernel moved to Linux 6.6.13, Systemd 254.8, Python 3.10.13, Util-Linux 2.39.3, IWD 2.13, MariaDB 11, and Postgresql 16.</p>
 
-        <p>SDDM 0.20.0 added the option to run this display manager in Wayland mode, so KaOS is one step closer to being to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using Weston).</p>
+        <p>SDDM 0.20.0 added the option to run this display manager in Wayland mode, so KaOS is one step closer to being ready to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using Weston).</p>
 
         <p>The automated partitioning option in the installer (Calamares) now offers the use of all popular filesystems, so no need to use manually partitioning to be able to choose XFS, EXT4, BTRFS or ZFS.</p>
         
@@ -89,8 +88,8 @@ Item {
         
         <p>The package manager is <strong>Pacman 6.0.2</strong>, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. <b>GFXboot</b> is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.</p>
         
-        <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200. A gist of what is available, besides the stable kernel there is Linux-next 6.6, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
-        A limited number of the most well-known GTK applications are available, examples Firefox 121, Chrome 122, Ardour 8.2.0, Inkscape 1.3, GIMP 2.99.16 and Thunderbird 115.<br />
+        <p><b>Repositories</b> of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200 packages. A gist of what is available, besides the stable kernel there is Linux-next 6.6, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.<br />
+        A limited number of the most well-known GTK applications are available, for example, Firefox 121, Chrome 122, Ardour 8.2.0, Inkscape 1.3, GIMP 2.99.16 and Thunderbird 115.<br />
         Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.</p>
 
         <p><b>Known issues:</b></p>
