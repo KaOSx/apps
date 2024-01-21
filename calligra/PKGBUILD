@@ -3,20 +3,20 @@ pkgbase=calligra
 pkgname=('calligra' 'calligra-l10n')
 pkgver=3.2.1
 _commit=886e80baee69aed3a5f21ad517e73e46656ed1ca
-pkgrel=28
+pkgrel=29
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
 url='https://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
-makedepends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons' 'ki18n' 'kitemviews' 'kwidgetsaddons'
-         'threadweaver' 'kcompletion' 'kiconthemes' 'kparts' 'kxmlgui' 'kross' 'kconfigwidgets' 'ktexteditor' 
-         'kdelibs4support' 'kio' 'knotifyconfig' 'knotifications' 'ktextwidgets' 'khtml'
-         'eigen3' 'freetds' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
-         'lcms2' 'libodfgen' 'libspnav' 'fftw' 'hicolor-icon-theme' 
-         'sqlite3' 'libkdcraw' 'qca-qt5' 'qt5-declarative' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
-         'kcontacts' 'akonadi-contacts' 'kholidays' 'openexr' 'vc' 'kreport'
-         'extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang 'poppler' 'okular'
-source=("https://download.kde.org/stable/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
+makedepends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons' 'ki18n'
+             'kitemviews' 'kwidgetsaddons' 'threadweaver' 'kcompletion' 'kiconthemes' 'kparts'
+             'kxmlgui' 'kross' 'kconfigwidgets' 'ktexteditor' 'kdelibs4support' 'kio' 'knotifyconfig' 'knotifications' 'ktextwidgets' 'khtml' 'kcmutils'
+             'eigen3' 'freetds' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
+             'lcms2' 'libodfgen' 'libspnav' 'fftw' 'hicolor-icon-theme' 
+             'sqlite3' 'libkdcraw' 'qca-qt5' 'qt5-declarative' 'marble' 'kactivities' 'kdiagram5'
+             'kdeclarative' 'kcalcore' 'kcontacts' 'kholidays' 'openexr' 'vc'
+             'kreport' 'extra-cmake-modules' 'kdoctools' 'boost' 'docbook-xsl') # 'clang' vc fails clang 'poppler' 'okular' 'akonadi-contacts'
+source=("https://download.kde.org/Attic/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
 #source=("https://github.com/KDE/calligra/archive/${_commit}.zip"
         'cpp17.patch'
         "https://invent.kde.org/office/calligra/-/commit/eab11436712f92afc6e7b14b25d1f6df217d79d7.diff"
@@ -38,10 +38,10 @@ prepare() {
 build() {
   mkdir -p build
   cd build
-  
+
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
-  
+
   cmake ../${pkgbase}-${pkgver} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -56,18 +56,18 @@ build() {
 
 package_calligra() {
   pkgdesc="Suite is a collection of office applications linked together by a common base."
-  depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons' 'ki18n' 'kitemviews' 'kwidgetsaddons'
-         'threadweaver' 'kcompletion' 'kiconthemes' 'kparts' 'kxmlgui' 'kross' 'kconfigwidgets' 'ktexteditor' 
-         'kdelibs4support' 'kio' 'knotifyconfig' 'knotifications' 'ktextwidgets' 'khtml'
-         'eigen3' 'freetds' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
-         'lcms2' 'libodfgen' 'libspnav' 'fftw' 'hicolor-icon-theme' 
-         'sqlite3' 'libkdcraw' 'exiv2' 'qca-qt5' 'qt5-declarative' 'marble' 'kactivities' 'kdiagram' 'kdeclarative' 'kcalcore'
-         'kcontacts' 'akonadi-contacts' 'kholidays' 'openexr' 'vc' 'kreport') # 'poppler' 'okular'
-         
+  depends=('karchive' 'kcodecs' 'kconfig' 'kcoreaddons' 'kdbusaddons' 'kguiaddons' 'ki18n'
+          'kitemviews' 'kwidgetsaddons' 'threadweaver' 'kcompletion' 'kiconthemes' 'kparts'
+          'kxmlgui' 'kross' 'kconfigwidgets' 'ktexteditor' 'kdelibs4support' 'kio'
+          'knotifyconfig' 'knotifications' 'ktextwidgets' 'khtml' 'kcmutils'
+          'eigen3' 'freetds' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
+          'lcms2' 'libodfgen' 'libspnav' 'fftw' 'hicolor-icon-theme' 'sqlite3' 'libkdcraw'
+          'exiv2' 'qca-qt5' 'qt5-declarative' 'marble' 'kactivities' 'kdiagram5' 'kdeclarative'
+          'kcalcore' 'kcontacts' 'kholidays' 'openexr' 'vc' 'kreport') # 'poppler' 'okular' 'akonadi-contacts'
   cd build
-  
+
   make DESTDIR=${pkgdir} install
-  
+
   #rm ${pkgdir}/usr/share/applications/calligra_filter_odt2docx.desktop
   #use in calligra-l10n
   mv ${pkgdir}/usr/share/locale ${srcdir}/
@@ -77,7 +77,7 @@ package_calligra-l10n() {
   pkgdesc="Localization for Calligra"
   depends=('ki18n')
   groups=('localization')
-  
+
   install -d -m755 ${pkgdir}/usr/share/locale
   mv ${srcdir}/locale ${pkgdir}/usr/share
 }

@@ -1,0 +1,28 @@
+
+
+pkgname=kdiagram5
+_pkgname=kdiagram
+pkgver=2.8.0
+pkgrel=1
+pkgdesc='Powerful libraries (KChart, KGantt) for creating business diagrams'
+arch=('x86_64')
+url='https://invent.kde.org/graphics/kdiagram'
+license=('LGPL')
+depends=('qt5-svg')
+makedepends=('extra-cmake-modules' 'qt5-tools')
+source=("https://download.kde.org/stable/kdiagram/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+sha256sums=('579dad3bd1ea44b5a20c0f133ebf47622e38960f9c7c8b3a316be30a369f431f')
+
+build() {
+  cmake -B build -S ${_pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
