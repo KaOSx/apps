@@ -7,10 +7,10 @@ pkgdesc="Video editor designed for simple cutting, filtering and encoding tasks 
 arch=('x86_64')
 url="http://fixounet.free.fr/avidemux/"
 license=('Public Domain')
-depends=('qt6-base' 'flac' 'libva' 'libxv' 'desktop-file-utils' 'x264' 'pulseaudio' 'jack'
+depends=('qt5-base' 'flac' 'libva' 'libxv' 'desktop-file-utils' 'x264' 'pulseaudio' 'jack'
          'lame' 'sqlite' 'libvpx' 'x265' 'faac' 'faad2' 'fribidi' 'glu' 'libdca' 'opencore-amr'
          'xvidcore')
-makedepends=('cmake' 'yasm' 'pkg-config' 'qt6-tools')
+makedepends=('cmake' 'yasm' 'pkg-config' 'qt5-tools')
 options=('!makeflags')
 source=("https://downloads.sourceforge.net/avidemux/avidemux_${pkgver}.tar.gz"
 #source=("https://github.com/mean00/avidemux2/archive/${_commit}.zip"
@@ -25,14 +25,14 @@ prepare() {
     # Don't hide the build output
     sed 's|$PARAL >& /tmp/log$BUILDDIR|$PARAL |g' -i bootStrap.bash
     # set to Qt6
-    sed 's|avidemux3_qt5|avidemux3_qt6|g' -i avidemux/qt4/xdg_data/org.avidemux.Avidemux.desktop
+    #sed 's|avidemux3_qt5|avidemux3_qt6|g' -i avidemux/qt4/xdg_data/org.avidemux.Avidemux.desktop
 }
 
 build() {
     cd ${pkgname}_${pkgver}
     bash bootStrap.bash --with-core \
-        --with-plugins \
-        --enable-qt6
+        --with-plugins
+        #--enable-qt6
 }
 
 package() {
