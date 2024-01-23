@@ -1,6 +1,6 @@
 
 pkgname=qjackctl
-pkgver=0.9.12
+pkgver=0.9.13
 pkgrel=1
 pkgdesc="Qt front-end for the JACK low-latency audio server"
 url="https://qjackctl.sourceforge.io/"
@@ -10,8 +10,8 @@ depends=('jack' 'qt6-base' 'portaudio' 'qt6-svg')
 makedepends=('cmake' 'qt6-tools')
 options=('!makeflags')
 groups=('multimedia')
-source=("https://downloads.sourceforge.net/qjackctl/${pkgname}-${pkgver}.tar.gz")
-md5sums=('0f57b73ea9b8898517cf1b03712cb5ff')
+source=("https://www.rncbc.org/archive/${pkgname}-${pkgver}.tar.gz")
+md5sums=('22585c481502b8e89f778b490d26adf3')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
