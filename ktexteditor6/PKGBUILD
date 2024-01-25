@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ktexteditor6
 _pkgname=ktexteditor
 pkgver=${_kf6ver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Full text editor component.'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/ktexteditor'
@@ -14,13 +14,15 @@ depends=('karchive6' 'kconfig6' 'kguiaddons6' 'ki18n6' 'kio6' 'kparts6' 'sonnet6
          'syntax-highlighting6' 'kauth6' 'editorconfig-core-c' 'qt6-5compat')
 makedepends=('extra-cmake-modules')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/unstable/frameworks/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/frameworks/ktexteditor/-/commit/7c36fe9a29de7012b04a69dec884125e4fbb8418.diff")
+md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`
+         '6d4977a0bbe5c39aa7e99abb2cefbe3a')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/99bb4f0250f8f394cbefeaa15111c196d72ab83f.diff
+  patch -p1 -i ${srcdir}/7c36fe9a29de7012b04a69dec884125e4fbb8418.diff
 }
 
 build() {
