@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=neochat
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Client for Matrix, the decentralized communication protocol for instant messaging - Spectral fork."
 arch=('x86_64')
 url="https://apps.kde.org/en/neochat"
@@ -16,7 +16,7 @@ depends=('qt6-multimedia' 'qt6-declarative' 'qt6-svg' 'qt6-location' 'qt6-webvie
 makedepends=('extra-cmake-modules' 'kdoctools6')
 conflicts=('neochat6')
 replaces=('neochat6')
-source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {

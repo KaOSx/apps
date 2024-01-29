@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=ghostwriter
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Distraction-free text editor for Markdown."
 arch=('x86_64')
 url="https://ghostwriter.kde.org/"
@@ -14,7 +14,7 @@ depends=('cmark' 'qt6-svg' 'qt6-webengine' 'sonnet6' 'kcoreaddons6' 'kxmlgui6'
          'kconfigwidgets6' 'kwidgetsaddons6')
 makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
 groups=('office')
-source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
+source=("${_mirror}/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
