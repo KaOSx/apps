@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=gwenview
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="A fast and easy to use image viewer for KDE"
 arch=('x86_64')
 url="http://kde.org/applications/graphics/gwenview/"
@@ -26,7 +26,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/f4bfce4f73e9990ba984dd5a4f55fc2b62edc661.diff
+  #patch -p1 -i ${srcdir}/f4bfce4f73e9990ba984dd5a4f55fc2b62edc661.diff
 }
 
 build() {
