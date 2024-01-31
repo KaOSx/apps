@@ -1,11 +1,10 @@
 
 pkgname=freerdp
 _pkgname=FreeRDP
-pkgver=2.11.5
-_pkgver=2.11.5
+pkgver=3.2.0
+_pkgver=3.2.0
 _commit=f8c9f438436a4492e37011396148d804f7e3651f
 pkgrel=1
-epoch=1
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)."
 arch=('x86_64')
 url="https://www.freerdp.com/"
@@ -14,11 +13,11 @@ depends=('openssl' 'libxcursor' 'libcups' 'alsa-lib' 'libxext' 'libxdamage'
         'ffmpeg' 'libxkbfile' 'libxinerama' 'libxv' 'pulseaudio' 'libxrender' 
         'libxfixes' 'gst-plugins-base' 'libxkbcommon' 'libxrandr' 'libjpeg-turbo'
         'pcsclite' 'dbus-glib' 'wayland' 'gsm' 'lame' 'faad2' 'faac'
-        'libsoxr' ) # 'x264' 
+        'libsoxr' 'fuse3' 'sdl_ttf' 'qtwebengine') # 'x264' 
 makedepends=('krb5' 'cmake' 'damageproto' 'xmlto' 'docbook-xsl')
 #source=("https://github.com/FreeRDP/FreeRDP/archive/${_commit}.zip")
 source=("https://pub.freerdp.com/releases/${pkgname}-${_pkgver}.tar.gz")
-sha256sums=('70785ad9934d75aed1734f8918a05aff95788e58e53081e84651106b24303dc2')
+sha256sums=('50922e142eecf68372e0a4ba6881c84076636e47a56c9c844a3ae6037c3b7083')
 
 build() {
   cmake -B build -S ${pkgname}-${_pkgver} \
@@ -43,7 +42,10 @@ build() {
     -DWITH_SERVER_CHANNELS=ON \
     -DWITH_VAAPI=ON \
     -DCHANNEL_URBDRC_CLIENT=ON \
-    -DWITH_SERVER=ON
+    -DWITH_SERVER=ON \
+    -DWITH_PKCS11=OFF \
+    -DWITH_WEBVIEW_QT=ON \
+    -DWITH_MANPAGES=OFF
     #-DWITH_X264=ON \
   cmake --build build
 }
