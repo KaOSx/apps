@@ -39,16 +39,16 @@ Item {
         wrapMode: Text.WordWrap
 
         text: qsTr("<h3>KaOS - 2024.01</h3>
-        <p>It is a great pleasure to present to you the January release of a new stable ISO.
+        <p>It is a great pleasure to present to you the January release of a new stable ISO.</p>
 
-        <p>This release marks the end of Plasma 5 as the default Desktop Environment for KaOS. Almost fifteen months ago work started to fully migrate to a Frameworks 6, Plasma 6 based distribution and with the release of Plasma 6 Release Candidate this migration is now deemed ready to bring a better user experience than Plasma 5. From the onset of this migration there was never a plan to mix the two environments. What you will see on this ISO is a pure Plasma 6 based environment.</p>
+        <p>This release marks the end of Plasma 5 as the default Desktop Environment for KaOS. Almost fifteen months ago work started to fully migrate to a Frameworks 6, Plasma 6 based distribution, and with the release of Plasma 6 Release Candidate this migration is now deemed ready to bring a better user experience than Plasma 5. From the onset of this migration, there was never a plan to mix the two environments. What you will see on this ISO is a pure Plasma 6 based environment.</p>
 
-        <p>KaOS though has been shipping all ported applications from their frameworks 6 branch in the many snapshot ISOs it has released to get ready for this migration. Just about all applications that users have become used to seeing in a Frameworks 5 / Plasma 5 version are available as a Frameworks 6 / Plasma 6 port.
+        <p>KaOS though has been shipping all ported applications from their Frameworks 6 branch in the many snapshot ISOs it has released to get ready for this migration. Just about all applications that users have become used to seeing in a Frameworks 5 / Plasma 5 version are available as a Frameworks 6 / Plasma 6 port.
         For the few applications that are not ready yet, Frameworks 5 is still packaged, so they can be used in a Plasma 6 environment.  Those that rely on parts of Plasma 5 will be missing from the KaOS repositories until their ports are ready for daily use.
         The Look & Feel is also updated for the Plasma 6 move, with the Midna theme, exclusive to KaOS, fully redone.</p>
         <p>Once this ISO is released, all Plasma 5 packages will be removed from the repositories, and KaOS will once again go back to focusing on one Desktop Environment.</p>
 
-        <p>Updates to the base of the system included a move to FFMPEG 6, fully updated Boost 1.83.0/ICU 74.1 stack, LLVM/Clang 17.0.6 , kernel moved to Linux 6.6.14, Systemd 254.9, Python 3.10.13, Util-Linux 2.39.3, IWD 2.13, MariaDB 11, and Postgresql 16.</p>
+        <p>Updates to the base of the system included a move to FFMPEG 6, fully updated Boost 1.83.0/ICU 74.1 stack, LLVM/Clang 17.0.6, kernel moved to Linux 6.6.14, Systemd 254.9, Python 3.10.13, Util-Linux 2.39.3, IWD 2.13, MariaDB 11, and Postgresql 16.</p>
 
         <p>SDDM 0.20.0 added the option to run this display manager in Wayland mode, so KaOS is one step closer to being ready to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using Weston).</p>
 
@@ -81,9 +81,9 @@ Item {
         
         <p>For UEFI installs, KaOS uses the simple, transparent but quite powerful systemd-boot as bootloader.</p>
         
-        <p>To learn more about the goals and ideas behind KaOS, please read the <b>http://kaosx.us/</b>, <b>http://kaosx.us/about/</b>, and <b>http://kaosx.us/faq/</b> pages.</p>
+        <p>To learn more about the goals and ideas behind KaOS, please read the <b>https://kaosx.us/</b>, <b>https://kaosx.us/about/</b>, and <b>https://kaosx.us/faq/</b> pages.</p>
         
-        <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>http://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
+        <p>To avoid any misunderstanding and confusion, KaOS is <b>not based upon, derived of, or inspired by</b> any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see <b>https://kaosx.us/about/based/</b>. A <b>rolling release distribution</b> never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:</p>
         
         <p>The ISO ships with <b>Frameworks 5.249.0, Plasma 5.93.0, KDE Applications 24.01.95</b>, Linux 6.6.14, Systemd 254.9, Kmod 31, NetworkManager 1.44.2, LibreOffice 24.2.0, Elisa, Xorg-Server 1.21.11, Mesa 23.3.4, Glibc 2.37, GCC 12.3.0, non-free Nvidia 545 and Python3 3.10.13 to name a few.</p>
         
@@ -98,7 +98,7 @@ Item {
             <li>Installing on RAID is currently not possible</li>
         </ul>
         
-        <p>To create <b>reliable</b> installation media, please follow the instructions from the <b>http://kaosx.us/download/</b> page. KaOS's ISO's <b>do not support Unetbootin or Rufus</b>, and DVDs need a burn speed <b>no higher than 4x</b>.</p>")
+        <p>To create <b>reliable</b> installation media, please follow the instructions from the <b>https://kaosx.us/download/</b> page. KaOS's ISO's <b>do not support Unetbootin or Rufus</b>, and DVDs need a burn speed <b>no higher than 4x</b>.</p>")
     }
 
     /*ToolButton {
