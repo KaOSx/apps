@@ -2,7 +2,7 @@
 pkgbase=google-chrome
 pkgname=('google-chrome' 'widevine')
 pkgver=123.0.6272.2
-pkgrel=1
+pkgrel=3
 arch=('x86_64')
 url="http://dev.chromium.org/getting-involved/dev-channel"
 license=('custom:chrome')
@@ -61,6 +61,10 @@ package_widevine() {
     install -Dm644 opt/google/chrome-unstable/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so ${pkgdir}/opt/google/chrome-unstable/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so
 
     mkdir -p ${pkgdir}/usr/lib/chromium
+    mkdir -p ${pkgdir}/usr/lib/qt6/plugins/ppapi/
     cd ${pkgdir}
-    ln -s /opt/google/chrome-unstable/libwidevinecdm.so ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
+    ln -s /opt/google/chrome-unstable/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so \
+        ${pkgdir}/usr/lib/chromium/libwidevinecdm.so
+    ln -s /opt/google/chrome-unstable/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so \
+        ${pkgdir}/usr/lib/qt6/plugins/ppapi/libwidevinecdm.so
 }
