@@ -4,13 +4,15 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-integration
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt Platform Theme integration plugins for Plasma Workspaces.'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/plasma-integration'
 license=('LGPL')
 depends=('kconfig6' 'kconfigwidgets6' 'ki18n6' 'kiconthemes6' 'kio6' 'knotifications6' 'kwidgetsaddons6'
          'kwindowsystem6' 'kwayland' 'kguiaddons6' 'kxmlgui6' 'kstatusnotifieritem' 'breeze'
+         'kconfig' 'kconfigwidgets' 'ki18n' 'kiconthemes' 'kio' 'knotifications' 'kwayland5'
+         'kwindowsystem' 'kguiaddons' 'kxmlgui' 'qqc2-desktop-style' 'qt5-quickcontrols2' 'qt5-wayland'
          'noto-fonts' 'ttf-hack' 'qt6-declarative' 'qqc2-desktop-style6' 'xdg-desktop-portal-kde')
 makedepends=('extra-cmake-modules')
 conflicts=('plasma-integration6')
@@ -34,8 +36,7 @@ build () {
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_LIBEXECDIR=/usr/lib \
     -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6 \
-    -DBUILD_QT5=OFF \
+    -DBUILD_QT5=ON \
     -DBUILD_QT6=ON
   cmake --build build
 }

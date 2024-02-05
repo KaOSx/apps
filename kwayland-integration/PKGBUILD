@@ -9,11 +9,11 @@ pkgdesc="Provides integration plugins for various KDE frameworks for the wayland
 arch=('x86_64')
 url="https://invent.kde.org/plasma/kwayland-integration"
 license=('LGPLv2+')
-depends=('kidletime' 'kwindowsystem' 'kguiaddons' 'kwayland')
+depends=('kidletime' 'kwindowsystem' 'kguiaddons' 'kwayland5')
 makedepends=('extra-cmake-modules'  'kdoctools')
-groups=('kdeplasma5')
+groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf5.md5 | cut -d" " -f1`)
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
