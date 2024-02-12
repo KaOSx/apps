@@ -1,15 +1,23 @@
 
 pkgname=waylandpp
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to create C++ bindings for Wayland using the most modern C++ technology currently available'
 arch=('x86_64')
 url='https://nilsbrause.github.io/waylandpp_docs/'
 license=('MIT' 'GPL3')
 depends=('pugixml' 'wayland' 'libglvnd')
 makedepends=('cmake')
-source=("https://github.com/NilsBrause/waylandpp/archive/${pkgver}.tar.gz")
-sha256sums=('b20b45917382c6b87e9380130c9a1a1c563da2f498de5830df12fbce326dd9f5')
+source=("https://github.com/NilsBrause/waylandpp/archive/${pkgver}.tar.gz"
+        "https://github.com/NilsBrause/waylandpp/pull/75/commits/5e3243b163aa5d50083b4036c21f84c1204f2023.diff")
+sha256sums=('b20b45917382c6b87e9380130c9a1a1c563da2f498de5830df12fbce326dd9f5'
+            '65695e53aee36e452b8726e6043f6b4e5b45bbc25401ad47fce8c68a1432df48')
+
+prepare() {
+    cd ${pkgname}-${pkgver}
+
+    patch -p1 -i ${srcdir}/5e3243b163aa5d50083b4036c21f84c1204f2023.diff
+}
 
 build() {
     cmake -B build -S ${pkgname}-${pkgver} \
