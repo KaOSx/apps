@@ -9,9 +9,10 @@ pkgdesc="Periodic Table of Elements"
 url="https://apps.kde.org/en/kalzium"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('avogadrolibs' 'eigen3' 'ocaml' 'openbabel' 'karchive' 'kconfig' 'kcoreaddons' 'ki18n'
-         'kparts' 'kplotting' 'solid' 'kunitconversion' 'kwidgetsaddons' 'knewstuff')
-makedepends=('extra-cmake-modules' 'kdoctools' 'facile')
+depends=('avogadrolibs' 'eigen3' 'ocaml' 'openbabel' 'karchive6' 'kconfig6' 'kcoreaddons6' 'kconfigwidgets6'
+         'ki18n6' 'kitemviews6' 'kio6' 'kplotting6' 'kunitconversion6' 'kwidgetsaddons6' 'ktextwidgets6'
+         'kxmlgui6' 'qt6-5compat' 'qt6-scxml')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'facile')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
         "https://invent.kde.org/arojas/kalzium/-/commit/4030eaff333fef83cf49ff54c9d7157392c63848.diff")
@@ -30,7 +31,8 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
     -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
