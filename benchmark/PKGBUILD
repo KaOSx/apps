@@ -1,0 +1,29 @@
+
+pkgname=benchmark
+pkgver=1.8.3
+pkgrel=1
+pkgdesc="Library to benchmark code snippets, similar to unit tests."
+arch=('x86_64')
+url="https://github.com/google/benchmark"
+license=('Apache')
+makedepends=('cmake')
+source=("https://github.com/google/benchmark/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('6bc180a57d23d4d9515519f92b0c83d61b05b5bab188961f36ac7b06b0d9e9ce')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBENCHMARK_ENABLE_TESTING=OFF \
+    -DBENCHMARK_INSTALL_DOCS=OFF \
+    -DBENCHMARK_ENABLE_GTEST_TESTS=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
+
