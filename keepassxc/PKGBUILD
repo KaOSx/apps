@@ -13,14 +13,16 @@ groups=('accessories')
 replaces=('keepassx')
 provides=('keepassx')
 conflicts=('keepassx')
-source=("https://github.com/keepassxreboot/keepassxc/releases/download/${pkgver}/${pkgname}-${pkgver}-src.tar.xz")
-sha256sums=('a58074509fa8e90f152c6247f73e75e126303081f55eedb4ea0cbb6fa980d670')
+source=("https://github.com/keepassxreboot/keepassxc/releases/download/${pkgver}/${pkgname}-${pkgver}-src.tar.xz"
+        "https://github.com/keepassxreboot/keepassxc/commit/05ab5b17002b5f699e4c05c77e11d5f586848e74.diff")
+sha256sums=('a58074509fa8e90f152c6247f73e75e126303081f55eedb4ea0cbb6fa980d670'
+            'cb85e79ce632c9c2953aa045ed4d697c06f677a6ba27db79dcf032ab851045ee')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
   #sed -i 's|NAMES quazip5 quazip|NAMES quazip5 quazip quazip1-qt5|' cmake/FindQuaZip.cmake
-  #sed -i 's|PATH_SUFFIXES quazip5 quazip|PATH_SUFFIXES quazip5 quazip QuaZip-Qt5-1.1/quazip|' cmake/FindQuaZip.cmake
+  patch -p1 -i ${srcdir}/05ab5b17002b5f699e4c05c77e11d5f586848e74.diff
 }
 
 build() {
