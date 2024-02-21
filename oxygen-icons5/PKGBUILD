@@ -5,14 +5,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 _origname=oxygen-icons
 pkgname=('oxygen-icons5' 'oxygen-icons5-svg')
 arch=('x86_64')
-pkgver=5.245.0
+pkgver=6.0.0
 pkgrel=1
 url="https://invent.kde.org/frameworks/oxygen-icons"
 license=('GPL' 'LGPL' 'FDL')
 depends=('qt6-base')
 makedepends=('extra-cmake-modules')
-source=("https://download.kde.org/unstable/oxygen-icons/${_origname}-${pkgver}.tar.xz")
-sha256sums=('b082a1a9a6d06cdeee2863555951609e95dd499f133035d04719a16f8500497f')
+source=("https://download.kde.org/stable/oxygen-icons/${_origname}-${pkgver}.tar.xz")
+sha256sums=('28ec182875dcc15d9278f45ced11026aa392476f1f454871b9e2c837008e5774')
 
 build () {
   cmake -B build -S ${_origname}-${pkgver} \
