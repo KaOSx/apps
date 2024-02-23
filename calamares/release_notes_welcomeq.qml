@@ -47,7 +47,7 @@ KaOS though has been shipping all ported applications from their Frameworks 6 br
 For the few applications that are not ready yet, Frameworks 5 is still packaged, so they can be used in a Plasma 6 environment.  Those that rely on parts of Plasma 5 will be missing from the KaOS repositories until their ports are ready for daily use.  
 The Look & Feel is also updated for the Plasma 6 move, with the Midna theme, exclusive to KaOS, fully redone.
 
-Once this ISO is released, all Plasma 5 packages will be removed from the repositories, and KaOS will once again go back to focusing on one Desktop Environment.
+Four years after being end of life, GTK2 is finally removed from the KaOS repositories.  The one major application left that had still required GTK2 was Ardour, but with 8.4.0, an internal YTK is used, thus GTK2 is now gone.
 
 Updates to the base of the system included a move to a GCC 13.2.1, Glibc 2.39 & Binutils 2.42 based toolchain, Opencv 4.9.0, kernel moved to Linux 6.6.16, Systemd 253.16, Python 3.10.13, Util-Linux 2.39.3, OpenSSL 3.2, MariaDB 11, and Postgresql 16.
 
