@@ -1,23 +1,23 @@
 
 pkgname=qgis
 _pkgname=QGIS
-pkgver=3.34.3
+pkgver=3.36.0
 _commit=7dbe4943d606b8acd879dd6ed9e38542e3ab0bab
-pkgrel=2
+pkgrel=1
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='https://qgis.org/'
 license=('GPL')
 arch=('x86_64')
 depends=('mariadb' 'postgresql-libs' 'sqlite' 'curl' 'giflib' 'gsl' 
-         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt5' 
-         'postgis' 'fcgi' 'qt5-svg' 'qt5-serialport' 'qt5-3d' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
-         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt5-python3' 'qca-qt5'
+         'cfitsio' 'qwt' 'proj' 'gdal' 'geos' 'libspatialite' 'spatialindex' 'python3-qscintilla-qt6' 
+         'postgis' 'fcgi' 'qt6-svg' 'qt6-serialport' 'qt6-3d' 'python3-six' 'python3-psycopg2' 'python3-dateutil'
+         'python3-pytz' 'python3-jinja' 'python3-future' 'pyqt6-python3' 'qca-qt6'
          'python3-numpy' 'python3-httplib2' 'python3-requests' 'python3-pygments' 'pyyaml'
-         'libzip' 'qtkeychain' 'exiv2' 'protobuf' 'hdf5' 'grass' 'qt5-location')
-makedepends=('cmake'  'netcdf' 'sip' 'qt5-tools' 'pyqt-builder') 
+         'libzip' 'qtkeychain-qt6' 'exiv2' 'protobuf' 'hdf5' 'grass' 'qt6-5compat' 'qt6-positioning')
+makedepends=('cmake'  'netcdf' 'sip' 'qt6-tools' 'pyqt-builder') 
 source=("https://qgis.org/downloads/${pkgname}-${pkgver}.tar.bz2"
         "https://github.com/qgis/QGIS/commit/24580230311ef850dfb7d64dc79653bd9230fb64.diff")
-sha256sums=('87b359154743ec93f63c9c9d189f07cc35fb476e32c79d4761ff42776a765cd5'
+sha256sums=('1b64bc92660bf07edc6b6478fc6a13656149e87d92eabe5c3db9493072506e2c'
             '131d494357c06cae56aa094e9f7da2ec0de59173679a18348b2a0e25ab2d496e') 
 
 prepare() {
@@ -26,7 +26,7 @@ prepare() {
      #patch -R -p1 -i ${srcdir}/24580230311ef850dfb7d64dc79653bd9230fb64.diff
 
      #sed -i -e 's|qt/Qca-qt5/QtCrypto|qt5/Qca-qt5/QtCrypto|' cmake/FindQCA.cmake
-     sed -i -e 's|set(QWT_LIBRARY_NAMES qwt-qt5 qwt6-qt5)|set(QWT_LIBRARY_NAMES qwt qwt6)|' cmake/FindQwt.cmake
+     #sed -i -e 's|set(QWT_LIBRARY_NAMES qwt-qt5 qwt6-qt5)|set(QWT_LIBRARY_NAMES qwt qwt6)|' cmake/FindQwt.cmake
      #sed -i -e 's|libqt5scintilla2|libqtscintilla2|' cmake/FindQScintilla.cmake
 
      sed -i 's/\(env \|\/usr\/bin\/\)python$/&3/' $(find . -iname "*.py")
@@ -44,7 +44,7 @@ prepare() {
         -DWITH_PDAL=FALSE \
         -DWITH_DRACO=FALSE \
         -DWITH_QTSERIALPORT=TRUE \
-        -DBUILD_WITH_QT6=FALSE
+        -DBUILD_WITH_QT6=TRUE
     cmake --build build
 }
 

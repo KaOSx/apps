@@ -1,17 +1,17 @@
 
 pkgname=kid3
-pkgver=3.9.4
-pkgrel=2
+pkgver=3.9.5
+pkgrel=1
 pkgdesc="Easily tag multiple MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, and more, plus have control over both ID3v1 and ID3v2 tags"
 arch=('x86_64')
 url="https://kid3.kde.org/"
 license=('GPL')
-depends=('qt5-declarative' 'libmp4v2' 'chromaprint' 'taglib' 'kio' 'qt5-multimedia')
-makedepends=('extra-cmake-modules' 'docbook-xsl' 'qt5-tools' 'kdoctools')
+depends=('qt6-declarative' 'libmp4v2' 'chromaprint' 'taglib' 'kio6' 'qt6-multimedia')
+makedepends=('extra-cmake-modules' 'docbook-xsl' 'qt6-tools' 'kdoctools6' 'clang')
 groups=('multimedia')
 source=("https://download.kde.org/stable/kid3/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #source=("https://sourceforge.net/projects/kid3/files/kid3//${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('c410960e96225de0a1c4888c3ea1c6dc2ca245abb691474326dcdc3edbd6a520')
+sha256sums=('a424fedde35c176e3b44334422aad43848418772da020751d00d0874e5ce8145')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
