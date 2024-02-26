@@ -52,4 +52,5 @@ package() {
   #install -Dm644 $srcdir/wayland.desktop $pkgdir/usr/share/wayland-sessions/wayland.desktop
   # fix systemd 230 double mounting of /
   #sed -i 's|PrivateTmp=yes|PrivateTmp=no|' ${pkgdir}/usr/lib/systemd/system/sddm.service
+  ln -s /usr/bin/sddm-greeter-qt6 ${pkgdir}/usr/bin/sddm-greeter
 }
