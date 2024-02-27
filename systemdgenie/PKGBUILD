@@ -1,0 +1,28 @@
+
+pkgname=systemdgenie
+pkgver=0.99.0
+_commit=b8f93cbd683ae812ed6b15e765a170dc0bb74723
+pkgrel=1
+arch=('x86_64')
+pkgdesc="Systemd managment utility"
+url="https://userbase.kde.org/Discover"
+license=('GPL')
+depends=('kauth6' 'kcoreaddons6' 'kcrash6' 'ki18n6' 'kxmlgui6')
+makedepends=('extra-cmake-modules')
+source=("https://invent.kde.org/system/systemdgenie/-/archive/${_commit}/${pkgname}-${_commit}.tar.bz2")
+md5sums=('ec0c9c5881c5238a19d3cf341fc5e27e')
+
+build() {
+  cmake -B build -S ${pkgname}-${_commit} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+
+    DESTDIR=${pkgdir} cmake --install build
+}
