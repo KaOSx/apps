@@ -1,26 +1,26 @@
 
 pkgname=appmenu-gtk-module
-pkgver=0.7.6
-_pkgver=0.7.6
-_commit=76442be6195385193cb5931d0004122310d40c95
-pkgrel=3
+pkgver=24.02
+_pkgver=24.02
+_commit=6c0332e34c41e99de5a1db1fc4239de2
+pkgrel=1
 pkgdesc="Small GTK Module that strips menus from all GTK programs, converts to MenuModel and send to AppMenu."
 arch=('x86_64')
 url="https://gitlab.com/vala-panel-project/vala-panel-appmenu"
 license=('GPL')
 depends=('gtk3')
 makedepends=('meson' 'ninja')
-#source=("https://gitlab.com/vala-panel-project/vala-panel-appmenu/uploads/${_commit}/${pkgname}-${_pkgver}.tar.xz"
-source=("https://gitlab.com/vala-panel-project/vala-panel-appmenu/-/archive/${_commit}/vala-panel-appmenu-${_commit}.tar.bz2"
+source=("https://gitlab.com/vala-panel-project/vala-panel-appmenu/uploads/${_commit}/${pkgname}-${_pkgver}.tar.xz"
+#source=("https://gitlab.com/vala-panel-project/vala-panel-appmenu/-/archive/${_commit}/vala-panel-appmenu-${_commit}.tar.bz2"
         '80-appmenu-gtk-module')
-md5sums=('9ef79ccd6385102d0f5cff135ee40a85'
+md5sums=('1bd3cbef6bab8cd739e461ed9d87f80a'
          'eef92e41f9e4c2ea16c0d706cc511540')
 
 build() {
     mkdir -p build
     cd build
 
-    meson setup ../vala-panel-appmenu-${_commit}/subprojects/${pkgname} \
+    meson setup ../${pkgname}-${_pkgver} \
         --prefix=/usr \
         --buildtype=release \
         -Dgtk=3
