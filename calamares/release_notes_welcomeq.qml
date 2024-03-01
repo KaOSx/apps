@@ -41,15 +41,28 @@ Item {
 
 It is a great pleasure to present to you the March release of a new stable ISO.
 
-This release marks the end of Plasma 5 as the default Desktop Environment for KaOS. Almost fifteen months ago work started to fully migrate to a Frameworks 6, Plasma 6 based distribution, and with the release of Plasma 6 Release Candidate this migration is now deemed ready to bring a better user experience than Plasma 5. From the onset of this migration, there was never a plan to mix the two environments. What you will see on this ISO is a pure Plasma 6 based environment.
+Plasma 6.0.0 (stable release) is of course to focal point of this release.  Highlights of this new version include two major upgrades: a transition to the latest version of our application framework, Qt, and a migration to the modern Linux graphics platform, Wayland. These under-the-hood upgrades benefit Plasma's security, efficiency, and performance, and improve support for modern hardware. Plasma on Wayland now has partial support for High Dynamic Range (HDR). On supported monitors and software, this will provide you with richer and deeper colors for your games, videos, and visual creations.
 
-KaOS though has been shipping all ported applications from their Frameworks 6 branch in the many snapshot ISOs it has released to get ready for this migration. Just about all applications that users have become used to seeing in a Frameworks 5 / Plasma 5 version are available as a Frameworks 6 / Plasma 6 port.  
-For the few applications that are not ready yet, Frameworks 5 is still packaged, so they can be used in a Plasma 6 environment.  Those that rely on parts of Plasma 5 will be missing from the KaOS repositories until their ports are ready for daily use.  
+New defaults (configurable to whatever you prefer):
+ * Files and folders are now selected with a single-click and opened with a double-click
+ * Touchpad tap-to-click is enabled by default on Wayland
+ * Wayland is the default graphical session
+ * `Thumbnail Grid` is the new default Task Switcher style
+ * Clicking on the scrollbar track now scrolls to the clicked location
+ * Scrolling on the desktop no longer switches virtual desktops
+ * Panels float by default
+
+On many settings pages, buttons have been relocated to the toolbar, enhancing consistency with our other applications and creating additional space for the actual content.
+
+You now have the option to customize your sound theme, and a new default sound theme named "Ocean" has been introduced to replace the `Oxygen` sound theme.
+
 The Look & Feel is also updated for the Plasma 6 move, with the Midna theme, exclusive to KaOS, fully redone.
+
+For the rest of the Plasma 6 desktop, KDE Gear 24.02.0 and Frameworks 6.0.0 are included. Changes included in KDE Gear 24.02 are KOrganizer now lets you send encrypted and signed email invitations — important if your work requires confidentiality. KMail now supports a few offline and open source AI features.  Kdenlive added support for replacing the audio or the video of a clip in a timeline and further enhanced its subtitle feature, allowing you to incorporate multiple subtitles onto a single track.
 
 Four years after being end of life, GTK2 is finally removed from the KaOS repositories.  The one major application left that had still required GTK2 was Ardour, but with 8.4.0, an internal YTK is used, thus GTK2 is now gone.
 
-Updates to the base of the system included a move to a GCC 13.2.1, Glibc 2.39 & Binutils 2.42 based toolchain, Opencv 4.9.0, kernel moved to Linux 6.6.16, Systemd 253.16, Python 3.10.13, Util-Linux 2.39.3, OpenSSL 3.2, MariaDB 11, and Postgresql 16.
+Updates to the base of the system included a move to a GCC 13.2.1, Glibc 2.39 & Binutils 2.42 based toolchain, Opencv 4.9.0, kernel moved to Linux 6.7.7, Systemd 253.17, Python 3.10.13, Util-Linux 2.39.3, OpenSSL 3.2, MariaDB 11, and Postgresql 16.
 
 Among the new packages included is Systemdgenie, a nicely in Plasma 6 integrated GUI to manage systemd.
 
@@ -74,9 +87,7 @@ KaOS' creation **Croeso** (Welsh for welcome) for helping with configuring a new
 
 There is an option to verify the authenticity of downloaded KaOS ISO files through GPG signature verification, see the Download page for further details and instructions.
 
-A KaOS specific tool to write ISO files to USB is in use.  Not only does IsoWriter write to USB it also gives the option to recover your USB stick after using it for an ISO, something that regular dd copy or the previously used Imagewriter were not able to do. It includes the option to verify the written USB in comparison to the used ISO file.
-
-The artwork includes custom icon themes for light and dark themes. Midna and Midna Dark both create a complete unified look from boot-up all the way through logout.
+The artwork includes a custom icon theme. Midna creates a complete unified look from boot-up all the way through logout.
 
 This ISO uses the **CRC and finobt enabled** XFS filesystem as default. CRCs enable enhanced error detection due to hardware issues, whilst the format changes also improves crash recovery algorithms and the ability  of  various  tools to validate and repair metadata corruptions when they are found.  The  free  inode  btree does not index used inodes, allowing faster, more consistent inode allocation performance as filesystems age.
 
@@ -88,7 +99,7 @@ To learn more about the goals and ideas behind KaOS, please read the **https://k
 
 To avoid any misunderstanding and confusion, KaOS is **not based upon, derived of, or inspired by** any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see **https://kaosx.us/about/based/**. A **rolling release distribution** never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:
 
-The ISO ships with **Frameworks 5.249.0, Plasma 5.93.0, KDE Applications 24.01.95**, Linux 6.6.16, Systemd 253.16, Kmod 31, NetworkManager 1.44.2, LibreOffice 24.2.0, Elisa, Xorg-Server 1.21.11, Mesa 24.0.1, Glibc 2.39, GCC 13.2.1, non-free Nvidia 545 and Python3 3.10.13 to name a few.
+The ISO ships with **Frameworks 6.0.0, Plasma 6.0.0, KDE Applications 24.02.0**, Linux 6.7.7, Systemd 253.17, Kmod 31, NetworkManager 1.46.0, LibreOffice 24.2.1, Elisa, Xorg-Server 1.21.11, Mesa 24.0.2, Glibc 2.39, GCC 13.2.1, non-free Nvidia 550 and Python3 3.10.13 to name a few.
 
 The package manager is **Pacman 6.0.2**, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. **GFXboot** is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.
 
