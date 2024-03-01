@@ -1,7 +1,7 @@
 
 pkgname=midna-themes
-pkgver=7.0.1
-_commit=29589d787d057ca16828daf430258a780e3e00fe
+pkgver=7.0.2
+_commit=10eda6404e1285bf6e1b531f29488f5c3b64a112
 pkgrel=1
 pkgdesc='KaOS Plasma 6 Look & Feel theme files'
 url='https://kaosx.us'
@@ -12,12 +12,12 @@ makedepends=('extra-cmake-modules')
 conflicts=('midna-themes6')
 replaces=('midna-themes6')
 source=("https://github.com/KaOSx/midna/archive/${_commit}.zip")
-md5sums=('e95d7f6be87fd2b61d12a142d8f8e274')
+md5sums=('d5d9e7fbb06063a6d9c5e7d19090e4af')
 
 prepare() {
   cd midna-${_commit}
 
-  sed -i -e 's|WindowSystem))|WindowSystem)|' CMakeLists.txt
+  #sed -i -e 's|WindowSystem))|WindowSystem)|' CMakeLists.txt
 }
 
 build() {
