@@ -41,9 +41,9 @@ Item {
 
 It is a great pleasure to present to you the March release of a new stable ISO.
 
-Plasma 6.0.0 (stable release) is of course to focal point of this release.  Highlights of this new version include two major upgrades: a transition to the latest version of our application framework, Qt, and a migration to the modern Linux graphics platform, Wayland. These under-the-hood upgrades benefit Plasma's security, efficiency, and performance, and improve support for modern hardware. Plasma on Wayland now has partial support for High Dynamic Range (HDR). On supported monitors and software, this will provide you with richer and deeper colors for your games, videos, and visual creations.
+**Plasma 6.0.0** (stable release) is of course to focal point of this release.  Highlights of this new version include two major upgrades: a transition to the latest version of our application framework, Qt, and a migration to the modern Linux graphics platform, Wayland. These under-the-hood upgrades benefit Plasma's security, efficiency, and performance, and improve support for modern hardware. Plasma on Wayland now has partial support for High Dynamic Range (HDR). On supported monitors and software, this will provide you with richer and deeper colors for your games, videos, and visual creations.
 
-New defaults (configurable to whatever you prefer):
+**New defaults** (configurable to whatever you prefer):
  * Files and folders are now selected with a single-click and opened with a double-click
  * Touchpad tap-to-click is enabled by default on Wayland
  * Wayland is the default graphical session
@@ -54,19 +54,19 @@ New defaults (configurable to whatever you prefer):
 
 On many settings pages, buttons have been relocated to the toolbar, enhancing consistency with our other applications and creating additional space for the actual content.
 
-You now have the option to customize your sound theme, and a new default sound theme named "Ocean" has been introduced to replace the `Oxygen` sound theme.
+You now have the option to customize your sound theme, and a new default sound theme named `Ocean` has been introduced to replace the `Oxygen` sound theme.
 
 The Look & Feel is also updated for the Plasma 6 move, with the Midna theme, exclusive to KaOS, fully redone.
 
-For the rest of the Plasma 6 desktop, KDE Gear 24.02.0 and Frameworks 6.0.0 are included. Changes included in KDE Gear 24.02 are KOrganizer now lets you send encrypted and signed email invitations — important if your work requires confidentiality. KMail now supports a few offline and open source AI features.  Kdenlive added support for replacing the audio or the video of a clip in a timeline and further enhanced its subtitle feature, allowing you to incorporate multiple subtitles onto a single track.
+For the rest of the Plasma 6 desktop, KDE Gear 24.02.0 and Frameworks 6.0.0 are included. Changes included in **KDE Gear 24.02** are KOrganizer now lets you send encrypted and signed email invitations — important if your work requires confidentiality. KMail now supports a few offline and open source AI features.  Kdenlive added support for replacing the audio or the video of a clip in a timeline and further enhanced its subtitle feature, allowing you to incorporate multiple subtitles onto a single track.
 
 Four years after being end of life, GTK2 is finally removed from the KaOS repositories.  The one major application left that had still required GTK2 was Ardour, but with 8.4.0, an internal YTK is used, thus GTK2 is now gone.
 
 Updates to the base of the system included a move to a GCC 13.2.1, Glibc 2.39 & Binutils 2.42 based toolchain, Opencv 4.9.0, kernel moved to Linux 6.7.7, Systemd 253.17, Python 3.10.13, Util-Linux 2.39.3, OpenSSL 3.2, MariaDB 11, and Postgresql 16.
 
-Among the new packages included is Systemdgenie, a nicely in Plasma 6 integrated GUI to manage systemd.
+Among the new packages included is **Systemdgenie**, a nicely in Plasma 6 integrated GUI to manage systemd.
 
-SDDM 0.20.0 added the option to run this display manager in Wayland mode, so KaOS is one step closer to being ready to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using Weston).  Wayland is the default for SDDM with the move to 0.21.0.
+SDDM 0.20.0 added the option to run this display manager in Wayland mode, so KaOS is one step closer to being ready to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using Weston).  **Wayland is the default for SDDM with the move to 0.21.0.**
 
 The automated partitioning option in the installer (Calamares) now offers the use of all popular filesystems, so no need to use manually partitioning to be able to choose XFS, EXT4, BTRFS or ZFS.
 
