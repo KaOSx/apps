@@ -1,7 +1,8 @@
  
 pkgname=lightworks
-pkgver=2023.2
-_pkgver=2023.2_r143744
+pkgver=2023.2.144635
+_pkgver=2023.2
+__pkgver=2023.2_r144635
 _beta=114863
 pkgrel=1
 pkgdesc="A professional video editing software"
@@ -11,10 +12,10 @@ license=('custom')
 install="${pkgname}.install"
 depends=('gtk3' 'libgl' 'glu' 'ffmpeg' 'libedit' 'libtiff' 'nvidia-cg-toolkit' 'libgsf')
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
-source=("https://cdn.lwks.com/releases/${pkgver}/lightworks_${_pkgver}.deb")
-md5sums=('604764a4da85d825f3b4c9ee9b33b9e1')
+source=("https://cdn.lwks.com/releases/${_pkgver}/lightworks_${__pkgver}.deb")
+md5sums=('19c98f379889477d813143320c17ffe3')
 
-noextract=("lwks-${pkgver}-amd64.deb")
+noextract=("lwks-${_pkgver}-amd64.deb")
  
 package() {
   #bsdtar -xf "lwks-${_pkgver}-amd64.deb" data.tar.xz  
