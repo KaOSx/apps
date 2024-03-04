@@ -16,17 +16,18 @@ groups=('office')
 options=('!libtool' '!makeflags')
 source=("https://sourceforge.net/projects/scribus/files/scribus/${pkgver}/${pkgname}-${pkgver}.tar.xz"
 #source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
-         "https://github.com/scribusproject/scribus/commit/85c0dff3422fa3c26fbc2e8d8561f597ec24bd92.diff"
+         "https://github.com/scribusproject/scribus/pull/177/commits/dc2470990ab73c87fdd60068c99518ced01a3edd.diff"
          'poppler-22.09.patch')
 sha256sums=('e09dd78e6db61d01b9321108fededbccd6ec0ab352dd5bafdb8b041f0ef79e99'
-            '388350c269e4c8f149ed71850d7905cb947f4da5a92b638766bf5b903ee605e2'
+            '0c615b740d174d503f459182b00a93703d592ced860158e15812bb22d965e13d'
             'b4bde3e84587252dbfd3a2f310de076929565e2d67898656fbe31f83f10410cf')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
   #sed -i 's|pBase->SetOwner(cs->GetOwner());||' scribus/pdf_analyzer.cpp
-  #patch -p1 -i ${srcdir}/poppler-22.09.patch
+  # poppler 24.03
+  patch -p1 -i ${srcdir}/dc2470990ab73c87fdd60068c99518ced01a3edd.diff
 }
 
 build() {
