@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konversation
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=3
 pkgdesc="A user friendly IRC client for KDE"
 arch=('x86_64')
 url="https://konversation.kde.org"
@@ -18,15 +18,17 @@ makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('communication')
 conflicts=('konversation6')
 replaces=('konversation6')
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/network/konversation/-/commit/1d554cb2c29e57bfd58b9aed7643dcb60fbf8659.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '3f09d3385b9460a8cb3a87ca57c1eed1')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # set default channel to KaOS
   sed -i -e 's|setName(QStringLiteral("#konversation")|setName(QStringLiteral("#kaos")|' src/config/preferences.cpp
-  
-  #patch -p1 -i ${srcdir}/461c7dd504299871d6e9068116125b9bd26e8985.diff
+
+  patch -p1 -i ${srcdir}/1d554cb2c29e57bfd58b9aed7643dcb60fbf8659.diff
 }
 
 build() {
