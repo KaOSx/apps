@@ -2,34 +2,34 @@
 pkgname=kvantum
 _pkgname=Kvantum
 pkgver=1.0.10
-_commit=0ef502f301cbc4d89dcecc36d425cff56679a402
-pkgrel=3
+_commit=e1c4d44a2957b30dc3dc05b8707630f0de35f974
+pkgrel=4
 pkgdesc="SVG-based Qt5 theme engine plus a config tool and extra themes"
 arch=('x86_64')
 url="https://github.com/tsujan/Kvantum"
 license=('GPL3')
-depends=('qt5-svg' 'qt5-x11extras' 'libxext' 'kvantum-qt6') #'kwindowsystem' 
+depends=('qt5-svg' 'qt5-x11extras' 'libxext' 'kvantum-qt6' 'kwindowsystem')
 makedepends=('cmake' 'qt5-tools')
-source=("https://github.com/tsujan/Kvantum/releases/download/V${pkgver}/${_pkgname}-${pkgver}.tar.xz")
-#source=("https://github.com/tsujan/Kvantum/archive/${_commit}.zip")
-md5sums=('3746a454e30ddb5ecf5cef6d4c124bc5')
+#source=("https://github.com/tsujan/Kvantum/releases/download/V${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+source=("https://github.com/tsujan/Kvantum/archive/${_commit}.zip")
+md5sums=('96a17c7e4f087dfcbaf01dfac65b5ee5')
 
 prepare() {
-    cd ${_pkgname}-${pkgver}/${_pkgname}
+    cd ${_pkgname}-${_commit}/${_pkgname}
 
-    sed -e "s|if(ENABLE_QT5)|if(NOT ENABLE_QT5)|" -i CMakeLists.txt
+    #sed -e "s|if(ENABLE_QT5)|if(NOT ENABLE_QT5)|" -i CMakeLists.txt
 }
 
 build() {
-    cmake -B build -S ${_pkgname}-${pkgver}/${_pkgname} \
+    cmake -B build -S ${_pkgname}-${_commit}/${_pkgname} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DENABLE_QT5=ON \
-        -DWITHOUT_KF=ON
+        -DWITHOUT_KF=OFF
     cmake --build build
 }
 
 package() {
     DESTDIR=${pkgdir} cmake --install build
 
-    install -Dm644 ${_pkgname}-${pkgver}/${_pkgname}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+    install -Dm644 ${_pkgname}-${_commit}/${_pkgname}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
 } 
