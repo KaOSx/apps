@@ -23,6 +23,7 @@ source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.t
         'layout_desktop_panel.diff'
         'main_desktop_kicker.diff'
         'main_desktop_kickoff.diff'
+        'main_taskmanager.diff'
         "https://invent.kde.org/plasma/plasma-desktop/-/commit/1dfba7045c82ae2553be2cb7018fcd893c19d7bc.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
          '6e13e785600f1a6c1e181ab2934f1558'
@@ -36,6 +37,7 @@ prepare() {
   patch -p1 -i ${srcdir}/layout_desktop_panel.diff
   patch -p1 -i ${srcdir}/main_desktop_kicker.diff
   patch -p1 -i ${srcdir}/main_desktop_kickoff.diff
+  patch -p1 -i ${srcdir}/main_taskmanager.diff
   sed -i 's|org.kde.plasma.folder|org.kde.desktopcontainment|' desktoppackage/contents/defaults
   #patch -p1 -i ${srcdir}/1dfba7045c82ae2553be2cb7018fcd893c19d7bc.diff
 }
