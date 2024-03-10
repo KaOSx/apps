@@ -1,33 +1,33 @@
 
 pkgname=soundkonverter
-pkgver=3.0.1.1
-pkgrel=4
-_commit=aceda48bf37b77e042769ee5b2337b38a6d40538
+pkgver=3.0.1.32
+pkgrel=1
+_commit=221abde878315101436ee2e0391bfdbb262108e8
 pkgdesc="SoundKonverter is a frontend to various audio converters"
 arch=('x86_64')
 url="https://github.com/dfaust/soundkonverter/wiki"
 license=('GPL')
-depends=('ki18n' 'kxmlgui' 'kio' 'solid' 'kconfig' 'kconfigwidgets' 'kwidgetsaddons' 'kdelibs4support'
-         'libkcddb5' 'taglib' 'ffmpeg' 'cdparanoia' 'phonon-qt5' 'sox' 'vorbis-tools' 'wavpack' 'speex'
-         'flac' 'timidity++' 'opus')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('ki18n6' 'kxmlgui6' 'kio6' 'solid6' 'kconfig6' 'kconfigwidgets6' 'kwidgetsaddons6'
+         'kstatusnotifieritem' 'kcmutils6' 'libkcddb' 'taglib' 'ffmpeg' 'cdparanoia' 'phonon-qt6' 'sox'
+         'vorbis-tools' 'wavpack' 'speex' 'flac' 'timidity++' 'opus')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('multimedia')
 #source=("https://github.com/dfaust/soundkonverter/archive/v${pkgver}.tar.gz")
-source=("https://github.com/dfaust/soundkonverter/archive/${_commit}.zip")
-md5sums=('bbfca05ea6a2a6b5c5dd6f07fd75f06b')
+source=("https://github.com/CarlSchwan/soundkonverter/archive/${_commit}.zip")
+md5sums=('9dc12dfff2fd35190f24e7a69bb4e583')
 
 prepare() {
   cd ${pkgname}-${_commit}
-  #sed -i -e 's|add_custom_target|#add_custom_target|' ${srcdir}/${pkgname}/src/CMakeLists.txt
+  sed -i -e 's|StatusNotifierItem|StatusNotifierItem KCMUtils|' CMakeLists.txt
+  sed -i -e 's|#include <kio/jobclasses.h>||' src/convert.cpp
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit}/src \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON 
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
