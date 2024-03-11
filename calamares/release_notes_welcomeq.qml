@@ -99,12 +99,12 @@ To learn more about the goals and ideas behind KaOS, please read the **https://k
 
 To avoid any misunderstanding and confusion, KaOS is **not based upon, derived of, or inspired by** any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see **https://kaosx.us/about/based/**. A **rolling release distribution** never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:
 
-The ISO ships with **Frameworks 6.0.0, Plasma 6.0.0, KDE Applications 24.02.0**, Linux 6.7.7, Systemd 253.17, Kmod 31, NetworkManager 1.46.0, LibreOffice 24.2.1, Elisa, Xorg-Server 1.21.11, Mesa 24.0.2, Glibc 2.39, GCC 13.2.1, non-free Nvidia 550 and Python3 3.10.13 to name a few.
+The ISO ships with **Frameworks 6.0.0, Plasma 6.0.2, KDE Applications 24.02.0**, Linux 6.7.9, Systemd 253.17, Kmod 32, NetworkManager 1.46.0, LibreOffice 24.2.1, Elisa, Xorg-Server 1.21.11, Mesa 24.0.2, Glibc 2.39, GCC 13.2.1, non-free Nvidia 550 and Python3 3.10.13 to name a few.
 
 The package manager is **Pacman 6.0.2**, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. **GFXboot** is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.
 
 **Repositories** of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200 packages. A gist of what is available, besides the stable kernel there is Linux-next 6.7, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.  
-A limited number of the most well-known GTK applications are available, for example, Firefox 123, Chrome 123, Ardour 8.2.0, Inkscape 1.3, GIMP 2.99.16 and Thunderbird 115. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
+A limited number of the most well-known GTK applications are available, for example, Firefox 123, Chrome 123, Ardour 8.4.0, Inkscape 1.3, GIMP 2.99.16 and Thunderbird 115. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
 
 **Known issues:**
 
