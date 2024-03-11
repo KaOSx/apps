@@ -3,14 +3,14 @@ pkgname=freecad
 _pkgname=FreeCAD
 pkgver=0.21.2
 _commit=7b5e18a0759de778b74d3a5c17eba9cb815035ac
-pkgrel=2
+pkgrel=3
 pkgdesc='A general purpose 3D CAD modeler'
 arch=('x86_64')
 url='https://www.freecadweb.org/'
 license=('GPL')
-depends=('boost-libs' 'curl' 'glew' 'jsoncpp' 'libspnav' 'opencascade' 'shiboken2' 'xerces-c'
-         'pyside2' 'python3-matplotlib' 'netcdf' 'qt5-svg' 'qtwebengine' 'pyside2-tools'
-         'qt5-tools' 'shared-mime-info' 'med' 'coin' 'pivy')
+depends=('boost-libs' 'curl' 'glew' 'jsoncpp' 'libspnav' 'opencascade' 'shiboken6' 'xerces-c'
+         'pyside6' 'python3-matplotlib' 'netcdf' 'qt6-svg' 'qt6-webengine' 'pyside6-tools'
+         'qt6-tools' 'shared-mime-info' 'med' 'coin' 'python3-pivy')
 makedepends=('boost' 'eigen3' 'swig' 'cmake')
 options=('!libtool' '!makeflags')
 source=("https://github.com/FreeCAD/FreeCAD/archive/${pkgver}.tar.gz"
@@ -21,13 +21,13 @@ source=("https://github.com/FreeCAD/FreeCAD/archive/${pkgver}.tar.gz"
         "https://github.com/FreeCAD/FreeCAD/commit/9a41845a417189776741297c50a3827ce292bc4f.diff")
 md5sums=('290c947f14c2eb1add22cbc5110e9ece'
          'c2f4154c8e4678825411de8e7fa54c6b'
-         '73bd4ea78c50fb4e2c282c485565fc4b'
+         '0a8b2ff68918440da3ec248f574ef8d1'
          '77a9788e37da88da4939b9cd8295c84c')
 
 prepare() {
   cd ${_pkgname}-${pkgver}/
 
-  #patch -p1 -i ${srcdir}/vtk9.patch
+  patch -p1 -i ${srcdir}/vtk9.patch
   #patch -p1 -i ${srcdir}/freecad-0.19.2-0007-fix-build-failure-with-opencascade-7.5.2.patch
   #patch -p1 -i ${srcdir}/9a41845a417189776741297c50a3827ce292bc4f.diff
   sed -i -e 's|# include <Standard_TooManyUsers.hxx>||' src/Mod/Part/App/OCCError.h
@@ -41,13 +41,18 @@ build() {
         -DCMAKE_INSTALL_PREFIX=/usr/lib/freecad \
         -DBUILD_ENABLE_CXX_STD=C++17 \
         -DBoost_NO_BOOST_CMAKE=ON \
-        -DBUILD_QT5=ON \
+        -DBUILD_QT5=OFF \
         -DPYTHON_EXECUTABLE=/usr/bin/python3 \
         -DFREECAD_USE_OCC_VARIANT='Official Version' \
         -DOCCT_CMAKE_FALLBACK=ON \
         -DOCC_INCLUDE_DIR=/usr/include/opencascade \
-        -DOCC_LIBRARY_DIR=/usr/lib
-  cmake --build build -j16
+        -DOCC_LIBRARY_DIR=/usr/lib \
+        -DFREECAD_QT_MAJOR_VERSION=6 \
+        -DFREECAD_QT_VERSION=6 \
+        -DQT_DEFAULT_MAJOR_VERSION=6 \
+        -DBUILD_DRAWING=OFF \
+        -DBUILD_FLAT_MESH=ON
+  cmake --build build -j4
 }
 
 package() {
