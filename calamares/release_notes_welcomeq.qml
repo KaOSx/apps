@@ -62,7 +62,7 @@ For the rest of the Plasma 6 desktop, KDE Gear 24.02.0 and Frameworks 6.0.0 are 
 
 Four years after being end of life, GTK2 is finally removed from the KaOS repositories.  The one major application left that had still required GTK2 was Ardour, but with 8.4.0, an internal YTK is used, thus GTK2 is now gone.
 
-Updates to the base of the system included a move to a GCC 13.2.1, Glibc 2.39 & Binutils 2.42 based toolchain, Opencv 4.9.0, kernel moved to Linux 6.7.7, Systemd 253.17, Python 3.10.13, Util-Linux 2.39.3, OpenSSL 3.2, MariaDB 11, and Postgresql 16.
+Updates to the base of the system included a move to a **GCC 13.2.1, Glibc 2.39 & Binutils 2.42 based toolchain**, Opencv 4.9.0, kernel moved to Linux 6.7.9, Systemd 253.17, ZFS 2.2.3, KMod 32, OpenSSL 3.2, Gstreamer 1.24.0, and Mesa 24.0.2.
 
 Among the new packages included is **Systemdgenie**, a nicely in Plasma 6 integrated GUI to manage systemd.
 
@@ -104,7 +104,7 @@ The ISO ships with **Frameworks 6.0.0, Plasma 6.0.2, KDE Applications 24.02.0**,
 The package manager is **Pacman 6.0.2**, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. **GFXboot** is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.
 
 **Repositories** of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200 packages. A gist of what is available, besides the stable kernel there is Linux-next 6.7, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.  
-A limited number of the most well-known GTK applications are available, for example, Firefox 123, Chrome 123, Ardour 8.4.0, Inkscape 1.3, GIMP 2.99.16 and Thunderbird 115. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
+A limited number of the most well-known GTK applications are available, for example, Firefox 123, Chrome 123, Ardour 8.4.0, Inkscape 1.3, GIMP 2.99.18 and Thunderbird 115. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
 
 **Known issues:**
 

@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-integration
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt Platform Theme integration plugins for Plasma Workspaces.'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/plasma-integration'
@@ -19,14 +19,14 @@ conflicts=('plasma-integration6')
 replaces=('plasma-integration6')
 groups=('kdeplasma6')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/plasma/plasma-integration/-/commit/14f80450ff4202fe9f2a64b14629748fd7cb1334.diff")
+        "https://invent.kde.org/plasma/plasma-integration/-/commit/448b8aef5751608e6de05a8c31741cea1035dabb.diff")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
-         'd92eade8ddfd3d3781d4a5ec47d95a41')
+         'b4cc241111acd67aa11a1076df792010')
 
 prepare () {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/14f80450ff4202fe9f2a64b14629748fd7cb1334.diff
+  patch -p1 -i ${srcdir}/448b8aef5751608e6de05a8c31741cea1035dabb.diff
 }
 
 build () {
