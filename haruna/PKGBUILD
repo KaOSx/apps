@@ -1,8 +1,8 @@
 
 pkgname=haruna
-pkgver=0.12.3
+pkgver=1.0.0
 _commit=e456716190ed341fafe257a6698fa1bc527ad1a1
-pkgrel=3
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Open source video player built with Qt/QML and libmpv."
 url="https://invent.kde.org/multimedia/haruna/"
@@ -12,27 +12,28 @@ depends=('breeze' 'kconfig6' 'kcoreaddons6' 'kfilemetadata6' 'ki18n6' 'kiconthem
 makedepends=('extra-cmake-modules6' 'kdoctools6')
 conflicts=('haruna6')
 replaces=('haruna6')
-#source=("https://download.kde.org/stable/haruna/${pkgname}-${pkgver}.tar.xz")
-source=("https://invent.kde.org/multimedia/haruna/-/archive/${_commit}/haruna-${_commit}.tar.bz2")
-sha256sums=('b183909fc059bfa94cb44bd88af3e4bcf289b06381375263323d618aa17824c9')
+source=("https://download.kde.org/stable/haruna/${pkgname}-${pkgver}.tar.xz"
+        "https://invent.kde.org/multimedia/haruna/-/commit/226d9539be2b69dad45ab48606e91d7f73b44908.diff")
+#source=("https://invent.kde.org/multimedia/haruna/-/archive/${_commit}/haruna-${_commit}.tar.bz2")
+sha256sums=('a7d629f94c981c6628182e3e7ea649feb4b0492e54d5366fef379e49bf2847db'
+            'd701da70be0fa946784e24a97c063624def732c1319f6182298d8f9e48c447bc')
 
 prepare () {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/dd7450a80f10e118f8.diff
+  patch -R -p1 -i ${srcdir}/226d9539be2b69dad45ab48606e91d7f73b44908.diff
   #sed -i 's|QtGraphicalEffects 1.12|Qt5Compat.GraphicalEffects|' src/qml/PlayList.qml
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DQT_MAJOR_VERSION=6
+    -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 }
 
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
-  install -D -m644 ${pkgname}-${_commit}/LICENSES/GPL-3.0-or-later.txt ${pkgdir}/usr/share/licenses/${pkgname}/GPL-3.0-or-later.txt
+  install -D -m644 ${pkgname}-${pkgver}/LICENSES/GPL-3.0-or-later.txt ${pkgdir}/usr/share/licenses/${pkgname}/GPL-3.0-or-later.txt
 }
