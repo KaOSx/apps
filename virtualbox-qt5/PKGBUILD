@@ -25,7 +25,8 @@ source=("https://download.virtualbox.org/virtualbox/${_pkgver}/VirtualBox-${__pk
         'vmsvga.service'
         'vbox-linux-5.19.patch'
         'VirtioCore.cpp'
-        'VirtioCore.h')
+        'VirtioCore.h'
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-emulation/virtualbox/files/virtualbox-7.0.14-libxml2-2.12.patch")
 sha256sums=('45860d834804a24a163c1bb264a6b1cb802a5bc7ce7e01128072f8d6a4617ca9'
             'f876e9f55243eded423fda4fc2ffe3b174dca90380a6315f7c9b3cd1c9d07206'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
@@ -34,12 +35,13 @@ sha256sums=('45860d834804a24a163c1bb264a6b1cb802a5bc7ce7e01128072f8d6a4617ca9'
             'f2f2799c0a8295ef8762869f239eef35950cdf38b8885703cc4edb6534c62091'
             '7f7da514cfc64ae45de4c40ab37f82d788476e2d5cfc0e178a1c1eae159338eb'
             '5b80711f5a47605b163913b52ad1310faf1c3d850a19474e455b204e7c11feb1'
-            '616ba2906a05079ec5e5272e3126c936e612ebc927b2efd91da8094a190a1ab2')
+            '616ba2906a05079ec5e5272e3126c936e612ebc927b2efd91da8094a190a1ab2'
+            'c2b6098a566c17058501abc05b0469e771b45e14402431fcbbc3fc34ffbf7b15')
 
 prepare() {
     cd VirtualBox-${_pkgver}
 
-    #patch -p0 -i ${srcdir}/vbox-linux-5.19.patch
+    patch -p1 -i ${srcdir}/virtualbox-7.0.14-libxml2-2.12.patch
 
     sed -i -e 's|X11R6/||' configure
     sed -i -e 's|X11R6/||' Config.kmk
@@ -56,6 +58,7 @@ prepare() {
     # missing files from 6.1.14 tar
     #cp ../VirtioCore.cpp src/VBox/Devices/VirtIO/
     #cp ../VirtioCore.h src/VBox/Devices/VirtIO/
+    sed -i '/cstring/a #include <cstdint>' src/libs/dxvk-native-1.9.2a/src/util/util_bit.h
 }
 
 build() {
