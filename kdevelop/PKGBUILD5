@@ -1,0 +1,49 @@
+
+# include global config
+source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
+
+pkgname=kdevelop
+pkgver=${_kdever}
+pkgrel=2
+pkgdesc="A C/C++ development environment for KDE"
+arch=('x86_64')
+url="https://www.kdevelop.org/"
+license=('GPL')
+depends=('kconfig' 'kdeclarative' 'kiconthemes' 'ki18n' 'kitemmodels' 'kitemviews'
+         'kjobwidgets' 'kcmutils' 'kio' 'knewstuff' 'knotifyconfig' 'kparts' 'kservice' 'ktexteditor' 
+         'threadweaver' 'kxmlgui' 'kwindowsystem' 'kcrash' 'kguiaddons' 'karchive' 'knotifications'
+         'libkomparediff2' 'plasma-framework' 'okteta' 'grantlee' 'konsole'
+         'kdevelop-pg-qt' 'clang' 'llvm' 'heaptrack' 'subversion' 'qtwebengine' 'purpose'
+         'meson' 'clazy') # 'libksysguard'
+makedepends=('extra-cmake-modules' 'kdoctools' 'perl' 'docbook-xsl' 'boost')
+conflicts=('kdevplatform')
+replaces=('kdevplatform')
+groups=('programming')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  #patch -p1 -i $srcdir/qt55.diff
+  sed -i -e 's|qdbus|qdbus-qt5|g' app/kdevelop!
+}
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_SYSCONFDIR=/etc \
+    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
+    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+    -DBUILD_TESTING=OFF
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
