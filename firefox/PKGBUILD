@@ -2,10 +2,10 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=123.0.1
-_pkgver=123.0.1
+pkgver=124.0
+_pkgver=124.0
 # Check nss version in build repo
-_nssver=3.98
+_nssver=3.99
 pkgrel=1
 arch=('x86_64')
 license=('MPL' 'GPL' 'LGPL')
@@ -14,7 +14,7 @@ groups=('network-web')
 depends=('desktop-file-utils' 'libxt' 'mailcap' "nss>=${_nssver}" 'shared-mime-info' 'gtk3' 'networkmanager'
          'gst-plugins-good' 'gst-plugins-bad' 'gst-libav' 'startup-notification'
          'dbus-glib' 'alsa-lib' 'hicolor-icon-theme' 'libevent' 'pulseaudio' 'libjpeg-turbo') # 'icu')
-makedepends=('unzip' 'zip' 'diffutils' 'python3' 'python3-psutil' 'yasm' 'mesa' 'imake' 'xorg-server' 
+makedepends=('unzip' 'zip' 'diffutils' 'python3' 'yasm' 'mesa' 'imake' 'xorg-server' 
              'inetutils' 'rust' 'clang' 'nodejs' 'cbindgen' 'nasm' 'sqlite') # 'libvpx' 
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 options=('!emptydirs' '!makeflags')
@@ -25,7 +25,7 @@ source=("https://ftp.mozilla.org/pub/firefox/releases/${_pkgver}/source/${pkgnam
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('d5dcb955b65e0f164a90cac0760724486e36e896221b98f244801dfd045d741c'
+sha256sums=('345a1235123ad808cecdb4a9af09ea48bf52ad09d3d380fc704406e3dd13c9d8'
             '5401a208af2ceb7fef22c4435d9f619502ca63098eaf0e5abbdcce5163cf78f1'
             'e74e001006982efd7e55bf9cde80eafddec755cb8bd4d0030b4518f0062ca742'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
