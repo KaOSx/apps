@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kcmutils6
 _pkgname=kcmutils
 pkgver=${_kf6ver}
-pkgrel=2
+pkgrel=3
 pkgdesc='Utilities for KDE System Settings modules'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kcmutils'
@@ -14,7 +14,7 @@ depends=('kwindowsystem6' 'kactivities6' 'kitemviews6' 'kconfigwidgets6' 'kcorea
          'kguiaddons6' 'ki18n6' 'kservice6' 'kxmlgui6' 'kpackage6' 'kwidgetsaddons6' 'kio6')
 makedepends=('extra-cmake-modules')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/frameworks/6.0/${_pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
@@ -22,6 +22,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
