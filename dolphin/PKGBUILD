@@ -29,7 +29,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/95551f44922670be5c4d670833c2d4e398657495.diff
+  #patch -p1 -i ${srcdir}/95551f44922670be5c4d670833c2d4e398657495.diff
   # set KaOS defaults
   patch -p1 -i ${srcdir}/dolphinui.diff
   #sed -i 's|dirLister->setShowingDotFiles|dirLister->setShowHiddenFiles|' src/kitemviews/kfileitemmodel.cpp

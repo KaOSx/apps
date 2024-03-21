@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=konversation
 pkgver=${_kdever}
-pkgrel=3
+pkgrel=1
 pkgdesc="A user friendly IRC client for KDE"
 arch=('x86_64')
 url="https://konversation.kde.org"
@@ -28,7 +28,7 @@ prepare() {
   # set default channel to KaOS
   sed -i -e 's|setName(QStringLiteral("#konversation")|setName(QStringLiteral("#kaos")|' src/config/preferences.cpp
 
-  patch -p1 -i ${srcdir}/1d554cb2c29e57bfd58b9aed7643dcb60fbf8659.diff
+  #patch -p1 -i ${srcdir}/1d554cb2c29e57bfd58b9aed7643dcb60fbf8659.diff
 }
 
 build() {
