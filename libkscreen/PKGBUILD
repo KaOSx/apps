@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkscreen
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE's screen management software"
 arch=('x86_64')
 url='https://invent.kde.org/plasma/libkscreen'
@@ -22,6 +22,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
