@@ -1,30 +1,34 @@
 
 pkgname=heaptrack
 pkgver=1.5.0
-pkgrel=3
+_commit=b1fed5feabe20a81ff3ec7131e725c846b15a9ba
+pkgrel=4
 pkgdesc='A heap memory profiler for Linux'
 arch=('x86_64')
 url="https://invent.kde.org/sdk/heaptrack"
 license=('GPL')
-depends=('boost-libs' 'libunwind' 'elfutils' 'kcoreaddons' 'ki18n' 'kitemmodels' 'threadweaver'
-         'kio' 'kconfigwidgets' 'kdiagram5' 'sparsehash')
+depends=('boost-libs' 'libunwind' 'elfutils' 'kcoreaddons6' 'ki18n6' 'kitemmodels6' 'threadweaver6'
+         'kio6' 'kconfigwidgets6' 'kiconthemes6' 'kdiagram' 'sparsehash')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
 groups=('kde')
-source=("https://download.kde.org/stable/heaptrack/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+#source=("https://download.kde.org/stable/heaptrack/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://invent.kde.org/sdk/heaptrack/-/archive/${_commit}/heaptrack-${_commit}.tar.bz2"
         "https://invent.kde.org/sdk/heaptrack/-/commit/de3174aa1d1293636079473ff693d9a274a093a9.diff")
-sha256sums=('a278d9d8f91e8bfb8a1c2f5b73eecab47fd45d0693f5dbea637536413cec2ea5'
+sha256sums=('c572bce8e4a88f5d2c1b86fb8cbbfe6f9abb7c435ab71f0713a80b0f1956306c'
             '5d5364e04f99bfd914e2d627061bb8c1ae38c25388265fe753c6db1eb969a67e')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
 
   #patch -p1 -i $srcdir/de3174aa1d1293636079473ff693d9a274a093a9.diff
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr 
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQT_MAJOR_VERSION=6 \
+    -DHEAPTRACK_USE_QT6=ON
   cmake --build build
 }
 
