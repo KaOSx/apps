@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kpmcore
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('x86_64')
 url="https://invent.kde.org/system/kpmcore"
@@ -16,14 +16,14 @@ replaces=('kpmcore6')
 groups=('system')
 options=('debug')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://invent.kde.org/system/kpmcore/commit/6e7efe97c29c4bdab38388a6931df379dd2a8d3b.diff")
+        "https://invent.kde.org/system/kpmcore/commit/a5ffeb0348f159b8cf56c3e0fcf9574cbd083cd3.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'e1a1ddc380e96f295bcb976cb545af80')
+         '6b1e942dd70ef51849f04062841d570d')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-
-  #patch -p1 -R -i ${srcdir}/6e7efe97c29c4bdab38388a6931df379dd2a8d3b.diff
+  # bcachefs support
+  patch -p1 -i ${srcdir}/a5ffeb0348f159b8cf56c3e0fcf9574cbd083cd3.diff
 
 }
 

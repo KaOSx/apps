@@ -1,23 +1,21 @@
 
 pkgname=plasma-applet-network-monitor
-pkgver=1.7.3
-pkgrel=4
+pkgver=3.1
+pkgrel=1
 pkgdesc="Plasmoid that shows network speed of currently active connections."
 arch=('x86_64')
 url="https://github.com/kotelnik/plasma-applet-network-monitor"
 license=('GPL')
-depends=('plasma-framework')
+depends=('libplasma')
 makedepends=('extra-cmake-modules' 'git')
 groups=('kdeplasma-addons')
-source=('git+https://github.com/kotelnik/plasma-applet-network-monitor.git')
+source=('git+https://github.com/dfaust/plasma-applet-netspeed-widget.git')
 md5sums=('SKIP')
 
 build() {
-  cmake -B build -S ${pkgname} \
+  cmake -B build -S plasma-applet-netspeed-widget \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DLIB_INSTALL_DIR=lib \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+    -DCMAKE_BUILD_TYPE=Release
   cmake --build build
 }
 

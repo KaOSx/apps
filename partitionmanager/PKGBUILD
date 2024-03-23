@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=partitionmanager
 pkgver=${_kdever}
 epoch=1
-pkgrel=1
+pkgrel=2
 pkgdesc="Easily manage disks, partitions and file systems on your KDE Desktop"
 arch=('x86_64')
 url="https://apps.kde.org/en/partitionmanager"
@@ -18,13 +18,17 @@ conflicts=('partitionmanager6')
 replaces=('partitionmanager6')
 groups=('system')
 options=('debug')	
-source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=($_mirror/${pkgname}-${_kdever}.tar.xz
+        "https://invent.kde.org/system/partitionmanager/-/commit/aecf012c2bf08c3ba5677fc0aaccc2b67317e0de.diff")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         '57c73e88b6cd38ac3b37571407625b88')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   # filsystem code from src/fs/filesystem.h, set as default
   sed -i -e 's/FileSystem::Type::Btrfs/FileSystem::Type::Xfs/' src/partitionmanager.kcfg
+  # bcachefs support
+  patch -p1 -i ${srcdir}/aecf012c2bf08c3ba5677fc0aaccc2b67317e0de.diff
 }
 
 build() {

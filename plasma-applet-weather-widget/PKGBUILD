@@ -1,18 +1,20 @@
 
 pkgname=plasma-applet-weather-widget
-pkgver=2.3.4
+pkgver=3.0.0beta2
+_commit=c039b44ee1448dace98ad31c5a34e147df30f0c4
 pkgrel=1
 pkgdesc="Updated version of the plasma-applet-weather-widget by Kotelnik, using the Met.No API instead of the Yr.No API which is no longer operational."
 arch=('x86_64')
 url="https://github.com/kotelnik/plasma-applet-weather-widget"
 license=('GPL')
-depends=('plasma-workspace')
+depends=('libplasma' 'plasma5support')
 makedepends=('extra-cmake-modules')
-source=("https://github.com/blackadderkate/weather-widget-2/archive/refs/tags/v${pkgver}.tar.gz")
-md5sums=('3df4ed19523b4b425b43e7819b696c8d')
+#source=("https://github.com/blackadderkate/weather-widget-2/archive/refs/tags/v${pkgver}.tar.gz")
+source=("https://github.com/blackadderkate/weather-widget-2/archive/${_commit}.zip")
+md5sums=('1d090f6b351615e06ffee64de45338f7')
 
 build() {
-  cmake -B build -S weather-widget-2-${pkgver} \
+  cmake -B build -S weather-widget-2-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
