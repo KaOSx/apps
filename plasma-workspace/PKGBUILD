@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-workspace
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc='Various components needed to run a Plasma-based environment.'
 arch=('x86_64')
 url='https://invent.kde.org/plasma/plasma-workspace'
@@ -20,10 +20,8 @@ depends=('kauth6' 'kparts6' 'libplasma' 'krunner6' 'knotifications6' 'knotifycon
          'gpsd' 'iso-codes' 'oxygen-icons5' 'sddm-kcm' 'kactivitymanagerd' 'drkonqi' 'plasma5support'
          'kio-extras' 'libkexiv6' 'khelpcenter' 'accountsservice' 'kio-fuse') # 'libdbusmenu-qt' 
 makedepends=('extra-cmake-modules' 'kdoctools6' 'boost')
-conflicts=('plasma-workspace6' 'kcm-fcitx' 'plasma-applet-network-monitor' 'plasma-applet-redshift-control'
-           'plasma-applet-weather-widget')
-replaces=('plasma-workspace6' 'kcm-fcitx' 'plasma-applet-network-monitor' 'plasma-applet-redshift-control'
-          'plasma-applet-weather-widget')
+conflicts=('plasma-workspace6' 'kcm-fcitx' 'plasma-applet-redshift-control')
+replaces=('plasma-workspace6' 'kcm-fcitx' 'plasma-applet-redshift-control')
 groups=('kdeplasma6')
 options=('debug')
 source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz"
