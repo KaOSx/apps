@@ -2,12 +2,12 @@
 pkgname=qml-box2d
 pkgver=0.1
 _commit=0bb88a6f871eef72b3b9ded9329c15f1da1f4fd7
-pkgrel=7
+pkgrel=8
 pkgdesc="Expose the functionality of Box2D as QML components, in order to make it easy to write physics based games in QML."
 url="https://github.com/qml-box2d/qml-box2d"
 arch=('x86_64')
 license=('LGPL')
-depends=('qt5-declarative')
+depends=('qt6-declarative')
 makedepends=('cmake')
 source=("https://github.com/qml-box2d/qml-box2d/archive/${_commit}.zip")
 md5sums=('9bdc6a35ce38a0ec615ea9df09432603')
@@ -16,7 +16,7 @@ build() {
   cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DUSE_QT6=OFF \
+    -DUSE_QT6=ON \
     -DBUILD_EXAMPLES=OFF
   cmake --build build
 }
