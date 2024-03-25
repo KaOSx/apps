@@ -1,19 +1,19 @@
 
 pkgname=plasma-applet-uptime-widget
 pkgver=2.0.0
-pkgrel=1
+_commit=be8cc871ce4284a41a85fdc401f20fc4e2e7fe86
+pkgrel=2
 pkgdesc="Plasmoid for viewing uptime, adjusted for Plasma 6"
 arch=('x86_64')
 url="https://github.com/kotelnik/plasma-uptime-widget"
 license=('GPL')
 depends=('libplasma' 'plasma5support')
 makedepends=('extra-cmake-modules')
-#source=("https://github.com/blackadderkate/weather-widget-2/archive/refs/tags/v${pkgver}.tar.gz")
-source=("plasma-applet-uptime-widget-master.tar.xz")
-md5sums=('d23a4fa5fda181c43cdd353a46c358bd')
+source=("https://github.com/KaOSx/plasma-applet-uptime-widget/archive/${_commit}.zip")
+md5sums=('4c44293621b24ccdcad1b81531adfc1b')
 
 build() {
-  cmake -B build -S ${pkgname}-master \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib

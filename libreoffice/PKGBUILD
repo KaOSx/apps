@@ -1,9 +1,9 @@
 
 pkgname=libreoffice
-_LOver=24.2.1.2
-pkgver=24.2.1.2
-_pkgver=24.2.1
-pkgrel=4
+_LOver=24.2.2.2
+pkgver=24.2.2.2
+_pkgver=24.2.2
+pkgrel=1
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
@@ -91,9 +91,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	soffice.ods.desktop
 	soffice.odt.desktop
 	"https://crux.nu/ports/crux-3.7/contrib/libreoffice/optjava.patch"
-	"https://raw.githubusercontent.com/OpenMandrivaAssociation/libreoffice/master/libreoffice-24.2-kf6-buildfix.patch"
-	"https://github.com/LibreOffice/core/commit/ec69b448f4b6296edb6b28ced5ecb710be82438b.diff"
-	"https://github.com/LibreOffice/core/commit/86abb6fd8a8f680f9fc5ff1db775845c9f4e254b.diff")
+	"https://raw.githubusercontent.com/OpenMandrivaAssociation/libreoffice/master/libreoffice-24.2-kf6-buildfix.patch")
 	
 	noextract=(18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
         185d60944ea767075d27247c3162b3bc-unowinreg.dll
@@ -171,9 +169,7 @@ build() {
 	# Java build failure, patch from Crux
 	patch -p0 -i ${srcdir}/optjava.patch
 	# kf6 needed
-	patch -p1 -i ${srcdir}/libreoffice-24.2-kf6-buildfix.patch
-	patch -p1 -i ${srcdir}/ec69b448f4b6296edb6b28ced5ecb710be82438b.diff
-	patch -p1 -i ${srcdir}/86abb6fd8a8f680f9fc5ff1db775845c9f4e254b.diff
+	#patch -p1 -i ${srcdir}/libreoffice-24.2-kf6-buildfix.patch
 
 	# move external sources into place
 	mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
