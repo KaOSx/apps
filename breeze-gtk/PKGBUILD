@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare () {
   cd ${pkgname}-${pkgver}
-  #sed -i -e 's|ECM 6.0.1|ECM 6.0.0|' CMakeLists.txt
+  sed -i -e 's|ECM 6.0.3|ECM 6.0.0|' CMakeLists.txt
 
   #patch -p1 -i $srcdir/c5e757a198321208c6b1e99313652577c263ecc0.diff
 }
