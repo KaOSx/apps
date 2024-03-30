@@ -1,26 +1,26 @@
 
 pkgname=med
-pkgver=4.1.1
-pkgrel=5
+pkgver=5.0.0
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Library to store and exchange meshed data or computation results"
 url="https://www.salome-platform.org/"
 license=('LGPL')
 depends=('hdf5' 'openmpi' 'python3')
 makedepends=('cmake' 'swig')
-source=("https://files.salome-platform.org/Salome/other/${pkgname}-${pkgver}.tar.gz"
+source=("https://files.salome-platform.org/Salome/medfile/${pkgname}-${pkgver}.tar.bz2"
         'hdf5.patch')
-md5sums=('7f3e223385a762a8690f7735397dfde9'
+md5sums=('3c5ae8a37d7971658870b77caad1d73b'
          '35bb7099a24e6a8ee855beee004bc4ea')
 
 prepare() {
-  cd ${pkgname}-${pkgver}_SRC
+  cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/hdf5.patch
+  #patch -p1 -i ${srcdir}/hdf5.patch
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver}_SRC \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMEDFILE_USE_MPI=OFF \
