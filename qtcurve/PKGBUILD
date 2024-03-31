@@ -1,19 +1,19 @@
 
 pkgname=qtcurve
 pkgver=1.9.1
-_commit=0020a42c02a3c488fef23d33a27fea41f302ba98
-pkgrel=2
+_commit=e0b5e6324b6e4b4488dde739164e9e0422e91634
+pkgrel=3
 arch=('x86_64')
 license=('GPL')
 pkgdesc='The QtCurve style engine for Qt5 and Plasma 5.'
 url='https://invent.kde.org/system/qtcurve'
 depends=('karchive' 'kconfig' 'kconfigwidgets' 'frameworkintegration' 'ki18n' 'kguiaddons'
          'kio' 'kwidgetsaddons' 'kwindowsystem' 'kxmlgui' 'kguiaddons' 'kiconthemes' 
-         'libx11' 'qt5-x11extras' 'qt5-svg')
+         'libx11' 'qt5-x11extras' 'qt5-svg' 'qt6-svg')
 makedepends=('extra-cmake-modules' 'kdoctools')
-source=("https://github.com/KDE/qtcurve/archive/${_commit}.zip"
+source=("https://invent.kde.org/system/qtcurve/-/archive/${_commit}/qtcurve-${_commit}.tar.bz2"
         'DBus_crashing.diff')
-md5sums=('36d0057ee3766062964d11797c505e13'
+md5sums=('737ca7673a7bc70830842f5424f15d1d'
          'cf91da3678fcd6e31030b06f9e0560b4')
 
 prepare() {
@@ -26,9 +26,13 @@ build() {
     cmake -B build -S ${pkgname}-${_commit} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DENABLE_GTK2=false \
-        -DQTC_QT5_ENABLE_KDE=true \
-        -DQTC_QT4_ENABLE_KDE=false
+        -DENABLE_GTK2=Off \
+        -DENABLE_QT4=Off \
+        -DENABLE_QT5=Off \
+        -DENABLE_QT6=On \
+        -DQTC_QT4_ENABLE_KDE=Off \
+        -DQTC_QT5_ENABLE_KDE=Off \
+        -DQTC_QT6_ENABLE_KDE=On
     cmake --build build
 }
 
