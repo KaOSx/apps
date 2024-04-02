@@ -1,0 +1,25 @@
+
+pkgname=marknote
+pkgver=1.1.1
+pkgrel=1
+arch=('x86_64')
+url='https://apps.kde.org/marknote/'
+pkgdesc="Simple markdown note management app that lets you create notes and easily organise them into notebooks. "
+license=('LGPL2.1')
+depends=('qt6-declarative' 'qt6-svg' 'kirigami-addons' 'ki18n6' 'kconfig6' 'kcoreaddons6'
+         'kcolorscheme' 'kxmlgui6' 'md4c')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/stable/marknote/${pkgname}-${pkgver}.tar.xz") 
+sha256sums=('722210b2744ee58d4372dd3b328bef6a944e3d56c0b5ff35c3d508030280694c')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
