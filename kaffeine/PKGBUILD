@@ -1,30 +1,31 @@
 
 pkgname=kaffeine
 pkgver=2.0.18
-_pkgver=2.0.18
-pkgrel=3
+_commit=c33b0cba4750ee07b1be258f3db2c18ec91ae13a
+pkgrel=4
 pkgdesc='Media player with support for digital television (DVB-C/S/S2/T, ATSC, CI/CAM)'
 license=('GPL')
 arch=('x86_64')
 url="https://apps.kde.org/kaffeine/"
-depends=('kcoreaddons' 'kdbusaddons' 'ki18n' 'solid' 'kio' 'knotifications'
-         'kwidgetsaddons' 'kxmlgui' 'kidletime' 'qt5-x11extras' 'vlc')
-makedepends=('extra-cmake-modules' 'kdoctools') 
+depends=('kcoreaddons6' 'kdbusaddons6' 'ki18n6' 'solid6' 'kio6'
+         'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'vlc' 'libxss')
+makedepends=('extra-cmake-modules' 'kdoctools6') 
 groups=('multimedia')
-source=("https://download.kde.org/stable/kaffeine/${pkgname}-${_pkgver}.tar.xz"
+#source=("https://download.kde.org/stable/kaffeine/${pkgname}-${_pkgver}.tar.xz"
+source=("https://invent.kde.org/tobijk/kaffeine/-/archive/${_commit}/kaffeine-${_commit}.tar.bz2"
         "https://github.com/KDE/kaffeine/commit/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff")
-sha256sums=('d9799a5b7b94a55963f94938b36b8fcb1be3e753b2be110989934ab15386b681'
+sha256sums=('9103c2dd41c3d00ca4ca27a62e7363f07c692de203a5afc3e509a8d95413d92e'
             '146e504d48ef26fa4bb04c0f724b4a473ebd46fd5847d7432f68f7a7fdfeb8ce')
 
 prepare() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${_commit}
   #patch -p1 -i ${srcdir}/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff
   #sed -i 's|${X11_Xscreensaver_INCLUDE_PATH}||' CMakeLists.txt
   #rm -r po/pt_BR/docs 
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
