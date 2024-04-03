@@ -2,18 +2,20 @@
 pkgname=glabels
 pkgver=3.99
 _pkgver=3.99-master564
-pkgrel=2
+_commit=0b01d6912cf945523c23c801d919ff2e1f232426
+pkgrel=3
 pkgdesc="Development version of the next major version of gLabels, Label Designer (Qt/C++)"
 arch=('x86_64')
 url="https://github.com/jimevins/glabels-qt"
 license=('GPL3')
 depends=('qrencode' 'qt5-svg' 'zint')
 makedepends=('cmake' 'qt5-tools')
-source=("https://github.com/jimevins/glabels-qt/archive/${pkgname}-${_pkgver}.tar.gz")
-md5sums=('4b415511fdd615420be18837d03ef7b9')
+#source=("https://github.com/jimevins/glabels-qt/archive/${pkgname}-${_pkgver}.tar.gz")
+source=("https://github.com/gitlost/glabels-qt/archive/0b01d6912cf945523c23c801d919ff2e1f232426.zip")
+md5sums=('d437f2e030db548f404b7a1f006c7db5')
 
 build() {
-    cmake -B build -S glabels-qt-${pkgname}-${_pkgver} \
+    cmake -B build -S glabels-qt-${_commit} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release
     cmake --build build
@@ -22,5 +24,5 @@ build() {
 package() {
     DESTDIR=${pkgdir} cmake --install build
 
-    install -Dm644 glabels-qt-${pkgname}-${_pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+    install -Dm644 glabels-qt-${_commit}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
