@@ -1,28 +1,30 @@
 
 pkgname=xdg-desktop-portal-gtk
-pkgver=1.14.1
+pkgver=1.15.1
 pkgrel=1
 pkgdesc="Gtk implementation of xdg-desktop-portal"
 arch=('x86_64')
 url="https://github.com/flatpak/xdg-desktop-portal-gtk"
 license=('LGPL')
 depends=('gsettings-desktop-schemas' 'gtk3' 'xdg-desktop-portal')
-makedepends=('python3')
+makedepends=('python3' 'meson' 'ninja')
 source=("https://github.com/flatpak/xdg-desktop-portal-gtk/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('3ee2a992187eabb237a76170a7dead2a3bcea2edbf59344647cc0d1c640a5700')
+sha256sums=('425551ca5f36451d386d53599d95a3a05b94020f1a4927c5111a2c3ba3a0fe4c')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  ./configure --prefix=/usr \
-      --libexecdir=/usr/lib \
-      --enable-wallpaper=no \
-      --enable-screencast=no \
-      --enable-background=no
-  make
+  mkdir -p build
+  cd build
+
+  meson setup ../${pkgname}-${pkgver} \
+    --prefix=/usr \
+    --buildtype=release \
+    --libexecdir=/usr/lib \
+    -Dwallpaper=disabled
+  ninja
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd build
 
-  make DESTDIR=${pkgdir} install
+  DESTDIR=${pkgdir} ninja install
 }

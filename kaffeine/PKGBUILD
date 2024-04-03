@@ -8,7 +8,7 @@ license=('GPL')
 arch=('x86_64')
 url="https://apps.kde.org/kaffeine/"
 depends=('kcoreaddons6' 'kdbusaddons6' 'ki18n6' 'solid6' 'kio6'
-         'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'vlc' 'libxss')
+         'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6' 'vlc')
 makedepends=('extra-cmake-modules' 'kdoctools6') 
 groups=('multimedia')
 #source=("https://download.kde.org/stable/kaffeine/${pkgname}-${_pkgver}.tar.xz"
@@ -20,7 +20,7 @@ sha256sums=('9103c2dd41c3d00ca4ca27a62e7363f07c692de203a5afc3e509a8d95413d92e'
 prepare() {
   cd ${pkgname}-${_commit}
   #patch -p1 -i ${srcdir}/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff
-  #sed -i 's|${X11_Xscreensaver_INCLUDE_PATH}||' CMakeLists.txt
+  sed -i 's|#include <X11/extensions/scrnsaver.h>||' src/mediawidget.cpp
   #rm -r po/pt_BR/docs 
 }
 
