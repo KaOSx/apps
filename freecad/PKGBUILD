@@ -8,9 +8,9 @@ pkgdesc='A general purpose 3D CAD modeler'
 arch=('x86_64')
 url='https://www.freecadweb.org/'
 license=('GPL')
-depends=('boost-libs' 'curl' 'glew' 'jsoncpp' 'libspnav' 'opencascade' 'shiboken6' 'xerces-c'
-         'pyside6' 'python3-matplotlib' 'netcdf' 'qt6-svg' 'qt6-webengine' 'pyside6-tools'
-         'qt6-tools' 'shared-mime-info' 'med' 'coin' 'python3-pivy')
+depends=('boost-libs' 'curl' 'glew' 'jsoncpp' 'libspnav' 'opencascade' 'shiboken2' 'xerces-c'
+         'pyside2' 'python3-matplotlib' 'netcdf' 'qt5-svg' 'qtwebengine' 'pyside2-tools'
+         'qt5-tools' 'shared-mime-info' 'med' 'coin' 'python3-pivy')
 makedepends=('boost' 'eigen3' 'swig' 'cmake')
 options=('!libtool' '!makeflags')
 source=("https://github.com/FreeCAD/FreeCAD/archive/${pkgver}.tar.gz"
@@ -41,18 +41,18 @@ build() {
         -DCMAKE_INSTALL_PREFIX=/usr/lib/freecad \
         -DBUILD_ENABLE_CXX_STD=C++17 \
         -DBoost_NO_BOOST_CMAKE=ON \
-        -DBUILD_QT5=OFF \
+        -DBUILD_QT5=ON \
         -DPYTHON_EXECUTABLE=/usr/bin/python3 \
         -DFREECAD_USE_OCC_VARIANT='Official Version' \
         -DOCCT_CMAKE_FALLBACK=ON \
         -DOCC_INCLUDE_DIR=/usr/include/opencascade \
         -DOCC_LIBRARY_DIR=/usr/lib \
-        -DFREECAD_QT_MAJOR_VERSION=6 \
-        -DFREECAD_QT_VERSION=6 \
-        -DQT_DEFAULT_MAJOR_VERSION=6 \
-        -DBUILD_DRAWING=OFF \
-        -DBUILD_FLAT_MESH=ON
-  cmake --build build -j4
+        -DFREECAD_QT_MAJOR_VERSION=5 \
+        -DFREECAD_QT_VERSION=5 \
+        -DQT_DEFAULT_MAJOR_VERSION=5
+        #-DBUILD_DRAWING=OFF \
+        #-DBUILD_FLAT_MESH=ON
+  cmake --build build -j16
 }
 
 package() {
