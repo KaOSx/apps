@@ -16,10 +16,8 @@ depends=('karchive6' 'kcompletion6' 'kconfig6' 'kcoreaddons6' 'ki18n6' 'kiconthe
 makedepends=('extra-cmake-modules' 'qt6-tools')
 groups=('kf6')
 source=("https://download.kde.org/stable/frameworks/5.99/${_pkgname}-${pkgver}.tar.xz"
-        "https://invent.kde.org/frameworks/knewstuff/-/commit/49f2037ac22fcb430fadd5d7b29bd8af234573a4.diff"
         "https://invent.kde.org/frameworks/knewstuff/-/commit/4f01e2ff676cd4a11ba36f49d967db4635e2d216.diff")
 md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`
-         '531da2096182c9fcadeaac53e4d65226'
          'ba44a91f393f66db95f88c703cb1f582')
 
 prepare () {
@@ -27,8 +25,7 @@ prepare () {
 
   #sed -e "s|activeBackgroundColor:|//activeBackgroundColor:|" -i src/qtquick/qml/DownloadItemsSheet.qml
   #sed -e "s|activeTextColor:|//activeTextColor:|" -i src/qtquick/qml/DownloadItemsSheet.qml
-  patch -p1 -i ${srcdir}/49f2037ac22fcb430fadd5d7b29bd8af234573a4.diff
-  patch -p1 -i ${srcdir}/4f01e2ff676cd4a11ba36f49d967db4635e2d216.diff
+  #patch -p1 -i ${srcdir}/4f01e2ff676cd4a11ba36f49d967db4635e2d216.diff
 }
 
 build() {
