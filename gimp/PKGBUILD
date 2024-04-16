@@ -2,7 +2,7 @@
 pkgname=gimp
 pkgver=2.99.18
 _pkgver=2.99
-pkgrel=2
+pkgrel=3
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
 url="https://www.gimp.org/"
@@ -16,15 +16,18 @@ options=('!libtool' '!makeflags')
 source=("https://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${pkgver}.tar.xz"
 #source=("https://github.com/GNOME/gimp/archive/${_commit}.zip"
         'linux.gpl'
-        'Adwaita.tar.gz')
+        'Adwaita.tar.gz'
+        "https://gitlab.gnome.org/GNOME/gimp/-/commit/11892f1d83ffc465346dab7e2e8c6e790f555a64.patch")
 sha256sums=('8c1bb7a94ac0d4d0cde4d701d8b356387c2ecd87abbd35bbf7d222d40f6ddb6e'
             '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3'
-            '4e23495f95c9716061b7daa31135d0a964ae0950e118d33b65d67aea988bea58')
+            '4e23495f95c9716061b7daa31135d0a964ae0950e118d33b65d67aea988bea58'
+            'daeddaae0b5634f953189f4a479cc335c1516e7d490e6bf95f7be8e21835db3e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
   sed -i -e 's|mypaint-brushes-1.0|mypaint-brushes-2.0|' meson.build
+  patch -p1 -i ${srcdir}/11892f1d83ffc465346dab7e2e8c6e790f555a64.patch
 }
 
 build() {

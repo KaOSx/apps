@@ -58,11 +58,11 @@ You now have the option to customize your sound theme, and a new default sound t
 
 The Look & Feel is also updated for the Plasma 6 move, with the Midna theme, exclusive to KaOS, fully redone.
 
-For the rest of the Plasma 6 desktop, KDE Gear 24.02.1 and Frameworks 6.0.0 are included. Changes included in **KDE Gear 24.02** are KOrganizer now lets you send encrypted and signed email invitations — important if your work requires confidentiality. KMail now supports a few offline and open source AI features.  Kdenlive added support for replacing the audio or the video of a clip in a timeline and further enhanced its subtitle feature, allowing you to incorporate multiple subtitles onto a single track.
+For the rest of the Plasma 6 desktop, KDE Gear 24.02.2 and Frameworks 6.1.0 are included. Changes included in **KDE Gear 24.02** are KOrganizer now lets you send encrypted and signed email invitations — important if your work requires confidentiality. KMail now supports a few offline and open source AI features.  Kdenlive added support for replacing the audio or the video of a clip in a timeline and further enhanced its subtitle feature, allowing you to incorporate multiple subtitles onto a single track.
 
 Four years after being end of life, GTK2 is finally removed from the KaOS repositories.  The one major application left that had still required GTK2 was Ardour, but with 8.4.0, an internal YTK is used, thus GTK2 is now gone.
 
-Updates to the base of the system included a move to Python 3.11, Opencv 4.9.0, kernel moved to Linux 6.7.9, Systemd 253.17, ZFS 2.2.3, KMod 32, OpenSSL 3.2, Gstreamer 1.24.0, and Mesa 24.0.4.
+Updates to the base of the system included a move to Python 3.11, Opencv 4.9.0, kernel moved to Linux 6.7.9, Systemd 253.17, ZFS 2.2.3, KMod 32, OpenSSL 3.2, Gstreamer 1.24.2, and Mesa 24.0.5.
 
 Among the new packages included is **Systemdgenie**, a nicely in Plasma 6 integrated GUI to manage systemd.
 
@@ -99,12 +99,12 @@ To learn more about the goals and ideas behind KaOS, please read the **https://k
 
 To avoid any misunderstanding and confusion, KaOS is **not based upon, derived of, or inspired by** any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see **https://kaosx.us/about/based/**. A **rolling release distribution** never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:
 
-The ISO ships with **Frameworks 6.0.0, Plasma 6.0.3, KDE Applications 24.02.1**, Linux 6.7.9, Systemd 253.17, Kmod 32, NetworkManager 1.46.0, LibreOffice 24.2.2, Elisa, Xorg-Server 1.21.12, Mesa 24.0.4, Glibc 2.39, GCC 13.2.1, non-free Nvidia 550 and Python3 3.11.9 to name a few.
+The ISO ships with **Frameworks 6.1.0, Plasma 6.0.4, KDE Applications 24.02.2**, Linux 6.7.9, Systemd 253.17, Kmod 32, NetworkManager 1.46.0, LibreOffice 24.2.2, Elisa, Xorg-Server 1.21.13, Mesa 24.0.5, Glibc 2.39, GCC 13.2.1, non-free Nvidia 550 and Python3 3.11.9 to name a few.
 
 The package manager is **Pacman 6.0.2**, with the simple but powerful Octopi 0.15.0 as GUI frontend. Falkon is the default, Qt based, web browser. **GFXboot** is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.
 
 **Repositories** of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200 packages. A gist of what is available, besides the stable kernel there is Linux-next 6.8, Calligra 3.2.1, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.  
-A limited number of the most well-known GTK applications are available, for example, Firefox 124, Chrome 125, Ardour 8.4.0, Inkscape 1.3, GIMP 2.99.18 and Thunderbird 115. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
+A limited number of the most well-known GTK applications are available, for example, Firefox 125, Chrome 125, Ardour 8.6.0, Inkscape 1.3, GIMP 2.99.18 and Thunderbird 115. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
 
 **Known issues:**
 
