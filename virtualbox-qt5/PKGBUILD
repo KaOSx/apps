@@ -5,9 +5,9 @@
 
 pkgbase=virtualbox-qt5
 pkgname=('virtualbox-qt5' 'virtualbox-guest-utils')
-pkgver=7.0.14
-_pkgver=7.0.14
-__pkgver=7.0.14
+pkgver=7.0.16
+_pkgver=7.0.16
+__pkgver=7.0.16
 pkgrel=3
 arch=('x86_64')
 url='https://virtualbox.org'
@@ -27,7 +27,7 @@ source=("https://download.virtualbox.org/virtualbox/${_pkgver}/VirtualBox-${__pk
         'VirtioCore.cpp'
         'VirtioCore.h'
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-emulation/virtualbox/files/virtualbox-7.0.14-libxml2-2.12.patch")
-sha256sums=('45860d834804a24a163c1bb264a6b1cb802a5bc7ce7e01128072f8d6a4617ca9'
+sha256sums=('ca9062daf386a1810282503f83a7baa296ad46c4fc38aa988bca57f037e811fb'
             'f876e9f55243eded423fda4fc2ffe3b174dca90380a6315f7c9b3cd1c9d07206'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
             'c7dc4e484c8641e8fbb8e7fb342c7a72534936d6e9212b477ab7e2736fb8be88'
@@ -41,7 +41,7 @@ sha256sums=('45860d834804a24a163c1bb264a6b1cb802a5bc7ce7e01128072f8d6a4617ca9'
 prepare() {
     cd VirtualBox-${_pkgver}
 
-    patch -p1 -i ${srcdir}/virtualbox-7.0.14-libxml2-2.12.patch
+    #patch -p1 -i ${srcdir}/virtualbox-7.0.14-libxml2-2.12.patch
 
     sed -i -e 's|X11R6/||' configure
     sed -i -e 's|X11R6/||' Config.kmk
