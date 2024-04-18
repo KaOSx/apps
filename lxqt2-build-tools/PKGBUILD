@@ -1,21 +1,21 @@
 
 pkgname=lxqt2-build-tools
 _pkgname=lxqt-build-tools
-pkgver=0.13.0
+pkgver=2.0.0
 _commit=880656becb61064fb061f584496fff3b705a7245
-pkgrel=2
+pkgrel=1
 pkgdesc="Various packaging tools and scripts for LXQt applications"
 arch=("x86_64")
 url="https://github.com/lxqt/lxqt-build-tools"
 license=('LGPL2.1')
 depends=('qt6-base')
 makedepends=('cmake')
-#source=("https://github.com/lxde/lxqt-build-tools/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-source=("https://github.com/lxqt/lxqt-build-tools/archive/${_commit}.zip")
-md5sums=('bda0f7e41f1998f1d6f88dfbc05c2f46')
+source=("https://github.com/lxde/lxqt-build-tools/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.xz")
+#source=("https://github.com/lxqt/lxqt-build-tools/archive/${_commit}.zip")
+md5sums=('f6b52c3a792dd48d7debfa90eed52f3b')
 
 build() {
-  cmake -B build -S ${_pkgname}-${_commit} \
+  cmake -B build -S ${_pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr/ \
     -DCMAKE_BUILD_TYPE=release 
   cmake --build build
