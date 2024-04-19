@@ -1,7 +1,7 @@
 
 pkgname=conky
-pkgver=1.20.0
-pkgrel=2
+pkgver=1.20.1
+pkgrel=1
 pkgdesc="Advanced, highly configurable system monitor for X based on torsmo"
 arch=('x86_64')
 url="https://github.com/brndnmtthws/conky/wiki"
@@ -14,14 +14,14 @@ backup=('etc/conky/conky.conf' 'etc/conky/conky_no_x11.conf')
 source=("https://github.com/brndnmtthws/conky/archive/v${pkgver}.tar.gz"
         'conky.conf'
         "https://github.com/brndnmtthws/conky/commit/d815f9aa4941ce0f7de69be74f417f5ce13f428d.diff")
-md5sums=('eae0651bb347d621a37492980d086dc6'
+md5sums=('6abe61ff017c872487f6b7a184ad68c9'
          '3e8bc1cf7cf7587ccc5b333ef33284e0'
          '5a61a719665bcf9b84bb61636f01ee31')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/d815f9aa4941ce0f7de69be74f417f5ce13f428d.diff
+  #patch -p1 -i ${srcdir}/d815f9aa4941ce0f7de69be74f417f5ce13f428d.diff
   #sed -i -e 's|lua>=5.3|lua|g' cmake/ConkyPlatformChecks.cmake
 }
 
