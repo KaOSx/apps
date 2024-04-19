@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=solid6
 _pkgname=solid
 pkgver=${_kf6ver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Desktop hardware abstraction.'
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/solid'
@@ -13,7 +13,7 @@ license=('LGPL')
 depends=('libimobiledevice' 'media-player-info' 'qt6-declarative' 'upower' 'udisks2')
 makedepends=('extra-cmake-modules' 'qt6-tools')
 groups=('kf6')
-source=("https://download.kde.org/unstable/frameworks/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/frameworks/6.1/${_pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/frameworks/solid/-/commit/9ecaf388ccd41d2831ab3833c26627f72ab78f40.diff")
 md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`
          '5de0157854bf561034d789f819654dea')
@@ -21,7 +21,7 @@ md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`
 prepare () {
   cd ${_pkgname}-${pkgver}
   #https://bugs.kde.org/show_bug.cgi?id=485507
-  patch -p1 -i ${srcdir}/9ecaf388ccd41d2831ab3833c26627f72ab78f40.diff
+  #patch -p1 -i ${srcdir}/9ecaf388ccd41d2831ab3833c26627f72ab78f40.diff
 }
 
 build() {
