@@ -1,20 +1,21 @@
 
 pkgname=krename
 pkgver=5.0.2
-pkgrel=4
-_commit=49879a8466f60ee393ea3f49da5c1245dcca3e36
+pkgrel=5
+_commit=cff4604705db47a98593ff29e3aa7c0d5412735b
 pkgdesc="Powerful batch renamer for KDE."
 arch=("x86_64")
 url="https://apps.kde.org/krename/"
 license=('GPL')
-depends=('kcompletion' 'kconfig' 'kcoreaddons' 'kcrash' 'ki18n' 'kiconthemes' 'kitemviews' 'kjobwidgets'
-         'kio' 'kservice' 'kwidgetsaddons' 'kxmlgui' 'taglib' 'exiv2' 'podofo' 'qt5-declarative')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kcompletion6' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'ki18n6' 'kiconthemes6' 'kitemviews6' 'kjobwidgets6'
+         'kio6' 'kservice6' 'kwidgetsaddons6' 'kxmlgui6' 'karchive6'
+         'taglib' 'exiv2' 'podofo' 'qt6-declarative' 'qt6-5compat')
+makedepends=('extra-cmake-modules')
 source=("https://invent.kde.org/utilities/krename/-/archive/${_commit}/krename-${_commit}.tar.bz2"
 #source=("https://download.kde.org/stable/krename/${pkgver}/src/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/utilities/krename/-/commit/e7dd767a9a1068ee1fe1502c4d619b57d3b12add.diff"
         "https://invent.kde.org/utilities/krename/-/commit/056d614dc2166cd25749caf264b1b4d9d348f4d4.diff")
-sha256sums=('7ad92f6b99d685aec1582ebaabd919e50dff4b7a8dd867a78dc13063e9f5de7a'
+sha256sums=('fec46055370898eb716fe43f73c678a31f84735e89fabc3e2d7c5900003898b8'
             'b0c2be2a9957edf11b9d8c91bac02ba7ff92174ad586cbad9046a966d3fa1fd6'
             '8415518dd1245f540df234a9ce5cd4d7fcb232da07fa16cb296552316e26fad2')
 
@@ -30,7 +31,8 @@ build() {
   cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKDE_INSTALL_LIBDIR=lib
+    -DKDE_INSTALL_LIBDIR=lib \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
