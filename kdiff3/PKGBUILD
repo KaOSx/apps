@@ -1,19 +1,22 @@
  
 pkgname=kdiff3
 pkgver=1.10.7
-pkgrel=2
+_commit=27a142afd148ee3b0a6f20ce32286d74931b031d
+pkgrel=3
 pkgdesc='Utility for comparing and merging files and directories'
 arch=('x86_64')
 url='https://invent.kde.org/sdk/kdiff3'
 license=('LGPL')
-depends=('ki18n' 'kcoreaddons' 'kcrash' 'kiconthemes' 'kparts' 'kwidgetsaddons' 'kio' 'clang')
-makedepends=('extra-cmake-modules' 'kdoctools' 'boost')
+depends=('ki18n6' 'kcoreaddons6' 'kxmlgui6' 'kwidgetsaddons6' 'kconfig6' 'kcrash6' 'kio6'
+         'clang' 'qt6-5compat')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'boost')
 groups=('programming')
-source=("https://download.kde.org/stable/kdiff3/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('ba3f4acbf4ac748aebefc85f59caf653d45fe859a48c34af89918224a767c5e3')
+#source=("https://download.kde.org/stable/kdiff3/${pkgname}-${pkgver}.tar.xz")
+source=("https://invent.kde.org/sdk/kdiff3/-/archive/${_commit}/kdiff3-${_commit}.tar.bz2")
+sha256sums=('fc899e9a73bc01595088e9e8f1df35323e556d0a06aae8afd7ffec9b66042474')
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
