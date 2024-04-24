@@ -39,7 +39,7 @@ Item {
         wrapMode: Text.WordWrap
         text: "## KaOS - 2024.03
 
-It is a great pleasure to present to you the March release of a new stable ISO.
+It is a great pleasure to present to you the May release of a new stable ISO.
 
 **Plasma 6.0.0** (stable release) is of course to focal point of this release.  Highlights of this new version include two major upgrades: a transition to the latest version of our application framework, Qt, and a migration to the modern Linux graphics platform, Wayland. These under-the-hood upgrades benefit Plasma's security, efficiency, and performance, and improve support for modern hardware. Plasma on Wayland now has partial support for High Dynamic Range (HDR). On supported monitors and software, this will provide you with richer and deeper colors for your games, videos, and visual creations.
 
@@ -54,9 +54,9 @@ It is a great pleasure to present to you the March release of a new stable ISO.
 
 On many settings pages, buttons have been relocated to the toolbar, enhancing consistency with our other applications and creating additional space for the actual content.
 
-You now have the option to customize your sound theme, and a new default sound theme named `Ocean` has been introduced to replace the `Oxygen` sound theme.
+Support has been added for the all new filesystem **bcachefs**, it is still in experimental stage, but can be selected as a filesystem option, when using the manual partitioning in the installer Calamares.
 
-The Look & Feel is also updated for the Plasma 6 move, with the Midna theme, exclusive to KaOS, fully redone.
+A new Phonon sound backend is added.  So far VLC was used, but ther eis no Qt6 porting for VLC yet.  Using **phonon-mpv** as default now, gives a fully Qt 6 ready backend.
 
 For the rest of the Plasma 6 desktop, KDE Gear 24.02.2 and Frameworks 6.1.0 are included. Changes included in **KDE Gear 24.02** are KOrganizer now lets you send encrypted and signed email invitations — important if your work requires confidentiality. KMail now supports a few offline and open source AI features.  Kdenlive added support for replacing the audio or the video of a clip in a timeline and further enhanced its subtitle feature, allowing you to incorporate multiple subtitles onto a single track.
 
@@ -64,7 +64,7 @@ Four years after being end of life, GTK2 is finally removed from the KaOS reposi
 
 Updates to the base of the system included a move to Python 3.11, Opencv 4.9.0, kernel moved to Linux 6.7.9, Systemd 253.17, ZFS 2.2.3, KMod 32, OpenSSL 3.2, Gstreamer 1.24.2, and Mesa 24.0.5.
 
-Among the new packages included is **Systemdgenie**, a nicely in Plasma 6 integrated GUI to manage systemd.
+Among the new packages included is **Marknote**, a nicely in Plasma 6 note management application.
 
 SDDM 0.20.0 added the option to run this display manager in Wayland mode, so KaOS is one step closer to being ready to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using Weston).  **Wayland is the default for SDDM with the move to 0.21.0.**
 
