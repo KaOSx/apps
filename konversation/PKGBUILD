@@ -25,9 +25,6 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # set default channel to KaOS
-  sed -i -e 's|setName(QStringLiteral("#konversation")|setName(QStringLiteral("#kaos")|' src/config/preferences.cpp
-
   #patch -p1 -i ${srcdir}/1d554cb2c29e57bfd58b9aed7643dcb60fbf8659.diff
 }
 
