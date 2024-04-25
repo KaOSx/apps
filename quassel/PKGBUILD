@@ -59,8 +59,6 @@ package() {
 
   install -D ${srcdir}/${pkgname}.service ${pkgdir}/usr/lib/systemd/system/${pkgname}.service
   install -D -m644 ${srcdir}/${pkgname}.conf ${pkgdir}/etc/conf.d/${pkgname}
-  
-  # set default channel to KaOS
-  sed -i -e 's|DefaultChannels=#quassel|DefaultChannels=#KaOS|' ${pkgdir}/usr/share/quassel/networks.ini
+
 }
 
