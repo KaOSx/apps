@@ -2,8 +2,8 @@
 pkgbase=calligra
 pkgname=('calligra' 'calligra-l10n')
 pkgver=3.2.1
-_commit=37538c1457526efb4d57bdee607ea945c1a6f65a
-pkgrel=34
+_commit=fee8c5cd9ff80efe8268c7149d7e6886257c0f28
+pkgrel=35
 arch=('x86_64')
 pkgdesc="Suite is a collection of office applications linked together by a common base."
 url='https://www.calligra-suite.org'
@@ -14,7 +14,7 @@ makedepends=('karchive6' 'kcompletion6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddon
              'eigen3' 'freetds' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
              'lcms2' 'libodfgen' 'fftw' 'hicolor-icon-theme' 'libgit2'
              'sqlite3' 'libkdcraw6' 'qt6-declarative' 'qt6-svg' 'qtkeychain-qt6' 'marble' 'kdiagram'
-             'openexr' 'vc' 'akonadi-contacts' 'poppler' 'okular'
+             'openexr' 'vc' 'akonadi-contacts' 'poppler' 'okular' 'kcalendarcore6' 'kcontacts6' 'kholidays6'
              'extra-cmake-modules' 'kdoctools6' 'boost' 'docbook-xsl') # 'clang' vc fails clang  'kreport'  'libspnav'
 #source=("https://download.kde.org/Attic/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz"
 source=("https://invent.kde.org/office/calligra/-/archive/${_commit}/calligra-${_commit}.tar.bz2"
@@ -22,7 +22,7 @@ source=("https://invent.kde.org/office/calligra/-/archive/${_commit}/calligra-${
         "https://invent.kde.org/office/calligra/-/commit/eab11436712f92afc6e7b14b25d1f6df217d79d7.diff"
         "https://invent.kde.org/office/calligra/-/commit/c7636fb343c848000300a9429410b74d17a4d54d.diff")
 #source=("https://share.kde.org/index.php/s/yanrJWiQFB3rrvc/download?path=%2F&files=${pkgbase}-${pkgver}.tar.xz")
-sha256sums=('a5dbb092234551486fcd8fe2784c4d7d7726c758c3178caa363361f5581246e0'
+sha256sums=('e84edbfca68eeeac5d153f2b634e9ac929fa5c45c35b558fa63c9057864e68cf'
             '732fcc81b8d47b0720d83d514b7fdbbb6a3b6f3c35171066684dfb6e09fc51cd'
             '3575f42f5d3ec76a020f41d0be6998d4369b31bc279792a7fb13d7becc59fc26'
             'aeb7660a07f548fb2c32834ba55740040e6ca579541600ba304ef8a07da6b7f3')
@@ -60,7 +60,7 @@ package_calligra() {
            'knotifyconfig6' 'kparts6' 'sonnet6' 'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6'
            'eigen3' 'freetds' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
            'lcms2' 'libodfgen' 'fftw' 'hicolor-icon-theme' 'sqlite3' 'libkdcraw6'
-           'exiv2' 'qt6-declarative' 'marble' 'kdiagram' 'okular''poppler'
+           'exiv2' 'qt6-declarative' 'marble' 'kdiagram' 'okular' 'poppler'
            'kcalendarcore6' 'kcontacts6' 'kholidays6' 'openexr' 'vc' 'akonadi-contacts') #   'kreport' 'libspnav'
   cd build
 
