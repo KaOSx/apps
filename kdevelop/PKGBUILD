@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdevelop
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="A C/C++ development environment for KDE"
 arch=('x86_64')
 url="https://www.kdevelop.org/"
@@ -15,7 +15,7 @@ depends=('kconfig6' 'kdeclarative6' 'kiconthemes6' 'ki18n6' 'kitemmodels6' 'kite
          'purpose6' 'sonnet6' 'ktextwidgets6'
          'libksysguard' 'libkomparediff2' 'libplasma' 'konsole'
          'kdevelop-pg-qt' 'clang' 'llvm' 'heaptrack' 'subversion' 'qt6-webengine' 'qt6-5compat'
-         'meson' 'clazy' 'ktexttemplate' 'extra-cmake-modules') # 'okteta' 'krunner' 
+         'meson' 'clazy' 'ktexttemplate' 'extra-cmake-modules' 'krunner6') # 'okteta' 
 makedepends=('kdoctools6' 'qt6-tools' 'perl' 'docbook-xsl' 'boost')
 conflicts=('kdevplatform')
 replaces=('kdevplatform')
@@ -24,7 +24,7 @@ groups=('programming')
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://invent.kde.org/kdevelop/kdevelop/-/archive/work/apol/kf6/kdevelop-work-apol-kf6.tar.bz2"
         "https://invent.kde.org/kdevelop/kdevelop/-/commit/5dece2421a1dd3ec8532bdebc3a116a3cda06f93.diff")
-md5sums=('316d3e7ea8e6efeaa7086caedb269d61'
+md5sums=('9fe2dee0c7c3a9bb14f862d3d9a9ed23'
          '80834ac841c6feb4c9f91d73665b0aee')
 
 prepare() {
