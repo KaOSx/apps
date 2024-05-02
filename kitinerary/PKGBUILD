@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kitinerary
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc="Data Model and Extraction System for Travel Reservation information."
 url="https://invent.kde.org/pim/kitinerary/"
@@ -13,14 +13,14 @@ depends=('kcontacts6' 'kcalendarcore6' 'ki18n6' 'kmime' 'kpkpass' 'poppler' 'zxi
 makedepends=('extra-cmake-modules')
 groups=('kde' 'kdepim' 'kde-uninstall')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://invent.kde.org/pim/kitinerary/-/commit/c93acfecb4a6af736fe5aea26cbf496ba1138c04.diff")
+        "https://invent.kde.org/pim/kitinerary/-/commit/6a0a4f455d58b96b8965667a7eb057abd244d87e.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'aefee61bce85aafc9a282fb130d02084')
+         'a309338aa95c77a5a6970a03bb51d509')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # zxing 1.4.0 needed
-  #patch -p1 -i ${srcdir}/c93acfecb4a6af736fe5aea26cbf496ba1138c04.diff
+  # poppler 24.05 needed
+  patch -p1 -i ${srcdir}/6a0a4f455d58b96b8965667a7eb057abd244d87e.diff
 }
 
 build() {

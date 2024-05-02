@@ -1,9 +1,9 @@
 
 pkgname=libreoffice
-_LOver=24.2.2.2
-pkgver=24.2.2.2
-_pkgver=24.2.2
-pkgrel=2
+_LOver=24.2.3.2
+pkgver=24.2.3.2
+_pkgver=24.2.3
+pkgrel=1
 arch=('x86_64')
 license=('LGPL3')
 url="https://www.libreoffice.org/"
@@ -20,9 +20,9 @@ depends=('curl' 'python3' 'libabw' 'libwpd' 'libwps' 'libxaw' 'neon'
          'libnumbertext' 'libcdr' 'libldap' 'zxing-cpp' 'abseil-cpp') # 'icu')
 makedepends=('perl-archive-zip' 'zip' 'unzip' 'gperf' 'cppunit'
              'doxygen' 'apr' 'serf' 'mdds' 'boost' 'glm')
-#_mirror="https://ftp.acc.umu.se/mirror/documentfoundation.org/libreoffice/src/$_pkgver"
+_mirror="https://download.documentfoundation.org/libreoffice/src/$_pkgver"
 #_mirror="https://downloadarchive.documentfoundation.org/libreoffice/old/$pkgver/src/"
-_mirror="https://dev-builds.libreoffice.org/pre-releases/src"
+#_mirror="https://dev-builds.libreoffice.org/pre-releases/src"
 _additional_source_url="https://dev-www.libreoffice.org/src"
 source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz  
 	${_additional_source_url}/xmlsec1-1.3.2.tar.gz
@@ -70,7 +70,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	${_additional_source_url}/libpagemaker-0.0.4.tar.xz
 	${_additional_source_url}/libstaroffice-0.0.7.tar.xz 
 	${_additional_source_url}/libzmf-0.0.2.tar.xz
-	${_additional_source_url}/ltm-1.2.1.tar.xz
+	${_additional_source_url}/ltm-1.3.0.tar.xz
 	${_additional_source_url}/pdfium-6179.tar.bz2
 	${_additional_source_url}/libepubgen-0.1.1.tar.xz
 	${_additional_source_url}/libqxp-0.0.2.tar.xz
@@ -140,7 +140,7 @@ source=(${_mirror}/${pkgname}{,-help,-translations}-${_LOver}.tar.xz
 	libpagemaker-0.0.4.tar.xz
 	libstaroffice-0.0.7.tar.xz
 	libzmf-0.0.2.tar.xz
-	ltm-1.2.1.tar.xz
+	ltm-1.3.0.tar.xz
 	pdfium-6179.tar.bz2
 	libgltf-0.1.0.tar.gz
 	libepubgen-0.1.1.tar.xz
