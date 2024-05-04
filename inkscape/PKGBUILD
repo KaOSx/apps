@@ -15,11 +15,13 @@ makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 source=("https://media.inkscape.org/dl/resources/file/${pkgname}-${pkgver}.tar.xz"
         "https://gitlab.com/inkscape/inkscape/-/commit//694d8ae43d06efff21adebf377ce614d660b24cd.diff"
-        "https://gitlab.com/a17r/inkscape/-/commit/3dd9846ab99260134e11938f0e575be822507037.diff")
+        "https://gitlab.com/a17r/inkscape/-/commit/3dd9846ab99260134e11938f0e575be822507037.diff"
+        "https://gitlab.com/heirecka/inkscape/-/commit/2b0b25abe887242cd201b2c6ecb221eef080b071.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
 sha256sums=('dbd1844dc443fe5e10d3e9a887144e5fb7223852fff191cfb5ef7adeab0e086b'
             'c2b6f4e74883e7f6f74283d9cf70997a344159c1e5cb9022237d14936efb3683'
-            '25d3026afd5315be4da390834108d7e72631d91c86270af5aa7e10355dabe720')
+            '25d3026afd5315be4da390834108d7e72631d91c86270af5aa7e10355dabe720'
+            '715533eb2aa7d68cfa3bd18ad5b464845e4ea21ca311c23f0defc1ce68650383')
 
 prepare() {
   cd ${pkgname}-${pkgver}_${_commit}
@@ -27,6 +29,8 @@ prepare() {
   patch -p1 -i ${srcdir}/694d8ae43d06efff21adebf377ce614d660b24cd.diff
   # poppler 24.03 needed
   patch -p1 -i ${srcdir}/3dd9846ab99260134e11938f0e575be822507037.diff
+  # poppler 24.05 needed
+  patch -p1 -i ${srcdir}/2b0b25abe887242cd201b2c6ecb221eef080b071.diff
 }
 
 build() {
