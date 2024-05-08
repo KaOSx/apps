@@ -7,21 +7,25 @@ pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
 license=('GPL' 'LGPL')
-depends=('poppler' 'graphicsmagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
+depends=('graphicsmagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
          'desktop-file-utils' 'hicolor-icon-theme' 'python3-lxml' 'python3-numpy'
          'libwpg' 'libvisio' 'libwpd' 'potrace' 'python3' 'dbus-glib' 'double-conversion'
-         'libsoup' 'gdl' 'libcdr')
+         'libsoup' 'gdl' 'libcdr') #'poppler' 
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 source=("https://media.inkscape.org/dl/resources/file/${pkgname}-${pkgver}.tar.xz"
         "https://gitlab.com/inkscape/inkscape/-/commit//694d8ae43d06efff21adebf377ce614d660b24cd.diff"
         "https://gitlab.com/a17r/inkscape/-/commit/3dd9846ab99260134e11938f0e575be822507037.diff"
-        "https://gitlab.com/heirecka/inkscape/-/commit/2b0b25abe887242cd201b2c6ecb221eef080b071.diff")
+        "https://gitlab.com/inkscape/inkscape/-/commit/96ca7a6c215aa14336b52753f56244dc8796ec43.diff"
+        "https://gitlab.com/inkscape/inkscape/-/commit/1798e9c13b786f3d077ba0132592c4d5c1d1fb9b.diff"
+        "https://gitlab.com/inkscape/inkscape/-/commit/877fc26483f74f951eab516f1b57b136780a8c78.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
 sha256sums=('dbd1844dc443fe5e10d3e9a887144e5fb7223852fff191cfb5ef7adeab0e086b'
             'c2b6f4e74883e7f6f74283d9cf70997a344159c1e5cb9022237d14936efb3683'
             '25d3026afd5315be4da390834108d7e72631d91c86270af5aa7e10355dabe720'
-            '715533eb2aa7d68cfa3bd18ad5b464845e4ea21ca311c23f0defc1ce68650383')
+            '19553f09b7ae528a529a0553d3f31b643c08d1897247cfcac75b6e107d4e0de4'
+            '1ec48c962b2e1a2f22e737fc0155955cbbd850872d99a2f9c9b7151aaccab248'
+            'ef9d16ffbc78593d80921a67a80be13835bd6cc520cf3bc65b96d5406f6350dd')
 
 prepare() {
   cd ${pkgname}-${pkgver}_${_commit}
@@ -30,14 +34,17 @@ prepare() {
   # poppler 24.03 needed
   patch -p1 -i ${srcdir}/3dd9846ab99260134e11938f0e575be822507037.diff
   # poppler 24.05 needed
-  patch -p1 -i ${srcdir}/2b0b25abe887242cd201b2c6ecb221eef080b071.diff
+  #patch -p1 -i ${srcdir}/96ca7a6c215aa14336b52753f56244dc8796ec43.diff
+  #patch -p1 -i ${srcdir}/1798e9c13b786f3d077ba0132592c4d5c1d1fb9b.diff
+  #patch -p1 -i ${srcdir}/877fc26483f74f951eab516f1b57b136780a8c78.diff
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver}_${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DWITH_LIBCDR=ON
+    -DWITH_LIBCDR=ON \
+    -DENABLE_POPPLER=OFF
   cmake --build build
 }
 
