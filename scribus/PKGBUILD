@@ -25,7 +25,7 @@ sha256sums=('e09dd78e6db61d01b9321108fededbccd6ec0ab352dd5bafdb8b041f0ef79e99'
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #sed -i 's|pBase->SetOwner(cs->GetOwner());||' scribus/pdf_analyzer.cpp
+  sed -e 's|WANT_CPP17|WANT_CPP20|g' -e 's|CMAKE_CXX_STANDARD 17|CMAKE_CXX_STANDARD 20|g' -i CMakeLists.txt
   # poppler 24.03
   patch -p1 -i ${srcdir}/dc2470990ab73c87fdd60068c99518ced01a3edd.diff
 }
@@ -36,7 +36,7 @@ build() {
 	   -DCMAKE_BUILD_TYPE=Release \
 	   -DCMAKE_SKIP_RPATH=ON \
 	   -DWANT_GRAPHICSMAGICK=1 \
-	   -DWANT_CPP17=ON \
+	   -DWANT_CPP20=ON \
 	   -DLIB_SUFFIX=""
 	cmake --build build
 }
