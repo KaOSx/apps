@@ -3,7 +3,7 @@ pkgname=qgis
 _pkgname=QGIS
 pkgver=3.36.2
 _commit=7dbe4943d606b8acd879dd6ed9e38542e3ab0bab
-pkgrel=2
+pkgrel=3
 pkgdesc='Quantum GIS is a Geographic Information System (GIS) that supports vector, raster & database formats'
 url='https://qgis.org/'
 license=('GPL')
@@ -30,6 +30,8 @@ prepare() {
      #sed -i -e 's|libqt5scintilla2|libqtscintilla2|' cmake/FindQScintilla.cmake
 
      sed -i 's/\(env \|\/usr\/bin\/\)python$/&3/' $(find . -iname "*.py")
+     #run prior to building, move to Qt6 reuired:
+     export LC_ALL="en_US.UTF-8"
 }
 
  build() {
