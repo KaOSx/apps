@@ -34,4 +34,6 @@ build() {
 package() {
 
   DESTDIR=${pkgdir} cmake --install build
+  #locale part of kf6 package
+  rm -r ${pkgdir}/usr/share
 }

@@ -1,6 +1,6 @@
 
 pkgname=conky
-pkgver=1.20.2
+pkgver=1.21.0
 pkgrel=1
 pkgdesc="Advanced, highly configurable system monitor for X based on torsmo"
 arch=('x86_64')
@@ -14,7 +14,7 @@ backup=('etc/conky/conky.conf' 'etc/conky/conky_no_x11.conf')
 source=("https://github.com/brndnmtthws/conky/archive/v${pkgver}.tar.gz"
         'conky.conf'
         "https://github.com/brndnmtthws/conky/commit/d815f9aa4941ce0f7de69be74f417f5ce13f428d.diff")
-md5sums=('45a6f5da697b5fb55e3ef8c401c8ef03'
+md5sums=('f635150d2e86b1880db409ab9d4f4e46'
          '3e8bc1cf7cf7587ccc5b333ef33284e0'
          '5a61a719665bcf9b84bb61636f01ee31')
 
@@ -48,5 +48,9 @@ package() {
   install -D -m755 ${srcdir}/conky.conf ${pkgdir}/etc/conky/conky.conf
 
   install -D -m644 ${pkgname}-${pkgver}/COPYING ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  # Vc is not a depend, but fully included, remove
+  rm -r ${pkgdir}/usr/include
+  rm -r ${pkgdir}/usr/lib/cmake/Vc
+  rm -r ${pkgdir}/usr/lib/libVc.a
 }
 
