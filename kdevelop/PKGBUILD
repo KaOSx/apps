@@ -24,13 +24,13 @@ groups=('programming')
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://invent.kde.org/kdevelop/kdevelop/-/archive/work/apol/kf6/kdevelop-work-apol-kf6.tar.bz2"
         "https://invent.kde.org/kdevelop/kdevelop/-/commit/5dece2421a1dd3ec8532bdebc3a116a3cda06f93.diff")
-md5sums=('9fe2dee0c7c3a9bb14f862d3d9a9ed23'
+md5sums=('b1495d9fc647ba6e1923051335510061'
          '80834ac841c6feb4c9f91d73665b0aee')
 
 prepare() {
   cd ${pkgname}-work-apol-kf6
 
-  patch -R -p1 -i $srcdir/5dece2421a1dd3ec8532bdebc3a116a3cda06f93.diff
+  #patch -R -p1 -i $srcdir/5dece2421a1dd3ec8532bdebc3a116a3cda06f93.diff
   sed -i -e 's|qdbus|qdbus-qt6|g' app/kdevelop!
   #sed -i -e 's|ecm_optional_add_subdirectory(qmljs)|# ecm_optional_add_subdirectory(qmljs)|g' plugins/CMakeLists.txt
 }
@@ -42,8 +42,7 @@ build() {
     -DCMAKE_SKIP_RPATH=ON \
     -DKDE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6 \
-    -DBUILD_WITH_QT6=ON
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 

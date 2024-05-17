@@ -28,7 +28,7 @@ prepare() {
   # filsystem code from src/fs/filesystem.h, set as default
   sed -i -e 's/FileSystem::Type::Btrfs/FileSystem::Type::Xfs/' src/partitionmanager.kcfg
   # bcachefs support
-  patch -p1 -i ${srcdir}/aecf012c2bf08c3ba5677fc0aaccc2b67317e0de.diff
+  #patch -p1 -i ${srcdir}/aecf012c2bf08c3ba5677fc0aaccc2b67317e0de.diff
 }
 
 build() {
