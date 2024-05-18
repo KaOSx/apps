@@ -37,7 +37,7 @@ Item {
         antialiasing: true
         activeFocusOnPress: false
         wrapMode: Text.WordWrap
-        text: "## KaOS - 2024.03
+        text: "## KaOS - 2024.05
 
 It is a great pleasure to present to you the May release of a new stable ISO.
 
