@@ -1,7 +1,6 @@
 
 pkgname=qt-sudo
-pkgver=1.4.0
-_commit=4eaad52ba5473141d5ac39f9be9636e1cdd393f4
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="Clone of LXQt sudo tool, without LXQt libs"
 arch=('x86_64')
@@ -9,18 +8,18 @@ url="https://github.com/aarnt/qt-sudo"
 license=('GPL')
 depends=('qt6-base' 'sudo')
 makedepends=('qt6-tools')
-source=("https://github.com/aarnt/qt-sudo/archive/${_commit}.zip")
-md5sums=('3005b9af636de04e21cf49401bff5d33')
+source=("https://github.com/aarnt/qt-sudo/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+md5sums=('b1af559b63dea22aa80da3361de71388')
 
 build() {
-    cd ${pkgname}-${_commit}
+    cd ${pkgname}-${pkgver}
 
     /usr/lib/qt6/bin/qmake PREFIX=${pkgdir}/usr qt-sudo.pro
     make
 }
 
 package() {
-    cd ${pkgname}-${_commit}
+    cd ${pkgname}-${pkgver}
 
     make install
 }
