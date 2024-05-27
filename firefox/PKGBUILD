@@ -2,8 +2,8 @@
 pkgname=firefox
 pkgdesc='Standalone web browser from mozilla.org'
 url='https://www.mozilla.org/en-US/firefox/'
-pkgver=126.0
-_pkgver=126.0
+pkgver=127.0b6
+_pkgver=127.0
 # Check nss version in build repo
 _nssver=3.100
 pkgrel=1
@@ -19,21 +19,21 @@ makedepends=('unzip' 'zip' 'diffutils' 'python3' 'yasm' 'mesa' 'imake' 'xorg-ser
 optdepends=('kde-gtk-config: gtk integration settings for Plasma')
 options=('!emptydirs' '!makeflags')
 #source=("https://hg.mozilla.org/releases/mozilla-release/archive/${_commit}.tar.bz2"
-source=("https://ftp.mozilla.org/pub/firefox/releases/${_pkgver}/source/${pkgname}-${_pkgver}.source.tar.xz"
+source=("https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/source/${pkgname}-${pkgver}.source.tar.xz"
         'mozconfig'
         'firefox.desktop'
         'firefox-install-dir.patch'
         'vendor.js'
         'stylo.patch')
-sha256sums=('910e82a1999ec229e5bc5090a39cec9c575e8bafcac2c54f9bb5c699bd868526'
+sha256sums=('288b41c881426dfd27883bc4a3f7f6db575f89fb175bad196bf8db73cbfb196b'
             '5401a208af2ceb7fef22c4435d9f619502ca63098eaf0e5abbdcce5163cf78f1'
             'e74e001006982efd7e55bf9cde80eafddec755cb8bd4d0030b4518f0062ca742'
             'd86e41d87363656ee62e12543e2f5181aadcff448e406ef3218e91865ae775cd'
-            '858642c81833ccfd7ac89af2c159e8d8fca0b80e4fea2840afe64b0393bf9ed6'
+            '8ac705ab16541ffc3e25bfead9af787248be94fc8559d42c4b4bb2a37100be74'
             '46104bf0afde6d7fb74630425915364a11b05f016f16e14ff0e666f322c9e940')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
   # run prior to building:
   export LC_ALL="en_US.UTF-8"
 
@@ -46,7 +46,7 @@ prepare() {
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
 
   export MOZBUILD_STATE_PATH=${srcdir}/mozbuild
   export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE="system"
@@ -58,7 +58,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_pkgver}
   #make -f client.mk DESTDIR=${pkgdir} INSTALL_SDK= install
   DESTDIR=${pkgdir} ./mach install
 
