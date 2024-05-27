@@ -1,8 +1,8 @@
 
 pkgname=kup
-pkgver=0.9.1
+pkgver=0.10.0
 _commit=e4590e15651c88e486559184227b33b15134d2c5
-pkgrel=9
+pkgrel=1
 pkgdesc="Kup is created for helping people to keep up-to-date backups of their personal files."
 arch=('x86_64')
 url="https://invent.kde.org/system/kup"
@@ -10,12 +10,12 @@ license=('GPL')
 depends=('solid6' 'kio6' 'kidletime6' 'ki18n6' 'knotifications6' 'kcoreaddons6' 'kdbusaddons6' 'kconfig6'
          'kjobwidgets6' 'kwidgetsaddons6' 'kxmlgui6' 'kcmutils6' 'libplasma' 'plasma5support' 'libgit2')
 makedepends=('extra-cmake-modules')
-#source=("https://download.kde.org/stable/kup/${pkgname}-${pkgver}.tar.xz")
-source=("https://invent.kde.org/system/kup/-/archive/${_commit}/kup-${_commit}.tar.bz2")
-sha256sums=('e447eec06fb440585359338e26eb9221837b1f0c11bd4b97b29164490e1ad906')
+source=("https://download.kde.org/stable/kup/${pkgname}-${pkgver}.tar.xz")
+#source=("https://invent.kde.org/system/kup/-/archive/${_commit}/kup-${_commit}.tar.bz2")
+sha256sums=('ac58f3f789973cac5f2b70a81683294e90f7f84fa3b399116b398bca6eff1b0a')
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DQT_MAJOR_VERSION=6
