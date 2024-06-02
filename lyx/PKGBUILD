@@ -1,21 +1,21 @@
 
 pkgname=lyx
-pkgver=2.3.8
-_pkgver=2.3
+pkgver=2.4.0
+_pkgver=2.4
 pkgrel=1
 pkgdesc="An advanced open-source document processor."
 arch=('x86_64')
 url="https://www.lyx.org"
-depends=('qt5-base' 'qt5-svg' 'qt5-x11extras' 'texlive-core' 'python3' 'perl' 'imagemagick' 
+depends=('qt6-base' 'qt6-svg' 'texlive-core' 'python3' 'perl' 'imagemagick' 
          'boost-libs' 'icu' 'libmythes' 'libxtst' 'aspell' 'hunspell') # 'enchant' 
-makedepends=('boost' 'bc' 'cmake' 'qt5-tools')
+makedepends=('boost' 'bc' 'cmake' 'qt6-tools')
 groups=('office')
 license=('GPL')
 source=("https://ftp.lip6.fr/pub/lyx/stable/${_pkgver}.x/${pkgname}-${pkgver}.tar.xz" 
 #source=("ftp://ftp.lyx.org/pub/lyx/devel/lyx-2.2/lyx-${_pkgver}/lyx-${_pkgver}.tar.xz"
         'lyx.desktop'
         'qt5.11.diff')
-md5sums=('78ee8b38e75ce3ce7a0ccd35d8dde362'
+md5sums=('c956b9a7a3bde80d0b41b01f446868bb'
          '0ea910b9b881ebaa0f79ebaa618930fd'
          '6b356426b38480ed65a7efa6846ae2ec')
          
@@ -32,7 +32,7 @@ build() {
     -DLYX_INSTALL_PREFIX=/usr \
     -DLYX_DATA_SUBDIR=share/lyx${pkgver}/ \
     -DLYX_MAN_DIR=/usr/share/man/man1 \
-    -DLYX_USE_QT=QT5 \
+    -DLYX_USE_QT=QT6 \
     -DLYX_ASPELL=ON \
     -DLYX_ENCHANT=OFF \
     -DLYX_HUNSPELL=ON \
