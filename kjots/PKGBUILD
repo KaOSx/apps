@@ -1,7 +1,7 @@
 
 pkgname=kjots
-pkgver=5.1.1
-pkgrel=3
+pkgver=6.0.0
+pkgrel=1
 _commit=99d20e08e30de55a1b969d01d9b68aefdc84239f
 arch=('x86_64')
 pkgdesc="Note taking application for KDE using Akonadi"
@@ -11,19 +11,19 @@ depends=('kcmutils6' 'kio6' 'kconfig6' 'kparts6' 'kbookmarks6' 'kxmlgui6' 'ktext
          'akonadi' 'kmime' 'akonadi-notes' 'kpimtextedit' 'kontactinterface'
          'ktextaddons' 'ktexttemplate')
 makedepends=('extra-cmake-modules' 'kdoctools6' 'boost')
-source=("https://invent.kde.org/pim/kjots/-/archive/${_commit}/kjots-${_commit}.tar.bz2")
-#source=("https://download.kde.org/stable/kjots/${pkgver}/src/kjots-${pkgver}.tar.xz")
-sha256sums=('af9f6a96331caf890501d1e3814817fc5def4d8c913abb7bf12f868d0349516f')
+#source=("https://invent.kde.org/pim/kjots/-/archive/${_commit}/kjots-${_commit}.tar.bz2")
+source=("https://download.kde.org/stable/kjots/${pkgver}/kjots-${pkgver}.tar.xz")
+sha256sums=('3909cc6df5ebeeabe7c9086fc95b54dcd2a1cf5ee1683e0ad6ea799105b4eb08')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   
   # fix .desktop file
   #patch -p1 -i ${srcdir}/d536dbdf606d18baa437d03a9852fa6bb7289953.diff
 }
   
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
