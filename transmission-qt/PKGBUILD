@@ -2,7 +2,7 @@
 pkgbase=transmission
 pkgname=('transmission-cli' 'transmission-qt')
 pkgver=4.0.6
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://transmissionbt.com/"
 license=('GNU GPLv2')
@@ -12,22 +12,22 @@ source=("https://github.com/transmission/transmission/releases/download/${pkgver
 #source=("https://build.transmissionbt.com/job/trunk-linux/lastBuild/artifact/transmission-trunk-r14679.tar.xz"
         'transmission.systemd'
         'transmission.tmpfiles'
-        'dbushelper.diff'
+        'miniupnpc.diff'
         'transmission.svg'
         'transmission-tray.svg'
         'transmission-tray-dark.svg')
 md5sums=('8132b9f012b8e6309911c80ee9fd00f7'
          '5c289c8901221a94be74665368ab5c2c'
          '23f2320361ad54373c3a4551ef634fe8'
-         '796d52f26433300767ce16f8c92eebfb'
+         '525ea73541810c617b6143f4ab0c6198'
          '019c6e9dbdcdb2704a266874d02975c0'
          'dbbc3c6ce0707808895778bd81e36707'
          'c4d8952b3280d99d909ccfbd48940a0a')
 
 prepare () {
   cd ${pkgbase}-${pkgver}
-
-  #patch -p1 -i $srcdir/dbushelper.diff
+  # from https://github.com/transmission/transmission/pull/6907
+  patch -p1 -i $srcdir/miniupnpc.diff
 }
 
 build() {
