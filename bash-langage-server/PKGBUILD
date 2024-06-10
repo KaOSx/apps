@@ -1,7 +1,7 @@
 
 pkgname=bash-language-server
 pkgver=5.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Bash language server implementation based on Tree Sitter and its grammar for Bash with explainshell integration."
 arch=("x86_64")
 url="https://github.com/bash-lsp/bash-language-server"
@@ -21,15 +21,16 @@ build() {
 package() {
     cd ${pkgname}-server-${pkgver}/server
 
-    install -d ${pkgdir}/usr/lib/${pkgname}
+    install -d ${pkgdir}/usr/lib/node_modules/${pkgname}
     install -d ${pkgdir}/usr/bin
 
     # running npm on this dir requires husky
     rm -r node_modules
     npm install --omit=dev
 
-    cp -a * ${pkgdir}/usr/lib/${pkgname}/
-    ln -s /usr/lib/${pkgname}/bin/main.js $pkgdir/usr/bin/${pkgname}
+    cp -a * ${pkgdir}/usr/lib/node_modules/${pkgname}/
+    ln -s /usr/lib/node_modules/${pkgname}/out/cli.js $pkgdir/usr/bin/${pkgname}
+    chmod +x ${pkgdir}/usr/lib/node_modules/${pkgname}/out/cli.js
 
     install -Dm644 ../LICENSE -t ${pkgdir}/usr/share/licenses/${pkgname}/
 }
