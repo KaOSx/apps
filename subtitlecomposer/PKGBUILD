@@ -1,9 +1,9 @@
 
 pkgname=subtitlecomposer
 _pkgname=SubtitleComposer
-pkgver=0.8.0
+pkgver=0.8.1
 _commit=4eeaadf8e38372c8f0de480c1ff9ad731332b5d4
-pkgrel=4
+pkgrel=1
 pkgdesc="Open source text-based subtitle editor that supports basic and more advanced operations "
 arch=('x86_64')
 url="https://invent.kde.org/kde/subtitlecomposer"
@@ -12,21 +12,21 @@ depends=('kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'ki18n6' 'kio6' 'kxmlgui6' 
          'kcodecs6' 'ktextwidgets6' 'kwidgetsaddons6' 
          'gettext' 'openal' 'icu' 'ffmpeg')
 makedepends=('extra-cmake-modules')
-#source=("https://download.kde.org/stable/subtitlecomposer/${pkgname}-${pkgver}.tar.xz"
-source=("https://invent.kde.org/multimedia/subtitlecomposer/-/archive/${_commit}/subtitlecomposer-${_commit}.tar.bz2"
+source=("https://download.kde.org/stable/subtitlecomposer/${pkgname}-${pkgver}.tar.xz"
+#source=("https://invent.kde.org/multimedia/subtitlecomposer/-/archive/${_commit}/subtitlecomposer-${_commit}.tar.bz2"
         "https://invent.kde.org/multimedia/subtitlecomposer/-/commit/4f4f560e40ba0b760cf688eb024be3cc734ca347.diff")
-sha256sums=('08416764e37006ad5d88f202143d2aefef774febaf717c069e34903f6379f92d'
+sha256sums=('23c022768d7422c092149f41d51ebea80f54b27655573cf43f736efb88c30027'
             '25180c50902032bbcdb0da65b36def5dabd5a22a4d0a0085cf39638b64d05693')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
   # ffmpeg 5 needed
   #patch -p1 -i ${srcdir}/4f4f560e40ba0b760cf688eb024be3cc734ca347.diff
   #sed -i -e 's|KF5::SonnetUi|KF5::SonnetUi KF5::KHtml|' src/common/CMakeLists.txt
 }
 
 build() {
-    cmake -B build -S ${pkgname}-${_commit} \
+    cmake -B build -S ${pkgname}-${pkgver} \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
         -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
