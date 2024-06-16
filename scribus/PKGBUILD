@@ -2,8 +2,8 @@
 pkgname=scribus
 _pkgname=Scribus
 _commit=3742559924136c2471ab15081c5b600dd5feaeb0
-pkgver=1.6.1
-pkgrel=6
+pkgver=1.6.2
+pkgrel=1
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="https://www.scribus.net"
@@ -18,7 +18,7 @@ source=("https://sourceforge.net/projects/scribus/files/scribus/${pkgver}/${pkgn
 #source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
          "https://github.com/scribusproject/scribus/pull/177/commits/dc2470990ab73c87fdd60068c99518ced01a3edd.diff"
          'poppler-22.09.patch')
-sha256sums=('e09dd78e6db61d01b9321108fededbccd6ec0ab352dd5bafdb8b041f0ef79e99'
+sha256sums=('7eff9b1f47e372e56bb369f1dbe18fe49101789b5e6bcfdb7890e0346b641383'
             '0c615b740d174d503f459182b00a93703d592ced860158e15812bb22d965e13d'
             'b4bde3e84587252dbfd3a2f310de076929565e2d67898656fbe31f83f10410cf')
 
@@ -27,7 +27,7 @@ prepare() {
 
   sed -e 's|WANT_CPP17|WANT_CPP20|g' -e 's|CMAKE_CXX_STANDARD 17|CMAKE_CXX_STANDARD 20|g' -i CMakeLists.txt
   # poppler 24.03
-  patch -p1 -i ${srcdir}/dc2470990ab73c87fdd60068c99518ced01a3edd.diff
+  #patch -p1 -i ${srcdir}/dc2470990ab73c87fdd60068c99518ced01a3edd.diff
 }
 
 build() {
