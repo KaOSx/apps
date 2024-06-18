@@ -1,26 +1,27 @@
 
 pkgname=qdirstat
 pkgver=1.9
-_pkgver=1.9
-pkgrel=1
+_pkgver=0.2
+pkgrel=2
 pkgdesc="Qt-based directory statistics: KDirStat without any KDE -- from the author of the original KDirStat."
 url="https://github.com/shundhammer/qdirstat"
 arch=('x86_64')
 license=('GPL')
-depends=('qt5-base')
-makedepends=('qt5-tools')
-source=("https://github.com/shundhammer/qdirstat/archive/${_pkgver}.tar.gz")
-md5sums=('637be947d3f29fe0c2d85adc5de76958')
+depends=('qt6-base')
+makedepends=('qt6-tools')
+#source=("https://github.com/shundhammer/qdirstat/archive/${_pkgver}.tar.gz")
+source=("https://github.com/Lithopsian/qt6dirstat/archive/refs/tags/${_pkgver}.tar.gz")
+md5sums=('210f2c62fbef5f80fc0568c204ef4ce8')
 
 build() {
-  cd ${pkgname}-${_pkgver}
+  cd qt6dirstat-${_pkgver}
 
-  /usr/lib/qt5/bin/qmake
+  /usr/lib/qt6/bin/qmake
   make
 }
 
 package() {
-  cd ${pkgname}-${_pkgver}
+  cd qt6dirstat-${_pkgver}
 
   make INSTALL_ROOT=${pkgdir} install
 }
