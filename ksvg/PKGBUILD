@@ -5,13 +5,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ksvg
 arch=('x86_64')
 pkgver=${_kf6ver}
-pkgrel=3
+pkgrel=1
 pkgdesc="Library for rendering SVG-based themes with stylesheet re-coloring and on-disk caching."
 url="https://invent.kde.org/frameworks/ksvg"
 license=('GPL' 'LGPL' 'FDL')
 depends=('karchive6' 'kconfig6' 'kcolorscheme' 'kcoreaddons6' 'kguiaddons6' 'kirigami6')
 makedepends=('extra-cmake-modules')
-source=($_mirror/${pkgname}-${pkgver}.tar.xz
+source=("https://download.kde.org/stable/frameworks/6.3/${pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/frameworks/ksvg/-/commit/74f9f9cbd226407f8cde08c5cd5a711444e2775d.diff")
 md5sums=(`grep ${pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`
          '17bc85b7c49833a460d7228302bb48da')
@@ -19,7 +19,7 @@ md5sums=(`grep ${pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`
 prepare() {
     cd ${pkgname}-${pkgver}
 
-    patch -p1 -i ${srcdir}/74f9f9cbd226407f8cde08c5cd5a711444e2775d.diff
+    #patch -p1 -i ${srcdir}/74f9f9cbd226407f8cde08c5cd5a711444e2775d.diff
 }
 
 build() {
