@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kdenlive
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Free and Open Source video editing application, based on MLT Framework and KDE Frameworks 6."
 arch=('x86_64')
 url="https://www.kdenlive.org/"
@@ -18,13 +18,15 @@ conflicts=('kdenlive6')
 replaces=('kdenlive6')
 optdepends=("dvdauthor: for creating dvds")
 groups=('multimedia')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz") 
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
+        "https://invent.kde.org/multimedia/kdenlive/-/commit/8be0e826471332bb739344ebe1859298c46e9e0f.diff") 
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
+         'ce7c39a40fb70b6e218350e29f1e0a9f')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/364e23f6d1ba104e40623297b82a0ee873942925.diff
+  patch -p1 -i ${srcdir}/8be0e826471332bb739344ebe1859298c46e9e0f.diff
   #sed -e "s|QtGraphicalEffects 1.15|Qt5Compat.GraphicalEffects|" -i src/timeline2/view/qml/TrackHead.qml
 }
 
