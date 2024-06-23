@@ -43,7 +43,7 @@ It is a great pleasure to present to you the July release of a new stable ISO.
 
 For the Plasma desktop, the latest Plasma (6.1.0), KDE Gear (24.05.1), and Frameworks (6.3.0) are included. All built on **Qt 6.7.2**. Among the many changes included in KDE Gear 24.05, are Dolphin provides a more tailored and informative insights into specific folders by default, so when browsing through recently used files and folders, users will find modification times listed by default and have streamlined access to the most recent items. Itinerary now shows more information about your train and coach facilities. This includes general comfort features such as air conditioning or Wi-Fi, as well as things specifically relevant if you are travelling with young children, a bicycle or a wheelchair. Kdenlive 24.05 add group effects, effects that can be added to clips grouped together all at the same time.
 
-More application are now ready to use Qt6 and Frameworks 6 including Gcompris, Calligra, KWave and Kaffeine
+More application are now ready to use Qt6 and Frameworks 6 including Kooka, Qdirstats, KWave and Kaffeine
 
 Support has been added for the all new filesystem **bcachefs**, it is still in experimental stage, but is included in the kernel build, and the needed bcachefs-tools are available in the repositories.  Calamares can use bcachefs when use in manual mode, though no specific settings for this filesystem have been implemented yet.
 
