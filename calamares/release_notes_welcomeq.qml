@@ -45,7 +45,7 @@ For the Plasma desktop, the latest Plasma (6.1.0), KDE Gear (24.05.1), and Frame
 
 More application are now ready to use Qt6 and Frameworks 6 including Kooka, Qdirstats, KWave and Kaffeine
 
-Support has been added for the all new filesystem **bcachefs**, it is still in experimental stage, but is included in the kernel build, and the needed bcachefs-tools are available in the repositories.  Calamares can use bcachefs when use in manual mode, though no specific settings for this filesystem have been implemented yet.
+Support has been added for the all new filesystem **bcachefs**, it is still in experimental stage, but is included in the kernel build, and the needed bcachefs-tools are available in the repositories.  Calamares can use bcachefs when used in manual mode, though no specific settings for this filesystem have been implemented yet.
 
 A new Phonon sound backend is added.  So far VLC was used, but there is no Qt6 porting for VLC yet.  Using **phonon-mpv** as default now, gives a fully Qt 6 ready backend.
 
