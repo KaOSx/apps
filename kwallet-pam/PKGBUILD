@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwallet-pam
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="PAM Integration with KWallet - Unlock KWallet when you login"
 arch=('x86_64')
 url="https://invent.kde.org/plasma/kwallet-pam"
@@ -14,8 +14,16 @@ makedepends=('extra-cmake-modules')
 conflicts=('kwalle-pam6')
 replaces=('kwallet-pam6')
 groups=('kdeplasma6')
-source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${_plasmaver}.tar.xz")
-md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${_plasmaver}.tar.xz"
+        "https://invent.kde.org/plasma/kwallet-pam/-/merge_requests/17.diff")
+md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
+         'c90b90a79490d511433aa08809892ba5')
+
+prepare () {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/17.diff
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
