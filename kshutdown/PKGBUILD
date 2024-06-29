@@ -1,24 +1,23 @@
 
 pkgname=kshutdown
-pkgver=5.91
-_pkgver=5.91-beta
+pkgver=5.92
+_pkgver=5.92-beta
 pkgrel=1
 pkgdesc="Graphical shutdown utility that allows you to turn off or suspend a computer at a specified time."
 url="https://kshutdown.sourceforge.io/"
 arch=('x86_64')
 license=('GPL')
-depends=('kconfig' 'kconfigwidgets' 'kdbusaddons' 'kglobalaccel' 'ki18n' 'kidletime' 'knotifications'
-         'knotifyconfig' 'kxmlgui')
+depends=('kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'kglobalaccel6'
+         'ki18n6' 'kidletime6' 'knotifications6' 'knotifyconfig6' 'kstatusnotifieritem' 'kxmlgui6')
 makedepends=('extra-cmake-modules')
 groups=('utils') 
 source=("https://sourceforge.net/projects/kshutdown/files/KShutdown/${_pkgver}/kshutdown-source-${_pkgver}.zip")
-sha256sums=('8165e9541868679ee46905750bec420587368198f325f155883fd223d0fe0517')
+sha256sums=('11881bda3794a0b3523c5233962727ae6b1c7067359efa04e620d5b7dc7cde7b')
 
 build() {
   cmake -B build -S ${pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKS_KF5=TRUE
+    -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
 }
 
