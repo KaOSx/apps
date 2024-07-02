@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwallet-pam
 pkgver=${_plasmaver}
-pkgrel=2
+pkgrel=1
 pkgdesc="PAM Integration with KWallet - Unlock KWallet when you login"
 arch=('x86_64')
 url="https://invent.kde.org/plasma/kwallet-pam"
@@ -22,7 +22,7 @@ md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`
 prepare () {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/17.diff
+  #patch -p1 -i ${srcdir}/17.diff
 }
 
 build() {
