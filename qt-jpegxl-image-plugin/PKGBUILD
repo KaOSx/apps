@@ -1,27 +1,28 @@
 
 pkgname=qt-jpegxl-image-plugin
-pkgver=0.6.2
+pkgver=0.6.3
 _commit=1ed974e2f1a9e79939eb2f7660a0b4f65d812dc8
 pkgrel=1
 pkgdesc='Qt plug-in to allow Qt and KDE based applications to read/write JXL images'
 arch=('x86_64')
 url="https://github.com/novomesk/qt-jpegxl-image-plugin"
 license=('GPL3')
-depends=('qt5-base' 'jpeg-xl')
+depends=('qt6-base' 'jpeg-xl')
+makedepends=('extra-cmake-modules')
 source=("https://github.com/novomesk/qt-jpegxl-image-plugin/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('c3292b5884c6cbdb432245a23068be6dd4bb85a8cbae5a470f612457c3610f40')
+sha256sums=('56b263b2f16bf85e5cfb4b67f2017c224aba57e6e7aa1b226242097735c2af28')
 
 
 build() {
-  cd ${pkgname}-${pkgver}
-
-  /usr/lib/qt5/bin/qmake qt-jpegxl-image-plugin.pro
-  make
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DBUILD_WITH_QT6=ON
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  DESTDIR=${pkgdir} cmake --install build
 
-  make INSTALL_ROOT=${pkgdir}/ install
-  install -Dm644 LICENSE $pkgdir/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 ${pkgname}-${pkgver}/LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
