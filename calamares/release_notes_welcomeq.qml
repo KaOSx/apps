@@ -37,11 +37,11 @@ Item {
         antialiasing: true
         activeFocusOnPress: false
         wrapMode: Text.WordWrap
-        text: "## KaOS - 2024.05
+        text: "## KaOS - 2024.07
 
 It is a great pleasure to present to you the July release of a new stable ISO.
 
-For the Plasma desktop, the latest Plasma (6.1.0), KDE Gear (24.05.1), and Frameworks (6.3.0) are included. All built on **Qt 6.7.2**. Among the many changes included in KDE Gear 24.05, are Dolphin provides a more tailored and informative insights into specific folders by default, so when browsing through recently used files and folders, users will find modification times listed by default and have streamlined access to the most recent items. Itinerary now shows more information about your train and coach facilities. This includes general comfort features such as air conditioning or Wi-Fi, as well as things specifically relevant if you are travelling with young children, a bicycle or a wheelchair. Kdenlive 24.05 add group effects, effects that can be added to clips grouped together all at the same time.
+For the Plasma desktop, the latest Plasma (6.1.2), KDE Gear (24.05.2), and Frameworks (6.3.0) are included. All built on **Qt 6.7.2**. Among the many changes included in Plasma 6.1, is that you can now start up a remote desktop directly from the System Settings app, once enabled, you can connect to the remote desktop using a client such as KRDC. For customizing the visual aspect of Edit Mode has been overhauled and you will now see a slick animation when you activate it. The entire desktop zooms out smoothly, giving you a better overview of what is going on and allowing you to make your changes with ease. On Wayland now has a feature that *remembers* what you were doing in your last session like it did under X11.
 
 More application are now ready to use Qt6 and Frameworks 6 including Kooka, Qdirstats, KWave and Kaffeine
 
@@ -53,7 +53,7 @@ New for this ISO  is to no longer include the kernel modesetting for all graphic
 
 Four years after being end of life, GTK2 is finally removed from the KaOS repositories.  The one major application left that had still required GTK2 was Ardour, but with 8.4.0, an internal YTK is used, thus GTK2 is now gone.
 
-Updates to the base of the system included a move to Python 3.11, Glib2 2.80 stack, kernel moved to Linux 6.9.10, Systemd 253.20, ZFS 2.2.4, KMod 32, OpenSSL 3.3, FFMPEG 6.1, OpenJDK 17 and Mesa 24.1.2.
+Updates to the base of the system included a move to Python 3.11, Glib2 2.80 stack, kernel moved to Linux 6.9.10, Systemd 253.21, ZFS 2.2.4, KMod 32, OpenSSL 3.3, FFMPEG 6.1, OpenJDK 17 and Mesa 24.1.3.
 
 Among the new packages included is **Marknote**, a nicely in Plasma 6 integrated note management application.
 
@@ -90,7 +90,7 @@ To learn more about the goals and ideas behind KaOS, please read the **https://k
 
 To avoid any misunderstanding and confusion, KaOS is **not based upon, derived of, or inspired by** any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see **https://kaosx.us/about/based/**. A **rolling release distribution** never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:
 
-The ISO ships with **Frameworks 6.3.0, Plasma 6.1.0, KDE Applications 24.05.1**, Linux 6.9.10, Systemd 253.20, Kmod 32, NetworkManager 1.48.0, LibreOffice 24.2.4, Elisa, Xorg-Server 1.21.13, Mesa 24.1.2, Glibc 2.39, GCC 13.2.1, non-free Nvidia 550 and Python3 3.11.9 to name a few.
+The ISO ships with **Frameworks 6.3.0, Plasma 6.1.2, KDE Applications 24.05.2**, Linux 6.9.10, Systemd 253.21, Kmod 32, NetworkManager 1.48.2, LibreOffice 24.2.4, Elisa, Xorg-Server 1.21.13, Mesa 24.1.3, Glibc 2.39, GCC 13.2.1, non-free Nvidia 555 and Python3 3.11.9 to name a few.
 
 The package manager is **Pacman 6.0.2**, with the simple but powerful Octopi 0.16.2 as GUI frontend. Falkon is the default, Qt based, web browser. **GFXboot** is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.
 
