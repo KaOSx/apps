@@ -1,7 +1,7 @@
 
 pkgname=obs-studio
-pkgver=30.1.2
-pkgrel=2
+pkgver=30.2.0
+pkgrel=1
 pkgdesc="Free and open source software for video recording and live streaming."
 arch=('x86_64')
 url="https://obsproject.com/"
@@ -12,7 +12,7 @@ depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon' 'qt6-svg' 'qt6-wayland'
 makedepends=('cmake' 'swig')
 source=("https://github.com/obsproject/obs-studio/archive/${pkgver}.tar.gz"
         'disable-some-plugins.patch')
-md5sums=('892c15fc3e4bb7fe9ef90f49f5bc6cdf'
+md5sums=('90ace5fdc0da97502eafb086d7591863'
          '1487ec1fecad66b2e7b6fb4aa6943df8')
 
 prepare() {
@@ -27,6 +27,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DUNIX_STRUCTURE=1 \
+    -DOBS_CMAKE_VERSION=3 \
     -DOBS_VERSION_OVERRIDE=${pkgver} \
     -DWITH_RTMPS=ON \
     -DBUILD_VST=OFF \
