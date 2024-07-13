@@ -9,7 +9,7 @@ license=('GPL2')
 depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon' 'qt6-svg' 'qt6-wayland'
          'libxcomposite' 'x264' 'pulseaudio' 'jack2' 'mbedtls' 'pipewire'
          'python3')
-makedepends=('cmake' 'swig')
+makedepends=('cmake' 'swig' 'uthash')
 source=("https://github.com/obsproject/obs-studio/archive/${pkgver}.tar.gz"
         'disable-some-plugins.patch')
 md5sums=('90ace5fdc0da97502eafb086d7591863'
@@ -34,12 +34,14 @@ build() {
     -DENABLE_NEW_MPEGTS_OUTPUT=OFF \
     -DENABLE_SCRIPTING_LUA=OFF \
     -DENABLE_SCRIPTING_PYTHON=ON \
-    -DENABLE_PLUGINS=ON \
     -DENABLE_JACK=ON \
     -DENABLE_QSV11=OFF \
     -DENABLE_BROWSER=OFF \
     -DENABLE_WEBRTC=OFF \
-    -DENABLE_VLC=OFF
+    -DENABLE_WEBSOCKET=OFF \
+    -DENABLE_VLC=OFF \
+    -DENABLE_AJA=OFF \
+    -DENABLE_WHATSNEW=OFF
   cmake --build build
 }
 

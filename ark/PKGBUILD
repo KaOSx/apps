@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Graphical file compression/decompression utility with support for multiple formats, including tar, gzip, bzip2, rar and zip, as well as CD-ROM images"
 url="https://apps.kde.org/ark/"
 license=('GPL' 'LGPL' 'FDL')
@@ -17,14 +17,14 @@ conflicts=('ark6')
 replaces=('ark6')
 groups=('kde' 'kde-utils' 'kde-uninstall' 'utils')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://invent.kde.org/utilities/ark/-/commit/e0e998ed4aad8b8c5dffaed8a49b0b97dd78a27b.diff")
+        "https://invent.kde.org/utilities/ark/-/commit/85c5e26f581cf011638a53e62b92e1da8fd55fcd.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         '2878a958ede72ee6415a9c13ae5fc1b1')
+         '4f730f82e8f6bd0cc8a40ce5e6d3e4d6')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/4121f84c5f2b8a6447742ea2c6bd97170d799a1f.diff
+  patch -p1 -i ${srcdir}/85c5e26f581cf011638a53e62b92e1da8fd55fcd.diff
   #sed -i 's|application/x-rar|application/vnd.rar|' plugins/clirarplugin/CMakeLists.txt
 }
 
