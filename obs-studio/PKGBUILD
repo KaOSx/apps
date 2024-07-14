@@ -13,7 +13,7 @@ makedepends=('cmake' 'swig' 'uthash')
 source=("https://github.com/obsproject/obs-studio/archive/${pkgver}.tar.gz"
         'disable-some-plugins.patch')
 md5sums=('90ace5fdc0da97502eafb086d7591863'
-         '1487ec1fecad66b2e7b6fb4aa6943df8')
+         '1c83ef8f37f4fffd418c6937d856eca0')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -41,7 +41,8 @@ build() {
     -DENABLE_WEBSOCKET=OFF \
     -DENABLE_VLC=OFF \
     -DENABLE_AJA=OFF \
-    -DENABLE_WHATSNEW=OFF
+    -DENABLE_WHATSNEW=OFF \
+    -DENABLE_NATIVE_NVENC=OFF
   cmake --build build
 }
 
