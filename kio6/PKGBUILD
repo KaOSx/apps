@@ -17,7 +17,7 @@ depends=('karchive6' 'kconfig6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6' 'ki18n6'
          'ktextwidgets6' 'krb5' 'qt6-5compat' 'switcheroo-control')
 makedepends=('extra-cmake-modules' 'kdoctools6' 'qt6-tools')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/6.0/${_pkgname}-${pkgver}.tar.xz"
+source=("https://download.kde.org/stable/frameworks/6.4/${_pkgname}-${pkgver}.tar.xz"
         "https://invent.kde.org/frameworks/kio/-/commit/e0ea91afdf0dccef7e3afbf23a159bf5a8d6b249.diff")
 md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`
          '80bee17aaaf81ad72e206605ee16a068')
@@ -25,7 +25,7 @@ md5sums=(`grep ${_pkgname}-${_kf6ver}.tar.xz ../kf6.md5 | cut -d" " -f1`
 prepare() {
   cd ${_pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/e0ea91afdf0dccef7e3afbf23a159bf5a8d6b249.diff
+  #patch -p1 -i ${srcdir}/e0ea91afdf0dccef7e3afbf23a159bf5a8d6b249.diff
 }
 
 build() {
