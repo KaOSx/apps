@@ -1,15 +1,15 @@
 
 pkgname=freecell-solver
-pkgver=5.0.0
-pkgrel=4
+pkgver=6.12.0
+pkgrel=1
 arch=('x86_64')
 pkgdesc="C library for automatically solving Freecell and some other variants of card Solitaire."
 url="https://fc-solve.shlomifish.org/"
 license=('MIT' 'LGPL')
 depends=('gperf' 'hunspell')
-makedepends=('cmake' 'asciidoc' 'python3-setuptools' 'perl-path-tiny' 'perl-template-toolkit')
+makedepends=('cmake' 'asciidoc' 'python3-setuptools' 'python3-six' 'perl-path-tiny' 'perl-template-toolkit')
 source=("https://fc-solve.shlomifish.org/downloads/fc-solve/${pkgname}-${pkgver}.tar.xz")
-md5sums=('def258dd81ac99928fa9187ff16a6285')
+md5sums=('92dbe887c8c7b04f6a69f33d2ccb116e')
 
 build() {  
   # keep old cmake calls, until moving to 6.x.x
