@@ -1,6 +1,7 @@
 
 pkgname=obs-studio
-pkgver=30.2.0
+_pkgname=OBS-Studio
+pkgver=30.2.1
 pkgrel=1
 pkgdesc="Free and open source software for video recording and live streaming."
 arch=('x86_64')
@@ -9,21 +10,24 @@ license=('GPL2')
 depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon' 'qt6-svg' 'qt6-wayland'
          'libxcomposite' 'x264' 'pulseaudio' 'jack2' 'mbedtls' 'pipewire'
          'python3')
-makedepends=('cmake' 'swig' 'uthash')
-source=("https://github.com/obsproject/obs-studio/archive/${pkgver}.tar.gz"
-        'disable-some-plugins.patch')
-md5sums=('90ace5fdc0da97502eafb086d7591863'
-         '1c83ef8f37f4fffd418c6937d856eca0')
+makedepends=('cmake' 'swig' 'uthash' 'nlohmann-json')
+source=("https://github.com/obsproject/obs-studio/releases/download/${pkgver}/OBS-Studio-${pkgver}-Sources.tar.gz"
+        'disable-some-plugins.patch'
+        'buildnumber.cmake')
+md5sums=('b1e1a0fe26ec49c835bd5f8db856eaca'
+         '1c83ef8f37f4fffd418c6937d856eca0'
+         '31b99f3f5e9b36af1518b7a8f1ed48a4')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}-sources
 
-  patch -p1 -i ${srcdir}/disable-some-plugins.patch
+  #patch -p1 -i ${srcdir}/disable-some-plugins.patch
   #sed -i "s|add_subdirectory(obs-outputs)|#add_subdirectory(obs-outputs)|g" plugins/CMakeLists.txt
+  cp ${srcdir}/buildnumber.cmake cmake/common/
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver}-sources \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DUNIX_STRUCTURE=1 \
