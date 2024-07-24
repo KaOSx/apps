@@ -2,8 +2,8 @@
 # only build local, server for unknown reasons does not follow perl install dir
 pkgname=image-exiftool
 _pkgname=Image-ExifTool
-pkgver=12.89
-pkgrel=2
+pkgver=12.90
+pkgrel=1
 pkgdesc="Platform-independent Perl library plus a command-line application for reading, writing and editing meta information in a wide variety of files."
 arch=('x86_64')
 url="https://exiftool.org/"
@@ -12,7 +12,7 @@ license=('GPL')
 depends=('perl-archive-zip')
 options=('!emptydirs')
 source=("https://exiftool.org/${_pkgname}-$pkgver.tar.gz")
-sha1sums=('d08345369370b73b25bb7592c469837f6dba4b3a')
+sha1sums=('088b568647849e498a1b8beccc44bca2d9cd2ed6')
 
 build() {
   cd ${_pkgname}-${pkgver}
@@ -23,7 +23,7 @@ build() {
 
 check() {
   cd ${_pkgname}-${pkgver}
-
+  # 2 fail t/CanonRaw.t ....... 4/9
   make test
 }
 
