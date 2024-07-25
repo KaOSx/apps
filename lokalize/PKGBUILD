@@ -9,9 +9,9 @@ pkgdesc="Computer-aided translation"
 arch=('x86_64')
 url="https://apps.kde.org/lokalize/"
 license=('LGPL')
-depends=('hunspell' 'ki18n' 'ktextwidgets' 'kio' 'kxmlgui' 'knotifications' 'kconfig' 'kcoreaddons'
-         'sonnet' 'kdbusaddons' 'kcrash')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('hunspell' 'ki18n6' 'ktextwidgets6' 'kio6' 'kxmlgui6' 'knotifications6' 'kconfig6' 'kcoreaddons6'
+         'sonnet6' 'kdbusaddons6' 'kcrash6')
+makedepends=('extra-cmake-modules' 'kdoctools6')
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
 md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
@@ -26,11 +26,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 

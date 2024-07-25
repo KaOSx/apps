@@ -9,30 +9,27 @@ pkgdesc='KDevelop plugin which provides Python language support.'
 arch=('x86_64')
 url="https://kde.org/applications/en/kdev-python?category=development"
 license=('GPL')
-depends=('kdevelop' 'python3' 'ki18n6' 'kservice6' 'threadweaver6' 'ktexteditor6' 'ktextwidgets6' 'kcmutils6'
+depends=('kdevelop' 'python3' 'kconfig6' 'kcoreaddons6' 'kparts6' 'ki18n6' 'kservice6'
+         'threadweaver6' 'ktexteditor6' 'kwidgetsaddons6' 'kxmlgui6'
          'qt6-5compat')
 makedepends=('extra-cmake-modules' 'kdevelop-pg-qt')
 groups=('kde' 'kdevelop-plugins')
-#source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://invent.kde.org/kdevelop/kdev-python/-/archive/work/volden/kf6/kdev-python-work-volden-kf6.tar.bz2")
-md5sums=('7b1bc6c8649424d32f13e89f8f14f9ba')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${pkgname}-work-volden-kf6
+  cd ${pkgname}-${pkgver}
 
-  sed -i -e 's|TextEditor|TextEditor KCMUtils|g' CMakeLists.txt
-  sed -i -e 's|KF${KF_MAJOR_VERSION}::TextEditor|KF${KF_MAJOR_VERSION}::TextEditor KF${KF_MAJOR_VERSION}::KCMUtils|g' CMakeLists.txt
+  #sed -i -e 's|TextEditor|TextEditor KCMUtils|g' CMakeLists.txt
+  #sed -i -e 's|KF${KF_MAJOR_VERSION}::TextEditor|KF${KF_MAJOR_VERSION}::TextEditor KF${KF_MAJOR_VERSION}::KCMUtils|g' CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${pkgname}-work-volden-kf6 \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6 \
-    -DBUILD_WITH_QT6=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 

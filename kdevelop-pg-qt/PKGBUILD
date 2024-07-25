@@ -1,8 +1,8 @@
 
 pkgname=kdevelop-pg-qt
-pkgver=2.2.2
-_pkgver=2.2.2
-pkgrel=2
+pkgver=2.3.0
+_pkgver=2.3.0
+pkgrel=1
 pkgdesc="KDevelop Parser Generator, a LL(1) parser generator used by KDevelop language plugins"
 arch=('x86_64')
 url="https://www.kdevelop.org/"
@@ -10,13 +10,11 @@ license=('GPL')
 depends=('qt6-base')
 makedepends=('extra-cmake-modules')
 groups=('programming')
-#source=("https://download.kde.org/stable/kdevelop-pg-qt/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
-#sha256sums=('3d56604c479f8f04ae32a523ee91f3078c717117d0deb39e973e22494cbb65f1')
-source=("git+https://invent.kde.org/kdevelop/kdevelop-pg-qt.git")
-md5sums=('SKIP')
+source=("https://download.kde.org/stable/kdevelop-pg-qt/${_pkgver}/src/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('3d3ef3cb395e9670e60c399ea6d865cc796e00e52c355eed943fbeca7da7120d')
 
 build() {
-  cmake -B build -S ${pkgname} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \

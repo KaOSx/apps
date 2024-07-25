@@ -11,13 +11,11 @@ url='https://invent.kde.org/sdk/kirigami-gallery'
 license=('LGPL')
 depends=('qt6-svg' 'qt6-declarative' 'kirigami6' 'kitemmodels6')
 makedepends=('extra-cmake-modules' 'qt6-tools')
-#source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://invent.kde.org/sdk/kirigami-gallery/-/archive/kf6/kirigami-gallery-kf6.tar.bz2")
-md5sums=('ccd2687be065fb79e4070b1af526746e')
+source=("$_mirror/${pkgname}-${pkgver}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${pkgname}-kf6 \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \

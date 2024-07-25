@@ -4,7 +4,6 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=libkomparediff2
 pkgver=${_kdever}
-_commit=cc7b704db3b0a54752d1439793d03e0b15230ca2
 pkgrel=1
 pkgdesc="Library to compare files and strings"
 url='https://invent.kde.org/sdk/libkomparediff2'
@@ -14,13 +13,11 @@ depends=('kcoreaddons6' 'kconfig6' 'kxmlgui6' 'ki18n6' 'kio6')
 makedepends=('extra-cmake-modules')
 replaces=('libkomparediff6')
 groups=('kde' 'kde-sdk' 'kde-uninstall' 'programming')
-#source=("$_mirror/${pkgname}-$_kdever.tar.xz")
-#md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://invent.kde.org/sdk/libkomparediff2/-/archive/${_commit}/libkomparediff2-${_commit}.tar.bz2")
-md5sums=('620d848d5d5a4178b1387fd44b5112a7')
+source=("$_mirror/${pkgname}-$_kdever.tar.xz")
+md5sums=(`grep ${pkgname}-$_kdever.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \

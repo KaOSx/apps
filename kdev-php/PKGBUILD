@@ -9,8 +9,8 @@ pkgdesc="PHP plugin for Kdevelop"
 arch=('x86_64')
 url="https://kde.org/applications/en/kdev-php?category=development"
 license=('GPL')
-depends=('kdevelop' 'kdevelop-pg-qt' 'threadweaver' 'ktexteditor' 'ki18n')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kdevelop' 'kdevelop-pg-qt' 'threadweaver6' 'ktexteditor6' 'ki18n6' 'kcmutils6')
+makedepends=('extra-cmake-modules')
 groups=('programming')
 options=('!makeflags')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz)
@@ -21,10 +21,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_SYSCONFDIR=/etc \
-    -DKDE_INSTALL_QMLDIR=/usr/lib/qt5/qml \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
-    -DBUILD_TESTING=OFF 
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
