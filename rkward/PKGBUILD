@@ -1,9 +1,9 @@
 
 pkgname=rkward
-pkgver=0.7.5
-_pkgver=0.7.5
+pkgver=0.8.0
+_pkgver=0.8.0
 _commit=7245cd657fbe005b4356b6c9b9e5ad95b5aaad78
-pkgrel=2
+pkgrel=1
 pkgdesc="Provides an easily extensible, easy to use IDE/GUI for R."
 arch=('x86_64')
 url="https://rkward.kde.org/"
@@ -12,12 +12,12 @@ depends=('kcoreaddons6' 'ki18n6' 'kxmlgui6' 'ktexteditor6' 'kwidgetsaddons6' 'kp
          'knotifications6' 'kwindowsystem6' 'karchive6' 'kcrash' 'kate' 'qt6-webengine' 'r')
 makedepends=('extra-cmake-modules' 'kdoctools6' 'icu')
 groups=('science')
-#source=("https://download.kde.org/stable/rkward/${_pkgver}/rkward-${_pkgver}.tar.gz")
-source=("https://invent.kde.org/education/rkward/-/archive/${_commit}/rkward-${_commit}.tar.bz2")
-sha256sums=('b4256654ad2d84f52d483c9ee2e871678a8b97ffcbfcc14fb4b18a4587e50eb6')
+source=("https://download.kde.org/stable/rkward/${_pkgver}/rkward-${_pkgver}.tar.gz")
+#source=("https://invent.kde.org/education/rkward/-/archive/${_commit}/rkward-${_commit}.tar.bz2")
+sha256sums=('179763b08cb7a15c594e4798d26ff212f43ff62befc27b8ba840df00b8debbd2')
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
 
   #sed -i -e 's|V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd|V4.5-Based Variant V1.1//EN" "dtd/kdex45.dtd|' doc/rkwardplugins/index.docbook
 
@@ -25,7 +25,7 @@ prepare() {
 }
 
 build() { 
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
