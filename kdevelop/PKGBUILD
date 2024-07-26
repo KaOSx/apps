@@ -20,23 +20,18 @@ makedepends=('kdoctools6' 'qt6-tools' 'perl' 'docbook-xsl' 'boost')
 conflicts=('kdevplatform')
 replaces=('kdevplatform')
 groups=('programming')
-#source=($_mirror/${pkgname}-${_kdever}.tar.xz)
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://invent.kde.org/kdevelop/kdevelop/-/archive/work/apol/kf6/kdevelop-work-apol-kf6.tar.bz2"
-        "https://invent.kde.org/kdevelop/kdevelop/-/commit/5dece2421a1dd3ec8532bdebc3a116a3cda06f93.diff")
-md5sums=('a168fc31218eb0a809598790be3312c9'
-         '80834ac841c6feb4c9f91d73665b0aee')
+source=($_mirror/${pkgname}-${_kdever}.tar.xz)
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${pkgname}-work-apol-kf6
+  cd ${pkgname}-${pkgver}
 
   #patch -R -p1 -i $srcdir/5dece2421a1dd3ec8532bdebc3a116a3cda06f93.diff
   sed -i -e 's|qdbus|qdbus-qt6|g' app/kdevelop!
-  #sed -i -e 's|ecm_optional_add_subdirectory(qmljs)|# ecm_optional_add_subdirectory(qmljs)|g' plugins/CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${pkgname}-work-apol-kf6 \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
