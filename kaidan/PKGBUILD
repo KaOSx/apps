@@ -1,23 +1,24 @@
 
 pkgname=kaidan
-pkgver=0.9.1
-_pkgver=0.9.1
-pkgrel=2
+pkgver=0.9.2
+_pkgver=0.9.2
+pkgrel=1
 arch=('x86_64')
 url='https://www.kaidan.im/'
 pkgdesc="Simple, user-friendly Jabber/XMPP client providing a modern user-interface using Kirigami and QtQuick. "
 license=('LGPL2.1')
-depends=('qt5-declarative' 'qt5-quickcontrols2' 'qt5-svg' 'qt5-location' 'qt5-multimedia' 'qxmpp'
-         'kio' 'kcoreaddons' 'kirigami-addons' 'knotifications' 'kquickimageeditor' 'qqc2-desktop-style'
+depends=('qt6-declarative' 'qt6-svg' 'qt6-location' 'qt6-multimedia' 'qxmpp'
+         'kio6' 'kcoreaddons6' 'kirigami-addons' 'knotifications6' 'kquickimageeditor' 'qqc2-desktop-style6'
          'zxing-cpp')
-makedepends=('extra-cmake-modules' 'qt5-tools')
-source=("https://download.kde.org/unstable/kaidan/${pkgname}-${_pkgver}.tar.xz"
+makedepends=('extra-cmake-modules' 'qt6-tools')
+#source=("https://download.kde.org/unstable/kaidan/${pkgname}-${_pkgver}.tar.xz"
+source=("https://invent.kde.org/network/kaidan/-/archive/work/qt6/kaidan-work-qt6.tar.bz2"
         "https://invent.kde.org/network/kaidan/-/commit/c92fe3125c08e61b454b41f151b435a6a9e6da4b.diff") 
-sha256sums=('8137011d5c36a11d23fcc600d4fd5b0767951d69cf21c8eaac43e98d1c918f90'
+sha256sums=('537ca876d0f5bde902c89a5b937d8dd671cc0b3332fc6743f223198d53153cd2'
             '7a89ff20ae4088d6020022134c3ffdcc58c173846e765f84057545cdfd57c33d')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-work-qt6
   # zxing 2.0.0 needed
   #sed -i -e 's|setFormats(BarcodeFormat::QR_CODE)|setFormats(BarcodeFormat::QRCode)|' src/QrCodeDecoder.cpp
   #sed -i -e 's|ZXing::BarcodeFormat::QR_CODE|ZXing::BarcodeFormat::QRCode|' src/QrCodeGenerator.cpp
@@ -25,7 +26,7 @@ prepare() {
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-work-qt6 \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib
