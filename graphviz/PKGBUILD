@@ -2,12 +2,12 @@
 pkgname=graphviz
 pkgver=12.0.0
 _pkgver=12.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Open source graph visualization software"
 arch=('x86_64')
 url="https://www.graphviz.org/"
 license=('CPL')
-depends=('gd' 'librsvg' 'libxaw' 'ghostscript' 'pango' 'libtool' 'perl' 'python3' 'tcl' 'qt5-base')
+depends=('gd' 'librsvg' 'libxaw' 'ghostscript' 'pango' 'libtool' 'perl' 'python3' 'tcl' 'qt6-base')
 makedepends=('swig' 'guile' 'groff')
 options=('!libtool')
 #source=("https://gitlab.com/graphviz/graphviz/-/archive/${_pkgver}/graphviz-${_pkgver}.tar.bz2")
@@ -17,7 +17,7 @@ sha256sums=('720d5392ccab391d50ac2131048705285fbd3fe8948cdb27c7e7b56160d11a9f')
 
 build() {
     cd ${pkgname}-${_pkgver}
-    #sed -i '/LIBPOSTFIX="64"/d' configure
+    sed -i -e 's|qmake6|qmake-qt6|' configure
     export LIBPOSTFIX=/
 
     #./autogen.sh

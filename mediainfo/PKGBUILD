@@ -2,12 +2,12 @@
 pkgname=mediainfo
 _pkgname=MediaInfo
 pkgver=24.06
-pkgrel=1
+pkgrel=2
 pkgdesc="Convenient unified display of the most relevant technical and tag data for video and audio files."
 arch=('x86_64')
 url="https://github.com/MediaArea/MediaInfo"
 license=('GPL')
-depends=('mediainfolib' 'qt5-base')
+depends=('mediainfolib' 'qt6-base')
 makedepends=('libtool')
 #source=("https://github.com/MediaArea/MediaInfo/archive/v${pkgver}.tar.gz")
 source=("https://old.mediaarea.net/download/source/mediainfo/${pkgver}/${pkgname}_${pkgver}.tar.xz"
@@ -30,7 +30,7 @@ build() {
 
   cd ../../QMake/GUI
 
-  /usr/lib/qt5/bin/qmake
+  /usr/lib/qt6/bin/qmake
   make
 }
 

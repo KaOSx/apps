@@ -2,13 +2,13 @@
 pkgname=rosegarden
 pkgver=24.06
 _pkgver=24.06
-pkgrel=1
+pkgrel=2
 pkgdesc="MIDI/audio sequencer and notation editor"
 arch=('x86_64')
 url="https://www.rosegardenmusic.com/"
 license=('GPL')
-depends=('liblrdf' 'dssi' 'fftw' 'perl' 'qt5-base' 'shared-mime-info' 'lilypond')
-makedepends=('cmake' 'qt5-tools')
+depends=('liblrdf' 'dssi' 'fftw' 'perl' 'qt6-base' 'qt6-5compat' 'shared-mime-info' 'lilypond')
+makedepends=('cmake' 'qt6-tools')
 optdepends=('cups: printing support'
             'okular: print preview, or any other PDF viewer'
             'flac'
@@ -29,7 +29,8 @@ build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib 
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DUSE_QT6=ON
   cmake --build build
 }
 
