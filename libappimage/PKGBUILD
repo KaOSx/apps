@@ -2,7 +2,7 @@
 pkgname=libappimage
 pkgver=1.0.4.5
 _pkgver=1.0.4-5
-pkgrel=6
+pkgrel=7
 pkgdesc='Library that is part of the AppImage project, implementing functionality for dealing with AppImage files.'
 arch=('x86_64')
 url='https://appimage.org/'
@@ -10,13 +10,15 @@ license=('GPL')
 depends=('libarchive' 'boost-libs' 'librsvg')
 makedepends=('cmake' 'vim' 'desktop-file-utils' 'boost' 'fuse') #'clang' 
 groups=('programming')
-source=("https://github.com/AppImage/libappimage/archive/v${_pkgver}.tar.gz")
-sha256sums=('2c4e18860a790c5959da6eb064cbd07f165fe6a9b15989491a3a3f176d06af31')
+source=("https://github.com/AppImage/libappimage/archive/v${_pkgver}.tar.gz"
+        "https://github.com/AppImageCommunity/libappimage/commit/1e0515b23b90588ce406669134feca56ddcbbe43.diff")
+sha256sums=('2c4e18860a790c5959da6eb064cbd07f165fe6a9b15989491a3a3f176d06af31'
+            '84d94ea9a106d3011bc9b42d8c6613f5e2e0d02c0cb53d774d4d5dde9796c300')
 
 prepare() {
   cd ${pkgname}-${_pkgver}
 
-  #patch -p1 -i ${srcdir}/5939f5976bd89af1a8c9964508c640410b18333c.diff
+  patch -p1 -i ${srcdir}/1e0515b23b90588ce406669134feca56ddcbbe43.diff
   #export CC=/usr/bin/clang
   #export CXX=/usr/bin/clang++
 }
