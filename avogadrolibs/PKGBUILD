@@ -1,13 +1,13 @@
 
 pkgname=avogadrolibs
 pkgver=1.99.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Libraries providing 3D rendering, visualization, analysis and data processing useful in computational chemistry and related areas."
 arch=('x86_64')
 url="https://www.openchemistry.org/projects/avogadro2/"
 license=('GPL2')
 depends=('qt6-base' 'glew' 'hdf5' 'spglib' 'libarchive' 'qt6-svg' 'pugixml' 'qt6-5compat') #'jsoncpp'
-makedepends=('cmake' 'boost' 'eigen3')
+makedepends=('cmake' 'boost' 'eigen3' 'nlohmann-json')
 groups=('education')
 conflicts=('avogadro')
 replaces=('avogadro')
@@ -34,6 +34,7 @@ build() {
     -DUSE_HDF5=ON \
     -DUSE_VTK=OFF \
     -DUSE_MMTF=OFF \
+    -DUSE_EXTERNAL_NLOHMANN=ON \
     -DUSE_EXTERNAL_PUGIXML=ON \
     -DQT_VERSION=6
   cmake --build build

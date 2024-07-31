@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=plasma-activities
 pkgver=${_plasmaver}
-pkgrel=1
+pkgrel=2
 pkgdesc="Core components for the KDE Activity concept"
 arch=('x86_64')
 url='https://invent.kde.org/plasma/kactivities'
@@ -16,7 +16,7 @@ replaces=('kactivities6')
 conflicts=('kactivities6')
 groups=('kdeplasma6')
 #options=('debug')
-source=("https://download.kde.org/unstable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://download.kde.org/stable/plasma/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 md5sums=(`grep ${pkgname}-${_plasmaver}.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 prepare() {
