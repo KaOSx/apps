@@ -3,7 +3,7 @@ pkgname=freecad
 _pkgname=FreeCAD
 pkgver=0.21.2
 _commit=7b5e18a0759de778b74d3a5c17eba9cb815035ac
-pkgrel=3
+pkgrel=4
 pkgdesc='A general purpose 3D CAD modeler'
 arch=('x86_64')
 url='https://www.freecadweb.org/'
@@ -18,19 +18,26 @@ source=("https://github.com/FreeCAD/FreeCAD/archive/${pkgver}.tar.gz"
         #'freecad.desktop'
         'freecad.xml'
         'vtk9.patch'
-        "https://github.com/FreeCAD/FreeCAD/commit/9a41845a417189776741297c50a3827ce292bc4f.diff")
+        "https://github.com/FreeCAD/FreeCAD/commit/f555a25f9e67e628e8075fc8599d7c11807eaddd.diff"
+        "https://github.com/FreeCAD/FreeCAD/commit/aa54ba73df4d42878130c99688be35acf10725a0.diff"
+        "https://github.com/FreeCAD/FreeCAD/commit/91457bbdee2422c7f0372688cf72d021cf222073.diff")
 md5sums=('290c947f14c2eb1add22cbc5110e9ece'
          'c2f4154c8e4678825411de8e7fa54c6b'
          '0a8b2ff68918440da3ec248f574ef8d1'
-         '77a9788e37da88da4939b9cd8295c84c')
+         '931e8fd9b50d3ff786a744860a07fbe3'
+         'db9a2566462e326de3becdd132716837'
+         '3b607bb712a86a91aabc09379ac755bd')
 
 prepare() {
   cd ${_pkgname}-${pkgver}/
 
   patch -p1 -i ${srcdir}/vtk9.patch
   #patch -p1 -i ${srcdir}/freecad-0.19.2-0007-fix-build-failure-with-opencascade-7.5.2.patch
-  #patch -p1 -i ${srcdir}/9a41845a417189776741297c50a3827ce292bc4f.diff
   sed -i -e 's|# include <Standard_TooManyUsers.hxx>||' src/Mod/Part/App/OCCError.h
+  # boost 1.85 needed
+  patch -p1 -i ${srcdir}/f555a25f9e67e628e8075fc8599d7c11807eaddd.diff
+  patch -p1 -i ${srcdir}/aa54ba73df4d42878130c99688be35acf10725a0.diff
+  patch -p1 -i ${srcdir}/91457bbdee2422c7f0372688cf72d021cf222073.diff
 }
 
 build() {
