@@ -1,20 +1,20 @@
 
 pkgname=polkit
-pkgver=124
+pkgver=125
 pkgrel=1
 pkgdesc="Application development toolkit for controlling system-wide privileges"
 arch=('x86_64')
 license=('LGPL')
-url="https://gitlab.freedesktop.org/polkit/polkit/"
+url="https://github.com/polkit-org/polkit"
 depends=('glib2' 'pam' 'expat' 'systemd' 'duktape')
 makedepends=('intltool' 'gobject-introspection' 'docbook-xsl' 'meson' 'ninja')
 provides=('consolekit')
 options=('!libtool')
 install=polkit.install
-source=("https://gitlab.freedesktop.org/polkit/polkit/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.bz2"
+source=("https://github.com/polkit-org/polkit/archive/refs/tags/${pkgver}.tar.gz"
         'polkit.pam'
         "https://gitlab.freedesktop.org/polkit/polkit/-/commit/22193ca2cc0f4e023d331cc1391f55143ef9cade.diff")
-md5sums=('5cb95118e21d0cf2348069847c3879e8'
+md5sums=('8e9f2377fc7b4010bd29b97d2e288b4f'
          '6564f95878297b954f0572bc1610dd15'
          'fa903fbcce53e93271f42a1f5babf373')
 
@@ -33,7 +33,7 @@ build() {
     --buildtype=release \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib/polkit-1 \
-    -Dsession_tracking=libsystemd-login \
+    -Dsession_tracking=logind \
     -Dos_type=redhat \
     -Dexamples=true \
     -Dman=true \
