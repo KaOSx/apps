@@ -2,7 +2,8 @@
 pkgname=0ad
 pkgver=alpha26
 _pkgver=0.0.26-alpha
-pkgrel=7
+_commit=5c56930e7be5f4401ab6bfa8ce77c48cb2c2d852
+pkgrel=8
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="https://play0ad.com/"
@@ -12,21 +13,22 @@ depends=('binutils' 'boost-libs' 'curl' 'enet>=1.3' 'libogg' 'libpng' 'libvorbis
          'openal' 'sdl2' 'zlib' 'libgl' '0ad-data' 'glu' 'libxcursor' 'mesa'
          'libjpeg' 'libtiff' 'openexr' 'gloox' 'libsodium' 'fmt')
 makedepends=('boost' 'cmake' 'zip' 'python3' 'rust')
-source=("https://releases.wildfiregames.com/${pkgname}-${_pkgver}-unix-build.tar.xz"
+#source=("https://releases.wildfiregames.com/${pkgname}-${_pkgver}-unix-build.tar.xz"
+source=("https://github.com/0ad/0ad/archive/5c56930e7be5f4401ab6bfa8ce77c48cb2c2d852.zip"
         'icu1.68.patch'
         "https://github.com/0ad/0ad/commit/839edc3ae61cd313d37a14a9a24e2ef1bd4e5808.diff")
-sha1sums=('e3b62b28cd61ee97f6ae989fc9ba351e6405264c'
+sha1sums=('c215e88cdb687b8f83c3e0027cec3467abda9fad'
           'f703537288d133fcd1a0f8a15b73d9ce05b62771'
           'ee6a5577b049a7c50b1c7be5ea1a537e54ee7aae')
 
 prepare() {
-  cd ${pkgname}-${_pkgver}/
+  cd ${pkgname}-${_commit}/
   #fmt 10.x needed
-  patch -p1 -i $srcdir/839edc3ae61cd313d37a14a9a24e2ef1bd4e5808.diff
+  #patch -p1 -i $srcdir/839edc3ae61cd313d37a14a9a24e2ef1bd4e5808.diff
 }
 
 build() {
-  cd ${pkgname}-${_pkgver}/build/workspaces
+  cd ${pkgname}-${_commit}/build/workspaces
 
   unset CPPFLAGS 
 
@@ -44,7 +46,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${_pkgver}/
+  cd ${pkgname}-${_commit}/
   install -d ${pkgdir}/usr/{bin,lib/0ad,share/${pkgname}/data}
 
   install -Dm755 binaries/system/pyrogenesis ${pkgdir}/usr/bin
