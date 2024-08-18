@@ -3,18 +3,21 @@ pkgname=w3m
 pkgver=0.5.3git20230121
 _pkgver=0.5.3+git20230121
 _commit=f66eee8a0e43b27bc6a3c353578efa14
-pkgrel=2
+pkgrel=3
 pkgdesc="Pager that can be used as a text-mode WWW browser."
 arch=('x86_64')
 url="https://salsa.debian.org/debian/w3m"
 license=('custom')
 depends=('openssl' 'gc' 'ncurses' 'zlib' 'imlib2')
 groups=('network-web')
-source=("https://salsa.debian.org/debian/w3m/uploads/${_commit}/w3m-${_pkgver}.tar.xz")
-sha256sums=('974d1095a47f1976150a792fe9c5a44cc821c02b6bdd714a37a098386250e03a')
+source=("https://salsa.debian.org/debian/w3m/uploads/${_commit}/w3m-${_pkgver}.tar.xz"
+        "https://github.com/tats/w3m/commit/855e956d0c64125336dbff1651734411555b29f7.diff")
+sha256sums=('974d1095a47f1976150a792fe9c5a44cc821c02b6bdd714a37a098386250e03a'
+            '2d94c3095276eb5febe70f7e37e91518467a54885d9acd6e52e8d5dde2a4f06e')
 
 build() {
 	cd ${pkgname}-${_pkgver}
+	patch -p1 -i ${srcdir}/855e956d0c64125336dbff1651734411555b29f7.diff
 
 	./configure \
         --prefix=/usr \
