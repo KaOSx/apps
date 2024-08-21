@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=ark
 arch=('x86_64')
 pkgver=${_kdever}
-pkgrel=2
+pkgrel=1
 pkgdesc="Graphical file compression/decompression utility with support for multiple formats, including tar, gzip, bzip2, rar and zip, as well as CD-ROM images"
 url="https://apps.kde.org/ark/"
 license=('GPL' 'LGPL' 'FDL')
@@ -24,7 +24,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -p1 -i ${srcdir}/85c5e26f581cf011638a53e62b92e1da8fd55fcd.diff
+  #patch -p1 -i ${srcdir}/85c5e26f581cf011638a53e62b92e1da8fd55fcd.diff
   #sed -i 's|application/x-rar|application/vnd.rar|' plugins/clirarplugin/CMakeLists.txt
 }
 
