@@ -17,14 +17,14 @@ depends=('kauth6' 'kcalendarcore6' 'kcodecs6' 'kcompletion6' 'kconfig6' 'kconfig
 makedepends=('extra-cmake-modules' 'kdoctools6')
 groups=('kdepim')
 source=($_mirror/${pkgname}-${_kdever}.tar.xz
-        "https://invent.kde.org/pim/kalarm/-/commit/d0998827b0fd5ce761957d0c57296975bd383d97.diff")
+        "https://invent.kde.org/pim/kalarm/-/commit/298d5200d170d5c7bf1abace51f83e428bd93ed2.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'af2b9fe185f95f06284b1042426027ed')
+         '689cc522df7cfa7a6c113594c9a60072')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/d0998827b0fd5ce761957d0c57296975bd383d97.diff
+  patch -p1 -i ${srcdir}/298d5200d170d5c7bf1abace51f83e428bd93ed2.diff
 
 }
 
@@ -34,7 +34,9 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6
+    -DQT_MAJOR_VERSION=6 \
+    -DENABLE_LIBVLC=OFF \
+    -DENABLE_LIBMPV=ON
   cmake --build build
 }
 
