@@ -1,6 +1,6 @@
 pkgname=zed
 pkgver=0.149.6
-pkgrel=1
+pkgrel=2
 pkgdesc='High-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=('x86_64')
 url='https://zed.dev'
@@ -8,8 +8,10 @@ license=('GPL-3.0' 'AGPL' 'Apache')
 depends=('alsa-lib' 'fontconfig' 'libgit2' 'libxcb' 'libxkbcommon' 'openssl' 'sqlite'
          'vulkan-tools' 'wayland' 'zlib')
 makedepends=('rust' 'clang' 'vulkan-headers' 'vulkan-validationlayers')
-source=("https://github.com/zed-industries/zed/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('c889d3bdae27906014d146830fae7daa852b68fc218044f81d163b112a8c8e59')
+source=("https://github.com/zed-industries/zed/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+		'zed.sh')
+sha256sums=('c889d3bdae27906014d146830fae7daa852b68fc218044f81d163b112a8c8e59'
+            'bdd83dc65df9aa90cd87a74716e4fc9f856249b20556da792af714fc6ca81fd6')
 
 prepare() {
 	cd ${pkgname}-${pkgver}
@@ -45,6 +47,8 @@ package() {
     # https://github.com/zed-industries/zed/issues/12707#issuecomment-2168742761
 	install -Dm0644 zed.desktop ${pkgdir}/usr/share/applications/dev.zed.Zed.desktop
 	install -Dm0644 crates/zed/resources/app-icon.png ${pkgdir}/usr/share/icons/${pkgname}.png
+	# set env to use native window decoration
+	install -Dm0755 ../../zed.sh ${pkgdir}/etc/xdg/plasma-workspace/env/zed.sh
 
 	install -Dm0644 assets/licenses.md ${pkgdir}/usr/share/licenses/${pkgname}/licenses.md
 }

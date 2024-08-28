@@ -1,0 +1,1 @@
+export ZED_WINDOW_DECORATIONS=server
