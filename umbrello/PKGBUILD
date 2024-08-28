@@ -4,13 +4,13 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=umbrello
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc='UML modeling tool for KDE'
 url='https://apps.kde.org/umbrello/'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('karchive' 'kauth' 'kcompletion' 'kconfig' 'kcoreaddons' 'kguiaddons' 'ki18n' 'kiconthemes' 'kinit'
-         'kio' 'kparts' 'kservice' 'ktexteditor' 'kwindowsystem' 'kwidgetsaddons' 'kxmlgui' 'kdelibs4support')
+depends=('karchive' 'kauth' 'kcompletion' 'kconfig' 'kcoreaddons' 'kcrash' 'kguiaddons' 'ki18n' 'kiconthemes'
+         'kio' 'kparts' 'kservice' 'ktexteditor' 'kwindowsystem' 'kwidgetsaddons' 'kxmlgui')
 makedepends=('extra-cmake-modules' 'kdoctools' 'boost') # 'clang')
 groups=('kde' 'kde-sdk' 'kde-uninstall' 'programming' )
 source=("$_mirror/${pkgname}-$_kdever.tar.xz")
@@ -26,8 +26,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_TESTING=OFF \
-    -DBUILD_UNITTESTS=0 \
-    -DBUILD_KF5=ON
+    -DBUILD_UNITTESTS=0
   cmake --build build
 }
 
