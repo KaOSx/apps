@@ -1,27 +1,27 @@
 
 pkgname=powerline
-pkgver=2.8.3
-pkgrel=3
+pkgver=2.8.4
+pkgrel=1
 pkgdesc='Statusline plugin for vim, provides statuslines and prompts for other applications, including zsh and bash'
 url='https://powerline.readthedocs.io/en/latest/overview.html'
 license=('MIT')
 arch=('x86_64')
 depends=('python3')
-makedepends=('python3-setuptools')
+makedepends=('python3-build' 'python3-installer' 'python3-setuptools' 'python3-wheel')
 install=powerline.install
 source=("https://github.com/powerline/powerline/archive/${pkgver}.tar.gz")
-md5sums=('d524df603bf7144cc2ccd5dcbfc5e982')
+md5sums=('59ad22961ed0e97014d476431586aba9')
 
 build() {
     cd ${pkgname}-${pkgver}
 
-    python3 setup.py build
+    python3 -m build -nw
 }
 
 package() {
     cd ${pkgname}-${pkgver}
 
-    python3 setup.py install --root=${pkgdir} --optimize=1 --skip-build
+    python3 -m installer --destdir=${pkgdir} dist/*.whl
 
     install -dm755 ${pkgdir}/etc/fonts/conf.d
     install -Dm644 font/PowerlineSymbols.otf ${pkgdir}/usr/share/fonts/OTF/PowerlineSymbols.otf
