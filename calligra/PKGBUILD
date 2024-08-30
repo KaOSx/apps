@@ -10,12 +10,12 @@ url='https://www.calligra-suite.org'
 license=('FDL1.2' 'GPL2' 'LGPL')
 makedepends=('karchive6' 'kcompletion6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6'
              'kguiaddons6' 'ki18n6' 'kiconthemes6' 'kitemviews6' 'kjobwidgets6' 'kcmutils6' 'kio6' 'knotifications6'
-             'knotifyconfig6' 'kparts6' 'sonnet6' 'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6'
+             'knotifyconfig6' 'sonnet6' 'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6'
              'eigen3' 'freetds' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
              'lcms2' 'libodfgen' 'fftw' 'hicolor-icon-theme' 'libgit2'
-             'sqlite3' 'libkdcraw6' 'qt6-declarative' 'qt6-svg' 'qtkeychain-qt6' 'marble' 'kdiagram'
-             'openexr' 'vc' 'akonadi-contacts' 'poppler' 'okular' 'kcalendarcore6' 'kcontacts6' 'kholidays6'
-             'extra-cmake-modules' 'kdoctools6' 'boost' 'docbook-xsl') # 'clang' vc fails clang  'kreport'  'libspnav'
+             'sqlite3' 'libkdcraw6' 'qt6-declarative' 'qt6-svg' 'qtkeychain-qt6' 'kdiagram'
+             'openexr' 'vc' 'akonadi-contacts' 'poppler' 'okular'
+             'extra-cmake-modules' 'kdoctools6' 'boost' 'docbook-xsl') # 'clang' vc fails clang  'kreport' 'kcalendarcore6' 'kcontacts6'
 source=("https://download.kde.org/stable/${pkgbase}/${pkgbase}-${pkgver}.tar.xz"
 #source=("https://invent.kde.org/office/calligra/-/archive/${_commit}/calligra-${_commit}.tar.bz2"
         'cpp17.patch'
@@ -57,11 +57,11 @@ package_calligra() {
   pkgdesc="Suite is a collection of office applications linked together by a common base."
   depends=('karchive6' 'kcompletion6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 'kcrash6' 'kdbusaddons6'
            'kguiaddons6' 'ki18n6' 'kiconthemes6' 'kitemviews6' 'kjobwidgets6' 'kcmutils6' 'kio6' 'knotifications6'
-           'knotifyconfig6' 'kparts6' 'sonnet6' 'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6'
+           'knotifyconfig6' 'sonnet6' 'ktextwidgets6' 'kwidgetsaddons6' 'kwindowsystem6' 'kxmlgui6'
            'eigen3' 'freetds' 'libvisio' 'libgsf' 'libwpd' 'libwpg' 'libwps' 'pstoedit' 'gsl' 
            'lcms2' 'libodfgen' 'fftw' 'hicolor-icon-theme' 'sqlite3' 'libkdcraw6'
-           'exiv2' 'qt6-declarative' 'marble' 'kdiagram' 'okular' 'poppler' 'libspnav'
-           'kcalendarcore6' 'kcontacts6' 'kholidays6' 'openexr' 'vc' 'akonadi-contacts') #   'kreport'
+           'exiv2' 'qt6-declarative' 'kdiagram' 'okular' 'poppler'
+           'openexr' 'vc' 'akonadi-contacts') #  'kcalendarcore6' 'kcontacts6'  'kreport'
   cd build
 
   make DESTDIR=${pkgdir} install
