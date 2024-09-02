@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 pkgname=kfilemetadata6
 _pkgname=kfilemetadata
 pkgver=${_kf6ver}
-pkgrel=1
+pkgrel=2
 pkgdesc="A library for extracting file metadata"
 arch=('x86_64')
 url='https://invent.kde.org/frameworks/kfilemetadata'
@@ -14,7 +14,7 @@ depends=('ebook-tools' 'karchive6' 'kcoreaddons6' 'kcodecs6' 'exiv2' 'ki18n6' 'p
          'ffmpeg' 'kconfig6' 'qt6-5compat') #'libappimage'
 makedepends=('extra-cmake-modules')
 groups=('kf6')
-source=("https://download.kde.org/stable/frameworks/6.4/${_pkgname}-$pkgver.tar.xz")
+source=("https://download.kde.org/stable/frameworks/6.5/${_pkgname}-$pkgver.tar.xz")
 md5sums=(`grep ${_pkgname}-$_kf6ver.tar.xz ../kf6.md5 | cut -d" " -f1`)
 
 build() {
