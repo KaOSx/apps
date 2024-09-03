@@ -1,15 +1,15 @@
 
 pkgname=mauikit-accounts
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 arch=('x86_64')
 pkgdesc="MauiKit utilities to handle User Accounts"
 url="https://invent.kde.org/maui/mauikit-accounts"
 license=('GPL3')
-depends=('mauikit' 'kconfig')
+depends=('mauikit' 'ki18n6' 'kcoreaddons6')
 makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/stable/maui/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('ca3b3f0861d80ce5e1e48bbf79e5db2fb4db2f907ad66312a94233b29bac9f2e')
+sha256sums=('28461b6155c770eaf10ec01e6c0fd07103ef2be23036f2d43a8e5f3321b432ef')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \

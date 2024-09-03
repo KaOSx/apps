@@ -1,15 +1,15 @@
 
 pkgname=mauikit-filebrowsing
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 arch=('x86_64')
 pkgdesc="MauiKit File Browsing utilities and controls."
 url="https://invent.kde.org/maui/mauikit-filebrowsing"
 license=('GPL3')
-depends=('mauikit' 'kconfig' 'kio' 'ki18n' 'kcoreaddons')
+depends=('mauikit' 'ki18n6' 'kcoreaddons6' 'kio6')
 makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/stable/maui/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('77f7a531e4ed9643bf3bdcb8bd493973c1bb285f54aaaf822b024fb23075d190')
+sha256sums=('b93edb5b07fd1fd74f4b46d5bb1402c57370728038e7e407dba1be3730f1da2e')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
