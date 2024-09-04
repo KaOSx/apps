@@ -1,0 +1,42 @@
+
+# https://github.com/LadybirdBrowser/ladybird/blob/master/Toolchain/BuildVcpkg.sh for needed vcpkg checkout
+pkgname=ladybird
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Truly independent web browser, using a novel engine based on web standards.'
+arch=('x86_64')
+url='https://ladybird.org/'
+license=('BSD')
+depends=('ffmpeg' 'harfbuzz' 'libglvnd' 'qt6-tools' 'qt6-wayland' 'qt6-multimedia' 'ttf-liberation')
+makedepends=('cmake' 'ninja' 'unzip' 'zip' 'nasm')
+source=("git+https://github.com/LadybirdBrowser/ladybird"
+        "git+https://github.com/microsoft/vcpkg.git#commit=3508985146f1b1d248c67ead13f8f54be5b4f5da"
+        'ladybird.desktop')
+sha256sums=('SKIP'
+            'SKIP'
+            '752997520ba8aeba2864d285c165407425cf84b5d2e0046343aca1219ab306ed')
+
+
+build() {
+
+  export VCPKG_ROOT="${srcdir}/vcpkg"
+
+  cmake -B build -S ${pkgname} \
+    --preset default \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" \
+    -GNinja 
+  ninja -C build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} ninja -C build install
+
+  install -Dm644 ../ladybird.desktop ${pkgdir}/usr/share/applications/ladybird.desktop
+  install -Dm644 ladybird/Base/res/icons/128x128/app-browser.png ${pkgdir}/usr/share/pixmaps/ladybird.png
+
+  install -Dm644 ladybird/LICENSE -t ${pkgdir}/usr/share/licenses/${pkgname}/
+}
