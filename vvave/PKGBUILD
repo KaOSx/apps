@@ -1,6 +1,7 @@
 
 pkgname=vvave
 pkgver=4.0.0
+_commit=a4ed6d06d4df9da634b4dc8272a945c1faf74d1f
 pkgrel=1
 arch=('x86_64')
 pkgdesc="VVave will handle your whole music collection, letting you create custom playlists to organize your music."
@@ -10,11 +11,12 @@ conflicts=('babe')
 replaces=('babe')
 depends=('mauikit-filebrowsing' 'mauikit-accounts' 'qt6-multimedia' 'taglib' 'yt-dlp')
 makedepends=('extra-cmake-modules')
-source=("https://download.kde.org/stable/maui/vvave/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('b846c0a155d7689f3931c29285b8ec28ed7a39c94247c08b6c02ba97a58e534d')
+#source=("https://download.kde.org/stable/maui/vvave/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+source=("https://invent.kde.org/maui/vvave/-/archive/${_commit}/vvave-${_commit}.tar.bz2")
+sha256sums=('9837100dad72863ca16c4592932185cc65dbb169b295d9d5651044e20fe2f179')
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib
