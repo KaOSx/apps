@@ -53,7 +53,7 @@ New for this ISO  is to no longer include the kernel modesetting for all graphic
 
 Four years after being end of life, GTK2 is finally removed from the KaOS repositories.  The one major application left that had still required GTK2 was Ardour, but with 8.4.0, an internal YTK is used, thus GTK2 is now gone.
 
-Updates to the base of the system included a move to Boost 1.85.0/ICU 75.1 stack, Ruby 3.3.4, Perl 5.38, kernel moved to Linux 6.10.5, Systemd 253.24, ZFS 2.2.5, KMod 33, OpenSSL 3.3, FFMPEG 6.1, OpenJDK 17 and Mesa 24.2.1.
+Updates to the base of the system included a move to Boost 1.85.0/ICU 75.1 stack, Ruby 3.3.5, Perl 5.38, kernel moved to Linux 6.10.5, Systemd 253.24, ZFS 2.2.6, KMod 33, OpenSSL 3.3, FFMPEG 6.1, OpenJDK 17 and Mesa 24.2.2.
 
 Among the new packages included is **Zed**, a Rust based code editor.
 
@@ -88,12 +88,12 @@ To learn more about the goals and ideas behind KaOS, please read the **https://k
 
 To avoid any misunderstanding and confusion, KaOS is **not based upon, derived of, or inspired by** any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see **https://kaosx.us/about/based/**. A **rolling release distribution** never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:
 
-The ISO ships with **Frameworks 6.5.0, Plasma 6.1.4, KDE Applications 24.08.0**, Linux 6.10.5, Systemd 253.24, Kmod 33, NetworkManager 1.48.10, Calligra 4.0.0, Elisa, Xorg-Server 1.21.13, Mesa 24.2.1, Glibc 2.39, GCC 13.2.1, non-free Nvidia 560 and Python3 3.11.9 to name a few.
+The ISO ships with **Frameworks 6.5.0, Plasma 6.1.4, KDE Applications 24.08.0**, Linux 6.10.5, Systemd 253.24, Kmod 33, NetworkManager 1.48.10, Calligra 4.0.1, Elisa, Xorg-Server 1.21.13, Mesa 24.2.2, Glibc 2.39, GCC 13.2.1, non-free Nvidia 560 and Python3 3.11.9 to name a few.
 
 The package manager is **Pacman 6.0.2**, with the simple but powerful Octopi 0.16.2 as GUI frontend. Falkon is the default, Qt based, web browser. **GFXboot** is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.
 
 **Repositories** of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200 packages. A gist of what is available, besides the stable kernel there is Linux-next 6.10, LibreOffice 24.8.0, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.  
-A limited number of the most well-known GTK applications are available, for example, Firefox 129, Chrome 130, Ardour 8.6.0, Inkscape 1.3, GIMP 2.99.18 and Thunderbird 128. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
+A limited number of the most well-known GTK applications are available, for example, Firefox 130, Chrome 130, Ardour 8.6.0, Inkscape 1.3, GIMP 2.99.18 and Thunderbird 128. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
 
 **Known issues:**
 
