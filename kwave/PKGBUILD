@@ -5,7 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwave
 pkgver=${_kdever}
-_commit=5c57259841ca320a93d7161cfc27bdb44e86e719
+_commit=0d65624a1eb349ac146f1aee6428de7c7a95fcb9
 pkgrel=1
 pkgdesc="Sound editor designed for the Plasma Desktop Environment"
 arch=('x86_64')
@@ -19,8 +19,8 @@ makedepends=('extra-cmake-modules' 'kdoctools6')
 options=('!libtool')
 #source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://invent.kde.org/mrp/kwave/-/archive/${_commit}/kwave-${_commit}.tar.bz2")
-md5sums=('7fed27b854e64886c0867b1477da6cbe')
+source=("https://invent.kde.org/multimedia/kwave/-/archive/${_commit}/kwave-${_commit}.tar.bz2")
+md5sums=('151f12de3e571a0d5831638df6858a5c')
 
 build() {
   cmake -B build -S ${pkgname}-${_commit} \
