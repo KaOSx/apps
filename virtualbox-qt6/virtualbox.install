@@ -1,0 +1,21 @@
+#!/bin/bash
+
+post_install() {
+  # Add vboxusers group, GID 108 is reserved
+  getent group vboxusers &> /dev/null || groupadd -f -g 108 vboxusers
+
+  # Load new udev rule for module vboxdrv
+  udevadm control --reload-rules
+}
+
+post_upgrade()
+{
+	rm -rf /tmp/{.,}*vbox*  
+
+}
+
+post_remove() {
+
+  udevadm control --reload-rules
+}
+

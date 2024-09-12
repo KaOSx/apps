@@ -1,0 +1,183 @@
+
+# create vbox-modules tar from the /VirtualBox-${_pkgver}/out/linux.amd64/release/bin/src dir
+# rename /src to vbox-kernel-module-src-${_pkgver} and compress to tar.xz
+# repeat for guest-modules from /VirtualBox-${_pkgver}/out/linux.amd64/release/bin/additions/src
+
+pkgbase=virtualbox-qt6
+pkgname=('virtualbox-qt6' 'virtualbox-guest-utils')
+pkgver=7.1.0
+_pkgver=7.1.0
+__pkgver=7.1.0
+pkgrel=1
+arch=('x86_64')
+url='https://virtualbox.org'
+license=('GPL' 'custom')
+makedepends=('alsa-lib' 'cdrtools' 'curl' 'device-mapper' 'glu' 'iasl' 'openjdk'
+             'libidl2' 'libvncserver' 'libvpx' 'libxcomposite' 'libxcursor' 'libxinerama'
+             'libxml2' 'libxmu' 'libxrandr' 'libxslt' 'libxtst' 'linux-headers' 'mesa' 'pulseaudio'
+             'python3' 'qt6-tools' 'qt6-scxml' 'sdl' 'sdl_ttf' 'xf86driproto' 
+             'xf86-input-mouse' 'xorg-server' 'nasm' 'yasm' 'opus' 'glslang')
+source=("https://download.virtualbox.org/virtualbox/${_pkgver}/VirtualBox-${__pkgver}.tar.bz2"
+        '60-vboxdrv.rules'
+        '60-vboxguest.rules'
+        'LocalConfig.kmk'
+        'vboxservice.service'
+        'vmsvga.service')
+sha256sums=('3bd333fa18889949a1d93d423143eeccdb45d238b33183d66c628c327d23f0b7'
+            'f876e9f55243eded423fda4fc2ffe3b174dca90380a6315f7c9b3cd1c9d07206'
+            '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
+            '8b0688b4aaea6800cfadce5e31ca92a7bcf94d1c7c2648ca1852a6ec95578cb2'
+            '94a808f46909a51b2d0cf2c6e0a6c9dea792034943e6413bf9649a036c921b21'
+            'f2f2799c0a8295ef8762869f239eef35950cdf38b8885703cc4edb6534c62091')
+
+prepare() {
+    cd VirtualBox-${_pkgver}
+
+    #patch -p1 -i ${srcdir}/virtualbox-7.0.14-libxml2-2.12.patch
+
+    sed -i -e 's|X11R6/||' configure
+    sed -i -e 's|X11R6/||' Config.kmk
+    sed -i -e 's|.*&& check_makeself||' configure
+    sed -i -e 's|smc-napa|smcnapa|' src/VBox/Devices/PC/vbox.dsl
+    sed -i -e 's|$(filter-out vboxvideo_drv_%,$(DLLS)) vboxvideo_drv_system|$(filter-out vboxvideo_drv_%,$(DLLS))|' src/VBox/Additions/x11/vboxvideo/Makefile.kmk
+    # From Fedora, disable here, use VBoxDRMClient in vmsvga.service for resizing in Wayland
+    sed -i -e 's|/usr/bin/VBoxClient --vmsvga|/usr/bin/VBoxClient --vmsvga|' src/VBox/Additions/x11/Installer/98vboxadd-xclient
+
+    cp ${srcdir}/LocalConfig.kmk .
+
+    echo "VBOX_GCC_OPT=$CXXFLAGS" >> LocalConfig.kmk
+}
+
+build() {
+    cd VirtualBox-${_pkgver}
+
+    ./configure \
+        --disable-docs \
+        --disable-kmods \
+        --disable-vmmraw \
+        --enable-pulse \
+        --enable-vde \
+		--enable-vnc \
+		--nofatal \
+        --enable-qt6
+
+    source ./env.sh
+    kmk KBUILD_VERBOSE=2 all
+}
+
+package_virtualbox-qt6() {
+    pkgdesc='Oracle VM VirtualBox is powerful x86 virtualization for enterprise as well as home use'
+    depends=('glibc' 'openssl' 'curl' 'gcc-libs' 'libpng' 'python3' 'sdl'
+             'libvpx' 'libxml2' 'procps-ng' 'shared-mime-info' 'zlib'
+             'libxcursor' 'libxinerama' 'libx11' 'libxext' 'libxmu' 'libxt' 'xf86-input-mouse'
+             'qt6-tools' 'qt6-scxml' 'virtualbox-modules' 'opus')
+    optdepends=('virtualbox-guest-additions: Guest Additions CD image'
+                'virtualbox-ext-oracle: for Oracle extensions'
+                'net-tools: Host-only or bridged networking support')
+    conflicts=('virtualbox-qt5')
+    replaces=('virtualbox-qt5')
+    provides=('virtualbox-qt5')
+    backup=('etc/vbox/vbox.cfg')
+    install=virtualbox.install
+
+    source VirtualBox-${_pkgver}/env.sh
+    cd VirtualBox-${_pkgver}/out/linux.amd64/release/bin
+
+    # binaries
+    install -dm755 ${pkgdir}/usr/bin
+    install -m755 VBox.sh ${pkgdir}/usr/bin/VBox
+    for i in VBoxHeadless VBoxManage VBoxSDL VirtualBox VBoxBalloonCtrl; do
+        ln -sf VBox ${pkgdir}/usr/bin/$i
+        ln -sf VBox ${pkgdir}/usr/bin/${i,,}
+    done
+    #install -m755 VBoxTunctl ${pkgdir}/usr/bin
+
+    # libraries
+    install -dm755 ${pkgdir}/usr/lib/virtualbox
+    install -m755 *.so ${pkgdir}/usr/lib/virtualbox
+    install -m644 *.r0 VBoxEFI*.fd ${pkgdir}/usr/lib/virtualbox
+    ## setuid root binaries
+    install -m4755 VirtualBoxVM VBoxHeadless VBoxNetDHCP VBoxNetAdpCtl VBoxNetNAT -t ${pkgdir}/usr/lib/virtualbox
+    ## other binaries
+    install -m755 VirtualBox VBoxManage VBoxSVC VBoxExtPackHelperApp VBoxBalloonCtrl -t ${pkgdir}/usr/lib/virtualbox
+
+    # components
+    # temporary remove non existing link
+    #rm components/VBoxREM.so
+    install -dm755 ${pkgdir}/usr/lib/virtualbox/components
+    install -m755 components/* -t ${pkgdir}/usr/lib/virtualbox/components
+
+    # extensions packs, disable for now, experimental according to ExtPack.xml
+    #install -dm755 ${pkgdir}/usr/lib/virtualbox/ExtensionPacks
+    #install -m755 ExtensionPacks/* -t ${pkgdir}/usr/lib/virtualbox/ExtensionPacks
+
+    # languages
+    install -dm755 ${pkgdir}/usr/share/virtualbox/nls
+    install -m755 nls/*.qm -t ${pkgdir}/usr/share/virtualbox/nls
+
+    # scripts
+    install -m755 VBoxCreateUSBNode.sh VBoxSysInfo.sh -t ${pkgdir}/usr/share/virtualbox
+
+    # icons
+    install -Dm644 VBox.png ${pkgdir}/usr/share/pixmaps/VBox.png
+
+    pushd icons >/dev/null
+    for i in *; do
+        install -d ${pkgdir}/usr/share/icons/hicolor/$i/mimetypes
+        cp $i/* ${pkgdir}/usr/share/icons/hicolor/$i/mimetypes
+    done
+    popd >/dev/null
+
+    #desktop
+    install -Dm644 virtualbox.desktop ${pkgdir}/usr/share/applications/virtualbox.desktop
+    install -Dm644 virtualbox.xml ${pkgdir}/usr/share/mime/packages/virtualbox.xml
+
+    #install configuration files
+    install -dm755 ${pkgdir}/etc/vbox
+    echo 'INSTALL_DIR=/usr/lib/virtualbox' > ${pkgdir}/etc/vbox/vbox.cfg
+    install -dm755 ${pkgdir}/etc/ld.so.conf.d
+    echo '/usr/lib/virtualbox' > ${pkgdir}/etc/ld.so.conf.d/virtualbox.conf
+
+    cd ${srcdir}
+
+    install -Dm644 VirtualBox-${_pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
+
+    # systemd
+    install -Dm644 60-vboxdrv.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxdrv.rules
+}
+    
+package_virtualbox-guest-utils() {
+    pkgdesc='Oracle VM VirtualBox Guest userspace utilities'
+    depends=('glibc' 'pam' 'libx11' 'libxcomposite' 'libxdamage' 'libxext' 'libxfixes' 
+             'libxmu' 'libxt' 'xorg-server-utils') # 'virtualbox-guest-modules')
+    conflicts=('virtualbox-guest-modules')
+    replaces=('virtualbox-guest-modules')
+    provides=('virtualbox-guest-modules')
+    install=virtualbox-guest-utils.install
+
+    source VirtualBox-${_pkgver}/env.sh
+    
+    pushd VirtualBox-${_pkgver}/out/linux.amd64/release/bin/additions
+    install -d ${pkgdir}/usr/bin
+    install -m755 VBoxClient VBoxControl VBoxDRMClient VBoxService mount.vboxsf ${pkgdir}/usr/bin
+    install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
+        ${pkgdir}/usr/bin/VBoxClient-all
+    install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
+        ${pkgdir}/etc/xdg/autostart/vboxclient.desktop
+    #install -D vboxvideo_drv_system.so ${pkgdir}/usr/lib/xorg/modules/drivers/vboxvideo.so
+    install -d ${pkgdir}/usr/lib/xorg/modules/dri
+    #install -m755 VBoxOGL*.so ${pkgdir}/usr/lib
+    #ln -s /usr/lib/VBoxOGL.so ${pkgdir}/usr/lib/xorg/modules/dri/vboxvideo_dri.so
+    install -m755 -D pam_vbox.so ${pkgdir}/usr/lib/security/pam_vbox.so
+    popd
+ 
+    install -Dm644 60-vboxguest.rules ${pkgdir}/usr/lib/udev/rules.d/60-vboxguest.rules
+    install -Dm644 vboxservice.service ${pkgdir}/usr/lib/systemd/system/vboxservice.service
+    install -Dm644 vmsvga.service ${pkgdir}/usr/lib/systemd/system/vmsvga.service
+
+    install -Dm644 VirtualBox-${_pkgver}/COPYING ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
+    #Remove on new version, poperly set in prepare()
+    sed -i -e 's|/usr/bin/VBoxClient --vmsvga|#/usr/bin/VBoxClient --vmsvga|' ${pkgdir}/usr/bin/VBoxClient-all
+}
+
+

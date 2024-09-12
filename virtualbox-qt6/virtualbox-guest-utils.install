@@ -1,0 +1,15 @@
+#!/bin/bash
+
+post_install() {
+
+  getent group vboxsf &> /dev/null || groupadd -f -g 109 vboxsf
+
+  systemctl enable vmsvga
+
+}
+
+post_remove() {
+
+  systemctl disable vmsvga
+
+}

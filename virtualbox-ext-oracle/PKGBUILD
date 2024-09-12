@@ -1,6 +1,6 @@
 
 pkgname=virtualbox-ext-oracle
-pkgver=7.0.20
+pkgver=7.1.0
 pkgrel=1
 arch=('x86_64')
 url='https://virtualbox.org/'
@@ -9,13 +9,13 @@ license=('custom:PUEL')
 depends=('virtualbox-qt5')
 install=${pkgname}.install
 options=('!strip')
-source=("https://download.virtualbox.org/virtualbox/${pkgver}/Oracle_VM_VirtualBox_Extension_Pack-${pkgver}.vbox-extpack")
-sha256sums=('d750fb17688d70e0cb2d7b06f1ad3a661303793f4d1ac39cfa9a54806b89da25')
+source=("https://download.virtualbox.org/virtualbox/${pkgver}/Oracle_VirtualBox_Extension_Pack-${pkgver}.vbox-extpack")
+sha256sums=('14f384053368ce5e806a808a07e66a38c6cbb141033e21de4768e670ff0df3ce')
 
 package() {
   cd ${srcdir}
 
-  install -D -m 644 Oracle_VM_VirtualBox_Extension_Pack-${pkgver}.vbox-extpack \
+  install -D -m 644 Oracle_VirtualBox_Extension_Pack-${pkgver}.vbox-extpack \
     ${pkgdir}/usr/share/virtualbox/extensions/Oracle_VM_VirtualBox_Extension_Pack-${pkgver}.vbox-extpack
 
   install -D -m 644 ExtPack-license.txt ${pkgdir}/usr/share/licenses/${pkgname}/PUEL
