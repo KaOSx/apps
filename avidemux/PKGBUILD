@@ -8,7 +8,7 @@ arch=('x86_64')
 url="http://fixounet.free.fr/avidemux/"
 license=('Public Domain')
 depends=('qt5-base' 'flac' 'libva' 'libxv' 'desktop-file-utils' 'x264' 'pulseaudio' 'jack'
-         'lame' 'sqlite' 'libvpx' 'x265' 'faac' 'faad2' 'fribidi' 'glu' 'libdca' 'opencore-amr'
+         'lame' 'sqlite' 'libvpx' 'faac' 'faad2' 'fribidi' 'glu' 'libdca' 'opencore-amr'
          'xvidcore')
 makedepends=('cmake' 'yasm' 'pkg-config' 'qt5-tools')
 options=('!makeflags')
@@ -29,14 +29,34 @@ prepare() {
     # Don't hide the build output
     sed 's|$PARAL >& /tmp/log$BUILDDIR|$PARAL |g' -i bootStrap.bash
     # set to Qt6
-    #sed 's|avidemux3_qt5|avidemux3_qt6|g' -i avidemux/qt4/xdg_data/org.avidemux.Avidemux.desktop
+    sed 's|avidemux3_qt5|avidemux3_qt6|g' -i avidemux/qt4/xdg_data/org.avidemux.Avidemux.desktop
 }
 
 build() {
-    cd ${pkgname}_${pkgver}
-    bash bootStrap.bash --with-core \
-        --with-plugins
-        #--enable-qt6
+    cmake -B build_core -S ${pkgname}_${pkgver}/avidemux_core \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+    cmake --build build_core
+
+    cmake -B build_plugins -S ${pkgname}_${pkgver}/avidemux_plugins \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DPLUGIN_UI=COMMON \
+    -DUSE_EXTERNAL_LIBA52=ON \
+    -DUSE_EXTERNAL_LIBASS=ON \
+    -DUSE_EXTERNAL_LIBMAD=ON \
+    -DUSE_EXTERNAL_MP4V2=ON
+    cmake --build_plugins build
+
+    cmake -B build_qt -S ${pkgname}_${pkgver}/avidemux/qt4 \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DOpenGL_GL_PREFERENCE=GLVND \
+    -DENABLE_QT6=ON
+    cmake --build build
 }
 
 package() {
