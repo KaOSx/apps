@@ -1,23 +1,31 @@
 
 pkgname=barrier
 pkgver=2.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Software that mimics the functionality of a KVM switch, allowing you to use a single keyboard and mouse to control multiple computers"
 arch=('x86_64')
 url="https://github.com/debauchee/barrier"
 license=('GPLv2')
 depends=('curl' 'avahi' 'libx11' 'libxrandr' 'libxext' 'libxinerama' 'libxtst' 'libxi'
-         'libsm' 'libice' 'openssl' 'qt5-base' 'gulrak-filesystem')
+         'libsm' 'libice' 'openssl' 'qt6-base' 'qt6-5compat' 'gulrak-filesystem')
 makedepends=('cmake' 'googletest')
 source=("https://github.com/debauchee/barrier/archive/v${pkgver}.tar.gz"
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/x11-misc/barrier/files/barrier-2.4.0-includes.patch")
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/x11-misc/barrier/files/barrier-2.4.0-includes.patch"
+        "https://github.com/tnixeu/barrier/commit/7fa0abd5c96c2c9cf7900f235d1a6dfabc419a7b.diff"
+        "https://github.com/debauchee/barrier/commit/d376d23d534e053a160c32ee1170d237a2f3d6bd.diff")
 md5sums=('6f9b98a12a53cf8d0aa3b6b159aeb64f'
-         'eaabd4997d613b28e9e655702409baed')
+         'eaabd4997d613b28e9e655702409baed'
+         '0b6ef8fd27d6e32bfd847cb879361276'
+         '49509715fbefc83d863439851501b31e')
 
 prepare() {
     cd ${pkgname}-${pkgver}
 
     patch -p1 -i ${srcdir}/barrier-2.4.0-includes.patch
+    # move to Qt6
+    patch -p1 -i ${srcdir}/7fa0abd5c96c2c9cf7900f235d1a6dfabc419a7b.diff
+    # gcc13 needed
+    patch -p1 -i ${srcdir}/d376d23d534e053a160c32ee1170d237a2f3d6bd.diff
     #sed -i 's|add_library.*||g' src/test/CMakeLists.txt 
     #sed -i 's|set_target_properties.*||g' src/test/CMakeLists.txt 
 }
