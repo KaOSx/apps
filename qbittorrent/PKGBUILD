@@ -1,6 +1,6 @@
 
 pkgname=qbittorrent
-pkgver=4.6.7
+pkgver=5.0.0
 _commit=46e2e5342bb5b6f7a479f9ec7746e58d28ff783e
 pkgrel=1
 pkgdesc="Bittorrent client programmed in C++ / Qt that uses libtorrent (sometimes called libtorrent-rasterbar)"
@@ -13,7 +13,7 @@ groups=('network')
 source=("https://sourceforge.net/projects/qbittorrent/files/${pkgname}/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz"
         "https://github.com/qbittorrent/qBittorrent/commit/029b1c755057343c9e095bfb4e5c1d41fede70ae.diff")
 #source=("https://github.com/qbittorrent/qBittorrent/archive/${_commit}.zip")
-sha256sums=('bcf2dcf52a0186c3f5da2f1413453888654dc1aee5e4ad80e5a026764bc640c4'
+sha256sums=('623b0e29529ef0c041c5587494bfc1f81b068b3ea4318cefdc2296dcc6c7421d'
             'c7a067cf387727005edc30914e10ae80b4dbb64791176d80e28aeef9b5a68e12')
 
 prepare() {
@@ -25,8 +25,7 @@ prepare() {
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DQT6=ON
+    -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
 }
 
