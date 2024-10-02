@@ -1,7 +1,7 @@
 
 pkgname=bitcoin
-pkgver=27.1
-pkgrel=3
+pkgver=28.0
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Bitcoin is a peer-to-peer network based digital currency"
 url="https://bitcoin.org/en/"
@@ -12,19 +12,19 @@ makedepends=('boost' 'qt5-tools')
 source=("https://github.com/bitcoin/bitcoin/archive/v${pkgver}.tar.gz"
         "https://raw.githubusercontent.com/bitcoin-core/packaging/master/debian/bitcoin-qt.desktop"
         "https://github.com/bitcoin/bitcoin/commit/ac4ea782af20720eea8ce67eb7fa00ce1e19e513.diff")
-md5sums=('fbea41aa8b0af521ca34765352962e4f'
+md5sums=('13a87539127c90288904377c23a5a5cf'
          'a1322d92df28647f88332030f414a0da'
          'd5503fbfaa6d60b10ba955cda189cf86')
 
 build() {
   cd ${pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/ac4ea782af20720eea8ce67eb7fa00ce1e19e513.diff
+  #patch -p1 -i ${srcdir}/ac4ea782af20720eea8ce67eb7fa00ce1e19e513.diff
 
   ./autogen.sh
   ./configure --prefix=/usr \
       --without-bdb \
       --with-gui=qt5 \
-      --without-miniupnpc
+      --with-miniupnpc
   make
 }
 
