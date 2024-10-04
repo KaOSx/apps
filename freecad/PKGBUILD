@@ -1,64 +1,65 @@
 
 pkgname=freecad
 _pkgname=FreeCAD
-pkgver=0.21.2
+pkgver=1.0rc2
 _commit=7b5e18a0759de778b74d3a5c17eba9cb815035ac
-pkgrel=4
+pkgrel=1
 pkgdesc='A general purpose 3D CAD modeler'
 arch=('x86_64')
 url='https://www.freecadweb.org/'
 license=('GPL')
-depends=('boost-libs' 'curl' 'glew' 'jsoncpp' 'libspnav' 'opencascade' 'shiboken2' 'xerces-c'
-         'pyside2' 'python3-matplotlib' 'netcdf' 'qt5-svg' 'qtwebengine' 'pyside2-tools'
-         'qt5-tools' 'shared-mime-info' 'med' 'coin' 'python3-pivy')
+depends=('boost-libs' 'curl' 'glew' 'jsoncpp' 'libspnav' 'opencascade' 'shiboken6' 'xerces-c'
+         'pyside6' 'python3-matplotlib' 'netcdf' 'qt6-svg' 'qt6-webengine' 'pyside6-tools'
+         'qt6-tools' 'shared-mime-info' 'med' 'coin' 'python3-pivy' 'yaml-cpp')
 makedepends=('boost' 'eigen3' 'swig' 'cmake')
 options=('!libtool' '!makeflags')
-source=("https://github.com/FreeCAD/FreeCAD/archive/${pkgver}.tar.gz"
-#source=("https://github.com/FreeCAD/FreeCAD/archive/${_commit}.zip"
+#source=("https://github.com/FreeCAD/FreeCAD/archive/${pkgver}.tar.gz"
+source=("git+https://github.com/FreeCAD/${pkgname}#tag=${pkgver}"
         #'freecad.desktop'
         'freecad.xml'
         'vtk9.patch'
-        "https://github.com/FreeCAD/FreeCAD/commit/f555a25f9e67e628e8075fc8599d7c11807eaddd.diff"
+        "https://github.com/FreeCAD/FreeCAD/commit/6e2cd4e73303f817e4bf5e908abe39030b7c5fb3.diff"
         "https://github.com/FreeCAD/FreeCAD/commit/aa54ba73df4d42878130c99688be35acf10725a0.diff"
         "https://github.com/FreeCAD/FreeCAD/commit/91457bbdee2422c7f0372688cf72d021cf222073.diff")
-md5sums=('290c947f14c2eb1add22cbc5110e9ece'
+md5sums=('SKIP'
          'c2f4154c8e4678825411de8e7fa54c6b'
          '0a8b2ff68918440da3ec248f574ef8d1'
-         '931e8fd9b50d3ff786a744860a07fbe3'
+         '317901128019d710c361b4a25b816673'
          'db9a2566462e326de3becdd132716837'
          '3b607bb712a86a91aabc09379ac755bd')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}/
+  cd ${pkgname}
 
-  patch -p1 -i ${srcdir}/vtk9.patch
+  git submodule update --init --recursive
+  #patch -p1 -i ${srcdir}/vtk9.patch
   #patch -p1 -i ${srcdir}/freecad-0.19.2-0007-fix-build-failure-with-opencascade-7.5.2.patch
   sed -i -e 's|# include <Standard_TooManyUsers.hxx>||' src/Mod/Part/App/OCCError.h
   # boost 1.85 needed
-  patch -p1 -i ${srcdir}/f555a25f9e67e628e8075fc8599d7c11807eaddd.diff
-  patch -p1 -i ${srcdir}/aa54ba73df4d42878130c99688be35acf10725a0.diff
-  patch -p1 -i ${srcdir}/91457bbdee2422c7f0372688cf72d021cf222073.diff
+  patch -p1 -i ${srcdir}/6e2cd4e73303f817e4bf5e908abe39030b7c5fb3.diff
+  #patch -p1 -i ${srcdir}/aa54ba73df4d42878130c99688be35acf10725a0.diff
+  #patch -p1 -i ${srcdir}/91457bbdee2422c7f0372688cf72d021cf222073.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_DATADIR=/usr/share/freecad \
         -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/freecad \
         -DCMAKE_INSTALL_PREFIX=/usr/lib/freecad \
         -DBUILD_ENABLE_CXX_STD=C++17 \
         -DBoost_NO_BOOST_CMAKE=ON \
-        -DBUILD_QT5=ON \
+        -DBUILD_QT5=OFF \
         -DPYTHON_EXECUTABLE=/usr/bin/python3 \
         -DFREECAD_USE_OCC_VARIANT='Official Version' \
         -DOCCT_CMAKE_FALLBACK=ON \
         -DOCC_INCLUDE_DIR=/usr/include/opencascade \
         -DOCC_LIBRARY_DIR=/usr/lib \
-        -DFREECAD_QT_MAJOR_VERSION=5 \
-        -DFREECAD_QT_VERSION=5 \
-        -DQT_DEFAULT_MAJOR_VERSION=5
-        #-DBUILD_DRAWING=OFF \
-        #-DBUILD_FLAT_MESH=ON
+        -DFREECAD_QT_MAJOR_VERSION=6 \
+        -DFREECAD_QT_VERSION=6 \
+        -DQT_DEFAULT_MAJOR_VERSION=6 \
+        -DBUILD_DRAWING=OFF \
+        -DBUILD_FLAT_MESH=ON
   cmake --build build -j16
 }
 

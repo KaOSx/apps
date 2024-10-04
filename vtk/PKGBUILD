@@ -2,15 +2,15 @@
 pkgname=vtk
 pkgver=9.3.1
 _pkgver=9.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Open-source software system for 3D computer graphics, image processing, and visualization.'
 arch=('x86_64')
 url='https://gitlab.kitware.com/vtk/vtk'
 license=('BSD')
 depends=('java-environment' 'gnuplot' 'tk' 'python3-matplotlib' 'unixodbc' 'gdal' 'openmpi' 'mariadb'
-         'glew' 'ffmpeg' 'python3-six' 'qt5-x11extras' 'jsoncpp' 'double-conversion'
+         'glew' 'ffmpeg' 'python3-six' 'qt6-base' 'jsoncpp' 'double-conversion'
          'netcdf' 'libtiff' 'libtheora' 'gl2ps' 'fmt')
-makedepends=('boost' 'cmake' 'qt5-tools')
+makedepends=('boost' 'cmake' 'qt6-tools')
 options=('!emptydirs')
 source=("https://www.vtk.org/files/release/${_pkgver}/VTK-${pkgver}.tar.gz"
         "https://www.vtk.org/files/release/${_pkgver}/VTKData-${pkgver}.tar.gz"
@@ -64,7 +64,7 @@ build() {
     -DVTK_INSTALL_INCLUDE_DIR:PATH=include/vtk \
     -DVTK_RENDERING_BACKEND="OpenGL2" \
     -DCMAKE_BUILD_TYPE=Release \
-    -DVTK_QT_VERSION="5"
+    -DVTK_QT_VERSION="6"
 
   make
 }

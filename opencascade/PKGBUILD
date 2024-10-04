@@ -1,18 +1,18 @@
 
 pkgname=opencascade
-pkgver=7.7.2
-_pkgver=7_7_2
-_commit=cec1ecd0c9f3b3d2572c47035d11949e8dfa85e2
-__commit=cec1ecd
+pkgver=7.8.1
+_pkgver=7_8_1
+_commit=bd2a789f15235755ce4d1a3b07379a2e062fdc2e
+__commit=bd2a789
 _vtk=9.3
-pkgrel=2
+pkgrel=1
 epoch=2
 pkgdesc="Open CASCADE Technology, 3D modeling & numerical simulation"
 arch=('x86_64')
 url="https://dev.opencascade.org/"
 license=('custom')
 depends=('tk' 'mesa' 'java-runtime' 'libx11' 'ftgl' 'vtk' 'gl2ps') # 'qt5-base' 
-makedepends=('java-environment' 'cmake')
+makedepends=('java-environment' 'cmake' 'qt5-tools')
 options=('!libtool')
 source=("opencascade-${pkgver}.tar.gz::https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=${_commit};sf=tgz"
 #source=("https://github.com/Open-Cascade-SAS/OCCT/archive/refs/tags/V${_pkgver}.tar.gz"
@@ -21,21 +21,23 @@ source=("opencascade-${pkgver}.tar.gz::https://git.dev.opencascade.org/gitweb/?p
         'opencascade.conf'
         'cmake.patch'
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/opencascade/files/opencascade-7.7.0-add-missing-include-limits.patch"
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/opencascade/files/opencascade-7.7.0-build-against-vtk-9.2.patch")
-md5sums=('232887c0ef66e036e3f67b2b64f3896f'
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/opencascade/files/opencascade-7.7.0-build-against-vtk-9.2.patch"
+        'freetype.patch')
+md5sums=('7706e18d68a350d26932f819257c9145'
          '545f3842f87750dd04569f93f1921e07'
          'fc4b64a9425c02d4daeaeb1425e0a70d'
          '2924ecf57c95d25888f51071fdc72ad0'
          '09458e891de56cfe6bdd1f1186b11a19'
          '6aeec32a4aa607d9d5ef58aa65bc27d0'
-         '724bd7cb464d8f76c5a840e287cdac59')
+         '724bd7cb464d8f76c5a840e287cdac59'
+         '2e9edc2dca0794323f913192cb984833')
 
 prepare() {
   cd occt-${__commit}
 
   patch -p1 -i ${srcdir}/cmake.patch
   #patch -p1 -i ${srcdir}/opencascade-7.7.0-add-missing-include-limits.patch
-  patch -p1 -i ${srcdir}/opencascade-7.7.0-build-against-vtk-9.2.patch
+  patch -p1 -i ${srcdir}/freetype.patch
   sed -i -e 's|/lib$|/lib(64)?$|' adm/templates/OpenCASCADEConfig.cmake.in
 }
 
@@ -48,7 +50,10 @@ build() {
     -DUSE_VTK=ON \
     -D3RDPARTY_VTK_DIR=/usr \
     -D3RDPARTY_VTK_INCLUDE_DIR=/usr/include/vtk-${_vtk} \
-    -D3RDPARTY_VTK_LIBRARY_DIR=/usr/lib
+    -D3RDPARTY_VTK_LIBRARY_DIR=/usr/lib \
+    -DBUILD_SAMPLES_QT=OFF \
+    -DBUILD_Inspector==OFF \
+    -D3RDPARTY_QT_DIR=/usr
   cmake --build build
 }
 
