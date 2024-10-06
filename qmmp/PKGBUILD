@@ -1,9 +1,9 @@
 
 pkgname=qmmp
-pkgver=2.1.9
-_pkgver=2.1
+pkgver=2.2.0
+_pkgver=2.2
 _commit=dev-code-5352-branches-qmmp-1.0
-pkgrel=2
+pkgrel=1
 pkgdesc="Qt based audio-player"
 arch=('x86_64')
 url="https://qmmp.ylsoftware.com/"
@@ -14,9 +14,17 @@ depends=('alsa-lib' 'curl' 'hicolor-icon-theme' 'libmad' 'libvorbis' 'libogg'  '
          'pipewire')
 makedepends=('cmake' 'ffmpeg' 'libsamplerate' 'mesa' 'qt6-tools')
 groups=('multimedia')
-source=("https://qmmp.ylsoftware.com/files/qmmp/${_pkgver}/qmmp-${pkgver}.tar.bz2")
+source=("https://qmmp.ylsoftware.com/files/qmmp/${_pkgver}/qmmp-${pkgver}.tar.bz2"
+        'qmmp-2.2.0-fix-build.patch')
 #source=("http://sourceforge.net/code-snapshots/svn/q/qm/qmmp-dev/code/qmmp-${_commit}.zip")
-md5sums=('705e571d6978803971c1fe5f1f285b70')
+md5sums=('56fceee86cd03261128773d15cbab88b'
+         '8e658d15e8a726ff6469d7f0207620a5')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  patch -p1 -i ${srcdir}/qmmp-2.2.0-fix-build.patch
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
