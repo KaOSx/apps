@@ -1,26 +1,26 @@
 
 pkgname=liquidshell
-pkgver=1.9.0
-_pkgver=1.9.0
+pkgver=1.10.0
+_pkgver=1.10.0
 pkgrel=1
 pkgdesc="Alternative desktop replacement for Plasma, using QtWidgets instead of QtQuick."
 arch=('x86_64')
 url='https://invent.kde.org/system/liquidshell'
 license=('LGPL')
-depends=('kwindowsystem' 'kwidgetsaddons' 'kconfigwidgets' 'kconfig' 'kio' 'kiconthemes'
-         'kitemviews' 'karchive' 'knotifications' 'ki18n' 'networkmanager-qt' 'kservice' 
-         'solid' 'bluez-qt' 'kcmutils' 'kcrash' 'kdbusaddons' 'knewstuff')
-makedepends=('extra-cmake-modules' 'kdoctools')
+depends=('kwindowsystem6' 'kwidgetsaddons6' 'kconfigwidgets6' 'kconfig6' 'kio6' 'kiconthemes6'
+         'kitemviews6' 'karchive6' 'knotifications6' 'ki18n6' 'networkmanager-qt6' 'kservice6' 
+         'solid6' 'bluez-qt6' 'kcmutils6' 'kcrash6' 'kdbusaddons6' 'knewstuff6' 'kxmlgui6' 'kstatusnotifieritem')
+makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/stable/liquidshell/${pkgname}-${pkgver}.tar.xz"
         'packagekit.patch')
-sha256sums=('dfc450fcead1cfbcb071ebfcf2fbf88e6ae8658b2448382128a42c9bc7773951'
+sha256sums=('27adb52c1ee292f853921414b46ac8968f39126c5c7e8afb169abb2736c3f604'
             '80f860fc10e35c98dda08a4a107f668feb72c041d5b49d71578f5d6bd9fd0d13')
 
 prepare() {
   cd ${pkgname}-${pkgver}
   
   #sed -i -e 's|setThemeIcon("start-here-kde")|setThemeIcon("/usr/share/icons/midna/apps/scalable/kaos.svg")|' StartMenu.cxx
-  sed -i -e 's|http://www.kde.org|https://kaosx.us/|' QuickLaunch.cxx
+  #sed -i -e 's|http://www.kde.org|https://kaosx.us/|' QuickLaunch.cxx
 
   #patch -p1 -i ${srcdir}/packagekit.patch
 }
