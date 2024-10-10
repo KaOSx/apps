@@ -15,14 +15,14 @@ depends=('avogadrolibs' 'eigen3' 'ocaml' 'openbabel' 'karchive6' 'kconfig6' 'kco
 makedepends=('extra-cmake-modules' 'kdoctools6' 'facile')
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
 source=("$_mirror/${pkgname}-${_kdever}.tar.xz"
-        "https://invent.kde.org/arojas/kalzium/-/commit/4030eaff333fef83cf49ff54c9d7157392c63848.diff")
+        "https://invent.kde.org/arojas/kalzium/-/commit/557d9bc96636f413430d0789cbf775915fc0dc45.diff")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
-         'f412b7784a93d731412f328b7a16f9d6')
+         '819b99f84e57e298caf093c79da7d2b7')
 
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  #patch -p1 -i ${srcdir}/4030eaff333fef83cf49ff54c9d7157392c63848.diff
+  patch -p1 -i ${srcdir}/557d9bc96636f413430d0789cbf775915fc0dc45.diff
 }
 
 build() {  
