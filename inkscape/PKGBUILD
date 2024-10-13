@@ -1,8 +1,8 @@
 
 pkgname=inkscape
-pkgver=1.3.2
-_commit=2023-11-25_091e20ef0f
-pkgrel=7
+pkgver=1.4
+_commit=2024-10-09_e7c3feb100
+pkgrel=1
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
@@ -10,33 +10,19 @@ license=('GPL' 'LGPL')
 depends=('graphicsmagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
          'desktop-file-utils' 'hicolor-icon-theme' 'python3-lxml' 'python3-numpy'
          'libwpg' 'libvisio' 'libwpd' 'potrace' 'python3' 'dbus-glib' 'double-conversion'
-         'libsoup' 'gdl' 'libcdr') #'poppler' 
+         'libsoup' 'gdl' 'libcdr' 'poppler')
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 source=("https://media.inkscape.org/dl/resources/file/${pkgname}-${pkgver}.tar.xz"
-        "https://gitlab.com/inkscape/inkscape/-/commit//694d8ae43d06efff21adebf377ce614d660b24cd.diff"
-        "https://gitlab.com/a17r/inkscape/-/commit/3dd9846ab99260134e11938f0e575be822507037.diff"
-        "https://gitlab.com/inkscape/inkscape/-/commit/96ca7a6c215aa14336b52753f56244dc8796ec43.diff"
-        "https://gitlab.com/inkscape/inkscape/-/commit/1798e9c13b786f3d077ba0132592c4d5c1d1fb9b.diff"
-        "https://gitlab.com/inkscape/inkscape/-/commit/877fc26483f74f951eab516f1b57b136780a8c78.diff")
+        "https://gitlab.com/inkscape/inkscape/-/commit//694d8ae43d06efff21adebf377ce614d660b24cd.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
-sha256sums=('dbd1844dc443fe5e10d3e9a887144e5fb7223852fff191cfb5ef7adeab0e086b'
-            'c2b6f4e74883e7f6f74283d9cf70997a344159c1e5cb9022237d14936efb3683'
-            '25d3026afd5315be4da390834108d7e72631d91c86270af5aa7e10355dabe720'
-            '19553f09b7ae528a529a0553d3f31b643c08d1897247cfcac75b6e107d4e0de4'
-            '1ec48c962b2e1a2f22e737fc0155955cbbd850872d99a2f9c9b7151aaccab248'
-            'ef9d16ffbc78593d80921a67a80be13835bd6cc520cf3bc65b96d5406f6350dd')
+sha256sums=('c59a85453b699addebcd51c1dc07684dd96a10c8aec716b19551db50562e13f5'
+            'c2b6f4e74883e7f6f74283d9cf70997a344159c1e5cb9022237d14936efb3683')
 
 prepare() {
   cd ${pkgname}-${pkgver}_${_commit}
-  # libxml2 2.12 needed
-  patch -p1 -i ${srcdir}/694d8ae43d06efff21adebf377ce614d660b24cd.diff
-  # poppler 24.03 needed
-  patch -p1 -i ${srcdir}/3dd9846ab99260134e11938f0e575be822507037.diff
   # poppler 24.05 needed
   #patch -p1 -i ${srcdir}/96ca7a6c215aa14336b52753f56244dc8796ec43.diff
-  #patch -p1 -i ${srcdir}/1798e9c13b786f3d077ba0132592c4d5c1d1fb9b.diff
-  #patch -p1 -i ${srcdir}/877fc26483f74f951eab516f1b57b136780a8c78.diff
 }
 
 build() {
@@ -44,7 +30,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DWITH_LIBCDR=ON \
-    -DENABLE_POPPLER=OFF
+    -DENABLE_POPPLER=ON
   cmake --build build
 }
 
