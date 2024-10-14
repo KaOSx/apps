@@ -1,0 +1,33 @@
+
+pkgname=harper
+pkgver=0.12.0
+pkgrel=1
+pkgdesc="The Grammar Checker for Developers"
+url='https://writewithharper.com/'
+arch=('x86_64')
+license=('Apache-2.0')
+depends=('gcc-libs')
+makedepends=('rust')
+source=("https://github.com/elijah-potter/harper/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('2c3f178ec147a5074f09acb81c76d7ceefa50c383081b31bcb6607b582605748')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+
+  cargo build --frozen --release
+}
+
+
+package() {
+  cd ${pkgname}-${pkgver}
+
+  install -Dm 755 -t ${pkgdir}/usr/bin \
+    target/release/harper-cli \
+    target/release/harper-ls
+}
