@@ -1,28 +1,31 @@
 
 pkgname=sqlitebrowser
-pkgver=3.13.0
-_pkgver=3.13.0
+pkgver=3.13.1
+_pkgver=3.13.1
+_commit=e0900466df08fd1111cd8a95a09929b9ee52b11c
 pkgrel=1
 pkgdesc="High quality, visual, open source tool to create, design, and edit database files compatible with SQLite"
 arch=('x86_64')
 url="https://sqlitebrowser.org/"
 license=('GPL')
-depends=('qt5-base' 'sqlite' 'sqlcipher' 'qscintilla-qt5')
-makedepends=('cmake' 'qt5-tools') # 'antlr2')
-source=("https://github.com/sqlitebrowser/sqlitebrowser/archive/v${_pkgver}.tar.gz")
-md5sums=('7289edcc97fb59a7689b96635624baf1')
+depends=('qt6-base' 'sqlite' 'sqlcipher' 'qscintilla-qt6' 'qt6-5compat')
+makedepends=('cmake' 'qt6-tools') # 'antlr2')
+#source=("https://github.com/sqlitebrowser/sqlitebrowser/archive/v${_pkgver}.tar.gz")
+source=("https://github.com/sqlitebrowser/sqlitebrowser/archive/${_commit}.zip")
+md5sums=('42c0f9722e7cb1760a6b9a20fccb99a7')
 
 prepare() {
-  cd ${pkgname}-${_pkgver}
+  cd ${pkgname}-${_commit}
 
   #sed -e "s|DB Browser for SQLite|sqlitebrowser|" -i CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DFORCE_INTERNAL_QSCINTILLA=OFF
+    -DFORCE_INTERNAL_QSCINTILLA=OFF \
+    -DQT_MAJOR=Qt6
   cmake --build build
 }
 

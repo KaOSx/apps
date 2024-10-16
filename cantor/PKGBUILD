@@ -4,32 +4,35 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=cantor
 pkgver=${_kdever}
-pkgrel=1
+_commit=c324c54c1eb30ec03bbe56bd235cb5ae0cf0b87a
+pkgrel=2
 pkgdesc="KDE Frontend to Mathematical Software"
 url="https://apps.kde.org/en/cantor"
 arch=('x86_64')
 license=('GPL' 'LGPL' 'FDL')
-depends=('kconfig' 'kcrash' 'kcompletion' 'knewstuff' 'kiconthemes' 'ktexteditor' 'kcoreaddons'
-         'karchive' 'kparts' 'syntax-highlighting' 'ktextwidgets' 'kio' 'kxmlgui' 'ki18n'
-         'kalgebra' 'libspectre' 'octave' 'python3' 'libqalculate' 'r' 'poppler' 'qtwebengine')
-makedepends=('extra-cmake-modules' 'kdoctools' 'icu' 'qt5-tools')
+depends=('kconfig6' 'kcrash6' 'kcompletion6' 'knewstuff6' 'kiconthemes6' 'ktexteditor6' 'kcoreaddons6'
+         'karchive6' 'kparts6' 'syntax-highlighting6' 'ktextwidgets6' 'kio6' 'kxmlgui6' 'ki18n6'
+         'kalgebra' 'libspectre' 'octave' 'python3' 'libqalculate' 'r' 'poppler' 'qt6-webengine'
+         'qt6-5compat')
+makedepends=('extra-cmake-modules' 'kdoctools6' 'icu' 'qt6-tools')
 opdepends=('scilab' 'maxima') 
 groups=('kde' 'kde-edu' 'kde-uninstall' 'education')
-source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+#source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+source=("https://invent.kde.org/education/cantor/-/archive/${_commit}/cantor-${_commit}.tar.bz2")
+#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
+md5sums=('29bc9aef072f2f5e0aa33e25c4b2dfe4')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
 
   sed -i -e 's|add_subdirectory(sage)|#add_subdirectory(sage)|' src/backends/CMakeLists.txt
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${_commit} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=lib \
-    -DKDE_INSTALL_PLUGINDIR=/usr/lib/qt5/plugins \
     -DBUILD_TESTING=OFF 
   cmake --build build
 }
