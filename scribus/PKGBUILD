@@ -1,37 +1,37 @@
 
 pkgname=scribus
 _pkgname=Scribus
-_commit=3742559924136c2471ab15081c5b600dd5feaeb0
+_commit=6ca89802bd3af5fd9f93f00b75234c4bce639275
 pkgver=1.6.2
 pkgrel=6
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="https://www.scribus.net"
 license=('GPL')
-depends=('libcups' 'lcms2' 'qt5-declarative' 'ghostscript' 'libart-lgpl' 'python3' 'libxml2' 'hyphen'
+depends=('libcups' 'lcms2' 'qt6-declarative' 'ghostscript' 'libart-lgpl' 'python3' 'libxml2' 'hyphen'
          'cairo' 'desktop-file-utils' 'shared-mime-info' 'ruby' 'aspell' 'podofo' 'librevenge' 'poppler'
-         'hunspell' 'graphicsmagick' 'libvisio' 'icu')
-makedepends=('cmake' 'boost' 'qt5-tools')
+         'hunspell' 'graphicsmagick' 'libvisio' 'icu' 'qt6-5compat' 'qt6-imageformats' 'qt6-svg')
+makedepends=('cmake' 'boost' 'qt6-tools')
 groups=('office')
 options=('!libtool' '!makeflags')
-source=("https://sourceforge.net/projects/scribus/files/scribus/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-#source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
+#source=("https://sourceforge.net/projects/scribus/files/scribus/${pkgver}/${pkgname}-${pkgver}.tar.xz"
+source=("https://codeberg.org/Scribus/scribus/archive/${_commit}.tar.gz"
          "https://github.com/scribusproject/scribus/pull/177/commits/dc2470990ab73c87fdd60068c99518ced01a3edd.diff"
          'poppler-22.09.patch')
-sha256sums=('7eff9b1f47e372e56bb369f1dbe18fe49101789b5e6bcfdb7890e0346b641383'
+sha256sums=('66b6cc25ea12fe377e69d33e00e3e1d8188b0104ea29869d6844bb844e73476c'
             '0c615b740d174d503f459182b00a93703d592ced860158e15812bb22d965e13d'
             'b4bde3e84587252dbfd3a2f310de076929565e2d67898656fbe31f83f10410cf')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
 
-  sed -e 's|WANT_CPP17|WANT_CPP20|g' -e 's|CMAKE_CXX_STANDARD 17|CMAKE_CXX_STANDARD 20|g' -i CMakeLists.txt
+  #sed -e 's|WANT_CPP17|WANT_CPP20|g' -e 's|CMAKE_CXX_STANDARD 17|CMAKE_CXX_STANDARD 20|g' -i CMakeLists.txt
   # poppler 24.03
   #patch -p1 -i ${srcdir}/dc2470990ab73c87fdd60068c99518ced01a3edd.diff
 }
 
 build() {
-	cmake -B build -S ${pkgname}-${pkgver} \
+	cmake -B build -S ${pkgname} \
 	   -DCMAKE_INSTALL_PREFIX=/usr \
 	   -DCMAKE_BUILD_TYPE=Release \
 	   -DCMAKE_SKIP_RPATH=ON \
