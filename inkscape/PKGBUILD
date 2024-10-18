@@ -10,7 +10,7 @@ license=('GPL' 'LGPL')
 depends=('graphicsmagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
          'desktop-file-utils' 'hicolor-icon-theme' 'python3-lxml' 'python3-numpy'
          'libwpg' 'libvisio' 'libwpd' 'potrace' 'python3' 'dbus-glib' 'double-conversion'
-         'libsoup' 'gdl' 'libcdr' 'poppler')
+         'libsoup' 'gdl' 'libcdr') # 'poppler')
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 source=("https://media.inkscape.org/dl/resources/file/${pkgname}-${pkgver}.tar.xz"
@@ -30,7 +30,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DWITH_LIBCDR=ON \
-    -DENABLE_POPPLER=ON
+    -DENABLE_POPPLER=OFF
   cmake --build build
 }
 
