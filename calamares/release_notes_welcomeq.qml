@@ -39,9 +39,9 @@ Item {
         wrapMode: Text.WordWrap
         text: "## KaOS - 2024.09
 
-It is a great pleasure to present to you the September release of a new stable ISO.
+It is a great pleasure to present to you the October release of a new stable ISO.
 
-For the Plasma desktop, the latest Plasma (6.1.4), KDE Gear (24.08.0), and Frameworks (6.5.0) are included. All built on **Qt 6.7.2**. Among the many changes included in Plasma 6.1, is that you can now start up a remote desktop directly from the System Settings app, once enabled, you can connect to the remote desktop using a client such as KRDC. For customizing the visual aspect of Edit Mode has been overhauled and you will now see a slick animation when you activate it. The entire desktop zooms out smoothly, giving you a better overview of what is going on and allowing you to make your changes with ease. On Wayland now has a feature that *remembers* what you were doing in your last session like it did under X11.
+For the Plasma desktop, the latest Plasma (6.2.2), KDE Gear (24.08.2), and Frameworks (6.7.0) are included. All built on **Qt 6.8.0**. Among the many changes included in Plasma 6.2, is that you can now start up a remote desktop directly from the System Settings app, once enabled, you can connect to the remote desktop using a client such as KRDC. For customizing the visual aspect of Edit Mode has been overhauled and you will now see a slick animation when you activate it. The entire desktop zooms out smoothly, giving you a better overview of what is going on and allowing you to make your changes with ease. On Wayland now has a feature that *remembers* what you were doing in your last session like it did under X11.
 
 More application are now ready to use Qt6 and Frameworks 6 including, the big one now being Calligra.  Since Calligra is again actively maintained and developed, it has moved back to being the default office suite for KaOS.  The installer gives anyone the option though to select LibreOffice instead of Calligra.
 
@@ -53,7 +53,7 @@ New for this ISO  is to no longer include the kernel modesetting for all graphic
 
 Four years after being end of life, GTK2 is finally removed from the KaOS repositories.  The one major application left that had still required GTK2 was Ardour, but with 8.4.0, an internal YTK is used, thus GTK2 is now gone.
 
-Updates to the base of the system included a move to Boost 1.85.0/ICU 75.1 stack, Ruby 3.3.5, Perl 5.38, kernel moved to Linux 6.10.5, Systemd 253.24, ZFS 2.2.6, KMod 33, OpenSSL 3.3, FFMPEG 6.1, OpenJDK 17 and Mesa 24.2.2.
+Updates to the base of the system included a new GCC 14.2.0/Glibc 2.40/Binutils 2.43.1 based toolchain, updated Glib2 2.82 stack, Ruby 3.3.5, Perl 5.38, kernel moved to Linux 6.11.5, Systemd 253.26, ZFS 2.2.6, KMod 33, OpenSSL 3.4, FFMPEG 6.1, OpenJDK 17 and Mesa 24.2.5.
 
 Among the new packages included is **Zed**, a Rust based code editor.
 
@@ -88,12 +88,12 @@ To learn more about the goals and ideas behind KaOS, please read the **https://k
 
 To avoid any misunderstanding and confusion, KaOS is **not based upon, derived of, or inspired by** any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see **https://kaosx.us/about/based/**. A **rolling release distribution** never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:
 
-The ISO ships with **Frameworks 6.5.0, Plasma 6.1.4, KDE Applications 24.08.0**, Linux 6.10.5, Systemd 253.24, Kmod 33, NetworkManager 1.48.10, Calligra 4.0.1, Elisa, Xorg-Server 1.21.13, Mesa 24.2.2, Glibc 2.39, GCC 13.2.1, non-free Nvidia 560 and Python3 3.11.9 to name a few.
+The ISO ships with **Frameworks 6.7.0, Plasma 6.2.2, KDE Applications 24.08.2**, Linux 6.11.5, Systemd 253.26, Kmod 33, NetworkManager 1.50.0, Calligra 4.0.1, Elisa, Xorg-Server 1.21.13, Mesa 24.2.5, Glibc 2.40, GCC 14.2.0, non-free Nvidia 560 and Python3 3.11.10 to name a few.
 
 The package manager is **Pacman 6.0.2**, with the simple but powerful Octopi 0.16.2 as GUI frontend. Falkon is the default, Qt based, web browser. **GFXboot** is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.
 
-**Repositories** of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200 packages. A gist of what is available, besides the stable kernel there is Linux-next 6.10, LibreOffice 24.8.0, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.  
-A limited number of the most well-known GTK applications are available, for example, Firefox 130, Chrome 130, Ardour 8.6.0, Inkscape 1.3, GIMP 2.99.18 and Thunderbird 128. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
+**Repositories** of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200 packages. A gist of what is available, besides the stable kernel there is Linux-next 6.11, LibreOffice 24.8.2, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.  
+A limited number of the most well-known GTK applications are available, for example, Firefox 131, Chrome 132, Ardour 8.10.0, Inkscape 1.4, GIMP 2.99.18 and Thunderbird 131. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
 
 **Known issues:**
 
