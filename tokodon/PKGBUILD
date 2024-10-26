@@ -4,14 +4,14 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=tokodon
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Mastodon client for Plasma and Plasma Mobile."
 arch=('x86_64')
 url="https://apps.kde.org/tokodon/"
 license=('GPL3')
 depends=('kirigami-addons6' 'ki18n6' 'knotifications6' 'kconfig6' 'kcoreaddons6' 'kcolorscheme' 'kio6'
          'purpose6' 'kdbusaddons6' 'kwindowsystem6' 'kitemmodels6' 'sonnet6' 'qqc2-desktop-style6'
-         'qtkeychain-qt6' 'qt6-svg' 'qt6-websockets' 'qt6-webview' 'mpvqt')
+         'qtkeychain-qt6' 'qt6-svg' 'qt6-websockets' 'qt6-webview' 'mpvqt' 'kunifiedpush')
 makedepends=('extra-cmake-modules')
 source=("https://download.kde.org/stable/applications/${_kdever}/src/${pkgname}-${_kdever}.tar.xz")
 md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)

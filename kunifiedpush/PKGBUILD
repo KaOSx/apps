@@ -1,0 +1,25 @@
+
+pkgname=kunifiedpush
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Allows programs using the Qt library to control volume and react to changes on systems which use PulseAudio.'
+arch=('x86_64')
+url='https://invent.kde.org/libraries/kunifiedpush'
+license=('LGPL')
+depends=('qt6-declarative' 'qt6-websockets' 'kcoreaddons6' 'ki18n6' 'kservice6' 'kcmutils6')
+makedepends=('extra-cmake-modules')
+source=("https://download.kde.org/stable/kunifiedpush/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('2ddeba21306d0307114ec50a2c38159ec62359f9fc6cdd58da30a369fbd550cf')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DBUILD_TESTING=OFF 
+  cmake --build build
+}
+
+package() {
+
+  DESTDIR=${pkgdir} cmake --install build
+}
