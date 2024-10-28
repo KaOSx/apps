@@ -37,25 +37,23 @@ Item {
         antialiasing: true
         activeFocusOnPress: false
         wrapMode: Text.WordWrap
-        text: "## KaOS - 2024.09
+        text: "## KaOS - 2024.11
 
-It is a great pleasure to present to you the October release of a new stable ISO.
+It is a great pleasure to present to you the November release of a new stable ISO.
 
-For the Plasma desktop, the latest Plasma (6.2.2), KDE Gear (24.08.2), and Frameworks (6.7.0) are included. All built on **Qt 6.8.0**. Among the many changes included in Plasma 6.2, is that you can now start up a remote desktop directly from the System Settings app, once enabled, you can connect to the remote desktop using a client such as KRDC. For customizing the visual aspect of Edit Mode has been overhauled and you will now see a slick animation when you activate it. The entire desktop zooms out smoothly, giving you a better overview of what is going on and allowing you to make your changes with ease. On Wayland now has a feature that *remembers* what you were doing in your last session like it did under X11.
+For the Plasma desktop, the latest Plasma (6.2.2), KDE Gear (24.08.2), and Frameworks (6.7.0) are included. All built on **Qt 6.8.0**. Among the many changes included in Plasma 6.2, is a more complete support for the Wayland color management protocol, improved brightness handling for HDR and ICC profiles, a new tone mapping feature built into Plasma’s KWin compositor will help improve the look of images and you can now override misbehaving applications that block the system from going to sleep or locking the screen (and thus prevent saving power).
 
-More application are now ready to use Qt6 and Frameworks 6 including, the big one now being Calligra.  Since Calligra is again actively maintained and developed, it has moved back to being the default office suite for KaOS.  The installer gives anyone the option though to select LibreOffice instead of Calligra.
+More application are now ready to use Qt6 and Frameworks 6 including Freecad, Sqlitebrowser, Cantor, Kalzium, Webacmoid and Liquidshell.
 
 Support has been added for the all new filesystem **bcachefs**, it is still in experimental stage, but is included in the kernel build, and the needed bcachefs-tools are available in the repositories.  Calamares can use bcachefs when used in manual mode, though no specific settings for this filesystem have been implemented yet.
 
 A new Phonon sound backend is added.  So far VLC was used, but there is no Qt6 porting for VLC yet.  Using **phonon-mpv** as default now, gives a fully Qt 6 ready backend.
 
-New for this ISO  is to no longer include the kernel modesetting for all graphics card, thus shaving roughly 700 Mb of the ISO size.
-
 Four years after being end of life, GTK2 is finally removed from the KaOS repositories.  The one major application left that had still required GTK2 was Ardour, but with 8.4.0, an internal YTK is used, thus GTK2 is now gone.
 
-Updates to the base of the system included a new GCC 14.2.0/Glibc 2.40/Binutils 2.43.1 based toolchain, updated Glib2 2.82 stack, Ruby 3.3.5, Perl 5.38, kernel moved to Linux 6.11.5, Systemd 253.26, ZFS 2.2.6, KMod 33, OpenSSL 3.4, FFMPEG 6.1, OpenJDK 17 and Mesa 24.2.5.
+Updates to the base of the system included a new GCC 14.2.0/Glibc 2.40/Binutils 2.43.1 based toolchain, updated Glib2 2.82 stack,OPenEXR 3.3.1, Poppler 24.10.0, kernel moved to Linux 6.11.5, Systemd 253.26, ZFS 2.2.6, KMod 33, OpenSSL 3.4, Botan 3.6.1, Protobuf 28.3 and Mesa 24.2.5.
 
-Among the new packages included is **Zed**, a Rust based code editor.
+Among the new packages included is **Harper**, an open source grammer & spellchecker.
 
 SDDM 0.20.0 added the option to run this display manager in Wayland mode, so KaOS is one step closer to being ready to move away from X11. The shell used to run in Wayland mode is kwin_wayland (upstream default is using Weston).  **Wayland is the default for SDDM with the move to 0.21.0.**
 
