@@ -167,8 +167,8 @@ build() {
 	cd ${srcdir}/libreoffice-$_LOver
 	# Java build failure, patch from Crux
 	#patch -p0 -i ${srcdir}/optjava.patch
-	# kf6 needed
-	#patch -p1 -i ${srcdir}/libreoffice-24.2-kf6-buildfix.patch
+	# poppler 24.10 needed
+	patch -p1 -i ${srcdir}/poppler.diff
 
 	# move external sources into place
 	mkdir ${srcdir}/ext_sources &&	pushd ${srcdir}/ext_sources
