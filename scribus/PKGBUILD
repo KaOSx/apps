@@ -3,7 +3,7 @@ pkgname=scribus
 _pkgname=Scribus
 _commit=6ca89802bd3af5fd9f93f00b75234c4bce639275
 pkgver=1.6.2
-pkgrel=6
+pkgrel=7
 pkgdesc="A desktop publishing program"
 arch=('x86_64')
 url="https://www.scribus.net"
@@ -37,6 +37,7 @@ build() {
 	   -DCMAKE_SKIP_RPATH=ON \
 	   -DWANT_GRAPHICSMAGICK=1 \
 	   -DWANT_CPP20=ON \
+	   -DWANT_HEADERINSTALL=OFF \
 	   -DLIB_SUFFIX=""
 	cmake --build build
 }

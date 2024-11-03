@@ -4,7 +4,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kpmcore
 pkgver=${_kdever}
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for managing partitions. Common code for KDE Partition Manager and other projects."
 arch=('x86_64')
 url="https://invent.kde.org/system/kpmcore"
@@ -23,7 +23,7 @@ md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`
 prepare() {
   cd ${pkgname}-${pkgver}
 
-  patch -R -p1 -i ${srcdir}/7f304be3e42b7efb72f990eacf2fa3d7640ffa23.diff
+  #patch -R -p1 -i ${srcdir}/7f304be3e42b7efb72f990eacf2fa3d7640ffa23.diff
 
 }
 

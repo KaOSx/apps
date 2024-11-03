@@ -1,7 +1,7 @@
 
 pkgname=calamares
 pkgver=3.3.10
-pkgrel=2
+pkgrel=3
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://calamares.io/'
@@ -15,18 +15,20 @@ source=("git+https://github.com/KaOSx/calamares.git"
         'calamares.desktop'
         'installer.svg'
         'launch-calamares.sh'
-        'release_notes_welcomeq.qml')
+        'release_notes_welcomeq.qml'
+        "https://github.com/calamares/calamares/commit/51c773c3f96170e5548ff6ecc4679be6d272e5a6.diff")
 md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
          'd5c65f43e057054e9728810530c4a030'
          '3940358b12a14ce9302c0611cdad8cab'
-         '86edaca66c36d91493aceeda0d343dc5')
+         '3181d8efdb46ebf27822a77e0f40c2ed'
+         'c0d8de5fa49690e12fbbe975c9087196')
 
 prepare () {
   cd ${pkgname}
 
   #sed -e "s|add_subdirectory(lang)|#add_subdirectory(lang)|" -i CMakeLists.txt
-  #patch -R -p1 -i ${srcdir}/79db04dc2eb00b354044f73c054a94fe2b9f9aae.diff
+  patch -p1 -i ${srcdir}/51c773c3f96170e5548ff6ecc4679be6d272e5a6.diff
 }
 
 build() {
