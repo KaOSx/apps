@@ -1,8 +1,8 @@
 
-# https://github.com/LadybirdBrowser/ladybird/blob/master/Toolchain/BuildVcpkg.sh for needed vcpkg checkout
+# https://github.com/LadybirdBrowser/ladybird/blob/master/Toolchain/BuildVcpkg.py for needed vcpkg checkout
 pkgname=ladybird
 pkgver=0.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Truly independent web browser, using a novel engine based on web standards.'
 arch=('x86_64')
 url='https://ladybird.org/'
@@ -10,7 +10,7 @@ license=('BSD')
 depends=('ffmpeg' 'harfbuzz' 'libglvnd' 'qt6-tools' 'qt6-wayland' 'qt6-multimedia' 'ttf-liberation')
 makedepends=('cmake' 'ninja' 'unzip' 'zip' 'nasm')
 source=("git+https://github.com/LadybirdBrowser/ladybird"
-        "git+https://github.com/microsoft/vcpkg.git#commit=a39a74405f277773aba08018bb797cb4a6614d0c"
+        "git+https://github.com/microsoft/vcpkg.git#commit=2960d7d80e8d09c84ae8abf15c12196c2ca7d39a"
         'ladybird.desktop')
 sha256sums=('SKIP'
             'SKIP'
@@ -27,6 +27,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DCMAKE_TOOLCHAIN_FILE="${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" \
+    -DENABLE_INSTALL_HEADERS=OFF \
     -GNinja 
   ninja -C build
 }
