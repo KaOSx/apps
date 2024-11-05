@@ -5,8 +5,8 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=marble
 pkgver=${_kdever}
-_commit=30d944aea72778915320e2f2e07090244802f3e8
-pkgrel=2
+_commit=62eb078a67c99c8bea2e00e3dfa72aee233ff6cb
+pkgrel=1
 pkgdesc="Virtual Globe and World Atlas that you can use to learn more about the Earth."
 arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
@@ -18,7 +18,7 @@ options=('!emptydirs')
 #source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
 #md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 source=("https://invent.kde.org/education/marble/-/archive/${_commit}/marble-${_commit}.tar.bz2")
-md5sums=('47224b4dea222a3a53c2c14768d6b980')
+md5sums=('9d41d17419e1f71f1f072adb23e085c6')
 
 prepare() {
   cd ${pkgname}-${_commit}
