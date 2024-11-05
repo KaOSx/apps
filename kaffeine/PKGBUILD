@@ -1,8 +1,8 @@
 
 pkgname=kaffeine
 pkgver=2.0.18
-_commit=c33b0cba4750ee07b1be258f3db2c18ec91ae13a
-pkgrel=4
+_commit=a44b0786c6606e49740ebefbcf4a352619614e32
+pkgrel=5
 pkgdesc='Media player with support for digital television (DVB-C/S/S2/T, ATSC, CI/CAM)'
 license=('GPL')
 arch=('x86_64')
@@ -12,15 +12,13 @@ depends=('kcoreaddons6' 'kdbusaddons6' 'ki18n6' 'solid6' 'kio6'
 makedepends=('extra-cmake-modules' 'kdoctools6') 
 groups=('multimedia')
 #source=("https://download.kde.org/stable/kaffeine/${pkgname}-${_pkgver}.tar.xz"
-source=("https://invent.kde.org/tobijk/kaffeine/-/archive/${_commit}/kaffeine-${_commit}.tar.bz2"
-        "https://github.com/KDE/kaffeine/commit/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff")
-sha256sums=('9103c2dd41c3d00ca4ca27a62e7363f07c692de203a5afc3e509a8d95413d92e'
-            '146e504d48ef26fa4bb04c0f724b4a473ebd46fd5847d7432f68f7a7fdfeb8ce')
+source=("https://invent.kde.org/multimedia/kaffeine/-/archive/${_commit}/kaffeine-${_commit}.tar.bz2")
+sha256sums=('06b8e2acc6faf025c2d5c5fb76920d8d9fb93b7a856caacf57c0c19aa3b0de9c')
 
 prepare() {
   cd ${pkgname}-${_commit}
   #patch -p1 -i ${srcdir}/2dbc752d644440f963bad172cf3ec83dc681ec7f.diff
-  sed -i 's|#include <X11/extensions/scrnsaver.h>||' src/mediawidget.cpp
+  #sed -i 's|#include <X11/extensions/scrnsaver.h>||' src/mediawidget.cpp
   #rm -r po/pt_BR/docs 
 }
 
