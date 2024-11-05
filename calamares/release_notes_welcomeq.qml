@@ -39,16 +39,16 @@ Item {
         wrapMode: Text.WordWrap
         text: "## KaOS - 2024.11
 
-It is a great pleasure to present to you the November release of a new stable ISO.
+KaOS is pleased to announce the availability of the November release of a new stable ISO.
 
-For the Plasma desktop, the latest Plasma (6.2.3), KDE Gear (24.08.2), and Frameworks (6.8.0) are included. All built on **Qt 6.8.0**. Among the many changes included in Plasma 6.2, is a more complete support for the Wayland color management protocol, improved brightness handling for HDR and ICC profiles, a new tone mapping feature built into Plasma’s KWin compositor will help improve the look of images and you can now override misbehaving applications that block the system from going to sleep or locking the screen (and thus prevent saving power).
+For the Plasma desktop, the latest Plasma (6.2.3), KDE Gear (24.08.3), and Frameworks (6.8.0) are included. All built on **Qt 6.8.0**. Among the many changes included in Plasma 6.2, is a more complete support for the Wayland color management protocol, improved brightness handling for HDR and ICC profiles, a new tone mapping feature built into Plasma’s KWin compositor will help improve the look of images and you can now override misbehaving applications that block the system from going to sleep or locking the screen (and thus prevent saving power).
 
 More application are now ready to use Qt6 and Frameworks 6 including Freecad, Sqlitebrowser, Cantor, Kalzium, Webacmoid and Liquidshell.
 
 Not directly ISO related, but needing a News mention anyway is the complete overhaul of the KaOS website.  After almost nine years of using the same, Jekyll based website, it was time for an update/upgrade.  A much newer and very active developed framework is now used.  The new site is Astro.js based.  
 New are a light and dark mode option, responsiveness is much improved, Lighthouse score is way better and the documentation has it's own layout.
 
-Updates to the base of the system included a new GCC 14.2.0/Glibc 2.40/Binutils 2.43.1 based toolchain, updated Glib2 2.82 stack, OPenEXR 3.3.1, Poppler 24.11.0, kernel moved to Linux 6.11.6, Systemd 253.26, ZFS 2.2.6, KMod 33, OpenSSL 3.4, Botan 3.6.1, Protobuf 28.3 and Mesa 24.2.6.
+Updates to the base of the system were numerous and included a new GCC 14.2.0/Glibc 2.40/Binutils 2.43.1 based toolchain, updated Glib2 2.82 stack, LLVM/Clang 19.1.3 , Poppler 24.11.0, kernel moved to Linux 6.11.6, Systemd 253.26, ZFS 2.2.6, KMod 33, OpenSSL 3.4, Botan 3.6.1, Protobuf 28.3 and Mesa 24.2.6.
 
 Among the new packages included is **Harper**, an open source grammer & spellchecker.
 
@@ -89,12 +89,12 @@ To learn more about the goals and ideas behind KaOS, please read the **https://k
 
 To avoid any misunderstanding and confusion, KaOS is **not based upon, derived of, or inspired by** any one particular distribution. It is completely independent, build entirely from scratch with its own repositories. To read more about this see **https://kaosx.us/about/based/**. A **rolling release distribution** never has a final release, every ISO is merely a snapshot of the current status of the repositories. An idea what is currently available:
 
-The ISO ships with **Frameworks 6.8.0, Plasma 6.2.3, KDE Applications 24.08.2**, Linux 6.11.6, Systemd 253.26, Kmod 33, NetworkManager 1.50.0, Calligra 4.0.1, Elisa, Xorg-Server 1.21.14, Mesa 24.2.6, Glibc 2.40, GCC 14.2.0, non-free Nvidia 560 and Python3 3.11.10 to name a few.
+The ISO ships with **Frameworks 6.8.0, Plasma 6.2.3, KDE Applications 24.08.3**, Linux 6.11.6, Systemd 253.26, Kmod 33, NetworkManager 1.50.0, Calligra 4.0.1, Elisa, Xorg-Server 1.21.14, Mesa 24.2.6, Glibc 2.40, GCC 14.2.0, non-free Nvidia 560 and Python3 3.11.10 to name a few.
 
 The package manager is **Pacman 6.0.2**, with the simple but powerful Octopi 0.16.2 as GUI frontend. Falkon is the default, Qt based, web browser. **GFXboot** is included with KaOS artwork, Grub theme is Midna, Look &amp; Feel is a KaOS exclusive version Midna.
 
 **Repositories** of KaOS will stay limited in size and expect it to stay at the current maximum of about 2100-2200 packages. A gist of what is available, besides the stable kernel there is Linux-next 6.11, LibreOffice 24.8.3, VLC, Vokoscreen, Blender, Kodi, Calibre, Sigil, Vulkan packages, a few games like 0ad and Knights.  
-A limited number of the most well-known GTK applications are available, for example, Firefox 131, Chrome 132, Ardour 8.10.0, Inkscape 1.4, GIMP 2.99.18 and Thunderbird 131. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
+A limited number of the most well-known GTK applications are available, for example, Firefox 132, Chrome 132, Ardour 8.10.0, Inkscape 1.4, GIMP 2.99.18 and Thunderbird 132. Complete language packs are available for KDE, Calligra, Firefox, LibreOffice and Thunderbird. For IM, Fcitx 4.2.9.9 is available as a rather complete group.
 
 **Known issues:**
 
