@@ -12,7 +12,7 @@ arch=('x86_64')
 url="https://projects.kde.org/projects/kde/kdeedu/marble/"
 license=('LGPL')
 depends=('gpsd' 'phonon-qt6' 'qt6-svg' 'qt6-tools' 'shapelib' 'qt6-webengine' 'qt6-serialport'
-         'qt6-5compat' 'protobuf' 'kwallet6' 'knewstuff6' 'kparts6' 'kio6' 'libplasma' 'kcrash6' 'kcoreaddons6' 'ki18n6')
+         'qt6-5compat' 'protobuf' 'kwallet6' 'knewstuff6' 'kparts6' 'kio6' 'libplasma' 'kcrash6' 'kcoreaddons6' 'ki18n6' 'krunner6')
 makedepends=('extra-cmake-modules' 'kdoctools6')
 options=('!emptydirs')
 #source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
@@ -32,7 +32,6 @@ build() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DBUILD_MARBLE_TOOLS=OFF \
-    -DBUILD_MARBLE_TESTS=NO \
     -DBUILD_MARBLE_EXAMPLES=ON \
     -DMOBILE=OFF \
     -DBUILD_MARBLE_APPS=YES \
