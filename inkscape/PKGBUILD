@@ -2,7 +2,7 @@
 pkgname=inkscape
 pkgver=1.4
 _commit=2024-10-09_e7c3feb100
-pkgrel=2
+pkgrel=3
 pkgdesc="A vector-based drawing program - svg compliant"
 url="https://inkscape.org/en/"
 arch=('x86_64')
@@ -10,19 +10,22 @@ license=('GPL' 'LGPL')
 depends=('graphicsmagick' 'aspell' 'gc' 'gtkmm3' 'libxslt' 'gsl'
          'desktop-file-utils' 'hicolor-icon-theme' 'python3-lxml' 'python3-numpy'
          'libwpg' 'libvisio' 'libwpd' 'potrace' 'python3' 'dbus-glib' 'double-conversion'
-         'libsoup' 'gdl' 'libcdr') # 'poppler')
+         'libsoup' 'gdl' 'libcdr' 'poppler' 'python3-tinycss2')
 makedepends=('boost' 'pkg-config' 'intltool')
 options=('!libtool')
 source=("https://media.inkscape.org/dl/resources/file/${pkgname}-${pkgver}.tar.xz"
-        "https://gitlab.com/inkscape/inkscape/-/commit//694d8ae43d06efff21adebf377ce614d660b24cd.diff")
+        "https://gitlab.com/inkscape/inkscape/-/commit/22304ae8034d067670a9f95022083a75fac92b4c.diff"
+        "https://gitlab.com/inkscape/inkscape/-/commit/0399372ec240d23e0e70548237a541f2b5bf0f34.diff")
 #source=("https://inkscape.org/en/gallery/item/10682/inkscape-${pkgver}.tar.bz2")
 sha256sums=('c59a85453b699addebcd51c1dc07684dd96a10c8aec716b19551db50562e13f5'
-            'c2b6f4e74883e7f6f74283d9cf70997a344159c1e5cb9022237d14936efb3683')
+            '2b6e576ccf062ea0ed724c38c6bd5d0f1001645c08d8a7d731cc124a74054410'
+            'edf797ab5e1e14216ce25a44b16f679d138179ed802dba23fe9dd7137f8c5afd')
 
 prepare() {
   cd ${pkgname}-${pkgver}_${_commit}
-  # poppler 24.05 needed
-  #patch -p1 -i ${srcdir}/96ca7a6c215aa14336b52753f56244dc8796ec43.diff
+  # poppler 24.10 & 11 needed
+  patch -p1 -i ${srcdir}/22304ae8034d067670a9f95022083a75fac92b4c.diff
+  patch -p1 -i ${srcdir}/0399372ec240d23e0e70548237a541f2b5bf0f34.diff
 }
 
 build() {
@@ -30,7 +33,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DWITH_LIBCDR=ON \
-    -DENABLE_POPPLER=OFF
+    -DENABLE_POPPLER=ON
   cmake --build build
 }
 
