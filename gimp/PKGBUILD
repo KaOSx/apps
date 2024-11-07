@@ -1,8 +1,9 @@
 
 pkgname=gimp
-pkgver=2.99.18
-_pkgver=2.99
-pkgrel=6
+pkgver=3.0.0RC1
+__pkgver=3.0.0-RC1
+_pkgver=3.0
+pkgrel=1
 pkgdesc="GNU Image Manipulation Program"
 arch=('x86_64')
 url="https://www.gimp.org/"
@@ -13,33 +14,33 @@ depends=('poppler' 'lcms2' 'libxpm' 'librsvg' 'libmng' 'libgudev' 'dbus-glib' 'l
          'appstream-glib' 'gtk3' 'jpeg-xl' 'libheif' 'libarchive')
 makedepends=('intltool' 'iso-codes' 'meson' 'ninja' 'python3-gobject3' 'python3-packaging')
 options=('!libtool' '!makeflags')
-source=("https://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${pkgver}.tar.xz"
+source=("https://download.gimp.org/pub/gimp/v${_pkgver}/gimp-${__pkgver}.tar.xz"
 #source=("https://github.com/GNOME/gimp/archive/${_commit}.zip"
         'linux.gpl'
         'Adwaita.tar.gz'
         "https://gitlab.gnome.org/GNOME/gimp/-/commit/11892f1d83ffc465346dab7e2e8c6e790f555a64.patch")
-sha256sums=('8c1bb7a94ac0d4d0cde4d701d8b356387c2ecd87abbd35bbf7d222d40f6ddb6e'
+sha256sums=('b3d0b264c5e38e789faaf3417003397f3240014c59c7f417f9ca3bd39c5ffb66'
             '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3'
             '4e23495f95c9716061b7daa31135d0a964ae0950e118d33b65d67aea988bea58'
             'daeddaae0b5634f953189f4a479cc335c1516e7d490e6bf95f7be8e21835db3e')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${__pkgver}
 
   sed -i -e 's|mypaint-brushes-1.0|mypaint-brushes-2.0|' meson.build
-  patch -p1 -i ${srcdir}/11892f1d83ffc465346dab7e2e8c6e790f555a64.patch
+  #patch -p1 -i ${srcdir}/11892f1d83ffc465346dab7e2e8c6e790f555a64.patch
 }
 
 build() {
   mkdir -p build
   cd build
 
-  meson setup ../${pkgname}-${pkgver} \
+  meson setup ../${pkgname}-${__pkgver} \
     --prefix=/usr \
     --buildtype=release \
     --libexecdir=/usr/lib \
     -Djavascript=disabled \
-    -Dlua=disabled \
+    -Dlua=false \
     -Dbug-report-url=https://kaosx.us/bugs/
   ninja
 }
@@ -48,7 +49,7 @@ package() {
   cd build
   DESTDIR=${pkgdir} ninja install
 
-  install -D -m644 ${srcdir}/linux.gpl ${pkgdir}/usr/share/gimp/2.99/palettes/Linux.gpl
+  install -D -m644 ${srcdir}/linux.gpl ${pkgdir}/usr/share/gimp/3.0/palettes/Linux.gpl
 
   ln -sf gimp-console-${pkgver}.1.gz ${pkgdir}/usr/share/man/man1/gimp-console.1.gz
   ln -sf gimprc-${pkgver}.5.gz ${pkgdir}/usr/share/man/man5/gimprc.5.gz
