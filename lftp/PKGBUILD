@@ -1,8 +1,8 @@
 
 pkgname=lftp
-pkgver=4.9.2
-_pkgver=4.9.2
-pkgrel=5
+pkgver=4.9.3
+_pkgver=4.9.3
+pkgrel=1
 pkgdesc="Sophisticated command line based FTP client with openssl"
 arch=('x86_64')
 url="https://lftp.yar.ru/"
@@ -10,8 +10,9 @@ license=('GPL3')
 depends=('gcc-libs' 'readline' 'gnutls' 'expat' 'perl' 'sh' 'libidn2')
 makedepends=('autoconf')
 categories=('network')
-source=("https://lftp.yar.ru/ftp/${pkgname}-${_pkgver}.tar.xz")
-md5sums=('b3a272ecb7a2b60e3827776f90ffb2f3')
+#source=("https://lftp.yar.ru/ftp/${pkgname}-${_pkgver}.tar.xz")
+source=("https://github.com/lavv17/lftp/releases/download/v${_pkgver}/lftp-${_pkgver}.tar.gz")
+md5sums=('4750d08446e832ddcbd81a4dbb600e9b')
 
 build() {
   cd ${pkgname}-${_pkgver}
@@ -28,5 +29,5 @@ package() {
   cd ${pkgname}-${_pkgver}
   make DESTDIR=${pkgdir} install
 
-  rm -rf ${pkgdir}/usr/lib
+  #rm -rf ${pkgdir}/usr/lib
 }
