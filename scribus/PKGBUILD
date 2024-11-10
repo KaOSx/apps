@@ -1,7 +1,7 @@
 
 pkgname=scribus
 _pkgname=Scribus
-_commit=1263cea32d96a2b3371e971fee8662cbec9a5426
+_commit=fd03f995090cff513a604b847dd63d5049cc14b8
 pkgver=1.6.2
 pkgrel=7
 pkgdesc="A desktop publishing program"
@@ -15,15 +15,15 @@ makedepends=('cmake' 'boost' 'qt6-tools')
 groups=('office')
 options=('!libtool' '!makeflags')
 #source=("https://sourceforge.net/projects/scribus/files/scribus/${pkgver}/${pkgname}-${pkgver}.tar.xz"
-source=("https://codeberg.org/Scribus/scribus/archive/${_commit}.tar.gz"
+source=("https://github.com/scribusproject/scribus/archive/${_commit}.zip"
          "https://github.com/scribusproject/scribus/pull/177/commits/dc2470990ab73c87fdd60068c99518ced01a3edd.diff"
          'poppler-22.09.patch')
-sha256sums=('205f6f7e20d5aa1163b0ab323463b1df36a7a98ed9100e9fd32fe7a65b1f11fa'
+sha256sums=('5358fbc665663e60c3ec6757acb42555d1a91e2f66a00d0e1a0acaba89969d3e'
             '0c615b740d174d503f459182b00a93703d592ced860158e15812bb22d965e13d'
             'b4bde3e84587252dbfd3a2f310de076929565e2d67898656fbe31f83f10410cf')
 
 prepare() {
-  cd ${pkgname}
+  cd ${pkgname}-${_commit}
 
   #sed -e 's|WANT_CPP17|WANT_CPP20|g' -e 's|CMAKE_CXX_STANDARD 17|CMAKE_CXX_STANDARD 20|g' -i CMakeLists.txt
   # poppler 24.03
@@ -31,7 +31,7 @@ prepare() {
 }
 
 build() {
-	cmake -B build -S ${pkgname} \
+	cmake -B build -S ${pkgname}-${_commit} \
 	   -DCMAKE_INSTALL_PREFIX=/usr \
 	   -DCMAKE_BUILD_TYPE=Release \
 	   -DCMAKE_SKIP_RPATH=ON \
