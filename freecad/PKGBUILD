@@ -1,9 +1,9 @@
 
 pkgname=freecad
 _pkgname=FreeCAD
-pkgver=1.0rc2
+pkgver=1.0rc3
 _commit=7b5e18a0759de778b74d3a5c17eba9cb815035ac
-pkgrel=3
+pkgrel=1
 pkgdesc='A general purpose 3D CAD modeler'
 arch=('x86_64')
 url='https://www.freecadweb.org/'
@@ -36,7 +36,7 @@ prepare() {
   #patch -p1 -i ${srcdir}/freecad-0.19.2-0007-fix-build-failure-with-opencascade-7.5.2.patch
   sed -i -e 's|# include <Standard_TooManyUsers.hxx>||' src/Mod/Part/App/OCCError.h
   # boost 1.85 needed
-  patch -p1 -i ${srcdir}/6e2cd4e73303f817e4bf5e908abe39030b7c5fb3.diff
+  #patch -p1 -i ${srcdir}/6e2cd4e73303f817e4bf5e908abe39030b7c5fb3.diff
   #patch -p1 -i ${srcdir}/aa54ba73df4d42878130c99688be35acf10725a0.diff
   #patch -p1 -i ${srcdir}/91457bbdee2422c7f0372688cf72d021cf222073.diff
 }
