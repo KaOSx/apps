@@ -5,7 +5,6 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=marble
 pkgver=${_kdever}
-_commit=62eb078a67c99c8bea2e00e3dfa72aee233ff6cb
 pkgrel=1
 pkgdesc="Virtual Globe and World Atlas that you can use to learn more about the Earth."
 arch=('x86_64')
@@ -15,27 +14,24 @@ depends=('gpsd' 'phonon-qt6' 'qt6-svg' 'qt6-tools' 'shapelib' 'qt6-webengine' 'q
          'qt6-5compat' 'protobuf' 'kwallet6' 'knewstuff6' 'kparts6' 'kio6' 'libplasma' 'kcrash6' 'kcoreaddons6' 'ki18n6' 'krunner6')
 makedepends=('extra-cmake-modules' 'kdoctools6')
 options=('!emptydirs')
-#source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://invent.kde.org/education/marble/-/archive/${_commit}/marble-${_commit}.tar.bz2")
-md5sums=('9d41d17419e1f71f1f072adb23e085c6')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 prepare() {
-  cd ${pkgname}-${_commit}
+  cd ${pkgname}-${pkgver}
 
   #patch -p1 -i ${srcdir}/qml.diff
 }
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DBUILD_MARBLE_TOOLS=OFF \
     -DBUILD_MARBLE_EXAMPLES=ON \
     -DMOBILE=OFF \
-    -DBUILD_MARBLE_APPS=YES \
-    -DQT_MAJOR_VERSION=6
+    -DBUILD_MARBLE_APPS=YES
   cmake --build build
 }
 

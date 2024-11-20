@@ -5,8 +5,7 @@ source ../_buildscripts/${current_repo}-${_arch}-cfg.conf
 
 pkgname=kwave
 pkgver=${_kdever}
-_commit=e1273b57f0531a594c0d042ad7eb2749b7e440f6
-pkgrel=2
+pkgrel=1
 pkgdesc="Sound editor designed for the Plasma Desktop Environment"
 arch=('x86_64')
 url="https://apps.kde.org/kwave/"
@@ -16,13 +15,11 @@ depends=('karchive6' 'kcompletion6' 'kconfig6' 'kconfigwidgets6' 'kcoreaddons6' 
          'pulseaudio' 'flac' 'fftw' 'libvorbis' 'libsamplerate' 'opus' 'qt6-multimedia' 'audiofile') # for mp3 support: 'libmad' 'id3lib'
 makedepends=('extra-cmake-modules' 'kdoctools6')
 options=('!libtool')
-#source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
-#md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
-source=("https://invent.kde.org/multimedia/kwave/-/archive/${_commit}/kwave-${_commit}.tar.bz2")
-md5sums=('1620f4d5f9c3264f946b9ca31106a898')
+source=("$_mirror/${pkgname}-${_kdever}.tar.xz")
+md5sums=(`grep ${pkgname}-${_kdever}.tar.xz ../kde-sc.md5 | cut -d" " -f1`)
 
 build() {
-  cmake -B build -S ${pkgname}-${_commit} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DKDE_INSTALL_LIBDIR=/usr/lib \
     -DCMAKE_BUILD_TYPE=Release \
