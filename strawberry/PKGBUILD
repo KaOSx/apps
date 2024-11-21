@@ -1,6 +1,6 @@
 
 pkgname=strawberry
-pkgver=1.1.3
+pkgver=1.2.1
 _commit=3ca0c828c61e5fe179b4bc921589b4c67cac770d
 pkgrel=2
 pkgdesc="Music player and music collection organizer, fork of Clementine"
@@ -14,7 +14,7 @@ makedepends=('cmake' 'boost' 'qt6-tools')
 groups=('multimedia')
 source=("https://github.com/strawberrymusicplayer/strawberry/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
 #source=("https://github.com/strawberrymusicplayer/strawberry/archive/${_commit}.zip")
-sha256sums=('cc133169f03f7b966074023eef105028e334d3dad8a066adbe8e6bdc7c1ab8dd')
+sha256sums=('70f6e4e5288711eaffc2df13bb3a6b4e27ad9736328e8d665bd0ceca7ee1bafe')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -27,7 +27,6 @@ build() {
   cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_WITH_QT6=ON \
     -DINSTALL_TRANSLATIONS=ON
   cmake --build build
 }
