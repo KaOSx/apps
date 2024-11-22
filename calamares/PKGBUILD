@@ -1,7 +1,7 @@
 
 pkgname=calamares
-pkgver=3.3.11
-pkgrel=2
+pkgver=3.3.12
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 url='https://calamares.io/'
@@ -21,14 +21,14 @@ md5sums=('SKIP'
          '663fce16ac08b3149516e6a0d2797f65'
          'd5c65f43e057054e9728810530c4a030'
          '3940358b12a14ce9302c0611cdad8cab'
-         'f9428470eb6dbac283c0a5c3a5ee13c2'
+         '90698d70cc3013af6a7c5826f7168aef'
          'c0d8de5fa49690e12fbbe975c9087196')
 
 prepare () {
   cd ${pkgname}
 
   #sed -e "s|add_subdirectory(lang)|#add_subdirectory(lang)|" -i CMakeLists.txt
-  patch -p1 -i ${srcdir}/51c773c3f96170e5548ff6ecc4679be6d272e5a6.diff
+  #patch -p1 -i ${srcdir}/51c773c3f96170e5548ff6ecc4679be6d272e5a6.diff
 }
 
 build() {
