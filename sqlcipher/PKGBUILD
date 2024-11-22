@@ -1,7 +1,7 @@
 
 pkgname=sqlcipher
 pkgver=4.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="SQLite extension that provides transparent 256-bit AES encryption of database files"
 arch=('x86_64')
 url="https://www.zetetic.net/sqlcipher/"
@@ -13,9 +13,18 @@ md5sums=('2651f450cc41fdb9d853770da0f2d96a')
 
 build() {
   cd ${pkgname}-${pkgver}
+  export CFLAGS="$CFLAGS -DSQLITE_HAS_CODEC -DSQLITE_ENABLE_COLUMN_METADATA"
+  export LDFLAGS="-lcrypto" 
 
-    ./configure --prefix=/usr --enable-tempstore=yes CFLAGS="$CFLAGS -DSQLITE_HAS_CODEC " \
-    LDFLAGS="-lcrypto" 
+    ./configure --prefix=/usr \
+      --enable-tempstore=yes \
+      --enable-fts3 \
+      --enable-fts4 \
+      --enable-fts5 \
+      --enable-geopoly \
+      --enable-memsys5 \
+      --enable-rtree \
+      --enable-session
   make
 }
 
@@ -24,4 +33,4 @@ package() {
   make DESTDIR=${pkgdir} install
 
   install -D -m 0644 LICENSE.md ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md
-} 
+}
