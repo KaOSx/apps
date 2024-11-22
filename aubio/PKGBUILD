@@ -1,30 +1,33 @@
 
 pkgname=aubio
 pkgver=0.4.9
-pkgrel=7
+_commit=152d6819b360c2e7b379ee3f373d444ab3df0895
+pkgrel=8
 pkgdesc="Tool designed for the extraction of annotations from audio signals"
 arch=('x86_64')
 url="https://aubio.org/"
 license=('GPL3')
 depends=('ffmpeg' 'fftw' 'jack' 'python3-numpy')
 makedepends=('python3-build' 'python3-installer' 'python3-setuptools' 'python3-wheel')
-source=("https://aubio.org/pub/${pkgname}-${pkgver}.tar.bz2"
+#source=("https://aubio.org/pub/${pkgname}-${pkgver}.tar.bz2"
+source=("https://github.com/aubio/aubio/archive/${_commit}.zip"
         "https://github.com/aubio/aubio/commit/8a05420e5dd8c7b8b2447f82dc919765876511b3.diff"
         'waf-2.0.27')
-md5sums=('50c9c63b15a2692378af5d602892f16a'
+md5sums=('81ed069e971f1001629d736030a3dd2e'
          '3f803778641b43f08e9363638821b337'
          '4aad2fd8aef3dd9c4430d17273366fb0')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  patch -p1 -i ${srcdir}/8a05420e5dd8c7b8b2447f82dc919765876511b3.diff
-  rm waf
-  rm -rv waflib
+  cd ${pkgname}-${_commit}
+  #patch -p1 -i ${srcdir}/8a05420e5dd8c7b8b2447f82dc919765876511b3.diff
+  #rm waf
+  #rm -rv waflib
   cp ${srcdir}/waf-2.0.27 waf
   chmod +x waf
+  sed -e "/bld.*tests/d" -i wscript
 
   ./waf configure --prefix=/usr \
-    --alltests \
+    --disable-tests \
     --enable-fftw3 \
     --libdir=/usr/lib
   ./waf build
@@ -32,7 +35,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${_commit}
 
   ./waf --destdir=${pkgdir} install
   python3 -m installer --destdir=${pkgdir} dist/*.whl
