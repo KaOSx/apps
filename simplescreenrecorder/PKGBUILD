@@ -1,29 +1,30 @@
  
 pkgname=simplescreenrecorder
 pkgver=0.4.4
-pkgrel=3
-_commit=65975c6
+pkgrel=4
+_commit=4f4a57a720b1cb4541d12430725f1d3eedd9a68d
 pkgdesc="Screen recorder that is actually quite complex, but 'simple' in the sense that it's easy to use"
 arch=('x86_64')
 url="https://www.maartenbaert.be/simplescreenrecorder/"
 license=("GPL3")
 depends=('qt5-x11extras' 'ffmpeg' 'alsa-lib' 'pulseaudio' 'jack2' 'libgl' 'glu' 'libx11' 'libxext' 
-         'libxfixes' 'libxi')
+         'libxfixes' 'libxi' 'pipewire')
 makedepends=('qt5-tools' 'cmake')
 options=('!libtool')
-source=("https://github.com/MaartenBaert/ssr/archive/${pkgver}.tar.gz"
+#source=("https://github.com/MaartenBaert/ssr/archive/${pkgver}.tar.gz"
+source=("https://github.com/MaartenBaert/ssr/archive/${_commit}.zip"
         "https://github.com/MaartenBaert/ssr/commit/f4cbde38021d9330dc73d2e3dfa8a70da3ff5721.diff")
-md5sums=('6360ff633bcb88b0c221d56fd52b7dac'
+md5sums=('fff8495ddff82de21b400729d1af27bf'
          '88714fc0b46b0562c7815c87dca39bc0')
 
 prepare() {
-  cd ssr-${pkgver}
+  cd ssr-${_commit}
   # https://github.com/MaartenBaert/ssr/pull/934
-  patch -p1 -i ${srcdir}/f4cbde38021d9330dc73d2e3dfa8a70da3ff5721.diff
+  #patch -p1 -i ${srcdir}/f4cbde38021d9330dc73d2e3dfa8a70da3ff5721.diff
 }
 
 build() {
-  cmake -B build -S ssr-${pkgver} \
+  cmake -B build -S ssr-${_commit} \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DWITH_QT5=TRUE \

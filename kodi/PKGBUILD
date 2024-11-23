@@ -2,7 +2,7 @@
 pkgname=kodi
 pkgver=21.1
 _pkgver=21.1-Omega
-pkgrel=1
+pkgrel=2
 pkgdesc="Open source (GPL) software media player and entertainment hub"
 arch=('x86_64')
 url="https://kodi.tv/"
@@ -26,10 +26,8 @@ optdepends=('unrar: access compressed files without unpacking them'
 groups=('multimedia')
 options=('makeflags')
 #source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
-source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz"
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-tv/kodi/files/kodi-20.2-binutils-2.41.patch")
-md5sums=('c6c6411354639e8fdd30ca06a102cba3'
-         'f3b447f59ff95a19e32f98d95444025c')
+source=("https://github.com/xbmc/xbmc/archive/${_pkgver}.tar.gz")
+md5sums=('c6c6411354639e8fdd30ca06a102cba3')
 
 prepare() {
   cd xbmc-${_pkgver}

@@ -1,29 +1,30 @@
 pkgname=qtox
 _pkgname=qTox
-pkgver=1.17.6
+pkgver=1.18.0rc1
+_pkgver=1.18.0-rc1
 _commit=0a1a781249f1c044dc06c67fda8966f7c91b743c
-pkgrel=7
+pkgrel=1
 pkgdesc='Powerful Tox client that follows the Tox design guidelines while running on all major platforms.'
 arch=('x86_64')
 url='https://qtox.github.io/'
 license=('GPL3')
-depends=('ffmpeg' 'libxkbcommon' 'libxss' 'openal' 'qrencode' 'qt5-svg'
-         'sqlcipher' 'toxcore' 'libvpx' 'sonnet')
-makedepends=('qt5-tools')
-source=("https://github.com/qTox/qTox/archive/v${pkgver}.tar.gz"
+depends=('ffmpeg' 'libxkbcommon' 'libxss' 'openal' 'qrencode' 'qt6-svg'
+         'sqlcipher' 'toxcore' 'libvpx' 'sonnet6')
+makedepends=('qt6-tools')
+source=("https://github.com/TokTok/qTox/archive/v${_pkgver}.tar.gz"
         "https://github.com/qTox/qTox/commit/5b120c18ef4a20ea27dcedd89b043b0d22ca534e.diff")
 #source=("https://github.com/qTox/qTox/archive/${_commit}.zip")
-md5sums=('2ddb63ee5dc04ace3458cb7caf07e553'
+md5sums=('f1903becf8a211f05f88fc0becb14167'
          '255e683ec180ad445eb93e9796648f5a')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}-${_pkgver}
 
   #patch -Rp1 -i ${srcdir}/5b120c18ef4a20ea27dcedd89b043b0d22ca534e.diff
 }
 
 build() {
-  cmake -B build -S ${_pkgname}-${pkgver} \
+  cmake -B build -S ${_pkgname}-${_pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
