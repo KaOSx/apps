@@ -4,7 +4,7 @@ _pkgname=FreeRDP
 pkgver=2.11.7
 _pkgver=2.11.7
 _commit=f8c9f438436a4492e37011396148d804f7e3651f
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)."
 arch=('x86_64')
@@ -17,8 +17,23 @@ depends=('openssl' 'libxcursor' 'libcups' 'alsa-lib' 'libxext' 'libxdamage'
         'libsoxr' ) # 'x264' 
 makedepends=('krb5' 'cmake' 'damageproto' 'xmlto' 'docbook-xsl')
 #source=("https://github.com/FreeRDP/FreeRDP/archive/${_commit}.zip")
-source=("https://pub.freerdp.com/releases/${pkgname}-${_pkgver}.tar.gz")
-sha256sums=('5a2d54e1ca0f1facd1632bcc94c73b9f071a80c5fdbbb3f26e79f02aaa586ca3')
+source=("https://pub.freerdp.com/releases/${pkgname}-${_pkgver}.tar.gz"
+        "https://github.com/FreeRDP/FreeRDP/commit/5b14b7cbdd36414f1838047f21502654bd32ebb1.diff"
+        'ffmpeg7.diff')
+sha256sums=('5a2d54e1ca0f1facd1632bcc94c73b9f071a80c5fdbbb3f26e79f02aaa586ca3'
+            '9cbf61c74d4e536a6a8015004dd48aa532d39a484b847159cbf4a391f19f5196'
+            'b7b8b6e2867dcd0e3b704caab7de9849ed1d84e1a4acbcd6878846a769d603ee')
+
+prepare() {
+  cd ${pkgname}-${_pkgver}
+  # gcc14 needed
+  patch -p1 -i ${srcdir}/5b14b7cbdd36414f1838047f21502654bd32ebb1.diff
+  # patch from fork mentioned in https://bugs.gentoo.org/926787
+  patch -p1 -i ${srcdir}/ffmpeg7.diff
+  export CFLAGS+=" -Wno-incompatible-pointer-types -Wno-int-conversion"
+  export CXXFLAGS+=" -Wno-incompatible-pointer-types -Wno-int-conversion"
+
+}
 
 build() {
   cmake -B build -S ${pkgname}-${_pkgver} \

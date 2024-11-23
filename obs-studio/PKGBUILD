@@ -2,7 +2,7 @@
 pkgname=obs-studio
 _pkgname=OBS-Studio
 pkgver=30.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Free and open source software for video recording and live streaming."
 arch=('x86_64')
 url="https://obsproject.com/"
@@ -46,7 +46,8 @@ build() {
     -DENABLE_VLC=OFF \
     -DENABLE_AJA=OFF \
     -DENABLE_WHATSNEW=OFF \
-    -DENABLE_NATIVE_NVENC=OFF
+    -DENABLE_NATIVE_NVENC=OFF \
+    -DOBS_COMPILE_DEPRECATION_AS_WARNING=ON
   cmake --build build
 }
 
