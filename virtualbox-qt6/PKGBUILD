@@ -159,7 +159,7 @@ package_virtualbox-guest-utils() {
     
     pushd VirtualBox-${_pkgver}/out/linux.amd64/release/bin/additions
     install -d ${pkgdir}/usr/bin
-    install -m755 VBoxClient VBoxControl VBoxDRMClient VBoxService mount.vboxsf ${pkgdir}/usr/bin
+    install -m755 VBoxAudioTest VBoxClient VBoxControl VBoxDRMClient VBoxService vboxwl mount.vboxsf ${pkgdir}/usr/bin
     install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
         ${pkgdir}/usr/bin/VBoxClient-all
     install -m755 -D ${srcdir}/VirtualBox-${_pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
